@@ -88,9 +88,7 @@ export default function Services() {
               letterSpacing: "-0.02em",
             }}
           >
-            PREMIUM HEALTH TREATMENTS
-            <br />
-            MADE FOR EVERY WOMAN
+KEY SERVICES
           </h2>
         </div>
 

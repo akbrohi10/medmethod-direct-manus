@@ -286,24 +286,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Ticker Strip */}
-      <div
-        className="relative z-10 overflow-hidden py-4"
-        style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
-      >
-        <div className="flex ticker-animate whitespace-nowrap">
-          {tickerContent.map((item, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center gap-4 px-6 text-white font-bold text-xs tracking-[0.15em]"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              {item}
-              <span className="text-white/50">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
+
     </section>
   );
 }
