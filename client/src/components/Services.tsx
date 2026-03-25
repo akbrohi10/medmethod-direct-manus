@@ -47,6 +47,20 @@ const services = [
     alt: "Healthy nutrition and gut health",
     href: "#consultation",
   },
+  {
+    title: "Longevity & Healthy Aging",
+    description: "Using advanced diagnostics, precision medicine, and personalized lifestyle plans to keep you strong, energetic, and mentally sharp for years ahead.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-longevity-7Bx5nrzEiFaTG3M5kYTgbL.webp",
+    alt: "Active woman cycling outdoors in golden light",
+    href: "#consultation",
+  },
+  {
+    title: "Virtual Direct Primary Care",
+    description: "Comprehensive preventive care from your own board-certified physician — annual labs, acute visits, screening coordination, and direct doctor access, all virtual.",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-virtual-care-bT8MJnTPigpptvKDzcLPpq.webp",
+    alt: "Doctor conducting a warm virtual consultation on laptop",
+    href: "#consultation",
+  },
 ];
 
 export default function Services() {
