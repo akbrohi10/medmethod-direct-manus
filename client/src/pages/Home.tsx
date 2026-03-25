@@ -16,7 +16,6 @@ import Testimonials from "@/components/Testimonials";
 import Treatments from "@/components/Treatments";
 import MedicalTeam from "@/components/MedicalTeam";
 import FAQ from "@/components/FAQ";
-import ConsultationCTA from "@/components/ConsultationCTA";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -35,7 +34,6 @@ export default function Home() {
       <Treatments />
       <MedicalTeam />
       <FAQ />
-      <ConsultationCTA />
       <Blog />
       <Footer />
       <StickyMobileCTA />
