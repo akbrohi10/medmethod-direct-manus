@@ -66,9 +66,9 @@ export default function Hero() {
       />
 
       {/* Main Content */}
-      <div className="relative z-10 flex-1 flex items-center py-16 lg:py-20">
+      <div className="relative z-10 flex-1 flex items-center py-8 lg:py-12">
         <div className="max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
             {/* LEFT: Text + CTAs + Stats */}
             <div>
@@ -214,7 +214,7 @@ export default function Hero() {
             </div>
 
             {/* RIGHT: YouTube Video */}
-            <div className="relative">
+            <div className="relative lg:-ml-6">
               {/* Decorative glow behind video */}
               <div
                 className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"
