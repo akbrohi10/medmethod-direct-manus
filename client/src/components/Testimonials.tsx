@@ -57,7 +57,7 @@ export default function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section className="bg-[#0d0d0d] py-16 lg:py-24 overflow-hidden">
+    <section className="bg-[#FAFAFA] py-16 lg:py-24 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
@@ -68,7 +68,7 @@ export default function Testimonials() {
             Patient Stories
           </span>
           <h2
-            className="font-black text-white leading-tight"
+            className="font-black text-[#111111] leading-tight"
             style={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
@@ -83,7 +83,7 @@ export default function Testimonials() {
 
         {/* Testimonial Card */}
         <div className="max-w-3xl mx-auto">
-          <div className="relative bg-[#1a1a1a] rounded-3xl p-8 lg:p-12 border border-white/5">
+          <div className="relative bg-white rounded-3xl p-8 lg:p-12 border border-gray-100 shadow-md">
             {/* Gradient quote mark */}
             <div
               className="absolute top-6 left-8 font-black leading-none select-none"
@@ -110,7 +110,7 @@ export default function Testimonials() {
 
             {/* Quote */}
             <blockquote
-              className="text-white/85 leading-relaxed mb-8 relative z-10"
+              className="text-gray-700 leading-relaxed mb-8 relative z-10"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "clamp(1rem, 2vw, 1.1rem)",
@@ -125,13 +125,13 @@ export default function Testimonials() {
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
                 <div
-                  className="text-white font-bold"
+                  className="text-[#111111] font-bold"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  — {t.name}, <span className="text-white/50 font-normal">{t.age}</span>
+                  — {t.name}, <span className="text-gray-400 font-normal">{t.age}</span>
                 </div>
                 <div
-                  className="text-white/40 text-sm"
+                  className="text-gray-400 text-sm"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   {t.location}
@@ -155,7 +155,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-center gap-6 mt-8">
             <button
               onClick={prev}
-              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+              className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#E8339E] hover:border-[#E8339E]/40 transition-all"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -174,7 +174,7 @@ export default function Testimonials() {
                     borderRadius: "9999px",
                     background: i === current
                       ? "linear-gradient(90deg, #E8339E, #7A1E7E)"
-                      : "rgba(255,255,255,0.2)",
+                      : "rgba(0,0,0,0.15)",
                   }}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
@@ -183,7 +183,7 @@ export default function Testimonials() {
 
             <button
               onClick={next}
-              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+              className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#E8339E] hover:border-[#E8339E]/40 transition-all"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
