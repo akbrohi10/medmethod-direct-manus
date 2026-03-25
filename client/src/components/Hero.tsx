@@ -122,6 +122,18 @@ export default function Hero() {
 
               </div>
 
+              {/* 100% Virtual Care tagline */}
+              <p
+                className="flex items-center gap-2 text-sm font-semibold"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
+              >
+                <span
+                  className="inline-block w-2 h-2 rounded-full"
+                  style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
+                />
+                100% Virtual Care — No office visits, ever.
+              </p>
+
 
 
 
