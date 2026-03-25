@@ -119,18 +119,7 @@ export default function Hero() {
                   SCHEDULE FREE CONSULTATION
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <a
-                  href="#how-it-works"
-                  className="px-6 py-3 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    borderColor: "#111111",
-                    color: "#111111",
-                  }}
-                >
-                  <Play className="w-3.5 h-3.5" />
-                  HOW IT WORKS
-                </a>
+
               </div>
 
               {/* Stats */}
