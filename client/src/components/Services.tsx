@@ -7,56 +7,56 @@
 const services = [
   {
     title: "Menopause",
-    description: "Safe, effective, FDA-approved solutions for symptom relief — night sweats, brain fog, mood swings, and more.",
+    description: "Safe, effective, FDA-approved solutions for symptom relief — night sweats, brain fog, mood swings, and more…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-menopause-HYnWSNUNbueATEj9EFMHvU.webp",
     alt: "Confident woman in her 40s smiling by a window",
     href: "#consultation",
   },
   {
     title: "GLP-1 Weight Care",
-    description: "Medically supervised Semaglutide and Tirzepatide programs with bi-weekly check-ins and expert support.",
+    description: "Medically supervised Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-weight-dQbnaFgp7jCDrEp4DMNUvC.webp",
     alt: "Fit woman in athletic wear outdoors in golden light",
     href: "#consultation",
   },
   {
     title: "Sexual Health",
-    description: "Treatments for better vaginal health, libido restoration, and a more fulfilling sex life.",
+    description: "Clinically proven treatments for vaginal health, libido restoration, and a more fulfilling sex life…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-sexual-health-FtCRG5hkhWok6PsHUn3T3Z.webp",
     alt: "Woman resting peacefully in white bed linens",
     href: "#consultation",
   },
   {
     title: "Hormone Optimization",
-    description: "Comprehensive hormone testing and personalized HRT plans tailored to your unique biology.",
+    description: "Comprehensive hormone testing and personalized HRT plans tailored to your unique biology…",
     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80&fit=crop",
     alt: "Doctor consulting with patient",
     href: "#consultation",
   },
   {
     title: "Hair Care",
-    description: "Clinically proven treatments for hair thinning and loss — fuller, thicker hair in months.",
+    description: "Clinically proven treatments for hair thinning and loss — fuller, thicker results in months…",
     image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80&fit=crop",
     alt: "Woman with healthy flowing hair",
     href: "#consultation",
   },
   {
     title: "Gut Health",
-    description: "Personalized nutrition and synbiotic programs formulated specifically for women in midlife.",
+    description: "Personalized nutrition and synbiotic programs formulated specifically for women in midlife…",
     image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80&fit=crop",
     alt: "Healthy nutrition and gut health",
     href: "#consultation",
   },
   {
     title: "Longevity & Healthy Aging",
-    description: "Using advanced diagnostics, precision medicine, and personalized lifestyle plans to keep you strong, energetic, and mentally sharp for years ahead.",
+    description: "Advanced diagnostics and precision medicine to keep you strong, energetic, and mentally sharp for years ahead…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-longevity-7Bx5nrzEiFaTG3M5kYTgbL.webp",
     alt: "Active woman cycling outdoors in golden light",
     href: "#consultation",
   },
   {
     title: "Virtual Direct Primary Care",
-    description: "Comprehensive preventive care from your own board-certified physician — annual labs, acute visits, screening coordination, and direct doctor access, all virtual.",
+    description: "Preventive care from your own board-certified physician — annual labs, acute visits, and direct doctor access, all virtual…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-virtual-care-bT8MJnTPigpptvKDzcLPpq.webp",
     alt: "Doctor conducting a warm virtual consultation on laptop",
     href: "#consultation",
@@ -111,7 +111,7 @@ export default function Services() {
 
               {/* Description */}
               <p
-                className="text-gray-500 text-sm leading-relaxed mb-4 flex-1"
+                className="text-gray-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-3"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 {service.description}
