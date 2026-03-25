@@ -113,22 +113,22 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <a
                   href="#consultation"
-                  className="btn-gradient btn-gradient-pulse px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  className="btn-gradient btn-gradient-pulse px-6 py-3 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   SCHEDULE FREE CONSULTATION
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="#how-it-works"
-                  className="px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
+                  className="px-6 py-3 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
                   style={{
                     fontFamily: "Montserrat, sans-serif",
                     borderColor: "#111111",
                     color: "#111111",
                   }}
                 >
-                  <Play className="w-4 h-4" />
+                  <Play className="w-3.5 h-3.5" />
                   HOW IT WORKS
                 </a>
               </div>
