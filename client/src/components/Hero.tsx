@@ -122,29 +122,7 @@ export default function Hero() {
 
               </div>
 
-              {/* 100% Virtual Care Statement */}
-              <div ref={statsRef} className="mb-8">
-                <div
-                  className="font-black leading-tight"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  100% VIRTUAL CARE
-                </div>
-                <div
-                  className="text-gray-600 mt-1"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem", fontWeight: 500 }}
-                >
-                  Doctor-led care from the comfort of your home — no office visits, ever.
-                </div>
-              </div>
+
 
               {/* Trust Badges */}
               <div className="flex flex-wrap gap-3">
