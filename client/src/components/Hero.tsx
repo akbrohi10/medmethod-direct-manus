@@ -88,7 +88,7 @@ export default function Hero() {
                 className="font-black leading-[1.05] mb-8"
                 style={{
                 fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(1.8rem, 3.2vw, 3rem)",
+                fontSize: "clamp(2.4rem, 4.5vw, 4.2rem)",
                 letterSpacing: "-0.02em",
                 color: "#111111",
                 }}
