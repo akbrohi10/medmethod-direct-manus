@@ -193,6 +193,7 @@ export default function Hero() {
               <div className="flex flex-wrap gap-4">
                 {[
                   { icon: "🔒", text: "HIPAA Compliant" },
+                  { icon: "💻", text: "100% Virtual Care" },
                   { icon: "🏥", text: "Board-Certified MDs" },
                   { icon: "🧬", text: "Comprehensive Labs" },
                 ].map((badge, i) => (
