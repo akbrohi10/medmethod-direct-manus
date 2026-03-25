@@ -124,28 +124,7 @@ export default function Hero() {
 
 
 
-              {/* Trust Badges */}
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { icon: "🔒", text: "HIPAA Compliant" },
-                  { icon: "🏥", text: "Board-Certified MDs" },
-                  { icon: "🧬", text: "Comprehensive Labs" },
-                ].map((badge, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full border"
-                    style={{ borderColor: "rgba(232,51,158,0.2)", background: "rgba(232,51,158,0.04)" }}
-                  >
-                    <span className="text-xs">{badge.icon}</span>
-                    <span
-                      className="text-xs font-semibold tracking-wider"
-                      style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
-                    >
-                      {badge.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
+
             </div>
 
             {/* RIGHT: YouTube Video */}
