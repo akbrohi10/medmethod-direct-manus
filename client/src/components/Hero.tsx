@@ -110,7 +110,7 @@ export default function Hero() {
               </h1>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              <div className="flex flex-col sm:flex-row gap-4 mb-3">
                 <a
                   href="#consultation"
                   className="btn-gradient btn-gradient-pulse px-6 py-3 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
@@ -124,11 +124,11 @@ export default function Hero() {
 
               {/* 100% Virtual Care tagline */}
               <p
-                className="flex items-center gap-2 text-sm font-semibold"
-                style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
+                className="flex items-center gap-2 font-semibold mb-10"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}
               >
                 <span
-                  className="inline-block w-2 h-2 rounded-full"
+                  className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
                 />
                 100% Virtual Care — No office visits, ever.
