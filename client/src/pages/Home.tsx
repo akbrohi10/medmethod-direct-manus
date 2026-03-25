@@ -10,6 +10,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import StatsAndDifference from "@/components/StatsAndDifference";
 import HowItWorks from "@/components/HowItWorks";
+import ToolsForSuccess from "@/components/ToolsForSuccess";
 import WhyChoose from "@/components/WhyChoose";
 import Testimonials from "@/components/Testimonials";
 import Treatments from "@/components/Treatments";
@@ -27,6 +28,7 @@ export default function Home() {
       <Hero />
       <Services />
       <HowItWorks />
+      <ToolsForSuccess />
       <StatsAndDifference />
       <WhyChoose />
       <Testimonials />
