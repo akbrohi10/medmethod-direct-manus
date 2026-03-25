@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#0d0d0d]/98 shadow-2xl" : "bg-[#111111]"
+        scrolled ? "bg-white/98 shadow-lg border-b border-gray-100" : "bg-white border-b border-gray-100"
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
@@ -47,7 +47,7 @@ export default function Navbar() {
           <a href="/" className="flex flex-col leading-none group">
             <div className="flex items-baseline gap-0">
               <span
-                className="font-black text-white"
+                className="font-black text-[#111111]"
                 style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.5rem", letterSpacing: "-0.02em" }}
               >
                 Med
@@ -70,7 +70,7 @@ export default function Navbar() {
             <div className="flex items-center gap-1.5">
               <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
               <span
-                className="text-white font-semibold tracking-[0.25em]"
+                className="text-[#111111] font-semibold tracking-[0.25em]"
                 style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.6rem" }}
               >
                 DIRECT
@@ -83,7 +83,7 @@ export default function Navbar() {
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "0.5rem",
                 letterSpacing: "0.1em",
-                color: "rgba(255,255,255,0.5)",
+                color: "rgba(0,0,0,0.4)",
                 fontStyle: "italic",
               }}
             >
@@ -102,7 +102,7 @@ export default function Navbar() {
               >
                 <a
                   href={link.href}
-                  className="flex items-center gap-1 px-4 py-2 text-white/80 hover:text-white font-semibold text-sm tracking-wide transition-colors duration-200"
+                  className="flex items-center gap-1 px-4 py-2 text-gray-600 hover:text-[#111111] font-semibold text-sm tracking-wide transition-colors duration-200"
                   style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
                 >
                   {link.label}
@@ -139,7 +139,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-[#111111] p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -150,13 +150,13 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#111111] border-t border-white/10">
+          <div className="lg:hidden bg-white border-t border-gray-100">
           <div className="px-4 py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="py-3 text-white/80 hover:text-white font-semibold text-sm tracking-wide border-b border-white/5 transition-colors"
+                className="py-3 text-gray-600 hover:text-[#111111] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
                 onClick={() => setMobileOpen(false)}
               >

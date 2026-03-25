@@ -1,11 +1,13 @@
 /* =============================================================================
-   Hero Section — Clinical Noir Design
-   Full-bleed dark background with hero image, gradient CTAs, ticker strip
+   Hero Section — MedMethod Direct
+   Light/white background, two-column layout: headline + CTAs left, YouTube right
+   Subtext under headline removed per design update
    ============================================================================= */
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/hero-woman-c3ELPog6wjEN4Srykd644w.webp";
+// Replace with actual YouTube video ID when available
+const YOUTUBE_VIDEO_ID = "dQw4w9WgXcQ";
 
 const tickerItems = [
   "HORMONE OPTIMIZATION",
@@ -21,9 +23,9 @@ const tickerItems = [
 export default function Hero() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
-  const [count3, setCount3] = useState(0);
   const statsRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,7 +34,6 @@ export default function Hero() {
           animated.current = true;
           animateCount(setCount1, 0, 10000, 1500);
           animateCount(setCount2, 0, 98, 1200);
-          animateCount(setCount3, 0, 50, 1000);
         }
       },
       { threshold: 0.3 }
@@ -55,191 +56,252 @@ export default function Hero() {
   const tickerContent = [...tickerItems, ...tickerItems];
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-[#111111] overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={HERO_IMAGE}
-          alt="Premium medical wellness"
-          className="w-full h-full object-cover object-center opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111111] via-[#111111]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-[#111111]/60" />
-      </div>
+    <section className="relative flex flex-col bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
+      {/* Subtle background texture */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,51,158,0.06) 0%, rgba(122,30,126,0.04) 40%, transparent 70%)",
+        }}
+      />
 
       {/* Main Content */}
-      <div className="relative z-10 flex-1 flex items-center pt-20 lg:pt-24">
+      <div className="relative z-10 flex-1 flex items-center py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
-          <div className="max-w-3xl">
-            {/* Label */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-8" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
-              <span
-                className="text-xs font-semibold tracking-[0.2em] uppercase"
-                style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
-              >
-                For Women 40 & Beyond
-              </span>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Headline */}
-            <h1
-              className="text-white font-black leading-[1.05] mb-6"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              STOP FIGHTING
-              <br />
-              <span
-                style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                YOUR BIOLOGY.
-              </span>
-              <br />
-              MASTER YOUR
-              <br />
-              LONGEVITY.
-            </h1>
-
-            {/* Subheadline */}
-            <p
-              className="text-white/70 mb-10 max-w-xl"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(1rem, 2vw, 1.2rem)",
-                fontWeight: 400,
-                lineHeight: 1.6,
-              }}
-            >
-              If you're a woman over 40, you deserve more than a box shipped to your door. We provide a doctor-led path — comprehensive labs, a deep-dive diagnostic, and a fully customized plan with bi-weekly check-ins, a dedicated Wellness Advisor, and personalized nutrition and fitness programs.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a
-                href="#consultation"
-                className="btn-gradient btn-gradient-pulse px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 group"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                SCHEDULE FREE CONSULTATION
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#how-it-works"
-                className="btn-outline-white px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                <Play className="w-4 h-4" />
-                HOW IT WORKS
-              </a>
-            </div>
-
-            {/* Stats */}
-            <div ref={statsRef} className="flex flex-wrap gap-8 lg:gap-12">
-              <div>
-                <div
-                  className="font-black leading-none"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "2.5rem",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {count1.toLocaleString()}+
-                </div>
-                <div
-                  className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Women Served
-                </div>
-              </div>
-              <div>
-                <div
-                  className="font-black leading-none"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "2.5rem",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {count2}%
-                </div>
-                <div
-                  className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Satisfaction Rate
-                </div>
-              </div>
-              <div>
-                <div
-                  className="font-black leading-none"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "2.5rem",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Bi-Weekly
-                </div>
-                <div
-                  className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Doctor Check-Ins
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Trust Badges */}
-      <div className="relative z-10 py-5 border-t border-white/5">
-        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 lg:gap-10">
-            {[
-              { icon: "🔒", text: "HIPAA Compliant" },
-              { icon: "🏥", text: "Board-Certified Physicians" },
-              { icon: "🧬", text: "Comprehensive Lab Diagnostics" },
-              { icon: "👩‍⚕️", text: "Dedicated Wellness Advisor" },
-              { icon: "⭐", text: "4.9/5 Patient Rating" },
-            ].map((badge, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <span className="text-sm">{badge.icon}</span>
+            {/* LEFT: Text + CTAs + Stats */}
+            <div>
+              {/* Label */}
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px w-8" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
                 <span
-                  className="text-white/50 text-xs font-semibold tracking-wider uppercase"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                  className="text-xs font-bold tracking-[0.2em] uppercase"
+                  style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
                 >
-                  {badge.text}
+                  For Women 40 &amp; Beyond
                 </span>
               </div>
-            ))}
+
+              {/* Headline */}
+              <h1
+                className="font-black leading-[1.05] mb-8"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "clamp(2.2rem, 5vw, 4rem)",
+                  letterSpacing: "-0.02em",
+                  color: "#111111",
+                }}
+              >
+                STOP FIGHTING
+                <br />
+                <span
+                  style={{
+                    background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  YOUR BIOLOGY.
+                </span>
+                <br />
+                MASTER YOUR
+                <br />
+                LONGEVITY.
+              </h1>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <a
+                  href="#consultation"
+                  className="btn-gradient btn-gradient-pulse px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  SCHEDULE FREE CONSULTATION
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    borderColor: "#111111",
+                    color: "#111111",
+                  }}
+                >
+                  <Play className="w-4 h-4" />
+                  HOW IT WORKS
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div ref={statsRef} className="flex flex-wrap gap-8 lg:gap-10 mb-8">
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count1.toLocaleString()}+
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Women Served
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count2}%
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Satisfaction Rate
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    4.9★
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Patient Rating
+                  </div>
+                </div>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="flex flex-wrap gap-4">
+                {[
+                  { icon: "🔒", text: "HIPAA Compliant" },
+                  { icon: "🏥", text: "Board-Certified MDs" },
+                  { icon: "🧬", text: "Comprehensive Labs" },
+                ].map((badge, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full border"
+                    style={{ borderColor: "rgba(232,51,158,0.2)", background: "rgba(232,51,158,0.04)" }}
+                  >
+                    <span className="text-xs">{badge.icon}</span>
+                    <span
+                      className="text-xs font-semibold tracking-wider"
+                      style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
+                    >
+                      {badge.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT: YouTube Video */}
+            <div className="relative">
+              {/* Decorative glow behind video */}
+              <div
+                className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"
+                style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
+              />
+
+              {/* Video Container */}
+              <div
+                className="relative rounded-2xl overflow-hidden shadow-2xl"
+                style={{ aspectRatio: "16/9" }}
+              >
+                {!videoPlaying ? (
+                  /* Thumbnail / Play overlay */
+                  <div className="relative w-full h-full">
+                    <img
+                      src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+                      alt="Watch our story"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`;
+                      }}
+                    />
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/30" />
+
+                    {/* Play button */}
+                    <button
+                      onClick={() => setVideoPlaying(true)}
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-4 group"
+                      aria-label="Play video"
+                    >
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl transition-transform duration-300 group-hover:scale-110"
+                        style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
+                      >
+                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      </div>
+                      <span
+                        className="text-white font-bold text-sm tracking-wider uppercase"
+                        style={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Watch Our Story
+                      </span>
+                    </button>
+                  </div>
+                ) : (
+                  /* Actual YouTube embed */
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+                    title="MedMethod Direct — Your Path to Longevity"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+              </div>
+
+              {/* Video caption */}
+              <p
+                className="text-center text-gray-400 text-xs mt-3 tracking-wide"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Discover the MedMethod Direct difference
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
 
       {/* Ticker Strip */}
       <div
-        className="relative z-10 overflow-hidden py-4 border-t border-white/10"
+        className="relative z-10 overflow-hidden py-4"
         style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
       >
         <div className="flex ticker-animate whitespace-nowrap">
