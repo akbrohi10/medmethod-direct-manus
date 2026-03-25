@@ -1,70 +1,51 @@
 /* =============================================================================
-   Services Section — MedMethod Direct
-   Clinical Noir Design | Women 40+ focused treatment cards
+   Services.tsx — Key Services section
+   Design: Clean 3-column grid, large photo top, service name, short desc, CTA
+   Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
-import { ArrowRight } from "lucide-react";
-
-const DOCTOR_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/doctor-consult-65ULkU9ZVxvNFPTLGJr9pR.webp";
-const WELLNESS_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/wellness-lifestyle-YCpwBngCUYcucrbE4264Vc.webp";
-const LAB_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lab-science-6GpH4mKSeYPTWQ2PZcbKLe.webp";
 
 const services = [
   {
-    badge: "MOST POPULAR",
-    category: "HORMONE THERAPY",
-    title: "Balance Your Hormones",
-    body: "Physician-guided hormone optimization to relieve night sweats, brain fog, mood swings, and fatigue. Personalized protocols for perimenopause, menopause, and beyond.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
+    title: "Menopause",
+    description: "Safe, effective, FDA-approved solutions for symptom relief — night sweats, brain fog, mood swings, and more.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80&fit=crop",
+    alt: "Confident woman in her 40s smiling",
+    href: "#consultation",
   },
   {
-    badge: "BEST RESULTS",
-    category: "WEIGHT LOSS",
-    title: "Lose the Hormonal Belly",
-    body: "Medically supervised GLP-1 programs (Semaglutide, Tirzepatide) combined with personalized nutrition and fitness plans. Finally beat the weight that willpower alone can't fix.",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80",
+    title: "GLP-1 Weight Care",
+    description: "Medically supervised Semaglutide and Tirzepatide programs with bi-weekly check-ins and expert support.",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&fit=crop",
+    alt: "Woman stretching and feeling energetic",
+    href: "#consultation",
   },
   {
-    badge: "SCIENCE-BASED",
-    category: "LONGEVITY",
-    title: "Renew Your Vitality",
-    body: "Cutting-edge protocols to slow aging, boost cellular health, and extend your healthspan. NAD+, peptide therapy, and anti-aging interventions backed by the latest research.",
-    image: WELLNESS_IMG,
+    title: "Sexual Health",
+    description: "Treatments for better vaginal health, libido restoration, and a more fulfilling sex life.",
+    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80&fit=crop",
+    alt: "Woman relaxing comfortably",
+    href: "#consultation",
   },
   {
-    badge: "ADVANCED CARE",
-    category: "COMPREHENSIVE LABS",
-    title: "Deep-Dive Diagnostics",
-    body: "We start with comprehensive lab work — not guesswork. Full hormone panels, metabolic markers, thyroid, and more to build a complete picture of your biology.",
-    image: LAB_IMG,
+    title: "Hormone Optimization",
+    description: "Comprehensive hormone testing and personalized HRT plans tailored to your unique biology.",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80&fit=crop",
+    alt: "Doctor consulting with patient",
+    href: "#consultation",
   },
   {
-    badge: "PERSONALIZED",
-    category: "NUTRITION & FITNESS",
-    title: "Custom Plans Built for You",
-    body: "Your dedicated Wellness Advisor creates a personalized nutrition program and custom fitness plan using our latest tools — giving you the accountability to actually achieve your goals.",
-    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80",
+    title: "Hair Care",
+    description: "Clinically proven treatments for hair thinning and loss — fuller, thicker hair in months.",
+    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80&fit=crop",
+    alt: "Woman with healthy flowing hair",
+    href: "#consultation",
   },
   {
-    badge: "ONGOING SUPPORT",
-    category: "BI-WEEKLY CHECK-INS",
-    title: "Your Doctor, Every 2 Weeks",
-    body: "We meet with you virtually every two weeks — weigh-in, progress tracking, and personalized recommendations. You'll work with the same doctor and Wellness Advisor throughout your entire journey.",
-    image: DOCTOR_IMG,
-  },
-  {
-    badge: "CLINICAL",
-    category: "THYROID & METABOLIC",
-    title: "Balance Your System",
-    body: "Comprehensive thyroid optimization and metabolic health protocols tailored to your unique biology. Addressing the root causes of fatigue, weight gain, and hormonal imbalance.",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",
-  },
-  {
-    badge: "VIEW ALL",
-    category: "ALL SERVICES",
-    title: "See All Options",
-    body: "Explore our complete menu of premium, physician-guided treatments designed for women who refuse to accept that feeling this way is just 'part of aging.'",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80",
-    isViewAll: true,
+    title: "Gut Health",
+    description: "Personalized nutrition and synbiotic programs formulated specifically for women in midlife.",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80&fit=crop",
+    alt: "Healthy nutrition and gut health",
+    href: "#consultation",
   },
 ];
 
@@ -72,9 +53,9 @@ export default function Services() {
   return (
     <section id="services" className="bg-white py-16 lg:py-20">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-10">
 
+        {/* Header */}
+        <div className="text-center mb-12">
           <h2
             className="font-black text-[#111111] leading-tight"
             style={{
@@ -83,91 +64,71 @@ export default function Services() {
               letterSpacing: "-0.02em",
             }}
           >
-KEY SERVICES
+            KEY SERVICES
           </h2>
+          <p
+            className="mt-3 text-gray-500 text-base"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Holistic, doctor-led solutions at every stage of your journey
+          </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
-            <a
-              key={i}
-              href={service.isViewAll ? "#consultation" : "#consultation"}
-              className="group relative overflow-hidden rounded-2xl cursor-pointer"
-              style={{ aspectRatio: "3/4" }}
-            >
-              {/* Background Image */}
-              <img
-                src={service.image}
-                alt={service.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/40 to-transparent" />
-
-              {/* Hover gradient overlay */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                style={{ background: "linear-gradient(135deg, #E8339E22 0%, #7A1E7E66 100%)" }}
-              />
-
-              {/* Badge */}
-              <div className="absolute top-3 left-3">
-                <span
-                  className="px-2.5 py-1 rounded-full text-white text-[10px] font-bold tracking-wider uppercase"
-                  style={{
-                    background: service.isViewAll
-                      ? "rgba(255,255,255,0.2)"
-                      : "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    fontFamily: "Montserrat, sans-serif",
-                    backdropFilter: "blur(4px)",
-                  }}
-                >
-                  {service.badge}
-                </span>
+            <div key={i} className="flex flex-col">
+              {/* Photo */}
+              <div className="rounded-xl overflow-hidden mb-4" style={{ aspectRatio: "4/3" }}>
+                <img
+                  src={service.image}
+                  alt={service.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
 
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <div
-                  className="font-bold mb-1"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "0.6rem",
-                    color: "#E8339E",
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  {service.category}
-                </div>
-                <h3
-                  className="text-white font-black leading-tight mb-2"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "0.9rem",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {service.title}
-                </h3>
-                <p
-                  className="text-white/70 leading-snug mb-3 hidden md:block"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.72rem" }}
-                >
-                  {service.body}
-                </p>
-                <div
-                  className="flex items-center gap-1.5 font-bold text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-                >
-                  Get Started
-                  <ArrowRight className="w-3 h-3" />
-                </div>
-              </div>
-            </a>
+              {/* Title */}
+              <h3
+                className="font-bold text-[#111111] text-xl mb-2"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p
+                className="text-gray-500 text-sm leading-relaxed mb-4 flex-1"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                {service.description}
+              </p>
+
+              {/* CTA Button */}
+              <a
+                href={service.href}
+                className="block text-center py-3 px-6 rounded-full border-2 text-sm font-bold tracking-wider transition-all duration-200 hover:text-white"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  borderColor: "#E8339E",
+                  color: "#E8339E",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E8339E";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#E8339E";
+                }}
+              >
+                START NOW
+              </a>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );
