@@ -1,42 +1,42 @@
 /* =============================================================================
-   FAQ Section — Clinical Noir Design
-   White background accordion with gradient accents
+   FAQ Section — MedMethod Direct
+   Clinical Noir Design | Women 40+ focused questions
    ============================================================================= */
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
-    q: "What is MedMethod Direct and how does it work?",
-    a: "MedMethod Direct is a premium virtual medical clinic specializing in hormone optimization, medically supervised weight loss, and longevity protocols. You start with a free virtual consultation, complete lab work at a local lab, and then receive a personalized treatment plan from a board-certified physician — all from the comfort of your home. Medications are delivered directly to your door.",
+    q: "What makes MedMethod Direct different from other telehealth services?",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path — starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
   },
   {
-    q: "How do I know if I qualify for hormone therapy?",
-    a: "Qualification is based on your symptoms, lab results, health history, and a thorough evaluation by our licensed medical providers. Common signs that you may benefit include fatigue, low libido, difficulty building muscle, brain fog, mood changes, or unexplained weight gain. Your free consultation is the first step to finding out.",
+    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
+    a: "Yes — this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido — these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
   },
   {
-    q: "Is MedMethod Direct 100% virtual?",
-    a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications are shipped directly to your home. No waiting rooms, no commuting.",
+    q: "What does the process look like from start to finish?",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
   },
   {
-    q: "What states do you serve?",
-    a: "MedMethod Direct currently serves patients in most U.S. states. During your free consultation, we'll confirm availability in your state and ensure your treatment plan complies with local regulations.",
+    q: "How is this different from just getting a prescription online?",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
-    q: "How long before I see results?",
-    a: "Many patients report noticeable improvements in energy, sleep, and mood within 4–6 weeks of starting treatment. Optimal results for hormone optimization typically occur at the 3–6 month mark as your levels stabilize. Weight loss results vary but most patients see meaningful progress within the first 4–8 weeks.",
+    q: "What kind of lab work do you order?",
+    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan — not a guess.",
   },
   {
-    q: "Is my information kept private and confidential?",
-    a: "Absolutely. We take your privacy extremely seriously. All consultations are conducted via HIPAA-compliant telehealth platforms, your medical records are encrypted and secure, and your medications arrive in discreet, unmarked packaging.",
+    q: "Is everything done virtually?",
+    a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
+  },
+  {
+    q: "How quickly will I see results?",
+    a: "Many patients report noticeable improvements in sleep, energy, and mood within 4–6 weeks of starting treatment. Optimal hormone balance typically occurs at the 3–6 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4–8 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
   },
   {
     q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Costs vary by treatment protocol. Your free consultation will include a full breakdown of pricing for your personalized plan. We also offer flexible payment options and accept HSA/FSA.",
-  },
-  {
-    q: "Do I need a referral from my primary care doctor?",
-    a: "No referral is required. MedMethod Direct operates as an independent telehealth clinic. However, we encourage open communication with your primary care provider and can share your treatment records with them upon request.",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible — and we're committed to being upfront about every cost.",
   },
 ];
 

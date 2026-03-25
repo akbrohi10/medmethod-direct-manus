@@ -1,6 +1,6 @@
 /* =============================================================================
-   Consultation CTA — Clinical Noir Design
-   Full-width gradient background with form
+   Consultation CTA — MedMethod Direct
+   Clinical Noir Design | Women 40+ focused free consultation form
    ============================================================================= */
 import { useState } from "react";
 import { ArrowRight, CheckCircle } from "lucide-react";
@@ -53,26 +53,30 @@ export default function ConsultationCTA() {
                 letterSpacing: "-0.02em",
               }}
             >
-              START YOUR PATH
+              STOP FIGHTING
               <br />
-              TO LONGEVITY
+              YOUR BIOLOGY.
               <br />
-              TODAY
+              MASTER YOUR
+              <br />
+              LONGEVITY.
             </h2>
             <p
-              className="text-white/80 leading-relaxed mb-8"
+              className="text-white/85 leading-relaxed mb-8"
               style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1rem" }}
             >
-              Book your free virtual consultation and take the first step toward optimized health. Our licensed providers will review your goals, answer your questions, and outline a personalized plan — at no cost to you.
+              Schedule your free virtual consultation today. Our board-certified physicians will review your symptoms, explain what your labs can reveal, and outline a personalized plan — at no cost to you. This is your path forward.
             </p>
 
             {/* Checklist */}
             <div className="flex flex-col gap-3">
               {[
                 "Free 30-minute virtual consultation",
-                "No referral required",
-                "Results-focused, personalized protocols",
-                "Medications delivered to your door",
+                "Comprehensive lab diagnostics",
+                "Fully customized treatment plan",
+                "Bi-weekly doctor check-ins",
+                "Dedicated Wellness Advisor",
+                "Custom nutrition & fitness programs",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-white flex-none" />
@@ -107,16 +111,16 @@ export default function ConsultationCTA() {
                   className="text-gray-600"
                   style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
                 >
-                  A MedMethod Direct care coordinator will reach out within 24 hours to schedule your free consultation.
+                  A MedMethod Direct care coordinator will reach out within 24 hours to schedule your free consultation. Your path to longevity starts now.
                 </p>
               </div>
             ) : (
               <>
                 <h3
-                  className="font-black text-[#111111] mb-2"
+                  className="font-black text-[#111111] mb-1"
                   style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.3rem" }}
                 >
-                  Book Your Free Consultation
+                  Schedule Your Free Consultation
                 </h3>
                 <p
                   className="text-gray-500 text-sm mb-6"
@@ -137,7 +141,7 @@ export default function ConsultationCTA() {
                       type="text"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="John Smith"
+                      placeholder="Jane Smith"
                       className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#E8339E] outline-none transition-colors text-[#111111]"
                       style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
                       required
@@ -154,7 +158,7 @@ export default function ConsultationCTA() {
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="john@example.com"
+                      placeholder="jane@example.com"
                       className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#E8339E] outline-none transition-colors text-[#111111]"
                       style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
                       required
@@ -181,7 +185,7 @@ export default function ConsultationCTA() {
                       className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5"
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
-                      Primary Health Goal
+                      What Brings You Here?
                     </label>
                     <select
                       value={form.goal}
@@ -189,12 +193,14 @@ export default function ConsultationCTA() {
                       className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#E8339E] outline-none transition-colors text-[#111111] bg-white"
                       style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
                     >
-                      <option value="">Select your goal...</option>
-                      <option value="hormones">Hormone Optimization</option>
-                      <option value="weight">Medical Weight Loss</option>
-                      <option value="longevity">Anti-Aging & Longevity</option>
-                      <option value="peptides">Peptide Therapy</option>
-                      <option value="sexual">Sexual Wellness</option>
+                      <option value="">Select your primary concern...</option>
+                      <option value="hormones">Hormone Imbalance / HRT</option>
+                      <option value="weight">Hormonal Weight Gain</option>
+                      <option value="perimenopause">Perimenopause Symptoms</option>
+                      <option value="menopause">Menopause Care</option>
+                      <option value="energy">Fatigue & Low Energy</option>
+                      <option value="sleep">Sleep Issues / Night Sweats</option>
+                      <option value="mood">Mood Swings / Brain Fog</option>
                       <option value="other">Other / Not Sure</option>
                     </select>
                   </div>
@@ -204,7 +210,7 @@ export default function ConsultationCTA() {
                     className="btn-gradient w-full py-4 rounded-xl text-sm font-bold tracking-wider flex items-center justify-center gap-2 mt-2"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    BOOK MY FREE CONSULTATION
+                    SCHEDULE MY FREE CONSULTATION
                     <ArrowRight className="w-4 h-4" />
                   </button>
 

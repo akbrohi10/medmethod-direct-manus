@@ -10,11 +10,11 @@ const navLinks = [
     label: "Services",
     href: "#services",
     dropdown: [
-      { label: "Hormone Therapy", href: "#services" },
-      { label: "Weight Loss", href: "#services" },
-      { label: "Anti-Aging & Longevity", href: "#services" },
-      { label: "Peptide Therapy", href: "#services" },
-      { label: "Sexual Wellness", href: "#services" },
+      { label: "Hormone Replacement Therapy", href: "#services" },
+      { label: "Medical Weight Loss", href: "#services" },
+      { label: "Perimenopause & Menopause", href: "#services" },
+      { label: "Thyroid Optimization", href: "#services" },
+      { label: "Longevity Protocols", href: "#services" },
       { label: "All Services", href: "#services" },
     ],
   },
@@ -133,7 +133,7 @@ export default function Navbar() {
               className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              GET STARTED FREE
+              FREE CONSULTATION
             </a>
           </div>
 
@@ -169,7 +169,7 @@ export default function Navbar() {
               style={{ fontFamily: "Montserrat, sans-serif" }}
               onClick={() => setMobileOpen(false)}
             >
-              GET STARTED FREE
+              FREE CONSULTATION
             </a>
           </div>
         </div>

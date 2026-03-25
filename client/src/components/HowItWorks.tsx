@@ -1,26 +1,26 @@
 /* =============================================================================
-   How It Works — Clinical Noir Design
-   3 numbered steps on white background, bold oversized step numbers
+   How It Works — MedMethod Direct
+   Clinical Noir Design | Women 40+ focused 3-step process
    ============================================================================= */
 import { ArrowRight } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    title: "FREE CONSULTATION",
-    body: "Schedule a no-cost virtual consultation with one of our licensed medical providers. Discuss your symptoms, goals, and health history in a private, judgment-free environment. No pressure — just clarity and a clear path forward.",
+    title: "FREE VIRTUAL CONSULTATION",
+    body: "Schedule your free, no-pressure virtual consultation with one of our board-certified physicians. Tell us what you're experiencing — the night sweats, the brain fog, the weight that won't budge — and we'll listen. Really listen. No judgment, no rushed appointments.",
     cta: "Book Free Consultation",
   },
   {
     number: "02",
-    title: "LAB WORK & ASSESSMENT",
-    body: "We'll order comprehensive lab work through a convenient local lab near you. Our providers analyze your results — hormones, metabolic markers, and more — to get a complete picture of your health.",
-    cta: "Learn About Testing",
+    title: "COMPREHENSIVE LABS & DEEP-DIVE DIAGNOSTIC",
+    body: "We order comprehensive lab work at a local lab near you — full hormone panels, metabolic markers, thyroid, and more. Our physicians analyze your results in depth to build a complete picture of your biology. This is where we find the real answers.",
+    cta: "Learn About Our Labs",
   },
   {
     number: "03",
-    title: "PERSONALIZED TREATMENT PLAN",
-    body: "Review your results with your dedicated provider and receive a fully customized treatment protocol based on your biology, lifestyle, and goals. If you qualify, you can begin treatment the same week — medications delivered to your door.",
+    title: "YOUR FULLY CUSTOMIZED PLAN",
+    body: "You receive a fully personalized treatment protocol, custom nutrition program, and fitness plan — built around your specific biology, lifestyle, and goals. Then we meet with you virtually every two weeks to track your progress and fine-tune your plan. The same doctor. The same Wellness Advisor. Every step of the way.",
     cta: "See Treatment Options",
   },
 ];
@@ -46,9 +46,11 @@ export default function HowItWorks() {
                 letterSpacing: "-0.02em",
               }}
             >
-              START FEELING LIKE YOURSELF
+              START FEELING LIKE
               <br />
-              AGAIN — IN 3 SIMPLE STEPS
+              YOURSELF AGAIN —
+              <br />
+              IN 3 SIMPLE STEPS
             </h2>
           </div>
           <a

@@ -63,7 +63,7 @@ export default function Footer() {
               className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              Premium virtual medical clinic focused on longevity, hormone optimization, and medically supervised weight loss. Modern, clinical, science-based care delivered to your door.
+  Premium virtual medical clinic focused on longevity, hormones, and medically supervised weight loss for women over 40. Doctor-led. Personalized. Accountable.
             </p>
 
             {/* Social */}
@@ -95,7 +95,7 @@ export default function Footer() {
               Services
             </h4>
             <ul className="flex flex-col gap-2.5">
-              {["Hormone Therapy", "Medical Weight Loss", "Peptide Therapy", "Anti-Aging", "Sexual Wellness", "Thyroid Health"].map((item) => (
+              {["Hormone Replacement Therapy", "Medical Weight Loss", "Perimenopause Care", "Menopause Management", "Thyroid Optimization", "Longevity Protocols"].map((item) => (
                 <li key={item}>
                   <a
                     href="#services"
@@ -160,7 +160,7 @@ export default function Footer() {
             className="text-white/30 text-xs text-center md:text-left"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            © 2025 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
+            © 2026 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
           </p>
           <div className="flex gap-6">
             {["Privacy Policy", "Terms of Service", "HIPAA Notice"].map((item) => (

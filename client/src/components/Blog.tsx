@@ -6,24 +6,24 @@ import { ArrowRight } from "lucide-react";
 
 const articles = [
   {
-    category: "Hormone Therapy",
-    title: "Low Testosterone: 10 Signs You Might Have It (And What to Do)",
-    excerpt: "Fatigue, brain fog, low libido — these could be signs of low T. Learn how to identify the symptoms and what modern treatment options are available.",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",
+    category: "Hormones",
+    title: "Why Your Doctor Says Your Labs Are 'Normal' — But You Still Feel Terrible",
+    excerpt: "Standard lab ranges are designed for the average population, not for optimal health. Here's what to ask for instead — and why it matters.",
+    readTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
   },
   {
     category: "Weight Loss",
-    title: "Semaglutide vs. Tirzepatide: Which GLP-1 Is Right for You?",
-    excerpt: "Both medications have transformed medical weight loss. We break down the key differences, efficacy data, and how to know which option fits your goals.",
-    readTime: "7 min read",
+    title: "The Hormonal Belly Is Real — And Willpower Won't Fix It",
+    excerpt: "Estrogen, cortisol, and insulin resistance work together to store fat around your midsection after 40. Here's the science — and the solution.",
+    readTime: "8 min read",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80",
   },
   {
-    category: "Longevity",
-    title: "The Science of Longevity: What the Latest Research Says About Living Longer",
-    excerpt: "From NAD+ to peptides to hormone optimization — we explore the evidence-based interventions that are changing how we think about aging.",
-    readTime: "9 min read",
+    category: "Perimenopause",
+    title: "Night Sweats at 3 AM: What Your Body Is Trying to Tell You",
+    excerpt: "Waking up drenched isn't just uncomfortable — it's a signal. Understanding the hormonal cascade behind night sweats is the first step to relief.",
+    readTime: "5 min read",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80",
   },
 ];
@@ -49,9 +49,9 @@ export default function Blog() {
                 letterSpacing: "-0.02em",
               }}
             >
-              LATEST FROM THE
+              KNOWLEDGE IS
               <br />
-              MEDMETHOD BLOG
+              YOUR FIRST MEDICINE
             </h2>
           </div>
           <a

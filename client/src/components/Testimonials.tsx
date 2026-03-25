@@ -1,45 +1,50 @@
 /* =============================================================================
-   Testimonials — Clinical Noir Design
-   Dark background carousel with star ratings and patient quotes
+   Testimonials — MedMethod Direct
+   Clinical Noir Design | Women 40+ patient stories
    ============================================================================= */
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
-    name: "James R.",
+    name: "Sarah M.",
     location: "Austin, TX",
+    age: "Age 47",
     stars: 5,
-    text: "I was skeptical about telehealth for something this personal, but MedMethod Direct completely changed my mind. My provider took the time to actually listen, reviewed my labs thoroughly, and within a week I had a personalized protocol. Three months in and I feel like I'm 35 again.",
+    text: "I was waking up at 3 AM every single night, drenched in sweat, and my doctor kept telling me my labs were 'normal.' MedMethod Direct did a comprehensive panel and found exactly what was off. Within 6 weeks of my personalized protocol, I was sleeping through the night for the first time in two years. I feel like myself again.",
     treatment: "Hormone Therapy",
   },
   {
-    name: "Michael T.",
+    name: "Jennifer L.",
     location: "Denver, CO",
+    age: "Age 52",
     stars: 5,
-    text: "The convenience alone is worth it — no waiting rooms, no commuting, just a real doctor who knows what they're doing. My testosterone levels were optimized within 8 weeks and the difference in energy and focus is night and day. Highly recommend to any man over 40.",
-    treatment: "Testosterone Optimization",
-  },
-  {
-    name: "David K.",
-    location: "Miami, FL",
-    stars: 5,
-    text: "I've tried every diet and exercise program out there. Nothing worked until I started the medically supervised weight loss program here. Down 34 lbs in 4 months and my metabolic markers have completely transformed. The ongoing support from my care team makes all the difference.",
+    text: "I'd been trying to lose the same 30 pounds for three years. Diet, exercise, willpower — nothing worked. My Wellness Advisor explained that my hormones were working against me, not my effort. The medically supervised weight loss program combined with my custom nutrition plan has me down 28 lbs in 4 months. The bi-weekly check-ins are what make the difference — I'm never alone in this.",
     treatment: "Medical Weight Loss",
   },
   {
-    name: "Robert W.",
+    name: "Michelle R.",
     location: "Chicago, IL",
+    age: "Age 44",
     stars: 5,
-    text: "What sets MedMethod apart is the personalization. They didn't just hand me a generic protocol — they analyzed my specific labs, symptoms, and lifestyle. The peptide therapy combined with hormone optimization has been life-changing. My sleep, recovery, and energy are all dramatically improved.",
-    treatment: "Peptide Therapy",
+    text: "The brain fog was the worst part. I'm an executive and I couldn't remember words mid-sentence. I was terrified something was seriously wrong. Turns out my hormones were completely out of balance. My MedMethod doctor took the time to actually explain everything — the labs, the plan, the timeline. Three months in and my clarity is back. My team has noticed. My family has noticed. I've noticed.",
+    treatment: "Perimenopause Care",
   },
   {
-    name: "Carlos M.",
-    location: "Los Angeles, CA",
+    name: "Karen T.",
+    location: "Miami, FL",
+    age: "Age 49",
     stars: 5,
-    text: "From the first consultation to ongoing monitoring, the experience has been exceptional. My care coordinator checks in regularly, my provider is always available for questions, and the results speak for themselves. This is what modern medicine should look like.",
+    text: "What sets MedMethod apart is that they treat you like a whole person, not a symptom. I have the same doctor every visit. My Wellness Advisor knows my goals, my struggles, my schedule. The custom fitness plan they built for me actually fits my life. I've lost 22 lbs, my mood swings are gone, and I have energy I haven't felt since my 30s.",
     treatment: "Longevity Protocol",
+  },
+  {
+    name: "Patricia W.",
+    location: "Seattle, WA",
+    age: "Age 55",
+    stars: 5,
+    text: "I tried another telehealth service before this one. They shipped me a box and I never heard from them again. MedMethod Direct is completely different. My doctor checks in every two weeks, my Wellness Advisor is always available, and my plan has been adjusted three times as I've progressed. This is what real medical care looks like.",
+    treatment: "Comprehensive Program",
   },
 ];
 
@@ -72,7 +77,7 @@ export default function Testimonials() {
           >
             REAL RESULTS FROM
             <br />
-            REAL PATIENTS
+            REAL WOMEN
           </h2>
         </div>
 
@@ -108,7 +113,7 @@ export default function Testimonials() {
               className="text-white/85 leading-relaxed mb-8 relative z-10"
               style={{
                 fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(1rem, 2vw, 1.15rem)",
+                fontSize: "clamp(1rem, 2vw, 1.1rem)",
                 fontStyle: "italic",
                 fontWeight: 400,
               }}
@@ -117,13 +122,13 @@ export default function Testimonials() {
             </blockquote>
 
             {/* Attribution */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
                 <div
                   className="text-white font-bold"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  — {t.name}
+                  — {t.name}, <span className="text-white/50 font-normal">{t.age}</span>
                 </div>
                 <div
                   className="text-white/40 text-sm"

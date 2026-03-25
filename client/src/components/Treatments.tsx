@@ -1,50 +1,50 @@
 /* =============================================================================
-   Treatments Carousel — Clinical Noir Design
-   Scrollable treatment cards on white background
+   Treatments Carousel — MedMethod Direct
+   Clinical Noir Design | Women 40+ focused treatment options
    ============================================================================= */
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 const treatments = [
   {
-    tags: ["Hormone Balance", "Best Seller"],
-    title: "Testosterone Replacement Therapy",
-    body: "Physician-guided testosterone optimization to restore energy, libido, muscle mass, and overall vitality. Delivered via injections, topicals, or pellets based on your preference.",
+    tags: ["Hormone Balance", "Most Popular"],
+    title: "Hormone Replacement Therapy (HRT)",
+    body: "Physician-guided estrogen, progesterone, and testosterone optimization to relieve night sweats, hot flashes, brain fog, mood swings, and low libido. Bioidentical and conventional options available.",
   },
   {
     tags: ["Weight Loss", "GLP-1"],
     title: "Semaglutide (Ozempic/Wegovy)",
-    body: "FDA-approved GLP-1 medication that reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized weight management program.",
+    body: "FDA-approved GLP-1 medication that reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized nutrition and fitness program.",
   },
   {
     tags: ["Weight Loss", "Dual-Action"],
-    title: "Tirzepatide (Mounjaro)",
-    body: "Dual-action metabolic therapy that improves insulin sensitivity, reduces appetite, and enhances satiety for superior weight loss results compared to single-agent GLP-1s.",
+    title: "Tirzepatide (Mounjaro/Zepbound)",
+    body: "Dual-action metabolic therapy that improves insulin sensitivity, reduces appetite, and delivers superior weight loss results — especially effective for hormonal weight gain.",
+  },
+  {
+    tags: ["Perimenopause", "Symptom Relief"],
+    title: "Perimenopause Protocol",
+    body: "Comprehensive care for the years leading up to menopause — managing irregular cycles, sleep disruption, anxiety, and the hormonal shifts that make this transition so challenging.",
+  },
+  {
+    tags: ["Thyroid", "Metabolism"],
+    title: "Thyroid Optimization",
+    body: "Comprehensive thyroid evaluation and treatment to address fatigue, weight gain, hair loss, and cognitive issues caused by underactive or suboptimally managed thyroid function.",
   },
   {
     tags: ["Recovery", "Vitality"],
-    title: "Sermorelin Peptide Therapy",
-    body: "Stimulates your body's natural growth hormone production, supporting lean muscle, enhanced recovery, improved sleep quality, and greater vitality.",
-  },
-  {
-    tags: ["Fertility", "Natural"],
-    title: "Clomid / Enclomiphene",
-    body: "Stimulates your body's hormonal response to naturally boost testosterone and support fertility — ideal for men who want hormone balance without traditional TRT.",
-  },
-  {
-    tags: ["Energy", "Metabolism"],
-    title: "Vitamin B12 & MIC Injections",
-    body: "Potent B12 and lipotropic injections to boost energy, improve focus, support fat metabolism, and enhance overall metabolic health.",
+    title: "Peptide Therapy",
+    body: "Sermorelin, BPC-157, and other peptides to support lean muscle, enhanced recovery, improved sleep quality, and greater energy — helping you feel vibrant and strong.",
   },
   {
     tags: ["Anti-Aging", "Cellular"],
     title: "NAD+ Therapy",
-    body: "Cutting-edge cellular energy therapy that supports mitochondrial function, cognitive clarity, and longevity at the cellular level.",
+    body: "Cutting-edge cellular energy therapy that supports mitochondrial function, cognitive clarity, and longevity at the cellular level — turning back the clock from the inside out.",
   },
   {
-    tags: ["Sexual Wellness", "Non-Invasive"],
-    title: "ED Treatment Protocol",
-    body: "Comprehensive erectile dysfunction treatment including PDE5 inhibitors, shockwave therapy, and peptide protocols for lasting results.",
+    tags: ["Nutrition", "Custom"],
+    title: "Personalized Nutrition Program",
+    body: "A custom nutrition plan built around your hormones, metabolism, and lifestyle — not a generic diet. Developed by your Wellness Advisor and adjusted as your body changes.",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function Treatments() {
             >
               FIND THE RIGHT
               <br />
-              TREATMENT
+              TREATMENT FOR YOU
             </h2>
           </div>
           <div className="flex items-center gap-3">
@@ -103,7 +103,7 @@ export default function Treatments() {
         {/* Scrollable Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
+          className="flex gap-4 overflow-x-auto pb-4"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {treatments.map((t, i) => (

@@ -2,41 +2,43 @@
    Medical Team — Clinical Noir Design
    Dark background, photo grid with gradient overlays
    ============================================================================= */
+const DOCTOR_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/doctor-consult-65ULkU9ZVxvNFPTLGJr9pR.webp";
+
 const team = [
   {
-    name: "Dr. Sarah Chen, MD",
-    role: "Chief Medical Officer",
-    specialty: "Endocrinology & Longevity",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=533&fit=crop&q=80",
-  },
-  {
-    name: "Dr. Marcus Williams, DO",
+    name: "Dr. Amanda Chen, MD",
     role: "Medical Director",
-    specialty: "Hormone Optimization",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=533&fit=crop&q=80",
+    specialty: "Hormone & Longevity Medicine",
+    image: DOCTOR_IMG,
   },
   {
-    name: "Dr. Jennifer Park, MD",
+    name: "Dr. Sarah Williams, DO",
     role: "Lead Physician",
-    specialty: "Metabolic Medicine",
+    specialty: "Women's Hormonal Health",
     image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=533&fit=crop&q=80",
   },
   {
-    name: "Dr. Robert Torres, NP",
-    role: "Nurse Practitioner",
-    specialty: "Peptide Therapy",
-    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=533&fit=crop&q=80",
+    name: "Dr. Rachel Torres, MD",
+    role: "Metabolic Specialist",
+    specialty: "Medical Weight Loss",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=533&fit=crop&q=80",
   },
   {
-    name: "Dr. Amanda Foster, MD",
-    role: "Clinical Director",
-    specialty: "Anti-Aging Medicine",
+    name: "Dr. Lisa Park, MD",
+    role: "Longevity Physician",
+    specialty: "Anti-Aging & Cellular Health",
     image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&h=533&fit=crop&q=80",
   },
   {
-    name: "Dr. Kevin Zhao, DO",
-    role: "Weight Loss Specialist",
-    specialty: "Metabolic Health",
+    name: "Dr. Monica Foster, NP",
+    role: "Nurse Practitioner",
+    specialty: "Perimenopause Specialist",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=533&fit=crop&q=80",
+  },
+  {
+    name: "Dr. Jennifer Zhao, DO",
+    role: "Wellness Physician",
+    specialty: "Thyroid & Metabolic Health",
     image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=533&fit=crop&q=80",
   },
 ];
@@ -62,7 +64,7 @@ export default function MedicalTeam() {
                 letterSpacing: "-0.02em",
               }}
             >
-              BUILT BY SPECIALISTS.
+              BOARD-CERTIFIED DOCTORS
               <br />
               <span
                 style={{
@@ -72,7 +74,7 @@ export default function MedicalTeam() {
                   backgroundClip: "text",
                 }}
               >
-                BACKED BY EXPERTS.
+                WHO SPECIALIZE IN YOU.
               </span>
             </h2>
           </div>
@@ -81,7 +83,7 @@ export default function MedicalTeam() {
             className="btn-gradient px-8 py-3.5 rounded-full text-sm font-bold tracking-wider self-start lg:self-auto whitespace-nowrap"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            MEET OUR MEDICAL BOARD
+            MEET YOUR CARE TEAM
           </a>
         </div>
 
@@ -137,7 +139,7 @@ export default function MedicalTeam() {
           className="text-center text-white/40 mt-8 text-sm"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          All MedMethod Direct providers are board-certified, licensed, and continuously trained in the latest longevity and hormone optimization protocols.
+          Every MedMethod Direct patient works with the same doctor and Wellness Advisor throughout their entire journey. No rotating providers. No starting over. Just consistent, expert care built for women over 40.
         </p>
       </div>
     </section>

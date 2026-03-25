@@ -5,17 +5,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/hero-bg-5nAbKDYmK4csnxnSdezEyH.webp";
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/hero-woman-c3ELPog6wjEN4Srykd644w.webp";
 
 const tickerItems = [
   "HORMONE OPTIMIZATION",
   "MEDICALLY SUPERVISED WEIGHT LOSS",
-  "PEPTIDE THERAPY",
-  "ANTI-AGING & LONGEVITY",
-  "TELEHEALTH CONVENIENCE",
-  "SCIENCE-BASED PROTOCOLS",
-  "LICENSED PROVIDERS",
-  "PERSONALIZED TREATMENT PLANS",
+  "PERIMENOPAUSE & MENOPAUSE CARE",
+  "PERSONALIZED NUTRITION PLANS",
+  "CUSTOM FITNESS PROGRAMS",
+  "BI-WEEKLY DOCTOR CHECK-INS",
+  "DEDICATED WELLNESS ADVISOR",
+  "COMPREHENSIVE LAB DIAGNOSTICS",
 ];
 
 export default function Hero() {
@@ -78,7 +78,7 @@ export default function Hero() {
                 className="text-xs font-semibold tracking-[0.2em] uppercase"
                 style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
               >
-                Premium Virtual Medical Clinic
+                For Women 40 & Beyond
               </span>
             </div>
 
@@ -91,20 +91,22 @@ export default function Hero() {
                 letterSpacing: "-0.02em",
               }}
             >
-              A VIRTUAL CLINIC
+              STOP FIGHTING
               <br />
               <span
                 style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}
               >
-                BUILT FOR YOUR
+                YOUR BIOLOGY.
               </span>
               <br />
-              LONGEVITY
+              MASTER YOUR
+              <br />
+              LONGEVITY.
             </h1>
 
             {/* Subheadline */}
@@ -117,8 +119,7 @@ export default function Hero() {
                 lineHeight: 1.6,
               }}
             >
-              Physician-guided hormone optimization, medically supervised weight loss,
-              and cutting-edge longevity protocols — all from the comfort of your home.
+              If you're a woman over 40, you deserve more than a box shipped to your door. We provide a doctor-led path — comprehensive labs, a deep-dive diagnostic, and a fully customized plan with bi-weekly check-ins, a dedicated Wellness Advisor, and personalized nutrition and fitness programs.
             </p>
 
             {/* CTAs */}
@@ -128,7 +129,7 @@ export default function Hero() {
                 className="btn-gradient btn-gradient-pulse px-8 py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 group"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                START YOUR JOURNEY NOW
+                SCHEDULE FREE CONSULTATION
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -161,7 +162,7 @@ export default function Hero() {
                   className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Patients Served
+                  Women Served
                 </div>
               </div>
               <div>
@@ -182,7 +183,7 @@ export default function Hero() {
                   className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Patient Satisfaction
+                  Satisfaction Rate
                 </div>
               </div>
               <div>
@@ -197,13 +198,13 @@ export default function Hero() {
                     backgroundClip: "text",
                   }}
                 >
-                  {count3}+
+                  Bi-Weekly
                 </div>
                 <div
                   className="text-white/50 text-xs font-medium tracking-wider uppercase mt-1"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Licensed Providers
+                  Doctor Check-Ins
                 </div>
               </div>
             </div>
@@ -218,8 +219,8 @@ export default function Hero() {
             {[
               { icon: "🔒", text: "HIPAA Compliant" },
               { icon: "🏥", text: "Board-Certified Physicians" },
-              { icon: "📦", text: "Discreet Delivery" },
-              { icon: "💊", text: "FDA-Cleared Medications" },
+              { icon: "🧬", text: "Comprehensive Lab Diagnostics" },
+              { icon: "👩‍⚕️", text: "Dedicated Wellness Advisor" },
               { icon: "⭐", text: "4.9/5 Patient Rating" },
             ].map((badge, i) => (
               <div key={i} className="flex items-center gap-2">

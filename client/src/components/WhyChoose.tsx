@@ -5,14 +5,14 @@
 import { Check, X } from "lucide-react";
 
 const comparisons = [
-  { feature: "Board-Certified Physician Oversight", us: true, others: false },
-  { feature: "Personalized Treatment Protocols", us: true, others: false },
-  { feature: "100% Virtual — No Waiting Rooms", us: true, others: false },
-  { feature: "Medications Delivered to Your Door", us: true, others: false },
-  { feature: "Ongoing Monitoring & Adjustments", us: true, others: false },
-  { feature: "Transparent, Flat-Rate Pricing", us: true, others: false },
-  { feature: "Same-Week Treatment Start", us: true, others: false },
-  { feature: "Dedicated Care Coordinator", us: true, others: false },
+  { feature: "Comprehensive Lab Diagnostics", us: true, others: false },
+  { feature: "Bi-Weekly Doctor Check-Ins", us: true, others: false },
+  { feature: "Same Doctor Throughout Journey", us: true, others: false },
+  { feature: "Dedicated Wellness Advisor", us: true, others: false },
+  { feature: "Custom Nutrition Program", us: true, others: false },
+  { feature: "Personalized Fitness Plan", us: true, others: false },
+  { feature: "Women 40+ Specialists", us: true, others: false },
+  { feature: "Board-Certified Physicians", us: true, others: true },
 ];
 
 export default function WhyChoose() {
@@ -36,7 +36,7 @@ export default function WhyChoose() {
                 letterSpacing: "-0.02em",
               }}
             >
-              WHY PATIENTS
+              WHY WOMEN
               <br />
               CHOOSE
               <br />
@@ -55,8 +55,7 @@ export default function WhyChoose() {
               className="text-white/60 leading-relaxed mb-8"
               style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem" }}
             >
-              Because you deserve better care — fast, personal, and built around results.
-              We combine clinical excellence with the convenience of modern telehealth.
+              You deserve more than a box shipped to your door. We provide a doctor-led path with comprehensive labs, bi-weekly check-ins, and a dedicated Wellness Advisor — built specifically for women over 40.
             </p>
             <a
               href="#consultation"
