@@ -87,10 +87,10 @@ export default function Hero() {
               <h1
                 className="font-black leading-[1.05] mb-8"
                 style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "clamp(2.2rem, 5vw, 4rem)",
-                  letterSpacing: "-0.02em",
-                  color: "#111111",
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: "clamp(1.8rem, 3.2vw, 3rem)",
+                letterSpacing: "-0.02em",
+                color: "#111111",
                 }}
               >
               STRUGGLING WITH
