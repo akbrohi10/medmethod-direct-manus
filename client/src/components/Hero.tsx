@@ -216,6 +216,22 @@ export default function Hero() {
 
             {/* RIGHT: YouTube Video */}
             <div className="relative lg:-ml-6">
+              {/* 100% Virtual Care label */}
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #E8339E)" }} />
+                <span
+                  className="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded-full"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    color: "white",
+                    letterSpacing: "0.15em",
+                  }}
+                >
+                  💻 100% Virtual Care
+                </span>
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, transparent)" }} />
+              </div>
               {/* Decorative glow behind video */}
               <div
                 className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"

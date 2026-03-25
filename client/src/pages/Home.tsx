@@ -7,7 +7,6 @@
    ============================================================================= */
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import VirtualCareBanner from "@/components/VirtualCareBanner";
 import Services from "@/components/Services";
 import StatsAndDifference from "@/components/StatsAndDifference";
 import HowItWorks from "@/components/HowItWorks";
@@ -26,7 +25,6 @@ export default function Home() {
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Navbar />
       <Hero />
-      <VirtualCareBanner />
       <Services />
       <HowItWorks />
       <ToolsForSuccess />
