@@ -74,12 +74,7 @@ export default function Services() {
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10">
-          <span
-            className="section-label block mb-3"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            What We Treat
-          </span>
+
           <h2
             className="font-black text-[#111111] leading-tight"
             style={{
