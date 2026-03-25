@@ -8,22 +8,22 @@ const services = [
   {
     title: "Menopause",
     description: "Safe, effective, FDA-approved solutions for symptom relief — night sweats, brain fog, mood swings, and more.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80&fit=crop",
-    alt: "Confident woman in her 40s smiling",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-menopause-HYnWSNUNbueATEj9EFMHvU.webp",
+    alt: "Confident woman in her 40s smiling by a window",
     href: "#consultation",
   },
   {
     title: "GLP-1 Weight Care",
     description: "Medically supervised Semaglutide and Tirzepatide programs with bi-weekly check-ins and expert support.",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&fit=crop",
-    alt: "Woman stretching and feeling energetic",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-weight-dQbnaFgp7jCDrEp4DMNUvC.webp",
+    alt: "Fit woman in athletic wear outdoors in golden light",
     href: "#consultation",
   },
   {
     title: "Sexual Health",
     description: "Treatments for better vaginal health, libido restoration, and a more fulfilling sex life.",
-    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80&fit=crop",
-    alt: "Woman relaxing comfortably",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-sexual-health-FtCRG5hkhWok6PsHUn3T3Z.webp",
+    alt: "Woman resting peacefully in white bed linens",
     href: "#consultation",
   },
   {
