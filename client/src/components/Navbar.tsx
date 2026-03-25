@@ -1,0 +1,179 @@
+/* =============================================================================
+   Navbar — Clinical Noir Design
+   Sticky dark header, gradient logo, CTA button
+   ============================================================================= */
+import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
+
+const navLinks = [
+  {
+    label: "Services",
+    href: "#services",
+    dropdown: [
+      { label: "Hormone Therapy", href: "#services" },
+      { label: "Weight Loss", href: "#services" },
+      { label: "Anti-Aging & Longevity", href: "#services" },
+      { label: "Peptide Therapy", href: "#services" },
+      { label: "Sexual Wellness", href: "#services" },
+      { label: "All Services", href: "#services" },
+    ],
+  },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "About", href: "#about" },
+  { label: "Blog", href: "#blog" },
+  { label: "FAQ", href: "#faq" },
+];
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-[#0d0d0d]/98 shadow-2xl" : "bg-[#111111]"
+      }`}
+    >
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <a href="/" className="flex flex-col leading-none group">
+            <div className="flex items-baseline gap-0">
+              <span
+                className="font-black text-white"
+                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.5rem", letterSpacing: "-0.02em" }}
+              >
+                Med
+              </span>
+              <span
+                className="font-black"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "1.5rem",
+                  letterSpacing: "-0.02em",
+                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Method
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
+              <span
+                className="text-white font-semibold tracking-[0.25em]"
+                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.6rem" }}
+              >
+                DIRECT
+              </span>
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
+            </div>
+            <span
+              className="text-center"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: "0.5rem",
+                letterSpacing: "0.1em",
+                color: "rgba(255,255,255,0.5)",
+                fontStyle: "italic",
+              }}
+            >
+              Your Path to Longevity
+            </span>
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <div
+                key={link.label}
+                className="relative"
+                onMouseEnter={() => link.dropdown && setOpenDropdown(link.label)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <a
+                  href={link.href}
+                  className="flex items-center gap-1 px-4 py-2 text-white/80 hover:text-white font-semibold text-sm tracking-wide transition-colors duration-200"
+                  style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
+                >
+                  {link.label}
+                  {link.dropdown && <ChevronDown className="w-3.5 h-3.5" />}
+                </a>
+                {link.dropdown && openDropdown === link.label && (
+                  <div className="absolute top-full left-0 mt-1 w-52 bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden">
+                    {link.dropdown.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                        style={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="#consultation"
+              className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              GET STARTED FREE
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden text-white p-2"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-[#111111] border-t border-white/10">
+          <div className="px-4 py-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="py-3 text-white/80 hover:text-white font-semibold text-sm tracking-wide border-b border-white/5 transition-colors"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#consultation"
+              className="btn-gradient mt-3 py-3 rounded-full text-sm font-bold tracking-wider text-center"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+              onClick={() => setMobileOpen(false)}
+            >
+              GET STARTED FREE
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}

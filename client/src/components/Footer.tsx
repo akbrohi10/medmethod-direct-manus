@@ -1,0 +1,189 @@
+/* =============================================================================
+   Footer — Clinical Noir Design
+   Dark background, logo, nav columns, social links, legal
+   ============================================================================= */
+import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <footer className="bg-[#0d0d0d] border-t border-white/5">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          {/* Brand Column */}
+          <div className="lg:col-span-2">
+            {/* Logo */}
+            <div className="flex flex-col leading-none mb-4">
+              <div className="flex items-baseline gap-0">
+                <span
+                  className="font-black text-white"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.6rem", letterSpacing: "-0.02em" }}
+                >
+                  Med
+                </span>
+                <span
+                  className="font-black"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "1.6rem",
+                    letterSpacing: "-0.02em",
+                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Method
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
+                <span
+                  className="text-white font-semibold tracking-[0.25em]"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.65rem" }}
+                >
+                  DIRECT
+                </span>
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
+              </div>
+              <span
+                className="text-center"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "0.55rem",
+                  letterSpacing: "0.1em",
+                  color: "rgba(255,255,255,0.4)",
+                  fontStyle: "italic",
+                }}
+              >
+                Your Path to Longevity
+              </span>
+            </div>
+
+            <p
+              className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Premium virtual medical clinic focused on longevity, hormone optimization, and medically supervised weight loss. Modern, clinical, science-based care delivered to your door.
+            </p>
+
+            {/* Social */}
+            <div className="flex gap-3">
+              {[
+                { Icon: Instagram, label: "Instagram" },
+                { Icon: Facebook, label: "Facebook" },
+                { Icon: Twitter, label: "Twitter" },
+                { Icon: Linkedin, label: "LinkedIn" },
+              ].map(({ Icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-[#E8339E]/50 transition-all"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Nav Columns */}
+          <div>
+            <h4
+              className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Services
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              {["Hormone Therapy", "Medical Weight Loss", "Peptide Therapy", "Anti-Aging", "Sexual Wellness", "Thyroid Health"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#services"
+                    className="text-white/50 hover:text-white text-sm transition-colors"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Company
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              {["About Us", "Our Providers", "How It Works", "Blog", "FAQ", "Contact"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#about"
+                    className="text-white/50 hover:text-white text-sm transition-colors"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Get Started
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              {["Free Consultation", "Patient Portal", "Lab Results", "Telehealth FAQs", "Consent to Telehealth", "Privacy Policy"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#consultation"
+                    className="text-white/50 hover:text-white text-sm transition-colors"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p
+            className="text-white/30 text-xs text-center md:text-left"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            © 2025 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
+          </p>
+          <div className="flex gap-6">
+            {["Privacy Policy", "Terms of Service", "HIPAA Notice"].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-white/30 hover:text-white/60 text-xs transition-colors"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Medical Disclaimer */}
+        <p
+          className="text-white/20 text-xs mt-6 leading-relaxed"
+          style={{ fontFamily: "Montserrat, sans-serif" }}
+        >
+          <strong className="text-white/30">Medical Disclaimer:</strong> The information provided on this website is for educational purposes only and does not constitute medical advice. MedMethod Direct services are provided by licensed medical professionals. Individual results may vary. Consult your healthcare provider before starting any new treatment.
+        </p>
+      </div>
+    </footer>
+  );
+}
