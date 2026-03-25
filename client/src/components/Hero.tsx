@@ -56,7 +56,7 @@ export default function Hero() {
   const tickerContent = [...tickerItems, ...tickerItems];
 
   return (
-    <section className="relative flex flex-col bg-white overflow-hidden border-b-2 border-gray-200" style={{ paddingTop: "80px" }}>
+    <section className="relative flex flex-col bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
       {/* Subtle background texture */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
@@ -287,6 +287,14 @@ export default function Hero() {
       </div>
 
 
+      {/* Gradient Divider */}
+      <div
+        className="w-full"
+        style={{
+          height: "4px",
+          background: "linear-gradient(90deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+        }}
+      />
     </section>
   );
 }
