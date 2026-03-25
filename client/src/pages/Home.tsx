@@ -26,8 +26,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Services />
-      <StatsAndDifference />
       <HowItWorks />
+      <StatsAndDifference />
       <WhyChoose />
       <Testimonials />
       <Treatments />
