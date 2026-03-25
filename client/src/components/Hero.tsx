@@ -124,7 +124,7 @@ export default function Hero() {
 
               {/* 100% Virtual Care tagline */}
               <p
-                className="flex items-center gap-2 font-semibold mb-10"
+                className="flex items-center gap-2 font-semibold mb-8"
                 style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}
               >
                 <span
@@ -133,6 +133,73 @@ export default function Hero() {
                 />
                 100% Virtual Care — No office visits, ever.
               </p>
+
+              {/* Stats */}
+              <div ref={statsRef} className="flex flex-wrap gap-8 lg:gap-10">
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count1.toLocaleString()}+
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Women Served
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count2}%
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Satisfaction Rate
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    4.9★
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Patient Rating
+                  </div>
+                </div>
+              </div>
 
 
 
