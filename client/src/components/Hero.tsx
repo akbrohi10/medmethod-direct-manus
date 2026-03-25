@@ -122,78 +122,34 @@ export default function Hero() {
 
               </div>
 
-              {/* Stats */}
-              <div ref={statsRef} className="flex flex-wrap gap-8 lg:gap-10 mb-8">
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {count1.toLocaleString()}+
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Women Served
-                  </div>
+              {/* 100% Virtual Care Statement */}
+              <div ref={statsRef} className="mb-8">
+                <div
+                  className="font-black leading-tight"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  100% VIRTUAL CARE
                 </div>
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {count2}%
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Satisfaction Rate
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    4.9★
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Patient Rating
-                  </div>
+                <div
+                  className="text-gray-600 mt-1"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem", fontWeight: 500 }}
+                >
+                  Doctor-led care from the comfort of your home — no office visits, ever.
                 </div>
               </div>
 
               {/* Trust Badges */}
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 {[
                   { icon: "🔒", text: "HIPAA Compliant" },
-                  { icon: "💻", text: "100% Virtual Care" },
                   { icon: "🏥", text: "Board-Certified MDs" },
                   { icon: "🧬", text: "Comprehensive Labs" },
                 ].map((badge, i) => (
@@ -216,22 +172,7 @@ export default function Hero() {
 
             {/* RIGHT: YouTube Video */}
             <div className="relative lg:-ml-6">
-              {/* 100% Virtual Care label */}
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #E8339E)" }} />
-                <span
-                  className="text-xs font-black tracking-[0.2em] uppercase px-3 py-1 rounded-full"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    color: "white",
-                    letterSpacing: "0.15em",
-                  }}
-                >
-                  💻 100% Virtual Care
-                </span>
-                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, transparent)" }} />
-              </div>
+
               {/* Decorative glow behind video */}
               <div
                 className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"
