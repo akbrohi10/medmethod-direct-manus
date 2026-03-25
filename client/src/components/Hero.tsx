@@ -93,22 +93,20 @@ export default function Hero() {
                   color: "#111111",
                 }}
               >
-                STOP FIGHTING
-                <br />
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  YOUR BIOLOGY.
-                </span>
-                <br />
-                MASTER YOUR
-                <br />
-                LONGEVITY.
+              STRUGGLING WITH
+              <br />
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                MENOPAUSE
+              </span>
+              <br />
+              OR WEIGHT LOSS?
               </h1>
 
               {/* CTAs */}
