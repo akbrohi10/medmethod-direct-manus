@@ -510,10 +510,10 @@ export default function ConsultationModal({ open, onClose }: Props) {
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Where should we send your personalized plan?
+                Last step before your free call
               </h2>
               <p className="text-sm text-gray-400 mb-5">
-                Your advisor will review your answers and reach out before your call.
+                We'll use this to confirm your appointment and send your personalized summary.
               </p>
               <LeadCaptureForm data={leadData} onChange={setLeadData} />
             </div>
