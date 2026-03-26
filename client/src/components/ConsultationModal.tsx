@@ -3,8 +3,9 @@
 // full-width teal "Next" button pinned at bottom. Inspired by reference UI.
 // Replace CALENDLY_URL with your actual Calendly link.
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { X } from "lucide-react";
+import Picker from "react-mobile-picker";
 
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
 
@@ -50,9 +51,9 @@ const questions = [
   },
   {
     id: "age",
-    question: "How old are you?",
+    question: "What is your date of birth?",
     subtitle: "We use your age to tailor your hormonal protocol",
-    options: [], // number input — handled separately
+    options: [], // scroll wheel — handled separately
   },
 ];
 
@@ -66,6 +67,17 @@ export default function ConsultationModal({ open, onClose }: Props) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
 
+  // Date of birth scroll wheel state
+  const currentYear = new Date().getFullYear();
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const days = useMemo(() => Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, "0")), []);
+  const years = useMemo(() => Array.from({ length: currentYear - 1919 }, (_, i) => String(currentYear - i)).filter(y => parseInt(y) <= currentYear - 18), [currentYear]);
+  const [dobValue, setDobValue] = useState<Record<string, string>>({
+    month: months[new Date().getMonth()],
+    day: String(new Date().getDate()).padStart(2, "0"),
+    year: String(currentYear - 30),
+  });
+
   if (!open) return null;
 
   const totalSteps = questions.length + 1; // 4 questions + expectation (calendar is final)
@@ -73,17 +85,31 @@ export default function ConsultationModal({ open, onClose }: Props) {
 
   const isQuestionStep = step < questions.length;
   const isAgeStep = isQuestionStep && questions[step].id === "age";
+
+  // Compute age from dob for validation
+  const computedAge = useMemo(() => {
+    const monthIdx = months.indexOf(dobValue.month);
+    const dob = new Date(parseInt(dobValue.year), monthIdx, parseInt(dobValue.day));
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    if (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate())) age--;
+    return age;
+  }, [dobValue]);
   const isExpectationStep = step === questions.length;
   const isCalendarStep = step === questions.length + 1;
 
   const handleNext = () => {
     if (isQuestionStep) {
-      if (!selected) return;
-      // validate age is a number between 18 and 110
-      if (questions[step].id === "age") {
-        const age = parseInt(selected, 10);
-        if (isNaN(age) || age < 18 || age > 110) return;
+      if (isAgeStep) {
+        if (computedAge < 18) return;
+        const dobStr = `${dobValue.month} ${dobValue.day}, ${dobValue.year}`;
+        setAnswers((prev) => ({ ...prev, age: dobStr, computedAge: String(computedAge) }));
+        setSelected(dobStr);
+        setStep((s) => s + 1);
+        setSelected(null);
+        return;
       }
+      if (!selected) return;
       setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
       setSelected(null);
       setStep((s) => s + 1);
@@ -159,23 +185,64 @@ export default function ConsultationModal({ open, onClose }: Props) {
               <p className="text-sm text-gray-400 mb-5">{questions[step].subtitle}</p>
 
               {isAgeStep ? (
-                <div className="mt-4">
-                  <div className="relative">
-                    <input
-                      type="number"
-                      min={18}
-                      max={110}
-                      placeholder="Enter your age"
-                      value={selected || ""}
-                      onChange={(e) => setSelected(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && handleNext()}
-                      autoFocus
-                      className="w-full text-3xl font-bold text-gray-900 border-b-2 border-gray-200 focus:border-pink-500 outline-none py-3 bg-transparent transition-colors"
-                      style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+                <div className="mt-2">
+                  {/* iOS-style scroll wheel */}
+                  <div className="relative overflow-hidden rounded-xl" style={{ background: "#fafafa" }}>
+                    {/* Selection highlight bar */}
+                    <div
+                      className="absolute left-0 right-0 pointer-events-none z-10"
+                      style={{
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        height: 44,
+                        background: "linear-gradient(135deg, rgba(232,51,158,0.12) 0%, rgba(122,30,126,0.12) 100%)",
+                        borderTop: "1.5px solid rgba(232,51,158,0.3)",
+                        borderBottom: "1.5px solid rgba(232,51,158,0.3)",
+                      }}
                     />
-                    <span className="absolute right-0 bottom-3 text-sm text-gray-400">years old</span>
+                    {/* Top fade */}
+                    <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, #fafafa 0%, transparent 100%)" }} />
+                    {/* Bottom fade */}
+                    <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-10" style={{ background: "linear-gradient(to top, #fafafa 0%, transparent 100%)" }} />
+                    <Picker
+                      value={dobValue}
+                      onChange={(newVal) => setDobValue(newVal as Record<string, string>)}
+                      height={200}
+                      itemHeight={44}
+                      wheelMode="natural"
+                    >
+                      <Picker.Column name="month">
+                        {months.map((m) => (
+                          <Picker.Item key={m} value={m}>
+                            {({ selected: sel }) => (
+                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{m}</span>
+                            )}
+                          </Picker.Item>
+                        ))}
+                      </Picker.Column>
+                      <Picker.Column name="day">
+                        {days.map((d) => (
+                          <Picker.Item key={d} value={d}>
+                            {({ selected: sel }) => (
+                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{d}</span>
+                            )}
+                          </Picker.Item>
+                        ))}
+                      </Picker.Column>
+                      <Picker.Column name="year">
+                        {years.map((y) => (
+                          <Picker.Item key={y} value={y}>
+                            {({ selected: sel }) => (
+                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{y}</span>
+                            )}
+                          </Picker.Item>
+                        ))}
+                      </Picker.Column>
+                    </Picker>
                   </div>
-                  <p className="text-xs text-gray-400 mt-3">Must be 18 or older to enroll</p>
+                  <p className="text-xs text-center mt-3" style={{ color: computedAge >= 18 ? "#9ca3af" : "#E8339E" }}>
+                    {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
+                  </p>
                 </div>
               ) : (
               <div className="divide-y divide-gray-100">
@@ -283,12 +350,12 @@ export default function ConsultationModal({ open, onClose }: Props) {
           <div className="flex-shrink-0 px-6 pb-8 pt-3 bg-white border-t border-gray-50">
             <button
               onClick={handleNext}
-              disabled={isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))}
+              disabled={isQuestionStep && !isAgeStep && !selected || (isAgeStep && computedAge < 18)}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? "not-allowed" : "pointer",
-                boxShadow: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? "not-allowed" : "pointer",
+                boxShadow: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
               {isExpectationStep ? "Choose a Time →" : "Next"}
