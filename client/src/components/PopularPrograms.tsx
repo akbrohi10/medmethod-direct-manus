@@ -12,7 +12,7 @@ const annualTotal = { t1: 1990, t2: 3490, t3: 4490 };
 const savings = { t1: 398, t2: 698, t3: 898 };
 
 export default function PopularPrograms() {
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(true);
 
   const p = isAnnual ? annual : monthly;
 
