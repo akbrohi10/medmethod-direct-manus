@@ -138,13 +138,13 @@ export default function Hero() {
               </p>
 
               {/* Stats */}
-              <div ref={statsRef} className="flex flex-wrap gap-8 lg:gap-10">
+              <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
                 <div>
                   <div
                     className="font-black leading-none"
                     style={{
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
+                      fontSize: "1.7rem",
                       background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -165,7 +165,7 @@ export default function Hero() {
                     className="font-black leading-none"
                     style={{
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
+                      fontSize: "1.7rem",
                       background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -186,7 +186,7 @@ export default function Hero() {
                     className="font-black leading-none"
                     style={{
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
+                      fontSize: "1.7rem",
                       background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -207,7 +207,7 @@ export default function Hero() {
                     className="font-black leading-none"
                     style={{
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "2.2rem",
+                      fontSize: "1.7rem",
                       background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
