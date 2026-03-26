@@ -1,18 +1,12 @@
-/* =============================================================================
-   ConsultationModal.tsx — MedMethod Direct
-   Free Consultation booking flow:
-     Step 0: Intro
-     Step 1–4: Qualifier questions
-     Step 5: Expectation-setting screen
-     Step 6: Calendly embed
-   Replace CALENDLY_URL with your actual Calendly link.
-   ============================================================================= */
-import { useState } from "react";
-import { X, ChevronLeft, ChevronRight, Calendar, Clock, Shield, CheckCircle } from "lucide-react";
+// ConsultationModal — MedMethod Direct
+// Design: Clean white mobile-style, large serif question title, thin divider radio rows,
+// full-width teal "Next" button pinned at bottom. Inspired by reference UI.
+// Replace CALENDLY_URL with your actual Calendly link.
 
-// ── REPLACE THIS with your real Calendly URL ──────────────────────────────────
+import { useState } from "react";
+import { X } from "lucide-react";
+
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
-// ─────────────────────────────────────────────────────────────────────────────
 
 interface Props {
   open: boolean;
@@ -21,426 +15,265 @@ interface Props {
 
 const questions = [
   {
-    id: 1,
+    id: "goal",
     question: "What's your primary goal?",
-    subtitle: "Select the one that matters most to you right now.",
+    subtitle: "This helps us personalize your experience",
     options: [
-      { label: "Weight Loss", emoji: "⚖️" },
-      { label: "Hormone Balance", emoji: "🔬" },
-      { label: "Menopause Relief", emoji: "🌿" },
-      { label: "All of the Above", emoji: "✨" },
+      "Lose weight & burn fat",
+      "Balance my hormones",
+      "Manage menopause symptoms",
+      "Improve energy & metabolism",
+      "All of the above",
     ],
   },
   {
-    id: 2,
+    id: "duration",
     question: "How long have you been struggling with this?",
-    subtitle: "Be honest — this helps us understand your journey.",
+    subtitle: "We want to understand your journey",
     options: [
-      { label: "Less than 6 months", emoji: "📅" },
-      { label: "1–2 years", emoji: "📆" },
-      { label: "3–5 years", emoji: "🗓️" },
-      { label: "More than 5 years", emoji: "⏳" },
+      "Less than 6 months",
+      "6 months to 1 year",
+      "1 to 3 years",
+      "3 years or more",
     ],
   },
   {
-    id: 3,
+    id: "tried",
     question: "Have you tried medical weight loss programs before?",
-    subtitle: "No judgment — this helps us tailor the conversation.",
+    subtitle: "No judgment — we just want to help you succeed this time",
     options: [
-      { label: "No, this is my first time", emoji: "🌱" },
-      { label: "Yes, but didn't see results", emoji: "😔" },
-      { label: "Yes, saw results but regained weight", emoji: "🔄" },
-      { label: "Currently on a program", emoji: "💊" },
+      "No, this is my first time",
+      "Yes, but didn't get results",
+      "Yes, results didn't last",
+      "I've tried everything",
     ],
   },
   {
-    id: 4,
-    question: "What's your age range?",
-    subtitle: "Our programs are tailored to your hormonal stage of life.",
-    options: [
-      { label: "30–39", emoji: "🌸" },
-      { label: "40–49", emoji: "🌺" },
-      { label: "50–59", emoji: "🌻" },
-      { label: "60+", emoji: "🌷" },
-    ],
+    id: "age",
+    question: "What is your age range?",
+    subtitle: "Our protocols are tailored to your hormonal stage",
+    options: ["30 – 39", "40 – 49", "50 – 59", "60 or older"],
   },
 ];
 
+const TEAL = "#0ea5e9";
+const TEAL_DISABLED = "#bae6fd";
+
 export default function ConsultationModal({ open, onClose }: Props) {
-  const [step, setStep] = useState(0); // 0=intro, 1-4=questions, 5=expectation, 6=calendar
-  const [answers, setAnswers] = useState<string[]>(Array(4).fill(""));
-  const [selected, setSelected] = useState<string>("");
+  const [step, setStep] = useState(0); // 0-3 = questions, 4 = expectation, 5 = calendar
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [selected, setSelected] = useState<string | null>(null);
 
   if (!open) return null;
 
-  const progress = step === 0 ? 0 : step >= 5 ? 100 : Math.round((step / 4) * 100);
-  const currentQ = step >= 1 && step <= 4 ? questions[step - 1] : null;
+  const totalSteps = questions.length + 1; // 4 questions + expectation (calendar is final)
+  const progressPct = Math.round(((step + 1) / (totalSteps + 1)) * 100);
 
-  // Build Calendly URL with prefilled answers as utm params for advisor context
-  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers[0] || "")}&utm_content=${encodeURIComponent(answers[3] || "")}`;
+  const isQuestionStep = step < questions.length;
+  const isExpectationStep = step === questions.length;
+  const isCalendarStep = step === questions.length + 1;
 
-  function handleStart() {
-    setStep(1);
-    setSelected(answers[0]);
-  }
-
-  function handleSelect(label: string) {
-    setSelected(label);
-  }
-
-  function handleNext() {
-    if (!selected) return;
-    const newAnswers = [...answers];
-    newAnswers[step - 1] = selected;
-    setAnswers(newAnswers);
-    if (step === 4) {
-      setStep(5);
-    } else {
-      setStep(step + 1);
-      setSelected(answers[step] || "");
+  const handleNext = () => {
+    if (isQuestionStep) {
+      if (!selected) return;
+      setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
+      setSelected(null);
+      setStep((s) => s + 1);
+    } else if (isExpectationStep) {
+      setStep((s) => s + 1);
     }
-  }
+  };
 
-  function handleBack() {
-    if (step === 1) { setStep(0); return; }
-    if (step === 5) { setStep(4); setSelected(answers[3]); return; }
-    setStep(step - 1);
-    setSelected(answers[step - 2] || "");
-  }
+  const handleBack = () => {
+    if (step === 0) return;
+    const prevStep = step - 1;
+    setStep(prevStep);
+    if (prevStep < questions.length) {
+      setSelected(answers[questions[prevStep].id] || null);
+    } else {
+      setSelected(null);
+    }
+  };
 
-  function handleShowCalendar() {
-    setStep(6);
-  }
-
-  function handleRestart() {
+  const handleClose = () => {
     setStep(0);
-    setAnswers(Array(4).fill(""));
-    setSelected("");
-  }
+    setAnswers({});
+    setSelected(null);
+    onClose();
+  };
+
+  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}`;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(3px)" }}
+      onClick={(e) => e.target === e.currentTarget && handleClose()}
     >
       <div
-        className="relative w-full rounded-3xl overflow-hidden bg-white"
+        className="relative w-full bg-white flex flex-col overflow-hidden"
         style={{
-          maxWidth: step === 6 ? "860px" : "520px",
-          maxHeight: "92vh",
-          overflowY: "auto",
+          maxWidth: isCalendarStep ? 860 : 480,
+          maxHeight: "95vh",
+          borderRadius: "20px 20px 0 0",
           transition: "max-width 0.4s ease",
         }}
       >
-        {/* Close */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors"
-        >
-          <X className="w-4 h-4 text-gray-500" />
-        </button>
-
         {/* Progress bar */}
-        {step > 0 && step < 5 && (
-          <div className="h-1 bg-gray-100">
+        {!isCalendarStep && (
+          <div className="h-1 w-full bg-gray-100 flex-shrink-0">
             <div
               className="h-full transition-all duration-500"
-              style={{
-                width: `${progress}%`,
-                background: "linear-gradient(90deg, #E8339E 0%, #7A1E7E 100%)",
-              }}
+              style={{ width: `${progressPct}%`, background: TEAL }}
             />
           </div>
         )}
 
-        <div className="p-8">
+        {/* Close button */}
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
+        >
+          <X size={16} className="text-gray-500" />
+        </button>
 
-          {/* ── Step 0: Intro ── */}
-          {step === 0 && (
-            <div className="text-center">
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
-              >
-                <Calendar className="w-7 h-7 text-white" />
-              </div>
-              <span
-                className="text-xs font-bold tracking-widest uppercase mb-3 block"
-                style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-              >
-                No Cost · No Obligation
-              </span>
+        {/* Scrollable body */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Question steps */}
+          {isQuestionStep && (
+            <div className="px-6 pt-8 pb-2">
               <h2
-                className="font-black text-[#111111] mb-3"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.5rem", letterSpacing: "-0.02em" }}
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Schedule Your Free Consultation
+                {questions[step].question}
               </h2>
-              <p
-                className="text-gray-500 text-sm leading-relaxed mb-6"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Answer 4 quick questions so your Enrollment Specialist can personalize your call — then pick a time that works for you.
-              </p>
+              <p className="text-sm text-gray-400 mb-5">{questions[step].subtitle}</p>
 
-              {/* Trust signals */}
-              <div className="grid grid-cols-3 gap-3 mb-8">
-                {[
-                  { icon: Clock, label: "20-min call" },
-                  { icon: Shield, label: "100% confidential" },
-                  { icon: CheckCircle, label: "No pressure" },
-                ].map(({ icon: Icon, label }, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl p-3 flex flex-col items-center gap-1.5"
-                    style={{ background: "#F8F7F5" }}
-                  >
-                    <Icon className="w-4 h-4" style={{ color: "#E8339E" }} />
-                    <span
-                      className="text-xs font-semibold text-gray-600"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
+              <div className="divide-y divide-gray-100">
+                {questions[step].options.map((option) => {
+                  const isSelected = selected === option;
+                  return (
+                    <button
+                      key={option}
+                      onClick={() => setSelected(option)}
+                      className="w-full flex items-center gap-4 py-4 text-left transition-colors hover:bg-gray-50 active:bg-gray-100"
                     >
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                onClick={handleStart}
-                className="w-full py-4 rounded-full font-bold text-white text-sm tracking-wider"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                  boxShadow: "0 8px 24px rgba(232,51,158,0.3)",
-                }}
-              >
-                LET'S GET STARTED →
-              </button>
-            </div>
-          )}
-
-          {/* ── Steps 1–4: Questions ── */}
-          {currentQ && (
-            <div>
-              <div
-                className="text-xs font-bold tracking-widest uppercase mb-2"
-                style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-              >
-                Question {step} of 4
-              </div>
-              <h3
-                className="font-black text-[#111111] mb-1"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.1rem", lineHeight: 1.35 }}
-              >
-                {currentQ.question}
-              </h3>
-              <p
-                className="text-gray-400 text-xs mb-5"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                {currentQ.subtitle}
-              </p>
-
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                {currentQ.options.map((opt, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSelect(opt.label)}
-                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all duration-200"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      borderColor: selected === opt.label ? "#E8339E" : "#e5e7eb",
-                      background: selected === opt.label ? "rgba(232,51,158,0.05)" : "#fff",
-                      boxShadow: selected === opt.label ? "0 0 0 1px #E8339E" : "none",
-                    }}
-                  >
-                    <span className="text-xl flex-shrink-0">{opt.emoji}</span>
-                    <span
-                      className="text-sm font-semibold"
-                      style={{ color: selected === opt.label ? "#E8339E" : "#374151" }}
-                    >
-                      {opt.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={handleBack}
-                  className="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  <ChevronLeft className="w-4 h-4" /> Back
-                </button>
-                <button
-                  onClick={handleNext}
-                  disabled={!selected}
-                  className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white transition-all"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background: !selected
-                      ? "#d1d5db"
-                      : "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    cursor: !selected ? "not-allowed" : "pointer",
-                    boxShadow: selected ? "0 4px 14px rgba(232,51,158,0.3)" : "none",
-                  }}
-                >
-                  {step === 4 ? "See Next Step" : "Next"} <ChevronRight className="w-4 h-4" />
-                </button>
+                      {/* Radio circle */}
+                      <span
+                        className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
+                        style={{
+                          borderColor: isSelected ? TEAL : "#d1d5db",
+                          backgroundColor: isSelected ? TEAL : "transparent",
+                        }}
+                      >
+                        {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-white" />}
+                      </span>
+                      <span
+                        className="text-base transition-all"
+                        style={{
+                          color: isSelected ? "#0c4a6e" : "#374151",
+                          fontWeight: isSelected ? 600 : 400,
+                        }}
+                      >
+                        {option}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* ── Step 5: Expectation Setting ── */}
-          {step === 5 && (
-            <div>
-              {/* Summary of answers */}
-              <div
-                className="rounded-2xl p-4 mb-6"
-                style={{ background: "rgba(232,51,158,0.05)", border: "1px solid rgba(232,51,158,0.15)" }}
+          {/* Expectation screen */}
+          {isExpectationStep && (
+            <div className="px-6 pt-8 pb-2">
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
+                ALMOST THERE
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-2 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                <p
-                  className="text-xs font-bold tracking-widest uppercase mb-3"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-                >
-                  Your Profile
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {questions.map((q, i) => (
-                    <div key={i} className="flex flex-col">
-                      <span
-                        className="text-xs text-gray-400"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        {q.question.replace("?", "")}
-                      </span>
-                      <span
-                        className="text-sm font-bold text-[#111111]"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        {answers[i] || "—"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                Here's what to expect on your free call
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                Your 20-minute call with a MedMethod Enrollment Specialist is completely free and pressure-free.
+              </p>
 
-              <h3
-                className="font-black text-[#111111] mb-3"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.15rem", lineHeight: 1.35 }}
-              >
-                Here's what to expect on your call
-              </h3>
-
-              <div className="space-y-3 mb-7">
+              <div className="divide-y divide-gray-100">
                 {[
-                  { title: "20 minutes, no pressure", body: "Your call is with a MedMethod Enrollment Specialist — not a salesperson. They're here to understand your goals and answer your questions honestly." },
-                  { title: "We'll review your goals together", body: "Based on what you've shared, your specialist will walk you through which program aligns with your biology, lifestyle, and timeline." },
-                  { title: "You'll leave with a clear next step", body: "Whether you're ready to start or just exploring, you'll have a concrete, personalized recommendation — and zero obligation to commit on the call." },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-3">
-                    <div
-                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
-                    >
-                      <CheckCircle className="w-3 h-3 text-white" />
-                    </div>
+                  { icon: "🩺", title: "Review your goals", desc: "We'll discuss what you've tried and what hasn't worked." },
+                  { icon: "💬", title: "Answer your questions", desc: "Ask anything about our programs, medications, or process." },
+                  { icon: "📋", title: "Get a personalized recommendation", desc: "We'll tell you exactly which program fits your biology and lifestyle." },
+                  { icon: "🚫", title: "No pressure, no obligation", desc: "This is a conversation — not a sales pitch." },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-4 py-4">
+                    <span className="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
                     <div>
-                      <p
-                        className="font-bold text-[#111111] text-sm"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        {item.title}
-                      </p>
-                      <p
-                        className="text-gray-500 text-xs leading-relaxed mt-0.5"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        {item.body}
-                      </p>
+                      <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
+                      <p className="text-sm text-gray-400">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-
-              <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={handleBack}
-                  className="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  <ChevronLeft className="w-4 h-4" /> Back
-                </button>
-                <button
-                  onClick={handleShowCalendar}
-                  className="flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm text-white"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    boxShadow: "0 8px 24px rgba(232,51,158,0.3)",
-                  }}
-                >
-                  <Calendar className="w-4 h-4" /> PICK MY TIME SLOT →
-                </button>
-              </div>
             </div>
           )}
 
-          {/* ── Step 6: Calendly Embed ── */}
-          {step === 6 && (
-            <div>
-              <div className="flex items-center justify-between mb-5">
-                <div>
-                  <h3
-                    className="font-black text-[#111111]"
-                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.1rem" }}
-                  >
-                    Pick a time that works for you
-                  </h3>
-                  <p
-                    className="text-gray-400 text-xs mt-0.5"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    20-minute free consultation · 100% virtual
-                  </p>
-                </div>
-                <button
-                  onClick={handleBack}
-                  className="flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  <ChevronLeft className="w-4 h-4" /> Back
-                </button>
-              </div>
-
-              {/* Calendly inline embed */}
-              <div
-                className="rounded-2xl overflow-hidden border border-gray-100"
-                style={{ height: "580px" }}
+          {/* Calendar embed */}
+          {isCalendarStep && (
+            <div className="px-6 pt-8 pb-4">
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
+                BOOK YOUR SPOT
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
+                Choose a time that works for you
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                Pick a 20-minute slot with a MedMethod Enrollment Specialist.
+              </p>
+              <div className="rounded-xl overflow-hidden border border-gray-100">
                 <iframe
                   src={calendlyWithParams}
                   width="100%"
-                  height="100%"
+                  height="560"
                   frameBorder="0"
                   title="Schedule your free consultation"
-                  style={{ border: "none" }}
+                  style={{ border: "none", display: "block" }}
                 />
               </div>
-
-              <p
-                className="text-center text-gray-400 text-xs mt-3"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Powered by Calendly · Your information is kept 100% confidential
-              </p>
             </div>
           )}
-
         </div>
+
+        {/* Bottom sticky button */}
+        {!isCalendarStep && (
+          <div className="flex-shrink-0 px-6 pb-8 pt-3 bg-white border-t border-gray-50">
+            <button
+              onClick={handleNext}
+              disabled={isQuestionStep && !selected}
+              className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
+              style={{
+                background: isQuestionStep && !selected ? TEAL_DISABLED : TEAL,
+                cursor: isQuestionStep && !selected ? "not-allowed" : "pointer",
+                boxShadow: isQuestionStep && !selected ? "none" : `0 4px 20px rgba(14,165,233,0.35)`,
+              }}
+            >
+              {isExpectationStep ? "Choose a Time →" : "Next"}
+            </button>
+            {step > 0 && (
+              <button
+                onClick={handleBack}
+                className="w-full mt-2 py-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                ← Back
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
