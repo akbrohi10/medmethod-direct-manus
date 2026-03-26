@@ -18,13 +18,13 @@ export default function PopularPrograms() {
 
   return (
     <section
-      className="py-20 px-4"
+      className="py-10 px-4"
       style={{ background: "#F4F4F8", fontFamily: "Montserrat, sans-serif" }}
     >
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <h2
             className="font-black mb-3"
             style={{
@@ -39,7 +39,7 @@ export default function PopularPrograms() {
         </div>
 
         {/* Monthly / Annual Toggle */}
-        <div className="flex items-center justify-center gap-4 mb-10">
+        <div className="flex items-center justify-center gap-4 mb-8">
           <span
             className="font-bold text-sm cursor-pointer transition-colors"
             style={{ color: !isAnnual ? "#111" : "#999" }}
@@ -129,7 +129,7 @@ export default function PopularPrograms() {
               No Medication Included
             </div>
             <hr style={{ border: "none", borderTop: "1px solid #EBEBF0", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-3 mb-6 flex-1">
+            <ul className="flex flex-col gap-2 mb-3 flex-1">
               {[
                 { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
                 { text: "Quarterly 1-on-1 Doctor Strategy Session" },
@@ -160,7 +160,7 @@ export default function PopularPrograms() {
               ))}
             </ul>
             <div
-              className="rounded-lg text-xs font-medium leading-relaxed mb-4"
+              className="rounded-lg text-xs font-medium leading-relaxed mb-3"
               style={{ background: "#f3f4f6", color: "#555", padding: "10px 14px" }}
             >
               💉 <strong>Quarterly Blood Lab Testing</strong> available as an add-on — <strong>$129/quarter</strong>
@@ -242,7 +242,7 @@ export default function PopularPrograms() {
               Includes Semaglutide
             </div>
             <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.1)", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-3 mb-6 flex-1">
+            <ul className="flex flex-col gap-2 mb-3 flex-1">
               {[
                 { text: "Compounded Semaglutide — Delivered to Your Door" },
                 { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
@@ -342,7 +342,7 @@ export default function PopularPrograms() {
               Tirzepatide + BHRT
             </div>
             <hr style={{ border: "none", borderTop: "1px solid #EBEBF0", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-3 mb-6 flex-1">
+            <ul className="flex flex-col gap-2 mb-3 flex-1">
               {[
                 { text: "Compounded Tirzepatide + BHRT — The Complete Protocol" },
                 { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
