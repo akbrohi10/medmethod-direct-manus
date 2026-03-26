@@ -1,39 +1,61 @@
 /* =============================================================================
-   HowItWorks.tsx — Process steps section
-   Design: 4-column step cards, clean minimal layout with brand accent step labels
+   HowItWorks.tsx — "The Path to Your Breakthrough"
+   5-step horizontal card flow matching the reference design:
+   1. Free Advisor Consultation
+   2. Clinical Registration ($449)
+   3. Lab Review & Strategy
+   4. Select Your Track
+   5. Bi-Weekly Check-In & Optimization
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
+import { PhoneCall, FlaskConical, ClipboardCheck, LayoutGrid, RefreshCw } from "lucide-react";
 
 const steps = [
   {
-    step: "Step 1",
-    title: "Schedule Your Free Consultation",
+    icon: PhoneCall,
+    step: "1",
+    title: "Free Advisor Consultation",
     description:
-      "Book a complimentary virtual consultation with our care team. We'll listen to your symptoms, health history, and goals to determine the right path forward.",
+      "Speak with an Enrollment Specialist to discuss your goals and see if MedMethod Direct is the right fit for your lifestyle.",
+    badge: null,
   },
   {
-    step: "Step 2",
-    title: "Complete Comprehensive Labs",
+    icon: FlaskConical,
+    step: "2",
+    title: "Clinical Registration",
     description:
-      "We order advanced lab testing that analyzes key biomarkers — hormones, thyroid, metabolic panel, and more — to uncover hidden imbalances guiding your care.",
+      "Pay your $449 setup fee to unlock your diagnostic suite, order your labs, and ship your MedMethod Smart Scale.",
+    badge: "$449 ONE-TIME",
   },
   {
-    step: "Step 3",
-    title: "Receive Your Personalized Plan",
+    icon: ClipboardCheck,
+    step: "3",
+    title: "Lab Review & Strategy",
     description:
-      "Your dedicated physician reviews your results and builds a fully customized treatment plan with targeted therapies, nutrition, and lifestyle strategies.",
+      "Meet with your dedicated Doctor to review your bloodwork and receive your personalized clinical recommendation.",
+    badge: null,
   },
   {
-    step: "Step 4",
-    title: "Bi-Weekly Check-Ins & Optimization",
+    icon: LayoutGrid,
+    step: "4",
+    title: "Select Your Track",
     description:
-      "We meet virtually every two weeks to track your progress, adjust your plan, and provide ongoing support from the same doctor and Wellness Advisor throughout.",
+      "Based on your biology, you'll choose your ongoing monthly program for medication, coaching, and accountability.",
+    badge: null,
+  },
+  {
+    icon: RefreshCw,
+    step: "5",
+    title: "Bi-Weekly Check-In & Optimization",
+    description:
+      "Meet virtually every two weeks with your doctor and Wellness Advisor to track progress, adjust your protocol, and keep your results accelerating.",
+    badge: "ONGOING",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#FAFAFA] py-16 lg:py-20">
+    <section id="how-it-works" className="bg-white py-16 lg:py-20">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}
@@ -46,53 +68,106 @@ export default function HowItWorks() {
               letterSpacing: "-0.02em",
             }}
           >
-            HOW IT WORKS
+            The Path to Your{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                fontStyle: "italic",
+              }}
+            >
+              Breakthrough
+            </span>
           </h2>
           <p
             className="mt-3 text-gray-500 text-base max-w-xl mx-auto"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            A responsible, doctor-led path — from your first consultation to lasting results
+            From your first call to your long-term transformation, we ensure you never walk your health journey alone.
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((item, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col gap-3 hover:shadow-md transition-shadow duration-200"
-            >
-              {/* Step label */}
-              <span
-                className="inline-block self-start text-xs font-bold px-3 py-1 rounded-full"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  background: "linear-gradient(135deg, rgba(232,51,158,0.12) 0%, rgba(122,30,126,0.12) 100%)",
-                  color: "#E8339E",
-                  letterSpacing: "0.04em",
-                }}
+        {/* Steps — horizontal scroll on mobile, 5-col on desktop */}
+        <div
+          className="flex gap-0 overflow-x-auto pb-4"
+          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+        >
+          {steps.map((item, i) => {
+            const Icon = item.icon;
+            const isLast = i === steps.length - 1;
+            return (
+              <div
+                key={i}
+                className="flex items-stretch flex-shrink-0"
+                style={{ scrollSnapAlign: "start" }}
               >
-                {item.step}
-              </span>
+                {/* Card */}
+                <div
+                  className="flex flex-col rounded-2xl p-6 bg-[#F6F7FB] border border-gray-100 hover:shadow-md transition-shadow duration-200"
+                  style={{ width: "clamp(220px, 20vw, 280px)", minHeight: 280 }}
+                >
+                  {/* Icon box */}
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(232,51,158,0.10), rgba(122,30,126,0.10))",
+                    }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color: "#E8339E" }} />
+                  </div>
 
-              {/* Title */}
-              <h3
-                className="font-bold text-[#111111] text-lg leading-snug"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                {item.title}
-              </h3>
+                  {/* Title */}
+                  <h3
+                    className="font-black text-[#111] leading-snug mb-3"
+                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1rem" }}
+                  >
+                    {item.step}. {item.title}
+                  </h3>
 
-              {/* Description */}
-              <p
-                className="text-gray-500 text-sm leading-relaxed"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                {item.description}
-              </p>
-            </div>
-          ))}
+                  {/* Description */}
+                  <p
+                    className="text-gray-500 text-sm leading-relaxed flex-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item.description}
+                  </p>
+
+                  {/* Badge */}
+                  {item.badge && (
+                    <span
+                      className="mt-4 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1.5 rounded-full"
+                      style={
+                        item.badge === "$449 ONE-TIME"
+                          ? {
+                              background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                              color: "#fff",
+                              fontFamily: "Montserrat, sans-serif",
+                            }
+                          : {
+                              background: "linear-gradient(135deg, rgba(232,51,158,0.12), rgba(122,30,126,0.12))",
+                              color: "#E8339E",
+                              fontFamily: "Montserrat, sans-serif",
+                            }
+                      }
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+
+                {/* Arrow connector — hidden after last card */}
+                {!isLast && (
+                  <div className="flex items-center justify-center flex-shrink-0 px-2" style={{ width: 36 }}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M4 9h10M10 5l4 4-4 4" stroke="#CCCCDA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Bottom CTA */}
