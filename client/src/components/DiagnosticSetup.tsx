@@ -35,7 +35,7 @@ const items = [
   },
 ];
 
-export default function DiagnosticSetup() {
+export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: () => void }) {
   const [open, setOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
 
@@ -208,7 +208,7 @@ export default function DiagnosticSetup() {
                 </ul>
               </div>
               <a
-                href="#consultation"
+                onClick={onConsultClick}
                 className="mt-6 flex items-center justify-center gap-1.5 w-full py-3 rounded-full font-extrabold text-xs text-white transition-opacity hover:opacity-90 text-center leading-none"
                 style={{
                   background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",

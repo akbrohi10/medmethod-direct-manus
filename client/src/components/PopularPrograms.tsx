@@ -11,7 +11,7 @@ const annual  = { t1: 166, t2: 291, t3: 374 };
 const annualTotal = { t1: 1990, t2: 3490, t3: 4490 };
 const savings = { t1: 398, t2: 698, t3: 898 };
 
-export default function PopularPrograms() {
+export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
   const [isAnnual, setIsAnnual] = useState(true);
 
   const p = isAnnual ? annual : monthly;
@@ -168,7 +168,7 @@ export default function PopularPrograms() {
               💉 <strong>Quarterly Blood Lab Testing</strong> available as an add-on — <strong>$129/quarter</strong>
             </div>
             <a
-              href="#consultation"
+              onClick={onConsultClick}
               className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all hover:bg-gray-100"
               style={{
                 padding: "15px",
@@ -290,7 +290,7 @@ export default function PopularPrograms() {
               ))}
             </ul>
             <a
-              href="#consultation"
+              onClick={onConsultClick}
               className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all"
               style={{
                 padding: "15px",
@@ -390,7 +390,7 @@ export default function PopularPrograms() {
               ))}
             </ul>
             <a
-              href="#consultation"
+              onClick={onConsultClick}
               className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all hover:opacity-90"
               style={{
                 padding: "15px",

@@ -24,7 +24,7 @@ const navLinks = [
   { label: "FAQ", href: "#faq" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -128,13 +128,13 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="#consultation"
+            <button
+              onClick={onConsultClick}
               className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
               FREE CONSULTATION
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -163,14 +163,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#consultation"
+            <button
+              onClick={() => { onConsultClick(); setMobileOpen(false); }}
               className="btn-gradient mt-3 py-3 rounded-full text-sm font-bold tracking-wider text-center"
               style={{ fontFamily: "Montserrat, sans-serif" }}
-              onClick={() => setMobileOpen(false)}
             >
               FREE CONSULTATION
-            </a>
+            </button>
           </div>
         </div>
       )}

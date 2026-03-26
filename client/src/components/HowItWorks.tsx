@@ -53,7 +53,7 @@ const steps = [
   },
 ];
 
-export default function HowItWorks() {
+export default function HowItWorks({ onConsultClick }: { onConsultClick: () => void }) {
   return (
     <section id="how-it-works" className="bg-white py-16 lg:py-20">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
@@ -164,7 +164,7 @@ export default function HowItWorks() {
         {/* Bottom CTA */}
         <div className="text-center mt-10">
           <a
-            href="#consultation"
+            onClick={onConsultClick}
             className="inline-block text-sm font-bold tracking-wider px-8 py-3 rounded-full text-white transition-opacity duration-200 hover:opacity-90"
             style={{
               fontFamily: "Montserrat, sans-serif",

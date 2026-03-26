@@ -4,7 +4,7 @@
    ============================================================================= */
 import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 
-export default function Footer() {
+export default function Footer({ onConsultClick }: { onConsultClick: () => void }) {
   return (
     <footer className="bg-[#0d0d0d] border-t border-white/5">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
@@ -142,7 +142,7 @@ export default function Footer() {
               {["Free Consultation", "Patient Portal", "Lab Results", "Telehealth FAQs", "Consent to Telehealth", "Privacy Policy"].map((item) => (
                 <li key={item}>
                   <a
-                    href="#consultation"
+                    onClick={onConsultClick}
                     className="text-white/50 hover:text-white text-sm transition-colors"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >

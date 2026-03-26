@@ -62,7 +62,7 @@ const medmethodWay = [
   },
 ];
 
-export default function WhyChoose() {
+export default function WhyChoose({ onConsultClick }: { onConsultClick: () => void }) {
   const [quizOpen, setQuizOpen] = useState(false);
   return (
     <section className="bg-white py-16 lg:py-24">
@@ -273,7 +273,7 @@ export default function WhyChoose() {
                 "We don't just treat symptoms. We build the foundation your body needs to transform — and stay transformed."
               </p>
               <a
-                href="#consultation"
+                onClick={onConsultClick}
                 className="inline-flex items-center gap-2 bg-white text-[#E8339E] font-bold text-sm px-5 py-3 rounded-full self-start hover:bg-white/90 transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >

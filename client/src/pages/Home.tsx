@@ -5,7 +5,9 @@
              WhyChoose, Testimonials, Treatments, MedicalTeam, FAQ,
              ConsultationCTA, Blog, Footer
    ============================================================================= */
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import ConsultationModal from "@/components/ConsultationModal";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
@@ -21,22 +23,26 @@ import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 
 export default function Home() {
+  const [consultOpen, setConsultOpen] = useState(false);
+  const openConsult = () => setConsultOpen(true);
+
   return (
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
-      <Navbar />
-      <Hero />
-      <HowItWorks />
-      <DiagnosticSetup />
-      <PopularPrograms />
+      <Navbar onConsultClick={openConsult} />
+      <Hero onConsultClick={openConsult} />
+      <HowItWorks onConsultClick={openConsult} />
+      <DiagnosticSetup onConsultClick={openConsult} />
+      <PopularPrograms onConsultClick={openConsult} />
       <Services />
       <Testimonials />
-      <ToolsForSuccess />
-      <WhyChoose />
+      <ToolsForSuccess onConsultClick={openConsult} />
+      <WhyChoose onConsultClick={openConsult} />
       <MedicalTeam />
       <FAQ />
       <Blog />
-      <Footer />
-      <StickyMobileCTA />
+      <Footer onConsultClick={openConsult} />
+      <StickyMobileCTA onConsultClick={openConsult} />
+      <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
     </div>
   );
 }

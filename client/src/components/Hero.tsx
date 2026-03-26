@@ -21,7 +21,7 @@ const tickerItems = [
   "COMPREHENSIVE LAB DIAGNOSTICS",
 ];
 
-export default function Hero() {
+export default function Hero({ onConsultClick }: { onConsultClick: () => void }) {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
   const [count3, setCount3] = useState(0);
@@ -116,7 +116,7 @@ export default function Hero() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 mb-3">
                 <a
-                  href="#consultation"
+                  onClick={onConsultClick}
                   className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >

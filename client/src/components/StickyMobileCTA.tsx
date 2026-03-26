@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-export default function StickyMobileCTA() {
+export default function StickyMobileCTA({ onConsultClick }: { onConsultClick: () => void }) {
   const [visible, setVisible] = useState(false);
   const [atForm, setAtForm] = useState(false);
 
@@ -32,7 +32,7 @@ export default function StickyMobileCTA() {
       style={{ background: "linear-gradient(to top, #111111 60%, transparent)" }}
     >
       <a
-        href="#consultation"
+        onClick={onConsultClick}
         className="btn-gradient w-full py-4 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2"
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >

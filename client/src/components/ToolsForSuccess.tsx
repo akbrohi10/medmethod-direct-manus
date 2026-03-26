@@ -49,7 +49,7 @@ const tools = [
   },
 ];
 
-export default function ToolsForSuccess() {
+export default function ToolsForSuccess({ onConsultClick }: { onConsultClick: () => void }) {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: "560px" }}>
       {/* Background image with dark overlay */}
@@ -108,7 +108,7 @@ export default function ToolsForSuccess() {
               We don't just prescribe and disappear. MedMethod Direct gives you a complete suite of tools — fitness, nutrition, tracking, and direct access to your care team — so you have the accountability and support to finally achieve your goals.
             </p>
             <a
-              href="#consultation"
+              onClick={onConsultClick}
               className="inline-block self-start text-sm font-bold tracking-wider px-7 py-3 rounded-full text-white transition-opacity duration-200 hover:opacity-90"
               style={{
                 fontFamily: "Montserrat, sans-serif",
