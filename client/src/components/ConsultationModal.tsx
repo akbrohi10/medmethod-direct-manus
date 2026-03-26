@@ -3,7 +3,7 @@
 // full-width brand-gradient "Next" button pinned at bottom.
 // Replace CALENDLY_URL with your actual Calendly link.
 
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { X } from "lucide-react";
 
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
@@ -167,12 +167,117 @@ function WheelColumn({
   );
 }
 
+// ── Lead capture form ────────────────────────────────────────────────────────
+interface LeadData {
+  firstName: string;
+  email: string;
+  phone: string;
+  zip: string;
+}
+
+function isValidEmail(v: string) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function isValidPhone(v: string) { return v.replace(/\D/g, "").length >= 10; }
+function formatPhone(raw: string) {
+  const digits = raw.replace(/\D/g, "").slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: LeadData) => void }) {
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const blur = (f: string) => setTouched((p) => ({ ...p, [f]: true }));
+
+  const inputBase: React.CSSProperties = {
+    outline: "none", borderWidth: 1, borderStyle: "solid", borderRadius: 12,
+    padding: "12px 16px", width: "100%", fontSize: 16, color: "#1f2937",
+    background: "#fff", transition: "border-color 0.15s, box-shadow 0.15s", boxSizing: "border-box",
+  };
+  const fieldStyle = (field: string, valid: boolean): React.CSSProperties => ({
+    ...inputBase,
+    borderColor: touched[field] && !valid ? "#ef4444" : touched[field] && valid ? BRAND_PINK : "#e5e7eb",
+    boxShadow: touched[field] && valid ? `0 0 0 3px rgba(232,51,158,0.12)` : "none",
+  });
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {/* First Name */}
+      <div>
+        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+          First Name <span style={{ color: BRAND_PINK }}>*</span>
+        </label>
+        <input type="text" value={data.firstName} placeholder="Jane" autoComplete="given-name"
+          onChange={(e) => onChange({ ...data, firstName: e.target.value })}
+          onBlur={() => blur("firstName")}
+          style={fieldStyle("firstName", data.firstName.trim().length >= 2)} />
+        {touched.firstName && data.firstName.trim().length < 2 && (
+          <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter your first name</p>
+        )}
+      </div>
+
+      {/* Email */}
+      <div>
+        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+          Email Address <span style={{ color: BRAND_PINK }}>*</span>
+        </label>
+        <input type="email" value={data.email} placeholder="jane@example.com" autoComplete="email"
+          onChange={(e) => onChange({ ...data, email: e.target.value })}
+          onBlur={() => blur("email")}
+          style={fieldStyle("email", isValidEmail(data.email))} />
+        {touched.email && !isValidEmail(data.email) && (
+          <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter a valid email address</p>
+        )}
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+          Phone Number <span style={{ color: BRAND_PINK }}>*</span>
+        </label>
+        <input type="tel" value={data.phone} placeholder="(555) 000-0000" autoComplete="tel"
+          onChange={(e) => onChange({ ...data, phone: formatPhone(e.target.value) })}
+          onBlur={() => blur("phone")}
+          style={fieldStyle("phone", isValidPhone(data.phone))} />
+        {touched.phone && !isValidPhone(data.phone) && (
+          <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter a valid 10-digit phone number</p>
+        )}
+      </div>
+
+      {/* ZIP Code (optional) */}
+      <div>
+        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+          ZIP Code{" "}
+          <span style={{ fontSize: 12, fontWeight: 400, color: "#9ca3af" }}>(optional)</span>
+        </label>
+        <input type="text" value={data.zip} placeholder="90210" autoComplete="postal-code" maxLength={10}
+          onChange={(e) => onChange({ ...data, zip: e.target.value.replace(/[^0-9-]/g, "") })}
+          style={{ ...inputBase, borderColor: "#e5e7eb" }}
+          onFocus={(e) => { e.target.style.borderColor = BRAND_PINK; e.target.style.boxShadow = "0 0 0 3px rgba(232,51,158,0.12)"; }}
+          onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.boxShadow = "none"; }} />
+      </div>
+
+      {/* Privacy note */}
+      <div style={{
+        display: "flex", alignItems: "flex-start", gap: 10, borderRadius: 12, padding: "12px 14px",
+        background: "rgba(232,51,158,0.05)", border: "1px solid rgba(232,51,158,0.15)", marginTop: 4,
+      }}>
+        <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>🔒</span>
+        <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+          We respect your privacy. No spam, ever. Your information is used only to prepare for your
+          consultation and will never be sold or shared with third parties.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ── Main modal ───────────────────────────────────────────────────────────────
 export default function ConsultationModal({ open, onClose }: Props) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
   const [goalsText, setGoalsText] = useState("");
+  const [leadData, setLeadData] = useState<LeadData>({ firstName: "", email: "", phone: "", zip: "" });
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -193,12 +298,33 @@ export default function ConsultationModal({ open, onClose }: Props) {
 
   if (!open) return null;
 
-  const totalSteps = questions.length + 1;
-  const progressPct = Math.round(((step + 1) / (totalSteps + 1)) * 100);
+  // Step layout:
+  // 0-4  = questions (goal, duration, tried, age, goals)
+  // 5    = lead capture form
+  // 6    = expectation screen
+  // 7    = calendar embed
+  const LEAD_STEP = questions.length;           // 5
+  const EXPECTATION_STEP = questions.length + 1; // 6
+  const CALENDAR_STEP = questions.length + 2;    // 7
+  const TOTAL_STEPS = CALENDAR_STEP + 1;         // 8
+
+  const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isQuestionStep = step < questions.length;
   const isAgeStep = isQuestionStep && questions[step].id === "age";
-  const isExpectationStep = step === questions.length;
-  const isCalendarStep = step === questions.length + 1;
+  const isGoalsStep = isQuestionStep && questions[step].id === "goals";
+  const isLeadStep = step === LEAD_STEP;
+  const isExpectationStep = step === EXPECTATION_STEP;
+  const isCalendarStep = step === CALENDAR_STEP;
+
+  const isLeadValid =
+    leadData.firstName.trim().length >= 2 &&
+    isValidEmail(leadData.email) &&
+    isValidPhone(leadData.phone);
+
+  const isNextDisabled = isQuestionStep
+    ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
+    : isLeadStep ? !isLeadValid
+    : false;
 
   const handleNext = () => {
     if (isQuestionStep) {
@@ -221,6 +347,16 @@ export default function ConsultationModal({ open, onClose }: Props) {
       setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
       setSelected(null);
       setStep((s) => s + 1);
+    } else if (isLeadStep) {
+      if (!isLeadValid) return;
+      setAnswers((prev) => ({
+        ...prev,
+        firstName: leadData.firstName.trim(),
+        email: leadData.email.trim(),
+        phone: leadData.phone,
+        zip: leadData.zip,
+      }));
+      setStep((s) => s + 1);
     } else if (isExpectationStep) {
       setStep((s) => s + 1);
     }
@@ -241,15 +377,12 @@ export default function ConsultationModal({ open, onClose }: Props) {
     setStep(0);
     setAnswers({});
     setSelected(null);
+    setGoalsText("");
+    setLeadData({ firstName: "", email: "", phone: "", zip: "" });
     onClose();
   };
 
-  const isGoalsStep = isQuestionStep && questions[step].id === "goals";
-  const isNextDisabled = isQuestionStep
-    ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
-    : false;
-
-  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}`;
+  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}&name=${encodeURIComponent(answers["firstName"] || "")}&email=${encodeURIComponent(answers["email"] || "")}`;
 
   return (
     <div
@@ -367,11 +500,30 @@ export default function ConsultationModal({ open, onClose }: Props) {
             </div>
           )}
 
+          {/* Lead capture form step */}
+          {isLeadStep && (
+            <div className="px-6 pt-8 pb-2">
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
+                ALMOST THERE
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                Where should we send your personalized plan?
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                Your advisor will review your answers and reach out before your call.
+              </p>
+              <LeadCaptureForm data={leadData} onChange={setLeadData} />
+            </div>
+          )}
+
           {/* Expectation screen */}
           {isExpectationStep && (
             <div className="px-6 pt-8 pb-2">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
-                ALMOST THERE
+                YOU'RE ALL SET
               </p>
               <h2
                 className="text-2xl font-bold text-gray-900 mb-2 pr-10 leading-snug"
