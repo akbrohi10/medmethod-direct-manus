@@ -162,7 +162,7 @@ export default function Hero() {
                       backgroundClip: "text",
                     }}
                   >
-                    {count1.toLocaleString()}+
+                    10K+
                   </div>
                   <div
                     className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
