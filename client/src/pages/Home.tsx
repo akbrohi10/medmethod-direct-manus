@@ -29,9 +29,9 @@ export default function Home() {
       <DiagnosticSetup />
       <PopularPrograms />
       <Services />
+      <Testimonials />
       <ToolsForSuccess />
       <WhyChoose />
-      <Testimonials />
       <MedicalTeam />
       <FAQ />
       <Blog />
