@@ -64,8 +64,8 @@ const services = [
   {
     title: "Eyelash Serum",
     description: "Clinically formulated lash growth serums for longer, fuller, darker lashes — physician-prescribed and delivered to your door…",
-    image: "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=800&q=80&fit=crop",
-    alt: "Close-up of woman's eye with long healthy lashes",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/eyelash-serum-9PtRPdxFFSw83CquvUTUpN.webp",
+    alt: "Close-up of woman's eye with long healthy lashes applying serum with a brush",
     href: "#consultation",
   },
   {
