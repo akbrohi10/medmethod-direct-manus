@@ -129,33 +129,25 @@ export default function Services() {
                   alt={service.alt}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
-                {/* Ribbon — bottom-left diagonal */}
+                {/* Discount badge — bottom-left, flat and readable */}
                 {(service as any).ribbon && (
                   <div
-                    className="absolute bottom-0 left-0 overflow-hidden"
-                    style={{ width: 120, height: 120, pointerEvents: "none" }}
+                    className="absolute bottom-2 left-2"
+                    style={{
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      color: "#fff",
+                      fontSize: "0.65rem",
+                      fontWeight: 900,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      padding: "5px 10px",
+                      borderRadius: 6,
+                      fontFamily: "Montserrat, sans-serif",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
+                      whiteSpace: "nowrap",
+                    }}
                   >
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 22,
-                        left: -32,
-                        width: 140,
-                        background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                        color: "#fff",
-                        fontSize: "0.55rem",
-                        fontWeight: 900,
-                        letterSpacing: "0.06em",
-                        textAlign: "center",
-                        padding: "5px 0",
-                        transform: "rotate(45deg)",
-                        transformOrigin: "center",
-                        fontFamily: "Montserrat, sans-serif",
-                        boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
-                      }}
-                    >
-                      {(service as any).ribbon}
-                    </div>
+                    {(service as any).ribbon}
                   </div>
                 )}
                 {/* Partner logo — top-right */}
@@ -172,7 +164,7 @@ export default function Services() {
                     <img
                       src={(service as any).partnerLogo}
                       alt="Send Me a Trainer"
-                      style={{ height: 28, width: "auto", display: "block" }}
+                      style={{ height: 16, width: "auto", display: "block" }}
                     />
                   </div>
                 )}
