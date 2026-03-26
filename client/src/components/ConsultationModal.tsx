@@ -50,9 +50,9 @@ const questions = [
   },
   {
     id: "age",
-    question: "What is your age range?",
-    subtitle: "Our protocols are tailored to your hormonal stage",
-    options: ["30 – 39", "40 – 49", "50 – 59", "60 or older"],
+    question: "How old are you?",
+    subtitle: "We use your age to tailor your hormonal protocol",
+    options: [], // number input — handled separately
   },
 ];
 
@@ -72,12 +72,18 @@ export default function ConsultationModal({ open, onClose }: Props) {
   const progressPct = Math.round(((step + 1) / (totalSteps + 1)) * 100);
 
   const isQuestionStep = step < questions.length;
+  const isAgeStep = isQuestionStep && questions[step].id === "age";
   const isExpectationStep = step === questions.length;
   const isCalendarStep = step === questions.length + 1;
 
   const handleNext = () => {
     if (isQuestionStep) {
       if (!selected) return;
+      // validate age is a number between 18 and 110
+      if (questions[step].id === "age") {
+        const age = parseInt(selected, 10);
+        if (isNaN(age) || age < 18 || age > 110) return;
+      }
       setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
       setSelected(null);
       setStep((s) => s + 1);
@@ -152,6 +158,26 @@ export default function ConsultationModal({ open, onClose }: Props) {
               </h2>
               <p className="text-sm text-gray-400 mb-5">{questions[step].subtitle}</p>
 
+              {isAgeStep ? (
+                <div className="mt-4">
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min={18}
+                      max={110}
+                      placeholder="Enter your age"
+                      value={selected || ""}
+                      onChange={(e) => setSelected(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleNext()}
+                      autoFocus
+                      className="w-full text-3xl font-bold text-gray-900 border-b-2 border-gray-200 focus:border-pink-500 outline-none py-3 bg-transparent transition-colors"
+                      style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+                    />
+                    <span className="absolute right-0 bottom-3 text-sm text-gray-400">years old</span>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-3">Must be 18 or older to enroll</p>
+                </div>
+              ) : (
               <div className="divide-y divide-gray-100">
                 {questions[step].options.map((option) => {
                   const isSelected = selected === option;
@@ -184,6 +210,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                   );
                 })}
               </div>
+              )}
             </div>
           )}
 
@@ -256,12 +283,12 @@ export default function ConsultationModal({ open, onClose }: Props) {
           <div className="flex-shrink-0 px-6 pb-8 pt-3 bg-white border-t border-gray-50">
             <button
               onClick={handleNext}
-              disabled={isQuestionStep && !selected}
+              disabled={isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: isQuestionStep && !selected ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: isQuestionStep && !selected ? "not-allowed" : "pointer",
-                boxShadow: isQuestionStep && !selected ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? "not-allowed" : "pointer",
+                boxShadow: (isQuestionStep && (!selected || (isAgeStep && (parseInt(selected || "0", 10) < 18 || parseInt(selected || "0", 10) > 110)))) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
               {isExpectationStep ? "Choose a Time →" : "Next"}
