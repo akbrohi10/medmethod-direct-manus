@@ -74,17 +74,6 @@ export default function Hero() {
 
             {/* LEFT: Text + CTAs + Stats */}
             <div>
-              {/* Label */}
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
-                <span
-                  className="text-xs font-bold tracking-[0.2em] uppercase"
-                  style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
-                >
-                  For Women 40 &amp; Beyond
-                </span>
-              </div>
-
               {/* Headline */}
               <h1
                 className="font-black leading-[1.05] mb-8"
