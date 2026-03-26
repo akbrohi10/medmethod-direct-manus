@@ -35,9 +35,7 @@ export default function PopularPrograms() {
           >
             POPULAR PROGRAMS
           </h2>
-          <p className="text-gray-500 font-medium text-sm tracking-wide">
-            Virtual Menopause · Medical Weight Loss · Longevity — Physician-Led. Advisor-Supported. Results-Driven.
-          </p>
+
         </div>
 
         {/* Monthly / Annual Toggle */}
@@ -407,27 +405,8 @@ export default function PopularPrograms() {
 
         </div>
 
-        {/* Footer trust pills */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <div className="flex flex-wrap justify-center gap-6 mb-3">
-            {[
-              "6 or 12-Month Commitment Programs",
-              "$449 One-Time Onboarding Fee",
-              "Licensed Physicians — All 50 States",
-              "HIPAA Compliant & Secure",
-            ].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-xs font-semibold text-gray-500">
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}
-                />
-                {item}
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-xs text-gray-300 font-medium">
-            Medications compounded by licensed 503B pharmacies. Individual results may vary.
-          </p>
+        {/* Disclaimer */}
+        <div className="mt-8 pt-4">
         </div>
 
       </div>

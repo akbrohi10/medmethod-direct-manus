@@ -23,6 +23,7 @@ const tickerItems = [
 export default function Hero() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
   const statsRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -34,6 +35,7 @@ export default function Hero() {
           animated.current = true;
           animateCount(setCount1, 0, 10000, 1500);
           animateCount(setCount2, 0, 98, 1200);
+          animateCount(setCount3, 0, 15, 1400);
         }
       },
       { threshold: 0.3 }
@@ -113,7 +115,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 mb-3">
                 <a
                   href="#consultation"
-                  className="btn-gradient btn-gradient-pulse px-6 py-3 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   SCHEDULE FREE CONSULTATION
@@ -127,11 +129,12 @@ export default function Hero() {
                 className="flex items-center gap-2 font-semibold mb-8"
                 style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}
               >
-                <span
-                  className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
-                />
-                100% Virtual Care — No office visits, ever.
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="8" fill="url(#vcGrad)"/>
+                  <path d="M4.5 8.5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <defs><linearGradient id="vcGrad" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#E8339E"/><stop offset="1" stopColor="#7A1E7E"/></linearGradient></defs>
+                </svg>
+                100% Virtual Care
               </p>
 
               {/* Stats */}
@@ -197,6 +200,27 @@ export default function Hero() {
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
                     Patient Rating
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "2.2rem",
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count3}%+
+                  </div>
+                  <div
+                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Avg. Weight Loss
                   </div>
                 </div>
               </div>

@@ -61,6 +61,34 @@ const services = [
     alt: "Doctor conducting a warm virtual consultation on laptop",
     href: "#consultation",
   },
+  {
+    title: "Eyelash Serum",
+    description: "Clinically formulated lash growth serums for longer, fuller, darker lashes — physician-prescribed and delivered to your door…",
+    image: "https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=800&q=80&fit=crop",
+    alt: "Woman with long beautiful eyelashes close-up",
+    href: "#consultation",
+  },
+  {
+    title: "Skincare",
+    description: "Medical-grade skincare protocols targeting fine lines, hyperpigmentation, and texture — smooth, firm, and radiant at any age…",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop",
+    alt: "Woman with glowing healthy skin applying skincare",
+    href: "#consultation",
+  },
+  {
+    title: "Vitamins & Supplements",
+    description: "Physician-curated supplement protocols designed for women in midlife — targeted nutrition to fill the gaps your diet misses…",
+    image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80&fit=crop",
+    alt: "Premium vitamins and supplements arranged neatly",
+    href: "#consultation",
+  },
+  {
+    title: "Personal Training",
+    description: "In-home & virtual personal training programs built for women 40+ — strength, mobility, and metabolic health on your schedule…",
+    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop",
+    alt: "Woman doing strength training with a personal trainer",
+    href: "#consultation",
+  },
 ];
 
 export default function Services() {
