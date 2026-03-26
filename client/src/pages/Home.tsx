@@ -8,7 +8,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
-import StatsAndDifference from "@/components/StatsAndDifference";
 import HowItWorks from "@/components/HowItWorks";
 import ToolsForSuccess from "@/components/ToolsForSuccess";
 import WhyChoose from "@/components/WhyChoose";
@@ -32,7 +31,6 @@ export default function Home() {
       <PopularPrograms />
       <Services />
       <ToolsForSuccess />
-      <StatsAndDifference />
       <WhyChoose />
       <Testimonials />
       <Treatments />
