@@ -5,6 +5,7 @@
    ============================================================================= */
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
+import MetabolicQuiz from "./MetabolicQuiz";
 
 // Replace with actual YouTube video ID when available
 const YOUTUBE_VIDEO_ID = "dQw4w9WgXcQ";
@@ -27,6 +28,7 @@ export default function Hero() {
   const statsRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -121,7 +123,13 @@ export default function Hero() {
                   SCHEDULE FREE CONSULTATION
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
-
+                <button
+                  onClick={() => setQuizOpen(true)}
+                  className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
+                  style={{ fontFamily: "Montserrat, sans-serif", borderColor: "#E8339E", color: "#E8339E" }}
+                >
+                  TAKE THE FREE QUIZ →
+                </button>
               </div>
 
               {/* 100% Virtual Care tagline */}
@@ -313,6 +321,9 @@ export default function Hero() {
           background: "linear-gradient(90deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
         }}
       />
+
+      {/* Metabolic Quiz Modal */}
+      <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
     </section>
   );
 }

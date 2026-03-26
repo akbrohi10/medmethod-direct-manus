@@ -6,6 +6,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { ChevronDown, FlaskConical, UserRound, Scale, Smartphone, Check } from "lucide-react";
+import MetabolicQuiz from "./MetabolicQuiz";
 
 const items = [
   {
@@ -36,6 +37,7 @@ const items = [
 
 export default function DiagnosticSetup() {
   const [open, setOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   return (
     <section
@@ -223,11 +225,19 @@ export default function DiagnosticSetup() {
               >
                 *MEDICATION PRESCRIBED SEPARATELY AFTER BLOODWORK REVIEW.
               </p>
+              <button
+                onClick={() => setQuizOpen(true)}
+                className="mt-3 w-full text-center text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-70"
+                style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
+              >
+                Not sure if you qualify? Take the 2-min Metabolic Quiz →
+              </button>
             </div>
           </div>
         </div>
 
       </div>
+      <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
     </section>
   );
 }

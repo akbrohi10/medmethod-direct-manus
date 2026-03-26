@@ -4,6 +4,8 @@
    Light background, dark text, pink accent
    ============================================================================= */
 import { AlertTriangle, TrendingDown, Pill, FlaskConical, UserCheck, CalendarCheck, Smartphone, Stethoscope, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import MetabolicQuiz from "./MetabolicQuiz";
 
 const failureReasons = [
   {
@@ -61,6 +63,7 @@ const medmethodWay = [
 ];
 
 export default function WhyChoose() {
+  const [quizOpen, setQuizOpen] = useState(false);
   return (
     <section className="bg-white py-16 lg:py-24">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
@@ -100,6 +103,13 @@ export default function WhyChoose() {
             >
               It's not a lack of willpower. It's a lack of the right system. Here are the three patterns that keep women stuck — and why the standard options don't solve them.
             </p>
+            <button
+              onClick={() => setQuizOpen(true)}
+              className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wider border-2 transition-all hover:bg-gray-50"
+              style={{ fontFamily: "Montserrat, sans-serif", borderColor: "#E8339E", color: "#E8339E" }}
+            >
+              CHECK YOUR METABOLIC SCORE →
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -274,6 +284,7 @@ export default function WhyChoose() {
         </div>
 
       </div>
+      <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
     </section>
   );
 }
