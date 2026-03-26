@@ -12,7 +12,6 @@ import HowItWorks from "@/components/HowItWorks";
 import ToolsForSuccess from "@/components/ToolsForSuccess";
 import WhyChoose from "@/components/WhyChoose";
 import Testimonials from "@/components/Testimonials";
-import Treatments from "@/components/Treatments";
 import MedicalTeam from "@/components/MedicalTeam";
 import FAQ from "@/components/FAQ";
 import Blog from "@/components/Blog";
@@ -33,7 +32,6 @@ export default function Home() {
       <ToolsForSuccess />
       <WhyChoose />
       <Testimonials />
-      <Treatments />
       <MedicalTeam />
       <FAQ />
       <Blog />
