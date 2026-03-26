@@ -56,8 +56,10 @@ const questions = [
   },
 ];
 
-const TEAL = "#0ea5e9";
-const TEAL_DISABLED = "#bae6fd";
+const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
+const BRAND_PINK = "#E8339E";
+const BRAND_PLUM = "#7A1E7E";
+const BRAND_DISABLED = "#f0abcf";
 
 export default function ConsultationModal({ open, onClose }: Props) {
   const [step, setStep] = useState(0); // 0-3 = questions, 4 = expectation, 5 = calendar
@@ -124,7 +126,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
           <div className="h-1 w-full bg-gray-100 flex-shrink-0">
             <div
               className="h-full transition-all duration-500"
-              style={{ width: `${progressPct}%`, background: TEAL }}
+              style={{ width: `${progressPct}%`, background: BRAND_GRADIENT }}
             />
           </div>
         )}
@@ -163,8 +165,8 @@ export default function ConsultationModal({ open, onClose }: Props) {
                       <span
                         className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
                         style={{
-                          borderColor: isSelected ? TEAL : "#d1d5db",
-                          backgroundColor: isSelected ? TEAL : "transparent",
+                    borderColor: isSelected ? BRAND_PINK : "#d1d5db",
+                        backgroundColor: isSelected ? BRAND_PINK : "transparent",
                         }}
                       >
                         {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-white" />}
@@ -172,7 +174,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                       <span
                         className="text-base transition-all"
                         style={{
-                          color: isSelected ? "#0c4a6e" : "#374151",
+                          color: isSelected ? BRAND_PLUM : "#374151",
                           fontWeight: isSelected ? 600 : 400,
                         }}
                       >
@@ -188,7 +190,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
           {/* Expectation screen */}
           {isExpectationStep && (
             <div className="px-6 pt-8 pb-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 ALMOST THERE
               </p>
               <h2
@@ -223,7 +225,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
           {/* Calendar embed */}
           {isCalendarStep && (
             <div className="px-6 pt-8 pb-4">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 BOOK YOUR SPOT
               </p>
               <h2
@@ -257,9 +259,9 @@ export default function ConsultationModal({ open, onClose }: Props) {
               disabled={isQuestionStep && !selected}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: isQuestionStep && !selected ? TEAL_DISABLED : TEAL,
+                background: isQuestionStep && !selected ? BRAND_DISABLED : BRAND_GRADIENT,
                 cursor: isQuestionStep && !selected ? "not-allowed" : "pointer",
-                boxShadow: isQuestionStep && !selected ? "none" : `0 4px 20px rgba(14,165,233,0.35)`,
+                boxShadow: isQuestionStep && !selected ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
               {isExpectationStep ? "Choose a Time →" : "Next"}
