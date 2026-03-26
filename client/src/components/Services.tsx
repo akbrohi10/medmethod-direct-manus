@@ -71,8 +71,8 @@ const services = [
   {
     title: "Skincare",
     description: "Medical-grade skincare protocols targeting fine lines, hyperpigmentation, and texture — smooth, firm, and radiant at any age…",
-    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop",
-    alt: "Woman with glowing healthy skin applying skincare",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/7BkSbbvZQW7t_2977f444.jpg",
+    alt: "Woman with radiant glowing skin touching her face",
     href: "#consultation",
   },
   {
