@@ -88,6 +88,8 @@ const services = [
     image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop",
     alt: "Woman doing strength training with a personal trainer",
     href: "#consultation",
+    partnerLogo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/IMG_2867_6f620489.png",
+    ribbon: "40% OFF FOR PATIENTS",
   },
 ];
 
@@ -121,12 +123,59 @@ export default function Services() {
           {services.map((service, i) => (
             <div key={i} className="flex flex-col">
               {/* Photo */}
-              <div className="rounded-xl overflow-hidden mb-4" style={{ aspectRatio: "4/3" }}>
+              <div className="rounded-xl overflow-hidden mb-4 relative" style={{ aspectRatio: "4/3" }}>
                 <img
                   src={service.image}
                   alt={service.alt}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
+                {/* Ribbon — bottom-left diagonal */}
+                {(service as any).ribbon && (
+                  <div
+                    className="absolute bottom-0 left-0 overflow-hidden"
+                    style={{ width: 120, height: 120, pointerEvents: "none" }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: 22,
+                        left: -32,
+                        width: 140,
+                        background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                        color: "#fff",
+                        fontSize: "0.55rem",
+                        fontWeight: 900,
+                        letterSpacing: "0.06em",
+                        textAlign: "center",
+                        padding: "5px 0",
+                        transform: "rotate(45deg)",
+                        transformOrigin: "center",
+                        fontFamily: "Montserrat, sans-serif",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                      }}
+                    >
+                      {(service as any).ribbon}
+                    </div>
+                  </div>
+                )}
+                {/* Partner logo — top-right */}
+                {(service as any).partnerLogo && (
+                  <div
+                    className="absolute top-2 right-2"
+                    style={{
+                      background: "rgba(255,255,255,0.92)",
+                      borderRadius: 8,
+                      padding: "4px 8px",
+                      backdropFilter: "blur(4px)",
+                    }}
+                  >
+                    <img
+                      src={(service as any).partnerLogo}
+                      alt="Send Me a Trainer"
+                      style={{ height: 28, width: "auto", display: "block" }}
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Title */}
