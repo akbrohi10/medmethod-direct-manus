@@ -105,10 +105,21 @@ export default function Hero() {
                   backgroundClip: "text",
                 }}
               >
-                MENOPAUSE
+                WEIGHT LOSS
               </span>
               <br />
-              OR WEIGHT LOSS?
+              OR{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                MENOPAUSE
+              </span>
+              ?
               </h1>
 
               {/* CTAs */}
