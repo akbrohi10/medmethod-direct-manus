@@ -214,8 +214,8 @@ export default function DiagnosticSetup() {
                 <span style={{ fontSize: "0.9em", lineHeight: 1 }}>→</span>
               </a>
               <p
-                className="text-gray-600 text-center mt-2"
-                style={{ fontSize: "0.55rem", letterSpacing: "0.04em" }}
+                className="text-gray-400 text-center mt-2"
+                style={{ fontSize: "0.6rem", letterSpacing: "0.04em" }}
               >
                 *MEDICATION PRESCRIBED SEPARATELY AFTER BLOODWORK REVIEW.
               </p>
