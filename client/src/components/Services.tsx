@@ -64,8 +64,8 @@ const services = [
   {
     title: "Eyelash Serum",
     description: "Clinically formulated lash growth serums for longer, fuller, darker lashes — physician-prescribed and delivered to your door…",
-    image: "https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=800&q=80&fit=crop",
-    alt: "Woman with long beautiful eyelashes close-up",
+    image: "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=800&q=80&fit=crop",
+    alt: "Close-up of woman's eye with long healthy lashes",
     href: "#consultation",
   },
   {
@@ -78,8 +78,8 @@ const services = [
   {
     title: "Vitamins & Supplements",
     description: "Physician-curated supplement protocols designed for women in midlife — targeted nutrition to fill the gaps your diet misses…",
-    image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80&fit=crop",
-    alt: "Premium vitamins and supplements arranged neatly",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/E8mYAzZmrZ2u_600a3a6b.jpg",
+    alt: "Premium supplement bottles arranged neatly",
     href: "#consultation",
   },
   {

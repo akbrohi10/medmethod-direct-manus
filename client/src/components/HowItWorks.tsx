@@ -89,24 +89,19 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps — horizontal scroll on mobile, 5-col on desktop */}
-        <div
-          className="flex gap-0 overflow-x-auto pb-4"
-          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
-        >
+        {/* Steps — 5-col grid on desktop, 2-col on tablet, 1-col on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {steps.map((item, i) => {
             const Icon = item.icon;
             const isLast = i === steps.length - 1;
             return (
               <div
                 key={i}
-                className="flex items-stretch flex-shrink-0"
-                style={{ scrollSnapAlign: "start" }}
+                className="flex items-stretch"
               >
                 {/* Card */}
                 <div
-                  className="flex flex-col rounded-2xl p-5 bg-[#F6F7FB] border border-gray-100 hover:shadow-md transition-shadow duration-200"
-                  style={{ width: "clamp(200px, 18vw, 260px)", minHeight: 0 }}
+                  className="flex flex-col rounded-2xl p-4 bg-[#F6F7FB] border border-gray-100 hover:shadow-md transition-shadow duration-200 w-full"
                 >
                   {/* Icon box */}
                   <div
@@ -157,13 +152,9 @@ export default function HowItWorks() {
                   )}
                 </div>
 
-                {/* Arrow connector — hidden after last card */}
+                {/* Arrow connector — only on large screens between cards */}
                 {!isLast && (
-                  <div className="flex items-center justify-center flex-shrink-0 px-2" style={{ width: 36 }}>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4 9h10M10 5l4 4-4 4" stroke="#CCCCDA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
+                  <div className="hidden lg:flex items-center justify-center flex-shrink-0" style={{ width: 0 }} />  
                 )}
               </div>
             );
