@@ -155,16 +155,16 @@ export default function Services() {
                   <div
                     className="absolute top-2 right-2"
                     style={{
-                      background: "rgba(255,255,255,0.92)",
-                      borderRadius: 8,
+                      background: "#ffffff",
+                      borderRadius: 6,
                       padding: "4px 8px",
-                      backdropFilter: "blur(4px)",
+                      boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
                     }}
                   >
                     <img
                       src={(service as any).partnerLogo}
                       alt="Send Me a Trainer"
-                      style={{ height: 16, width: "auto", display: "block" }}
+                      style={{ height: 20, width: "auto", display: "block", imageRendering: "crisp-edges" }}
                     />
                   </div>
                 )}
