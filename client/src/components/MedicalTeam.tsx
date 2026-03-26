@@ -45,7 +45,7 @@ const team = [
 
 export default function MedicalTeam() {
   return (
-    <section id="about" className="bg-[#111111] py-16 lg:py-24">
+    <section id="about" className="bg-[#F8F7F5] py-16 lg:py-24">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 gap-4">
@@ -57,7 +57,7 @@ export default function MedicalTeam() {
               Our Experts
             </span>
             <h2
-              className="font-black text-white leading-tight"
+              className="font-black text-[#111111] leading-tight"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
@@ -136,7 +136,7 @@ export default function MedicalTeam() {
 
         {/* Bottom text */}
         <p
-          className="text-center text-white/40 mt-8 text-sm"
+          className="text-center text-gray-400 mt-8 text-sm"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
           Every MedMethod Direct patient works with the same doctor and Wellness Advisor throughout their entire journey. No rotating providers. No starting over. Just consistent, expert care built for women over 40.

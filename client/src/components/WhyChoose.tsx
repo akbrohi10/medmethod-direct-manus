@@ -17,7 +17,7 @@ const comparisons = [
 
 export default function WhyChoose() {
   return (
-    <section className="bg-[#111111] py-16 lg:py-24">
+    <section className="bg-white py-16 lg:py-24">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Headline */}
@@ -29,7 +29,7 @@ export default function WhyChoose() {
               The Advantage
             </span>
             <h2
-              className="font-black text-white leading-tight mb-6"
+              className="font-black text-[#111111] leading-tight mb-6"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
@@ -52,7 +52,7 @@ export default function WhyChoose() {
               </span>
             </h2>
             <p
-              className="text-white/60 leading-relaxed mb-8"
+              className="text-gray-500 leading-relaxed mb-8"
               style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem" }}
             >
               You deserve more than a box shipped to your door. We provide a doctor-led path with comprehensive labs, bi-weekly check-ins, and a dedicated Wellness Advisor — built specifically for women over 40.
@@ -80,7 +80,7 @@ export default function WhyChoose() {
                   ))}
                 </div>
                 <div
-                  className="text-white/60 text-sm"
+                  className="text-gray-400 text-sm"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   Based on 1,000+ verified patient reviews
@@ -104,7 +104,7 @@ export default function WhyChoose() {
               </div>
               <div className="text-center">
                 <span
-                  className="text-xs font-bold tracking-wider uppercase text-white/30"
+                  className="text-xs font-bold tracking-wider uppercase text-gray-400"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   Other Clinics
@@ -112,16 +112,16 @@ export default function WhyChoose() {
               </div>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-white/10">
+            <div className="rounded-2xl overflow-hidden border border-gray-200">
               {comparisons.map((row, i) => (
                 <div
                   key={i}
                   className={`grid grid-cols-3 items-center px-4 py-3.5 ${
-                    i % 2 === 0 ? "bg-white/5" : "bg-transparent"
+                    i % 2 === 0 ? "bg-gray-50" : "bg-white"
                   }`}
                 >
                   <div
-                    className="col-span-1 text-white/80 text-sm pr-4"
+                    className="col-span-1 text-gray-700 text-sm pr-4"
                     style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 }}
                   >
                     {row.feature}
@@ -135,8 +135,8 @@ export default function WhyChoose() {
                     </div>
                   </div>
                   <div className="flex justify-center">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-white/5 border border-white/10">
-                      <X className="w-4 h-4 text-white/30" />
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
+                      <X className="w-4 h-4 text-gray-300" />
                     </div>
                   </div>
                 </div>
