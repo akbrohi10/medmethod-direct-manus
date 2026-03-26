@@ -1,35 +1,41 @@
 /* =============================================================================
    MaleHero.tsx — Men's Health Hero
-   Brand: Dark Navy #0A0F1E, Teal #00C2CB, "ENTER YOUR PRIME."
+   Mirrors women's Hero.tsx exactly — same layout, same structure, same stat positions
+   Colors: white background → dark navy bg, pink gradient → teal gradient
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Play } from "lucide-react";
+import MaleMetabolicQuiz from "./MaleMetabolicQuiz";
 
+const YOUTUBE_VIDEO_ID = "dQw4w9WgXcQ";
+
+const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 50%, #007A85 100%)";
 const TEAL = "#00C2CB";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
 
 const tickerItems = [
   "TESTOSTERONE REPLACEMENT THERAPY",
   "MEDICALLY SUPERVISED WEIGHT LOSS",
   "PEPTIDE THERAPY",
-  "SEXUAL HEALTH",
+  "SEXUAL HEALTH & ED",
   "HAIR RESTORATION",
-  "LONGEVITY MEDICINE",
-  "100% VIRTUAL CARE",
+  "BI-WEEKLY PHYSICIAN CHECK-INS",
+  "DEDICATED WELLNESS ADVISOR",
+  "COMPREHENSIVE HORMONE DIAGNOSTICS",
 ];
 
 export default function MaleHero({ onConsultClick }: { onConsultClick: () => void }) {
-  const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
   const [count3, setCount3] = useState(0);
   const statsRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !animated.current) {
           animated.current = true;
-          animateCount(setCount1, 0, 8000, 1500);
           animateCount(setCount2, 0, 97, 1200);
           animateCount(setCount3, 0, 22, 1400);
         }
@@ -54,136 +60,252 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
   const tickerContent = [...tickerItems, ...tickerItems];
 
   return (
-    <section
-      className="relative flex flex-col overflow-hidden"
-      style={{ paddingTop: "72px", background: "#0A0F1E", minHeight: "100vh" }}
-    >
-      {/* Background glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 70% 60% at 65% 40%, rgba(0,194,203,0.08) 0%, rgba(0,153,168,0.04) 40%, transparent 70%)" }} />
-
-      {/* Grid lines overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
-        style={{ backgroundImage: "linear-gradient(rgba(0,194,203,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,194,203,1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+    <section className="relative flex flex-col overflow-hidden" style={{ paddingTop: "80px", background: "#0A0F1E" }}>
+      {/* Subtle background texture — mirrors women's radial glow */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,194,203,0.07) 0%, rgba(0,153,168,0.04) 40%, transparent 70%)",
+        }}
+      />
 
       {/* Main Content */}
-      <div className="relative z-10 flex-1 flex items-center py-12 lg:py-16">
+      <div className="relative z-10 flex-1 flex items-center py-8 lg:py-12">
         <div className="max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* LEFT */}
-            <div>
-              {/* Eyebrow */}
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-px w-8" style={{ background: TEAL }} />
-                <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL, fontFamily: "Montserrat, sans-serif" }}>
-                  Men's Health · Virtual Care
-                </span>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
-              {/* Headline */}
+            {/* LEFT: Text + CTAs + Stats */}
+            <div>
+              {/* Headline — mirrors women's exactly */}
               <h1
-                className="font-black leading-none mb-6"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(2.4rem, 5.5vw, 4.2rem)", letterSpacing: "-0.03em" }}
+                className="font-black leading-[1.05] mb-8"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "clamp(2rem, 3.6vw, 3.5rem)",
+                  letterSpacing: "-0.02em",
+                  color: "#ffffff",
+                }}
               >
-                <span className="text-white">LOW T.</span>
+                STRUGGLING WITH
                 <br />
-                <span style={{ background: TEAL_GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  LOW ENERGY.
+                <span
+                  style={{
+                    background: TEAL_GRADIENT,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  WEIGHT LOSS
                 </span>
                 <br />
-                <span className="text-white">NOT ANYMORE.</span>
+                OR{" "}
+                <span
+                  style={{
+                    background: TEAL_GRADIENT,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  LOW TESTOSTERONE
+                </span>
+                ?
               </h1>
 
-              <p className="mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.55)", fontSize: "1.05rem", fontFamily: "Montserrat, sans-serif", maxWidth: 480 }}>
-                Board-certified physicians. Real lab work. Personalized TRT and weight loss protocols — all from your phone, no waiting rooms.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                <button
+              {/* CTAs — mirrors women's button layout */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-3">
+                <a
                   onClick={onConsultClick}
-                  className="flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm tracking-wider text-white transition-all"
-                  style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 28px rgba(0,194,203,0.4)" }}
+                  className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group cursor-pointer text-white"
+                  style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,194,203,0.4)" }}
                 >
-                  SCHEDULE FREE CONSULTATION →
-                </button>
-                <a href="#quiz"
-                  className="flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm tracking-wider transition-all"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: TEAL, border: `2px solid rgba(0,194,203,0.4)`, background: "transparent" }}
+                  SCHEDULE FREE CONSULTATION
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <button
+                  onClick={() => setQuizOpen(true)}
+                  className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif", borderColor: TEAL, color: TEAL, background: "transparent" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,194,203,0.08)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   CHECK YOUR T-LEVELS →
-                </a>
+                </button>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "rgba(0,194,203,0.2)" }}>
-                  <div className="w-2 h-2 rounded-full" style={{ background: TEAL }} />
+              {/* 100% Virtual Care tagline — mirrors women's */}
+              <p
+                className="flex items-center gap-2 font-semibold mb-8"
+                style={{ fontFamily: "Montserrat, sans-serif", color: TEAL, fontSize: "1rem" }}
+              >
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="8" fill="url(#vcGradM)"/>
+                  <path d="M4.5 8.5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <defs><linearGradient id="vcGradM" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#00C2CB"/><stop offset="1" stopColor="#007A85"/></linearGradient></defs>
+                </svg>
+                100% Virtual Care
+              </p>
+
+              {/* Stats — same position and layout as women's */}
+              <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "1.7rem",
+                      background: TEAL_GRADIENT,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    8K+
+                  </div>
+                  <div className="text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.45)" }}>
+                    Men Treated
+                  </div>
                 </div>
-                <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Montserrat, sans-serif" }}>
-                  100% Virtual Care — Available Nationwide
-                </span>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "1.7rem",
+                      background: TEAL_GRADIENT,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count2}%
+                  </div>
+                  <div className="text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.45)" }}>
+                    Satisfaction Rate
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "1.7rem",
+                      background: TEAL_GRADIENT,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    4.9★
+                  </div>
+                  <div className="text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.45)" }}>
+                    Patient Rating
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="font-black leading-none"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "1.7rem",
+                      background: TEAL_GRADIENT,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {count3}%+
+                  </div>
+                  <div className="text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.45)" }}>
+                    Avg. T Increase
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* RIGHT: Video embed */}
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden"
-                style={{ border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 40px rgba(0,194,203,0.1)" }}>
-                <div className="relative" style={{ paddingBottom: "56.25%" }}>
+            {/* RIGHT: YouTube Video — mirrors women's exactly */}
+            <div className="relative lg:-ml-6">
+              {/* Decorative glow behind video */}
+              <div
+                className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"
+                style={{ background: TEAL_GRADIENT }}
+              />
+
+              {/* Video Container */}
+              <div
+                className="relative rounded-2xl overflow-hidden shadow-2xl"
+                style={{ aspectRatio: "16/9" }}
+              >
+                {!videoPlaying ? (
+                  <div className="relative w-full h-full">
+                    <img
+                      src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+                      alt="Watch our story"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`;
+                      }}
+                    />
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/40" />
+
+                    {/* Play button */}
+                    <button
+                      onClick={() => setVideoPlaying(true)}
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-4 group"
+                      aria-label="Play video"
+                    >
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl transition-transform duration-300 group-hover:scale-110"
+                        style={{ background: TEAL_GRADIENT }}
+                      >
+                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      </div>
+                      <span
+                        className="text-white font-bold text-sm tracking-wider uppercase"
+                        style={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Watch Our Story
+                      </span>
+                    </button>
+                  </div>
+                ) : (
                   <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
                     title="MedMethod Direct Men — Enter Your Prime"
+                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                    style={{ border: "none" }}
                   />
-                </div>
-                <div className="px-5 py-3 flex items-center justify-between"
-                  style={{ background: "rgba(0,194,203,0.08)", borderTop: "1px solid rgba(0,194,203,0.15)" }}>
-                  <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Montserrat, sans-serif" }}>
-                    WATCH OUR STORY
-                  </span>
-                  <span className="text-xs font-bold" style={{ color: TEAL, fontFamily: "Montserrat, sans-serif" }}>▶ ENTER YOUR PRIME.</span>
-                </div>
+                )}
               </div>
+
+              {/* Video caption */}
+              <p
+                className="text-center text-xs mt-3 tracking-wide"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.35)" }}
+              >
+                Discover the MedMethod Direct difference
+              </p>
             </div>
-          </div>
 
-          {/* Stats Row */}
-          <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-10"
-            style={{ borderTop: "1px solid rgba(0,194,203,0.12)" }}>
-            {[
-              { value: `${count1.toLocaleString()}+`, label: "MEN TREATED" },
-              { value: `${count2}%`, label: "SATISFACTION RATE" },
-              { value: "4.9★", label: "PATIENT RATING" },
-              { value: `${count3}%+`, label: "AVG. TESTOSTERONE INCREASE" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center md:text-left">
-                <div className="font-black mb-1" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: TEAL, letterSpacing: "-0.02em" }}>
-                  {stat.value}
-                </div>
-                <div className="text-xs font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "Montserrat, sans-serif" }}>
-                  {stat.label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
 
-      {/* Ticker */}
-      <div className="relative z-10 overflow-hidden py-3" style={{ background: "rgba(0,194,203,0.08)", borderTop: "1px solid rgba(0,194,203,0.15)", borderBottom: "1px solid rgba(0,194,203,0.15)" }}>
-        <div className="flex gap-0 animate-[ticker_30s_linear_infinite]" style={{ width: "max-content" }}>
-          {tickerContent.map((item, i) => (
-            <span key={i} className="flex items-center gap-4 px-6 text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap"
-              style={{ color: "rgba(0,194,203,0.6)", fontFamily: "Montserrat, sans-serif" }}>
-              {item}
-              <span style={{ color: "rgba(0,194,203,0.3)" }}>◆</span>
-            </span>
-          ))}
-        </div>
-      </div>
+      {/* Gradient Divider — teal version of women's pink divider */}
+      <div
+        className="w-full"
+        style={{
+          height: "4px",
+          background: "linear-gradient(90deg, #00C2CB 0%, #0099A8 50%, #007A85 100%)",
+        }}
+      />
+
+      {/* Hormone Quiz Modal */}
+      <MaleMetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} onConsultClick={onConsultClick} />
     </section>
   );
 }

@@ -77,7 +77,8 @@ const tiers = [
   { min: 17, max: 21, label: "Critical", color: "#ef4444", icon: "🚨", headline: "Immediate Evaluation Recommended", body: "Your symptoms indicate a serious hormonal deficiency that is likely affecting every area of your life. Our physicians have helped thousands of men in your exact situation reclaim their health and vitality.", cta: "SCHEDULE YOUR FREE CONSULTATION" },
 ];
 
-export default function MaleMetabolicQuiz({ onConsultClick }: { onConsultClick: () => void }) {
+export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { onConsultClick: () => void; open?: boolean; onClose?: () => void }) {
+  if (open === false) return null;
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
