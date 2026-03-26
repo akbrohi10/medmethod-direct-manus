@@ -54,6 +54,12 @@ const questions = [
     subtitle: "We use your age to tailor your hormonal protocol",
     options: [],
   },
+  {
+    id: "goals",
+    question: "In your own words, what do you most want to change?",
+    subtitle: "There are no wrong answers — this helps your advisor prepare for your call",
+    options: [], // free-text textarea
+  },
 ];
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
@@ -166,6 +172,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
+  const [goalsText, setGoalsText] = useState("");
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -203,6 +210,13 @@ export default function ConsultationModal({ open, onClose }: Props) {
         setStep((s) => s + 1);
         return;
       }
+      if (isGoalsStep) {
+        if (goalsText.trim().length < 3) return;
+        setAnswers((prev) => ({ ...prev, goals: goalsText.trim() }));
+        setSelected(null);
+        setStep((s) => s + 1);
+        return;
+      }
       if (!selected) return;
       setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
       setSelected(null);
@@ -230,8 +244,9 @@ export default function ConsultationModal({ open, onClose }: Props) {
     onClose();
   };
 
+  const isGoalsStep = isQuestionStep && questions[step].id === "goals";
   const isNextDisabled = isQuestionStep
-    ? isAgeStep ? computedAge < 18 : !selected
+    ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
     : false;
 
   const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}`;
@@ -282,7 +297,27 @@ export default function ConsultationModal({ open, onClose }: Props) {
               </h2>
               <p className="text-sm text-gray-400 mb-5">{questions[step].subtitle}</p>
 
-              {isAgeStep ? (
+              {isGoalsStep ? (
+                <div className="mt-2">
+                  <textarea
+                    value={goalsText}
+                    onChange={(e) => setGoalsText(e.target.value)}
+                    placeholder="e.g. I've been struggling with my weight since my second pregnancy and nothing has worked long-term. I want to finally feel like myself again..."
+                    rows={6}
+                    className="w-full rounded-xl border border-gray-200 p-4 text-base text-gray-800 placeholder-gray-300 resize-none focus:outline-none focus:ring-2 transition-all"
+                    style={{
+                      fontFamily: "inherit",
+                      lineHeight: 1.6,
+                      boxShadow: "inset 0 1px 3px rgba(0,0,0,0.04)",
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = BRAND_PINK)}
+                    onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
+                  />
+                  <p className="text-xs text-gray-400 mt-2 text-right">
+                    {goalsText.trim().length < 3 ? "Please share a little about your goals" : `${goalsText.trim().length} characters`}
+                  </p>
+                </div>
+              ) : isAgeStep ? (
                 <div className="mt-2">
                   <div
                     className="flex rounded-xl overflow-hidden"
@@ -296,7 +331,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                     {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
                   </p>
                 </div>
-              ) : (
+              ) : !isGoalsStep ? (
                 <div className="divide-y divide-gray-100">
                   {questions[step].options.map((option) => {
                     const isSelected = selected === option;
@@ -328,7 +363,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                     );
                   })}
                 </div>
-              )}
+              ) : null}
             </div>
           )}
 
