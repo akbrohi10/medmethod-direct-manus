@@ -88,7 +88,7 @@ const services = [
     image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop",
     alt: "Woman doing strength training with a personal trainer",
     href: "#consultation",
-    partnerLogo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/IMG_2867_6f620489.png",
+    partnerLogo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/smat-logo-crisp_9d1fd1b1.png",
     ribbon: "40% OFF FOR PATIENTS",
   },
 ];
@@ -164,7 +164,7 @@ export default function Services() {
                     <img
                       src={(service as any).partnerLogo}
                       alt="Send Me a Trainer"
-                      style={{ height: 20, width: "auto", display: "block", imageRendering: "crisp-edges" }}
+                      style={{ height: 22, width: "auto", display: "block", maxWidth: 110 }}
                     />
                   </div>
                 )}
