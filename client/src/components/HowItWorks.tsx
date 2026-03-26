@@ -46,9 +46,9 @@ const steps = [
   {
     icon: RefreshCw,
     step: "5",
-    title: "Bi-Weekly Check-In & Optimization",
+    title: "Meet Your Wellness Advisor",
     description:
-      "Meet virtually every two weeks with your doctor and Wellness Advisor to track progress, adjust your protocol, and keep your results accelerating.",
+      "Your dedicated Wellness Advisor guides bi-weekly check-ins, tracks your progress, and fine-tunes your plan so your results keep accelerating.",
     badge: "ONGOING",
   },
 ];
@@ -105,12 +105,12 @@ export default function HowItWorks() {
               >
                 {/* Card */}
                 <div
-                  className="flex flex-col rounded-2xl p-6 bg-[#F6F7FB] border border-gray-100 hover:shadow-md transition-shadow duration-200"
-                  style={{ width: "clamp(220px, 20vw, 280px)", minHeight: 280 }}
+                  className="flex flex-col rounded-2xl p-5 bg-[#F6F7FB] border border-gray-100 hover:shadow-md transition-shadow duration-200"
+                  style={{ width: "clamp(200px, 18vw, 260px)", minHeight: 0 }}
                 >
                   {/* Icon box */}
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 flex-shrink-0"
                     style={{
                       background: "linear-gradient(135deg, rgba(232,51,158,0.10), rgba(122,30,126,0.10))",
                     }}
@@ -120,7 +120,7 @@ export default function HowItWorks() {
 
                   {/* Title */}
                   <h3
-                    className="font-black text-[#111] leading-snug mb-3"
+                    className="font-black text-[#111] leading-snug mb-2"
                     style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1rem" }}
                   >
                     {item.step}. {item.title}
@@ -137,7 +137,7 @@ export default function HowItWorks() {
                   {/* Badge */}
                   {item.badge && (
                     <span
-                      className="mt-4 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1.5 rounded-full"
+                      className="mt-3 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full"
                       style={
                         item.badge === "$449 ONE-TIME"
                           ? {
