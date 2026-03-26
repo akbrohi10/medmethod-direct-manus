@@ -2,21 +2,6 @@
 const TEAL = "#00C2CB";
 const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
 
-const beforeAfters = [
-  {
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-before-after-1-SgWQYABbcqn9ksEWZTTrDQ.webp",
-    name: "Derek W., 38",
-    result: "Lost 34 lbs · Testosterone +340 ng/dL",
-    timeframe: "4 months",
-  },
-  {
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-before-after-2-D2eBQ6nfyYxBcsdPv3pHwL.webp",
-    name: "Michael B., 48",
-    result: "Lost 22 lbs · Energy fully restored",
-    timeframe: "3 months",
-  },
-];
-
 const testimonials = [
   { name: "Marcus T.", age: 42, location: "Dallas, TX", result: "+340 ng/dL testosterone in 90 days", quote: "I was exhausted, gaining weight, and had zero drive. Three months into TRT and I feel like I'm 30 again. My wife noticed before I did.", rating: 5 },
   { name: "Derek W.", age: 38, location: "Phoenix, AZ", result: "Lost 34 lbs in 4 months", quote: "The combination of TRT and Semaglutide was a game changer. The fat just started coming off and I was actually building muscle at the same time.", rating: 5 },
@@ -47,31 +32,6 @@ export default function MaleTestimonials() {
         <p className="text-center" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>
           Over 8,000 men have optimized their health with MedMethod Direct.
         </p>
-      </div>
-
-      {/* Before / After Photos */}
-      <div className="max-w-6xl mx-auto px-4 mb-10">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-px w-10" style={{ background: "rgba(0,194,203,0.3)" }} />
-          <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>TRANSFORMATIONS</span>
-          <div className="h-px w-10" style={{ background: "rgba(0,194,203,0.3)" }} />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {beforeAfters.map((ba) => (
-            <div key={ba.name} className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(0,194,203,0.15)" }}>
-              <img src={ba.image} alt={`Before and after — ${ba.name}`} className="w-full object-cover" style={{ display: "block" }} />
-              <div className="p-4 flex items-center justify-between" style={{ background: "rgba(255,255,255,0.03)" }}>
-                <div>
-                  <p className="font-black text-white text-sm">{ba.name}</p>
-                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{ba.result}</p>
-                </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: "rgba(0,194,203,0.12)", color: TEAL }}>
-                  {ba.timeframe}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Scrollable row */}
