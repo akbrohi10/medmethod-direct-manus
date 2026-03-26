@@ -126,8 +126,15 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button + Men link */}
           <div className="hidden lg:flex items-center gap-3">
+            <a href="/male"
+              className="text-xs font-bold tracking-widest px-3 py-1.5 rounded-full transition-all"
+              style={{ color: "#00C2CB", border: "1px solid rgba(0,194,203,0.35)", fontFamily: "Montserrat, sans-serif" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,194,203,0.08)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
+              FOR MEN →
+            </a>
             <button
               onClick={onConsultClick}
               className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
@@ -163,6 +170,11 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 {link.label}
               </a>
             ))}
+            <a href="/male" onClick={() => setMobileOpen(false)}
+              className="py-3 font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
+              style={{ fontFamily: "Montserrat, sans-serif", color: "#00C2CB" }}>
+              For Men →
+            </a>
             <button
               onClick={() => { onConsultClick(); setMobileOpen(false); }}
               className="btn-gradient mt-3 py-3 rounded-full text-sm font-bold tracking-wider text-center"
