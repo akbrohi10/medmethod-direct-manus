@@ -27,10 +27,10 @@ export default function Home() {
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Navbar />
       <Hero />
+      <HowItWorks />
       <DiagnosticSetup />
       <PopularPrograms />
       <Services />
-      <HowItWorks />
       <ToolsForSuccess />
       <StatsAndDifference />
       <WhyChoose />
