@@ -12,8 +12,8 @@ const services = [
   {
     title: "GLP-1 Weight Loss",
     description: "Medically supervised Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-service-low-energy-GbYG3kybvbBjM9Tk2Tt2D4.webp",
-    alt: "Exhausted man at desk — low energy, low testosterone",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-service-fit-shirt-oM2mnVoPDL933mShNpPZvY.webp",
+    alt: "Fit confident man buttoning white dress shirt — restored vitality",
   },
   {
     title: "Longevity & Healthy Aging",
@@ -24,8 +24,8 @@ const services = [
   {
     title: "Sexual Health & ED",
     description: "Proven treatments for erectile dysfunction, libido restoration, and peak sexual performance.",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80&fit=crop",
-    alt: "Confident man smiling",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-service-ed-defeated-2ZKX3c65nKAhXDAoKobH69.webp",
+    alt: "Man lying in bed exhausted and defeated — low testosterone, ED",
   },
   {
     title: "Peptide Therapy",
