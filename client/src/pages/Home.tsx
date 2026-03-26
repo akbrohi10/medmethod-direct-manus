@@ -19,12 +19,14 @@ import FAQ from "@/components/FAQ";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PopularPrograms from "@/components/PopularPrograms";
 
 export default function Home() {
   return (
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Navbar />
       <Hero />
+      <PopularPrograms />
       <Services />
       <HowItWorks />
       <ToolsForSuccess />
