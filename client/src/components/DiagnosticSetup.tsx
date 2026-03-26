@@ -207,10 +207,11 @@ export default function DiagnosticSetup() {
               </div>
               <a
                 href="#consultation"
-                className="mt-6 flex items-center justify-center w-full py-3 rounded-full font-extrabold text-xs tracking-wider text-[#111] transition-opacity hover:opacity-90"
-                style={{ background: "#fff", letterSpacing: "0.05em" }}
+                className="mt-6 flex items-center justify-center gap-1.5 w-full py-3 rounded-full font-extrabold text-xs text-[#111] transition-opacity hover:opacity-90 text-center leading-none"
+                style={{ background: "#fff", letterSpacing: "0.08em" }}
               >
-                REGISTER &amp; ORDER BLOODWORK →
+                <span>REGISTER &amp; ORDER BLOODWORK</span>
+                <span style={{ fontSize: "0.9em", lineHeight: 1 }}>→</span>
               </a>
               <p
                 className="text-gray-600 text-center mt-2"
