@@ -1,11 +1,10 @@
-// ConsultationModal — MedMethod Direct
+// ConsultationModal.tsx
 // Design: Clean white mobile-style, large serif question title, thin divider radio rows,
-// full-width teal "Next" button pinned at bottom. Inspired by reference UI.
+// full-width brand-gradient "Next" button pinned at bottom.
 // Replace CALENDLY_URL with your actual Calendly link.
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { X } from "lucide-react";
-import Picker from "react-mobile-picker";
 
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
 
@@ -53,7 +52,7 @@ const questions = [
     id: "age",
     question: "What is your date of birth?",
     subtitle: "We use your age to tailor your hormonal protocol",
-    options: [], // scroll wheel — handled separately
+    options: [],
   },
 ];
 
@@ -61,40 +60,136 @@ const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
+const ITEM_H = 44;
 
+// ── Pure CSS scroll-snap column ──────────────────────────────────────────────
+function WheelColumn({
+  items,
+  selectedIndex,
+  onSelect,
+}: {
+  items: string[];
+  selectedIndex: number;
+  onSelect: (idx: number) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
+  const rafId = useRef<number | null>(null);
+
+  // Scroll to selected index on mount / external change
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || isScrolling.current) return;
+    el.scrollTop = selectedIndex * ITEM_H;
+  }, [selectedIndex]);
+
+  const handleScroll = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    isScrolling.current = true;
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      const idx = Math.round(el.scrollTop / ITEM_H);
+      const clamped = Math.max(0, Math.min(idx, items.length - 1));
+      onSelect(clamped);
+      isScrolling.current = false;
+    });
+  }, [items.length, onSelect]);
+
+  return (
+    <div className="relative flex-1 overflow-hidden" style={{ height: ITEM_H * 5 }}>
+      {/* top fade */}
+      <div
+        className="absolute inset-x-0 top-0 z-10 pointer-events-none"
+        style={{ height: ITEM_H * 2, background: "linear-gradient(to bottom, #fafafa 0%, transparent 100%)" }}
+      />
+      {/* bottom fade */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
+        style={{ height: ITEM_H * 2, background: "linear-gradient(to top, #fafafa 0%, transparent 100%)" }}
+      />
+      {/* highlight bar */}
+      <div
+        className="absolute inset-x-0 z-10 pointer-events-none"
+        style={{
+          top: ITEM_H * 2,
+          height: ITEM_H,
+          background: "linear-gradient(135deg, rgba(232,51,158,0.10) 0%, rgba(122,30,126,0.10) 100%)",
+          borderTop: "1.5px solid rgba(232,51,158,0.25)",
+          borderBottom: "1.5px solid rgba(232,51,158,0.25)",
+        }}
+      />
+      <div
+        ref={ref}
+        onScroll={handleScroll}
+        style={{
+          height: "100%",
+          overflowY: "scroll",
+          scrollSnapType: "y mandatory",
+          paddingTop: ITEM_H * 2,
+          paddingBottom: ITEM_H * 2,
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+        className="[&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item, i) => (
+          <div
+            key={item}
+            onClick={() => {
+              onSelect(i);
+              if (ref.current) ref.current.scrollTop = i * ITEM_H;
+            }}
+            style={{
+              height: ITEM_H,
+              scrollSnapAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              transition: "all 0.15s",
+              fontWeight: i === selectedIndex ? 700 : 400,
+              color: i === selectedIndex ? BRAND_PLUM : "#9ca3af",
+              fontSize: i === selectedIndex ? 15 : 13,
+            }}
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main modal ───────────────────────────────────────────────────────────────
 export default function ConsultationModal({ open, onClose }: Props) {
-  const [step, setStep] = useState(0); // 0-3 = questions, 4 = expectation, 5 = calendar
+  const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
 
-  // Date of birth scroll wheel state
   const currentYear = new Date().getFullYear();
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
   const days = useMemo(() => Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, "0")), []);
   const years = useMemo(() => Array.from({ length: currentYear - 1919 }, (_, i) => String(currentYear - i)).filter(y => parseInt(y) <= currentYear - 18), [currentYear]);
-  const [dobValue, setDobValue] = useState<Record<string, string>>({
-    month: months[new Date().getMonth()],
-    day: String(new Date().getDate()).padStart(2, "0"),
-    year: String(currentYear - 30),
-  });
 
-  if (!open) return null;
+  const [monthIdx, setMonthIdx] = useState(new Date().getMonth());
+  const [dayIdx, setDayIdx] = useState(new Date().getDate() - 1);
+  const [yearIdx, setYearIdx] = useState(30); // default ~30 years ago
 
-  const totalSteps = questions.length + 1; // 4 questions + expectation (calendar is final)
-  const progressPct = Math.round(((step + 1) / (totalSteps + 1)) * 100);
-
-  const isQuestionStep = step < questions.length;
-  const isAgeStep = isQuestionStep && questions[step].id === "age";
-
-  // Compute age from dob for validation
   const computedAge = useMemo(() => {
-    const monthIdx = months.indexOf(dobValue.month);
-    const dob = new Date(parseInt(dobValue.year), monthIdx, parseInt(dobValue.day));
+    const dob = new Date(parseInt(years[yearIdx]), monthIdx, parseInt(days[dayIdx]));
     const today = new Date();
     let age = today.getFullYear() - dob.getFullYear();
     if (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate())) age--;
     return age;
-  }, [dobValue]);
+  }, [monthIdx, dayIdx, yearIdx, months, days, years]);
+
+  if (!open) return null;
+
+  const totalSteps = questions.length + 1;
+  const progressPct = Math.round(((step + 1) / (totalSteps + 1)) * 100);
+  const isQuestionStep = step < questions.length;
+  const isAgeStep = isQuestionStep && questions[step].id === "age";
   const isExpectationStep = step === questions.length;
   const isCalendarStep = step === questions.length + 1;
 
@@ -102,11 +197,10 @@ export default function ConsultationModal({ open, onClose }: Props) {
     if (isQuestionStep) {
       if (isAgeStep) {
         if (computedAge < 18) return;
-        const dobStr = `${dobValue.month} ${dobValue.day}, ${dobValue.year}`;
+        const dobStr = `${months[monthIdx]} ${days[dayIdx]}, ${years[yearIdx]}`;
         setAnswers((prev) => ({ ...prev, age: dobStr, computedAge: String(computedAge) }));
-        setSelected(dobStr);
-        setStep((s) => s + 1);
         setSelected(null);
+        setStep((s) => s + 1);
         return;
       }
       if (!selected) return;
@@ -135,6 +229,10 @@ export default function ConsultationModal({ open, onClose }: Props) {
     setSelected(null);
     onClose();
   };
+
+  const isNextDisabled = isQuestionStep
+    ? isAgeStep ? computedAge < 18 : !selected
+    : false;
 
   const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}`;
 
@@ -186,97 +284,50 @@ export default function ConsultationModal({ open, onClose }: Props) {
 
               {isAgeStep ? (
                 <div className="mt-2">
-                  {/* iOS-style scroll wheel */}
-                  <div className="relative overflow-hidden rounded-xl" style={{ background: "#fafafa" }}>
-                    {/* Selection highlight bar */}
-                    <div
-                      className="absolute left-0 right-0 pointer-events-none z-10"
-                      style={{
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        height: 44,
-                        background: "linear-gradient(135deg, rgba(232,51,158,0.12) 0%, rgba(122,30,126,0.12) 100%)",
-                        borderTop: "1.5px solid rgba(232,51,158,0.3)",
-                        borderBottom: "1.5px solid rgba(232,51,158,0.3)",
-                      }}
-                    />
-                    {/* Top fade */}
-                    <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, #fafafa 0%, transparent 100%)" }} />
-                    {/* Bottom fade */}
-                    <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-10" style={{ background: "linear-gradient(to top, #fafafa 0%, transparent 100%)" }} />
-                    <Picker
-                      value={dobValue}
-                      onChange={(newVal) => setDobValue(newVal as Record<string, string>)}
-                      height={200}
-                      itemHeight={44}
-                      wheelMode="natural"
-                    >
-                      <Picker.Column name="month">
-                        {months.map((m) => (
-                          <Picker.Item key={m} value={m}>
-                            {({ selected: sel }) => (
-                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{m}</span>
-                            )}
-                          </Picker.Item>
-                        ))}
-                      </Picker.Column>
-                      <Picker.Column name="day">
-                        {days.map((d) => (
-                          <Picker.Item key={d} value={d}>
-                            {({ selected: sel }) => (
-                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{d}</span>
-                            )}
-                          </Picker.Item>
-                        ))}
-                      </Picker.Column>
-                      <Picker.Column name="year">
-                        {years.map((y) => (
-                          <Picker.Item key={y} value={y}>
-                            {({ selected: sel }) => (
-                              <span style={{ fontWeight: sel ? 700 : 400, color: sel ? "#7A1E7E" : "#9ca3af", fontSize: sel ? 16 : 14, transition: "all 0.2s" }}>{y}</span>
-                            )}
-                          </Picker.Item>
-                        ))}
-                      </Picker.Column>
-                    </Picker>
+                  <div
+                    className="flex rounded-xl overflow-hidden"
+                    style={{ background: "#fafafa", userSelect: "none" }}
+                  >
+                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={setMonthIdx} />
+                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={setDayIdx} />
+                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={setYearIdx} />
                   </div>
-                  <p className="text-xs text-center mt-3" style={{ color: computedAge >= 18 ? "#9ca3af" : "#E8339E" }}>
+                  <p className="text-xs text-center mt-3" style={{ color: computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
                     {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
                   </p>
                 </div>
               ) : (
-              <div className="divide-y divide-gray-100">
-                {questions[step].options.map((option) => {
-                  const isSelected = selected === option;
-                  return (
-                    <button
-                      key={option}
-                      onClick={() => setSelected(option)}
-                      className="w-full flex items-center gap-4 py-4 text-left transition-colors hover:bg-gray-50 active:bg-gray-100"
-                    >
-                      {/* Radio circle */}
-                      <span
-                        className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
-                        style={{
-                    borderColor: isSelected ? BRAND_PINK : "#d1d5db",
-                        backgroundColor: isSelected ? BRAND_PINK : "transparent",
-                        }}
+                <div className="divide-y divide-gray-100">
+                  {questions[step].options.map((option) => {
+                    const isSelected = selected === option;
+                    return (
+                      <button
+                        key={option}
+                        onClick={() => setSelected(option)}
+                        className="w-full flex items-center gap-4 py-4 text-left transition-colors hover:bg-gray-50 active:bg-gray-100"
                       >
-                        {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-white" />}
-                      </span>
-                      <span
-                        className="text-base transition-all"
-                        style={{
-                          color: isSelected ? BRAND_PLUM : "#374151",
-                          fontWeight: isSelected ? 600 : 400,
-                        }}
-                      >
-                        {option}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+                        <span
+                          className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
+                          style={{
+                            borderColor: isSelected ? BRAND_PINK : "#d1d5db",
+                            backgroundColor: isSelected ? BRAND_PINK : "transparent",
+                          }}
+                        >
+                          {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-white" />}
+                        </span>
+                        <span
+                          className="text-base transition-all"
+                          style={{
+                            color: isSelected ? BRAND_PLUM : "#374151",
+                            fontWeight: isSelected ? 600 : 400,
+                          }}
+                        >
+                          {option}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               )}
             </div>
           )}
@@ -296,7 +347,6 @@ export default function ConsultationModal({ open, onClose }: Props) {
               <p className="text-sm text-gray-400 mb-5">
                 Your 20-minute call with a MedMethod Enrollment Specialist is completely free and pressure-free.
               </p>
-
               <div className="divide-y divide-gray-100">
                 {[
                   { icon: "🩺", title: "Review your goals", desc: "We'll discuss what you've tried and what hasn't worked." },
@@ -350,12 +400,12 @@ export default function ConsultationModal({ open, onClose }: Props) {
           <div className="flex-shrink-0 px-6 pb-8 pt-3 bg-white border-t border-gray-50">
             <button
               onClick={handleNext}
-              disabled={isQuestionStep && !isAgeStep && !selected || (isAgeStep && computedAge < 18)}
+              disabled={isNextDisabled}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? "not-allowed" : "pointer",
-                boxShadow: (isAgeStep ? computedAge < 18 : (isQuestionStep && !selected)) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: isNextDisabled ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: isNextDisabled ? "not-allowed" : "pointer",
+                boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
               {isExpectationStep ? "Choose a Time →" : "Next"}
