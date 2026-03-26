@@ -1,45 +1,88 @@
 /* =============================================================================
-   Why Choose MedMethod — Clinical Noir Design
-   Comparison table (us vs others) on dark background
+   Why Choose MedMethod — Redesigned
+   Two-part section: "Why Most People Fail" + "The MedMethod Way"
+   Light background, dark text, pink accent
    ============================================================================= */
-import { Check, X } from "lucide-react";
+import { AlertTriangle, TrendingDown, Pill, FlaskConical, UserCheck, CalendarCheck, Smartphone, Stethoscope, ArrowRight } from "lucide-react";
 
-const comparisons = [
-  { feature: "Comprehensive Lab Diagnostics", us: true, others: false },
-  { feature: "Bi-Weekly Doctor Check-Ins", us: true, others: false },
-  { feature: "Same Doctor Throughout Journey", us: true, others: false },
-  { feature: "Dedicated Wellness Advisor", us: true, others: false },
-  { feature: "Custom Nutrition Program", us: true, others: false },
-  { feature: "Personalized Fitness Plan", us: true, others: false },
-  { feature: "Women 40+ Specialists", us: true, others: false },
-  { feature: "Board-Certified Physicians", us: true, others: true },
+const failureReasons = [
+  {
+    icon: Pill,
+    label: "The Pill Mill Trap",
+    headline: "Medication Without Medicine",
+    body: "Online weight-loss clinics ship GLP-1s to your door with zero lab work, no doctor relationship, and no lifestyle support. The scale moves — until it doesn't. Without addressing the root hormonal and metabolic causes, the weight returns the moment you stop. You paid for a shortcut that led you back to the start.",
+    stat: "95%",
+    statLabel: "of pill-mill patients regain weight within 2 years",
+  },
+  {
+    icon: TrendingDown,
+    label: "The Fitness & Diet Cycle",
+    headline: "Motivation Runs Out. Accountability Doesn't.",
+    body: "You start a new program with real intention. But results take weeks. No one is measuring your progress, adjusting your plan, or catching you when discouragement sets in. By week 4, the old habits creep back — not because you failed, but because the program failed you. Willpower was never the problem. Infrastructure was.",
+    stat: "80%",
+    statLabel: "of people quit a new fitness or nutrition program within 5 weeks",
+  },
+  {
+    icon: AlertTriangle,
+    label: "The Missing Foundation",
+    headline: "Treating Symptoms, Not Biology",
+    body: "Hormonal imbalances, thyroid dysfunction, insulin resistance, and cortisol dysregulation silently sabotage every diet and workout plan. Without a comprehensive lab panel and a physician who understands women's metabolic health, you're building on sand. No program can outwork an undiagnosed hormonal issue.",
+    stat: "1 in 3",
+    statLabel: "women over 40 have an undiagnosed hormonal or metabolic condition",
+  },
+];
+
+const medmethodWay = [
+  {
+    icon: FlaskConical,
+    title: "Accurate Medicine First",
+    body: "Before we prescribe anything, we diagnose everything. Comprehensive bloodwork maps your hormones, metabolism, thyroid, and insulin levels — so your protocol is built on your biology, not a best guess.",
+  },
+  {
+    icon: Stethoscope,
+    title: "A Doctor Who Actually Knows You",
+    body: "You work with the same board-certified physician for your entire program — 6 or 12 months. They review your labs, adjust your protocol, and are clinically accountable to your results. No rotating providers. No starting over.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Bi-Weekly Wellness Advisor Check-Ins",
+    body: "Every two weeks, your dedicated Wellness Advisor meets with you for a weigh-in, body measurements, and a progress review. They catch discouragement early, adjust your plan in real time, and keep you moving forward — even when motivation fades.",
+  },
+  {
+    icon: Smartphone,
+    title: "Custom Fitness & Nutrition App",
+    body: "Your program lives in a personalized app — a fitness plan built for your body, a nutrition protocol designed for your metabolism, and daily tracking that adapts as you progress. Not a generic PDF. A living system.",
+  },
+  {
+    icon: UserCheck,
+    title: "Responsible Medical Management",
+    body: "Medication is a clinical tool, not a subscription product. We use it precisely, monitor it carefully, and combine it with lifestyle infrastructure. Our goal is a body that works without dependency — long-term transformation, not a temporary fix.",
+  },
 ];
 
 export default function WhyChoose() {
   return (
     <section className="bg-white py-16 lg:py-24">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: Headline */}
-          <div>
+
+        {/* ── Part 1: Why Most People Fail ── */}
+        <div className="mb-20">
+          <div className="mb-10">
             <span
               className="section-label block mb-3"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              The Advantage
+              The Hard Truth
             </span>
             <h2
-              className="font-black text-[#111111] leading-tight mb-6"
+              className="font-black text-[#111111] leading-tight mb-4"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
                 letterSpacing: "-0.02em",
               }}
             >
-              WHY WOMEN
-              <br />
-              CHOOSE
-              <br />
+              WHY MOST PEOPLE{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
@@ -48,102 +91,188 @@ export default function WhyChoose() {
                   backgroundClip: "text",
                 }}
               >
-                MEDMETHOD DIRECT
+                FAIL
               </span>
             </h2>
             <p
-              className="text-gray-500 leading-relaxed mb-8"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem" }}
+              className="text-gray-500 max-w-2xl"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem", lineHeight: 1.7 }}
             >
-              You deserve more than a box shipped to your door. We provide a doctor-led path with comprehensive labs, bi-weekly check-ins, and a dedicated Wellness Advisor — built specifically for women over 40.
+              It's not a lack of willpower. It's a lack of the right system. Here are the three patterns that keep women stuck — and why the standard options don't solve them.
             </p>
-            <a
-              href="#consultation"
-              className="btn-gradient px-8 py-3.5 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              GET STARTED TODAY
-            </a>
-
-            {/* Rating */}
-            <div className="mt-8 flex items-center gap-4">
-              <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center font-black text-white text-xl"
-                style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", fontFamily: "Montserrat, sans-serif" }}
-              >
-                4.9
-              </div>
-              <div>
-                <div className="flex gap-0.5 mb-1">
-                  {[1,2,3,4,5].map((s) => (
-                    <span key={s} style={{ color: "#E8339E", fontSize: "1.1rem" }}>★</span>
-                  ))}
-                </div>
-                <div
-                  className="text-gray-400 text-sm"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Based on 1,000+ verified patient reviews
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Right: Comparison Table */}
-          <div>
-            {/* Column headers */}
-            <div className="grid grid-cols-3 mb-4 px-4">
-              <div className="col-span-1" />
-              <div className="text-center">
-                <span
-                  className="text-xs font-bold tracking-wider uppercase"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-                >
-                  MedMethod Direct
-                </span>
-              </div>
-              <div className="text-center">
-                <span
-                  className="text-xs font-bold tracking-wider uppercase text-gray-400"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Other Clinics
-                </span>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-gray-200">
-              {comparisons.map((row, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {failureReasons.map((item, i) => {
+              const Icon = item.icon;
+              return (
                 <div
                   key={i}
-                  className={`grid grid-cols-3 items-center px-4 py-3.5 ${
-                    i % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  }`}
+                  className="rounded-2xl border border-gray-100 bg-[#FAFAFA] p-6 flex flex-col"
+                  style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
                 >
-                  <div
-                    className="col-span-1 text-gray-700 text-sm pr-4"
-                    style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 }}
-                  >
-                    {row.feature}
-                  </div>
-                  <div className="flex justify-center">
+                  {/* Icon + label */}
+                  <div className="flex items-center gap-3 mb-4">
                     <div
-                      className="w-7 h-7 rounded-full flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, #E8339E22 0%, #7A1E7E33 100%)", border: "1px solid rgba(232,51,158,0.4)" }}
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: "rgba(232,51,158,0.08)" }}
                     >
-                      <Check className="w-4 h-4" style={{ color: "#E8339E" }} />
+                      <Icon className="w-4 h-4" style={{ color: "#E8339E" }} />
                     </div>
+                    <span
+                      className="text-xs font-bold tracking-widest uppercase"
+                      style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
+                    >
+                      {item.label}
+                    </span>
                   </div>
-                  <div className="flex justify-center">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-                      <X className="w-4 h-4 text-gray-300" />
+
+                  {/* Headline */}
+                  <h3
+                    className="font-black text-[#111111] mb-3"
+                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1rem", lineHeight: 1.3 }}
+                  >
+                    {item.headline}
+                  </h3>
+
+                  {/* Body */}
+                  <p
+                    className="text-gray-500 text-sm leading-relaxed flex-1"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item.body}
+                  </p>
+
+                  {/* Stat */}
+                  <div
+                    className="mt-5 pt-4 border-t border-gray-100"
+                  >
+                    <div
+                      className="font-black"
+                      style={{
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: "1.6rem",
+                        background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      {item.stat}
+                    </div>
+                    <div
+                      className="text-gray-400 text-xs mt-0.5"
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {item.statLabel}
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── Part 2: The MedMethod Way ── */}
+        <div
+          className="rounded-3xl p-8 lg:p-12"
+          style={{ background: "linear-gradient(135deg, #0d0d0d 0%, #1a0a14 100%)" }}
+        >
+          <div className="mb-10">
+            <span
+              className="section-label block mb-3"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Our Difference
+            </span>
+            <h2
+              className="font-black text-white leading-tight mb-4"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              THE MEDMETHOD{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                WAY
+              </span>
+            </h2>
+            <p
+              className="text-white/50 max-w-2xl"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.95rem", lineHeight: 1.7 }}
+            >
+              We built MedMethod Direct because the existing options were failing women. Here's exactly what we do differently — and why it works.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {medmethodWay.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={i}
+                  className="rounded-2xl p-5 flex flex-col gap-3"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: "linear-gradient(135deg, #E8339E22 0%, #7A1E7E33 100%)", border: "1px solid rgba(232,51,158,0.3)" }}
+                    >
+                      <Icon className="w-4 h-4" style={{ color: "#E8339E" }} />
+                    </div>
+                    <h3
+                      className="font-bold text-white"
+                      style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
+                    >
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p
+                    className="text-white/50 text-sm leading-relaxed"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {item.body}
+                  </p>
+                </div>
+              );
+            })}
+
+            {/* CTA card */}
+            <div
+              className="rounded-2xl p-5 flex flex-col justify-between"
+              style={{
+                background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              }}
+            >
+              <p
+                className="text-white font-bold text-sm leading-snug mb-6"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                "We don't just treat symptoms. We build the foundation your body needs to transform — and stay transformed."
+              </p>
+              <a
+                href="#consultation"
+                className="inline-flex items-center gap-2 bg-white text-[#E8339E] font-bold text-sm px-5 py-3 rounded-full self-start hover:bg-white/90 transition-colors"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                START YOUR JOURNEY <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );
