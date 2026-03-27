@@ -6,7 +6,7 @@ const MEN_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCL
 
 export default function MaleFooter({ onConsultClick }: { onConsultClick: () => void }) {
   return (
-    <footer style={{ background: "#060B17", borderTop: "1px solid rgba(0,194,203,0.1)" }}>
+    <footer style={{ background: "#0A1628", borderTop: "1px solid rgba(0,194,203,0.15)" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand Column */}

@@ -19,17 +19,17 @@ const testimonials = [
 
 export default function MaleTestimonials() {
   return (
-    <section id="testimonials" className="py-14 overflow-hidden" style={{ background: "#0d1526", fontFamily: "Montserrat, sans-serif" }}>
+    <section id="testimonials" className="py-14 overflow-hidden" style={{ background: "#EDE9E1", fontFamily: "Montserrat, sans-serif" }}>
       <div className="max-w-6xl mx-auto px-4 mb-8">
         <div className="flex items-center justify-center gap-3 mb-3">
           <div className="h-px w-10" style={{ background: TEAL }} />
           <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>RESULTS</span>
           <div className="h-px w-10" style={{ background: TEAL }} />
         </div>
-        <h2 className="font-black text-white text-center mb-2" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
+        <h2 className="font-black text-center mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
           REAL MEN. REAL RESULTS.
         </h2>
-        <p className="text-center" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>
+        <p className="text-center" style={{ color: "rgba(10,22,40,0.5)", fontSize: "0.9rem" }}>
           Over 8,000 men have optimized their health with MedMethod Direct.
         </p>
       </div>
@@ -38,7 +38,7 @@ export default function MaleTestimonials() {
       <div className="flex gap-4 px-4 overflow-x-auto pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         {testimonials.map((t) => (
           <div key={t.name} className="flex-shrink-0 rounded-2xl p-5 flex flex-col"
-            style={{ width: 300, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,194,203,0.15)" }}>
+            style={{ width: 300, background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
             {/* Stars */}
             <div className="flex gap-0.5 mb-3">
               {Array.from({ length: t.rating }).map((_, i) => (
@@ -52,18 +52,18 @@ export default function MaleTestimonials() {
               </span>
             </div>
             {/* Quote */}
-            <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: "rgba(10,22,40,0.7)" }}>
               "{t.quote}"
             </p>
             {/* Author */}
-            <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(0,194,203,0.1)" }}>
+              <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(0,194,203,0.15)" }}>
               <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white flex-shrink-0"
                 style={{ background: TEAL_GRADIENT }}>
                 {t.name[0]}
               </div>
               <div>
-                <p className="font-bold text-sm text-white">{t.name}, {t.age}</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{t.location}</p>
+                <p className="font-bold text-sm" style={{ color: "#0A1628" }}>{t.name}, {t.age}</p>
+                <p className="text-xs" style={{ color: "rgba(10,22,40,0.45)" }}>{t.location}</p>
               </div>
             </div>
           </div>
@@ -75,8 +75,8 @@ export default function MaleTestimonials() {
         <div className="flex gap-0.5">
           {[1,2,3,4,5].map(i => <span key={i} style={{ color: TEAL, fontSize: 20 }}>★</span>)}
         </div>
-        <span className="font-black text-white text-lg">4.9</span>
-        <span className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>from 1,200+ verified reviews</span>
+        <span className="font-black text-lg" style={{ color: "#0A1628" }}>4.9</span>
+        <span className="text-sm" style={{ color: "rgba(10,22,40,0.5)" }}>from 1,200+ verified reviews</span>
       </div>
     </section>
   );

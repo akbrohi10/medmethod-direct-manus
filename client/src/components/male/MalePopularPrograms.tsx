@@ -1,4 +1,4 @@
-/* MalePopularPrograms.tsx — Men's TRT & Weight Loss Program Pricing */
+/* MalePopularPrograms.tsx — Warm Cream + Navy theme */
 import { useState } from "react";
 import { Check } from "lucide-react";
 
@@ -13,7 +13,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
   const p = isAnnual ? annual : monthly;
 
   return (
-    <section id="programs" className="py-14 px-4" style={{ background: "#0d1526", fontFamily: "Montserrat, sans-serif" }}>
+    <section id="programs" className="py-14 px-4" style={{ background: "#EDE9E1", fontFamily: "Montserrat, sans-serif" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -21,21 +21,21 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>PROGRAMS</span>
             <div className="h-px w-10" style={{ background: TEAL }} />
           </div>
-          <h2 className="font-black text-white mb-2" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
+          <h2 className="font-black mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
             POPULAR PROGRAMS
           </h2>
         </div>
 
         {/* Toggle */}
         <div className="flex items-center justify-center gap-4 mb-8">
-          <span className="font-bold text-sm cursor-pointer transition-colors" style={{ color: !isAnnual ? "#fff" : "rgba(255,255,255,0.35)" }} onClick={() => setIsAnnual(false)}>Monthly</span>
+          <span className="font-bold text-sm cursor-pointer transition-colors" style={{ color: !isAnnual ? "#0A1628" : "rgba(10,22,40,0.35)" }} onClick={() => setIsAnnual(false)}>Monthly</span>
           <button onClick={() => setIsAnnual(!isAnnual)}
             className="relative flex-shrink-0 rounded-full transition-all"
             style={{ width: 52, height: 28, background: TEAL_GRADIENT, border: "none", cursor: "pointer" }}>
             <span className="absolute rounded-full bg-white transition-all"
               style={{ width: 22, height: 22, top: 3, left: isAnnual ? 27 : 3, boxShadow: "0 2px 6px rgba(0,0,0,0.3)", transition: "left 0.25s ease" }} />
           </button>
-          <span className="font-bold text-sm cursor-pointer transition-colors" style={{ color: isAnnual ? "#fff" : "rgba(255,255,255,0.35)" }} onClick={() => setIsAnnual(true)}>Annual</span>
+          <span className="font-bold text-sm cursor-pointer transition-colors" style={{ color: isAnnual ? "#0A1628" : "rgba(10,22,40,0.35)" }} onClick={() => setIsAnnual(true)}>Annual</span>
           {isAnnual && (
             <span className="text-white text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full" style={{ background: TEAL_GRADIENT }}>2 Months Free</span>
           )}
@@ -44,21 +44,21 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {/* TIER 1 */}
-          <div className="rounded-2xl flex flex-col" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,194,203,0.15)" }}>
+          <div className="rounded-2xl flex flex-col" style={{ background: "#fff", border: "1px solid rgba(0,194,203,0.25)", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
             <div className="p-6 flex-1 flex flex-col">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>TIER 1</p>
-              <h3 className="font-black text-white text-lg mb-1">Management & Oversight</h3>
-              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Monitoring + physician guidance for men already on TRT</p>
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(10,22,40,0.4)" }}>TIER 1</p>
+              <h3 className="font-black text-lg mb-1" style={{ color: "#0A1628" }}>Management & Oversight</h3>
+              <p className="text-xs mb-4" style={{ color: "rgba(10,22,40,0.45)" }}>Monitoring + physician guidance for men already on TRT</p>
               <div className="flex items-end gap-1 mb-1">
-                <span className="font-black text-4xl text-white">${p.t1}</span>
-                <span className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>/mo</span>
+                <span className="font-black text-4xl" style={{ color: "#0A1628" }}>${p.t1}</span>
+                <span className="text-sm mb-2" style={{ color: "rgba(10,22,40,0.4)" }}>/mo</span>
               </div>
               {isAnnual && <p className="text-xs mb-5" style={{ color: TEAL }}>Billed annually · Save $398/yr</p>}
               <div className="space-y-2.5 flex-1">
                 {["Monthly physician check-in", "Lab review & dose adjustments", "Secure messaging with care team", "Prescription management", "Patient portal access"].map(f => (
                   <div key={f} className="flex items-start gap-2">
                     <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: TEAL }} />
-                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
+                    <span className="text-sm" style={{ color: "rgba(10,22,40,0.65)" }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -89,7 +89,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
                 {["Everything in Tier 1", "GLP-1 / Semaglutide (Ozempic-class)", "Bi-weekly physician check-ins", "Medication shipped to your door", "Nutrition & macro coaching", "Quarterly comprehensive labs"].map(f => (
                   <div key={f} className="flex items-start gap-2">
                     <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: TEAL }} />
-                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
+                    <span className="text-sm" style={{ color: "rgba(10,22,40,0.65)" }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -103,21 +103,21 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
           </div>
 
           {/* TIER 3 */}
-          <div className="rounded-2xl flex flex-col" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,194,203,0.15)" }}>
+          <div className="rounded-2xl flex flex-col" style={{ background: "#fff", border: "1px solid rgba(0,194,203,0.25)", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
             <div className="p-6 flex-1 flex flex-col">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>TIER 3</p>
-              <h3 className="font-black text-white text-lg mb-1">TRT + Elite Performance</h3>
-              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Full TRT protocol + peptides, longevity, and complete optimization</p>
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(10,22,40,0.4)" }}>TIER 3</p>
+              <h3 className="font-black text-lg mb-1" style={{ color: "#0A1628" }}>TRT + Elite Performance</h3>
+              <p className="text-xs mb-4" style={{ color: "rgba(10,22,40,0.45)" }}>Full TRT protocol + peptides, longevity, and complete optimization</p>
               <div className="flex items-end gap-1 mb-1">
-                <span className="font-black text-4xl text-white">${p.t3}</span>
-                <span className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>/mo</span>
+                <span className="font-black text-4xl" style={{ color: "#0A1628" }}>${p.t3}</span>
+                <span className="text-sm mb-2" style={{ color: "rgba(10,22,40,0.4)" }}>/mo</span>
               </div>
               {isAnnual && <p className="text-xs mb-5" style={{ color: TEAL }}>Billed annually · Save $898/yr</p>}
               <div className="space-y-2.5 flex-1">
                 {["Everything in Tier 2", "Testosterone cypionate or enanthate", "Anastrozole / HCG if needed", "Peptide therapy (BPC-157, TB-500, etc.)", "Sexual health & ED protocols", "Hair restoration program", "Priority physician access", "Personal training discount (40% OFF)"].map(f => (
                   <div key={f} className="flex items-start gap-2">
                     <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: TEAL }} />
-                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
+                    <span className="text-sm" style={{ color: "rgba(10,22,40,0.65)" }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -131,7 +131,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
           </div>
         </div>
 
-        <p className="text-center text-xs mt-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="text-center text-xs mt-6" style={{ color: "rgba(10,22,40,0.4)" }}>
           All programs require a minimum 6-month commitment. $449 diagnostic setup fee applies once before first program.
         </p>
       </div>

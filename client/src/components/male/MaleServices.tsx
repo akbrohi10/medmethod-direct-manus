@@ -63,7 +63,7 @@ const services = [
 
 export default function MaleServices() {
   return (
-    <section id="services" className="py-14 px-4" style={{ background: "#0A0F1E", fontFamily: "Montserrat, sans-serif" }}>
+    <section id="services" className="py-14 px-4" style={{ background: "#F5F2EC", fontFamily: "Montserrat, sans-serif" }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -71,10 +71,10 @@ export default function MaleServices() {
             <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>TREATMENTS</span>
             <div className="h-px w-10" style={{ background: TEAL }} />
           </div>
-          <h2 className="font-black text-white mb-2" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
+          <h2 className="font-black mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
             MEN'S HEALTH SERVICES
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.4)", maxWidth: 500, margin: "0 auto", fontSize: "0.9rem" }}>
+          <p style={{ color: "rgba(10,22,40,0.5)", maxWidth: 500, margin: "0 auto", fontSize: "0.9rem" }}>
             Every service is physician-supervised, evidence-based, and delivered virtually to your door.
           </p>
         </div>
@@ -83,13 +83,13 @@ export default function MaleServices() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((svc) => (
             <div key={svc.title} className="rounded-2xl overflow-hidden flex flex-col group transition-all"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(0,194,203,0.12)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.4)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.12)")}>
+              style={{ background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.5)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.2)")}>
               {/* Image */}
               <div className="relative overflow-hidden" style={{ height: 160 }}>
                 <img src={svc.image} alt={svc.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(10,15,30,0.85) 100%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(10,22,40,0.7) 100%)" }} />
                 {svc.badge && (
                   <div className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-extrabold tracking-wider text-white" style={{ background: TEAL_GRADIENT }}>
                     {svc.badge}
@@ -98,8 +98,8 @@ export default function MaleServices() {
               </div>
               {/* Content */}
               <div className="p-4 flex flex-col flex-1">
-                <h3 className="font-black text-white text-sm mb-1.5">{svc.title}</h3>
-                <p className="text-xs flex-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{svc.description}</p>
+                <h3 className="font-black text-sm mb-1.5" style={{ color: "#0A1628" }}>{svc.title}</h3>
+                <p className="text-xs flex-1 leading-relaxed" style={{ color: "rgba(10,22,40,0.55)" }}>{svc.description}</p>
                 <a href="#consultation" className="mt-3 text-xs font-bold tracking-wider transition-colors" style={{ color: TEAL }}>
                   LEARN MORE →
                 </a>

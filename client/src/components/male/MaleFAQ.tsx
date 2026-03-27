@@ -19,7 +19,7 @@ export default function MaleFAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-14 px-4" style={{ background: "#0d1526", fontFamily: "Montserrat, sans-serif" }}>
+    <section id="faq" className="py-14 px-4" style={{ background: "#EDE9E1", fontFamily: "Montserrat, sans-serif" }}>
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -27,7 +27,7 @@ export default function MaleFAQ() {
             <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>FAQ</span>
             <div className="h-px w-10" style={{ background: TEAL }} />
           </div>
-          <h2 className="font-black text-white mb-2" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
+          <h2 className="font-black mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
             COMMON QUESTIONS
           </h2>
         </div>
@@ -35,12 +35,12 @@ export default function MaleFAQ() {
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <div key={i} className="rounded-xl overflow-hidden transition-all"
-              style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${open === i ? "rgba(0,194,203,0.4)" : "rgba(0,194,203,0.12)"}` }}>
+              style={{ background: "#fff", border: `1px solid ${open === i ? "rgba(0,194,203,0.5)" : "rgba(0,194,203,0.2)"}`, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
               <button
                 className="w-full flex items-center justify-between px-5 py-4 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-bold text-sm text-white pr-4">{faq.q}</span>
+                <span className="font-bold text-sm pr-4" style={{ color: "#0A1628" }}>{faq.q}</span>
                 <ChevronDown
                   className="w-4 h-4 flex-shrink-0 transition-transform"
                   style={{ color: TEAL, transform: open === i ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -48,7 +48,7 @@ export default function MaleFAQ() {
               </button>
               {open === i && (
                 <div className="px-5 pb-4">
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{faq.a}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(10,22,40,0.6)" }}>{faq.a}</p>
                 </div>
               )}
             </div>

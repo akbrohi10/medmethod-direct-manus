@@ -18,7 +18,7 @@ const differentiators = [
 
 export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () => void }) {
   return (
-    <section className="py-14 px-4" style={{ background: "#0d1526", fontFamily: "Montserrat, sans-serif" }}>
+    <section className="py-14 px-4" style={{ background: "#F5F2EC", fontFamily: "Montserrat, sans-serif" }}>
       <div className="max-w-6xl mx-auto">
         {/* Part 1: Failures */}
         <div className="text-center mb-10">
@@ -27,23 +27,23 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
             <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>WHY IT HASN'T WORKED</span>
             <div className="h-px w-10" style={{ background: TEAL }} />
           </div>
-          <h2 className="font-black text-white mb-2" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", letterSpacing: "-0.02em" }}>
+          <h2 className="font-black mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", letterSpacing: "-0.02em" }}>
             THE SYSTEM IS FAILING MEN
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
           {failures.map((f) => (
-            <div key={f.stat} className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(0,194,203,0.1)" }}>
+            <div key={f.stat} className="p-6 rounded-2xl" style={{ background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
               <div className="font-black mb-1" style={{ fontSize: "2.5rem", color: TEAL, letterSpacing: "-0.03em" }}>{f.stat}</div>
-              <p className="font-bold text-white text-sm mb-2">{f.label}</p>
-              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{f.desc}</p>
+              <p className="font-bold text-sm mb-2" style={{ color: "#0A1628" }}>{f.label}</p>
+              <p className="text-xs leading-relaxed" style={{ color: "rgba(10,22,40,0.5)" }}>{f.desc}</p>
             </div>
           ))}
         </div>
 
         {/* Part 2: Differentiators */}
-        <div className="rounded-2xl p-8" style={{ background: "rgba(0,194,203,0.05)", border: "1px solid rgba(0,194,203,0.2)" }}>
+        <div className="rounded-2xl p-8" style={{ background: "#0A1628", border: "1px solid rgba(0,194,203,0.2)" }}>
           <h3 className="font-black text-white text-xl mb-6 text-center" style={{ letterSpacing: "-0.01em" }}>
             THE MEDMETHOD DIFFERENCE
           </h3>
@@ -53,7 +53,7 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
                 <span className="text-2xl flex-shrink-0">{d.icon}</span>
                 <div>
                   <p className="font-bold text-white text-sm mb-1">{d.title}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{d.desc}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{d.desc}</p>
                 </div>
               </div>
             ))}

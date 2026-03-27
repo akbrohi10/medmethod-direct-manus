@@ -23,7 +23,7 @@ export default function MaleHome() {
   const [consultOpen, setConsultOpen] = useState(false);
   const openConsult = () => setConsultOpen(true);
   return (
-    <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif", background: "#0A0F1E" }}>
+    <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif", background: "#F5F2EC" }}>
       <MaleNavbar onConsultClick={openConsult} />
       <MaleHero onConsultClick={openConsult} />
       <MaleHowItWorks onConsultClick={openConsult} />

@@ -44,7 +44,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
 
   return (
     <section
-      style={{ background: "#0A0F1E", fontFamily: "Montserrat, sans-serif" }}
+      style={{ background: "#F5F2EC", fontFamily: "Montserrat, sans-serif" }}
       className="px-4 pt-10 pb-0"
     >
       <div className="max-w-6xl mx-auto">
@@ -54,7 +54,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
           onClick={() => setOpen((v) => !v)}
           className="w-full flex items-center justify-between gap-4 rounded-2xl px-6 py-5 transition-all"
           style={{
-            background: "#0D1526",
+            background: "#0A1628",
             border: `1.5px solid rgba(0,194,203,0.25)`,
             cursor: "pointer",
             textAlign: "left",
@@ -110,7 +110,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
         >
           <div
             className="rounded-b-2xl mt-0 flex flex-col md:flex-row overflow-hidden"
-            style={{ border: `1.5px solid rgba(0,194,203,0.15)`, borderTop: "none", background: "#0d1526" }}
+            style={{ border: `1.5px solid rgba(0,194,203,0.15)`, borderTop: "none", background: "#0A1628" }}
           >
             {/* Left: item list */}
             <div className="flex-1 p-7">
@@ -123,7 +123,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                   <div key={i} className="flex items-start gap-4 mb-4">
                     <div
                       className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-                      style={{ background: "rgba(0,194,203,0.1)" }}
+                      style={{ background: "rgba(0,194,203,0.15)" }}
                     >
                       <Icon className="w-4 h-4" style={{ color: TEAL }} />
                     </div>
@@ -163,7 +163,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
             {/* Right: price summary + CTA */}
             <div
               className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7"
-              style={{ background: "#060B17", borderLeft: "1px solid rgba(0,194,203,0.1)" }}
+              style={{ background: "#071020", borderLeft: "1px solid rgba(0,194,203,0.15)" }}
             >
               <div>
                 <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>
