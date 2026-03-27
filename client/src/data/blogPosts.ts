@@ -43,6 +43,7 @@ export const blogPosts: BlogPost[] = [
     primaryKeyword: "menopause weight gain",
     metaDescription:
       "Why does weight gain feel so different in menopause? Dr. Jumana Al-Deek explains the hormonal science behind belly fat, insulin resistance, and what actually helps.",
+    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-menopause-weight-gain-6fJgUvvmMCcQ26bctdpM5F.webp",
     featured: true,
   },
 ];
