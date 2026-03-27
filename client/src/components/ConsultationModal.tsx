@@ -20,18 +20,18 @@ interface Props {
 }
 
 const SERVICE_OPTIONS = [
-  { label: "Weight Loss", icon: "⚖️" },
-  { label: "Hormone Therapy", icon: "🧬" },
-  { label: "Menopause", icon: "🌡️" },
-  { label: "Sexual Health", icon: "💗" },
-  { label: "Hair Care", icon: "✨" },
-  { label: "Gut Health", icon: "🫁" },
-  { label: "Skincare", icon: "🌿" },
-  { label: "Longevity & Aging", icon: "⏳" },
-  { label: "Vitamins & Supplements", icon: "💊" },
-  { label: "Personal Training", icon: "🏋️" },
-  { label: "Primary Care", icon: "🩺" },
-  { label: "Not sure yet", icon: "🤔" },
+  { label: "Weight Loss", subtitle: "GLP-1 / Semaglutide", icon: "🔥" },
+  { label: "Hormone Therapy", subtitle: "", icon: "🧬" },
+  { label: "Menopause", subtitle: "", icon: "🌸" },
+  { label: "Sexual Health", subtitle: "", icon: "💗" },
+  { label: "Hair Care", subtitle: "", icon: "💇‍♀️" },
+  { label: "Gut Health", subtitle: "", icon: "🥗" },
+  { label: "Skincare", subtitle: "", icon: "✨" },
+  { label: "Longevity & Aging", subtitle: "", icon: "⏳" },
+  { label: "Vitamins & Supplements", subtitle: "", icon: "💊" },
+  { label: "Personal Training", subtitle: "", icon: "🏋️‍♀️" },
+  { label: "Primary Care", subtitle: "", icon: "🩺" },
+  { label: "Not sure yet", subtitle: "", icon: "🤔" },
 ];
 
 const questions = [
@@ -484,16 +484,26 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         boxShadow: isActive ? `0 0 0 3px rgba(232,51,158,0.10)` : "none",
                       }}
                     >
-                      <span className="text-xl flex-shrink-0">{svc.icon}</span>
-                      <span
-                        className="text-sm leading-tight"
-                        style={{
-                          color: isActive ? BRAND_PLUM : "#374151",
-                          fontWeight: isActive ? 700 : 500,
-                        }}
-                      >
-                        {svc.label}
-                      </span>
+                       <span className="text-xl flex-shrink-0">{svc.icon}</span>
+                       <span className="flex flex-col">
+                         <span
+                           className="text-sm leading-tight"
+                           style={{
+                             color: isActive ? BRAND_PLUM : "#374151",
+                             fontWeight: isActive ? 700 : 500,
+                           }}
+                         >
+                           {svc.label}
+                         </span>
+                         {svc.subtitle && (
+                           <span
+                             className="text-xs leading-tight mt-0.5"
+                             style={{ color: isActive ? BRAND_PINK : "#9ca3af", fontWeight: 500 }}
+                           >
+                             {svc.subtitle}
+                           </span>
+                         )}
+                       </span>
                       {isActive && (
                         <span
                           className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center"
