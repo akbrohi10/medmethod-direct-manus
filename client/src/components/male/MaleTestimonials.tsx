@@ -164,13 +164,14 @@ export default function MaleTestimonials() {
             {/* ── Photo section ── */}
             <div className="relative" style={{ position: "relative" }}>
               {/* Two photos side by side, no gap */}
-              <div className="flex" style={{ height: 240 }}>
+              <div className="flex" style={{ height: 280 }}>
                 {/* BEFORE photo */}
                 <div className="relative flex-1 overflow-hidden">
                   <img
                     src={t.beforeImg}
                     alt={`${t.name} before`}
-                    className="w-full h-full object-cover object-[center_20%]"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "50% 15%" }}
                   />
                   {/* BEFORE label bar */}
                   <div
@@ -185,7 +186,8 @@ export default function MaleTestimonials() {
                   <img
                     src={t.afterImg}
                     alt={`${t.name} after`}
-                    className="w-full h-full object-cover object-[center_20%]"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "50% 15%" }}
                   />
                   {/* AFTER label bar */}
                   <div
