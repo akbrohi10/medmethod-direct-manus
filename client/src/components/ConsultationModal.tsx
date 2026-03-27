@@ -479,17 +479,17 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 Before you go...
               </h3>
               <p className="text-sm leading-relaxed mb-6" style={{ color: "#6b7280" }}>
-                It's easy to close this window — but a simple conversation with our wellness team could give you the courage and clarity to finally make a change. This is the first step in a new direction for your health.
+                It's easy to click out, and difficult to show up. But this time it's for you.
               </p>
               <p className="text-xs font-bold tracking-wider uppercase mb-6" style={{ color: BRAND_PINK }}>
-                100% Risk-Free · No Obligation · No Pressure
+                100% Free · No Pressure · Just Answers
               </p>
               <button
                 onClick={() => setShowExitConfirm(false)}
                 className="w-full py-3.5 rounded-full text-sm font-bold tracking-wider text-white mb-3 transition-all hover:opacity-90"
                 style={{ background: BRAND_GRADIENT, boxShadow: "0 6px 20px rgba(232,51,158,0.35)" }}
               >
-                Take the First Step →
+                I'm Doing This For Me →
               </button>
               <button
                 onClick={handleClose}

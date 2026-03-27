@@ -344,17 +344,17 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
                 Before you go...
               </h3>
               <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
-                It's easy to close this window — but one conversation with our men's health team could be the turning point you've been waiting for. This is the first step toward feeling like yourself again.
+                It's easy to click out, and difficult to show up. But this time it's for you.
               </p>
               <p className="text-xs font-bold tracking-wider uppercase mb-6" style={{ color: TEAL }}>
-                100% Risk-Free · No Obligation · No Pressure
+                100% Free · No Pressure · Just Answers
               </p>
               <button
                 onClick={() => setShowExitConfirm(false)}
                 className="w-full py-3.5 rounded-full text-sm font-bold tracking-wider text-white mb-3 transition-all hover:opacity-90"
                 style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 20px rgba(0,194,203,0.35)" }}
               >
-                Take the First Step →
+                I'm Doing This For Me →
               </button>
               <button
                 onClick={handleClose}
