@@ -20,7 +20,7 @@ interface Props {
 }
 
 const SERVICE_OPTIONS = [
-  { label: "Weight Loss", subtitle: "GLP-1 / Semaglutide", icon: "🔥" },
+  { label: "Weight Loss", subtitle: "GLP-1 / Semaglutide · Tirzepatide", icon: "🔥" },
   { label: "Hormone Therapy", subtitle: "", icon: "🧬" },
   { label: "Menopause", subtitle: "", icon: "🌸" },
   { label: "Sexual Health", subtitle: "", icon: "💗" },
