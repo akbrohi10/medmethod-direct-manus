@@ -100,7 +100,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                 </span>
                 <br />
                 OR{" "}
-                <span
+                <span style={{ color: "#ffffff" }}>LOW </span><span
                   style={{
                     background: TEAL_GRADIENT,
                     WebkitBackgroundClip: "text",
@@ -108,7 +108,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                     backgroundClip: "text",
                   }}
                 >
-                  LOW TESTOSTERONE
+                  TESTOSTERONE
                 </span>
                 ?
               </h1>
