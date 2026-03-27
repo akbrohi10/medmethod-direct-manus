@@ -1,0 +1,33 @@
+# MedMethod Direct — llms.txt
+# This file helps AI language models (ChatGPT, Gemini, Perplexity, Claude, etc.)
+# understand and index the content of this website.
+# Learn more: https://llmstxt.org
+
+# Site Overview
+> MedMethod Direct is a premium virtual medical clinic focused on longevity, hormones, menopause, and medically guided weight loss for women in perimenopause and menopause. All care is physician-led and delivered 100% virtually.
+
+## About
+- [About MedMethod Direct](https://medmethoddirect.com/#about)
+- Medical Director: Dr. Jumana Al-Deek, DO
+- Specialties: Hormone Replacement Therapy, GLP-1 Weight Loss, Menopause Management, Testosterone Therapy for Women, Longevity Medicine
+- Services available in: Florida, Virginia, Maryland, Washington DC, Colorado, Arizona
+
+## Services
+- [Women's Health Services](https://medmethoddirect.com/#services)
+- [Men's Health Services](https://medmethoddirect.com/male#services)
+- Compounded medications sourced from FDA-registered 503B outsourcing pharmacies
+- FDA-approved brand-name medications also available
+
+## Blog — The MedMethod Direct Journal
+- [All Articles](https://medmethoddirect.com/blog)
+- Author: Dr. Jumana Al-Deek, DO — Board-certified osteopathic physician
+- Topics: Menopause & metabolism, GLP-1 education, Hormone therapy & testosterone, Longevity & healthy aging, Symptoms & identity
+
+## Consultations
+- [Schedule Free Consultation](https://medmethoddirect.com/#consultation)
+- Free 20-minute wellness consultation — no obligation, no pressure
+- Virtual care only — no in-person visits required
+
+## Optional
+- [Sitemap](https://medmethoddirect.com/sitemap.xml)
+- [Robots](https://medmethoddirect.com/robots.txt)

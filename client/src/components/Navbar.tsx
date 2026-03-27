@@ -20,7 +20,7 @@ const navLinks = [
   },
   { label: "How It Works", href: "#how-it-works" },
   { label: "About", href: "#about" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "#faq" },
 ];
 
