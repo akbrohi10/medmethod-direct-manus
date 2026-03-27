@@ -14,7 +14,7 @@ const treatments = [
   {
     tags: ["Weight Loss", "GLP-1"],
     title: "Semaglutide (Ozempic/Wegovy)",
-    body: "FDA-approved GLP-1 medication that reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized nutrition and fitness program.",
+    body: "Physician-prescribed compounded GLP-1 therapy — same active ingredient as Ozempic® — that reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized nutrition and fitness program.",
   },
   {
     tags: ["Weight Loss", "Dual-Action"],

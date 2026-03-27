@@ -7,7 +7,7 @@
 const services = [
   {
     title: "Menopause",
-    description: "Safe, effective, FDA-approved solutions for symptom relief — night sweats, brain fog, mood swings, and more…",
+    description: "Safe, effective, physician-prescribed solutions for symptom relief — night sweats, brain fog, mood swings, and more…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-menopause-HYnWSNUNbueATEj9EFMHvU.webp",
     alt: "Confident woman in her 40s smiling by a window",
     href: "#consultation",
@@ -21,7 +21,7 @@ const services = [
   },
   {
     title: "Sexual Health",
-    description: "Clinically proven treatments for vaginal health, libido restoration, and a more fulfilling sex life…",
+    description: "Physician-guided treatments for vaginal health, libido restoration, and a more fulfilling sex life…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-sexual-health-FtCRG5hkhWok6PsHUn3T3Z.webp",
     alt: "Woman resting peacefully in white bed linens",
     href: "#consultation",
@@ -35,7 +35,7 @@ const services = [
   },
   {
     title: "Hair Care",
-    description: "Clinically proven treatments for hair thinning and loss — fuller, thicker results in months…",
+    description: "Medically supervised treatments for hair thinning and loss — fuller, thicker results in months…",
     image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80&fit=crop",
     alt: "Woman with healthy flowing hair",
     href: "#consultation",
