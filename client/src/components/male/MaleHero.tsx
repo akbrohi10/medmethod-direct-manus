@@ -123,15 +123,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                   SCHEDULE FREE CONSULTATION
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <button
-                  onClick={() => setQuizOpen(true)}
-                  className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all"
-                  style={{ fontFamily: "Montserrat, sans-serif", borderColor: TEAL, color: TEAL, background: "transparent" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,194,203,0.08)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  CHECK YOUR T-LEVELS →
-                </button>
+
               </div>
 
               {/* 100% Virtual Care tagline — mirrors women's */}

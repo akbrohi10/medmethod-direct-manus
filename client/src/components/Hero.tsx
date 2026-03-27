@@ -123,13 +123,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                   SCHEDULE FREE CONSULTATION
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <button
-                  onClick={() => setQuizOpen(true)}
-                  className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 border-2 transition-all hover:bg-gray-50"
-                  style={{ fontFamily: "Montserrat, sans-serif", borderColor: "#E8339E", color: "#E8339E" }}
-                >
-                  TAKE THE FREE QUIZ →
-                </button>
+
               </div>
 
               {/* 100% Virtual Care tagline */}

@@ -3,9 +3,12 @@
    Dark background, logo, nav columns, social links, legal
    ============================================================================= */
 import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { useState } from "react";
+import MetabolicQuiz from "./MetabolicQuiz";
 
 export default function Footer({ onConsultClick }: { onConsultClick: () => void }) {
-  return (
+  const [quizOpen, setQuizOpen] = useState(false);
+  return (<>
     <footer className="bg-[#0d0d0d] border-t border-white/5">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
@@ -143,13 +146,22 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 <li key={item}>
                   <a
                     onClick={onConsultClick}
-                    className="text-white/50 hover:text-white text-sm transition-colors"
+                    className="text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
                     {item}
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={() => setQuizOpen(true)}
+                  className="text-white/50 hover:text-white text-sm transition-colors text-left"
+                  style={{ fontFamily: "Montserrat, sans-serif", background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                >
+                  Take the Free Health Quiz
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -185,5 +197,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
         </p>
       </div>
     </footer>
-  );
+    <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+  </>);
 }
