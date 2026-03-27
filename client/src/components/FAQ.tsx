@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "Is everything done virtually?",
-    a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
+    a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications (FDA-approved brand or compounded from a licensed 503B outsourcing pharmacy) and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
   },
   {
     q: "How quickly will I see results?",

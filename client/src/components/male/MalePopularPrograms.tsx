@@ -20,7 +20,7 @@ const TIER1_FEATURES: Feature[] = [
 
 const TIER2_FEATURES: Feature[] = [
   { text: "Testosterone Replacement Therapy (TRT) — Delivered to Your Door" },
-  { text: "Compounded Semaglutide — For Metabolic & Weight Optimization" },
+  { text: "Semaglutide (FDA-approved brand or 503B-compounded) — For Metabolic & Weight Optimization" },
   { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
   { text: "Quarterly 1-on-1 Doctor Strategy Session" },
   { text: "Direct Text Access (Business Hours)" },
@@ -31,7 +31,7 @@ const TIER2_FEATURES: Feature[] = [
 
 const TIER3_FEATURES: Feature[] = [
   { text: "Testosterone Replacement Therapy (TRT) — Optimized Dosing Protocol" },
-  { text: "Compounded Tirzepatide — Superior Body Composition Results" },
+  { text: "Tirzepatide (FDA-approved brand or 503B-compounded) — Superior Body Composition Results" },
   { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
   { text: "Quarterly 1-on-1 Doctor Strategy Session" },
   { text: "Direct Text Access (Business Hours)" },
@@ -203,7 +203,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               </p>
             )}
             <p className="text-xs leading-relaxed mb-4" style={{ color: "#9A9080" }}>
-              Our complete men's metabolic reset — TRT + GLP-1 weight loss protocol, physician-designed for body recomposition.
+              Our complete men's metabolic reset — TRT + FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for body recomposition.
             </p>
             <div
               className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[10.5px] font-bold uppercase tracking-wide mb-5 w-fit"
@@ -250,7 +250,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               </p>
             )}
             <p className="text-xs leading-relaxed mb-4" style={{ color: "#9A9080" }}>
-              The full longevity stack — TRT + Tirzepatide for maximum body recomposition, energy, and peak performance at any age.
+              The full longevity stack — TRT + FDA-approved or 503B-compounded Tirzepatide for maximum body recomposition, energy, and peak performance at any age.
             </p>
             <div
               className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[10.5px] font-bold uppercase tracking-wide mb-5 w-fit"
@@ -289,7 +289,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
           ))}
         </div>
         <p className="text-center text-[10.5px] mt-3" style={{ color: "#B0A898" }}>
-          Medications compounded by licensed 503B pharmacies. Individual results may vary.
+          FDA-approved brand medications or compounded alternatives from licensed 503B outsourcing pharmacies. Individual results may vary.
         </p>
 
       </div>

@@ -11,7 +11,7 @@ const services = [
   },
   {
     title: "GLP-1 Weight Loss",
-    description: "Medically supervised Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support.",
+    description: "FDA-approved or 503B-compounded Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-service-fit-shirt-oM2mnVoPDL933mShNpPZvY.webp",
     alt: "Fit confident man buttoning white dress shirt — restored vitality",
   },
@@ -23,7 +23,7 @@ const services = [
   },
   {
     title: "Sexual Health & ED",
-    description: "Proven treatments for erectile dysfunction, libido restoration, and peak sexual performance.",
+    description: "Physician-prescribed treatments for erectile dysfunction, libido restoration, and peak sexual performance.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-service-ed-defeated-2ZKX3c65nKAhXDAoKobH69.webp",
     alt: "Man lying in bed exhausted and defeated — low testosterone, ED",
   },
@@ -35,7 +35,7 @@ const services = [
   },
   {
     title: "Hair Restoration",
-    description: "Finasteride, minoxidil, and peptide-based protocols to stop hair loss and regrow thicker hair.",
+    description: "Physician-prescribed finasteride, minoxidil, and peptide-based protocols to stop hair loss and regrow thicker hair.",
     image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80&fit=crop",
     alt: "Man with healthy hair",
   },

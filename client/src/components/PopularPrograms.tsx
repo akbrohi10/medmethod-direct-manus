@@ -234,7 +234,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               </div>
             )}
             <p className="text-xs font-medium leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Our complete medical weight loss system — physician-designed for steady, safe, and managed results.
+              Our complete medical weight loss system — FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for steady, safe, and managed results.
             </p>
             <div
               className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider mb-5 w-fit"
@@ -246,7 +246,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.1)", marginBottom: 20 }} />
             <ul className="flex flex-col gap-2 mb-3 flex-1">
               {[
-                { text: "Compounded Semaglutide — Delivered to Your Door" },
+                { text: "Semaglutide (FDA-approved brand or 503B-compounded) — Delivered to Your Door" },
                 { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
                 { text: "Quarterly 1-on-1 Doctor Strategy Session" },
                 { text: "Direct Text Access (Business Hours)" },
@@ -346,7 +346,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             <hr style={{ border: "none", borderTop: "1px solid #EBEBF0", marginBottom: 20 }} />
             <ul className="flex flex-col gap-2 mb-3 flex-1">
               {[
-                { text: "Compounded Tirzepatide + BHRT — The Complete Protocol" },
+                { text: "Tirzepatide (FDA-approved brand or 503B-compounded) + BHRT — The Complete Protocol" },
                 { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
                 { text: "Quarterly 1-on-1 Doctor Strategy Session" },
                 { text: "Direct Text Access (Business Hours)" },
