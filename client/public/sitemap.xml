@@ -15,13 +15,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Individual blog article URLs will be added here as articles are published -->
-  <!-- Example:
+  <!-- Blog articles -->
   <url>
     <loc>https://medmethoddirect.com/blog/why-weight-gain-feels-different-in-menopause</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  -->
 </urlset>

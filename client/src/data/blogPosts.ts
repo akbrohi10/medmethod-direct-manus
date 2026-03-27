@@ -30,21 +30,21 @@ export const AUTHOR_DR_ALDEEK = {
 };
 
 export const blogPosts: BlogPost[] = [
-  // Articles will be added here as they are written.
-  // Example structure (uncomment and fill in when adding):
-  // {
-  //   slug: "why-weight-gain-feels-different-in-menopause",
-  //   title: "Why Does Weight Gain Feel Different in Menopause?",
-  //   excerpt: "...",
-  //   pillar: "menopause-metabolism",
-  //   pillarLabel: "Menopause & Metabolism",
-  //   readTime: 7,
-  //   publishDate: "2026-03-27",
-  //   author: AUTHOR_DR_ALDEEK,
-  //   primaryKeyword: "menopause weight gain",
-  //   metaDescription: "...",
-  //   featured: true,
-  // },
+  {
+    slug: "why-weight-gain-feels-different-in-menopause",
+    title: "Why Does Weight Gain Feel Different in Menopause?",
+    excerpt:
+      "You haven't changed what you eat or how you move — yet your body is behaving differently. Here's the honest biological explanation for why menopause changes the way your body stores fat, burns energy, and responds to food.",
+    pillar: "menopause-metabolism",
+    pillarLabel: "Menopause & Metabolism",
+    readTime: 8,
+    publishDate: "2026-03-27",
+    author: AUTHOR_DR_ALDEEK,
+    primaryKeyword: "menopause weight gain",
+    metaDescription:
+      "Why does weight gain feel so different in menopause? Dr. Jumana Al-Deek explains the hormonal science behind belly fat, insulin resistance, and what actually helps.",
+    featured: true,
+  },
 ];
 
 export const PILLAR_LABELS: Record<BlogPost["pillar"], string> = {

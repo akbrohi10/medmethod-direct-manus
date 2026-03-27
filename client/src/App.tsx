@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import MaleHome from "./pages/MaleHome";
 import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
+// Article imports — each file self-registers into articleComponents on load
+import "./articles/why-weight-gain-feels-different-in-menopause";
 
 function Router() {
   return (
