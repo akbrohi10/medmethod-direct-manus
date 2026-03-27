@@ -154,10 +154,17 @@ export default function MaleTestimonials() {
                 alt={`${t.name} before and after transformation`}
                 className="w-full h-full object-cover"
               />
-              {/* Teal result badge — top right, matching reference */}
+              {/* BEFORE / AFTER labels — bottom of each half */}
+              <div className="absolute bottom-0 left-0 w-1/2 py-1.5 text-center">
+                <span className="text-white font-black text-xs tracking-widest" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.7)" }}>BEFORE</span>
+              </div>
+              <div className="absolute bottom-0 right-0 w-1/2 py-1.5 text-center">
+                <span className="text-white font-black text-xs tracking-widest" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.7)" }}>AFTER</span>
+              </div>
+              {/* Result badge — bottom center above the labels, never covering faces */}
               <div
-                className="absolute top-3 right-3 px-3 py-1.5 rounded-full text-white font-bold text-xs shadow-lg"
-                style={{ background: TEAL_GRADIENT, maxWidth: "60%", textAlign: "center", lineHeight: 1.3 }}
+                className="absolute bottom-7 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-white font-bold text-xs shadow-lg whitespace-nowrap"
+                style={{ background: TEAL_GRADIENT }}
               >
                 {t.badge}
               </div>
