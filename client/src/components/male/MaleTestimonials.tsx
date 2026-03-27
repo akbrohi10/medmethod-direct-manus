@@ -1,6 +1,31 @@
 /* MaleTestimonials.tsx — Men's patient testimonials with before/after photos + horizontal scroll */
 const TEAL = "#00C2CB";
 const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
+const NAVY = "#0A1628";
+
+const beforeAfters = [
+  {
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-ba-1-bb4oP8Mkvi2vaD4dRSj3wf.webp",
+    name: "Marcus T., 42",
+    result: "+340 ng/dL Testosterone",
+    timeframe: "90 Days",
+    location: "Dallas, TX",
+  },
+  {
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-ba-2-jz5HmjtfaUqD2jCF6nntpt.webp",
+    name: "Derek W., 38",
+    result: "Lost 34 lbs",
+    timeframe: "4 Months",
+    location: "Phoenix, AZ",
+  },
+  {
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/male-ba-3-fuPZfJjcTCVyZYnK9bgumb.webp",
+    name: "Ryan S., 33",
+    result: "Lost 28 lbs + Muscle Gain",
+    timeframe: "6 Months",
+    location: "Denver, CO",
+  },
+];
 
 const testimonials = [
   { name: "Marcus T.", age: 42, location: "Dallas, TX", result: "+340 ng/dL testosterone in 90 days", quote: "I was exhausted, gaining weight, and had zero drive. Three months into TRT and I feel like I'm 30 again. My wife noticed before I did.", rating: 5 },
@@ -20,25 +45,101 @@ const testimonials = [
 export default function MaleTestimonials() {
   return (
     <section id="testimonials" className="py-14 overflow-hidden" style={{ background: "#EDE9E1", fontFamily: "Montserrat, sans-serif" }}>
-      <div className="max-w-6xl mx-auto px-4 mb-8">
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <div className="h-px w-10" style={{ background: TEAL }} />
-          <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>RESULTS</span>
-          <div className="h-px w-10" style={{ background: TEAL }} />
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+
+        {/* Section header */}
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px w-10" style={{ background: TEAL_GRADIENT }} />
+            <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>RESULTS</span>
+            <div className="h-px w-10" style={{ background: TEAL_GRADIENT }} />
+          </div>
+          <h2
+            className="font-black leading-tight mb-3"
+            style={{ color: NAVY, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}
+          >
+            REAL MEN.{" "}
+            <span
+              style={{
+                background: TEAL_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              REAL RESULTS.
+            </span>
+          </h2>
+          <p style={{ color: "rgba(10,22,40,0.5)", fontSize: "0.9rem" }}>
+            Over 8,000 men have optimized their health with MedMethod Direct.
+          </p>
         </div>
-        <h2 className="font-black text-center mb-2" style={{ color: "#0A1628", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
-          REAL MEN. REAL RESULTS.
-        </h2>
-        <p className="text-center" style={{ color: "rgba(10,22,40,0.5)", fontSize: "0.9rem" }}>
-          Over 8,000 men have optimized their health with MedMethod Direct.
-        </p>
+
+        {/* ── Before / After Photos ── */}
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1" style={{ background: "rgba(0,194,203,0.2)" }} />
+            <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: TEAL }}>Before & After</span>
+            <div className="h-px flex-1" style={{ background: "rgba(0,194,203,0.2)" }} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {beforeAfters.map((item, i) => (
+              <div
+                key={i}
+                className="rounded-2xl overflow-hidden"
+                style={{
+                  background: "#fff",
+                  border: "1px solid rgba(0,194,203,0.15)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.07)",
+                }}
+              >
+                {/* Photo */}
+                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                  <img
+                    src={item.image}
+                    alt={`${item.name} before and after transformation`}
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Timeframe badge */}
+                  <div
+                    className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-bold text-white"
+                    style={{ background: TEAL_GRADIENT, boxShadow: "0 2px 8px rgba(0,194,203,0.4)" }}
+                  >
+                    {item.timeframe}
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-4">
+                  <div
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-2"
+                    style={{ background: "rgba(0,194,203,0.1)", color: TEAL }}
+                  >
+                    ✓ {item.result}
+                  </div>
+                  <p className="font-black text-sm" style={{ color: NAVY }}>{item.name}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(10,22,40,0.45)" }}>{item.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs mt-4" style={{ color: "rgba(10,22,40,0.35)", fontStyle: "italic" }}>
+            *Results shown are representative. Individual results vary based on program, adherence, and starting health status.
+          </p>
+        </div>
+
       </div>
 
-      {/* Scrollable row */}
-      <div className="flex gap-4 px-4 overflow-x-auto pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+      {/* ── Scrollable Testimonials ── */}
+      <div className="flex gap-4 px-4 lg:px-8 overflow-x-auto pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         {testimonials.map((t) => (
-          <div key={t.name} className="flex-shrink-0 rounded-2xl p-5 flex flex-col"
-            style={{ width: 300, background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+          <div
+            key={t.name}
+            className="flex-shrink-0 rounded-2xl p-5 flex flex-col"
+            style={{ width: 300, background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+          >
             {/* Stars */}
             <div className="flex gap-0.5 mb-3">
               {Array.from({ length: t.rating }).map((_, i) => (
@@ -56,13 +157,15 @@ export default function MaleTestimonials() {
               "{t.quote}"
             </p>
             {/* Author */}
-              <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(0,194,203,0.15)" }}>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white flex-shrink-0"
-                style={{ background: TEAL_GRADIENT }}>
+            <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(0,194,203,0.15)" }}>
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white flex-shrink-0"
+                style={{ background: TEAL_GRADIENT }}
+              >
                 {t.name[0]}
               </div>
               <div>
-                <p className="font-bold text-sm" style={{ color: "#0A1628" }}>{t.name}, {t.age}</p>
+                <p className="font-bold text-sm" style={{ color: NAVY }}>{t.name}, {t.age}</p>
                 <p className="text-xs" style={{ color: "rgba(10,22,40,0.45)" }}>{t.location}</p>
               </div>
             </div>
@@ -71,11 +174,11 @@ export default function MaleTestimonials() {
       </div>
 
       {/* Aggregate rating */}
-      <div className="max-w-6xl mx-auto px-4 mt-6 flex items-center justify-center gap-6">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-8 mt-6 flex items-center justify-center gap-6">
         <div className="flex gap-0.5">
           {[1,2,3,4,5].map(i => <span key={i} style={{ color: TEAL, fontSize: 20 }}>★</span>)}
         </div>
-        <span className="font-black text-lg" style={{ color: "#0A1628" }}>4.9</span>
+        <span className="font-black text-lg" style={{ color: NAVY }}>4.9</span>
         <span className="text-sm" style={{ color: "rgba(10,22,40,0.5)" }}>from 1,200+ verified reviews</span>
       </div>
     </section>
