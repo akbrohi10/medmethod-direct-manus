@@ -35,6 +35,10 @@ const faqs = [
     a: "Many patients report noticeable improvements in sleep, energy, and mood within 4–6 weeks of starting treatment. Optimal hormone balance typically occurs at the 3–6 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4–8 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
   },
   {
+    q: "Do you use FDA-approved medications or compounded ones?",
+    a: "Both — and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility — a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
+  },
+  {
     q: "What does treatment cost?",
     a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible — and we're committed to being upfront about every cost.",
   },
