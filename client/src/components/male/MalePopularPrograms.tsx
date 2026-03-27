@@ -78,15 +78,15 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             </div>
             <div className="p-6 flex-1 flex flex-col">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: TEAL }}>TIER 2</p>
-              <h3 className="font-black text-white text-lg mb-1">TRT + Weight Loss</h3>
-              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Full TRT protocol with medically supervised fat loss</p>
+              <h3 className="font-black text-white text-lg mb-1">GLP-1 Weight Loss</h3>
+              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Medically supervised Semaglutide program with full physician support</p>
               <div className="flex items-end gap-1 mb-1">
                 <span className="font-black text-4xl text-white">${p.t2}</span>
                 <span className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>/mo</span>
               </div>
               {isAnnual && <p className="text-xs mb-5" style={{ color: TEAL }}>Billed annually · Save $698/yr</p>}
               <div className="space-y-2.5 flex-1">
-                {["Everything in Tier 1", "Testosterone cypionate or enanthate", "Bi-weekly check-ins", "GLP-1 / Semaglutide access", "Anastrozole / HCG if needed", "Quarterly comprehensive labs"].map(f => (
+                {["Everything in Tier 1", "GLP-1 / Semaglutide (Ozempic-class)", "Bi-weekly physician check-ins", "Medication shipped to your door", "Nutrition & macro coaching", "Quarterly comprehensive labs"].map(f => (
                   <div key={f} className="flex items-start gap-2">
                     <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: TEAL }} />
                     <span className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
@@ -106,15 +106,15 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
           <div className="rounded-2xl flex flex-col" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,194,203,0.15)" }}>
             <div className="p-6 flex-1 flex flex-col">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>TIER 3</p>
-              <h3 className="font-black text-white text-lg mb-1">Elite Performance</h3>
-              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Full optimization — TRT, peptides, longevity, and more</p>
+              <h3 className="font-black text-white text-lg mb-1">TRT + Elite Performance</h3>
+              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Full TRT protocol + peptides, longevity, and complete optimization</p>
               <div className="flex items-end gap-1 mb-1">
                 <span className="font-black text-4xl text-white">${p.t3}</span>
                 <span className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>/mo</span>
               </div>
               {isAnnual && <p className="text-xs mb-5" style={{ color: TEAL }}>Billed annually · Save $898/yr</p>}
               <div className="space-y-2.5 flex-1">
-                {["Everything in Tier 2", "Peptide therapy (BPC-157, TB-500, etc.)", "Cognitive & energy optimization", "Sexual health protocols", "Hair restoration program", "Priority physician access", "Personal training discount (40% OFF)"].map(f => (
+                {["Everything in Tier 2", "Testosterone cypionate or enanthate", "Anastrozole / HCG if needed", "Peptide therapy (BPC-157, TB-500, etc.)", "Sexual health & ED protocols", "Hair restoration program", "Priority physician access", "Personal training discount (40% OFF)"].map(f => (
                   <div key={f} className="flex items-start gap-2">
                     <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: TEAL }} />
                     <span className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
