@@ -24,25 +24,34 @@ import DiagnosticSetup from "@/components/DiagnosticSetup";
 
 export default function Home() {
   const [consultOpen, setConsultOpen] = useState(false);
-  const openConsult = () => setConsultOpen(true);
+  const [preselectedService, setPreselectedService] = useState<string | undefined>(undefined);
+
+  const openConsult = (service?: string) => {
+    setPreselectedService(service);
+    setConsultOpen(true);
+  };
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
-      <Navbar onConsultClick={openConsult} />
-      <Hero onConsultClick={openConsult} />
-      <HowItWorks onConsultClick={openConsult} />
-      <DiagnosticSetup onConsultClick={openConsult} />
-      <PopularPrograms onConsultClick={openConsult} />
-      <Services />
+      <Navbar onConsultClick={() => openConsult()} />
+      <Hero onConsultClick={() => openConsult()} />
+      <HowItWorks onConsultClick={() => openConsult()} />
+      <DiagnosticSetup onConsultClick={() => openConsult()} />
+      <PopularPrograms onConsultClick={() => openConsult()} />
+      <Services onConsultClick={openConsult} />
       <Testimonials />
-      <ToolsForSuccess onConsultClick={openConsult} />
-      <WhyChoose onConsultClick={openConsult} />
+      <ToolsForSuccess onConsultClick={() => openConsult()} />
+      <WhyChoose onConsultClick={() => openConsult()} />
       <MedicalTeam />
       <FAQ />
       <Blog />
-      <Footer onConsultClick={openConsult} />
-      <StickyMobileCTA onConsultClick={openConsult} />
-      <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
+      <Footer onConsultClick={() => openConsult()} />
+      <StickyMobileCTA onConsultClick={() => openConsult()} />
+      <ConsultationModal
+        open={consultOpen}
+        onClose={() => { setConsultOpen(false); setPreselectedService(undefined); }}
+        preselectedService={preselectedService}
+      />
     </div>
   );
 }

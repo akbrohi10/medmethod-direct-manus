@@ -1,17 +1,38 @@
 // ConsultationModal.tsx
 // Design: Clean white mobile-style, large serif question title, thin divider radio rows,
 // full-width brand-gradient "Next" button pinned at bottom.
+// Step 0: Service selection (multi-select grid, can be pre-selected from service card CTAs)
+// Steps 1-5: Intake questions
+// Step 6: Lead capture form
+// Step 7: Expectation screen
+// Step 8: Calendly embed
 // Replace CALENDLY_URL with your actual Calendly link.
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { X } from "lucide-react";
+import { X, Check } from "lucide-react";
 
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  preselectedService?: string;
 }
+
+const SERVICE_OPTIONS = [
+  { label: "Weight Loss", icon: "⚖️" },
+  { label: "Hormone Therapy", icon: "🧬" },
+  { label: "Menopause", icon: "🌡️" },
+  { label: "Sexual Health", icon: "💗" },
+  { label: "Hair Care", icon: "✨" },
+  { label: "Gut Health", icon: "🫁" },
+  { label: "Skincare", icon: "🌿" },
+  { label: "Longevity & Aging", icon: "⏳" },
+  { label: "Vitamins & Supplements", icon: "💊" },
+  { label: "Personal Training", icon: "🏋️" },
+  { label: "Primary Care", icon: "🩺" },
+  { label: "Not sure yet", icon: "🤔" },
+];
 
 const questions = [
   {
@@ -82,7 +103,6 @@ function WheelColumn({
   const isScrolling = useRef(false);
   const rafId = useRef<number | null>(null);
 
-  // Scroll to selected index on mount / external change
   useEffect(() => {
     const el = ref.current;
     if (!el || isScrolling.current) return;
@@ -104,17 +124,14 @@ function WheelColumn({
 
   return (
     <div className="relative flex-1 overflow-hidden" style={{ height: ITEM_H * 5 }}>
-      {/* top fade */}
       <div
         className="absolute inset-x-0 top-0 z-10 pointer-events-none"
         style={{ height: ITEM_H * 2, background: "linear-gradient(to bottom, #fafafa 0%, transparent 100%)" }}
       />
-      {/* bottom fade */}
       <div
         className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
         style={{ height: ITEM_H * 2, background: "linear-gradient(to top, #fafafa 0%, transparent 100%)" }}
       />
-      {/* highlight bar */}
       <div
         className="absolute inset-x-0 z-10 pointer-events-none"
         style={{
@@ -201,7 +218,6 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      {/* First Name */}
       <div>
         <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
           First Name <span style={{ color: BRAND_PINK }}>*</span>
@@ -214,8 +230,6 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
           <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter your first name</p>
         )}
       </div>
-
-      {/* Email */}
       <div>
         <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
           Email Address <span style={{ color: BRAND_PINK }}>*</span>
@@ -228,8 +242,6 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
           <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter a valid email address</p>
         )}
       </div>
-
-      {/* Phone */}
       <div>
         <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
           Phone Number <span style={{ color: BRAND_PINK }}>*</span>
@@ -242,8 +254,6 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
           <p style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}>Please enter a valid 10-digit phone number</p>
         )}
       </div>
-
-      {/* ZIP Code (optional) */}
       <div>
         <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
           ZIP Code{" "}
@@ -255,8 +265,6 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
           onFocus={(e) => { e.target.style.borderColor = BRAND_PINK; e.target.style.boxShadow = "0 0 0 3px rgba(232,51,158,0.12)"; }}
           onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.boxShadow = "none"; }} />
       </div>
-
-      {/* Privacy note */}
       <div style={{
         display: "flex", alignItems: "flex-start", gap: 10, borderRadius: 12, padding: "12px 14px",
         background: "rgba(232,51,158,0.05)", border: "1px solid rgba(232,51,158,0.15)", marginTop: 4,
@@ -272,12 +280,13 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
 }
 
 // ── Main modal ───────────────────────────────────────────────────────────────
-export default function ConsultationModal({ open, onClose }: Props) {
+export default function ConsultationModal({ open, onClose, preselectedService }: Props) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
   const [goalsText, setGoalsText] = useState("");
   const [leadData, setLeadData] = useState<LeadData>({ firstName: "", email: "", phone: "", zip: "" });
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -286,7 +295,14 @@ export default function ConsultationModal({ open, onClose }: Props) {
 
   const [monthIdx, setMonthIdx] = useState(new Date().getMonth());
   const [dayIdx, setDayIdx] = useState(new Date().getDate() - 1);
-  const [yearIdx, setYearIdx] = useState(30); // default ~30 years ago
+  const [yearIdx, setYearIdx] = useState(30);
+
+  // Pre-select service when modal opens with a specific service
+  useEffect(() => {
+    if (open && preselectedService) {
+      setSelectedServices([preselectedService]);
+    }
+  }, [open, preselectedService]);
 
   const computedAge = useMemo(() => {
     const dob = new Date(parseInt(years[yearIdx]), monthIdx, parseInt(days[dayIdx]));
@@ -299,19 +315,24 @@ export default function ConsultationModal({ open, onClose }: Props) {
   if (!open) return null;
 
   // Step layout:
-  // 0-4  = questions (goal, duration, tried, age, goals)
-  // 5    = lead capture form
-  // 6    = expectation screen
-  // 7    = calendar embed
-  const LEAD_STEP = questions.length;           // 5
-  const EXPECTATION_STEP = questions.length + 1; // 6
-  const CALENDAR_STEP = questions.length + 2;    // 7
-  const TOTAL_STEPS = CALENDAR_STEP + 1;         // 8
+  // 0    = service selection (new)
+  // 1-5  = questions (goal, duration, tried, age, goals)
+  // 6    = lead capture form
+  // 7    = expectation screen
+  // 8    = calendar embed
+  const SERVICE_STEP = 0;
+  const QUESTIONS_START = 1;
+  const LEAD_STEP = QUESTIONS_START + questions.length;      // 6
+  const EXPECTATION_STEP = LEAD_STEP + 1;                    // 7
+  const CALENDAR_STEP = EXPECTATION_STEP + 1;                // 8
+  const TOTAL_STEPS = CALENDAR_STEP + 1;                     // 9
 
   const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
-  const isQuestionStep = step < questions.length;
-  const isAgeStep = isQuestionStep && questions[step].id === "age";
-  const isGoalsStep = isQuestionStep && questions[step].id === "goals";
+  const isServiceStep = step === SERVICE_STEP;
+  const isQuestionStep = step >= QUESTIONS_START && step < LEAD_STEP;
+  const questionIndex = step - QUESTIONS_START; // 0-based index into questions[]
+  const isAgeStep = isQuestionStep && questions[questionIndex]?.id === "age";
+  const isGoalsStep = isQuestionStep && questions[questionIndex]?.id === "goals";
   const isLeadStep = step === LEAD_STEP;
   const isExpectationStep = step === EXPECTATION_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
@@ -321,13 +342,25 @@ export default function ConsultationModal({ open, onClose }: Props) {
     isValidEmail(leadData.email) &&
     isValidPhone(leadData.phone);
 
-  const isNextDisabled = isQuestionStep
-    ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
-    : isLeadStep ? !isLeadValid
-    : false;
+  const isNextDisabled = isServiceStep
+    ? selectedServices.length === 0
+    : isQuestionStep
+      ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
+      : isLeadStep ? !isLeadValid
+      : false;
+
+  const toggleService = (label: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(label) ? prev.filter((s) => s !== label) : [...prev, label]
+    );
+  };
 
   const handleNext = () => {
-    if (isQuestionStep) {
+    if (isServiceStep) {
+      if (selectedServices.length === 0) return;
+      setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
+      setStep((s) => s + 1);
+    } else if (isQuestionStep) {
       if (isAgeStep) {
         if (computedAge < 18) return;
         const dobStr = `${months[monthIdx]} ${days[dayIdx]}, ${years[yearIdx]}`;
@@ -344,7 +377,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
         return;
       }
       if (!selected) return;
-      setAnswers((prev) => ({ ...prev, [questions[step].id]: selected }));
+      setAnswers((prev) => ({ ...prev, [questions[questionIndex].id]: selected }));
       setSelected(null);
       setStep((s) => s + 1);
     } else if (isLeadStep) {
@@ -366,8 +399,9 @@ export default function ConsultationModal({ open, onClose }: Props) {
     if (step === 0) return;
     const prevStep = step - 1;
     setStep(prevStep);
-    if (prevStep < questions.length) {
-      setSelected(answers[questions[prevStep].id] || null);
+    if (prevStep >= QUESTIONS_START && prevStep < LEAD_STEP) {
+      const qi = prevStep - QUESTIONS_START;
+      setSelected(answers[questions[qi].id] || null);
     } else {
       setSelected(null);
     }
@@ -379,10 +413,11 @@ export default function ConsultationModal({ open, onClose }: Props) {
     setSelected(null);
     setGoalsText("");
     setLeadData({ firstName: "", email: "", phone: "", zip: "" });
+    setSelectedServices([]);
     onClose();
   };
 
-  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}&name=${encodeURIComponent(answers["firstName"] || "")}&email=${encodeURIComponent(answers["email"] || "")}`;
+  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["services"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}&name=${encodeURIComponent(answers["firstName"] || "")}&email=${encodeURIComponent(answers["email"] || "")}`;
 
   return (
     <div
@@ -419,16 +454,76 @@ export default function ConsultationModal({ open, onClose }: Props) {
 
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto">
-          {/* Question steps */}
+
+          {/* ── Step 0: Service selection ── */}
+          {isServiceStep && (
+            <div className="px-6 pt-8 pb-2">
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
+                STEP 1 OF {TOTAL_STEPS - 1}
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                What brings you in today?
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                Select one or more services you'd like to learn about. Your advisor will be prepared before your call.
+              </p>
+              <div className="grid grid-cols-2 gap-2.5">
+                {SERVICE_OPTIONS.map((svc) => {
+                  const isActive = selectedServices.includes(svc.label);
+                  return (
+                    <button
+                      key={svc.label}
+                      onClick={() => toggleService(svc.label)}
+                      className="relative flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-150"
+                      style={{
+                        border: `2px solid ${isActive ? BRAND_PINK : "#e5e7eb"}`,
+                        background: isActive ? "rgba(232,51,158,0.06)" : "#fff",
+                        boxShadow: isActive ? `0 0 0 3px rgba(232,51,158,0.10)` : "none",
+                      }}
+                    >
+                      <span className="text-xl flex-shrink-0">{svc.icon}</span>
+                      <span
+                        className="text-sm leading-tight"
+                        style={{
+                          color: isActive ? BRAND_PLUM : "#374151",
+                          fontWeight: isActive ? 700 : 500,
+                        }}
+                      >
+                        {svc.label}
+                      </span>
+                      {isActive && (
+                        <span
+                          className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center"
+                          style={{ background: BRAND_PINK }}
+                        >
+                          <Check size={10} color="#fff" strokeWidth={3} />
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              {selectedServices.length > 0 && (
+                <p className="text-xs text-center mt-4" style={{ color: BRAND_PINK }}>
+                  {selectedServices.length} service{selectedServices.length > 1 ? "s" : ""} selected
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* ── Steps 1-5: Intake questions ── */}
           {isQuestionStep && (
             <div className="px-6 pt-8 pb-2">
               <h2
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                {questions[step].question}
+                {questions[questionIndex].question}
               </h2>
-              <p className="text-sm text-gray-400 mb-5">{questions[step].subtitle}</p>
+              <p className="text-sm text-gray-400 mb-5">{questions[questionIndex].subtitle}</p>
 
               {isGoalsStep ? (
                 <div className="mt-2">
@@ -438,11 +533,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                     placeholder="e.g. I've been struggling with my weight since my second pregnancy and nothing has worked long-term. I want to finally feel like myself again..."
                     rows={6}
                     className="w-full rounded-xl border border-gray-200 p-4 text-base text-gray-800 placeholder-gray-300 resize-none focus:outline-none focus:ring-2 transition-all"
-                    style={{
-                      fontFamily: "inherit",
-                      lineHeight: 1.6,
-                      boxShadow: "inset 0 1px 3px rgba(0,0,0,0.04)",
-                    }}
+                    style={{ fontFamily: "inherit", lineHeight: 1.6, boxShadow: "inset 0 1px 3px rgba(0,0,0,0.04)" }}
                     onFocus={(e) => (e.target.style.borderColor = BRAND_PINK)}
                     onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
                   />
@@ -464,9 +555,9 @@ export default function ConsultationModal({ open, onClose }: Props) {
                     {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
                   </p>
                 </div>
-              ) : !isGoalsStep ? (
+              ) : (
                 <div className="divide-y divide-gray-100">
-                  {questions[step].options.map((option) => {
+                  {questions[questionIndex].options.map((option) => {
                     const isSelected = selected === option;
                     return (
                       <button
@@ -496,11 +587,11 @@ export default function ConsultationModal({ open, onClose }: Props) {
                     );
                   })}
                 </div>
-              ) : null}
+              )}
             </div>
           )}
 
-          {/* Lead capture form step */}
+          {/* ── Step 6: Lead capture form ── */}
           {isLeadStep && (
             <div className="px-6 pt-8 pb-2">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
@@ -519,7 +610,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
             </div>
           )}
 
-          {/* Expectation screen */}
+          {/* ── Step 7: Expectation screen ── */}
           {isExpectationStep && (
             <div className="px-6 pt-8 pb-2">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
@@ -534,12 +625,21 @@ export default function ConsultationModal({ open, onClose }: Props) {
               <p className="text-sm text-gray-400 mb-5">
                 Your 20-minute call with a MedMethod Enrollment Specialist is completely free and pressure-free.
               </p>
+              {answers["services"] && (
+                <div
+                  className="mb-4 px-4 py-3 rounded-xl text-sm"
+                  style={{ background: "rgba(232,51,158,0.06)", border: "1px solid rgba(232,51,158,0.2)" }}
+                >
+                  <span className="font-semibold" style={{ color: BRAND_PLUM }}>Your interest: </span>
+                  <span style={{ color: "#374151" }}>{answers["services"]}</span>
+                </div>
+              )}
               <div className="divide-y divide-gray-100">
                 {[
                   { icon: "🩺", title: "Review your goals", desc: "We'll discuss what you've tried and what hasn't worked." },
                   { icon: "💬", title: "Answer your questions", desc: "Ask anything about our programs, medications, or process." },
-                  { icon: "📋", title: "Get a personalized recommendation", desc: "We'll tell you exactly which program fits your biology and lifestyle." },
-                  { icon: "🚫", title: "No pressure, no obligation", desc: "This is a conversation — not a sales pitch." },
+                  { icon: "📋", title: "Get a personalized plan", desc: "We'll outline the right program based on your biology and goals." },
+                  { icon: "🚀", title: "No pressure, ever", desc: "This call is informational. You decide if and when you're ready." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4 py-4">
                     <span className="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
@@ -553,7 +653,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
             </div>
           )}
 
-          {/* Calendar embed */}
+          {/* ── Step 8: Calendar embed ── */}
           {isCalendarStep && (
             <div className="px-6 pt-8 pb-4">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
@@ -595,7 +695,7 @@ export default function ConsultationModal({ open, onClose }: Props) {
                 boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {isExpectationStep ? "Choose a Time →" : "Next"}
+              {isExpectationStep ? "Choose a Time →" : "Next →"}
             </button>
             {step > 0 && (
               <button

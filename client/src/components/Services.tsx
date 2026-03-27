@@ -93,7 +93,11 @@ const services = [
   },
 ];
 
-export default function Services() {
+interface Props {
+  onConsultClick?: (service?: string) => void;
+}
+
+export default function Services({ onConsultClick }: Props) {
   return (
     <section id="services" className="bg-white py-16 lg:py-20">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
@@ -187,27 +191,29 @@ export default function Services() {
               </p>
 
               {/* CTA Button */}
-              <a
-                href={service.href}
-                className="block text-center py-3 px-6 rounded-full border-2 text-sm font-bold tracking-wider transition-all duration-200 hover:text-white"
+              <button
+                onClick={() => onConsultClick?.(service.title)}
+                className="block w-full text-center py-3 px-6 rounded-full border-2 text-sm font-bold tracking-wider transition-all duration-200 hover:text-white"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
                   borderColor: "#E8339E",
                   color: "#E8339E",
+                  background: "transparent",
+                  cursor: "pointer",
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent";
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                  (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#fff";
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E8339E";
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#E8339E";
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#E8339E";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#E8339E";
                 }}
               >
                 START NOW
-              </a>
+              </button>
             </div>
           ))}
         </div>
