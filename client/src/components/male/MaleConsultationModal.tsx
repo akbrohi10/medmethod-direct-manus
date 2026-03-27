@@ -206,6 +206,7 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
 
 // ── Main Modal ───────────────────────────────────────────────────────────────
 export default function MaleConsultationModal({ open, onClose }: Props) {
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
@@ -285,7 +286,13 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
   const handleClose = () => {
     setStep(0); setAnswers({}); setSelected(null); setGoalsText("");
     setLeadData({ firstName: "", email: "", phone: "", zip: "" });
+    setShowExitConfirm(false);
     onClose();
+  };
+
+  const handleAttemptClose = () => {
+    if (isCalendarStep) { handleClose(); return; }
+    setShowExitConfirm(true);
   };
 
   const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["goal"] || "")}&name=${encodeURIComponent(answers["firstName"] || "")}&email=${encodeURIComponent(answers["email"] || "")}`;
@@ -293,7 +300,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
       style={{ backgroundColor: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
-      onClick={(e) => e.target === e.currentTarget && handleClose()}>
+      onClick={(e) => e.target === e.currentTarget && handleAttemptClose()}>
       <div className="relative w-full flex flex-col overflow-hidden"
         style={{
           maxWidth: isCalendarStep ? 860 : 480, maxHeight: "95vh",
@@ -311,11 +318,56 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
         )}
 
         {/* Close button */}
-        <button onClick={handleClose}
+        <button onClick={handleAttemptClose}
           className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full transition-colors z-10"
           style={{ background: "rgba(255,255,255,0.08)" }}>
           <X size={16} style={{ color: "rgba(255,255,255,0.6)" }} />
         </button>
+
+        {/* Exit-intent confirmation overlay */}
+        {showExitConfirm && (
+          <div
+            className="absolute inset-0 z-20 flex items-center justify-center p-6"
+            style={{ background: "rgba(13,21,38,0.97)", backdropFilter: "blur(4px)", borderRadius: "inherit" }}
+          >
+            <div className="flex flex-col items-center text-center max-w-xs">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-5 flex-shrink-0"
+                style={{ background: "rgba(0,194,203,0.12)", border: "1.5px solid rgba(0,194,203,0.3)" }}
+              >
+                <span style={{ fontSize: 26 }}>💪</span>
+              </div>
+              <h3
+                className="text-xl font-bold mb-3 leading-snug text-white"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Before you go...
+              </h3>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+                It's easy to close this window — but one conversation with our men's health team could be the turning point you've been waiting for. This is the first step toward feeling like yourself again.
+              </p>
+              <p className="text-xs font-bold tracking-wider uppercase mb-6" style={{ color: TEAL }}>
+                100% Risk-Free · No Obligation · No Pressure
+              </p>
+              <button
+                onClick={() => setShowExitConfirm(false)}
+                className="w-full py-3.5 rounded-full text-sm font-bold tracking-wider text-white mb-3 transition-all hover:opacity-90"
+                style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 20px rgba(0,194,203,0.35)" }}
+              >
+                Take the First Step →
+              </button>
+              <button
+                onClick={handleClose}
+                className="text-xs font-medium transition-colors"
+                style={{ color: "rgba(255,255,255,0.3)", background: "none", border: "none", cursor: "pointer" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
+              >
+                Not Today
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto">
