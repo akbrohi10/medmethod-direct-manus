@@ -11,7 +11,6 @@ import MaleHowItWorks from "@/components/male/MaleHowItWorks";
 import MaleDiagnosticSetup from "@/components/male/MaleDiagnosticSetup";
 import MalePopularPrograms from "@/components/male/MalePopularPrograms";
 import MaleServices from "@/components/male/MaleServices";
-import MaleTestimonials from "@/components/male/MaleTestimonials";
 import MaleToolsForSuccess from "@/components/male/MaleToolsForSuccess";
 import MaleWhyChoose from "@/components/male/MaleWhyChoose";
 import MaleFAQ from "@/components/male/MaleFAQ";
@@ -30,7 +29,6 @@ export default function MaleHome() {
       <MaleDiagnosticSetup onConsultClick={openConsult} />
       <MalePopularPrograms onConsultClick={openConsult} />
       <MaleServices />
-      <MaleTestimonials />
       <MaleToolsForSuccess onConsultClick={openConsult} />
       <MaleWhyChoose onConsultClick={openConsult} />
       <MaleMetabolicQuiz onConsultClick={openConsult} />
