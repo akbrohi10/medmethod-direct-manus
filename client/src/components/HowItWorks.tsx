@@ -30,22 +30,14 @@ const steps = [
   {
     icon: ClipboardCheck,
     step: "3",
-    title: "Lab Review & Strategy",
+    title: "Lab Review & Program Selection",
     description:
-      "Meet with your dedicated Doctor to review your bloodwork and receive your personalized clinical recommendation.",
-    badge: null,
-  },
-  {
-    icon: LayoutGrid,
-    step: "4",
-    title: "Select Your Track",
-    description:
-      "Based on your biology, you'll choose your ongoing monthly program for medication, coaching, and accountability.",
+      "Your Doctor reviews your bloodwork, walks you through treatment options, and together you select the program that fits your biology and goals.",
     badge: null,
   },
   {
     icon: RefreshCw,
-    step: "5",
+    step: "4",
     title: "Meet Your Wellness Advisor",
     description:
       "Your dedicated Wellness Advisor guides bi-weekly check-ins, tracks your progress, and fine-tunes your plan so your results keep accelerating.",
@@ -90,7 +82,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
         </div>
 
         {/* Steps — 5-col grid on desktop, 2-col on tablet, 1-col on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {steps.map((item, i) => {
             const Icon = item.icon;
             const isLast = i === steps.length - 1;

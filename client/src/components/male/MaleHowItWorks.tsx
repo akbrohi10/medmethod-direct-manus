@@ -7,9 +7,8 @@ const CREAM = "#F5F2EC";
 const steps = [
   { num: "01", title: "Free Consultation", desc: "Book a no-pressure 20-minute call with a MedMethod Enrollment Specialist who will review your symptoms and goals." },
   { num: "02", title: "Lab Work Ordered", desc: "We order a comprehensive hormone panel — testosterone, thyroid, metabolic markers — shipped directly to you or a local lab." },
-  { num: "03", title: "Physician Review", desc: "A board-certified men's health physician reviews your labs and builds a protocol personalized to your biology." },
-  { num: "04", title: "Medication Delivered", desc: "Your prescription is dispensed from a licensed compounding pharmacy and delivered discreetly to your door." },
-  { num: "05", title: "Ongoing Optimization", desc: "Bi-weekly check-ins, quarterly labs, and dose adjustments ensure you keep performing at your peak." },
+  { num: "03", title: "Lab Review & Program Selection", desc: "Your physician reviews your results, walks you through treatment options, and together you select the protocol that fits your biology and goals." },
+  { num: "04", title: "Medication Delivered & Ongoing Optimization", desc: "Your prescription ships discreetly to your door. Bi-weekly check-ins, quarterly labs, and dose adjustments keep you performing at your peak." },
 ];
 
 export default function MaleHowItWorks({ onConsultClick }: { onConsultClick: () => void }) {
@@ -30,7 +29,7 @@ export default function MaleHowItWorks({ onConsultClick }: { onConsultClick: () 
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-0 relative">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-0 relative">
           {/* Connector line */}
           <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,194,203,0.3), transparent)" }} />
 
