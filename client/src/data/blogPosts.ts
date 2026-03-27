@@ -46,6 +46,66 @@ export const blogPosts: BlogPost[] = [
     heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-menopause-weight-gain-6fJgUvvmMCcQ26bctdpM5F.webp",
     featured: true,
   },
+  {
+    slug: "what-is-food-noise-midlife",
+    title: "What Is Food Noise and Why Is It So Common in Midlife?",
+    excerpt:
+      "The constant mental chatter about food — what you just ate, what you'll eat next, whether you should have eaten differently — has a name. And for women in perimenopause and menopause, it has a biological explanation.",
+    pillar: "glp1-education",
+    pillarLabel: "GLP-1 Education",
+    readTime: 7,
+    publishDate: "2026-03-27",
+    author: AUTHOR_DR_ALDEEK,
+    primaryKeyword: "food noise midlife",
+    metaDescription:
+      "What is food noise and why does it get louder in midlife? Dr. Jumana Al-Deek explains the hormonal science behind food preoccupation and what actually quiets it.",
+    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-food-noise-GXQM8uF8FQQwQCbCHfGfng.webp",
+  },
+  {
+    slug: "semaglutide-vs-tirzepatide-women-midlife",
+    title: "Semaglutide vs. Tirzepatide: What Women in Midlife Should Know",
+    excerpt:
+      "Both are weekly injections. Both produce significant weight loss. But they work differently — and for women in perimenopause and menopause, those differences matter. Here's a clear, clinical comparison.",
+    pillar: "glp1-education",
+    pillarLabel: "GLP-1 Education",
+    readTime: 9,
+    publishDate: "2026-03-27",
+    author: AUTHOR_DR_ALDEEK,
+    primaryKeyword: "semaglutide vs tirzepatide women",
+    metaDescription:
+      "Semaglutide vs. tirzepatide for women in menopause — Dr. Jumana Al-Deek compares mechanisms, weight loss results, and which may be right for midlife metabolic changes.",
+    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-semaglutide-vs-tirzepatide-9ARyQv8ChgJFMKMAEM4bCx.webp",
+  },
+  {
+    slug: "hormone-therapy-weight-sleep-metabolism",
+    title: "Can Hormone Therapy Help With Weight, Sleep, and Metabolism?",
+    excerpt:
+      "The science on hormone therapy has moved significantly since 2002. Here's what the current evidence actually says about HRT, body composition, sleep quality, and metabolic health in menopause.",
+    pillar: "hormone-therapy",
+    pillarLabel: "Hormone Therapy & Testosterone",
+    readTime: 10,
+    publishDate: "2026-03-27",
+    author: AUTHOR_DR_ALDEEK,
+    primaryKeyword: "hormone therapy weight loss menopause",
+    metaDescription:
+      "Can hormone therapy help with menopause weight gain, sleep, and metabolism? Dr. Jumana Al-Deek reviews the current evidence on HRT and body composition.",
+    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-hormone-therapy-MMsbifkEGanthJdeAvCaKS.webp",
+  },
+  {
+    slug: "putting-yourself-last-has-to-change",
+    title: "You've Been Putting Yourself Last for Years. Here's Why That Has to Change.",
+    excerpt:
+      "You've been managing everyone else's needs while quietly ignoring your own. The fatigue, the weight, the brain fog — they keep getting pushed to the bottom of the list. Here's what that's actually costing you, and what showing up for yourself looks like.",
+    pillar: "symptoms-identity",
+    pillarLabel: "Symptoms & Feeling Like Yourself",
+    readTime: 8,
+    publishDate: "2026-03-27",
+    author: AUTHOR_DR_ALDEEK,
+    primaryKeyword: "women's health midlife self-care",
+    metaDescription:
+      "If you've been putting your health last for years, this is your permission to stop. Dr. Jumana Al-Deek on why midlife is the moment to finally show up for yourself.",
+    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-putting-yourself-last-LJPmiKm4hbEMRAVjigBKWd.webp",
+  },
 ];
 
 export const PILLAR_LABELS: Record<BlogPost["pillar"], string> = {

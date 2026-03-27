@@ -10,6 +10,10 @@ import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
+import "./articles/what-is-food-noise-midlife";
+import "./articles/semaglutide-vs-tirzepatide-women-midlife";
+import "./articles/hormone-therapy-weight-sleep-metabolism";
+import "./articles/putting-yourself-last-has-to-change";
 
 function Router() {
   return (
