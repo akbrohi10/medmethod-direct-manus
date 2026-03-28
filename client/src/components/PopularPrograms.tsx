@@ -1,20 +1,45 @@
 /* =============================================================================
    Popular Programs — MedMethod Direct
-   Pricing section with monthly/annual toggle, 3 tier cards
-   No logo in this section per design spec
+   Commitment-based pricing: 3 / 6 / 12 months
+   - 3 months = base rate (highest per-month price)
+   - 6 months = "Most Popular" with savings callout
+   - 12 months = "Best Value" with largest savings callout
    ============================================================================= */
 import { useState } from "react";
 import { Check } from "lucide-react";
 
-const monthly = { t1: 199, t2: 349, t3: 449 };
-const annual  = { t1: 166, t2: 291, t3: 374 };
-const annualTotal = { t1: 1990, t2: 3490, t3: 4490 };
-const savings = { t1: 398, t2: 698, t3: 898 };
+// ── Pricing tables ────────────────────────────────────────────────────────────
+// Per-month rates for each commitment length
+const pricing = {
+  3:  { t1: 199, t2: 349, t3: 449 },
+  6:  { t1: 179, t2: 319, t3: 409 },
+  12: { t1: 159, t2: 289, t3: 369 },
+} as const;
 
+type Term = 3 | 6 | 12;
+
+// Total billed upfront (per-month × months)
+function totalBilled(term: Term, tier: "t1" | "t2" | "t3") {
+  return pricing[term][tier] * term;
+}
+
+// Dollar savings vs. 3-month rate over the same period
+function savingsVs3Mo(term: Term, tier: "t1" | "t2" | "t3") {
+  if (term === 3) return 0;
+  return (pricing[3][tier] - pricing[term][tier]) * term;
+}
+
+const TERMS: { label: string; value: Term; badge?: string }[] = [
+  { label: "3 Months",  value: 3  },
+  { label: "6 Months",  value: 6,  badge: "Most Popular" },
+  { label: "12 Months", value: 12, badge: "Best Value"   },
+];
+
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
-  const [isAnnual, setIsAnnual] = useState(true);
+  const [term, setTerm] = useState<Term>(6);
 
-  const p = isAnnual ? annual : monthly;
+  const p = pricing[term];
 
   return (
     <section
@@ -35,62 +60,112 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           >
             POPULAR PROGRAMS
           </h2>
-
         </div>
 
-
-
-        {/* Monthly / Annual Toggle */}
-        <div className="flex items-center justify-center gap-4 mb-8">
-          <span
-            className="font-bold text-sm cursor-pointer transition-colors"
-            style={{ color: !isAnnual ? "#111" : "#999" }}
-            onClick={() => setIsAnnual(false)}
+        {/* ── Commitment Tab Selector ─────────────────────────────────────── */}
+        <div className="flex flex-col items-center gap-3 mb-8">
+          {/* Tab row */}
+          <div
+            className="inline-flex rounded-2xl p-1.5 gap-1"
+            style={{ background: "#E4E4EE" }}
           >
-            Monthly
-          </span>
-          <button
-            onClick={() => setIsAnnual(!isAnnual)}
-            className="relative flex-shrink-0 rounded-full transition-all"
-            style={{
-              width: 52,
-              height: 28,
-              background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-              border: "none",
-              cursor: "pointer",
-            }}
-            aria-label="Toggle billing period"
-          >
-            <span
-              className="absolute rounded-full bg-white transition-all"
+            {TERMS.map(({ label, value, badge }) => {
+              const active = term === value;
+              return (
+                <button
+                  key={value}
+                  onClick={() => setTerm(value)}
+                  className="relative flex flex-col items-center rounded-xl transition-all"
+                  style={{
+                    padding: "10px 22px",
+                    background: active
+                      ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
+                      : "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    minWidth: 110,
+                  }}
+                >
+                  {/* Badge pill (Most Popular / Best Value) */}
+                  {badge && (
+                    <span
+                      className="absolute font-extrabold uppercase rounded-full"
+                      style={{
+                        top: -11,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: 9,
+                        letterSpacing: "1.5px",
+                        padding: "3px 10px",
+                        whiteSpace: "nowrap",
+                        background: active
+                          ? "#fff"
+                          : value === 12
+                          ? "#7A1E7E"
+                          : "#E8339E",
+                        color: active
+                          ? "#E8339E"
+                          : "#fff",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                      }}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                  <span
+                    className="font-extrabold tracking-wide"
+                    style={{
+                      fontSize: 13,
+                      color: active ? "#fff" : "#555",
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    {label}
+                  </span>
+                  {/* Per-month hint */}
+                  <span
+                    className="font-semibold"
+                    style={{
+                      fontSize: 10,
+                      color: active ? "rgba(255,255,255,0.75)" : "#999",
+                      marginTop: 2,
+                    }}
+                  >
+                    from ${pricing[value].t1}/mo
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Savings callout line */}
+          {term > 3 && (
+            <div
+              className="inline-flex items-center gap-2 rounded-full font-bold text-white text-xs uppercase tracking-widest px-4 py-1.5"
               style={{
-                width: 22,
-                height: 22,
-                top: 3,
-                left: isAnnual ? 27 : 3,
-                boxShadow: "0 2px 6px rgba(0,0,0,0.18)",
-                transition: "left 0.25s ease",
+                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                fontSize: 11,
+                letterSpacing: "1.5px",
               }}
-            />
-          </button>
-          <span
-            className="font-bold text-sm cursor-pointer transition-colors"
-            style={{ color: isAnnual ? "#111" : "#999" }}
-            onClick={() => setIsAnnual(true)}
-          >
-            Annual
-          </span>
-          {isAnnual && (
-            <span
-              className="text-white text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full"
-              style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}
             >
-              2 Months Free
-            </span>
+              <span>🎉</span>
+              <span>
+                Save up to ${savingsVs3Mo(term, "t3").toLocaleString()} vs. month-to-month over {term} months
+              </span>
+            </div>
           )}
+
+          {/* Billing note */}
+          <p className="text-xs text-gray-400 font-medium">
+            {term === 3
+              ? "Billed as a single 3-month payment at checkout"
+              : term === 6
+              ? "Billed as a single 6-month payment at checkout"
+              : "Billed as a single 12-month payment at checkout — our lowest per-month rate"}
+          </p>
         </div>
 
-        {/* Cards */}
+        {/* ── Cards ───────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
 
           {/* TIER 1 — Management & Oversight */}
@@ -108,6 +183,8 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             >
               Management &amp; Oversight
             </div>
+
+            {/* Price */}
             <div className="flex items-end gap-1 mb-1">
               <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#111" }}>$</span>
               <span className="font-black leading-none" style={{ fontSize: 62, color: "#111", letterSpacing: "-3px" }}>
@@ -115,11 +192,18 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               </span>
               <span className="font-semibold pb-2.5 text-gray-400" style={{ fontSize: 15 }}>/mo</span>
             </div>
-            {isAnnual && (
-              <div className="text-xs font-semibold mb-1.5" style={{ color: "#E8339E" }}>
-                Billed ${annualTotal.t1.toLocaleString()}/yr — Save ${savings.t1}
+
+            {/* Savings vs 3-month */}
+            {term > 3 ? (
+              <div className="text-xs font-semibold mb-1" style={{ color: "#E8339E" }}>
+                Save ${savingsVs3Mo(term, "t1")} vs. 3-month rate — ${totalBilled(term, "t1").toLocaleString()} total
+              </div>
+            ) : (
+              <div className="text-xs font-semibold mb-1 text-gray-400">
+                ${totalBilled(term, "t1").toLocaleString()} billed at checkout
               </div>
             )}
+
             <p className="text-xs text-gray-400 font-medium leading-relaxed mb-4">
               For patients who already have medication through insurance but want the MedMethod team managing their results.
             </p>
@@ -169,7 +253,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             </div>
             <a
               onClick={onConsultClick}
-              className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all hover:bg-gray-100"
+              className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all hover:bg-gray-100 cursor-pointer"
               style={{
                 padding: "15px",
                 border: "2px solid #111",
@@ -183,7 +267,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             </a>
           </div>
 
-          {/* TIER 2 — Core Weight Track (HERO / Most Popular) */}
+          {/* TIER 2 — Core Weight Track (HERO) */}
           <div
             className="rounded-2xl flex flex-col relative"
             style={{
@@ -193,22 +277,42 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               boxShadow: "0 0 0 5px rgba(232,51,158,0.10), 0 24px 64px rgba(122,30,126,0.22)",
             }}
           >
-            {/* Most Popular badge */}
-            <div
-              className="absolute text-white font-extrabold uppercase tracking-widest rounded-full"
-              style={{
-                top: -15,
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                fontSize: 10,
-                letterSpacing: "2px",
-                padding: "5px 20px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              ⭐ Most Popular
-            </div>
+            {/* Most Popular badge — only shown when 6-month tab is active */}
+            {term === 6 && (
+              <div
+                className="absolute text-white font-extrabold uppercase tracking-widest rounded-full"
+                style={{
+                  top: -15,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                  fontSize: 10,
+                  letterSpacing: "2px",
+                  padding: "5px 20px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                ⭐ Most Popular
+              </div>
+            )}
+            {term === 12 && (
+              <div
+                className="absolute text-white font-extrabold uppercase tracking-widest rounded-full"
+                style={{
+                  top: -15,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "linear-gradient(135deg, #7A1E7E, #4A0E7E)",
+                  fontSize: 10,
+                  letterSpacing: "2px",
+                  padding: "5px 20px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                🏆 Best Value
+              </div>
+            )}
+
             <div
               className="font-extrabold tracking-widest uppercase mb-4 text-xs"
               style={{
@@ -221,6 +325,8 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             >
               Core Weight Track
             </div>
+
+            {/* Price */}
             <div className="flex items-end gap-1 mb-1">
               <span className="font-extrabold pb-2.5 text-white" style={{ fontSize: 20 }}>$</span>
               <span className="font-black leading-none text-white" style={{ fontSize: 62, letterSpacing: "-3px" }}>
@@ -228,11 +334,18 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               </span>
               <span className="font-semibold pb-2.5" style={{ fontSize: 15, color: "rgba(255,255,255,0.5)" }}>/mo</span>
             </div>
-            {isAnnual && (
-              <div className="text-xs font-semibold mb-1.5" style={{ color: "#F472B6" }}>
-                Billed ${annualTotal.t2.toLocaleString()}/yr — Save ${savings.t2}
+
+            {/* Savings vs 3-month */}
+            {term > 3 ? (
+              <div className="text-xs font-semibold mb-1" style={{ color: "#F472B6" }}>
+                Save ${savingsVs3Mo(term, "t2")} vs. 3-month rate — ${totalBilled(term, "t2").toLocaleString()} total
+              </div>
+            ) : (
+              <div className="text-xs font-semibold mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                ${totalBilled(term, "t2").toLocaleString()} billed at checkout
               </div>
             )}
+
             <p className="text-xs font-medium leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
               Our complete medical weight loss system — FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for steady, safe, and managed results.
             </p>
@@ -291,7 +404,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             </ul>
             <a
               onClick={onConsultClick}
-              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all"
+              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all cursor-pointer"
               style={{
                 padding: "15px",
                 background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
@@ -321,6 +434,8 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             >
               Elite Longevity Track
             </div>
+
+            {/* Price */}
             <div className="flex items-end gap-1 mb-1">
               <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#111" }}>$</span>
               <span className="font-black leading-none" style={{ fontSize: 62, color: "#111", letterSpacing: "-3px" }}>
@@ -328,11 +443,18 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               </span>
               <span className="font-semibold pb-2.5 text-gray-400" style={{ fontSize: 15 }}>/mo</span>
             </div>
-            {isAnnual && (
-              <div className="text-xs font-semibold mb-1.5" style={{ color: "#7A1E7E" }}>
-                Billed ${annualTotal.t3.toLocaleString()}/yr — Save ${savings.t3}
+
+            {/* Savings vs 3-month */}
+            {term > 3 ? (
+              <div className="text-xs font-semibold mb-1" style={{ color: "#7A1E7E" }}>
+                Save ${savingsVs3Mo(term, "t3")} vs. 3-month rate — ${totalBilled(term, "t3").toLocaleString()} total
+              </div>
+            ) : (
+              <div className="text-xs font-semibold mb-1 text-gray-400">
+                ${totalBilled(term, "t3").toLocaleString()} billed at checkout
               </div>
             )}
+
             <p className="text-xs text-gray-400 font-medium leading-relaxed mb-4">
               Premium optimization for high-performers — the only program combining GLP-1 therapy with full hormonal balance.
             </p>
@@ -391,7 +513,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             </ul>
             <a
               onClick={onConsultClick}
-              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all hover:opacity-90"
+              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all hover:opacity-90 cursor-pointer"
               style={{
                 padding: "15px",
                 background: "#111",
@@ -408,8 +530,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 pt-4">
-        </div>
+        <div className="mt-8 pt-4" />
 
       </div>
     </section>
