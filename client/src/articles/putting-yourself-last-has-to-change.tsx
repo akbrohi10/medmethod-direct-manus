@@ -1,10 +1,10 @@
 // Article: You've Been Putting Yourself Last for Years. Here's Why That Has to Change.
+import { articleComponents } from "@/pages/BlogPost";
+
 // Pillar: Symptoms & Identity
 // Author: Dr. Jumana Al-Deek, DO
 // Primary Keyword: women's health midlife self-care
 // Published: 2026-03-27
-
-import { articleComponents } from "@/pages/BlogPost";
 
 function PuttingYourselfLastHasToChange() {
   return (
