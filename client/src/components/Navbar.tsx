@@ -123,17 +123,19 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                   {link.dropdown && <ChevronDown className="w-3.5 h-3.5" />}
                 </a>
                 {link.dropdown && openDropdown === link.label && (
-                  <div className="absolute top-full left-0 mt-1 w-52 bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden">
-                    {link.dropdown.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        {item.label}
-                      </a>
-                    ))}
+                  <div className="absolute top-full left-0 w-52 pt-2">
+                    <div className="bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden">
+                      {link.dropdown.map((item) => (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                          style={{ fontFamily: "Montserrat, sans-serif" }}
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
