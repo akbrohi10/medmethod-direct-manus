@@ -182,7 +182,7 @@ export default function LocationChevyChase() {
                 <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
                   <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-patient-woman-3wyD4iMCfyajVDBfwhVRpA.webp"
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-patient-woman-v2-GXTAv2QgmvQqsYPV4UBnvU.webp"
                     alt="Woman in Chevy Chase, MD having a virtual telehealth consultation with MedMethod Direct — menopause and hormone therapy"
                     className="w-full h-full object-cover"
                     width="640"
