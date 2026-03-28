@@ -318,6 +318,26 @@ export default function LocationBethesda() {
         </div>
       </section>
 
+      {/* Cross-link: Bethesda → McLean */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>ALSO SERVING NEARBY</p>
+            <h3 className="font-black text-xl mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#0D0D1A", letterSpacing: "-0.02em" }}>McLean, Virginia — Just Across the DC Line</h3>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              MedMethod Direct serves patients throughout the DC metro area, including McLean, Great Falls, Vienna, and all of Northern Virginia. If you work in McLean or have family there, you and your loved ones can access the same physician-led hormone therapy and GLP-1 weight loss programs — 100% virtually, no matter which side of the state line you’re on.
+            </p>
+          </div>
+          <a
+            href="/virginia/mclean"
+            className="inline-flex items-center gap-2 font-bold text-sm tracking-wider rounded-full px-7 py-3 whitespace-nowrap transition-all hover:shadow-lg flex-shrink-0"
+            style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", color: "#fff" }}
+          >
+            View McLean, VA Service Area <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
       <Footer onConsultClick={() => setConsultOpen(true)} />
       <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />

@@ -288,6 +288,26 @@ export default function LocationPotomac() {
         </div>
       </section>
 
+      {/* Cross-link: Potomac → Great Falls */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>ALSO SERVING NEARBY</p>
+            <h3 className="font-black text-xl mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#0D0D1A", letterSpacing: "-0.02em" }}>Great Falls, Virginia — Your Neighbor Across the River</h3>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Potomac, MD and Great Falls, VA are separated only by the Potomac River, but share the same community of high-achieving, health-focused women. MedMethod Direct serves patients in both areas with the same physician-led hormone therapy and GLP-1 weight loss programs — 100% virtually. If you know someone in Great Falls who could benefit, they can access the same quality of care from their home.
+            </p>
+          </div>
+          <a
+            href="/virginia/great-falls"
+            className="inline-flex items-center gap-2 font-bold text-sm tracking-wider rounded-full px-7 py-3 whitespace-nowrap transition-all hover:shadow-lg flex-shrink-0"
+            style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", color: "#fff" }}
+          >
+            View Great Falls, VA Service Area <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
       <Footer onConsultClick={() => setConsultOpen(true)} />
       <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />

@@ -847,6 +847,26 @@ export default function LocationMcLean() {
         </div>
       </section>
 
+      {/* Cross-link: McLean → Bethesda */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>ALSO SERVING NEARBY</p>
+            <h3 className="font-black text-xl mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#0D0D1A", letterSpacing: "-0.02em" }}>Bethesda, Maryland — Just Across the DC Line</h3>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              MedMethod Direct serves patients on both sides of the Virginia–Maryland border. If you live or work in Bethesda, Chevy Chase, or anywhere in Montgomery County, you can access the same physician-led hormone therapy and GLP-1 weight loss programs available to our McLean patients — 100% virtually, from home. Many of our patients commute between McLean and Bethesda; your care travels with you.
+            </p>
+          </div>
+          <a
+            href="/locations/bethesda-md"
+            className="inline-flex items-center gap-2 font-bold text-sm tracking-wider rounded-full px-7 py-3 whitespace-nowrap transition-all hover:shadow-lg flex-shrink-0"
+            style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", color: "#fff" }}
+          >
+            View Bethesda Service Area <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
       <Footer onConsultClick={() => setConsultOpen(true)} />
       <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />

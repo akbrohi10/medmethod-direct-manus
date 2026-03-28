@@ -766,6 +766,26 @@ export default function LocationGreatFalls() {
         </div>
       </section>
 
+      {/* Cross-link: Great Falls → Potomac */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>ALSO SERVING NEARBY</p>
+            <h3 className="font-black text-xl mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#0D0D1A", letterSpacing: "-0.02em" }}>Potomac, Maryland — Your Neighbor Across the River</h3>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Great Falls, VA and Potomac, MD share more than a river — they share the same high-achieving, health-conscious community. MedMethod Direct serves patients in both areas with the same physician-led hormone therapy and GLP-1 weight loss programs. If you have family or friends in Potomac, they can access the same quality of care — 100% virtually, no office visit required.
+            </p>
+          </div>
+          <a
+            href="/locations/potomac-md"
+            className="inline-flex items-center gap-2 font-bold text-sm tracking-wider rounded-full px-7 py-3 whitespace-nowrap transition-all hover:shadow-lg flex-shrink-0"
+            style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", color: "#fff" }}
+          >
+            View Potomac, MD Service Area <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
       <Footer onConsultClick={() => setConsultOpen(true)} />
       <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
