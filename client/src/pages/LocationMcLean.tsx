@@ -22,6 +22,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import MedicalTeam from "@/components/MedicalTeam";
+import PopularPrograms from "@/components/PopularPrograms";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/mclean-va-hero-hiQN5USVEHUpy3yYQuwFUK.webp";
@@ -653,6 +654,9 @@ export default function LocationMcLean() {
           </div>
         </div>
       </section>
+
+      {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────── */}
+      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── PATIENT TESTIMONIALS ──────────────────────────────────────────────── */}
       <section className="py-20 bg-white">
