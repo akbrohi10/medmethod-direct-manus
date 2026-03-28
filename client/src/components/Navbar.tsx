@@ -137,6 +137,62 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                   {link.dropdown && <ChevronDown className="w-3.5 h-3.5" />}
                 </a>
                 {link.dropdown && openDropdown === link.label && (
+                  link.label === "Locations" ? (
+                    <div className="absolute top-full left-0 pt-2" style={{ width: "640px" }}>
+                      <div className="bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                        <div className="px-5 py-3 border-b border-white/8">
+                          <p className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#E8339E" }}>Service Areas</p>
+                        </div>
+                        <div className="grid grid-cols-3 gap-0 p-4">
+                          {/* Virginia */}
+                          <div className="pr-4 border-r border-white/8">
+                            <a href="/virginia" className="block mb-2 text-xs font-black tracking-widest uppercase text-white hover:text-[#E8339E] transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>Virginia</a>
+                            {[
+                              { label: "McLean", href: "/virginia/mclean" },
+                              { label: "Great Falls", href: "/virginia/great-falls" },
+                              { label: "Vienna", href: "/virginia/vienna" },
+                              { label: "Reston", href: "/virginia/reston" },
+                              { label: "Arlington", href: "/virginia/arlington" },
+                            ].map(item => (
+                              <a key={item.label} href={item.href} className="block py-1 text-xs text-white/55 hover:text-white transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>{item.label}</a>
+                            ))}
+                          </div>
+                          {/* Maryland */}
+                          <div className="px-4 border-r border-white/8">
+                            <a href="/maryland" className="block mb-2 text-xs font-black tracking-widest uppercase text-white hover:text-[#E8339E] transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>Maryland</a>
+                            {[
+                              { label: "Bethesda", href: "/maryland/bethesda" },
+                              { label: "Chevy Chase", href: "/maryland/chevy-chase" },
+                              { label: "Potomac", href: "/maryland/potomac" },
+                              { label: "Rockville", href: "/maryland/rockville" },
+                              { label: "Silver Spring", href: "/maryland/silver-spring" },
+                            ].map(item => (
+                              <a key={item.label} href={item.href} className="block py-1 text-xs text-white/55 hover:text-white transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>{item.label}</a>
+                            ))}
+                          </div>
+                          {/* DC + Coming Soon */}
+                          <div className="pl-4">
+                            <a href="/washington-dc" className="block mb-2 text-xs font-black tracking-widest uppercase text-white hover:text-[#E8339E] transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>Washington DC</a>
+                            {[
+                              { label: "Georgetown", href: "/washington-dc/georgetown" },
+                              { label: "Capitol Hill", href: "/washington-dc/capitol-hill" },
+                              { label: "Dupont Circle", href: "/washington-dc/dupont-circle" },
+                              { label: "Chevy Chase DC", href: "/washington-dc/chevy-chase-dc" },
+                              { label: "Friendship Heights", href: "/washington-dc/friendship-heights" },
+                            ].map(item => (
+                              <a key={item.label} href={item.href} className="block py-1 text-xs text-white/55 hover:text-white transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>{item.label}</a>
+                            ))}
+                            <div className="mt-3 pt-3 border-t border-white/8">
+                              <p className="text-[10px] font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(255,255,255,0.25)" }}>Coming Soon</p>
+                              {["Florida", "North Carolina", "Pennsylvania"].map(s => (
+                                <p key={s} className="py-0.5 text-xs" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "Montserrat, sans-serif" }}>{s}</p>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
                   <div className="absolute top-full left-0 w-52 pt-2">
                     <div className="bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden">
                       {link.dropdown.map((item) => (
@@ -151,6 +207,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                       ))}
                     </div>
                   </div>
+                  )
                 )}
               </div>
             ))}
