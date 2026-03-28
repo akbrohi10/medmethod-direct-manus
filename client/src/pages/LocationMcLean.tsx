@@ -195,19 +195,19 @@ const faqs = [
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
   {
-    quote: "I had been to three different doctors in Northern Virginia and none of them took my symptoms seriously. My first call with MedMethod Direct was the first time I felt genuinely heard. Within 60 days I had more energy than I'd had in years.",
+    quote: "I had been to three different doctors in McLean and Tysons and none of them took my symptoms seriously. My first call with MedMethod Direct was the first time I felt genuinely heard. Within 60 days I had more energy than I'd had in years.",
     name: "Patient",
-    location: "Fairfax County, VA",
+    location: "McLean, VA — Chesterbrook",
   },
   {
     quote: "I was skeptical about virtual care at first. But the convenience is unreal — no traffic on the Beltway, no waiting room, and I actually get to talk to my doctor for more than 10 minutes. The hormone therapy has been life-changing.",
     name: "Patient",
-    location: "McLean, VA",
+    location: "McLean, VA — Langley area",
   },
   {
     quote: "The GLP-1 program changed everything for me. I'd tried everything locally and nothing worked. This was different — they actually looked at my hormones alongside the weight loss piece. Down 22 lbs and I feel like myself again.",
     name: "Patient",
-    location: "Northern Virginia",
+    location: "McLean, VA — Chain Bridge Road",
   },
 ];
 
