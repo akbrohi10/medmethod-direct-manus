@@ -1,32 +1,20 @@
 /* =============================================================================
    Blog Section — Clinical Noir Design
-   White background, article cards with gradient category labels
+   Pulls 3 featured articles from real blogPosts data with CDN hero images
    ============================================================================= */
 import { ArrowRight } from "lucide-react";
+import { blogPosts, PILLAR_COLORS } from "@/data/blogPosts";
 
-const articles = [
-  {
-    category: "Hormones",
-    title: "Why Your Doctor Says Your Labs Are 'Normal' — But You Still Feel Terrible",
-    excerpt: "Standard lab ranges are designed for the average population, not for optimal health. Here's what to ask for instead — and why it matters.",
-    readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
-  },
-  {
-    category: "Weight Loss",
-    title: "The Hormonal Belly Is Real — And Willpower Won't Fix It",
-    excerpt: "Estrogen, cortisol, and insulin resistance work together to store fat around your midsection after 40. Here's the science — and the solution.",
-    readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80",
-  },
-  {
-    category: "Perimenopause",
-    title: "Night Sweats at 3 AM: What Your Body Is Trying to Tell You",
-    excerpt: "Waking up drenched isn't just uncomfortable — it's a signal. Understanding the hormonal cascade behind night sweats is the first step to relief.",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80",
-  },
+// Pick the 3 best articles: featured first, then by pillar diversity
+const FEATURED_SLUGS = [
+  "why-weight-gain-feels-different-in-menopause",
+  "semaglutide-vs-tirzepatide-women-midlife",
+  "putting-yourself-last-has-to-change",
 ];
+
+const featuredArticles = FEATURED_SLUGS.map(
+  (slug) => blogPosts.find((p) => p.slug === slug)!
+).filter(Boolean);
 
 export default function Blog() {
   return (
@@ -39,7 +27,7 @@ export default function Blog() {
               className="section-label block mb-3"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              Education & Insights
+              Education &amp; Insights
             </span>
             <h2
               className="font-black text-[#111111] leading-tight"
@@ -55,7 +43,7 @@ export default function Blog() {
             </h2>
           </div>
           <a
-            href="#blog"
+            href="/blog"
             className="text-sm font-bold tracking-wider flex items-center gap-2 self-start lg:self-auto"
             style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
           >
@@ -66,28 +54,35 @@ export default function Blog() {
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {articles.map((article, i) => (
+          {featuredArticles.map((article) => (
             <a
-              key={i}
-              href="#blog"
+              key={article.slug}
+              href={`/blog/${article.slug}`}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               {/* Image */}
               <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {article.heroImage ? (
+                  <img
+                    src={article.heroImage}
+                    alt={article.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div
+                    className="w-full h-full"
+                    style={{ background: "linear-gradient(135deg, #E8339E22 0%, #7A1E7E22 100%)" }}
+                  />
+                )}
                 <div className="absolute top-3 left-3">
                   <span
                     className="px-3 py-1 rounded-full text-white text-xs font-bold tracking-wider uppercase"
                     style={{
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      background: `linear-gradient(135deg, ${PILLAR_COLORS[article.pillar]} 0%, #7A1E7E 100%)`,
                       fontFamily: "Montserrat, sans-serif",
                     }}
                   >
-                    {article.category}
+                    {article.pillarLabel}
                   </span>
                 </div>
               </div>
@@ -105,7 +100,7 @@ export default function Blog() {
                   {article.title}
                 </h3>
                 <p
-                  className="text-gray-500 text-sm leading-relaxed mb-4"
+                  className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   {article.excerpt}
@@ -115,13 +110,13 @@ export default function Blog() {
                     className="text-gray-400 text-xs font-medium"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    {article.readTime}
+                    {article.readTime} min read · Dr. {article.author.name.split(" ").slice(-1)[0]}, {article.author.credentials}
                   </span>
                   <span
                     className="text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
                   >
-                    READ ARTICLE
+                    READ
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
