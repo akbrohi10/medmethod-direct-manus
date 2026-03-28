@@ -45,6 +45,16 @@ const JSONLD_LOCAL = {
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "10000", "bestRating": "5" },
 };
 
+const JSONLD_FAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is there a menopause doctor near Friendship Heights or Tenleytown, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Friendship Heights, Tenleytown, American University Park, Spring Valley, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." } },
+    { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Friendship Heights, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Friendship Heights and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." } },
+    { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." } },
+  ],
+};
+
 const JSONLD_BREADCRUMB = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -116,6 +126,7 @@ export default function LocationFriendshipHeights() {
         <meta property="og:url" content="https://medmethoddirect.com/washington-dc/friendship-heights" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(JSONLD_LOCAL)}</script>
+        <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
         <script type="application/ld+json">{JSON.stringify(JSONLD_BREADCRUMB)}</script>
       </Helmet>
 
@@ -222,35 +233,49 @@ export default function LocationFriendshipHeights() {
         </div>
       </section>
 
-      {/* ── WHY CHOOSE ── */}
-      <section className="py-16 bg-[#F9F9FB]">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#E8339E] mb-3 text-center" style={{ fontFamily: "Montserrat, sans-serif" }}>WHY FRIENDSHIP HEIGHTS WOMEN CHOOSE US</p>
-          <h2 className="font-black text-[#111111] mb-10 text-center" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>
-            Evidence-Based Care for Upper Northwest DC Women
+      <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
+      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+      <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+
+      <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>
+        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 text-center">
+          <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>THE MEDMETHOD STANDARD</p>
+          <h2 className="font-black text-white" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 3vw, 2rem)", letterSpacing: "-0.02em" }}>
+            "The system you've been missing —{" "}
+            <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>built by physicians, for women.</span>"
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <p className="text-white/50 text-sm mt-3 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.</p>
+        </div>
+      </div>
+
+      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
+
+      {/* ── LOCAL WHY CARDS ── */}
+      <section className="py-20 bg-[#F8F4F9]">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>WHY FRIENDSHIP HEIGHTS WOMEN CHOOSE US</p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>Evidence-Based Care for Upper Northwest DC Women</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyCards.map((card) => (
-              <div key={card.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                <div className="text-3xl mb-3">{card.icon}</div>
-                <h3 className="font-bold text-[#111111] mb-2 text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
-                <p className="text-gray-500 text-xs leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
+              <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="text-3xl mb-4">{card.icon}</div>
+                <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
-      <HowItWorks onConsultClick={() => setConsultOpen(true)} />
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
-
       {/* ── TESTIMONIALS ── */}
       <section className="py-16 bg-white">
         <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#E8339E] mb-3 text-center" style={{ fontFamily: "Montserrat, sans-serif" }}>PATIENT STORIES</p>
-          <h2 className="font-black text-[#111111] mb-10 text-center" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>What Friendship Heights &amp; Tenleytown Women Are Saying</h2>
+          <h2 className="font-black text-[#111111] mb-10 text-center" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>What Friendship Heights Women Are Saying</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4">
