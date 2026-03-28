@@ -496,6 +496,9 @@ export default function LocationMcLean() {
         </div>
       </section>
 
+      {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────── */}
+      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+
       {/* ── SERVICES (reused from homepage) ──────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
 
@@ -654,9 +657,6 @@ export default function LocationMcLean() {
           </div>
         </div>
       </section>
-
-      {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────── */}
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── PATIENT TESTIMONIALS ──────────────────────────────────────────────── */}
       <section className="py-20 bg-white">
