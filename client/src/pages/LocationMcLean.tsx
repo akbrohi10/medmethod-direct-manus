@@ -510,6 +510,52 @@ export default function LocationMcLean() {
       {/* ── HOW IT WORKS (reused from homepage) ──────────────────────────────── */}
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
+      {/* ── DARK DIVIDER BAND ─────────────────────────────────────────────── */}
+      <div
+        className="w-full flex flex-col items-center justify-center text-center px-6"
+        style={{
+          background: "#0D0D1A",
+          borderTop: "1px solid rgba(232,51,158,0.18)",
+          borderBottom: "1px solid rgba(232,51,158,0.18)",
+          padding: "52px 24px",
+        }}
+      >
+        <span
+          className="block text-xs font-extrabold tracking-[0.22em] uppercase mb-5"
+          style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
+        >
+          The MedMethod Standard
+        </span>
+        <p
+          className="font-black leading-tight max-w-3xl mx-auto"
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: "clamp(1.3rem, 2.8vw, 2rem)",
+            color: "#ffffff",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          "The system you've been missing —{" "}
+          <span
+            style={{
+              background: "linear-gradient(135deg, #E8339E 0%, #B06FE8 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            built by physicians, for women.
+          </span>
+          "
+        </p>
+        <p
+          className="mt-4 text-sm max-w-xl mx-auto"
+          style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}
+        >
+          Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.
+        </p>
+      </div>
+
       {/* ── WHY MOST PEOPLE FAIL / THE MEDMETHOD WAY ─────────────────────── */}
       <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
