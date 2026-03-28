@@ -165,8 +165,39 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           <p className="text-xs font-extrabold uppercase tracking-widest text-gray-400" style={{ letterSpacing: "2px" }}>
             Step 2 — Choose how you pay
           </p>
-          {/* Wrapper with top padding so the "Save More" pill above Pay Upfront is never clipped */}
-          <div className="pt-4">
+          {/* Toggle wrapper — pill floats above the whole container, not inside a button */}
+          <div className="relative flex flex-col items-center">
+            {/* "Pay Upfront = Save More" pill — centered above the toggle, only when monthly is selected */}
+            {payMode === "monthly" && (
+              <span
+                className="font-extrabold uppercase rounded-full text-white mb-2"
+                style={{
+                  fontSize: 9,
+                  letterSpacing: "1.5px",
+                  padding: "3px 14px",
+                  whiteSpace: "nowrap",
+                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                  boxShadow: "0 2px 8px rgba(232,51,158,0.3)",
+                }}
+              >
+                ← Switch to Pay Upfront &amp; Save More
+              </span>
+            )}
+            {payMode === "upfront" && (
+              <span
+                className="font-extrabold uppercase rounded-full text-white mb-2"
+                style={{
+                  fontSize: 9,
+                  letterSpacing: "1.5px",
+                  padding: "3px 14px",
+                  whiteSpace: "nowrap",
+                  background: "linear-gradient(135deg, #16A34A, #15803D)",
+                  boxShadow: "0 2px 8px rgba(22,163,74,0.25)",
+                }}
+              >
+                ✓ Best rate applied
+              </span>
+            )}
             <div
               className="inline-flex rounded-xl overflow-hidden"
               style={{ border: "1.5px solid #D0D0DC" }}
@@ -174,7 +205,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               {/* Pay Upfront — LEFT (primary / recommended) */}
               <button
                 onClick={() => setPayMode("upfront")}
-                className="relative flex flex-col items-center transition-all"
+                className="flex flex-col items-center transition-all"
                 style={{
                   padding: "10px 28px",
                   background: payMode === "upfront"
@@ -185,25 +216,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                   borderRight: "1.5px solid #D0D0DC",
                 }}
               >
-                {/* "Save More" pill — shown when monthly is currently selected */}
-                {payMode !== "upfront" && (
-                  <span
-                    className="absolute font-extrabold uppercase rounded-full text-white"
-                    style={{
-                      top: -14,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: 9,
-                      letterSpacing: "1.5px",
-                      padding: "3px 10px",
-                      whiteSpace: "nowrap",
-                      background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                      boxShadow: "0 2px 8px rgba(232,51,158,0.3)",
-                    }}
-                  >
-                    Save More
-                  </span>
-                )}
                 <span
                   className="font-extrabold"
                   style={{
