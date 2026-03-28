@@ -145,60 +145,26 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               Locations
             </h4>
             <ul className="flex flex-col gap-2.5">
-              <li>
-                <a
-                  href="/virginia"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Virginia
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/virginia/mclean"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  McLean, VA
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/virginia/great-falls"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Great Falls, VA
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/virginia/vienna"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Vienna &amp; Tysons, VA
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/virginia/reston"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Reston, VA
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/virginia/arlington"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Arlington, VA
-                </a>
-              </li>
+              {[
+                { label: "Virginia", href: "/virginia" },
+                { label: "Florida", href: "/florida" },
+                { label: "Maryland", href: "/maryland" },
+                { label: "Washington DC", href: "/dc" },
+                { label: "Colorado", href: "/colorado" },
+                { label: "Arizona", href: "/arizona" },
+                { label: "North Carolina", href: "/north-carolina" },
+                { label: "Pennsylvania", href: "/pennsylvania" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-white/50 hover:text-white text-sm transition-colors"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

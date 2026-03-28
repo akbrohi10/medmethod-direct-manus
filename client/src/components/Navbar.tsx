@@ -27,11 +27,13 @@ const navLinks = [
     href: "/virginia",
     dropdown: [
       { label: "Virginia", href: "/virginia" },
-      { label: "McLean, VA", href: "/virginia/mclean" },
-      { label: "Great Falls, VA", href: "/virginia/great-falls" },
-      { label: "Vienna & Tysons, VA", href: "/virginia/vienna" },
-      { label: "Reston, VA", href: "/virginia/reston" },
-      { label: "Arlington, VA", href: "/virginia/arlington" },
+      { label: "Florida", href: "/florida" },
+      { label: "Maryland", href: "/maryland" },
+      { label: "Washington DC", href: "/dc" },
+      { label: "Colorado", href: "/colorado" },
+      { label: "Arizona", href: "/arizona" },
+      { label: "North Carolina", href: "/north-carolina" },
+      { label: "Pennsylvania", href: "/pennsylvania" },
     ],
   },
 ];
