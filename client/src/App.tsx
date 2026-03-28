@@ -10,6 +10,9 @@ import BlogIndex from "./pages/BlogIndex";
 import LocationMcLean from "@/pages/LocationMcLean";
 import LocationGreatFalls from "@/pages/LocationGreatFalls";
 import LocationVirginia from "@/pages/LocationVirginia";
+import LocationVienna from "@/pages/LocationVienna";
+import LocationReston from "@/pages/LocationReston";
+import LocationArlington from "@/pages/LocationArlington";
 import BlogPost from "./pages/BlogPost";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
@@ -28,6 +31,9 @@ function Router() {
       <Route path={"/virginia"} component={LocationVirginia} />
       <Route path="/virginia/mclean" component={LocationMcLean} />
         <Route path="/virginia/great-falls" component={LocationGreatFalls} />
+        <Route path="/virginia/vienna" component={LocationVienna} />
+        <Route path="/virginia/reston" component={LocationReston} />
+        <Route path="/virginia/arlington" component={LocationArlington} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

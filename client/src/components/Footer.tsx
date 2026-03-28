@@ -173,12 +173,31 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 </a>
               </li>
               <li>
-                <span
-                  className="text-white/25 text-xs"
+                <a
+                  href="/virginia/vienna"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  More coming soon
-                </span>
+                  Vienna &amp; Tysons, VA
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/virginia/reston"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Reston, VA
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/virginia/arlington"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Arlington, VA
+                </a>
               </li>
             </ul>
           </div>

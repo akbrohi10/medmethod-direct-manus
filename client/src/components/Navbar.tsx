@@ -29,6 +29,9 @@ const navLinks = [
       { label: "Virginia", href: "/virginia" },
       { label: "McLean, VA", href: "/virginia/mclean" },
       { label: "Great Falls, VA", href: "/virginia/great-falls" },
+      { label: "Vienna & Tysons, VA", href: "/virginia/vienna" },
+      { label: "Reston, VA", href: "/virginia/reston" },
+      { label: "Arlington, VA", href: "/virginia/arlington" },
     ],
   },
 ];
