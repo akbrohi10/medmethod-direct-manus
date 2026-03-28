@@ -14,6 +14,12 @@ import LocationVienna from "@/pages/LocationVienna";
 import LocationReston from "@/pages/LocationReston";
 import LocationArlington from "@/pages/LocationArlington";
 import StartWomen from "@/pages/StartWomen";
+import LocationMaryland from "@/pages/LocationMaryland";
+import LocationBethesda from "@/pages/LocationBethesda";
+import LocationChevyChase from "@/pages/LocationChevyChase";
+import LocationPotomac from "@/pages/LocationPotomac";
+import LocationRockville from "@/pages/LocationRockville";
+import LocationSilverSpring from "@/pages/LocationSilverSpring";
 import BlogPost from "./pages/BlogPost";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
@@ -35,6 +41,12 @@ function Router() {
         <Route path="/virginia/vienna" component={LocationVienna} />
         <Route path="/virginia/reston" component={LocationReston} />
         <Route path="/virginia/arlington" component={LocationArlington} />
+      <Route path="/maryland" component={LocationMaryland} />
+      <Route path="/maryland/bethesda" component={LocationBethesda} />
+      <Route path="/maryland/chevy-chase" component={LocationChevyChase} />
+      <Route path="/maryland/potomac" component={LocationPotomac} />
+      <Route path="/maryland/rockville" component={LocationRockville} />
+      <Route path="/maryland/silver-spring" component={LocationSilverSpring} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
       <Route path={"/404"} component={NotFound} />
