@@ -168,7 +168,7 @@ export default function LocationRockville() {
                 <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
                   <img
-                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80"
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-patient-woman-3wyD4iMCfyajVDBfwhVRpA.webp"
                     alt="Virtual menopause and hormone therapy doctor for women in Rockville, Maryland — MedMethod Direct"
                     className="w-full h-full object-cover"
                     width="640"
