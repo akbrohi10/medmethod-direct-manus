@@ -66,11 +66,16 @@ MedMethod Direct is licensed to serve patients in:
 
 ---
 
-# LOCATION PAGES
+## Location Pages
+
+## Virginia (State Hub)
+- URL: https://medmethoddirect.com/virginia
+- Description: State-level hub page targeting online menopause doctor Virginia, virtual hormone therapy Virginia, GLP-1 weight loss Virginia online, semaglutide prescription Virginia, perimenopause specialist Virginia telehealth. Links to all Virginia neighborhood pages.
+- Physician: Dr. Jumana Al-Deek, DO
+- Coverage: All of Virginia — Northern Virginia, Richmond, Virginia Beach, Charlottesville, Roanoke, and beyond
 
 ## McLean, Virginia
-- URL: https://medmethoddirect.com/virginia/mclean
-- Services: Virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, testosterone therapy for women
+- URL: https://medmethoddirect.com/virginia/mclean- Services: Virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, testosterone therapy for women
 - Physician: Dr. Jumana Al-Deek, DO
 - Lab access: LabCorp and Quest Diagnostics draw sites near McLean and Tysons Corner
 - Service area: McLean, Great Falls, Vienna, Reston, Arlington, Tysons Corner, Fairfax County

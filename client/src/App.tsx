@@ -7,7 +7,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import MaleHome from "./pages/MaleHome";
 import BlogIndex from "./pages/BlogIndex";
-import LocationMcLean from "./pages/LocationMcLean";
+import LocationMcLean from "@/pages/LocationMcLean";
+import LocationVirginia from "@/pages/LocationVirginia";
 import BlogPost from "./pages/BlogPost";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
@@ -23,6 +24,7 @@ function Router() {
       <Route path={"/male"} component={MaleHome} />
       <Route path={"/blog"} component={BlogIndex} />
       <Route path={"/blog/:slug"} component={BlogPost} />
+      <Route path={"/virginia"} component={LocationVirginia} />
       <Route path={"/virginia/mclean"} component={LocationMcLean} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />

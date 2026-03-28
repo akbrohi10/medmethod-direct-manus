@@ -24,8 +24,9 @@ const navLinks = [
   { label: "FAQ", href: "#faq" },
   {
     label: "Locations",
-    href: "/virginia/mclean",
+    href: "/virginia",
     dropdown: [
+      { label: "Virginia", href: "/virginia" },
       { label: "McLean, VA", href: "/virginia/mclean" },
     ],
   },
