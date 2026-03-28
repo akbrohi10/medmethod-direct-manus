@@ -379,25 +379,18 @@ export default function LocationDC() {
             </div>
 
             {/* Right: service highlights card */}
-            <div className="hidden lg:block">
-              <div className="rounded-2xl border p-7" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
-                <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#E8339E" }}>WHAT WE TREAT IN WASHINGTON DC</p>
-                <div className="space-y-4">
-                  {[
-                    { icon: "🌡️", title: "Perimenopause & Menopause", desc: "Hot flashes, night sweats, mood changes, brain fog — addressed at the hormonal root cause." },
-                    { icon: "⚖️", title: "GLP-1 Medical Weight Loss", desc: "Physician-prescribed semaglutide and tirzepatide — compounded or brand-name, shipped to your DC address." },
-                    { icon: "🧬", title: "Bioidentical Hormone Therapy", desc: "BHRT and FDA-approved HRT — estradiol, progesterone, testosterone — based on comprehensive labs." },
-                    { icon: "💪", title: "Testosterone Therapy for Women", desc: "Low libido, fatigue, and muscle loss addressed with physician-supervised testosterone protocols." },
-                    { icon: "🔬", title: "Thyroid & Metabolic Optimization", desc: "Thyroid function evaluated and optimized as part of every comprehensive hormone workup." },
-                  ].map((item) => (
-                    <div key={item.title} className="flex gap-3 items-start">
-                      <span className="text-xl mt-0.5">{item.icon}</span>
-                      <div>
-                        <p className="font-bold text-white text-sm mb-0.5">{item.title}</p>
-                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.40)" }}>{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+            <div className="hidden lg:block relative">
+              <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-physician-female-v3b-3NEpBwyZhzMihSjxBbfYig.webp"
+                  alt="Virtual hormone therapy and menopause doctor for women in Washington DC — MedMethod Direct"
+                  className="w-full h-full object-cover"
+                  width="640"
+                  height="480"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)" }}>
+                  <p className="text-white font-bold text-sm tracking-wide">Serving Georgetown · Capitol Hill · Dupont Circle · Chevy Chase DC · Friendship Heights</p>
                 </div>
               </div>
             </div>
