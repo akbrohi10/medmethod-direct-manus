@@ -131,7 +131,7 @@ const neighborhoods = [
     href: "/virginia/great-falls",
     description: "One of the wealthiest communities in the US. Very low telehealth competition — high opportunity.",
     keywords: "Menopause · Hormone Therapy · GLP-1 Weight Loss",
-    available: false,
+    available: true,
   },
   {
     name: "Vienna / Tysons",

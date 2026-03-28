@@ -147,11 +147,29 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             <ul className="flex flex-col gap-2.5">
               <li>
                 <a
+                  href="/virginia"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Virginia
+                </a>
+              </li>
+              <li>
+                <a
                   href="/virginia/mclean"
                   className="text-white/50 hover:text-white text-sm transition-colors"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   McLean, VA
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/virginia/great-falls"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Great Falls, VA
                 </a>
               </li>
               <li>
