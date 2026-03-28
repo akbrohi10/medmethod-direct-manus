@@ -11,7 +11,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
   return (<>
     <footer className="bg-[#0d0d0d] border-t border-white/5">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             {/* Logo */}
@@ -90,6 +90,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </div>
 
           {/* Nav Columns */}
+          <div className="lg:col-span-2 grid grid-cols-2 gap-10">
           <div>
             <h4
               className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
@@ -131,6 +132,36 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   </a>
                 </li>
               ))}
+            </ul>
+          </div>
+          </div>
+
+          {/* Locations Column */}
+          <div>
+            <h4
+              className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Locations
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/virginia/mclean"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  McLean, VA
+                </a>
+              </li>
+              <li>
+                <span
+                  className="text-white/25 text-xs"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  More coming soon
+                </span>
+              </li>
             </ul>
           </div>
 

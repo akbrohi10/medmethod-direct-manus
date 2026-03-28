@@ -22,6 +22,13 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "#faq" },
+  {
+    label: "Locations",
+    href: "/virginia/mclean",
+    dropdown: [
+      { label: "McLean, VA", href: "/virginia/mclean" },
+    ],
+  },
 ];
 
 export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {
