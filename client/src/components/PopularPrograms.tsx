@@ -1,45 +1,70 @@
 /* =============================================================================
    Popular Programs — MedMethod Direct
-   Commitment-based pricing: 3 / 6 / 12 months
-   - 3 months = base rate (highest per-month price)
-   - 6 months = "Most Popular" with savings callout
-   - 12 months = "Best Value" with largest savings callout
+   Two-axis pricing:
+     Axis 1 (tabs):   3 Months · 6 Months · 12 Months
+     Axis 2 (toggle): Billed Monthly · Pay Upfront (save more)
+
+   Discount philosophy:
+     - Tier 1 (Management): shallow discounts — protect margin on lowest tier
+     - Tier 2 (Core Weight): moderate discounts — volume driver
+     - Tier 3 (Elite):       deepest discounts — reward highest-value patients
+
+   All programs require a minimum 3-month commitment (no month-to-month).
+   Paying upfront on any term earns an additional discount on top of the
+   commitment-length discount.
    ============================================================================= */
 import { useState } from "react";
 import { Check } from "lucide-react";
 
 // ── Pricing tables ────────────────────────────────────────────────────────────
-// Per-month rates for each commitment length
-const pricing = {
-  3:  { t1: 199, t2: 349, t3: 449 },
-  6:  { t1: 179, t2: 319, t3: 409 },
-  12: { t1: 159, t2: 289, t3: 369 },
+// [term][payUpfront][tier] → per-month rate
+const PRICES = {
+  3: {
+    monthly:  { t1: 199, t2: 349, t3: 449 },
+    upfront:  { t1: 189, t2: 319, t3: 419 },
+  },
+  6: {
+    monthly:  { t1: 194, t2: 334, t3: 429 },
+    upfront:  { t1: 184, t2: 299, t3: 379 },
+  },
+  12: {
+    monthly:  { t1: 189, t2: 319, t3: 409 },
+    upfront:  { t1: 179, t2: 279, t3: 339 },
+  },
 } as const;
 
-type Term = 3 | 6 | 12;
+type Term    = 3 | 6 | 12;
+type PayMode = "monthly" | "upfront";
+type Tier    = "t1" | "t2" | "t3";
 
-// Total billed upfront (per-month × months)
-function totalBilled(term: Term, tier: "t1" | "t2" | "t3") {
-  return pricing[term][tier] * term;
+// Baseline = 3-month monthly (the standard rate, no discounts)
+const BASE = PRICES[3].monthly;
+
+function totalBilled(term: Term, mode: PayMode, tier: Tier) {
+  return PRICES[term][mode][tier] * term;
 }
 
-// Dollar savings vs. 3-month rate over the same period
-function savingsVs3Mo(term: Term, tier: "t1" | "t2" | "t3") {
-  if (term === 3) return 0;
-  return (pricing[3][tier] - pricing[term][tier]) * term;
+function savingsVsBase(term: Term, mode: PayMode, tier: Tier) {
+  return (BASE[tier] - PRICES[term][mode][tier]) * term;
 }
 
-const TERMS: { label: string; value: Term; badge?: string }[] = [
-  { label: "3 Months",  value: 3  },
-  { label: "6 Months",  value: 6,  badge: "Most Popular" },
-  { label: "12 Months", value: 12, badge: "Best Value"   },
+// ── Static data ───────────────────────────────────────────────────────────────
+const TERMS: { label: string; value: Term; clinicalNote: string }[] = [
+  { label: "3 Months",  value: 3,  clinicalNote: "Minimum commitment — see early results" },
+  { label: "6 Months",  value: 6,  clinicalNote: "Recommended — full transformation window" },
+  { label: "12 Months", value: 12, clinicalNote: "Complete protocol — lasting change" },
 ];
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
-  const [term, setTerm] = useState<Term>(6);
+  const [term, setTerm]       = useState<Term>(6);
+  const [payMode, setPayMode] = useState<PayMode>("upfront");
 
-  const p = pricing[term];
+  const p    = PRICES[term][payMode];
+  const base = BASE;
+
+  // Max savings across all tiers for the banner headline (use Elite as the showcase)
+  const maxSavings = savingsVsBase(term, payMode, "t3");
 
   return (
     <section
@@ -48,10 +73,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
     >
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
+        {/* ── Header ──────────────────────────────────────────────────────── */}
         <div className="text-center mb-6">
           <h2
-            className="font-black mb-3"
+            className="font-black mb-2"
             style={{
               fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
               color: "#111",
@@ -60,17 +85,24 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           >
             POPULAR PROGRAMS
           </h2>
+          <p className="text-sm text-gray-500 font-medium">
+            All programs require a minimum 3-month commitment — the time your body needs to respond.
+          </p>
         </div>
 
-        {/* ── Commitment Tab Selector ─────────────────────────────────────── */}
-        <div className="flex flex-col items-center gap-3 mb-8">
-          {/* Tab row */}
+        {/* ── Axis 1: Commitment Length Tabs ──────────────────────────────── */}
+        <div className="flex flex-col items-center gap-2 mb-5">
+          <p className="text-xs font-extrabold uppercase tracking-widest text-gray-400" style={{ letterSpacing: "2px" }}>
+            Step 1 — Choose your commitment
+          </p>
           <div
             className="inline-flex rounded-2xl p-1.5 gap-1"
             style={{ background: "#E4E4EE" }}
           >
-            {TERMS.map(({ label, value, badge }) => {
+            {TERMS.map(({ label, value }) => {
               const active = term === value;
+              const isMostPop = value === 6;
+              const isBestVal = value === 12;
               return (
                 <button
                   key={value}
@@ -83,11 +115,11 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                       : "transparent",
                     border: "none",
                     cursor: "pointer",
-                    minWidth: 110,
+                    minWidth: 118,
                   }}
                 >
-                  {/* Badge pill (Most Popular / Best Value) */}
-                  {badge && (
+                  {/* Badge */}
+                  {(isMostPop || isBestVal) && (
                     <span
                       className="absolute font-extrabold uppercase rounded-full"
                       style={{
@@ -98,50 +130,120 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                         letterSpacing: "1.5px",
                         padding: "3px 10px",
                         whiteSpace: "nowrap",
-                        background: active
-                          ? "#fff"
-                          : value === 12
-                          ? "#7A1E7E"
-                          : "#E8339E",
-                        color: active
-                          ? "#E8339E"
-                          : "#fff",
+                        background: active ? "#fff" : isBestVal ? "#7A1E7E" : "#E8339E",
+                        color: active ? "#E8339E" : "#fff",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                       }}
                     >
-                      {badge}
+                      {isMostPop ? "Most Popular" : "Best Value"}
                     </span>
                   )}
                   <span
-                    className="font-extrabold tracking-wide"
-                    style={{
-                      fontSize: 13,
-                      color: active ? "#fff" : "#555",
-                      letterSpacing: "0.5px",
-                    }}
+                    className="font-extrabold"
+                    style={{ fontSize: 13, color: active ? "#fff" : "#555", letterSpacing: "0.5px" }}
                   >
                     {label}
                   </span>
-                  {/* Per-month hint */}
                   <span
                     className="font-semibold"
-                    style={{
-                      fontSize: 10,
-                      color: active ? "rgba(255,255,255,0.75)" : "#999",
-                      marginTop: 2,
-                    }}
+                    style={{ fontSize: 10, color: active ? "rgba(255,255,255,0.75)" : "#999", marginTop: 2 }}
                   >
-                    from ${pricing[value].t1}/mo
+                    from ${PRICES[value].upfront.t1}/mo upfront
                   </span>
                 </button>
               );
             })}
           </div>
+          {/* Clinical note for selected term */}
+          <p className="text-xs text-gray-400 font-medium italic">
+            {TERMS.find(t => t.value === term)?.clinicalNote}
+          </p>
+        </div>
 
-          {/* Savings callout line */}
-          {term > 3 && (
+        {/* ── Axis 2: Payment Method Toggle ───────────────────────────────── */}
+        <div className="flex flex-col items-center gap-2 mb-6">
+          <p className="text-xs font-extrabold uppercase tracking-widest text-gray-400" style={{ letterSpacing: "2px" }}>
+            Step 2 — Choose how you pay
+          </p>
+          <div
+            className="inline-flex rounded-xl overflow-hidden"
+            style={{ border: "1.5px solid #D0D0DC" }}
+          >
+            {/* Monthly option */}
+            <button
+              onClick={() => setPayMode("monthly")}
+              className="flex flex-col items-center transition-all"
+              style={{
+                padding: "10px 28px",
+                background: payMode === "monthly" ? "#fff" : "#F4F4F8",
+                border: "none",
+                cursor: "pointer",
+                borderRight: "1.5px solid #D0D0DC",
+              }}
+            >
+              <span
+                className="font-extrabold"
+                style={{ fontSize: 12, color: payMode === "monthly" ? "#111" : "#999", letterSpacing: "0.5px" }}
+              >
+                Billed Monthly
+              </span>
+              <span style={{ fontSize: 10, color: "#aaa", marginTop: 2 }}>
+                Flexible within contract
+              </span>
+            </button>
+
+            {/* Upfront option */}
+            <button
+              onClick={() => setPayMode("upfront")}
+              className="relative flex flex-col items-center transition-all"
+              style={{
+                padding: "10px 28px",
+                background: payMode === "upfront"
+                  ? "linear-gradient(135deg, #E8339E11, #7A1E7E11)"
+                  : "#F4F4F8",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {/* "Save more" pill */}
+              {payMode !== "upfront" && (
+                <span
+                  className="absolute font-extrabold uppercase rounded-full text-white"
+                  style={{
+                    top: -10,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    fontSize: 9,
+                    letterSpacing: "1.5px",
+                    padding: "3px 10px",
+                    whiteSpace: "nowrap",
+                    background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                    boxShadow: "0 2px 8px rgba(232,51,158,0.3)",
+                  }}
+                >
+                  Save More
+                </span>
+              )}
+              <span
+                className="font-extrabold"
+                style={{
+                  fontSize: 12,
+                  color: payMode === "upfront" ? "#E8339E" : "#999",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                Pay Upfront
+              </span>
+              <span style={{ fontSize: 10, color: payMode === "upfront" ? "#7A1E7E" : "#aaa", marginTop: 2 }}>
+                Best rate — pay once
+              </span>
+            </button>
+          </div>
+
+          {/* Savings banner — only shown when upfront is selected and term > 3 */}
+          {payMode === "upfront" && term > 3 && maxSavings > 0 && (
             <div
-              className="inline-flex items-center gap-2 rounded-full font-bold text-white text-xs uppercase tracking-widest px-4 py-1.5"
+              className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5"
               style={{
                 background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                 fontSize: 11,
@@ -149,390 +251,346 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               }}
             >
               <span>🎉</span>
-              <span>
-                Save up to ${savingsVs3Mo(term, "t3").toLocaleString()} vs. month-to-month over {term} months
+              <span className="uppercase tracking-widest">
+                Save up to ${maxSavings.toLocaleString()} on Elite Longevity vs. standard rate
               </span>
             </div>
           )}
-
-          {/* Billing note */}
-          <p className="text-xs text-gray-400 font-medium">
-            {term === 3
-              ? "Billed as a single 3-month payment at checkout"
-              : term === 6
-              ? "Billed as a single 6-month payment at checkout"
-              : "Billed as a single 12-month payment at checkout — our lowest per-month rate"}
-          </p>
+          {payMode === "upfront" && term === 3 && (
+            <div
+              className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5"
+              style={{
+                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                fontSize: 11,
+                letterSpacing: "1.5px",
+              }}
+            >
+              <span>✓</span>
+              <span className="uppercase tracking-widest">
+                Upfront discount applied — pay once, no monthly billing
+              </span>
+            </div>
+          )}
+          {payMode === "monthly" && (
+            <p className="text-xs text-gray-400 font-medium">
+              Switch to Pay Upfront to unlock additional savings on top of your commitment discount.
+            </p>
+          )}
         </div>
 
         {/* ── Cards ───────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
 
-          {/* TIER 1 — Management & Oversight */}
-          <div
-            className="rounded-2xl flex flex-col"
-            style={{
-              background: "#fff",
-              border: "1.5px solid #E2E2EA",
-              padding: "34px 28px 30px",
-            }}
-          >
-            <div
-              className="font-extrabold tracking-widest uppercase mb-4 text-xs"
-              style={{ color: "#111", letterSpacing: "2.5px" }}
-            >
-              Management &amp; Oversight
-            </div>
+          {/* ── TIER 1: Management & Oversight ─────────────────────────── */}
+          <TierCard
+            title="Management &amp; Oversight"
+            description="For patients who already have medication through insurance but want the MedMethod team managing their results."
+            medicationBadge={{ label: "No Medication Included", color: "#555", bg: "#F1F1F5", dot: "#999" }}
+            price={p.t1}
+            basePrice={base.t1}
+            term={term}
+            payMode={payMode}
+            savings={savingsVsBase(term, payMode, "t1")}
+            total={totalBilled(term, payMode, "t1")}
+            features={[
+              { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+              { text: "Quarterly 1-on-1 Doctor Strategy Session" },
+              { text: "Prescriptions Called In to Your Local Pharmacy" },
+              { text: "Direct Text Access (Business Hours)" },
+              { text: "Custom Fitness & Nutrition Program (on the app)" },
+              { text: "Clinical Performance Dashboard" },
+            ]}
+            addOn="💉 Quarterly Blood Lab Testing available as an add-on — $129/quarter"
+            ctaLabel="Join Management Track"
+            ctaStyle="outline"
+            checkColor="#16A34A"
+            checkBg="#F0FDF4"
+            savingsColor="#E8339E"
+            onConsultClick={onConsultClick}
+          />
 
-            {/* Price */}
-            <div className="flex items-end gap-1 mb-1">
-              <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#111" }}>$</span>
-              <span className="font-black leading-none" style={{ fontSize: 62, color: "#111", letterSpacing: "-3px" }}>
-                {p.t1}
-              </span>
-              <span className="font-semibold pb-2.5 text-gray-400" style={{ fontSize: 15 }}>/mo</span>
-            </div>
+          {/* ── TIER 2: Core Weight Track (HERO) ───────────────────────── */}
+          <TierCard
+            hero
+            title="Core Weight Track"
+            description="Our complete medical weight loss system — FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for steady, safe, and managed results."
+            medicationBadge={{ label: "Includes Semaglutide", color: "#F472B6", bg: "rgba(232,51,158,0.15)", dot: "#F472B6" }}
+            price={p.t2}
+            basePrice={base.t2}
+            term={term}
+            payMode={payMode}
+            savings={savingsVsBase(term, payMode, "t2")}
+            total={totalBilled(term, payMode, "t2")}
+            features={[
+              { text: "Semaglutide (FDA-approved brand or 503B-compounded) — Delivered to Your Door" },
+              { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+              { text: "Quarterly 1-on-1 Doctor Strategy Session" },
+              { text: "Direct Text Access (Business Hours)" },
+              { text: "Custom Fitness & Nutrition Program (on the app)" },
+              { text: "Clinical Performance Dashboard" },
+              { text: "Quarterly Blood Lab Testing", badge: "INCLUDED" },
+            ]}
+            ctaLabel="Start Core Track"
+            ctaStyle="hero"
+            checkColor="#E8339E"
+            checkBg="rgba(232,51,158,0.18)"
+            savingsColor="#F472B6"
+            onConsultClick={onConsultClick}
+          />
 
-            {/* Savings vs 3-month */}
-            {term > 3 ? (
-              <div className="text-xs font-semibold mb-1" style={{ color: "#E8339E" }}>
-                Save ${savingsVs3Mo(term, "t1")} vs. 3-month rate — ${totalBilled(term, "t1").toLocaleString()} total
-              </div>
-            ) : (
-              <div className="text-xs font-semibold mb-1 text-gray-400">
-                ${totalBilled(term, "t1").toLocaleString()} billed at checkout
-              </div>
-            )}
+          {/* ── TIER 3: Elite Longevity Track ───────────────────────────── */}
+          <TierCard
+            title="Elite Longevity Track"
+            description="Premium optimization for high-performers — the only program combining GLP-1 therapy with full hormonal balance."
+            medicationBadge={{ label: "Tirzepatide + BHRT", color: "#7A1E7E", bg: "rgba(122,30,126,0.10)", dot: "#7A1E7E" }}
+            price={p.t3}
+            basePrice={base.t3}
+            term={term}
+            payMode={payMode}
+            savings={savingsVsBase(term, payMode, "t3")}
+            total={totalBilled(term, payMode, "t3")}
+            features={[
+              { text: "Tirzepatide (FDA-approved brand or 503B-compounded) + BHRT — The Complete Protocol" },
+              { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+              { text: "Quarterly 1-on-1 Doctor Strategy Session" },
+              { text: "Direct Text Access (Business Hours)" },
+              { text: "Custom Fitness & Nutrition Program (on the app)" },
+              { text: "Clinical Performance Dashboard" },
+              { text: "Quarterly Blood Lab Testing", badge: "INCLUDED" },
+            ]}
+            ctaLabel="Go Elite Longevity"
+            ctaStyle="dark"
+            checkColor="#7A1E7E"
+            checkBg="rgba(122,30,126,0.12)"
+            savingsColor="#7A1E7E"
+            onConsultClick={onConsultClick}
+          />
 
-            <p className="text-xs text-gray-400 font-medium leading-relaxed mb-4">
-              For patients who already have medication through insurance but want the MedMethod team managing their results.
-            </p>
-            <div
-              className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider mb-5 w-fit"
-              style={{ background: "#F1F1F5", color: "#555", letterSpacing: "1px" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
-              No Medication Included
-            </div>
-            <hr style={{ border: "none", borderTop: "1px solid #EBEBF0", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-2 mb-3 flex-1">
-              {[
-                { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
-                { text: "Quarterly 1-on-1 Doctor Strategy Session" },
-                { text: "Prescriptions Called In to Your Local Pharmacy" },
-                { text: "Direct Text Access (Business Hours)" },
-                { text: "Custom Fitness & Nutrition Program (on the app)" },
-                { text: "Clinical Performance Dashboard" },
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <span
-                    className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
-                    style={{ width: 19, height: 19, background: "#F0FDF4" }}
-                  >
-                    <Check size={10} color="#16A34A" strokeWidth={2.5} />
-                  </span>
-                  <span className="text-xs font-semibold leading-snug" style={{ color: "#2A2A35" }}>
-                    {item.text}
-                    {item.sub && (
-                      <span
-                        className="block text-xs font-bold uppercase tracking-wide mt-0.5"
-                        style={{ color: "#E8339E", fontSize: 10 }}
-                      >
-                        {item.sub}
-                      </span>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div
-              className="rounded-lg text-xs font-medium leading-relaxed mb-3"
-              style={{ background: "#f3f4f6", color: "#555", padding: "10px 14px" }}
-            >
-              💉 <strong>Quarterly Blood Lab Testing</strong> available as an add-on — <strong>$129/quarter</strong>
-            </div>
-            <a
-              onClick={onConsultClick}
-              className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all hover:bg-gray-100 cursor-pointer"
-              style={{
-                padding: "15px",
-                border: "2px solid #111",
-                color: "#111",
-                fontSize: 12,
-                letterSpacing: "1.5px",
-                textDecoration: "none",
-              }}
-            >
-              Join Management Track
-            </a>
-          </div>
+        </div>
 
-          {/* TIER 2 — Core Weight Track (HERO) */}
-          <div
-            className="rounded-2xl flex flex-col relative"
-            style={{
-              background: "#0D0F1C",
-              border: "2.5px solid #E8339E",
-              padding: "40px 30px 34px",
-              boxShadow: "0 0 0 5px rgba(232,51,158,0.10), 0 24px 64px rgba(122,30,126,0.22)",
-            }}
-          >
-            {/* Most Popular badge — only shown when 6-month tab is active */}
-            {term === 6 && (
-              <div
-                className="absolute text-white font-extrabold uppercase tracking-widest rounded-full"
-                style={{
-                  top: -15,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                  fontSize: 10,
-                  letterSpacing: "2px",
-                  padding: "5px 20px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                ⭐ Most Popular
-              </div>
-            )}
-            {term === 12 && (
-              <div
-                className="absolute text-white font-extrabold uppercase tracking-widest rounded-full"
-                style={{
-                  top: -15,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  background: "linear-gradient(135deg, #7A1E7E, #4A0E7E)",
-                  fontSize: 10,
-                  letterSpacing: "2px",
-                  padding: "5px 20px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                🏆 Best Value
-              </div>
-            )}
+        {/* ── Footer note ─────────────────────────────────────────────────── */}
+        <p className="text-center text-xs text-gray-400 font-medium mt-6">
+          All programs are contract-based for the selected term. Monthly billing continues for the full commitment period.
+          Upfront plans are non-refundable. HSA/FSA accepted.
+        </p>
 
-            <div
-              className="font-extrabold tracking-widest uppercase mb-4 text-xs"
-              style={{
+      </div>
+    </section>
+  );
+}
+
+// ── Reusable card sub-component ───────────────────────────────────────────────
+interface Feature { text: string; sub?: string; badge?: string }
+interface MedBadge { label: string; color: string; bg: string; dot: string }
+
+function TierCard({
+  hero = false,
+  title,
+  description,
+  medicationBadge,
+  price,
+  basePrice,
+  term,
+  payMode,
+  savings,
+  total,
+  features,
+  addOn,
+  ctaLabel,
+  ctaStyle,
+  checkColor,
+  checkBg,
+  savingsColor,
+  onConsultClick,
+}: {
+  hero?: boolean;
+  title: string;
+  description: string;
+  medicationBadge: MedBadge;
+  price: number;
+  basePrice: number;
+  term: Term;
+  payMode: PayMode;
+  savings: number;
+  total: number;
+  features: Feature[];
+  addOn?: string;
+  ctaLabel: string;
+  ctaStyle: "outline" | "hero" | "dark";
+  checkColor: string;
+  checkBg: string;
+  savingsColor: string;
+  onConsultClick: () => void;
+}) {
+  const isDark = hero;
+  const textColor = isDark ? "rgba(255,255,255,0.85)" : "#2A2A35";
+  const subColor  = isDark ? "rgba(255,255,255,0.5)"  : "#9CA3AF";
+
+  return (
+    <div
+      className="rounded-2xl flex flex-col relative"
+      style={{
+        background: isDark ? "#0D0F1C" : "#fff",
+        border: isDark ? "2.5px solid #E8339E" : "1.5px solid #E2E2EA",
+        padding: isDark ? "40px 30px 34px" : "34px 28px 30px",
+        boxShadow: isDark
+          ? "0 0 0 5px rgba(232,51,158,0.10), 0 24px 64px rgba(122,30,126,0.22)"
+          : undefined,
+      }}
+    >
+      {/* Title */}
+      <div
+        className="font-extrabold tracking-widest uppercase mb-4 text-xs"
+        style={
+          isDark
+            ? {
                 background: "linear-gradient(135deg, #E8339E, #B06FE8)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
                 letterSpacing: "2.5px",
-              }}
-            >
-              Core Weight Track
-            </div>
+              }
+            : { color: "#111", letterSpacing: "2.5px" }
+        }
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
 
-            {/* Price */}
-            <div className="flex items-end gap-1 mb-1">
-              <span className="font-extrabold pb-2.5 text-white" style={{ fontSize: 20 }}>$</span>
-              <span className="font-black leading-none text-white" style={{ fontSize: 62, letterSpacing: "-3px" }}>
-                {p.t2}
-              </span>
-              <span className="font-semibold pb-2.5" style={{ fontSize: 15, color: "rgba(255,255,255,0.5)" }}>/mo</span>
-            </div>
+      {/* Price row */}
+      <div className="flex items-end gap-1 mb-0.5">
+        <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: isDark ? "#fff" : "#111" }}>$</span>
+        <span
+          className="font-black leading-none transition-all"
+          style={{ fontSize: 62, color: isDark ? "#fff" : "#111", letterSpacing: "-3px" }}
+        >
+          {price}
+        </span>
+        <span className="font-semibold pb-2.5" style={{ fontSize: 15, color: subColor }}>/mo</span>
+      </div>
 
-            {/* Savings vs 3-month */}
-            {term > 3 ? (
-              <div className="text-xs font-semibold mb-1" style={{ color: "#F472B6" }}>
-                Save ${savingsVs3Mo(term, "t2")} vs. 3-month rate — ${totalBilled(term, "t2").toLocaleString()} total
-              </div>
-            ) : (
-              <div className="text-xs font-semibold mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
-                ${totalBilled(term, "t2").toLocaleString()} billed at checkout
-              </div>
-            )}
-
-            <p className="text-xs font-medium leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Our complete medical weight loss system — FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for steady, safe, and managed results.
-            </p>
-            <div
-              className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider mb-5 w-fit"
-              style={{ background: "rgba(232,51,158,0.15)", color: "#F472B6", letterSpacing: "1px" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#F472B6" }} />
-              Includes Semaglutide
-            </div>
-            <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.1)", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-2 mb-3 flex-1">
-              {[
-                { text: "Semaglutide (FDA-approved brand or 503B-compounded) — Delivered to Your Door" },
-                { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
-                { text: "Quarterly 1-on-1 Doctor Strategy Session" },
-                { text: "Direct Text Access (Business Hours)" },
-                { text: "Custom Fitness & Nutrition Program (on the app)" },
-                { text: "Clinical Performance Dashboard" },
-                { text: "Quarterly Blood Lab Testing", badge: "INCLUDED" },
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <span
-                    className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
-                    style={{ width: 19, height: 19, background: "rgba(232,51,158,0.18)" }}
-                  >
-                    <Check size={10} color="#E8339E" strokeWidth={2.5} />
-                  </span>
-                  <span className="text-xs font-semibold leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>
-                    {item.text}
-                    {item.sub && (
-                      <span
-                        className="block font-bold uppercase tracking-wide mt-0.5"
-                        style={{ color: "#E8339E", fontSize: 10 }}
-                      >
-                        {item.sub}
-                      </span>
-                    )}
-                    {item.badge && (
-                      <span
-                        className="inline-block font-bold uppercase rounded ml-1.5"
-                        style={{
-                          fontSize: 10,
-                          background: "rgba(232,51,158,0.15)",
-                          color: "#E8339E",
-                          padding: "1px 6px",
-                          letterSpacing: "0.5px",
-                        }}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <a
-              onClick={onConsultClick}
-              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all cursor-pointer"
-              style={{
-                padding: "15px",
-                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                border: "none",
-                fontSize: 12,
-                letterSpacing: "1.5px",
-                textDecoration: "none",
-                boxShadow: "0 8px 28px rgba(232,51,158,0.38)",
-              }}
-            >
-              Start Core Track
-            </a>
-          </div>
-
-          {/* TIER 3 — Elite Longevity Track */}
-          <div
-            className="rounded-2xl flex flex-col"
+      {/* Savings line */}
+      {savings > 0 ? (
+        <div className="flex items-center gap-2 mb-1">
+          <span
+            className="text-xs font-extrabold"
+            style={{ color: savingsColor }}
+          >
+            Save ${savings.toLocaleString()} vs. standard rate
+          </span>
+          <span
+            className="text-xs font-bold rounded px-1.5 py-0.5"
             style={{
-              background: "#fff",
-              border: "1.5px solid #E2E2EA",
-              padding: "34px 28px 30px",
+              background: isDark ? "rgba(232,51,158,0.15)" : "rgba(232,51,158,0.08)",
+              color: savingsColor,
+              fontSize: 10,
             }}
           >
-            <div
-              className="font-extrabold tracking-widest uppercase mb-4 text-xs"
-              style={{ color: "#111", letterSpacing: "2.5px" }}
-            >
-              Elite Longevity Track
-            </div>
-
-            {/* Price */}
-            <div className="flex items-end gap-1 mb-1">
-              <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#111" }}>$</span>
-              <span className="font-black leading-none" style={{ fontSize: 62, color: "#111", letterSpacing: "-3px" }}>
-                {p.t3}
-              </span>
-              <span className="font-semibold pb-2.5 text-gray-400" style={{ fontSize: 15 }}>/mo</span>
-            </div>
-
-            {/* Savings vs 3-month */}
-            {term > 3 ? (
-              <div className="text-xs font-semibold mb-1" style={{ color: "#7A1E7E" }}>
-                Save ${savingsVs3Mo(term, "t3")} vs. 3-month rate — ${totalBilled(term, "t3").toLocaleString()} total
-              </div>
-            ) : (
-              <div className="text-xs font-semibold mb-1 text-gray-400">
-                ${totalBilled(term, "t3").toLocaleString()} billed at checkout
-              </div>
-            )}
-
-            <p className="text-xs text-gray-400 font-medium leading-relaxed mb-4">
-              Premium optimization for high-performers — the only program combining GLP-1 therapy with full hormonal balance.
-            </p>
-            <div
-              className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider mb-5 w-fit"
-              style={{ background: "rgba(122,30,126,0.10)", color: "#7A1E7E", letterSpacing: "1px" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#7A1E7E" }} />
-              Tirzepatide + BHRT
-            </div>
-            <hr style={{ border: "none", borderTop: "1px solid #EBEBF0", marginBottom: 20 }} />
-            <ul className="flex flex-col gap-2 mb-3 flex-1">
-              {[
-                { text: "Tirzepatide (FDA-approved brand or 503B-compounded) + BHRT — The Complete Protocol" },
-                { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
-                { text: "Quarterly 1-on-1 Doctor Strategy Session" },
-                { text: "Direct Text Access (Business Hours)" },
-                { text: "Custom Fitness & Nutrition Program (on the app)" },
-                { text: "Clinical Performance Dashboard" },
-                { text: "Quarterly Blood Lab Testing", badge: "INCLUDED" },
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <span
-                    className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
-                    style={{ width: 19, height: 19, background: "rgba(122,30,126,0.12)" }}
-                  >
-                    <Check size={10} color="#7A1E7E" strokeWidth={2.5} />
-                  </span>
-                  <span className="text-xs font-semibold leading-snug" style={{ color: "#2A2A35" }}>
-                    {item.text}
-                    {item.sub && (
-                      <span
-                        className="block font-bold uppercase tracking-wide mt-0.5"
-                        style={{ color: "#7A1E7E", fontSize: 10 }}
-                      >
-                        {item.sub}
-                      </span>
-                    )}
-                    {item.badge && (
-                      <span
-                        className="inline-block font-bold uppercase rounded ml-1.5"
-                        style={{
-                          fontSize: 10,
-                          background: "rgba(122,30,126,0.15)",
-                          color: "#7A1E7E",
-                          padding: "1px 6px",
-                          letterSpacing: "0.5px",
-                        }}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <a
-              onClick={onConsultClick}
-              className="block w-full text-center text-white font-extrabold uppercase tracking-widest rounded-xl transition-all hover:opacity-90 cursor-pointer"
-              style={{
-                padding: "15px",
-                background: "#111",
-                border: "2px solid #111",
-                fontSize: 12,
-                letterSpacing: "1.5px",
-                textDecoration: "none",
-              }}
-            >
-              Go Elite Longevity
-            </a>
-          </div>
-
+            ${total.toLocaleString()} total
+          </span>
         </div>
+      ) : (
+        <div className="text-xs font-semibold mb-1" style={{ color: subColor }}>
+          ${total.toLocaleString()} {payMode === "upfront" ? "billed upfront" : "billed monthly"}
+        </div>
+      )}
 
-        {/* Disclaimer */}
-        <div className="mt-8 pt-4" />
+      {/* Description */}
+      <p className="text-xs font-medium leading-relaxed mb-4" style={{ color: subColor }}>
+        {description}
+      </p>
 
+      {/* Medication badge */}
+      <div
+        className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider mb-5 w-fit"
+        style={{ background: medicationBadge.bg, color: medicationBadge.color, letterSpacing: "1px" }}
+      >
+        <span
+          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+          style={{ background: medicationBadge.dot }}
+        />
+        {medicationBadge.label}
       </div>
-    </section>
+
+      <hr style={{ border: "none", borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "#EBEBF0"}`, marginBottom: 20 }} />
+
+      {/* Feature list */}
+      <ul className="flex flex-col gap-2 mb-3 flex-1">
+        {features.map((item, i) => (
+          <li key={i} className="flex items-start gap-2.5">
+            <span
+              className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
+              style={{ width: 19, height: 19, background: checkBg }}
+            >
+              <Check size={10} color={checkColor} strokeWidth={2.5} />
+            </span>
+            <span className="text-xs font-semibold leading-snug" style={{ color: textColor }}>
+              {item.text}
+              {item.sub && (
+                <span
+                  className="block font-bold uppercase tracking-wide mt-0.5"
+                  style={{ color: checkColor, fontSize: 10 }}
+                >
+                  {item.sub}
+                </span>
+              )}
+              {item.badge && (
+                <span
+                  className="inline-block font-bold uppercase rounded ml-1.5"
+                  style={{
+                    fontSize: 10,
+                    background: isDark ? "rgba(232,51,158,0.15)" : "rgba(122,30,126,0.1)",
+                    color: checkColor,
+                    padding: "1px 6px",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Add-on note */}
+      {addOn && (
+        <div
+          className="rounded-lg text-xs font-medium leading-relaxed mb-3"
+          style={{ background: "#f3f4f6", color: "#555", padding: "10px 14px" }}
+          dangerouslySetInnerHTML={{ __html: addOn }}
+        />
+      )}
+
+      {/* CTA button */}
+      <a
+        onClick={onConsultClick}
+        className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all cursor-pointer"
+        style={{
+          padding: "15px",
+          fontSize: 12,
+          letterSpacing: "1.5px",
+          textDecoration: "none",
+          ...(ctaStyle === "hero"
+            ? {
+                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                color: "#fff",
+                border: "none",
+                boxShadow: "0 8px 28px rgba(232,51,158,0.38)",
+              }
+            : ctaStyle === "dark"
+            ? {
+                background: "#111",
+                color: "#fff",
+                border: "2px solid #111",
+              }
+            : {
+                background: "transparent",
+                color: "#111",
+                border: "2px solid #111",
+              }),
+        }}
+      >
+        {ctaLabel}
+      </a>
+    </div>
   );
 }
