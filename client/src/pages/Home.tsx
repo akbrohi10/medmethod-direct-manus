@@ -67,7 +67,7 @@ export default function Home() {
               { label: "Virginia", href: "/virginia" },
               { label: "Florida", href: "/florida" },
               { label: "Maryland", href: "/maryland" },
-              { label: "Washington DC", href: "/dc" },
+              { label: "Washington DC", href: "/washington-dc" },
               { label: "Colorado", href: "/colorado" },
               { label: "Arizona", href: "/arizona" },
               { label: "North Carolina", href: "/north-carolina" },
