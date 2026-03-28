@@ -45,7 +45,7 @@ const JSONLD_MEDICAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — McLean, Virginia",
-  "description": "Virtual menopause doctor and hormone therapy clinic serving women in McLean, Virginia. Specializing in GLP-1 weight loss, HRT, perimenopause management, and longevity medicine.",
+  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in McLean, Virginia. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Virginia.",
   "url": "https://medmethoddirect.com/virginia/mclean",
   "telephone": "",
   "priceRange": "$$",
@@ -285,31 +285,65 @@ export default function LocationMcLean() {
 
       {/* ── SEO HEAD ─────────────────────────────────────────────────────────── */}
       <Helmet>
-        <title>Virtual Menopause Doctor in McLean, VA | MedMethod Direct</title>
+        <title>Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct</title>
         <meta
           name="description"
-          content="Expert virtual menopause, hormone therapy & GLP-1 weight loss for women in McLean, VA. See a physician this week — no waiting room, no commute. Free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — free consultation."
         />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/mclean" />
-        <meta property="og:title" content="Virtual Menopause Doctor in McLean, VA | MedMethod Direct" />
+        <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           property="og:description"
-          content="Expert virtual menopause, hormone therapy & GLP-1 weight loss for women in McLean, VA. See a physician this week — no waiting room, no commute. Free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation."
         />
         <meta property="og:url" content="https://medmethoddirect.com/virginia/mclean" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={HERO_IMAGE} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Virtual Menopause Doctor in McLean, VA | MedMethod Direct" />
+        <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           name="twitter:description"
-          content="Expert virtual menopause, hormone therapy & GLP-1 weight loss for women in McLean, VA. See a physician this week — no waiting room, no commute."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation."
         />
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_MEDICAL_BUSINESS)}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_FAQ)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            "name": "Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA",
+            "url": "https://medmethoddirect.com/virginia/mclean",
+            "description": "MedMethod Direct provides physician-led virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, and testosterone therapy for women in McLean, Virginia.",
+            "about": [
+              { "@type": "MedicalCondition", "name": "Menopause" },
+              { "@type": "MedicalCondition", "name": "Perimenopause" },
+              { "@type": "MedicalCondition", "name": "Hormonal Imbalance" },
+              { "@type": "MedicalCondition", "name": "Obesity" },
+              { "@type": "MedicalCondition", "name": "Insulin Resistance" },
+            ],
+            "specialty": "Women's Health, Hormone Medicine, Medical Weight Loss",
+            "lastReviewed": "2026-03-01",
+            "reviewedBy": {
+              "@type": "Physician",
+              "name": "Dr. Jumana Al-Deek",
+              "honorificSuffix": "DO",
+            },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://medmethoddirect.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Virginia", "item": "https://medmethoddirect.com/virginia" },
+              { "@type": "ListItem", "position": 3, "name": "McLean", "item": "https://medmethoddirect.com/virginia/mclean" },
+            ],
+          })}
         </script>
       </Helmet>
 
