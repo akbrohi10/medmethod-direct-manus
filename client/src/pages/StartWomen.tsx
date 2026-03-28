@@ -5,6 +5,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { pricingFaqs } from "@/data/pricingFaqs";
 import { CheckCircle, Star, Shield, Clock, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/start-women-hero-3J5AcqPitLvutL4uiaW78u.webp";
@@ -47,6 +48,7 @@ const testimonials = [
 ];
 
 const faqs = [
+  ...pricingFaqs,
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",

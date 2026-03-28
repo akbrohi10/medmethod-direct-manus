@@ -8,6 +8,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { pricingFaqs } from "@/data/pricingFaqs";
 import { ChevronDown, ChevronUp, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -186,6 +187,7 @@ const faqs = [
     q: "What is the $449 Clinical Diagnostic & Setup Fee?",
     a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
   },
+  ...pricingFaqs,
   {
     q: "Does MedMethod Direct accept insurance in Virginia?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",

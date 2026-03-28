@@ -4,6 +4,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import { pricingFaqs } from "@/data/pricingFaqs";
 
 const faqs = [
   {
@@ -42,6 +43,7 @@ const faqs = [
     q: "What does treatment cost?",
     a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible — and we're committed to being upfront about every cost.",
   },
+  ...pricingFaqs,
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",

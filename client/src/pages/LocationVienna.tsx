@@ -8,6 +8,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { pricingFaqs } from "@/data/pricingFaqs";
 import { ChevronDown, ChevronUp, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -159,6 +160,7 @@ const faqs = [
     q: "How is MedMethod Direct different from Hers, Winona, or other telehealth platforms?",
     a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your labs, builds a protocol specific to your biology, and remains your physician for the full 6 or 12-month program. We also integrate hormone therapy and weight loss into a single program — rather than treating each issue separately as most telehealth platforms do.",
   },
+  ...pricingFaqs,
   {
     q: "Does MedMethod Direct accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
