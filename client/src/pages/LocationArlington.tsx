@@ -139,46 +139,68 @@ export default function LocationArlington() {
       <Navbar onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── HERO ── */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#0D0D1A]">
-        <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1600&q=80')" }} aria-hidden="true" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(13,13,26,0.97) 0%, rgba(13,13,26,0.75) 60%, rgba(232,51,158,0.12) 100%)" }} />
-        <div className="relative z-10 max-w-[1280px] mx-auto px-4 lg:px-8 w-full py-24 lg:py-0">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <MapPin className="w-4 h-4 text-[#E8339E]" />
-                <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>Arlington, Virginia</span>
-              </div>
-              <h1 className="font-black leading-none mb-6 text-white" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", letterSpacing: "-0.02em" }}>
-                VIRTUAL HORMONE,{" "}
-                <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MENOPAUSE</span>{" "}
-                &{" "}
-                <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>WEIGHT LOSS</span>{" "}
-                FOR ARLINGTON WOMEN
-              </h1>
-              <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-lg" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                Physician-led virtual care for women in Arlington, Alexandria, and Northern Virginia. Hormone therapy, GLP-1 weight loss, and menopause care — all in one program. No commute. Same-week availability.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-8 py-4 rounded-full text-sm font-bold tracking-wider" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                  SCHEDULE FREE CONSULTATION →
-                </button>
-              </div>
-              <div className="flex items-center gap-2 text-white/50 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                <CheckCircle2 className="w-4 h-4 text-[#E8339E]" />
-                <span>100% Virtual · Licensed in Virginia · No Office Visits Required</span>
-              </div>
-            </div>
-            <div className="hidden lg:grid grid-cols-2 gap-4">
-              {stats.map((s) => (
-                <div key={s.label} className="rounded-2xl p-6 border border-white/10" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <div className="font-black mb-1" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "2.4rem", background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{s.value}</div>
-                  <div className="text-white/50 text-xs font-semibold tracking-widest uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>{s.label}</div>
+      <section className="relative flex flex-col bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,51,158,0.06) 0%, rgba(122,30,126,0.04) 40%, transparent 70%)" }} />
+        <div className="relative z-10 flex-1 flex items-center py-8 lg:py-12">
+          <div className="max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+              {/* LEFT */}
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 text-xs font-bold tracking-wider uppercase" style={{ background: "rgba(232,51,158,0.08)", color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+                  <MapPin className="w-3.5 h-3.5" />
+                  Serving Arlington, Virginia
                 </div>
-              ))}
+                <h1 className="font-black leading-[1.05] mb-5" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.9rem, 3.4vw, 3.3rem)", letterSpacing: "-0.02em", color: "#111111" }}>
+                  VIRTUAL{" "}
+                  <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>HORMONE,</span>
+                  <br />
+                  <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MENOPAUSE</span>{" "}&amp;{" "}
+                  <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>WEIGHT LOSS</span>
+                  <br />
+                  FOR ARLINGTON WOMEN
+                </h1>
+                <p className="text-base mb-6 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}>
+                  Physician-led virtual care for women in Arlington, Alexandria, and Northern Virginia. Hormone therapy, GLP-1 weight loss, and menopause care — all in one program. No commute. Same-week availability.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 mb-3">
+                  <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                    SCHEDULE FREE CONSULTATION
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+                <p className="flex items-center gap-2 font-semibold mb-8" style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}>
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                  100% Virtual Care · Licensed in Virginia
+                </p>
+                <div className="flex flex-wrap gap-5 lg:gap-7">
+                  {stats.map((stat) => (
+                    <div key={stat.label}>
+                      <div className="font-black leading-none" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.7rem", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{stat.value}</div>
+                      <div className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif" }}>{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* RIGHT: Hero Image */}
+              <div className="relative lg:-ml-6">
+                <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
+                  <img
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/arlington-hero-j6B3rXBHyFN7G2kkoZHfqR.webp"
+                    alt="Virtual menopause and hormone therapy doctor for women in Arlington, Virginia — MedMethod Direct"
+                    className="w-full h-full object-cover"
+                    width="640"
+                    height="480"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)" }}>
+                    <p className="text-white font-bold text-sm tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>Serving Arlington · Alexandria · Falls Church · Crystal City · Rosslyn</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div className="w-full" style={{ height: "4px", background: "linear-gradient(90deg, #E8339E 0%, #7A1E7E 100%)" }} />
       </section>
 
       {/* ── INTRO ── */}
