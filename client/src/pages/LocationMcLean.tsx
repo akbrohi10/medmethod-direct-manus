@@ -348,10 +348,10 @@ export default function LocationMcLean() {
                   }}
                 >
                   VIRTUAL{" "}
-                  <span style={gradientText}>MENOPAUSE</span>
+                  <span style={gradientText}>HORMONE,</span>
                   <br />
-                  &{" "}
-                  <span style={gradientText}>HORMONE CARE</span>
+                  <span style={gradientText}>MENOPAUSE</span>{" "}&amp;{" "}
+                  <span style={gradientText}>WEIGHT LOSS</span>
                   <br />
                   FOR MCLEAN WOMEN
                 </h1>
@@ -360,7 +360,7 @@ export default function LocationMcLean() {
                   className="text-base mb-6 leading-relaxed"
                   style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
                 >
-                  Physician-prescribed hormone therapy, GLP-1 weight loss, and menopause management for women in McLean, Northern Virginia — no waiting rooms, no rushed appointments, no commute.
+                  The only virtual clinic in Virginia combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in McLean.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
@@ -447,26 +447,26 @@ export default function LocationMcLean() {
             className="font-black mb-6 leading-tight"
             style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)", color: "#111111" }}
           >
-            Serving Women in McLean, VA —{" "}
-            <span style={gradientText}>From Wherever You Are</span>
+            Hormone Therapy. Medical Weight Loss. Menopause Care.{" "}
+            <span style={gradientText}>All in One Place — For McLean Women.</span>
           </h2>
           <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>
             <p>
               If you live in McLean and you've been searching for a{" "}
-              <strong>menopause doctor near McLean, VA</strong>, a hormone specialist, or a physician who can help with{" "}
-              <strong>GLP-1 weight loss in McLean, Virginia</strong> — you've found the right place. MedMethod Direct is a virtual women's health clinic serving patients throughout Virginia, including McLean, Great Falls, Tysons Corner, Vienna, Reston, and Arlington.
+              <strong>menopause doctor near McLean, VA</strong>, a{" "}
+              <strong>medical weight loss physician in McLean, Virginia</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
             <p>
-              We specialize in the health concerns that matter most to women in midlife:{" "}
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
               <strong>perimenopause and menopause management</strong>,{" "}
               <strong>hormone replacement therapy (HRT)</strong>,{" "}
               <strong>bioidentical hormone therapy</strong>,{" "}
               <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide</strong> and tirzepatide, and longevity-focused care. Everything is managed virtually by Dr. Jumana Al-Deek, DO — a physician who has dedicated her practice to helping women in their 40s, 50s, and beyond feel like themselves again.
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care. Everything is managed virtually by Dr. Jumana Al-Deek, DO — a physician who has dedicated her practice to helping women in their 40s, 50s, and beyond reclaim their bodies and their energy.
             </p>
             <p>
               Whether you're experiencing{" "}
-              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low energy, or low libido — or you're simply looking for a physician who will actually look at your labs and build a plan specific to you — MedMethod Direct offers a level of care that most local practices in Northern Virginia simply cannot match. And because everything is virtual, you can access it from your home in McLean, your office in Tysons, or anywhere in Virginia.
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Virginia that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No siloed specialists. No starting over. Just one team, one plan, and results that last.
             </p>
           </div>
 
@@ -673,8 +673,8 @@ export default function LocationMcLean() {
               },
               {
                 icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Menopause & Hormone Specialists",
-                body: "We specialize in hormones, menopause, perimenopause, GLP-1 weight loss, testosterone therapy for women, and longevity medicine — depth of expertise a generalist can't match.",
+                title: "Hormones + Weight Loss: Treated Together",
+                body: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, testosterone optimization, and metabolic medicine into one unified program. That's why our results last.",
               },
               {
                 icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />,
@@ -688,8 +688,8 @@ export default function LocationMcLean() {
               },
               {
                 icon: <ArrowRight className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Medications Delivered to Your Door",
-                body: "FDA-approved brands or compounded alternatives from our 503B pharmacy — shipped directly to your McLean address, discreetly and on schedule.",
+                title: "GLP-1s + Hormones Delivered to Your Door",
+                body: "Semaglutide, tirzepatide, BHRT, testosterone — FDA-approved brands or compounded alternatives from our 503B pharmacy, shipped directly to your McLean address, discreetly and on schedule.",
               },
             ].map((card) => (
               <div
