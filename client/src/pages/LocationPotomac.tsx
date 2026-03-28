@@ -167,7 +167,7 @@ export default function LocationPotomac() {
                 <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
                   <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-physician-female-v2-NvmRVjJvWNaRZroNYTgKNV.webp"
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-physician-female-v3b-3NEpBwyZhzMihSjxBbfYig.webp"
                     alt="Virtual menopause and hormone therapy doctor for women in Potomac, Maryland — MedMethod Direct"
                     className="w-full h-full object-cover"
                     width="640"
