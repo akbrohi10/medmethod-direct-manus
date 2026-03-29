@@ -389,6 +389,53 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           Upfront plans are non-refundable. HSA/FSA accepted.
         </p>
 
+        {/* ── Cherry Financing Badge ──────────────────────────────────────── */}
+        <div className="flex flex-col items-center mt-8 gap-3">
+          <div
+            className="inline-flex items-center gap-3 rounded-2xl px-6 py-4 shadow-sm"
+            style={{
+              background: "#fff",
+              border: "1.5px solid rgba(232,51,158,0.18)",
+              maxWidth: 520,
+              width: "100%",
+            }}
+          >
+            {/* Cherry logo wordmark */}
+            <div
+              className="flex-shrink-0 rounded-xl flex items-center justify-center"
+              style={{ width: 48, height: 48, background: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
+            >
+              <span className="font-black text-white" style={{ fontSize: 18, letterSpacing: "-0.03em" }}>🍒</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-black text-sm" style={{ fontFamily: "Montserrat, sans-serif", color: "#111", letterSpacing: "-0.01em" }}>
+                Financing available through Cherry
+              </p>
+              <p className="text-xs mt-0.5" style={{ fontFamily: "Montserrat, sans-serif", color: "#777" }}>
+                Split your program into monthly payments — 0% APR options available. Apply in 60 seconds with no hard credit pull.
+              </p>
+            </div>
+            <a
+              href="https://www.withcherry.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 rounded-full font-bold text-xs px-4 py-2 transition-all hover:opacity-90"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                color: "#fff",
+                letterSpacing: "0.05em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Learn More
+            </a>
+          </div>
+          <p className="text-[10px] text-gray-400" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Cherry financing is subject to credit approval. HSA/FSA cards accepted directly.
+          </p>
+        </div>
+
       </div>
     </section>
   );

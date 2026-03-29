@@ -147,13 +147,8 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             <ul className="flex flex-col gap-2.5">
               {[
                 { label: "Virginia", href: "/virginia" },
-                { label: "Florida", href: "/florida" },
                 { label: "Maryland", href: "/maryland" },
                 { label: "Washington DC", href: "/washington-dc" },
-                { label: "Colorado", href: "/colorado" },
-                { label: "Arizona", href: "/arizona" },
-                { label: "North Carolina", href: "/north-carolina" },
-                { label: "Pennsylvania", href: "/pennsylvania" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -162,6 +157,26 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
                     {label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/florida" className="text-white font-bold text-sm transition-colors" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>Florida ✦</a>
+              </li>
+              {[
+                { label: "Miami, FL", href: "/florida/miami" },
+                { label: "Boca Raton, FL", href: "/florida/boca-raton" },
+                { label: "Naples, FL", href: "/florida/naples" },
+                { label: "Sarasota, FL", href: "/florida/sarasota" },
+                { label: "Tampa, FL", href: "/florida/tampa" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-white/40 hover:text-white text-xs transition-colors pl-2"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    — {label}
                   </a>
                 </li>
               ))}
