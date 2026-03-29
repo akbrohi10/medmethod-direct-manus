@@ -83,10 +83,51 @@ export default function LocationHighlandsRanchCO() {
       <section className="py-16 px-6" style={{ background: "#F4F4F8" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-2xl mb-5" style={{ color: "#111", letterSpacing: "-0.02em", fontFamily: "Montserrat, sans-serif" }}>Women's Health in Highlands Ranch, CO</h2>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>Highlands Ranch is consistently ranked among the best places to live in Colorado — a master-planned community in Douglas County with one of the highest median household incomes in the state. Its residents include a large population of professional women in their 40s and 50s who are active, health-forward, and accustomed to premium services. Yet despite its affluence, Highlands Ranch faces the same specialist access challenges as the rest of Colorado: long wait times, limited appointment availability, and a healthcare system that often treats perimenopause and weight management as afterthoughts.</p>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>MedMethod Direct delivers the specialist-level care Highlands Ranch women deserve — without the commute to Denver. Our board-certified physicians provide personalized BHRT, semaglutide and tirzepatide GLP-1 programs, and comprehensive menopause management via telehealth, with medication shipped directly to your door from a licensed 503B compounding pharmacy.</p>
-          <p className="text-base font-medium leading-relaxed" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>MedMethod Direct is fully licensed to practice medicine in Colorado. Our physicians comply with all Colorado telehealth prescribing regulations and every program uses FDA-approved and compounded medications from accredited pharmacies.</p>
-        </div>
+          
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Highlands Ranch and you've been searching for a{" "}
+              <strong>menopause doctor near Highlands Ranch, CO</strong>, a{" "}
+              <strong>medical weight loss physician serving Highlands Ranch, Colorado</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Colorado that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Denver or Castle Rock. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />

@@ -73,9 +73,51 @@ export default function LocationTucsonAZ() {
           <div>
             <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Why Tucson Women Choose Us</p>
             <h2 className="text-3xl font-black text-[#0d0d0d] mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>Specialist-Level Care<br />Without the Phoenix Drive</h2>
-            <p className="text-[#0d0d0d]/70 leading-relaxed mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Tucson is home to the University of Arizona Health Sciences campus — one of the Southwest's leading medical research institutions — yet the city has historically been underserved by hormone and menopause specialists. Women in the Foothills, Oro Valley, and Sahuarita corridors often face the choice between a 3-month local wait or a 2-hour round trip to Phoenix for specialist care.</p>
-            <p className="text-[#0d0d0d]/70 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>MedMethod Direct eliminates that choice entirely. Our board-certified physicians are licensed in Arizona and specialize in bioidentical hormone replacement therapy, GLP-1 medical weight loss, and comprehensive menopause management. Every consultation happens via secure video — from your Tucson home, on your schedule. Medications are shipped directly to your door.</p>
+            
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Tucson and you've been searching for a{" "}
+              <strong>menopause doctor near Tucson, AZ</strong>, a{" "}
+              <strong>medical weight loss physician serving Tucson, Arizona</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Arizona that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Phoenix or Sierra Vista. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
           </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
           <div className="flex flex-col gap-4">
             {[{ title: "Hormone Replacement Therapy", desc: "Personalized estradiol, progesterone, and testosterone protocols based on your labs." }, { title: "GLP-1 Medical Weight Loss", desc: "Semaglutide and tirzepatide with physician oversight and metabolic monitoring." }, { title: "Menopause Management", desc: "Comprehensive perimenopause and menopause care for hot flashes, sleep, and cognition." }, { title: "Thyroid Optimization", desc: "Full thyroid panel review and optimization to address fatigue and weight gain." }].map(({ title, desc }) => (
               <div key={title} className="bg-white border border-[#0d0d0d]/8 p-5">

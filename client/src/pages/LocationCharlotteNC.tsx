@@ -130,16 +130,51 @@ export default function LocationCharlotteNC() {
       <section className="py-16 px-6" style={{ background: "#F4F4F8" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-2xl mb-5" style={{ color: "#111", letterSpacing: "-0.02em" }}>Women's Health in Charlotte, NC</h2>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>
-            Charlotte is North Carolina's largest city and one of the fastest-growing financial centers in the country. The SouthPark and Myers Park corridors are home to a significant population of professional women in their 40s and 50s — many working in banking, finance, and corporate leadership at institutions like Bank of America and Wells Fargo. These women are accustomed to premium services and demand convenience. Yet specialist wait times for hormone therapy and GLP-1 prescriptions in Charlotte can stretch weeks or months.
-          </p>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>
-            MedMethod Direct was built for exactly this patient. Our board-certified physicians deliver the same level of care as a top-tier in-person specialist — personalized lab-based BHRT protocols, semaglutide and tirzepatide prescriptions, and ongoing physician oversight — entirely via telehealth. No commute, no waiting room, no time off work.
-          </p>
-          <p className="text-base font-medium leading-relaxed" style={{ color: "#444" }}>
-            MedMethod Direct is fully licensed to practice medicine in North Carolina. Our physicians comply with all state telehealth prescribing regulations, and every program uses FDA-approved and compounded medications from accredited 503B pharmacies.
-          </p>
-        </div>
+          
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Charlotte and you've been searching for a{" "}
+              <strong>menopause doctor near Charlotte, NC</strong>, a{" "}
+              <strong>medical weight loss physician serving Charlotte, North Carolina</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in North Carolina that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Raleigh or Durham. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />

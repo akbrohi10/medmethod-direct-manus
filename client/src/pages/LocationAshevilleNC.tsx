@@ -83,10 +83,51 @@ export default function LocationAshevilleNC() {
       <section className="py-16 px-6" style={{ background: "#F4F4F8" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-2xl mb-5" style={{ color: "#111", letterSpacing: "-0.02em" }}>Women's Health in Asheville, NC</h2>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>Asheville is North Carolina's wellness capital — a city celebrated for its arts scene, farm-to-table food culture, and deeply health-forward lifestyle. The Biltmore Forest area and surrounding mountain neighborhoods have high household incomes and a strong orientation toward integrative and functional health. Women in Asheville are often already engaged with yoga, nutrition, and holistic wellness, making them ideal candidates for a science-backed telehealth hormone program that complements their existing health practices.</p>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>Despite Asheville's wellness culture, the mountain geography means specialist access for perimenopause management and hormone therapy can be limited. Women have historically had to travel to Charlotte or Raleigh for the kind of care MedMethod Direct now delivers virtually. Our board-certified physicians provide personalized lab-based BHRT protocols, semaglutide and tirzepatide prescriptions, and ongoing oversight — all from the comfort of your Asheville home.</p>
-          <p className="text-base font-medium leading-relaxed" style={{ color: "#444" }}>MedMethod Direct is fully licensed to practice medicine in North Carolina. Our physicians comply with all NC telehealth prescribing regulations and every program uses FDA-approved and compounded medications from accredited 503B pharmacies.</p>
-        </div>
+          
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Asheville and you've been searching for a{" "}
+              <strong>menopause doctor near Asheville, NC</strong>, a{" "}
+              <strong>medical weight loss physician serving Asheville, North Carolina</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in North Carolina that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Charlotte or Raleigh. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />

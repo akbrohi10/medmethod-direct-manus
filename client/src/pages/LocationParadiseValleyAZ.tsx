@@ -128,16 +128,51 @@ export default function LocationParadiseValleyAZ() {
           <div>
             <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Why Paradise Valley Women Choose Us</p>
             <h2 className="text-3xl font-black text-[#0d0d0d] mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>The Standard You Expect,<br />Delivered Virtually</h2>
-            <p className="text-[#0d0d0d]/70 leading-relaxed mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Paradise Valley is home to Arizona's most discerning healthcare consumers — executives, physicians, and entrepreneurs who understand that proactive hormone optimization and metabolic health are foundational to long-term vitality. Yet even in this enclave, access to board-certified hormone specialists is limited, with wait times often exceeding three months.
+            
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Paradise Valley and you've been searching for a{" "}
+              <strong>menopause doctor near Paradise Valley, AZ</strong>, a{" "}
+              <strong>medical weight loss physician serving Paradise Valley, Arizona</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
-            <p className="text-[#0d0d0d]/70 leading-relaxed mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              MedMethod Direct delivers concierge-caliber care through a fully virtual model. Your physician reviews comprehensive lab work — including full hormone panels, thyroid, metabolic markers, and inflammatory markers — before building a treatment protocol tailored to your specific physiology. Bioidentical hormones and GLP-1 medications are compounded at FDA-registered 503B pharmacies and shipped directly to your Paradise Valley address.
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
             </p>
-            <p className="text-[#0d0d0d]/70 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              The result is physician-led, data-driven care that matches the standard you expect — without the inefficiency of traditional clinic visits.
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Arizona that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Scottsdale or Phoenix. No waiting rooms. Just one team, one plan, and results that last.
             </p>
           </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
           <div className="flex flex-col gap-4">
             {[
               { title: "Bioidentical Hormone Therapy (BHRT)", desc: "Personalized estradiol, progesterone, and testosterone protocols based on comprehensive lab analysis." },

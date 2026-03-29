@@ -19,6 +19,7 @@ import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import { Link } from "wouter";
 
 // Use the Florida hub hero as fallback since Sarasota-specific image was generated
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/florida-hub-hero-ggUpBHC7z4TNuVPwpZ8K58.webp";
@@ -247,11 +248,39 @@ export default function LocationSarasota() {
           </h2>
           <div className="space-y-4 text-base leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#444" }}>
             <p>
+              If you live in Sarasota and you've been searching for a <strong>menopause doctor near Sarasota, FL</strong> or a <strong>medical weight loss physician serving Sarasota</strong>, you've found the right place.
+            </p>
+            <p>
               MedMethod Direct is now accepting patients in Sarasota and throughout the Gulf Coast — from Bradenton and Venice to Siesta Key and Longboat Key. Our physician-led virtual clinic brings expert <strong>perimenopause and menopause management</strong>, <strong>hormone replacement therapy (HRT)</strong>, <strong>bioidentical hormone therapy</strong>, <strong>testosterone optimization for women</strong>, GLP-1 medications including <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care directly to you.
             </p>
             <p>
               Sarasota is known for its vibrant arts community and active lifestyle — yet specialized menopause and hormone care can still be surprisingly hard to access. MedMethod Direct is a direct-care model where Dr. Jumana Al-Deek, DO, personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. Whether you're on Siesta Key or in downtown Sarasota, your care comes to you.
             </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} &rarr;
+              </Link>
+            ))}
           </div>
         </div>
       </section>

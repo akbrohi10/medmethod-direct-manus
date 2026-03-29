@@ -83,10 +83,51 @@ export default function LocationColoradoSpringsCO() {
       <section className="py-16 px-6" style={{ background: "#F4F4F8" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-2xl mb-5" style={{ color: "#111", letterSpacing: "-0.02em", fontFamily: "Montserrat, sans-serif" }}>Women's Health in Colorado Springs, CO</h2>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>Colorado Springs is Colorado's second-largest city, home to a diverse population that includes military families, aerospace and defense professionals, and a growing tech sector. The Broadmoor and Briargate neighborhoods in particular attract a demographic of women who are active, health-conscious, and increasingly aware of the gaps in traditional women's healthcare — particularly around perimenopause, hormone therapy, and weight management. Specialist availability in Colorado Springs is limited, and wait times for OB-GYN and endocrinology appointments can stretch months.</p>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>MedMethod Direct closes that gap. Our board-certified physicians deliver personalized, lab-based BHRT protocols, semaglutide and tirzepatide GLP-1 programs, and comprehensive menopause management — all via telehealth, with medication shipped directly to your Colorado Springs address from a licensed 503B compounding pharmacy.</p>
-          <p className="text-base font-medium leading-relaxed" style={{ color: "#444", fontFamily: "Montserrat, sans-serif" }}>MedMethod Direct is fully licensed to practice medicine in Colorado. Our physicians comply with all Colorado telehealth prescribing regulations and every program uses FDA-approved and compounded medications from accredited pharmacies.</p>
-        </div>
+          
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Colorado Springs and you've been searching for a{" "}
+              <strong>menopause doctor near Colorado Springs, CO</strong>, a{" "}
+              <strong>medical weight loss physician serving Colorado Springs, Colorado</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Colorado that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Denver or Pueblo. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />

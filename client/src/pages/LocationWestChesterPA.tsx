@@ -141,13 +141,51 @@ export default function LocationWestChesterPA() {
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold text-stone-800 mb-4">The Specialist Gap in Chester County's County Seat</h2>
-            <p className="text-stone-600 leading-relaxed mb-4">
-              West Chester is Chester County's vibrant county seat — but finding a menopause specialist who manages bioidentical HRT, GLP-1 weight loss, and thyroid optimization under one roof is still a challenge. Most practices focus on obstetrics, leaving perimenopause and menopause patients to navigate a fragmented system.
+            
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in West Chester and you've been searching for a{" "}
+              <strong>menopause doctor near West Chester, PA</strong>, a{" "}
+              <strong>medical weight loss physician serving West Chester, Pennsylvania</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
-            <p className="text-stone-600 leading-relaxed">
-              MedMethod Direct fills that gap. Our Pennsylvania-licensed physicians provide comprehensive menopause and hormone therapy care entirely via telehealth, with medication compounded and shipped directly to your West Chester address.
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Pennsylvania that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Philadelphia or Wilmington. No waiting rooms. Just one team, one plan, and results that last.
             </p>
           </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
           <div className="bg-stone-50 rounded-2xl p-8 border border-stone-200">
             <h3 className="text-xl font-bold text-stone-800 mb-6">What We Treat</h3>
             <ul className="space-y-3 text-stone-600">

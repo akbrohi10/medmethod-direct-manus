@@ -142,11 +142,34 @@ export default function LocationChevyChaseMD() {
           <div>
             <h2 className="text-3xl font-bold text-stone-800 mb-4">Specialist-Level Care for DC's Most Exclusive Suburb</h2>
             <p className="text-stone-600 leading-relaxed mb-4">
-              Chevy Chase is one of the DC metro's most affluent communities, with a high concentration of professional women 40–65. Despite its proximity to major medical centers, dedicated menopause specialists managing comprehensive bioidentical HRT with a longevity focus are surprisingly hard to access quickly.
+              If you live in Chevy Chase and you've been searching for a <strong>menopause doctor near Chevy Chase, MD</strong> or a <strong>medical weight loss physician serving Montgomery County</strong>, you've found the right place. Chevy Chase is one of the DC metro's most affluent communities, with a high concentration of professional women 40–65. Despite its proximity to major medical centers, dedicated <strong>menopause specialists managing comprehensive bioidentical HRT</strong> with a longevity focus are surprisingly hard to access quickly.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              MedMethod Direct brings specialist-level care to Chevy Chase women. Our Maryland-licensed physicians provide comprehensive menopause management and hormone therapy entirely via telehealth, with medication shipped directly to your Montgomery County address.
+              MedMethod Direct brings specialist-level care to Chevy Chase women. Our Maryland-licensed physicians provide comprehensive <strong>perimenopause and menopause management</strong>, <strong>hormone replacement therapy (HRT)</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone optimization for women</strong>, and GLP-1 medications including <strong>compounded semaglutide and tirzepatide</strong> — all entirely via telehealth, with medication shipped directly to your Montgomery County address.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3 items-center">
+              <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+                Related reading:
+              </span>
+              {[
+                { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+                { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+                { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                  style={{
+                    color: "#E8339E",
+                    borderColor: "rgba(232,51,158,0.3)",
+                    background: "rgba(232,51,158,0.04)",
+                  }}
+                >
+                  {link.label} &rarr;
+                </a>
+              ))}
+            </div>
           </div>
           <div className="bg-stone-50 rounded-2xl p-8 border border-stone-200">
             <h3 className="text-xl font-bold text-stone-800 mb-6">What We Treat</h3>

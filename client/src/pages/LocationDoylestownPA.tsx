@@ -83,10 +83,51 @@ export default function LocationDoylestownPA() {
       <section className="py-16 px-6" style={{ background: "#F4F4F8" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-2xl mb-5" style={{ color: "#111", letterSpacing: "-0.02em" }}>Women's Health in Doylestown, PA</h2>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>Doylestown is the county seat of Bucks County and one of Pennsylvania's most charming small cities — a place where historic architecture, a vibrant arts community, and a strong sense of civic identity coexist with the affluence and health-consciousness of a modern suburban hub. The town draws professionals, artists, and families who value quality in every area of their lives, including healthcare.</p>
-          <p className="text-base font-medium leading-relaxed mb-4" style={{ color: "#444" }}>Women in Doylestown and across Bucks County who are navigating perimenopause, seeking hormone optimization, or pursuing medical weight loss often find that local options are limited — and Philadelphia specialists are a significant commute away. MedMethod Direct eliminates that friction entirely. Our board-certified physicians deliver personalized lab-based BHRT protocols, semaglutide and tirzepatide prescriptions, and ongoing physician oversight via telehealth, with medication shipped directly to your Doylestown address.</p>
-          <p className="text-base font-medium leading-relaxed" style={{ color: "#444" }}>MedMethod Direct is fully licensed to practice medicine in Pennsylvania. Our physicians comply with all PA telehealth prescribing regulations and every program uses FDA-approved and compounded medications from accredited 503B pharmacies.</p>
-        </div>
+          
+          <div className="space-y-4 text-base leading-relaxed" style={{ color: "#444" }}>
+            <p>
+              If you live in Doylestown and you've been searching for a{" "}
+              <strong>menopause doctor near Doylestown, PA</strong>, a{" "}
+              <strong>medical weight loss physician serving Doylestown, Pennsylvania</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
+            </p>
+            <p>
+              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
+              <strong>perimenopause and menopause management</strong>,{" "}
+              <strong>hormone replacement therapy (HRT)</strong>,{" "}
+              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
+              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
+              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
+            </p>
+            <p>
+              Whether you're experiencing{" "}
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Pennsylvania that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Philadelphia or Princeton. No waiting rooms. Just one team, one plan, and results that last.
+            </p>
+          </div>
+
+          {/* Internal links to blog articles */}
+          <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <span className="text-xs font-bold tracking-wider uppercase" style={{ color: "#999" }}>
+              Related reading:
+            </span>
+            {[
+              { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
+              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
+              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:shadow-sm"
+                style={{
+                  color: "#E8339E",
+                  borderColor: "rgba(232,51,158,0.3)",
+                  background: "rgba(232,51,158,0.04)",
+                }}
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div></div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
