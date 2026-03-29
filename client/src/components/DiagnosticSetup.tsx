@@ -166,8 +166,8 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
 
             {/* Right: price summary + CTA */}
             <div
-              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7"
-              style={{ background: "#0D0D1A", borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7 rounded-b-2xl md:rounded-b-none md:rounded-br-2xl"
+              style={{ background: "#0D0D1A", borderTop: "1px solid rgba(255,255,255,0.10)" }}
             >
               <div>
                 <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mb-3">
