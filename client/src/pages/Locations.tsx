@@ -74,10 +74,22 @@ const activeStates = [
       { name: "Asheville", href: "/north-carolina/asheville" },
     ],
   },
+  {
+    name: "Pennsylvania",
+    href: "/pennsylvania",
+    tagline: "Main Line, Pittsburgh & Bucks County Virtual Women's Health",
+    cities: [
+      { name: "Philadelphia", href: "/pennsylvania/philadelphia" },
+      { name: "Pittsburgh", href: "/pennsylvania/pittsburgh" },
+      { name: "Wayne", href: "/pennsylvania/wayne" },
+      { name: "Doylestown", href: "/pennsylvania/doylestown" },
+      { name: "Newtown Square", href: "/pennsylvania/newtown-square" },
+      { name: "Malvern", href: "/pennsylvania/malvern" },
+    ],
+  },
 ];
 
 const comingSoonStates = [
-  { name: "Pennsylvania", abbr: "PA" },
   { name: "Colorado", abbr: "CO" },
   { name: "Arizona", abbr: "AZ" },
 ];
