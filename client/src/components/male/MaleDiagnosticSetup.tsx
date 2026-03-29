@@ -103,7 +103,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
         {/* ── Expandable detail panel ── */}
         <div
           style={{
-            maxHeight: open ? "600px" : "0px",
+            maxHeight: open ? "900px" : "0px",
             overflow: "hidden",
             transition: "max-height 0.4s ease",
           }}
@@ -162,8 +162,8 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
 
             {/* Right: price summary + CTA */}
             <div
-              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7"
-              style={{ background: "#071020", borderLeft: "1px solid rgba(0,194,203,0.15)" }}
+              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7 border-t border-t-[rgba(0,194,203,0.15)] md:border-t-0 md:border-l md:border-l-[rgba(0,194,203,0.15)]"
+              style={{ background: "#071020" }}
             >
               <div>
                 <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>
@@ -171,7 +171,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                 </p>
                 <div className="flex items-start gap-1 mb-1">
                   <span className="text-white font-black text-xl mt-1">$</span>
-                  <span className="font-black text-white leading-none" style={{ fontSize: "4rem" }}>449</span>
+                  <span className="font-black text-white leading-none text-5xl md:text-6xl">449</span>
                 </div>
                 <p
                   className="font-bold text-xs mb-5"
