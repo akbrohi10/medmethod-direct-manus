@@ -14,7 +14,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MapPin } from "lucide-react";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -238,6 +238,30 @@ export default function LocationArizona() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-12 pt-8 border-t border-white/10">
+            <p className="text-xs font-bold tracking-widest text-white/40 uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>More Arizona Cities We Serve</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: "Peoria", href: "/arizona/peoria" },
+                { name: "Queen Creek", href: "/arizona/queen-creek" },
+                { name: "Surprise", href: "/arizona/surprise" },
+                { name: "Fountain Hills", href: "/arizona/fountain-hills" },
+                { name: "Prescott", href: "/arizona/prescott" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-white/20 bg-white/5 text-white/60 hover:border-[#E8339E]/50 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <MapPin className="w-3 h-3" />
+                  {city.name}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>

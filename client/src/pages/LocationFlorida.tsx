@@ -437,6 +437,30 @@ export default function LocationFlorida() {
               </Link>
             ))}
           </div>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-3 text-center" style={{ fontFamily: "Montserrat, sans-serif" }}>More Florida Cities We Serve</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {[
+                { name: "Marco Island", href: "/florida/marco-island" },
+                { name: "Vero Beach", href: "/florida/vero-beach" },
+                { name: "Jupiter", href: "/florida/jupiter" },
+                { name: "Palm Beach Gardens", href: "/florida/palm-beach-gardens" },
+                { name: "Ponte Vedra", href: "/florida/ponte-vedra" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 bg-white text-gray-600 hover:border-pink-300 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <MapPin className="w-3 h-3" style={{ color: "#E8339E" }} />
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

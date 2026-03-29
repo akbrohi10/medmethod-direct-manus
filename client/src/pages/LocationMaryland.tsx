@@ -585,10 +585,35 @@ export default function LocationMaryland() {
               </button>
             </div>
           </div>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>More Maryland Cities We Serve</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: "Easton", href: "/maryland/easton" },
+                { name: "Frederick", href: "/maryland/frederick" },
+                { name: "Annapolis", href: "/maryland/annapolis" },
+                { name: "Bel Air", href: "/maryland/bel-air" },
+                { name: "Ellicott City", href: "/maryland/ellicott-city" },
+                { name: "Chevy Chase MD", href: "/maryland/chevy-chase-md" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 bg-white text-gray-600 hover:border-pink-300 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <MapPin className="w-3 h-3" style={{ color: "#E8339E" }} />
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── COMPARISON TABLE ─────────────────────────────────────────────────── */}
+      {/* ── COMPARISON TABLE ───────────────────────────────────────────────────── */}
       <section className="py-20 px-6 bg-[#F9F9FB]">
         <div className="max-w-[860px] mx-auto">
           <div className="text-center mb-10">

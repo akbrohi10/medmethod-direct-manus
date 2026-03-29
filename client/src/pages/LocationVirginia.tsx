@@ -529,6 +529,34 @@ export default function LocationVirginia() {
               </a>
             ))}
           </div>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>More Virginia Cities We Serve</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: "Culpeper", href: "/virginia/culpeper" },
+                { name: "Warrenton", href: "/virginia/warrenton" },
+                { name: "Middleburg", href: "/virginia/middleburg" },
+                { name: "Leesburg", href: "/virginia/leesburg" },
+                { name: "Fredericksburg", href: "/virginia/fredericksburg" },
+                { name: "Alexandria", href: "/virginia/alexandria" },
+                { name: "Falls Church", href: "/virginia/falls-church" },
+                { name: "Tysons", href: "/virginia/tysons" },
+                { name: "Herndon", href: "/virginia/herndon" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 bg-white text-gray-600 hover:border-pink-300 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <MapPin className="w-3 h-3" />
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

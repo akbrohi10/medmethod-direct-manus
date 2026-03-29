@@ -133,6 +133,30 @@ export default function LocationPennsylvania() {
               </Link>
             ))}
           </div>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>More Pennsylvania Cities We Serve</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: "West Chester", href: "/pennsylvania/west-chester" },
+                { name: "Newtown", href: "/pennsylvania/newtown" },
+                { name: "Horsham", href: "/pennsylvania/horsham" },
+                { name: "Lansdale", href: "/pennsylvania/lansdale" },
+                { name: "Kennett Square", href: "/pennsylvania/kennett-square" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 bg-white text-gray-600 hover:border-pink-300 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <MapPin className="w-3 h-3" style={{ color: "#E8339E" }} />
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -213,6 +213,30 @@ export default function LocationNorthCarolina() {
             </button>{" "}
             — we serve all of North Carolina.
           </p>
+
+          {/* Tier 2 — More Cities */}
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>More North Carolina Cities We Serve</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: "Pinehurst", href: "/north-carolina/pinehurst" },
+                { name: "Southern Pines", href: "/north-carolina/southern-pines" },
+                { name: "Mooresville", href: "/north-carolina/mooresville" },
+                { name: "Waxhaw", href: "/north-carolina/waxhaw" },
+                { name: "Apex", href: "/north-carolina/apex" },
+              ].map((city) => (
+                <a
+                  key={city.name}
+                  href={city.href}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 bg-white text-gray-600 hover:border-pink-300 hover:text-[#E8339E] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <span style={{ color: "#E8339E" }}>📍</span>
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
