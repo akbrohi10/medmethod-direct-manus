@@ -387,13 +387,13 @@ export default function LocationMcLean() {
                     color: "#111111",
                   }}
                 >
-                  VIRTUAL{" "}
-                  <span style={gradientText}>HORMONE,</span>
+                  Virtual{" "}
+                  <span style={gradientText}>Hormone,</span>
                   <br />
-                  <span style={gradientText}>MENOPAUSE</span>{" "}&amp;{" "}
-                  <span style={gradientText}>WEIGHT LOSS</span>
+                  <span style={gradientText}>Menopause</span>{" "}&amp;{" "}
+                  <span style={gradientText}>Weight Loss</span>
                   <br />
-                  FOR MCLEAN WOMEN
+                  for McLean women
                 </h1>
 
                 <p

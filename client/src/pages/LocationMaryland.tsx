@@ -332,23 +332,23 @@ export default function LocationMaryland() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
-                }}>HORMONE,</span>
+                }}>Hormone,</span>
                 <br />
                 <span style={{
                   background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
-                }}>MENOPAUSE</span> &amp;
+                }}>Menopause</span> &amp;
                 <br />
                 <span style={{
                   background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
-                }}>WEIGHT LOSS</span>
+                }}>Weight Loss</span>
                 <br />
-                FOR MARYLAND WOMEN
+                for Maryland women
               </h1>
               <p className="mb-8 max-w-[560px] text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.60)" }}>
                 Maryland's only virtual clinic combining physician-led{" "}

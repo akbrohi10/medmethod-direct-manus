@@ -308,18 +308,18 @@ export default function LocationVirginia() {
               color: "#FFFFFF",
             }}
           >
-            VIRTUAL HORMONE,{" "}
+            Virtual hormone,{" "}
             <span style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}>
-              MENOPAUSE
+              menopause
             </span>{" "}
-            &amp; WEIGHT LOSS
+            &amp; weight loss
             <br />
-            FOR WOMEN IN VIRGINIA
+            for women in Virginia
           </h1>
 
           {/* Subheadline */}
