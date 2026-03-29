@@ -138,7 +138,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 </a>
                 {link.dropdown && openDropdown === link.label && (
                   link.label === "Locations" ? (
-                    <div className="absolute top-full right-0 pt-2" style={{ width: "820px" }}>
+                    <div className="absolute top-full right-0 pt-2" style={{ width: "660px" }}>
                       <div className="bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden">
                         <div className="px-5 py-3 border-b border-white/8">
                           <p className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#E8339E" }}>Service Areas</p>
