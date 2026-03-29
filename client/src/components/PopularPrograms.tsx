@@ -162,6 +162,21 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           )}
         </div>
 
+        {/* ── Cherry micro-note ───────────────────────────────────────────── */}
+        <p className="text-xs text-center text-gray-400 -mt-2 mb-1">
+          Prefer monthly payments?{" "}
+          <a
+            href="https://www.withcherry.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold underline underline-offset-2 hover:text-[#E8339E] transition-colors"
+            style={{ color: "#E8339E" }}
+          >
+            Monthly financing available through Cherry
+          </a>
+          .
+        </p>
+
         {/* ── Cards ───────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
 
