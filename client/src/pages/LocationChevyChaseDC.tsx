@@ -6,7 +6,7 @@
    bioidentical hormone therapy Chevy Chase DC, testosterone therapy women Chevy Chase DC,
    online menopause doctor Chevy Chase Washington DC
    ============================================================================= */
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingFaqs } from "@/data/pricingFaqs";
 import { ChevronDown, ChevronUp, MapPin, CheckCircle2, ArrowRight, Star } from "lucide-react";
@@ -112,6 +112,36 @@ const stats = [
 
 export default function LocationChevyChaseDC() {
   const [consultOpen, setConsultOpen] = useState(false);
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animated.current) {
+          animated.current = true;
+          animateCount(setCount1, 0, 10000, 1500);
+          animateCount(setCount2, 0, 98, 1200);
+          animateCount(setCount3, 0, 15, 1400);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+  function animateCount(setter: (v: number) => void, from: number, to: number, duration: number) {
+    const start = performance.now();
+    const update = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setter(Math.round(from + (to - from) * eased));
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
 
   return (
     <div className="min-h-screen bg-white">

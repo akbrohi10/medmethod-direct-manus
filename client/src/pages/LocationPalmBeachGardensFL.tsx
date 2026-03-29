@@ -1,7 +1,12 @@
+import { useState, useRef, useEffect } from "react";
 // IMAGE RULE: single physician or patient face on laptop screen only — no group Zoom calls
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ConsultationModal from "@/components/ConsultationModal";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/fl-t2-palm-beach-gardens_cf7b35fe.png";
 const BOOK_URL = "https://app.medmethoddirect.com/booking";
@@ -88,6 +93,38 @@ export default function LocationPalmBeachGardensFL() {
     ]
   };
 
+
+  const [consultOpen, setConsultOpen] = useState(false);
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animated.current) {
+          animated.current = true;
+          animateCount(setCount1, 0, 10000, 1500);
+          animateCount(setCount2, 0, 98, 1200);
+          animateCount(setCount3, 0, 15, 1400);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+  function animateCount(setter: (v: number) => void, from: number, to: number, duration: number) {
+    const start = performance.now();
+    const update = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setter(Math.round(from + (to - from) * eased));
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
   return (
     <>
       <Helmet>
@@ -114,26 +151,118 @@ export default function LocationPalmBeachGardensFL() {
       </nav>
 
       {/* Hero */}
-      <section className="relative min-h-[480px] flex items-center">
-        <div className="absolute inset-0">
-          {/* IMAGE RULE: single physician or patient face on laptop screen only — no group Zoom calls */}
-          <img src={HERO_IMAGE} alt="Telehealth menopause consultation for Palm Beach Gardens FL women" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 to-stone-900/30" />
+            <section className="relative flex flex-col bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,51,158,0.06) 0%, rgba(122,30,126,0.04) 40%, transparent 70%)" }} />
+        <div className="relative z-10 max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center py-12 lg:py-16">
+            {/* LEFT: Copy */}
+            <div>
+              <nav className="flex items-center gap-2 text-xs font-semibold mb-5" style={{ color: "#aaa", fontFamily: "Montserrat, sans-serif" }}>
+                <Link href="/" className="hover:text-[#E8339E] transition-colors">Home</Link>
+                <span>/</span>
+                <Link href="/florida" className="hover:text-[#E8339E] transition-colors">Florida</Link>
+                <span>/</span>
+                <span style={{ color: "#333" }}>Palm Beach Gardens</span>
+              </nav>
+              <div
+                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 text-xs font-bold tracking-wider uppercase"
+                style={{ background: "rgba(232,51,158,0.08)", color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
+              >
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Serving Palm Beach Gardens, FL
+              </div>
+              <h1
+                className="font-black leading-[1.05] mb-5"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "clamp(1.9rem, 3.4vw, 3.3rem)",
+                  letterSpacing: "-0.02em",
+                  color: "#111111",
+                }}
+              >
+                Virtual{" "}
+                <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Hormone,</span>
+                <br />
+                <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Menopause</span>{" "}&amp;{" "}
+                <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Weight Loss</span>
+                <br />
+                for Palm Beach Gardens women
+              </h1>
+              <p
+                className="text-base mb-6 leading-relaxed"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
+              >
+                The only virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Palm Beach Gardens, FL.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 mb-3">
+                <button
+                  onClick={() => setConsultOpen(true)}
+                  className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  SCHEDULE FREE CONSULTATION
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+              <p
+                className="flex items-center gap-2 font-semibold mb-8"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}
+              >
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="8" fill="url(#vcGradPalmBeachGardens)"/>
+                  <path d="M4.5 8.5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <defs><linearGradient id="vcGradPalmBeachGardens" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#E8339E"/><stop offset="1" stopColor="#7A1E7E"/></linearGradient></defs>
+                </svg>
+                100% Virtual Care · Licensed in Florida
+              </p>
+              <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
+                {[
+                  { value: `${count1.toLocaleString()}+`, label: "Women Served" },
+                  { value: `${count2}%`, label: "Satisfaction Rate" },
+                  { value: "4.9★", label: "Patient Rating" },
+                  { value: `${count3}%+`, label: "Avg. Weight Loss" },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <div
+                      className="font-black leading-none"
+                      style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.7rem", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+                    >
+                      {stat.value}
+                    </div>
+                    <div
+                      className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* RIGHT: Hero Image */}
+            <div className="relative lg:-ml-6">
+              <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/fl-t2-palm-beach-gardens_cf7b35fe.png"
+                  alt="Virtual menopause doctor and hormone therapy for women in Palm Beach Gardens, FL — MedMethod Direct"
+                  className="w-full h-full object-cover"
+                  width="640"
+                  height="480"
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-5"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)" }}
+                >
+                  <p className="text-white font-bold text-sm tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                    Serving Palm Beach Gardens · Jupiter · North Palm Beach · Boca Raton
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-20">
-          <p className="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">Palm Beach Gardens · Palm Beach County · Florida</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4 max-w-2xl">
-            Hormone Therapy & Menopause Care for Palm Beach Gardens, FL Women
-          </h1>
-          <p className="text-stone-200 text-lg mb-8 max-w-xl">
-            Palm Beach Gardens is one of Florida's most affluent communities. MedMethod Direct delivers board-certified menopause and hormone therapy via telehealth — appointments available this week.
-          </p>
-          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8">
-              Book Your Consultation
-            </Button>
-          </a>
-        </div>
+        <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
 
       {/* Access Gap */}
@@ -261,6 +390,11 @@ export default function LocationPalmBeachGardensFL() {
           </Button>
         </a>
       </section>
+    
+      {consultOpen && (
+        <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
+      )}
+      <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
     </>
   );
 }

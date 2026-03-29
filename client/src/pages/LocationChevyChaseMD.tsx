@@ -1,7 +1,12 @@
+import { useState, useRef, useEffect } from "react";
 // IMAGE RULE: single physician or patient face on laptop screen only — no group Zoom calls
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ConsultationModal from "@/components/ConsultationModal";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/dc-t2-chevy-chase_0c727477.png";
 const BOOK_URL = "https://app.medmethoddirect.com/booking";
@@ -88,6 +93,38 @@ export default function LocationChevyChaseMD() {
     ]
   };
 
+
+  const [consultOpen, setConsultOpen] = useState(false);
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animated.current) {
+          animated.current = true;
+          animateCount(setCount1, 0, 10000, 1500);
+          animateCount(setCount2, 0, 98, 1200);
+          animateCount(setCount3, 0, 15, 1400);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+  function animateCount(setter: (v: number) => void, from: number, to: number, duration: number) {
+    const start = performance.now();
+    const update = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setter(Math.round(from + (to - from) * eased));
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
   return (
     <>
       <Helmet>
@@ -246,6 +283,11 @@ export default function LocationChevyChaseMD() {
           </Button>
         </a>
       </section>
+    
+      {consultOpen && (
+        <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
+      )}
+      <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
     </>
   );
 }
