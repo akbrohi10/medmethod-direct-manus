@@ -36,6 +36,8 @@ const JSONLD_MEDICAL_BUSINESS = {
   "name": "MedMethod Direct — Miami, Florida",
   "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Miami, Florida. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Florida.",
   "url": "https://medmethoddirect.com/florida/miami",
+  "telephone": "",
+  "hasMap": "https://medmethoddirect.com/florida/miami",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
   "availableService": [
@@ -100,6 +102,8 @@ const localFaqs = [
   { q: "Do I need to come into an office for bloodwork in Miami?", a: "No office visits required. We order your labs to a LabCorp or Quest Diagnostics location near you in Miami or South Florida. You go in for a standard blood draw, and we review the results together on your next virtual visit." },
   { q: "Why choose virtual care over a local OB/GYN in Miami?", a: "Most local practices in Miami have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — all from your home or condo in Miami." },
   { q: "Do you accept insurance?", a: "We are a direct-care practice, which means we do not bill insurance. This allows us to spend more time with each patient, offer same-week availability, and provide care that isn't dictated by insurance coverage limits. Many patients use HSA or FSA funds for their program. We provide itemized receipts for potential out-of-network reimbursement." },
+  { q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?", a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. We also integrate weight loss, hormone therapy, and longevity care into a single comprehensive program — rather than treating each issue in isolation." },
+  { q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?", a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door. Your physician will walk you through both options during your consultation." },
 ];
 
 const faqs = [...localFaqs, ...pricingFaqs];
@@ -163,8 +167,38 @@ export default function LocationMiami() {
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Miami, FL | MedMethod Direct" />
         <meta property="og:url" content="https://medmethoddirect.com/florida/miami" />
         <meta property="og:image" content={HERO_IMAGE} />
+        <meta property="og:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Miami, FL. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Miami, FL | MedMethod Direct" />
+        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Miami, FL. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
         <script type="application/ld+json">{JSON.stringify(JSONLD_MEDICAL_BUSINESS)}</script>
         <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
+                <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            "name": "Virtual Hormone, Menopause & Weight Loss Doctor in Miami, FL",
+            "url": "https://medmethoddirect.com/florida/miami",
+  "telephone": "",
+  "hasMap": "https://medmethoddirect.com/florida/miami",
+            "description": "MedMethod Direct provides physician-led virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, and testosterone therapy for women in Miami, Florida.",
+            "about": [
+              { "@type": "MedicalCondition", "name": "Menopause" },
+              { "@type": "MedicalCondition", "name": "Perimenopause" },
+              { "@type": "MedicalCondition", "name": "Hormonal Imbalance" },
+              { "@type": "MedicalCondition", "name": "Obesity" },
+              { "@type": "MedicalCondition", "name": "Insulin Resistance" },
+            ],
+            "specialty": "Women's Health, Hormone Medicine, Medical Weight Loss",
+            "lastReviewed": "2026-03-28",
+            "reviewedBy": {
+              "@type": "Physician",
+              "name": "Dr. Jumana Al-Deek",
+              "honorificSuffix": "DO",
+            },
+          })}
+        </script>
         <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://medmethoddirect.com/" }, { "@type": "ListItem", "position": 2, "name": "Florida", "item": "https://medmethoddirect.com/florida" }, { "@type": "ListItem", "position": 3, "name": "Miami", "item": "https://medmethoddirect.com/florida/miami" }] })}</script>
       </Helmet>
 

@@ -267,8 +267,27 @@ export default function LocationFlorida() {
         <meta property="og:type" content="website" />
         <meta property="og:image" content={HERO_IMAGE} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctors in Florida | MedMethod Direct" />
+        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
         <script type="application/ld+json">{JSON.stringify(JSONLD_MEDICAL_BUSINESS)}</script>
         <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MedicalWebPage",
+          "name": "Virtual Hormone, Menopause & Weight Loss Doctors in Florida",
+          "url": "https://medmethoddirect.com/florida",
+          "description": "MedMethod Direct provides physician-led virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, and testosterone therapy for women throughout Florida.",
+          "about": [
+            { "@type": "MedicalCondition", "name": "Menopause" },
+            { "@type": "MedicalCondition", "name": "Perimenopause" },
+            { "@type": "MedicalCondition", "name": "Hormonal Imbalance" },
+            { "@type": "MedicalCondition", "name": "Obesity" },
+            { "@type": "MedicalCondition", "name": "Insulin Resistance" },
+          ],
+          "specialty": "Women's Health, Hormone Medicine, Medical Weight Loss",
+          "lastReviewed": "2026-03-28",
+          "reviewedBy": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO" },
+        })}</script>
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
