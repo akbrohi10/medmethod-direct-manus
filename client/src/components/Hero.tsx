@@ -86,7 +86,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                 color: "#111111",
                 }}
               >
-              STRUGGLING WITH
+              Struggling with
               <br />
               <span
                 style={{
@@ -96,10 +96,10 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                   backgroundClip: "text",
                 }}
               >
-                WEIGHT LOSS
+                weight loss
               </span>
               <br />
-              OR{" "}
+              or{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
@@ -108,7 +108,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                   backgroundClip: "text",
                 }}
               >
-                MENOPAUSE
+                menopause
               </span>
               ?
               </h1>
