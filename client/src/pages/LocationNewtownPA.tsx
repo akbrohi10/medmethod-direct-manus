@@ -1,0 +1,228 @@
+// IMAGE RULE: single physician or patient face on laptop screen only — no group Zoom calls
+import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/pa-t2-newtown_fa60c9dc.png";
+const BOOK_URL = "https://app.medmethoddirect.com/booking";
+
+const faqs = [
+  {
+    "q": "Is there a menopause specialist in Newtown, PA?",
+    "a": "Newtown and Bucks County have general OB-GYN practices, but dedicated menopause specialists are limited. MedMethod Direct provides board-certified hormone therapy via telehealth, so Newtown women get specialist-level care without the drive."
+  },
+  {
+    "q": "Can I get bioidentical HRT online in Pennsylvania?",
+    "a": "Yes. Pennsylvania-licensed physicians can prescribe bioidentical hormone replacement therapy via telehealth. MedMethod Direct physicians are PA-licensed and prescribe customized bioidentical estrogen, progesterone, and testosterone compounded and shipped to your Newtown address."
+  },
+  {
+    "q": "What is included in the $449 diagnostic consultation?",
+    "a": "Your $449 onboarding includes a comprehensive hormone and metabolic lab panel, a 60-minute physician consultation, and a personalized treatment protocol. Most patients receive their first prescription within 5\u20137 days of completing labs."
+  },
+  {
+    "q": "Do you offer GLP-1 weight loss in Newtown, PA?",
+    "a": "Yes. We offer semaglutide and tirzepatide programs for women throughout Bucks County. Your physician evaluates your metabolic health and prescribes the appropriate GLP-1 medication, shipped directly to your Newtown address."
+  },
+  {
+    "q": "Do you serve other Bucks County communities?",
+    "a": "Yes \u2014 we serve all of Bucks County including Doylestown, Horsham, Lansdale, New Hope, and Yardley. Any Pennsylvania resident can schedule a telehealth appointment regardless of their specific town."
+  }
+];
+
+const nearbyCities = [
+  {
+    "name": "Doylestown, PA",
+    "path": "/doylestown-pa"
+  },
+  {
+    "name": "Horsham, PA",
+    "path": "/horsham-pa"
+  },
+  {
+    "name": "Wayne, PA",
+    "path": "/wayne-pa"
+  },
+  {
+    "name": "Philadelphia, PA",
+    "path": "/philadelphia-pa"
+  },
+  {
+    "name": "Pittsburgh, PA",
+    "path": "/pittsburgh-pa"
+  }
+];
+
+export default function LocationNewtownPA() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalBusiness",
+        name: "MedMethod Direct — Newtown, PA",
+        url: "https://www.medmethoddirect.com/newtown-pa",
+        description: "Board-certified telehealth menopause and hormone therapy for women in Newtown, Pennsylvania.",
+        areaServed: { "@type": "City", name: "Newtown", containedInPlace: { "@type": "State", name: "Pennsylvania" } },
+        medicalSpecialty: "Endocrinology",
+        availableService: [
+          { "@type": "MedicalTherapy", name: "Hormone Replacement Therapy" },
+          { "@type": "MedicalTherapy", name: "GLP-1 Weight Loss" },
+          { "@type": "MedicalTherapy", name: "Menopause Management" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map(f => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a }
+        }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.medmethoddirect.com" },
+          { "@type": "ListItem", position: 2, name: "Pennsylvania", item: "https://www.medmethoddirect.com/pennsylvania" },
+          { "@type": "ListItem", position: 3, name: "Newtown", item: "https://www.medmethoddirect.com/newtown-pa" }
+        ]
+      }
+    ]
+  };
+
+  return (
+    <>
+      <Helmet>
+        <title>Menopause Doctor Newtown PA | Hormone Therapy | MedMethod Direct</title>
+        <meta name="description" content="Board-certified menopause and hormone therapy for women in Newtown, PA. Specialist-level HRT and GLP-1 weight loss via telehealth — no drive to Philadelphia." />
+        <link rel="canonical" href="https://www.medmethoddirect.com/newtown-pa" />
+        <meta property="og:title" content="Menopause Doctor Newtown PA | MedMethod Direct" />
+        <meta property="og:description" content="Board-certified menopause and hormone therapy for women in Newtown, PA. Specialist-level HRT and GLP-1 weight loss via telehealth — no drive to Philadelphia." />
+        <meta property="og:url" content="https://www.medmethoddirect.com/newtown-pa" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
+
+      {/* Breadcrumb */}
+      <nav className="bg-stone-50 border-b border-stone-200 py-3 px-4 text-sm text-stone-500">
+        <div className="max-w-5xl mx-auto flex gap-2">
+          <Link href="/" className="hover:text-stone-800">Home</Link>
+          <span>/</span>
+          <Link href="/pennsylvania" className="hover:text-stone-800">Pennsylvania</Link>
+          <span>/</span>
+          <span className="text-stone-800 font-medium">Newtown</span>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="relative min-h-[480px] flex items-center">
+        <div className="absolute inset-0">
+          {/* IMAGE RULE: single physician or patient face on laptop screen only — no group Zoom calls */}
+          <img src={HERO_IMAGE} alt="Telehealth menopause consultation for Newtown PA women" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 to-stone-900/30" />
+        </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 py-20">
+          <p className="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">Newtown · Bucks County · Pennsylvania</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4 max-w-2xl">
+            Menopause & Hormone Therapy for Newtown, PA Women
+          </h1>
+          <p className="text-stone-200 text-lg mb-8 max-w-xl">
+            Newtown and Bucks County have limited menopause specialists. MedMethod Direct delivers board-certified HRT and weight loss care via telehealth — no commute to Philadelphia required.
+          </p>
+          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8">
+              Book Your Consultation
+            </Button>
+          </a>
+        </div>
+      </section>
+
+      {/* Access Gap */}
+      <section className="bg-white py-16 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-bold text-stone-800 mb-4">Limited Specialist Access in Bucks County</h2>
+            <p className="text-stone-600 leading-relaxed mb-4">
+              Newtown is one of Bucks County's most affluent communities, but women seeking menopause specialists or hormone therapy often face long waits or drives toward Philadelphia or Princeton. The nearest practices managing comprehensive HRT are typically 30–45 minutes away.
+            </p>
+            <p className="text-stone-600 leading-relaxed">
+              MedMethod Direct was built for exactly this gap. Our Pennsylvania-licensed physicians provide specialist-level menopause care, bioidentical hormone therapy, and GLP-1 weight loss programs entirely via telehealth — with medication shipped to your Newtown address.
+            </p>
+          </div>
+          <div className="bg-stone-50 rounded-2xl p-8 border border-stone-200">
+            <h3 className="text-xl font-bold text-stone-800 mb-6">What We Treat</h3>
+            <ul className="space-y-3 text-stone-600">
+              {["Hot flashes & night sweats","Hormonal weight gain","Brain fog & fatigue","Sleep disruption","Low libido & vaginal dryness","Perimenopause symptoms","Thyroid dysfunction","Metabolic optimization"].map(s => (
+                <li key={s} className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="bg-stone-50 py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-stone-800 mb-10 text-center">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { step: "01", title: "Lab Work", desc: "Order your comprehensive hormone panel online. Labs drawn near Newtown — no physician referral needed." },
+              { step: "02", title: "Physician Consult", desc: "A 60-minute video consultation with your MedMethod physician to review results and build your personalized protocol." },
+              { step: "03", title: "Medication Delivered", desc: "Prescriptions sent to a compounding pharmacy and shipped directly to your Bucks County address within days." }
+            ].map(item => (
+              <div key={item.step} className="bg-white rounded-2xl p-8 border border-stone-200">
+                <div className="text-4xl font-bold text-amber-500 mb-3">{item.step}</div>
+                <h3 className="text-lg font-bold text-stone-800 mb-2">{item.title}</h3>
+                <p className="text-stone-600 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-white py-16 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-stone-800 mb-10">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {faqs.map((faq, i) => (
+              <div key={i} className="border-b border-stone-200 pb-6">
+                <h3 className="text-lg font-semibold text-stone-800 mb-2">{faq.q}</h3>
+                <p className="text-stone-600 leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Nearby Cities */}
+      <section className="bg-stone-50 py-12 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-xl font-bold text-stone-800 mb-6">Also Serving Nearby Pennsylvania Communities</h2>
+          <div className="flex flex-wrap gap-3">
+            {nearbyCities.map(c => (
+              <Link key={c.path} href={c.path}>
+                <span className="inline-block px-4 py-2 bg-white border border-stone-200 rounded-full text-stone-700 text-sm hover:border-amber-400 hover:text-amber-700 transition-colors cursor-pointer">
+                  {c.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-stone-800 py-16 px-6 text-center">
+        <h2 className="text-3xl font-bold text-white mb-4">Ready to Start?</h2>
+        <p className="text-stone-300 mb-8 max-w-xl mx-auto">Join Newtown women who are getting specialist-level hormone care from home.</p>
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">
+          <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-10">
+            Book Your $449 Diagnostic Consultation
+          </Button>
+        </a>
+      </section>
+    </>
+  );
+}

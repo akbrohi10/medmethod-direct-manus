@@ -72,6 +72,41 @@ import LocationSouthernPinesNC from "@/pages/LocationSouthernPinesNC";
 import LocationMooresvilleNC from "@/pages/LocationMooresvilleNC";
 import LocationWaxhawNC from "@/pages/LocationWaxhawNC";
 import LocationApexNC from "@/pages/LocationApexNC";
+// PA Tier 2
+import LocationWestChesterPA from "@/pages/LocationWestChesterPA";
+import LocationNewtownPA from "@/pages/LocationNewtownPA";
+import LocationHorshamPA from "@/pages/LocationHorshamPA";
+import LocationLansdalePA from "@/pages/LocationLansdalePA";
+// CO Tier 2
+import LocationCastleRockCO from "@/pages/LocationCastleRockCO";
+import LocationParkerCO from "@/pages/LocationParkerCO";
+import LocationLongmontCO from "@/pages/LocationLongmontCO";
+import LocationLovelandCO from "@/pages/LocationLovelandCO";
+import LocationSteamboatSpringsCO from "@/pages/LocationSteamboatSpringsCO";
+// AZ Tier 2
+import LocationPeoriaAZ from "@/pages/LocationPeoriaAZ";
+import LocationQueenCreekAZ from "@/pages/LocationQueenCreekAZ";
+import LocationSurpriseAZ from "@/pages/LocationSurpriseAZ";
+import LocationFountainHillsAZ from "@/pages/LocationFountainHillsAZ";
+import LocationPrescottAZ from "@/pages/LocationPrescottAZ";
+// FL Tier 2
+import LocationMarcoIslandFL from "@/pages/LocationMarcoIslandFL";
+import LocationVeroBeachFL from "@/pages/LocationVeroBeachFL";
+import LocationJupiterFL from "@/pages/LocationJupiterFL";
+import LocationPalmBeachGardensFL from "@/pages/LocationPalmBeachGardensFL";
+import LocationPonteVedraFL from "@/pages/LocationPonteVedraFL";
+// MD Tier 2
+import LocationEastonMD from "@/pages/LocationEastonMD";
+import LocationFrederickMD from "@/pages/LocationFrederickMD";
+import LocationAnnapolisMD from "@/pages/LocationAnnapolisMD";
+import LocationBelAirMD from "@/pages/LocationBelAirMD";
+import LocationEllicottCityMD from "@/pages/LocationEllicottCityMD";
+// DC-area Tier 2
+import LocationAlexandriaVA from "@/pages/LocationAlexandriaVA";
+import LocationChevyChaseMD from "@/pages/LocationChevyChaseMD";
+import LocationFallsChurchVA from "@/pages/LocationFallsChurchVA";
+import LocationTysonsVA from "@/pages/LocationTysonsVA";
+import LocationHerndonVA from "@/pages/LocationHerndonVA";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -148,6 +183,35 @@ function Router() {
       <Route path="/arizona/gilbert" component={LocationGilbertAZ} />
       <Route path="/arizona/tempe" component={LocationTempeAZ} />
       <Route path="/arizona/tucson" component={LocationTucsonAZ} />
+      <Route path="/arizona/peoria" component={LocationPeoriaAZ} />
+      <Route path="/arizona/queen-creek" component={LocationQueenCreekAZ} />
+      <Route path="/arizona/surprise" component={LocationSurpriseAZ} />
+      <Route path="/arizona/fountain-hills" component={LocationFountainHillsAZ} />
+      <Route path="/arizona/prescott" component={LocationPrescottAZ} />
+      <Route path="/pennsylvania/west-chester" component={LocationWestChesterPA} />
+      <Route path="/pennsylvania/newtown" component={LocationNewtownPA} />
+      <Route path="/pennsylvania/horsham" component={LocationHorshamPA} />
+      <Route path="/pennsylvania/lansdale" component={LocationLansdalePA} />
+      <Route path="/colorado/castle-rock" component={LocationCastleRockCO} />
+      <Route path="/colorado/parker" component={LocationParkerCO} />
+      <Route path="/colorado/longmont" component={LocationLongmontCO} />
+      <Route path="/colorado/loveland" component={LocationLovelandCO} />
+      <Route path="/colorado/steamboat-springs" component={LocationSteamboatSpringsCO} />
+      <Route path="/florida/marco-island" component={LocationMarcoIslandFL} />
+      <Route path="/florida/vero-beach" component={LocationVeroBeachFL} />
+      <Route path="/florida/jupiter" component={LocationJupiterFL} />
+      <Route path="/florida/palm-beach-gardens" component={LocationPalmBeachGardensFL} />
+      <Route path="/florida/ponte-vedra" component={LocationPonteVedraFL} />
+      <Route path="/maryland/easton" component={LocationEastonMD} />
+      <Route path="/maryland/frederick" component={LocationFrederickMD} />
+      <Route path="/maryland/annapolis" component={LocationAnnapolisMD} />
+      <Route path="/maryland/bel-air" component={LocationBelAirMD} />
+      <Route path="/maryland/ellicott-city" component={LocationEllicottCityMD} />
+      <Route path="/virginia/alexandria" component={LocationAlexandriaVA} />
+      <Route path="/maryland/chevy-chase-md" component={LocationChevyChaseMD} />
+      <Route path="/virginia/falls-church" component={LocationFallsChurchVA} />
+      <Route path="/virginia/tysons" component={LocationTysonsVA} />
+      <Route path="/virginia/herndon" component={LocationHerndonVA} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
