@@ -100,11 +100,22 @@ const activeStates = [
       { name: "Greenwood Village", href: "/colorado/greenwood-village" },
     ],
   },
+  {
+    name: "Arizona",
+    href: "/arizona",
+    tagline: "Virtual Women's Health Across the Desert Southwest",
+    cities: [
+      { name: "Scottsdale", href: "/arizona/scottsdale" },
+      { name: "Paradise Valley", href: "/arizona/paradise-valley" },
+      { name: "Chandler", href: "/arizona/chandler" },
+      { name: "Gilbert", href: "/arizona/gilbert" },
+      { name: "Tempe", href: "/arizona/tempe" },
+      { name: "Tucson", href: "/arizona/tucson" },
+    ],
+  },
 ];
 
-const comingSoonStates = [
-  { name: "Arizona", abbr: "AZ" },
-];
+const comingSoonStates: { name: string; abbr: string }[] = [];
 
 // ─── JSON-LD ──────────────────────────────────────────────────────────────────
 

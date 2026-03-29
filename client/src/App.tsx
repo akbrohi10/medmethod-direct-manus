@@ -55,6 +55,13 @@ import LocationColoradoSpringsCO from "@/pages/LocationColoradoSpringsCO";
 import LocationHighlandsRanchCO from "@/pages/LocationHighlandsRanchCO";
 import LocationFortCollinsCO from "@/pages/LocationFortCollinsCO";
 import LocationGreenwoodVillageCO from "@/pages/LocationGreenwoodVillageCO";
+import LocationArizona from "@/pages/LocationArizona";
+import LocationScottsdaleAZ from "@/pages/LocationScottsdaleAZ";
+import LocationParadiseValleyAZ from "@/pages/LocationParadiseValleyAZ";
+import LocationChandlerAZ from "@/pages/LocationChandlerAZ";
+import LocationGilbertAZ from "@/pages/LocationGilbertAZ";
+import LocationTempeAZ from "@/pages/LocationTempeAZ";
+import LocationTucsonAZ from "@/pages/LocationTucsonAZ";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -114,6 +121,13 @@ function Router() {
       <Route path="/colorado/highlands-ranch" component={LocationHighlandsRanchCO} />
       <Route path="/colorado/fort-collins" component={LocationFortCollinsCO} />
       <Route path="/colorado/greenwood-village" component={LocationGreenwoodVillageCO} />
+      <Route path="/arizona" component={LocationArizona} />
+      <Route path="/arizona/scottsdale" component={LocationScottsdaleAZ} />
+      <Route path="/arizona/paradise-valley" component={LocationParadiseValleyAZ} />
+      <Route path="/arizona/chandler" component={LocationChandlerAZ} />
+      <Route path="/arizona/gilbert" component={LocationGilbertAZ} />
+      <Route path="/arizona/tempe" component={LocationTempeAZ} />
+      <Route path="/arizona/tucson" component={LocationTucsonAZ} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>

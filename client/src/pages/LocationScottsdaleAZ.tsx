@@ -1,0 +1,229 @@
+/* =============================================================================
+   LocationScottsdaleAZ.tsx — Scottsdale, Arizona City Page
+   medmethod-location-seo skill compliant
+   Primary keyword: menopause doctor Scottsdale AZ
+   IMAGE RULE: Single physician or patient face on laptop screen only — no group Zoom calls
+   ============================================================================= */
+import { Helmet } from "react-helmet-async";
+import { useState } from "react";
+import { Link } from "wouter";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ConsultationModal from "@/components/ConsultationModal";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PopularPrograms from "@/components/PopularPrograms";
+import DiagnosticSetup from "@/components/DiagnosticSetup";
+import HowItWorks from "@/components/HowItWorks";
+import { ChevronDown } from "lucide-react";
+
+const faqs = [
+  {
+    q: "Is MedMethod Direct licensed to practice medicine in Scottsdale, Arizona?",
+    a: "Yes. MedMethod Direct holds an active Arizona medical license and is fully authorized to provide telehealth services to patients in Scottsdale and throughout the state. Our board-certified physicians can evaluate, diagnose, and prescribe medications — including bioidentical hormones and GLP-1 weight loss therapies — through secure video consultations.",
+  },
+  {
+    q: "Do Scottsdale patients need to visit a clinic or office?",
+    a: "No in-person visit is ever required. MedMethod Direct is a 100% virtual practice. Scottsdale patients complete all consultations, lab reviews, and follow-ups via secure video appointment. Compounded medications are shipped directly to your Scottsdale address through our FDA-registered 503B pharmacy partners.",
+  },
+  {
+    q: "Why is Scottsdale such a strong market for telehealth hormone care?",
+    a: "Scottsdale's affluent, health-conscious population — particularly in North Scottsdale, McCormick Ranch, and the Kierland corridor — has high awareness of preventive and longevity medicine. Yet local specialist wait times for hormone therapy and menopause care can stretch to 3–6 months. MedMethod Direct offers Scottsdale women access to board-certified hormone specialists within 48 hours, without leaving home.",
+  },
+  {
+    q: "What hormone and weight loss treatments are available in Scottsdale?",
+    a: "MedMethod Direct offers comprehensive hormone replacement therapy including estradiol, progesterone, and testosterone optimization; GLP-1 medical weight loss with semaglutide and tirzepatide; perimenopause and menopause management; thyroid optimization; and longevity protocols. All treatments are personalized based on your lab results and health history.",
+  },
+  {
+    q: "How does the initial consultation work for Scottsdale patients?",
+    a: "Your first consultation is a free 45-minute video call with a board-certified physician. You'll discuss your symptoms, health history, and goals. If labs are needed, we provide a requisition for a local Scottsdale draw site. Once results are in, your physician reviews them and presents a personalized treatment plan — typically within 3–5 business days of your initial call.",
+  },
+];
+
+const JSONLD_Business = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: "MedMethod Direct — Scottsdale",
+  url: "https://www.medmethoddirect.com/arizona/scottsdale",
+  description: "MedMethod Direct provides premium virtual women's health care in Scottsdale, AZ — hormone replacement therapy, GLP-1 medical weight loss, and menopause management. Board-certified physicians, 100% telehealth.",
+  medicalSpecialty: ["Endocrinology", "Obstetrics and Gynecology", "Internal Medicine"],
+  areaServed: { "@type": "City", name: "Scottsdale, Arizona" },
+  availableService: [
+    { "@type": "MedicalTherapy", name: "Hormone Replacement Therapy" },
+    { "@type": "MedicalTherapy", name: "Medical Weight Loss" },
+    { "@type": "MedicalTherapy", name: "Menopause Management" },
+  ],
+};
+
+const JSONLD_FAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+
+const JSONLD_Breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.medmethoddirect.com" },
+    { "@type": "ListItem", position: 2, name: "Arizona", item: "https://www.medmethoddirect.com/arizona" },
+    { "@type": "ListItem", position: 3, name: "Scottsdale", item: "https://www.medmethoddirect.com/arizona/scottsdale" },
+  ],
+};
+
+export default function LocationScottsdaleAZ() {
+  const [consultOpen, setConsultOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <>
+      <Helmet>
+        <title>Scottsdale Women's Health | Hormone Therapy & Weight Loss | MedMethod Direct</title>
+        <meta name="description" content="MedMethod Direct offers virtual hormone therapy, GLP-1 weight loss, and menopause care for Scottsdale, AZ women. Board-certified physicians, no office visit required. Book a free consultation." />
+        <link rel="canonical" href="https://www.medmethoddirect.com/arizona/scottsdale" />
+        <meta property="og:title" content="Scottsdale Women's Health | MedMethod Direct" />
+        <meta property="og:description" content="Premium virtual hormone therapy and medical weight loss for Scottsdale women. Board-certified physicians, 100% telehealth." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.medmethoddirect.com/arizona/scottsdale" />
+        <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/az-hero-scottsdale-6brpYLQ8G9fKa2JcfUB2pF.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Scottsdale Women's Health | MedMethod Direct" />
+        <meta name="twitter:description" content="Premium virtual hormone therapy and medical weight loss for Scottsdale women." />
+        <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/az-hero-scottsdale-6brpYLQ8G9fKa2JcfUB2pF.png" />
+        <script type="application/ld+json">{JSON.stringify(JSONLD_Business)}</script>
+        <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
+        <script type="application/ld+json">{JSON.stringify(JSONLD_Breadcrumb)}</script>
+      </Helmet>
+
+      <Navbar onConsultClick={() => setConsultOpen(true)} />
+
+      {/* Hero */}
+      <section className="relative min-h-[92vh] flex items-center bg-[#0d0d0d] overflow-hidden pt-20">
+        <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/az-hero-scottsdale-FWg5CHPnXV4e2ZDzbbPJcQ.webp')` }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
+        <div className="relative max-w-[1280px] mx-auto px-4 lg:px-8 py-24">
+          <nav className="flex items-center gap-2 text-white/40 text-xs mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/arizona" className="hover:text-white transition-colors">Arizona</Link>
+            <span>/</span>
+            <span className="text-white/70">Scottsdale</span>
+          </nav>
+          <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Scottsdale, Arizona</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-6 max-w-2xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Scottsdale's Premier<br />
+            <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              Virtual Women's Health
+            </span>
+          </h1>
+          <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-xl" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Board-certified physicians delivering hormone replacement therapy, GLP-1 medical weight loss, and menopause management to Scottsdale women — from North Scottsdale to McCormick Ranch. No waiting rooms. No commute. Just expert care.
+          </p>
+          <div className="flex flex-wrap gap-4 mb-8">
+            <button onClick={() => setConsultOpen(true)} className="px-8 py-4 font-bold text-sm tracking-widest uppercase text-white hover:opacity-90 transition-all" style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}>
+              Schedule Free Consultation
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-6">
+            {["Licensed in Arizona", "100% Virtual", "48hr First Appointment", "Meds Shipped to Scottsdale"].map((t) => (
+              <span key={t} className="text-white/50 text-xs flex items-center gap-2" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E8339E] inline-block" />{t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Body copy */}
+      <section className="bg-[#f9f6f1] py-20">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8 grid lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Why Scottsdale Women Choose Us</p>
+            <h2 className="text-3xl font-black text-[#0d0d0d] mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>Expert Hormone Care,<br />Scottsdale Convenience</h2>
+            <p className="text-[#0d0d0d]/70 leading-relaxed mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Scottsdale has one of the highest concentrations of health-conscious, professionally active women in the Southwest. The North Scottsdale corridor — from Kierland to DC Ranch — is home to executives, entrepreneurs, and physicians who understand the value of preventive medicine but have zero tolerance for inefficient healthcare systems.
+            </p>
+            <p className="text-[#0d0d0d]/70 leading-relaxed mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              MedMethod Direct was built for exactly this demographic. Our physicians specialize in bioidentical hormone replacement therapy (BHRT), perimenopause and menopause management, and GLP-1 medical weight loss with semaglutide and tirzepatide. Every treatment plan is built around your lab results, not a one-size-fits-all protocol.
+            </p>
+            <p className="text-[#0d0d0d]/70 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Scottsdale's desert climate — intense heat, high UV, low humidity — can intensify hormonal symptoms including hot flashes, sleep disruption, brain fog, and metabolic slowdown. Addressing the underlying hormonal imbalance is often more effective than managing symptoms in isolation. Our physicians take a root-cause approach to your health.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            {[
+              { title: "Hormone Replacement Therapy", desc: "Personalized estradiol, progesterone, and testosterone protocols based on your labs and symptoms." },
+              { title: "GLP-1 Medical Weight Loss", desc: "Semaglutide and tirzepatide programs with physician oversight, metabolic monitoring, and ongoing support." },
+              { title: "Menopause Management", desc: "Comprehensive perimenopause and menopause care addressing hot flashes, sleep, cognition, and libido." },
+              { title: "Thyroid Optimization", desc: "Full thyroid panel review and optimization to address fatigue, weight gain, and brain fog at the source." },
+            ].map(({ title, desc }) => (
+              <div key={title} className="bg-white border border-[#0d0d0d]/8 p-5">
+                <p className="font-bold text-[#0d0d0d] mb-1" style={{ fontFamily: "Montserrat, sans-serif" }}>{title}</p>
+                <p className="text-[#0d0d0d]/60 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+      <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
+      <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+
+      {/* FAQ */}
+      <section className="bg-[#f9f6f1] py-20">
+        <div className="max-w-[800px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>Scottsdale FAQ</p>
+            <h2 className="text-3xl font-black text-[#0d0d0d]" style={{ fontFamily: "Montserrat, sans-serif" }}>Common Questions</h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {faqs.map((faq, i) => (
+              <div key={i} className="border border-[#0d0d0d]/10 bg-white">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between p-6 text-left">
+                  <span className="font-bold text-[#0d0d0d] pr-4" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.q}</span>
+                  <ChevronDown className={`w-5 h-5 text-[#E8339E] flex-shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === i && <div className="px-6 pb-6"><p className="text-[#0d0d0d]/70 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.a}</p></div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Nearby cities */}
+      <section className="bg-[#0d0d0d] py-16">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+          <p className="text-white/40 text-xs font-bold tracking-[0.25em] uppercase mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>Also Serving Nearby</p>
+          <div className="flex flex-wrap gap-3">
+            {[
+              { name: "Paradise Valley", href: "/arizona/paradise-valley" },
+              { name: "Chandler", href: "/arizona/chandler" },
+              { name: "Gilbert", href: "/arizona/gilbert" },
+              { name: "All Arizona Cities", href: "/arizona" },
+            ].map(({ name, href }) => (
+              <Link key={name} href={href}>
+                <span className="border border-white/10 text-white/60 hover:text-white hover:border-[#E8339E]/40 text-sm px-4 py-2 transition-all cursor-pointer" style={{ fontFamily: "Montserrat, sans-serif" }}>{name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-[#0d0d0d] py-20 border-t border-white/5">
+        <div className="max-w-[800px] mx-auto px-4 lg:px-8 text-center">
+          <h2 className="text-3xl font-black text-white mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>Ready to Feel Like Yourself Again?</h2>
+          <p className="text-white/60 mb-8 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>Your first consultation is free. A board-certified physician reviews your history, discusses your goals, and outlines a personalized plan — all in one 45-minute video call from your Scottsdale home.</p>
+          <button onClick={() => setConsultOpen(true)} className="px-10 py-4 font-bold text-sm tracking-widest uppercase text-white hover:opacity-90 transition-all" style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}>
+            Schedule Free Consultation
+          </button>
+          <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Licensed in Arizona · Serving Scottsdale · 100% Virtual</p>
+        </div>
+      </section>
+
+      <Footer onConsultClick={() => setConsultOpen(true)} />
+      <StickyMobileCTA onConsultClick={() => setConsultOpen(true)} />
+      <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
+    </>
+  );
+}

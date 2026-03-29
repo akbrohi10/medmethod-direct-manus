@@ -156,6 +156,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "North Carolina", href: "/north-carolina" },
                 { label: "Pennsylvania", href: "/pennsylvania" },
                 { label: "Colorado", href: "/colorado" },
+                { label: "Arizona", href: "/arizona" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -167,9 +168,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   </a>
                 </li>
               ))}
-              <li className="pt-1">
-                <span className="text-white/20 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>AZ — Coming Soon</span>
-              </li>
             </ul>
           </div>
 
