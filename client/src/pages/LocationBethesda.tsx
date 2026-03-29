@@ -228,9 +228,9 @@ export default function LocationBethesda() {
             </div>
             <p className="text-sm text-gray-500 pt-2">
               Related reading:{" "}
-              <a href="/blog/semaglutide-vs-tirzepatide-women-midlife" className="text-[#E8339E] hover:underline">Semaglutide vs. Tirzepatide for Women in Midlife</a>
+              <a href="/blog" className="text-[#E8339E] hover:underline">Semaglutide vs. Tirzepatide for Women in Midlife</a>
               {" · "}
-              <a href="/blog/hormone-therapy-weight-sleep-metabolism" className="text-[#E8339E] hover:underline">Can Hormone Therapy Help With Weight, Sleep &amp; Metabolism?</a>
+              <a href="/blog" className="text-[#E8339E] hover:underline">Can Hormone Therapy Help With Weight, Sleep &amp; Metabolism?</a>
             </p>
           </div>
         </div>

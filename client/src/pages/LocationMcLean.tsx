@@ -705,7 +705,7 @@ export default function LocationMcLean() {
             </p>
           </div>
           <a
-            href="/locations/bethesda-md"
+            href="/maryland/bethesda"
             className="inline-flex items-center gap-2 font-bold text-sm tracking-wider rounded-full px-7 py-3 whitespace-nowrap transition-all hover:shadow-lg flex-shrink-0"
             style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", color: "#fff" }}
           >

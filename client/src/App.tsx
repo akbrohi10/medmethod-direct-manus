@@ -73,6 +73,7 @@ import LocationMooresvilleNC from "@/pages/LocationMooresvilleNC";
 import LocationWaxhawNC from "@/pages/LocationWaxhawNC";
 import LocationApexNC from "@/pages/LocationApexNC";
 // PA Tier 2
+import LocationKennettSquarePA from "@/pages/LocationKennettSquarePA";
 import LocationWestChesterPA from "@/pages/LocationWestChesterPA";
 import LocationNewtownPA from "@/pages/LocationNewtownPA";
 import LocationHorshamPA from "@/pages/LocationHorshamPA";
@@ -188,6 +189,7 @@ function Router() {
       <Route path="/arizona/surprise" component={LocationSurpriseAZ} />
       <Route path="/arizona/fountain-hills" component={LocationFountainHillsAZ} />
       <Route path="/arizona/prescott" component={LocationPrescottAZ} />
+      <Route path="/pennsylvania/kennett-square" component={LocationKennettSquarePA} />
       <Route path="/pennsylvania/west-chester" component={LocationWestChesterPA} />
       <Route path="/pennsylvania/newtown" component={LocationNewtownPA} />
       <Route path="/pennsylvania/horsham" component={LocationHorshamPA} />
