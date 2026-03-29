@@ -20,7 +20,7 @@ import DiagnosticSetup from "@/components/DiagnosticSetup";
 import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/florida-tampa-hero-fUZJGJJCxJJAJp9JHuLELm.webp";
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/florida-tampa-hero-v2-Y8n5rfysWA5nszstbpVYh3.webp";
 
 const gradientText = {
   background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
