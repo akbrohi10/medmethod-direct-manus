@@ -133,7 +133,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                     className="font-semibold"
                     style={{ fontSize: 10, color: active ? "rgba(255,255,255,0.75)" : "#999", marginTop: 2 }}
                   >
-                    from ${PRICES[value].t1}/mo
+                    from ${(PRICES[value].t1 * value).toLocaleString()}
                   </span>
                 </button>
               );
@@ -230,6 +230,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             term={term}
             savings={savingsVsBase(term, "t3")}
             total={totalCost(term, "t3")}
+            monthsFreeLabel={term === 12 ? "Over 2 months free" : undefined}
             features={[
               { text: "Tirzepatide (FDA-approved brand or 503B-compounded) + BHRT — The Complete Protocol" },
               { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
@@ -327,6 +328,7 @@ function TierCard({
   checkColor,
   checkBg,
   savingsColor,
+  monthsFreeLabel,
   onConsultClick,
 }: {
   hero?: boolean;
@@ -345,6 +347,7 @@ function TierCard({
   checkColor: string;
   checkBg: string;
   savingsColor: string;
+  monthsFreeLabel?: string;
   onConsultClick: () => void;
 }) {
   const isDark = hero;
@@ -380,38 +383,45 @@ function TierCard({
         dangerouslySetInnerHTML={{ __html: title }}
       />
 
-      {/* Price row — shows per-month equivalent */}
+      {/* Price row — total upfront as primary */}
       <div className="flex items-end gap-1 mb-0.5">
         <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: isDark ? "#fff" : "#111" }}>$</span>
         <span
           className="font-black leading-none transition-all"
-          style={{ fontSize: 62, color: isDark ? "#fff" : "#111", letterSpacing: "-3px" }}
+          style={{ fontSize: 56, color: isDark ? "#fff" : "#111", letterSpacing: "-3px" }}
         >
-          {price}
+          {total.toLocaleString()}
         </span>
-        <span className="font-semibold pb-2.5" style={{ fontSize: 15, color: subColor }}>/mo</span>
       </div>
 
-      {/* Total & savings line */}
+      {/* Per-month equivalent & savings */}
       <div className="flex items-center gap-2 mb-1 flex-wrap">
         <span
-          className="text-xs font-bold rounded px-1.5 py-0.5"
-          style={{
-            background: isDark ? "rgba(232,51,158,0.15)" : "rgba(0,0,0,0.05)",
-            color: isDark ? "rgba(255,255,255,0.7)" : "#555",
-            fontSize: 11,
-          }}
+          className="text-xs font-semibold"
+          style={{ color: subColor, fontSize: 12 }}
         >
-          ${total.toLocaleString()} paid upfront
+          ${price}/mo equivalent
         </span>
-        {savings > 0 && (
+        {monthsFreeLabel ? (
+          <span
+            className="inline-flex items-center gap-1 text-xs font-extrabold rounded-full px-2.5 py-0.5"
+            style={{
+              background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+              color: "#fff",
+              fontSize: 10,
+              letterSpacing: "0.5px",
+            }}
+          >
+            🎉 {monthsFreeLabel}
+          </span>
+        ) : savings > 0 ? (
           <span
             className="text-xs font-extrabold"
             style={{ color: savingsColor }}
           >
             Save ${savings.toLocaleString()}
           </span>
-        )}
+        ) : null}
       </div>
 
       {/* Description */}
