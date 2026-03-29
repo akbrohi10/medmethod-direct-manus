@@ -174,10 +174,9 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                   Your Setup Fee
                 </p>
                 <div className="flex items-start gap-1 mb-1">
-                  <span className="text-white font-black text-xl mt-1">$</span>
+                  <span className="text-white font-black text-lg mt-1">$</span>
                   <span
-                    className="font-black text-white leading-none"
-                    style={{ fontSize: "4rem" }}
+                    className="font-black text-white leading-none text-5xl md:text-6xl"
                   >
                     449
                   </span>
