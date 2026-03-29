@@ -61,10 +61,22 @@ const activeStates = [
       { name: "Tampa", href: "/florida/tampa" },
     ],
   },
+  {
+    name: "North Carolina",
+    href: "/north-carolina",
+    tagline: "Virtual Women's Health Across the Tar Heel State",
+    cities: [
+      { name: "Charlotte", href: "/north-carolina/charlotte" },
+      { name: "Raleigh", href: "/north-carolina/raleigh" },
+      { name: "Cary", href: "/north-carolina/cary" },
+      { name: "Chapel Hill", href: "/north-carolina/chapel-hill" },
+      { name: "Wilmington", href: "/north-carolina/wilmington" },
+      { name: "Asheville", href: "/north-carolina/asheville" },
+    ],
+  },
 ];
 
 const comingSoonStates = [
-  { name: "North Carolina", abbr: "NC" },
   { name: "Pennsylvania", abbr: "PA" },
   { name: "Colorado", abbr: "CO" },
   { name: "Arizona", abbr: "AZ" },

@@ -153,6 +153,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "Maryland", href: "/maryland" },
                 { label: "Washington DC", href: "/washington-dc" },
                 { label: "Florida", href: "/florida" },
+                { label: "North Carolina", href: "/north-carolina" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a

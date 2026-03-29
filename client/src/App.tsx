@@ -34,6 +34,13 @@ import LocationSarasota from "@/pages/LocationSarasota";
 import LocationTampa from "@/pages/LocationTampa";
 import BlogPost from "./pages/BlogPost";
 import Locations from "@/pages/Locations";
+import LocationNorthCarolina from "@/pages/LocationNorthCarolina";
+import LocationCharlotteNC from "@/pages/LocationCharlotteNC";
+import LocationRaleighNC from "@/pages/LocationRaleighNC";
+import LocationCaryNC from "@/pages/LocationCaryNC";
+import LocationChapelHillNC from "@/pages/LocationChapelHillNC";
+import LocationWilmingtonNC from "@/pages/LocationWilmingtonNC";
+import LocationAshevilleNC from "@/pages/LocationAshevilleNC";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -72,6 +79,13 @@ function Router() {
       <Route path="/florida/naples" component={LocationNaples} />
       <Route path="/florida/sarasota" component={LocationSarasota} />
       <Route path="/florida/tampa" component={LocationTampa} />
+      <Route path="/north-carolina" component={LocationNorthCarolina} />
+      <Route path="/north-carolina/charlotte" component={LocationCharlotteNC} />
+      <Route path="/north-carolina/raleigh" component={LocationRaleighNC} />
+      <Route path="/north-carolina/cary" component={LocationCaryNC} />
+      <Route path="/north-carolina/chapel-hill" component={LocationChapelHillNC} />
+      <Route path="/north-carolina/wilmington" component={LocationWilmingtonNC} />
+      <Route path="/north-carolina/asheville" component={LocationAshevilleNC} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
