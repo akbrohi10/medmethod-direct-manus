@@ -48,6 +48,13 @@ import LocationWaynePA from "@/pages/LocationWaynePA";
 import LocationDoylestownPA from "@/pages/LocationDoylestownPA";
 import LocationNewtownSquarePA from "@/pages/LocationNewtownSquarePA";
 import LocationMalvernPA from "@/pages/LocationMalvernPA";
+import LocationColorado from "@/pages/LocationColorado";
+import LocationDenverCO from "@/pages/LocationDenverCO";
+import LocationBoulderCO from "@/pages/LocationBoulderCO";
+import LocationColoradoSpringsCO from "@/pages/LocationColoradoSpringsCO";
+import LocationHighlandsRanchCO from "@/pages/LocationHighlandsRanchCO";
+import LocationFortCollinsCO from "@/pages/LocationFortCollinsCO";
+import LocationGreenwoodVillageCO from "@/pages/LocationGreenwoodVillageCO";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -100,6 +107,13 @@ function Router() {
       <Route path="/pennsylvania/doylestown" component={LocationDoylestownPA} />
       <Route path="/pennsylvania/newtown-square" component={LocationNewtownSquarePA} />
       <Route path="/pennsylvania/malvern" component={LocationMalvernPA} />
+      <Route path="/colorado" component={LocationColorado} />
+      <Route path="/colorado/denver" component={LocationDenverCO} />
+      <Route path="/colorado/boulder" component={LocationBoulderCO} />
+      <Route path="/colorado/colorado-springs" component={LocationColoradoSpringsCO} />
+      <Route path="/colorado/highlands-ranch" component={LocationHighlandsRanchCO} />
+      <Route path="/colorado/fort-collins" component={LocationFortCollinsCO} />
+      <Route path="/colorado/greenwood-village" component={LocationGreenwoodVillageCO} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>

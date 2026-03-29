@@ -87,10 +87,22 @@ const activeStates = [
       { name: "Malvern", href: "/pennsylvania/malvern" },
     ],
   },
+  {
+    name: "Colorado",
+    href: "/colorado",
+    tagline: "Virtual Women's Health Across the Front Range & Beyond",
+    cities: [
+      { name: "Denver", href: "/colorado/denver" },
+      { name: "Boulder", href: "/colorado/boulder" },
+      { name: "Colorado Springs", href: "/colorado/colorado-springs" },
+      { name: "Highlands Ranch", href: "/colorado/highlands-ranch" },
+      { name: "Fort Collins", href: "/colorado/fort-collins" },
+      { name: "Greenwood Village", href: "/colorado/greenwood-village" },
+    ],
+  },
 ];
 
 const comingSoonStates = [
-  { name: "Colorado", abbr: "CO" },
   { name: "Arizona", abbr: "AZ" },
 ];
 
