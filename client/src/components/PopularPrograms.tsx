@@ -1,70 +1,55 @@
 /* =============================================================================
    Popular Programs — MedMethod Direct
-   Two-axis pricing:
-     Axis 1 (tabs):   3 Months · 6 Months · 12 Months
-     Axis 2 (toggle): Billed Monthly · Pay Upfront (save more)
+   Single-axis pricing: Choose your term (3 / 6 / 12 months), pay in full.
+   Cherry financing available for patients who need monthly installments.
 
    Discount philosophy:
      - Tier 1 (Management): shallow discounts — protect margin on lowest tier
      - Tier 2 (Core Weight): moderate discounts — volume driver
      - Tier 3 (Elite):       deepest discounts — reward highest-value patients
 
-   All programs require a minimum 3-month commitment (no month-to-month).
-   Paying upfront on any term earns an additional discount on top of the
-   commitment-length discount.
+   All programs are paid in full upfront for the selected term.
    ============================================================================= */
 import { useState } from "react";
 import { Check } from "lucide-react";
 
-// ── Pricing tables ────────────────────────────────────────────────────────────
-// [term][payUpfront][tier] → per-month rate
+// ── Pricing table (upfront only) ─────────────────────────────────────────────
+// [term][tier] → per-month equivalent rate (patient pays total upfront)
 const PRICES = {
-  3: {
-    monthly:  { t1: 199, t2: 349, t3: 449 },
-    upfront:  { t1: 189, t2: 319, t3: 419 },
-  },
-  6: {
-    monthly:  { t1: 194, t2: 334, t3: 429 },
-    upfront:  { t1: 184, t2: 299, t3: 379 },
-  },
-  12: {
-    monthly:  { t1: 189, t2: 319, t3: 409 },
-    upfront:  { t1: 179, t2: 279, t3: 339 },
-  },
+  3:  { t1: 189, t2: 319, t3: 419 },
+  6:  { t1: 184, t2: 299, t3: 379 },
+  12: { t1: 179, t2: 279, t3: 339 },
 } as const;
 
-type Term    = 3 | 6 | 12;
-type PayMode = "monthly" | "upfront";
-type Tier    = "t1" | "t2" | "t3";
+type Term = 3 | 6 | 12;
+type Tier = "t1" | "t2" | "t3";
 
-// Baseline = 3-month monthly (the standard rate, no discounts)
-const BASE = PRICES[3].monthly;
+// Baseline = 3-month rate (the standard rate, no commitment discount)
+const BASE = PRICES[3];
 
-function totalBilled(term: Term, mode: PayMode, tier: Tier) {
-  return PRICES[term][mode][tier] * term;
+function totalCost(term: Term, tier: Tier) {
+  return PRICES[term][tier] * term;
 }
 
-function savingsVsBase(term: Term, mode: PayMode, tier: Tier) {
-  return (BASE[tier] - PRICES[term][mode][tier]) * term;
+function savingsVsBase(term: Term, tier: Tier) {
+  return (BASE[tier] - PRICES[term][tier]) * term;
 }
 
-// ── Static data ───────────────────────────────────────────────────────────────
+// ── Static data ──────────────────────────────────────────────────────────────
 const TERMS: { label: string; value: Term; clinicalNote: string }[] = [
   { label: "3 Months",  value: 3,  clinicalNote: "Minimum commitment — see early results" },
   { label: "6 Months",  value: 6,  clinicalNote: "Recommended — full transformation window" },
   { label: "12 Months", value: 12, clinicalNote: "Complete protocol — lasting change" },
 ];
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Component ────────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
-  const [term, setTerm]       = useState<Term>(6);
-  const [payMode, setPayMode] = useState<PayMode>("upfront");
+  const [term, setTerm] = useState<Term>(6);
 
-  const p    = PRICES[term][payMode];
-  const base = BASE;
+  const p = PRICES[term];
 
-  // Max savings across all tiers for the banner headline (use Elite as the showcase)
-  const maxSavings = savingsVsBase(term, payMode, "t3");
+  // Max savings for the banner (use Elite as the showcase)
+  const maxSavings = savingsVsBase(term, "t3");
 
   return (
     <section
@@ -86,14 +71,14 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             POPULAR PROGRAMS
           </h2>
           <p className="text-sm text-gray-500 font-medium">
-            All programs require a minimum 3-month commitment — the time your body needs to respond.
+            Choose your program length — all plans are paid in full upfront.
           </p>
         </div>
 
-        {/* ── Axis 1: Commitment Length Tabs ──────────────────────────────── */}
-        <div className="flex flex-col items-center gap-2 mb-5">
+        {/* ── Term Selector ──────────────────────────────────────────────── */}
+        <div className="flex flex-col items-center gap-2 mb-6">
           <p className="text-xs font-extrabold uppercase tracking-widest text-gray-400" style={{ letterSpacing: "2px" }}>
-            Step 1 — Choose your commitment
+            Choose your commitment
           </p>
           <div
             className="inline-flex rounded-2xl p-1.5 gap-1"
@@ -148,7 +133,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                     className="font-semibold"
                     style={{ fontSize: 10, color: active ? "rgba(255,255,255,0.75)" : "#999", marginTop: 2 }}
                   >
-                    from ${PRICES[value].upfront.t1}/mo upfront
+                    from ${PRICES[value].t1}/mo
                   </span>
                 </button>
               );
@@ -158,107 +143,11 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           <p className="text-xs text-gray-400 font-medium italic">
             {TERMS.find(t => t.value === term)?.clinicalNote}
           </p>
-        </div>
 
-        {/* ── Axis 2: Payment Method Toggle ───────────────────────────────── */}
-        <div className="flex flex-col items-center gap-2 mb-6">
-          <p className="text-xs font-extrabold uppercase tracking-widest text-gray-400" style={{ letterSpacing: "2px" }}>
-            Step 2 — Choose how you pay
-          </p>
-          {/* Toggle wrapper — pill floats above the whole container, not inside a button */}
-          <div className="relative flex flex-col items-center">
-            {/* "Pay Upfront = Save More" pill — centered above the toggle, only when monthly is selected */}
-            {payMode === "monthly" && (
-              <span
-                className="font-extrabold uppercase rounded-full text-white mb-2"
-                style={{
-                  fontSize: 9,
-                  letterSpacing: "1.5px",
-                  padding: "3px 14px",
-                  whiteSpace: "nowrap",
-                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                  boxShadow: "0 2px 8px rgba(232,51,158,0.3)",
-                }}
-              >
-                ← Switch to Pay Upfront &amp; Save More
-              </span>
-            )}
-            {payMode === "upfront" && (
-              <span
-                className="font-extrabold uppercase rounded-full text-white mb-2"
-                style={{
-                  fontSize: 9,
-                  letterSpacing: "1.5px",
-                  padding: "3px 14px",
-                  whiteSpace: "nowrap",
-                  background: "linear-gradient(135deg, #16A34A, #15803D)",
-                  boxShadow: "0 2px 8px rgba(22,163,74,0.25)",
-                }}
-              >
-                ✓ Best rate applied
-              </span>
-            )}
+          {/* Savings banner — only shown when term > 3 */}
+          {term > 3 && maxSavings > 0 && (
             <div
-              className="inline-flex rounded-xl overflow-hidden"
-              style={{ border: "1.5px solid #D0D0DC" }}
-            >
-              {/* Pay Upfront — LEFT (primary / recommended) */}
-              <button
-                onClick={() => setPayMode("upfront")}
-                className="flex flex-col items-center transition-all"
-                style={{
-                  padding: "10px 28px",
-                  background: payMode === "upfront"
-                    ? "linear-gradient(135deg, #E8339E11, #7A1E7E11)"
-                    : "#F4F4F8",
-                  border: "none",
-                  cursor: "pointer",
-                  borderRight: "1.5px solid #D0D0DC",
-                }}
-              >
-                <span
-                  className="font-extrabold"
-                  style={{
-                    fontSize: 12,
-                    color: payMode === "upfront" ? "#E8339E" : "#999",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  Pay Upfront
-                </span>
-                <span style={{ fontSize: 10, color: payMode === "upfront" ? "#7A1E7E" : "#aaa", marginTop: 2 }}>
-                  Best rate — pay once
-                </span>
-              </button>
-
-              {/* Billed Monthly — RIGHT */}
-              <button
-                onClick={() => setPayMode("monthly")}
-                className="flex flex-col items-center transition-all"
-                style={{
-                  padding: "10px 28px",
-                  background: payMode === "monthly" ? "#fff" : "#F4F4F8",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                <span
-                  className="font-extrabold"
-                  style={{ fontSize: 12, color: payMode === "monthly" ? "#111" : "#999", letterSpacing: "0.5px" }}
-                >
-                  Billed Monthly
-                </span>
-                <span style={{ fontSize: 10, color: "#aaa", marginTop: 2 }}>
-                  Flexible within contract
-                </span>
-              </button>
-            </div>
-          </div>
-
-          {/* Savings banner — only shown when upfront is selected and term > 3 */}
-          {payMode === "upfront" && term > 3 && maxSavings > 0 && (
-            <div
-              className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5"
+              className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5 mt-1"
               style={{
                 background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                 fontSize: 11,
@@ -267,29 +156,9 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             >
               <span>🎉</span>
               <span className="uppercase tracking-widest">
-                Save up to ${maxSavings.toLocaleString()} on Elite Longevity vs. standard rate
+                Save up to ${maxSavings.toLocaleString()} on Elite Longevity vs. 3-month rate
               </span>
             </div>
-          )}
-          {payMode === "upfront" && term === 3 && (
-            <div
-              className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5"
-              style={{
-                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                fontSize: 11,
-                letterSpacing: "1.5px",
-              }}
-            >
-              <span>✓</span>
-              <span className="uppercase tracking-widest">
-                Upfront discount applied — pay once, no monthly billing
-              </span>
-            </div>
-          )}
-          {payMode === "monthly" && (
-            <p className="text-xs text-gray-400 font-medium">
-              Switch to Pay Upfront to unlock additional savings on top of your commitment discount.
-            </p>
           )}
         </div>
 
@@ -302,11 +171,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             description="For patients who already have medication through insurance but want the MedMethod team managing their results."
             medicationBadge={{ label: "No Medication Included", color: "#555", bg: "#F1F1F5", dot: "#999" }}
             price={p.t1}
-            basePrice={base.t1}
+            basePrice={BASE.t1}
             term={term}
-            payMode={payMode}
-            savings={savingsVsBase(term, payMode, "t1")}
-            total={totalBilled(term, payMode, "t1")}
+            savings={savingsVsBase(term, "t1")}
+            total={totalCost(term, "t1")}
             features={[
               { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
               { text: "Quarterly 1-on-1 Doctor Strategy Session" },
@@ -331,11 +199,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             description="Our complete medical weight loss system — FDA-approved or 503B-compounded GLP-1 therapy, physician-designed for steady, safe, and managed results."
             medicationBadge={{ label: "Includes Semaglutide", color: "#F472B6", bg: "rgba(232,51,158,0.15)", dot: "#F472B6" }}
             price={p.t2}
-            basePrice={base.t2}
+            basePrice={BASE.t2}
             term={term}
-            payMode={payMode}
-            savings={savingsVsBase(term, payMode, "t2")}
-            total={totalBilled(term, payMode, "t2")}
+            savings={savingsVsBase(term, "t2")}
+            total={totalCost(term, "t2")}
             features={[
               { text: "Semaglutide (FDA-approved brand or 503B-compounded) — Delivered to Your Door" },
               { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
@@ -359,11 +226,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             description="Premium optimization for high-performers — the only program combining GLP-1 therapy with full hormonal balance."
             medicationBadge={{ label: "Tirzepatide + BHRT", color: "#7A1E7E", bg: "rgba(122,30,126,0.10)", dot: "#7A1E7E" }}
             price={p.t3}
-            basePrice={base.t3}
+            basePrice={BASE.t3}
             term={term}
-            payMode={payMode}
-            savings={savingsVsBase(term, payMode, "t3")}
-            total={totalBilled(term, payMode, "t3")}
+            savings={savingsVsBase(term, "t3")}
+            total={totalCost(term, "t3")}
             features={[
               { text: "Tirzepatide (FDA-approved brand or 503B-compounded) + BHRT — The Complete Protocol" },
               { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
@@ -385,8 +251,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
 
         {/* ── Footer note ─────────────────────────────────────────────────── */}
         <p className="text-center text-xs text-gray-400 font-medium mt-6">
-          All programs are contract-based for the selected term. Monthly billing continues for the full commitment period.
-          Upfront plans are non-refundable. HSA/FSA accepted.
+          All programs are paid in full for the selected term. Non-refundable. HSA/FSA accepted.
         </p>
 
         {/* ── Cherry Financing Badge ──────────────────────────────────────── */}
@@ -396,11 +261,11 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             style={{
               background: "#fff",
               border: "1.5px solid rgba(232,51,158,0.18)",
-              maxWidth: 520,
+              maxWidth: 560,
               width: "100%",
             }}
           >
-            {/* Cherry logo wordmark */}
+            {/* Cherry logo */}
             <div
               className="flex-shrink-0 rounded-xl flex items-center justify-center"
               style={{ width: 48, height: 48, background: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
@@ -409,10 +274,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-black text-sm" style={{ fontFamily: "Montserrat, sans-serif", color: "#111", letterSpacing: "-0.01em" }}>
-                Financing available through Cherry
+                Need monthly payments? Finance through Cherry
               </p>
               <p className="text-xs mt-0.5" style={{ fontFamily: "Montserrat, sans-serif", color: "#777" }}>
-                Split your program into monthly payments — 0% APR options available. Apply in 60 seconds with no hard credit pull.
+                Split any program into monthly installments — 0% APR options available. Apply in 60 seconds, no hard credit pull.
               </p>
             </div>
             <a
@@ -428,7 +293,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                 whiteSpace: "nowrap",
               }}
             >
-              Learn More
+              Apply Now
             </a>
           </div>
           <p className="text-[10px] text-gray-400" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -441,7 +306,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
   );
 }
 
-// ── Reusable card sub-component ───────────────────────────────────────────────
+// ── Reusable card sub-component ──────────────────────────────────────────────
 interface Feature { text: string; sub?: string; badge?: string }
 interface MedBadge { label: string; color: string; bg: string; dot: string }
 
@@ -453,7 +318,6 @@ function TierCard({
   price,
   basePrice,
   term,
-  payMode,
   savings,
   total,
   features,
@@ -472,7 +336,6 @@ function TierCard({
   price: number;
   basePrice: number;
   term: Term;
-  payMode: PayMode;
   savings: number;
   total: number;
   features: Feature[];
@@ -517,7 +380,7 @@ function TierCard({
         dangerouslySetInnerHTML={{ __html: title }}
       />
 
-      {/* Price row */}
+      {/* Price row — shows per-month equivalent */}
       <div className="flex items-end gap-1 mb-0.5">
         <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: isDark ? "#fff" : "#111" }}>$</span>
         <span
@@ -529,31 +392,27 @@ function TierCard({
         <span className="font-semibold pb-2.5" style={{ fontSize: 15, color: subColor }}>/mo</span>
       </div>
 
-      {/* Savings line */}
-      {savings > 0 ? (
-        <div className="flex items-center gap-2 mb-1">
+      {/* Total & savings line */}
+      <div className="flex items-center gap-2 mb-1 flex-wrap">
+        <span
+          className="text-xs font-bold rounded px-1.5 py-0.5"
+          style={{
+            background: isDark ? "rgba(232,51,158,0.15)" : "rgba(0,0,0,0.05)",
+            color: isDark ? "rgba(255,255,255,0.7)" : "#555",
+            fontSize: 11,
+          }}
+        >
+          ${total.toLocaleString()} paid upfront
+        </span>
+        {savings > 0 && (
           <span
             className="text-xs font-extrabold"
             style={{ color: savingsColor }}
           >
-            Save ${savings.toLocaleString()} vs. standard rate
+            Save ${savings.toLocaleString()}
           </span>
-          <span
-            className="text-xs font-bold rounded px-1.5 py-0.5"
-            style={{
-              background: isDark ? "rgba(232,51,158,0.15)" : "rgba(232,51,158,0.08)",
-              color: savingsColor,
-              fontSize: 10,
-            }}
-          >
-            ${total.toLocaleString()} total
-          </span>
-        </div>
-      ) : (
-        <div className="text-xs font-semibold mb-1" style={{ color: subColor }}>
-          ${total.toLocaleString()} {payMode === "upfront" ? "billed upfront" : "billed monthly"}
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Description */}
       <p className="text-xs font-medium leading-relaxed mb-4" style={{ color: subColor }}>
