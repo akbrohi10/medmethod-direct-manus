@@ -33,6 +33,7 @@ import LocationNaples from "@/pages/LocationNaples";
 import LocationSarasota from "@/pages/LocationSarasota";
 import LocationTampa from "@/pages/LocationTampa";
 import BlogPost from "./pages/BlogPost";
+import Locations from "@/pages/Locations";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -71,6 +72,7 @@ function Router() {
       <Route path="/florida/naples" component={LocationNaples} />
       <Route path="/florida/sarasota" component={LocationSarasota} />
       <Route path="/florida/tampa" component={LocationTampa} />
+      <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
       <Route path={"/404"} component={NotFound} />

@@ -144,12 +144,15 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             >
               Locations
             </h4>
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-2">
+              <li>
+                <a href="/locations" className="text-[#E8339E] hover:text-white text-xs font-bold tracking-widest uppercase transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>All Locations →</a>
+              </li>
               {[
                 { label: "Virginia", href: "/virginia" },
-                { label: "Florida", href: "/florida" },
                 { label: "Maryland", href: "/maryland" },
                 { label: "Washington DC", href: "/washington-dc" },
+                { label: "Florida", href: "/florida" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -161,6 +164,9 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   </a>
                 </li>
               ))}
+              <li className="pt-1">
+                <span className="text-white/20 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>NC · PA · CO · AZ — Coming Soon</span>
+              </li>
             </ul>
           </div>
 
