@@ -100,7 +100,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
         {/* ── Expandable detail panel ── */}
         <div
           style={{
-            maxHeight: open ? "600px" : "0px",
+            maxHeight: open ? "900px" : "0px",
             overflow: "hidden",
             transition: "max-height 0.4s ease",
           }}
