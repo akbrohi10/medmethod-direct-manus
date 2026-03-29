@@ -217,7 +217,7 @@ export default function Testimonials() {
 
         {/* Scrollable card row — 4 visible on desktop, scroll for rest */}
         <div
-          className="flex gap-5 overflow-x-auto pb-4"
+          className="flex gap-5 overflow-x-auto pb-4 px-4 sm:px-0"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
@@ -230,7 +230,7 @@ export default function Testimonials() {
               key={i}
               className="flex-shrink-0 rounded-2xl overflow-hidden flex flex-col bg-white border border-gray-100 shadow-sm"
               style={{
-                width: "clamp(260px, 23vw, 300px)",
+                width: "clamp(280px, 78vw, 300px)",
                 scrollSnapAlign: "start",
               }}
             >

@@ -258,7 +258,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
         {/* ── Cherry Financing Badge ──────────────────────────────────────── */}
         <div className="flex flex-col items-center mt-8 gap-3">
           <div
-            className="inline-flex items-center gap-3 rounded-2xl px-6 py-4 shadow-sm"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 rounded-2xl px-6 py-4 shadow-sm"
             style={{
               background: "#fff",
               border: "1.5px solid rgba(232,51,158,0.18)",
@@ -285,7 +285,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               href="https://www.withcherry.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 rounded-full font-bold text-xs px-4 py-2 transition-all hover:opacity-90"
+              className="flex-shrink-0 sm:flex-shrink rounded-full font-bold text-xs px-4 py-2 transition-all hover:opacity-90 w-full sm:w-auto text-center"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
