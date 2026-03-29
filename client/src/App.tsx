@@ -62,6 +62,16 @@ import LocationChandlerAZ from "@/pages/LocationChandlerAZ";
 import LocationGilbertAZ from "@/pages/LocationGilbertAZ";
 import LocationTempeAZ from "@/pages/LocationTempeAZ";
 import LocationTucsonAZ from "@/pages/LocationTucsonAZ";
+import LocationCulpeperVA from "@/pages/LocationCulpeperVA";
+import LocationWarrentonVA from "@/pages/LocationWarrentonVA";
+import LocationMiddleburgVA from "@/pages/LocationMiddleburgVA";
+import LocationLeesburgVA from "@/pages/LocationLeesburgVA";
+import LocationFredericksburgVA from "@/pages/LocationFredericksburgVA";
+import LocationPinehurstNC from "@/pages/LocationPinehurstNC";
+import LocationSouthernPinesNC from "@/pages/LocationSouthernPinesNC";
+import LocationMooresvilleNC from "@/pages/LocationMooresvilleNC";
+import LocationWaxhawNC from "@/pages/LocationWaxhawNC";
+import LocationApexNC from "@/pages/LocationApexNC";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -82,6 +92,11 @@ function Router() {
         <Route path="/virginia/vienna" component={LocationVienna} />
         <Route path="/virginia/reston" component={LocationReston} />
         <Route path="/virginia/arlington" component={LocationArlington} />
+      <Route path="/virginia/culpeper" component={LocationCulpeperVA} />
+      <Route path="/virginia/warrenton" component={LocationWarrentonVA} />
+      <Route path="/virginia/middleburg" component={LocationMiddleburgVA} />
+      <Route path="/virginia/leesburg" component={LocationLeesburgVA} />
+      <Route path="/virginia/fredericksburg" component={LocationFredericksburgVA} />
       <Route path="/maryland" component={LocationMaryland} />
       <Route path="/maryland/bethesda" component={LocationBethesda} />
       <Route path="/maryland/chevy-chase" component={LocationChevyChase} />
@@ -107,6 +122,11 @@ function Router() {
       <Route path="/north-carolina/chapel-hill" component={LocationChapelHillNC} />
       <Route path="/north-carolina/wilmington" component={LocationWilmingtonNC} />
       <Route path="/north-carolina/asheville" component={LocationAshevilleNC} />
+      <Route path="/north-carolina/pinehurst" component={LocationPinehurstNC} />
+      <Route path="/north-carolina/southern-pines" component={LocationSouthernPinesNC} />
+      <Route path="/north-carolina/mooresville" component={LocationMooresvilleNC} />
+      <Route path="/north-carolina/waxhaw" component={LocationWaxhawNC} />
+      <Route path="/north-carolina/apex" component={LocationApexNC} />
       <Route path="/pennsylvania" component={LocationPennsylvania} />
       <Route path="/pennsylvania/philadelphia" component={LocationPhiladelphiaPA} />
       <Route path="/pennsylvania/pittsburgh" component={LocationPittsburghPA} />
