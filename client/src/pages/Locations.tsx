@@ -71,10 +71,10 @@ const REGIONS = [
           { name: "Friendship Heights", href: "/washington-dc/friendship-heights" },
         ],
         tier2: [
-          { name: "Alexandria", href: "/dc/alexandria" },
-          { name: "Falls Church", href: "/dc/falls-church" },
-          { name: "Tysons", href: "/dc/tysons" },
-          { name: "Herndon", href: "/dc/herndon" },
+          { name: "Alexandria", href: "/virginia/alexandria" },
+          { name: "Falls Church", href: "/virginia/falls-church" },
+          { name: "Tysons", href: "/virginia/tysons" },
+          { name: "Herndon", href: "/virginia/herndon" },
         ],
       },
       {
