@@ -241,6 +241,7 @@ export default function LocationFrederickMD() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
+      <Navbar onConsultClick={() => setConsultOpen(true)} />
       {/* Breadcrumb */}
       <nav className="bg-stone-50 border-b border-stone-200 py-3 px-4 text-sm text-stone-500">
         <div className="max-w-5xl mx-auto flex gap-2">
