@@ -219,156 +219,87 @@ const JSONLD = {
   areaServed: ["Virginia", "Maryland", "Washington DC", "Florida", "North Carolina", "Pennsylvania", "Colorado", "Arizona"],
 };
 
-// ─── SVG US Map (simplified state paths) ─────────────────────────────────────
-// Simplified rectangular approximations for each state positioned on a 960×600 viewBox
+// ─── Interactive US Map (branded image with clickable state hotspots) ─────────
+// Percentage-based hotspot positions mapped to the branded map image
+// Each hotspot is positioned as a % of the image dimensions for responsive scaling
 
-const STATE_POSITIONS: Record<string, { x: number; y: number; w: number; h: number; label: string }> = {
-  WA: { x: 55, y: 40, w: 80, h: 65, label: "WA" },
-  OR: { x: 55, y: 110, w: 80, h: 65, label: "OR" },
-  CA: { x: 45, y: 180, w: 75, h: 130, label: "CA" },
-  NV: { x: 100, y: 175, w: 65, h: 90, label: "NV" },
-  ID: { x: 130, y: 80, w: 65, h: 90, label: "ID" },
-  MT: { x: 175, y: 45, w: 100, h: 70, label: "MT" },
-  WY: { x: 195, y: 120, w: 90, h: 65, label: "WY" },
-  UT: { x: 155, y: 185, w: 65, h: 75, label: "UT" },
-  AZ: { x: 145, y: 265, w: 75, h: 80, label: "AZ" },
-  CO: { x: 220, y: 195, w: 90, h: 65, label: "CO" },
-  NM: { x: 205, y: 265, w: 80, h: 80, label: "NM" },
-  ND: { x: 290, y: 50, w: 90, h: 60, label: "ND" },
-  SD: { x: 290, y: 115, w: 90, h: 60, label: "SD" },
-  NE: { x: 285, y: 180, w: 100, h: 55, label: "NE" },
-  KS: { x: 285, y: 240, w: 100, h: 55, label: "KS" },
-  OK: { x: 280, y: 300, w: 110, h: 55, label: "OK" },
-  TX: { x: 255, y: 355, w: 130, h: 110, label: "TX" },
-  MN: { x: 380, y: 55, w: 90, h: 80, label: "MN" },
-  IA: { x: 385, y: 175, w: 85, h: 55, label: "IA" },
-  MO: { x: 390, y: 235, w: 85, h: 65, label: "MO" },
-  AR: { x: 395, y: 305, w: 80, h: 55, label: "AR" },
-  LA: { x: 395, y: 365, w: 80, h: 55, label: "LA" },
-  WI: { x: 455, y: 90, w: 75, h: 75, label: "WI" },
-  IL: { x: 460, y: 185, w: 60, h: 90, label: "IL" },
-  MS: { x: 455, y: 320, w: 60, h: 65, label: "MS" },
-  MI: { x: 510, y: 90, w: 80, h: 80, label: "MI" },
-  IN: { x: 510, y: 185, w: 60, h: 80, label: "IN" },
-  KY: { x: 520, y: 270, w: 90, h: 50, label: "KY" },
-  TN: { x: 510, y: 325, w: 100, h: 45, label: "TN" },
-  AL: { x: 520, y: 375, w: 60, h: 65, label: "AL" },
-  GA: { x: 565, y: 340, w: 70, h: 80, label: "GA" },
-  FL: { x: 570, y: 420, w: 80, h: 100, label: "FL" },
-  OH: { x: 565, y: 185, w: 75, h: 75, label: "OH" },
-  WV: { x: 590, y: 265, w: 55, h: 55, label: "WV" },
-  VA: { x: 610, y: 235, w: 90, h: 50, label: "VA" },
-  NC: { x: 615, y: 290, w: 95, h: 45, label: "NC" },
-  SC: { x: 630, y: 340, w: 65, h: 50, label: "SC" },
-  PA: { x: 640, y: 175, w: 85, h: 55, label: "PA" },
-  NY: { x: 680, y: 110, w: 90, h: 65, label: "NY" },
-  NJ: { x: 720, y: 180, w: 40, h: 55, label: "NJ" },
-  DE: { x: 730, y: 215, w: 30, h: 35, label: "DE" },
-  MD: { x: 695, y: 210, w: 65, h: 35, label: "MD" },
-  DC: { x: 718, y: 228, w: 18, h: 18, label: "DC" },
-  CT: { x: 755, y: 155, w: 35, h: 30, label: "CT" },
-  RI: { x: 790, y: 155, w: 25, h: 30, label: "RI" },
-  MA: { x: 755, y: 120, w: 75, h: 35, label: "MA" },
-  VT: { x: 745, y: 85, w: 35, h: 40, label: "VT" },
-  NH: { x: 780, y: 80, w: 35, h: 45, label: "NH" },
-  ME: { x: 800, y: 45, w: 55, h: 70, label: "ME" },
-  AK: { x: 60, y: 460, w: 100, h: 80, label: "AK" },
-  HI: { x: 200, y: 490, w: 80, h: 40, label: "HI" },
-};
+const MAP_IMAGE_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/us-map-branded-C4K5fpyZC5ztkMqEUr9P8q.webp";
+
+const STATE_HOTSPOTS: { abbr: string; label: string; top: string; left: string; width: string; height: string }[] = [
+  { abbr: "AZ", label: "Arizona", top: "42%", left: "14%", width: "7%", height: "14%" },
+  { abbr: "CO", label: "Colorado", top: "32%", left: "23%", width: "7%", height: "10%" },
+  { abbr: "FL", label: "Florida", top: "68%", left: "68%", width: "9%", height: "18%" },
+  { abbr: "MD", label: "Maryland", top: "35%", left: "72%", width: "6%", height: "7%" },
+  { abbr: "DC", label: "Washington DC", top: "40%", left: "74%", width: "3%", height: "4%" },
+  { abbr: "NC", label: "North Carolina", top: "48%", left: "66%", width: "10%", height: "8%" },
+  { abbr: "PA", label: "Pennsylvania", top: "26%", left: "68%", width: "9%", height: "9%" },
+  { abbr: "VA", label: "Virginia", top: "38%", left: "64%", width: "10%", height: "10%" },
+];
 
 function USMap({ onStateClick }: { onStateClick: (abbr: string) => void }) {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <svg
-      viewBox="0 0 960 580"
-      className="w-full h-auto"
-      style={{ maxHeight: 420 }}
-      aria-label="Interactive US map showing MedMethod Direct service states"
-    >
-      {/* Background */}
-      <rect width="960" height="580" fill="#0d0d0d" rx="16" />
+    <div className="relative w-full" aria-label="Interactive US map showing MedMethod Direct service states">
+      {/* Branded map image */}
+      <img
+        src={MAP_IMAGE_URL}
+        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, and Arizona highlighted in pink"
+        className="w-full h-auto rounded-2xl"
+        loading="eager"
+        style={{ maxHeight: 420 }}
+      />
 
-      {/* State rectangles */}
-      {Object.entries(STATE_POSITIONS).map(([abbr, pos]) => {
-        const isActive = ACTIVE_STATE_ABBRS.has(abbr);
-        const isHovered = hovered === abbr;
-        const isDC = abbr === "DC";
+      {/* Clickable state hotspots */}
+      {STATE_HOTSPOTS.map((spot) => (
+        <button
+          key={spot.abbr}
+          onClick={() => onStateClick(spot.abbr)}
+          onMouseEnter={() => setHovered(spot.abbr)}
+          onMouseLeave={() => setHovered(null)}
+          className="absolute rounded-lg transition-all duration-200"
+          style={{
+            top: spot.top,
+            left: spot.left,
+            width: spot.width,
+            height: spot.height,
+            background: hovered === spot.abbr ? "rgba(232,51,158,0.3)" : "transparent",
+            border: hovered === spot.abbr ? "2px solid rgba(232,51,158,0.6)" : "2px solid transparent",
+            cursor: "pointer",
+          }}
+          aria-label={`View ${spot.label} cities`}
+          title={spot.label}
+        />
+      ))}
 
-        return (
-          <g
-            key={abbr}
-            onClick={() => isActive && onStateClick(abbr)}
-            onMouseEnter={() => setHovered(abbr)}
-            onMouseLeave={() => setHovered(null)}
-            style={{ cursor: isActive ? "pointer" : "default" }}
-          >
-            <rect
-              x={pos.x}
-              y={pos.y}
-              width={pos.w}
-              height={pos.h}
-              rx={isDC ? 4 : 6}
-              fill={
-                isActive
-                  ? isHovered
-                    ? "#E8339E"
-                    : "rgba(232,51,158,0.35)"
-                  : "rgba(255,255,255,0.06)"
-              }
-              stroke={
-                isActive
-                  ? isHovered
-                    ? "#E8339E"
-                    : "rgba(232,51,158,0.6)"
-                  : "rgba(255,255,255,0.08)"
-              }
-              strokeWidth={isActive ? 1.5 : 0.8}
-              style={{ transition: "fill 0.2s, stroke 0.2s" }}
-            />
-            {/* State label — only show if large enough */}
-            {pos.w >= 35 && pos.h >= 30 && (
-              <text
-                x={pos.x + pos.w / 2}
-                y={pos.y + pos.h / 2 + 4}
-                textAnchor="middle"
-                fontSize={isDC ? 7 : pos.w < 50 ? 8 : 10}
-                fontWeight="700"
-                fontFamily="Montserrat, sans-serif"
-                fill={
-                  isActive
-                    ? isHovered
-                      ? "#fff"
-                      : "rgba(255,255,255,0.9)"
-                    : "rgba(255,255,255,0.2)"
-                }
-                style={{ pointerEvents: "none", transition: "fill 0.2s" }}
-              >
-                {pos.label}
-              </text>
-            )}
-            {/* Active indicator dot */}
-            {isActive && (
-              <circle
-                cx={pos.x + pos.w / 2}
-                cy={pos.y + pos.h - 10}
-                r={3}
-                fill={isHovered ? "#fff" : "#E8339E"}
-                style={{ transition: "fill 0.2s" }}
-              />
-            )}
-          </g>
-        );
-      })}
+      {/* Hover tooltip */}
+      {hovered && (
+        <div
+          className="absolute pointer-events-none z-20 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg"
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+            top: "8px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          {STATE_HOTSPOTS.find((s) => s.abbr === hovered)?.label}
+        </div>
+      )}
 
       {/* Legend */}
-      <g transform="translate(820, 520)">
-        <rect x={0} y={0} width={12} height={12} rx={2} fill="rgba(232,51,158,0.35)" stroke="rgba(232,51,158,0.6)" strokeWidth={1.5} />
-        <text x={16} y={10} fontSize={9} fill="rgba(255,255,255,0.5)" fontFamily="Montserrat, sans-serif">Active</text>
-        <rect x={0} y={18} width={12} height={12} rx={2} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" strokeWidth={0.8} />
-        <text x={16} y={28} fontSize={9} fill="rgba(255,255,255,0.3)" fontFamily="Montserrat, sans-serif">Coming Soon</text>
-      </g>
-    </svg>
+      <div className="absolute bottom-3 right-4 flex items-center gap-4">
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm" style={{ background: "rgba(232,51,158,0.5)", border: "1px solid rgba(232,51,158,0.8)" }} />
+          <span className="text-[9px] font-semibold text-white/50" style={{ fontFamily: "Montserrat, sans-serif" }}>Active</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }} />
+          <span className="text-[9px] font-semibold text-white/30" style={{ fontFamily: "Montserrat, sans-serif" }}>Coming Soon</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
