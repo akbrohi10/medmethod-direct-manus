@@ -371,7 +371,7 @@ export default function LocationLongmontCO() {
 
       {/* Access Gap */}
       <section className="bg-white py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-5xl mx-auto">
           <div>
             <h2 className="text-3xl font-bold text-stone-800 mb-4">Specialist Access in Boulder County's Largest City</h2>
             
@@ -419,17 +419,6 @@ export default function LocationLongmontCO() {
               </Link>
             ))}
           </div></div>
-          <div className="bg-stone-50 rounded-2xl p-8 border border-stone-200">
-            <h3 className="text-xl font-bold text-stone-800 mb-6">What We Treat</h3>
-            <ul className="space-y-3 text-stone-600">
-              {["Hot flashes & night sweats","Hormonal weight gain","Brain fog & fatigue","Sleep disruption","Low libido & vaginal dryness","Perimenopause symptoms","Thyroid dysfunction","Metabolic optimization"].map(s => (
-                <li key={s} className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-[#E8339E] flex-shrink-0" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
