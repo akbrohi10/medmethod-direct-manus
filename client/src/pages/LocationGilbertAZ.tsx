@@ -422,10 +422,10 @@ export default function LocationGilbertAZ() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Arizona Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Arizona Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Arizona Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "At 46 I was in full perimenopause and gaining weight so fast it scared me. I'm a fitness instructor — this is my livelihood. MedMethod's approach of treating hormones and weight together was exactly right. The GLP-1 handled the appetite and the BHRT handled everything else. My wellness advisor helped me adjust my training around my cycle. I'm down 25 lbs and teaching more classes than ever.", name: "Tiffany L.", location: "Gilbert, AZ", rating: 5 },
+              { quote: "I was ready to give up. Two years of hot flashes, 30 lbs gained, terrible sleep, and a libido that completely disappeared. My marriage was suffering. MedMethod addressed every single one of those issues with a coordinated plan — not five different specialists who don't talk to each other. One team, one plan, real results. My only regret is not starting sooner.", name: "Rebecca A.", location: "Arizona Area", rating: 5 },
+              { quote: "I moved to Arizona for the dry heat thinking it would help my joint pain — it didn't, because the real issue was hormonal. MedMethod figured that out in my first consultation. Optimizing my estrogen and testosterone reduced the inflammation more than any supplement ever did. I've also lost 23 lbs and my wellness advisor keeps me moving even when it's 115 degrees outside.", name: "Susan M.", location: "Arizona Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

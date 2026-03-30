@@ -479,10 +479,10 @@ export default function LocationFredericksburgVA() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Virginia Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Virginia Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Virginia Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "Military spouse life means moving every few years and starting over with new doctors who don't know your history. MedMethod follows me wherever we're stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Fredericksburg, VA", rating: 5 },
+              { quote: "I tried tirzepatide through another telehealth company and lost 12 pounds but then completely plateaued. Turns out my estrogen and thyroid were both tanking and nobody was looking at the full picture. MedMethod added bioidentical hormones and optimized my thyroid — broke through the plateau in three weeks. I'm down 34 lbs total and my husband says I look ten years younger.", name: "Lauren M.", location: "Virginia Area", rating: 5 },
+              { quote: "I'm a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my wellness advisor checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Virginia Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

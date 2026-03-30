@@ -182,9 +182,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I've tried every wellness program in this city. MedMethod Direct is different because it's actually medicine. Dr. Al-Deek ordered labs I'd never had before, explained exactly why my hormones were affecting my weight loss, and built a protocol that worked. Down 18 pounds in 10 weeks.", name: "Alexandra K.", location: "Dupont Circle, DC", rating: 5 },
-  { quote: "I'm a consultant and I've been managing my own health for years. What I couldn't figure out was why semaglutide wasn't working for me. Dr. Al-Deek explained the estrogen-insulin resistance connection in 10 minutes and fixed it in 10 days. I'm down 23 pounds and my energy is completely transformed.", name: "Michelle T.", location: "Dupont Circle, DC — Kalorama", rating: 5 },
-  { quote: "The combination of hormone therapy and GLP-1 is what I'd been looking for. Every other program treated them separately. MedMethod Direct treats them as one problem. The results speak for themselves — 21 pounds down and sleeping through the night for the first time in years.", name: "Rebecca L.", location: "Logan Circle, DC", rating: 5 },
+  { quote: "The accountability factor is what sets MedMethod apart. I\'ve done every diet, every app, every challenge. What I never had was someone checking in weekly who actually understood the medical side — not just \'eat less, move more\' but \'your cortisol is elevated, let\'s adjust your protocol.\' My wellness advisor is the reason I stuck with it past the hard part.", name: "Christine A.", location: "Dupont Circle, DC", rating: 5 },
+  { quote: "I travel constantly for work — international flights, different time zones, hotel food. MedMethod works from anywhere. My meds ship to wherever I am, my virtual visits happen between meetings, and my wellness advisor adjusts my plan when I\'m in a tough travel stretch. I\'ve lost 20 lbs while living out of a suitcase. That shouldn\'t be possible but here we are.", name: "Samantha G.", location: "Washington, DC", rating: 5 },
+  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My wellness advisor keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "DC Metro", rating: 5 },
 ];
 
 const stats = [

@@ -188,9 +188,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I live in Clarendon and work in DC — my schedule is relentless. MedMethod Direct was the only option that actually fit my life. Virtual consultation, labs ordered nearby, medication shipped to my door. Down 24 pounds and my perimenopause symptoms are finally under control.", name: "Amanda P.", location: "Arlington, VA — Clarendon", rating: 5 },
-  { quote: "I'd seen three different doctors in Arlington about my weight and hormones and kept getting told my labs were 'within normal range.' Dr. Al-Deek looked at the same numbers differently — and within 90 days I understood what had been going wrong for years.", name: "Stephanie W.", location: "Alexandria, VA", rating: 5 },
-  { quote: "The combination of hormone therapy and tirzepatide together was the key. I'd tried tirzepatide alone for six months with limited results. Adding the hormone protocol broke through the plateau completely. I'm down 31 pounds and feel better than I did at 35.", name: "Nicole B.", location: "Arlington, VA — Rosslyn area", rating: 5 },
+  { quote: "I\'d been to three different OBGYNs about my perimenopause symptoms and kept hearing \'your labs are normal.\' Dr. Al-Deek looked at the same numbers and immediately saw what everyone else missed. Within 60 days my brain fog lifted, the anxiety dropped, and I lost 14 pounds without changing my diet. I just needed someone who actually understood hormones.", name: "Priya S.", location: "Arlington, VA", rating: 5 },
+  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Virginia area", rating: 5 },
+  { quote: "Military spouse life means moving every few years and starting over with new doctors who don\'t know your history. MedMethod follows me wherever we\'re stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Virginia", rating: 5 },
 ];
 
 const stats = [

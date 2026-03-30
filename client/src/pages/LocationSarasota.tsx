@@ -128,9 +128,9 @@ const faqs = [...localFaqs, ...pricingFaqs,
 ];
 
 const testimonials = [
-  { quote: "I live in Sarasota and had been struggling with perimenopause symptoms for two years. My local OB had a 6-week wait. MedMethod Direct saw me within days and I finally have a real plan.", name: "Patient", location: "Sarasota, FL" },
-  { quote: "The combination of GLP-1 and hormone therapy was exactly what I needed. I'd tried semaglutide before but it wasn't working until they addressed my hormonal imbalances at the same time.", name: "Patient", location: "Siesta Key, FL" },
-  { quote: "I was skeptical about telehealth but it's honestly better. No driving across Sarasota, no waiting room — just real, focused time with my doctor. The hormone therapy has been life-changing.", name: "Patient", location: "Bradenton, FL" },
+  { quote: "As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.", name: "Carolina M.", location: "Sarasota, FL" },
+  { quote: "The wellness advisor is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.", name: "Allison D.", location: "Florida area" },
+  { quote: "I moved to Florida for retirement and expected to enjoy it — instead I was dealing with weight gain, zero energy, and joints that ached every morning. My MedMethod physician explained that menopause had tanked my hormones and my metabolism had basically shut down. Six months later I\'ve lost 27 lbs, I\'m back on the pickleball court, and my wellness advisor won\'t let me skip my morning walks.", name: "Barbara J.", location: "Florida" },
 ];
 
 function FAQItem({ q, a }: { q: string; a: string }) {

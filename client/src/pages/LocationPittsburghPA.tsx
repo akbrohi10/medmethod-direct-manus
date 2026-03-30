@@ -406,10 +406,10 @@ export default function LocationPittsburghPA() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Pennsylvania Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Pennsylvania Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Pennsylvania Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I tried Ozempic through my PCP and lost weight but felt terrible — nauseous, fatigued, hair falling out. MedMethod switched me to compounded tirzepatide, added bioidentical hormones, and optimized my nutrition plan. Same weight loss trajectory but I actually feel good. My wellness advisor caught the hair loss issue early and adjusted my supplements before it got worse.", name: "Nicole P.", location: "Pittsburgh, PA", rating: 5 },
+              { quote: "After my divorce at 49 I decided it was time to invest in myself for the first time in 25 years. MedMethod was the best decision I made. The hormone therapy cleared the brain fog I didn't even realize I had, and the GLP-1 helped me lose the 40 lbs I'd been carrying since my second pregnancy. I feel like I'm meeting myself again for the first time.", name: "Lisa M.", location: "Pennsylvania Area", rating: 5 },
+              { quote: "I was skeptical about virtual care — I'm old school, I like seeing my doctor in person. But after waiting 11 weeks for an endocrinologist appointment that lasted 8 minutes, I gave MedMethod a try. My initial consultation was 45 minutes. They actually listened. My wellness advisor follows up weekly. I get more attention virtually than I ever got in person. Down 16 lbs in 10 weeks.", name: "Deborah T.", location: "Pennsylvania Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

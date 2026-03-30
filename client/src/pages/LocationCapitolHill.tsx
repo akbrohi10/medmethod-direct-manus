@@ -180,9 +180,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I work in policy and my schedule is not compatible with traditional medical appointments. MedMethod Direct gave me same-week availability, a 45-minute first visit, and a protocol that actually addressed why I wasn't losing weight on semaglutide. Down 20 pounds in 12 weeks. Finally.", name: "Jennifer P.", location: "Capitol Hill, DC — Eastern Market", rating: 5 },
-  { quote: "I've been a federal employee for 25 years and I know how to navigate healthcare. What I couldn't find was a physician who would spend real time on my case. Dr. Al-Deek reviewed my labs personally and explained the connection between my hormones and my weight in a way no other doctor ever had.", name: "Diane R.", location: "Capitol Hill, DC — Barracks Row", rating: 5 },
-  { quote: "The flexibility is what sold me. I scheduled my consultation during a lunch break, labs were ordered that afternoon, and I was on my protocol within 10 days. No commute, no waiting room. This is what healthcare should look like for working professionals.", name: "Sarah M.", location: "Capitol Hill, DC — Navy Yard", rating: 5 },
+  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My wellness advisor keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "Capitol Hill, DC", rating: 5 },
+  { quote: "I\'ve lived in DC for 15 years and have access to some of the best hospitals in the country — but none of them could get me in for menopause care in under 8 weeks. MedMethod saw me in 4 days. The difference between a practice that specializes in this versus a general gynecologist is night and day. My hot flashes are gone, my sleep is restored, and I\'ve lost 18 lbs.", name: "Danielle J.", location: "Washington, DC", rating: 5 },
+  { quote: "As a Black woman, I felt like my symptoms were being dismissed by every doctor I saw. \'It\'s stress.\' \'Try yoga.\' \'Lose weight.\' Dr. Al-Deek was the first physician who actually ran comprehensive labs and said \'your hormones are a mess — let\'s fix this.\' That validation alone was worth it. The results — 23 lbs lost, no more night sweats, mental clarity back — that\'s the bonus.", name: "Jasmine W.", location: "DC Metro", rating: 5 },
 ];
 
 const stats = [

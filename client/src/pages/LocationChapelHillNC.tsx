@@ -406,10 +406,10 @@ export default function LocationChapelHillNC() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "North Carolina Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "North Carolina Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "North Carolina Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I live in a smaller town where the nearest menopause specialist is over an hour away. MedMethod brought specialist-level care to my living room. My physician actually understands the difference between perimenopause and full menopause — my local OB didn't even test my hormone levels before telling me I was 'too young for menopause' at 44. I'm down 20 lbs and finally sleeping again.", name: "Heather L.", location: "Chapel Hill, NC", rating: 5 },
+              { quote: "I'm a nurse and I see how broken the healthcare system is every day. When I started having menopause symptoms I knew I needed someone who would actually take time with me. My MedMethod consultation was thorough, my labs were comprehensive, and my treatment plan made sense. My wellness advisor checks in weekly and adjusts my plan based on how I'm actually feeling — not just numbers on a chart.", name: "Tammy R.", location: "North Carolina Area", rating: 5 },
+              { quote: "I gained 45 pounds in two years and my confidence was destroyed. I stopped going to the pool, stopped wearing anything sleeveless, stopped wanting to be in photos with my grandkids. MedMethod's combined approach — hormones plus GLP-1 plus nutrition coaching — has taken 32 lbs off in 5 months. I bought a swimsuit last week for the first time in three years.", name: "Donna C.", location: "North Carolina Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

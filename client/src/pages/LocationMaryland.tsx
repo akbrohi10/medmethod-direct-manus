@@ -192,24 +192,9 @@ const comparisonRows = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "I've lived in Bethesda for 15 years and I've seen every specialist in the area. MedMethod Direct is genuinely different — the integration of hormones and weight loss in one program is something I couldn't find anywhere locally. Down 26 pounds, sleeping through the night for the first time in years.",
-    name: "Margaret T.",
-    location: "Bethesda, MD",
-    rating: 5,
-  },
-  {
-    quote: "I was on semaglutide for six months with almost no results. Dr. Al-Deek ran a full hormone panel and found my estrogen was critically low — which was blunting the medication entirely. Three months after adding hormone therapy, I've lost 22 pounds. The connection between hormones and GLP-1 effectiveness is real.",
-    name: "Jennifer M.",
-    location: "Rockville, MD",
-    rating: 5,
-  },
-  {
-    quote: "The convenience is unmatched. I commute to DC and I simply don't have time for traditional doctor's office visits. Free consultation on a Monday, labs ordered that week at the Quest near my house, protocol started within 10 days. My hot flashes are gone and I've lost 18 pounds in 14 weeks.",
-    name: "Catherine L.",
-    location: "Chevy Chase, MD",
-    rating: 5,
-  },
+  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My wellness advisor texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland", rating: 5 },
+  { quote: "At 58 I thought it was too late to feel good again. I\'d accepted the weight gain, the joint pain, the terrible sleep as just \'getting older.\' MedMethod showed me that most of it was hormonal and treatable. Six months in, I\'ve lost 21 lbs, I\'m back to morning walks, and I genuinely look forward to things again. I only wish I\'d started five years ago.", name: "Patricia H.", location: "Maryland area", rating: 5 },
+  { quote: "I work in healthcare myself — I\'m an NP — and I was embarrassed that I couldn\'t figure out my own hormones. Everything I tried on my own wasn\'t working. Dr. Al-Deek\'s protocol was methodical, evidence-based, and actually personalized. The weekly check-ins with my wellness advisor kept me accountable in a way I never managed alone. Down 19 lbs and my patients keep asking what I\'m doing differently.", name: "Tonya R.", location: "Maryland", rating: 5 },
 ];
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────

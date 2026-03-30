@@ -180,9 +180,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I've lived in Chevy Chase DC for 20 years and I've seen every doctor in the area. MedMethod Direct is different because they actually spend time on your case. Dr. Al-Deek reviewed my labs personally and explained the hormone-weight connection in a way no one ever had. Down 19 pounds in 11 weeks.", name: "Catherine B.", location: "Chevy Chase DC", rating: 5 },
-  { quote: "I was skeptical of telehealth but the convenience sold me. I scheduled my consultation during a lunch break, had labs done at the LabCorp on Wisconsin Ave, and was on my protocol within 10 days. The results have been remarkable — 22 pounds down and my hot flashes are completely gone.", name: "Margaret H.", location: "Chevy Chase DC — Friendship Heights", rating: 5 },
-  { quote: "What I appreciate most is that Dr. Al-Deek treats the whole picture. My previous doctor wanted to treat my menopause symptoms and my weight separately. MedMethod Direct understood from day one that they're the same problem. That insight changed everything.", name: "Susan W.", location: "Chevy Chase DC — Tenleytown", rating: 5 },
+  { quote: "I\'ve lived in DC for 15 years and have access to some of the best hospitals in the country — but none of them could get me in for menopause care in under 8 weeks. MedMethod saw me in 4 days. The difference between a practice that specializes in this versus a general gynecologist is night and day. My hot flashes are gone, my sleep is restored, and I\'ve lost 18 lbs.", name: "Danielle J.", location: "Chevy Chase, DC", rating: 5 },
+  { quote: "As a Black woman, I felt like my symptoms were being dismissed by every doctor I saw. \'It\'s stress.\' \'Try yoga.\' \'Lose weight.\' Dr. Al-Deek was the first physician who actually ran comprehensive labs and said \'your hormones are a mess — let\'s fix this.\' That validation alone was worth it. The results — 23 lbs lost, no more night sweats, mental clarity back — that\'s the bonus.", name: "Jasmine W.", location: "Washington, DC", rating: 5 },
+  { quote: "The accountability factor is what sets MedMethod apart. I\'ve done every diet, every app, every challenge. What I never had was someone checking in weekly who actually understood the medical side — not just \'eat less, move more\' but \'your cortisol is elevated, let\'s adjust your protocol.\' My wellness advisor is the reason I stuck with it past the hard part.", name: "Christine A.", location: "DC Metro", rating: 5 },
 ];
 
 const stats = [

@@ -310,24 +310,9 @@ const whyCards = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "I work in Tysons and the last thing I needed was another appointment to drive to. MedMethod Direct was exactly what I was looking for — same-week virtual visit, labs ordered nearby, and I started my protocol within two weeks. My energy and weight are finally moving in the right direction.",
-    name: "Rachel M.",
-    location: "Vienna, VA — Maple Avenue area",
-    rating: 5,
-  },
-  {
-    quote: "I'd been dismissed by two local OB/GYNs who told me my labs were 'normal.' Dr. Al-Deek looked at the same numbers and immediately saw the hormonal pattern. Three months in and I feel like myself again — plus 18 pounds down.",
-    name: "Diane K.",
-    location: "Tysons Corner, VA",
-    rating: 5,
-  },
-  {
-    quote: "The combination of hormone therapy and semaglutide together made all the difference. I'd tried semaglutide alone before and hit a wall. Treating the hormones at the same time broke through it. I wish I'd found this program two years ago.",
-    name: "Susan T.",
-    location: "Vienna, VA — Oakton area",
-    rating: 5,
-  },
+  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Vienna, VA", rating: 5 },
+  { quote: "Military spouse life means moving every few years and starting over with new doctors who don\'t know your history. MedMethod follows me wherever we\'re stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Virginia area", rating: 5 },
+  { quote: "I tried tirzepatide through another telehealth company and lost 12 pounds but then completely plateaued. Turns out my estrogen and thyroid were both tanking and nobody was looking at the full picture. MedMethod added bioidentical hormones and optimized my thyroid — broke through the plateau in three weeks. I\'m down 34 lbs total and my husband says I look ten years younger.", name: "Lauren M.", location: "Virginia", rating: 5 },
 ];
 
 // ─── Stats ────────────────────────────────────────────────────────────────────

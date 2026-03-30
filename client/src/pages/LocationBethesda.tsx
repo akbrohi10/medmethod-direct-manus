@@ -188,9 +188,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I work near NIH and I've seen the best specialists in the country. What MedMethod Direct offers is different — it's the integration. My hormone levels and my weight were being treated as separate problems for years. Dr. Al-Deek treated them as one. I'm down 26 pounds and my energy is completely transformed.", name: "Patricia M.", location: "Bethesda, MD — Edgemoor", rating: 5 },
-  { quote: "I was skeptical of telehealth after a bad experience with another platform. MedMethod Direct is nothing like that. Dr. Al-Deek spent 45 minutes with me on my first visit. She reviewed my labs personally and explained everything. I felt like I finally had a physician who was actually paying attention.", name: "Susan K.", location: "Bethesda, MD — Chevy Chase section", rating: 5 },
-  { quote: "The lab ordering process was seamless. There's a Quest Diagnostics two miles from my house in Bethesda. I went in on a Tuesday morning, results were back by Thursday, and Dr. Al-Deek had my protocol ready by Friday. I was on medication within 10 days of my first call.", name: "Rachel H.", location: "Bethesda, MD — Kenwood", rating: 5 },
+  { quote: "I\'d been on semaglutide for 8 months and the scale just stopped moving at month 5. My MedMethod physician explained that my hormones were working against me — low progesterone, tanked testosterone, insulin resistance nobody had addressed. Adding HRT to my GLP-1 protocol was the missing piece. Another 17 lbs gone and my energy is completely different.", name: "Stephanie K.", location: "Bethesda, MD", rating: 5 },
+  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My wellness advisor texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland area", rating: 5 },
+  { quote: "At 58 I thought it was too late to feel good again. I\'d accepted the weight gain, the joint pain, the terrible sleep as just \'getting older.\' MedMethod showed me that most of it was hormonal and treatable. Six months in, I\'ve lost 21 lbs, I\'m back to morning walks, and I genuinely look forward to things again. I only wish I\'d started five years ago.", name: "Patricia H.", location: "Maryland", rating: 5 },
 ];
 
 const stats = [

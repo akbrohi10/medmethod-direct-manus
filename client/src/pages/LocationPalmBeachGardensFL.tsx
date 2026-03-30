@@ -491,9 +491,9 @@ export default function LocationPalmBeachGardensFL() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { stars: 5, quote: "I finally found a doctor who listens. My energy is back, my sleep is better, and I\'ve lost 18 lbs in 3 months. I wish I\'d started sooner.", name: "Sarah M.", loc: "Palm Beach Gardens, Florida" },
-              { stars: 5, quote: "The convenience of virtual visits is a game-changer. No more sitting in waiting rooms. My hormone levels are balanced for the first time in years.", name: "Jennifer L.", loc: "Palm Beach Gardens Area" },
-              { stars: 5, quote: "MedMethod Direct gave me my life back. The weight loss program combined with hormone therapy has been transformative. I feel like myself again.", name: "Michelle R.", loc: "Florida" },
+              { stars: 5, quote: 'I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.', name: "Maria V.", loc: "Palm Beach Gardens, FL" },
+              { stars: 5, quote: 'I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my wellness advisor keeps me accountable even when I want to cheat on vacation.', name: "Jennifer S.", loc: "Florida Area" },
+              { stars: 5, quote: 'As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.', name: "Carolina M.", loc: "Florida" },
             ].map((t, i) => (
               <div key={i} className="bg-[#F8F4F9] rounded-2xl p-8">
                 <div className="flex gap-1 mb-4">
@@ -509,71 +509,6 @@ export default function LocationPalmBeachGardensFL() {
                   <p className="text-gray-400 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.loc}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── FAQ (Categorized Tabs) ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[900px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Questions & Answers
-            </p>
-            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Palm Beach Gardens Patients</span>
-            </h2>
-          </div>
-          {/* Tab buttons */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {faqCategories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveFaqTab(cat.id)}
-                className="px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border cursor-pointer"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  background: activeFaqTab === cat.id ? "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" : "#fff",
-                  color: activeFaqTab === cat.id ? "#fff" : "#555",
-                  borderColor: activeFaqTab === cat.id ? "transparent" : "#e5e5e5",
-                  boxShadow: activeFaqTab === cat.id ? "0 4px 14px rgba(232,51,158,0.25)" : "none",
-                }}
-              >
-                <span className="mr-1.5">{cat.icon}</span>
-                {cat.label}
-              </button>
-            ))}
-          </div>
-          {/* Active tab content */}
-          <div className="min-h-[200px]">
-            <div className="mb-4">
-              <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-                {activeFaqCategory.label}
-              </p>
-              <p className="text-sm mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "#888" }}>
-                {activeFaqCategory.questions.length} questions
-              </p>
-            </div>
-            {activeFaqCategory.questions.map((faq) => (
-              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── NEARBY CITIES ── */}
-      <section className="bg-[#0D0D1A] py-16">
-        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-          <p className="text-white/40 text-xs font-bold tracking-[0.25em] uppercase mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>ALSO SERVING NEARBY</p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              { name: "Jupiter", href: "/florida/jupiter" },
-              { name: "Boca Raton", href: "/florida/boca-raton" },
-              { name: "Vero Beach", href: "/florida/vero-beach" },
-              { name: "All Florida Cities", href: "/florida" }
-            ].map(({ name, href }) => (
-              <Link key={name} href={href}>
-                <span className="border border-white/10 text-white/60 hover:text-white hover:border-[#E8339E]/40 text-sm px-4 py-2 rounded-full transition-all cursor-pointer" style={{ fontFamily: "Montserrat, sans-serif" }}>{name}</span>
-              </Link>
             ))}
           </div>
         </div>

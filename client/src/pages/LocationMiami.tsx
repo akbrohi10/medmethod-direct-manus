@@ -151,9 +151,9 @@ const faqs = [...localFaqs, ...pricingFaqs,
 ];
 
 const testimonials = [
-  { quote: "I live in Brickell and had been searching for a menopause specialist for months. Every local practice had a 2-month wait. MedMethod Direct saw me within days and I finally have answers.", name: "Patient", location: "Miami, FL" },
-  { quote: "The combination of GLP-1 and hormone therapy was the missing piece. I'd tried semaglutide through another service but it wasn't working. Once they balanced my hormones, everything changed.", name: "Patient", location: "Coral Gables, FL" },
-  { quote: "I was skeptical about telehealth but it's honestly better than in-person. No traffic on I-95, no parking — just real, focused time with my doctor from my condo.", name: "Patient", location: "Miami Beach, FL" },
+  { quote: "The wellness advisor is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.", name: "Allison D.", location: "Miami, FL" },
+  { quote: "I moved to Florida for retirement and expected to enjoy it — instead I was dealing with weight gain, zero energy, and joints that ached every morning. My MedMethod physician explained that menopause had tanked my hormones and my metabolism had basically shut down. Six months later I\'ve lost 27 lbs, I\'m back on the pickleball court, and my wellness advisor won\'t let me skip my morning walks.", name: "Barbara J.", location: "Florida area" },
+  { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida" },
 ];
 
 function FAQItem({ q, a }: { q: string; a: string }) {

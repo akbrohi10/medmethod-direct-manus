@@ -128,9 +128,9 @@ const faqs = [...localFaqs, ...pricingFaqs,
 ];
 
 const testimonials = [
-  { quote: "I live in South Tampa and had been searching for a menopause specialist for over a year. Every local practice had a 2-month wait. MedMethod Direct saw me within days and I finally feel like myself again.", name: "Patient", location: "Tampa, FL" },
-  { quote: "The GLP-1 program combined with hormone therapy was the missing piece. I'd tried semaglutide through another service but it wasn't working. Once they balanced my hormones, the weight finally started moving.", name: "Patient", location: "St. Petersburg, FL" },
-  { quote: "I was nervous about telehealth but honestly it's better than in-person. No traffic on I-275, no waiting room — just real, focused time with my doctor. The hormone therapy has been incredible.", name: "Patient", location: "Wesley Chapel, FL" },
+  { quote: "The wellness advisor is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.", name: "Allison D.", location: "Tampa, FL" },
+  { quote: "I moved to Florida for retirement and expected to enjoy it — instead I was dealing with weight gain, zero energy, and joints that ached every morning. My MedMethod physician explained that menopause had tanked my hormones and my metabolism had basically shut down. Six months later I\'ve lost 27 lbs, I\'m back on the pickleball court, and my wellness advisor won\'t let me skip my morning walks.", name: "Barbara J.", location: "Florida area" },
+  { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida" },
 ];
 
 function FAQItem({ q, a }: { q: string; a: string }) {

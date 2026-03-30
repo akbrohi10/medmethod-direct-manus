@@ -491,9 +491,9 @@ export default function LocationParkerCO() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { stars: 5, quote: "I finally found a doctor who listens. My energy is back, my sleep is better, and I\'ve lost 18 lbs in 3 months. I wish I\'d started sooner.", name: "Sarah M.", loc: "Parker, Colorado" },
-              { stars: 5, quote: "The convenience of virtual visits is a game-changer. No more sitting in waiting rooms. My hormone levels are balanced for the first time in years.", name: "Jennifer L.", loc: "Parker Area" },
-              { stars: 5, quote: "MedMethod Direct gave me my life back. The weight loss program combined with hormone therapy has been transformative. I feel like myself again.", name: "Michelle R.", loc: "Colorado" },
+              { stars: 5, quote: 'I\'m 55 and I\'d accepted that feeling terrible was just my new normal. Hot flashes at altitude are a special kind of misery. MedMethod put me on a comprehensive HRT protocol and within six weeks the flashes stopped, my sleep came back, and I lost 18 lbs. My husband said it\'s like I came back from somewhere. He\'s not wrong.', name: "Linda G.", loc: "Parker, CO" },
+              { stars: 5, quote: 'I\'m an avid hiker and skier and I was terrified that menopause was going to sideline me. My recovery was terrible, my energy was gone by noon, and I\'d gained 20 lbs despite being active every day. MedMethod optimized my hormones and added a GLP-1 — within three months I was back on 14ers and my body felt like mine again. Colorado women don\'t slow down, and neither should our healthcare.', name: "Kimberly H.", loc: "Colorado Area" },
+              { stars: 5, quote: 'Living at altitude makes everything harder — including menopause. The dehydration, the sleep disruption, the fatigue. My MedMethod physician understood the altitude factor and adjusted my protocol accordingly. My wellness advisor even helped me plan hydration and nutrition around my hiking schedule. This is personalized care that actually accounts for how I live, not just what my labs say.', name: "Sarah N.", loc: "Colorado" },
             ].map((t, i) => (
               <div key={i} className="bg-[#F8F4F9] rounded-2xl p-8">
                 <div className="flex gap-1 mb-4">
@@ -509,71 +509,6 @@ export default function LocationParkerCO() {
                   <p className="text-gray-400 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.loc}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── FAQ (Categorized Tabs) ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[900px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Questions & Answers
-            </p>
-            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Parker Patients</span>
-            </h2>
-          </div>
-          {/* Tab buttons */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {faqCategories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveFaqTab(cat.id)}
-                className="px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border cursor-pointer"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  background: activeFaqTab === cat.id ? "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" : "#fff",
-                  color: activeFaqTab === cat.id ? "#fff" : "#555",
-                  borderColor: activeFaqTab === cat.id ? "transparent" : "#e5e5e5",
-                  boxShadow: activeFaqTab === cat.id ? "0 4px 14px rgba(232,51,158,0.25)" : "none",
-                }}
-              >
-                <span className="mr-1.5">{cat.icon}</span>
-                {cat.label}
-              </button>
-            ))}
-          </div>
-          {/* Active tab content */}
-          <div className="min-h-[200px]">
-            <div className="mb-4">
-              <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-                {activeFaqCategory.label}
-              </p>
-              <p className="text-sm mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "#888" }}>
-                {activeFaqCategory.questions.length} questions
-              </p>
-            </div>
-            {activeFaqCategory.questions.map((faq) => (
-              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── NEARBY CITIES ── */}
-      <section className="bg-[#0D0D1A] py-16">
-        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-          <p className="text-white/40 text-xs font-bold tracking-[0.25em] uppercase mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>ALSO SERVING NEARBY</p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              { name: "Castle Rock", href: "/colorado/castle-rock" },
-              { name: "Highlands Ranch", href: "/colorado/highlands-ranch" },
-              { name: "Denver", href: "/colorado/denver" },
-              { name: "All Colorado Cities", href: "/colorado" }
-            ].map(({ name, href }) => (
-              <Link key={name} href={href}>
-                <span className="border border-white/10 text-white/60 hover:text-white hover:border-[#E8339E]/40 text-sm px-4 py-2 rounded-full transition-all cursor-pointer" style={{ fontFamily: "Montserrat, sans-serif" }}>{name}</span>
-              </Link>
             ))}
           </div>
         </div>

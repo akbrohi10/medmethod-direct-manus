@@ -491,9 +491,9 @@ export default function LocationFountainHillsAZ() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { stars: 5, quote: "I finally found a doctor who listens. My energy is back, my sleep is better, and I\'ve lost 18 lbs in 3 months. I wish I\'d started sooner.", name: "Sarah M.", loc: "Fountain Hills, Arizona" },
-              { stars: 5, quote: "The convenience of virtual visits is a game-changer. No more sitting in waiting rooms. My hormone levels are balanced for the first time in years.", name: "Jennifer L.", loc: "Fountain Hills Area" },
-              { stars: 5, quote: "MedMethod Direct gave me my life back. The weight loss program combined with hormone therapy has been transformative. I feel like myself again.", name: "Michelle R.", loc: "Arizona" },
+              { stars: 5, quote: 'I\'m a snowbird — winters in Scottsdale, summers up north. Most doctors can\'t handle that. MedMethod doesn\'t care where I am. Virtual visits from either state, meds shipped to whichever address I\'m at, and my wellness advisor texts me the same time every week regardless. The consistency is what makes the results stick. Down 19 lbs across two states.', name: "Diane K.", loc: "Fountain Hills, AZ" },
+              { stars: 5, quote: 'I was on HRT from another provider but nobody was monitoring me properly — no follow-up labs, no dose adjustments, just a prescription and a \'see you in six months.\' MedMethod checks my levels every 90 days, adjusts in real time, and my wellness advisor tracks my symptoms weekly. This is how hormone therapy should be managed. I feel safer and I feel better.', name: "Margaret P.", loc: "Arizona Area" },
+              { stars: 5, quote: 'At 46 I was in full perimenopause and gaining weight so fast it scared me. I\'m a fitness instructor — this is my livelihood. MedMethod\'s approach of treating hormones and weight together was exactly right. The GLP-1 handled the appetite and the BHRT handled everything else. My wellness advisor helped me adjust my training around my cycle. I\'m down 25 lbs and teaching more classes than ever.', name: "Tiffany L.", loc: "Arizona" },
             ].map((t, i) => (
               <div key={i} className="bg-[#F8F4F9] rounded-2xl p-8">
                 <div className="flex gap-1 mb-4">
@@ -509,71 +509,6 @@ export default function LocationFountainHillsAZ() {
                   <p className="text-gray-400 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.loc}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── FAQ (Categorized Tabs) ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[900px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Questions & Answers
-            </p>
-            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Fountain Hills Patients</span>
-            </h2>
-          </div>
-          {/* Tab buttons */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {faqCategories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveFaqTab(cat.id)}
-                className="px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border cursor-pointer"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  background: activeFaqTab === cat.id ? "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" : "#fff",
-                  color: activeFaqTab === cat.id ? "#fff" : "#555",
-                  borderColor: activeFaqTab === cat.id ? "transparent" : "#e5e5e5",
-                  boxShadow: activeFaqTab === cat.id ? "0 4px 14px rgba(232,51,158,0.25)" : "none",
-                }}
-              >
-                <span className="mr-1.5">{cat.icon}</span>
-                {cat.label}
-              </button>
-            ))}
-          </div>
-          {/* Active tab content */}
-          <div className="min-h-[200px]">
-            <div className="mb-4">
-              <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-                {activeFaqCategory.label}
-              </p>
-              <p className="text-sm mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "#888" }}>
-                {activeFaqCategory.questions.length} questions
-              </p>
-            </div>
-            {activeFaqCategory.questions.map((faq) => (
-              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── NEARBY CITIES ── */}
-      <section className="bg-[#0D0D1A] py-16">
-        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-          <p className="text-white/40 text-xs font-bold tracking-[0.25em] uppercase mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>ALSO SERVING NEARBY</p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              { name: "Scottsdale", href: "/arizona/scottsdale" },
-              { name: "Gilbert", href: "/arizona/gilbert" },
-              { name: "Chandler", href: "/arizona/chandler" },
-              { name: "All Arizona Cities", href: "/arizona" }
-            ].map(({ name, href }) => (
-              <Link key={name} href={href}>
-                <span className="border border-white/10 text-white/60 hover:text-white hover:border-[#E8339E]/40 text-sm px-4 py-2 rounded-full transition-all cursor-pointer" style={{ fontFamily: "Montserrat, sans-serif" }}>{name}</span>
-              </Link>
             ))}
           </div>
         </div>

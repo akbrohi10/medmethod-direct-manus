@@ -485,10 +485,10 @@ export default function LocationWarrentonVA() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Virginia Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Virginia Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Virginia Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I'd been to three different OBGYNs about my perimenopause symptoms and kept hearing 'your labs are normal.' Dr. Al-Deek looked at the same numbers and immediately saw what everyone else missed. Within 60 days my brain fog lifted, the anxiety dropped, and I lost 14 pounds without changing my diet. I just needed someone who actually understood hormones.", name: "Priya S.", location: "Warrenton, VA", rating: 5 },
+              { quote: "After my youngest left for college I realized I'd spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Virginia Area", rating: 5 },
+              { quote: "Military spouse life means moving every few years and starting over with new doctors who don't know your history. MedMethod follows me wherever we're stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Virginia Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

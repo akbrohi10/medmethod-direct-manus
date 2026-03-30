@@ -184,24 +184,9 @@ const comparisonRows = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "I'm a federal attorney and I simply don't have time for traditional doctor's office visits. Free consultation on a Tuesday, labs ordered that week at the Quest near Dupont, protocol started within 10 days. My hot flashes are completely gone and I've lost 24 pounds in 16 weeks. This is what healthcare should look like.",
-    name: "Patricia H.",
-    location: "Georgetown, DC",
-    rating: 5,
-  },
-  {
-    quote: "I've worked in health policy for 20 years and I know exactly what good medicine looks like. MedMethod Direct is the real thing — comprehensive labs, a physician who actually reads them, and a program that treats hormones and weight loss as the same problem. Down 19 pounds and sleeping through the night for the first time in three years.",
-    name: "Diane W.",
-    location: "Capitol Hill, DC",
-    rating: 5,
-  },
-  {
-    quote: "I was skeptical of telehealth. I'm not anymore. Dr. Al-Deek spent 45 minutes on my first visit reviewing labs that no other doctor had ever ordered. The connection between my estrogen levels and why semaglutide wasn't working was explained clearly and treated directly. I'm down 21 pounds in 14 weeks.",
-    name: "Susan K.",
-    location: "Dupont Circle, DC",
-    rating: 5,
-  },
+  { quote: "As a Black woman, I felt like my symptoms were being dismissed by every doctor I saw. \'It\'s stress.\' \'Try yoga.\' \'Lose weight.\' Dr. Al-Deek was the first physician who actually ran comprehensive labs and said \'your hormones are a mess — let\'s fix this.\' That validation alone was worth it. The results — 23 lbs lost, no more night sweats, mental clarity back — that\'s the bonus.", name: "Jasmine W.", location: "Washington, DC", rating: 5 },
+  { quote: "The accountability factor is what sets MedMethod apart. I\'ve done every diet, every app, every challenge. What I never had was someone checking in weekly who actually understood the medical side — not just \'eat less, move more\' but \'your cortisol is elevated, let\'s adjust your protocol.\' My wellness advisor is the reason I stuck with it past the hard part.", name: "Christine A.", location: "Washington, DC", rating: 5 },
+  { quote: "I travel constantly for work — international flights, different time zones, hotel food. MedMethod works from anywhere. My meds ship to wherever I am, my virtual visits happen between meetings, and my wellness advisor adjusts my plan when I\'m in a tough travel stretch. I\'ve lost 20 lbs while living out of a suitcase. That shouldn\'t be possible but here we are.", name: "Samantha G.", location: "DC Metro", rating: 5 },
 ];
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────

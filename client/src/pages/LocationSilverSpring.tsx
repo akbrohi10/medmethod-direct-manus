@@ -173,9 +173,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I live in Silver Spring and I'd been struggling with perimenopause symptoms for two years. My OB-GYN kept telling me I was 'too young' for hormone therapy. Dr. Al-Deek ran a full panel, found my estrogen and progesterone were both low, and had me on a protocol within two weeks. I feel like myself again.", name: "Alicia T.", location: "Silver Spring, MD — Downtown", rating: 5 },
-  { quote: "The convenience factor is real. I commute to DC and I simply don't have time for traditional doctor's office visits. Free consultation on a Tuesday, labs ordered that week, protocol started within 10 days. My hot flashes are gone and I've lost 14 pounds in 12 weeks.", name: "Patricia L.", location: "Silver Spring, MD — Woodside", rating: 5 },
-  { quote: "I was skeptical of telehealth. But Dr. Al-Deek spent 45 minutes with me on my first visit — more than any in-person specialist has in years. She reviewed every lab value and explained the connection between my hormones and my weight. I finally feel like I have a physician who's paying attention.", name: "Renee M.", location: "Silver Spring, MD — Wheaton area", rating: 5 },
+  { quote: "Finding a menopause specialist in Maryland who doesn\'t have a 3-month waitlist felt impossible. MedMethod had me in a consultation within days. I\'m 47, deep in perimenopause, and the mood swings were destroying my marriage. Two months on BHRT and I feel like the person my family actually deserves. The virtual format means I never miss my kids\' games for an appointment.", name: "Angela C.", location: "Silver Spring, MD", rating: 5 },
+  { quote: "I\'d been on semaglutide for 8 months and the scale just stopped moving at month 5. My MedMethod physician explained that my hormones were working against me — low progesterone, tanked testosterone, insulin resistance nobody had addressed. Adding HRT to my GLP-1 protocol was the missing piece. Another 17 lbs gone and my energy is completely different.", name: "Stephanie K.", location: "Maryland area", rating: 5 },
+  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My wellness advisor texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland", rating: 5 },
 ];
 
 const stats = [

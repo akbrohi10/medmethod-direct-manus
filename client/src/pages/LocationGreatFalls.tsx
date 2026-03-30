@@ -240,21 +240,9 @@ const faqs = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "There are almost no specialist options in Great Falls itself — I was driving to Reston and waiting six weeks for every appointment. MedMethod Direct was a revelation. Same-week availability, a doctor who actually listened, and I finally have a hormone protocol that works.",
-    name: "Patient",
-    location: "Great Falls, VA",
-  },
-  {
-    quote: "I had been struggling with perimenopause weight gain for two years and nothing was working. The combination of hormone therapy and GLP-1 together was the missing piece. Down 19 lbs and my energy is completely different.",
-    name: "Patient",
-    location: "Great Falls, VA — Walker Road area",
-  },
-  {
-    quote: "The convenience is unreal. I'm a busy professional and the last thing I need is a 45-minute drive to McLean or Tysons for a 12-minute appointment. Virtual care with a physician who actually knows my case has been transformative.",
-    name: "Patient",
-    location: "McLean, VA",
-  },
+  { quote: "I\'m a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my wellness advisor checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Great Falls, VA" },
+  { quote: "I\'d been to three different OBGYNs about my perimenopause symptoms and kept hearing \'your labs are normal.\' Dr. Al-Deek looked at the same numbers and immediately saw what everyone else missed. Within 60 days my brain fog lifted, the anxiety dropped, and I lost 14 pounds without changing my diet. I just needed someone who actually understood hormones.", name: "Priya S.", location: "Virginia area" },
+  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Virginia" },
 ];
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────

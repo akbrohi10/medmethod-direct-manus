@@ -170,21 +170,9 @@ const faqs = [...localFaqs, ...pricingFaqs];
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "I live in Boca Raton and had been searching for a menopause specialist for over a year. Every local practice had a 2-month wait. MedMethod Direct saw me within days and I finally feel like myself again.",
-    name: "Patient",
-    location: "Boca Raton, FL",
-  },
-  {
-    quote: "The GLP-1 program combined with hormone therapy was the missing piece for me. I'd tried semaglutide through another service but it wasn't working. Once they balanced my hormones, the weight finally started moving.",
-    name: "Patient",
-    location: "Naples, FL",
-  },
-  {
-    quote: "I was nervous about telehealth but honestly it's better than in-person. I'm in Miami and I can do my appointments from my condo. No traffic, no waiting room — just real, focused time with my doctor.",
-    name: "Patient",
-    location: "Miami, FL",
-  },
+  { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida" },
+  { quote: "I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my wellness advisor keeps me accountable even when I want to cheat on vacation.", name: "Jennifer S.", location: "Florida area" },
+  { quote: "As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.", name: "Carolina M.", location: "Florida" },
 ];
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────

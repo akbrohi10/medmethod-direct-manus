@@ -182,9 +182,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I live in Tenleytown and I've been seeing doctors in this neighborhood for 15 years. MedMethod Direct is the first practice that actually connected the dots between my hormones and my weight. I'm down 17 pounds in 9 weeks and my energy is completely different.", name: "Patricia N.", location: "Tenleytown, DC", rating: 5 },
-  { quote: "The convenience is unmatched. I scheduled my consultation between meetings, had labs done at the Quest on Wisconsin Ave, and was on my protocol within 10 days. Dr. Al-Deek is thorough, responsive, and genuinely invested in your outcomes.", name: "Linda M.", location: "Friendship Heights, DC", rating: 5 },
-  { quote: "I was in perimenopause and gaining weight despite eating well and exercising. MedMethod Direct explained the estrogen-insulin resistance connection that was blocking my results. Six months later I'm down 24 pounds and feel like myself again.", name: "Karen S.", location: "American University Park, DC", rating: 5 },
+  { quote: "I travel constantly for work — international flights, different time zones, hotel food. MedMethod works from anywhere. My meds ship to wherever I am, my virtual visits happen between meetings, and my wellness advisor adjusts my plan when I\'m in a tough travel stretch. I\'ve lost 20 lbs while living out of a suitcase. That shouldn\'t be possible but here we are.", name: "Samantha G.", location: "Friendship Heights, DC", rating: 5 },
+  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My wellness advisor keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "Washington, DC", rating: 5 },
+  { quote: "I\'ve lived in DC for 15 years and have access to some of the best hospitals in the country — but none of them could get me in for menopause care in under 8 weeks. MedMethod saw me in 4 days. The difference between a practice that specializes in this versus a general gynecologist is night and day. My hot flashes are gone, my sleep is restored, and I\'ve lost 18 lbs.", name: "Danielle J.", location: "DC Metro", rating: 5 },
 ];
 
 const stats = [

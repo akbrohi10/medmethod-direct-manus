@@ -184,9 +184,9 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I've lived in Chevy Chase for 20 years and I've seen every specialist in the area. MedMethod Direct is different — the integration of hormones and weight loss in one program is something I couldn't find anywhere locally. Down 24 pounds, sleeping through the night for the first time in years.", name: "Margaret T.", location: "Chevy Chase, MD — Section 5", rating: 5 },
-  { quote: "The convenience is unmatched. I work from home and I simply don't have time for traditional doctor's office visits. Free consultation on a Monday, labs ordered that week, protocol started within 10 days. My hot flashes are gone and I've lost 18 pounds.", name: "Catherine L.", location: "Chevy Chase, MD — Village", rating: 5 },
-  { quote: "Dr. Al-Deek spent more time with me in our first virtual visit than any in-person specialist has in years. She reviewed every lab value, explained the connections between my hormones and my weight, and built a protocol that actually made sense. I finally feel like someone is paying attention.", name: "Elizabeth R.", location: "Chevy Chase, MD", rating: 5 },
+  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My wellness advisor texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Chevy Chase, MD", rating: 5 },
+  { quote: "At 58 I thought it was too late to feel good again. I\'d accepted the weight gain, the joint pain, the terrible sleep as just \'getting older.\' MedMethod showed me that most of it was hormonal and treatable. Six months in, I\'ve lost 21 lbs, I\'m back to morning walks, and I genuinely look forward to things again. I only wish I\'d started five years ago.", name: "Patricia H.", location: "Maryland area", rating: 5 },
+  { quote: "I work in healthcare myself — I\'m an NP — and I was embarrassed that I couldn\'t figure out my own hormones. Everything I tried on my own wasn\'t working. Dr. Al-Deek\'s protocol was methodical, evidence-based, and actually personalized. The weekly check-ins with my wellness advisor kept me accountable in a way I never managed alone. Down 19 lbs and my patients keep asking what I\'m doing differently.", name: "Tonya R.", location: "Maryland", rating: 5 },
 ];
 
 const stats = [

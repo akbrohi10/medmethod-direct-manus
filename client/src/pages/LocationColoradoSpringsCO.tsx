@@ -406,10 +406,10 @@ export default function LocationColoradoSpringsCO() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Colorado Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Colorado Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Colorado Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I'd tried three different telehealth weight loss companies and none of them worked long-term. The difference with MedMethod is they don't just hand you a prescription — they build a system around you. My wellness advisor holds me accountable every single week. She knows when I'm traveling, when I'm stressed, when I need a pep talk. That human element is everything.", name: "Jessica T.", location: "Colorado Springs, CO", rating: 5 },
+              { quote: "I'm 55 and I'd accepted that feeling terrible was just my new normal. Hot flashes at altitude are a special kind of misery. MedMethod put me on a comprehensive HRT protocol and within six weeks the flashes stopped, my sleep came back, and I lost 18 lbs. My husband said it's like I came back from somewhere. He's not wrong.", name: "Linda G.", location: "Colorado Area", rating: 5 },
+              { quote: "I'm an avid hiker and skier and I was terrified that menopause was going to sideline me. My recovery was terrible, my energy was gone by noon, and I'd gained 20 lbs despite being active every day. MedMethod optimized my hormones and added a GLP-1 — within three months I was back on 14ers and my body felt like mine again. Colorado women don't slow down, and neither should our healthcare.", name: "Kimberly H.", location: "Colorado Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

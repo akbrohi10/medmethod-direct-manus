@@ -127,9 +127,9 @@ const faqs = [...localFaqs, ...pricingFaqs,
 ];
 
 const testimonials = [
-  { quote: "I had been to three different doctors in Boca and none of them took my symptoms seriously. My first call with MedMethod Direct was the first time I felt genuinely heard. Within 60 days I had more energy than I'd had in years.", name: "Patient", location: "Boca Raton, FL" },
-  { quote: "The GLP-1 program combined with hormone therapy was the missing piece. I'd tried everything locally and nothing worked. This was different — they actually looked at my hormones alongside the weight loss piece.", name: "Patient", location: "Delray Beach, FL" },
-  { quote: "The convenience is unreal — no traffic on I-95, no waiting room, and I actually get to talk to my doctor for more than 10 minutes. The hormone therapy has been life-changing.", name: "Patient", location: "Palm Beach, FL" },
+  { quote: "I moved to Florida for retirement and expected to enjoy it — instead I was dealing with weight gain, zero energy, and joints that ached every morning. My MedMethod physician explained that menopause had tanked my hormones and my metabolism had basically shut down. Six months later I\'ve lost 27 lbs, I\'m back on the pickleball court, and my wellness advisor won\'t let me skip my morning walks.", name: "Barbara J.", location: "Boca Raton, FL" },
+  { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida area" },
+  { quote: "I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my wellness advisor keeps me accountable even when I want to cheat on vacation.", name: "Jennifer S.", location: "Florida" },
 ];
 
 function FAQItem({ q, a }: { q: string; a: string }) {

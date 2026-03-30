@@ -406,10 +406,10 @@ export default function LocationDenverCO() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Colorado Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Colorado Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Colorado Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I'm 55 and I'd accepted that feeling terrible was just my new normal. Hot flashes at altitude are a special kind of misery. MedMethod put me on a comprehensive HRT protocol and within six weeks the flashes stopped, my sleep came back, and I lost 18 lbs. My husband said it's like I came back from somewhere. He's not wrong.", name: "Linda G.", location: "Denver, CO", rating: 5 },
+              { quote: "I'm an avid hiker and skier and I was terrified that menopause was going to sideline me. My recovery was terrible, my energy was gone by noon, and I'd gained 20 lbs despite being active every day. MedMethod optimized my hormones and added a GLP-1 — within three months I was back on 14ers and my body felt like mine again. Colorado women don't slow down, and neither should our healthcare.", name: "Kimberly H.", location: "Colorado Area", rating: 5 },
+              { quote: "Living at altitude makes everything harder — including menopause. The dehydration, the sleep disruption, the fatigue. My MedMethod physician understood the altitude factor and adjusted my protocol accordingly. My wellness advisor even helped me plan hydration and nutrition around my hiking schedule. This is personalized care that actually accounts for how I live, not just what my labs say.", name: "Sarah N.", location: "Colorado Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (

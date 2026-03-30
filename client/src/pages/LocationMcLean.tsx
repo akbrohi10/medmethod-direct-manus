@@ -237,21 +237,9 @@ const faqs = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  {
-    quote: "I had been to three different doctors in McLean and Tysons and none of them took my symptoms seriously. My first call with MedMethod Direct was the first time I felt genuinely heard. Within 60 days I had more energy than I'd had in years.",
-    name: "Patient",
-    location: "McLean, VA",
-  },
-  {
-    quote: "I was skeptical about virtual care at first. But the convenience is unreal — no traffic on the Beltway, no waiting room, and I actually get to talk to my doctor for more than 10 minutes. The hormone therapy has been life-changing.",
-    name: "Patient",
-    location: "Great Falls, VA",
-  },
-  {
-    quote: "The GLP-1 program changed everything for me. I'd tried everything locally and nothing worked. This was different — they actually looked at my hormones alongside the weight loss piece. Down 22 lbs and I feel like myself again.",
-    name: "Patient",
-    location: "Reston, VA",
-  },
+  { quote: "Military spouse life means moving every few years and starting over with new doctors who don\'t know your history. MedMethod follows me wherever we\'re stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "McLean, VA" },
+  { quote: "I tried tirzepatide through another telehealth company and lost 12 pounds but then completely plateaued. Turns out my estrogen and thyroid were both tanking and nobody was looking at the full picture. MedMethod added bioidentical hormones and optimized my thyroid — broke through the plateau in three weeks. I\'m down 34 lbs total and my husband says I look ten years younger.", name: "Lauren M.", location: "Virginia area" },
+  { quote: "I\'m a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my wellness advisor checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Virginia" },
 ];
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────

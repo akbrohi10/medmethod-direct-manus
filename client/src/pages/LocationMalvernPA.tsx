@@ -406,10 +406,10 @@ export default function LocationMalvernPA() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Pennsylvania Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Pennsylvania Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Pennsylvania Patient", rating: 5 },
-            ].map((t) => (
+              { quote: "I was skeptical about virtual care — I'm old school, I like seeing my doctor in person. But after waiting 11 weeks for an endocrinologist appointment that lasted 8 minutes, I gave MedMethod a try. My initial consultation was 45 minutes. They actually listened. My wellness advisor follows up weekly. I get more attention virtually than I ever got in person. Down 16 lbs in 10 weeks.", name: "Deborah T.", location: "Malvern, PA", rating: 5 },
+              { quote: "I'm a CrossFit athlete and I was furious that perimenopause was undoing years of hard work. I was gaining fat, losing muscle, and my recovery was terrible. MedMethod optimized my hormones — testosterone, estrogen, progesterone — and within two months my body composition started shifting back. My coach couldn't believe the difference. This isn't just for weight loss; it's for women who refuse to slow down.", name: "Amanda K.", location: "Pennsylvania Area", rating: 5 },
+              { quote: "I'm a teacher and by 3 PM I was so exhausted I could barely drive home. My doctor said it was 'just stress' but my MedMethod labs showed my testosterone was basically zero and my thyroid was borderline. Three months on a personalized protocol and I have energy I haven't felt in a decade. My students noticed before I did — they said I seem happier.", name: "Karen B.", location: "Pennsylvania Patient", rating: 5 },
+].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (
