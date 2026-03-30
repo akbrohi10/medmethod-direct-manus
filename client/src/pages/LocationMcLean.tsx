@@ -287,8 +287,37 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
+const faqCategories = [
+  {
+    id: "local",
+    label: "McLean & VA",
+    icon: "\uD83D\uDCCD",
+    questions: faqs.slice(0, 10),
+  },
+  {
+    id: "care",
+    label: "About Our Care",
+    icon: "\uD83E\uDE7A",
+    questions: faqs.slice(10, 15),
+  },
+  {
+    id: "medications",
+    label: "Medications & Labs",
+    icon: "\uD83D\uDC8A",
+    questions: faqs.slice(15, 19),
+  },
+  {
+    id: "pricing",
+    label: "Pricing & Insurance",
+    icon: "\uD83D\uDCB3",
+    questions: faqs.slice(19),
+  },
+];
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function LocationMcLean() {
+  const [activeFaqTab, setActiveFaqTab] = useState("local");
+  const activeFaqCategory = faqCategories.find((c) => c.id === activeFaqTab)!;
   const [consultOpen, setConsultOpen] = useState(false);
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
@@ -704,24 +733,48 @@ export default function LocationMcLean() {
 
       {/* ── MEDICAL TEAM (reused from homepage) ──────────────────────────────── */}
       <MedicalTeam />
-
-      {/* ── FAQ ───────────────────────────────────────────────────────────────── */}
+      {/* ── FAQ (Categorized Tabs) ── */}
       <section className="py-20 bg-white">
-        <div className="max-w-[800px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-10">
             <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
               Questions & Answers
             </p>
-            <h2
-              className="font-black leading-tight"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}
-            >
-              Frequently Asked Questions for{" "}
-              <span style={gradientText}>McLean Patients</span>
+            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
+              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>McLean Patients</span>
             </h2>
           </div>
-          <div>
-            {faqs.map((faq) => (
+          {/* Tab buttons */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {faqCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveFaqTab(cat.id)}
+                className="px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border cursor-pointer"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  background: activeFaqTab === cat.id ? "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" : "#fff",
+                  color: activeFaqTab === cat.id ? "#fff" : "#555",
+                  borderColor: activeFaqTab === cat.id ? "transparent" : "#e5e5e5",
+                  boxShadow: activeFaqTab === cat.id ? "0 4px 14px rgba(232,51,158,0.25)" : "none",
+                }}
+              >
+                <span className="mr-1.5">{cat.icon}</span>
+                {cat.label}
+              </button>
+            ))}
+          </div>
+          {/* Active tab content */}
+          <div className="min-h-[200px]">
+            <div className="mb-4">
+              <p className="text-xs font-bold tracking-widest uppercase" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+                {activeFaqCategory.label}
+              </p>
+              <p className="text-sm mt-1" style={{ fontFamily: "Montserrat, sans-serif", color: "#888" }}>
+                {activeFaqCategory.questions.length} questions
+              </p>
+            </div>
+            {activeFaqCategory.questions.map((faq) => (
               <FAQItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
           </div>
