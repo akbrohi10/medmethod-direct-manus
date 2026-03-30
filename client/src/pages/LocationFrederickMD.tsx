@@ -11,6 +11,7 @@ import HowItWorks from "@/components/HowItWorks";
 import WhyChoose from "@/components/WhyChoose";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import PopularPrograms from "@/components/PopularPrograms";
+import { ChevronDown, ArrowRight } from "lucide-react";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/md-t2-frederick_3f92dfbe.png";
 const BOOK_URL = "https://app.medmethoddirect.com/booking";
@@ -99,6 +100,7 @@ export default function LocationFrederickMD() {
 
 
   const [consultOpen, setConsultOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
   const [count3, setCount3] = useState(0);
@@ -324,7 +326,7 @@ export default function LocationFrederickMD() {
             <ul className="space-y-3 text-stone-600">
               {["Hot flashes & night sweats","Hormonal weight gain","Brain fog & fatigue","Sleep disruption","Low libido & vaginal dryness","Perimenopause symptoms","Thyroid dysfunction","Metabolic optimization"].map(s => (
                 <li key={s} className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#E8339E] flex-shrink-0" />
                   {s}
                 </li>
               ))}
@@ -384,102 +386,110 @@ export default function LocationFrederickMD() {
           </div>
         </div>
       </section>
+
+      
       {/* ── PATIENT STORIES ── */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
               PATIENT STORIES
             </p>
-            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", letterSpacing: "-0.02em" }}>
               What Women in Maryland Are Saying
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Maryland Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Maryland Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Maryland Patient", rating: 5 },
-            ].map((t) => (
-              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <span key={i} className="text-[#E8339E] text-base">★</span>
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic flex-1" style={{ fontFamily: "Montserrat, sans-serif" }}>"{t.quote}"</p>
-                <div>
-                  <p className="font-bold text-[#111111] text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.name}</p>
-                  <p className="text-[#E8339E] text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="bg-stone-50 py-16 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-stone-800 mb-10 text-center">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: "01", title: "Lab Work", desc: "Order your comprehensive hormone panel online. Labs drawn near Frederick — no physician referral needed." },
-              { step: "02", title: "Physician Consult", desc: "A 60-minute video consultation with your MedMethod physician to review results and build your personalized protocol." },
-              { step: "03", title: "Medication Delivered", desc: "Prescriptions sent to a compounding pharmacy and shipped directly to your Frederick County address within days." }
-            ].map(item => (
-              <div key={item.step} className="bg-white rounded-2xl p-8 border border-stone-200">
-                <div className="text-4xl font-bold text-amber-500 mb-3">{item.step}</div>
-                <h3 className="text-lg font-bold text-stone-800 mb-2">{item.title}</h3>
-                <p className="text-stone-600 text-sm leading-relaxed">{item.desc}</p>
+              { stars: 5, quote: "I finally found a doctor who listens. My energy is back, my sleep is better, and I\'ve lost 18 lbs in 3 months. I wish I\'d started sooner.", name: "Sarah M.", loc: "Frederick, Maryland" },
+              { stars: 5, quote: "The convenience of virtual visits is a game-changer. No more sitting in waiting rooms. My hormone levels are balanced for the first time in years.", name: "Jennifer L.", loc: "Frederick Area" },
+              { stars: 5, quote: "MedMethod Direct gave me my life back. The weight loss program combined with hormone therapy has been transformative. I feel like myself again.", name: "Michelle R.", loc: "Maryland" },
+            ].map((t, i) => (
+              <div key={i} className="bg-[#F8F4F9] rounded-2xl p-8">
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: t.stars }).map((_, j) => (
+                    <span key={j} className="text-[#E8339E] text-base">\u2605</span>
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed italic flex-1 mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                  "{t.quote}"
+                </p>
+                <div>
+                  <p className="font-bold text-[#111111] text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.name}</p>
+                  <p className="text-gray-400 text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.loc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <section className="bg-white py-16 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-stone-800 mb-10">Frequently Asked Questions</h2>
-          <div className="space-y-6">
+{/* ── FAQ ── */}
+      <section className="py-20 bg-[#F8F4F9]" id="faq">
+        <div className="max-w-[860px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              FREQUENTLY ASKED QUESTIONS
+            </p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+              Frederick — Common Questions
+            </h2>
+          </div>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-100">
             {faqs.map((faq, i) => (
-              <div key={i} className="border-b border-stone-200 pb-6">
-                <h3 className="text-lg font-semibold text-stone-800 mb-2">{faq.q}</h3>
-                <p className="text-stone-600 leading-relaxed">{faq.a}</p>
+              <div key={i} className="px-6 md:px-10">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between py-5 text-left">
+                  <span className="font-bold text-[#111111] pr-4 text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.q}</span>
+                  <ChevronDown className={`w-5 h-5 text-[#E8339E] flex-shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === i && <div className="pb-5"><p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.a}</p></div>}
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Nearby Cities */}
-      <section className="bg-stone-50 py-12 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-xl font-bold text-stone-800 mb-6">Also Serving Nearby Maryland Communities</h2>
+      {/* ── NEARBY CITIES ── */}
+      <section className="bg-[#0D0D1A] py-16">
+        <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
+          <p className="text-white/40 text-xs font-bold tracking-[0.25em] uppercase mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>ALSO SERVING NEARBY</p>
           <div className="flex flex-wrap gap-3">
-            {nearbyCities.map(c => (
-              <Link key={c.path} href={c.path}>
-                <span className="inline-block px-4 py-2 bg-white border border-stone-200 rounded-full text-stone-700 text-sm hover:border-amber-400 hover:text-amber-700 transition-colors cursor-pointer">
-                  {c.name}
-                </span>
+            {[
+              { name: "Ellicott City", href: "/maryland/ellicott-city" },
+              { name: "Annapolis", href: "/maryland/annapolis" },
+              { name: "Bel Air", href: "/maryland/bel-air" },
+              { name: "All Maryland Cities", href: "/maryland" }
+            ].map(({ name, href }) => (
+              <Link key={name} href={href}>
+                <span className="border border-white/10 text-white/60 hover:text-white hover:border-[#E8339E]/40 text-sm px-4 py-2 rounded-full transition-all cursor-pointer" style={{ fontFamily: "Montserrat, sans-serif" }}>{name}</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="bg-stone-800 py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">Ready to Start?</h2>
-        <p className="text-stone-300 mb-8 max-w-xl mx-auto">Join Frederick women who are getting specialist-level hormone care from home.</p>
-        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">
-          <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-10">
-            Book Your $449 Diagnostic Consultation
-          </Button>
-        </a>
+      {/* ── CLOSING CTA ── */}
+      <section className="py-20 bg-[#0D0D1A] text-white text-center">
+        <div className="max-w-[700px] mx-auto px-4 lg:px-8">
+          <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            FREDERICK, MARYLAND
+          </p>
+          <h2 className="font-black mb-4" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "-0.02em" }}>
+            Ready to Feel Like Yourself Again?
+          </h2>
+          <p className="text-white/60 text-base mb-8 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Your free 20-minute consultation is the first step. No obligation, no pressure — just a real conversation with a physician who understands what you're going through.
+          </p>
+          <button
+            onClick={() => setConsultOpen(true)}
+            className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+          </button>
+          <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            100% Virtual Care · Licensed in Maryland
+          </p>
+        </div>
       </section>
-    
+      <Footer onConsultClick={() => setConsultOpen(true)} />
       {consultOpen && (
         <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
       )}
