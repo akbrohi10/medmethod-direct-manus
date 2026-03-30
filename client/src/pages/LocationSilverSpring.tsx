@@ -71,12 +71,18 @@ const faqs = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-100 last:border-0">
-      <button className="w-full flex items-center justify-between py-5 text-left gap-4" onClick={() => setOpen(!open)}>
-        <span className="font-semibold text-[#111111] text-base leading-snug" style={{ fontFamily: "Montserrat, sans-serif" }}>{q}</span>
-        {open ? <ChevronUp className="w-5 h-5 text-[#E8339E] shrink-0" /> : <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />}
+    <div className="border-b" style={{ borderColor: "rgba(232,51,158,0.15)" }}>
+      <button
+        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="font-bold text-base" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>{q}</span>
+        <ChevronDown className="w-5 h-5 flex-shrink-0 transition-transform duration-300" style={{ color: "#E8339E", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
-      {open && <p className="pb-5 text-gray-600 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{a}</p>}
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}>{a}</p>
+      )}
     </div>
   );
 }
@@ -295,14 +301,21 @@ export default function LocationSilverSpring() {
         </div>
       </section>
 
-      <section className="py-20 bg-[#F8F4F9]" id="faq">
-        <div className="max-w-[860px] mx-auto px-4 lg:px-8">
+      {/* ── FAQ ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[800px] mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>FREQUENTLY ASKED QUESTIONS</p>
-            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>Silver Spring — Common Questions</h2>
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+              Questions & Answers
+            </p>
+            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
+              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Silver Spring Patients</span>
+            </h2>
           </div>
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-6 md:px-10">
-            {faqs.map((faq) => <FAQItem key={faq.q} q={faq.q} a={faq.a} />)}
+          <div>
+            {faqs.map((faq) => (
+              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
           </div>
         </div>
       </section>

@@ -67,6 +67,25 @@ const faqs = [
   },
 ];
 
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b" style={{ borderColor: "rgba(232,51,158,0.15)" }}>
+      <button
+        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="font-bold text-base" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>{q}</span>
+        <ChevronDown className="w-5 h-5 flex-shrink-0 transition-transform duration-300" style={{ color: "#E8339E", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </button>
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}>{a}</p>
+      )}
+    </div>
+  );
+}
+
 export default function LocationPinehurstNC() {
   const [consultOpen, setConsultOpen] = useState(false);
   const [count1, setCount1] = useState(0);
@@ -99,7 +118,7 @@ export default function LocationPinehurstNC() {
     };
     requestAnimationFrame(update);
   }
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  
 
   const JSONLD_FAQ = {
     "@context": "https://schema.org",
@@ -390,25 +409,20 @@ export default function LocationPinehurstNC() {
         </div>
       </section>
 
-      <section className="bg-[#0d0d0d] py-24 border-t border-white/5">
-        <div className="max-w-[860px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-[#E8339E] text-xs font-bold tracking-widest uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>FAQ</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>Questions from Pinehurst Women</h2>
+      {/* ── FAQ ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[800px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+              Questions & Answers
+            </p>
+            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
+              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Pinehurst Patients</span>
+            </h2>
           </div>
-          <div className="flex flex-col gap-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="border border-white/10 rounded-2xl overflow-hidden">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white/2 hover:bg-white/5 transition-colors">
-                  <span className="text-white font-semibold text-sm leading-snug" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#E8339E] flex-shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-5 pt-2 bg-white/2">
-                    <p className="text-white/60 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{faq.a}</p>
-                  </div>
-                )}
-              </div>
+          <div>
+            {faqs.map((faq) => (
+              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
           </div>
         </div>

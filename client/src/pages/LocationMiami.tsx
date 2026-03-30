@@ -119,11 +119,17 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b" style={{ borderColor: "rgba(232,51,158,0.15)" }}>
-      <button className="w-full flex items-center justify-between py-5 text-left gap-4" onClick={() => setOpen(!open)} aria-expanded={open}>
+      <button
+        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
         <span className="font-bold text-base" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>{q}</span>
         <ChevronDown className="w-5 h-5 flex-shrink-0 transition-transform duration-300" style={{ color: "#E8339E", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
-      {open && <p className="pb-5 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}>{a}</p>}
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}>{a}</p>
+      )}
     </div>
   );
 }
@@ -413,16 +419,22 @@ export default function LocationMiami() {
 
       <MedicalTeam />
 
-      {/* FAQ */}
+      {/* ── FAQ ── */}
       <section className="py-20 bg-white">
         <div className="max-w-[800px] mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>Questions & Answers</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+              Questions & Answers
+            </p>
             <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              Frequently asked questions for{" "}<span style={gradientText}>Miami patients</span>
+              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Miami Patients</span>
             </h2>
           </div>
-          <div>{faqs.map((faq) => <FAQItem key={faq.q} q={faq.q} a={faq.a} />)}</div>
+          <div>
+            {faqs.map((faq) => (
+              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
+          </div>
         </div>
       </section>
 

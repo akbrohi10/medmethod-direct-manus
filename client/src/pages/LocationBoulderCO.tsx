@@ -17,7 +17,7 @@ import WhyChoose from "@/components/WhyChoose";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/co-hero-boulder-QMwM7Ztr6u622uBieZh4Vn.webp";
 
-const FAQS = [
+const faqs = [
   { q: "Is MedMethod Direct licensed to practice in Colorado?", a: "Yes. MedMethod Direct is fully licensed to practice medicine in Colorado. Our board-certified physicians are authorized to evaluate, prescribe, and manage hormone therapy and medical weight loss programs for patients throughout the state — including Boulder — entirely via telehealth, with no in-person visit required." },
   { q: "Do I need to visit an office to become a patient in Boulder?", a: "No. MedMethod Direct is a 100% virtual practice. Everything — your consultation, lab review, prescription, and ongoing check-ins — happens online via secure video. Your medication ships directly from a licensed 503B compounding pharmacy to your Boulder address." },
   { q: "Why do Boulder women choose MedMethod Direct?", a: "Boulder's population is among the most health-literate in the country — home to CU Boulder faculty, biotech researchers, and wellness entrepreneurs who expect evidence-based, personalized care. MedMethod Direct matches that standard: every protocol is built on comprehensive lab results, guided by board-certified physicians, and updated based on your ongoing response. No cookie-cutter dosing, no rushed appointments." },
@@ -25,15 +25,21 @@ const FAQS = [
   { q: "What services does MedMethod Direct offer Boulder patients?", a: "We offer bioidentical hormone replacement therapy (BHRT), GLP-1 medical weight loss (semaglutide and tirzepatide), perimenopause and menopause management, and testosterone optimization. All programs are personalized based on your lab results and health history, with ongoing physician oversight included at every tier." },
 ];
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-xl overflow-hidden cursor-pointer" style={{ border: "1.5px solid #E2E2EA" }} onClick={() => setOpen(v => !v)}>
-      <div className="flex items-center justify-between px-6 py-4 gap-4">
-        <span className="font-bold text-sm" style={{ color: "#111", fontFamily: "Montserrat, sans-serif" }}>{question}</span>
-        <ChevronDown className="w-4 h-4 flex-shrink-0 transition-transform" style={{ color: "#E8339E", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
-      </div>
-      {open && <div className="px-6 pb-5 text-sm font-medium leading-relaxed" style={{ color: "#555", fontFamily: "Montserrat, sans-serif" }}>{answer}</div>}
+    <div className="border-b" style={{ borderColor: "rgba(232,51,158,0.15)" }}>
+      <button
+        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="font-bold text-base" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>{q}</span>
+        <ChevronDown className="w-5 h-5 flex-shrink-0 transition-transform duration-300" style={{ color: "#E8339E", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </button>
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}>{a}</p>
+      )}
     </div>
   );
 }
@@ -86,7 +92,7 @@ export default function LocationBoulderCO() {
         <meta name="twitter:description" content="Virtual hormone therapy & GLP-1 weight loss for women in Boulder, CO. Board-certified physicians, no office visit required." />
         <meta name="twitter:image" content={HERO_IMAGE} />
         <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "MedicalBusiness", "name": "MedMethod Direct", "url": "https://www.medmethoddirect.com/colorado/boulder", "description": "MedMethod Direct provides virtual hormone therapy and GLP-1 weight loss programs for women in Boulder, CO.", "medicalSpecialty": ["Endocrinology", "Obstetrics and Gynecology", "Internal Medicine"], "areaServed": { "@type": "City", "name": "Boulder, Colorado" }, "availableService": [{ "@type": "MedicalTherapy", "name": "Hormone Replacement Therapy" }, { "@type": "MedicalTherapy", "name": "Medical Weight Loss" }, { "@type": "MedicalTherapy", "name": "Menopause Management" }] })}</script>
-        <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQS.map(({ q, a }) => ({ "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) })}</script>
+        <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(({ q, a }) => ({ "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) })}</script>
         <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.medmethoddirect.com" }, { "@type": "ListItem", "position": 2, "name": "Colorado", "item": "https://www.medmethoddirect.com/colorado" }, { "@type": "ListItem", "position": 3, "name": "Boulder", "item": "https://www.medmethoddirect.com/colorado/boulder" }] })}</script>
       </Helmet>
       <Navbar onConsultClick={() => setConsultOpen(true)} />
@@ -337,10 +343,22 @@ export default function LocationBoulderCO() {
           </div>
         </div>
       </section>
-      <section className="py-20 px-6" style={{ background: "#fff" }}>
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-black text-3xl mb-10 text-center" style={{ color: "#111", letterSpacing: "-0.02em", fontFamily: "Montserrat, sans-serif" }}>Frequently Asked Questions — Boulder</h2>
-          <div className="flex flex-col gap-4">{FAQS.map(({ q, a }, i) => <FAQItem key={i} question={q} answer={a} />)}</div>
+      {/* ── FAQ ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[800px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
+              Questions & Answers
+            </p>
+            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
+              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>Boulder Patients</span>
+            </h2>
+          </div>
+          <div>
+            {faqs.map((faq) => (
+              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
+          </div>
         </div>
       </section>
       <section className="py-12 px-6" style={{ background: "#F4F4F8" }}>
