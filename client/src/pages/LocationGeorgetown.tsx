@@ -9,7 +9,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingFaqs } from "@/data/pricingFaqs";
-import { ChevronDown, ChevronUp, MapPin, CheckCircle2, ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Building2, Calendar, CheckCircle2, ChevronDown, ChevronUp, FlaskConical, MapPin, Microscope, Pill, Star, UserCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -171,12 +171,12 @@ const faqCategories = [
 ];
 
 const whyCards = [
-  { icon: "🏛️", title: "Built for Georgetown's Professionals", desc: "Federal executives, diplomats, attorneys, and academics who expect premium physician-led care — delivered virtually, same week, without the waiting room." },
-  { icon: "🔬", title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: "📅", title: "Same-Week Availability", desc: "No long waits. Most Georgetown patients are seen within days of their free consultation and on their protocol within two weeks." },
-  { icon: "🧬", title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Georgetown or Northwest DC." },
-  { icon: "💊", title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Georgetown address. No pharmacy runs, no prior authorization battles." },
-  { icon: "👩‍⚕️", title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
+  { icon: <Building2 className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Built for Georgetown's Professionals", desc: "Federal executives, diplomats, attorneys, and academics who expect premium physician-led care — delivered virtually, same week, without the waiting room." },
+  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Georgetown patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Georgetown or Northwest DC." },
+  { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Georgetown address. No pharmacy runs, no prior authorization battles." },
+  { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
 ];
 
 const testimonials = [

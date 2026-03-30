@@ -9,7 +9,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingFaqs } from "@/data/pricingFaqs";
-import { ChevronDown, ChevronUp, MapPin, CheckCircle2, ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Calendar, CheckCircle2, ChevronDown, ChevronUp, FlaskConical, Home, MapPin, Microscope, Pill, Star, UserCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -173,12 +173,12 @@ const faqCategories = [
 ];
 
 const whyCards = [
-  { icon: "🏘️", title: "Upper Northwest's Most Trusted Virtual Clinic", desc: "Friendship Heights and Tenleytown women expect evidence-based care from physicians who take time. MedMethod Direct delivers exactly that — virtually, on your schedule." },
-  { icon: "🔬", title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: "📅", title: "Same-Week Availability", desc: "No long waits. Most patients in this area are seen within days of their free consultation and on their protocol within two weeks." },
-  { icon: "🧬", title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Friendship Heights or Upper Northwest DC." },
-  { icon: "💊", title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Friendship Heights or Tenleytown address. No pharmacy runs, no prior authorization battles." },
-  { icon: "👩‍⚕️", title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
+  { icon: <Home className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Upper Northwest's Most Trusted Virtual Clinic", desc: "Friendship Heights and Tenleytown women expect evidence-based care from physicians who take time. MedMethod Direct delivers exactly that — virtually, on your schedule." },
+  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most patients in this area are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Friendship Heights or Upper Northwest DC." },
+  { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Friendship Heights or Tenleytown address. No pharmacy runs, no prior authorization battles." },
+  { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
 ];
 
 const testimonials = [
@@ -379,7 +379,7 @@ export default function LocationFriendshipHeights() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyCards.map((card) => (
               <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="text-3xl mb-4">{card.icon}</div>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>{card.icon}</div>
                 <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
               </div>

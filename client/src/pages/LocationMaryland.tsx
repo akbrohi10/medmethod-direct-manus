@@ -17,7 +17,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingFaqs } from "@/data/pricingFaqs";
-import { ChevronDown, ChevronUp, MapPin, ArrowRight, CheckCircle2, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, Dumbbell, FlaskConical, MapPin, Microscope, Star, Thermometer } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -379,11 +379,11 @@ export default function LocationMaryland() {
                 <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#E8339E" }}>WHAT WE TREAT IN MARYLAND</p>
                 <div className="space-y-4">
                   {[
-                    { icon: "🌡️", title: "Perimenopause & Menopause", desc: "Hot flashes, night sweats, mood changes, brain fog — addressed at the hormonal root cause." },
-                    { icon: "⚖️", title: "GLP-1 Medical Weight Loss", desc: "Physician-prescribed semaglutide and tirzepatide — compounded or brand-name, shipped to your door." },
-                    { icon: "🧬", title: "Bioidentical Hormone Therapy", desc: "BHRT and FDA-approved HRT — estradiol, progesterone, testosterone — based on comprehensive labs." },
-                    { icon: "💪", title: "Testosterone Therapy for Women", desc: "Low libido, fatigue, and muscle loss addressed with physician-supervised testosterone protocols." },
-                    { icon: "🔬", title: "Thyroid & Metabolic Optimization", desc: "Thyroid function evaluated and optimized as part of every comprehensive hormone workup." },
+                    { icon: <Thermometer className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Perimenopause & Menopause", desc: "Hot flashes, night sweats, mood changes, brain fog — addressed at the hormonal root cause." },
+                    { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "GLP-1 Medical Weight Loss", desc: "Physician-prescribed semaglutide and tirzepatide — compounded or brand-name, shipped to your door." },
+                    { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Bioidentical Hormone Therapy", desc: "BHRT and FDA-approved HRT — estradiol, progesterone, testosterone — based on comprehensive labs." },
+                    { icon: <Dumbbell className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Testosterone Therapy for Women", desc: "Low libido, fatigue, and muscle loss addressed with physician-supervised testosterone protocols." },
+                    { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Thyroid & Metabolic Optimization", desc: "Thyroid function evaluated and optimized as part of every comprehensive hormone workup." },
                   ].map((item) => (
                     <div key={item.title} className="flex gap-3 items-start">
                       <span className="text-xl mt-0.5">{item.icon}</span>

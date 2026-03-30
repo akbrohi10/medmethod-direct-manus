@@ -9,7 +9,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingFaqs } from "@/data/pricingFaqs";
-import { ChevronDown, ChevronUp, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowRight, Building2, Calendar, CheckCircle2, ChevronDown, ChevronUp, FlaskConical, MapPin, Microscope, Pill, UserCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -179,12 +179,12 @@ const faqCategories = [
 ];
 
 const whyCards = [
-  { icon: "🏛️", title: "Built for NIH-Adjacent Women", desc: "Bethesda women near NIH and Georgetown know what specialist-level care looks like. MedMethod Direct delivers it — virtually, same week, without the 4–8 week wait." },
-  { icon: "🔬", title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: "📅", title: "Same-Week Availability", desc: "No long waits. Most Bethesda patients are seen within days of their free consultation and on their protocol within two weeks." },
-  { icon: "🧬", title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Bethesda or Chevy Chase." },
-  { icon: "💊", title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Bethesda address. No pharmacy runs, no prior authorization battles." },
-  { icon: "👩‍⚕️", title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
+  { icon: <Building2 className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Built for NIH-Adjacent Women", desc: "Bethesda women near NIH and Georgetown know what specialist-level care looks like. MedMethod Direct delivers it — virtually, same week, without the 4–8 week wait." },
+  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Bethesda patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Bethesda or Chevy Chase." },
+  { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Bethesda address. No pharmacy runs, no prior authorization battles." },
+  { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
 ];
 
 const testimonials = [
@@ -381,7 +381,7 @@ export default function LocationBethesda() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyCards.map((card) => (
               <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="text-3xl mb-4">{card.icon}</div>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>{card.icon}</div>
                 <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
               </div>
