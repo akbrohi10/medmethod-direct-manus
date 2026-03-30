@@ -312,6 +312,39 @@ export default function LocationMiami() {
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+      {/* ── PATIENT STORIES ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              PATIENT STORIES
+            </p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+              What Women in Florida Are Saying
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Florida Patient", rating: 5 },
+              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Florida Patient", rating: 5 },
+              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Florida Patient", rating: 5 },
+            ].map((t) => (
+              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <span key={i} className="text-[#E8339E] text-base">★</span>
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed italic flex-1" style={{ fontFamily: "Montserrat, sans-serif" }}>"{t.quote}"</p>
+                <div>
+                  <p className="font-bold text-[#111111] text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.name}</p>
+                  <p className="text-[#E8339E] text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* DARK DIVIDER */}
       <div className="w-full flex flex-col items-center justify-center text-center px-6" style={{ background: "#0D0D1A", borderTop: "1px solid rgba(232,51,158,0.18)", borderBottom: "1px solid rgba(232,51,158,0.18)", padding: "52px 24px" }}>

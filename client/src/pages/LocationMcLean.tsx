@@ -549,6 +549,35 @@ export default function LocationMcLean() {
 
       {/* ── HOW IT WORKS (reused from homepage) ──────────────────────────────── */}
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+      {/* ── WHY MCLEAN WOMEN CHOOSE US ── */}
+      <section className="py-20 bg-[#F8F4F9]">
+        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              WHY MCLEAN WOMEN CHOOSE US
+            </p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+              Built for Busy Fairfax County Women
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: "🩺", title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
+              { icon: "⚖️", title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
+              { icon: "💬", title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: "🧪", title: "Lab Work Near McLean", desc: "We order your labs to a convenient LabCorp or Quest draw site near McLean. Results reviewed within 48 hours." },
+              { icon: "📦", title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your McLean address, discreetly and on schedule." },
+              { icon: "📱", title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
+            ].map((card) => (
+              <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="text-3xl mb-4">{card.icon}</div>
+                <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── DARK DIVIDER BAND ─────────────────────────────────────────────── */}
       <div

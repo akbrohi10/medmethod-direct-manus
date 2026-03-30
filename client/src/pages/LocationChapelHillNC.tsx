@@ -13,6 +13,7 @@ import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ConsultationModal from "@/components/ConsultationModal";
+import WhyChoose from "@/components/WhyChoose";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/nc-hero-chapel-hill-KVr3Cc76Qh4ZnEKu2zhoUR.webp";
 
@@ -254,6 +255,88 @@ export default function LocationChapelHillNC() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+      {/* ── DARK DIVIDER BAND — THE MEDMETHOD STANDARD ── */}
+      <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>
+        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 text-center">
+          <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            THE MEDMETHOD STANDARD
+          </p>
+          <h2 className="font-black text-white" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 3vw, 2rem)", letterSpacing: "-0.02em" }}>
+            "The system you've been missing —{" "}
+            <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              built by physicians, for women.
+            </span>"
+          </h2>
+          <p className="text-white/50 text-sm mt-3 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.
+          </p>
+        </div>
+      </div>
+      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
+      {/* ── WHY CHAPEL HILL WOMEN CHOOSE US ── */}
+      <section className="py-20 bg-[#F8F4F9]">
+        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              WHY CHAPEL HILL WOMEN CHOOSE US
+            </p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+              Built for Busy Orange County Women
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: "🩺", title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
+              { icon: "⚖️", title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
+              { icon: "💬", title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: "🧪", title: "Lab Work Near Chapel Hill", desc: "We order your labs to a convenient LabCorp or Quest draw site near Chapel Hill. Results reviewed within 48 hours." },
+              { icon: "📦", title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Chapel Hill address, discreetly and on schedule." },
+              { icon: "📱", title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
+            ].map((card) => (
+              <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="text-3xl mb-4">{card.icon}</div>
+                <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* ── PATIENT STORIES ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              PATIENT STORIES
+            </p>
+            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
+              What Women in North Carolina Are Saying
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "North Carolina Patient", rating: 5 },
+              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "North Carolina Patient", rating: 5 },
+              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "North Carolina Patient", rating: 5 },
+            ].map((t) => (
+              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <span key={i} className="text-[#E8339E] text-base">★</span>
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed italic flex-1" style={{ fontFamily: "Montserrat, sans-serif" }}>"{t.quote}"</p>
+                <div>
+                  <p className="font-bold text-[#111111] text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.name}</p>
+                  <p className="text-[#E8339E] text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="py-20 px-6" style={{ background: "#fff" }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="font-black text-3xl mb-10 text-center" style={{ color: "#111", letterSpacing: "-0.02em" }}>Frequently Asked Questions — Chapel Hill</h2>

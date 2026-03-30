@@ -283,6 +283,25 @@ export default function LocationCapitolHill() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
+      {/* ── DARK DIVIDER BAND — THE MEDMETHOD STANDARD ── */}
+      <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>
+        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #E8339E, transparent)" }} />
+        <div className="max-w-[900px] mx-auto px-4 lg:px-8 text-center">
+          <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            THE MEDMETHOD STANDARD
+          </p>
+          <h2 className="font-black text-white" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 3vw, 2rem)", letterSpacing: "-0.02em" }}>
+            "The system you've been missing —{" "}
+            <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              built by physicians, for women.
+            </span>"
+          </h2>
+          <p className="text-white/50 text-sm mt-3 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.
+          </p>
+        </div>
+      </div>
       <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── TESTIMONIALS ── */}
