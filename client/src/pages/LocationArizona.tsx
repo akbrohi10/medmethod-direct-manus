@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
 import { ChevronDown, MapPin } from "lucide-react";
@@ -218,6 +219,9 @@ export default function LocationArizona() {
 
       {/* Programs */}
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 

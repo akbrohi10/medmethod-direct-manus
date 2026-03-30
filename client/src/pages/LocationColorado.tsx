@@ -9,6 +9,7 @@ import { Link } from "wouter";
 import { MapPin, ChevronRight, ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Services from "@/components/Services";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
@@ -198,6 +199,9 @@ export default function LocationColorado() {
           </div>
         </div>
       </section>
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
 
       {/* FAQ */}
       <section className="py-20 px-6" style={{ background: "#F4F4F8" }}>

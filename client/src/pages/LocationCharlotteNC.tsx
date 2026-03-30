@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -380,6 +381,9 @@ export default function LocationCharlotteNC() {
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
       {/* ── DARK DIVIDER BAND — THE MEDMETHOD STANDARD ── */}
       <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>

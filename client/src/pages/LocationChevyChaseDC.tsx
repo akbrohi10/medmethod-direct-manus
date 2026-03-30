@@ -16,6 +16,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
 import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import WhyChoose from "@/components/WhyChoose";
 
@@ -346,6 +347,9 @@ export default function LocationChevyChaseDC() {
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
       <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>

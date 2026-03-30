@@ -11,6 +11,7 @@ import HowItWorks from "@/components/HowItWorks";
 import WhyChoose from "@/components/WhyChoose";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { pricingFaqs } from "@/data/pricingFaqs";
 
@@ -433,6 +434,9 @@ export default function LocationQueenCreekAZ() {
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
       {/* ── DARK DIVIDER BAND — THE MEDMETHOD STANDARD ── */}
       <div className="relative py-12 overflow-hidden" style={{ background: "#0D0D1A" }}>

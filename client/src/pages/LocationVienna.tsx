@@ -16,6 +16,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
 import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import WhyChoose from "@/components/WhyChoose";
 
@@ -528,6 +529,9 @@ export default function LocationVienna() {
       {/* ── POPULAR PROGRAMS ── */}
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
+
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       {/* ── HOW IT WORKS ── */}
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 

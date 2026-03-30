@@ -8,6 +8,7 @@ import { Link } from "wouter";
 import { MapPin, ChevronRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -160,6 +161,8 @@ export default function LocationPennsylvania() {
         </div>
       </section>
 
+      {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
       {/* CTA */}
