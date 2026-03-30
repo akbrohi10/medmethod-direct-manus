@@ -99,6 +99,10 @@ const JSONLD_FAQ = {
 
 const localFaqs = [
   { q: "Do you serve patients in Miami, Florida?", a: "Yes — MedMethod Direct is fully licensed to serve patients throughout Miami and South Florida, including Miami Beach, Coral Gables, Coconut Grove, Brickell, Fort Lauderdale, and beyond. All care is delivered 100% virtually, so you never need to leave Miami." },
+  { q: "Is there a menopause specialist near Miami?", a: "Yes — MedMethod Direct provides specialist-level menopause care to women in Miami and throughout Miami-Dade County. Dr. Al-Deek is board-certified in family medicine with advanced training in hormone therapy, menopause management, and metabolic health. All visits are 100% virtual, so you get expert care without fighting Miami traffic to see a specialist." },
+  { q: "What areas near Miami do you serve?", a: "We serve women throughout Miami-Dade County and South Florida, including Miami, Miami Beach, Coral Gables, Coconut Grove, Brickell, Doral, Kendall, Aventura, and Homestead. Since all care is virtual, you can connect with us from anywhere in Florida." },
+  { q: "How does the $449 diagnostic setup work for Miami patients?", a: "After your free consultation, you pay a one-time $449 clinical diagnostic fee. This includes a comprehensive lab panel ordered to a LabCorp or Quest near you in Miami-Dade, a MedMethod Smart Scale shipped to your door, a full hormone and metabolic assessment, and your first physician strategy session to review results and build your personalized protocol." },
+  { q: "Can Miami patients get medications delivered to their home?", a: "Absolutely. All compounded medications — including semaglutide and tirzepatide — are shipped directly from our FDA-registered 503B pharmacy to your Miami address. Brand-name prescriptions can also be sent to your local pharmacy in Miami-Dade County if you prefer to use insurance." },
   { q: "Can I get semaglutide or tirzepatide online in Miami?", a: "Yes. We offer access to both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy, prescribed by Dr. Al-Deek after a thorough review of your labs and health history. Medications are shipped directly to your Miami address." },
   { q: "Do I need to come into an office for bloodwork in Miami?", a: "No office visits required. We order your labs to a LabCorp or Quest Diagnostics location near you in Miami or South Florida. You go in for a standard blood draw, and we review the results together on your next virtual visit." },
   { q: "Why choose virtual care over a local OB/GYN in Miami?", a: "Most local practices in Miami have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — all from your home or condo in Miami." },
@@ -179,25 +183,25 @@ const faqCategories = [
     id: "local",
     label: "Miami & FL",
     icon: "\uD83D\uDCCD",
-    questions: faqs.slice(0, 1),
+    questions: faqs.slice(0, 5),
   },
   {
     id: "care",
     label: "About Our Care",
     icon: "\uD83E\uDE7A",
-    questions: faqs.slice(1, 6),
+    questions: faqs.slice(5, 10),
   },
   {
     id: "medications",
     label: "Medications & Labs",
     icon: "\uD83D\uDC8A",
-    questions: faqs.slice(6, 10),
+    questions: faqs.slice(10, 14),
   },
   {
     id: "pricing",
     label: "Pricing & Insurance",
     icon: "\uD83D\uDCB3",
-    questions: faqs.slice(10),
+    questions: faqs.slice(14),
   },
 ];
 
