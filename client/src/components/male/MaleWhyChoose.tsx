@@ -3,15 +3,15 @@
    Mirrors women's WhyChoose exactly:
    Part 1: 3 failure reason cards with stats (low-T narrative)
    Part 2: Dark "The MedMethod Way" panel with 5 feature cards + CTA card
-   Brand: Montserrat, Teal #00C2CB, Navy #0A1628, Cream #F5F2EC
+   Brand: Montserrat, Teal #00E5FF, Navy #0A1628, Cream #F5F2EC
    ============================================================================= */
 import { AlertTriangle, TrendingDown, Pill, FlaskConical, Stethoscope, CalendarCheck, Smartphone, UserCheck, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import MaleMetabolicQuiz from "./MaleMetabolicQuiz";
 
-const TEAL = "#00C2CB";
+const TEAL = "#00E5FF";
 const NAVY = "#0A1628";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)";
 
 const failureReasons = [
   {
@@ -115,13 +115,13 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
                 <div
                   key={i}
                   className="rounded-2xl border bg-white p-6 flex flex-col"
-                  style={{ borderColor: "rgba(0,194,203,0.15)", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+                  style={{ borderColor: "rgba(0,229,255,0.15)", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
                 >
                   {/* Icon + label */}
                   <div className="flex items-center gap-3 mb-4">
                     <div
                       className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: "rgba(0,194,203,0.1)" }}
+                      style={{ background: "rgba(0,229,255,0.1)" }}
                     >
                       <Icon className="w-4 h-4" style={{ color: TEAL }} />
                     </div>
@@ -141,7 +141,7 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
                   </p>
 
                   {/* Stat */}
-                  <div className="mt-5 pt-4" style={{ borderTop: "1px solid rgba(0,194,203,0.15)" }}>
+                  <div className="mt-5 pt-4" style={{ borderTop: "1px solid rgba(0,229,255,0.15)" }}>
                     <div
                       className="font-black"
                       style={{
@@ -203,13 +203,13 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
                   className="rounded-2xl p-5 flex flex-col gap-3"
                   style={{
                     background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(0,194,203,0.15)",
+                    border: "1px solid rgba(0,229,255,0.15)",
                   }}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: "rgba(0,194,203,0.12)", border: "1px solid rgba(0,194,203,0.3)" }}
+                      style={{ background: "rgba(0,229,255,0.12)", border: "1px solid rgba(0,229,255,0.3)" }}
                     >
                       <Icon className="w-4 h-4" style={{ color: TEAL }} />
                     </div>

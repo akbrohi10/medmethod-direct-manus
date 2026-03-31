@@ -3,7 +3,7 @@ import { useState } from "react";
 import { pricingFaqs } from "@/data/pricingFaqs";
 import { ChevronDown } from "lucide-react";
 
-const TEAL = "#00C2CB";
+const TEAL = "#00E5FF";
 
 const faqs = [
   { q: "Is TRT safe?", a: "When properly prescribed and monitored by a board-certified physician, TRT is safe and well-tolerated. We monitor your labs quarterly — including testosterone, estradiol, PSA, hematocrit, and cardiovascular markers — to ensure you stay in a healthy range throughout your program." },
@@ -39,7 +39,7 @@ export default function MaleFAQ() {
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <div key={i} className="rounded-xl overflow-hidden transition-all"
-              style={{ background: "#fff", border: `1px solid ${open === i ? "rgba(0,194,203,0.5)" : "rgba(0,194,203,0.2)"}`, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+              style={{ background: "#fff", border: `1px solid ${open === i ? "rgba(0,229,255,0.5)" : "rgba(0,229,255,0.2)"}`, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
               <button
                 className="w-full flex items-center justify-between px-5 py-4 text-left"
                 onClick={() => setOpen(open === i ? null : i)}

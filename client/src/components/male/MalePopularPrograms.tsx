@@ -75,9 +75,9 @@ function FeatureItem({ feature, teal }: { feature: Feature; teal?: boolean }) {
     <li className="flex items-start gap-2.5">
       <span
         className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center"
-        style={{ background: teal ? "rgba(42,191,191,0.12)" : "rgba(13,26,42,0.07)" }}
+        style={{ background: teal ? "rgba(0,229,255,0.12)" : "rgba(13,26,42,0.07)" }}
       >
-        <Check className="w-2.5 h-2.5" style={{ color: teal ? "#2ABFBF" : "#0A1628" }} strokeWidth={2.5} />
+        <Check className="w-2.5 h-2.5" style={{ color: teal ? "#00E5FF" : "#0A1628" }} strokeWidth={2.5} />
       </span>
       <span className="text-[13px] font-semibold leading-snug" style={{ color: "#2A3545" }}>
         {feature.text}
@@ -85,8 +85,8 @@ function FeatureItem({ feature, teal }: { feature: Feature; teal?: boolean }) {
           <span
             className="ml-1.5 text-[10px] font-bold uppercase px-1.5 py-0.5 rounded"
             style={{
-              background: teal ? "rgba(42,191,191,0.12)" : "rgba(13,26,42,0.08)",
-              color: teal ? "#1A9090" : "#0A1628",
+              background: teal ? "rgba(0,229,255,0.12)" : "rgba(13,26,42,0.08)",
+              color: teal ? "#00B8CC" : "#0A1628",
             }}
           >
             {feature.badge}
@@ -95,7 +95,7 @@ function FeatureItem({ feature, teal }: { feature: Feature; teal?: boolean }) {
         {feature.sub && (
           <span
             className="block text-[10px] font-bold uppercase tracking-wide mt-0.5"
-            style={{ color: teal ? "#2ABFBF" : "#0A1628" }}
+            style={{ color: teal ? "#00E5FF" : "#0A1628" }}
           >
             {feature.sub}
           </span>
@@ -118,12 +118,12 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
 
         {/* ── Header ── */}
         <div className="text-center mb-8">
-          <p className="text-xs font-bold tracking-[4px] uppercase mb-3" style={{ color: "#2ABFBF" }}>PRICING</p>
+          <p className="text-xs font-bold tracking-[4px] uppercase mb-3" style={{ color: "#00E5FF" }}>PRICING</p>
           <h2
             className="font-black mb-3"
             style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", color: "#0A1628", letterSpacing: "-0.02em" }}
           >
-            Choose Your <span style={{ color: "#2ABFBF" }}>Track</span>
+            Choose Your <span style={{ color: "#00E5FF" }}>Track</span>
           </h2>
           <p className="text-sm max-w-xl mx-auto font-medium" style={{ color: "#6A6050" }}>
             Testosterone Optimization · Medical Weight Loss · Longevity — Physician-Led. Advisor-Supported. Results-Driven.
@@ -154,7 +154,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
                   style={{
                     padding: "10px 22px",
                     background: active
-                      ? "linear-gradient(135deg, #2ABFBF, #1A9090)"
+                      ? "linear-gradient(135deg, #00E5FF, #00B8CC)"
                       : "transparent",
                     border: "none",
                     cursor: "pointer",
@@ -172,8 +172,8 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
                         letterSpacing: "1.5px",
                         padding: "3px 10px",
                         whiteSpace: "nowrap",
-                        background: active ? "#fff" : isBestVal ? "#0A1628" : "#2ABFBF",
-                        color: active ? "#2ABFBF" : "#fff",
+                        background: active ? "#fff" : isBestVal ? "#0A1628" : "#00E5FF",
+                        color: active ? "#00E5FF" : "#fff",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                       }}
                     >
@@ -205,7 +205,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             <div
               className="inline-flex items-center gap-2 rounded-full font-bold text-white px-4 py-1.5 mt-1"
               style={{
-                background: "linear-gradient(135deg, #2ABFBF, #1A9090)",
+                background: "linear-gradient(135deg, #00E5FF, #00B8CC)",
                 fontSize: 11,
                 letterSpacing: "1.5px",
               }}
@@ -226,7 +226,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold underline underline-offset-2 transition-colors"
-            style={{ color: "#2ABFBF" }}
+            style={{ color: "#00E5FF" }}
           >
             Monthly financing available through Cherry
           </a>
@@ -257,7 +257,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
                 ${p.t1}/mo equivalent
               </span>
               {savingsVsBase(term, "t1") > 0 && (
-                <span className="text-xs font-extrabold" style={{ color: "#2ABFBF" }}>
+                <span className="text-xs font-extrabold" style={{ color: "#00E5FF" }}>
                   Save ${savingsVsBase(term, "t1").toLocaleString()}
                 </span>
               )}
@@ -302,25 +302,25 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             className="rounded-2xl flex flex-col relative"
             style={{
               background: "#0A1628",
-              border: "2px solid #2ABFBF",
+              border: "2px solid #00E5FF",
               padding: "40px 28px 34px",
-              boxShadow: "0 0 0 5px rgba(42,191,191,0.09), 0 16px 48px rgba(42,191,191,0.13)",
+              boxShadow: "0 0 0 5px rgba(0,229,255,0.09), 0 16px 48px rgba(0,229,255,0.13)",
             }}
           >
             <div
               className="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-black tracking-[2px] uppercase px-5 py-1.5 rounded-full text-white whitespace-nowrap"
-              style={{ background: "linear-gradient(135deg, #2ABFBF, #1A9090)" }}
+              style={{ background: "linear-gradient(135deg, #00E5FF, #00B8CC)" }}
             >
               ⭐ Most Popular
             </div>
 
-            <p className="text-[11px] font-black tracking-[2.5px] uppercase mb-4" style={{ color: "#2ABFBF" }}>
+            <p className="text-[11px] font-black tracking-[2.5px] uppercase mb-4" style={{ color: "#00E5FF" }}>
               Metabolic &amp; Testosterone Track
             </p>
 
             {/* Price — upfront total */}
             <div className="flex items-end gap-1 mb-0.5">
-              <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#2ABFBF" }}>$</span>
+              <span className="font-extrabold pb-2.5" style={{ fontSize: 20, color: "#00E5FF" }}>$</span>
               <span className="font-black leading-none" style={{ fontSize: 56, color: "#fff", letterSpacing: "-3px" }}>
                 {totalCost(term, "t2").toLocaleString()}
               </span>
@@ -332,12 +332,12 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               {term === 12 ? (
                 <span
                   className="inline-flex items-center gap-1 text-xs font-extrabold rounded-full px-2.5 py-0.5"
-                  style={{ background: "linear-gradient(135deg, #2ABFBF, #1A9090)", color: "#fff", fontSize: 10 }}
+                  style={{ background: "linear-gradient(135deg, #00E5FF, #00B8CC)", color: "#fff", fontSize: 10 }}
                 >
                   🎉 Over 2 months free
                 </span>
               ) : savingsVsBase(term, "t2") > 0 ? (
-                <span className="text-xs font-extrabold" style={{ color: "#2ABFBF" }}>
+                <span className="text-xs font-extrabold" style={{ color: "#00E5FF" }}>
                   Save ${savingsVsBase(term, "t2").toLocaleString()}
                 </span>
               ) : null}
@@ -349,13 +349,13 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
 
             <div
               className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[10.5px] font-bold uppercase tracking-wide mb-5 w-fit"
-              style={{ background: "rgba(42,191,191,0.12)", color: "#2ABFBF", border: "1px solid rgba(42,191,191,0.28)" }}
+              style={{ background: "rgba(0,229,255,0.12)", color: "#00E5FF", border: "1px solid rgba(0,229,255,0.28)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-current" />
               TRT + Semaglutide
             </div>
 
-            <hr className="mb-5" style={{ border: "none", borderTop: "1px solid rgba(42,191,191,0.2)" }} />
+            <hr className="mb-5" style={{ border: "none", borderTop: "1px solid rgba(0,229,255,0.2)" }} />
 
             <ul className="flex flex-col gap-3 mb-6 flex-1">
               {TIER2_FEATURES.map((f, i) => <FeatureItem key={i} feature={f} teal />)}
@@ -364,7 +364,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             <button
               onClick={onConsultClick}
               className="w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest text-white transition-all hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #2ABFBF, #1A9090)", boxShadow: "0 8px 24px rgba(42,191,191,0.26)" }}
+              style={{ background: "linear-gradient(135deg, #00E5FF, #00B8CC)", boxShadow: "0 8px 24px rgba(0,229,255,0.26)" }}
             >
               Start Metabolic Track
             </button>
@@ -449,7 +449,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             "HIPAA Compliant & Secure",
           ].map((item) => (
             <div key={item} className="flex items-center gap-2 text-xs font-semibold" style={{ color: "#6A6050" }}>
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "linear-gradient(135deg, #2ABFBF, #1A9090)" }} />
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "linear-gradient(135deg, #00E5FF, #00B8CC)" }} />
               {item}
             </div>
           ))}

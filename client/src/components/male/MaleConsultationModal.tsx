@@ -1,6 +1,6 @@
 /* =============================================================================
    MaleConsultationModal.tsx — Men's Health Consultation Modal
-   Brand: Dark Navy #0A0F1E, Teal #00C2CB
+   Brand: Dark Navy #0A0F1E, Teal #00E5FF
    Same step structure as women's: 3 questions → DOB → goals → lead → expectation → Calendly
    ============================================================================= */
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
@@ -8,10 +8,10 @@ import { X } from "lucide-react";
 
 const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation-men";
 
-const TEAL = "#00C2CB";
-const TEAL_DARK = "#0099A8";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
-const TEAL_DISABLED = "rgba(0,194,203,0.35)";
+const TEAL = "#00E5FF";
+const TEAL_DARK = "#00B8CC";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)";
+const TEAL_DISABLED = "rgba(0,229,255,0.35)";
 const ITEM_H = 44;
 
 interface Props {
@@ -100,7 +100,7 @@ function WheelColumn({ items, selectedIndex, onSelect }: { items: string[]; sele
       <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
         style={{ height: ITEM_H * 2, background: "linear-gradient(to top, #0d1526 0%, transparent 100%)" }} />
       <div className="absolute inset-x-0 z-10 pointer-events-none"
-        style={{ top: ITEM_H * 2, height: ITEM_H, background: "rgba(0,194,203,0.08)", borderTop: "1.5px solid rgba(0,194,203,0.3)", borderBottom: "1.5px solid rgba(0,194,203,0.3)" }} />
+        style={{ top: ITEM_H * 2, height: ITEM_H, background: "rgba(0,229,255,0.08)", borderTop: "1.5px solid rgba(0,229,255,0.3)", borderBottom: "1.5px solid rgba(0,229,255,0.3)" }} />
       <div ref={ref} onScroll={handleScroll}
         style={{ height: "100%", overflowY: "scroll", scrollSnapType: "y mandatory", paddingTop: ITEM_H * 2, paddingBottom: ITEM_H * 2, scrollbarWidth: "none", msOverflowStyle: "none" }}
         className="[&::-webkit-scrollbar]:hidden">
@@ -139,7 +139,7 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
   const fieldStyle = (field: string, valid: boolean): React.CSSProperties => ({
     ...inputBase,
     borderColor: touched[field] && !valid ? "#ef4444" : touched[field] && valid ? TEAL : "rgba(255,255,255,0.15)",
-    boxShadow: touched[field] && valid ? `0 0 0 3px rgba(0,194,203,0.15)` : "none",
+    boxShadow: touched[field] && valid ? `0 0 0 3px rgba(0,229,255,0.15)` : "none",
   });
 
   return (
@@ -190,11 +190,11 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
         <input type="text" value={data.zip} placeholder="90210" autoComplete="postal-code" maxLength={10}
           onChange={(e) => onChange({ ...data, zip: e.target.value.replace(/[^0-9-]/g, "") })}
           style={{ ...inputBase, borderColor: "rgba(255,255,255,0.15)" }}
-          onFocus={(e) => { e.target.style.borderColor = TEAL; e.target.style.boxShadow = "0 0 0 3px rgba(0,194,203,0.15)"; }}
+          onFocus={(e) => { e.target.style.borderColor = TEAL; e.target.style.boxShadow = "0 0 0 3px rgba(0,229,255,0.15)"; }}
           onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.15)"; e.target.style.boxShadow = "none"; }} />
       </div>
 
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, borderRadius: 12, padding: "12px 14px", background: "rgba(0,194,203,0.06)", border: "1px solid rgba(0,194,203,0.2)", marginTop: 4 }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, borderRadius: 12, padding: "12px 14px", background: "rgba(0,229,255,0.06)", border: "1px solid rgba(0,229,255,0.2)", marginTop: 4 }}>
         <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>🔒</span>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", lineHeight: 1.6, margin: 0, fontFamily: "Montserrat, sans-serif" }}>
           We respect your privacy. No spam, ever. Your information is used only to prepare for your consultation and will never be sold or shared.
@@ -306,13 +306,13 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
           maxWidth: isCalendarStep ? 860 : 480, maxHeight: "95vh",
           borderRadius: "20px 20px 0 0",
           background: "#0d1526",
-          border: "1px solid rgba(0,194,203,0.2)",
+          border: "1px solid rgba(0,229,255,0.2)",
           transition: "max-width 0.4s ease",
         }}>
 
         {/* Progress bar */}
         {!isCalendarStep && (
-          <div className="h-1 w-full flex-shrink-0" style={{ background: "rgba(0,194,203,0.1)" }}>
+          <div className="h-1 w-full flex-shrink-0" style={{ background: "rgba(0,229,255,0.1)" }}>
             <div className="h-full transition-all duration-500" style={{ width: `${progressPct}%`, background: TEAL_GRADIENT }} />
           </div>
         )}
@@ -333,7 +333,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
             <div className="flex flex-col items-center text-center max-w-xs">
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mb-5 flex-shrink-0"
-                style={{ background: "rgba(0,194,203,0.12)", border: "1.5px solid rgba(0,194,203,0.3)" }}
+                style={{ background: "rgba(0,229,255,0.12)", border: "1.5px solid rgba(0,229,255,0.3)" }}
               >
                 <span style={{ fontSize: 26 }}>💪</span>
               </div>
@@ -352,7 +352,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
               <button
                 onClick={() => setShowExitConfirm(false)}
                 className="w-full py-3.5 rounded-full text-sm font-bold tracking-wider text-white mb-3 transition-all hover:opacity-90"
-                style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 20px rgba(0,194,203,0.35)" }}
+                style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 20px rgba(0,229,255,0.35)" }}
               >
                 I'm Doing This For Me →
               </button>
@@ -386,9 +386,9 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
                     placeholder="e.g. I've been feeling exhausted and gaining weight despite working out. My doctor says my levels are 'normal' but I feel terrible. I want my energy and drive back..."
                     rows={6}
                     className="w-full rounded-xl p-4 text-base placeholder-gray-600 resize-none focus:outline-none transition-all"
-                    style={{ fontFamily: "Montserrat, sans-serif", lineHeight: 1.6, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(0,194,203,0.2)", color: "#fff" }}
+                    style={{ fontFamily: "Montserrat, sans-serif", lineHeight: 1.6, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(0,229,255,0.2)", color: "#fff" }}
                     onFocus={(e) => (e.target.style.borderColor = TEAL)}
-                    onBlur={(e) => (e.target.style.borderColor = "rgba(0,194,203,0.2)")} />
+                    onBlur={(e) => (e.target.style.borderColor = "rgba(0,229,255,0.2)")} />
                   <p className="text-xs mt-2 text-right" style={{ color: "rgba(255,255,255,0.3)" }}>
                     {goalsText.trim().length < 3 ? "Please share a little about your goals" : `${goalsText.trim().length} characters`}
                   </p>
@@ -411,7 +411,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
                     return (
                       <button key={option} onClick={() => setSelected(option)}
                         className="w-full flex items-center gap-4 py-4 text-left transition-colors"
-                        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", background: isSelected ? "rgba(0,194,203,0.06)" : "transparent" }}>
+                        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", background: isSelected ? "rgba(0,229,255,0.06)" : "transparent" }}>
                         <span className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
                           style={{ borderColor: isSelected ? TEAL : "rgba(255,255,255,0.2)", backgroundColor: isSelected ? TEAL : "transparent" }}>
                           {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-white" />}
@@ -489,7 +489,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
               <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Pick a 20-minute slot with a MedMethod Men's Health Specialist.
               </p>
-              <div className="rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,194,203,0.2)" }}>
+              <div className="rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,229,255,0.2)" }}>
                 <iframe src={calendlyWithParams} width="100%" height="560" frameBorder="0"
                   title="Schedule your free men's health consultation" style={{ border: "none", display: "block" }} />
               </div>
@@ -502,7 +502,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
           <div className="flex-shrink-0 px-6 pb-8 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0d1526" }}>
             <button onClick={handleNext} disabled={isNextDisabled}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
-              style={{ background: isNextDisabled ? TEAL_DISABLED : TEAL_GRADIENT, cursor: isNextDisabled ? "not-allowed" : "pointer", boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(0,194,203,0.3)", fontFamily: "Montserrat, sans-serif" }}>
+              style={{ background: isNextDisabled ? TEAL_DISABLED : TEAL_GRADIENT, cursor: isNextDisabled ? "not-allowed" : "pointer", boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(0,229,255,0.3)", fontFamily: "Montserrat, sans-serif" }}>
               {isExpectationStep ? "Choose a Time →" : "Next →"}
             </button>
             {step > 0 && (

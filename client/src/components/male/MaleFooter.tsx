@@ -3,13 +3,13 @@ import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import MaleMetabolicQuiz from "./MaleMetabolicQuiz";
 
-const TEAL = "#00C2CB";
+const TEAL = "#00E5FF";
 const MEN_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/medmethod-men-logo_c015511e.png";
 
 export default function MaleFooter({ onConsultClick }: { onConsultClick: () => void }) {
   const [quizOpen, setQuizOpen] = useState(false);
   return (<>
-    <footer style={{ background: "#0A1628", borderTop: "1px solid rgba(0,194,203,0.15)" }}>
+    <footer style={{ background: "#0A1628", borderTop: "1px solid rgba(0,229,255,0.15)" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand Column */}
@@ -21,9 +21,9 @@ export default function MaleFooter({ onConsultClick }: { onConsultClick: () => v
             <div className="flex gap-3">
               {[Instagram, Facebook, Twitter, Linkedin].map((Icon, i) => (
                 <a key={i} href="#" className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
-                  style={{ background: "rgba(0,194,203,0.1)", border: "1px solid rgba(0,194,203,0.2)", color: "rgba(255,255,255,0.5)" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,194,203,0.2)"; e.currentTarget.style.color = TEAL; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0,194,203,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}>
+                  style={{ background: "rgba(0,229,255,0.1)", border: "1px solid rgba(0,229,255,0.2)", color: "rgba(255,255,255,0.5)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,229,255,0.2)"; e.currentTarget.style.color = TEAL; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0,229,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}>
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -62,22 +62,22 @@ export default function MaleFooter({ onConsultClick }: { onConsultClick: () => v
             </p>
             <button onClick={onConsultClick}
               className="w-full py-3 rounded-full text-sm font-bold tracking-wider text-white transition-all"
-              style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)", boxShadow: "0 4px 16px rgba(0,194,203,0.3)" }}>
+              style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)", boxShadow: "0 4px 16px rgba(0,229,255,0.3)" }}>
               FREE CONSULTATION
             </button>
             <button
               onClick={() => setQuizOpen(true)}
               className="w-full mt-3 py-2 text-sm font-semibold transition-colors text-left"
-              style={{ fontFamily: "Montserrat, sans-serif", background: "none", border: "none", padding: 0, cursor: "pointer", color: "rgba(0,194,203,0.6)" }}
+              style={{ fontFamily: "Montserrat, sans-serif", background: "none", border: "none", padding: 0, cursor: "pointer", color: "rgba(0,229,255,0.6)" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = TEAL)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(0,194,203,0.6)")}>
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(0,229,255,0.6)")}>
               Check Your T-Levels (Free Quiz) →
             </button>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid rgba(0,194,203,0.08)" }}>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid rgba(0,229,255,0.08)" }}>
           <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "Montserrat, sans-serif" }}>
             © 2025 MedMethod Direct. All rights reserved.
           </p>

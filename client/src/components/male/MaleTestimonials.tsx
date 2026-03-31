@@ -7,7 +7,7 @@
    - Below photo: stars, italic quote, bold name, age/location, teal program pill
 */
 
-const TEAL = "#00C2CB";
+const TEAL = "#00E5FF";
 const NAVY = "#0A1628";
 
 interface Testimonial {
@@ -127,16 +127,16 @@ export default function MaleTestimonials() {
         {/* Section header */}
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-10" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #0099A8 100%)` }} />
+            <div className="h-px w-10" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)` }} />
             <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: TEAL }}>RESULTS</span>
-            <div className="h-px w-10" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #0099A8 100%)` }} />
+            <div className="h-px w-10" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)` }} />
           </div>
           <h2
             className="font-black leading-tight mb-3"
             style={{ color: NAVY, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}
           >
             REAL MEN.{" "}
-            <span style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #0099A8 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               REAL RESULTS.
             </span>
           </h2>
@@ -203,7 +203,7 @@ export default function MaleTestimonials() {
               <div
                 className="absolute px-3 py-1.5 rounded-full text-white font-bold text-xs shadow-lg"
                 style={{
-                  background: `linear-gradient(135deg, ${TEAL} 0%, #0099A8 100%)`,
+                  background: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)`,
                   top: 10,
                   right: 10,
                   maxWidth: "62%",
@@ -229,16 +229,16 @@ export default function MaleTestimonials() {
                 "{t.quote}"
               </p>
               {/* Author */}
-              <div className="pt-3" style={{ borderTop: "1px solid rgba(0,194,203,0.12)" }}>
+              <div className="pt-3" style={{ borderTop: "1px solid rgba(0,229,255,0.12)" }}>
                 <p className="font-bold text-sm mb-0.5" style={{ color: NAVY }}>{t.name}</p>
                 <p className="text-xs mb-3" style={{ color: "rgba(10,22,40,0.45)" }}>Age {t.age} · {t.location}</p>
                 {/* Program pill — matches reference style */}
                 <span
                   className="inline-block text-xs font-semibold px-3 py-1.5 rounded-full"
                   style={{
-                    background: "rgba(0,194,203,0.08)",
+                    background: "rgba(0,229,255,0.08)",
                     color: TEAL,
-                    border: `1px solid rgba(0,194,203,0.3)`,
+                    border: `1px solid rgba(0,229,255,0.3)`,
                   }}
                 >
                   {t.program}

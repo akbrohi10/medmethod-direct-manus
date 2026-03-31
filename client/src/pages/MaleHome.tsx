@@ -1,6 +1,6 @@
 /* =============================================================================
    MaleHome.tsx — MedMethod Direct Men's Health Page
-   Brand: Dark Navy #0A0F1E, Teal/Cyan #00C2CB, "ENTER YOUR PRIME."
+   Brand: Dark Navy #0A0F1E, Teal/Cyan #00E5FF, "ENTER YOUR PRIME."
    Mirrors all sections from women's Home.tsx adapted for TRT & men's health
    ============================================================================= */
 import { useState } from "react";

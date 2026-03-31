@@ -2,11 +2,11 @@
    MaleToolsForSuccess.tsx — Additional tools & perks section (men's version)
    Design: Mirrors women's ToolsForSuccess exactly — full-width dark background
            with lifestyle photo overlay, headline + feature grid layout.
-   Brand: Montserrat, Teal #00C2CB, Navy #0A0F1E
+   Brand: Montserrat, Teal #00E5FF, Navy #0A0F1E
    ============================================================================= */
 import { Dumbbell, Apple, Scale, Activity, MessageCircle, ClipboardList, Heart, Zap } from "lucide-react";
 
-const TEAL = "#00C2CB";
+const TEAL = "#00E5FF";
 
 const tools = [
   {
@@ -94,7 +94,7 @@ export default function MaleToolsForSuccess({ onConsultClick }: { onConsultClick
               <br />
               <span
                 style={{
-                  background: "linear-gradient(90deg, #00C2CB, #0099A8)",
+                  background: "linear-gradient(90deg, #00E5FF, #00B8CC)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -114,7 +114,7 @@ export default function MaleToolsForSuccess({ onConsultClick }: { onConsultClick
               className="inline-block self-start text-sm font-bold tracking-wider px-7 py-3 rounded-full text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
               style={{
                 fontFamily: "Montserrat, sans-serif",
-                background: "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)",
+                background: "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)",
               }}
             >
               GET STARTED FREE
@@ -132,14 +132,14 @@ export default function MaleToolsForSuccess({ onConsultClick }: { onConsultClick
                   style={{
                     background: "rgba(255,255,255,0.07)",
                     backdropFilter: "blur(8px)",
-                    border: "1px solid rgba(0,194,203,0.15)",
+                    border: "1px solid rgba(0,229,255,0.15)",
                   }}
                 >
                   {/* Icon */}
                   <div
                     className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
                     style={{
-                      background: "rgba(0,194,203,0.15)",
+                      background: "rgba(0,229,255,0.15)",
                     }}
                   >
                     <Icon className="w-5 h-5" style={{ color: TEAL }} />

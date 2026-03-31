@@ -1,6 +1,6 @@
 /* MaleHowItWorks.tsx — Warm Cream + Navy theme */
-const TEAL = "#00C2CB";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
+const TEAL = "#00E5FF";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)";
 const NAVY = "#0A1628";
 const CREAM = "#F5F2EC";
 
@@ -31,13 +31,13 @@ export default function MaleHowItWorks({ onConsultClick }: { onConsultClick: () 
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-0 relative">
           {/* Connector line */}
-          <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,194,203,0.3), transparent)" }} />
+          <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,229,255,0.3), transparent)" }} />
 
           {steps.map((step, i) => (
             <div key={step.num} className="flex flex-col items-center text-center px-3 py-6 relative">
               {/* Number circle */}
               <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 relative z-10"
-                style={{ background: i === 0 ? TEAL_GRADIENT : "#fff", border: `2px solid ${i === 0 ? "transparent" : "rgba(0,194,203,0.35)"}`, boxShadow: "0 2px 12px rgba(0,0,0,0.08)" }}>
+                style={{ background: i === 0 ? TEAL_GRADIENT : "#fff", border: `2px solid ${i === 0 ? "transparent" : "rgba(0,229,255,0.35)"}`, boxShadow: "0 2px 12px rgba(0,0,0,0.08)" }}>
                 <span className="font-black text-lg" style={{ color: i === 0 ? "#fff" : TEAL }}>{step.num}</span>
               </div>
               <h3 className="font-bold mb-2 text-sm tracking-wide" style={{ color: NAVY }}>{step.title}</h3>
@@ -49,7 +49,7 @@ export default function MaleHowItWorks({ onConsultClick }: { onConsultClick: () 
         <div className="text-center mt-10">
           <button onClick={onConsultClick}
             className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wider text-white transition-all"
-            style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,194,203,0.35)" }}>
+            style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,229,255,0.35)" }}>
             START YOUR JOURNEY →
           </button>
         </div>

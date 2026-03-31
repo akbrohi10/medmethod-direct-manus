@@ -1,6 +1,6 @@
 /* MaleServices.tsx — Men's Health Services Grid — 4 per row on desktop */
-const TEAL = "#00C2CB";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
+const TEAL = "#00E5FF";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)";
 
 const services = [
   {
@@ -83,9 +83,9 @@ export default function MaleServices() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((svc) => (
             <div key={svc.title} className="rounded-2xl overflow-hidden flex flex-col group transition-all"
-              style={{ background: "#fff", border: "1px solid rgba(0,194,203,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.5)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(0,194,203,0.2)")}>
+              style={{ background: "#fff", border: "1px solid rgba(0,229,255,0.2)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(0,229,255,0.2)")}>
               {/* Image */}
               <div className="relative overflow-hidden" style={{ height: 160 }}>
                 <img src={svc.image} alt={svc.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />

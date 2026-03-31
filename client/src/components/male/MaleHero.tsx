@@ -9,8 +9,8 @@ import MaleMetabolicQuiz from "./MaleMetabolicQuiz";
 
 const YOUTUBE_VIDEO_ID = "dQw4w9WgXcQ";
 
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 50%, #007A85 100%)";
-const TEAL = "#00C2CB";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 50%, #0099AA 100%)";
+const TEAL = "#00E5FF";
 
 const tickerItems = [
   "TESTOSTERONE REPLACEMENT THERAPY",
@@ -65,7 +65,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,194,203,0.07) 0%, rgba(0,153,168,0.04) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,229,255,0.07) 0%, rgba(0,153,168,0.04) 40%, transparent 70%)",
         }}
       />
 
@@ -118,7 +118,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                 <a
                   onClick={onConsultClick}
                   className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group cursor-pointer text-white"
-                  style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,194,203,0.4)" }}
+                  style={{ fontFamily: "Montserrat, sans-serif", background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,229,255,0.4)" }}
                 >
                   SCHEDULE FREE CONSULTATION
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -134,7 +134,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                 <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16" fill="none">
                   <circle cx="8" cy="8" r="8" fill="url(#vcGradM)"/>
                   <path d="M4.5 8.5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <defs><linearGradient id="vcGradM" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#00C2CB"/><stop offset="1" stopColor="#007A85"/></linearGradient></defs>
+                  <defs><linearGradient id="vcGradM" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#00E5FF"/><stop offset="1" stopColor="#0099AA"/></linearGradient></defs>
                 </svg>
                 100% Virtual Care
               </p>
@@ -292,7 +292,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
         className="w-full"
         style={{
           height: "4px",
-          background: "linear-gradient(90deg, #00C2CB 0%, #0099A8 50%, #007A85 100%)",
+          background: "linear-gradient(90deg, #00E5FF 0%, #00B8CC 50%, #0099AA 100%)",
         }}
       />
 

@@ -1,8 +1,8 @@
 /* MaleMetabolicQuiz.tsx — Testosterone & Hormone Health Quiz */
 import { useState } from "react";
 
-const TEAL = "#00C2CB";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB 0%, #0099A8 100%)";
+const TEAL = "#00E5FF";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF 0%, #00B8CC 100%)";
 
 const questions = [
   {
@@ -114,7 +114,7 @@ export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { o
           <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>7 questions · 2 minutes · Personalized results</p>
         </div>
 
-        <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,194,203,0.2)" }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(0,229,255,0.2)" }}>
           {!started && !result && (
             <div className="p-8 text-center">
               <div className="text-5xl mb-4">🧬</div>
@@ -124,7 +124,7 @@ export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { o
               </p>
               <button onClick={() => setStarted(true)}
                 className="px-8 py-3.5 rounded-full font-bold text-sm tracking-wider text-white"
-                style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,194,203,0.35)" }}>
+                style={{ background: TEAL_GRADIENT, boxShadow: "0 6px 24px rgba(0,229,255,0.35)" }}>
                 START THE ASSESSMENT →
               </button>
             </div>
@@ -137,7 +137,7 @@ export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { o
                 <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.4)" }}>Question {step + 1} of {questions.length}</span>
                 <span className="text-xs font-bold" style={{ color: TEAL }}>{progress}%</span>
               </div>
-              <div className="h-1.5 rounded-full mb-6" style={{ background: "rgba(0,194,203,0.15)" }}>
+              <div className="h-1.5 rounded-full mb-6" style={{ background: "rgba(0,229,255,0.15)" }}>
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${progress}%`, background: TEAL_GRADIENT }} />
               </div>
               <h3 className="font-bold text-white text-lg mb-5 leading-snug" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
@@ -147,9 +147,9 @@ export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { o
                 {questions[step].options.map((opt) => (
                   <button key={opt.text} onClick={() => handleAnswer(opt.score)}
                     className="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-sm transition-all"
-                    style={{ background: "rgba(0,194,203,0.06)", border: "1px solid rgba(0,194,203,0.15)", color: "rgba(255,255,255,0.7)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = TEAL; e.currentTarget.style.color = "#fff"; e.currentTarget.style.background = "rgba(0,194,203,0.12)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(0,194,203,0.15)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; e.currentTarget.style.background = "rgba(0,194,203,0.06)"; }}>
+                    style={{ background: "rgba(0,229,255,0.06)", border: "1px solid rgba(0,229,255,0.15)", color: "rgba(255,255,255,0.7)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = TEAL; e.currentTarget.style.color = "#fff"; e.currentTarget.style.background = "rgba(0,229,255,0.12)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(0,229,255,0.15)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; e.currentTarget.style.background = "rgba(0,229,255,0.06)"; }}>
                     {opt.text}
                   </button>
                 ))}
@@ -172,7 +172,7 @@ export default function MaleMetabolicQuiz({ onConsultClick, open, onClose }: { o
               </p>
               <button onClick={onConsultClick}
                 className="w-full py-4 rounded-xl font-bold text-sm tracking-wider text-white mb-3"
-                style={{ background: TEAL_GRADIENT, boxShadow: "0 8px 24px rgba(0,194,203,0.35)" }}>
+                style={{ background: TEAL_GRADIENT, boxShadow: "0 8px 24px rgba(0,229,255,0.35)" }}>
                 {result.cta} →
               </button>
               <button onClick={reset} className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.35)", background: "none", border: "none", cursor: "pointer" }}>

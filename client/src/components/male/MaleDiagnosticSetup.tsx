@@ -8,8 +8,8 @@ import { useState } from "react";
 import { ChevronDown, FlaskConical, UserRound, Scale, Smartphone, Check } from "lucide-react";
 import MaleMetabolicQuiz from "./MaleMetabolicQuiz";
 
-const TEAL = "#00C2CB";
-const TEAL_GRADIENT = "linear-gradient(135deg, #00C2CB, #007A85)";
+const TEAL = "#00E5FF";
+const TEAL_GRADIENT = "linear-gradient(135deg, #00E5FF, #0099AA)";
 
 const items = [
   {
@@ -55,7 +55,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
           className="w-full flex items-center justify-between gap-4 rounded-2xl px-6 py-5 transition-all"
           style={{
             background: "#0A1628",
-            border: `1.5px solid rgba(0,194,203,0.25)`,
+            border: `1.5px solid rgba(0,229,255,0.25)`,
             cursor: "pointer",
             textAlign: "left",
           }}
@@ -110,7 +110,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
         >
           <div
             className="rounded-b-2xl mt-0 flex flex-col md:flex-row overflow-hidden"
-            style={{ border: `1.5px solid rgba(0,194,203,0.15)`, borderTop: "none", background: "#0A1628" }}
+            style={{ border: `1.5px solid rgba(0,229,255,0.15)`, borderTop: "none", background: "#0A1628" }}
           >
             {/* Left: item list */}
             <div className="flex-1 p-7">
@@ -123,7 +123,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                   <div key={i} className="flex items-start gap-4 mb-4">
                     <div
                       className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-                      style={{ background: "rgba(0,194,203,0.15)" }}
+                      style={{ background: "rgba(0,229,255,0.15)" }}
                     >
                       <Icon className="w-4 h-4" style={{ color: TEAL }} />
                     </div>
@@ -162,7 +162,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
 
             {/* Right: price summary + CTA */}
             <div
-              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7 border-t border-t-[rgba(0,194,203,0.15)] md:border-t-0 md:border-l md:border-l-[rgba(0,194,203,0.15)]"
+              className="md:w-64 flex-shrink-0 flex flex-col justify-between p-7 border-t border-t-[rgba(0,229,255,0.15)] md:border-t-0 md:border-l md:border-l-[rgba(0,229,255,0.15)]"
               style={{ background: "#071020" }}
             >
               <div>
@@ -204,7 +204,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                 style={{
                   background: TEAL_GRADIENT,
                   letterSpacing: "0.08em",
-                  boxShadow: "0 4px 14px rgba(0,194,203,0.35)",
+                  boxShadow: "0 4px 14px rgba(0,229,255,0.35)",
                 }}
               >
                 <span>FREE CONSULTATION</span>
