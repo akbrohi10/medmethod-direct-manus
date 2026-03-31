@@ -142,8 +142,8 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
           <div className="hidden lg:flex items-center gap-3">
             <a href="/male"
               className="text-xs font-bold tracking-widest px-3 py-1.5 rounded-full transition-all"
-              style={{ color: "#00C2CB", border: "1px solid rgba(0,194,203,0.35)", fontFamily: "Montserrat, sans-serif" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,194,203,0.08)"; }}
+              style={{ color: "#00E5FF", border: "1px solid rgba(0,229,255,0.35)", fontFamily: "Montserrat, sans-serif" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,229,255,0.08)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
               FOR MEN →
             </a>
@@ -193,7 +193,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             </a>
             <a href="/male" onClick={() => setMobileOpen(false)}
               className="py-3 font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
-              style={{ fontFamily: "Montserrat, sans-serif", color: "#00C2CB" }}>
+              style={{ fontFamily: "Montserrat, sans-serif", color: "#00E5FF" }}>
               For Men →
             </a>
             <button
