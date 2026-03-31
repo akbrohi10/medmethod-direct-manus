@@ -136,7 +136,7 @@ export default function MaleTestimonials() {
             style={{ color: NAVY, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}
           >
             REAL MEN.{" "}
-            <span style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ backgroundImage: `linear-gradient(135deg, ${TEAL} 0%, #00B8CC 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               REAL RESULTS.
             </span>
           </h2>

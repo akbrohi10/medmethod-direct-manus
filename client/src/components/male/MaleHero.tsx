@@ -90,7 +90,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                 <br />
                 <span
                   style={{
-                    background: TEAL_GRADIENT,
+                    backgroundImage: TEAL_GRADIENT,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -102,7 +102,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                 OR{" "}
                 <span style={{ color: "#ffffff" }}>LOW </span><span
                   style={{
-                    background: TEAL_GRADIENT,
+                    backgroundImage: TEAL_GRADIENT,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -147,7 +147,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: TEAL_GRADIENT,
+                      backgroundImage: TEAL_GRADIENT,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -165,7 +165,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: TEAL_GRADIENT,
+                      backgroundImage: TEAL_GRADIENT,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -183,7 +183,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: TEAL_GRADIENT,
+                      backgroundImage: TEAL_GRADIENT,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -201,7 +201,7 @@ export default function MaleHero({ onConsultClick }: { onConsultClick: () => voi
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: TEAL_GRADIENT,
+                      backgroundImage: TEAL_GRADIENT,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",

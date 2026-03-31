@@ -87,7 +87,7 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
               THE SYSTEM IS{" "}
               <span
                 style={{
-                  background: TEAL_GRADIENT,
+                  backgroundImage: TEAL_GRADIENT,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -146,7 +146,7 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
                       className="font-black"
                       style={{
                         fontSize: "1.6rem",
-                        background: TEAL_GRADIENT,
+                        backgroundImage: TEAL_GRADIENT,
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
@@ -180,7 +180,7 @@ export default function MaleWhyChoose({ onConsultClick }: { onConsultClick: () =
               THE MEDMETHOD{" "}
               <span
                 style={{
-                  background: TEAL_GRADIENT,
+                  backgroundImage: TEAL_GRADIENT,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

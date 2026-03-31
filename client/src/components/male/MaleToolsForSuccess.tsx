@@ -94,7 +94,7 @@ export default function MaleToolsForSuccess({ onConsultClick }: { onConsultClick
               <br />
               <span
                 style={{
-                  background: "linear-gradient(90deg, #00E5FF, #00B8CC)",
+                  backgroundImage: "linear-gradient(90deg, #00E5FF, #00B8CC)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

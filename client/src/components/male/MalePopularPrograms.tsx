@@ -275,7 +275,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               No Medication Included
             </div>
 
-            <hr className="mb-5" style={{ border: "none", borderTop: "1px solid #EBEBF0" }} />
+            <hr className="mb-5" style={{ borderTop: "1px solid #EBEBF0" }} />
 
             <ul className="flex flex-col gap-3 mb-6 flex-1">
               {TIER1_FEATURES.map((f, i) => <FeatureItem key={i} feature={f} />)}
@@ -355,7 +355,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               TRT + Semaglutide
             </div>
 
-            <hr className="mb-5" style={{ border: "none", borderTop: "1px solid rgba(0,229,255,0.2)" }} />
+            <hr className="mb-5" style={{ borderTop: "1px solid rgba(0,229,255,0.2)" }} />
 
             <ul className="flex flex-col gap-3 mb-6 flex-1">
               {TIER2_FEATURES.map((f, i) => <FeatureItem key={i} feature={f} teal />)}
@@ -423,7 +423,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               TRT + Tirzepatide
             </div>
 
-            <hr className="mb-5" style={{ border: "none", borderTop: "1px solid rgba(13,26,42,0.12)" }} />
+            <hr className="mb-5" style={{ borderTop: "1px solid rgba(13,26,42,0.12)" }} />
 
             <ul className="flex flex-col gap-3 mb-6 flex-1">
               {TIER3_FEATURES.map((f, i) => <FeatureItem key={i} feature={f} />)}

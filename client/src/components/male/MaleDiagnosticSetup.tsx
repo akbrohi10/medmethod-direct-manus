@@ -110,7 +110,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
         >
           <div
             className="rounded-b-2xl mt-0 flex flex-col md:flex-row overflow-hidden"
-            style={{ border: `1.5px solid rgba(0,229,255,0.15)`, borderTop: "none", background: "#0A1628" }}
+            style={{ borderLeft: `1.5px solid rgba(0,229,255,0.15)`, borderRight: `1.5px solid rgba(0,229,255,0.15)`, borderBottom: `1.5px solid rgba(0,229,255,0.15)`, borderTop: "none", background: "#0A1628" }}
           >
             {/* Left: item list */}
             <div className="flex-1 p-7">
@@ -149,7 +149,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                 <span
                   className="text-xl font-black"
                   style={{
-                    background: TEAL_GRADIENT,
+                    backgroundImage: TEAL_GRADIENT,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -176,7 +176,7 @@ export default function MaleDiagnosticSetup({ onConsultClick }: { onConsultClick
                 <p
                   className="font-bold text-xs mb-5"
                   style={{
-                    background: TEAL_GRADIENT,
+                    backgroundImage: TEAL_GRADIENT,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",

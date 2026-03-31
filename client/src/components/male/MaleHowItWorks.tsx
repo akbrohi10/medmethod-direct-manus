@@ -22,7 +22,7 @@ export default function MaleHowItWorks({ onConsultClick }: { onConsultClick: () 
             <div className="h-px w-10" style={{ background: TEAL }} />
           </div>
           <h2 className="font-black mb-3" style={{ color: NAVY, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", letterSpacing: "-0.02em" }}>
-            THE PATH TO YOUR <span style={{ background: TEAL_GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>PRIME</span>
+            THE PATH TO YOUR <span style={{ backgroundImage: TEAL_GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>PRIME</span>
           </h2>
           <p style={{ color: "rgba(10,22,40,0.5)", maxWidth: 520, margin: "0 auto", fontSize: "0.95rem" }}>
             From your first call to peak performance — we handle everything so you can focus on results.
