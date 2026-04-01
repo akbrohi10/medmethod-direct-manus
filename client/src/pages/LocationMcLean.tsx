@@ -661,7 +661,7 @@ export default function LocationMcLean() {
           "The system you've been missing —{" "}
           <span
             style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #B06FE8 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B06FE8 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -729,7 +729,7 @@ export default function LocationMcLean() {
               Questions & Answers
             </p>
             <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              Frequently Asked Questions for{" "}<span style={{background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>McLean Patients</span>
+              Frequently Asked Questions for{" "}<span style={{backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>McLean Patients</span>
             </h2>
           </div>
           {/* Tab buttons */}

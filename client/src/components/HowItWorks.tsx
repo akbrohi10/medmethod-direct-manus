@@ -114,7 +114,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                     className="absolute -top-3 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{
                       fontSize: "7rem",
-                      background: "linear-gradient(135deg, rgba(232,51,158,0.07) 0%, rgba(122,30,126,0.07) 100%)",
+                      backgroundImage: "linear-gradient(135deg, rgba(232,51,158,0.07) 0%, rgba(122,30,126,0.07) 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",

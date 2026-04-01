@@ -55,7 +55,7 @@ const services = [
     href: "#consultation",
   },
   {
-    title: "Virtual Direct Primary Care",
+    title: "Virtual Primary Care",
     description: "Preventive care from your own board-certified physician — annual labs, acute visits, and direct doctor access, all virtual…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-virtual-care-bT8MJnTPigpptvKDzcLPpq.webp",
     alt: "Doctor conducting a warm virtual consultation on laptop",

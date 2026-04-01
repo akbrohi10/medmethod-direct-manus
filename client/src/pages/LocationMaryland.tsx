@@ -314,21 +314,21 @@ export default function LocationMaryland() {
               >
                 VIRTUAL{" "}
                 <span style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}>Hormone,</span>
                 <br />
                 <span style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}>Menopause</span> &amp;
                 <br />
                 <span style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #C026D3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -418,7 +418,7 @@ export default function LocationMaryland() {
           >
             The{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -732,7 +732,7 @@ export default function LocationMaryland() {
           >
             Ready to Start?{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",

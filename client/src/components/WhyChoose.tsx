@@ -88,7 +88,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
               WHY MOST PEOPLE{" "}
               <span
                 style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -162,7 +162,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
                       style={{
                         fontFamily: "Montserrat, sans-serif",
                         fontSize: "1.6rem",
-                        background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                        backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
@@ -206,7 +206,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
               THE MEDMETHOD{" "}
               <span
                 style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

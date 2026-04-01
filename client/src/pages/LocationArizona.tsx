@@ -149,7 +149,7 @@ export default function LocationArizona() {
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
               Arizona Women's<br />
-              <span style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              <span style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 Health & Hormones
               </span>
             </h1>

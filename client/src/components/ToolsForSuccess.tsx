@@ -92,7 +92,7 @@ export default function ToolsForSuccess({ onConsultClick }: { onConsultClick: ()
               <br />
               <span
                 style={{
-                  background: "linear-gradient(90deg, #E8339E, #B040C0)",
+                  backgroundImage: "linear-gradient(90deg, #E8339E, #B040C0)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

@@ -383,7 +383,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
             </div>
 
             <p className="text-[11px] font-black tracking-[2.5px] uppercase mb-4" style={{ color: "#0A1628" }}>
-              Elite Performance &amp; Longevity Track
+              Elite Performance Track
             </p>
 
             {/* Price — upfront total */}
@@ -434,7 +434,7 @@ export default function MalePopularPrograms({ onConsultClick }: { onConsultClick
               className="w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest text-white transition-all hover:opacity-80"
               style={{ background: "#0A1628" }}
             >
-              Go Elite Performance
+              Start Elite Track
             </button>
           </div>
 

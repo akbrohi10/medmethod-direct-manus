@@ -175,7 +175,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-[#FAFAFA] py-14 lg:py-20 overflow-hidden">
+    <section className="bg-[#FAFAFA] py-16 lg:py-20 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}
@@ -198,7 +198,7 @@ export default function Testimonials() {
             <br />
             <span
               style={{
-                background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

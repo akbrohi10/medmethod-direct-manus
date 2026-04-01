@@ -311,7 +311,7 @@ export default function LocationVirginia() {
           >
             Virtual hormone,{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -409,7 +409,7 @@ export default function LocationVirginia() {
           >
             Virginia's Premier{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -622,7 +622,7 @@ export default function LocationVirginia() {
           >
             Ready to Start?{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",

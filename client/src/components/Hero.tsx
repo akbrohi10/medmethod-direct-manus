@@ -90,7 +90,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
               <br />
               <span
                 style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -102,7 +102,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
               or{" "}
               <span
                 style={{
-                  background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -147,7 +147,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -168,7 +168,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -189,7 +189,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -210,7 +210,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       fontSize: "1.7rem",
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",

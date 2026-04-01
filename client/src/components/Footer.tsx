@@ -29,7 +29,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                     fontFamily: "Montserrat, sans-serif",
                     fontSize: "1.6rem",
                     letterSpacing: "-0.02em",
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",

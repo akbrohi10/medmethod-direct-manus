@@ -53,7 +53,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
 
   return (
     <section
-      className="py-10 px-4"
+      className="py-16 lg:py-20 px-4"
       style={{ background: "#F4F4F8", fontFamily: "Montserrat, sans-serif" }}
     >
       <div className="max-w-6xl mx-auto">
@@ -199,7 +199,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               { text: "Clinical Performance Dashboard" },
             ]}
             addOn="💉 Quarterly Blood Lab Testing available as an add-on — $129/quarter"
-            ctaLabel="Join Management Track"
+            ctaLabel="Start Management Track"
             ctaStyle="outline"
             checkColor="#16A34A"
             checkBg="#F0FDF4"
@@ -255,7 +255,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               { text: "Clinical Performance Dashboard" },
               { text: "Quarterly Blood Lab Testing", badge: "INCLUDED" },
             ]}
-            ctaLabel="Go Elite Longevity"
+            ctaLabel="Start Elite Track"
             ctaStyle="dark"
             checkColor="#7A1E7E"
             checkBg="rgba(122,30,126,0.12)"

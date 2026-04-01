@@ -153,7 +153,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 <span
                   className="text-xl font-black"
                   style={{
-                    background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -184,7 +184,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 <p
                   className="font-bold text-xs mb-5"
                   style={{
-                    background: "linear-gradient(135deg, #E8339E, #B040C0)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E, #B040C0)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",

@@ -494,7 +494,7 @@ export default function Locations() {
                 Virtual Care,{" "}
                 <span
                   style={{
-                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
