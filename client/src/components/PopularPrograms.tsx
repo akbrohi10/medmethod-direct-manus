@@ -87,7 +87,7 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t2b",
     label: "Tirzepatide",
-    subtitle: "Premium dual-action GLP-1 · medications included",
+    subtitle: "Tirzepatide weight loss · medications included",
     medication: [
       "Tirzepatide + niacinamide shipped monthly",
       "Enhanced titration protocol",
@@ -111,7 +111,7 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t2a_starter",
     label: "Sema · Starter",
-    subtitle: "Semaglutide + Estradiol + Progesterone",
+    subtitle: "Semaglutide + Estradiol + Progesterone · medications included",
     badge: "MOST POPULAR",
     highlighted: true,
     medication: [
@@ -124,7 +124,7 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t2b_starter",
     label: "Tirz · Starter",
-    subtitle: "Tirzepatide + Estradiol + Progesterone",
+    subtitle: "Tirzepatide + Estradiol + Progesterone · medications included",
     badge: "FLAGSHIP",
     dark: true,
     medication: [
@@ -140,7 +140,7 @@ const INTEGRATED_TIERS: TierDef[] = [
 const HRT_TIER: TierDef = {
   key: "hrt",
   label: "HRT Starter",
-  subtitle: "Estradiol patch + Progesterone · no weight loss medication",
+  subtitle: "Estradiol patch + Progesterone · medications included",
   medication: [
     "Estradiol patch (transdermal)",
     "Micronized progesterone (oral)",
@@ -423,7 +423,16 @@ function TierCard({
       >
         {label}
       </h3>
-      <p className="text-[11px] italic mb-4" style={{ color: subColor }}>{subtitle}</p>
+      <p className="text-[13px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+        {subtitle.includes("medications included") ? (
+          <>
+            {subtitle.replace(" · medications included", " · ")}
+            <span className="font-bold" style={{ color: isDark ? "#f472b6" : "#E8339E" }}>medications included</span>
+          </>
+        ) : (
+          subtitle
+        )}
+      </p>
 
       {/* Price */}
       <div className="mb-1">
