@@ -1,17 +1,17 @@
 /* =============================================================================
-   Popular Programs — MedMethod Direct — v2.11
-   Six programs. One foundation. Build your protocol.
+   Popular Programs — MedMethod Direct — v2.12
+   Simplified: Tabs → Term Toggle → Cards → Footnote
+   No headline, no callout boxes, no green notice. Clean and fast.
 
-   Option B: Tabbed layout — 3 tabs
    - Tab 1: "Weight Loss" → T1 Mentorship, T2A Sema, T2B Tirz
    - Tab 2: "Weight Loss + Hormones" → T1 Mentorship, T2A+Starter, T2B+Starter
    - Tab 3: "Hormones Only" → HRT Starter
 
-   Term toggle: 3 / 6 / 12 months — all paid in full upfront.
+   Term toggle: 3 / 6 / 12 months — savings baked into buttons.
    Discount: 3-mo = 0%, 6-mo = 5%, 12-mo = 10%
    ============================================================================= */
 import { useState } from "react";
-import { Check, Shield, FlaskConical, Pill, Sparkles } from "lucide-react";
+import { Check } from "lucide-react";
 
 // ── Pricing Data ────────────────────────────────────────────────────────────
 type Term = 3 | 6 | 12;
@@ -52,7 +52,7 @@ interface TierDef {
   badge?: "MOST POPULAR" | "FLAGSHIP";
   dark?: boolean;
   description: string;
-  features: { text: string; sub?: string; badge?: string }[];
+  features: { text: string }[];
   medications: string;
   pharmacy: string;
 }
@@ -77,7 +77,7 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
     key: "t2a",
     label: "Semaglutide",
     subtitle: "Weight loss · value GLP-1 included",
-    description: "Everything in Mentorship, plus physician-prescribed semaglutide shipped to your door. Drug pricing locked for your full term — no escalation as you titrate.",
+    description: "Everything in Mentorship, plus physician-prescribed semaglutide shipped to your door. Drug pricing locked for your full term.",
     features: [
       { text: "Everything in Mentorship" },
       { text: "Semaglutide+B12 — monthly dose" },
@@ -124,7 +124,7 @@ const INTEGRATED_TIERS: TierDef[] = [
     label: "Sema · Starter",
     subtitle: "Semaglutide + foundational HRT included",
     badge: "MOST POPULAR",
-    description: "Semaglutide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed.",
+    description: "Semaglutide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone.",
     features: [
       { text: "Everything in Mentorship" },
       { text: "Semaglutide+B12 — monthly dose" },
@@ -140,7 +140,7 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Premium GLP-1 + foundational HRT included",
     badge: "FLAGSHIP",
     dark: true,
-    description: "Premium tirzepatide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed.",
+    description: "Premium tirzepatide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone.",
     features: [
       { text: "Everything in Mentorship" },
       { text: "Tirzepatide+niacinamide monthly" },
@@ -157,7 +157,7 @@ const HRT_TIER: TierDef = {
   key: "hrt",
   label: "HRT Starter",
   subtitle: "Hormone therapy · no weight loss medication",
-  description: "Foundational hormone protocol — Estradiol patch and bioidentical progesterone — with physician oversight and wellness advisor coaching. Add other à la carte hormones as needed. No weight loss medication.",
+  description: "Foundational hormone protocol — Estradiol patch and bioidentical progesterone — with physician oversight and wellness advisor coaching.",
   features: [
     { text: "Physician-managed clinical oversight" },
     { text: "Bi-weekly wellness advisor coaching" },
@@ -183,116 +183,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* ── Header ──────────────────────────────────────────────────────── */}
-        <div className="text-center mb-8">
-          <p className="text-xs font-extrabold uppercase tracking-[3px] text-gray-400 mb-3">
-            Programs · Pricing · Commitment
-          </p>
-          <h2
-            className="font-black mb-3"
-            style={{
-              fontSize: "clamp(1.8rem, 4vw, 3rem)",
-              color: "#111",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-            }}
-          >
-            Six programs. One foundation.
-          </h2>
-          <p
-            className="font-light italic"
-            style={{
-              fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
-              color: "#E8339E",
-              lineHeight: 1.2,
-            }}
-          >
-            Build your protocol.
-          </p>
-          <p className="text-sm text-gray-500 font-medium mt-4 max-w-2xl mx-auto leading-relaxed">
-            Physician-led weight loss and hormone therapy.{" "}
-            <strong className="text-gray-700">Drug pricing locked for your term</strong>
-            {" "}— medications and clinical care included, no escalation as you titrate doses.
-            Labs billed separately at $299 as ordered.
-          </p>
-        </div>
-
-        {/* ── Differentiator Callouts ─────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10 max-w-5xl mx-auto">
-          {[
-            { icon: Shield, title: "Drug price locked", desc: "Medications included. Drug price never escalates as you titrate up — locked for your full term." },
-            { icon: FlaskConical, title: "Labs à la carte ($299)", desc: "Initial lab included with $449 initiation. Future labs billed $299 each as your physician orders them." },
-            { icon: Pill, title: "Starter = Patch + Progesterone", desc: "Every Starter program includes Estradiol patch and Micronized progesterone." },
-            { icon: Sparkles, title: "Full Integrated Protocol", desc: "Add à la carte hormones to any Starter program — your protocol, custom-built." },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="rounded-xl p-4 flex gap-3"
-              style={{ background: "#fff", border: "1px solid #E8E8F0" }}
-            >
-              <div
-                className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: "rgba(232,51,158,0.08)" }}
-              >
-                <Icon size={16} color="#E8339E" strokeWidth={2} />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-800 mb-0.5">{title}</p>
-                <p className="text-[11px] text-gray-500 leading-snug">{desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Term Toggle ─────────────────────────────────────────────────── */}
-        <div className="flex flex-col items-center gap-3 mb-8">
-          <div
-            className="rounded-2xl p-2 flex gap-1"
-            style={{ background: "#E4E4EE" }}
-          >
-            {([3, 6, 12] as Term[]).map((t) => {
-              const active = term === t;
-              const isStar = t === 6;
-              return (
-                <button
-                  key={t}
-                  onClick={() => setTerm(t)}
-                  className="relative rounded-xl transition-all font-bold"
-                  style={{
-                    padding: "12px 28px",
-                    fontSize: 13,
-                    background: active
-                      ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
-                      : "transparent",
-                    color: active ? "#fff" : "#555",
-                    border: "none",
-                    cursor: "pointer",
-                    minWidth: 120,
-                  }}
-                >
-                  {t} Months{isStar && " ★"}
-                </button>
-              );
-            })}
-          </div>
-          <div className="flex items-center gap-4 text-xs text-gray-500">
-            <span>3-month: baseline</span>
-            <span>·</span>
-            <span style={{ color: "#16A34A", fontWeight: 700 }}>6-month: 5% off</span>
-            <span>·</span>
-            <span style={{ color: "#16A34A", fontWeight: 700 }}>12-month: 10% off</span>
-          </div>
-          <div
-            className="flex items-center gap-2 rounded-lg px-4 py-2 mt-1"
-            style={{ background: "rgba(22,163,74,0.06)", border: "1px solid rgba(22,163,74,0.15)" }}
-          >
-            <Check size={14} color="#16A34A" strokeWidth={2.5} />
-            <p className="text-xs text-gray-600">
-              All terms are paid in full at enrollment. The 3-month plan is the entry-level option — no month-to-month available.
-            </p>
-          </div>
-        </div>
-
         {/* ── Category Tabs ───────────────────────────────────────────────── */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {[
@@ -307,15 +197,16 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                 onClick={() => setActiveTab(id)}
                 className="rounded-full font-bold transition-all"
                 style={{
-                  padding: "10px 24px",
-                  fontSize: 12,
-                  letterSpacing: "0.5px",
+                  padding: "12px 28px",
+                  fontSize: 13,
+                  letterSpacing: "0.3px",
                   background: active
                     ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
                     : "#fff",
                   color: active ? "#fff" : "#555",
                   border: active ? "none" : "1.5px solid #E2E2EA",
                   cursor: "pointer",
+                  boxShadow: active ? "0 4px 16px rgba(232,51,158,0.25)" : undefined,
                 }}
               >
                 {label} ({count})
@@ -324,15 +215,56 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           })}
         </div>
 
+        {/* ── Term Toggle (savings baked in) ──────────────────────────────── */}
+        <div className="flex flex-col items-center gap-2 mb-10">
+          <div
+            className="rounded-2xl p-1.5 flex gap-1"
+            style={{ background: "#E4E4EE" }}
+          >
+            {([3, 6, 12] as Term[]).map((t) => {
+              const active = term === t;
+              return (
+                <button
+                  key={t}
+                  onClick={() => setTerm(t)}
+                  className="relative rounded-xl transition-all flex flex-col items-center justify-center"
+                  style={{
+                    padding: "10px 28px",
+                    background: active
+                      ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
+                      : "transparent",
+                    color: active ? "#fff" : "#555",
+                    border: "none",
+                    cursor: "pointer",
+                    minWidth: 130,
+                  }}
+                >
+                  <span className="font-bold" style={{ fontSize: 14 }}>
+                    {t} Months
+                  </span>
+                  <span
+                    className="font-semibold"
+                    style={{
+                      fontSize: 10,
+                      marginTop: 2,
+                      color: active ? "rgba(255,255,255,0.85)" : "#16A34A",
+                      opacity: t === 3 ? 0.6 : 1,
+                    }}
+                  >
+                    {t === 3 ? "Baseline" : t === 6 ? "Save 5%" : "Save 10%"}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="text-[11px] text-gray-400 font-medium">
+            Paid in full at enrollment
+          </p>
+        </div>
+
         {/* ── Cards ───────────────────────────────────────────────────────── */}
         {activeTab === "weight_loss" && (
           <div>
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-800 mb-1">GLP-1 Weight Loss Programs</h3>
-              <p className="text-xs text-gray-500 mb-5">
-                Choose clinical oversight only (Mentorship — we call meds to your pharmacy) or a program with medications shipped directly to you.
-              </p>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {WEIGHT_LOSS_TIERS.map((tier) => (
                 <TierCard key={tier.key} tier={tier} term={term} onConsultClick={onConsultClick} />
@@ -343,12 +275,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
 
         {activeTab === "integrated" && (
           <div>
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-800 mb-1">Integrated — Weight Loss + Foundational HRT</h3>
-              <p className="text-xs text-gray-500 mb-5">
-                Lose weight and balance hormones together. Mentorship manages both protocols (meds called to your pharmacy), or choose a Starter with medications included.
-              </p>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {INTEGRATED_TIERS.map((tier) => (
                 <TierCard key={`int_${tier.key}`} tier={tier} term={term} onConsultClick={onConsultClick} />
@@ -359,12 +285,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
 
         {activeTab === "hrt_only" && (
           <div>
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-800 mb-1">Hormone Therapy — No Weight Loss Medication</h3>
-              <p className="text-xs text-gray-500 mb-5">
-                For women who want bioidentical hormone therapy without a GLP-1 program. Includes Estradiol patch and Micronized progesterone, plus à la carte additions as needed.
-              </p>
-            </div>
             <div className="max-w-md mx-auto">
               <TierCard tier={HRT_TIER} term={term} onConsultClick={onConsultClick} />
             </div>
@@ -372,9 +292,9 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
         )}
 
         {/* ── Footer Notes ────────────────────────────────────────────────── */}
-        <div className="mt-10 text-center space-y-2">
+        <div className="mt-10 text-center space-y-1.5">
           <p className="text-xs text-gray-500 font-medium">
-            All programs are paid in full for the selected term. Non-refundable. HSA/FSA accepted.
+            Drug pricing locked for your term. Labs billed $299 as ordered. HSA/FSA accepted.
           </p>
           <p className="text-xs text-gray-400">
             Prefer monthly payments?{" "}
@@ -385,9 +305,8 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
               className="font-semibold underline underline-offset-2 hover:text-[#E8339E] transition-colors"
               style={{ color: "#E8339E" }}
             >
-              Monthly financing available through Cherry
+              Financing available through Cherry
             </a>
-            .
           </p>
         </div>
 
@@ -506,7 +425,7 @@ function TierCard({
       )}
       {savings === 0 && <div className="mb-3" />}
 
-      {/* Drug price locked callout */}
+      {/* Key value prop callout */}
       <div
         className="rounded-lg p-3 mb-3"
         style={{
@@ -516,23 +435,18 @@ function TierCard({
       >
         <div className="flex items-start gap-2">
           <Check size={14} color="#16A34A" strokeWidth={2.5} className="flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-xs font-bold" style={{ color: isDark ? "#fff" : "#111" }}>
-              {key === "t1" ? "Clinical oversight included" : "Drug price locked for your term"}
-            </p>
-            <p className="text-[11px] mt-0.5" style={{ color: subColor }}>
-              {key === "t1"
-                ? "Physician management & coaching included. Meds called to your pharmacy — not included in price."
-                : "Medications & visits included. No dose-based price increases. Labs billed à la carte ($299)."
-              }
-            </p>
-          </div>
+          <p className="text-[11px] leading-snug" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+            {key === "t1"
+              ? "Clinical oversight included. Meds called to your pharmacy — not included in price."
+              : "Drug price locked for your term. No dose-based price increases."
+            }
+          </p>
         </div>
       </div>
 
       {/* Initiation fee */}
       <p className="text-[11px] italic mb-4" style={{ color: "#E8339E" }}>
-        One-time initiation fee: $449 · includes initial lab + MD consultation
+        One-time initiation: $449 (initial lab + MD consult)
       </p>
 
       <hr style={{ border: "none", borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "#EBEBF0"}`, marginBottom: 16 }} />
