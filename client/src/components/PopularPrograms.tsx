@@ -65,7 +65,7 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Already have a GLP-1 prescription? Bring your own medication.",
+    subtitle: "Dr. led program · prescription called to your pharmacy",
     medication: [
       "Your physician manages your Rx",
       "Called to your local pharmacy",
@@ -101,7 +101,7 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Already have prescriptions? Bring your own GLP-1 + hormones.",
+    subtitle: "Dr. led program · prescription called to your pharmacy",
     medication: [
       "Your physician manages GLP-1 + hormone Rx",
       "Called to your local pharmacy",
