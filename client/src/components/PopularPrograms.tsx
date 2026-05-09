@@ -1,10 +1,11 @@
 /* =============================================================================
-   Popular Programs — MedMethod Direct — v2.10
+   Popular Programs — MedMethod Direct — v2.11
    Six programs. One foundation. Build your protocol.
 
-   Option B: Tabbed layout
-   - Tab 1: "GLP-1 + Weight Loss" → T1 Mentorship, T2A Sema, T2B Tirz, T2A+Starter, T2B+Starter
-   - Tab 2: "Hormone Therapy Only" → HRT-Only Starter
+   Option B: Tabbed layout — 3 tabs
+   - Tab 1: "Weight Loss" → T1 Mentorship, T2A Sema, T2B Tirz
+   - Tab 2: "Weight Loss + Hormones" → T1 Mentorship, T2A+Starter, T2B+Starter
+   - Tab 3: "Hormones Only" → HRT Starter
 
    Term toggle: 3 / 6 / 12 months — all paid in full upfront.
    Discount: 3-mo = 0%, 6-mo = 5%, 12-mo = 10%
@@ -56,28 +57,29 @@ interface TierDef {
   pharmacy: string;
 }
 
-const GLP1_TIERS: TierDef[] = [
+// Tab 1: Weight Loss
+const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Foundation · clinical oversight only",
-    description: "Physician-led care for patients who purchase GLP-1 prescriptions separately or want hormone oversight without medications.",
+    subtitle: "Clinical oversight · meds called to your pharmacy",
+    description: "Physician-led care — we manage your GLP-1 protocol and call prescriptions into your local pharmacy. Medications not included in price.",
     features: [
       { text: "Physician-managed clinical oversight" },
       { text: "Bi-weekly wellness advisor coaching" },
       { text: "Quarterly MD strategy session" },
-      { text: "Custom protocol design" },
+      { text: "Rx called to your local pharmacy" },
     ],
-    medications: "No medication included",
-    pharmacy: "—",
+    medications: "Not included — called to your pharmacy",
+    pharmacy: "Your local pharmacy",
   },
   {
     key: "t2a",
     label: "Semaglutide",
-    subtitle: "Weight loss · value GLP-1",
-    description: "Everything in Tier 01, plus physician-prescribed semaglutide. Drug pricing locked for your full term — no escalation as you titrate.",
+    subtitle: "Weight loss · value GLP-1 included",
+    description: "Everything in Mentorship, plus physician-prescribed semaglutide shipped to your door. Drug pricing locked for your full term — no escalation as you titrate.",
     features: [
-      { text: "Everything in Tier 01" },
+      { text: "Everything in Mentorship" },
       { text: "Semaglutide+B12 — monthly dose" },
       { text: "Monthly dose management" },
       { text: "Personalized titration protocol" },
@@ -88,10 +90,10 @@ const GLP1_TIERS: TierDef[] = [
   {
     key: "t2b",
     label: "Tirzepatide",
-    subtitle: "Weight loss · premium GLP-1",
-    description: "Everything in Tier 01, plus physician-prescribed tirzepatide — clinically superior dual-action GLP-1.",
+    subtitle: "Weight loss · premium GLP-1 included",
+    description: "Everything in Mentorship, plus physician-prescribed tirzepatide — clinically superior dual-action GLP-1 shipped to your door.",
     features: [
-      { text: "Everything in Tier 01" },
+      { text: "Everything in Mentorship" },
       { text: "Tirzepatide+niacinamide monthly" },
       { text: "Enhanced titration protocol" },
       { text: "For higher BMI or sema plateau" },
@@ -99,17 +101,35 @@ const GLP1_TIERS: TierDef[] = [
     medications: "Tirzepatide+niacinamide (compounded)",
     pharmacy: "Empower Pharmacy",
   },
+];
+
+// Tab 2: Weight Loss + Hormones
+const INTEGRATED_TIERS: TierDef[] = [
+  {
+    key: "t1",
+    label: "Mentorship",
+    subtitle: "Clinical oversight · meds called to your pharmacy",
+    description: "Physician-led care — we manage your GLP-1 and hormone protocol and call prescriptions into your local pharmacy. Medications not included in price.",
+    features: [
+      { text: "Physician-managed clinical oversight" },
+      { text: "GLP-1 + hormone protocol management" },
+      { text: "Bi-weekly wellness advisor coaching" },
+      { text: "Rx called to your local pharmacy" },
+    ],
+    medications: "Not included — called to your pharmacy",
+    pharmacy: "Your local pharmacy",
+  },
   {
     key: "t2a_starter",
     label: "Sema · Starter",
-    subtitle: "The bridge · easy-yes upgrade",
+    subtitle: "Semaglutide + foundational HRT included",
     badge: "MOST POPULAR",
-    description: "Semaglutide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed for a Full Integrated Protocol.",
+    description: "Semaglutide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed.",
     features: [
-      { text: "Everything in Tier 02-A" },
+      { text: "Everything in Mentorship" },
+      { text: "Semaglutide+B12 — monthly dose" },
       { text: "Estradiol patch (transdermal)" },
       { text: "Micronized progesterone (oral)" },
-      { text: "Stack à la carte hormones below" },
     ],
     medications: "Sema + Estradiol Patch + Progesterone",
     pharmacy: "Empower Pharmacy",
@@ -117,40 +137,44 @@ const GLP1_TIERS: TierDef[] = [
   {
     key: "t2b_starter",
     label: "Tirz · Starter",
-    subtitle: "Premium weight loss + foundational HRT",
+    subtitle: "Premium GLP-1 + foundational HRT included",
     badge: "FLAGSHIP",
     dark: true,
-    description: "Premium tirzepatide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed for a Full Integrated Protocol.",
+    description: "Premium tirzepatide weight loss plus the foundational hormone protocol — Estradiol patch and bioidentical progesterone. Add other à la carte hormones as needed.",
     features: [
-      { text: "Everything in Tier 02-B" },
+      { text: "Everything in Mentorship" },
+      { text: "Tirzepatide+niacinamide monthly" },
       { text: "Estradiol patch (transdermal)" },
       { text: "Micronized progesterone (oral)" },
-      { text: "Stack à la carte hormones below" },
     ],
     medications: "Tirz + Estradiol Patch + Progesterone",
     pharmacy: "Empower Pharmacy",
   },
 ];
 
+// Tab 3: Hormones Only
 const HRT_TIER: TierDef = {
   key: "hrt",
   label: "HRT Starter",
-  subtitle: "Hormone therapy · no weight loss",
-  description: "Foundational hormone protocol — Estradiol patch and bioidentical progesterone — with physician oversight. Add other à la carte hormones as needed for a Full Integrated Protocol. No weight loss medication.",
+  subtitle: "Hormone therapy · no weight loss medication",
+  description: "Foundational hormone protocol — Estradiol patch and bioidentical progesterone — with physician oversight and wellness advisor coaching. Add other à la carte hormones as needed. No weight loss medication.",
   features: [
-    { text: "Mentorship & physician access" },
+    { text: "Physician-managed clinical oversight" },
+    { text: "Bi-weekly wellness advisor coaching" },
     { text: "Estradiol patch (transdermal)" },
     { text: "Micronized progesterone (oral)" },
-    { text: "Stack à la carte hormones below" },
   ],
   medications: "Estradiol Patch + Progesterone",
   pharmacy: "Empower Pharmacy",
 };
 
+// ── Tab type ────────────────────────────────────────────────────────────────
+type TabId = "weight_loss" | "integrated" | "hrt_only";
+
 // ── Component ───────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
   const [term, setTerm] = useState<Term>(6);
-  const [activeTab, setActiveTab] = useState<"glp1" | "hrt">("glp1");
+  const [activeTab, setActiveTab] = useState<TabId>("weight_loss");
 
   return (
     <section
@@ -270,10 +294,11 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
         </div>
 
         {/* ── Category Tabs ───────────────────────────────────────────────── */}
-        <div className="flex justify-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           {[
-            { id: "glp1" as const, label: "GLP-1 + Weight Loss", count: 5 },
-            { id: "hrt" as const, label: "Hormone Therapy Only", count: 1 },
+            { id: "weight_loss" as TabId, label: "Weight Loss", count: 3 },
+            { id: "integrated" as TabId, label: "Weight Loss + Hormones", count: 3 },
+            { id: "hrt_only" as TabId, label: "Hormones Only", count: 1 },
           ].map(({ id, label, count }) => {
             const active = activeTab === id;
             return (
@@ -300,41 +325,42 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
         </div>
 
         {/* ── Cards ───────────────────────────────────────────────────────── */}
-        {activeTab === "glp1" ? (
+        {activeTab === "weight_loss" && (
           <div>
-            {/* Section 01: Foundation & Weight Loss (T1, T2A, T2B) */}
             <div className="mb-4">
-              <p className="text-xs font-extrabold uppercase tracking-[2px] text-gray-400 mb-1">Section 01</p>
-              <h3 className="text-lg font-bold text-gray-800 mb-1">Foundation & Weight Loss</h3>
+              <h3 className="text-lg font-bold text-gray-800 mb-1">GLP-1 Weight Loss Programs</h3>
               <p className="text-xs text-gray-500 mb-5">
-                Mentorship is required for every patient. Layer weight loss medication on top, or stop here for clinical oversight only.
+                Choose clinical oversight only (Mentorship — we call meds to your pharmacy) or a program with medications shipped directly to you.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-              {GLP1_TIERS.slice(0, 3).map((tier) => (
-                <TierCard key={tier.key} tier={tier} term={term} onConsultClick={onConsultClick} />
-              ))}
-            </div>
-
-            {/* Section 02: Integrated Programs (T2A+Starter, T2B+Starter) */}
-            <div className="mb-4">
-              <p className="text-xs font-extrabold uppercase tracking-[2px] text-gray-400 mb-1">Section 02</p>
-              <h3 className="text-lg font-bold text-gray-800 mb-1">Integrated Programs — Weight Loss + Foundational HRT</h3>
-              <p className="text-xs text-gray-500 mb-5">
-                The bridge to integrated care. Includes Estradiol patch and Micronized progesterone — the foundational hormone protocol. Add other hormones à la carte for a Full Integrated Protocol.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-              {GLP1_TIERS.slice(3, 5).map((tier) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {WEIGHT_LOSS_TIERS.map((tier) => (
                 <TierCard key={tier.key} tier={tier} term={term} onConsultClick={onConsultClick} />
               ))}
             </div>
           </div>
-        ) : (
+        )}
+
+        {activeTab === "integrated" && (
           <div>
             <div className="mb-4">
-              <p className="text-xs font-extrabold uppercase tracking-[2px] text-gray-400 mb-1">HRT-Only</p>
-              <h3 className="text-lg font-bold text-gray-800 mb-1">Hormone Therapy Without Weight Loss</h3>
+              <h3 className="text-lg font-bold text-gray-800 mb-1">Integrated — Weight Loss + Foundational HRT</h3>
+              <p className="text-xs text-gray-500 mb-5">
+                Lose weight and balance hormones together. Mentorship manages both protocols (meds called to your pharmacy), or choose a Starter with medications included.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {INTEGRATED_TIERS.map((tier) => (
+                <TierCard key={`int_${tier.key}`} tier={tier} term={term} onConsultClick={onConsultClick} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "hrt_only" && (
+          <div>
+            <div className="mb-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-1">Hormone Therapy — No Weight Loss Medication</h3>
               <p className="text-xs text-gray-500 mb-5">
                 For women who want bioidentical hormone therapy without a GLP-1 program. Includes Estradiol patch and Micronized progesterone, plus à la carte additions as needed.
               </p>
@@ -389,7 +415,7 @@ function TierCard({
 
   const textColor = isDark ? "rgba(255,255,255,0.9)" : "#2A2A35";
   const subColor = isDark ? "rgba(255,255,255,0.5)" : "#9CA3AF";
-  const checkColor = isDark ? "#E8339E" : "#E8339E";
+  const checkColor = "#E8339E";
   const checkBg = isDark ? "rgba(232,51,158,0.2)" : "rgba(232,51,158,0.08)";
 
   return (
@@ -492,10 +518,13 @@ function TierCard({
           <Check size={14} color="#16A34A" strokeWidth={2.5} className="flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-bold" style={{ color: isDark ? "#fff" : "#111" }}>
-              Drug price locked for your term
+              {key === "t1" ? "Clinical oversight included" : "Drug price locked for your term"}
             </p>
             <p className="text-[11px] mt-0.5" style={{ color: subColor }}>
-              Medications & visits included. No dose-based price increases. Labs billed à la carte ($299).
+              {key === "t1"
+                ? "Physician management & coaching included. Meds called to your pharmacy — not included in price."
+                : "Medications & visits included. No dose-based price increases. Labs billed à la carte ($299)."
+              }
             </p>
           </div>
         </div>
