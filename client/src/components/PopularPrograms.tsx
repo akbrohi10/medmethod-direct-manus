@@ -1,24 +1,17 @@
 /* =============================================================================
-   Popular Programs — MedMethod Direct — v2.13 (Conversion-Optimized)
-   Simplified: Tabs → Term Toggle → Trust → Cards
+   Popular Programs — MedMethod Direct — v2.14 (Value-First Cards)
    
-   Conversion optimizations:
-   1. Simplified cards (removed description, medications section)
-   2. Unified CTA: "Book Free Consult"
-   3. Visual hierarchy: RECOMMENDED badge on Semaglutide (Tab 1 middle card)
-   4. Removed $449 initiation fee from cards
-   5. Micro-trust element above cards
-   6. Single-card tab: wider card + nudge to integrated tab
-   7. Soft urgency near CTA
+   Card structure:
+   1. Title + subtitle + price
+   2. "Every program includes" — universal value block (identical on all cards)
+   3. "Your medication" — tier-specific medication info
+   4. CTA button + urgency line
 
-   - Tab 1: "Weight Loss" → T1 Mentorship, T2A Sema (RECOMMENDED), T2B Tirz
-   - Tab 2: "Weight Loss + Hormones" → T1 Mentorship, T2A+Starter (MOST POPULAR), T2B+Starter (FLAGSHIP)
-   - Tab 3: "Hormones Only" → HRT Starter + nudge
-
-   Term toggle: 3 / 6 / 12 months — savings baked into buttons.
+   Tabs: Weight Loss | Weight Loss + Hormones | Hormones Only
+   Term toggle: 3 / 6 / 12 months with inline savings
    ============================================================================= */
 import { useState } from "react";
-import { Check, Shield, Star, ArrowRight } from "lucide-react";
+import { Check, Shield, Star, ArrowRight, Stethoscope, Dumbbell, MessageCircle, Apple, UserCheck } from "lucide-react";
 
 // ── Pricing Data ────────────────────────────────────────────────────────────
 type Term = 3 | 6 | 12;
@@ -51,6 +44,15 @@ function totalSavings(tier: TierKey, term: Term): number {
   return +((BASE_PRICES[tier] * term) - upfrontTotal(tier, term)).toFixed(2);
 }
 
+// ── Universal value props (same for every card) ─────────────────────────────
+const UNIVERSAL_VALUE = [
+  { icon: Stethoscope, text: "Same doctor every visit — gets to know you" },
+  { icon: UserCheck, text: "Performance coach (bi-weekly virtual weigh-in)" },
+  { icon: Apple, text: "Custom nutrition plan" },
+  { icon: Dumbbell, text: "Custom exercise program" },
+  { icon: MessageCircle, text: "Direct text access to your care team" },
+];
+
 // ── Tier Definitions ────────────────────────────────────────────────────────
 interface TierDef {
   key: TierKey;
@@ -59,7 +61,7 @@ interface TierDef {
   badge?: "RECOMMENDED" | "MOST POPULAR" | "FLAGSHIP";
   dark?: boolean;
   highlighted?: boolean;
-  features: string[];
+  medication: string[];
 }
 
 // Tab 1: Weight Loss
@@ -67,12 +69,11 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Clinical oversight · meds called to your pharmacy",
-    features: [
-      "Physician-managed clinical oversight",
-      "Bi-weekly wellness advisor coaching",
-      "Quarterly MD strategy session",
-      "Rx called to your local pharmacy",
+    subtitle: "Clinical oversight · you source your own GLP-1",
+    medication: [
+      "Rx managed by your physician",
+      "Called to your local pharmacy",
+      "Meds not included in price",
     ],
   },
   {
@@ -81,22 +82,20 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
     subtitle: "GLP-1 weight loss · medications included",
     badge: "RECOMMENDED",
     highlighted: true,
-    features: [
-      "Everything in Mentorship",
-      "Semaglutide+B12 shipped monthly",
+    medication: [
+      "Semaglutide + B12 shipped monthly",
       "Personalized titration protocol",
-      "Drug price locked — no escalation",
+      "Price locked — no escalation",
     ],
   },
   {
     key: "t2b",
     label: "Tirzepatide",
     subtitle: "Premium dual-action GLP-1 · medications included",
-    features: [
-      "Everything in Mentorship",
-      "Tirzepatide+niacinamide shipped monthly",
+    medication: [
+      "Tirzepatide + niacinamide shipped monthly",
       "Enhanced titration protocol",
-      "For higher BMI or sema plateau",
+      "Price locked — no escalation",
     ],
   },
 ];
@@ -106,12 +105,11 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Clinical oversight · meds called to your pharmacy",
-    features: [
-      "GLP-1 + hormone protocol management",
-      "Bi-weekly wellness advisor coaching",
-      "Quarterly MD strategy session",
-      "Rx called to your local pharmacy",
+    subtitle: "Clinical oversight · you source your own GLP-1 + hormones",
+    medication: [
+      "GLP-1 + hormone Rx managed by your physician",
+      "Called to your local pharmacy",
+      "Meds not included in price",
     ],
   },
   {
@@ -120,11 +118,11 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Semaglutide + Estradiol + Progesterone",
     badge: "MOST POPULAR",
     highlighted: true,
-    features: [
-      "Everything in Mentorship",
-      "Semaglutide+B12 shipped monthly",
+    medication: [
+      "Semaglutide + B12 shipped monthly",
       "Estradiol patch (transdermal)",
       "Micronized progesterone (oral)",
+      "Price locked — no escalation",
     ],
   },
   {
@@ -133,11 +131,11 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Tirzepatide + Estradiol + Progesterone",
     badge: "FLAGSHIP",
     dark: true,
-    features: [
-      "Everything in Mentorship",
-      "Tirzepatide+niacinamide shipped monthly",
+    medication: [
+      "Tirzepatide + niacinamide shipped monthly",
       "Estradiol patch (transdermal)",
       "Micronized progesterone (oral)",
+      "Price locked — no escalation",
     ],
   },
 ];
@@ -147,11 +145,10 @@ const HRT_TIER: TierDef = {
   key: "hrt",
   label: "HRT Starter",
   subtitle: "Estradiol patch + Progesterone · no weight loss medication",
-  features: [
-    "Physician-managed clinical oversight",
-    "Bi-weekly wellness advisor coaching",
+  medication: [
     "Estradiol patch (transdermal)",
     "Micronized progesterone (oral)",
+    "Price locked — no escalation",
   ],
 };
 
@@ -326,7 +323,7 @@ function TierCard({
   term: Term;
   onConsultClick: () => void;
 }) {
-  const { key, label, subtitle, badge, dark, highlighted, features } = tier;
+  const { key, label, subtitle, badge, dark, highlighted, medication } = tier;
   const isDark = !!dark;
   const isHighlighted = !!highlighted;
   const monthly = monthlyRate(key, term);
@@ -334,12 +331,9 @@ function TierCard({
   const savings = totalSavings(key, term);
   const baseMonthly = BASE_PRICES[key];
 
-  const textColor = isDark ? "rgba(255,255,255,0.9)" : "#2A2A35";
   const subColor = isDark ? "rgba(255,255,255,0.5)" : "#9CA3AF";
-  const checkColor = "#E8339E";
-  const checkBg = isDark ? "rgba(232,51,158,0.2)" : "rgba(232,51,158,0.08)";
 
-  // Visual hierarchy: highlighted cards get pink border, dark cards get dark treatment
+  // Visual hierarchy
   const cardBorder = isDark
     ? "2px solid rgba(232,51,158,0.4)"
     : isHighlighted
@@ -358,7 +352,7 @@ function TierCard({
       style={{
         background: isDark ? "#0D1B2A" : "#fff",
         border: cardBorder,
-        padding: "32px 26px 28px",
+        padding: "32px 24px 28px",
         boxShadow: cardShadow,
         transform: isHighlighted && !isDark ? "scale(1.02)" : undefined,
       }}
@@ -386,7 +380,7 @@ function TierCard({
       >
         {label}
       </h3>
-      <p className="text-xs italic mb-5" style={{ color: subColor }}>{subtitle}</p>
+      <p className="text-xs italic mb-4" style={{ color: subColor }}>{subtitle}</p>
 
       {/* Price */}
       <div className="mb-1">
@@ -396,10 +390,10 @@ function TierCard({
           </p>
         )}
         <div className="flex items-end gap-0.5">
-          <span className="font-black leading-none" style={{ fontSize: 48, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+          <span className="font-black leading-none" style={{ fontSize: 44, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
             ${Math.floor(monthly)}
           </span>
-          <span className="text-sm font-semibold pb-2" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+          <span className="text-sm font-semibold pb-1.5" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             .{(monthly % 1).toFixed(2).slice(2)}/mo
           </span>
         </div>
@@ -413,43 +407,96 @@ function TierCard({
       {/* Savings chip */}
       {savings > 0 && (
         <span
-          className="inline-block rounded text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-4 w-fit"
-          style={{
-            border: "1.5px solid #16A34A",
-            color: "#16A34A",
-          }}
+          className="inline-block rounded text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-5 w-fit"
+          style={{ border: "1.5px solid #16A34A", color: "#16A34A" }}
         >
           SAVE ${savings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </span>
       )}
-      {savings === 0 && <div className="mb-4" />}
+      {savings === 0 && <div className="mb-5" />}
 
-      {/* Feature list */}
-      <ul className="flex flex-col gap-2.5 mb-6 flex-1">
-        {features.map((text, i) => (
-          <li key={i} className="flex items-start gap-2">
-            <span
-              className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
-              style={{ width: 18, height: 18, background: checkBg }}
-            >
-              <Check size={10} color={checkColor} strokeWidth={2.5} />
-            </span>
-            <span className="text-xs font-medium leading-snug" style={{ color: textColor }}>
-              {text}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/* ── Universal Value Block ─────────────────────────────────────── */}
+      <div
+        className="rounded-xl p-4 mb-4"
+        style={{
+          background: isDark ? "rgba(255,255,255,0.04)" : "#F8F8FC",
+          border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #EDEDF5",
+        }}
+      >
+        <p
+          className="text-[10px] font-extrabold uppercase tracking-widest mb-3"
+          style={{ color: isDark ? "rgba(232,51,158,0.8)" : "#E8339E", letterSpacing: "1.2px" }}
+        >
+          Every program includes
+        </p>
+        <ul className="flex flex-col gap-2.5">
+          {UNIVERSAL_VALUE.map(({ icon: Icon, text }) => (
+            <li key={text} className="flex items-start gap-2.5">
+              <span
+                className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
+                style={{
+                  width: 20,
+                  height: 20,
+                  background: isDark ? "rgba(232,51,158,0.15)" : "rgba(232,51,158,0.08)",
+                }}
+              >
+                <Icon size={11} color="#E8339E" strokeWidth={2.5} />
+              </span>
+              <span
+                className="text-xs font-medium leading-snug"
+                style={{ color: isDark ? "rgba(255,255,255,0.85)" : "#374151" }}
+              >
+                {text}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* ── Medication Block ──────────────────────────────────────────── */}
+      <div className="mb-6 flex-1">
+        <p
+          className="text-[10px] font-extrabold uppercase tracking-widest mb-2.5"
+          style={{ color: isDark ? "rgba(255,255,255,0.45)" : "#888", letterSpacing: "1.2px" }}
+        >
+          Your medication
+        </p>
+        <ul className="flex flex-col gap-2">
+          {medication.map((text) => (
+            <li key={text} className="flex items-start gap-2">
+              <span
+                className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
+                style={{
+                  width: 18,
+                  height: 18,
+                  background: isDark ? "rgba(122,30,126,0.25)" : "rgba(122,30,126,0.08)",
+                }}
+              >
+                <Check size={10} color={isDark ? "#c084fc" : "#7A1E7E"} strokeWidth={2.5} />
+              </span>
+              <span
+                className="text-xs font-medium leading-snug"
+                style={{ color: isDark ? "rgba(255,255,255,0.75)" : "#555" }}
+              >
+                {text}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* CTA */}
-      <a
+      <button
         onClick={onConsultClick}
-        className="block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all cursor-pointer mt-auto"
+        className={`block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all duration-200 cursor-pointer mt-auto ${
+          isDark || isHighlighted
+            ? "hover:opacity-90 hover:shadow-[0_8px_32px_rgba(232,51,158,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_4px_16px_rgba(232,51,158,0.3)]"
+            : "hover:bg-[#111] hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+        }`}
         style={{
           padding: "14px",
           fontSize: 11,
           letterSpacing: "1.5px",
-          textDecoration: "none",
           ...(isDark || isHighlighted
             ? {
                 backgroundImage: "linear-gradient(135deg, #E8339E, #7A1E7E)",
@@ -465,7 +512,7 @@ function TierCard({
         }}
       >
         Book Free Consult
-      </a>
+      </button>
 
       {/* Soft urgency */}
       <p className="text-[10px] text-center mt-2.5 font-medium" style={{ color: subColor }}>
