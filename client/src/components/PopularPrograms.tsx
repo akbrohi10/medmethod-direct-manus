@@ -6,7 +6,7 @@
 
    Compact, decisive, old-style toggle feel with new 3-tab + value-stack cards.
    ============================================================================= */
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Check, Stethoscope, Dumbbell, MessageCircle, Apple, UserCheck, ArrowRight } from "lucide-react";
 
 // ── Pricing Data ────────────────────────────────────────────────────────────
@@ -151,19 +151,6 @@ const HRT_TIER: TierDef = {
 // ── Tab type ────────────────────────────────────────────────────────────────
 type TabId = "weight_loss" | "integrated" | "hrt_only";
 
-// Minimum "from" price per tab
-const TAB_MIN_PRICES: Record<TabId, TierKey> = {
-  weight_loss: "t1",
-  integrated: "t1",
-  hrt_only: "hrt",
-};
-
-// Max-savings tier per tab (for the savings banner)
-const TAB_MAX_TIER: Record<TabId, TierKey> = {
-  weight_loss: "t2b",
-  integrated: "t2b_starter",
-  hrt_only: "hrt",
-};
 
 // ── Component ───────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
@@ -176,16 +163,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
     setFadeKey((k) => k + 1);
   };
 
-  // Dynamic "from" prices for the toggle buttons
-  const minTier = TAB_MIN_PRICES[activeTab];
-  const fromPrices: Record<Term, number> = useMemo(() => ({
-    3: Math.round(upfrontTotal(minTier, 3)),
-    6: Math.round(upfrontTotal(minTier, 6)),
-    12: Math.round(upfrontTotal(minTier, 12)),
-  }), [minTier]);
-
-  // Max savings for banner
-  const maxSavings = totalSavings(TAB_MAX_TIER[activeTab], term);
 
   return (
     <section
@@ -292,10 +269,10 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                     className="font-semibold mt-0.5"
                     style={{
                       fontSize: 11,
-                      color: active ? "rgba(255,255,255,0.8)" : "#777",
+                      color: active ? "rgba(255,255,255,0.8)" : t === 3 ? "#777" : "#16A34A",
                     }}
                   >
-                    from ${fromPrices[t].toLocaleString()}
+                    {t === 3 ? "Baseline" : t === 6 ? "Save 5%" : "Save 10%"}
                   </span>
                 </button>
               );
@@ -310,23 +287,6 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           </p>
         )}
 
-        {/* ── Savings Banner ──────────────────────────────────────────────── */}
-        {maxSavings > 0 && (
-          <div className="flex justify-center mb-3">
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5"
-              style={{
-                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                boxShadow: "0 4px 16px rgba(232,51,158,0.3)",
-              }}
-            >
-              <span style={{ fontSize: 14 }}>🎉</span>
-              <span className="text-xs font-extrabold uppercase tracking-wider text-white">
-                Save up to ${maxSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })} vs. 3-month rate
-              </span>
-            </div>
-          </div>
-        )}
 
         {/* ── Cherry financing + drug price locked ────────────────────────── */}
         <div className="text-center mb-8 space-y-1">
