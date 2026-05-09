@@ -1,18 +1,13 @@
 /* =============================================================================
-   Popular Programs — MedMethod Direct — v2.15 (Enhanced UX)
+   Popular Programs — MedMethod Direct — v2.16 (Compact Hybrid)
    
-   Enhancements:
-   1. Subtitle under "Popular Programs" header
-   2. "What's the difference?" helper tooltip
-   3. Tab transition animation (fade)
-   4. Mentorship card repositioned as "Bring your own medication"
-   5. Social proof counter on recommended card
-   6. Mobile highlighted card treatment (gradient left border)
-   7. Sticky term toggle on scroll
-   8. Compare programs overlay
+   Layout: Header → Subtitle → Tabs → Toggle (with from-prices + badges) →
+           Savings banner → Cherry link → Cards
+
+   Compact, decisive, old-style toggle feel with new 3-tab + value-stack cards.
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
-import { Check, Shield, Star, ArrowRight, Stethoscope, Dumbbell, MessageCircle, Apple, UserCheck, HelpCircle, X } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Check, Stethoscope, Dumbbell, MessageCircle, Apple, UserCheck, ArrowRight } from "lucide-react";
 
 // ── Pricing Data ────────────────────────────────────────────────────────────
 type Term = 3 | 6 | 12;
@@ -45,7 +40,7 @@ function totalSavings(tier: TierKey, term: Term): number {
   return +((BASE_PRICES[tier] * term) - upfrontTotal(tier, term)).toFixed(2);
 }
 
-// ── Universal value props (same for every card) ─────────────────────────────
+// ── Universal value props ───────────────────────────────────────────────────
 const UNIVERSAL_VALUE = [
   { icon: Stethoscope, text: "Same doctor every visit — gets to know you" },
   { icon: UserCheck, text: "Performance coach (bi-weekly virtual weigh-in)" },
@@ -63,7 +58,6 @@ interface TierDef {
   dark?: boolean;
   highlighted?: boolean;
   medication: string[];
-  socialProof?: string;
 }
 
 // Tab 1: Weight Loss
@@ -84,7 +78,6 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
     subtitle: "GLP-1 weight loss · medications included",
     badge: "RECOMMENDED",
     highlighted: true,
-    socialProof: "127 women enrolled this month",
     medication: [
       "Semaglutide + B12 shipped monthly",
       "Personalized titration protocol",
@@ -121,7 +114,6 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Semaglutide + Estradiol + Progesterone",
     badge: "MOST POPULAR",
     highlighted: true,
-    socialProof: "Most chosen integrated program",
     medication: [
       "Semaglutide + B12 shipped monthly",
       "Estradiol patch (transdermal)",
@@ -159,72 +151,64 @@ const HRT_TIER: TierDef = {
 // ── Tab type ────────────────────────────────────────────────────────────────
 type TabId = "weight_loss" | "integrated" | "hrt_only";
 
-// ── Compare data ────────────────────────────────────────────────────────────
-const COMPARE_ROWS = [
-  { label: "Dedicated physician", wl: true, wlh: true, hrt: true },
-  { label: "Performance coach (bi-weekly)", wl: true, wlh: true, hrt: true },
-  { label: "Custom nutrition plan", wl: true, wlh: true, hrt: true },
-  { label: "Custom exercise program", wl: true, wlh: true, hrt: true },
-  { label: "Direct text access", wl: true, wlh: true, hrt: true },
-  { label: "GLP-1 medication included", wl: "Tier 2+", wlh: "Tier 2+", hrt: false },
-  { label: "Estradiol patch", wl: false, wlh: true, hrt: true },
-  { label: "Micronized progesterone", wl: false, wlh: true, hrt: true },
-];
+// Minimum "from" price per tab
+const TAB_MIN_PRICES: Record<TabId, TierKey> = {
+  weight_loss: "t1",
+  integrated: "t1",
+  hrt_only: "hrt",
+};
+
+// Max-savings tier per tab (for the savings banner)
+const TAB_MAX_TIER: Record<TabId, TierKey> = {
+  weight_loss: "t2b",
+  integrated: "t2b_starter",
+  hrt_only: "hrt",
+};
 
 // ── Component ───────────────────────────────────────────────────────────────
 export default function PopularPrograms({ onConsultClick }: { onConsultClick: () => void }) {
   const [term, setTerm] = useState<Term>(6);
   const [activeTab, setActiveTab] = useState<TabId>("weight_loss");
-  const [showHelper, setShowHelper] = useState(false);
-  const [showCompare, setShowCompare] = useState(false);
   const [fadeKey, setFadeKey] = useState(0);
-  const [isSticky, setIsSticky] = useState(false);
-  const toggleRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
 
-  // Tab switch with fade animation
   const switchTab = (id: TabId) => {
     setActiveTab(id);
     setFadeKey((k) => k + 1);
   };
 
-  // Sticky term toggle logic
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!toggleRef.current || !sectionRef.current) return;
-      const sectionRect = sectionRef.current.getBoundingClientRect();
-      const toggleRect = toggleRef.current.getBoundingClientRect();
-      // Make sticky when toggle would scroll off top, but only while section is visible
-      const shouldStick = toggleRect.top <= 0 && sectionRect.bottom > 200;
-      setIsSticky(shouldStick);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Dynamic "from" prices for the toggle buttons
+  const minTier = TAB_MIN_PRICES[activeTab];
+  const fromPrices: Record<Term, number> = useMemo(() => ({
+    3: Math.round(upfrontTotal(minTier, 3)),
+    6: Math.round(upfrontTotal(minTier, 6)),
+    12: Math.round(upfrontTotal(minTier, 12)),
+  }), [minTier]);
+
+  // Max savings for banner
+  const maxSavings = totalSavings(TAB_MAX_TIER[activeTab], term);
 
   return (
     <section
-      ref={sectionRef}
-      className="py-16 lg:py-24 px-4 relative"
+      className="py-16 lg:py-24 px-4"
       style={{ background: "#F4F4F8", fontFamily: "Montserrat, sans-serif" }}
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* ── Section Header + Subtitle ───────────────────────────────────── */}
-        <div className="text-center mb-10">
+        {/* ── Header ─────────────────────────────────────────────────────── */}
+        <div className="text-center mb-6">
           <h2
-            className="font-extrabold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", color: "#111", letterSpacing: "-0.5px" }}
+            className="font-black uppercase tracking-tight"
+            style={{ fontSize: "clamp(2.2rem, 5vw, 3.2rem)", color: "#111", letterSpacing: "-0.5px" }}
           >
             Popular Programs
           </h2>
-          <p className="text-sm text-gray-500 mt-2 max-w-md mx-auto">
-            Physician-led programs designed around your biology
+          <p className="text-sm text-gray-500 mt-2">
+            Choose your program length — all plans paid in full upfront.
           </p>
         </div>
 
         {/* ── Category Tabs ───────────────────────────────────────────────── */}
-        <div className="flex flex-wrap justify-center gap-2 mb-3">
+        <div className="flex flex-wrap justify-center gap-2 mb-6">
           {[
             { id: "weight_loss" as TabId, label: "Weight Loss" },
             { id: "integrated" as TabId, label: "Weight Loss + Hormones" },
@@ -237,8 +221,8 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
                 onClick={() => switchTab(id)}
                 className="rounded-full font-bold transition-all"
                 style={{
-                  padding: "12px 28px",
-                  fontSize: 13,
+                  padding: "10px 24px",
+                  fontSize: 12,
                   letterSpacing: "0.3px",
                   background: active
                     ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
@@ -255,147 +239,116 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           })}
         </div>
 
-        {/* ── "What's the difference?" helper ─────────────────────────────── */}
-        <div className="text-center mb-8 relative">
-          <button
-            onClick={() => setShowHelper(!showHelper)}
-            className="inline-flex items-center gap-1.5 text-xs font-medium transition-colors hover:text-[#E8339E]"
-            style={{ color: "#999", background: "none", border: "none", cursor: "pointer" }}
-          >
-            <HelpCircle size={13} />
-            Not sure which is right for you?
-          </button>
-          {showHelper && (
-            <div
-              className="absolute left-1/2 -translate-x-1/2 top-8 z-20 rounded-xl shadow-xl p-5 text-left max-w-sm w-full"
-              style={{ background: "#fff", border: "1px solid #E2E2EA" }}
-            >
-              <button
-                onClick={() => setShowHelper(false)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-                style={{ background: "none", border: "none", cursor: "pointer" }}
-              >
-                <X size={14} />
-              </button>
-              <p className="text-xs font-bold text-gray-800 mb-3">Quick guide:</p>
-              <div className="space-y-2.5">
-                <div>
-                  <p className="text-xs font-semibold text-gray-700">Weight Loss</p>
-                  <p className="text-[11px] text-gray-500">GLP-1 medication only — for women focused on weight loss without hormone therapy.</p>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-700">Weight Loss + Hormones</p>
-                  <p className="text-[11px] text-gray-500">GLP-1 + estradiol + progesterone — for women in perimenopause/menopause who also want weight loss.</p>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-700">Hormones Only</p>
-                  <p className="text-[11px] text-gray-500">Estradiol + progesterone — for women who want hormone therapy without weight loss medication.</p>
-                </div>
-              </div>
-              <button
-                onClick={() => { setShowHelper(false); setShowCompare(true); }}
-                className="mt-4 text-[11px] font-semibold underline underline-offset-2"
-                style={{ color: "#E8339E", background: "none", border: "none", cursor: "pointer" }}
-              >
-                Compare all programs side-by-side →
-              </button>
-            </div>
-          )}
-        </div>
+        {/* ── "CHOOSE YOUR COMMITMENT" label ─────────────────────────────── */}
+        <p
+          className="text-center font-extrabold uppercase tracking-widest mb-3"
+          style={{ fontSize: 10, color: "#999", letterSpacing: "2px" }}
+        >
+          Choose your commitment
+        </p>
 
-        {/* ── Term Toggle (sticky on scroll) ─────────────────────────────── */}
-        <div ref={toggleRef}>
+        {/* ── Term Toggle (old-style with from-prices + badges) ──────────── */}
+        <div className="flex justify-center mb-3">
           <div
-            className={`flex flex-col items-center gap-2 mb-6 transition-all duration-200 ${
-              isSticky ? "fixed top-0 left-0 right-0 z-30 py-3 shadow-md" : ""
-            }`}
-            style={isSticky ? { background: "rgba(244,244,248,0.97)", backdropFilter: "blur(8px)" } : undefined}
+            className="rounded-2xl p-1.5 flex gap-0 relative"
+            style={{ background: "#E4E4EE" }}
           >
-            <div
-              className="rounded-2xl p-1.5 flex gap-1"
-              style={{ background: "#E4E4EE" }}
-            >
-              {([3, 6, 12] as Term[]).map((t) => {
-                const active = term === t;
-                return (
-                  <button
-                    key={t}
-                    onClick={() => setTerm(t)}
-                    className="relative rounded-xl transition-all flex flex-col items-center justify-center"
-                    style={{
-                      padding: "10px 28px",
-                      background: active
-                        ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
-                        : "transparent",
-                      color: active ? "#fff" : "#555",
-                      border: "none",
-                      cursor: "pointer",
-                      minWidth: 130,
-                    }}
-                  >
-                    <span className="font-bold" style={{ fontSize: 14 }}>
-                      {t} Months
-                    </span>
+            {([3, 6, 12] as Term[]).map((t) => {
+              const active = term === t;
+              const badge = t === 6 ? "MOST POPULAR" : t === 12 ? "BEST VALUE" : null;
+              return (
+                <button
+                  key={t}
+                  onClick={() => setTerm(t)}
+                  className="relative rounded-xl transition-all flex flex-col items-center justify-center"
+                  style={{
+                    padding: "14px 32px 12px",
+                    background: active
+                      ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
+                      : "transparent",
+                    color: active ? "#fff" : "#555",
+                    border: "none",
+                    cursor: "pointer",
+                    minWidth: 140,
+                  }}
+                >
+                  {/* Badge above button */}
+                  {badge && (
                     <span
-                      className="font-semibold"
+                      className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider whitespace-nowrap"
                       style={{
-                        fontSize: 10,
-                        marginTop: 2,
-                        color: active ? "rgba(255,255,255,0.85)" : "#16A34A",
-                        opacity: t === 3 ? 0.6 : 1,
+                        background: t === 6 ? "#E8339E" : "#111",
+                        color: "#fff",
+                        letterSpacing: "1px",
                       }}
                     >
-                      {t === 3 ? "Baseline" : t === 6 ? "Save 5%" : "Save 10%"}
+                      {badge}
                     </span>
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-[11px] text-gray-400 font-medium">
-              Paid in full at enrollment
-            </p>
-            {!isSticky && (
-              <>
-                <p className="text-xs text-gray-500 font-medium mt-0.5">
-                  Drug pricing locked for your term. Labs billed $299 as ordered. HSA/FSA accepted.
-                </p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  Prefer monthly payments?{" "}
-                  <a
-                    href="https://www.withcherry.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold underline underline-offset-2 hover:text-[#E8339E] transition-colors"
-                    style={{ color: "#E8339E" }}
+                  )}
+                  <span className="font-bold" style={{ fontSize: 15 }}>
+                    {t} Months
+                  </span>
+                  <span
+                    className="font-semibold mt-0.5"
+                    style={{
+                      fontSize: 11,
+                      color: active ? "rgba(255,255,255,0.8)" : "#777",
+                    }}
                   >
-                    Financing available through Cherry
-                  </a>
-                </p>
-              </>
-            )}
+                    from ${fromPrices[t].toLocaleString()}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* ── Micro-trust ────────────────────────────────────────────────── */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="flex items-center gap-1">
-            <Shield size={14} color="#E8339E" strokeWidth={2} />
-            <span className="text-xs font-semibold text-gray-600">Trusted by 10,000+ women</span>
+        {/* ── Recommended note ────────────────────────────────────────────── */}
+        {term === 6 && (
+          <p className="text-center text-xs italic text-gray-400 mb-3">
+            Recommended — full transformation window
+          </p>
+        )}
+
+        {/* ── Savings Banner ──────────────────────────────────────────────── */}
+        {maxSavings > 0 && (
+          <div className="flex justify-center mb-3">
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5"
+              style={{
+                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                boxShadow: "0 4px 16px rgba(232,51,158,0.3)",
+              }}
+            >
+              <span style={{ fontSize: 14 }}>🎉</span>
+              <span className="text-xs font-extrabold uppercase tracking-wider text-white">
+                Save up to ${maxSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })} vs. 3-month rate
+              </span>
+            </div>
           </div>
-          <span className="text-gray-300">·</span>
-          <div className="flex items-center gap-1">
-            <Star size={14} color="#E8339E" strokeWidth={2} fill="#E8339E" />
-            <span className="text-xs font-semibold text-gray-600">4.9 rating</span>
-          </div>
-          <span className="text-gray-300">·</span>
-          <span className="text-xs font-semibold text-gray-600">8 states</span>
+        )}
+
+        {/* ── Cherry financing + drug price locked ────────────────────────── */}
+        <div className="text-center mb-8 space-y-1">
+          <p className="text-xs text-gray-500 font-medium">
+            Drug pricing locked for your term. Labs billed $299 as ordered. HSA/FSA accepted.
+          </p>
+          <p className="text-xs text-gray-400">
+            Prefer monthly payments?{" "}
+            <a
+              href="https://www.withcherry.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold underline underline-offset-2 hover:text-[#E8339E] transition-colors"
+              style={{ color: "#E8339E" }}
+            >
+              Monthly financing available through Cherry
+            </a>
+          </p>
         </div>
 
-        {/* ── Cards (with fade transition) ────────────────────────────────── */}
-        <div
-          key={fadeKey}
-          className="animate-fade-in"
-        >
+        {/* ── Cards (with fade) ───────────────────────────────────────────── */}
+        <div key={fadeKey} className="animate-fade-in">
           {activeTab === "weight_loss" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {WEIGHT_LOSS_TIERS.map((tier) => (
@@ -427,93 +380,20 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
           )}
         </div>
 
-        {/* ── Compare link ────────────────────────────────────────────────── */}
-        <div className="text-center mt-8">
-          <button
-            onClick={() => setShowCompare(true)}
-            className="text-xs font-semibold underline underline-offset-2 transition-colors hover:text-[#E8339E]"
-            style={{ color: "#888", background: "none", border: "none", cursor: "pointer" }}
-          >
-            Compare all programs side-by-side
-          </button>
-        </div>
-
       </div>
 
-      {/* ── Compare Overlay ──────────────────────────────────────────────── */}
-      {showCompare && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(3px)" }}
-          onClick={(e) => e.target === e.currentTarget && setShowCompare(false)}
-        >
-          <div
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative"
-            style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.2)" }}
-          >
-            <button
-              onClick={() => setShowCompare(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-              style={{ border: "none", cursor: "pointer" }}
-            >
-              <X size={14} className="text-gray-500" />
-            </button>
-            <h3 className="text-lg font-bold text-gray-900 mb-1">Compare Programs</h3>
-            <p className="text-xs text-gray-500 mb-5">See what's included in each category at a glance.</p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left py-2 pr-4 font-semibold text-gray-600 w-1/3">Feature</th>
-                    <th className="text-center py-2 px-2 font-semibold text-gray-600">Weight Loss</th>
-                    <th className="text-center py-2 px-2 font-semibold" style={{ color: "#E8339E" }}>WL + Hormones</th>
-                    <th className="text-center py-2 px-2 font-semibold text-gray-600">Hormones Only</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {COMPARE_ROWS.map((row) => (
-                    <tr key={row.label} className="border-b border-gray-50">
-                      <td className="py-2.5 pr-4 font-medium text-gray-700">{row.label}</td>
-                      <td className="py-2.5 text-center">{renderCompareCell(row.wl)}</td>
-                      <td className="py-2.5 text-center">{renderCompareCell(row.wlh)}</td>
-                      <td className="py-2.5 text-center">{renderCompareCell(row.hrt)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-5 text-center">
-              <button
-                onClick={() => setShowCompare(false)}
-                className="text-xs font-semibold px-5 py-2.5 rounded-full text-white transition-all hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", border: "none", cursor: "pointer" }}
-              >
-                Got it — choose my program
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Inline styles for fade animation */}
+      {/* Fade animation */}
       <style>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(8px); }
+          from { opacity: 0; transform: translateY(6px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in {
-          animation: fadeIn 0.25s ease-out;
+          animation: fadeIn 0.2s ease-out;
         }
       `}</style>
     </section>
   );
-}
-
-// ── Compare cell renderer ───────────────────────────────────────────────────
-function renderCompareCell(value: boolean | string) {
-  if (value === true) return <Check size={14} color="#16A34A" strokeWidth={2.5} className="inline" />;
-  if (value === false) return <span className="text-gray-300">—</span>;
-  return <span className="text-[11px] font-medium text-gray-600">{value}</span>;
 }
 
 // ── Tier Card Sub-Component ─────────────────────────────────────────────────
@@ -526,7 +406,7 @@ function TierCard({
   term: Term;
   onConsultClick: () => void;
 }) {
-  const { key, label, subtitle, badge, dark, highlighted, medication, socialProof } = tier;
+  const { key, label, subtitle, badge, dark, highlighted, medication } = tier;
   const isDark = !!dark;
   const isHighlighted = !!highlighted;
   const monthly = monthlyRate(key, term);
@@ -536,7 +416,6 @@ function TierCard({
 
   const subColor = isDark ? "rgba(255,255,255,0.5)" : "#9CA3AF";
 
-  // Visual hierarchy
   const cardBorder = isDark
     ? "2px solid rgba(232,51,158,0.4)"
     : isHighlighted
@@ -557,16 +436,14 @@ function TierCard({
       style={{
         background: isDark ? "#0D1B2A" : "#fff",
         border: cardBorder,
-        padding: "32px 24px 28px",
+        padding: "28px 22px 24px",
         boxShadow: cardShadow,
-        // Mobile: highlighted card gets left gradient border
-        borderLeft: isHighlighted && !isDark ? "4px solid #E8339E" : undefined,
       }}
     >
       {/* Badge */}
       {badge && (
         <div
-          className="absolute -top-3 left-6 rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest"
+          className="absolute -top-3 left-6 rounded-full px-3 py-1 text-[9px] font-extrabold uppercase tracking-widest"
           style={{
             background: badge === "FLAGSHIP"
               ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
@@ -579,82 +456,71 @@ function TierCard({
         </div>
       )}
 
-      {/* Title */}
+      {/* Title + subtitle */}
       <h3
-        className="font-bold mb-1"
-        style={{ fontSize: "clamp(1.3rem, 2vw, 1.6rem)", color: isDark ? "#fff" : "#111" }}
+        className="font-bold mb-0.5"
+        style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)", color: isDark ? "#fff" : "#111" }}
       >
         {label}
       </h3>
-      <p className="text-xs italic mb-4" style={{ color: subColor }}>{subtitle}</p>
-
-      {/* Social proof counter */}
-      {socialProof && (
-        <div
-          className="flex items-center gap-1.5 mb-3 px-2.5 py-1.5 rounded-lg w-fit"
-          style={{ background: isDark ? "rgba(22,163,74,0.1)" : "rgba(22,163,74,0.06)", border: "1px solid rgba(22,163,74,0.15)" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[10px] font-semibold text-green-700">{socialProof}</span>
-        </div>
-      )}
+      <p className="text-[11px] italic mb-4" style={{ color: subColor }}>{subtitle}</p>
 
       {/* Price */}
       <div className="mb-1">
         {term > 3 && (
-          <p className="text-xs line-through mb-0.5" style={{ color: subColor }}>
+          <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
             ${baseMonthly}/mo
           </p>
         )}
         <div className="flex items-end gap-0.5">
-          <span className="font-black leading-none" style={{ fontSize: 44, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+          <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
             ${Math.floor(monthly)}
           </span>
-          <span className="text-sm font-semibold pb-1.5" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+          <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             .{(monthly % 1).toFixed(2).slice(2)}/mo
           </span>
         </div>
       </div>
 
       {/* Upfront total */}
-      <p className="text-xs font-medium mb-1" style={{ color: subColor }}>
+      <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
         ${total.toLocaleString(undefined, { minimumFractionDigits: 2 })} upfront · {term} months
       </p>
 
       {/* Savings chip */}
       {savings > 0 && (
         <span
-          className="inline-block rounded text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-5 w-fit"
+          className="inline-block rounded text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-4 w-fit"
           style={{ border: "1.5px solid #16A34A", color: "#16A34A" }}
         >
           SAVE ${savings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </span>
       )}
-      {savings === 0 && <div className="mb-5" />}
+      {savings === 0 && <div className="mb-4" />}
 
       {/* ── Medication Block ──────────────────────────────────────────── */}
-      <div className="mb-4">
+      <div className="mb-3">
         <p
-          className="text-[10px] font-extrabold uppercase tracking-widest mb-2.5"
+          className="text-[9px] font-extrabold uppercase tracking-widest mb-2"
           style={{ color: isDark ? "rgba(255,255,255,0.45)" : "#888", letterSpacing: "1.2px" }}
         >
           Your medication
         </p>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-1.5">
           {medication.map((text) => (
             <li key={text} className="flex items-start gap-2">
               <span
                 className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
                 style={{
-                  width: 18,
-                  height: 18,
+                  width: 16,
+                  height: 16,
                   background: isDark ? "rgba(122,30,126,0.25)" : "rgba(122,30,126,0.08)",
                 }}
               >
-                <Check size={10} color={isDark ? "#c084fc" : "#7A1E7E"} strokeWidth={2.5} />
+                <Check size={9} color={isDark ? "#c084fc" : "#7A1E7E"} strokeWidth={2.5} />
               </span>
               <span
-                className="text-xs font-medium leading-snug"
+                className="text-[11px] font-medium leading-snug"
                 style={{ color: isDark ? "rgba(255,255,255,0.75)" : "#555" }}
               >
                 {text}
@@ -666,33 +532,33 @@ function TierCard({
 
       {/* ── Universal Value Block ─────────────────────────────────────── */}
       <div
-        className="rounded-xl p-4 mb-6 flex-1"
+        className="rounded-lg p-3 mb-5 flex-1"
         style={{
           background: isDark ? "rgba(255,255,255,0.04)" : "#F8F8FC",
           border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #EDEDF5",
         }}
       >
         <p
-          className="text-[10px] font-extrabold uppercase tracking-widest mb-3"
+          className="text-[9px] font-extrabold uppercase tracking-widest mb-2"
           style={{ color: isDark ? "rgba(232,51,158,0.8)" : "#E8339E", letterSpacing: "1.2px" }}
         >
           Every program includes
         </p>
-        <ul className="flex flex-col gap-2.5">
+        <ul className="flex flex-col gap-2">
           {UNIVERSAL_VALUE.map(({ icon: Icon, text }) => (
-            <li key={text} className="flex items-start gap-2.5">
+            <li key={text} className="flex items-start gap-2">
               <span
                 className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 18,
+                  height: 18,
                   background: isDark ? "rgba(232,51,158,0.15)" : "rgba(232,51,158,0.08)",
                 }}
               >
-                <Icon size={11} color="#E8339E" strokeWidth={2.5} />
+                <Icon size={10} color="#E8339E" strokeWidth={2.5} />
               </span>
               <span
-                className="text-xs font-medium leading-snug"
+                className="text-[11px] font-medium leading-snug"
                 style={{ color: isDark ? "rgba(255,255,255,0.85)" : "#374151" }}
               >
                 {text}
@@ -707,12 +573,12 @@ function TierCard({
         onClick={onConsultClick}
         className={`block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all duration-200 cursor-pointer mt-auto ${
           isDark || isHighlighted
-            ? "hover:opacity-90 hover:shadow-[0_8px_32px_rgba(232,51,158,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_4px_16px_rgba(232,51,158,0.3)]"
+            ? "hover:opacity-90 hover:shadow-[0_8px_32px_rgba(232,51,158,0.45)] hover:-translate-y-0.5 active:translate-y-0"
             : "hover:bg-[#111] hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
         }`}
         style={{
-          padding: "14px",
-          fontSize: 11,
+          padding: "13px",
+          fontSize: 10,
           letterSpacing: "1.5px",
           ...(isDark || isHighlighted
             ? {
@@ -731,8 +597,8 @@ function TierCard({
         Book Free Consult
       </button>
 
-      {/* Soft urgency */}
-      <p className="text-[10px] text-center mt-2.5 font-medium" style={{ color: subColor }}>
+      {/* Urgency */}
+      <p className="text-[9px] text-center mt-2 font-medium" style={{ color: subColor }}>
         Limited new patient slots available
       </p>
     </div>
