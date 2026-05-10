@@ -392,7 +392,7 @@ function TierCard({
     ? "2px solid rgba(232,51,158,0.4)"
     : isHighlighted
     ? "2px solid #E8339E"
-    : "1.5px solid #E2E2EA";
+    : "1.5px solid #D1D1DB";
 
   const cardShadow = isDark
     ? "0 0 0 4px rgba(232,51,158,0.08), 0 20px 50px rgba(13,27,42,0.3)"
