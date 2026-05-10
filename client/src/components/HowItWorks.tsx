@@ -65,7 +65,8 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
             className="font-black text-[#111111] leading-tight"
             style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "-0.02em" }}
           >
-            The Path to Your{" "}
+            This Isn't a Subscription.{" "}
+            <br />
             <span
               style={{
                 background: GRADIENT,
@@ -75,11 +76,11 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                 fontStyle: "italic",
               }}
             >
-              Breakthrough
+              It's a Program.
             </span>
           </h2>
           <p className="mt-3 text-gray-500 text-base max-w-xl mx-auto">
-            From your first call to your long-term transformation, we ensure you never walk your health journey alone.
+            Most telehealth sends a prescription and moves on. We give you a doctor who knows your labs, a coach who tracks your progress, and a nutrition and fitness plan built around your biology — not a template.
           </p>
         </div>
 

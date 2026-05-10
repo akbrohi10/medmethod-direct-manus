@@ -7,7 +7,7 @@
    Compact, decisive, old-style toggle feel with new 3-tab + value-stack cards.
    ============================================================================= */
 import { useState } from "react";
-import { Check, Stethoscope, Dumbbell, MessageCircle, Apple, UserCheck, ArrowRight } from "lucide-react";
+import { Check, Stethoscope, Dumbbell, MessageCircle, UserCheck, ArrowRight } from "lucide-react";
 
 // ── Pricing Data ────────────────────────────────────────────────────────────
 type Term = 3 | 6 | 12;
@@ -44,8 +44,7 @@ function totalSavings(tier: TierKey, term: Term): number {
 const UNIVERSAL_VALUE = [
   { icon: Stethoscope, text: "Same doctor every visit — gets to know you" },
   { icon: UserCheck, text: "Performance coach (bi-weekly virtual weigh-in)" },
-  { icon: Apple, text: "Custom nutrition plan" },
-  { icon: Dumbbell, text: "Custom exercise program" },
+  { icon: Dumbbell, text: "Custom exercise + nutrition plan" },
   { icon: MessageCircle, text: "Direct text access to your care team" },
 ];
 
@@ -84,8 +83,8 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
     drugHighlight: "Semaglutide",
     medication: [
       "Semaglutide + B12 shipped monthly",
-      "Personalized titration protocol",
-      "Price locked — no escalation",
+      "Personalized dosing plan",
+      "Dose changes. Price doesn't.",
     ],
   },
   {
@@ -96,8 +95,8 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
     drugHighlight: "Tirzepatide",
     medication: [
       "Tirzepatide + niacinamide shipped monthly",
-      "Enhanced titration protocol",
-      "Price locked — no escalation",
+      "Personalized dosing plan",
+      "Dose changes. Price doesn't.",
     ],
   },
 ];
@@ -126,7 +125,7 @@ const INTEGRATED_TIERS: TierDef[] = [
       "Semaglutide + B12 shipped monthly",
       "Estradiol patch (transdermal)",
       "Micronized progesterone (oral)",
-      "Price locked — no escalation",
+      "Dose changes. Price doesn't.",
     ],
   },
   {
@@ -141,7 +140,7 @@ const INTEGRATED_TIERS: TierDef[] = [
       "Tirzepatide + niacinamide shipped monthly",
       "Estradiol patch (transdermal)",
       "Micronized progesterone (oral)",
-      "Price locked — no escalation",
+      "Dose changes. Price doesn't.",
     ],
   },
 ];
@@ -156,7 +155,7 @@ const HRT_TIER: TierDef = {
   medication: [
     "Estradiol patch (transdermal)",
     "Micronized progesterone (oral)",
-    "Price locked — no escalation",
+"Dose changes. Price doesn't."
   ],
 };
 
