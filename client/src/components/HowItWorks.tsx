@@ -1,12 +1,16 @@
 /* =============================================================================
    HowItWorks.tsx — "This Isn't a Subscription. It's a Program."
-   Clean step cards: no watermark numbers, no icons, bright borders, uniform size.
+   DARK background section. Step cards: dark surface, white text, pink accents.
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 import { ChevronRight } from "lucide-react";
 
 const PINK = "#E8339E";
 const GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
+const DARK_BG = "#0D0D1A";
+const CARD_BG = "rgba(255,255,255,0.05)";
+const CARD_BORDER = "rgba(255,255,255,0.10)";
+const CARD_BORDER_HOVER = PINK;
 
 interface Step {
   step: string;
@@ -46,7 +50,11 @@ const steps: Step[] = [
 
 export default function HowItWorks({ onConsultClick }: { onConsultClick: () => void }) {
   return (
-    <section id="how-it-works" className="py-16 lg:py-24" style={{ fontFamily: "Montserrat, sans-serif", background: "#F7F7F9" }}>
+    <section
+      id="how-it-works"
+      className="py-16 lg:py-24"
+      style={{ fontFamily: "Montserrat, sans-serif", background: DARK_BG }}
+    >
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}
@@ -57,7 +65,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
             <div className="h-px w-10" style={{ background: GRADIENT }} />
           </div>
           <h2
-            className="font-black text-[#111111] leading-tight"
+            className="font-black text-white leading-tight"
             style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "-0.02em" }}
           >
             This Isn't a Subscription.{" "}
@@ -74,11 +82,11 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
               It's a Program.
             </span>
           </h2>
-          <p className="mt-5 text-gray-400 text-base max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-5 text-white/50 text-base max-w-3xl mx-auto leading-relaxed">
             Most telehealth sends a prescription and moves on. We give you a{" "}
-            <span className="font-bold text-[#1a1a1a]">doctor who actually gets to know you</span>, a{" "}
-            <span className="font-bold text-[#1a1a1a]">dedicated performance coach who checks in every two weeks for a weigh-in</span>, and a{" "}
-            <span className="font-bold text-[#1a1a1a]">nutrition and fitness plan built around your biology</span>{" "}
+            <span className="font-bold text-white">doctor who actually gets to know you</span>, a{" "}
+            <span className="font-bold text-white">dedicated performance coach who checks in every two weeks for a weigh-in</span>, and a{" "}
+            <span className="font-bold text-white">nutrition and fitness plan built around your biology</span>{" "}
             — not a template.
           </p>
         </div>
@@ -93,20 +101,20 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                 <div
                   className="group relative flex flex-col rounded-2xl p-6 w-full transition-all duration-300"
                   style={{
-                    background: "#fff",
-                    border: "1.5px solid #D1D1DB",
-                    boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+                    background: CARD_BG,
+                    border: `1.5px solid ${CARD_BORDER}`,
+                    boxShadow: "0 2px 12px rgba(0,0,0,0.3)",
                     minHeight: "240px",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(232,51,158,0.18)";
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(232,51,158,0.25)";
                     (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                    (e.currentTarget as HTMLDivElement).style.borderColor = PINK;
+                    (e.currentTarget as HTMLDivElement).style.borderColor = CARD_BORDER_HOVER;
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.05)";
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.3)";
                     (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "#D1D1DB";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = CARD_BORDER;
                   }}
                 >
                   {/* Step label */}
@@ -119,14 +127,14 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
 
                   {/* Title */}
                   <h3
-                    className="font-black text-[#111] leading-snug mb-3"
+                    className="font-black text-white leading-snug mb-3"
                     style={{ fontSize: "1.05rem" }}
                   >
                     {item.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed flex-1">
+                  <p className="text-white/55 text-sm leading-relaxed flex-1">
                     {item.description}
                   </p>
 
@@ -146,7 +154,11 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                   <div className="hidden lg:flex items-center justify-center absolute -right-4 top-1/2 -translate-y-1/2 z-20">
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center"
-                      style={{ background: "#fff", boxShadow: "0 2px 8px rgba(232,51,158,0.2)", border: "1px solid rgba(232,51,158,0.2)" }}
+                      style={{
+                        background: "rgba(255,255,255,0.06)",
+                        boxShadow: "0 2px 8px rgba(232,51,158,0.2)",
+                        border: "1px solid rgba(232,51,158,0.3)",
+                      }}
                     >
                       <ChevronRight className="w-4 h-4" style={{ color: PINK }} />
                     </div>
@@ -162,7 +174,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           <button
             onClick={onConsultClick}
             className="inline-block text-sm font-bold tracking-wider px-8 py-3.5 rounded-full text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg"
-            style={{ background: GRADIENT, boxShadow: "0 6px 24px rgba(232,51,158,0.3)" }}
+            style={{ background: GRADIENT, boxShadow: "0 6px 24px rgba(232,51,158,0.4)" }}
           >
             START YOUR JOURNEY TODAY
           </button>

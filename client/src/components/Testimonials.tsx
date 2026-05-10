@@ -175,7 +175,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-[#FAFAFA] py-16 lg:py-20 overflow-hidden">
+    <section className="py-16 lg:py-20 overflow-hidden" style={{ background: "#0D0D1A" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}
@@ -187,7 +187,7 @@ export default function Testimonials() {
             Patient Stories
           </span>
           <h2
-            className="font-black text-[#111111] leading-tight"
+            className="font-black text-white leading-tight"
             style={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
@@ -208,7 +208,7 @@ export default function Testimonials() {
             </span>
           </h2>
           <p
-            className="text-gray-500 mt-3 text-sm font-medium"
+            className="text-white/50 mt-3 text-sm font-medium"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Ages 30s–60s · Post-pregnancy · Menopause · Significant weight loss · Actual MedMethod Direct patients. Results may vary.
@@ -228,8 +228,10 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="flex-shrink-0 rounded-2xl overflow-hidden flex flex-col bg-white border border-gray-100 shadow-sm"
+              className="flex-shrink-0 rounded-2xl overflow-hidden flex flex-col border shadow-sm"
               style={{
+                background: 'rgba(255,255,255,0.06)',
+                borderColor: 'rgba(255,255,255,0.10)',
                 width: "clamp(280px, 78vw, 300px)",
                 scrollSnapAlign: "start",
               }}
@@ -282,7 +284,7 @@ export default function Testimonials() {
 
                 {/* Quote */}
                 <p
-                  className="text-gray-600 leading-relaxed text-xs flex-1 mb-4"
+                  className="text-white/60 leading-relaxed text-xs flex-1 mb-4"
                   style={{ fontFamily: "Montserrat, sans-serif", fontStyle: "italic" }}
                 >
                   "{t.text}"
@@ -292,13 +294,13 @@ export default function Testimonials() {
                 <div className="flex items-end justify-between gap-2 flex-wrap">
                   <div>
                     <div
-                      className="font-bold text-sm text-[#111]"
+                      className="font-bold text-sm text-white"
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
                       {t.name}
                     </div>
                     <div
-                      className="text-gray-400 text-xs"
+                      className="text-white/40 text-xs"
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
                       {t.age} · {t.location}
@@ -324,7 +326,7 @@ export default function Testimonials() {
 
         {/* Scroll hint */}
         <p
-          className="text-center text-gray-400 text-xs mt-4 font-medium"
+          className="text-center text-white/30 text-xs mt-4 font-medium"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
           ← Scroll to see all {testimonials.length} patient stories →

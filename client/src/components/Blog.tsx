@@ -18,7 +18,7 @@ const featuredArticles = FEATURED_SLUGS.map(
 
 export default function Blog() {
   return (
-    <section id="blog" className="bg-[#f8f8f8] py-16 lg:py-24">
+    <section id="blog" className="py-16 lg:py-24" style={{ background: "#F4F4F8" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 gap-4">

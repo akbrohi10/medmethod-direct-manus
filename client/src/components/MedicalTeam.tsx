@@ -45,7 +45,7 @@ const team = [
 
 export default function MedicalTeam() {
   return (
-    <section id="about" className="bg-[#F8F7F5] py-16 lg:py-24">
+    <section id="about" className="py-16 lg:py-24" style={{ background: "#F4F4F8" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 gap-4">

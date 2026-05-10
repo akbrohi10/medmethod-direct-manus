@@ -99,7 +99,7 @@ interface Props {
 
 export default function Services({ onConsultClick }: Props) {
   return (
-    <section id="services" className="bg-white py-16 lg:py-20">
+    <section id="services" className="py-16 lg:py-20" style={{ background: "#F4F4F8" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}

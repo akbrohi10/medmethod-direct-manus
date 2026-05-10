@@ -178,7 +178,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
   return (
     <section
       className="pt-16 lg:pt-24 pb-6 px-4"
-      style={{ background: "#F4F4F8", fontFamily: "Montserrat, sans-serif", borderTop: "2px solid #D1D1DB" }}
+      style={{ background: "#FFFFFF", fontFamily: "Montserrat, sans-serif" }}
     >
       <div className="max-w-7xl mx-auto">
 
