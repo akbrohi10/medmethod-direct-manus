@@ -35,9 +35,9 @@ const steps = [
   },
   {
     step: "04",
-    title: "Meet Your Wellness Advisor",
+    title: "Meet Your Performance Coach",
     description:
-      "Your dedicated Wellness Advisor guides bi-weekly check-ins, tracks your progress, and fine-tunes your plan so your results keep accelerating.",
+      "Your dedicated Performance Coach guides bi-weekly check-ins, tracks your progress, and fine-tunes your plan so your results keep accelerating.",
     badge: "ONGOING",
     badgeStyle: "outline",
   },
