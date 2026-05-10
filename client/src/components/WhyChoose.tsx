@@ -47,8 +47,8 @@ const medmethodWay = [
   },
   {
     icon: CalendarCheck,
-    title: "Bi-Weekly Wellness Advisor Check-Ins",
-    body: "Every two weeks, your dedicated Wellness Advisor meets with you for a weigh-in, body measurements, and a progress review. They catch discouragement early, adjust your plan in real time, and keep you moving forward — even when motivation fades.",
+    title: "Bi-Weekly Performance Coach Check-Ins",
+    body: "Every two weeks, your dedicated Performance Coach meets with you for a weigh-in, body measurements, and a progress review. They catch discouragement early, adjust your plan in real time, and keep you moving forward — even when motivation fades.",
   },
   {
     icon: Smartphone,
