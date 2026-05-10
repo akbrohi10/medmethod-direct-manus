@@ -121,10 +121,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
                   className="rounded-2xl bg-[#FAFAFA] p-6 flex flex-col"
                   style={{
                     boxShadow: "0 2px 16px rgba(0,0,0,0.06)",
-                    borderTop: "1.5px solid #C0C0CC",
-                    borderRight: "1.5px solid #C0C0CC",
-                    borderBottom: "1.5px solid #C0C0CC",
-                    borderLeft: "4px solid #E8339E",
+                    border: "1.5px solid #E8339E",
                   }}
                 >
                   {/* Icon + label */}
