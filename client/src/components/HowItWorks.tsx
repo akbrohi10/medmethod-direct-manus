@@ -1,18 +1,15 @@
 /* =============================================================================
-   HowItWorks.tsx — "The Path to Your Breakthrough" — Option C Redesign
-   Large gradient watermark step numbers, prominent icons, hover lift,
-   gradient connector arrows between cards on desktop.
+   HowItWorks.tsx — "This Isn't a Subscription. It's a Program."
+   Clean step cards: no watermark numbers, no icons, bright borders, uniform size.
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
-import { PhoneCall, FlaskConical, ClipboardCheck, RefreshCw, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const PINK = "#E8339E";
-const PURPLE = "#7A1E7E";
 const GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 
 const steps = [
   {
-    icon: PhoneCall,
     step: "01",
     title: "Free Advisor Consultation",
     description:
@@ -21,7 +18,6 @@ const steps = [
     badgeStyle: null,
   },
   {
-    icon: FlaskConical,
     step: "02",
     title: "Clinical Registration",
     description:
@@ -30,7 +26,6 @@ const steps = [
     badgeStyle: null,
   },
   {
-    icon: ClipboardCheck,
     step: "03",
     title: "Lab Review & Program Selection",
     description:
@@ -39,7 +34,6 @@ const steps = [
     badgeStyle: null,
   },
   {
-    icon: RefreshCw,
     step: "04",
     title: "Meet Your Wellness Advisor",
     description:
@@ -91,77 +85,54 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
         {/* Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           {steps.map((item, i) => {
-            const Icon = item.icon;
             const isLast = i === steps.length - 1;
             return (
               <div key={i} className="relative flex items-stretch">
                 {/* Card */}
                 <div
-                  className="group relative flex flex-col rounded-2xl p-6 w-full overflow-hidden transition-all duration-300"
+                  className="group relative flex flex-col rounded-2xl p-6 w-full transition-all duration-300"
                   style={{
                     background: "#fff",
-                    border: "1px solid rgba(232,51,158,0.12)",
+                    border: "1.5px solid #D1D1DB",
                     boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+                    minHeight: "240px",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(232,51,158,0.18)";
                     (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,51,158,0.3)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = PINK;
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.05)";
                     (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,51,158,0.12)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "#D1D1DB";
                   }}
                 >
-                  {/* Watermark number */}
-                  <span
-                    className="absolute -top-3 -right-2 font-black select-none pointer-events-none leading-none"
-                    style={{
-                      fontSize: "7rem",
-                      backgroundImage: "linear-gradient(135deg, rgba(232,51,158,0.07) 0%, rgba(122,30,126,0.07) 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {item.step}
-                  </span>
-
-                  {/* Icon */}
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0 relative z-10"
-                    style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.12), rgba(122,30,126,0.12))" }}
-                  >
-                    <Icon className="w-6 h-6" style={{ color: PINK }} />
-                  </div>
-
                   {/* Step label */}
                   <span
-                    className="text-xs font-bold tracking-[0.2em] uppercase mb-1 relative z-10"
-                    style={{ color: "rgba(232,51,158,0.5)" }}
+                    className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
+                    style={{ color: PINK }}
                   >
                     Step {item.step}
                   </span>
 
                   {/* Title */}
                   <h3
-                    className="font-black text-[#111] leading-snug mb-3 relative z-10"
+                    className="font-black text-[#111] leading-snug mb-3"
                     style={{ fontSize: "1.05rem" }}
                   >
                     {item.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed flex-1 relative z-10">
+                  <p className="text-gray-500 text-sm leading-relaxed flex-1">
                     {item.description}
                   </p>
 
                   {/* Badge */}
                   {item.badge && (
                     <span
-                      className="mt-4 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full relative z-10"
+                      className="mt-4 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full"
                       style={
                         item.badgeStyle === "filled"
                           ? { background: GRADIENT, color: "#fff" }
