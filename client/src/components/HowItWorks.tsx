@@ -8,38 +8,39 @@ import { ChevronRight } from "lucide-react";
 const PINK = "#E8339E";
 const GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 
-const steps = [
+interface Step {
+  step: string;
+  title: string;
+  description: string;
+  subNote?: string;
+}
+
+const steps: Step[] = [
   {
     step: "01",
-    title: "Free Advisor Consultation",
+    title: "Discovery Call",
     description:
       "Speak with an Enrollment Specialist who'll walk you through your goals, your symptoms, and exactly what your program would look like — before you commit to anything.",
-    badge: null,
-    badgeStyle: null,
+    subNote: "No cost · No commitment",
   },
   {
     step: "02",
-    title: "Clinical Registration",
+    title: "Schedule Your Lab Work",
     description:
-      "Pay your $449 setup fee to unlock your diagnostic suite, order your labs, and ship your MedMethod Smart Scale.",
-    badge: null,
-    badgeStyle: null,
+      "We order your comprehensive diagnostic labs and get everything ready — so when you meet virtually with your doctor, the full picture of your health is already on the table. Your Enrollment Specialist will walk you through exactly what's needed for your specific program.",
   },
   {
     step: "03",
-    title: "Lab Review & Program Selection",
+    title: "Your 60-Minute Physician Strategy Session",
     description:
-      "Your Doctor reviews your bloodwork, walks you through treatment options, and together you select the program that fits your biology and goals.",
-    badge: null,
-    badgeStyle: null,
+      "This isn't a quick check-in. Your doctor comes prepared with your full lab results and goes deep — your history, your challenges, your goals. You leave with a protocol built specifically for you.",
   },
   {
     step: "04",
-    title: "Meet Your Performance Coach",
+    title: "Your Program Launches",
     description:
-      "Your dedicated Performance Coach guides bi-weekly check-ins, tracks your progress, and fine-tunes your plan so your results keep accelerating.",
-    badge: "ONGOING",
-    badgeStyle: "outline",
+      "Your medications are shipped directly to you or called into your local pharmacy. You meet your dedicated Performance Coach, set up your custom fitness and nutrition plan, and begin bi-weekly weigh-ins. This is where real change starts.",
+    subNote: "Ongoing · Your team, always on",
   },
 ];
 
@@ -129,21 +130,14 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                     {item.description}
                   </p>
 
-                  {/* Badge */}
-                  {item.badge && (
-                    <span
-                      className="mt-4 self-start text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full"
-                      style={
-                        item.badgeStyle === "filled"
-                          ? { background: GRADIENT, color: "#fff" }
-                          : {
-                              background: "linear-gradient(135deg, rgba(232,51,158,0.1), rgba(122,30,126,0.1))",
-                              color: PINK,
-                            }
-                      }
+                  {/* Sub-note */}
+                  {item.subNote && (
+                    <p
+                      className="mt-4 text-xs font-bold tracking-wide"
+                      style={{ color: PINK }}
                     >
-                      {item.badge}
-                    </span>
+                      {item.subNote}
+                    </p>
                   )}
                 </div>
 
