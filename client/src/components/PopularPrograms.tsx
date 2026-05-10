@@ -58,6 +58,8 @@ interface TierDef {
   dark?: boolean;
   highlighted?: boolean;
   medication: string[];
+  brandName?: [string, string]; // [prefix, suffix] e.g. ["Slim", "Method"]
+  drugHighlight?: string; // drug name to highlight in the subtitle
 }
 
 // Tab 1: Weight Loss
@@ -75,9 +77,11 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t2a",
     label: "Semaglutide",
-    subtitle: "GLP-1 weight loss · medications included",
+    subtitle: "Semaglutide · GLP-1 weight loss · medications included",
     badge: "RECOMMENDED",
     highlighted: true,
+    brandName: ["Slim", "Method"],
+    drugHighlight: "Semaglutide",
     medication: [
       "Semaglutide + B12 shipped monthly",
       "Personalized titration protocol",
@@ -366,7 +370,7 @@ function TierCard({
   term: Term;
   onConsultClick: () => void;
 }) {
-  const { key, label, subtitle, badge, dark, highlighted, medication } = tier;
+  const { key, label, subtitle, badge, dark, highlighted, medication, brandName, drugHighlight } = tier;
   const isDark = !!dark;
   const isHighlighted = !!highlighted;
   const monthly = monthlyRate(key, term);
@@ -416,22 +420,63 @@ function TierCard({
         </div>
       )}
 
-      {/* Title + subtitle */}
-      <h3
-        className="font-bold mb-0.5"
-        style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)", color: isDark ? "#fff" : "#111" }}
-      >
-        {label}
-      </h3>
+      {/* Brand Name (split-color) or fallback to label */}
+      {brandName ? (
+        <h3
+          className="font-black mb-1"
+          style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", letterSpacing: "-0.5px", lineHeight: 1.1 }}
+        >
+          <span style={{ color: isDark ? "#fff" : "#111" }}>{brandName[0]}</span>
+          <span style={{ color: isDark ? "#f472b6" : "#E8339E" }}>{brandName[1]}</span>
+        </h3>
+      ) : (
+        <h3
+          className="font-bold mb-0.5"
+          style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)", color: isDark ? "#fff" : "#111" }}
+        >
+          {label}
+        </h3>
+      )}
+
+      {/* Subtitle with drug highlight + medications included */}
       <p className="text-[13px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-        {subtitle.includes("medications included") ? (
-          <>
-            {subtitle.replace(" · medications included", " · ")}
-            <span className="font-bold" style={{ color: isDark ? "#f472b6" : "#E8339E" }}>medications included</span>
-          </>
-        ) : (
-          subtitle
-        )}
+        {(() => {
+          let parts = subtitle;
+          const elements: React.ReactNode[] = [];
+          let idx = 0;
+
+          // Highlight drug name
+          if (drugHighlight && parts.includes(drugHighlight)) {
+            const [before, after] = parts.split(drugHighlight);
+            if (before) elements.push(<span key={idx++}>{before}</span>);
+            elements.push(
+              <span key={idx++} className="font-bold" style={{ color: isDark ? "#fff" : "#111", fontSize: "14px" }}>
+                {drugHighlight}
+              </span>
+            );
+            parts = after;
+          }
+
+          // Highlight "medications included"
+          if (parts.includes("medications included")) {
+            const [before, after] = parts.split("medications included");
+            if (before) elements.push(<span key={idx++}>{before}</span>);
+            elements.push(
+              <span key={idx++} className="font-bold" style={{ color: isDark ? "#f472b6" : "#E8339E" }}>
+                medications included
+              </span>
+            );
+            if (after) elements.push(<span key={idx++}>{after}</span>);
+          } else {
+            if (elements.length === 0) {
+              elements.push(<span key={idx++}>{parts}</span>);
+            } else {
+              elements.push(<span key={idx++}>{parts}</span>);
+            }
+          }
+
+          return elements;
+        })()}
       </p>
 
       {/* Price */}
