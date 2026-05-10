@@ -46,7 +46,7 @@ const steps: Step[] = [
 
 export default function HowItWorks({ onConsultClick }: { onConsultClick: () => void }) {
   return (
-    <section id="how-it-works" className="bg-white py-16 lg:py-24" style={{ fontFamily: "Montserrat, sans-serif" }}>
+    <section id="how-it-works" className="py-16 lg:py-24" style={{ fontFamily: "Montserrat, sans-serif", background: "#F7F7F9" }}>
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
 
         {/* Header */}
