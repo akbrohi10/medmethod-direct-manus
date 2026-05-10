@@ -13,7 +13,7 @@ const steps = [
     step: "01",
     title: "Free Advisor Consultation",
     description:
-      "Speak with an Enrollment Specialist to discuss your goals and see if MedMethod Direct is the right fit for your lifestyle.",
+      "Speak with an Enrollment Specialist who'll walk you through your goals, your symptoms, and exactly what your program would look like — before you commit to anything.",
     badge: null,
     badgeStyle: null,
   },
