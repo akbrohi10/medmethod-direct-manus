@@ -66,7 +66,7 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Dr. led program · prescription called to your pharmacy",
+    subtitle: "Physician-led · prescription sent to your local pharmacy · coaching included",
     medication: [
       "Your physician manages your Rx",
       "Called to your local pharmacy",
@@ -106,7 +106,7 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Dr. led program · prescription called to your pharmacy",
+    subtitle: "Physician-led · prescription sent to your local pharmacy · coaching included",
     medication: [
       "Your physician manages GLP-1 + hormone Rx",
       "Called to your local pharmacy",
@@ -191,7 +191,7 @@ export default function PopularPrograms({ onConsultClick }: { onConsultClick: ()
             Popular Programs
           </h2>
           <p className="text-sm text-gray-500 mt-2">
-            Choose your program length — all plans paid in full upfront.
+Physician-led care, medication, and coaching — all in one program.
           </p>
         </div>
 
