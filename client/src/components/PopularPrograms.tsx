@@ -498,14 +498,14 @@ function TierCard({
             ${Math.floor(monthly)}
           </span>
           <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-            .{(monthly % 1).toFixed(2).slice(2)}/mo
+            /mo
           </span>
         </div>
       </div>
 
       {/* Upfront total */}
       <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
-        ${total.toLocaleString(undefined, { minimumFractionDigits: 2 })} upfront · {term} months
+        ${Math.round(total).toLocaleString()} upfront · {term} months
       </p>
 
       {/* Savings chip */}
@@ -514,7 +514,7 @@ function TierCard({
           className="inline-block rounded text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-4 w-fit"
           style={{ border: "1.5px solid #16A34A", color: "#16A34A" }}
         >
-          SAVE ${savings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          SAVE ${Math.round(savings).toLocaleString()}
         </span>
       )}
       {savings === 0 && <div className="mb-4" />}
@@ -595,7 +595,7 @@ function TierCard({
         className={`block w-full text-center font-extrabold uppercase tracking-widest rounded-xl transition-all duration-200 cursor-pointer mt-auto ${
           isDark || isHighlighted
             ? "hover:opacity-90 hover:shadow-[0_8px_32px_rgba(232,51,158,0.45)] hover:-translate-y-0.5 active:translate-y-0"
-            : "hover:bg-[#111] hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+            : "hover:bg-[#E8339E] hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
         }`}
         style={{
           padding: "13px",
@@ -610,8 +610,8 @@ function TierCard({
               }
             : {
                 background: "transparent",
-                color: "#111",
-                border: "2px solid #111",
+                color: "#E8339E",
+                border: "2px solid #E8339E",
               }),
         }}
       >
