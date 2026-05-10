@@ -26,8 +26,8 @@ const steps = [
     title: "Clinical Registration",
     description:
       "Pay your $449 setup fee to unlock your diagnostic suite, order your labs, and ship your MedMethod Smart Scale.",
-    badge: "$449 ONE-TIME",
-    badgeStyle: "filled",
+    badge: null,
+    badgeStyle: null,
   },
   {
     icon: ClipboardCheck,
