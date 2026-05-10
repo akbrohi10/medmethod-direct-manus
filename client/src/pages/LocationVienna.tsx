@@ -181,7 +181,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -189,11 +189,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -310,7 +310,7 @@ const whyCards = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Vienna, VA", rating: 5 },
+  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my performance coach who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Vienna, VA", rating: 5 },
   { quote: "Military spouse life means moving every few years and starting over with new doctors who don\'t know your history. MedMethod follows me wherever we\'re stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Virginia area", rating: 5 },
   { quote: "I tried tirzepatide through another telehealth company and lost 12 pounds but then completely plateaued. Turns out my estrogen and thyroid were both tanking and nobody was looking at the full picture. MedMethod added bioidentical hormones and optimized my thyroid — broke through the plateau in three weeks. I\'m down 34 lbs total and my husband says I look ten years younger.", name: "Lauren M.", location: "Virginia", rating: 5 },
 ];

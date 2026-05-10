@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -49,11 +49,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -462,7 +462,7 @@ export default function LocationPonteVedraFL() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Ponte Vedra", desc: "We order your labs to a convenient LabCorp or Quest draw site near Ponte Vedra. Results reviewed within 48 hours." },
               { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Ponte Vedra address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
@@ -491,9 +491,9 @@ export default function LocationPonteVedraFL() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { stars: 5, quote: 'I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my wellness advisor keeps me accountable even when I want to cheat on vacation.', name: "Jennifer S.", loc: "Ponte Vedra, FL" },
+              { stars: 5, quote: 'I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my performance coach keeps me accountable even when I want to cheat on vacation.', name: "Jennifer S.", loc: "Ponte Vedra, FL" },
               { stars: 5, quote: 'As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.', name: "Carolina M.", loc: "Florida Area" },
-              { stars: 5, quote: 'The wellness advisor is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.', name: "Allison D.", loc: "Florida" },
+              { stars: 5, quote: 'The performance coach is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.', name: "Allison D.", loc: "Florida" },
             ].map((t, i) => (
               <div key={i} className="bg-[#F8F4F9] rounded-2xl p-8">
                 <div className="flex gap-1 mb-4">

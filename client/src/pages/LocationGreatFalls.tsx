@@ -130,7 +130,7 @@ const JSONLD_FAQ = {
       "name": "Why choose virtual care over a local specialist near Great Falls?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
+        "text": "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
       },
     },
     {
@@ -180,7 +180,7 @@ const faqs = [
   },
   {
     q: "Why choose virtual care over a local specialist near Great Falls?",
-    a: "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
+    a: "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
   },
   {
     q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?",
@@ -202,7 +202,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -210,11 +210,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -240,9 +240,9 @@ const faqs = [
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
-  { quote: "I\'m a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my wellness advisor checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Great Falls, VA" },
+  { quote: "I\'m a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my performance coach checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Great Falls, VA" },
   { quote: "I\'d been to three different OBGYNs about my perimenopause symptoms and kept hearing \'your labs are normal.\' Dr. Al-Deek looked at the same numbers and immediately saw what everyone else missed. Within 60 days my brain fog lifted, the anxiety dropped, and I lost 14 pounds without changing my diet. I just needed someone who actually understood hormones.", name: "Priya S.", location: "Virginia area" },
-  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my wellness advisor who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Virginia" },
+  { quote: "After my youngest left for college I realized I\'d spent 20 years taking care of everyone except myself. I was 52, exhausted, and had gained 35 pounds since perimenopause started. The combination of HRT and GLP-1 was exactly what I needed — but honestly, it was my performance coach who kept me from quitting during month two when the scale stalled. She reminded me to trust the process. Down 28 lbs now.", name: "Diane W.", location: "Virginia" },
 ];
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────
@@ -691,8 +691,8 @@ export default function LocationGreatFalls() {
               },
               {
                 icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Dedicated Wellness Advisor",
-                body: "Between every physician visit, your personal wellness advisor is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
+                title: "Dedicated Performance Coach",
+                body: "Between every physician visit, your personal performance coach is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
               },
               {
                 icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />,

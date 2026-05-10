@@ -28,7 +28,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -36,11 +36,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -379,7 +379,7 @@ export default function LocationBoulderCO() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Boulder", desc: "We order your labs to a convenient LabCorp or Quest draw site near Boulder. Results reviewed within 48 hours." },
               { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Boulder address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
@@ -407,7 +407,7 @@ export default function LocationBoulderCO() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { quote: "I run a tech startup in Denver and I was losing my edge. Brain fog in meetings, forgetting names, unable to focus past 2 PM. I thought it was burnout until MedMethod showed me it was hormonal. Two months on BHRT and I'm sharper than I've been in years. My co-founder asked if I started microdosing — nope, just got my estrogen and testosterone optimized.", name: "Emily R.", location: "Boulder, CO", rating: 5 },
-              { quote: "I'd tried three different telehealth weight loss companies and none of them worked long-term. The difference with MedMethod is they don't just hand you a prescription — they build a system around you. My wellness advisor holds me accountable every single week. She knows when I'm traveling, when I'm stressed, when I need a pep talk. That human element is everything.", name: "Jessica T.", location: "Colorado Area", rating: 5 },
+              { quote: "I'd tried three different telehealth weight loss companies and none of them worked long-term. The difference with MedMethod is they don't just hand you a prescription — they build a system around you. My performance coach holds me accountable every single week. She knows when I'm traveling, when I'm stressed, when I need a pep talk. That human element is everything.", name: "Jessica T.", location: "Colorado Area", rating: 5 },
               { quote: "I'm 55 and I'd accepted that feeling terrible was just my new normal. Hot flashes at altitude are a special kind of misery. MedMethod put me on a comprehensive HRT protocol and within six weeks the flashes stopped, my sleep came back, and I lost 18 lbs. My husband said it's like I came back from somewhere. He's not wrong.", name: "Linda G.", location: "Colorado Patient", rating: 5 },
 ].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>

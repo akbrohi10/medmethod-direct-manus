@@ -53,8 +53,8 @@ const medmethodWay = [
   },
   {
     icon: CalendarCheck,
-    title: "Bi-Weekly Wellness Advisor Check-Ins",
-    body: "Every two weeks, your dedicated Wellness Advisor meets with you to track your energy, strength, and body composition — and adjusts your plan in real time before small setbacks become full stops.",
+    title: "Bi-Weekly Performance Coach Check-Ins",
+    body: "Every two weeks, your dedicated Performance Coach meets with you to track your energy, strength, and body composition — and adjusts your plan in real time before small setbacks become full stops.",
   },
   {
     icon: Smartphone,

@@ -75,7 +75,7 @@ export default function ConsultationCTA() {
                 "Comprehensive lab diagnostics",
                 "Fully customized treatment plan",
                 "Bi-weekly doctor check-ins",
-                "Dedicated Wellness Advisor",
+                "Dedicated Performance Coach",
                 "Custom nutrition & fitness programs",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">

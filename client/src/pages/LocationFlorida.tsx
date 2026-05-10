@@ -124,7 +124,7 @@ const JSONLD_FAQ = {
       "name": "Why choose virtual care over a local OB/GYN or endocrinologist in Florida?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
+        "text": "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
       },
     },
     {
@@ -158,7 +158,7 @@ const localFaqs = [
   },
   {
     q: "Why choose virtual care over a local OB/GYN or endocrinologist in Florida?",
-    a: "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated wellness advisor between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
+    a: "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
   },
   {
     q: "Do you accept insurance?",
@@ -171,7 +171,7 @@ const faqs = [...localFaqs, ...pricingFaqs];
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 const testimonials = [
   { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida" },
-  { quote: "I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my wellness advisor keeps me accountable even when I want to cheat on vacation.", name: "Jennifer S.", location: "Florida area" },
+  { quote: "I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my performance coach keeps me accountable even when I want to cheat on vacation.", name: "Jennifer S.", location: "Florida area" },
   { quote: "As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.", name: "Carolina M.", location: "Florida" },
 ];
 
@@ -552,8 +552,8 @@ export default function LocationFlorida() {
               },
               {
                 icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Dedicated wellness advisor",
-                body: "Between every physician visit, your personal wellness advisor is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
+                title: "Dedicated performance coach",
+                body: "Between every physician visit, your personal performance coach is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
               },
               {
                 icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />,

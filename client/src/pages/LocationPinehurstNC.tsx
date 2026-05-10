@@ -70,7 +70,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -78,11 +78,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -444,7 +444,7 @@ export default function LocationPinehurstNC() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Pinehurst", desc: "We order your labs to a convenient LabCorp or Quest draw site near Pinehurst. Results reviewed within 48 hours." },
               { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Pinehurst address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
@@ -471,7 +471,7 @@ export default function LocationPinehurstNC() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { quote: "The accountability from my wellness advisor literally saved my program. Month three I was ready to quit — the scale wasn't moving, I was frustrated, and I started skipping my meds. She called me, walked me through why plateaus happen, adjusted my protocol with the doctor, and two weeks later the weight started dropping again. I would have given up without that support.", name: "Crystal B.", location: "Pinehurst, NC", rating: 5 },
+              { quote: "The accountability from my performance coach literally saved my program. Month three I was ready to quit — the scale wasn't moving, I was frustrated, and I started skipping my meds. She called me, walked me through why plateaus happen, adjusted my protocol with the doctor, and two weeks later the weight started dropping again. I would have given up without that support.", name: "Crystal B.", location: "Pinehurst, NC", rating: 5 },
               { quote: "I'm a yoga instructor and I thought I was doing everything right — clean eating, daily movement, meditation. But perimenopause doesn't care about your lifestyle. The weight crept on, my sleep fell apart, and my mood was all over the place. MedMethod optimized what my body couldn't do on its own anymore. Hormones aren't a failure — they're a tool. I wish more women understood that.", name: "Brooke A.", location: "North Carolina Area", rating: 5 },
               { quote: "I live in a smaller town where the nearest menopause specialist is over an hour away. MedMethod brought specialist-level care to my living room. My physician actually understands the difference between perimenopause and full menopause — my local OB didn't even test my hormone levels before telling me I was 'too young for menopause' at 44. I'm down 20 lbs and finally sleeping again.", name: "Heather L.", location: "North Carolina Patient", rating: 5 },
 ].map((t) => (

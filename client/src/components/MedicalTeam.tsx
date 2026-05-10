@@ -139,7 +139,7 @@ export default function MedicalTeam() {
           className="text-center text-gray-400 mt-8 text-sm"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          Every MedMethod Direct patient works with the same doctor and Wellness Advisor throughout their entire journey. No rotating providers. No starting over. Just consistent, expert care built for women over 40.
+          Every MedMethod Direct patient works with the same doctor and Performance Coach throughout their entire journey. No rotating providers. No starting over. Just consistent, expert care built for women over 40.
         </p>
       </div>
     </section>

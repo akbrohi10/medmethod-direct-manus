@@ -121,7 +121,7 @@ function PuttingYourselfLastHasToChange() {
       <h2>What a First Conversation Actually Looks Like</h2>
       <p>
         A free consultation with the MedMethod Direct wellness team is not a sales call. It is a conversation — with
-        a wellness advisor who is trained to listen, to ask the right questions, and to help you understand what
+        a performance coach who is trained to listen, to ask the right questions, and to help you understand what
         options are available to you.
       </p>
       <p>

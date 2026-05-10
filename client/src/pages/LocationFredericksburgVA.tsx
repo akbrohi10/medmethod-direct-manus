@@ -70,7 +70,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -78,11 +78,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -452,7 +452,7 @@ export default function LocationFredericksburgVA() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Fredericksburg", desc: "We order your labs to a convenient LabCorp or Quest draw site near Fredericksburg. Results reviewed within 48 hours." },
               { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Fredericksburg address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
@@ -481,7 +481,7 @@ export default function LocationFredericksburgVA() {
             {[
               { quote: "Military spouse life means moving every few years and starting over with new doctors who don't know your history. MedMethod follows me wherever we're stationed. Virtual visits, meds shipped to my door, and a physician who actually remembers my case. This is what modern healthcare should look like.", name: "Rachel T.", location: "Fredericksburg, VA", rating: 5 },
               { quote: "I tried tirzepatide through another telehealth company and lost 12 pounds but then completely plateaued. Turns out my estrogen and thyroid were both tanking and nobody was looking at the full picture. MedMethod added bioidentical hormones and optimized my thyroid — broke through the plateau in three weeks. I'm down 34 lbs total and my husband says I look ten years younger.", name: "Lauren M.", location: "Virginia Area", rating: 5 },
-              { quote: "I'm a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my wellness advisor checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Virginia Patient", rating: 5 },
+              { quote: "I'm a federal contractor and my schedule is brutal — 6 AM calls, back-to-back meetings, zero time for myself. I kept putting off my health until the hot flashes made it impossible to focus during briefings. MedMethod got me started in under a week. Down 22 lbs, sleeping through the night, and my performance coach checks in every week to keep me on track. That accountability piece was the game-changer.", name: "Katherine D.", location: "Virginia Patient", rating: 5 },
 ].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
                 <div className="flex gap-0.5">

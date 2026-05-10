@@ -44,7 +44,7 @@ const treatments = [
   {
     tags: ["Nutrition", "Custom"],
     title: "Personalized Nutrition Program",
-    body: "A custom nutrition plan built around your hormones, metabolism, and lifestyle — not a generic diet. Developed by your Wellness Advisor and adjusted as your body changes.",
+    body: "A custom nutrition plan built around your hormones, metabolism, and lifestyle — not a generic diet. Developed by your Performance Coach and adjusted as your body changes.",
   },
 ];
 

@@ -39,7 +39,7 @@ const TERMS: { label: string; value: Term; clinicalNote: string }[] = [
 interface Feature { text: string; sub?: string; badge?: string }
 
 const TIER1_FEATURES: Feature[] = [
-  { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+  { text: "Dedicated Performance Coach", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
   { text: "Quarterly 1-on-1 Doctor Strategy Session" },
   { text: "Prescriptions Called In to Your Local Pharmacy" },
   { text: "Direct Text Access (Business Hours)" },
@@ -50,7 +50,7 @@ const TIER1_FEATURES: Feature[] = [
 const TIER2_FEATURES: Feature[] = [
   { text: "Testosterone Replacement Therapy (TRT) — Delivered to Your Door" },
   { text: "Semaglutide (FDA-approved brand or 503B-compounded) — Metabolic & Weight Optimization" },
-  { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+  { text: "Dedicated Performance Coach", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
   { text: "Quarterly 1-on-1 Doctor Strategy Session" },
   { text: "Direct Text Access (Business Hours)" },
   { text: "Custom Fitness & Nutrition Program (on the app)" },
@@ -61,7 +61,7 @@ const TIER2_FEATURES: Feature[] = [
 const TIER3_FEATURES: Feature[] = [
   { text: "Testosterone Replacement Therapy (TRT) — Optimized Dosing Protocol" },
   { text: "Tirzepatide (FDA-approved brand or 503B-compounded) — Superior Body Recomposition" },
-  { text: "Dedicated Wellness Advisor", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
+  { text: "Dedicated Performance Coach", sub: "Bi-Weekly Performance & Weigh-In Check-ins" },
   { text: "Quarterly 1-on-1 Doctor Strategy Session" },
   { text: "Direct Text Access (Business Hours)" },
   { text: "Custom Fitness & Nutrition Program (on the app)" },

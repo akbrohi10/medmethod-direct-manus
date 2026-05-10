@@ -25,12 +25,12 @@ const tools = [
   {
     icon: Activity,
     title: "Bi-Weekly Check-In Visits",
-    desc: "Virtual weigh-ins every two weeks with your dedicated physician and Wellness Advisor.",
+    desc: "Virtual weigh-ins every two weeks with your dedicated physician and Performance Coach.",
   },
   {
     icon: MessageCircle,
     title: "Direct Messaging with Your Team",
-    desc: "Message your doctor and Wellness Advisor anytime — real answers, not automated bots.",
+    desc: "Message your doctor and Performance Coach anytime — real answers, not automated bots.",
   },
   {
     icon: ClipboardList,

@@ -77,7 +77,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -85,11 +85,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -180,7 +180,7 @@ const whyCards = [
 ];
 
 const testimonials = [
-  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My wellness advisor keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "Capitol Hill, DC", rating: 5 },
+  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My performance coach keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "Capitol Hill, DC", rating: 5 },
   { quote: "I\'ve lived in DC for 15 years and have access to some of the best hospitals in the country — but none of them could get me in for menopause care in under 8 weeks. MedMethod saw me in 4 days. The difference between a practice that specializes in this versus a general gynecologist is night and day. My hot flashes are gone, my sleep is restored, and I\'ve lost 18 lbs.", name: "Danielle J.", location: "Washington, DC", rating: 5 },
   { quote: "As a Black woman, I felt like my symptoms were being dismissed by every doctor I saw. \'It\'s stress.\' \'Try yoga.\' \'Lose weight.\' Dr. Al-Deek was the first physician who actually ran comprehensive labs and said \'your hormones are a mess — let\'s fix this.\' That validation alone was worth it. The results — 23 lbs lost, no more night sweats, mental clarity back — that\'s the bonus.", name: "Jasmine W.", location: "DC Metro", rating: 5 },
 ];

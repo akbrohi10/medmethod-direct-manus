@@ -69,7 +69,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -77,11 +77,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -173,7 +173,7 @@ const whyCards = [
 
 const testimonials = [
   { quote: "At 58 I thought it was too late to feel good again. I\'d accepted the weight gain, the joint pain, the terrible sleep as just \'getting older.\' MedMethod showed me that most of it was hormonal and treatable. Six months in, I\'ve lost 21 lbs, I\'m back to morning walks, and I genuinely look forward to things again. I only wish I\'d started five years ago.", name: "Patricia H.", location: "Potomac, MD", rating: 5 },
-  { quote: "I work in healthcare myself — I\'m an NP — and I was embarrassed that I couldn\'t figure out my own hormones. Everything I tried on my own wasn\'t working. Dr. Al-Deek\'s protocol was methodical, evidence-based, and actually personalized. The weekly check-ins with my wellness advisor kept me accountable in a way I never managed alone. Down 19 lbs and my patients keep asking what I\'m doing differently.", name: "Tonya R.", location: "Maryland area", rating: 5 },
+  { quote: "I work in healthcare myself — I\'m an NP — and I was embarrassed that I couldn\'t figure out my own hormones. Everything I tried on my own wasn\'t working. Dr. Al-Deek\'s protocol was methodical, evidence-based, and actually personalized. The weekly check-ins with my performance coach kept me accountable in a way I never managed alone. Down 19 lbs and my patients keep asking what I\'m doing differently.", name: "Tonya R.", location: "Maryland area", rating: 5 },
   { quote: "Finding a menopause specialist in Maryland who doesn\'t have a 3-month waitlist felt impossible. MedMethod had me in a consultation within days. I\'m 47, deep in perimenopause, and the mood swings were destroying my marriage. Two months on BHRT and I feel like the person my family actually deserves. The virtual format means I never miss my kids\' games for an appointment.", name: "Angela C.", location: "Maryland", rating: 5 },
 ];
 

@@ -70,7 +70,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -78,11 +78,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -175,7 +175,7 @@ const whyCards = [
 const testimonials = [
   { quote: "Finding a menopause specialist in Maryland who doesn\'t have a 3-month waitlist felt impossible. MedMethod had me in a consultation within days. I\'m 47, deep in perimenopause, and the mood swings were destroying my marriage. Two months on BHRT and I feel like the person my family actually deserves. The virtual format means I never miss my kids\' games for an appointment.", name: "Angela C.", location: "Silver Spring, MD", rating: 5 },
   { quote: "I\'d been on semaglutide for 8 months and the scale just stopped moving at month 5. My MedMethod physician explained that my hormones were working against me — low progesterone, tanked testosterone, insulin resistance nobody had addressed. Adding HRT to my GLP-1 protocol was the missing piece. Another 17 lbs gone and my energy is completely different.", name: "Stephanie K.", location: "Maryland area", rating: 5 },
-  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My wellness advisor texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland", rating: 5 },
+  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My performance coach texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland", rating: 5 },
 ];
 
 const stats = [

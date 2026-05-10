@@ -28,7 +28,7 @@ const faqs = [
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Wellness Advisor throughout your entire journey.",
+    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
@@ -36,11 +36,11 @@ const faqs = [
   },
   {
     q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Wellness Advisor.",
+    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
   },
   {
     q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Wellness Advisor who supports you every step of the way. We treat the whole person, not just a symptom.",
+    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -379,7 +379,7 @@ export default function LocationPhiladelphiaPA() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Wellness Advisor", desc: "Between every physician visit, your personal wellness advisor answers questions, adjusts your plan, and keeps you on track." },
+              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Philadelphia", desc: "We order your labs to a convenient LabCorp or Quest draw site near Philadelphia. Results reviewed within 48 hours." },
               { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Philadelphia address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
@@ -407,7 +407,7 @@ export default function LocationPhiladelphiaPA() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { quote: "I'm a teacher and by 3 PM I was so exhausted I could barely drive home. My doctor said it was 'just stress' but my MedMethod labs showed my testosterone was basically zero and my thyroid was borderline. Three months on a personalized protocol and I have energy I haven't felt in a decade. My students noticed before I did — they said I seem happier.", name: "Karen B.", location: "Philadelphia, PA", rating: 5 },
-              { quote: "I tried Ozempic through my PCP and lost weight but felt terrible — nauseous, fatigued, hair falling out. MedMethod switched me to compounded tirzepatide, added bioidentical hormones, and optimized my nutrition plan. Same weight loss trajectory but I actually feel good. My wellness advisor caught the hair loss issue early and adjusted my supplements before it got worse.", name: "Nicole P.", location: "Pennsylvania Area", rating: 5 },
+              { quote: "I tried Ozempic through my PCP and lost weight but felt terrible — nauseous, fatigued, hair falling out. MedMethod switched me to compounded tirzepatide, added bioidentical hormones, and optimized my nutrition plan. Same weight loss trajectory but I actually feel good. My performance coach caught the hair loss issue early and adjusted my supplements before it got worse.", name: "Nicole P.", location: "Pennsylvania Area", rating: 5 },
               { quote: "After my divorce at 49 I decided it was time to invest in myself for the first time in 25 years. MedMethod was the best decision I made. The hormone therapy cleared the brain fog I didn't even realize I had, and the GLP-1 helped me lose the 40 lbs I'd been carrying since my second pregnancy. I feel like I'm meeting myself again for the first time.", name: "Lisa M.", location: "Pennsylvania Patient", rating: 5 },
 ].map((t) => (
               <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>

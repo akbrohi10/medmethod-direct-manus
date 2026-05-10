@@ -10,7 +10,7 @@ export const pricingFaqs = [
   },
   {
     q: "Why are the 6 and 12-month programs the most popular?",
-    a: "Because accountability is the missing ingredient in most weight loss and hormone programs. Anyone can start — the patients who transform are the ones who stay consistent. Our 6 and 12-month programs provide the structured accountability that makes the difference: bi-weekly check-ins, ongoing physician oversight, and a dedicated Wellness Advisor who knows your history and holds you to your goals. Patients on longer programs lose more weight, feel better longer, and are far less likely to backslide. The 6-month program is our most popular because it hits the sweet spot — enough time for full hormonal recalibration and meaningful, lasting weight loss.",
+    a: "Because accountability is the missing ingredient in most weight loss and hormone programs. Anyone can start — the patients who transform are the ones who stay consistent. Our 6 and 12-month programs provide the structured accountability that makes the difference: bi-weekly check-ins, ongoing physician oversight, and a dedicated Performance Coach who knows your history and holds you to your goals. Patients on longer programs lose more weight, feel better longer, and are far less likely to backslide. The 6-month program is our most popular because it hits the sweet spot — enough time for full hormonal recalibration and meaningful, lasting weight loss.",
   },
   {
     q: "Do I pay for the full program upfront or am I billed monthly?",
