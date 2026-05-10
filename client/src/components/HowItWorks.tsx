@@ -79,8 +79,12 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
               It's a Program.
             </span>
           </h2>
-          <p className="mt-3 text-gray-500 text-base max-w-xl mx-auto">
-            Most telehealth sends a prescription and moves on. We give you a doctor who knows your labs, a coach who tracks your progress, and a nutrition and fitness plan built around your biology — not a template.
+          <p className="mt-5 text-gray-400 text-base max-w-3xl mx-auto leading-relaxed">
+            Most telehealth sends a prescription and moves on. We give you a{" "}
+            <span className="font-bold text-[#1a1a1a]">doctor who actually gets to know you</span>, a{" "}
+            <span className="font-bold text-[#1a1a1a]">dedicated performance coach who checks in every two weeks for a weigh-in</span>, and a{" "}
+            <span className="font-bold text-[#1a1a1a]">nutrition and fitness plan built around your biology</span>{" "}
+            — not a template.
           </p>
         </div>
 
