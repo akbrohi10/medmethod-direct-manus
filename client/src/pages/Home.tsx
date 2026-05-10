@@ -85,8 +85,8 @@ export default function Home() {
       <Navbar onConsultClick={() => openConsult()} />
       <Hero onConsultClick={() => openConsult()} />
       <HowItWorks onConsultClick={() => openConsult()} />
-      <DiagnosticSetup onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={() => openConsult()} />
+      <DiagnosticSetup onConsultClick={() => openConsult()} />
       <Services onConsultClick={openConsult} />
       <Testimonials />
       <ToolsForSuccess onConsultClick={() => openConsult()} />
