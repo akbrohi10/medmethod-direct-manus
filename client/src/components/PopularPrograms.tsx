@@ -91,7 +91,9 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t2b",
     label: "Tirzepatide",
-    subtitle: "Tirzepatide weight loss · medications included",
+    subtitle: "Tirzepatide · GLP-1/GIP weight loss · medications included",
+    brandName: ["Accelerate", "Method"],
+    drugHighlight: "Tirzepatide",
     medication: [
       "Tirzepatide + niacinamide shipped monthly",
       "Enhanced titration protocol",
@@ -118,6 +120,8 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Semaglutide + Estradiol + Progesterone · medications included",
     badge: "MOST POPULAR",
     highlighted: true,
+    brandName: ["Restore", "Method"],
+    drugHighlight: "Semaglutide",
     medication: [
       "Semaglutide + B12 shipped monthly",
       "Estradiol patch (transdermal)",
@@ -131,6 +135,8 @@ const INTEGRATED_TIERS: TierDef[] = [
     subtitle: "Tirzepatide + Estradiol + Progesterone · medications included",
     badge: "FLAGSHIP",
     dark: true,
+    brandName: ["Longevity", "Method"],
+    drugHighlight: "Tirzepatide",
     medication: [
       "Tirzepatide + niacinamide shipped monthly",
       "Estradiol patch (transdermal)",
@@ -144,7 +150,9 @@ const INTEGRATED_TIERS: TierDef[] = [
 const HRT_TIER: TierDef = {
   key: "hrt",
   label: "HRT Starter",
-  subtitle: "Estradiol patch + Progesterone · medications included",
+  subtitle: "Estradiol + Progesterone · medications included",
+  brandName: ["Thrive", "Method"],
+  drugHighlight: "Estradiol",
   medication: [
     "Estradiol patch (transdermal)",
     "Micronized progesterone (oral)",
