@@ -42,7 +42,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
   return (
     <section
       style={{ background: "#FFFFFF", fontFamily: "Montserrat, sans-serif" }}
-      className="px-4 pt-4 pb-0"
+      className="px-4 pt-4 pb-10 lg:pb-14"
     >
       <div className="max-w-6xl mx-auto">
 
