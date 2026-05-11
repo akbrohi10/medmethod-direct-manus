@@ -139,92 +139,46 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                 100% Virtual Care
               </p>
 
-              {/* Stats */}
-              <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "1.7rem",
-                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    10K+
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Women Served
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "1.7rem",
-                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {count2}%
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Satisfaction Rate
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "1.7rem",
-                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    4.9★
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Patient Rating
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className="font-black leading-none"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "1.7rem",
-                      backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {count3}%+
-                  </div>
-                  <div
-                    className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Avg. Weight Loss
-                  </div>
-                </div>
+              {/* Positioning statement — replaces stats bar */}
+              <div ref={statsRef} className="flex items-center gap-3 flex-wrap">
+                <span
+                  className="text-sm font-black uppercase tracking-widest"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  A Higher Standard of Care
+                </span>
+                <span className="text-gray-300 font-light text-sm select-none">·</span>
+                <span
+                  className="text-sm font-black uppercase tracking-widest"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Dr.-Led
+                </span>
+                <span className="text-gray-300 font-light text-sm select-none">·</span>
+                <span
+                  className="text-sm font-black uppercase tracking-widest"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Biology-First
+                </span>
               </div>
 
 
