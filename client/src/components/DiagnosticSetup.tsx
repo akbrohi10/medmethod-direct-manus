@@ -82,13 +82,27 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
     >
       <div className="max-w-6xl mx-auto">
 
+        {/* ── June Discount Urgency Banner ── */}
+        <div
+          className="w-full flex items-center justify-center gap-2 rounded-t-2xl px-4 py-2"
+          style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}
+        >
+          <span className="text-white text-xs font-extrabold uppercase tracking-widest">
+            🗓 June Special — $100 Off Your Setup Fee
+          </span>
+          <span className="text-pink-200 text-xs font-medium">
+            · Offer ends June 30
+          </span>
+        </div>
+
         {/* ── Compact banner row ── */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="w-full flex items-center justify-between gap-4 rounded-2xl px-6 py-5 transition-all"
+          className="w-full flex items-center justify-between gap-4 rounded-b-2xl px-6 py-5 transition-all"
           style={{
             background: "#0D0D1A",
             border: "1.5px solid rgba(232,51,158,0.25)",
+            borderTop: "none",
             cursor: "pointer",
             textAlign: "left",
           }}
@@ -107,10 +121,10 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 className="text-white font-black text-base block leading-tight"
                 style={{ letterSpacing: "-0.01em" }}
               >
-                $449 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
+                $349 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
               </span>
               <span className="text-gray-400 text-xs font-medium">
-                One-time investment · $750+ real-world value included
+                One-time investment · $750+ real-world value · ⁠~~$449~~⁠ now $349 through June
               </span>
             </div>
           </div>
