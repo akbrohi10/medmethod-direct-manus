@@ -107,7 +107,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 className="text-white font-black text-base block leading-tight"
                 style={{ letterSpacing: "-0.01em" }}
               >
-                $449 · Bloodwork + 60-Min Deep Dive With Your Doctor
+                $449 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
               </span>
               <span className="text-gray-400 text-xs font-medium">
                 One-time investment · $750+ real-world value included
