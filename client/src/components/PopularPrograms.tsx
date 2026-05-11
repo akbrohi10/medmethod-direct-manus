@@ -196,7 +196,7 @@ Physician-led care, medication, and coaching — all in one program.
         </div>
 
         {/* ── Category Tabs ───────────────────────────────────────────────── */}
-        <div className="flex flex-wrap justify-center gap-2 mb-6">
+        <div className="flex flex-wrap justify-center gap-2 mb-6 px-1">
           {[
             { id: "weight_loss" as TabId, label: "Weight Loss" },
             { id: "integrated" as TabId, label: "Weight Loss + Hormones" },
@@ -209,7 +209,7 @@ Physician-led care, medication, and coaching — all in one program.
                 onClick={() => switchTab(id)}
                 className="rounded-full font-bold transition-all"
                 style={{
-                  padding: "10px 24px",
+                  padding: "9px 16px",
                   fontSize: 12,
                   letterSpacing: "0.3px",
                   background: active
@@ -236,9 +236,9 @@ Physician-led care, medication, and coaching — all in one program.
         </p>
 
         {/* ── Term Toggle (old-style with from-prices + badges) ──────────── */}
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center mb-3 px-2">
           <div
-            className="rounded-2xl p-1.5 flex gap-0 relative"
+            className="rounded-2xl p-1.5 flex gap-0 relative w-full max-w-sm sm:max-w-none sm:w-auto"
             style={{ background: "#E4E4EE" }}
           >
             {([3, 6, 12] as Term[]).map((t) => {
@@ -248,16 +248,16 @@ Physician-led care, medication, and coaching — all in one program.
                 <button
                   key={t}
                   onClick={() => setTerm(t)}
-                  className="relative rounded-xl transition-all flex flex-col items-center justify-center"
+                  className="relative rounded-xl transition-all flex flex-col items-center justify-center flex-1"
                   style={{
-                    padding: "14px 32px 12px",
+                    padding: "12px 16px 10px",
                     background: active
                       ? "linear-gradient(135deg, #E8339E, #7A1E7E)"
                       : "transparent",
                     color: active ? "#fff" : "#555",
                     border: "none",
                     cursor: "pointer",
-                    minWidth: 140,
+                    minWidth: 0,
                   }}
                 >
                   {/* Badge above button */}
@@ -402,7 +402,7 @@ function TierCard({
   return (
     <div
       className={`rounded-2xl flex flex-col relative ${
-        isHighlighted && !isDark ? "md:scale-[1.02]" : ""
+        isHighlighted && !isDark ? "lg:scale-[1.02]" : ""
       }`}
       style={{
         background: isDark ? "#0D1B2A" : "#fff",
