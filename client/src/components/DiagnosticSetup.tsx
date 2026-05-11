@@ -218,7 +218,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 style={{ borderTop: "1.5px solid #EBEBF0" }}
               >
                 <span className="text-sm font-extrabold uppercase tracking-wider text-[#111]">
-                  Total Real-World Value
+                  Typical Out-of-Pocket Cost Elsewhere
                 </span>
                 <span
                   className="text-xl font-black"
