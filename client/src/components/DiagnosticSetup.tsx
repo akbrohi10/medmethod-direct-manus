@@ -297,6 +297,27 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               >
                 *MEDICATION PRESCRIBED SEPARATELY AFTER BLOODWORK REVIEW.
               </p>
+              {/* Book credibility badge */}
+              <a
+                href="/book"
+                className="mt-4 flex items-center justify-center gap-1.5 w-full rounded-lg py-2 px-3 transition-opacity hover:opacity-80"
+                style={{
+                  background: "rgba(122,30,126,0.15)",
+                  border: "1px solid rgba(232,51,158,0.2)",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={{ fontSize: 12 }}>📖</span>
+                <span
+                  className="text-[10px] font-semibold leading-tight text-center"
+                  style={{ color: "rgba(255,255,255,0.6)" }}
+                >
+                  As featured in{" "}
+                  <span style={{ color: "#E8339E", fontStyle: "italic" }}>
+                    The Menopause Weight Loss Trap
+                  </span>
+                </span>
+              </a>
               {/* METABOLIC QUIZ BUTTON — hidden for now, may re-enable later
               <button
                 onClick={() => setQuizOpen(true)}

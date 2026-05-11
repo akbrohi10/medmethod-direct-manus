@@ -22,6 +22,7 @@ import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
+import BookTeaser from "@/components/BookTeaser";
 
 export default function Home() {
   const [consultOpen, setConsultOpen] = useState(false);
@@ -89,6 +90,7 @@ export default function Home() {
       <DiagnosticSetup onConsultClick={() => openConsult()} />
       <Services onConsultClick={openConsult} />
       <Testimonials />
+      <BookTeaser onConsultClick={() => openConsult()} />
       <ToolsForSuccess onConsultClick={() => openConsult()} />
       <WhyChoose onConsultClick={() => openConsult()} />
       <MedicalTeam />
