@@ -4,6 +4,7 @@
    ============================================================================= */
 import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown, MapPin } from "lucide-react";
+import { toast } from "sonner";
 
 const navLinks = [
   {
@@ -21,7 +22,7 @@ const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "About", href: "#about" },
   { label: "Blog", href: "/blog" },
-  { label: "Our Book", href: "/book" },
+  { label: "Our Book", href: "#book" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -141,13 +142,14 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
           {/* CTA Button + Men link */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href="/male"
+            <button
+              onClick={() => toast("Men's program coming soon! Stay tuned.", { description: "We're putting the finishing touches on it.", duration: 4000 })}
               className="text-xs font-bold tracking-widest px-3 py-1.5 rounded-full transition-all"
-              style={{ color: "#00E5FF", border: "1px solid rgba(0,229,255,0.35)", fontFamily: "Montserrat, sans-serif" }}
+              style={{ color: "#00E5FF", border: "1px solid rgba(0,229,255,0.35)", fontFamily: "Montserrat, sans-serif", background: "transparent", cursor: "pointer" }}
               onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,229,255,0.08)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
               FOR MEN →
-            </a>
+            </button>
             <button
               onClick={onConsultClick}
               className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
@@ -192,11 +194,12 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
               <MapPin className="w-3.5 h-3.5" />
               Licensed in 8 States
             </a>
-            <a href="/male" onClick={() => setMobileOpen(false)}
-              className="py-3 font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
-              style={{ fontFamily: "Montserrat, sans-serif", color: "#00E5FF" }}>
+            <button
+              onClick={() => { setMobileOpen(false); toast("Men's program coming soon! Stay tuned.", { description: "We're putting the finishing touches on it.", duration: 4000 }); }}
+              className="py-3 font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors text-left w-full"
+              style={{ fontFamily: "Montserrat, sans-serif", color: "#00E5FF", background: "transparent", cursor: "pointer" }}>
               For Men →
-            </a>
+            </button>
             <button
               onClick={() => { onConsultClick(); setMobileOpen(false); }}
               className="btn-gradient mt-3 py-3 rounded-full text-sm font-bold tracking-wider text-center"

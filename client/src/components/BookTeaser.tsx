@@ -262,6 +262,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
       {modalOpen && <PrefaceModal onClose={() => setModalOpen(false)} />}
 
       <section
+        id="book"
         className="py-16 lg:py-24 px-4 relative overflow-hidden"
         style={{
           background: "#FFFFFF",
