@@ -5,7 +5,7 @@
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 import { useState } from "react";
-import { ChevronDown, FlaskConical, UserRound, Scale, Smartphone, Check } from "lucide-react";
+import { ChevronDown, FlaskConical, UserRound, Scale, Smartphone, Check, ChevronRight } from "lucide-react";
 import MetabolicQuiz from "./MetabolicQuiz";
 
 const items = [
@@ -34,6 +34,42 @@ const items = [
     value: "$50+",
   },
 ];
+
+// ── Collapsible Labs FAQ ────────────────────────────────────────────────────
+function LabsFAQ() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mb-5">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1 text-[12px] font-bold transition-opacity hover:opacity-80"
+        style={{ color: "#E833FE", fontFamily: "Montserrat, sans-serif", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+      >
+        <span>Do I Really Need Labs to Get Started?</span>
+        <ChevronRight
+          className="w-3.5 h-3.5 transition-transform duration-300"
+          style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+        />
+      </button>
+      <div
+        style={{
+          maxHeight: open ? "600px" : "0px",
+          overflow: "hidden",
+          transition: "max-height 0.4s ease",
+        }}
+      >
+        <div className="mt-3 text-[12.5px] text-gray-500 leading-relaxed space-y-3 pr-2" style={{ fontFamily: "Montserrat, sans-serif" }}>
+          <p>Most telehealth programs ask you to fill out a questionnaire and ship you a medication within 48 hours. We understand the appeal — it feels like progress.</p>
+          <p>But here’s the problem. 70% of women with hormonal imbalances have no idea they have one. A woman struggling to lose 35 pounds may not have a discipline problem — she may have an undiagnosed thyroid condition, insulin resistance, or a hormonal imbalance that no questionnaire can detect.</p>
+          <p>Only your bloodwork can tell us that.</p>
+          <p>This is why we require labs before we prescribe anything. Not to create a barrier — but because treating a symptom without understanding the cause isn’t medicine. It’s guesswork.</p>
+          <p>Your $449 includes your full diagnostic lab panel and a 60-minute physician strategy session — where your doctor has already reviewed your results before you sit down together. Your first appointment isn’t a meet-and-greet. It’s a real plan.</p>
+          <p className="font-bold" style={{ color: "#111" }}>That’s not a fee. That’s the difference.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: () => void }) {
   const [open, setOpen] = useState(false);
@@ -111,11 +147,19 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
           >
             {/* Left: item list */}
             <div className="flex-1 p-7">
-              <p
-                className="text-xs font-extrabold tracking-widest uppercase text-gray-400 mb-5"
-              >
+
+              {/* Intro paragraph */}
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                Most telehealth programs ask you to fill out a questionnaire and ship you a medication within 48 hours. We do something different — we look at your actual biology first. Because 70% of women with hormonal imbalances don't know they have one. And no questionnaire in the world can tell you that. Only your bloodwork can.
+              </p>
+
+              <p className="text-xs font-extrabold tracking-widest uppercase text-gray-400 mb-3">
                 What's Included
               </p>
+
+              {/* Collapsible labs FAQ */}
+              <LabsFAQ />
+
               {items.map((item, i) => {
                 const Icon = item.icon;
                 return (
