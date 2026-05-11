@@ -189,8 +189,33 @@ export default function BlogIndex() {
       <Navbar onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
 
+      {/* Breadcrumb */}
+      <div className="pt-24 pb-0 px-4">
+        <div className="max-w-6xl mx-auto">
+          <nav className="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 font-semibold transition-colors duration-200 hover:opacity-70"
+              style={{ color: BRAND_PINK, fontFamily: "Montserrat, sans-serif" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+              Home
+            </Link>
+            <span className="text-gray-300" aria-hidden="true">/</span>
+            <span
+              className="font-semibold text-gray-400"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Blog
+            </span>
+          </nav>
+        </div>
+      </div>
+
       {/* Hero banner */}
-      <section className="pt-28 pb-14 px-4" style={{ background: "linear-gradient(180deg, #fff 0%, #fafafa 100%)" }}>
+      <section className="pt-6 pb-14 px-4" style={{ background: "linear-gradient(180deg, #fff 0%, #fafafa 100%)" }}>
         <div className="max-w-4xl mx-auto text-center">
           <p
             className="text-xs font-bold tracking-widest uppercase mb-4"
