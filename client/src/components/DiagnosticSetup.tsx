@@ -117,17 +117,12 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
 
           {/* Right: price + chevron */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            {/* Strikethrough + discounted price */}
-            <div className="hidden sm:flex flex-col items-end">
-              <span className="text-gray-500 text-xs font-bold line-through leading-none">$449</span>
-              <span className="text-white font-black text-lg leading-tight">$349</span>
-              <span
-                className="text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2 py-0.5 text-white mt-0.5"
-                style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "0.8px" }}
-              >
-                SAVE $100
-              </span>
-            </div>
+            <span
+              className="text-xs font-bold tracking-wide hidden sm:block"
+              style={{ color: "#E8339E" }}
+            >
+              See what's included
+            </span>
             <ChevronDown
               className="w-5 h-5 transition-transform duration-300"
               style={{
@@ -235,11 +230,11 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                   </span>
                 </div>
 
-                {/* Savings badge */}
-                <div className="flex items-center gap-2 mb-3">
+                {/* Savings badge — full width like screenshot */}
+                <div className="mb-3">
                   <span
-                    className="inline-block rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-white"
-                    style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1px" }}
+                    className="flex items-center justify-center w-full rounded-full py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-white"
+                    style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1.5px" }}
                   >
                     SAVE $100 · JUNE ONLY
                   </span>
