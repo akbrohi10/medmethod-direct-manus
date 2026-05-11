@@ -85,12 +85,21 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
         {/* ── Compact banner row ── */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="w-full flex items-center justify-between gap-4 rounded-2xl px-6 py-5 transition-all"
+          className="w-full flex items-center justify-between gap-4 rounded-2xl px-6 py-5 transition-all group"
           style={{
             background: "#0D0D1A",
             border: "1.5px solid rgba(232,51,158,0.25)",
             cursor: "pointer",
             textAlign: "left",
+            transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(232,51,158,0.7)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 0 3px rgba(232,51,158,0.12)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(232,51,158,0.25)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
           }}
           aria-expanded={open}
         >
@@ -100,13 +109,13 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               className="text-white text-xs font-extrabold tracking-widest uppercase px-3 py-1 rounded-full flex-shrink-0"
               style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}
             >
-              Step 1
+              ONE-TIME SETUP
             </span>
             <div>
               {/* Price line: strikethrough + new price */}
               <div className="flex items-center gap-2 mb-0.5">
                 <span className="text-gray-500 text-sm font-bold line-through leading-none">$449</span>
-                <span className="text-white font-black text-xl leading-none" style={{ letterSpacing: "-0.02em" }}>$349</span>
+                <span className="text-white font-black text-3xl leading-none" style={{ letterSpacing: "-0.02em" }}>$349</span>
               </div>
               {/* Savings badge on its own line */}
               <div className="mb-1.5">
