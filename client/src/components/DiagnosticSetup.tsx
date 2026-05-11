@@ -150,7 +150,9 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
 
               {/* Intro paragraph */}
               <p className="text-[13px] text-gray-500 leading-relaxed mb-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                Most telehealth programs ask you to fill out a questionnaire and ship you a medication within 48 hours. We do something different — we look at your actual biology first. Because 70% of women with hormonal imbalances don't know they have one. And no questionnaire in the world can tell you that. Only your bloodwork can.
+                Most telehealth programs ask you to fill out a questionnaire and ship you a medication within 48 hours. We do something different — we look at your actual biology first.{" "}
+                <strong style={{ color: "#111", fontWeight: 800 }}>Because 70% of women with hormonal imbalances don’t know they have one.</strong>{" "}
+                And no questionnaire in the world can tell you that. Only your bloodwork can.
               </p>
 
               <p className="text-xs font-extrabold tracking-widest uppercase text-gray-400 mb-3">
