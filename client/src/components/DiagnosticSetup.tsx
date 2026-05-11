@@ -103,25 +103,24 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               Step 1
             </span>
             <div>
-              <div className="flex items-center gap-2 flex-wrap">
+              {/* Price line: strikethrough + new price */}
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-gray-500 text-sm font-bold line-through leading-none">$449</span>
+                <span className="text-white font-black text-xl leading-none" style={{ letterSpacing: "-0.02em" }}>$349</span>
+              </div>
+              {/* Savings badge on its own line */}
+              <div className="mb-1.5">
                 <span
-                  className="text-gray-500 text-sm font-bold line-through leading-none"
-                >
-                  $449
-                </span>
-                <span
-                  className="text-white font-black text-base leading-tight"
-                  style={{ letterSpacing: "-0.01em" }}
-                >
-                  $349 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
-                </span>
-                <span
-                  className="text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2 py-0.5 text-white flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "0.8px" }}
+                  className="inline-block text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-0.5 text-white"
+                  style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1px" }}
                 >
                   SAVE $100 · JUNE ONLY
                 </span>
               </div>
+              {/* Program description */}
+              <span className="text-white font-bold text-sm leading-snug block" style={{ letterSpacing: "-0.01em" }}>
+                Bloodwork + 60-Min Physician Strategy Session + Program Setup
+              </span>
               <span className="text-gray-400 text-xs font-medium">
                 One-time investment · $750+ real-world value included
               </span>
