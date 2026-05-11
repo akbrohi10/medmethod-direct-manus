@@ -130,9 +130,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               <span className="text-white font-bold text-sm leading-snug block" style={{ letterSpacing: "-0.01em" }}>
                 Bloodwork + 60-Min Physician Strategy Session + Program Setup
               </span>
-              <span className="text-gray-400 text-xs font-medium">
-                One-time investment · $750+ real-world value included
-              </span>
+
             </div>
           </div>
 
