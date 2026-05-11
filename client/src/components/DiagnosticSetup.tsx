@@ -264,17 +264,6 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                   </span>
                 </div>
 
-                <p
-                  className="font-bold text-xs mb-5"
-                  style={{
-                    backgroundImage: "linear-gradient(135deg, #E8339E, #B040C0)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  One-Time Diagnostic Investment
-                </p>
                 <ul className="space-y-2">
                   {[
                     "Diagnostic Bloodwork",
