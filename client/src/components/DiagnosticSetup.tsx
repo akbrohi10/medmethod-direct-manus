@@ -76,6 +76,13 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
   const [quizOpen, setQuizOpen] = useState(false);
 
   return (
+    <>
+    <style>{`
+      @keyframes bounceArrow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(4px); }
+      }
+    `}</style>
     <section
       style={{ background: "#FFFFFF", fontFamily: "Montserrat, sans-serif" }}
       className="px-4 pt-4 pb-10 lg:pb-14"
@@ -134,19 +141,24 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
             </div>
           </div>
 
-          {/* Right: price + chevron */}
-          <div className="flex items-center gap-4 flex-shrink-0">
+          {/* Right: pill button + bouncing chevron */}
+          <div className="flex items-center gap-3 flex-shrink-0">
             <span
-              className="text-xs font-bold tracking-wide hidden sm:block"
-              style={{ color: "#E8339E" }}
+              className="hidden sm:flex items-center gap-1.5 text-white text-xs font-extrabold uppercase tracking-wider px-4 py-2 rounded-full"
+              style={{
+                background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                letterSpacing: "0.8px",
+                boxShadow: "0 2px 12px rgba(232,51,158,0.35)",
+              }}
             >
-              See what's included
+              See What's Included
             </span>
             <ChevronDown
-              className="w-5 h-5 transition-transform duration-300"
+              className="w-6 h-6 transition-transform duration-300"
               style={{
                 color: "#E8339E",
                 transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                animation: open ? "none" : "bounceArrow 1.4s ease-in-out infinite",
               }}
             />
           </div>
@@ -319,5 +331,6 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
       </div>
       <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
     </section>
+    </>
   );
 }
