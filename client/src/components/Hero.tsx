@@ -108,7 +108,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                   backgroundClip: "text",
                 }}
               >
-                menopause
+                  menopause Symptoms
               </span>
               ?
               </h1>
