@@ -103,12 +103,25 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               Step 1
             </span>
             <div>
-              <span
-                className="text-white font-black text-base block leading-tight"
-                style={{ letterSpacing: "-0.01em" }}
-              >
-                $449 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
-              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span
+                  className="text-gray-500 text-sm font-bold line-through leading-none"
+                >
+                  $449
+                </span>
+                <span
+                  className="text-white font-black text-base leading-tight"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  $349 + Bloodwork + 60-Min Physician Strategy Session + Program Setup
+                </span>
+                <span
+                  className="text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2 py-0.5 text-white flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "0.8px" }}
+                >
+                  SAVE $100 · JUNE ONLY
+                </span>
+              </div>
               <span className="text-gray-400 text-xs font-medium">
                 One-time investment · $750+ real-world value included
               </span>
