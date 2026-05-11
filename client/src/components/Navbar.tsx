@@ -1,41 +1,50 @@
 /* =============================================================================
    Navbar — Clinical Noir Design
-   Sticky dark header, gradient logo, CTA button
+   Sticky white header, gradient logo, smooth-scroll anchor links, CTA button.
+   Services dropdown removed — single link scrolls to #services section.
+   All anchor links use smooth-scroll with navbar offset compensation.
    ============================================================================= */
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, MapPin } from "lucide-react";
+import { Menu, X, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
+// scrollTo: smooth-scrolls to a section id, compensating for fixed navbar height
+function scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navbarHeight = 80;
+  const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+  window.scrollTo({ top, behavior: "smooth" });
+}
+
 const navLinks = [
-  {
-    label: "Services",
-    href: "#services",
-    dropdown: [
-      { label: "Hormone Replacement Therapy", href: "#services" },
-      { label: "Medical Weight Loss", href: "#services" },
-      { label: "Perimenopause & Menopause", href: "#services" },
-      { label: "Thyroid Optimization", href: "#services" },
-      { label: "Longevity Protocols", href: "#services" },
-      { label: "All Services", href: "#services" },
-    ],
-  },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "About", href: "#about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Our Book", href: "#book" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Services",    anchor: "services" },
+  { label: "How It Works", anchor: "how-it-works" },
+  { label: "About",       anchor: "about" },
+  { label: "Blog",        href: "/blog" },
+  { label: "Our Book",    anchor: "book" },
+  { label: "FAQ",         anchor: "faq" },
 ];
 
 export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (link: typeof navLinks[number], e: React.MouseEvent) => {
+    if (link.anchor) {
+      e.preventDefault();
+      setMobileOpen(false);
+      scrollTo(link.anchor);
+    } else {
+      setMobileOpen(false);
+    }
+  };
 
   return (
     <header
@@ -45,6 +54,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
     >
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
+
           {/* Logo */}
           <a href="/" className="flex flex-col leading-none group">
             <div className="flex items-baseline gap-0">
@@ -96,40 +106,18 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <div
+              <a
                 key={link.label}
-                className="relative"
-                onMouseEnter={() => link.dropdown && setOpenDropdown(link.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                href={link.href ?? `#${link.anchor}`}
+                onClick={(e) => handleNavClick(link, e)}
+                className="px-4 py-2 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
+                style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
               >
-                <a
-                  href={link.href}
-                  className="flex items-center gap-1 px-4 py-2 text-gray-600 hover:text-[#111111] font-semibold text-sm tracking-wide transition-colors duration-200"
-                  style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
-                >
-                  {link.label}
-                  {link.dropdown && <ChevronDown className="w-3.5 h-3.5" />}
-                </a>
-                {link.dropdown && openDropdown === link.label && (
-                  <div className="absolute top-full left-0 w-52 pt-2">
-                    <div className="bg-[#1a1a1a] border border-white/10 rounded-lg shadow-2xl overflow-hidden">
-                      {link.dropdown.map((item) => (
-                        <a
-                          key={item.label}
-                          href={item.href}
-                          className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                          style={{ fontFamily: "Montserrat, sans-serif" }}
-                        >
-                          {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                {link.label}
+              </a>
             ))}
 
-            {/* Licensed in 8 States — subtle geo link */}
+            {/* Licensed in 8 States */}
             <a
               href="/locations"
               className="flex items-center gap-1.5 px-4 py-2 text-gray-500 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
@@ -140,14 +128,24 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             </a>
           </nav>
 
-          {/* CTA Button + Men link */}
+          {/* CTA + FOR MEN */}
           <div className="hidden lg:flex items-center gap-3">
             <button
-              onClick={() => toast("Men's program coming soon! Stay tuned.", { description: "We're putting the finishing touches on it.", duration: 4000 })}
+              onClick={() => toast("Men's program coming soon! Stay tuned.", {
+                description: "We're putting the finishing touches on it.",
+                duration: 4000,
+              })}
               className="text-xs font-bold tracking-widest px-3 py-1.5 rounded-full transition-all"
-              style={{ color: "#00E5FF", border: "1px solid rgba(0,229,255,0.35)", fontFamily: "Montserrat, sans-serif", background: "transparent", cursor: "pointer" }}
+              style={{
+                color: "#00E5FF",
+                border: "1px solid rgba(0,229,255,0.35)",
+                fontFamily: "Montserrat, sans-serif",
+                background: "transparent",
+                cursor: "pointer",
+              }}
               onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,229,255,0.08)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            >
               FOR MEN →
             </button>
             <button
@@ -177,10 +175,10 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             {navLinks.map((link) => (
               <a
                 key={link.label}
-                href={link.href}
-                className="py-3 text-gray-600 hover:text-[#111111] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
+                href={link.href ?? `#${link.anchor}`}
+                onClick={(e) => handleNavClick(link, e)}
+                className="py-3 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
-                onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </a>
@@ -195,9 +193,16 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
               Licensed in 8 States
             </a>
             <button
-              onClick={() => { setMobileOpen(false); toast("Men's program coming soon! Stay tuned.", { description: "We're putting the finishing touches on it.", duration: 4000 }); }}
+              onClick={() => {
+                setMobileOpen(false);
+                toast("Men's program coming soon! Stay tuned.", {
+                  description: "We're putting the finishing touches on it.",
+                  duration: 4000,
+                });
+              }}
               className="py-3 font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors text-left w-full"
-              style={{ fontFamily: "Montserrat, sans-serif", color: "#00E5FF", background: "transparent", cursor: "pointer" }}>
+              style={{ fontFamily: "Montserrat, sans-serif", color: "#00E5FF", background: "transparent", cursor: "pointer" }}
+            >
               For Men →
             </button>
             <button
