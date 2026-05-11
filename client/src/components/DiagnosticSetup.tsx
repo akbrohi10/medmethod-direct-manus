@@ -127,8 +127,8 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               {/* Savings badge on its own line */}
               <div className="mb-1.5">
                 <span
-                  className="inline-block text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-0.5 text-white"
-                  style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1px" }}
+                  className="inline-block text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-0.5"
+                  style={{ background: "#FFFFFF", color: "#E8339E", border: "1.5px solid #E8339E", letterSpacing: "1px" }}
                 >
                   SAVE $100 · JUNE ONLY
                 </span>
@@ -264,8 +264,8 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 {/* Savings badge — full width like screenshot */}
                 <div className="mb-3">
                   <span
-                    className="flex items-center justify-center w-full rounded-full py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-white"
-                    style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1.5px" }}
+                    className="flex items-center justify-center w-full rounded-full py-1.5 text-[10px] font-extrabold uppercase tracking-wider"
+                    style={{ background: "#FFFFFF", color: "#E8339E", border: "1.5px solid #E8339E", letterSpacing: "1.5px" }}
                   >
                     SAVE $100 · JUNE ONLY
                   </span>
