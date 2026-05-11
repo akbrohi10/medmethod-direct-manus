@@ -139,20 +139,8 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                 100% Virtual Care
               </p>
 
-              {/* Emotional statement — replaces stats bar */}
-              <div ref={statsRef}>
-                <p
-                  className="font-black"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "1.35rem",
-                    color: "#111111",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  It's Your Turn.
-                </p>
-              </div>
+              {/* Stats placeholder — reserved for future use */}
+              <div ref={statsRef} />
 
 
 
