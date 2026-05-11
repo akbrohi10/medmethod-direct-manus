@@ -139,46 +139,19 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
                 100% Virtual Care
               </p>
 
-              {/* Positioning statement — replaces stats bar */}
-              <div ref={statsRef} className="flex items-center gap-3 flex-wrap">
-                <span
-                  className="text-sm font-black uppercase tracking-widest"
+              {/* Emotional statement — replaces stats bar */}
+              <div ref={statsRef}>
+                <p
+                  className="font-black"
                   style={{
                     fontFamily: "Montserrat, sans-serif",
-                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
+                    fontSize: "1.35rem",
+                    color: "#111111",
+                    letterSpacing: "-0.01em",
                   }}
                 >
-                  A Higher Standard of Care
-                </span>
-                <span className="text-gray-300 font-light text-sm select-none">·</span>
-                <span
-                  className="text-sm font-black uppercase tracking-widest"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Dr.-Led
-                </span>
-                <span className="text-gray-300 font-light text-sm select-none">·</span>
-                <span
-                  className="text-sm font-black uppercase tracking-widest"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Biology-First
-                </span>
+                  It's Your Turn.
+                </p>
               </div>
 
 
