@@ -1,9 +1,10 @@
 /* =============================================================================
    BookTeaser — MedMethod Direct
    
-   Design: Deep navy/purple background to complement the book cover's palette.
-   Two-column asymmetric layout: book cover (left) + copy/CTA (right).
-   Phone-first preface capture modal with TCPA-compliant opt-in disclaimer.
+   Design: White/light background — editorial magazine-spread feel.
+   The book cover (lavender/purple) pops naturally against white, matching
+   how it appears on Amazon. Creates a deliberate light break between the
+   dark Testimonials section and the dark ToolsForSuccess section.
    ============================================================================= */
 import { useState } from "react";
 import { X, BookOpen, Phone, ChevronRight, Star } from "lucide-react";
@@ -201,7 +202,7 @@ function PrefaceModal({ onClose }: { onClose: () => void }) {
                   style={{ color: "rgba(255,255,255,0.3)" }}
                 >
                   By submitting, you agree to receive SMS from MedMethod Direct.
-                  Message & data rates may apply. Reply STOP to opt out.
+                  Message &amp; data rates may apply. Reply STOP to opt out.
                 </p>
               </form>
             </>
@@ -263,30 +264,32 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
       <section
         className="py-16 lg:py-24 px-4 relative overflow-hidden"
         style={{
-          background: "linear-gradient(135deg, #0D0A1F 0%, #130D2E 50%, #1A0D2E 100%)",
+          background: "#FFFFFF",
           fontFamily: "Montserrat, sans-serif",
+          borderTop: "1px solid #EBEBF0",
+          borderBottom: "1px solid #EBEBF0",
         }}
       >
-        {/* Subtle background glow */}
+        {/* Subtle lavender tint in background — echoes cover palette */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 60% 50% at 80% 50%, rgba(122,30,126,0.18) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 20% 80%, rgba(232,51,158,0.08) 0%, transparent 60%)",
+              "radial-gradient(ellipse 55% 60% at 90% 50%, rgba(122,30,126,0.04) 0%, transparent 70%)",
           }}
         />
 
         <div className="max-w-6xl mx-auto relative">
           {/* Section label */}
           <div className="flex items-center justify-center gap-3 mb-10">
-            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.3)" }} />
+            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.25)" }} />
             <span
               className="text-[10px] font-extrabold uppercase tracking-widest"
               style={{ color: "#E8339E", letterSpacing: "3px" }}
             >
               The Book Behind the Method
             </span>
-            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.3)" }} />
+            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.25)" }} />
           </div>
 
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
@@ -296,7 +299,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <div
                 className="relative"
                 style={{
-                  filter: "drop-shadow(0 32px 64px rgba(122,30,126,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.6))",
+                  filter: "drop-shadow(0 24px 48px rgba(122,30,126,0.22)) drop-shadow(0 6px 18px rgba(0,0,0,0.12))",
                   transform: "perspective(800px) rotateY(-6deg) rotateX(2deg)",
                 }}
               >
@@ -306,12 +309,12 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                   className="rounded-lg"
                   style={{ width: 220, height: "auto" }}
                 />
-                {/* Shine overlay */}
+                {/* Subtle shine overlay */}
                 <div
                   className="absolute inset-0 rounded-lg pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)",
+                      "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%)",
                   }}
                 />
               </div>
@@ -323,7 +326,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 ))}
                 <span
                   className="text-xs font-semibold ml-1"
-                  style={{ color: "rgba(255,255,255,0.5)" }}
+                  style={{ color: "#9CA3AF" }}
                 >
                   Available on Amazon
                 </span>
@@ -343,7 +346,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 className="font-black leading-tight mb-4"
                 style={{
                   fontSize: "clamp(2rem, 4vw, 2.8rem)",
-                  color: "#fff",
+                  color: "#111",
                   letterSpacing: "-0.5px",
                   lineHeight: 1.1,
                 }}
@@ -351,7 +354,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 The Menopause{" "}
                 <span
                   style={{
-                    backgroundImage: "linear-gradient(135deg, #E8339E, #c084fc)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -363,14 +366,14 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
               <p
                 className="text-sm font-medium mb-6 italic"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+                style={{ color: "#9CA3AF" }}
               >
                 A Physician's Guide to GLP-1s &amp; Metabolism
               </p>
 
               <p
                 className="mb-6 leading-relaxed"
-                style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", maxWidth: 520 }}
+                style={{ fontSize: 15, color: "#4B5563", maxWidth: 520 }}
               >
                 You're eating well. You're exercising. You're doing everything right — and yet the
                 scale won't budge. This book explains exactly why, and what to do instead.
@@ -385,15 +388,15 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                       style={{
                         width: 18,
                         height: 18,
-                        background: "rgba(232,51,158,0.15)",
-                        border: "1px solid rgba(232,51,158,0.3)",
+                        background: "rgba(232,51,158,0.1)",
+                        border: "1px solid rgba(232,51,158,0.25)",
                       }}
                     >
                       <ChevronRight size={10} color="#E8339E" strokeWidth={3} />
                     </span>
                     <span
                       className="text-sm leading-snug"
-                      style={{ color: "rgba(255,255,255,0.7)" }}
+                      style={{ color: "#374151" }}
                     >
                       {b}
                     </span>
@@ -413,7 +416,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                     background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                     color: "#fff",
                     border: "none",
-                    boxShadow: "0 6px 24px rgba(232,51,158,0.35)",
+                    boxShadow: "0 6px 24px rgba(232,51,158,0.3)",
                     cursor: "pointer",
                   }}
                 >
@@ -422,13 +425,21 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
                 <a
                   href="#"
-                  className="rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:bg-white hover:text-[#111] hover:-translate-y-0.5"
+                  className="rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
                   style={{
                     padding: "14px 24px",
                     background: "transparent",
-                    color: "rgba(255,255,255,0.8)",
-                    border: "1.5px solid rgba(255,255,255,0.2)",
+                    color: "#111",
+                    border: "1.5px solid #D1D1DB",
                     textDecoration: "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E8339E";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#E8339E";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#D1D1DB";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#111";
                   }}
                 >
                   View on Amazon
@@ -438,7 +449,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
               <p
                 className="text-[11px] mt-4"
-                style={{ color: "rgba(255,255,255,0.3)" }}
+                style={{ color: "#9CA3AF" }}
               >
                 We'll text you a direct link — no app download needed.
               </p>
