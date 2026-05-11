@@ -5,7 +5,7 @@
              WhyChoose, Testimonials, Treatments, MedicalTeam, FAQ,
              ConsultationCTA, Blog, Footer
    ============================================================================= */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -24,7 +24,29 @@ import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import BookTeaser from "@/components/BookTeaser";
 
+// Scroll to hash section after page load (e.g. navigating from /blog to /#services)
+function useHashScroll() {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = hash.replace("#", "");
+    // Wait for DOM to fully render
+    const timer = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        const navbarHeight = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        window.scrollTo({ top, behavior: "smooth" });
+        // Clean up hash from URL without triggering re-render
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+}
+
 export default function Home() {
+  useHashScroll();
   const [consultOpen, setConsultOpen] = useState(false);
   const [preselectedService, setPreselectedService] = useState<string | undefined>(undefined);
 

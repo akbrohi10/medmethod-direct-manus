@@ -7,6 +7,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 
 // scrollTo: smooth-scrolls to a section id, compensating for fixed navbar height
 function scrollTo(id: string) {
@@ -29,6 +30,8 @@ const navLinks = [
 export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [location] = useLocation();
+  const isHomePage = location === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -40,7 +43,13 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
     if (link.anchor) {
       e.preventDefault();
       setMobileOpen(false);
-      scrollTo(link.anchor);
+      if (isHomePage) {
+        // Already on homepage — smooth scroll directly
+        scrollTo(link.anchor);
+      } else {
+        // On a sub-page — navigate to homepage with hash, then scroll after load
+        window.location.href = `/#${link.anchor}`;
+      }
     } else {
       setMobileOpen(false);
     }
@@ -108,9 +117,9 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             {navLinks.map((link) => (
               <a
                 key={link.label}
-                href={link.href ?? `#${link.anchor}`}
-                onClick={(e) => handleNavClick(link, e)}
-                className="px-4 py-2 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
+        href={link.href ?? (isHomePage ? `#${link.anchor}` : `/#${link.anchor}`)}
+        onClick={(e) => handleNavClick(link, e)}
+        className="px-4 py-2 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
                 style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
               >
                 {link.label}
@@ -175,9 +184,9 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             {navLinks.map((link) => (
               <a
                 key={link.label}
-                href={link.href ?? `#${link.anchor}`}
-                onClick={(e) => handleNavClick(link, e)}
-                className="py-3 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
+              href={link.href ?? (isHomePage ? `#${link.anchor}` : `/#${link.anchor}`)}
+              onClick={(e) => handleNavClick(link, e)}
+              className="py-3 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 {link.label}
