@@ -243,7 +243,8 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                     "Diagnostic Bloodwork",
                     "Doctor Consultation",
                     "Smart Scale + FedEx Shipping",
-                    "Fitness & Nutrition App",
+                    "Meet Your Performance Coach",
+                    "Fitness & Nutrition App Set Up",
                   ].map((t, i) => (
                     <li key={i} className="flex items-center gap-2">
                       <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#E8339E" }} />
@@ -270,6 +271,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               >
                 *MEDICATION PRESCRIBED SEPARATELY AFTER BLOODWORK REVIEW.
               </p>
+              {/* METABOLIC QUIZ BUTTON — hidden for now, may re-enable later
               <button
                 onClick={() => setQuizOpen(true)}
                 className="mt-3 w-full text-center text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-70"
@@ -277,6 +279,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               >
                 Not sure if you qualify? Take the 2-min Metabolic Quiz →
               </button>
+              */}
             </div>
           </div>
         </div>
