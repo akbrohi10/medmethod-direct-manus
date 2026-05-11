@@ -219,14 +219,27 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mb-3">
                   Your Setup Fee
                 </p>
+                {/* Strikethrough original price */}
+                <p className="text-gray-500 text-sm font-bold line-through mb-0.5">$449</p>
+
+                {/* New discounted price */}
                 <div className="flex items-start gap-1 mb-1">
                   <span className="text-white font-black text-lg mt-1">$</span>
-                  <span
-                    className="font-black text-white leading-none text-5xl md:text-6xl"
-                  >
-                    449
+                  <span className="font-black text-white leading-none text-5xl md:text-6xl">
+                    349
                   </span>
                 </div>
+
+                {/* Savings badge */}
+                <div className="flex items-center gap-2 mb-3">
+                  <span
+                    className="inline-block rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-white"
+                    style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", letterSpacing: "1px" }}
+                  >
+                    SAVE $100 · JUNE ONLY
+                  </span>
+                </div>
+
                 <p
                   className="font-bold text-xs mb-5"
                   style={{
