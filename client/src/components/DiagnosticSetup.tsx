@@ -63,7 +63,7 @@ function LabsFAQ() {
           <p>But here's the problem. <strong style={{ color: "#111111", fontWeight: 800 }}>70% of women with hormonal imbalances have no idea they have one.</strong> A woman struggling to lose weight may not have a discipline problem — <strong style={{ color: "#111111", fontWeight: 800 }}>she may have an undiagnosed thyroid condition, insulin resistance, or a hormonal imbalance that no questionnaire can detect.</strong></p>
           <p>Only your bloodwork can tell us that.</p>
           <p>This is why we require labs before we prescribe anything. Not to create a barrier — but because treating a symptom without understanding the cause isn’t medicine. It’s guesswork.</p>
-          <p>Your $449 includes your full diagnostic lab panel and a 60-minute physician strategy session — where your doctor has already reviewed your results before you sit down together. Your first appointment isn’t a meet-and-greet. It’s a real plan.</p>
+          <p>Your $349 includes your full diagnostic lab panel and a 60-minute physician strategy session — where your doctor has already reviewed your results before you sit down together. Your first appointment isn't a meet-and-greet. It's a real plan.</p>
           <p className="font-bold" style={{ color: "#111" }}>That’s not a fee. That’s the difference.</p>
         </div>
       </div>
