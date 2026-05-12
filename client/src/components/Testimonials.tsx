@@ -74,7 +74,7 @@ const testimonials = [
     treatment: "Perimenopause Care",
     lost: "19 lbs",
     duration: "3 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/3aZnyUaB5JmK_bc142ea4.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/michelle-r-new_a5e20148.png",
   },
   {
     name: "Cassie R.",
