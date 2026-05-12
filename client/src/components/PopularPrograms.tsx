@@ -486,30 +486,20 @@ function TierCard({
         })()}
       </p>
 
-      {/* Price + Vial */}
+      {/* Price */}
       <div className="mb-1">
         {term > 3 && (
           <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
             ${baseMonthly}/mo
           </p>
         )}
-        <div className="flex items-end justify-between">
-          <div className="flex items-end gap-0.5">
-            <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
-              ${Math.floor(monthly)}
-            </span>
-            <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-              /mo
-            </span>
-          </div>
-          {/* Vial image — only for SlimMethod (t2a) */}
-          {key === "t2a" && (
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slimmethod-vial-4jesWRFFfLQkhgEhybvnUe.png"
-              alt="Compounded GLP-1 Semaglutide vial"
-              className="w-[72px] h-auto -mb-2 drop-shadow-lg flex-shrink-0"
-            />
-          )}
+        <div className="flex items-end gap-0.5">
+          <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+            ${Math.floor(monthly)}
+          </span>
+          <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+            /mo
+          </span>
         </div>
       </div>
 
