@@ -7,7 +7,7 @@
  */
 
 import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, ArrowRight, Pill } from "lucide-react";
 
 /* ── CDN URLs ─────────────────────────────────────────────────────────── */
 const SEMAGLUTIDE_VIAL =
@@ -179,7 +179,7 @@ export default function YourMedication() {
 
       <div className="container max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <p
             className="text-xs font-bold uppercase tracking-[0.25em] mb-3"
             style={{ color: "#E8339E" }}
@@ -194,12 +194,42 @@ export default function YourMedication() {
             <span style={{ color: "#E8339E" }}>Shipped to Your Door.</span>
           </h2>
           <p
-            className="text-base md:text-lg max-w-2xl mx-auto"
+            className="text-base md:text-lg max-w-2xl mx-auto mb-2"
             style={{ color: "#666" }}
           >
-            Every medication is compounded specifically for you — based on your
-            labs, your body, and your physician's clinical judgment.
+            Our most prescribed medications — compounded specifically for you
+            based on your labs, your body, and your physician's clinical judgment.
           </p>
+        </div>
+
+        {/* Brand-name callout */}
+        <div
+          className="max-w-3xl mx-auto mb-10 rounded-xl px-5 py-4 flex items-start gap-3"
+          style={{
+            background: "linear-gradient(135deg, #F9F0F5, #F5F0FA)",
+            border: "1px solid #E8339E18",
+          }}
+        >
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+            style={{ background: "#E8339E12" }}
+          >
+            <Pill size={15} style={{ color: "#E8339E" }} />
+          </div>
+          <div>
+            <p
+              className="text-sm font-bold mb-0.5"
+              style={{ color: "#222" }}
+            >
+              We also prescribe brand-name medications
+            </p>
+            <p
+              className="text-xs leading-relaxed"
+              style={{ color: "#666" }}
+            >
+              Including Ozempic<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, Wegovy<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, Mounjaro<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, and Zepbound<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>. The compounded options below are our most popular — same active ingredients at a lower cost.
+            </p>
+          </div>
         </div>
 
         {/* Carousel Container */}
@@ -271,6 +301,51 @@ export default function YourMedication() {
             {medications.map((med) => (
               <MedCard key={med.name} med={med} />
             ))}
+
+            {/* End-of-carousel CTA card */}
+            <div
+              className="flex-shrink-0 snap-start rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center p-8"
+              style={{
+                width: "280px",
+                minHeight: "420px",
+                background: "linear-gradient(135deg, #0D0D1A, #1A0D2E)",
+                border: "1.5px solid rgba(232,51,158,0.2)",
+              }}
+            >
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-5"
+                style={{ background: "rgba(232,51,158,0.12)" }}
+              >
+                <Pill size={24} style={{ color: "#E8339E" }} />
+              </div>
+              <h3
+                className="text-lg font-extrabold mb-3"
+                style={{ color: "#fff", fontFamily: "'Playfair Display', serif" }}
+              >
+                Looking for a different medication?
+              </h3>
+              <p
+                className="text-xs leading-relaxed mb-6"
+                style={{ color: "rgba(255,255,255,0.55)" }}
+              >
+                We carry a full formulary of 20+ treatments across weight loss, hormones, and longevity. Your physician will find the right fit for you.
+              </p>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector<HTMLButtonElement>("[data-consult-trigger]")?.click();
+                }}
+                className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105"
+                style={{
+                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                  color: "#fff",
+                }}
+              >
+                Book Free Consult
+                <ArrowRight size={14} />
+              </a>
+            </div>
           </div>
 
           {/* Scroll indicator dots (mobile) */}
