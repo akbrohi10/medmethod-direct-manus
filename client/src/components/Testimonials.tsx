@@ -1,22 +1,12 @@
 /* =============================================================================
    Testimonials — MedMethod Direct
-   15 diverse patient stories: ages 30s–60s+, post-pregnancy, significant
+   14 diverse patient stories: ages 30s–60s+, post-pregnancy, significant
    weight loss (60–80+ lbs), menopause, hormone optimization
-   Layout: 4 cards visible, horizontal scroll for all 15
+   Layout: 4 cards visible, horizontal scroll for all 14
    ============================================================================= */
 
 const testimonials = [
-  {
-    name: "Leslee H.",
-    location: "Phoenix, AZ",
-    age: "Age 60",
-    stars: 5,
-    text: "I was 80 pounds overweight and had given up. Every diet failed me. MedMethod found my hormones were completely off and my metabolism had stalled. Eight months later I've lost 82 lbs and I feel 20 years younger. I only wish I'd found them sooner.",
-    treatment: "GLP-1 + Hormone Therapy",
-    lost: "82 lbs",
-    duration: "8 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/Hg1eEjA1Ilov_64d7508b.jpg",
-  },
+
   {
     name: "Diane M.",
     location: "Houston, TX",
