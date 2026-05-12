@@ -110,8 +110,8 @@ export default function Home() {
       <Hero onConsultClick={() => openConsult()} />
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={() => openConsult()} />
-      <YourMedication />
       <DiagnosticSetup onConsultClick={() => openConsult()} />
+      <YourMedication />
       <Services onConsultClick={openConsult} />
       <Testimonials />
       <BookTeaser onConsultClick={() => openConsult()} />
