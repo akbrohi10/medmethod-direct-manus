@@ -331,11 +331,7 @@ export default function YourMedication() {
                 We have access to a full compounding formulary across weight loss, hormones, and longevity. Your physician will find the right fit for you.
               </p>
               <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector<HTMLButtonElement>("[data-consult-trigger]")?.click();
-                }}
+                href="#consultation"
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105"
                 style={{
                   background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
