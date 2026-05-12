@@ -131,7 +131,7 @@ const medications: Med[] = [
 ];
 
 /* ── Component ────────────────────────────────────────────────────────── */
-export default function YourMedication() {
+export default function YourMedication({ onConsultClick }: { onConsultClick?: () => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -330,8 +330,8 @@ export default function YourMedication() {
               >
                 We have access to a full compounding formulary across weight loss, hormones, and longevity. Your physician will find the right fit for you.
               </p>
-              <a
-                href="#consultation"
+              <button
+                onClick={() => onConsultClick?.()}
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105"
                 style={{
                   background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
@@ -340,7 +340,7 @@ export default function YourMedication() {
               >
                 Book Free Consult
                 <ArrowRight size={14} />
-              </a>
+              </button>
             </div>
           </div>
 

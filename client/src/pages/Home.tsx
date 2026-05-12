@@ -111,7 +111,7 @@ export default function Home() {
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={() => openConsult()} />
       <DiagnosticSetup onConsultClick={() => openConsult()} />
-      <YourMedication />
+      <YourMedication onConsultClick={() => openConsult()} />
       <Services onConsultClick={openConsult} />
       <Testimonials />
       <BookTeaser onConsultClick={() => openConsult()} />
