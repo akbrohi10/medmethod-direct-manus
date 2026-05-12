@@ -23,6 +23,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import BookTeaser from "@/components/BookTeaser";
+import YourMedication from "@/components/YourMedication";
 
 // Scroll to hash section after page load (e.g. navigating from /blog to /#services)
 function useHashScroll() {
@@ -109,6 +110,7 @@ export default function Home() {
       <Hero onConsultClick={() => openConsult()} />
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={() => openConsult()} />
+      <YourMedication />
       <DiagnosticSetup onConsultClick={() => openConsult()} />
       <Services onConsultClick={openConsult} />
       <Testimonials />
