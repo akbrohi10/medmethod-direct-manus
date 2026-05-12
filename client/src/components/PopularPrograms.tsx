@@ -427,37 +427,23 @@ function TierCard({
         </div>
       )}
 
-      {/* Brand Name + Vial layout */}
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          {/* Brand Name (split-color) or fallback to label */}
-          {brandName ? (
-            <h3
-              className="font-black mb-1"
-              style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", letterSpacing: "-0.5px", lineHeight: 1.1 }}
-            >
-              <span style={{ color: isDark ? "#fff" : "#111" }}>{brandName[0]}</span>
-              <span style={{ color: isDark ? "#f472b6" : "#E8339E" }}>{brandName[1]}</span>
-            </h3>
-          ) : (
-            <h3
-              className="font-bold mb-0.5"
-              style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)", color: isDark ? "#fff" : "#111" }}
-            >
-              {label}
-            </h3>
-          )}
-        </div>
-
-        {/* Vial image — only for SlimMethod (t2a) */}
-        {key === "t2a" && (
-          <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slimmethod-vial-4jesWRFFfLQkhgEhybvnUe.png"
-            alt="Compounded GLP-1 Semaglutide vial"
-            className="w-20 h-auto -mt-4 -mr-1 drop-shadow-lg flex-shrink-0"
-          />
-        )}
-      </div>
+      {/* Brand Name (split-color) or fallback to label */}
+      {brandName ? (
+        <h3
+          className="font-black mb-1"
+          style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", letterSpacing: "-0.5px", lineHeight: 1.1 }}
+        >
+          <span style={{ color: isDark ? "#fff" : "#111" }}>{brandName[0]}</span>
+          <span style={{ color: isDark ? "#f472b6" : "#E8339E" }}>{brandName[1]}</span>
+        </h3>
+      ) : (
+        <h3
+          className="font-bold mb-0.5"
+          style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)", color: isDark ? "#fff" : "#111" }}
+        >
+          {label}
+        </h3>
+      )}
 
       {/* Subtitle with drug highlight + medications included */}
       <p className="text-[13px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
@@ -500,20 +486,30 @@ function TierCard({
         })()}
       </p>
 
-      {/* Price */}
+      {/* Price + Vial */}
       <div className="mb-1">
         {term > 3 && (
           <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
             ${baseMonthly}/mo
           </p>
         )}
-        <div className="flex items-end gap-0.5">
-          <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
-            ${Math.floor(monthly)}
-          </span>
-          <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-            /mo
-          </span>
+        <div className="flex items-end justify-between">
+          <div className="flex items-end gap-0.5">
+            <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+              ${Math.floor(monthly)}
+            </span>
+            <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+              /mo
+            </span>
+          </div>
+          {/* Vial image — only for SlimMethod (t2a) */}
+          {key === "t2a" && (
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slimmethod-vial-4jesWRFFfLQkhgEhybvnUe.png"
+              alt="Compounded GLP-1 Semaglutide vial"
+              className="w-[72px] h-auto -mb-2 drop-shadow-lg flex-shrink-0"
+            />
+          )}
         </div>
       </div>
 
