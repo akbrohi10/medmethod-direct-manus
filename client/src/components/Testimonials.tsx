@@ -290,6 +290,22 @@ export default function Testimonials() {
           ← Scroll to see all {testimonials.length} patient stories →
         </p>
 
+        {/* Medical disclaimer */}
+        <div
+          className="mt-8 mx-auto max-w-3xl px-4 py-4 rounded-lg text-center"
+          style={{
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.07)",
+          }}
+        >
+          <p
+            className="text-white/30 text-xs leading-relaxed"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            <span className="font-semibold text-white/40">Results Disclaimer:</span> The patient stories featured above reflect individual experiences and are not guaranteed outcomes. Results vary based on starting weight, medical history, program adherence, and individual response to treatment. MedMethod Direct's programs, including GLP-1 therapy and hormone optimization, are provided under the supervision of licensed medical professionals. These testimonials are not intended as medical advice. Consult your physician before beginning any weight loss or hormone therapy program.
+          </p>
+        </div>
+
       </div>
     </section>
   );
