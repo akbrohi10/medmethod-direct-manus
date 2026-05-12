@@ -70,10 +70,10 @@ const testimonials = [
     name: "Michelle R.",
     age: "Age 44",
     stars: 5,
-    text: "The brain fog was the worst part. I'm an executive and I couldn't remember words mid-sentence. I thought I was losing my mind. My gynecologist said I was 'too young for menopause.' MedMethod tested everything and found I was deep into perimenopause. Three months in and my clarity is back. My team has noticed. My family has noticed. I've noticed.",
+    text: "I didn't recognize myself anymore — I felt stuck, tired, and uncomfortable in my own skin. I had tried everything, but nothing seemed to work long term. MedMethod Direct finally connected the dots. Once we addressed my hormones and built a plan that actually made sense for my body, everything started to shift. I'm down 25 pounds, but more importantly, I feel clear, confident, and back in control again. Even my family has noticed the difference. I only wish I had started sooner.",
     treatment: "Perimenopause Care",
-    lost: "19 lbs",
-    duration: "3 months",
+    lost: "25 lbs",
+    duration: "4 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/michelle-r-new_a5e20148.png",
   },
   {
