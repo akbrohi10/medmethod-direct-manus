@@ -94,7 +94,7 @@ const testimonials = [
     treatment: "GLP-1 + BHRT",
     lost: "61 lbs",
     duration: "9 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/iWghfgcPjisO_6537d863.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/linda-b-new_fb7647e2.png",
   },
   {
     name: "Tamara J.",
