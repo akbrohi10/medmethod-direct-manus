@@ -19,8 +19,8 @@ const testimonials = [
   {
     name: "Jennifer L.",
     age: "Age 52",
-    stars: 4,
-    text: "Hot flashes 10+ times a day, anxiety out of nowhere, and 30 lbs that appeared almost overnight when I hit menopause. I'd been trying to lose it for three years. MedMethod's combination of bioidentical hormones and a supervised weight loss plan got me down 28 lbs in 4 months. The only reason it's not 5 stars is I wish I'd found them sooner.",
+    stars: 5,
+    text: "Hot flashes 10+ times a day, anxiety out of nowhere, and 30 lbs that appeared almost overnight when I hit menopause. I'd been trying to lose it for three years. MedMethod's combination of bioidentical hormones and a supervised weight loss plan got me down 28 lbs in 4 months. I only wish I had found them sooner.",
     treatment: "Menopause + Weight Loss",
     lost: "28 lbs",
     duration: "4 months",
@@ -39,8 +39,8 @@ const testimonials = [
   {
     name: "Christine D.",
     age: "Age 48",
-    stars: 4,
-    text: "The rage came out of nowhere. I'd snap at my kids over nothing, then cry in the bathroom feeling guilty. My PCP put me on an antidepressant but it made things worse. MedMethod tested my hormones and found my progesterone was almost zero and my thyroid was borderline. Four months into treatment the mood swings are gone, I'm sleeping 7 hours straight, and I've lost 25 lbs. Giving 4 stars because I wish the onboarding process was a bit faster.",
+    stars: 5,
+    text: "The rage came out of nowhere. I'd snap at my kids over nothing, then cry in the bathroom feeling guilty. My PCP put me on an antidepressant but it made things worse. MedMethod tested my hormones and found my progesterone was almost zero and my thyroid was borderline. Four months into treatment the mood swings are gone, I'm sleeping 7 hours straight, and I've lost 25 lbs. This was the answer I'd been searching for.",
     treatment: "Perimenopause Care",
     lost: "25 lbs",
     duration: "4 months",
