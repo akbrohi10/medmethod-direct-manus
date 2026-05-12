@@ -229,7 +229,7 @@ const ALL_CITIES = REGIONS.flatMap((r) =>
 );
 
 // Active state abbreviations for SVG map highlight
-const ACTIVE_STATE_ABBRS = new Set(["VA", "MD", "DC", "FL", "NC", "PA", "CO", "AZ"]);
+const ACTIVE_STATE_ABBRS = new Set(["VA", "MD", "DC", "FL", "NC", "PA", "CO", "AZ", "TX"]);
 
 // ─── JSON-LD ──────────────────────────────────────────────────────────────────
 
@@ -239,16 +239,16 @@ const JSONLD = {
   name: "MedMethod Direct",
   url: "https://www.medmethoddirect.com/locations",
   description:
-    "MedMethod Direct is a premium virtual women's health clinic licensed in Virginia, Maryland, Washington DC, Florida, North Carolina, Pennsylvania, Colorado, and Arizona. Specializing in hormone therapy, medical weight loss, and menopause care.",
+    "MedMethod Direct is a premium virtual women's health clinic licensed in Virginia, Maryland, Washington DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, and Texas. Specializing in hormone therapy, medical weight loss, and menopause care.",
   medicalSpecialty: ["Endocrinology", "Obstetrics and Gynecology", "Internal Medicine"],
-  areaServed: ["Virginia", "Maryland", "Washington DC", "Florida", "North Carolina", "Pennsylvania", "Colorado", "Arizona"],
+  areaServed: ["Virginia", "Maryland", "Washington DC", "Florida", "North Carolina", "Pennsylvania", "Colorado", "Arizona", "Texas"],
 };
 
 // ─── Interactive US Map (branded image with clickable state hotspots) ─────────
 // Percentage-based hotspot positions mapped to the branded map image
 // Each hotspot is positioned as a % of the image dimensions for responsive scaling
 
-const MAP_IMAGE_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/us-map-branded-C4K5fpyZC5ztkMqEUr9P8q.webp";
+const MAP_IMAGE_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/us-map-9states-CSDQ9Ff3B2YZB89RAzhrmq.webp";
 
 const STATE_HOTSPOTS: { abbr: string; label: string; top: string; left: string; width: string; height: string }[] = [
   { abbr: "AZ", label: "Arizona", top: "42%", left: "14%", width: "7%", height: "14%" },
@@ -259,6 +259,7 @@ const STATE_HOTSPOTS: { abbr: string; label: string; top: string; left: string; 
   { abbr: "NC", label: "North Carolina", top: "48%", left: "66%", width: "10%", height: "8%" },
   { abbr: "PA", label: "Pennsylvania", top: "26%", left: "68%", width: "9%", height: "9%" },
   { abbr: "VA", label: "Virginia", top: "38%", left: "64%", width: "10%", height: "10%" },
+  { abbr: "TX", label: "Texas", top: "55%", left: "28%", width: "10%", height: "18%" },
 ];
 
 function USMap({ onStateClick }: { onStateClick: (abbr: string) => void }) {
@@ -269,7 +270,7 @@ function USMap({ onStateClick }: { onStateClick: (abbr: string) => void }) {
       {/* Branded map image */}
       <img
         src={MAP_IMAGE_URL}
-        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, Arizona, and Texas highlighted in pink"
+        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, Arizona, and Texas highlighted in pink/magenta"
         className="w-full h-auto rounded-2xl"
         loading="eager"
         style={{ maxHeight: 420 }}
@@ -576,7 +577,7 @@ export default function Locations() {
               {/* Stats */}
               <div className="flex items-center gap-8 mt-8">
                 {[
-                  { value: "8", label: "Active States" },
+                  { value: "9", label: "Active States" },
                   { value: "99+", label: "Cities Served" },
                   { value: "50", label: "States Goal" },
                 ].map((s) => (
