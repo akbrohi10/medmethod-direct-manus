@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     name: "Diane M.",
-    location: "Houston, TX",
+    location: "Tampa, FL",
     age: "Age 63",
     stars: 5,
     text: "At 63 I thought my best years were behind me. I was 75 lbs overweight, exhausted all the time, and couldn't sleep. My MedMethod doctor completely changed my protocol and within a year I lost 68 lbs. I'm now hiking and traveling — things I hadn't done in a decade.",
@@ -30,7 +30,7 @@ const testimonials = [
   },
   {
     name: "Cassie R.",
-    location: "Nashville, TN",
+    location: "Raleigh, NC",
     age: "Age 34",
     stars: 5,
     text: "After three pregnancies I was 65 lbs over my pre-baby weight and nothing was working. My hormones were a mess postpartum and my regular OB just said 'diet and exercise.' MedMethod actually ran the right labs and got me on a plan. I lost 58 lbs in 7 months and feel like myself again.",
@@ -41,7 +41,7 @@ const testimonials = [
   },
   {
     name: "Sarah M.",
-    location: "Austin, TX",
+    location: "Bethesda, MD",
     age: "Age 47",
     stars: 5,
     text: "Within 6 weeks of my personalized protocol, I was sleeping through the night for the first time in two years. MedMethod found exactly what was off when my regular doctor kept saying my labs were 'normal.' I've lost 31 lbs and my energy is back.",
@@ -63,7 +63,7 @@ const testimonials = [
   },
   {
     name: "Michelle R.",
-    location: "Chicago, IL",
+    location: "Arlington, VA",
     age: "Age 44",
     stars: 5,
     text: "The brain fog was the worst part. I'm an executive and I couldn't remember words mid-sentence. Three months in and my clarity is back. My team has noticed. My family has noticed. I've noticed.",
@@ -85,7 +85,7 @@ const testimonials = [
   },
   {
     name: "Patricia W.",
-    location: "Seattle, WA",
+    location: "Colorado Springs, CO",
     age: "Age 55",
     stars: 5,
     text: "I tried another telehealth service before this one. They shipped me a box and I never heard from them again. MedMethod Direct is completely different — my doctor checks in every two weeks and my plan has been adjusted three times as I've progressed.",
@@ -96,7 +96,7 @@ const testimonials = [
   },
   {
     name: "Linda B.",
-    location: "Atlanta, GA",
+    location: "Philadelphia, PA",
     age: "Age 58",
     stars: 5,
     text: "I was carrying 70 extra pounds and had tried every program imaginable. MedMethod's combination of GLP-1 therapy and hormone balancing was the missing piece. Down 61 lbs in 9 months. My doctor says my bloodwork looks like a 40-year-old's.",
@@ -107,7 +107,7 @@ const testimonials = [
   },
   {
     name: "Rosa G.",
-    location: "San Antonio, TX",
+    location: "Scottsdale, AZ",
     age: "Age 45",
     stars: 5,
     text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone. In 4 months I lost 21 lbs and finally feel like me again.",
@@ -118,7 +118,7 @@ const testimonials = [
   },
   {
     name: "Barbara N.",
-    location: "Portland, OR",
+    location: "Asheville, NC",
     age: "Age 67",
     stars: 5,
     text: "I started at 67 thinking it was too late. I was wrong. My MedMethod physician put me on a protocol I never would have found on my own. I've lost 55 lbs over the past year and my joint pain is nearly gone. It's never too late to reclaim your health.",
@@ -140,7 +140,7 @@ const testimonials = [
   },
   {
     name: "Evelyn C.",
-    location: "Las Vegas, NV",
+    location: "McLean, VA",
     age: "Age 53",
     stars: 5,
     text: "Hot flashes every hour, 40 lbs I couldn't lose, and a doctor who kept telling me it was 'just menopause.' MedMethod actually listened. The hormone protocol changed everything — I sleep, I think clearly, and I've lost 38 lbs in 5 months.",
@@ -151,7 +151,7 @@ const testimonials = [
   },
   {
     name: "Gloria S.",
-    location: "Minneapolis, MN",
+    location: "Jacksonville, FL",
     age: "Age 61",
     stars: 5,
     text: "I was 225 lbs and had been that way for 15 years. I'd accepted it as my new normal. A friend told me about MedMethod and I figured I had nothing to lose. Fourteen months later I've lost 78 lbs. I am proof it's possible at any age.",
@@ -162,7 +162,7 @@ const testimonials = [
   },
   {
     name: "Denise P.",
-    location: "Boston, MA",
+    location: "Pittsburgh, PA",
     age: "Age 42",
     stars: 5,
     text: "Three kids in four years left me 65 lbs overweight and completely depleted. My hormones were a wreck and I had zero energy. MedMethod's bi-weekly check-ins kept me accountable and the custom plan fit my chaotic mom schedule. Down 47 lbs in 7 months.",
