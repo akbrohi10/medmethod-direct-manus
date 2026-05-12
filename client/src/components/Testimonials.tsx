@@ -104,7 +104,7 @@ const testimonials = [
     treatment: "Post-Pregnancy Weight Loss",
     lost: "50 lbs",
     duration: "8 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/ZWzwuxGbOMWA_bd6a457c.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tamara-j-new_3b0d7981.png",
   },
   {
     name: "Evelyn C.",
