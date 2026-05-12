@@ -74,7 +74,7 @@ const testimonials = [
     treatment: "Menopause + Weight Loss",
     lost: "28 lbs",
     duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/txCAkJX3OQL5_e6f71912.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/jennifer-l-new_354fb07a.png",
   },
   {
     name: "Linda B.",
