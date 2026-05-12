@@ -97,16 +97,6 @@ const testimonials = [
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/linda-b-new_fb7647e2.png",
   },
   {
-    name: "Tamara J.",
-    age: "Age 38",
-    stars: 5,
-    text: "Postpartum depression hit me hard and the weight just piled on — 72 lbs over 2 years. I was embarrassed and exhausted. My anxiety was through the roof and I had zero libido. MedMethod treated the whole picture: hormones, nutrition, mental wellness. I've lost 50 lbs and I'm the mom I always wanted to be.",
-    treatment: "Post-Pregnancy Weight Loss",
-    lost: "50 lbs",
-    duration: "8 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tamara-j-new_3b0d7981.png",
-  },
-  {
     name: "Evelyn C.",
     age: "Age 53",
     stars: 5,
@@ -125,6 +115,16 @@ const testimonials = [
     lost: "33 lbs",
     duration: "6 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-1_0cb323f3.jpg",
+  },
+  {
+    name: "Tamara J.",
+    age: "Age 38",
+    stars: 5,
+    text: "Postpartum depression hit me hard and the weight just piled on — 72 lbs over 2 years. I was embarrassed and exhausted. My anxiety was through the roof and I had zero libido. MedMethod treated the whole picture: hormones, nutrition, mental wellness. I've lost 50 lbs and I'm the mom I always wanted to be.",
+    treatment: "Post-Pregnancy Weight Loss",
+    lost: "50 lbs",
+    duration: "8 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tamara-j-new_3b0d7981.png",
   },
 ];
 
