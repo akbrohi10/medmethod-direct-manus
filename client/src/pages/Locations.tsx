@@ -447,6 +447,7 @@ export default function Locations() {
     "Mid-Atlantic": true,
     "Southeast": true,
     "Mountain West": true,
+    "South Central": true,
   });
 
   // Search results
