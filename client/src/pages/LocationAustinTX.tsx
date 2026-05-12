@@ -230,33 +230,6 @@ const LocationAustin = () => {
         </div>
         <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
-
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#0D0D1A]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#7A1E7E]/20 to-[#E8339E]/10 z-0"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white mb-6">
-              <MapPin className="w-4 h-4 text-[#E8339E]" />
-              <span className="text-sm font-medium tracking-wide uppercase">Licensed in Texas</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Expert Menopause & Hormone Care in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">Austin, TX</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-              Access specialized virtual care for menopause, hormone therapy, and medical weight loss from the comfort of your home in the Austin metro area.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white rounded-full font-semibold text-lg hover:shadow-lg hover:shadow-[#E8339E]/20 transition-all duration-300"
-              >
-                Book Your Consultation
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Intro Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">

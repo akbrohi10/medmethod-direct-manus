@@ -233,27 +233,6 @@ const LocationMcKinney = () => {
         <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
 
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0 bg-[#0D0D1A] z-0"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#7A1E7E]/20 to-[#E8339E]/20 z-0"></div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <span className="inline-block py-1 px-3 rounded-full bg-[#7A1E7E]/30 text-[#E8339E] font-semibold text-sm mb-6 border border-[#E8339E]/30">
-            Licensed in Texas
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Expert Menopause & Hormone Therapy in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">McKinney, TX</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
-            Comprehensive, personalized virtual care for women entering perimenopause and menopause. Led by Dr. Jumana Al-Deek, DO.
-          </p>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="bg-[#E8339E] hover:bg-[#7A1E7E] text-white font-bold py-4 px-8 rounded-full transition-colors duration-300 text-lg shadow-lg shadow-[#E8339E]/30"
-          >
-            Book Your Consultation
-          </button>
-        </div>
-      </section>
 
       {/* Intro Section */}
       <section className="py-16 bg-white">

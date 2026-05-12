@@ -252,32 +252,6 @@ const LocationSugarLand = () => {
         <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
 
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#0D0D1A]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#7A1E7E]/20 to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8339E]/10 text-[#E8339E] font-semibold text-sm mb-6">
-              <MapPin className="w-4 h-4" />
-              Licensed in {stateFull}
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Expert Menopause Care & Hormone Therapy in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">{city}</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-              Get personalized, physician-led care from the comfort of your home. Specializing in BHRT and GLP-1 weight loss for women in {city} and Fort Bend County.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-[#E8339E]/20"
-              >
-                Book Your Consultation
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Intro & SEO Content Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

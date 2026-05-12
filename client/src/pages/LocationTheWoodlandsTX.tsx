@@ -228,31 +228,6 @@ const LocationTheWoodlands = () => {
         </div>
         <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
-
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#0D0D1A]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#7A1E7E]/20 to-transparent"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7A1E7E]/10 border border-[#7A1E7E]/20 text-[#E8339E] font-medium mb-6">
-              <MapPin className="w-4 h-4" />
-              <span>Licensed in Texas</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Expert Menopause & Hormone Care in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">{city}</span>
-            </h1>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-              Comprehensive virtual care for menopause, hormone optimization, and medical weight loss. 100% telehealth for women in {city} and the north Houston corridor.
-            </p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-[#E8339E]/20"
-            >
-              Book Your Consultation
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* Intro & Keywords Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

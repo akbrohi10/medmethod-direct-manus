@@ -231,41 +231,6 @@ const LocationSanAntonio = () => {
         </div>
         <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
-
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#0D0D1A]">
-        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-[#E8339E] opacity-20 blur-[120px] rounded-full pointer-events-none"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white mb-8">
-              <MapPin className="w-4 h-4 text-[#E8339E]" />
-              <span className="text-sm font-medium tracking-wide uppercase">Licensed in Texas</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Expert Women's Healthcare in <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">
-                San Antonio, TX
-              </span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Comprehensive virtual care for menopause, hormone optimization, and medical weight loss. Expert guidance from Dr. Jumana Al-Deek, DO, from the comfort of your home.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white rounded-full font-semibold text-lg hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(232,51,158,0.3)]"
-              >
-                Book Your Consultation
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Intro Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
