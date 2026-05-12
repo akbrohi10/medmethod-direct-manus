@@ -202,7 +202,7 @@ export default function LocationArizona() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { stat: "8 States", label: "Licensed & Serving" },
+                { stat: "9 States", label: "Licensed & Serving" },
                 { stat: "100%", label: "Virtual Care" },
                 { stat: "4.9★", label: "Patient Rating" },
                 { stat: "48hr", label: "First Appointment" },

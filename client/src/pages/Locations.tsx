@@ -193,6 +193,31 @@ const REGIONS = [
       },
     ],
   },
+  {
+    name: "South Central",
+    states: [
+      {
+        name: "Texas",
+        abbr: "TX",
+        href: "/texas",
+        tagline: "Virtual Women's Health Across the Lone Star State",
+        tier1: [
+          { name: "Houston", href: "/texas/houston" },
+          { name: "Austin", href: "/texas/austin" },
+          { name: "Dallas", href: "/texas/dallas" },
+          { name: "San Antonio", href: "/texas/san-antonio" },
+          { name: "The Woodlands", href: "/texas/the-woodlands" },
+        ],
+        tier2: [
+          { name: "Plano", href: "/texas/plano" },
+          { name: "Frisco", href: "/texas/frisco" },
+          { name: "McKinney", href: "/texas/mckinney" },
+          { name: "Sugar Land", href: "/texas/sugar-land" },
+          { name: "Round Rock", href: "/texas/round-rock" },
+        ],
+      },
+    ],
+  },
 ];
 
 // Flat list for search
@@ -244,7 +269,7 @@ function USMap({ onStateClick }: { onStateClick: (abbr: string) => void }) {
       {/* Branded map image */}
       <img
         src={MAP_IMAGE_URL}
-        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, and Arizona highlighted in pink"
+        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, Arizona, and Texas highlighted in pink"
         className="w-full h-auto rounded-2xl"
         loading="eager"
         style={{ maxHeight: 420 }}
@@ -449,14 +474,14 @@ export default function Locations() {
   return (
     <>
       <Helmet>
-        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 8 States</title>
+        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 9 States</title>
         <meta
           name="description"
-          content="MedMethod Direct provides premium virtual women's health care — hormone therapy, medical weight loss, and menopause management — across Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, and Arizona."
+          content="MedMethod Direct provides premium virtual women's health care — hormone therapy, medical weight loss, and menopause management — across Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, and Texas."
         />
         <link rel="canonical" href="https://www.medmethoddirect.com/locations" />
         <meta property="og:title" content="Service Locations | MedMethod Direct" />
-        <meta property="og:description" content="Premium virtual women's health care licensed in 8 states. Find your city and book a free consultation today." />
+        <meta property="og:description" content="Premium virtual women's health care licensed in 9 states. Find your city and book a free consultation today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.medmethoddirect.com/locations" />
         <script type="application/ld+json">{JSON.stringify(JSONLD)}</script>
@@ -484,7 +509,7 @@ export default function Locations() {
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#E8339E]/30 bg-[#E8339E]/5">
                 <MapPin className="w-3.5 h-3.5 text-[#E8339E]" />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                  Licensed in 8 States · Expanding Nationwide
+                  Licensed in 9 States · Expanding Nationwide
                 </span>
               </div>
               <h1

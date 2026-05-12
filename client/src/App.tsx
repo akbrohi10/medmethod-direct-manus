@@ -102,6 +102,18 @@ import LocationFrederickMD from "@/pages/LocationFrederickMD";
 import LocationAnnapolisMD from "@/pages/LocationAnnapolisMD";
 import LocationBelAirMD from "@/pages/LocationBelAirMD";
 import LocationEllicottCityMD from "@/pages/LocationEllicottCityMD";
+// TX State + Cities
+import LocationTexas from "@/pages/LocationTexas";
+import LocationHoustonTX from "@/pages/LocationHoustonTX";
+import LocationAustinTX from "@/pages/LocationAustinTX";
+import LocationDallasTX from "@/pages/LocationDallasTX";
+import LocationSanAntonioTX from "@/pages/LocationSanAntonioTX";
+import LocationTheWoodlandsTX from "@/pages/LocationTheWoodlandsTX";
+import LocationPlanoTX from "@/pages/LocationPlanoTX";
+import LocationMcKinneyTX from "@/pages/LocationMcKinneyTX";
+import LocationSugarLandTX from "@/pages/LocationSugarLandTX";
+import LocationFriscoTX from "@/pages/LocationFriscoTX";
+import LocationRoundRockTX from "@/pages/LocationRoundRockTX";
 // DC-area Tier 2
 import LocationAlexandriaVA from "@/pages/LocationAlexandriaVA";
 import LocationChevyChaseMD from "@/pages/LocationChevyChaseMD";
@@ -214,6 +226,17 @@ function Router() {
       <Route path="/virginia/falls-church" component={LocationFallsChurchVA} />
       <Route path="/virginia/tysons" component={LocationTysonsVA} />
       <Route path="/virginia/herndon" component={LocationHerndonVA} />
+      <Route path="/texas" component={LocationTexas} />
+      <Route path="/texas/houston" component={LocationHoustonTX} />
+      <Route path="/texas/austin" component={LocationAustinTX} />
+      <Route path="/texas/dallas" component={LocationDallasTX} />
+      <Route path="/texas/san-antonio" component={LocationSanAntonioTX} />
+      <Route path="/texas/the-woodlands" component={LocationTheWoodlandsTX} />
+      <Route path="/texas/plano" component={LocationPlanoTX} />
+      <Route path="/texas/mckinney" component={LocationMcKinneyTX} />
+      <Route path="/texas/sugar-land" component={LocationSugarLandTX} />
+      <Route path="/texas/frisco" component={LocationFriscoTX} />
+      <Route path="/texas/round-rock" component={LocationRoundRockTX} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>

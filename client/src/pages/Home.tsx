@@ -62,7 +62,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
     "name": "MedMethod Direct",
-    "description": "Physician-led virtual hormone therapy, menopause care, medical weight loss, and longevity medicine for women. Serving Virginia, Florida, Maryland, Washington DC, Colorado, Arizona, North Carolina, and Pennsylvania.",
+    "description": "Physician-led virtual hormone therapy, menopause care, medical weight loss, and longevity medicine for women. Serving Virginia, Florida, Maryland, Washington DC, Colorado, Arizona, North Carolina, Pennsylvania, and Texas.",
     "url": "https://medmethoddirect.com",
     "logo": "https://medmethoddirect.com/favicon.ico",
     "telephone": "+1-XXX-XXX-XXXX",
@@ -92,17 +92,17 @@ export default function Home() {
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women</title>
-        <meta name="description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 8 states. Schedule your free consultation today." />
+        <meta name="description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states. Schedule your free consultation today." />
         <link rel="canonical" href="https://medmethoddirect.com/" />
         <meta property="og:title" content="MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women" />
-        <meta property="og:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 8 states." />
+        <meta property="og:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://medmethoddirect.com/" />
         <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:site_name" content="MedMethod Direct" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women" />
-        <meta name="twitter:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 8 states." />
+        <meta name="twitter:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states." />
         <meta name="twitter:image" content={OG_IMAGE} />
         <script type="application/ld+json">{JSON.stringify(JSONLD_ORG)}</script>
       </Helmet>
@@ -147,6 +147,7 @@ export default function Home() {
               { label: "Arizona", href: "/arizona" },
               { label: "North Carolina", href: "/north-carolina" },
               { label: "Pennsylvania", href: "/pennsylvania" },
+              { label: "Texas", href: "/texas" },
             ].map((state) => (
               <a
                 key={state.label}

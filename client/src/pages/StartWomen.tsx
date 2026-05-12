@@ -59,7 +59,7 @@ const faqs = [
   },
   {
     q: "What states do you serve?",
-    a: "We are currently licensed in Virginia, Florida, Maryland, Washington DC, Colorado, Arizona, North Carolina, and Pennsylvania. All care is delivered virtually — no office visits required.",
+    a: "We are currently licensed in Virginia, Florida, Maryland, Washington DC, Colorado, Arizona, North Carolina, Pennsylvania, and Texas. All care is delivered virtually — no office visits required.",
   },
   {
     q: "How quickly can I get started?",
@@ -114,7 +114,7 @@ export default function StartWomen() {
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-px bg-[#E8339E]" />
               <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase">
-                Virtual Care · 8 States
+                Virtual Care · 9 States
               </span>
             </div>
 
