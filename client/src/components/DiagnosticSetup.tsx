@@ -63,7 +63,7 @@ function LabsFAQ() {
           <p>But here's the problem. <strong style={{ color: "#111111", fontWeight: 800 }}>70% of women with hormonal imbalances have no idea they have one.</strong> A woman struggling to lose weight may not have a discipline problem — <strong style={{ color: "#111111", fontWeight: 800 }}>she may have an undiagnosed thyroid condition, insulin resistance, or a hormonal imbalance that no questionnaire can detect.</strong></p>
           <p>Only your bloodwork can tell us that.</p>
           <p>This is why we require labs before we prescribe anything. Not to create a barrier — but because treating a symptom without understanding the cause isn’t medicine. It’s guesswork.</p>
-          <p>Your $349 includes your full diagnostic lab panel and a 60-minute physician strategy session — where your doctor has already reviewed your results before you sit down together. Your first appointment isn't a meet-and-greet. It's a real plan.</p>
+          <p>Your $179 includes your full diagnostic lab panel and a 60-minute physician strategy session — where your doctor has already reviewed your results before you sit down together. Your first appointment isn't a meet-and-greet. It's a real plan.</p>
           <p className="font-bold" style={{ color: "#111" }}>That’s not a fee. That’s the difference.</p>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
               {/* Price line: strikethrough + new price */}
               <div className="flex items-center gap-2 mb-0.5">
                 <span className="text-gray-500 text-sm font-bold line-through leading-none">$449</span>
-                <span className="text-white font-black text-3xl leading-none" style={{ letterSpacing: "-0.02em" }}>$349</span>
+                <span className="text-white font-black text-3xl leading-none" style={{ letterSpacing: "-0.02em" }}>$179</span>
               </div>
               {/* Savings badge on its own line */}
               <div className="mb-1.5">
@@ -130,7 +130,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                   className="inline-block text-[9px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-0.5"
                   style={{ background: "#FFFFFF", color: "#E8339E", border: "1.5px solid #E8339E", letterSpacing: "1px" }}
                 >
-                  SAVE $100 · JUNE ONLY
+                  SAVE $270 · JUNE ONLY
                 </span>
               </div>
               {/* Program description */}
@@ -250,7 +250,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 <div className="flex items-start gap-1 mb-1">
                   <span className="text-white font-black text-lg mt-1">$</span>
                   <span className="font-black text-white leading-none text-5xl md:text-6xl">
-                    349
+                    179
                   </span>
                 </div>
 
@@ -260,7 +260,7 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                     className="flex items-center justify-center w-full rounded-full py-1.5 text-[10px] font-extrabold uppercase tracking-wider"
                     style={{ background: "#FFFFFF", color: "#E8339E", border: "1.5px solid #E8339E", letterSpacing: "1.5px" }}
                   >
-                    SAVE $100 · JUNE ONLY
+                    SAVE $270 · JUNE ONLY
                   </span>
                 </div>
 
