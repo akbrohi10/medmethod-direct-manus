@@ -74,7 +74,7 @@ const testimonials = [
     treatment: "GLP-1 + Perimenopause Care",
     lost: "25 lbs",
     duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/michelle-r-new_a5e20148.png",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/michelle-r-v2_6298ec07.png",
   },
   {
     name: "Cassie R.",
