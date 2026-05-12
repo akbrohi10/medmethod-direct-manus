@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     name: "Diane M.",
-    location: "Tampa, FL",
+    location: "Houston, TX",
     age: "Age 63",
     stars: 5,
     text: "At 63 I thought my best years were behind me. I was 75 lbs overweight, exhausted all the time, and couldn't sleep. My MedMethod doctor completely changed my protocol and within a year I lost 68 lbs. I'm now hiking and traveling — things I hadn't done in a decade.",
@@ -41,7 +41,7 @@ const testimonials = [
   },
   {
     name: "Sarah M.",
-    location: "Bethesda, MD",
+    location: "Austin, TX",
     age: "Age 47",
     stars: 5,
     text: "Within 6 weeks of my personalized protocol, I was sleeping through the night for the first time in two years. MedMethod found exactly what was off when my regular doctor kept saying my labs were 'normal.' I've lost 31 lbs and my energy is back.",
@@ -107,7 +107,7 @@ const testimonials = [
   },
   {
     name: "Rosa G.",
-    location: "Scottsdale, AZ",
+    location: "San Antonio, TX",
     age: "Age 45",
     stars: 5,
     text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone. In 4 months I lost 21 lbs and finally feel like me again.",
