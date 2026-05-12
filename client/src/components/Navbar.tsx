@@ -65,51 +65,12 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
         <div className="flex items-center justify-between h-16 lg:h-20">
 
           {/* Logo */}
-          <a href="/" className="flex flex-col leading-none group">
-            <div className="flex items-baseline gap-0">
-              <span
-                className="font-black text-[#111111]"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.5rem", letterSpacing: "-0.02em" }}
-              >
-                Med
-              </span>
-              <span
-                className="font-black"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "1.5rem",
-                  letterSpacing: "-0.02em",
-                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Method
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
-              <span
-                className="text-[#111111] font-semibold tracking-[0.25em]"
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.6rem" }}
-              >
-                DIRECT
-              </span>
-              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
-            </div>
-            <span
-              className="text-center"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "0.5rem",
-                letterSpacing: "0.1em",
-                color: "rgba(0,0,0,0.4)",
-                fontStyle: "italic",
-              }}
-            >
-              Your Path to Longevity
-            </span>
+          <a href="/" className="flex items-center">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/medmethod-logo_e8a9e810.png"
+              alt="MedMethod Direct — Your Path to Longevity"
+              className="h-12 lg:h-14 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop Nav */}
