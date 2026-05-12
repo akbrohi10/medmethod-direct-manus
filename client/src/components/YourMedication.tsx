@@ -18,10 +18,12 @@ const ORAL_SEMAGLUTIDE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/oral-semaglutide-CRXNcURBAuXf3pPBYJDmsN.webp";
 const ORAL_TIRZEPATIDE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/oral-tirzepatide-T6ebaHYeA8hGfU7U2vmFL9.webp";
-const BIOIDENTICAL_HORMONES =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/bioidentical-hormones-nbqVNKPD7xc9Lc49qXB6Cp.webp";
+const ESTRADIOL_PATCH =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/estradiol-patch-pouch-hfwRbiG4gLEMGqGLeSsQPr.png";
+const PROGESTERONE_CAPSULES =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/progesterone-capsules-DpQK32e9NSccVpv8UMzW7Q.png";
 const TESTOSTERONE_CREAM =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/testosterone-cream-N8irTc6VKaDzwVQ5NCZxee.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/testosterone-cream-dispenser-QgDipMcSxgrkYn593aBNsm.png";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -88,29 +90,42 @@ const medications: Med[] = [
     ],
   },
   {
-    name: "Estradiol + Progesterone",
-    form: "Topical Cream",
-    image: BIOIDENTICAL_HORMONES,
+    name: "Estradiol Patch",
+    form: "Transdermal Patch",
+    image: ESTRADIOL_PATCH,
     program: "HormoneMethod",
     accent: "#D4628A",
     badge: "In Stock",
     details: [
-      "Bioidentical hormone therapy",
+      "Bioidentical estradiol",
+      "Applied twice weekly",
       "Menopause & perimenopause relief",
-      "Personalized compounded formula",
+    ],
+  },
+  {
+    name: "Progesterone Capsules",
+    form: "Oral Capsule",
+    image: PROGESTERONE_CAPSULES,
+    program: "HormoneMethod",
+    accent: "#C44D7B",
+    badge: "In Stock",
+    details: [
+      "Compounded 100mg capsules",
+      "Taken orally at bedtime",
+      "Hormonal balance support",
     ],
   },
   {
     name: "Testosterone Cream",
-    form: "Topical Cream",
+    form: "Topi-CLICK Dispenser",
     image: TESTOSTERONE_CREAM,
     program: "HormoneMethod",
     accent: "#B8336A",
     badge: "In Stock",
     details: [
       "Compounded for women",
+      "Metered dose precision",
       "Energy, libido & mood support",
-      "Physician-monitored dosing",
     ],
   },
 ];
