@@ -361,31 +361,6 @@ export default function LocationVirginia() {
               VIEW LOCATIONS
             </a>
           </div>
-
-          {/* Stats row */}
-          <div className="flex flex-wrap gap-8">
-            {[
-              { value: "10K+", label: "Women Served" },
-              { value: "98%", label: "Satisfaction Rate" },
-              { value: "4.9★", label: "Patient Rating" },
-              { value: "All VA", label: "Statewide Coverage" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div
-                  className="font-black text-2xl"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
-                >
-                  {stat.value}
-                </div>
-                <div
-                  className="text-xs font-semibold tracking-widest uppercase"
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.35)" }}
-                >
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

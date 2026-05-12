@@ -200,19 +200,7 @@ export default function LocationArizona() {
                 Medications are compounded at FDA-registered 503B pharmacies and shipped directly to your Arizona home. Whether you're in a North Scottsdale estate, a Chandler tech-corridor townhome, or a Tucson foothills property, your care arrives on your schedule.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { stat: "9 States", label: "Licensed & Serving" },
-                { stat: "100%", label: "Virtual Care" },
-                { stat: "4.9★", label: "Patient Rating" },
-                { stat: "48hr", label: "First Appointment" },
-              ].map(({ stat, label }) => (
-                <div key={label} className="bg-white border border-[#0d0d0d]/8 p-6 text-center">
-                  <p className="text-3xl font-black text-[#E8339E] mb-1" style={{ fontFamily: "Montserrat, sans-serif" }}>{stat}</p>
-                  <p className="text-[#0d0d0d]/60 text-xs tracking-widest uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>{label}</p>
-                </div>
-              ))}
-            </div>
+
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
  * MedMethod Direct — Raleigh, NC
  * IMAGE RULE: single face on laptop screen only (physician or patient in telehealth).
  */
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { CheckCircle, ChevronDown, MapPin, Package, Smartphone, Star, Video } from "lucide-react";
@@ -141,36 +141,6 @@ export default function LocationRaleighNC() {
   const [activeFaqTab, setActiveFaqTab] = useState("local");
   const activeFaqCategory = faqCategories.find((c) => c.id === activeFaqTab)!;
   const [consultOpen, setConsultOpen] = useState(false);
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
-  const [count3, setCount3] = useState(0);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const animated = useRef(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !animated.current) {
-          animated.current = true;
-          animateCount(setCount1, 0, 10000, 1500);
-          animateCount(setCount2, 0, 98, 1200);
-          animateCount(setCount3, 0, 15, 1400);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    if (statsRef.current) observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, []);
-  function animateCount(setter: (v: number) => void, from: number, to: number, duration: number) {
-    const start = performance.now();
-    const update = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setter(Math.round(from + (to - from) * eased));
-      if (progress < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
   return (
     <>
       <Helmet>
@@ -255,29 +225,6 @@ export default function LocationRaleighNC() {
                 </svg>
                 100% Virtual Care · Licensed in North Carolina
               </p>
-              <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
-                {[
-                  { value: `${count1.toLocaleString()}+`, label: "Women Served" },
-                  { value: `${count2}%`, label: "Satisfaction Rate" },
-                  { value: "4.9★", label: "Patient Rating" },
-                  { value: `${count3}%+`, label: "Avg. Weight Loss" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div
-                      className="font-black leading-none"
-                      style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.7rem", backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-                    >
-                      {stat.value}
-                    </div>
-                    <div
-                      className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
             {/* RIGHT: Hero Image */}
             <div className="relative lg:-ml-6">

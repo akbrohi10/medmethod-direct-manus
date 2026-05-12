@@ -6,7 +6,7 @@
    bioidentical hormone therapy Miami, perimenopause treatment Miami FL,
    women's health telehealth Miami, testosterone therapy women Miami
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { pricingFaqs } from "@/data/pricingFaqs";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CheckCircle, Clock, Video, Star, MapPin, ChevronDown, Quote } from "lucide-react";
@@ -209,34 +209,8 @@ export default function LocationMiami() {
   const [activeFaqTab, setActiveFaqTab] = useState("local");
   const activeFaqCategory = faqCategories.find((c) => c.id === activeFaqTab)!;
   const [consultOpen, setConsultOpen] = useState(false);
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
-  const [count3, setCount3] = useState(0);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const animated = useRef(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !animated.current) {
-        animated.current = true;
-        animateCount(setCount1, 0, 10000, 1500);
-        animateCount(setCount2, 0, 98, 1200);
-        animateCount(setCount3, 0, 15, 1400);
-      }
-    }, { threshold: 0.3 });
-    if (statsRef.current) observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, []);
 
-  function animateCount(setter: (v: number) => void, from: number, to: number, duration: number) {
-    const start = performance.now();
-    const update = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      setter(Math.round(from + (to - from) * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -317,14 +291,6 @@ export default function LocationMiami() {
                   </svg>
                   100% Virtual Care · Licensed in Florida
                 </p>
-                <div ref={statsRef} className="flex flex-wrap gap-5 lg:gap-7">
-                  {[{ value: `${count1.toLocaleString()}+`, label: "Women Served" }, { value: `${count2}%`, label: "Satisfaction Rate" }, { value: "4.9★", label: "Patient Rating" }, { value: `${count3}%+`, label: "Avg. Weight Loss" }].map((stat) => (
-                    <div key={stat.label}>
-                      <div className="font-black leading-none" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.7rem", ...gradientText }}>{stat.value}</div>
-                      <div className="text-gray-500 text-xs font-semibold tracking-wider uppercase mt-1" style={{ fontFamily: "Montserrat, sans-serif" }}>{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
               <div className="relative lg:-ml-6">
                 <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }} />

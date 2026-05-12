@@ -349,19 +349,7 @@ export default function LocationDC() {
                   VIEW NEIGHBORHOODS
                 </a>
               </div>
-              <div className="flex flex-wrap gap-8">
-                {[
-                  { value: "10K+", label: "Women Served" },
-                  { value: "98%", label: "Satisfaction Rate" },
-                  { value: "4.9★", label: "Patient Rating" },
-                  { value: "All DC", label: "District-wide" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="font-black text-2xl" style={{ color: "#E8339E" }}>{stat.value}</div>
-                    <div className="text-xs font-semibold tracking-widest uppercase mt-0.5" style={{ color: "rgba(255,255,255,0.30)" }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+
             </div>
 
             {/* Right: service highlights card */}
