@@ -124,7 +124,7 @@ const testimonials = [
     treatment: "Menopause + Hormone Therapy",
     lost: "41 lbs",
     duration: "8 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-3_3d4757e4.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/margaret-h-new_b26b42af.png",
   },
 ];
 
