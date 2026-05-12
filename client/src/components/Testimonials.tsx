@@ -28,9 +28,9 @@ const testimonials = [
   },
   {
     name: "Maryam A.",
-    age: "Age 45",
-    stars: 4,
-    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone — two things my OB never tested for. In 4 months I lost 21 lbs and finally feel like me again. I'd give 5 stars but the initial lab wait was a bit long.",
+    age: "Age 39",
+    stars: 5,
+    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone — two things my OB never tested for. In 4 months I lost 21 lbs and finally feel like me again.",
     treatment: "Post-Pregnancy + Hormones",
     lost: "21 lbs",
     duration: "4 months",
