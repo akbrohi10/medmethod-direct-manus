@@ -62,14 +62,14 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-[72px]">
 
           {/* Logo */}
           <a href="/" className="flex items-center">
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/medmethod-logo-transparent_0b7aced0.png"
               alt="MedMethod Direct — Your Path to Longevity"
-              className="h-16 lg:h-20 w-auto object-contain"
+              className="h-10 lg:h-[52px] w-auto object-contain"
             />
           </a>
 
@@ -80,7 +80,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 key={link.label}
         href={link.href ?? (isHomePage ? `#${link.anchor}` : `/#${link.anchor}`)}
         onClick={(e) => handleNavClick(link, e)}
-        className="px-4 py-2 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
+        className="px-3 py-2 text-gray-600 hover:text-[#E8339E] font-medium text-[13px] tracking-wide transition-colors duration-200 whitespace-nowrap"
                 style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
               >
                 {link.label}
