@@ -1,8 +1,8 @@
 /* =============================================================================
    Testimonials — MedMethod Direct
-   9 patient stories: ages 30s–60s+, post-pregnancy, perimenopause, menopause,
+   12 patient stories: ages 30s–60s+, post-pregnancy, perimenopause, menopause,
    hormone optimization, weight loss
-   Layout: 4 cards visible, horizontal scroll for all 9
+   Layout: 4 cards visible, horizontal scroll for all 12
    ============================================================================= */
 
 const testimonials = [
@@ -95,6 +95,36 @@ const testimonials = [
     lost: "38 lbs",
     duration: "5 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/DWwU3M7Bvc7V_d595fbd4.jpg",
+  },
+  {
+    name: "Andrea K.",
+    age: "Age 51",
+    stars: 5,
+    text: "I went from having hot flashes 15 times a day to maybe one a week. My joints ached constantly, I had zero interest in intimacy, and I was gaining weight around my midsection no matter what I ate. My MedMethod doctor explained that my estrogen had dropped off a cliff and my cortisol was through the roof. Six months on BHRT and I feel like a completely different person. Down 33 lbs and my husband says I'm smiling again.",
+    treatment: "BHRT + Weight Loss",
+    lost: "33 lbs",
+    duration: "6 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-1_0cb323f3.jpg",
+  },
+  {
+    name: "Christine D.",
+    age: "Age 48",
+    stars: 4,
+    text: "The rage came out of nowhere. I'd snap at my kids over nothing, then cry in the bathroom feeling guilty. My PCP put me on an antidepressant but it made things worse. MedMethod tested my hormones and found my progesterone was almost zero and my thyroid was borderline. Four months into treatment the mood swings are gone, I'm sleeping 7 hours straight, and I've lost 25 lbs. Giving 4 stars because I wish the onboarding process was a bit faster.",
+    treatment: "Perimenopause Care",
+    lost: "25 lbs",
+    duration: "4 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-2_ea21d634.jpg",
+  },
+  {
+    name: "Margaret H.",
+    age: "Age 56",
+    stars: 5,
+    text: "I thought menopause was something you just suffered through. Night sweats so bad I was changing sheets at 3 AM. Brain fog so thick I forgot my own PIN number at the grocery store. My hair was thinning and I'd gained 45 lbs in two years. MedMethod ran panels my doctor never even mentioned. Eight months later I've lost 41 lbs, my hair is growing back, and I haven't had a night sweat in four months. This program gave me my life back.",
+    treatment: "Menopause + Hormone Therapy",
+    lost: "41 lbs",
+    duration: "8 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-3_3d4757e4.jpg",
   },
 ];
 
