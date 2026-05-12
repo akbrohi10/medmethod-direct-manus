@@ -7,6 +7,26 @@
 
 const testimonials = [
   {
+    name: "Margaret H.",
+    age: "Age 56",
+    stars: 5,
+    text: "I thought menopause was something you just suffered through. Night sweats so bad I was changing sheets at 3 AM. Brain fog so thick I forgot my own PIN number at the grocery store. My hair was thinning and I'd gained 45 lbs in two years. MedMethod ran panels my doctor never even mentioned. Eight months later I've lost 41 lbs, my hair is growing back, and I haven't had a night sweat in four months. This program gave me my life back.",
+    treatment: "Menopause + Hormone Therapy",
+    lost: "41 lbs",
+    duration: "8 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/margaret-h-new_b26b42af.png",
+  },
+  {
+    name: "Christine D.",
+    age: "Age 48",
+    stars: 4,
+    text: "The rage came out of nowhere. I'd snap at my kids over nothing, then cry in the bathroom feeling guilty. My PCP put me on an antidepressant but it made things worse. MedMethod tested my hormones and found my progesterone was almost zero and my thyroid was borderline. Four months into treatment the mood swings are gone, I'm sleeping 7 hours straight, and I've lost 25 lbs. Giving 4 stars because I wish the onboarding process was a bit faster.",
+    treatment: "Perimenopause Care",
+    lost: "25 lbs",
+    duration: "4 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/christine-d-new_9e6b8fa2.png",
+  },
+  {
     name: "Diane M.",
     age: "Age 63",
     stars: 5,
@@ -105,26 +125,6 @@ const testimonials = [
     lost: "33 lbs",
     duration: "6 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/placeholder-card-1_0cb323f3.jpg",
-  },
-  {
-    name: "Christine D.",
-    age: "Age 48",
-    stars: 4,
-    text: "The rage came out of nowhere. I'd snap at my kids over nothing, then cry in the bathroom feeling guilty. My PCP put me on an antidepressant but it made things worse. MedMethod tested my hormones and found my progesterone was almost zero and my thyroid was borderline. Four months into treatment the mood swings are gone, I'm sleeping 7 hours straight, and I've lost 25 lbs. Giving 4 stars because I wish the onboarding process was a bit faster.",
-    treatment: "Perimenopause Care",
-    lost: "25 lbs",
-    duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/christine-d-new_9e6b8fa2.png",
-  },
-  {
-    name: "Margaret H.",
-    age: "Age 56",
-    stars: 5,
-    text: "I thought menopause was something you just suffered through. Night sweats so bad I was changing sheets at 3 AM. Brain fog so thick I forgot my own PIN number at the grocery store. My hair was thinning and I'd gained 45 lbs in two years. MedMethod ran panels my doctor never even mentioned. Eight months later I've lost 41 lbs, my hair is growing back, and I haven't had a night sweat in four months. This program gave me my life back.",
-    treatment: "Menopause + Hormone Therapy",
-    lost: "41 lbs",
-    duration: "8 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/margaret-h-new_b26b42af.png",
   },
 ];
 
