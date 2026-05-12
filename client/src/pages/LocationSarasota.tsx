@@ -252,7 +252,7 @@ export default function LocationSarasota() {
                   for Sarasota women
                 </h1>
                 <p className="text-base mb-6 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}>
-                  The only virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Sarasota and the Gulf Coast.
+                  A virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Sarasota and the Gulf Coast.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>

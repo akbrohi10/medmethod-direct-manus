@@ -180,7 +180,7 @@ const faqCategories = [
 
 const whyCards = [
   { icon: <Building2 className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Urban Convenience, Zero Commute", desc: "Arlington is dense and fast-paced. MedMethod Direct gives you specialist-level care without adding another appointment to your commute." },
-  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
+  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
   { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No 6-week specialist waits. Most Arlington patients are seen within days of their free consultation and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven Protocols", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Arlington or Alexandria." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Arlington address. No pharmacy runs, no prior authorization battles." },

@@ -239,7 +239,7 @@ export default function LocationWaxhawNC() {
                 className="text-base mb-6 leading-relaxed"
                 style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
               >
-                The only virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Waxhaw, NC.
+                A virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Waxhaw, NC.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-3">
                 <button
@@ -319,7 +319,7 @@ export default function LocationWaxhawNC() {
               We specialize in the full spectrum of women's metabolic and hormonal health: <strong>perimenopause and menopause management</strong>, <strong>hormone replacement therapy (HRT)</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone optimization for women</strong>, GLP-1 medications including <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care, all managed virtually by Dr. Jumana Al-Deek, DO.
             </p>
             <p>
-              Whether you are experiencing <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you have tried GLP-1s elsewhere and hit a plateau, the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in North Carolina that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. Women in Waxhaw no longer need to drive to Charlotte or Monroe for specialist care.
+              Whether you are experiencing <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you have tried GLP-1s elsewhere and hit a plateau, the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in North Carolina that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. Women in Waxhaw no longer need to drive to Charlotte or Monroe for specialist care.
             </p>
           </div>
 

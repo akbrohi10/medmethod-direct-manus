@@ -265,7 +265,7 @@ export default function LocationAlexandriaVA() {
                 className="text-base mb-6 leading-relaxed"
                 style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
               >
-                The only virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Alexandria, VA.
+                A virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in Alexandria, VA.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-3">
                 <button
@@ -337,7 +337,7 @@ export default function LocationAlexandriaVA() {
             </p>
             <p>
               Whether you're experiencing{" "}
-              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the only virtual practices in Virginia that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Arlington or McLean. No waiting rooms. Just one team, one plan, and results that last.
+              <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in Virginia that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Arlington or McLean. No waiting rooms. Just one team, one plan, and results that last.
             </p>
           </div>
 

@@ -98,7 +98,7 @@ const JSONLD_FAQ = {
       "name": "How is MedMethod Direct different from local practices in DC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "DC professionals are among the most time-constrained patients in the country. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most DC practices), and the only virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in DC offers this combination.",
+        "text": "DC professionals are among the most time-constrained patients in the country. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most DC practices), and a virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in DC offers this combination.",
       },
     },
     {
@@ -209,11 +209,11 @@ const faqs = [
   },
   {
     q: "How is MedMethod Direct different from local practices in Washington DC?",
-    a: "DC professionals are among the most time-constrained patients in the country. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most DC practices), and the only virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in DC offers this combination.",
+    a: "DC professionals are among the most time-constrained patients in the country. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most DC practices), and a virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in DC offers this combination.",
   },
   {
     q: "Why do hormones affect GLP-1 weight loss results?",
-    a: "Declining estrogen during perimenopause and menopause drives insulin resistance — which directly blunts the effectiveness of GLP-1 medications like semaglutide and tirzepatide. Many women on GLP-1s plateau or see minimal results because their hormones are working against the medication. MedMethod Direct is one of the only programs that addresses both simultaneously, which is why our patients see results that other programs can't replicate.",
+    a: "Declining estrogen during perimenopause and menopause drives insulin resistance — which directly blunts the effectiveness of GLP-1 medications like semaglutide and tirzepatide. Many women on GLP-1s plateau or see minimal results because their hormones are working against the medication. MedMethod Direct is one of the few programs that addresses both simultaneously, which is why our patients see results that other programs can't replicate.",
   },
   {
     q: "What is the $449 Clinical Diagnostic & Setup Fee?",
@@ -328,7 +328,7 @@ export default function LocationDC() {
                 for DC women
               </h1>
               <p className="mb-8 max-w-[560px] text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.60)" }}>
-                Washington DC's only virtual clinic combining physician-led{" "}
+                Washington DC's premier virtual clinic combining physician-led{" "}
                 <strong style={{ color: "rgba(255,255,255,0.9)" }}>hormone therapy</strong>,{" "}
                 <strong style={{ color: "rgba(255,255,255,0.9)" }}>GLP-1 medical weight loss</strong>, and{" "}
                 <strong style={{ color: "rgba(255,255,255,0.9)" }}>menopause management</strong> — all in one program.

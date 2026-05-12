@@ -333,7 +333,7 @@ export default function LocationVirginia() {
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            Virginia's only virtual clinic combining physician-led{" "}
+            Virginia's premier virtual clinic combining physician-led{" "}
             <strong style={{ color: "rgba(255,255,255,0.9)" }}>hormone therapy</strong>,{" "}
             <strong style={{ color: "rgba(255,255,255,0.9)" }}>GLP-1 medical weight loss</strong>, and{" "}
             <strong style={{ color: "rgba(255,255,255,0.9)" }}>menopause management</strong> — all in one program.
@@ -417,7 +417,7 @@ export default function LocationVirginia() {
               <strong className="text-[#111111]">online women's health Virginia</strong> care for hot flashes, brain fog,
               low libido, and sleep disruption — or you're looking for{" "}
               <strong className="text-[#111111]">GLP-1 weight loss Virginia online</strong> with a physician who actually
-              understands your hormones — MedMethod Direct is the only Virginia-licensed virtual practice that does both.
+              understands your hormones — MedMethod Direct is a Virginia-licensed virtual practice built to do both.
             </p>
           </div>
 

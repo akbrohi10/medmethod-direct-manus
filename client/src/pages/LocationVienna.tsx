@@ -284,7 +284,7 @@ const whyCards = [
   {
     icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />,
     title: "Hormones + Weight Loss: Treated Together",
-    desc: "We're one of the only virtual practices that treats hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals.",
+    desc: "We're one of the few virtual practices that treats hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals.",
   },
   {
     icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />,
@@ -376,7 +376,7 @@ export default function LocationVienna() {
                 </h1>
 
                 <p className="text-base mb-6 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}>
-                  The only virtual clinic serving Fairfax County that combines physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care in one program. No Tysons traffic. Same-week availability.
+                  A virtual clinic serving Fairfax County that combines physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care in one program. No Tysons traffic. Same-week availability.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">

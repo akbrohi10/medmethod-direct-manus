@@ -8,6 +8,7 @@
    ============================================================================= */
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
 import { pricingFaqs } from "@/data/pricingFaqs";
 import { ChevronDown, ChevronUp, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -18,6 +19,9 @@ import HowItWorks from "@/components/HowItWorks";
 import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
+
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/texas-hero-state-TaBR8FdR6xFnbau3Ct7mVs.webp";
+const HERO_IMAGE_OG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/texas-hero-state-D4wnfSxoKugiKcDpFB6xoE.png";
 
 // ─── JSON-LD Structured Data ──────────────────────────────────────────────────
 const JSONLD_STATE_PAGE = {
@@ -246,7 +250,9 @@ export default function LocationTexas() {
         />
         <meta property="og:url" content="https://medmethoddirect.com/texas" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={HERO_IMAGE_OG} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={HERO_IMAGE_OG} />
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct" />
         <meta
           name="twitter:description"
@@ -273,93 +279,60 @@ export default function LocationTexas() {
       <Navbar onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section
-        className="relative flex flex-col justify-center overflow-hidden"
-        style={{
-          paddingTop: "120px",
-          paddingBottom: "80px",
-          background: "linear-gradient(135deg, #0D0D1A 0%, #1a0a1e 50%, #0D0D1A 100%)",
-          minHeight: "480px",
-        }}
-      >
-        {/* Background texture */}
-        <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: "radial-gradient(circle at 20% 50%, #E8339E 0%, transparent 50%), radial-gradient(circle at 80% 20%, #7A1E7E 0%, transparent 50%)",
-        }} />
+      <section className="relative min-h-[92vh] flex items-center bg-[#0d0d0d] overflow-hidden pt-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
 
-        <div className="relative max-w-[1100px] mx-auto px-6 lg:px-8">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-6">
-            <MapPin className="w-4 h-4" style={{ color: "#E8339E" }} />
-            <span
-              className="text-xs font-extrabold tracking-[0.22em] uppercase"
-              style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
-            >
-              Licensed in Texas
-            </span>
-          </div>
+        <div className="relative max-w-[1280px] mx-auto px-4 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            {/* Breadcrumb */}
+            <nav className="flex items-center gap-2 text-white/40 text-xs mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+              <span>/</span>
+              <Link href="/locations" className="hover:text-white transition-colors">Locations</Link>
+              <span>/</span>
+              <span className="text-white/70">Texas</span>
+            </nav>
 
-          {/* Headline */}
-          <h1
-            className="font-black leading-none mb-6"
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-              letterSpacing: "-0.02em",
-              color: "#FFFFFF",
-            }}
-          >
-            Virtual hormone,{" "}
-            <span style={{
-              backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>
-              menopause
-            </span>{" "}
-            &amp; weight loss
-            <br />
-            for women in Texas
-          </h1>
-
-          {/* Subheadline */}
-          <p
-            className="mb-8 max-w-[640px]"
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.7,
-              color: "rgba(255,255,255,0.65)",
-            }}
-          >
-            Texas's only virtual clinic combining physician-led{" "}
-            <strong style={{ color: "rgba(255,255,255,0.9)" }}>hormone therapy</strong>,{" "}
-            <strong style={{ color: "rgba(255,255,255,0.9)" }}>GLP-1 medical weight loss</strong>, and{" "}
-            <strong style={{ color: "rgba(255,255,255,0.9)" }}>menopause management</strong> — all in one program.
-            No waiting room. No commute. See a physician this week.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4 mb-10">
-            <button
-              onClick={() => setConsultOpen(true)}
-              className="btn-gradient btn-gradient-pulse px-8 py-3.5 rounded-full text-sm font-bold tracking-wider"
+            <p className="text-[#E8339E] text-xs font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Now Serving Texas
+            </p>
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-6"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              SCHEDULE FREE CONSULTATION →
-            </button>
-            <a
-              href="#neighborhoods"
-              className="px-8 py-3.5 rounded-full text-sm font-bold tracking-wider border transition-all"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                color: "rgba(255,255,255,0.7)",
-                borderColor: "rgba(255,255,255,0.2)",
-              }}
-            >
-              VIEW LOCATIONS
-            </a>
+              Texas Women's<br />
+              <span style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                Health &amp; Hormones
+              </span>
+            </h1>
+            <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-lg" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Board-certified physicians delivering premium virtual hormone therapy, GLP-1 medical weight loss, and menopause management to women across Texas — from Houston and Dallas to Austin, San Antonio, and The Woodlands. 100% telehealth, licensed in Texas.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={() => setConsultOpen(true)}
+                className="px-8 py-4 rounded-none font-bold text-sm tracking-widest uppercase text-white transition-all hover:opacity-90"
+                style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
+              >
+                Schedule Free Consultation
+              </button>
+            </div>
+          </div>
+
+          {/* City grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {neighborhoods.filter(n => !n.isGeneral).map((city) => (
+              <Link key={city.name} href={city.href}>
+                <div className="border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#E8339E]/40 transition-all p-4 cursor-pointer group">
+                  <p className="text-white font-bold text-sm mb-1 group-hover:text-[#E8339E] transition-colors" style={{ fontFamily: "Montserrat, sans-serif" }}>{city.name}</p>
+                  <p className="text-white/40 text-xs leading-snug" style={{ fontFamily: "Montserrat, sans-serif" }}>{city.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -417,7 +390,7 @@ export default function LocationTexas() {
               <strong className="text-[#111111]">online women's health Texas</strong> care for hot flashes, brain fog,
               low libido, and sleep disruption — or you're looking for{" "}
               <strong className="text-[#111111]">GLP-1 weight loss Texas online</strong> with a physician who actually
-              understands your hormones — MedMethod Direct is the only Texas-licensed virtual practice that does both.
+              understands your hormones — MedMethod Direct is a Texas-licensed virtual practice built to do both.
               With LabCorp and Quest locations across the state, getting your labs done is easy no matter where you live.
             </p>
           </div>

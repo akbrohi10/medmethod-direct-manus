@@ -174,7 +174,7 @@ const faqCategories = [
 
 const whyCards = [
   { icon: <Home className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Upper Northwest's Most Trusted Virtual Clinic", desc: "Friendship Heights and Tenleytown women expect evidence-based care from physicians who take time. MedMethod Direct delivers exactly that — virtually, on your schedule." },
-  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the only virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
+  { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
   { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most patients in this area are seen within days of their free consultation and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Friendship Heights or Upper Northwest DC." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Friendship Heights or Tenleytown address. No pharmacy runs, no prior authorization battles." },

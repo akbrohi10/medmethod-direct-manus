@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { ChevronDown, ChevronUp, MapPin, CheckCircle2 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import ConsultationModal from '@/components/ConsultationModal';
-import StickyMobileCTA from '@/components/StickyMobileCTA';
-import HowItWorks from '@/components/HowItWorks';
-import PopularPrograms from '@/components/PopularPrograms';
-import Services from '@/components/Services';
-import DiagnosticSetup from '@/components/DiagnosticSetup';
-import { pricingFaqs } from '@/data/pricingFaqs';
+/**
+ * LocationHoustonTX.tsx — Houston, Texas City Page
+ * medmethod-location-seo skill compliant
+ * Primary keyword: hormone therapy Houston TX
+ * IMAGE RULE: Single physician or patient face on laptop screen only — no group Zoom calls
+ */
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
+import { CheckCircle, ChevronDown, ChevronUp, MapPin, Package, Smartphone, Star, Video } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ConsultationModal from "@/components/ConsultationModal";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PopularPrograms from "@/components/PopularPrograms";
+import Services from "@/components/Services";
+import DiagnosticSetup from "@/components/DiagnosticSetup";
+import HowItWorks from "@/components/HowItWorks";
+import WhyChoose from "@/components/WhyChoose";
+import { pricingFaqs } from "@/data/pricingFaqs";
+
+const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tx-hero-houston-9hTc5LM7cxkXxFo9knev4F.webp";
+const HERO_IMAGE_OG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tx-hero-houston-kGPsMBfrPFJkfHuYHHoEV9.png";
 
 const LocationHouston = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -121,6 +132,9 @@ const LocationHouston = () => {
         <meta property="og:description" content={`Expert virtual menopause care, hormone therapy, and GLP-1 weight loss for women in ${city}, ${stateAbbr}. Telehealth with Dr. Jumana Al-Deek, DO.`} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={HERO_IMAGE_OG} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={HERO_IMAGE_OG} />
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
@@ -129,42 +143,96 @@ const LocationHouston = () => {
       <Navbar onConsultClick={() => setIsModalOpen(true)} />
 
       {/* Hero Section */}
-      <section className="relative bg-[#0D0D1A] text-white pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#7A1E7E]/20 to-[#E8339E]/20 opacity-50"></div>
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-            <MapPin className="w-4 h-4 text-[#E8339E]" />
-            <span className="text-sm font-medium tracking-wide uppercase">Licensed in {state}</span>
+      <section className="relative flex flex-col bg-white overflow-hidden" style={{ paddingTop: "80px" }}>
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,51,158,0.06) 0%, rgba(122,30,126,0.04) 40%, transparent 70%)" }} />
+        <div className="relative z-10 max-w-[1280px] mx-auto px-4 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center py-12 lg:py-16">
+            {/* LEFT: Copy */}
+            <div>
+              <nav className="flex items-center gap-2 text-xs font-semibold mb-5" style={{ color: "#aaa", fontFamily: "Montserrat, sans-serif" }}>
+                <Link href="/" className="hover:text-[#E8339E] transition-colors">Home</Link>
+                <span>/</span>
+                <Link href="/texas" className="hover:text-[#E8339E] transition-colors">Texas</Link>
+                <span>/</span>
+                <span style={{ color: "#333" }}>{city}</span>
+              </nav>
+              <div
+                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 text-xs font-bold tracking-wider uppercase"
+                style={{ background: "rgba(232,51,158,0.08)", color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}
+              >
+                <MapPin className="w-3.5 h-3.5" />
+                Serving {city}, TX
+              </div>
+              <h1
+                className="font-black leading-[1.05] mb-5"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "clamp(1.9rem, 3.4vw, 3.3rem)",
+                  letterSpacing: "-0.02em",
+                  color: "#111111",
+                }}
+              >
+                Virtual{" "}
+                <span style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Hormone,</span>
+                <br />
+                <span style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Menopause</span>{" "}&amp;{" "}
+                <span style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Weight Loss</span>
+                <br />
+                for {city} women
+              </h1>
+              <p
+                className="text-base mb-6 leading-relaxed"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
+              >
+                A virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women in {city}, TX.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 mb-3">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  SCHEDULE FREE CONSULTATION
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+              <p
+                className="flex items-center gap-2 font-semibold mb-8"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E", fontSize: "1rem" }}
+              >
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="8" fill="url(#vcGradHouston)"/>
+                  <path d="M4.5 8.5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <defs><linearGradient id="vcGradHouston" x1="0" y1="0" x2="16" y2="16" gradientUnits="userSpaceOnUse"><stop stopColor="#E8339E"/><stop offset="1" stopColor="#7A1E7E"/></linearGradient></defs>
+                </svg>
+                100% Virtual Care · Licensed in Texas
+              </p>
+            </div>
+            {/* RIGHT: Hero Image */}
+            <div className="relative lg:-ml-6">
+              <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none" style={{ background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
+                <img
+                  src={HERO_IMAGE}
+                  alt="Virtual menopause doctor and hormone therapy for women in Houston, TX — MedMethod Direct"
+                  className="w-full h-full object-cover"
+                  width="640"
+                  height="480"
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-5"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)" }}
+                >
+                  <p className="text-white font-bold text-sm tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                    Serving Houston · Katy · Sugar Land · The Woodlands
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Expert Menopause Care &<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8339E] to-[#7A1E7E]">
-              Hormone Therapy in {city}
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10">
-            Comprehensive virtual care for women in {city} and surrounding areas. 
-            Led by Dr. Jumana Al-Deek, DO.
-          </p>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="bg-[#E8339E] hover:bg-[#7A1E7E] text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Book Your Consultation
-          </button>
         </div>
+        <div className="w-full" style={{ height: "4px", background: "linear-gradient(135deg, #E8339E 0%, #B040B0 50%, #7A1E7E 100%)" }} />
       </section>
-
-      {/* Breadcrumbs */}
-      <div className="bg-gray-50 border-b border-gray-200 py-3 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-sm text-gray-500">
-          <a href="/" className="hover:text-[#E8339E]">Home</a>
-          <span className="mx-2">&gt;</span>
-          <a href="/texas" className="hover:text-[#E8339E]">{state}</a>
-          <span className="mx-2">&gt;</span>
-          <span className="text-gray-900 font-medium">{city}</span>
-        </div>
-      </div>
 
       {/* Keyword-Rich Intro Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">

@@ -292,7 +292,7 @@ export default function LocationFlorida() {
                   className="text-base mb-6 leading-relaxed"
                   style={{ fontFamily: "Montserrat, sans-serif", color: "#555", maxWidth: "480px" }}
                 >
-                  The only virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women throughout Florida.
+                  A virtual clinic combining physician-prescribed hormone therapy, GLP-1 medical weight loss, and menopause care — all in one program, for women throughout Florida.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button
