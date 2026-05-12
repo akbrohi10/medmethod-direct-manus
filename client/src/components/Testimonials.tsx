@@ -110,10 +110,10 @@ const testimonials = [
     location: "San Antonio, TX",
     age: "Age 45",
     stars: 5,
-    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone. In 6 months I lost 44 lbs and finally feel like me again.",
+    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone. In 4 months I lost 21 lbs and finally feel like me again.",
     treatment: "Post-Pregnancy + Hormones",
-    lost: "44 lbs",
-    duration: "6 months",
+    lost: "21 lbs",
+    duration: "4 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/Pxy4u6HCJ8rJ_26b50ad1.jpg",
   },
   {
