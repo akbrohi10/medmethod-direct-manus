@@ -94,7 +94,7 @@ const testimonials = [
     treatment: "Post-Pregnancy + Hormones",
     lost: "21 lbs",
     duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/Pxy4u6HCJ8rJ_26b50ad1.jpg",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/rosa-g-new_e6d2a50f.png",
   },
   {
     name: "Tamara J.",
