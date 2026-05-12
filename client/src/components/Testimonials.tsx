@@ -17,6 +17,16 @@ const testimonials = [
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/margaret-h-new_b26b42af.png",
   },
   {
+    name: "Jennifer L.",
+    age: "Age 52",
+    stars: 4,
+    text: "Hot flashes 10+ times a day, anxiety out of nowhere, and 30 lbs that appeared almost overnight when I hit menopause. I'd been trying to lose it for three years. MedMethod's combination of bioidentical hormones and a supervised weight loss plan got me down 28 lbs in 4 months. The only reason it's not 5 stars is I wish I'd found them sooner.",
+    treatment: "Menopause + Weight Loss",
+    lost: "28 lbs",
+    duration: "4 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/jennifer-l-new_354fb07a.png",
+  },
+  {
     name: "Christine D.",
     age: "Age 48",
     stars: 4,
@@ -65,16 +75,6 @@ const testimonials = [
     lost: "58 lbs",
     duration: "7 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/KUFNTBEfs72g_02b8a37b.jpg",
-  },
-  {
-    name: "Jennifer L.",
-    age: "Age 52",
-    stars: 4,
-    text: "Hot flashes 10+ times a day, anxiety out of nowhere, and 30 lbs that appeared almost overnight when I hit menopause. I'd been trying to lose it for three years. MedMethod's combination of bioidentical hormones and a supervised weight loss plan got me down 28 lbs in 4 months. The only reason it's not 5 stars is I wish I'd found them sooner.",
-    treatment: "Menopause + Weight Loss",
-    lost: "28 lbs",
-    duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/jennifer-l-new_354fb07a.png",
   },
   {
     name: "Linda B.",
