@@ -69,7 +69,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/medmethod-logo-transparent_0b7aced0.png"
               alt="MedMethod Direct — Your Path to Longevity"
-              className="h-12 lg:h-14 w-auto object-contain"
+              className="h-16 lg:h-20 w-auto object-contain"
             />
           </a>
 
