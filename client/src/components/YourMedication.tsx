@@ -328,7 +328,7 @@ export default function YourMedication() {
                 className="text-xs leading-relaxed mb-6"
                 style={{ color: "rgba(255,255,255,0.55)" }}
               >
-                We carry a full formulary of 20+ treatments across weight loss, hormones, and longevity. Your physician will find the right fit for you.
+                We have access to a full compounding formulary across weight loss, hormones, and longevity. Your physician will find the right fit for you.
               </p>
               <a
                 href="#"
