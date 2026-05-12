@@ -411,6 +411,16 @@ function TierCard({
         boxShadow: cardShadow,
       }}
     >
+      {/* Vial image — absolutely positioned in right side, only for SlimMethod (t2a) */}
+      {key === "t2a" && (
+        <img
+          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slimmethod-vial-4jesWRFFfLQkhgEhybvnUe.png"
+          alt="Compounded GLP-1 Semaglutide vial"
+          className="absolute right-3 w-[100px] h-auto drop-shadow-lg pointer-events-none hidden md:block"
+          style={{ top: "35%", transform: "translateY(-20%)" }}
+        />
+      )}
+
       {/* Badge */}
       {badge && (
         <div
