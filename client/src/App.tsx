@@ -14,6 +14,10 @@ import LocationVienna from "@/pages/LocationVienna";
 import LocationReston from "@/pages/LocationReston";
 import LocationArlington from "@/pages/LocationArlington";
 import StartWomen from "@/pages/StartWomen";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
+import HipaaNotice from "@/pages/HipaaNotice";
+import ConsentTelehealth from "@/pages/ConsentTelehealth";
 import LocationMaryland from "@/pages/LocationMaryland";
 import LocationBethesda from "@/pages/LocationBethesda";
 import LocationChevyChase from "@/pages/LocationChevyChase";
@@ -240,6 +244,10 @@ function Router() {
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms" component={TermsOfService} />
+      <Route path="/hipaa-notice" component={HipaaNotice} />
+      <Route path="/consent-to-telehealth" component={ConsentTelehealth} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

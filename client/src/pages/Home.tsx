@@ -170,6 +170,12 @@ export default function Home() {
           >
             100% virtual care — no commute, no waiting room. Licensed physicians available this week.
           </p>
+          <p
+            className="text-xs text-center mt-2"
+            style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.18)", maxWidth: "520px", lineHeight: 1.6 }}
+          >
+            All prescriptions are issued only after a valid patient-provider relationship is established through a proper medical evaluation. Individual results may vary.
+          </p>
         </div>
       </div>
 

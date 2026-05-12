@@ -180,14 +180,21 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               Get Started
             </h4>
             <ul className="flex flex-col gap-2.5">
-              {["Free Consultation", "Patient Portal", "Lab Results", "Telehealth FAQs", "Consent to Telehealth", "Privacy Policy"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "Free Consultation", href: null, action: onConsultClick },
+                { label: "Consent to Telehealth", href: "/consent-to-telehealth", action: null },
+                { label: "Privacy Policy", href: "/privacy-policy", action: null },
+                { label: "HIPAA Notice", href: "/hipaa-notice", action: null },
+                { label: "Terms of Service", href: "/terms", action: null },
+              ].map(({ label, href, action }) => (
+                <li key={label}>
                   <a
-                    onClick={onConsultClick}
+                    href={href ?? undefined}
+                    onClick={action ?? undefined}
                     className="text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    {item}
+                    {label}
                   </a>
                 </li>
               ))}
@@ -212,15 +219,20 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           >
             © 2026 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
           </p>
-          <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Service", "HIPAA Notice"].map((item) => (
+          <div className="flex gap-6 flex-wrap justify-center md:justify-end">
+            {[
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms of Service", href: "/terms" },
+              { label: "HIPAA Notice", href: "/hipaa-notice" },
+              { label: "Consent to Telehealth", href: "/consent-to-telehealth" },
+            ].map(({ label, href }) => (
               <a
-                key={item}
-                href="#"
+                key={label}
+                href={href}
                 className="text-white/30 hover:text-white/60 text-xs transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                {item}
+                {label}
               </a>
             ))}
           </div>

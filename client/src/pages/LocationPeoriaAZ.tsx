@@ -484,6 +484,18 @@ export default function LocationPeoriaAZ() {
           </p>
         </div>
       </section>
+
+      {/* ── Legal / LegitScript compliance disclaimer ── */}
+      <div className="bg-gray-50 border-t border-gray-100 py-6">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8">
+          <p className="text-xs text-gray-400 leading-relaxed text-center" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <strong className="text-gray-500">Medical Disclaimer:</strong> The information on this page is for educational purposes only and does not constitute medical advice. MedMethod Direct services are provided by licensed medical professionals. All prescriptions are issued only after a valid patient-provider relationship has been established through a proper medical evaluation. Individual results may vary. Consult your healthcare provider before starting any new treatment. MedMethod Direct is licensed to practice in the states listed on this site only.{" "}
+            <a href="/privacy-policy" className="underline hover:text-gray-600">Privacy Policy</a>{" · "}
+            <a href="/terms" className="underline hover:text-gray-600">Terms of Service</a>{" · "}
+            <a href="/hipaa-notice" className="underline hover:text-gray-600">HIPAA Notice</a>
+          </p>
+        </div>
+      </div>
       <Footer onConsultClick={() => setConsultOpen(true)} />
       {consultOpen && (
         <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
