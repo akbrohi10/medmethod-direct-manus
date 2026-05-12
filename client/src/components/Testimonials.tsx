@@ -27,6 +27,16 @@ const testimonials = [
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/jennifer-l-new_354fb07a.png",
   },
   {
+    name: "Maryam A.",
+    age: "Age 45",
+    stars: 4,
+    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone — two things my OB never tested for. In 4 months I lost 21 lbs and finally feel like me again. I'd give 5 stars but the initial lab wait was a bit long.",
+    treatment: "Post-Pregnancy + Hormones",
+    lost: "21 lbs",
+    duration: "4 months",
+    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/rosa-g-new_e6d2a50f.png",
+  },
+  {
     name: "Christine D.",
     age: "Age 48",
     stars: 4,
@@ -85,16 +95,6 @@ const testimonials = [
     lost: "61 lbs",
     duration: "9 months",
     beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/iWghfgcPjisO_6537d863.jpg",
-  },
-  {
-    name: "Rosa G.",
-    age: "Age 45",
-    stars: 4,
-    text: "After my second baby I couldn't lose the weight no matter what I did. Four years of struggling and feeling invisible in my own body. MedMethod found I had insulin resistance and low progesterone — two things my OB never tested for. In 4 months I lost 21 lbs and finally feel like me again. I'd give 5 stars but the initial lab wait was a bit long.",
-    treatment: "Post-Pregnancy + Hormones",
-    lost: "21 lbs",
-    duration: "4 months",
-    beforeAfter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/rosa-g-new_e6d2a50f.png",
   },
   {
     name: "Tamara J.",
