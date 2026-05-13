@@ -10,7 +10,7 @@ import { useState } from "react";
 import { X, BookOpen, Phone, ChevronRight, Star } from "lucide-react";
 
 const BOOK_COVER_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/book_front_cover_45993884.png";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/KzPyKVdwkqgxjlHd.png";
 
 // ── Modal ────────────────────────────────────────────────────────────────────
 function PrefaceModal({ onClose }: { onClose: () => void }) {
