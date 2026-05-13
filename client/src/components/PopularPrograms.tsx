@@ -503,24 +503,6 @@ function TierCard({
         </div>
       </div>
 
-      {/* Price breakdown — SlimMethod (t2a) only */}
-      {key === "t2a" && (() => {
-        const programCost = term === 3 ? 199 : term === 6 ? 189 : 179;
-        const drugCost = term === 3 ? 200 : term === 6 ? 190 : 180;
-        return (
-          <div className="flex flex-col gap-0.5 mb-1">
-            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-              <span>Program & Coaching</span>
-              <span className="font-semibold">${programCost}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-              <span>Semaglutide + B12</span>
-              <span className="font-semibold">${drugCost}</span>
-            </div>
-          </div>
-        );
-      })()}
-
       {/* Upfront total */}
       <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
         ${Math.round(total).toLocaleString()} upfront · {term} months
