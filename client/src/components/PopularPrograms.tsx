@@ -509,11 +509,11 @@ function TierCard({
         const drugCost = term === 3 ? 200 : term === 6 ? 190 : 180;
         return (
           <div className="flex flex-col gap-0.5 mb-1">
-            <div className="flex justify-between text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
               <span>Program & Coaching</span>
               <span className="font-semibold">${programCost}</span>
             </div>
-            <div className="flex justify-between text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
               <span>Semaglutide + B12</span>
               <span className="font-semibold">${drugCost}</span>
             </div>
