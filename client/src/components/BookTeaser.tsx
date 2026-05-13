@@ -1,10 +1,10 @@
 /* =============================================================================
    BookTeaser — MedMethod Direct
    
-   Design: White/light background — editorial magazine-spread feel.
-   The book cover (lavender/purple) pops naturally against white, matching
-   how it appears on Amazon. Creates a deliberate light break between the
-   dark Testimonials section and the dark ToolsForSuccess section.
+   Design: Deep navy/purple background with ambient glow behind the book cover.
+   The purple cover "radiates" against the dark backdrop. Gold accents from the
+   caduceus are echoed in star ratings and decorative details. The book floats
+   with a 3D perspective shadow, scaled large to command attention.
    ============================================================================= */
 import { useState } from "react";
 import { X, BookOpen, Phone, ChevronRight, Star } from "lucide-react";
@@ -263,71 +263,114 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
       <section
         id="book"
-        className="py-16 lg:py-24 px-4 relative overflow-hidden"
+        className="py-20 lg:py-28 px-4 relative overflow-hidden"
         style={{
-          background: "#FFFFFF",
+          background: "#080613",
           fontFamily: "Montserrat, sans-serif",
-          borderTop: "1px solid #EBEBF0",
-          borderBottom: "1px solid #EBEBF0",
         }}
       >
-        {/* Subtle lavender tint in background — echoes cover palette */}
+        {/* ── Ambient background layers ── */}
+        {/* Deep purple radial glow — centered behind the book area */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 55% 60% at 90% 50%, rgba(122,30,126,0.04) 0%, transparent 70%)",
+              "radial-gradient(ellipse 70% 80% at 30% 50%, rgba(90,20,120,0.35) 0%, transparent 65%)",
+          }}
+        />
+        {/* Secondary magenta accent — top right */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 40% 50% at 85% 20%, rgba(232,51,158,0.08) 0%, transparent 60%)",
+          }}
+        />
+        {/* Subtle noise texture overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
+            backgroundSize: "128px 128px",
           }}
         />
 
         <div className="max-w-6xl mx-auto relative">
           {/* Section label */}
-          <div className="flex items-center justify-center gap-3 mb-10">
-            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.25)" }} />
+          <div className="flex items-center justify-center gap-3 mb-14">
+            <div className="h-px flex-1 max-w-20" style={{ background: "rgba(212,175,55,0.3)" }} />
             <span
               className="text-[10px] font-extrabold uppercase tracking-widest"
-              style={{ color: "#E8339E", letterSpacing: "3px" }}
+              style={{ color: "#D4AF37", letterSpacing: "3px" }}
             >
               The Book Behind the Method
             </span>
-            <div className="h-px flex-1 max-w-16" style={{ background: "rgba(232,51,158,0.25)" }} />
+            <div className="h-px flex-1 max-w-20" style={{ background: "rgba(212,175,55,0.3)" }} />
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-20">
 
-            {/* ── Book Cover ── */}
-            <div className="flex-shrink-0 flex flex-col items-center">
+            {/* ── Book Cover — Large, floating, with ambient glow ── */}
+            <div className="flex-shrink-0 flex flex-col items-center relative">
+              {/* Ambient glow behind book */}
               <div
-                className="relative"
+                className="absolute rounded-full blur-3xl"
                 style={{
-                  filter: "drop-shadow(0 24px 48px rgba(122,30,126,0.22)) drop-shadow(0 6px 18px rgba(0,0,0,0.12))",
-                  transform: "perspective(800px) rotateY(-6deg) rotateX(2deg)",
+                  width: 340,
+                  height: 420,
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  background:
+                    "radial-gradient(ellipse at center, rgba(122,30,126,0.5) 0%, rgba(90,20,120,0.25) 40%, transparent 70%)",
+                }}
+              />
+              {/* Secondary warm glow — picks up the gold */}
+              <div
+                className="absolute rounded-full blur-2xl"
+                style={{
+                  width: 200,
+                  height: 260,
+                  top: "55%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  background:
+                    "radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 70%)",
+                }}
+              />
+
+              <div
+                className="relative transition-transform duration-500 hover:scale-[1.03]"
+                style={{
+                  filter:
+                    "drop-shadow(0 32px 64px rgba(90,20,120,0.45)) drop-shadow(0 8px 24px rgba(0,0,0,0.4))",
+                  transform: "perspective(900px) rotateY(-5deg) rotateX(2deg)",
                 }}
               >
                 <img
                   src={BOOK_COVER_URL}
                   alt="The Menopause Weight Loss Trap book cover"
-                  className="rounded-lg"
-                  style={{ width: 220, height: "auto" }}
+                  className="rounded-lg relative z-10"
+                  style={{ width: 300, height: "auto" }}
                 />
-                {/* Subtle shine overlay */}
+                {/* Glossy shine overlay */}
                 <div
-                  className="absolute inset-0 rounded-lg pointer-events-none"
+                  className="absolute inset-0 rounded-lg pointer-events-none z-20"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%)",
+                      "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)",
                   }}
                 />
               </div>
 
-              {/* Star rating */}
-              <div className="flex items-center gap-1 mt-5">
+              {/* Star rating — gold stars */}
+              <div className="flex items-center gap-1.5 mt-6 relative z-10">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={13} fill="#E8339E" color="#E8339E" />
+                  <Star key={i} size={14} fill="#D4AF37" color="#D4AF37" />
                 ))}
                 <span
-                  className="text-xs font-semibold ml-1"
-                  style={{ color: "#9CA3AF" }}
+                  className="text-xs font-semibold ml-2"
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   Available on Amazon
                 </span>
@@ -337,8 +380,8 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
             {/* ── Copy ── */}
             <div className="flex-1 text-center lg:text-left">
               <p
-                className="font-extrabold uppercase tracking-widest mb-2"
-                style={{ fontSize: 11, color: "#E8339E", letterSpacing: "2.5px" }}
+                className="font-extrabold uppercase tracking-widest mb-3"
+                style={{ fontSize: 11, color: "#D4AF37", letterSpacing: "2.5px" }}
               >
                 Dr. Jumana Al-Deek, DO
               </p>
@@ -346,16 +389,16 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <h2
                 className="font-black leading-tight mb-4"
                 style={{
-                  fontSize: "clamp(2rem, 4vw, 2.8rem)",
-                  color: "#111",
+                  fontSize: "clamp(2rem, 4.5vw, 3rem)",
+                  color: "#fff",
                   letterSpacing: "-0.5px",
-                  lineHeight: 1.1,
+                  lineHeight: 1.08,
                 }}
               >
                 The Menopause{" "}
                 <span
                   style={{
-                    backgroundImage: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                    backgroundImage: "linear-gradient(135deg, #E8339E, #C850C0, #7A1E7E)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -366,38 +409,38 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               </h2>
 
               <p
-                className="text-sm font-medium mb-6 italic"
-                style={{ color: "#9CA3AF" }}
+                className="text-sm font-medium mb-7 italic"
+                style={{ color: "rgba(255,255,255,0.4)" }}
               >
                 A Physician's Guide to GLP-1s &amp; Metabolism
               </p>
 
               <p
-                className="mb-6 leading-relaxed"
-                style={{ fontSize: 15, color: "#4B5563", maxWidth: 520 }}
+                className="mb-7 leading-relaxed"
+                style={{ fontSize: 15, color: "rgba(255,255,255,0.65)", maxWidth: 520 }}
               >
                 You're eating well. You're exercising. You're doing everything right — and yet the
                 scale won't budge. This book explains exactly why, and what to do instead.
               </p>
 
               {/* Bullet points */}
-              <ul className="space-y-2.5 mb-8">
+              <ul className="space-y-3 mb-9">
                 {bullets.map((b) => (
                   <li key={b} className="flex items-start gap-3">
                     <span
                       className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5"
                       style={{
-                        width: 18,
-                        height: 18,
-                        background: "rgba(232,51,158,0.1)",
-                        border: "1px solid rgba(232,51,158,0.25)",
+                        width: 20,
+                        height: 20,
+                        background: "rgba(212,175,55,0.12)",
+                        border: "1px solid rgba(212,175,55,0.25)",
                       }}
                     >
-                      <ChevronRight size={10} color="#E8339E" strokeWidth={3} />
+                      <ChevronRight size={10} color="#D4AF37" strokeWidth={3} />
                     </span>
                     <span
                       className="text-sm leading-snug"
-                      style={{ color: "#374151" }}
+                      style={{ color: "rgba(255,255,255,0.7)" }}
                     >
                       {b}
                     </span>
@@ -409,15 +452,15 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="rounded-xl font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
+                  className="rounded-xl font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
                   style={{
-                    padding: "14px 28px",
+                    padding: "15px 32px",
                     fontSize: 11,
                     letterSpacing: "1.5px",
                     background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
                     color: "#fff",
                     border: "none",
-                    boxShadow: "0 6px 24px rgba(232,51,158,0.3)",
+                    boxShadow: "0 8px 32px rgba(232,51,158,0.4), 0 0 0 1px rgba(232,51,158,0.15)",
                     cursor: "pointer",
                   }}
                 >
@@ -428,19 +471,19 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                   href="#"
                   className="rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
                   style={{
-                    padding: "14px 24px",
+                    padding: "15px 24px",
                     background: "transparent",
-                    color: "#111",
-                    border: "1.5px solid #D1D1DB",
+                    color: "rgba(255,255,255,0.7)",
+                    border: "1.5px solid rgba(255,255,255,0.15)",
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E8339E";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#E8339E";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#D4AF37";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#D4AF37";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "#D1D1DB";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#111";
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.15)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.7)";
                   }}
                 >
                   View on Amazon
@@ -449,8 +492,8 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               </div>
 
               <p
-                className="text-[11px] mt-4"
-                style={{ color: "#9CA3AF" }}
+                className="text-[11px] mt-5"
+                style={{ color: "rgba(255,255,255,0.25)" }}
               >
                 We'll text you a direct link — no app download needed.
               </p>
