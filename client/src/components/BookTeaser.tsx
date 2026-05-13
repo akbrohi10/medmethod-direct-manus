@@ -370,7 +370,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 ))}
                 <span
                   className="text-xs font-semibold ml-2"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
+                  style={{ color: "rgba(255,255,255,0.7)" }}
                 >
                   Available on Amazon
                 </span>
@@ -410,14 +410,14 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
               <p
                 className="text-sm font-medium mb-7 italic"
-                style={{ color: "rgba(255,255,255,0.4)" }}
+                style={{ color: "rgba(255,255,255,0.65)" }}
               >
                 A Physician's Guide to GLP-1s &amp; Metabolism
               </p>
 
               <p
                 className="mb-7 leading-relaxed"
-                style={{ fontSize: 15, color: "rgba(255,255,255,0.65)", maxWidth: 520 }}
+                style={{ fontSize: 15, color: "rgba(255,255,255,0.9)", maxWidth: 520 }}
               >
                 You're eating well. You're exercising. You're doing everything right — and yet the
                 scale won't budge. This book explains exactly why, and what to do instead.
@@ -440,7 +440,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                     </span>
                     <span
                       className="text-sm leading-snug"
-                      style={{ color: "rgba(255,255,255,0.7)" }}
+                      style={{ color: "rgba(255,255,255,0.92)" }}
                     >
                       {b}
                     </span>
@@ -473,8 +473,8 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                   style={{
                     padding: "15px 24px",
                     background: "transparent",
-                    color: "rgba(255,255,255,0.7)",
-                    border: "1.5px solid rgba(255,255,255,0.15)",
+                    color: "rgba(255,255,255,0.9)",
+                    border: "1.5px solid rgba(255,255,255,0.2)",
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => {
@@ -493,7 +493,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
               <p
                 className="text-[11px] mt-5"
-                style={{ color: "rgba(255,255,255,0.25)" }}
+                style={{ color: "rgba(255,255,255,0.45)" }}
               >
                 We'll text you a direct link — no app download needed.
               </p>
