@@ -652,6 +652,20 @@ function TierCard({
         </div>
       )}
 
+      {/* Price breakdown — ThriveMethod */}
+      {key === "hrt" && (
+        <div className="flex flex-col gap-0.5 mb-1">
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Membership</span>
+            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Estradiol + Progesterone</span>
+            <span className="font-semibold">${({ 3: 129, 6: 123, 12: 116 } as Record<Term, number>)[term]}</span>
+          </div>
+        </div>
+      )}
+
       {/* Upfront total */}
       <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
         ${Math.round(total).toLocaleString()} upfront · {term} months
