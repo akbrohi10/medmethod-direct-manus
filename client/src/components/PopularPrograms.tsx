@@ -502,7 +502,7 @@ function TierCard({
         {/* Vial image — SlimMethod only, absolute top-right */}
         {key === "t2a" && (
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slim-method-vial-transparent_f65d7868.png"
+            src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/oAptafomkStEANWf.png"
             alt="Compounded GLP-1 Semaglutide vial"
             style={{
               position: "absolute",
