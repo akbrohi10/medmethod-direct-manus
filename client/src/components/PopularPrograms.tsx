@@ -31,6 +31,13 @@ const RESTORE_DRUG_TOTAL: Record<Term, number> = { 3: 329, 6: 313, 12: 296 };
 // HRT portion placeholder — user to provide Estradiol + Progesterone cost
 const RESTORE_HRT: Record<Term, number> = { 3: 129, 6: 123, 12: 116 }; // = RESTORE_DRUG_TOTAL - SLIM_DRUG
 
+// LongevityMethod (t2b_starter): Mentorship + Tirz Drug + HRT Drug
+// Chart Drug+HRT total: 3mo=$440, 6mo=$418, 12mo=$396
+// Tirz portion same as ACCELERATE_DRUG; HRT portion = total drug - tirz (TBD from user)
+const LONGEVITY_DRUG_TOTAL: Record<Term, number> = { 3: 440, 6: 418, 12: 396 };
+// HRT portion placeholder — user to provide Estradiol + Progesterone cost
+const LONGEVITY_HRT: Record<Term, number> = { 3: 130, 6: 123, 12: 117 }; // = LONGEVITY_DRUG_TOTAL - ACCELERATE_DRUG
+
 // Explicit total monthly rates per tier per term (from chart, whole dollar rounding)
 const TIER_MONTHLY: Record<TierKey, Record<Term, number>> = {
   t1:          { 3: 199, 6: 189, 12: 179 },
@@ -569,6 +576,24 @@ function TierCard({
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
             <span>Estradiol + Progesterone</span>
             <span className="font-semibold">${RESTORE_HRT[term]}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Price breakdown — LongevityMethod */}
+      {key === "t2b_starter" && (
+        <div className="flex flex-col gap-0.5 mb-1">
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Membership</span>
+            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Tirzepatide + Niacinamide</span>
+            <span className="font-semibold">${ACCELERATE_DRUG[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Estradiol + Progesterone</span>
+            <span className="font-semibold">${LONGEVITY_HRT[term]}</span>
           </div>
         </div>
       )}
