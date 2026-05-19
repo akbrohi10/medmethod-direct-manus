@@ -497,36 +497,58 @@ function TierCard({
         })()}
       </p>
 
-      {/* Price */}
-      <div className="mb-1">
-        {term > 3 && (
-          <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
-            ${baseMonthly}/mo
-          </p>
+      {/* Price + vial wrapper — relative for SlimMethod vial positioning */}
+      <div className="relative">
+        {/* Vial image — SlimMethod only, absolute top-right */}
+        {key === "t2a" && (
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/slim-method-vial-Gj7NddgW38gtAnqF8njgCX.webp"
+            alt="Compounded GLP-1 Semaglutide vial"
+            style={{
+              position: "absolute",
+              top: "-16px",
+              right: "-10px",
+              width: "130px",
+              objectFit: "contain",
+              filter: "drop-shadow(0 6px 16px rgba(232,51,158,0.3))",
+              pointerEvents: "none",
+              userSelect: "none",
+              zIndex: 2,
+            }}
+          />
         )}
-        <div className="flex items-end gap-0.5">
-          <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
-            ${Math.floor(monthly)}
-          </span>
-          <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-            /mo
-          </span>
-        </div>
-      </div>
 
-      {/* Price breakdown — SlimMethod (t2a) */}
-      {key === "t2a" && (
-        <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Membership</span>
-            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
-          </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Semaglutide + B12</span>
-            <span className="font-semibold">${SLIM_DRUG[term]}</span>
+        {/* Price */}
+        <div className="mb-1" style={{ paddingRight: key === "t2a" ? "100px" : undefined }}>
+          {term > 3 && (
+            <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
+              ${baseMonthly}/mo
+            </p>
+          )}
+          <div className="flex items-end gap-0.5">
+            <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+              ${Math.floor(monthly)}
+            </span>
+            <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+              /mo
+            </span>
           </div>
         </div>
-      )}
+
+        {/* Price breakdown — SlimMethod (t2a) */}
+        {key === "t2a" && (
+          <div className="flex flex-col gap-0.5 mb-1" style={{ paddingRight: "100px" }}>
+            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+              <span>Membership</span>
+              <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+            </div>
+            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+              <span>Semaglutide + B12</span>
+              <span className="font-semibold">${SLIM_DRUG[term]}</span>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Price breakdown — AccelerateMethod (t2b) only */}
       {key === "t2b" && (
