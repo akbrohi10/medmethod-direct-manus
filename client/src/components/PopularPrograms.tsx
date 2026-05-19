@@ -13,42 +13,47 @@ import { Check, Stethoscope, Dumbbell, MessageCircle, UserCheck, ArrowRight } fr
 type Term = 3 | 6 | 12;
 type TierKey = "t1" | "t2a" | "t2b" | "t2a_starter" | "t2b_starter" | "hrt";
 
-// SlimMethod (t2a) pricing: Mentorship ($199/$189/$179) + Drug ($199/$189/$179)
-// Total by term: 3mo=$398, 6mo=$378, 12mo=$358
-const SLIM_DRUG: Record<Term, number> = { 3: 199, 6: 189, 12: 179 };
-
-// AccelerateMethod (t2b) pricing: Mentorship ($199/$189/$179) + Drug ($344/$327/$310)
-// Total by term: 3mo=$543, 6mo=$516, 12mo=$489
-const ACCELERATE_DRUG: Record<Term, number> = { 3: 344, 6: 327, 12: 310 };
+// Mentorship fee per term (whole dollar rounding from chart)
 const MENTORSHIP_FEE: Record<Term, number> = { 3: 199, 6: 189, 12: 179 };
 
+// SlimMethod (t2a): Mentorship + Semaglutide Injection
+// Chart: 3mo=$399, 6mo=$379, 12mo=$359
+const SLIM_DRUG: Record<Term, number> = { 3: 200, 6: 190, 12: 180 };
+
+// AccelerateMethod (t2b): Mentorship + Tirzepatide Injection
+// Chart: 3mo=$509, 6mo=$484, 12mo=$458
+const ACCELERATE_DRUG: Record<Term, number> = { 3: 310, 6: 295, 12: 279 };
+
+// Explicit total monthly rates per tier per term (from chart, whole dollar rounding)
+const TIER_MONTHLY: Record<TierKey, Record<Term, number>> = {
+  t1:          { 3: 199, 6: 189, 12: 179 },
+  t2a:         { 3: 399, 6: 379, 12: 359 },
+  t2b:         { 3: 509, 6: 484, 12: 458 },
+  t2a_starter: { 3: 528, 6: 502, 12: 475 },
+  t2b_starter: { 3: 639, 6: 607, 12: 575 },
+  hrt:         { 3: 328, 6: 312, 12: 295 },
+};
+
+// Base prices (3-month baseline) for savings calculation
 const BASE_PRICES: Record<TierKey, number> = {
   t1: 199,
-  t2a: 398, // updated: $199 mentorship + $199 drug at 3-month baseline
-  t2b: 543, // updated: $199 mentorship + $344 drug at 3-month baseline
+  t2a: 399,
+  t2b: 509,
   t2a_starter: 528,
-  t2b_starter: 798,
+  t2b_starter: 639,
   hrt: 328,
 };
 
-const DISCOUNTS: Record<Term, number> = {
-  3: 0,
-  6: 0.05,
-  12: 0.10,
-};
-
 function monthlyRate(tier: TierKey, term: Term): number {
-  if (tier === "t2a") return MENTORSHIP_FEE[term] + SLIM_DRUG[term];
-  if (tier === "t2b") return MENTORSHIP_FEE[term] + ACCELERATE_DRUG[term];
-  return +(BASE_PRICES[tier] * (1 - DISCOUNTS[term])).toFixed(2);
+  return TIER_MONTHLY[tier][term];
 }
 
 function upfrontTotal(tier: TierKey, term: Term): number {
-  return +(monthlyRate(tier, term) * term).toFixed(2);
+  return monthlyRate(tier, term) * term;
 }
 
 function totalSavings(tier: TierKey, term: Term): number {
-  return +((BASE_PRICES[tier] * term) - upfrontTotal(tier, term)).toFixed(2);
+  return (BASE_PRICES[tier] * term) - upfrontTotal(tier, term);
 }
 
 // ── Universal value props ───────────────────────────────────────────────────
