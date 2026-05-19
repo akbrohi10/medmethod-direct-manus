@@ -498,62 +498,79 @@ function TierCard({
         })()}
       </p>
 
-      {/* Price + Vial row for SlimMethod — side by side layout matching the design mockup */}
+      {/* Drug-focused hero layout for SlimMethod */}
       {key === "t2a" ? (
-        <div className="relative mb-4" style={{ minHeight: "280px" }}>
-          {/* Vial positioned absolutely to the right — large and prominent */}
-          <img
-            src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/oAptafomkStEANWf.png"
-            alt="Compounded GLP-1 Semaglutide vial"
-            className="absolute pointer-events-none select-none"
+        <div className="mb-5">
+          {/* Hero vial image — the focal point */}
+          <div
+            className="relative flex items-center justify-center rounded-xl overflow-hidden mb-5"
             style={{
-              top: "-10px",
-              right: "-12px",
-              width: "52%",
-              height: "calc(100% + 20px)",
-              objectFit: "contain",
-              filter: "drop-shadow(0 12px 30px rgba(232,51,158,0.25)) drop-shadow(0 4px 8px rgba(0,0,0,0.08))",
-              zIndex: 2,
+              height: "220px",
+              background: isDark
+                ? "linear-gradient(135deg, rgba(232,51,158,0.08), rgba(122,30,126,0.06))"
+                : "linear-gradient(135deg, #FDF2F8, #FAE8F3)",
             }}
-          />
+          >
+            <img
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/oAptafomkStEANWf.png"
+              alt="Compounded GLP-1 Semaglutide vial"
+              className="h-[190px] w-auto object-contain pointer-events-none select-none"
+              style={{
+                filter: "drop-shadow(0 12px 32px rgba(232,51,158,0.25)) drop-shadow(0 4px 12px rgba(0,0,0,0.08))",
+              }}
+            />
+            {/* Rx badge */}
+            <span
+              className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider"
+              style={{ background: isDark ? "rgba(232,51,158,0.15)" : "#FDF2F8", color: "#E8339E", border: "1px solid rgba(232,51,158,0.2)" }}
+            >
+              Rx Included
+            </span>
+          </div>
 
-          {/* Left side: price info */}
-          <div style={{ paddingRight: "52%" }}>
+          {/* Drug name — large and bold */}
+          <p className="font-extrabold text-lg mb-1" style={{ color: isDark ? "#fff" : "#111" }}>
+            Semaglutide + B12
+          </p>
+          <p className="text-[11px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.5)" : "#888" }}>
+            Compounded GLP-1 · 2mL Multi-Dose Vial · Shipped Monthly
+          </p>
+
+          {/* Price row */}
+          <div className="flex items-end gap-2 mb-2">
             {term > 3 && (
-              <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
+              <span className="text-[12px] line-through" style={{ color: subColor }}>
                 ${baseMonthly}/mo
-              </p>
+              </span>
             )}
-            <div className="flex items-end gap-0.5">
-              <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
-                ${Math.floor(monthly)}
-              </span>
-              <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-                /mo
-              </span>
-            </div>
+            <span className="font-black leading-none" style={{ fontSize: 36, color: isDark ? "#fff" : "#111", letterSpacing: "-1.5px" }}>
+              ${Math.floor(monthly)}
+            </span>
+            <span className="text-sm font-semibold pb-0.5" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+              /mo
+            </span>
+          </div>
 
-            {/* Price breakdown */}
-            <div className="flex flex-col gap-0.5 mt-1 mb-1">
-              <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-                <span>Membership</span>
-                <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
-              </div>
-              <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-                <span>Semaglutide + B12</span>
-                <span className="font-semibold">${SLIM_DRUG[term]}</span>
-              </div>
+          {/* Price breakdown — smaller, secondary */}
+          <div className="flex flex-col gap-0.5 mb-2">
+            <div className="flex items-center justify-between text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.5)" : "#777" }}>
+              <span>Membership</span>
+              <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
             </div>
+            <div className="flex items-center justify-between text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.5)" : "#777" }}>
+              <span>Semaglutide + B12</span>
+              <span className="font-semibold">${SLIM_DRUG[term]}</span>
+            </div>
+          </div>
 
-            {/* Upfront total */}
-            <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
+          {/* Upfront + savings */}
+          <div className="flex items-center gap-3">
+            <p className="text-[11px] font-medium" style={{ color: subColor }}>
               ${Math.round(total).toLocaleString()} upfront · {term} months
             </p>
-
-            {/* Savings chip */}
             {savings > 0 && (
               <span
-                className="inline-block rounded text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 w-fit"
+                className="inline-block rounded text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5"
                 style={{ border: "1.5px solid #16A34A", color: "#16A34A" }}
               >
                 SAVE ${Math.round(savings).toLocaleString()}
