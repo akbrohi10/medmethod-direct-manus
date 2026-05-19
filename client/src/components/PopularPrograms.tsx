@@ -13,10 +13,15 @@ import { Check, Stethoscope, Dumbbell, MessageCircle, UserCheck, ArrowRight } fr
 type Term = 3 | 6 | 12;
 type TierKey = "t1" | "t2a" | "t2b" | "t2a_starter" | "t2b_starter" | "hrt";
 
+// AccelerateMethod (t2b) pricing: Mentorship ($199/$189/$179) + Drug ($344/$327/$310)
+// Total by term: 3mo=$543, 6mo=$516, 12mo=$489
+const ACCELERATE_DRUG: Record<Term, number> = { 3: 344, 6: 327, 12: 310 };
+const MENTORSHIP_FEE: Record<Term, number> = { 3: 199, 6: 189, 12: 179 };
+
 const BASE_PRICES: Record<TierKey, number> = {
   t1: 199,
   t2a: 399,
-  t2b: 669,
+  t2b: 543, // updated: $199 mentorship + $344 drug at 3-month baseline
   t2a_starter: 528,
   t2b_starter: 798,
   hrt: 328,
@@ -29,6 +34,7 @@ const DISCOUNTS: Record<Term, number> = {
 };
 
 function monthlyRate(tier: TierKey, term: Term): number {
+  if (tier === "t2b") return MENTORSHIP_FEE[term] + ACCELERATE_DRUG[term];
   return +(BASE_PRICES[tier] * (1 - DISCOUNTS[term])).toFixed(2);
 }
 
@@ -502,6 +508,20 @@ function TierCard({
           </span>
         </div>
       </div>
+
+      {/* Price breakdown — AccelerateMethod (t2b) only */}
+      {key === "t2b" && (
+        <div className="flex flex-col gap-0.5 mb-1">
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Membership</span>
+            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Tirzepatide + Niacinamide</span>
+            <span className="font-semibold">${ACCELERATE_DRUG[term]}</span>
+          </div>
+        </div>
+      )}
 
       {/* Upfront total */}
       <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
