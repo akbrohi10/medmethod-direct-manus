@@ -24,6 +24,13 @@ const SLIM_DRUG: Record<Term, number> = { 3: 200, 6: 190, 12: 180 };
 // Chart: 3mo=$509, 6mo=$484, 12mo=$458
 const ACCELERATE_DRUG: Record<Term, number> = { 3: 310, 6: 295, 12: 279 };
 
+// RestoreMethod (t2a_starter): Mentorship + Sema Drug + HRT Drug
+// Chart Drug+HRT total: 3mo=$329, 6mo=$313, 12mo=$296
+// Sema portion same as SLIM_DRUG; HRT portion = total drug - sema (TBD from user)
+const RESTORE_DRUG_TOTAL: Record<Term, number> = { 3: 329, 6: 313, 12: 296 };
+// HRT portion placeholder — user to provide Estradiol + Progesterone cost
+const RESTORE_HRT: Record<Term, number> = { 3: 129, 6: 123, 12: 116 }; // = RESTORE_DRUG_TOTAL - SLIM_DRUG
+
 // Explicit total monthly rates per tier per term (from chart, whole dollar rounding)
 const TIER_MONTHLY: Record<TierKey, Record<Term, number>> = {
   t1:          { 3: 199, 6: 189, 12: 179 },
@@ -544,6 +551,24 @@ function TierCard({
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
             <span>Tirzepatide + Niacinamide</span>
             <span className="font-semibold">${ACCELERATE_DRUG[term]}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Price breakdown — RestoreMethod */}
+      {key === "t2a_starter" && (
+        <div className="flex flex-col gap-0.5 mb-1">
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Membership</span>
+            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Semaglutide + B12</span>
+            <span className="font-semibold">${SLIM_DRUG[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Estradiol + Progesterone</span>
+            <span className="font-semibold">${RESTORE_HRT[term]}</span>
           </div>
         </div>
       )}
