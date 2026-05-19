@@ -34,19 +34,30 @@ const ACCELERATE_DRUG: Record<Term, number> = { 3: 310, 6: 295, 12: 279 };
 const ACCELERATE_DRUG_ORAL: Record<Term, number> = { 3: 269, 6: 256, 12: 242 };
 const ACCELERATE_TOTAL_ORAL: Record<Term, number> = { 3: 468, 6: 445, 12: 421 };
 
-// RestoreMethod (t2a_starter): Mentorship + Sema Drug + HRT Drug
+// RestoreMethod (t2a_starter): Mentorship + Sema Inj + HRT Drug
 // Chart Drug+HRT total: 3mo=$329, 6mo=$313, 12mo=$296
-// Sema portion same as SLIM_DRUG; HRT portion = total drug - sema (TBD from user)
 const RESTORE_DRUG_TOTAL: Record<Term, number> = { 3: 329, 6: 313, 12: 296 };
 // HRT portion placeholder — user to provide Estradiol + Progesterone cost
-const RESTORE_HRT: Record<Term, number> = { 3: 129, 6: 123, 12: 116 }; // = RESTORE_DRUG_TOTAL - SLIM_DRUG
+const RESTORE_HRT: Record<Term, number> = { 3: 129, 6: 123, 12: 116 };
 
-// LongevityMethod (t2b_starter): Mentorship + Tirz Drug + HRT Drug
+// RestoreMethod Oral (T2A+S-Oral): Mentorship + Sema Oral + HRT Drug
+// Chart: 3mo=$497, 6mo=$472, 12mo=$447
+const RESTORE_TOTAL_ORAL: Record<Term, number> = { 3: 497, 6: 472, 12: 447 };
+// Oral drug portion = total - membership; HRT stays same, sema oral portion = total drug - HRT
+const RESTORE_SEMA_ORAL: Record<Term, number> = { 3: 169, 6: 160, 12: 152 }; // = SLIM_DRUG_ORAL
+const RESTORE_HRT_ORAL: Record<Term, number> = { 3: 129, 6: 123, 12: 116 }; // HRT same as injectable
+
+// LongevityMethod (t2b_starter): Mentorship + Tirz Inj + HRT Drug
 // Chart Drug+HRT total: 3mo=$440, 6mo=$418, 12mo=$396
-// Tirz portion same as ACCELERATE_DRUG; HRT portion = total drug - tirz (TBD from user)
 const LONGEVITY_DRUG_TOTAL: Record<Term, number> = { 3: 440, 6: 418, 12: 396 };
 // HRT portion placeholder — user to provide Estradiol + Progesterone cost
-const LONGEVITY_HRT: Record<Term, number> = { 3: 130, 6: 123, 12: 117 }; // = LONGEVITY_DRUG_TOTAL - ACCELERATE_DRUG
+const LONGEVITY_HRT: Record<Term, number> = { 3: 130, 6: 123, 12: 117 };
+
+// LongevityMethod Oral (T2B+S-Oral): Mentorship + Tirz Oral + HRT Drug
+// Chart: 3mo=$597, 6mo=$567, 12mo=$537
+const LONGEVITY_TOTAL_ORAL: Record<Term, number> = { 3: 597, 6: 567, 12: 537 };
+const LONGEVITY_TIRZ_ORAL: Record<Term, number> = { 3: 269, 6: 255, 12: 242 }; // = ACCELERATE_DRUG_ORAL
+const LONGEVITY_HRT_ORAL: Record<Term, number> = { 3: 129, 6: 123, 12: 116 }; // HRT same as injectable
 
 // Explicit total monthly rates per tier per term (from chart, whole dollar rounding)
 const TIER_MONTHLY: Record<TierKey, Record<Term, number>> = {
@@ -421,19 +432,30 @@ function TierCard({
   const isDark = !!dark;
   const isHighlighted = !!highlighted;
 
-  // Injectable/Oral toggle — only for t2a and t2b
-  const hasOralOption = key === "t2a" || key === "t2b";
+  // Injectable/Oral toggle — for t2a, t2b, t2a_starter, t2b_starter
+  const hasOralOption = key === "t2a" || key === "t2b" || key === "t2a_starter" || key === "t2b_starter";
   const [isOral, setIsOral] = useState(false);
 
   // Compute effective pricing based on oral toggle
   const effectiveMonthly = hasOralOption && isOral
-    ? (key === "t2a" ? SLIM_TOTAL_ORAL[term] : ACCELERATE_TOTAL_ORAL[term])
+    ? (key === "t2a" ? SLIM_TOTAL_ORAL[term]
+      : key === "t2b" ? ACCELERATE_TOTAL_ORAL[term]
+      : key === "t2a_starter" ? RESTORE_TOTAL_ORAL[term]
+      : LONGEVITY_TOTAL_ORAL[term])
     : monthlyRate(key, term);
   const effectiveDrug = hasOralOption && isOral
-    ? (key === "t2a" ? SLIM_DRUG_ORAL[term] : ACCELERATE_DRUG_ORAL[term])
-    : (key === "t2a" ? SLIM_DRUG[term] : key === "t2b" ? ACCELERATE_DRUG[term] : 0);
+    ? (key === "t2a" ? SLIM_DRUG_ORAL[term]
+      : key === "t2b" ? ACCELERATE_DRUG_ORAL[term]
+      : key === "t2a_starter" ? RESTORE_SEMA_ORAL[term]
+      : LONGEVITY_TIRZ_ORAL[term])
+    : (key === "t2a" ? SLIM_DRUG[term]
+      : key === "t2b" ? ACCELERATE_DRUG[term]
+      : 0);
   const effectiveBaseMonthly = hasOralOption && isOral
-    ? (key === "t2a" ? SLIM_TOTAL_ORAL[3] : ACCELERATE_TOTAL_ORAL[3])
+    ? (key === "t2a" ? SLIM_TOTAL_ORAL[3]
+      : key === "t2b" ? ACCELERATE_TOTAL_ORAL[3]
+      : key === "t2a_starter" ? RESTORE_TOTAL_ORAL[3]
+      : LONGEVITY_TOTAL_ORAL[3])
     : BASE_PRICES[key];
 
   const monthly = effectiveMonthly;
@@ -624,12 +646,12 @@ function TierCard({
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Semaglutide + B12</span>
-            <span className="font-semibold">${SLIM_DRUG[term]}</span>
+            <span>{isOral ? "Semaglutide Oral" : "Semaglutide + B12"}</span>
+            <span className="font-semibold">${isOral ? RESTORE_SEMA_ORAL[term] : SLIM_DRUG[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
             <span>Estradiol + Progesterone</span>
-            <span className="font-semibold">${RESTORE_HRT[term]}</span>
+            <span className="font-semibold">${isOral ? RESTORE_HRT_ORAL[term] : RESTORE_HRT[term]}</span>
           </div>
         </div>
       )}
@@ -642,12 +664,12 @@ function TierCard({
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Tirzepatide + Niacinamide</span>
-            <span className="font-semibold">${ACCELERATE_DRUG[term]}</span>
+            <span>{isOral ? "Tirzepatide Oral" : "Tirzepatide + Niacinamide"}</span>
+            <span className="font-semibold">${isOral ? LONGEVITY_TIRZ_ORAL[term] : ACCELERATE_DRUG[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
             <span>Estradiol + Progesterone</span>
-            <span className="font-semibold">${LONGEVITY_HRT[term]}</span>
+            <span className="font-semibold">${isOral ? LONGEVITY_HRT_ORAL[term] : LONGEVITY_HRT[term]}</span>
           </div>
         </div>
       )}
