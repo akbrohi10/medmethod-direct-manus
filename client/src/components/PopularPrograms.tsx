@@ -20,9 +20,19 @@ const MENTORSHIP_FEE: Record<Term, number> = { 3: 199, 6: 189, 12: 179 };
 // Chart: 3mo=$399, 6mo=$379, 12mo=$359
 const SLIM_DRUG: Record<Term, number> = { 3: 200, 6: 190, 12: 180 };
 
+// SlimMethod Oral (T2A-Oral): Mentorship + Semaglutide Oral
+// Chart: 3mo=$368, 6mo=$350, 12mo=$331
+const SLIM_DRUG_ORAL: Record<Term, number> = { 3: 169, 6: 161, 12: 152 };
+const SLIM_TOTAL_ORAL: Record<Term, number> = { 3: 368, 6: 350, 12: 331 };
+
 // AccelerateMethod (t2b): Mentorship + Tirzepatide Injection
 // Chart: 3mo=$509, 6mo=$484, 12mo=$458
 const ACCELERATE_DRUG: Record<Term, number> = { 3: 310, 6: 295, 12: 279 };
+
+// AccelerateMethod Oral (T2B-Oral): Mentorship + Tirzepatide Oral
+// Chart: 3mo=$468, 6mo=$445, 12mo=$421
+const ACCELERATE_DRUG_ORAL: Record<Term, number> = { 3: 269, 6: 256, 12: 242 };
+const ACCELERATE_TOTAL_ORAL: Record<Term, number> = { 3: 468, 6: 445, 12: 421 };
 
 // RestoreMethod (t2a_starter): Mentorship + Sema Drug + HRT Drug
 // Chart Drug+HRT total: 3mo=$329, 6mo=$313, 12mo=$296
@@ -410,10 +420,26 @@ function TierCard({
   const { key, label, subtitle, badge, dark, highlighted, medication, brandName, drugHighlight } = tier;
   const isDark = !!dark;
   const isHighlighted = !!highlighted;
-  const monthly = monthlyRate(key, term);
-  const total = upfrontTotal(key, term);
-  const savings = totalSavings(key, term);
-  const baseMonthly = BASE_PRICES[key];
+
+  // Injectable/Oral toggle — only for t2a and t2b
+  const hasOralOption = key === "t2a" || key === "t2b";
+  const [isOral, setIsOral] = useState(false);
+
+  // Compute effective pricing based on oral toggle
+  const effectiveMonthly = hasOralOption && isOral
+    ? (key === "t2a" ? SLIM_TOTAL_ORAL[term] : ACCELERATE_TOTAL_ORAL[term])
+    : monthlyRate(key, term);
+  const effectiveDrug = hasOralOption && isOral
+    ? (key === "t2a" ? SLIM_DRUG_ORAL[term] : ACCELERATE_DRUG_ORAL[term])
+    : (key === "t2a" ? SLIM_DRUG[term] : key === "t2b" ? ACCELERATE_DRUG[term] : 0);
+  const effectiveBaseMonthly = hasOralOption && isOral
+    ? (key === "t2a" ? SLIM_TOTAL_ORAL[3] : ACCELERATE_TOTAL_ORAL[3])
+    : BASE_PRICES[key];
+
+  const monthly = effectiveMonthly;
+  const total = monthly * term;
+  const savings = (effectiveBaseMonthly * term) - total;
+  const baseMonthly = effectiveBaseMonthly;
 
   const subColor = isDark ? "rgba(255,255,255,0.5)" : "#9CA3AF";
 
@@ -517,6 +543,34 @@ function TierCard({
         })()}
       </p>
 
+      {/* Injectable / Oral toggle — SlimMethod & AccelerateMethod only */}
+      {hasOralOption && (
+        <div className="flex items-center gap-1 mb-3">
+          <button
+            onClick={() => setIsOral(false)}
+            className="flex-1 py-1 rounded-l-full text-[11px] font-bold uppercase tracking-wide transition-all"
+            style={{
+              background: !isOral ? (isDark ? "#E8339E" : "#E8339E") : (isDark ? "rgba(255,255,255,0.08)" : "#F3F4F6"),
+              color: !isOral ? "#fff" : (isDark ? "rgba(255,255,255,0.5)" : "#999"),
+              border: "none",
+            }}
+          >
+            💉 Injectable
+          </button>
+          <button
+            onClick={() => setIsOral(true)}
+            className="flex-1 py-1 rounded-r-full text-[11px] font-bold uppercase tracking-wide transition-all"
+            style={{
+              background: isOral ? (isDark ? "#E8339E" : "#E8339E") : (isDark ? "rgba(255,255,255,0.08)" : "#F3F4F6"),
+              color: isOral ? "#fff" : (isDark ? "rgba(255,255,255,0.5)" : "#999"),
+              border: "none",
+            }}
+          >
+            💊 Oral
+          </button>
+        </div>
+      )}
+
       {/* ── Price Section ─────────────────────────────────────────── */}
       <div className="mb-1">
         {term > 3 && (
@@ -542,8 +596,8 @@ function TierCard({
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Semaglutide + B12</span>
-            <span className="font-semibold">${SLIM_DRUG[term]}</span>
+            <span>{isOral ? "Semaglutide Oral" : "Semaglutide + B12"}</span>
+            <span className="font-semibold">${effectiveDrug}</span>
           </div>
         </div>
       )}
@@ -556,8 +610,8 @@ function TierCard({
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Tirzepatide + Niacinamide</span>
-            <span className="font-semibold">${ACCELERATE_DRUG[term]}</span>
+            <span>{isOral ? "Tirzepatide Oral" : "Tirzepatide + Niacinamide"}</span>
+            <span className="font-semibold">${effectiveDrug}</span>
           </div>
         </div>
       )}
