@@ -420,6 +420,7 @@ function TierCard({
         border: cardBorder,
         padding: "28px 22px 24px",
         boxShadow: cardShadow,
+        overflow: "visible",
       }}
     >
       {/* Badge */}
@@ -442,7 +443,7 @@ function TierCard({
       {brandName ? (
         <h3
           className="font-black mb-1"
-          style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", letterSpacing: "-0.5px", lineHeight: 1.1 }}
+          style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)", letterSpacing: "-0.5px", lineHeight: 1.1, paddingRight: key === "t2a" ? "55%" : undefined }}
         >
           <span style={{ color: isDark ? "#fff" : "#111" }}>{brandName[0]}</span>
           <span style={{ color: isDark ? "#f472b6" : "#E8339E" }}>{brandName[1]}</span>
@@ -457,7 +458,7 @@ function TierCard({
       )}
 
       {/* Subtitle with drug highlight + medications included */}
-      <p className="text-[13px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+      <p className="text-[13px] font-medium mb-4" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555", paddingRight: key === "t2a" ? "55%" : undefined }}>
         {(() => {
           let parts = subtitle;
           const elements: React.ReactNode[] = [];
@@ -497,58 +498,70 @@ function TierCard({
         })()}
       </p>
 
-      {/* Price + vial wrapper — relative for SlimMethod vial positioning */}
-      <div className="relative">
-        {/* Vial image — SlimMethod only, absolute top-right */}
-        {key === "t2a" && (
+      {/* Vial image — SlimMethod only, card-level absolute positioned */}
+      {key === "t2a" && (
+        <img
+          src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/oAptafomkStEANWf.png"
+          alt="Compounded GLP-1 Semaglutide vial"
+          className="hidden md:block absolute"
+          style={{
+            top: "-10px",
+            right: "-20px",
+            width: "58%",
+            height: "auto",
+            objectFit: "contain",
+            filter: "drop-shadow(0 18px 40px rgba(232,51,158,0.35)) drop-shadow(0 6px 12px rgba(0,0,0,0.1))",
+            pointerEvents: "none",
+            userSelect: "none",
+            zIndex: 2,
+          }}
+        />
+      )}
+      {/* Mobile vial — centered above price on small screens */}
+      {key === "t2a" && (
+        <div className="md:hidden flex justify-center mb-4 -mt-1">
           <img
             src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/oAptafomkStEANWf.png"
             alt="Compounded GLP-1 Semaglutide vial"
             style={{
-              position: "absolute",
-              top: "-20px",
-              right: "-14px",
-              width: "120px",
+              width: "160px",
               objectFit: "contain",
-              filter: "drop-shadow(0 8px 20px rgba(232,51,158,0.22))",
-              pointerEvents: "none",
-              userSelect: "none",
-              zIndex: 2,
+              filter: "drop-shadow(0 10px 28px rgba(232,51,158,0.28))",
             }}
           />
-        )}
+        </div>
+      )}
 
-        {/* Price */}
-        <div className="mb-1" style={{ paddingRight: key === "t2a" ? "100px" : undefined }}>
-          {term > 3 && (
-            <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
-              ${baseMonthly}/mo
-            </p>
-          )}
-          <div className="flex items-end gap-0.5">
-            <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
-              ${Math.floor(monthly)}
-            </span>
-            <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
-              /mo
-            </span>
+      {/* Price */}
+      <div className="mb-1" style={{ paddingRight: key === "t2a" ? "55%" : undefined }}>
+        {term > 3 && (
+          <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
+            ${baseMonthly}/mo
+          </p>
+        )}
+        <div className="flex items-end gap-0.5">
+          <span className="font-black leading-none" style={{ fontSize: 40, color: isDark ? "#fff" : "#111", letterSpacing: "-2px" }}>
+            ${Math.floor(monthly)}
+          </span>
+          <span className="text-sm font-semibold pb-1" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
+            /mo
+          </span>
+        </div>
+      </div>
+
+      {/* Price breakdown — SlimMethod (t2a) */}
+      {key === "t2a" && (
+        <div className="flex flex-col gap-0.5 mb-1" style={{ paddingRight: "55%" }}>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Membership</span>
+            <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+            <span>Semaglutide + B12</span>
+            <span className="font-semibold">${SLIM_DRUG[term]}</span>
           </div>
         </div>
-
-        {/* Price breakdown — SlimMethod (t2a) */}
-        {key === "t2a" && (
-          <div className="flex flex-col gap-0.5 mb-1" style={{ paddingRight: "100px" }}>
-            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-              <span>Membership</span>
-              <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-              <span>Semaglutide + B12</span>
-              <span className="font-semibold">${SLIM_DRUG[term]}</span>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Price breakdown — AccelerateMethod (t2b) only */}
       {key === "t2b" && (
@@ -565,7 +578,7 @@ function TierCard({
       )}
 
       {/* Upfront total */}
-      <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
+      <p className="text-[11px] font-medium mb-1" style={{ color: subColor, paddingRight: key === "t2a" ? "55%" : undefined }}>
         ${Math.round(total).toLocaleString()} upfront · {term} months
       </p>
 
