@@ -223,12 +223,17 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const checkScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 8);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+    // Calculate active card index based on scroll position
+    const cardWidth = 300; // 280px card + 20px gap
+    const idx = Math.round(el.scrollLeft / cardWidth);
+    setActiveIndex(Math.min(idx, medications.length - 1));
   };
 
   useEffect(() => {
@@ -386,8 +391,8 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {medications.map((med) => (
-              <MedCard key={med.name} med={med} />
+            {medications.map((med, idx) => (
+              <MedCard key={med.name} med={med} isActive={idx === activeIndex} />
             ))}
 
             {/* End-of-carousel CTA card */}
@@ -437,8 +442,11 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
             {medications.map((_, i) => (
               <div
                 key={i}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ background: i === 0 ? "#E8339E" : "#ddd" }}
+                className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+                style={{
+                  background: i === activeIndex ? "#E8339E" : "#ddd",
+                  transform: i === activeIndex ? "scale(1.4)" : "scale(1)",
+                }}
               />
             ))}
           </div>
@@ -482,8 +490,9 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
 }
 
 /* ── Individual Card ──────────────────────────────────────────────────── */
-function MedCard({ med }: { med: Med }) {
+function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
   const [hovered, setHovered] = useState(false);
+  const active = hovered || isActive;
 
   return (
     <div
@@ -491,10 +500,11 @@ function MedCard({ med }: { med: Med }) {
       style={{
         width: "280px",
         background: "#fff",
-        border: `1.5px solid ${hovered ? med.accent + "44" : "#EBEBEB"}`,
-        boxShadow: hovered
+        border: `1.5px solid ${active ? med.accent + "44" : "#EBEBEB"}`,
+        boxShadow: active
           ? `0 12px 36px ${med.accent}12`
           : "0 2px 10px rgba(0,0,0,0.03)",
+        transform: isActive ? "scale(1.03)" : "scale(1)",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -527,7 +537,7 @@ function MedCard({ med }: { med: Med }) {
             height: med.isBrandName ? "160px" : "180px",
             width: "auto",
             maxWidth: med.isBrandName ? "160px" : "auto",
-            transform: hovered ? "scale(1.06) translateY(-4px)" : "scale(1)",
+            transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
           }}
         />
 
