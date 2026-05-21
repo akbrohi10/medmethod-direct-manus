@@ -29,9 +29,15 @@ const ZEPBOUND_PEN =
 const ZEPBOUND_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/nzQKifmLIHhUmqKx.png";
 const WEGOVY_PEN =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/ccRCWkgPOJneuzES.png";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/xULqFLzJRzLBIKIs.png";
 const WEGOVY_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/RsueKshBHQxlBMUU.png";
+const WEGOVY_PILL =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/MClzCBArhzJYYoWy.png";
+const FOUNDAYO_BOTTLE =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/mZQtjRShlxknoDgQ.png";
+const FOUNDAYO_LOGO =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/vuFGUEgaqyBIXccG.png";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -49,16 +55,17 @@ interface Med {
 }
 
 const medications: Med[] = [
+  /* ── Brand-Name Cards (front of carousel) ── */
   {
     name: "Wegovy",
-    form: "Semaglutide Injection",
+    form: "Semaglutide Injection · Novo Nordisk",
     image: WEGOVY_PEN,
     program: "NovoCare / Telehealth",
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
-    price: "$249–$349/mo",
-    priceNote: "Price varies by provider & term",
+    price: "$199–$399/mo",
+    priceNote: "Price increases as dose increases",
     logo: WEGOVY_LOGO,
     details: [
       "FDA-approved GLP-1 receptor agonist",
@@ -66,6 +73,58 @@ const medications: Med[] = [
       "Once-weekly injection",
     ],
   },
+  {
+    name: "Wegovy Pill",
+    form: "Oral Semaglutide · Novo Nordisk",
+    image: WEGOVY_PILL,
+    program: "NovoCare / Telehealth",
+    accent: "#E8339E",
+    badge: "Brand Name",
+    isBrandName: true,
+    price: "$149–$299/mo",
+    priceNote: "Price increases as dose increases",
+    logo: WEGOVY_LOGO,
+    details: [
+      "FDA-approved oral GLP-1",
+      "Daily tablet — no injections",
+      "Take on empty stomach with water",
+    ],
+  },
+  {
+    name: "Zepbound",
+    form: "Tirzepatide Injection · Eli Lilly",
+    image: ZEPBOUND_PEN,
+    program: "LillyDirect",
+    accent: "#E8339E",
+    badge: "Brand Name",
+    isBrandName: true,
+    price: "$299–$449/mo",
+    priceNote: "Price increases as dose increases",
+    logo: ZEPBOUND_LOGO,
+    details: [
+      "FDA-approved dual GIP/GLP-1 agonist",
+      "Pre-filled single-use pen",
+      "Dose escalation: 2.5mg → 15mg",
+    ],
+  },
+  {
+    name: "Foundayo",
+    form: "Orforglipron Tablet · Eli Lilly",
+    image: FOUNDAYO_BOTTLE,
+    program: "LillyDirect",
+    accent: "#E8339E",
+    badge: "Brand Name",
+    isBrandName: true,
+    price: "$149–$299/mo",
+    priceNote: "Price increases as dose increases",
+    logo: FOUNDAYO_LOGO,
+    details: [
+      "First non-peptide oral GLP-1",
+      "Daily pill — no food/water restrictions",
+      "Once-daily dosing",
+    ],
+  },
+  /* ── Compounded Cards ── */
   {
     name: "Semaglutide + B12",
     form: "Injectable Vial",
@@ -90,23 +149,6 @@ const medications: Med[] = [
       "Compounded GLP-1 oral form",
       "No injections required",
       "Daily oral dosing",
-    ],
-  },
-  {
-    name: "Zepbound",
-    form: "Tirzepatide Injection",
-    image: ZEPBOUND_PEN,
-    program: "LillyDirect",
-    accent: "#E8339E",
-    badge: "Brand Name",
-    isBrandName: true,
-    price: "$299–$449/mo",
-    priceNote: "Price increases as dose increases",
-    logo: ZEPBOUND_LOGO,
-    details: [
-      "FDA-approved dual GIP/GLP-1 agonist",
-      "Pre-filled single-use pen",
-      "Dose escalation: 2.5mg → 15mg",
     ],
   },
   {
@@ -467,20 +509,24 @@ function MedCard({ med }: { med: Med }) {
             : `linear-gradient(135deg, ${med.accent}08, ${med.accent}04)`,
         }}
       >
-        {/* Brand logo (top-left) */}
+        {/* Brand logo (top-left) — consistent size across all brand cards */}
         {med.logo && (
           <img
             src={med.logo}
             alt={`${med.name} logo`}
-            className="absolute top-3 left-3 h-5 w-auto object-contain opacity-80"
+            className="absolute top-3 left-3 object-contain"
+            style={{ height: "28px", maxWidth: "100px" }}
           />
         )}
 
         <img
           src={med.image}
           alt={med.name}
-          className="h-[180px] w-auto object-contain drop-shadow-md transition-transform duration-300"
+          className="object-contain drop-shadow-md transition-transform duration-300"
           style={{
+            height: med.isBrandName ? "160px" : "180px",
+            width: "auto",
+            maxWidth: med.isBrandName ? "160px" : "auto",
             transform: hovered ? "scale(1.06) translateY(-4px)" : "scale(1)",
           }}
         />
