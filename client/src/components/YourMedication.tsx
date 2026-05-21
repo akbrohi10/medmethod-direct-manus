@@ -28,6 +28,10 @@ const ZEPBOUND_PEN =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CEVzfjoRpvjPssOc.webp";
 const ZEPBOUND_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/nzQKifmLIHhUmqKx.png";
+const WEGOVY_PEN =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/ccRCWkgPOJneuzES.png";
+const WEGOVY_LOGO =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/RsueKshBHQxlBMUU.png";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -45,6 +49,23 @@ interface Med {
 }
 
 const medications: Med[] = [
+  {
+    name: "Wegovy",
+    form: "Semaglutide Injection",
+    image: WEGOVY_PEN,
+    program: "NovoCare / Telehealth",
+    accent: "#E8339E",
+    badge: "Brand Name",
+    isBrandName: true,
+    price: "$249–$349/mo",
+    priceNote: "Price varies by provider & term",
+    logo: WEGOVY_LOGO,
+    details: [
+      "FDA-approved GLP-1 receptor agonist",
+      "Pre-filled single-dose pen",
+      "Once-weekly injection",
+    ],
+  },
   {
     name: "Semaglutide + B12",
     form: "Injectable Vial",
@@ -80,7 +101,7 @@ const medications: Med[] = [
     badge: "Brand Name",
     isBrandName: true,
     price: "$299–$449/mo",
-    priceNote: "Dose-dependent · escalates if refill missed",
+    priceNote: "Price increases as dose increases",
     logo: ZEPBOUND_LOGO,
     details: [
       "FDA-approved dual GIP/GLP-1 agonist",
