@@ -650,8 +650,11 @@ function TierCard({
             <span className="font-semibold">${isOral ? RESTORE_SEMA_ORAL[term] : SLIM_DRUG[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Estradiol + Progesterone</span>
-            <span className="font-semibold">${isOral ? RESTORE_HRT_ORAL[term] : RESTORE_HRT[term]}</span>
+            <span>Estradiol Patch</span>
+            <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
+            <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
+            <span>Progesterone</span>
+            <span className="font-semibold">${({ 3: 30, 6: 29, 12: 27 } as Record<Term, number>)[term]}</span>
           </div>
         </div>
       )}
@@ -668,8 +671,11 @@ function TierCard({
             <span className="font-semibold">${isOral ? LONGEVITY_TIRZ_ORAL[term] : ACCELERATE_DRUG[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Estradiol + Progesterone</span>
-            <span className="font-semibold">${isOral ? LONGEVITY_HRT_ORAL[term] : LONGEVITY_HRT[term]}</span>
+            <span>Estradiol Patch</span>
+            <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
+            <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
+            <span>Progesterone</span>
+            <span className="font-semibold">${({ 3: 30, 6: 29, 12: 27 } as Record<Term, number>)[term]}</span>
           </div>
         </div>
       )}
@@ -682,8 +688,11 @@ function TierCard({
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
-            <span>Estradiol + Progesterone</span>
-            <span className="font-semibold">${({ 3: 129, 6: 123, 12: 116 } as Record<Term, number>)[term]}</span>
+            <span>Estradiol Patch</span>
+            <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
+            <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
+            <span>Progesterone</span>
+            <span className="font-semibold">${({ 3: 30, 6: 29, 12: 27 } as Record<Term, number>)[term]}</span>
           </div>
         </div>
       )}
