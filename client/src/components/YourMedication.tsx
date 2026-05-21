@@ -26,6 +26,8 @@ const TESTOSTERONE_CREAM =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/testosterone-cream-dispenser-QgDipMcSxgrkYn593aBNsm.png";
 const ZEPBOUND_PEN =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CEVzfjoRpvjPssOc.webp";
+const ZEPBOUND_LOGO =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/nzQKifmLIHhUmqKx.png";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -39,6 +41,7 @@ interface Med {
   isBrandName?: boolean;
   price?: string;
   priceNote?: string;
+  logo?: string;
 }
 
 const medications: Med[] = [
@@ -73,11 +76,12 @@ const medications: Med[] = [
     form: "Tirzepatide Injection",
     image: ZEPBOUND_PEN,
     program: "LillyDirect",
-    accent: "#1B7340",
+    accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
     price: "$299–$449/mo",
     priceNote: "Dose-dependent · escalates if refill missed",
+    logo: ZEPBOUND_LOGO,
     details: [
       "FDA-approved dual GIP/GLP-1 agonist",
       "Pre-filled single-use pen",
@@ -437,9 +441,20 @@ function MedCard({ med }: { med: Med }) {
         className="relative flex items-center justify-center overflow-hidden"
         style={{
           height: "220px",
-          background: `linear-gradient(135deg, ${med.accent}08, ${med.accent}04)`,
+          background: med.isBrandName
+            ? "linear-gradient(135deg, #E8339E08, #E8339E04)"
+            : `linear-gradient(135deg, ${med.accent}08, ${med.accent}04)`,
         }}
       >
+        {/* Brand logo (top-left) */}
+        {med.logo && (
+          <img
+            src={med.logo}
+            alt={`${med.name} logo`}
+            className="absolute top-3 left-3 h-5 w-auto object-contain opacity-80"
+          />
+        )}
+
         <img
           src={med.image}
           alt={med.name}
