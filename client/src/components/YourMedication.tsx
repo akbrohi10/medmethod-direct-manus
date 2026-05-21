@@ -24,6 +24,8 @@ const PROGESTERONE_CAPSULES =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/progesterone-capsules-DpQK32e9NSccVpv8UMzW7Q.png";
 const TESTOSTERONE_CREAM =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/testosterone-cream-dispenser-QgDipMcSxgrkYn593aBNsm.png";
+const ZEPBOUND_PEN =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CEVzfjoRpvjPssOc.webp";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -34,6 +36,9 @@ interface Med {
   accent: string;
   badge: string;
   details: string[];
+  isBrandName?: boolean;
+  price?: string;
+  priceNote?: string;
 }
 
 const medications: Med[] = [
@@ -61,6 +66,22 @@ const medications: Med[] = [
       "Compounded GLP-1 oral form",
       "No injections required",
       "Daily oral dosing",
+    ],
+  },
+  {
+    name: "Zepbound",
+    form: "Tirzepatide Injection",
+    image: ZEPBOUND_PEN,
+    program: "LillyDirect",
+    accent: "#1B7340",
+    badge: "Brand Name",
+    isBrandName: true,
+    price: "$299–$449/mo",
+    priceNote: "Dose-dependent · escalates if refill missed",
+    details: [
+      "FDA-approved dual GIP/GLP-1 agonist",
+      "Pre-filled single-use pen",
+      "Dose escalation: 2.5mg → 15mg",
     ],
   },
   {
@@ -428,15 +449,20 @@ function MedCard({ med }: { med: Med }) {
           }}
         />
 
-        {/* In Stock badge */}
+        {/* Badge */}
         <span
           className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider"
-          style={{ background: "#E6F9F0", color: "#0D8050" }}
+          style={{
+            background: med.isBrandName ? "#1B3A4B" : "#E6F9F0",
+            color: med.isBrandName ? "#fff" : "#0D8050",
+          }}
         >
-          <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse"
-            style={{ background: "#0D8050" }}
-          />
+          {!med.isBrandName && (
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-pulse"
+              style={{ background: "#0D8050" }}
+            />
+          )}
           {med.badge}
         </span>
       </div>
@@ -485,13 +511,29 @@ function MedCard({ med }: { med: Med }) {
           ))}
         </ul>
 
+        {/* Price (brand-name cards only) */}
+        {med.price && (
+          <div className="mt-3 pt-3" style={{ borderTop: "1px solid #f0f0f0" }}>
+            <p className="text-sm font-extrabold" style={{ color: "#111" }}>
+              {med.price}
+            </p>
+            {med.priceNote && (
+              <p className="text-[10px] mt-0.5" style={{ color: "#999" }}>
+                {med.priceNote}
+              </p>
+            )}
+          </div>
+        )}
+
         {/* Rx disclaimer */}
-        <p
-          className="mt-3 pt-3 text-[10px] font-medium"
-          style={{ color: "#bbb", borderTop: "1px solid #f0f0f0" }}
-        >
-          Rx Only — prescribed by your MedMethod physician
-        </p>
+        {!med.isBrandName && (
+          <p
+            className="mt-3 pt-3 text-[10px] font-medium"
+            style={{ color: "#bbb", borderTop: "1px solid #f0f0f0" }}
+          >
+            Rx Only — prescribed by your MedMethod physician
+          </p>
+        )}
       </div>
     </div>
   );
