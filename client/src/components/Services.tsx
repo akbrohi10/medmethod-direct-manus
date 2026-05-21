@@ -78,7 +78,7 @@ const services = [
   {
     title: "Vitamins & Supplements",
     description: "Physician-curated supplement protocols designed for women in midlife — targeted nutrition to fill the gaps your diet misses…",
-    image: "/manus-storage/vitamins-supplements-v2_696653ae.png",
+    image: "/manus-storage/vitamins-supplements-v3_09616af9.png",
     alt: "Premium supplement bottles arranged neatly",
     href: "#consultation",
   },
