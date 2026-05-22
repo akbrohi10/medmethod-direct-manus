@@ -95,8 +95,8 @@ const medications: Med[] = [
   {
     name: "Zepbound",
     form: "Tirzepatide Injection · Eli Lilly",
-    image: "/manus-storage/zepbound-pen-dark_f0bdf91b.png",
-    bgImage: "/manus-storage/zepbound-pen-dark_f0bdf91b.png",
+    image: "/manus-storage/zepbound-dark-v2_664c26d8.png",
+    bgImage: "/manus-storage/zepbound-dark-v2_664c26d8.png",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
