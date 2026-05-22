@@ -499,15 +499,22 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
 
   return (
     <div
-      className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300"
+      className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative"
       style={{
         width: "280px",
         background: "#fff",
-        border: `1.5px solid ${active ? med.accent + "44" : "#EBEBEB"}`,
+        border: active ? "none" : "1.5px solid #EBEBEB",
         boxShadow: active
-          ? `0 12px 36px ${med.accent}12`
-          : "0 2px 10px rgba(0,0,0,0.03)",
+          ? `0 16px 48px ${med.accent}20, 0 4px 12px rgba(0,0,0,0.06)`
+          : "0 4px 16px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.03)",
         transform: isActive ? "scale(1.03)" : "scale(1)",
+        ...(active ? {
+          backgroundImage: `linear-gradient(#fff, #fff), linear-gradient(135deg, ${med.accent}88, ${med.accent}22)`,
+          backgroundOrigin: "border-box",
+          backgroundClip: "padding-box, border-box",
+          padding: "0",
+          border: "2px solid transparent",
+        } : {}),
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -518,16 +525,24 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
         style={{
           height: "220px",
           background: med.isBrandName
-            ? "linear-gradient(135deg, #E8339E08, #E8339E04)"
-            : `linear-gradient(135deg, ${med.accent}08, ${med.accent}04)`,
+            ? "linear-gradient(160deg, #f8f4f6 0%, #faf8fb 40%, #f0edf5 100%)"
+            : `linear-gradient(160deg, ${med.accent}06 0%, ${med.accent}03 40%, ${med.accent}08 100%)`,
         }}
       >
-        {/* Brand logo (top-left) — consistent size across all brand cards */}
+        {/* Radial glow behind product */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 60% 50% at 50% 55%, ${med.accent}15, transparent 70%)`,
+          }}
+        />
+
+        {/* Brand logo (top-left) */}
         {med.logo && (
           <img
             src={med.logo}
             alt={`${med.name} logo`}
-            className="absolute top-3 left-3 object-contain"
+            className="absolute top-3 left-3 object-contain z-[2]"
             style={{ height: "28px", maxWidth: "100px" }}
           />
         )}
@@ -535,22 +550,27 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
         <img
           src={med.image}
           alt={med.name}
-          className="object-contain drop-shadow-md transition-transform duration-300"
+          className="object-contain transition-transform duration-300 relative z-[1]"
           style={{
             height: med.isBrandName ? "140px" : "180px",
             width: "auto",
             maxWidth: med.isBrandName ? "140px" : "auto",
             marginTop: med.logo ? "28px" : "0",
             transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
+            filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.12))",
           }}
         />
 
-        {/* Badge */}
+        {/* Badge — frosted glass style */}
         <span
-          className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider"
+          className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider z-[2]"
           style={{
-            background: med.isBrandName ? "#1B3A4B" : "#E6F9F0",
+            background: med.isBrandName
+              ? "rgba(27,58,75,0.85)"
+              : "rgba(230,249,240,0.9)",
+            backdropFilter: "blur(8px)",
             color: med.isBrandName ? "#fff" : "#0D8050",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
           }}
         >
           {!med.isBrandName && (
@@ -562,6 +582,14 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
           {med.badge}
         </span>
       </div>
+
+      {/* Gradient divider */}
+      <div
+        className="h-[2px] w-full"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${med.accent}40, transparent)`,
+        }}
+      />
 
       {/* Content */}
       <div className="p-5">
@@ -589,32 +617,44 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
           Included in {med.program}
         </p>
 
-        {/* Details */}
-        <ul className="space-y-1.5">
+        {/* Details — enhanced checkmarks */}
+        <ul className="space-y-2">
           {med.details.map((d) => (
             <li
               key={d}
-              className="flex items-start gap-1.5 text-xs"
-              style={{ color: "#555" }}
+              className="flex items-start gap-2 text-xs"
+              style={{ color: "#444" }}
             >
-              <Check
-                size={12}
-                className="mt-0.5 flex-shrink-0"
-                style={{ color: med.accent }}
-              />
-              {d}
+              <span
+                className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0"
+                style={{ background: `${med.accent}12` }}
+              >
+                <Check
+                  size={11}
+                  strokeWidth={3}
+                  style={{ color: med.accent }}
+                />
+              </span>
+              <span className="leading-[1.4] pt-0.5">{d}</span>
             </li>
           ))}
         </ul>
 
-        {/* Price (brand-name cards only) */}
+        {/* Price — accent strip */}
         {med.price && (
-          <div className="mt-3 pt-3" style={{ borderTop: "1px solid #f0f0f0" }}>
-            <p className="text-sm font-extrabold" style={{ color: "#111" }}>
+          <div
+            className="mt-4 -mx-5 px-5 py-3"
+            style={{
+              background: `linear-gradient(90deg, ${med.accent}06, ${med.accent}10, ${med.accent}06)`,
+              borderTop: `1px solid ${med.accent}15`,
+              borderBottom: `1px solid ${med.accent}15`,
+            }}
+          >
+            <p className="text-base font-extrabold" style={{ color: "#111" }}>
               {med.price}
             </p>
             {med.priceNote && (
-              <p className="text-[10px] mt-0.5" style={{ color: "#999" }}>
+              <p className="text-[10px] mt-0.5" style={{ color: "#777" }}>
                 {med.priceNote}
               </p>
             )}
