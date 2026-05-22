@@ -112,8 +112,8 @@ const medications: Med[] = [
   {
     name: "Foundayo",
     form: "Orforglipron Tablet · Eli Lilly",
-    image: "/manus-storage/foundayo-dark-padded_126a8e1d.png",
-    bgImage: "/manus-storage/foundayo-dark-padded_126a8e1d.png",
+    image: "/manus-storage/foundayo-dark-v2_70c487ed.png",
+    bgImage: "/manus-storage/foundayo-dark-v2_70c487ed.png",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
