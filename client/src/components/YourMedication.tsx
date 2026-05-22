@@ -704,7 +704,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
           className="text-base font-extrabold mb-1"
           style={{ color: "#111", lineHeight: 1.3 }}
         >
-          {med.name}
+          {med.name}{med.isBrandName && <sup style={{ fontSize: "0.55em", verticalAlign: "super", fontWeight: 700 }}>&reg;</sup>}
         </h3>
 
         {/* Program */}
