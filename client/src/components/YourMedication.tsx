@@ -656,7 +656,7 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
               {med.price}
             </p>
             {med.priceNote && (
-              <p className="text-[10px] mt-0.5" style={{ color: "#777" }}>
+              <p className="text-[13px] mt-0.5" style={{ color: "#555", fontWeight: 500 }}>
                 {med.priceNote}
               </p>
             )}
