@@ -537,9 +537,10 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
           alt={med.name}
           className="object-contain drop-shadow-md transition-transform duration-300"
           style={{
-            height: med.isBrandName ? "160px" : "180px",
+            height: med.isBrandName ? "140px" : "180px",
             width: "auto",
-            maxWidth: med.isBrandName ? "160px" : "auto",
+            maxWidth: med.isBrandName ? "140px" : "auto",
+            marginTop: med.logo ? "28px" : "0",
             transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
           }}
         />
