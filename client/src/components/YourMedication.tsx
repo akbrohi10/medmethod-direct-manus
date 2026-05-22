@@ -33,7 +33,7 @@ const WEGOVY_PEN =
 const WEGOVY_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/RsueKshBHQxlBMUU.png";
 const WEGOVY_PILL =
-  "/manus-storage/wegovy-pill-bottle-hq_511ad25c.png";
+  "/manus-storage/wegovy-pill-dark_fe6ce9f7.png";
 const FOUNDAYO_BOTTLE =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/mZQtjRShlxknoDgQ.png";
 const FOUNDAYO_LOGO =
@@ -52,6 +52,7 @@ interface Med {
   price?: string;
   priceNote?: string;
   logo?: string;
+  bgImage?: string;
 }
 
 const medications: Med[] = [
@@ -77,6 +78,7 @@ const medications: Med[] = [
     name: "Wegovy Pill",
     form: "Oral Semaglutide · Novo Nordisk",
     image: WEGOVY_PILL,
+    bgImage: WEGOVY_PILL,
     program: "NovoCare / Telehealth",
     accent: "#E8339E",
     badge: "Brand Name",
@@ -512,19 +514,23 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
     >
       {/* Image area */}
       <div
-        className="relative flex items-center justify-center overflow-hidden"
+        className="relative flex items-center justify-center overflow-hidden rounded-t-2xl"
         style={{
           height: "220px",
-          background: `linear-gradient(160deg, ${med.accent}08 0%, ${med.accent}04 40%, ${med.accent}0A 100%)`,
+          background: med.bgImage
+            ? `url(${med.bgImage}) center/cover no-repeat`
+            : `linear-gradient(160deg, ${med.accent}08 0%, ${med.accent}04 40%, ${med.accent}0A 100%)`,
         }}
       >
-        {/* Radial glow behind product */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 60% 50% at 50% 55%, ${med.accent}15, transparent 70%)`,
-          }}
-        />
+        {/* Radial glow behind product (only when no bgImage) */}
+        {!med.bgImage && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 60% 50% at 50% 55%, ${med.accent}15, transparent 70%)`,
+            }}
+          />
+        )}
 
         {/* Brand logo (top-left) */}
         {med.logo && (
@@ -532,23 +538,29 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
             src={med.logo}
             alt={`${med.name} logo`}
             className="absolute top-3 left-3 object-contain z-[2]"
-            style={{ height: "28px", maxWidth: "100px" }}
+            style={{
+              height: "28px",
+              maxWidth: "100px",
+              filter: med.bgImage ? "brightness(0) invert(1)" : "none",
+            }}
           />
         )}
 
-        <img
-          src={med.image}
-          alt={med.name}
-          className="object-contain transition-transform duration-300 relative z-[1]"
-          style={{
-            height: med.isBrandName ? "160px" : "180px",
-            width: "auto",
-            maxWidth: med.isBrandName ? "160px" : "auto",
-            marginTop: med.logo ? "24px" : "0",
-            transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
-            filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.12))",
-          }}
-        />
+        {!med.bgImage && (
+          <img
+            src={med.image}
+            alt={med.name}
+            className="object-contain transition-transform duration-300 relative z-[1]"
+            style={{
+              height: med.isBrandName ? "160px" : "180px",
+              width: "auto",
+              maxWidth: med.isBrandName ? "160px" : "auto",
+              marginTop: med.logo ? "24px" : "0",
+              transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
+              filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.12))",
+            }}
+          />
+        )}
 
         {/* Badge — frosted glass style */}
         <span
