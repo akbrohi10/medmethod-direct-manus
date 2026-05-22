@@ -230,10 +230,11 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 8);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
-    // Calculate active card index based on scroll position
+    // Calculate active card index based on scroll position (center-snap)
     const cardWidth = 300; // 280px card + 20px gap
-    const idx = Math.round(el.scrollLeft / cardWidth);
-    setActiveIndex(Math.min(idx, medications.length - 1));
+    const centerOffset = el.clientWidth / 2 - 140; // half viewport minus half card
+    const idx = Math.round((el.scrollLeft) / cardWidth);
+    setActiveIndex(Math.min(Math.max(idx, 0), medications.length - 1));
   };
 
   useEffect(() => {
@@ -383,12 +384,15 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
           {/* Scrollable Track */}
           <div
             ref={scrollRef}
-            className="flex gap-5 overflow-x-auto pb-4 px-1 snap-x snap-mandatory"
+            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch",
+              paddingLeft: "calc(50% - 140px)",
+              paddingRight: "calc(50% - 140px)",
             }}
+
           >
             {medications.map((med, idx) => (
               <MedCard key={med.name} med={med} isActive={idx === activeIndex} />
@@ -396,7 +400,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
 
             {/* End-of-carousel CTA card */}
             <div
-              className="flex-shrink-0 snap-start rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center p-8"
+              className="flex-shrink-0 snap-center rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center p-8"
               style={{
                 width: "280px",
                 minHeight: "420px",
@@ -495,7 +499,7 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
 
   return (
     <div
-      className="flex-shrink-0 snap-start rounded-2xl overflow-hidden transition-all duration-300"
+      className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300"
       style={{
         width: "280px",
         background: "#fff",
