@@ -299,36 +299,6 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
           </p>
         </div>
 
-        {/* Brand-name callout */}
-        <div
-          className="max-w-3xl mx-auto mb-10 rounded-xl px-5 py-4 flex items-start gap-3"
-          style={{
-            background: "linear-gradient(135deg, #F9F0F5, #F5F0FA)",
-            border: "1px solid #E8339E18",
-          }}
-        >
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-            style={{ background: "#E8339E12" }}
-          >
-            <Pill size={15} style={{ color: "#E8339E" }} />
-          </div>
-          <div>
-            <p
-              className="text-sm font-bold mb-0.5"
-              style={{ color: "#222" }}
-            >
-              We also prescribe brand-name medications
-            </p>
-            <p
-              className="text-xs leading-relaxed"
-              style={{ color: "#666" }}
-            >
-              Including Ozempic<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, Wegovy<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, Mounjaro<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>, and Zepbound<span style={{ verticalAlign: "super", fontSize: "8px" }}>&reg;</span>. The compounded options below are our most popular — same active ingredients at a lower cost.
-            </p>
-          </div>
-        </div>
-
         {/* Carousel Container */}
         <div className="relative">
           {/* Left Arrow */}
