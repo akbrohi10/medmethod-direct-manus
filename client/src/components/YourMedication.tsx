@@ -111,14 +111,14 @@ const medications: Med[] = [
   {
     name: "Foundayo",
     form: "Orforglipron Tablet · Eli Lilly",
-    image: FOUNDAYO_BOTTLE,
+    image: "/manus-storage/foundayo-dark_51377a54.png",
+    bgImage: "/manus-storage/foundayo-dark_51377a54.png",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
     price: "$149–$299/mo",
     priceNote: "Price increases as dose increases",
-    logo: FOUNDAYO_LOGO,
     details: [
       "First non-peptide oral GLP-1",
       "Daily pill — no food/water restrictions",
