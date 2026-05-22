@@ -508,6 +508,7 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
           ? `0 16px 48px ${med.accent}20, 0 4px 12px rgba(0,0,0,0.06)`
           : "0 4px 16px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.03)",
         transform: isActive ? "scale(1.03)" : "scale(1)",
+        transformOrigin: "center top",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
