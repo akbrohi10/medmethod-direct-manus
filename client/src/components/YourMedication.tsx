@@ -85,7 +85,6 @@ const medications: Med[] = [
     isBrandName: true,
     price: "$149–$299/mo",
     priceNote: "Price increases as dose increases",
-    logo: WEGOVY_LOGO,
     details: [
       "FDA-approved oral GLP-1",
       "Daily tablet — no injections",
