@@ -49,11 +49,13 @@ interface Med {
   badge: string;
   details: string[];
   isBrandName?: boolean;
+  elevated?: boolean;
   price?: string;
   priceNote?: string;
   logo?: string;
   bgImage?: string;
   bgSize?: string;
+  detailSubtitles?: string[];
 }
 
 const medications: Med[] = [
@@ -67,12 +69,18 @@ const medications: Med[] = [
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
+    elevated: true,
     price: "$199–$399/mo",
     priceNote: "Price increases as dose increases",
     details: [
       "FDA-approved GLP-1 receptor agonist",
       "Pre-filled single-dose pen",
       "Once-weekly injection",
+    ],
+    detailSubtitles: [
+      "Clinically proven for weight management",
+      "Easy to use · No mixing or measuring",
+      "Designed for convenience and consistency",
     ],
   },
   {
@@ -394,7 +402,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
             }}
           >
             {medications.map((med, idx) => (
-              <MedCard key={med.name} med={med} isActive={idx === activeIndex} />
+              <MedCard key={med.name} med={med} isActive={idx === activeIndex} onConsultClick={onConsultClick} />
             ))}
 
             {/* End-of-carousel CTA card */}
@@ -492,10 +500,159 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
 }
 
 /* ── Individual Card ──────────────────────────────────────────────────── */
-function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
+/* Elevated card icons */
+const ElevatedCheckIcon = ({ color }: { color: string }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+);
+const ElevatedPenIcon = ({ color }: { color: string }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+);
+const ElevatedCalIcon = ({ color }: { color: string }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+);
+const ELEVATED_ICONS = [ElevatedCheckIcon, ElevatedPenIcon, ElevatedCalIcon];
+
+function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive?: boolean; onConsultClick?: () => void }) {
   const [hovered, setHovered] = useState(false);
   const active = hovered || isActive;
 
+  /* ── Elevated (premium) card layout ── */
+  if (med.elevated) {
+    return (
+      <div
+        className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative flex flex-col"
+        style={{
+          width: "clamp(260px, calc(100vw - 48px), 280px)",
+          background: "#fff",
+          border: `1.5px solid ${med.accent}40`,
+          boxShadow: active
+            ? `0 16px 48px ${med.accent}25, 0 0 0 2px ${med.accent}30`
+            : `0 4px 20px ${med.accent}12, 0 1px 4px rgba(0,0,0,0.04)`,
+          transform: isActive ? "scale(1.03)" : "scale(1)",
+          transformOrigin: "center top",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Image area with dark background */}
+        <div
+          className="relative flex items-center justify-center overflow-hidden rounded-t-2xl"
+          style={{
+            height: "200px",
+            background: med.bgImage
+              ? `url(${med.bgImage}) center/${med.bgSize || 'cover'} no-repeat`
+              : `linear-gradient(160deg, #0D0B1F, #1A0D2E)`,
+            backgroundColor: '#0D0B1F',
+          }}
+        >
+          {/* Badge */}
+          <span
+            className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider z-[2]"
+            style={{
+              background: "rgba(27,58,75,0.85)",
+              backdropFilter: "blur(8px)",
+              color: "#fff",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            }}
+          >
+            {med.badge}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="p-4 flex flex-col flex-1">
+          {/* Form type + manufacturer */}
+          <p
+            className="text-[9px] font-bold uppercase tracking-[0.15em] mb-1"
+            style={{ color: med.accent }}
+          >
+            {med.form}
+          </p>
+
+          {/* Name with ® */}
+          <h3
+            className="text-lg font-extrabold mb-0.5"
+            style={{ color: "#111", lineHeight: 1.2 }}
+          >
+            {med.name}<span style={{ fontSize: "10px", verticalAlign: "super" }}>&reg;</span>
+          </h3>
+
+          {/* Program */}
+          <p
+            className="text-[11px] font-medium mb-3"
+            style={{ color: "#888" }}
+          >
+            Included in {med.program}
+          </p>
+
+          {/* Divider */}
+          <div className="h-px w-full mb-3" style={{ background: "#f0f0f0" }} />
+
+          {/* Details — elevated with icons + subtitles */}
+          <ul className="space-y-3 flex-1">
+            {med.details.map((d, i) => {
+              const IconComp = ELEVATED_ICONS[i % ELEVATED_ICONS.length];
+              return (
+                <li key={d} className="flex items-start gap-2.5">
+                  <span
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${med.accent}10` }}
+                  >
+                    <IconComp color={med.accent} />
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold leading-tight" style={{ color: "#222" }}>{d}</span>
+                    {med.detailSubtitles?.[i] && (
+                      <span className="text-[10px] leading-tight mt-0.5" style={{ color: "#888" }}>
+                        {med.detailSubtitles[i]}
+                      </span>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Price bar + Start Now button */}
+          {med.price && (
+            <div
+              className="mt-3 -mx-4 px-4 py-3 flex items-center justify-between"
+              style={{
+                borderTop: `1.5px solid ${med.accent}20`,
+                background: `linear-gradient(90deg, ${med.accent}05, ${med.accent}08)`,
+              }}
+            >
+              <div>
+                <p className="text-sm font-extrabold" style={{ color: "#111" }}>
+                  {med.price}
+                </p>
+                {med.priceNote && (
+                  <p className="text-[10px] mt-0.5" style={{ color: "#666" }}>
+                    {med.priceNote}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => onConsultClick?.()}
+                className="inline-flex items-center gap-1 rounded-full px-4 py-2 text-[10px] font-bold text-white transition-all hover:scale-105"
+                style={{
+                  background: `linear-gradient(135deg, ${med.accent}, #7A1E7E)`,
+                  boxShadow: `0 4px 12px ${med.accent}40`,
+                  cursor: "pointer",
+                  border: "none",
+                }}
+              >
+                Start Now
+                <ArrowRight size={12} />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  /* ── Standard card layout ── */
   return (
     <div
       className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative"
