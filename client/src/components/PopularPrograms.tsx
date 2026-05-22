@@ -117,10 +117,10 @@ const WEIGHT_LOSS_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Physician-led · prescription sent to your local pharmacy · coaching included",
+    subtitle: "Physician-led · prescription shipped direct or to your pharmacy · coaching included",
     medication: [
       "Your physician manages your Rx",
-      "Called to your local pharmacy",
+      "Brand-name meds ship direct to you",
       "Meds not included in price",
     ],
   },
@@ -157,10 +157,10 @@ const INTEGRATED_TIERS: TierDef[] = [
   {
     key: "t1",
     label: "Mentorship",
-    subtitle: "Physician-led · prescription sent to your local pharmacy · coaching included",
+    subtitle: "Physician-led · prescription shipped direct or to your pharmacy · coaching included",
     medication: [
       "Your physician manages GLP-1 + hormone Rx",
-      "Called to your local pharmacy",
+      "Brand-name meds ship direct to you",
       "Meds not included in price",
     ],
   },
