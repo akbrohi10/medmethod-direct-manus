@@ -113,18 +113,18 @@ export default function MedicalTeam() {
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <div
                   className="text-white font-bold leading-tight mb-0.5"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.7rem" }}
+                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(0.65rem, 1.8vw, 0.75rem)" }}
                 >
                   {member.name}
                 </div>
                 <div
                   className="font-medium"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.6rem", color: "#E8339E" }}
+                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(0.58rem, 1.5vw, 0.65rem)", color: "#E8339E" }}
                 >
                   {member.role}
                 </div>
                 <div
-                  className="text-white/50 mt-0.5"
+                  className="text-white/50 mt-0.5 hidden sm:block"
                   style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.58rem" }}
                 >
                   {member.specialty}

@@ -216,7 +216,7 @@ export default function MetabolicQuiz({ open, onClose }: Props) {
           </div>
         )}
 
-        <div className="p-8">
+        <div className="p-5 sm:p-8">
 
           {/* ── Intro ── */}
           {step === 0 && (

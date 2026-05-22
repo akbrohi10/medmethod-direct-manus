@@ -499,7 +499,7 @@ export default function MaleConsultationModal({ open, onClose }: Props) {
 
         {/* Bottom sticky button */}
         {!isCalendarStep && (
-          <div className="flex-shrink-0 px-6 pb-8 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0d1526" }}>
+          <div className="flex-shrink-0 px-6 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0d1526", paddingBottom: "max(2rem, env(safe-area-inset-bottom, 2rem))" }}>
             <button onClick={handleNext} disabled={isNextDisabled}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{ background: isNextDisabled ? TEAL_DISABLED : TEAL_GRADIENT, cursor: isNextDisabled ? "not-allowed" : "pointer", boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(0,229,255,0.3)", fontFamily: "Montserrat, sans-serif" }}>

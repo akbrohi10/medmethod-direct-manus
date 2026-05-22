@@ -78,7 +78,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
             <div>
               {/* Headline */}
               <h1
-                className="font-black leading-[1.05] mb-8"
+                className="font-black leading-[1.05] mb-5 sm:mb-8"
                 style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontSize: "clamp(2rem, 3.6vw, 3.5rem)",
@@ -114,10 +114,10 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
               </h1>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-3">
+              <div className="flex flex-col gap-3 mb-3">
                 <a
                   onClick={onConsultClick}
-                  className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
+                  className="btn-gradient btn-gradient-pulse px-5 py-3 sm:py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group w-full sm:w-auto"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   SCHEDULE FREE CONSULTATION

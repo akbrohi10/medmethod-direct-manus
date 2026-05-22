@@ -401,7 +401,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
             <div
               className="flex-shrink-0 snap-center rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center p-8"
               style={{
-                width: "280px",
+                width: "clamp(260px, calc(100vw - 48px), 280px)",
                 minHeight: "420px",
                 background: "linear-gradient(135deg, #0D0D1A, #1A0D2E)",
                 border: "1.5px solid rgba(232,51,158,0.2)",
@@ -500,7 +500,7 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
     <div
       className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative"
       style={{
-        width: "280px",
+        width: "clamp(260px, calc(100vw - 48px), 280px)",
         background: "#fff",
         border: active ? `2px solid ${med.accent}66` : "1.5px solid #EBEBEB",
         boxShadow: active

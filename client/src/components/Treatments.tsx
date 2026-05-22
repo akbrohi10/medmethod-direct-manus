@@ -103,13 +103,13 @@ export default function Treatments() {
         {/* Scrollable Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-4"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-4 sm:px-0"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
         >
           {treatments.map((t, i) => (
             <div
               key={i}
-              className="flex-none w-72 lg:w-80 bg-[#f8f8f8] rounded-2xl p-6 group hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent hover:border-[#E8339E]/20"
+              className="flex-none snap-center w-[calc(100vw-48px)] sm:w-72 lg:w-80 bg-[#f8f8f8] rounded-2xl p-6 group hover:shadow-xl transition-all duration-300 cursor-pointer border border-transparent hover:border-[#E8339E]/20"
             >
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-4">

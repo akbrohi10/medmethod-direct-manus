@@ -28,8 +28,8 @@ export default function StickyMobileCTA({ onConsultClick }: { onConsultClick: ()
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden px-4 pb-4 pt-2"
-      style={{ background: "linear-gradient(to top, #111111 60%, transparent)" }}
+      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden px-4 pt-2"
+      style={{ background: "linear-gradient(to top, #111111 60%, transparent)", paddingBottom: "max(1rem, env(safe-area-inset-bottom, 1rem))" }}
     >
       <a
         onClick={onConsultClick}

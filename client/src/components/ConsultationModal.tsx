@@ -744,7 +744,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
         {/* Bottom sticky button */}
         {!isCalendarStep && (
-          <div className="flex-shrink-0 px-6 pb-8 pt-3 bg-white border-t border-gray-50">
+          <div className="flex-shrink-0 px-6 pt-3 bg-white border-t border-gray-50" style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom, 2rem))" }}>
             <button
               onClick={handleNext}
               disabled={isNextDisabled}

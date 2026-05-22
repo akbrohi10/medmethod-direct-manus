@@ -90,7 +90,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </div>
 
           {/* Nav Columns */}
-          <div className="lg:col-span-2 grid grid-cols-2 gap-10">
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
           <div>
             <h4
               className="text-white font-bold text-xs tracking-[0.15em] uppercase mb-4"
