@@ -222,7 +222,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p
-            className="text-white/30 text-xs text-center md:text-left"
+            className="text-white/50 text-xs text-center md:text-left"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             © 2026 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
@@ -237,7 +237,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               <a
                 key={label}
                 href={href}
-                className="text-white/30 hover:text-white/60 text-xs transition-colors"
+                className="text-white/50 hover:text-white/80 text-xs transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 {label}
@@ -248,10 +248,10 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
 
         {/* Medical Disclaimer */}
         <p
-          className="text-white/20 text-xs mt-6 leading-relaxed"
+          className="text-white/40 text-xs mt-6 leading-relaxed"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
-          <strong className="text-white/30">Medical Disclaimer:</strong> The information provided on this website is for educational purposes only and does not constitute medical advice. MedMethod Direct services are provided by licensed medical professionals. Individual results may vary. Consult your healthcare provider before starting any new treatment.
+          <strong className="text-white/50">Medical Disclaimer:</strong> The information provided on this website is for educational purposes only and does not constitute medical advice. MedMethod Direct services are provided by licensed medical professionals. Individual results may vary. Consult your healthcare provider before starting any new treatment.
         </p>
       </div>
     </footer>

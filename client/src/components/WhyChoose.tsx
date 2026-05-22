@@ -105,7 +105,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
             </p>
             <button
               onClick={() => setQuizOpen(true)}
-              className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wider border-2 transition-all hover:bg-gray-50"
+              className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wider border-2 transition-all hover:bg-gray-50"
               style={{ fontFamily: "Montserrat, sans-serif", borderColor: "#E8339E", color: "#E8339E" }}
             >
               CHECK YOUR METABOLIC SCORE →
@@ -150,7 +150,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
 
                   {/* Body */}
                   <p
-                    className="text-gray-500 text-sm leading-relaxed flex-1"
+                    className="text-gray-600 text-sm leading-relaxed flex-1"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
                     {item.body}
@@ -174,7 +174,7 @@ export default function WhyChoose({ onConsultClick }: { onConsultClick: () => vo
                       {item.stat}
                     </div>
                     <div
-                      className="text-gray-400 text-xs mt-0.5"
+                      className="text-gray-500 text-sm mt-0.5"
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
                       {item.statLabel}

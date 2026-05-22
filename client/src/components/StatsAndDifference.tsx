@@ -81,8 +81,8 @@ export default function StatsAndDifference() {
                     {item.symptom}
                   </div>
                   <div
-                    className="text-gray-500 leading-snug"
-                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.72rem" }}
+                    className="text-gray-600 leading-snug"
+                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.8rem" }}
                   >
                     {item.detail}
                   </div>

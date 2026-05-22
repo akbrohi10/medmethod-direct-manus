@@ -314,7 +314,7 @@ Physician-led care, medication, and coaching — all in one program.
                   {/* Badge above button */}
                   {badge && (
                     <span
-                      className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider whitespace-nowrap"
+                      className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider whitespace-nowrap"
                       style={{
                         background: t === 6 ? "#E8339E" : "#111",
                         color: "#fff",
@@ -330,7 +330,7 @@ Physician-led care, medication, and coaching — all in one program.
                   <span
                     className="font-semibold mt-0.5"
                     style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       color: active ? "rgba(255,255,255,0.8)" : t === 3 ? "#777" : "#16A34A",
                     }}
                   >
@@ -344,7 +344,7 @@ Physician-led care, medication, and coaching — all in one program.
 
         {/* ── Recommended note ────────────────────────────────────────────── */}
         {term === 6 && (
-          <p className="text-center text-xs italic text-gray-400 mb-3">
+          <p className="text-center text-sm italic text-gray-500 mb-3">
             Recommended — full transformation window
           </p>
         )}
@@ -352,10 +352,10 @@ Physician-led care, medication, and coaching — all in one program.
 
         {/* ── Cherry financing + drug price locked ────────────────────────── */}
         <div className="text-center mb-8 space-y-1">
-          <p className="text-xs text-gray-500 font-medium">
+          <p className="text-sm text-gray-600 font-medium">
             Drug pricing locked for your term. Labs billed $299 as ordered. HSA/FSA accepted.
           </p>
-          <p className="text-xs text-gray-400">
+          <p className="text-sm text-gray-500">
             Prefer monthly payments?{" "}
             <a
               href="https://www.withcherry.com"
@@ -570,7 +570,7 @@ function TierCard({
         <div className="flex items-center gap-1 mb-3">
           <button
             onClick={() => setIsOral(false)}
-            className="flex-1 py-1 rounded-l-full text-[11px] font-bold uppercase tracking-wide transition-all"
+            className="flex-1 py-1 rounded-l-full text-[12px] font-bold uppercase tracking-wide transition-all"
             style={{
               background: !isOral ? (isDark ? "#E8339E" : "#E8339E") : (isDark ? "rgba(255,255,255,0.08)" : "#F3F4F6"),
               color: !isOral ? "#fff" : (isDark ? "rgba(255,255,255,0.5)" : "#999"),
@@ -581,7 +581,7 @@ function TierCard({
           </button>
           <button
             onClick={() => setIsOral(true)}
-            className="flex-1 py-1 rounded-r-full text-[11px] font-bold uppercase tracking-wide transition-all"
+            className="flex-1 py-1 rounded-r-full text-[12px] font-bold uppercase tracking-wide transition-all"
             style={{
               background: isOral ? (isDark ? "#E8339E" : "#E8339E") : (isDark ? "rgba(255,255,255,0.08)" : "#F3F4F6"),
               color: isOral ? "#fff" : (isDark ? "rgba(255,255,255,0.5)" : "#999"),
@@ -596,7 +596,7 @@ function TierCard({
       {/* ── Price Section ─────────────────────────────────────────── */}
       <div className="mb-1">
         {term > 3 && (
-          <p className="text-[11px] line-through mb-0.5" style={{ color: subColor }}>
+          <p className="text-[13px] line-through mb-0.5" style={{ color: subColor }}>
             ${baseMonthly}/mo
           </p>
         )}
@@ -613,11 +613,11 @@ function TierCard({
       {/* Price breakdown — SlimMethod */}
       {key === "t2a" && (
         <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Membership</span>
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>{isOral ? "Semaglutide Oral" : "Semaglutide + B12"}</span>
             <span className="font-semibold">${effectiveDrug}</span>
           </div>
@@ -627,11 +627,11 @@ function TierCard({
       {/* Price breakdown — AccelerateMethod */}
       {key === "t2b" && (
         <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Membership</span>
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>{isOral ? "Tirzepatide Oral" : "Tirzepatide + Niacinamide"}</span>
             <span className="font-semibold">${effectiveDrug}</span>
           </div>
@@ -641,15 +641,15 @@ function TierCard({
       {/* Price breakdown — RestoreMethod */}
       {key === "t2a_starter" && (
         <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Membership</span>
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>{isOral ? "Semaglutide Oral" : "Semaglutide + B12"}</span>
             <span className="font-semibold">${isOral ? RESTORE_SEMA_ORAL[term] : SLIM_DRUG[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Estradiol Patch</span>
             <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
             <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
@@ -662,15 +662,15 @@ function TierCard({
       {/* Price breakdown — LongevityMethod */}
       {key === "t2b_starter" && (
         <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Membership</span>
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>{isOral ? "Tirzepatide Oral" : "Tirzepatide + Niacinamide"}</span>
             <span className="font-semibold">${isOral ? LONGEVITY_TIRZ_ORAL[term] : ACCELERATE_DRUG[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Estradiol Patch</span>
             <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
             <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
@@ -683,11 +683,11 @@ function TierCard({
       {/* Price breakdown — ThriveMethod */}
       {key === "hrt" && (
         <div className="flex flex-col gap-0.5 mb-1">
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Membership</span>
             <span className="font-semibold">${MENTORSHIP_FEE[term]}</span>
           </div>
-          <div className="flex items-center gap-2 text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777" }}>
+          <div className="flex items-center gap-2 text-[13px]" style={{ color: isDark ? "rgba(255,255,255,0.7)" : "#555" }}>
             <span>Estradiol Patch</span>
             <span className="font-semibold">${({ 3: 99, 6: 94, 12: 89 } as Record<Term, number>)[term]}</span>
             <span className="mx-1" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "#ddd" }}>·</span>
@@ -698,14 +698,14 @@ function TierCard({
       )}
 
       {/* Upfront total */}
-      <p className="text-[11px] font-medium mb-1" style={{ color: subColor }}>
+      <p className="text-[13px] font-medium mb-1" style={{ color: subColor }}>
         ${Math.round(total).toLocaleString()} upfront · {term} months
       </p>
 
       {/* Savings chip */}
       {savings > 0 && (
         <span
-          className="inline-block rounded text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-4 w-fit"
+          className="inline-block rounded text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 mb-4 w-fit"
           style={{ border: "1.5px solid #16A34A", color: "#16A34A" }}
         >
           SAVE ${Math.round(savings).toLocaleString()}
@@ -716,8 +716,8 @@ function TierCard({
       {/* ── Medication Block ──────────────────────────────────────────── */}
       <div className="mb-3">
         <p
-          className="text-[9px] font-extrabold uppercase tracking-widest mb-2"
-          style={{ color: isDark ? "rgba(255,255,255,0.45)" : "#888", letterSpacing: "1.2px" }}
+          className="text-[10px] font-extrabold uppercase tracking-widest mb-2"
+          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#777", letterSpacing: "1.2px" }}
         >
           Your medication
         </p>
@@ -735,8 +735,8 @@ function TierCard({
                 <Check size={9} color={isDark ? "#c084fc" : "#7A1E7E"} strokeWidth={2.5} />
               </span>
               <span
-                className="text-[11px] font-medium leading-snug"
-                style={{ color: isDark ? "rgba(255,255,255,0.75)" : "#555" }}
+                className="text-[13px] font-medium leading-snug"
+                style={{ color: isDark ? "rgba(255,255,255,0.85)" : "#444" }}
               >
                 {text}
               </span>
@@ -754,8 +754,8 @@ function TierCard({
         }}
       >
         <p
-          className="text-[9px] font-extrabold uppercase tracking-widest mb-2"
-          style={{ color: isDark ? "rgba(232,51,158,0.8)" : "#E8339E", letterSpacing: "1.2px" }}
+          className="text-[10px] font-extrabold uppercase tracking-widest mb-2"
+          style={{ color: isDark ? "rgba(232,51,158,0.9)" : "#E8339E", letterSpacing: "1.2px" }}
         >
           Every program includes
         </p>
@@ -773,8 +773,8 @@ function TierCard({
                 <Icon size={10} color="#E8339E" strokeWidth={2.5} />
               </span>
               <span
-                className="text-[11px] font-medium leading-snug"
-                style={{ color: isDark ? "rgba(255,255,255,0.85)" : "#374151" }}
+                className="text-[13px] font-medium leading-snug"
+                style={{ color: isDark ? "rgba(255,255,255,0.9)" : "#374151" }}
               >
                 {text}
               </span>
@@ -793,7 +793,7 @@ function TierCard({
         }`}
         style={{
           padding: "13px",
-          fontSize: 10,
+          fontSize: 11,
           letterSpacing: "1.5px",
           ...(isDark || isHighlighted
             ? {

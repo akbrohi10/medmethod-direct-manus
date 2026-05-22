@@ -518,8 +518,8 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
 
           {/* Program */}
           <p
-            className="text-[11px] font-medium mb-3"
-            style={{ color: "#888" }}
+            className="text-[12px] font-medium mb-3"
+            style={{ color: "#666" }}
           >
             Included in {med.program}
           </p>
@@ -540,9 +540,9 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
                     <IconComp color={med.accent} />
                   </span>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold leading-tight" style={{ color: "#222" }}>{d}</span>
+                    <span className="text-[13px] font-bold leading-tight" style={{ color: "#222" }}>{d}</span>
                     {med.detailSubtitles?.[i] && (
-                      <span className="text-[10px] leading-tight mt-0.5" style={{ color: "#888" }}>
+                      <span className="text-[11px] leading-tight mt-0.5" style={{ color: "#777" }}>
                         {med.detailSubtitles[i]}
                       </span>
                     )}
@@ -566,14 +566,14 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
                   {med.price}
                 </p>
                 {med.priceNote && (
-                  <p className="text-[10px] mt-0.5" style={{ color: "#666" }}>
+                  <p className="text-[12px] mt-0.5" style={{ color: "#555" }}>
                     {med.priceNote}
                   </p>
                 )}
               </div>
               <button
                 onClick={() => onConsultClick?.()}
-                className="inline-flex items-center gap-1 rounded-full px-4 py-2 text-[10px] font-bold text-white transition-all hover:scale-105"
+                className="inline-flex items-center gap-1 rounded-full px-4 py-2 text-[11px] font-bold text-white transition-all hover:scale-105"
                 style={{
                   background: `linear-gradient(135deg, ${med.accent}, #7A1E7E)`,
                   boxShadow: `0 4px 12px ${med.accent}40`,
@@ -693,7 +693,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
       <div className="p-5 flex flex-col flex-1">
         {/* Form type */}
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.15em] mb-1.5"
+          className="text-[11px] font-bold uppercase tracking-[0.15em] mb-1.5"
           style={{ color: med.accent }}
         >
           {med.form}
@@ -709,8 +709,8 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
 
         {/* Program */}
         <p
-          className="text-[11px] font-medium mb-3"
-          style={{ color: "#999" }}
+          className="text-[12px] font-medium mb-3"
+          style={{ color: "#777" }}
         >
           Included in {med.program}
         </p>
@@ -771,7 +771,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={med.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
-            <p className="text-[11px] font-medium" style={{ color: "#777" }}>
+            <p className="text-[12px] font-medium" style={{ color: "#666" }}>
               Rx Only — prescribed by your MedMethod physician
             </p>
           </div>

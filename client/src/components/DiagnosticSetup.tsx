@@ -58,7 +58,7 @@ function LabsFAQ() {
           transition: "max-height 0.4s ease",
         }}
       >
-        <div className="mt-3 text-[12.5px] text-gray-500 leading-relaxed space-y-3 pr-2" style={{ fontFamily: "Montserrat, sans-serif" }}>
+        <div className="mt-3 text-[13.5px] text-gray-600 leading-relaxed space-y-3 pr-2" style={{ fontFamily: "Montserrat, sans-serif" }}>
           <p>Most telehealth programs ask you to fill out a questionnaire and ship you a medication within 48 hours. We understand the appeal — it feels like progress.</p>
           <p>But here's the problem. <strong style={{ color: "#111111", fontWeight: 800 }}>70% of women with hormonal imbalances have no idea they have one.</strong> A woman struggling to lose weight may not have a discipline problem — <strong style={{ color: "#111111", fontWeight: 800 }}>she may have an undiagnosed thyroid condition, insulin resistance, or a hormonal imbalance that no questionnaire can detect.</strong></p>
           <p>Only your bloodwork can tell us that.</p>
@@ -292,8 +292,8 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                 <span style={{ fontSize: "0.9em", lineHeight: 1 }}>→</span>
               </a>
               <p
-                className="text-gray-400 text-center mt-2"
-                style={{ fontSize: "0.6rem", letterSpacing: "0.04em" }}
+                className="text-gray-500 text-center mt-2"
+                style={{ fontSize: "0.7rem", letterSpacing: "0.04em" }}
               >
                 *MEDICATION PRESCRIBED SEPARATELY AFTER BLOODWORK REVIEW.
               </p>

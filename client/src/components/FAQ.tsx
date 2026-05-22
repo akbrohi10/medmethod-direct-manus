@@ -30,7 +30,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       {open && (
         <p
           className="pb-5 text-sm leading-relaxed"
-          style={{ fontFamily: "Montserrat, sans-serif", color: "#555" }}
+          style={{ fontFamily: "Montserrat, sans-serif", color: "#444" }}
         >
           {a}
         </p>

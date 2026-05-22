@@ -82,7 +82,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
               It's a Program.
             </span>
           </h2>
-          <p className="mt-5 text-white/50 text-base max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-5 text-white/75 text-base max-w-3xl mx-auto leading-relaxed">
             Most telehealth sends a prescription and moves on. We give you a{" "}
             <span className="font-bold text-white">doctor who actually gets to know you</span>, a{" "}
             <span className="font-bold text-white">dedicated performance coach who checks in every two weeks for a weigh-in</span>, and a{" "}
@@ -134,7 +134,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                   </h3>
 
                   {/* Description */}
-                  <p className="text-white/55 text-sm leading-relaxed flex-1">
+                  <p className="text-white/75 text-sm leading-relaxed flex-1">
                     {item.description}
                   </p>
 

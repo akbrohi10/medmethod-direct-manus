@@ -115,7 +115,7 @@ export default function Services({ onConsultClick }: Props) {
             KEY SERVICES
           </h2>
           <p
-            className="mt-3 text-gray-500 text-base"
+            className="mt-3 text-gray-600 text-base"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Holistic, doctor-led solutions at every stage of your journey
@@ -184,7 +184,7 @@ export default function Services({ onConsultClick }: Props) {
 
               {/* Description */}
               <p
-                className="text-gray-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-3"
+                className="text-gray-600 text-sm leading-relaxed mb-4 flex-1 line-clamp-3"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 {service.description}

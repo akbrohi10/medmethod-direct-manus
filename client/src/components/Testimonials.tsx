@@ -163,7 +163,7 @@ export default function Testimonials() {
             </span>
           </h2>
           <p
-            className="text-white/50 mt-3 text-sm font-medium"
+            className="text-white/70 mt-3 text-sm font-medium"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Ages 30s–60s · Perimenopause · Menopause · Post-pregnancy · Weight loss · Actual MedMethod Direct patients. Results may vary.
@@ -242,7 +242,7 @@ export default function Testimonials() {
 
                 {/* Quote */}
                 <p
-                  className="text-white/60 leading-relaxed text-xs flex-1 mb-4"
+                  className="text-white/80 leading-relaxed text-sm flex-1 mb-4"
                   style={{ fontFamily: "Montserrat, sans-serif", fontStyle: "italic" }}
                 >
                   "{t.text}"
@@ -258,7 +258,7 @@ export default function Testimonials() {
                       {t.name}
                     </div>
                     <div
-                      className="text-white/40 text-xs"
+                      className="text-white/60 text-xs"
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
                       {t.age}

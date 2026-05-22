@@ -89,7 +89,7 @@ export default function VirtualCareBanner() {
                 >
                   <Icon className="w-3.5 h-3.5 text-white" />
                   <span
-                    className="text-white text-xs font-semibold tracking-wide whitespace-nowrap"
+                    className="text-white text-sm font-semibold tracking-wide whitespace-nowrap"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
                     {perk.text}

@@ -117,7 +117,7 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
               <div className="flex flex-col gap-3 mb-3">
                 <a
                   onClick={onConsultClick}
-                  className="btn-gradient btn-gradient-pulse px-5 py-3 sm:py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group w-full sm:w-auto"
+                  className="btn-gradient btn-gradient-pulse px-5 py-3 sm:py-2.5 rounded-full text-sm font-bold tracking-wider flex items-center justify-center gap-2 group w-full sm:w-auto"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   SCHEDULE FREE CONSULTATION
