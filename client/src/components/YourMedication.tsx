@@ -53,6 +53,7 @@ interface Med {
   priceNote?: string;
   logo?: string;
   bgImage?: string;
+  bgSize?: string;
 }
 
 const medications: Med[] = [
@@ -113,6 +114,7 @@ const medications: Med[] = [
     form: "Orforglipron Tablet · Eli Lilly",
     image: "/manus-storage/foundayo-dark_51377a54.png",
     bgImage: "/manus-storage/foundayo-dark_51377a54.png",
+    bgSize: "contain",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
@@ -517,8 +519,9 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
         style={{
           height: "220px",
           background: med.bgImage
-            ? `url(${med.bgImage}) center/cover no-repeat`
+            ? `url(${med.bgImage}) center/${med.bgSize || 'cover'} no-repeat`
             : `linear-gradient(160deg, ${med.accent}08 0%, ${med.accent}04 40%, ${med.accent}0A 100%)`,
+          backgroundColor: med.bgImage ? '#0D0B1F' : undefined,
         }}
       >
         {/* Radial glow behind product (only when no bgImage) */}
