@@ -61,8 +61,8 @@ const medications: Med[] = [
   {
     name: "Wegovy",
     form: "Semaglutide Injection · Novo Nordisk",
-    image: "/manus-storage/wegovy-pen-dark_309ed9e3.png",
-    bgImage: "/manus-storage/wegovy-pen-dark_309ed9e3.png",
+    image: "/manus-storage/wegovy-pen-dark-v2_dc45550a.png",
+    bgImage: "/manus-storage/wegovy-pen-dark-v2_dc45550a.png",
     program: "NovoCare / Telehealth",
     accent: "#E8339E",
     badge: "Brand Name",
