@@ -831,14 +831,36 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
           </button>
         )}
 
-        {/* Rx disclaimer */}
+        {/* Rx disclaimer — styled with shield icon */}
         {!med.isBrandName && (
-          <p
-            className="mt-3 pt-3 text-[10px] font-medium"
-            style={{ color: "#bbb", borderTop: "1px solid #f0f0f0" }}
+          <div
+            className="mt-4 pt-3 flex items-center gap-2"
+            style={{ borderTop: "1px solid #f0f0f0" }}
           >
-            Rx Only — prescribed by your MedMethod physician
-          </p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={med.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <p className="text-[11px] font-medium" style={{ color: "#777" }}>
+              Rx Only — prescribed by your MedMethod physician
+            </p>
+          </div>
+        )}
+
+        {/* Start Now button for compounded cards */}
+        {!med.isBrandName && (
+          <button
+            onClick={() => onConsultClick?.()}
+            className="mt-3 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: `linear-gradient(135deg, ${med.accent}, #0D8050)`,
+              boxShadow: `0 4px 16px ${med.accent}40`,
+              cursor: "pointer",
+              border: "none",
+            }}
+          >
+            Start Now
+            <ArrowRight size={16} />
+          </button>
         )}
       </div>
     </div>
