@@ -290,8 +290,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
             className="text-base md:text-lg max-w-2xl mx-auto mb-2"
             style={{ color: "#666" }}
           >
-            Our most prescribed medications — compounded specifically for you
-            based on your labs, your body, and your physician's clinical judgment.
+            Brand-name or compounded, we prescribe both. Your doctor guides you through the options — so you choose what fits your body and your budget.
           </p>
         </div>
 

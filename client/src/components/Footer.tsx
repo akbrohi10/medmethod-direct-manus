@@ -99,14 +99,22 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               Services
             </h4>
             <ul className="flex flex-col gap-2.5">
-              {["Hormone Replacement Therapy", "Medical Weight Loss", "Perimenopause Care", "Menopause Management", "Thyroid Optimization", "Longevity Protocols"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "Hormone Replacement Therapy", href: "#services" },
+                { label: "Medical Weight Loss", href: "#services" },
+                { label: "Perimenopause Care", href: "#services" },
+                { label: "Menopause Management", href: "#services" },
+                { label: "Thyroid Optimization", href: "#services" },
+                { label: "Longevity Protocols", href: "#services" },
+                { label: "For Men", href: "/male" },
+              ].map(({ label, href }) => (
+                <li key={label}>
                   <a
-                    href="#services"
+                    href={href}
                     className="text-white/50 hover:text-white text-sm transition-colors"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    {item}
+                    {label}
                   </a>
                 </li>
               ))}
