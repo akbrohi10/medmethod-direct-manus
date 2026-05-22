@@ -60,14 +60,14 @@ const medications: Med[] = [
   {
     name: "Wegovy",
     form: "Semaglutide Injection · Novo Nordisk",
-    image: WEGOVY_PEN,
+    image: "/manus-storage/wegovy-pen-dark_309ed9e3.png",
+    bgImage: "/manus-storage/wegovy-pen-dark_309ed9e3.png",
     program: "NovoCare / Telehealth",
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
     price: "$199–$399/mo",
     priceNote: "Price increases as dose increases",
-    logo: WEGOVY_LOGO,
     details: [
       "FDA-approved GLP-1 receptor agonist",
       "Pre-filled single-dose pen",
