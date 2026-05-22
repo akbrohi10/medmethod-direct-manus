@@ -384,15 +384,12 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
           {/* Scrollable Track */}
           <div
             ref={scrollRef}
-            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
+            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory pl-4 pr-4 md:pl-0 md:pr-0"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch",
-              paddingLeft: "calc(50% - 140px)",
-              paddingRight: "calc(50% - 140px)",
             }}
-
           >
             {medications.map((med, idx) => (
               <MedCard key={med.name} med={med} isActive={idx === activeIndex} />
