@@ -649,7 +649,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
   /* ── Standard card layout ── */
   return (
     <div
-      className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative"
+      className="flex-shrink-0 snap-center rounded-2xl overflow-hidden transition-all duration-300 relative flex flex-col"
       style={{
         width: "clamp(260px, calc(100vw - 48px), 280px)",
         background: "#fff",
@@ -745,7 +745,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
       />
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         {/* Form type */}
         <p
           className="text-[10px] font-bold uppercase tracking-[0.15em] mb-1.5"
@@ -771,7 +771,7 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
         </p>
 
         {/* Details — enhanced checkmarks */}
-        <ul className="space-y-2">
+        <ul className="space-y-2 flex-1">
           {med.details.map((d) => (
             <li
               key={d}
@@ -814,24 +814,10 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
           </div>
         )}
 
-        {/* Start Now button for brand-name cards */}
-        {med.isBrandName && (
-          <button
-            onClick={() => onConsultClick?.()}
-            className="mt-4 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background: `linear-gradient(135deg, ${med.accent}, #7A1E7E)`,
-              boxShadow: `0 4px 16px ${med.accent}40`,
-              cursor: "pointer",
-              border: "none",
-            }}
-          >
-            Start Now
-            <ArrowRight size={16} />
-          </button>
-        )}
+        {/* Price — accent strip (brand-name only) */}
+        {/* already rendered above */}
 
-        {/* Rx disclaimer — styled with shield icon */}
+        {/* Rx disclaimer — styled with shield icon (compounded only) */}
         {!med.isBrandName && (
           <div
             className="mt-4 pt-3 flex items-center gap-2"
@@ -846,22 +832,22 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
           </div>
         )}
 
-        {/* Start Now button for compounded cards */}
-        {!med.isBrandName && (
-          <button
-            onClick={() => onConsultClick?.()}
-            className="mt-3 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background: `linear-gradient(135deg, ${med.accent}, #0D8050)`,
-              boxShadow: `0 4px 16px ${med.accent}40`,
-              cursor: "pointer",
-              border: "none",
-            }}
-          >
-            Start Now
-            <ArrowRight size={16} />
-          </button>
-        )}
+        {/* Start Now button — always at the bottom, aligned across all cards */}
+        <button
+          onClick={() => onConsultClick?.()}
+          className="mt-4 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+          style={{
+            background: med.isBrandName
+              ? `linear-gradient(135deg, ${med.accent}, #7A1E7E)`
+              : `linear-gradient(135deg, ${med.accent}, #0D8050)`,
+            boxShadow: `0 4px 16px ${med.accent}40`,
+            cursor: "pointer",
+            border: "none",
+          }}
+        >
+          Start Now
+          <ArrowRight size={16} />
+        </button>
       </div>
     </div>
   );
