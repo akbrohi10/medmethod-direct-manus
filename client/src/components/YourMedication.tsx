@@ -33,7 +33,7 @@ const WEGOVY_PEN =
 const WEGOVY_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/RsueKshBHQxlBMUU.png";
 const WEGOVY_PILL =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/MClzCBArhzJYYoWy.png";
+  "/manus-storage/wegovy-pill-bottle-hq_511ad25c.png";
 const FOUNDAYO_BOTTLE =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/mZQtjRShlxknoDgQ.png";
 const FOUNDAYO_LOGO =
