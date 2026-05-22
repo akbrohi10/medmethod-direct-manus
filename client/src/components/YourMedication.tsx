@@ -426,31 +426,6 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
           </div>
         </div>
 
-        {/* Trust bar */}
-        <div
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 text-center"
-        >
-          {[
-            "Licensed 503B Pharmacy",
-            "Cold-Packed & Shipped Monthly",
-            "Dose Changes. Price Doesn't.",
-          ].map((item) => (
-            <div key={item} className="flex items-center gap-2">
-              <div
-                className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: "#E8339E15" }}
-              >
-                <Check size={12} style={{ color: "#E8339E" }} />
-              </div>
-              <span
-                className="text-sm font-semibold"
-                style={{ color: "#444" }}
-              >
-                {item}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Hide scrollbar */}
