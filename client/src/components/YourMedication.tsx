@@ -69,18 +69,12 @@ const medications: Med[] = [
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
-    elevated: true,
     price: "$199–$399/mo",
     priceNote: "Price increases as dose increases",
     details: [
       "FDA-approved GLP-1 receptor agonist",
       "Pre-filled single-dose pen",
       "Once-weekly injection",
-    ],
-    detailSubtitles: [
-      "Clinically proven for weight management",
-      "Easy to use · No mixing or measuring",
-      "Designed for convenience and consistency",
     ],
   },
   {
@@ -818,6 +812,23 @@ function MedCard({ med, isActive = false, onConsultClick }: { med: Med; isActive
               </p>
             )}
           </div>
+        )}
+
+        {/* Start Now button for brand-name cards */}
+        {med.isBrandName && (
+          <button
+            onClick={() => onConsultClick?.()}
+            className="mt-4 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: `linear-gradient(135deg, ${med.accent}, #7A1E7E)`,
+              boxShadow: `0 4px 16px ${med.accent}40`,
+              cursor: "pointer",
+              border: "none",
+            }}
+          >
+            Start Now
+            <ArrowRight size={16} />
+          </button>
         )}
 
         {/* Rx disclaimer */}
