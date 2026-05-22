@@ -524,9 +524,7 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
         className="relative flex items-center justify-center overflow-hidden"
         style={{
           height: "220px",
-          background: med.isBrandName
-            ? "linear-gradient(160deg, #f8f4f6 0%, #faf8fb 40%, #f0edf5 100%)"
-            : `linear-gradient(160deg, ${med.accent}06 0%, ${med.accent}03 40%, ${med.accent}08 100%)`,
+          background: `linear-gradient(160deg, ${med.accent}08 0%, ${med.accent}04 40%, ${med.accent}0A 100%)`,
         }}
       >
         {/* Radial glow behind product */}
@@ -552,10 +550,10 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
           alt={med.name}
           className="object-contain transition-transform duration-300 relative z-[1]"
           style={{
-            height: med.isBrandName ? "140px" : "180px",
+            height: med.isBrandName ? "160px" : "180px",
             width: "auto",
-            maxWidth: med.isBrandName ? "140px" : "auto",
-            marginTop: med.logo ? "28px" : "0",
+            maxWidth: med.isBrandName ? "160px" : "auto",
+            marginTop: med.logo ? "24px" : "0",
             transform: active ? "scale(1.08) translateY(-6px)" : "scale(1)",
             filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.12))",
           }}
