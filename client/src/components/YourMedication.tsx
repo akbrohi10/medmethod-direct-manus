@@ -503,18 +503,11 @@ function MedCard({ med, isActive = false }: { med: Med; isActive?: boolean }) {
       style={{
         width: "280px",
         background: "#fff",
-        border: active ? "none" : "1.5px solid #EBEBEB",
+        border: active ? `2px solid ${med.accent}66` : "1.5px solid #EBEBEB",
         boxShadow: active
           ? `0 16px 48px ${med.accent}20, 0 4px 12px rgba(0,0,0,0.06)`
           : "0 4px 16px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.03)",
         transform: isActive ? "scale(1.03)" : "scale(1)",
-        ...(active ? {
-          backgroundImage: `linear-gradient(#fff, #fff), linear-gradient(135deg, ${med.accent}88, ${med.accent}22)`,
-          backgroundOrigin: "border-box",
-          backgroundClip: "padding-box, border-box",
-          padding: "0",
-          border: "2px solid transparent",
-        } : {}),
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
