@@ -263,7 +263,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
   return (
     <section
       id="medication"
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative pt-10 pb-20 md:pt-14 md:pb-28 overflow-hidden"
       style={{ background: "#FAFAFA" }}
     >
       {/* Subtle top accent */}
