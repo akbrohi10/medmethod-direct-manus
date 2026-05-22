@@ -94,14 +94,14 @@ const medications: Med[] = [
   {
     name: "Zepbound",
     form: "Tirzepatide Injection · Eli Lilly",
-    image: ZEPBOUND_PEN,
+    image: "/manus-storage/zepbound-pen-dark_f0bdf91b.png",
+    bgImage: "/manus-storage/zepbound-pen-dark_f0bdf91b.png",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
     isBrandName: true,
     price: "$299–$449/mo",
     priceNote: "Price increases as dose increases",
-    logo: ZEPBOUND_LOGO,
     details: [
       "FDA-approved dual GIP/GLP-1 agonist",
       "Pre-filled single-use pen",
