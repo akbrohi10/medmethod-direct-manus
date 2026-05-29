@@ -18,6 +18,8 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import HipaaNotice from "@/pages/HipaaNotice";
 import ConsentTelehealth from "@/pages/ConsentTelehealth";
+import SubscriptionPolicy from "@/pages/SubscriptionPolicy";
+import Accessibility from "@/pages/Accessibility";
 import LocationMaryland from "@/pages/LocationMaryland";
 import LocationBethesda from "@/pages/LocationBethesda";
 import LocationChevyChase from "@/pages/LocationChevyChase";
@@ -248,6 +250,9 @@ function Router() {
       <Route path="/terms" component={TermsOfService} />
       <Route path="/hipaa-notice" component={HipaaNotice} />
       <Route path="/consent-to-telehealth" component={ConsentTelehealth} />
+      <Route path="/subscription-policy" component={SubscriptionPolicy} />
+      <Route path="/accessibility" component={Accessibility} />
+      <Route path="/privacy">{() => { window.location.href = "/privacy-policy"; return null; }}</Route>
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

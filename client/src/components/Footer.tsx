@@ -190,10 +190,12 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             <ul className="flex flex-col gap-2.5">
               {[
                 { label: "Free Consultation", href: null, action: onConsultClick },
-                { label: "Consent to Telehealth", href: "/consent-to-telehealth", action: null },
+                { label: "Terms & Conditions", href: "/terms", action: null },
                 { label: "Privacy Policy", href: "/privacy-policy", action: null },
                 { label: "HIPAA Notice", href: "/hipaa-notice", action: null },
-                { label: "Terms of Service", href: "/terms", action: null },
+                { label: "Subscription & Refund Policy", href: "/subscription-policy", action: null },
+                { label: "Consent to Telehealth", href: "/consent-to-telehealth", action: null },
+                { label: "Accessibility", href: "/accessibility", action: null },
               ].map(({ label, href, action }) => (
                 <li key={label}>
                   <a
@@ -229,10 +231,12 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </p>
           <div className="flex gap-6 flex-wrap justify-center md:justify-end">
             {[
+              { label: "Terms & Conditions", href: "/terms" },
               { label: "Privacy Policy", href: "/privacy-policy" },
-              { label: "Terms of Service", href: "/terms" },
               { label: "HIPAA Notice", href: "/hipaa-notice" },
-              { label: "Consent to Telehealth", href: "/consent-to-telehealth" },
+              { label: "Subscription Policy", href: "/subscription-policy" },
+              { label: "Telehealth Consent", href: "/consent-to-telehealth" },
+              { label: "Accessibility", href: "/accessibility" },
             ].map(({ label, href }) => (
               <a
                 key={label}
