@@ -490,7 +490,7 @@ function PricingCard({
         <div
           className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px]"
           style={{
-            backgroundImage: "url(/manus-storage/longevity-v2_9056b984.png)",
+            backgroundImage: "url(/manus-storage/longevity-card_5cb8f20e.png)",
             backgroundSize: "115%",
             backgroundPosition: "center 55%",
             backgroundRepeat: "no-repeat",
@@ -517,7 +517,7 @@ function PricingCard({
           <div
             className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[220px]"
             style={{
-              backgroundImage: "url(/manus-storage/transformation-v3-wide_8903c169.jpg)",
+              backgroundImage: "url(/manus-storage/transformation-card_86b62a37.jpg)",
               backgroundSize: "cover",
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
@@ -529,7 +529,7 @@ function PricingCard({
         <div
           className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px]"
           style={{
-            backgroundImage: "url(/manus-storage/Ignite_94bcb442.jpeg)",
+            backgroundImage: "url(/manus-storage/ignite-card_7a536456.jpeg)",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
