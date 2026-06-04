@@ -6,7 +6,7 @@
    and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
-const BOOK_COVER_URL = "/manus-storage/dr-aldeek-book-photo_9fe7a633.png";
+const BOOK_COVER_URL = "/manus-storage/dr-aldeek-book-hero_65fd1689.png";
 
 export default function BookTeaser({ onConsultClick }: { onConsultClick: () => void }) {
   return (
@@ -47,25 +47,20 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
             />
 
             <div
-              className="relative transition-transform duration-500 hover:scale-[1.02]"
+              className="relative transition-transform duration-500 hover:scale-[1.01]"
               style={{
-                filter:
-                  "drop-shadow(0 32px 64px rgba(90,20,120,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.5))",
-                transform: "perspective(900px) rotateY(-5deg) rotateX(2deg)",
+                filter: "drop-shadow(0 24px 48px rgba(90,20,120,0.4)) drop-shadow(0 8px 20px rgba(0,0,0,0.4))",
               }}
             >
               <img
                 src={BOOK_COVER_URL}
-                alt="The Menopause Weight Loss Trap book cover"
-                className="rounded-lg relative z-10"
-                style={{ width: 400, maxWidth: "100%", height: "auto", borderRadius: 12 }}
-              />
-              {/* Glossy shine overlay */}
-              <div
-                className="absolute inset-0 rounded-lg pointer-events-none z-20"
+                alt="Dr. Al-Deek holding The Menopause Weight Loss Trap book"
+                className="relative z-10 object-cover"
                 style={{
-                  background:
-                    "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)",
+                  width: 460,
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: 16,
                 }}
               />
             </div>
