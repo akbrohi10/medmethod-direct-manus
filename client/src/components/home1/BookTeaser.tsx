@@ -32,6 +32,18 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
           {/* ── Book Cover — Left side ── */}
           <div className="flex-shrink-0 flex flex-col items-center relative">
+            {/* Big NEW BOOK label above the photo */}
+            <h3
+              className="font-black uppercase tracking-wider text-center mb-6"
+              style={{
+                fontSize: "clamp(2rem, 4vw, 2.8rem)",
+                color: "#fff",
+                letterSpacing: "6px",
+                textShadow: "0 2px 20px rgba(232,51,158,0.4)",
+              }}
+            >
+              New Book
+            </h3>
             {/* Ambient glow behind book */}
             <div
               className="absolute rounded-full blur-3xl"
@@ -70,17 +82,6 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
           <div className="flex-1 text-center lg:text-left">
 
 
-            {/* Eyebrow label */}
-            <p
-              className="font-extrabold uppercase tracking-widest mb-4"
-              style={{
-                fontSize: 13,
-                color: "#E8339E",
-                letterSpacing: "4px",
-              }}
-            >
-              New Book
-            </p>
 
             {/* Heading — serif style */}
             <h2
