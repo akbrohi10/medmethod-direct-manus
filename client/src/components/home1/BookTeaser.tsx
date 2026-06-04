@@ -1,9 +1,9 @@
 /* =============================================================================
    BookTeaser — MedMethod Direct
    
-   Design: Dark plum/aubergine background. Book cover on the left with 3D
-   perspective. Right side has elegant serif headings, body copy, italic tagline,
-   and a pink "ORDER ON AMAZON" CTA button.
+   Design: Dark plum/aubergine background. Book cover on the left with "NEW BOOK"
+   badge overlaying the top. Right side has elegant serif headings, body copy,
+   italic tagline, and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
 const BOOK_COVER_URL = "/manus-storage/dr-aldeek-book-hero_65fd1689.png";
@@ -28,22 +28,10 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
       />
 
       <div className="max-w-6xl mx-auto relative">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
 
           {/* ── Book Cover — Left side ── */}
-          <div className="flex-shrink-0 flex flex-col items-center relative">
-            {/* Big NEW BOOK label above the photo */}
-            <h3
-              className="font-black uppercase tracking-wider text-center mb-6"
-              style={{
-                fontSize: "clamp(2rem, 4vw, 2.8rem)",
-                color: "#fff",
-                letterSpacing: "6px",
-                textShadow: "0 2px 20px rgba(232,51,158,0.4)",
-              }}
-            >
-              New Book
-            </h3>
+          <div className="flex-shrink-0 relative self-center lg:self-start">
             {/* Ambient glow behind book */}
             <div
               className="absolute rounded-full blur-3xl"
@@ -64,12 +52,28 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 filter: "drop-shadow(0 24px 48px rgba(90,20,120,0.4)) drop-shadow(0 8px 20px rgba(0,0,0,0.4))",
               }}
             >
+              {/* NEW BOOK badge — overlaying top of photo */}
+              <div
+                className="absolute top-4 left-1/2 -translate-x-1/2 z-20 font-black uppercase tracking-wider text-center"
+                style={{
+                  fontSize: "0.75rem",
+                  letterSpacing: "4px",
+                  color: "#fff",
+                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+                  padding: "8px 20px",
+                  borderRadius: 24,
+                  boxShadow: "0 4px 16px rgba(232,51,158,0.4)",
+                }}
+              >
+                New Book
+              </div>
+
               <img
                 src={BOOK_COVER_URL}
                 alt="Dr. Al-Deek holding The Menopause Weight Loss Trap book"
                 className="relative z-10 object-cover"
                 style={{
-                  width: 460,
+                  width: 420,
                   maxWidth: "100%",
                   height: "auto",
                   borderRadius: 16,
@@ -79,9 +83,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
           </div>
 
           {/* ── Copy — Right side ── */}
-          <div className="flex-1 text-center lg:text-left">
-
-
+          <div className="flex-1 text-center lg:text-left pt-0 lg:pt-4">
 
             {/* Heading — serif style */}
             <h2
@@ -162,32 +164,22 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <span style={{ fontSize: 18 }}>→</span>
             </a>
 
-            {/* Secondary link — Dr. Al-Deek personal site */}
+            {/* Secondary link — Dr. Al-Deek personal site (muted so it doesn't compete with CTA) */}
             <a
               href="https://drjumanaaldeek.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3"
+              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3 justify-center lg:justify-start"
               style={{
-                fontSize: 15,
-                fontWeight: 500,
-                color: "#E8339E",
+                fontSize: 14,
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.55)",
                 textDecoration: "none",
               }}
             >
               Read more about Dr. Jumana Al-Deek
-              <span className="transition-transform group-hover:translate-x-1">→</span>
+              <span className="transition-transform group-hover:translate-x-1" style={{ color: "rgba(255,255,255,0.4)" }}>→</span>
             </a>
-
-            {/* Credit line */}
-            <p
-              className="mt-6 leading-relaxed"
-              style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", maxWidth: 520 }}
-            >
-              A board-certified physician's guide to GLP-1s, hormones, and metabolism by Dr.
-              Jumana Aldeek, DO — the method that turns midlife into your comeback, not your
-              decline.
-            </p>
           </div>
 
         </div>
