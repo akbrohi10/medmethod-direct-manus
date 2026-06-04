@@ -147,19 +147,19 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
               style={{
-                padding: "16px 36px",
-                fontSize: 12,
-                letterSpacing: "2px",
+                padding: "20px 48px",
+                fontSize: 18,
+                letterSpacing: "3px",
                 background: "linear-gradient(135deg, #E8339E, #d64a8f)",
                 color: "#fff",
                 border: "none",
-                boxShadow: "0 8px 32px rgba(232,51,158,0.35)",
+                boxShadow: "0 12px 40px rgba(232,51,158,0.45), 0 4px 16px rgba(232,51,158,0.25)",
                 textDecoration: "none",
                 cursor: "pointer",
               }}
             >
               Order on Amazon
-              <span style={{ fontSize: 14 }}>→</span>
+              <span style={{ fontSize: 18 }}>→</span>
             </a>
 
             {/* Secondary link — Dr. Al-Deek personal site */}
