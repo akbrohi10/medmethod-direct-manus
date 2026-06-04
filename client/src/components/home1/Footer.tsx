@@ -133,10 +133,12 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "About", href: "#about" },
                 { label: "Our Providers", href: "#about" },
                 { label: "FAQ", href: "#faq" },
+                { label: "Dr. Jumana Al-Deek", href: "https://drjumanaaldeek.com" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
                     href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="text-white/50 hover:text-white text-sm transition-colors"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >

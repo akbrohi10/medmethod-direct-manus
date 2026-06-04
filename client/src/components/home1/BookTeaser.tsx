@@ -162,9 +162,26 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <span style={{ fontSize: 14 }}>→</span>
             </a>
 
+            {/* Secondary link — Dr. Al-Deek personal site */}
+            <a
+              href="https://drjumanaaldeek.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-6 transition-opacity hover:opacity-100"
+              style={{
+                fontSize: 14,
+                color: "rgba(255,255,255,0.65)",
+                textDecoration: "none",
+                borderBottom: "1px solid rgba(255,255,255,0.3)",
+                paddingBottom: 2,
+              }}
+            >
+              Learn more about Dr. Jumana Al-Deek →
+            </a>
+
             {/* Credit line */}
             <p
-              className="mt-8 leading-relaxed"
+              className="mt-6 leading-relaxed"
               style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", maxWidth: 520 }}
             >
               A board-certified physician's guide to GLP-1s, hormones, and metabolism by Dr.
