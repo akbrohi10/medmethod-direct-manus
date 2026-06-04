@@ -132,10 +132,8 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               href="https://www.amazon.com/dp/B0F1TQ2MBM"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
+              className="inline-flex items-center justify-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 w-full sm:w-auto text-sm sm:text-base lg:text-lg px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-5"
               style={{
-                padding: "20px 48px",
-                fontSize: 18,
                 letterSpacing: "3px",
                 background: "linear-gradient(135deg, #E8339E, #d64a8f)",
                 color: "#fff",
@@ -146,7 +144,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               }}
             >
               Order on Amazon
-              <span style={{ fontSize: 18 }}>→</span>
+              <span className="text-sm sm:text-base lg:text-lg">→</span>
             </a>
 
             {/* Secondary link — Dr. Al-Deek personal site (muted so it doesn't compete with CTA) */}
