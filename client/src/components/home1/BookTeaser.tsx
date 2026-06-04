@@ -70,6 +70,18 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
           <div className="flex-1 text-center lg:text-left">
 
 
+            {/* Eyebrow label */}
+            <p
+              className="font-extrabold uppercase tracking-widest mb-4"
+              style={{
+                fontSize: 13,
+                color: "#E8339E",
+                letterSpacing: "4px",
+              }}
+            >
+              New Book
+            </p>
+
             {/* Heading — serif style */}
             <h2
               className="mb-8"
