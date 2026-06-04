@@ -138,7 +138,7 @@ import "./articles/putting-yourself-last-has-to-change";
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={Home1} />
       <Route path={"/male"} component={MaleHome} />
       <Route path={"/blog"} component={BlogIndex} />
       <Route path={"/blog/:slug"} component={BlogPost} />
@@ -250,6 +250,7 @@ function Router() {
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
       <Route path="/home-1" component={Home1} />
       <Route path="/home-2" component={Home2} />
+      <Route path="/home-3" component={Home} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsOfService} />
       <Route path="/hipaa-notice" component={HipaaNotice} />
