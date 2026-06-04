@@ -167,7 +167,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               href="https://drjumanaaldeek.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 group transition-all hover:gap-3"
+              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3"
               style={{
                 fontSize: 15,
                 fontWeight: 500,
