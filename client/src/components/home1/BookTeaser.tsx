@@ -167,16 +167,16 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               href="https://drjumanaaldeek.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-6 transition-opacity hover:opacity-100"
+              className="inline-flex items-center gap-2 mt-6 group transition-all hover:gap-3"
               style={{
-                fontSize: 14,
-                color: "rgba(255,255,255,0.65)",
+                fontSize: 15,
+                fontWeight: 500,
+                color: "#E8339E",
                 textDecoration: "none",
-                borderBottom: "1px solid rgba(255,255,255,0.3)",
-                paddingBottom: 2,
               }}
             >
-              Learn more about Dr. Jumana Al-Deek →
+              Read more about Dr. Jumana Al-Deek
+              <span className="transition-transform group-hover:translate-x-1">→</span>
             </a>
 
             {/* Credit line */}
