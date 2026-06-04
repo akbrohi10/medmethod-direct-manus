@@ -6,8 +6,7 @@
    and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
-const BOOK_COVER_URL =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/KzPyKVdwkqgxjlHd.png";
+const BOOK_COVER_URL = "/manus-storage/dr-aldeek-book-photo_9fe7a633.png";
 
 export default function BookTeaser({ onConsultClick }: { onConsultClick: () => void }) {
   return (
@@ -59,7 +58,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 src={BOOK_COVER_URL}
                 alt="The Menopause Weight Loss Trap book cover"
                 className="rounded-lg relative z-10"
-                style={{ width: 320, height: "auto" }}
+                style={{ width: 400, maxWidth: "100%", height: "auto", borderRadius: 12 }}
               />
               {/* Glossy shine overlay */}
               <div
