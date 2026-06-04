@@ -11,29 +11,29 @@ import { ChevronLeft, ChevronRight, Check, ArrowRight, Pill } from "lucide-react
 
 /* ── CDN URLs ─────────────────────────────────────────────────────────── */
 const SEMAGLUTIDE_VIAL =
-  "/manus-storage/semaglutideb12v2_89b7b383.png";
+  "/manus-storage/semaglutideb12v2_89b7b383_056326d3.png";
 const TIRZEPATIDE_VIAL =
-  "/manus-storage/tirzepatidev2_7c07c418.png";
+  "/manus-storage/tirzepatidev2_7c07c418_77c3ca8c.png";
 const ORAL_SEMAGLUTIDE =
-  "/manus-storage/oralsemaglutidev2_ed023e6c.png";
+  "/manus-storage/oralsemaglutidev2_ed023e6c_4de2326d.png";
 const ORAL_TIRZEPATIDE =
-  "/manus-storage/oraltirze_5b190778.png";
+  "/manus-storage/oraltirze_5b190778_2119af90.png";
 const ESTRADIOL_PATCH =
-  "/manus-storage/patchv2_0f258fe0.png";
+  "/manus-storage/patchv2_0f258fe0_49523870.png";
 const PROGESTERONE_CAPSULES =
-  "/manus-storage/progesterone_0ae7daa8.png";
+  "/manus-storage/progesterone_0ae7daa8_3479ebfe.png";
 const TESTOSTERONE_CREAM =
-  "/manus-storage/testocreammetered_397b8bc6.png";
+  "/manus-storage/testocreammetered_397b8bc6_10ecf81c.png";
 const FOUR_HORMONE_CREAM =
-  "/manus-storage/4hormone_c3653d96.png";
+  "/manus-storage/4hormone_c3653d96_2c9f906e.png";
 const BI_EST_CREAM =
-  "/manus-storage/biest_179b52e8.png";
+  "/manus-storage/biest_179b52e8_ddeae887.png";
 const VAGINAL_ESTROGEN_CREAM =
-  "/manus-storage/vaginalestrogen_f54954dd.png";
+  "/manus-storage/vaginalestrogen_f54954dd_0f636a37.png";
 const DHEA_CAPSULES =
-  "/manus-storage/dheacapsules_ee755e86.png";
+  "/manus-storage/dheacapsules_ee755e86_f8355c90.png";
 const TESTOSTERONE_LOW_DOSE =
-  "/manus-storage/testocream_20960034.png";
+  "/manus-storage/testocream_20960034_d29c8388.png";
 const ZEPBOUND_PEN =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CEVzfjoRpvjPssOc.webp";
 const ZEPBOUND_LOGO =
@@ -43,59 +43,59 @@ const WEGOVY_PEN =
 const WEGOVY_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/RsueKshBHQxlBMUU.png";
 const WEGOVY_PILL =
-  "/manus-storage/Wegovypill_06012b53.jpeg";
+  "/manus-storage/Wegovypill_06012b53_af214ad9.jpeg";
 const FOUNDAYO_BOTTLE =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/mZQtjRShlxknoDgQ.png";
 const FOUNDAYO_LOGO =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/vuFGUEgaqyBIXccG.png";
 const MINOXIDIL_5 =
-  "/manus-storage/minoxidil-5_b8936bc5.png";
+  "/manus-storage/minoxidil-5_b8936bc5_ab4f0ac3.png";
 const ORAL_MINOXIDIL =
-  "/manus-storage/oral-minoxidil-new_04bbc7e7.png";
+  "/manus-storage/oral-minoxidil-new_04bbc7e7_7869e08b.png";
 const SPIRONOLACTONE =
-  "/manus-storage/spironolactone_48650ef8.png";
+  "/manus-storage/spironolactone_48650ef8_9b8e2b53.png";
 const FINASTERIDE =
-  "/manus-storage/finasteride_91ef4261.png";
+  "/manus-storage/finasteride_91ef4261_7800773e.png";
 const DUTASTERIDE =
-  "/manus-storage/dutasteride_5c68aad7.png";
+  "/manus-storage/dutasteride_5c68aad7_a146599d.png";
 const TOPICAL_FINASTERIDE =
-  "/manus-storage/topical-finasteride_0a06ba59.png";
+  "/manus-storage/topical-finasteride_0a06ba59_f7179194.png";
 const MINOXIDIL_FINASTERIDE_COMBO =
-  "/manus-storage/minoxidil-finasteride-combo_009cb028.png";
+  "/manus-storage/minoxidil-finasteride-combo_009cb028_90774d76.png";
 const KETOCONAZOLE =
-  "/manus-storage/ketoconazole_f2b74b1f.png";
+  "/manus-storage/ketoconazole_f2b74b1f_d9a0703f.png";
 const CICLOPIROX =
-  "/manus-storage/ciclopirox_ba847a79.png";
+  "/manus-storage/ciclopirox_ba847a79_562f2291.png";
 const SELENIUM_SULFIDE =
-  "/manus-storage/selenium_4ca6403c.png";
+  "/manus-storage/selenium_4ca6403c_a46a3c6e.png";
 const TRETINOIN =
-  "/manus-storage/tretinoin_v2_52825a15.png";
+  "/manus-storage/tretinoin_v2_52825a15_90644220.png";
 const TAZAROTENE =
-  "/manus-storage/tazarotene_v2_fcf3cca9.png";
+  "/manus-storage/tazarotene_v2_fcf3cca9_95e7dfa1.png";
 const ADAPALENE =
-  "/manus-storage/adapalene_v4_61099e38.png";
+  "/manus-storage/adapalene_v4_61099e38_fe1ec1c3.png";
 const HYDROQUINONE =
-  "/manus-storage/hydroquinone_0120a995.png";
+  "/manus-storage/hydroquinone_0120a995_d1e513fd.png";
 const TRANEXAMIC_ACID =
-  "/manus-storage/tranexamicacid_a087e180.png";
+  "/manus-storage/tranexamicacid_a087e180_2e3dfcef.png";
 const AZELAIC_ACID =
-  "/manus-storage/azelaicacid_v2_bf448066.png";
+  "/manus-storage/azelaicacid_v2_bf448066_9d294e99.png";
 const CLINDAMYCIN =
-  "/manus-storage/clindamycin_b0f4b92b.png";
+  "/manus-storage/clindamycin_b0f4b92b_c6b63a7d.png";
 const DAPSONE =
-  "/manus-storage/dapsone_v3_09a2b776.png";
+  "/manus-storage/dapsone_v3_09a2b776_045657a9.png";
 const BENZOYL_PEROXIDE =
-  "/manus-storage/benzoylperoxide_2ff178bd.png";
+  "/manus-storage/benzoylperoxide_2ff178bd_8dcfd18b.png";
 const GLYCOLIC_ACID =
-  "/manus-storage/glycolicacid_7fb074be.png";
+  "/manus-storage/glycolicacid_7fb074be_59b067d0.png";
 const SALICYLIC_ACID =
-  "/manus-storage/salicylicacid_a956be0b.png";
+  "/manus-storage/salicylicacid_a956be0b_d728e8e6.png";
 const TRIPLE_CREAM =
-  "/manus-storage/triplecream_8955ce3e.png";
+  "/manus-storage/triplecream_8955ce3e_5b73a959.png";
 const LATISSE =
-  "/manus-storage/latisse_8202dd46.png";
+  "/manus-storage/latisse_8202dd46_05b22cf1.png";
 const BIMATOPROST =
-  "/manus-storage/bimatoprost_4b6063ef.png";
+  "/manus-storage/bimatoprost_4b6063ef_f2eea21f.png";
 
 /* ── Medication Data ──────────────────────────────────────────────────── */
 interface Med {
@@ -148,8 +148,8 @@ const medications: Med[] = [
     name: "Wegovy",
     category: "weight-loss",
     form: "Semaglutide Injection · Novo Nordisk",
-    image: "/manus-storage/wegovy_182c2026.jpeg",
-    bgImage: "/manus-storage/wegovy_182c2026.jpeg",
+    image: "/manus-storage/wegovy_182c2026_a4847894.jpeg",
+    bgImage: "/manus-storage/wegovy_182c2026_a4847894.jpeg",
     program: "NovoCare / Telehealth",
     accent: "#E8339E",
     badge: "Brand Name",
@@ -184,8 +184,8 @@ const medications: Med[] = [
     name: "Zepbound",
     category: "weight-loss",
     form: "Tirzepatide Injection · Eli Lilly",
-    image: "/manus-storage/zepbound_4bda9ad3.jpeg",
-    bgImage: "/manus-storage/zepbound_4bda9ad3.jpeg",
+    image: "/manus-storage/zepbound_4bda9ad3_7b01e991.jpeg",
+    bgImage: "/manus-storage/zepbound_4bda9ad3_7b01e991.jpeg",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",
@@ -202,8 +202,8 @@ const medications: Med[] = [
     name: "Foundayo",
     category: "weight-loss",
     form: "Orforglipron Tablet · Eli Lilly",
-    image: "/manus-storage/Foundayo_569ed15f.jpeg",
-    bgImage: "/manus-storage/Foundayo_569ed15f.jpeg",
+    image: "/manus-storage/Foundayo_569ed15f_2f7d1bed.jpeg",
+    bgImage: "/manus-storage/Foundayo_569ed15f_2f7d1bed.jpeg",
     program: "LillyDirect",
     accent: "#E8339E",
     badge: "Brand Name",

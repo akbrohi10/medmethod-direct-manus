@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const DR_ALDEEK_SQUARE =
-  "/manus-storage/dr-aldeek-hero-2026_628d7e54.png";
+  "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
 
 /** 7 unified-style coach portraits — same studio backdrop, key light,
  *  wardrobe family. AI-generated stand-ins; replace with real headshots
@@ -15,13 +15,13 @@ const DR_ALDEEK_SQUARE =
  *  Hispanic, South Asian, East Asian; ages 28-46. Gender-alternated
  *  for visual rhythm in the avatar strip. */
 const COACHES: { url: string; initials: string; name: string }[] = [
-  { url: "/manus-storage/coach-07-female-white-30s_410ae205.png", initials: "MR", name: "Megan R." },
-  { url: "/manus-storage/coach-11-male-black-40s_629b9bbb.png", initials: "JT", name: "Jamal T." },
-  { url: "/manus-storage/coach-08-female-black-30s_cde302dd.png", initials: "DM", name: "Danielle M." },
-  { url: "/manus-storage/coach-09-female-hispanic-30s_3e0dad17.png", initials: "AL", name: "Ana L." },
-  { url: "/manus-storage/coach-03-male-hispanic-40s_070f8371.png", initials: "TV", name: "Tomás V." },
-  { url: "/manus-storage/coach-10-female-southasian-30s_e017da36.png", initials: "RP", name: "Riya P." },
-  { url: "/manus-storage/coach-12-female-eastasian-40s_cd46a42f.png", initials: "CB", name: "Cara B." },
+  { url: "/manus-storage/coach-07-female-white-30s_410ae205_4bec2135.png", initials: "MR", name: "Megan R." },
+  { url: "/manus-storage/coach-11-male-black-40s_629b9bbb_33cde463.png", initials: "JT", name: "Jamal T." },
+  { url: "/manus-storage/coach-08-female-black-30s_cde302dd_fe6f4688.png", initials: "DM", name: "Danielle M." },
+  { url: "/manus-storage/coach-09-female-hispanic-30s_3e0dad17_514b13b8.png", initials: "AL", name: "Ana L." },
+  { url: "/manus-storage/coach-03-male-hispanic-40s_070f8371_01fe1184.png", initials: "TV", name: "Tomás V." },
+  { url: "/manus-storage/coach-10-female-southasian-30s_e017da36_d1ce59a7.png", initials: "RP", name: "Riya P." },
+  { url: "/manus-storage/coach-12-female-eastasian-40s_cd46a42f_63a47106.png", initials: "CB", name: "Cara B." },
 ];
 
 const CREDENTIAL_PILLS = [
