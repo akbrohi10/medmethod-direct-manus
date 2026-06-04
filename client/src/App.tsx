@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Home1 from "./pages/Home1";
+import Home2 from "./pages/Home2";
 import MaleHome from "./pages/MaleHome";
 import BlogIndex from "./pages/BlogIndex";
 import LocationMcLean from "@/pages/LocationMcLean";
@@ -248,6 +249,7 @@ function Router() {
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
       <Route path="/home-1" component={Home1} />
+      <Route path="/home-2" component={Home2} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsOfService} />
       <Route path="/hipaa-notice" component={HipaaNotice} />
