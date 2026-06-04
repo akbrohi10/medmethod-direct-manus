@@ -52,21 +52,6 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 filter: "drop-shadow(0 24px 48px rgba(90,20,120,0.4)) drop-shadow(0 8px 20px rgba(0,0,0,0.4))",
               }}
             >
-              {/* NEW BOOK badge — overlaying top of photo */}
-              <div
-                className="absolute top-4 left-1/2 -translate-x-1/2 z-20 font-black uppercase tracking-wider text-center"
-                style={{
-                  fontSize: "0.75rem",
-                  letterSpacing: "4px",
-                  color: "#fff",
-                  background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                  padding: "8px 20px",
-                  borderRadius: 24,
-                  boxShadow: "0 4px 16px rgba(232,51,158,0.4)",
-                }}
-              >
-                New Book
-              </div>
 
               <img
                 src={BOOK_COVER_URL}
