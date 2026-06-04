@@ -68,17 +68,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
           {/* ── Copy — Right side ── */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Section label */}
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-8">
-              <div className="h-px w-6" style={{ background: "rgba(255,255,255,0.3)" }} />
-              <span
-                className="text-[11px] font-semibold uppercase tracking-widest"
-                style={{ color: "rgba(255,255,255,0.7)", letterSpacing: "3px" }}
-              >
-                The Book Every Woman in Midlife Needs
-              </span>
-              <div className="h-px w-6" style={{ background: "rgba(255,255,255,0.3)" }} />
-            </div>
+
 
             {/* Heading — serif style */}
             <h2
