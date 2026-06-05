@@ -8,7 +8,7 @@
 
 import { useState } from "react";
 
-const TRUNCATE_LENGTH = 140;
+const TRUNCATE_LENGTH = 80;
 
 const testimonials = [
   {
