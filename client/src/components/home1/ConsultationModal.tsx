@@ -10,8 +10,10 @@
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { X, Check } from "lucide-react";
+import { toast } from "sonner";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
+const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
 
 interface Props {
   open: boolean;
@@ -312,6 +314,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [attribution, setAttribution] = useState<string | null>(null);
   const [attributionOther, setAttributionOther] = useState("");
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [webhookSubmitting, setWebhookSubmitting] = useState(false);
+  const [webhookSubmitted, setWebhookSubmitted] = useState(false);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -373,13 +377,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     isValidEmail(leadData.email) &&
     isValidPhone(leadData.phone);
 
-  const isNextDisabled = isServiceStep
+  const isNextDisabled = webhookSubmitting || (isServiceStep
     ? selectedServices.length === 0
     : isQuestionStep
       ? isAgeStep ? computedAge < 18 : isGoalsStep ? false : !selected
       : isLeadStep ? !isLeadValid
       : isAttributionStep ? false
-      : false;
+      : false);
 
   const toggleService = (label: string) => {
     setSelectedServices((prev) =>
@@ -387,7 +391,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     );
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isServiceStep) {
       if (selectedServices.length === 0) return;
       setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
@@ -440,7 +444,55 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       }
       setStep((s) => s + 1);
     } else if (isExpectationStep) {
+      // Fire the GHL webhook before advancing to the calendar step
+      await submitToWebhook();
+    }
+  };
+
+  const submitToWebhook = async () => {
+    if (webhookSubmitting || webhookSubmitted) {
       setStep((s) => s + 1);
+      return;
+    }
+
+    const payload = {
+      services_selected: answers.services || selectedServices.join(", ") || "",
+      primary_goal: answers.goal || "",
+      time_on_mind: answers.duration || "",
+      previous_treatments: answers.tried || "",
+      date_of_birth: answers.age || "",
+      desired_change: answers.goals || goalsText.trim() || "",
+      how_did_you_find_us: attribution && attribution !== "Other" ? attribution : (attribution === "Other" ? "Other" : ""),
+      how_did_you_find_us_other: attribution === "Other" ? attributionOther.trim() : "",
+      first_name: leadData.firstName.trim() || answers.firstName || "",
+      email: leadData.email.trim() || answers.email || "",
+      phone: leadData.phone || answers.phone || "",
+      zip_code: leadData.zip || answers.zip || "",
+      source: "Manus Website",
+      form_name: "New Website Intake Form",
+    };
+
+    console.log("GHL webhook payload:", payload);
+
+    setWebhookSubmitting(true);
+    try {
+      const response = await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook failed with status ${response.status}`);
+      }
+
+      setWebhookSubmitted(true);
+      setStep((s) => s + 1);
+    } catch (error) {
+      console.error("GHL webhook error:", error);
+      toast.error("Something went wrong submitting your information. Please try again.");
+    } finally {
+      setWebhookSubmitting(false);
     }
   };
 
@@ -472,6 +524,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     setAttribution(null);
     setAttributionOther("");
     setShowExitConfirm(false);
+    setWebhookSubmitting(false);
+    setWebhookSubmitted(false);
     onClose();
   };
 
@@ -892,7 +946,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {isExpectationStep ? "Choose a Time →" : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
+              {webhookSubmitting ? "Submitting..." : isExpectationStep ? "Choose a Time →" : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
             </button>
             {step > 0 && (
               <button
