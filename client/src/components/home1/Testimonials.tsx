@@ -3,7 +3,12 @@
    12 patient stories: ages 30s–60s+, post-pregnancy, perimenopause, menopause,
    hormone optimization, weight loss
    Layout: 4 cards visible, horizontal scroll for all 12
+   Truncated text with inline "Read more" / "Show less" expand/collapse
    ============================================================================= */
+
+import { useState } from "react";
+
+const TRUNCATE_LENGTH = 140;
 
 const testimonials = [
   {
@@ -128,6 +133,137 @@ const testimonials = [
   },
 ];
 
+function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: number }) {
+  const [expanded, setExpanded] = useState(false);
+  const needsTruncation = t.text.length > TRUNCATE_LENGTH;
+  const displayText = expanded || !needsTruncation
+    ? t.text
+    : t.text.slice(0, TRUNCATE_LENGTH).trimEnd() + "...";
+
+  return (
+    <div
+      key={index}
+      className="flex-shrink-0 rounded-2xl overflow-hidden flex flex-col border shadow-sm"
+      style={{
+        background: 'rgba(255,255,255,0.06)',
+        borderColor: 'rgba(255,255,255,0.10)',
+        width: "clamp(280px, 78vw, 300px)",
+        scrollSnapAlign: "start",
+      }}
+    >
+      {/* Before / After photo */}
+      <div className="relative w-full overflow-hidden" style={{ height: 180 }}>
+        <img
+          src={t.beforeAfter}
+          alt={`${t.name} transformation`}
+          className="w-full h-full object-cover object-top"
+        />
+        {/* Before / After labels */}
+        <div className="absolute bottom-0 left-0 right-0 flex">
+          <div
+            className="flex-1 text-center text-white text-xs font-bold py-1"
+            style={{ background: "rgba(0,0,0,0.55)", letterSpacing: "1px" }}
+          >
+            BEFORE
+          </div>
+          <div
+            className="flex-1 text-center text-white text-xs font-bold py-1"
+            style={{
+              background: "linear-gradient(90deg, rgba(232,51,158,0.80), rgba(122,30,126,0.80))",
+              letterSpacing: "1px",
+            }}
+          >
+            AFTER
+          </div>
+        </div>
+        {/* Result badge */}
+        <div
+          className="absolute top-2 right-2 text-white text-xs font-extrabold px-2.5 py-1 rounded-full"
+          style={{
+            background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
+            letterSpacing: "0.5px",
+          }}
+        >
+          -{t.lost} in {t.duration}
+        </div>
+      </div>
+
+      {/* Card body */}
+      <div className="flex flex-col flex-1 p-5">
+        {/* Stars */}
+        <div className="flex gap-0.5 mb-3">
+          {Array.from({ length: t.stars }).map((_, si) => (
+            <span key={si} style={{ color: "#E8339E", fontSize: "0.9rem" }}>★</span>
+          ))}
+          {Array.from({ length: 5 - t.stars }).map((_, si) => (
+            <span key={`empty-${si}`} style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.9rem" }}>★</span>
+          ))}
+        </div>
+
+        {/* Quote with expand/collapse */}
+        <div className="flex-1 mb-4">
+          <p
+            className="text-white/80 leading-relaxed text-sm"
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontStyle: "italic",
+              transition: "all 0.3s ease",
+            }}
+          >
+            "{displayText}"
+          </p>
+          {needsTruncation && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="mt-2 text-xs font-semibold transition-colors hover:opacity-80"
+              style={{
+                color: "#E8339E",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                fontFamily: "Montserrat, sans-serif",
+              }}
+            >
+              {expanded ? "Show less ↑" : "Read more →"}
+            </button>
+          )}
+        </div>
+
+        {/* Attribution + treatment tag */}
+        <div className="flex items-end justify-between gap-2 flex-wrap">
+          <div>
+            <div
+              className="font-bold text-sm text-white"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              {t.name}
+            </div>
+            <div
+              className="text-white/60 text-xs"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              {t.age}
+            </div>
+          </div>
+          <span
+            className="px-2.5 py-1 rounded-full text-xs font-bold tracking-wide"
+            style={{
+              background: "linear-gradient(135deg, rgba(232,51,158,0.10), rgba(122,30,126,0.15))",
+              border: "1px solid rgba(232,51,158,0.25)",
+              color: "#E8339E",
+              fontFamily: "Montserrat, sans-serif",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {t.treatment}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
   return (
     <section className="py-12 md:py-16 lg:py-20 overflow-hidden" style={{ background: "#0D0D1A" }}>
@@ -181,104 +317,7 @@ export default function Testimonials() {
           }}
         >
           {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 rounded-2xl overflow-hidden flex flex-col border shadow-sm"
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                borderColor: 'rgba(255,255,255,0.10)',
-                width: "clamp(280px, 78vw, 300px)",
-                scrollSnapAlign: "start",
-              }}
-            >
-              {/* Before / After photo */}
-              <div className="relative w-full overflow-hidden" style={{ height: 180 }}>
-                <img
-                  src={t.beforeAfter}
-                  alt={`${t.name} transformation`}
-                  className="w-full h-full object-cover object-top"
-                />
-                {/* Before / After labels */}
-                <div className="absolute bottom-0 left-0 right-0 flex">
-                  <div
-                    className="flex-1 text-center text-white text-xs font-bold py-1"
-                    style={{ background: "rgba(0,0,0,0.55)", letterSpacing: "1px" }}
-                  >
-                    BEFORE
-                  </div>
-                  <div
-                    className="flex-1 text-center text-white text-xs font-bold py-1"
-                    style={{
-                      background: "linear-gradient(90deg, rgba(232,51,158,0.80), rgba(122,30,126,0.80))",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    AFTER
-                  </div>
-                </div>
-                {/* Result badge */}
-                <div
-                  className="absolute top-2 right-2 text-white text-xs font-extrabold px-2.5 py-1 rounded-full"
-                  style={{
-                    background: "linear-gradient(135deg, #E8339E, #7A1E7E)",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  -{t.lost} in {t.duration}
-                </div>
-              </div>
-
-              {/* Card body */}
-              <div className="flex flex-col flex-1 p-5">
-                {/* Stars */}
-                <div className="flex gap-0.5 mb-3">
-                  {Array.from({ length: t.stars }).map((_, si) => (
-                    <span key={si} style={{ color: "#E8339E", fontSize: "0.9rem" }}>★</span>
-                  ))}
-                  {Array.from({ length: 5 - t.stars }).map((_, si) => (
-                    <span key={`empty-${si}`} style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.9rem" }}>★</span>
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <p
-                  className="text-white/80 leading-relaxed text-sm flex-1 mb-4"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontStyle: "italic" }}
-                >
-                  "{t.text}"
-                </p>
-
-                {/* Attribution + treatment tag */}
-                <div className="flex items-end justify-between gap-2 flex-wrap">
-                  <div>
-                    <div
-                      className="font-bold text-sm text-white"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {t.name}
-                    </div>
-                    <div
-                      className="text-white/60 text-xs"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {t.age}
-                    </div>
-                  </div>
-                  <span
-                    className="px-2.5 py-1 rounded-full text-xs font-bold tracking-wide"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(232,51,158,0.10), rgba(122,30,126,0.15))",
-                      border: "1px solid rgba(232,51,158,0.25)",
-                      color: "#E8339E",
-                      fontFamily: "Montserrat, sans-serif",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {t.treatment}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard key={i} t={t} index={i} />
           ))}
         </div>
 
