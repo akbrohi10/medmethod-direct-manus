@@ -11,7 +11,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { X, Check } from "lucide-react";
 
-const CALENDLY_URL = "https://calendly.com/medmethoddirect/free-consultation";
+const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
 
 interface Props {
   open: boolean;
@@ -480,7 +480,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     setShowExitConfirm(true);
   };
 
-  const calendlyWithParams = `${CALENDLY_URL}?utm_source=website&utm_medium=modal&utm_campaign=${encodeURIComponent(answers["services"] || "")}&utm_content=${encodeURIComponent(answers["age"] || "")}&name=${encodeURIComponent(answers["firstName"] || "")}&email=${encodeURIComponent(answers["email"] || "")}`;
+  // Booking widget URL (SendMeAPro)
+  const bookingWidgetUrl = BOOKING_URL;
 
   return (
     <div
@@ -864,12 +865,14 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               </p>
               <div className="rounded-xl overflow-hidden border border-gray-100">
                 <iframe
-                  src={calendlyWithParams}
+                  src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
                   width="100%"
                   height="560"
                   frameBorder="0"
+                  scrolling="no"
+                  id="Qxw3vN2dmBw9LSUQag8J_1780681491997"
                   title="Schedule your free consultation"
-                  style={{ border: "none", display: "block" }}
+                  style={{ border: "none", overflow: "hidden", display: "block" }}
                 />
               </div>
             </div>
