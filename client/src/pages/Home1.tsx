@@ -88,13 +88,14 @@ export default function Home1() {
   return (
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
-        <title>MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women</title>
+        <title>MedMethod Direct | Hormone & Weight Loss Clinic</title>
         <meta name="description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states. Schedule your free consultation today." />
-        <link rel="canonical" href="https://medmethoddirect.com/home-1" />
+        <meta name="keywords" content="hormone therapy, menopause treatment, weight loss clinic, GLP-1, semaglutide, tirzepatide, BHRT, virtual doctor, telehealth, longevity medicine, women's health" />
+        <link rel="canonical" href="https://medmethoddirect.com/" />
         <meta property="og:title" content="MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women" />
         <meta property="og:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://medmethoddirect.com/home-1" />
+        <meta property="og:url" content="https://medmethoddirect.com/" />
         <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:site_name" content="MedMethod Direct" />
         <meta name="twitter:card" content="summary_large_image" />

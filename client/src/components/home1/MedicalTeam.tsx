@@ -357,7 +357,7 @@ export default function MedicalTeam({
               >
                 Your Doctor
               </span>
-              <h2
+              <h1
                 className="font-black text-[#111111] leading-[1.05]"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
@@ -378,7 +378,7 @@ export default function MedicalTeam({
                 >
                   DR. AL-DEEK.
                 </span>
-              </h2>
+              </h1>
               <p
                 className="mt-4 text-[#3a3a3a] text-lg md:text-xl leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
