@@ -129,6 +129,10 @@ interface Med {
   category?: "weight-loss" | "hormones" | "adrenal-vitality" | "hair-care" | "skin-care";
   /* Dual availability badges (e.g. Brand Name + Compounded) shown in place of price */
   availabilityBadges?: string[];
+  /* When true, hides the price from the card bottom panel */
+  hidePrice?: boolean;
+  /* Label shown in place of "Compounded · Rx" when price is hidden */
+  availabilityLabel?: string;
 }
 
 /* ── Filter Categories ─────────────────────────────────────────────────
@@ -443,10 +447,11 @@ const medications: Med[] = [
     badge: "In Stock",
     trustSignal: "FDA-Approved Active",
     savingsV2: true,
-    availabilityBadges: ["Brand Name", "Compounded"],
+    hidePrice: true,
+    availabilityLabel: "Brand Name \u00B7 Compounded \u00B7 Rx",
     details: [
       "Reactivates dormant follicles & stimulates new growth",
-      "Foam or topical solution — your choice",
+      "Foam or topical solution \u2014 your choice",
       "Brand name or compounded available",
     ],
   },
@@ -1670,62 +1675,8 @@ function MedCard({
           </div>
         )}
 
-        {/* Availability badges — shown when price is removed but availabilityBadges is set */}
-        {!med.price && med.availabilityBadges && med.availabilityBadges.length > 0 && (
-          <div
-            className="mt-4 -mx-5 px-5 py-4 relative"
-            style={{
-              background: `linear-gradient(135deg, ${med.accent}08 0%, ${med.accent}14 50%, ${med.accent}08 100%)`,
-              borderTop: `1px solid ${med.accent}20`,
-              borderBottom: `1px solid ${med.accent}20`,
-            }}
-          >
-            {/* Trust signal chip */}
-            {med.trustSignal && (
-              <div
-                className="absolute -top-2.5 right-4 inline-flex items-center justify-center rounded-full px-3 py-1.5"
-                style={{
-                  background: `linear-gradient(135deg, ${med.accent}, ${med.accent}DD)`,
-                  boxShadow: `0 6px 14px ${med.accent}50, 0 0 0 2px #fff`,
-                }}
-              >
-                <span className="text-[10px] font-extrabold text-white uppercase tracking-[0.08em] leading-none">{med.trustSignal}</span>
-              </div>
-            )}
-            <p
-              className="text-[10px] font-bold uppercase tracking-[0.12em] mb-2"
-              style={{ color: "#666" }}
-            >
-              Available as
-            </p>
-            <div className="flex items-center gap-2">
-              {med.availabilityBadges.map((badge) => (
-                <span
-                  key={badge}
-                  className="inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider"
-                  style={{
-                    background: badge.toLowerCase().includes("brand")
-                      ? "#1B2A4A"
-                      : `linear-gradient(135deg, ${med.accent}, ${med.accent}DD)`,
-                    color: "#fff",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
-            <p
-              className="text-[11px] mt-2"
-              style={{ color: "#666", fontStyle: "italic" }}
-            >
-              Pricing discussed during consultation
-            </p>
-          </div>
-        )}
-
         {/* Price — v2 layout (corner badge + dominant compounded price) */}
-        {med.price && med.savingsV2 && (
+        {(med.price || med.hidePrice) && med.savingsV2 && (
           <div
             className="mt-4 -mx-5 px-5 py-4 relative"
             style={{
@@ -1806,16 +1757,18 @@ function MedCard({
             ) : null}
 
             {/* Compounded price — dominant hero, sans-serif to match GLP-1 cards */}
-            <p className="text-base font-extrabold" style={{ color: "#111" }}>
-              {med.price}
-            </p>
+            {!med.hidePrice && (
+              <p className="text-base font-extrabold" style={{ color: "#111" }}>
+                {med.price}
+              </p>
+            )}
             <p
               className="text-[10px] font-bold uppercase tracking-[0.12em] mt-1"
               style={{ color: med.accent }}
             >
-              Compounded · Rx
+              {med.availabilityLabel || "Compounded \u00B7 Rx"}
             </p>
-            {med.priceNote && (
+            {!med.hidePrice && med.priceNote && (
               <p className="text-[12px] mt-1" style={{ color: "#666", fontWeight: 500 }}>
                 {med.priceNote}
               </p>
