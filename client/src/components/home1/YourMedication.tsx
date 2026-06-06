@@ -448,7 +448,7 @@ const medications: Med[] = [
     trustSignal: "FDA-Approved Active",
     savingsV2: true,
     hidePrice: true,
-    availabilityLabel: "Brand Name \u00B7 Compounded \u00B7 Rx",
+    availabilityLabel: "Brand Name or Compounded \u00B7 Rx",
     details: [
       "Reactivates dormant follicles & stimulates new growth",
       "Foam or topical solution \u2014 your choice",
