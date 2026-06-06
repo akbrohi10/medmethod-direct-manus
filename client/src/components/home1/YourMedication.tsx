@@ -127,6 +127,8 @@ interface Med {
   savingsV2?: boolean;
   /* Filter category — drives the segmented pill filter above the carousel. */
   category?: "weight-loss" | "hormones" | "adrenal-vitality" | "hair-care" | "skin-care";
+  /* Dual availability badges (e.g. Brand Name + Compounded) shown in place of price */
+  availabilityBadges?: string[];
 }
 
 /* ── Filter Categories ─────────────────────────────────────────────────
@@ -439,9 +441,9 @@ const medications: Med[] = [
     program: "HairCare",
     accent: "#C44D7B",
     badge: "In Stock",
-    price: "From $35/mo",
     trustSignal: "FDA-Approved Active",
     savingsV2: true,
+    availabilityBadges: ["Brand Name", "Compounded"],
     details: [
       "Reactivates dormant follicles & stimulates new growth",
       "Foam or topical solution — your choice",
@@ -1664,6 +1666,60 @@ function MedCard({
             </svg>
             <p className="text-[12px] font-medium" style={{ color: "#666" }}>
               Rx Only — prescribed by your MedMethod physician
+            </p>
+          </div>
+        )}
+
+        {/* Availability badges — shown when price is removed but availabilityBadges is set */}
+        {!med.price && med.availabilityBadges && med.availabilityBadges.length > 0 && (
+          <div
+            className="mt-4 -mx-5 px-5 py-4 relative"
+            style={{
+              background: `linear-gradient(135deg, ${med.accent}08 0%, ${med.accent}14 50%, ${med.accent}08 100%)`,
+              borderTop: `1px solid ${med.accent}20`,
+              borderBottom: `1px solid ${med.accent}20`,
+            }}
+          >
+            {/* Trust signal chip */}
+            {med.trustSignal && (
+              <div
+                className="absolute -top-2.5 right-4 inline-flex items-center justify-center rounded-full px-3 py-1.5"
+                style={{
+                  background: `linear-gradient(135deg, ${med.accent}, ${med.accent}DD)`,
+                  boxShadow: `0 6px 14px ${med.accent}50, 0 0 0 2px #fff`,
+                }}
+              >
+                <span className="text-[10px] font-extrabold text-white uppercase tracking-[0.08em] leading-none">{med.trustSignal}</span>
+              </div>
+            )}
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.12em] mb-2"
+              style={{ color: "#666" }}
+            >
+              Available as
+            </p>
+            <div className="flex items-center gap-2">
+              {med.availabilityBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  style={{
+                    background: badge.toLowerCase().includes("brand")
+                      ? "#1B2A4A"
+                      : `linear-gradient(135deg, ${med.accent}, ${med.accent}DD)`,
+                    color: "#fff",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+            <p
+              className="text-[11px] mt-2"
+              style={{ color: "#666", fontStyle: "italic" }}
+            >
+              Pricing discussed during consultation
             </p>
           </div>
         )}
