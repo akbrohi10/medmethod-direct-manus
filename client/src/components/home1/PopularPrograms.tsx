@@ -205,7 +205,7 @@ export default function PopularPrograms({
     <section
       id="programs"
       className="pt-7 pb-12 md:pt-10 md:pb-16 lg:pt-14 lg:pb-24 px-4"
-      style={{ background: "#F4F4F5", fontFamily: "Montserrat, sans-serif" }}
+      style={{ background: "#F3F1EF", fontFamily: "Montserrat, sans-serif" }}
     >
       {/* Responsive rules for the pricing cards.
          - On mobile (<lg) cards stack, so we drop minHeight reservations and shrink
