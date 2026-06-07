@@ -1,7 +1,6 @@
 /* =============================================================================
    HowItWorks.tsx — Simplified "How It Works" process section
-   Clean circle-line-circle layout inspired by minimal concierge design.
-   Light off-white background to contrast with the dark BookTeaser above.
+   Clean circle-line-circle layout. Light off-white background.
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 
@@ -11,21 +10,25 @@ const BG = "#F9F7F5";
 
 interface Step {
   number: string;
-  text: string;
+  title: string;
+  subtitle: string;
 }
 
 const steps: Step[] = [
   {
     number: "1",
-    text: "Schedule a Free Discovery Call\nWith Our Care Team",
+    title: "Schedule a Free Discovery Call",
+    subtitle: "A 15-min call with our care team to understand your goals",
   },
   {
     number: "2",
-    text: "Dr. Al-Deek Reviews Your Case\n& Builds Your Protocol",
+    title: "Dr. Al-Deek Reviews Your Case",
+    subtitle: "Your physician builds a personalized protocol — no templates",
   },
   {
     number: "3",
-    text: "Medication Ships to Your Door.\nYour Program Begins.",
+    title: "Your Program Begins",
+    subtitle: "Meds shipped to your door or called into your local pharmacy",
   },
 ];
 
@@ -40,14 +43,17 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
 
         {/* Header */}
         <h2
-          className="text-center font-bold text-gray-900 mb-14 md:mb-16"
+          className="text-center font-bold text-gray-900 mb-3"
           style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontFamily: "Playfair Display, serif" }}
         >
           How It Works
         </h2>
+        <p className="text-center text-gray-600 mb-14 md:mb-16 text-sm md:text-base max-w-xl mx-auto">
+          This isn't a subscription. It's a physician-led program — with coaching check-ins every two weeks.
+        </p>
 
         {/* Steps with connecting line */}
-        <div className="relative flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-0">
+        <div className="relative flex flex-col md:flex-row items-center md:items-start justify-between gap-12 md:gap-0">
 
           {/* Connecting line — desktop only */}
           <div
@@ -68,12 +74,17 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
                 {step.number}
               </div>
 
-              {/* Step text */}
-              <p
-                className="text-gray-800 font-medium leading-relaxed max-w-[240px]"
-                style={{ fontSize: "1rem", whiteSpace: "pre-line" }}
+              {/* Step title */}
+              <h3
+                className="text-gray-900 font-bold leading-snug mb-2 max-w-[220px]"
+                style={{ fontSize: "0.95rem" }}
               >
-                {step.text}
+                {step.title}
+              </h3>
+
+              {/* Step subtitle */}
+              <p className="text-gray-500 leading-relaxed max-w-[240px]" style={{ fontSize: "0.85rem" }}>
+                {step.subtitle}
               </p>
             </div>
           ))}
