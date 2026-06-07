@@ -69,8 +69,8 @@ const services = [
   {
     title: "Vitamins & Supplements",
     description: "Physician-curated supplement protocols designed for women in midlife — targeted nutrition to fill the gaps your diet misses…",
-    image: "/manus-storage/vitamins-supplements_63af5b72_136610f9.png",
-    alt: "White supplement bottle, capsules, softgels, and a fresh green leaf on a white background",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/vitamins-supplements-premium-EN85Gh6fY5ag6GR8x3Fa68.webp",
+    alt: "Premium supplement capsules and softgels on warm natural wood surface with botanicals",
   },
   {
     title: "Personal Training",
