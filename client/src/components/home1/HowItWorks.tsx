@@ -49,7 +49,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           How It Works
         </h2>
         <p className="text-center text-gray-600 mb-14 md:mb-16 text-sm md:text-base max-w-xl mx-auto">
-          This isn't a subscription. It's a physician-led program — with coaching check-ins every two weeks.
+          This isn't a subscription. It's a physician-led program — with check-ins on a regular basis.
         </p>
 
         {/* Steps with connecting line */}
