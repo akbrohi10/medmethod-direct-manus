@@ -2,9 +2,9 @@
    Home1 Page — MedMethod Direct (Dr. AL-Deek Landing Page - Exact Replica)
    Clinical Noir Design: Precision in Darkness
    Sections (cold-traffic ad landing page):
-     Navbar → MedicalTeam (Dr. Al-Deek hero) → HowItWorks
-            → PopularPrograms → YourMedication → Testimonials
-            → Services → BookTeaser → FAQ → Footer
+     Navbar → MedicalTeam (Dr. Al-Deek hero) → BookTeaser
+            → HowItWorks → PopularPrograms → YourMedication
+            → Testimonials → Services → FAQ → Footer
    ============================================================================= */
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -108,12 +108,12 @@ export default function Home1() {
       {/* ── Cold-traffic ad landing page section order ────────── */}
       {/* Dr. Al-Deek / Medical Team is now the top hero */}
       <MedicalTeam onConsultClick={() => openConsult()} />
+      <BookTeaser onConsultClick={openConsult} />
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={openConsult} />
       <YourMedication onConsultClick={() => openConsult()} />
       <Testimonials />
       <Services onConsultClick={openConsult} />
-      <BookTeaser onConsultClick={openConsult} />
       <FAQ onConsultClick={() => openConsult()} />
       <Footer onConsultClick={() => openConsult()} />
       <StickyMobileCTA onConsultClick={() => openConsult()} />
