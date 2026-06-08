@@ -918,15 +918,15 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 Pick a 15-minute slot with a MedMethod Care Coordinator.
               </p>
               <div className="rounded-xl overflow-hidden border border-gray-100">
-                <iframe
-                  src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
-                  width="100%"
-                  height="560"
-                  frameBorder="0"
-                  scrolling="no"
+<iframe
+                   src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
+                   width="100%"
+                   height="800"
+                   frameBorder="0"
+                   scrolling="yes"
                   id="Qxw3vN2dmBw9LSUQag8J_1780696816287"
                   title="Schedule your free consultation"
-                  style={{ border: "none", overflow: "hidden", display: "block" }}
+                  style={{ border: "none", overflow: "auto", display: "block" }}
                 />
               </div>
             </div>
