@@ -160,6 +160,9 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                 />
                 {/* Floating Co-Founder · Medical Director chip */}
                 <div
@@ -402,6 +405,9 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                 />
                 <div
                   className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.14em] uppercase text-white"
