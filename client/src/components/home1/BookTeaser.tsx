@@ -57,6 +57,8 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 src={BOOK_COVER_URL}
                 alt="Dr. Al-Deek holding The Menopause Weight Loss Trap book"
                 className="relative z-10 object-cover"
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: 420,
                   maxWidth: "100%",

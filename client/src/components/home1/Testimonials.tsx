@@ -157,6 +157,8 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
           src={t.beforeAfter}
           alt={`${t.name} transformation`}
           className="w-full h-full object-cover object-top"
+          loading="lazy"
+          decoding="async"
         />
         {/* Before / After labels */}
         <div className="absolute bottom-0 left-0 right-0 flex">

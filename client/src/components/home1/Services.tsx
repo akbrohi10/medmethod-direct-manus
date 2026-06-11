@@ -118,6 +118,7 @@ export default function Services({ onConsultClick }: Props) {
                   alt={service.alt}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
                 {/* Discount ribbon — bottom-left */}
                 {(service as any).ribbon && (

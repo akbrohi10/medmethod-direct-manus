@@ -185,7 +185,7 @@ function vitePluginStorageProxy(): Plugin {
             res.end("Empty signed URL");
             return;
           }
-          res.writeHead(307, { Location: url, "Cache-Control": "no-store" });
+          res.writeHead(307, { Location: url, "Cache-Control": "public, max-age=31536000, immutable" });
           res.end();
         } catch {
           res.writeHead(502, { "Content-Type": "text/plain" });
@@ -212,6 +212,13 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+        },
+      },
+    },
   },
   server: {
     port: 3000,

@@ -488,16 +488,21 @@ function PricingCard({
       {/* Image hero with optional badge bar (Transformation only) */}
       {isLongevity ? (
         <div
-          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px]"
+          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px] overflow-hidden"
           style={{
-            backgroundImage: "url(/manus-storage/longevity-card_5cb8f20e.png)",
-            backgroundSize: "115%",
-            backgroundPosition: "center 55%",
-            backgroundRepeat: "no-repeat",
             backgroundColor: "#F5C9A1",
             borderRadius: "16px 16px 0 0",
           }}
-        />
+        >
+          <img
+            src="/manus-storage/longevity-card_5cb8f20e.png"
+            alt="Longevity program — live at your peak"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "center 55%", transform: "scale(1.15)" }}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       ) : isFeatured ? (
         <>
           <div
@@ -515,27 +520,31 @@ function PricingCard({
             {tier.badge?.label}
           </div>
           <div
-            className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[220px]"
-            style={{
-              backgroundImage: "url(/manus-storage/transformation-card_86b62a37.jpg)",
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: "#1a1a2e",
-            }}
-          />
+            className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[220px] overflow-hidden"
+            style={{ backgroundColor: "#1a1a2e" }}
+          >
+            <img
+              src="/manus-storage/transformation-card_86b62a37.jpg"
+              alt="Transformation program — physician-led care team"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </>
       ) : (
         <div
-          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px]"
-          style={{
-            backgroundImage: "url(/manus-storage/ignite-program-card-v3_7203d5db.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            backgroundRepeat: "no-repeat",
-            borderRadius: "16px 16px 0 0",
-          }}
-        />
+          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px] overflow-hidden"
+          style={{ borderRadius: "16px 16px 0 0" }}
+        >
+          <img
+            src="/manus-storage/ignite-program-card-v3_7203d5db.png"
+            alt="Ignite program — confident woman walking at sunrise"
+            className="w-full h-full object-cover object-top"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       )}
 
       {/* Body */}
