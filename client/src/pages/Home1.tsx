@@ -42,6 +42,10 @@ function useHashScroll() {
   }, []);
 }
 
+// ─── Section Visibility Flags ─────────────────────────────────────────────────
+// Flip to `true` to bring the section back
+const SHOW_MEDICATIONS = false;
+
 export default function Home1() {
   useHashScroll();
   const [consultOpen, setConsultOpen] = useState(false);
@@ -111,7 +115,7 @@ export default function Home1() {
       <BookTeaser onConsultClick={openConsult} />
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={openConsult} />
-      <YourMedication onConsultClick={() => openConsult()} />
+      {SHOW_MEDICATIONS && <YourMedication onConsultClick={() => openConsult()} />}
       <Testimonials />
       <Services onConsultClick={openConsult} />
       <FAQ onConsultClick={() => openConsult()} />
