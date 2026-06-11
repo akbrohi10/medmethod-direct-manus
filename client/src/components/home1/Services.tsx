@@ -75,9 +75,9 @@ const services = [
   {
     title: "Personal Training",
     description: "In-home & virtual personal training programs built for women 40+ — strength, mobility, and metabolic health on your schedule…",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop",
-    alt: "Woman doing strength training with a personal trainer",
-    partnerLogo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/smat-logo-crisp_9d1fd1b1.png",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/personal-training-card-fAuRgDrdM8u982EPsjhSX2.webp",
+    alt: "Female trainer guiding a female client through a lunge exercise in a bright modern living room",
+    partnerLogo: "/manus-storage/888486d6-25f3-4b61-b5ab-a33cba2caa2e_d2efec67.jpg",
     ribbon: "40% OFF FOR PATIENTS",
   },
 ] as const;

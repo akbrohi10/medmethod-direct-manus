@@ -531,7 +531,7 @@ function PricingCard({
           style={{
             backgroundImage: "url(/manus-storage/ignite-program-card-v3_7203d5db.png)",
             backgroundSize: "cover",
-            backgroundPosition: "center center",
+            backgroundPosition: "center top",
             backgroundRepeat: "no-repeat",
             borderRadius: "16px 16px 0 0",
           }}
