@@ -529,7 +529,7 @@ function PricingCard({
         <div
           className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px]"
           style={{
-            backgroundImage: "url(/manus-storage/ignite-card_7a536456.jpeg)",
+            backgroundImage: "url(/manus-storage/ignite-program-card-v3_7203d5db.png)",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
