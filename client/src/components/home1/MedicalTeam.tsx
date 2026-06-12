@@ -32,10 +32,10 @@ const CREDENTIAL_PILLS = [
 
 const FOCUS_AREA_PILLS = [
   "Medical Weight Loss",
-  "GLP-1 Therapy",
+  "Menopause & Perimenopause",
+  "GLP-1 & Metabolic Therapy",
   "Hormone Optimization",
-  "Perimenopause",
-  "Metabolic Health",
+  "Virtual Urgent Care",
   "Longevity Medicine",
 ];
 
