@@ -21,7 +21,6 @@ function scrollTo(id: string) {
 const navLinks: { label: string; anchor?: string; href?: string }[] = [
   { label: "How It Works", anchor: "how-it-works" },
   { label: "Programs",     anchor: "programs" },
-  { label: "Medications",  anchor: "medications" },
   { label: "Services",     anchor: "services" },
   { label: "Doctors",      anchor: "medical-team" },
   { label: "FAQ",           anchor: "faq" },

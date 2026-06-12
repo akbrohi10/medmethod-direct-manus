@@ -164,18 +164,6 @@ export default function MedicalTeam({
                   fetchPriority="high"
                   decoding="async"
                 />
-                {/* Floating Co-Founder · Medical Director chip */}
-                <div
-                  className="absolute top-5 left-5 px-3.5 py-2 rounded-full text-[10px] font-bold tracking-[0.14em] uppercase text-white"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background:
-                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    boxShadow: "0 6px 18px rgba(122, 30, 126, 0.4)",
-                  }}
-                >
-                  Co-Founder · Medical Director
-                </div>
               </div>
 
               {/* Below-photo content — Education timeline + Pull-quote.
@@ -353,22 +341,15 @@ export default function MedicalTeam({
                 Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director
               </h3>
 
-              {/* ===== Hero header (lives inside the card now) ===== */}
-              <span
-                className="section-label block mb-3"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Your Doctor
-              </span>
+              {/* ===== Hero header (patient-centered) ===== */}
               <h1
                 className="font-black text-[#111111] leading-[1.05]"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
-                  fontSize: "clamp(2rem, 4.2vw, 3.2rem)",
+                  fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
                   letterSpacing: "-0.02em",
                 }}
               >
-                MEET{" "}
                 <span
                   style={{
                     backgroundImage:
@@ -376,17 +357,34 @@ export default function MedicalTeam({
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                    whiteSpace: "nowrap",
                   }}
                 >
-                  DR. AL-DEEK.
+                  Weight Loss
+                </span>
+                {" & "}
+                <span
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Menopause Care.
                 </span>
               </h1>
               <p
-                className="mt-4 text-[#3a3a3a] text-lg md:text-xl leading-snug"
+                className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                Lose the weight. Balance the hormones. Direct access to your doctor.
+                Personalized treatment designed for women.
+              </p>
+              <p
+                className="mt-3 text-[#555] text-base md:text-lg leading-relaxed"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Physician-led weight loss and menopause care with direct access to Dr. Jumana Al-Deek, DO.
               </p>
 
               {/* ===== MOBILE-ONLY photo, right under the blurb =====
@@ -409,17 +407,7 @@ export default function MedicalTeam({
                   fetchPriority="high"
                   decoding="async"
                 />
-                <div
-                  className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.14em] uppercase text-white"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background:
-                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    boxShadow: "0 6px 18px rgba(122, 30, 126, 0.4)",
-                  }}
-                >
-                  Co-Founder · Medical Director
-                </div>
+
               </div>
 
               {/* Primary CTA + microcopy + reassurance row.
