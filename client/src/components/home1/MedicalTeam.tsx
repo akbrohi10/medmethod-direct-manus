@@ -375,6 +375,12 @@ export default function MedicalTeam({
                 </span>
               </h1>
               <p
+                className="mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
+                style={{ fontFamily: "Playfair Display, serif" }}
+              >
+                Done right.
+              </p>
+              <p
                 className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
