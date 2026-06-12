@@ -373,9 +373,17 @@ export default function MedicalTeam({
                 >
                   Menopause Care.
                 </span>
+                {/* Mobile inline: "Done right." on same line as "Care." */}
+                <span
+                  className="inline sm:hidden text-[#555] text-[0.55em] font-medium italic tracking-wide ml-2"
+                  style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}
+                >
+                  Done right.
+                </span>
               </h1>
+              {/* Desktop separate tagline */}
               <p
-                className="mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
+                className="hidden sm:block mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
                 Done right.
