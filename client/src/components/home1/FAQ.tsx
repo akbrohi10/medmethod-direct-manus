@@ -123,14 +123,7 @@ const faqCategories: {
     label: "Medications",
     icon: "💊",
     questions: [
-      {
-        q: "What's the difference between compounded and brand-name medications?",
-        a: "Compounded medications are prepared by licensed 503A pharmacies, while brand-name medications come from the manufacturers' own direct-pay programs. Either way, our pricing is fully transparent — every medication is priced exactly as listed on our website, so you always know what you will pay. Your physician will discuss which option is the right fit for you during your evaluation.",
-      },
-      {
-        q: "Is compounded semaglutide or tirzepatide legitimate?",
-        a: "Compounded GLP-1 medications are prepared by licensed, accredited 503A compounding pharmacies and dispensed only against a valid prescription from your physician. Your physician will discuss whether a compounded or brand-name option is appropriate for you during your evaluation.",
-      },
+
       {
         q: "Can I switch or pause my medication mid-term?",
         a: "Yes. With physician approval, medications can be swapped or paused at any point during your term, and your membership continues uninterrupted. Any medication you add or change is priced exactly as listed on our website.",

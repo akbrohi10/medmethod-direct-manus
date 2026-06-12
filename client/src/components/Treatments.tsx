@@ -14,12 +14,12 @@ const treatments = [
   {
     tags: ["Weight Loss", "GLP-1"],
     title: "Semaglutide (Ozempic/Wegovy)",
-    body: "FDA-approved Ozempic®/Wegovy® or compounded Semaglutide from an FDA-registered 503B pharmacy — reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized nutrition and fitness program.",
+    body: "FDA-approved Ozempic®/Wegovy® — reduces appetite, curbs cravings, and supports steady, sustainable weight loss. Integrated into a personalized nutrition and fitness program.",
   },
   {
     tags: ["Weight Loss", "Dual-Action"],
     title: "Tirzepatide (Mounjaro/Zepbound)",
-    body: "FDA-approved Mounjaro®/Zepbound® or compounded Tirzepatide from an FDA-registered 503B pharmacy — dual-action therapy that improves insulin sensitivity, reduces appetite, and delivers superior weight loss results.",
+    body: "FDA-approved Mounjaro®/Zepbound® — dual-action therapy that improves insulin sensitivity, reduces appetite, and delivers superior weight loss results.",
   },
   {
     tags: ["Perimenopause", "Symptom Relief"],

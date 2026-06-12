@@ -14,7 +14,7 @@ const services = [
   },
   {
     title: "GLP-1 Weight Care",
-    description: "FDA-approved or 503B-compounded Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support…",
+    description: "FDA-approved Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-weight-dQbnaFgp7jCDrEp4DMNUvC.webp",
     alt: "Fit woman in athletic wear outdoors in golden light",
     href: "#consultation",

@@ -75,19 +75,19 @@ const faqCategories = [
       },
       {
         q: "Is everything done virtually?",
-        a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications (FDA-approved brand or compounded from a licensed 503B outsourcing pharmacy) and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
+        a: "Yes — all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your FDA-approved medications and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
       },
       {
         q: "How quickly will I see results?",
         a: "Many patients report noticeable improvements in sleep, energy, and mood within 4–6 weeks of starting treatment. Optimal hormone balance typically occurs at the 3–6 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4–8 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
       },
       {
-        q: "Do you use FDA-approved medications or compounded ones?",
-        a: "Both — and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility — a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
+        q: "What medications do you prescribe?",
+        a: "We prescribe FDA-approved brand-name medications including Ozempic®, Wegovy®, Mounjaro®, and Zepbound® — all of which have undergone full FDA review for safety and efficacy. Your physician will discuss the best option during your consultation based on your clinical needs and goals. Your medication ships directly to your door.",
       },
       {
         q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-        a: "Yes — we can write prescriptions for brand-name medications (Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, Zepbound\u00ae) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. If your plan requires a prior authorization, we can complete one for an additional fee — but please be aware that if it is denied, we do not complete appeals. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door without the insurance process. Your physician will walk you through both options during your consultation.",
+        a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. If your plan requires a prior authorization, we can complete one for an additional fee — but please be aware that if it is denied, we do not complete appeals. Your physician will walk you through all options during your consultation.",
       },
     ],
   },
