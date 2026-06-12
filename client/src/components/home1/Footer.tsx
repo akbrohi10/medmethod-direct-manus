@@ -211,6 +211,22 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </div>
         </div>
 
+        {/* States Served */}
+        <div className="border-t border-white/5 pt-8 mb-8">
+          <p
+            className="text-white/40 text-xs font-semibold tracking-[0.12em] uppercase mb-2"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Currently Serving Patients In:
+          </p>
+          <p
+            className="text-white/50 text-sm leading-relaxed"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Florida · Virginia · Colorado · Maryland · Michigan · Illinois · Texas · Arizona · Tennessee · New Jersey · Washington, D.C. · Georgia · Alabama · Washington · North Carolina · Pennsylvania · Ohio
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p

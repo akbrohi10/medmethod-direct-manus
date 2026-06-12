@@ -27,7 +27,7 @@ const COACHES: { url: string; initials: string; name: string }[] = [
 const CREDENTIAL_PILLS = [
   "Board-Certified DO",
   "Menopause Specialist",
-  "Licensed in 12 States",
+  "Licensed in 17 States",
 ];
 
 const FOCUS_AREA_PILLS = [
