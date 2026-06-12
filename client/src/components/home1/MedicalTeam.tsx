@@ -27,7 +27,7 @@ const COACHES: { url: string; initials: string; name: string }[] = [
 const CREDENTIAL_PILLS = [
   "Board-Certified DO",
   "Menopause Specialist",
-  "Licensed in 9 States",
+  "Licensed in 12 States",
 ];
 
 const FOCUS_AREA_PILLS = [
@@ -384,8 +384,10 @@ export default function MedicalTeam({
                 className="mt-3 text-[#555] text-base md:text-lg leading-relaxed"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                Physician-led weight loss and menopause care with direct access to Dr. Jumana Al-Deek, DO.
+                Meet your doctor — <strong className="text-[#2a2a2a]">Dr. Jumana Al-Deek, DO.</strong>
               </p>
+
+
 
               {/* ===== MOBILE-ONLY photo, right under the blurb =====
                   On phones, her portrait sits between the subhead and the
@@ -427,31 +429,28 @@ export default function MedicalTeam({
                 >
                   Schedule a Discovery Call
                 </button>
-                <div className="flex flex-col gap-2">
-                  {/* Microcopy: free 15-min framing
-                      directly under/beside the CTA so users know what
-                      they're getting before they click. */}
+                <div className="flex flex-col gap-1.5">
                   <p
-                    className="text-[12.5px] leading-snug text-[#5a4452]"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                    className="text-[13px] leading-snug"
+                    style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
                   >
                     <span className="font-semibold text-[#7A1E7E]">Free 15-min discovery call with our care team</span>
                     {" \u00b7 "}
                     <span>No cost, no obligation</span>
                   </p>
-                  <ul
-                    className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] text-[#5a4452]"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  <div
+                    className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] font-medium"
+                    style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}
                   >
-                    <li className="flex items-center gap-1.5">
+                    <span className="flex items-center gap-1.5">
                       <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
                       100% Virtual
-                    </li>
-                    <li className="flex items-center gap-1.5">
+                    </span>
+                    <span className="flex items-center gap-1.5">
                       <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
                       Same Doctor. Every Visit.
-                    </li>
-                  </ul>
+                    </span>
+                  </div>
                 </div>
               </div>
 

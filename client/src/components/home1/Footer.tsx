@@ -15,7 +15,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           {/* Brand Column */}
           <div className="lg:col-span-2">
             {/* Logo */}
-            <div className="flex flex-col leading-none mb-4">
+            <div className="flex flex-col items-start leading-none mb-4" style={{ width: "fit-content" }}>
               <div className="flex items-baseline gap-0">
                 <span
                   className="font-black text-white"
@@ -38,7 +38,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   Method
                 </span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 mt-0.5 w-full">
                 <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
                 <span
                   className="text-white font-semibold tracking-[0.25em]"
@@ -49,7 +49,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
               </div>
               <span
-                className="text-center"
+                className="mt-1 text-center w-full"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
                   fontSize: "0.55rem",
