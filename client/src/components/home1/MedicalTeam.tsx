@@ -430,34 +430,19 @@ export default function MedicalTeam({
                   Mobile: button is full-width, microcopy + bullets stack underneath.
                   Desktop: button left, microcopy + bullets right. */}
               <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="flex gap-3 w-full sm:w-auto">
-                  <button
-                    type="button"
-                    onClick={onConsultClick}
-                    className="inline-flex items-center justify-center flex-1 sm:flex-initial px-7 py-3.5 rounded-full text-[14px] font-bold tracking-[0.04em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      background:
-                        "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
-                    }}
-                  >
-                    Schedule a Discovery Call
-                  </button>
-                  <a
-                    href="tel:+18883627011"
-                    className="inline-flex items-center justify-center flex-1 sm:flex-initial px-6 py-3.5 rounded-full text-[14px] font-bold tracking-[0.04em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      background:
-                        "linear-gradient(135deg, #7A1E7E 0%, #E8339E 100%)",
-                      boxShadow: "0 12px 28px rgba(122, 30, 126, 0.2)",
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call Now
-                  </a>
-                </div>
+                <button
+                  type="button"
+                  onClick={onConsultClick}
+                  className="inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 rounded-full text-[14px] font-bold tracking-[0.04em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    background:
+                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
+                  }}
+                >
+                  Schedule a Discovery Call
+                </button>
                 <div className="flex flex-col gap-1.5">
                   <p
                     className="text-[13px] leading-snug"
