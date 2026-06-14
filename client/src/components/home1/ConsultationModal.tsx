@@ -33,7 +33,7 @@ const SERVICE_OPTIONS = [
   { label: "Vitamins & Supplements", subtitle: "", icon: "💊" },
   { label: "Personal Training", subtitle: "", icon: "🏋️‍♀️" },
   { label: "Virtual Primary Care", subtitle: "", icon: "🩺" },
-  { label: "Virtual Urgent Care", subtitle: "", icon: "🚨" },
+  { label: "Virtual Urgent Care", subtitle: "", icon: "⚡" },
 ];
 
 const questions = [
