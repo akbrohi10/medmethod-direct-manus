@@ -878,13 +878,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               <p className="text-[10px] font-bold tracking-wider uppercase text-gray-400 mb-2">On your call, we'll cover:</p>
               <div className="divide-y divide-gray-100">
                 {[
-                  { icon: "🩺", title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
-                  { icon: "💬", title: "How Dr. Al-Deek's approach is different", desc: "Physician-led, personalized care vs. one-size-fits-all prescription mills." },
-                  { icon: "📋", title: "Determine if we're a good fit", desc: "We'll ask the right questions to see if MedMethod is the right partner for your goals." },
-                  { icon: "✨", title: "What happens next?", desc: "If you decide to move forward, you'll be connected directly with Dr. Al-Deek for your personalized care plan." },
+                  { title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
+                  { title: "How Dr. Al-Deek's approach is different", desc: "Physician-led, personalized care vs. one-size-fits-all prescription mills." },
+                  { title: "Determine if we're a good fit", desc: "We'll ask the right questions to see if MedMethod is the right partner for your goals." },
+                  { title: "What happens next?", desc: "If you decide to move forward, you'll be connected directly with Dr. Al-Deek for your personalized care plan." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-3 py-2.5">
-                    <span className="text-lg flex-shrink-0 mt-0.5">{item.icon}</span>
+                    <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: BRAND_PLUM }} />
                     <div>
                       <p className="font-semibold text-gray-900 text-[13px] leading-tight">{item.title}</p>
                       <p className="text-[12px] text-gray-400 leading-snug">{item.desc}</p>
