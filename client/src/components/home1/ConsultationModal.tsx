@@ -850,29 +850,35 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
           {/* ── Step 8: Expectation screen ── */}
           {isExpectationStep && (
-            <div className="px-6 pt-8 pb-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
+            <div className="px-6 pt-6 pb-2">
+              <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: BRAND_PINK }}>
                 YOUR DISCOVERY CALL
               </p>
               <h2
-                className="text-2xl font-bold text-gray-900 mb-2 pr-10 leading-snug"
+                className="text-xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
                 What to expect on your call
               </h2>
-              <p className="text-sm text-gray-500 mb-5 leading-relaxed">
+              {/* Free · 15 min — moved to top for visibility */}
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-sm font-semibold" style={{ color: BRAND_PLUM }}>
+                  Free · 15 minutes · No obligation
+                </p>
+              </div>
+              <p className="text-[13px] text-gray-500 mb-3 leading-relaxed">
                 For women ready to take control of their health — whether it's weight loss, hormones, acute care, or all of the above.
               </p>
               {answers["services"] && (
                 <div
-                  className="mb-4 px-4 py-3 rounded-xl text-sm"
+                  className="mb-3 px-3 py-2 rounded-lg text-[13px]"
                   style={{ background: "rgba(232,51,158,0.06)", border: "1px solid rgba(232,51,158,0.2)" }}
                 >
                   <span className="font-semibold" style={{ color: BRAND_PLUM }}>Your interest: </span>
                   <span style={{ color: "#374151" }}>{answers["services"]}</span>
                 </div>
               )}
-              <p className="text-xs font-bold tracking-wider uppercase text-gray-400 mb-3">Our care team will cover:</p>
+              <p className="text-[10px] font-bold tracking-wider uppercase text-gray-400 mb-2">Our care team will cover:</p>
               <div className="divide-y divide-gray-100">
                 {[
                   { icon: "🩺", title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
@@ -880,24 +886,19 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   { icon: "📋", title: "Determine if we're a good fit", desc: "We'll ask the right questions to see if MedMethod is the right partner for your goals." },
                   { icon: "🚀", title: "No pressure, ever", desc: "This call is informational. You decide if and when you're ready." },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4 py-4">
-                    <span className="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
+                  <div key={item.title} className="flex items-start gap-3 py-2.5">
+                    <span className="text-lg flex-shrink-0 mt-0.5">{item.icon}</span>
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
-                      <p className="text-sm text-gray-400">{item.desc}</p>
+                      <p className="font-semibold text-gray-900 text-[13px] leading-tight">{item.title}</p>
+                      <p className="text-[12px] text-gray-400 leading-snug">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              {/* Footer: Free + Disclaimer */}
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-500 mb-1">
-                  Free · 15 minutes · No obligation
-                </p>
-                <p className="text-xs text-gray-400 italic">
-                  No medical advice will be provided during this call.
-                </p>
-              </div>
+              {/* Disclaimer */}
+              <p className="text-[11px] text-gray-400 italic mt-2 pt-2 border-t border-gray-100">
+                No medical advice will be provided during this call.
+              </p>
             </div>
           )}
 
