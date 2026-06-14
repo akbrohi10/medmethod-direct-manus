@@ -860,17 +860,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               >
                 What to expect on your call
               </h2>
-              {/* Free · 15 min + disclaimer — top for visibility */}
-              <div className="mb-2">
-                <p className="text-sm font-semibold" style={{ color: BRAND_PLUM }}>
-                  Free · 15 minutes · No obligation
-                </p>
-                <p className="text-[12px] text-gray-400 italic mt-0.5">
-                  No medical advice will be provided during this call.
-                </p>
-              </div>
-              <p className="text-[13px] text-gray-500 mb-3 leading-relaxed">
-                For women ready to take control of their health — whether it's weight loss, hormones, acute care, or all of the above.
+              <p className="text-[13px] font-semibold mb-2" style={{ color: BRAND_PLUM }}>
+                Free · 15 min · No obligation · No medical advice provided
+              </p>
+              <p className="text-[13px] italic mb-3" style={{ color: BRAND_PLUM }}>
+                You'll speak with a Care Coordinator who works directly with Dr. Al-Deek.
               </p>
               {answers["services"] && (
                 <div
@@ -881,10 +875,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <span style={{ color: "#374151" }}>{answers["services"]}</span>
                 </div>
               )}
-              <p className="text-[13px] font-medium italic mb-2" style={{ color: BRAND_PLUM }}>
-                You'll speak with a dedicated Care Coordinator who works directly with Dr. Al-Deek.
-              </p>
-              <p className="text-[10px] font-bold tracking-wider uppercase mb-2" style={{ color: BRAND_PLUM }}>Your Care Coordinator will cover:</p>
+              <p className="text-[10px] font-bold tracking-wider uppercase text-gray-400 mb-2">On your call, we'll cover:</p>
               <div className="divide-y divide-gray-100">
                 {[
                   { icon: "🩺", title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
