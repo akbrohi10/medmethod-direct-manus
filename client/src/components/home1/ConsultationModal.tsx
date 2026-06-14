@@ -881,7 +881,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <span style={{ color: "#374151" }}>{answers["services"]}</span>
                 </div>
               )}
-              <p className="text-[10px] font-bold tracking-wider uppercase text-gray-400 mb-2">Our care team will cover:</p>
+              <p className="text-[13px] font-medium italic mb-2" style={{ color: BRAND_PLUM }}>
+                You'll speak with a dedicated Care Coordinator who works directly with Dr. Al-Deek.
+              </p>
+              <p className="text-[10px] font-bold tracking-wider uppercase mb-2" style={{ color: BRAND_PLUM }}>Your Care Coordinator will cover:</p>
               <div className="divide-y divide-gray-100">
                 {[
                   { icon: "🩺", title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
