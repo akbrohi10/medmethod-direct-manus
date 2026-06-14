@@ -884,7 +884,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   { title: "What happens next?", desc: "If you decide to move forward, you'll be connected directly with Dr. Al-Deek for your personalized care plan." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-3 py-2.5">
-                    <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: BRAND_PLUM }} />
+                    <Check className="w-5 h-5 flex-shrink-0 mt-0.5" strokeWidth={3} style={{ color: BRAND_PLUM }} />
                     <div>
                       <p className="font-semibold text-gray-900 text-[13px] leading-tight">{item.title}</p>
                       <p className="text-[12px] text-gray-400 leading-snug">{item.desc}</p>
