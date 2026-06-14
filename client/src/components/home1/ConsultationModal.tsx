@@ -878,7 +878,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   { icon: "🩺", title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
                   { icon: "💬", title: "How Dr. Al-Deek's approach is different", desc: "Physician-led, personalized care vs. one-size-fits-all prescription mills." },
                   { icon: "📋", title: "Determine if we're a good fit", desc: "We'll ask the right questions to see if MedMethod is the right partner for your goals." },
-                  { icon: "🧬", title: "Hormone & Metabolic Symptom Assessment", desc: "You'll receive a personalized Symptom Summary based on your conversation." },
                   { icon: "🚀", title: "No pressure, ever", desc: "This call is informational. You decide if and when you're ready." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4 py-4">
