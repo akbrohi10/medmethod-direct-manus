@@ -32,8 +32,8 @@ const SERVICE_OPTIONS = [
   { label: "Longevity & Aging", subtitle: "", icon: "⏳" },
   { label: "Vitamins & Supplements", subtitle: "", icon: "💊" },
   { label: "Personal Training", subtitle: "", icon: "🏋️‍♀️" },
-  { label: "Primary Care", subtitle: "", icon: "🩺" },
-  { label: "Not sure yet", subtitle: "", icon: "🤔" },
+  { label: "Virtual Primary Care", subtitle: "", icon: "🩺" },
+  { label: "Virtual Urgent Care", subtitle: "", icon: "🚨" },
 ];
 
 const questions = [
@@ -358,8 +358,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const CALENDAR_STEP = EXPECTATION_STEP + 1;                // 9
   const TOTAL_STEPS = CALENDAR_STEP + 1;                     // 10
 
-  // "Not sure yet" skip logic: if only "Not sure yet" is selected, skip qualifying Qs (goal, duration, tried)
-  const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Not sure yet";
+  // "Virtual Urgent Care" skip logic: if only "Virtual Urgent Care" is selected, skip qualifying Qs (goal, duration, tried)
+  const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
 
   const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
@@ -395,7 +395,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     if (isServiceStep) {
       if (selectedServices.length === 0) return;
       setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
-      // If "Not sure yet" only, skip goal/duration/tried (first 3 Qs) → jump to age (index 3)
+      // If "Virtual Urgent Care" only, skip goal/duration/tried (first 3 Qs) → jump to age (index 3)
       if (isNotSureOnly) {
         setStep(QUESTIONS_START + 3); // age step
       } else {
@@ -498,7 +498,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
   const handleBack = () => {
     if (step === 0) return;
-    // If on age step and "Not sure yet" only, go back to service selection
+    // If on age step and "Virtual Urgent Care" only, go back to service selection
     if (isQuestionStep && questions[questionIndex]?.id === "age" && isNotSureOnly) {
       setStep(SERVICE_STEP);
       setSelected(null);
