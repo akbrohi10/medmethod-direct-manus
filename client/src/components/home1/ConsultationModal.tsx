@@ -860,10 +860,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               >
                 What to expect on your call
               </h2>
-              {/* Free · 15 min — moved to top for visibility */}
-              <div className="flex items-center gap-2 mb-2">
+              {/* Free · 15 min + disclaimer — top for visibility */}
+              <div className="mb-2">
                 <p className="text-sm font-semibold" style={{ color: BRAND_PLUM }}>
                   Free · 15 minutes · No obligation
+                </p>
+                <p className="text-[12px] text-gray-400 italic mt-0.5">
+                  No medical advice will be provided during this call.
                 </p>
               </div>
               <p className="text-[13px] text-gray-500 mb-3 leading-relaxed">
@@ -895,10 +898,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   </div>
                 ))}
               </div>
-              {/* Disclaimer */}
-              <p className="text-[11px] text-gray-400 italic mt-2 pt-2 border-t border-gray-100">
-                No medical advice will be provided during this call.
-              </p>
+
             </div>
           )}
 
