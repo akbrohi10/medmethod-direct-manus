@@ -98,7 +98,7 @@ const faqCategories: {
       },
       {
         q: "What is the initiation fee and what does it cover?",
-        a: "The one-time initiation fee covers your onboarding: physician intake, custom protocol design, and dashboard setup at every tier. At Transformation it also includes your 45-minute live consultation and a baseline 30+ biomarker lab panel; at Longevity it includes a premium 75+ biomarker panel and at-home phlebotomy where available. It is not a recurring charge.",
+        a: "The one-time initiation fee covers your onboarding: physician intake, custom protocol design, and dashboard setup at every tier. At Transformation it also includes your 30-minute live consultation and a baseline 30+ biomarker lab panel; at Longevity it includes a premium 75+ biomarker panel and at-home phlebotomy where available. It is not a recurring charge.",
       },
       {
         q: "Is the Ignite 12-month initiation fee waiver real?",
@@ -145,7 +145,7 @@ const faqCategories: {
       },
       {
         q: "What states do you serve?",
-        a: "We operate across multiple states and are expanding our licensure footprint. You'll confirm eligibility for your state during enrollment before any charge is finalized.",
+        a: "We are currently licensed in 17 states: Florida, Virginia, Colorado, Maryland, Michigan, Illinois, Texas, Arizona, Tennessee, New Jersey, Washington D.C., Georgia, Alabama, Washington, North Carolina, Pennsylvania, and Ohio. You'll confirm eligibility for your state during enrollment before any charge is finalized.",
       },
       {
         q: "What happens if I'm not eligible after my intake?",
