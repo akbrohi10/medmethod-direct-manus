@@ -75,7 +75,7 @@ const faqCategories: {
     questions: [
       {
         q: "How do I know whether I need Ignite, Transformation, or Longevity?",
-        a: "Ignite is for the patient who knows what they want and values speed and price over coaching. Transformation is for most people — it adds the live physician relationship, baseline labs, and a Performance Coach who keeps you accountable. Longevity is for patients who want more physician strategy time, deeper diagnostic testing, and access to premium peptide protocols. When in doubt, Transformation is the right starting point for the majority of patients.",
+        a: "Ignite is for the patient who knows what they want and values speed and price over coaching. Transformation is for most people — it adds the live physician relationship, baseline labs, and a Performance Coach who keeps you accountable. Longevity is for patients who want more physician strategy time, deeper diagnostic testing, and advanced monitoring. When in doubt, Transformation is the right starting point for the majority of patients.",
       },
       {
         q: "Can I start on one tier and upgrade later?",
