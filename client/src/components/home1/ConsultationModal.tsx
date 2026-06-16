@@ -442,10 +442,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           : attribution;
         setAnswers((prev) => ({ ...prev, attribution: attrValue }));
       }
-      setStep((s) => s + 1);
-    } else if (isExpectationStep) {
-      // Fire the GHL webhook before advancing to the calendar step
+      // Fire the GHL webhook when they press Next on the attribution step
       await submitToWebhook();
+    } else if (isExpectationStep) {
+      // Advance to calendar (webhook already fired on attribution step)
+      setStep((s) => s + 1);
     }
   };
 
