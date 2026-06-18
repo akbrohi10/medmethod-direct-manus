@@ -128,6 +128,7 @@ import LocationChevyChaseMD from "@/pages/LocationChevyChaseMD";
 import LocationFallsChurchVA from "@/pages/LocationFallsChurchVA";
 import LocationTysonsVA from "@/pages/LocationTysonsVA";
 import LocationHerndonVA from "@/pages/LocationHerndonVA";
+import DiscoveryCall from "@/pages/DiscoveryCall";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -245,6 +246,8 @@ function Router() {
       <Route path="/texas/sugar-land" component={LocationSugarLandTX} />
       <Route path="/texas/frisco" component={LocationFriscoTX} />
       <Route path="/texas/round-rock" component={LocationRoundRockTX} />
+      <Route path="/discovery-call" component={DiscoveryCall} />
+      <Route path="/book" component={DiscoveryCall} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>

@@ -168,6 +168,15 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 </a>
               </li>
               <li>
+                <a
+                  href="/discovery-call"
+                  className="text-white/50 hover:text-white text-sm transition-colors"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Book Your Discovery Call
+                </a>
+              </li>
+              <li>
                 <button
                   onClick={() => setQuizOpen(true)}
                   className="text-white/50 hover:text-white text-sm transition-colors text-left"
