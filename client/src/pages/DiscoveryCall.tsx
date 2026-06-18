@@ -103,11 +103,10 @@ export default function DiscoveryCall() {
             </div>
 
             {/* Calendar Embed */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-lg">
               <iframe
                 src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
-                style={{ width: "100%", minHeight: "700px", border: "none", overflow: "hidden" }}
-                scrolling="no"
+                style={{ width: "100%", height: "1000px", border: "none" }}
                 id="Qxw3vN2dmBw9LSUQag8J_1781812832314"
                 title="Schedule a Discovery Call"
                 loading="lazy"
