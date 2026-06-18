@@ -7,6 +7,7 @@
 import { useEffect } from "react";
 import { Link, useParams } from "wouter";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { blogPosts, PILLAR_COLORS } from "@/data/blogPosts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -41,8 +42,75 @@ export default function BlogPost() {
     .filter((p) => p.slug !== slug && p.pillar === post.pillar)
     .slice(0, 3);
 
+  const canonicalUrl = `https://medmethoddirect.com/blog/${post.slug}`;
+  const publishDateISO = post.publishDate;
+  const ogImage = post.heroImage || "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-hero-single-face-v1_ad2544a9.jpg";
+
+  const JSONLD_ARTICLE = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.metaDescription,
+    "url": canonicalUrl,
+    "image": ogImage,
+    "datePublished": publishDateISO,
+    "dateModified": publishDateISO,
+    "author": {
+      "@type": "Person",
+      "name": `${post.author.name}, ${post.author.credentials}`,
+      "jobTitle": post.author.title,
+      "url": "https://medmethoddirect.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MedMethod Direct",
+      "url": "https://medmethoddirect.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://medmethoddirect.com/favicon.ico"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalUrl
+    },
+    "articleSection": post.pillarLabel,
+    "wordCount": post.readTime * 200,
+    "keywords": post.primaryKeyword
+  };
+
+  const JSONLD_BREADCRUMB = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://medmethoddirect.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Journal", "item": "https://medmethoddirect.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrl }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>{post.title} | MedMethod Direct</title>
+        <meta name="description" content={post.metaDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`${post.title} | MedMethod Direct`} />
+        <meta property="og:description" content={post.metaDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content="MedMethod Direct" />
+        <meta property="article:published_time" content={publishDateISO} />
+        <meta property="article:author" content={`${post.author.name}, ${post.author.credentials}`} />
+        <meta property="article:section" content={post.pillarLabel} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.title} | MedMethod Direct`} />
+        <meta name="twitter:description" content={post.metaDescription} />
+        <meta name="twitter:image" content={ogImage} />
+        <script type="application/ld+json">{JSON.stringify(JSONLD_ARTICLE)}</script>
+        <script type="application/ld+json">{JSON.stringify(JSONLD_BREADCRUMB)}</script>
+      </Helmet>
       <Navbar onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
 
