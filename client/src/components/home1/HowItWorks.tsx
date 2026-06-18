@@ -4,6 +4,7 @@
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 const PINK = "#E8339E";
@@ -52,6 +53,64 @@ const JSONLD_VIDEO = {
   }
 };
 
+function VideoEmbed() {
+  const [playing, setPlaying] = useState(false);
+
+  if (playing) {
+    return (
+      <div className="max-w-[640px] mx-auto mb-8">
+        <div
+          className="relative w-full rounded-2xl overflow-hidden shadow-xl"
+          style={{ paddingBottom: "56.25%" }}
+        >
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&autoplay=1&showinfo=0&iv_load_policy=3`}
+            title="How MedMethod Direct Works"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-[640px] mx-auto mb-8">
+      <button
+        onClick={() => setPlaying(true)}
+        className="relative w-full rounded-2xl overflow-hidden shadow-xl group cursor-pointer block"
+        style={{ paddingBottom: "56.25%" }}
+        aria-label="Play video: How MedMethod Direct Works"
+      >
+        {/* YouTube thumbnail */}
+        <img
+          src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+          alt="How MedMethod Direct Works"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark overlay on hover */}
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-all duration-300" />
+        {/* Play button */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div
+            className="w-18 h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300"
+            style={{ background: GRADIENT }}
+          >
+            <svg
+              className="w-7 h-7 md:w-8 md:h-8 text-white ml-1"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export default function HowItWorks({ onConsultClick }: { onConsultClick: () => void }) {
   return (
     <section
@@ -73,34 +132,8 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           How It Works
         </h2>
 
-        {/* YouTube Video Embed — overlay blocks "Watch on YouTube" link */}
-        <div className="max-w-[640px] mx-auto mb-8">
-          <div
-            className="relative w-full rounded-2xl overflow-hidden shadow-xl"
-            style={{ paddingBottom: "56.25%" }}
-          >
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`}
-              title="How MedMethod Direct Works"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            />
-            {/* Overlay to block the top-right "Watch on YouTube" button */}
-            <div
-              className="absolute top-0 right-0 z-10"
-              style={{ width: "180px", height: "42px", background: "transparent", pointerEvents: "auto" }}
-              onClick={(e) => e.preventDefault()}
-            />
-            {/* Overlay to block the bottom-right YouTube logo */}
-            <div
-              className="absolute bottom-0 right-0 z-10"
-              style={{ width: "120px", height: "36px", background: "transparent", pointerEvents: "auto" }}
-              onClick={(e) => e.preventDefault()}
-            />
-          </div>
-        </div>
+        {/* YouTube Video — thumbnail with play button, loads iframe on click */}
+        <VideoEmbed />
 
         {/* Positioning statement */}
         <p className="text-center text-gray-600 mb-10 md:mb-12 text-sm md:text-base max-w-xl mx-auto">
