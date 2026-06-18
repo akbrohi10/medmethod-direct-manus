@@ -74,7 +74,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
         </h2>
 
         {/* YouTube Video Embed */}
-        <div className="max-w-[900px] mx-auto mb-8">
+        <div className="max-w-[640px] mx-auto mb-8">
           <div
             className="relative w-full rounded-2xl overflow-hidden shadow-xl"
             style={{ paddingBottom: "56.25%" }}
