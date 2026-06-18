@@ -281,36 +281,7 @@ export default function FAQ({ onConsultClick }: { onConsultClick?: () => void })
           ))}
         </div>
 
-        {/* ── Post-FAQ CTA ─────────────────────────────────────────────── */}
-        <div
-          className="mt-10 md:mt-14 text-center rounded-2xl px-6 py-8 md:py-10"
-          style={{
-            background: "linear-gradient(135deg, rgba(232,51,158,0.06) 0%, rgba(122,30,126,0.06) 100%)",
-            border: "1px solid rgba(232,51,158,0.15)",
-          }}
-        >
-          <p
-            className="font-bold mb-2"
-            style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)", color: "#111", fontFamily: "Montserrat, sans-serif" }}
-          >
-            Still have questions?
-          </p>
-          <p
-            className="mb-5 mx-auto max-w-md"
-            style={{ fontSize: 14.5, color: "#555", fontFamily: "Inter, sans-serif", lineHeight: 1.6 }}
-          >
-            Schedule a free 15-minute discovery call with our care team. No commitment, no pressure — just answers.
-          </p>
-          <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); onConsultClick?.(); }}
-            className="inline-flex items-center gap-2 font-bold text-white text-sm tracking-wide px-7 py-3.5 rounded-full transition-transform duration-150 active:scale-[0.97]"
-            style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
-          >
-            Schedule a Discovery Call
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
+
       </div>
     </section>
   );
