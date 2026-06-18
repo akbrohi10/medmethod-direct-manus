@@ -73,15 +73,16 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           How It Works
         </h2>
 
-        {/* YouTube Video Embed */}
+        {/* YouTube Video Embed — overflow hidden clips the "Watch on YouTube" bar */}
         <div className="max-w-[640px] mx-auto mb-8">
           <div
             className="relative w-full rounded-2xl overflow-hidden shadow-xl"
-            style={{ paddingBottom: "56.25%" }}
+            style={{ paddingBottom: "54%" }}
           >
             <iframe
-              className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
+              className="absolute w-full rounded-2xl"
+              style={{ top: "-2%", left: 0, height: "104%", width: "100%" }}
+              src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`}
               title="How MedMethod Direct Works"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
