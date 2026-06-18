@@ -57,6 +57,7 @@ function VideoEmbed() {
   const [playing, setPlaying] = useState(false);
 
   if (playing) {
+    // Use enablejsapi=1 and a postMessage to force play after iframe loads
     return (
       <div className="max-w-[640px] mx-auto mb-8">
         <div
@@ -65,10 +66,20 @@ function VideoEmbed() {
         >
           <iframe
             className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&autoplay=1&showinfo=0&iv_load_policy=3`}
+            src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&autoplay=1&showinfo=0&iv_load_policy=3&enablejsapi=1&playsinline=1`}
             title="How MedMethod Direct Works"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
+            ref={(el) => {
+              if (el) {
+                el.onload = () => {
+                  el.contentWindow?.postMessage(
+                    JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+                    "*"
+                  );
+                };
+              }
+            }}
           />
         </div>
       </div>
