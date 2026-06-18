@@ -4,7 +4,7 @@
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 
 const PINK = "#E8339E";
@@ -55,31 +55,62 @@ const JSONLD_VIDEO = {
 
 function VideoEmbed() {
   const [playing, setPlaying] = useState(false);
+  const playerContainerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!playing) return;
+
+    // Load YouTube IFrame API if not already loaded
+    const loadYTApi = () => {
+      return new Promise<void>((resolve) => {
+        if ((window as any).YT && (window as any).YT.Player) {
+          resolve();
+          return;
+        }
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+        (window as any).onYouTubeIframeAPIReady = () => resolve();
+      });
+    };
+
+    loadYTApi().then(() => {
+      if (!playerContainerRef.current) return;
+      playerRef.current = new (window as any).YT.Player(playerContainerRef.current, {
+        videoId: YOUTUBE_VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          iv_load_policy: 3,
+        },
+        events: {
+          onReady: (event: any) => {
+            event.target.playVideo();
+          },
+        },
+      });
+    });
+
+    return () => {
+      if (playerRef.current && playerRef.current.destroy) {
+        playerRef.current.destroy();
+      }
+    };
+  }, [playing]);
 
   if (playing) {
-    // Use enablejsapi=1 and a postMessage to force play after iframe loads
     return (
       <div className="max-w-[640px] mx-auto mb-8">
         <div
           className="relative w-full rounded-2xl overflow-hidden shadow-xl"
           style={{ paddingBottom: "56.25%" }}
         >
-          <iframe
+          <div
+            ref={playerContainerRef}
             className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&autoplay=1&showinfo=0&iv_load_policy=3&enablejsapi=1&playsinline=1`}
-            title="How MedMethod Direct Works"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            ref={(el) => {
-              if (el) {
-                el.onload = () => {
-                  el.contentWindow?.postMessage(
-                    JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-                    "*"
-                  );
-                };
-              }
-            }}
           />
         </div>
       </div>
