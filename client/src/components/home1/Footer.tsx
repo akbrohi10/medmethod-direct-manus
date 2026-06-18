@@ -167,15 +167,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   Schedule a Discovery Call
                 </a>
               </li>
-              <li>
-                <a
-                  href="/discovery-call"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Book Your Discovery Call
-                </a>
-              </li>
+
               <li>
                 <button
                   onClick={() => setQuizOpen(true)}
