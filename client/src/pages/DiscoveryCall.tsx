@@ -134,10 +134,10 @@ export default function DiscoveryCall() {
         {/* Main Content */}
         <main className="w-full px-4 pb-16">
           <div className="max-w-3xl mx-auto">
-            {/* Headline */}
-            <div className="text-center mb-8 md:mb-10">
+            {/* Headline + Trust signals — compact */}
+            <div className="text-center mb-5">
               <h1
-                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+                className="text-2xl md:text-3xl font-bold mb-2"
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   background: GRADIENT,
@@ -149,34 +149,31 @@ export default function DiscoveryCall() {
                 Book Your Discovery Call
               </h1>
               <p
-                className="text-gray-600 text-base md:text-lg max-w-xl mx-auto"
+                className="text-gray-600 text-sm md:text-base mb-3"
                 style={{ fontFamily: "'Montserrat', sans-serif" }}
               >
-                A free 15-minute call with our care team to understand your goals.
-                No cost, no obligation.
+                A free 15-minute call with our care team. No cost, no obligation.
               </p>
-            </div>
-
-            {/* Trust signals */}
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-8 text-sm text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                100% Virtual
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Same Doctor. Every Visit.
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Licensed in 17 States
-              </span>
+              <div className="flex flex-wrap items-center justify-center gap-3 md:gap-5 text-xs md:text-sm text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  100% Virtual
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Same Doctor. Every Visit.
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Licensed in 17 States
+                </span>
+              </div>
             </div>
 
             {/* Video Section */}
