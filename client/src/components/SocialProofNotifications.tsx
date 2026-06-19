@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 const CONFIG = {
-  firstDelay: { min: 18000, max: 25000 },       // 18–25 seconds before first
+  firstDelay: { min: 12000, max: 15000 },       // 12–15 seconds before first
   displayDuration: 6000,                          // 6 seconds visible
   intervalBetween: { min: 35000, max: 50000 },   // 35–50 seconds between
   maxPerSession: 4,                               // max 4 notifications
