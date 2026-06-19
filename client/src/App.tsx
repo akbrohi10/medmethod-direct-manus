@@ -1,4 +1,5 @@
 import { Toaster } from "sonner";
+import SocialProofNotifications from "./components/SocialProofNotifications";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
@@ -273,6 +274,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster position="top-center" richColors />
+          <SocialProofNotifications />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
