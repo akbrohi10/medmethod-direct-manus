@@ -10,7 +10,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 const CONFIG = {
   firstDelay: { min: 18000, max: 25000 },       // 18–25 seconds before first
   displayDuration: 6000,                          // 6 seconds visible
-  intervalBetween: { min: 45000, max: 60000 },   // 45–60 seconds between
+  intervalBetween: { min: 35000, max: 50000 },   // 35–50 seconds between
   maxPerSession: 4,                               // max 4 notifications
   maxPerSessionMobile: 3,                         // max 3 on mobile
   dismissCooldown: 90000,                         // 90s after manual dismiss
