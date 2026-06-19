@@ -4,10 +4,87 @@
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 
 const GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
+const YOUTUBE_ID = "AGrpLj1jmfw";
+const THUMBNAIL_URL = `https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`;
+
+function VideoEmbed() {
+  const [playing, setPlaying] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
+
+  const handlePlay = () => {
+    setPlaying(true);
+    // Load YouTube IFrame API and create player
+    if (!(window as any).YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+      (window as any).onYouTubeIframeAPIReady = () => {
+        createPlayer();
+      };
+    } else {
+      createPlayer();
+    }
+  };
+
+  const createPlayer = () => {
+    if (!playerRef.current) return;
+    new (window as any).YT.Player(playerRef.current, {
+      videoId: YOUTUBE_ID,
+      playerVars: {
+        autoplay: 1,
+        modestbranding: 1,
+        rel: 0,
+        playsinline: 1,
+      },
+      events: {
+        onReady: (event: any) => {
+          event.target.playVideo();
+        },
+      },
+    });
+  };
+
+  if (playing) {
+    return (
+      <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-md" style={{ aspectRatio: "16/9" }}>
+        <div ref={playerRef} className="w-full h-full" />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-md cursor-pointer group"
+      style={{ aspectRatio: "16/9" }}
+      onClick={handlePlay}
+      role="button"
+      aria-label="Play video: Learn about MedMethod Direct"
+    >
+      <img
+        src={THUMBNAIL_URL}
+        alt="MedMethod Direct program overview"
+        className="w-full h-full object-cover"
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+      {/* Play button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div
+          className="w-16 h-16 md:w-18 md:h-18 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+          style={{ background: GRADIENT }}
+        >
+          <svg className="w-6 h-6 md:w-7 md:h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function DiscoveryCall() {
   useEffect(() => {
@@ -100,6 +177,11 @@ export default function DiscoveryCall() {
                 </svg>
                 Licensed in 17 States
               </span>
+            </div>
+
+            {/* Video Section */}
+            <div className="mb-8">
+              <VideoEmbed />
             </div>
 
             {/* Calendar Embed */}
