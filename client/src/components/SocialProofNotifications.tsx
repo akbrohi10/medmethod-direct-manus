@@ -271,11 +271,7 @@ export default function SocialProofNotifications() {
 
   return (
     <div
-      className={`fixed z-[9999] transition-all duration-500 ease-out ${
-        visible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-4 pointer-events-none"
-      }`}
+      className={`fixed z-[9999] pointer-events-none`}
       style={{
         bottom: isMobile() ? "16px" : "24px",
         left: isMobile() ? "5%" : "24px",
@@ -285,6 +281,15 @@ export default function SocialProofNotifications() {
       aria-live="polite"
       aria-atomic="true"
     >
+      <div
+        className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          visible
+            ? "opacity-100 translate-x-0 translate-y-0 pointer-events-auto"
+            : isMobile()
+              ? "opacity-0 translate-y-8 pointer-events-none"
+              : "opacity-0 -translate-x-12 pointer-events-none"
+        }`}
+      >
       <div
         className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl"
         style={{
@@ -318,6 +323,7 @@ export default function SocialProofNotifications() {
         >
           {message}
         </p>
+      </div>
       </div>
     </div>
   );
