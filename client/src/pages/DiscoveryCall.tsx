@@ -13,45 +13,37 @@ const THUMBNAIL_URL = `https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jp
 
 function VideoEmbed() {
   const [playing, setPlaying] = useState(false);
-  const playerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handlePlay = () => {
     setPlaying(true);
-    // Load YouTube IFrame API and create player
-    if (!(window as any).YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(tag);
-      (window as any).onYouTubeIframeAPIReady = () => {
-        createPlayer();
-      };
-    } else {
-      createPlayer();
-    }
   };
 
-  const createPlayer = () => {
-    if (!playerRef.current) return;
-    new (window as any).YT.Player(playerRef.current, {
-      videoId: YOUTUBE_ID,
-      playerVars: {
-        autoplay: 1,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-      },
-      events: {
-        onReady: (event: any) => {
-          event.target.playVideo();
-        },
-      },
-    });
+  // Once iframe loads, send a postMessage to start playback
+  const handleIframeLoad = () => {
+    if (iframeRef.current) {
+      setTimeout(() => {
+        iframeRef.current?.contentWindow?.postMessage(
+          JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+          "*"
+        );
+      }, 300);
+    }
   };
 
   if (playing) {
     return (
       <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-md" style={{ aspectRatio: "16/9" }}>
-        <div ref={playerRef} className="w-full h-full" />
+        <iframe
+          ref={iframeRef}
+          src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+          className="w-full h-full"
+          style={{ border: "none" }}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="MedMethod Direct program overview"
+          onLoad={handleIframeLoad}
+        />
       </div>
     );
   }
