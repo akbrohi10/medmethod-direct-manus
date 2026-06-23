@@ -6,7 +6,7 @@
    ============================================================================= */
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight } from "lucide-react";
+import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen } from "lucide-react";
 
 export default function ThankYou() {
   // Fire GTM conversion event on page load
@@ -205,6 +205,44 @@ export default function ThankYou() {
                 (888) 362-7011
               </a>
             </p>
+          </div>
+        </div>
+
+        {/* What to Read Before Your Call */}
+        <div className="w-full max-w-lg mb-10">
+          <h3
+            className="text-sm font-bold tracking-[0.1em] uppercase text-[#4a4a5a] mb-4 flex items-center gap-2"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            <BookOpen className="w-4 h-4" />
+            What to Read Before Your Call
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { title: "Medical Weight Loss", desc: "GLP-1 therapy & metabolic optimization", href: "/#services" },
+              { title: "Hormone Therapy", desc: "Perimenopause & menopause care", href: "/#services" },
+              { title: "Our Programs", desc: "Membership tiers & what's included", href: "/#programs" },
+              { title: "Blog: Latest Insights", desc: "Evidence-based articles from Dr. Al-Deek", href: "/blog" },
+            ].map((item, i) => (
+              <a
+                key={i}
+                href={item.href}
+                className="bg-white rounded-xl border border-[#e8e6e3] p-4 hover:border-[#E8339E]/30 hover:shadow-sm transition-all group"
+              >
+                <h4
+                  className="text-sm font-semibold text-[#1a1a2e] group-hover:text-[#E8339E] transition-colors mb-1"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  {item.title}
+                </h4>
+                <p
+                  className="text-xs text-[#4a4a5a]"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  {item.desc}
+                </p>
+              </a>
+            ))}
           </div>
         </div>
 
