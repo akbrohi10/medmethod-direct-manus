@@ -6,7 +6,7 @@
    ============================================================================= */
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen } from "lucide-react";
+import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen, Download } from "lucide-react";
 
 export default function ThankYou() {
   // Fire GTM conversion event on page load
@@ -206,6 +206,43 @@ export default function ThankYou() {
               </a>
             </p>
           </div>
+        </div>
+
+        {/* Free PDF Guide Download */}
+        <div className="w-full max-w-lg mb-8">
+          <a
+            href="/manus-storage/medmethod_direct_guide_with_contact-5_3418a630.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-[#fdf2f8] to-[#faf5ff] rounded-xl border-2 border-[#E8339E]/20 p-5 hover:border-[#E8339E]/50 hover:shadow-md transition-all group"
+          >
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-[#E8339E] to-[#9b1d7a] flex items-center justify-center">
+                <Download className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3
+                  className="text-base font-bold text-[#1a1a2e] group-hover:text-[#E8339E] transition-colors mb-1"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Free Guide: Before You Start GLP-1s or Hormone Therapy
+                </h3>
+                <p
+                  className="text-sm text-[#4a4a5a] mb-2"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  A 9-page guide on safety, personalization, and choosing the right care model — written by Dr. Al-Deek.
+                </p>
+                <span
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-[#E8339E]"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Download Your Free Guide
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </div>
+          </a>
         </div>
 
         {/* What to Read Before Your Call */}
