@@ -6,7 +6,7 @@
    ============================================================================= */
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle } from "lucide-react";
+import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight } from "lucide-react";
 
 export default function ThankYou() {
   // Fire GTM conversion event on page load
@@ -24,7 +24,45 @@ export default function ThankYou() {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <div className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 py-12 md:py-20">
+      <div className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 pt-0 pb-12 md:pb-20">
+        {/* Minimal Logo Header */}
+        <div className="w-full max-w-lg py-6 mb-6">
+          <a href="/" className="inline-flex flex-col items-start leading-none" style={{ width: "fit-content" }}>
+            <div className="flex items-baseline gap-0">
+              <span
+                className="font-black text-[#1a1a2e]"
+                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.3rem", letterSpacing: "-0.02em" }}
+              >
+                Med
+              </span>
+              <span
+                className="font-black"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "1.3rem",
+                  letterSpacing: "-0.02em",
+                  backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Method
+              </span>
+            </div>
+            <div className="flex items-center gap-1 mt-0.5 w-full">
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
+              <span
+                className="text-[#1a1a2e] font-semibold tracking-[0.25em]"
+                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.5rem" }}
+              >
+                DIRECT
+              </span>
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
+            </div>
+          </a>
+        </div>
+
         {/* Confirmation Icon + Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 mb-6">
@@ -152,7 +190,7 @@ export default function ThankYou() {
         </div>
 
         {/* Questions CTA */}
-        <div className="w-full max-w-lg text-center">
+        <div className="w-full max-w-lg text-center mb-10">
           <div className="flex items-center justify-center gap-2 text-[#4a4a5a]">
             <HelpCircle className="w-4 h-4" />
             <p
@@ -168,6 +206,18 @@ export default function ThankYou() {
               </a>
             </p>
           </div>
+        </div>
+
+        {/* Continue Exploring Link */}
+        <div className="w-full max-w-lg text-center pt-6 border-t border-[#e8e6e3]">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 text-[#4a4a5a] hover:text-[#E8339E] text-sm font-medium transition-colors"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Continue exploring MedMethod Direct
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </>
