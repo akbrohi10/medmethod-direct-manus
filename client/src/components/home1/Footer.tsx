@@ -69,6 +69,24 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
   Premium virtual medical clinic focused on longevity, hormones, and medically supervised weight loss for women over 40. Doctor-led. Personalized. Accountable.
             </p>
 
+            {/* Office Address */}
+            <div className="mb-6">
+              <p
+                className="text-white/40 text-xs font-semibold tracking-[0.12em] uppercase mb-1.5"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Office
+              </p>
+              <p
+                className="text-white/50 text-sm leading-relaxed"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                274 Wilshire Blvd<br />
+                Suite 231<br />
+                Casselberry, FL 32707
+              </p>
+            </div>
+
             {/* Social */}
             <div className="flex gap-3">
               {[
