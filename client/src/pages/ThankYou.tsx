@@ -26,8 +26,8 @@ export default function ThankYou() {
 
       <div className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 pt-0 pb-12 md:pb-20">
         {/* Minimal Logo Header */}
-        <div className="w-full max-w-lg py-6 mb-6">
-          <a href="/" className="inline-flex flex-col items-start leading-none" style={{ width: "fit-content" }}>
+        <div className="w-full max-w-lg py-6 mb-6 flex justify-center">
+          <a href="/" className="inline-flex flex-col items-center leading-none" style={{ width: "fit-content" }}>
             <div className="flex items-baseline gap-0">
               <span
                 className="font-black text-[#1a1a2e]"
@@ -134,13 +134,13 @@ export default function ThankYou() {
                   className="text-lg font-bold text-[#1a1a2e] mb-1.5"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Reply to Our Text Message
+                  Reply to Our Text to Secure Your Spot
                 </h2>
                 <p
                   className="text-[#4a4a5a] text-sm leading-relaxed"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  You'll receive a text from our team shortly. Please reply to confirm — this lets your care coordinator know you're ready.
+                  You'll receive a confirmation text shortly. We keep our schedule open and available so serious patients can get in quickly — reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.
                 </p>
               </div>
             </div>
@@ -155,7 +155,7 @@ export default function ThankYou() {
               className="text-amber-900 text-sm leading-relaxed"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              <strong>Please confirm within 24 hours.</strong> Due to high demand, appointments that are not confirmed (calendar accepted + text replied) are automatically released to the next patient on our waitlist.
+              <strong>Please confirm within 24 hours.</strong> We keep our availability open for patients who are ready to take action. Unconfirmed appointments (calendar not accepted + text not replied) are automatically released so those serious about their health can get in quickly.
             </p>
           </div>
         </div>
