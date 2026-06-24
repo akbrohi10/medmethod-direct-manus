@@ -63,7 +63,7 @@ const faqCategories: {
         a: "The depth of your care. Ignite covers asynchronous physician access and protocol design; Transformation adds live video visits, baseline labs, structured nutrition and fitness plans, and a Performance Coach; Longevity adds quarterly physician strategy sessions, expanded diagnostics, and premium peptide access. Medications are a separate line item layered on top.",
       },
       {
-        q: "Do I have to buy medication to have a membership?",
+        q: "Do I need to be on medication to have a membership?",
         a: "No. Your membership covers your clinical oversight whether or not you fill a prescription in a given month. Most patients pair a membership with at least one medication, but the structures are independent.",
       },
     ],
@@ -110,7 +110,7 @@ const faqCategories: {
       },
       {
         q: "Are there hidden fees?",
-        a: "No. Your total at checkout is your membership plus any medications you select. All of our pricing is listed transparently on our website, so you always know exactly what you are paying for before you enroll. Any labs beyond what your tier includes are quoted before you commit.",
+        a: "No. Your membership fee at enrollment covers your clinical services. Any prescribed medications are billed separately and transparently by the pharmacy. All pricing is listed on our website so you always know exactly what you are paying for before you enroll. Any labs beyond what your tier includes are quoted before you commit.",
       },
       {
         q: "Does my medication price change as my dose increases?",

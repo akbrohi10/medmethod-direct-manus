@@ -65,10 +65,10 @@ const TIERS: Tier[] = [
     initiationIncludes: [
       "Asynchronous physician health history review",
       "Custom protocol design tailored to your goals",
-      "Personalized medication recommendations from the menu",
+      "Personalized treatment recommendations based on your goals",
       "Secure messaging onboarding (48hr response SLA)",
       "Patient dashboard and treatment tracking setup",
-      "À la carte drug menu access activation",
+      "Full formulary access — all available treatment options",
     ],
     ongoingIncludes: [
       "Asynchronous physician intake at enrollment",
@@ -76,7 +76,7 @@ const TIERS: Tier[] = [
       "Secure messaging — 48hr response weekdays",
       "Monthly async check-in",
       "Eligibility maintenance for ongoing Rx",
-      "Full access to the à la carte drug menu",
+      "Full formulary access — all available treatment options",
     ],
     ctaVariant: "outline",
   },
