@@ -103,9 +103,9 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 className="mt-1 text-center w-full"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.1em",
-                  color: "rgba(0,0,0,0.4)",
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.05em",
+                  color: "#666",
                   fontStyle: "italic",
                 }}
               >
