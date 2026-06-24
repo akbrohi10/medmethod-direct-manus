@@ -44,7 +44,7 @@ const services = [
   },
   {
     title: "Longevity & Healthy Aging",
-    description: "Advanced diagnostics and precision medicine to keep you strong, energetic, and mentally sharp for years ahead…",
+    description: "Advanced diagnostics to keep you strong, energetic, and mentally sharp for years ahead…",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-longevity-7Bx5nrzEiFaTG3M5kYTgbL.webp",
     alt: "Active woman cycling outdoors in golden light",
   },
