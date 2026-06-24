@@ -100,13 +100,14 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
               </div>
               <span
-                className="mt-1 text-center w-full"
+                className="mt-1.5 text-center w-full"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.05em",
-                  color: "#666",
-                  fontStyle: "italic",
+                  fontSize: "0.72rem",
+                  fontWeight: 400,
+                  letterSpacing: "0",
+                  color: "#888",
+                  fontStyle: "normal",
                 }}
               >
                 Feel Like Yourself Again
