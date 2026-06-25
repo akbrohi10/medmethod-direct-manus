@@ -173,24 +173,14 @@ export default function ThankYou() {
                 >
                   Your Care Coordinator will ask which program interests you and answer your specific questions. <strong>Patients who review our site beforehand get significantly more out of their call.</strong>
                 </p>
-                <div className="space-y-2">
-                  <a
-                    href="/#programs"
-                    className="flex items-center gap-2 text-sm font-semibold text-[#E8339E] hover:underline"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    <ArrowRight className="w-3.5 h-3.5" />
-                    Programs & Pricing
-                  </a>
-                  <a
-                    href="/before-you-start-treatment"
-                    className="flex items-center gap-2 text-sm font-semibold text-[#7A1E7E] hover:underline"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    <ArrowRight className="w-3.5 h-3.5" />
-                    Before You Start Treatment
-                  </a>
-                </div>
+                <a
+                  href="/#programs"
+                  className="inline-flex items-center gap-2 mt-1 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  View Programs & Pricing
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
