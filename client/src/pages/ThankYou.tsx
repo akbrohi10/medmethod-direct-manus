@@ -147,6 +147,55 @@ export default function ThankYou() {
           </div>
         </div>
 
+          {/* Step 3: Prepare for Your Call */}
+          <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-[#E8339E]" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className="text-xs font-bold tracking-[0.1em] uppercase text-[#E8339E]"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Step 3
+                  </span>
+                </div>
+                <h2
+                  className="text-lg font-bold text-[#1a1a2e] mb-1.5"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Review Our Programs & Pricing
+                </h2>
+                <p
+                  className="text-[#4a4a5a] text-sm leading-relaxed mb-3"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  Your Care Coordinator will ask which program interests you and answer your specific questions. <strong>Patients who review our site beforehand get significantly more out of their call.</strong>
+                </p>
+                <div className="space-y-2">
+                  <a
+                    href="/#programs"
+                    className="flex items-center gap-2 text-sm font-semibold text-[#E8339E] hover:underline"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    <ArrowRight className="w-3.5 h-3.5" />
+                    Programs & Pricing
+                  </a>
+                  <a
+                    href="/before-you-start-treatment"
+                    className="flex items-center gap-2 text-sm font-semibold text-[#7A1E7E] hover:underline"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    <ArrowRight className="w-3.5 h-3.5" />
+                    Before You Start Treatment
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         {/* Urgency Notice */}
         <div className="w-full max-w-lg mb-10">
           <div className="bg-amber-50 border border-amber-200/60 rounded-xl p-5 flex items-start gap-3.5">
@@ -172,7 +221,7 @@ export default function ThankYou() {
             <ul className="space-y-3">
               {[
                 "Your call will be 15 minutes with a care coordinator",
-                "No preparation needed — just come with your questions",
+                "Please review our programs and pricing before your call",
                 "We'll discuss your goals and whether our program is the right fit",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
