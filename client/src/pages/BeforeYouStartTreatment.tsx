@@ -504,12 +504,11 @@ export default function BeforeYouStartTreatment() {
             <div className="bg-white rounded-xl border border-gray-100 p-6 md:p-8 shadow-sm">
               <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
                 <div className="flex-shrink-0">
-                  <div
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center text-white font-bold text-2xl"
-                    style={{ background: GRADIENT }}
-                  >
-                    Dr.
-                  </div>
+                  <img
+                    src="/manus-storage/pasted_file_H8dopF_d7397dc9-d351-4e90-b0cf-c51dcc3978b6_eeea80eb.png"
+                    alt="Dr. Jumana Al-Deek, DO"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-top"
+                  />
                 </div>
                 <div className="text-center md:text-left">
                   <h3 className="text-xl font-bold text-gray-900 mb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
