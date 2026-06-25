@@ -251,88 +251,174 @@ function priceFor(t: Tier, term: Term): number {
   return term === 3 ? t.pricing.m3 : term === 6 ? t.pricing.m6 : t.pricing.m12;
 }
 
-// ── Lab Panel Expandable ────────────────────────────────────────────────────
-function LabPanelItem({ panel, dark = false }: { panel: LabPanel; dark?: boolean }) {
-  const [open, setOpen] = useState(false);
+// ── Lab Options Modal ──────────────────────────────────────────────────────
+function LabOptionsModal({ open, onClose, panels }: { open: boolean; onClose: () => void; panels: LabPanel[] }) {
+  if (!open) return null;
 
   return (
     <div
-      style={{
-        borderRadius: 8,
-        border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid #ECECEC",
-        background: dark ? "rgba(255,255,255,0.04)" : "#FAFAFA",
-        marginBottom: 6,
-        overflow: "hidden",
-      }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
+      onClick={onClose}
     >
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between text-left"
+      <div
+        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto"
         style={{
-          padding: "10px 12px",
-          border: "none",
-          cursor: "pointer",
-          background: "transparent",
-          fontFamily: "Montserrat, sans-serif",
+          background: "#fff",
+          borderRadius: 16,
+          padding: "32px 28px",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.25)",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
-        <span
+        {/* Close button */}
+        <button
+          onClick={onClose}
           style={{
-            fontSize: 12.5,
-            fontWeight: 600,
-            color: dark ? "#E5E5EA" : "#1F1F1F",
+            position: "absolute",
+            top: 16,
+            right: 16,
+            background: "#F3F1EF",
+            border: "none",
+            borderRadius: "50%",
+            width: 32,
+            height: 32,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 18,
+            color: "#555",
           }}
         >
-          {panel.name}
-        </span>
-        <span className="flex items-center gap-2">
-          <span
+          ×
+        </button>
+
+        <h3
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: 20,
+            fontWeight: 800,
+            color: "#111",
+            marginBottom: 6,
+            letterSpacing: "-0.3px",
+          }}
+        >
+          Lab Panel Options
+        </h3>
+        <p
+          style={{
+            fontFamily: "Inter, Montserrat, sans-serif",
+            fontSize: 13,
+            color: "#767676",
+            marginBottom: 24,
+            lineHeight: 1.5,
+          }}
+        >
+          Your physician will recommend the right panel based on your treatment plan. One-time cost at onboarding.
+        </p>
+
+        {panels.map((panel, idx) => (
+          <div
+            key={idx}
             style={{
-              fontSize: 13,
-              fontWeight: 800,
-              color: "#E8339E",
+              marginBottom: 16,
+              border: "1px solid #ECECEC",
+              borderRadius: 12,
+              overflow: "hidden",
             }}
           >
-            ${panel.price}
-          </span>
-          <ChevronDown
-            size={14}
-            style={{
-              color: dark ? "#9CA3AF" : "#767676",
-              transition: "transform 200ms ease-out",
-              transform: open ? "rotate(180deg)" : "rotate(0deg)",
-              flexShrink: 0,
-            }}
-          />
-        </span>
-      </button>
-      {open && (
-        <ul
-          style={{
-            padding: "4px 12px 10px",
-            borderTop: dark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #F0F0F0",
-            listStyle: "none",
-            margin: 0,
-          }}
-        >
-          {panel.tests.map((test, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-2"
+            <div
+              className="flex items-center justify-between"
               style={{
-                fontFamily: "Inter, Montserrat, sans-serif",
-                fontSize: 11.5,
-                color: dark ? "#D4D4D8" : "#555",
-                lineHeight: 1.5,
-                padding: "3px 0",
+                padding: "14px 16px",
+                background: "#FAFAFA",
+                borderBottom: "1px solid #ECECEC",
               }}
             >
-              <span style={{ color: "#E8339E", fontWeight: 700, flexShrink: 0 }}>·</span>
-              <span>{test}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+              <span
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: "#111",
+                }}
+              >
+                {panel.name}
+              </span>
+              <span
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: 15,
+                  fontWeight: 800,
+                  color: "#E8339E",
+                }}
+              >
+                ${panel.price}
+              </span>
+            </div>
+            <ul
+              style={{
+                padding: "12px 16px",
+                listStyle: "none",
+                margin: 0,
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "4px 12px",
+              }}
+            >
+              {panel.tests.map((test, i) => (
+                <li
+                  key={i}
+                  style={{
+                    fontFamily: "Inter, Montserrat, sans-serif",
+                    fontSize: 11.5,
+                    color: "#555",
+                    lineHeight: 1.5,
+                    padding: "2px 0",
+                  }}
+                >
+                  <span style={{ color: "#E8339E", fontWeight: 700, marginRight: 4 }}>·</span>
+                  {test}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        {/* Bring your own labs note */}
+        <div
+          style={{
+            marginTop: 8,
+            padding: "14px 16px",
+            borderRadius: 10,
+            border: "1px dashed #D6D6D6",
+            background: "#FAFAFA",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#111",
+              marginBottom: 4,
+            }}
+          >
+            Already have recent labs? (within 3 months)
+          </div>
+          <div
+            style={{
+              fontFamily: "Inter, Montserrat, sans-serif",
+              fontSize: 12,
+              color: "#767676",
+              lineHeight: 1.5,
+            }}
+          >
+            Skip the lab order — Clinical Review Fee: <span style={{ fontWeight: 700, color: "#E8339E" }}>$39–$199</span> depending on your plan.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -344,6 +430,10 @@ export default function PopularPrograms({
   onConsultClick: (tierName?: string) => void;
 }) {
   const [term, setTerm] = useState<Term>(12);
+  const [labModalOpen, setLabModalOpen] = useState(false);
+
+  // Combine all unique panels for the modal
+  const allPanels = [GLP1_PANEL, HORMONE_PANEL, GLP1_HORMONE_PANEL, LONGEVITY_PANEL];
 
   return (
     <section
@@ -443,6 +533,7 @@ export default function PopularPrograms({
               tier={tier}
               term={term}
               onConsultClick={onConsultClick}
+              onLabModalOpen={() => setLabModalOpen(true)}
             />
           ))}
         </div>
@@ -455,6 +546,9 @@ export default function PopularPrograms({
           All terms paid upfront at enrollment. Lab costs are one-time at onboarding.
         </p>
       </div>
+
+      {/* Lab Options Modal */}
+      <LabOptionsModal open={labModalOpen} onClose={() => setLabModalOpen(false)} panels={allPanels} />
     </section>
   );
 }
@@ -566,10 +660,12 @@ function PricingCard({
   tier,
   term,
   onConsultClick,
+  onLabModalOpen,
 }: {
   tier: Tier;
   term: Term;
   onConsultClick: (tierName?: string) => void;
+  onLabModalOpen: () => void;
 }) {
   const price = priceFor(tier, term);
   const billedToday = price * term;
@@ -816,69 +912,44 @@ function PricingCard({
           )}
         </div>
 
-        {/* ── Get Started: Labs Section ────────────────────────────────── */}
-        <div className="mb-5">
-          <div
-            className="font-bold uppercase mb-3"
-            style={{
-              fontSize: 10,
-              letterSpacing: "2px",
-              color: dark ? "#F4C8E2" : "#7A1E7E",
-            }}
-          >
-            Get Started — Choose Your Labs
-          </div>
-          <p
-            style={{
-              fontFamily: "Inter, Montserrat, sans-serif",
-              fontSize: 11.5,
-              color: dark ? "#9CA3AF" : "#767676",
-              lineHeight: 1.5,
-              marginBottom: 10,
-            }}
-          >
-            No separate setup fee — your labs are your onboarding.
-          </p>
-
-          {/* Lab panels */}
-          {tier.labPanels.map((panel, i) => (
-            <LabPanelItem key={i} panel={panel} dark={dark} />
-          ))}
-
-          {/* Bring your own labs option */}
-          <div
-            style={{
-              marginTop: 10,
-              padding: "10px 12px",
-              borderRadius: 8,
-              border: dark ? "1px dashed rgba(255,255,255,0.15)" : "1px dashed #D6D6D6",
-              background: dark ? "rgba(255,255,255,0.02)" : "#FFFFFF",
-            }}
-          >
-            <div
+        {/* ── One-line lab cost + modal trigger ─────────────────────────── */}
+        <div
+          className="mb-5"
+          style={{
+            padding: "12px 14px",
+            borderRadius: 10,
+            border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid #ECECEC",
+            background: dark ? "rgba(255,255,255,0.04)" : "#FAFAFA",
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span
+              style={{
+                fontFamily: "Inter, Montserrat, sans-serif",
+                fontSize: 13,
+                fontWeight: 600,
+                color: dark ? "#E5E5EA" : "#1F1F1F",
+              }}
+            >
+              One-time labs: from{" "}
+              <span style={{ fontWeight: 800, color: "#E8339E" }}>$69</span>
+            </span>
+            <button
+              onClick={() => onLabModalOpen()}
               style={{
                 fontFamily: "Inter, Montserrat, sans-serif",
                 fontSize: 12,
                 fontWeight: 600,
-                color: dark ? "#E5E5EA" : "#1F1F1F",
-                marginBottom: 3,
+                color: dark ? "#F4C8E2" : "#7A1E7E",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "underline",
+                textUnderlineOffset: "2px",
               }}
             >
-              Have recent labs? (within 3 months)
-            </div>
-            <div
-              style={{
-                fontFamily: "Inter, Montserrat, sans-serif",
-                fontSize: 11.5,
-                color: dark ? "#9CA3AF" : "#767676",
-                lineHeight: 1.5,
-              }}
-            >
-              Clinical Review Fee:{" "}
-              <span style={{ fontWeight: 800, color: "#E8339E" }}>
-                ${tier.clinicalReviewFee}
-              </span>
-            </div>
+              View lab options →
+            </button>
           </div>
         </div>
 
