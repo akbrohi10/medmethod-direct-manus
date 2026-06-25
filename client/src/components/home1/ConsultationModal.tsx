@@ -165,6 +165,7 @@ function WheelColumn({
               onSelect(i);
               if (ref.current) ref.current.scrollTop = i * ITEM_H;
             }}
+            onPointerUp={() => { /* bubble to parent */ }}
             style={{
               height: ITEM_H,
               scrollSnapAlign: "center",
@@ -323,6 +324,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const years = useMemo(() => Array.from({ length: currentYear - 1919 }, (_, i) => String(currentYear - i)).filter(y => parseInt(y) <= currentYear - 18), [currentYear]);
 
   const [monthIdx, setMonthIdx] = useState(new Date().getMonth());
+  const [dobTouched, setDobTouched] = useState(false);
   const [dayIdx, setDayIdx] = useState(new Date().getDate() - 1);
   const [yearIdx, setYearIdx] = useState(30);
 
@@ -380,7 +382,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isNextDisabled = webhookSubmitting || (isServiceStep
     ? selectedServices.length === 0
     : isQuestionStep
-      ? isAgeStep ? computedAge < 18 : isGoalsStep ? false : !selected
+      ? isAgeStep ? !dobTouched || computedAge < 18 : isGoalsStep ? false : !selected
       : isLeadStep ? !isLeadValid
       : isAttributionStep ? false
       : false);
@@ -721,13 +723,14 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <div
                     className="flex rounded-xl overflow-hidden"
                     style={{ background: "#fafafa", userSelect: "none" }}
+                    onPointerUp={() => setDobTouched(true)}
                   >
                     <WheelColumn items={months} selectedIndex={monthIdx} onSelect={setMonthIdx} />
                     <WheelColumn items={days} selectedIndex={dayIdx} onSelect={setDayIdx} />
                     <WheelColumn items={years} selectedIndex={yearIdx} onSelect={setYearIdx} />
                   </div>
-                  <p className="text-xs text-center mt-3" style={{ color: computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
-                    {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
+                  <p className="text-xs text-center mt-3" style={{ color: !dobTouched ? "#9ca3af" : computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
+                    {!dobTouched ? "Scroll to select your date of birth" : computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
                   </p>
                 </div>
               ) : (

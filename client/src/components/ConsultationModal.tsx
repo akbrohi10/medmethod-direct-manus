@@ -94,32 +94,37 @@ function WheelColumn({
   items,
   selectedIndex,
   onSelect,
+  onUserClick,
 }: {
   items: string[];
   selectedIndex: number;
   onSelect: (idx: number) => void;
+  onUserClick?: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
-  const rafId = useRef<number | null>(null);
+  const ready = useRef(false);
+  const scrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // On mount / when selectedIndex changes programmatically, scroll to position
   useEffect(() => {
     const el = ref.current;
-    if (!el || isScrolling.current) return;
+    if (!el) return;
+    ready.current = false;
     el.scrollTop = selectedIndex * ITEM_H;
+    const t = setTimeout(() => { ready.current = true; }, 600);
+    return () => clearTimeout(t);
   }, [selectedIndex]);
 
   const handleScroll = useCallback(() => {
+    if (!ready.current) return;
     const el = ref.current;
     if (!el) return;
-    isScrolling.current = true;
-    if (rafId.current) cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
+    if (scrollTimer.current) clearTimeout(scrollTimer.current);
+    scrollTimer.current = setTimeout(() => {
       const idx = Math.round(el.scrollTop / ITEM_H);
       const clamped = Math.max(0, Math.min(idx, items.length - 1));
       onSelect(clamped);
-      isScrolling.current = false;
-    });
+    }, 120);
   }, [items.length, onSelect]);
 
   return (
@@ -145,6 +150,7 @@ function WheelColumn({
       <div
         ref={ref}
         onScroll={handleScroll}
+
         style={{
           height: "100%",
           overflowY: "scroll",
@@ -161,7 +167,7 @@ function WheelColumn({
             key={item}
             onClick={() => {
               onSelect(i);
-              if (ref.current) ref.current.scrollTop = i * ITEM_H;
+              onUserClick?.();
             }}
             style={{
               height: ITEM_H,
@@ -338,6 +344,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isLeadStep = step === LEAD_STEP;
   const isExpectationStep = step === EXPECTATION_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
+
+
 
   const isLeadValid =
     leadData.firstName.trim().length >= 2 &&
@@ -608,9 +616,9 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     className="flex rounded-xl overflow-hidden"
                     style={{ background: "#fafafa", userSelect: "none" }}
                   >
-                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={(i) => { setMonthIdx(i); setDobTouched(true); }} />
-                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={(i) => { setDayIdx(i); setDobTouched(true); }} />
-                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={(i) => { setYearIdx(i); setDobTouched(true); }} />
+                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={(idx) => { setMonthIdx(idx); }} onUserClick={() => setDobTouched(true)} />
+                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={(idx) => { setDayIdx(idx); }} onUserClick={() => setDobTouched(true)} />
+                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={(idx) => { setYearIdx(idx); }} onUserClick={() => setDobTouched(true)} />
                   </div>
                   <p className="text-xs text-center mt-3" style={{ color: !dobTouched ? "#9ca3af" : computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
                     {!dobTouched ? "Scroll to select your date of birth" : computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
