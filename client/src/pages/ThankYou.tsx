@@ -145,7 +145,6 @@ export default function ThankYou() {
               </div>
             </div>
           </div>
-        </div>
 
           {/* Step 3: Prepare for Your Call */}
           <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
@@ -195,6 +194,7 @@ export default function ThankYou() {
               </div>
             </div>
           </div>
+        </div>
 
         {/* Urgency Notice */}
         <div className="w-full max-w-lg mb-10">
