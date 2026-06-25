@@ -239,6 +239,20 @@ export default function BeforeYouStartTreatment() {
         <title>Before You Start Treatment | What Women Over 40 Need to Know</title>
         <meta name="description" content="Before starting GLP-1s or hormone therapy, read this guide. What women over 40 need to know to choose a safer, personalized approach and avoid costly mistakes." />
         <meta name="robots" content="noindex, nofollow" />
+        {/* Open Graph */}
+        <meta property="og:title" content="Before You Start Treatment | What Women Over 40 Need to Know" />
+        <meta property="og:description" content="Before starting GLP-1s or hormone therapy, read this guide. What women over 40 need to know to choose a safer, personalized approach and avoid costly mistakes." />
+        <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/og-before-you-start-treatment_d823128a.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.medmethoddirect.com/before-you-start-treatment" />
+        <meta property="og:site_name" content="MedMethod Direct" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Before You Start Treatment | What Women Over 40 Need to Know" />
+        <meta name="twitter:description" content="Before starting GLP-1s or hormone therapy, read this guide. What women over 40 need to know to choose a safer, personalized approach and avoid costly mistakes." />
+        <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/og-before-you-start-treatment_d823128a.png" />
       </Helmet>
 
       <ReadingProgress />
