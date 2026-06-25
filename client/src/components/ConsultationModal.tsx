@@ -297,6 +297,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [monthIdx, setMonthIdx] = useState(new Date().getMonth());
   const [dayIdx, setDayIdx] = useState(new Date().getDate() - 1);
   const [yearIdx, setYearIdx] = useState(30);
+  const [dobTouched, setDobTouched] = useState(false);
 
   // Pre-select service when modal opens with a specific service
   useEffect(() => {
@@ -346,7 +347,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isNextDisabled = isServiceStep
     ? selectedServices.length === 0
     : isQuestionStep
-      ? isAgeStep ? computedAge < 18 : isGoalsStep ? goalsText.trim().length < 3 : !selected
+      ? isAgeStep ? (!dobTouched || computedAge < 18) : isGoalsStep ? goalsText.trim().length < 3 : !selected
       : isLeadStep ? !isLeadValid
       : false;
 
@@ -363,7 +364,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       setStep((s) => s + 1);
     } else if (isQuestionStep) {
       if (isAgeStep) {
-        if (computedAge < 18) return;
+        if (!dobTouched || computedAge < 18) return;
         const dobStr = `${months[monthIdx]} ${days[dayIdx]}, ${years[yearIdx]}`;
         setAnswers((prev) => ({ ...prev, age: dobStr, computedAge: String(computedAge) }));
         setSelected(null);
@@ -607,12 +608,12 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     className="flex rounded-xl overflow-hidden"
                     style={{ background: "#fafafa", userSelect: "none" }}
                   >
-                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={setMonthIdx} />
-                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={setDayIdx} />
-                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={setYearIdx} />
+                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={(i) => { setMonthIdx(i); setDobTouched(true); }} />
+                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={(i) => { setDayIdx(i); setDobTouched(true); }} />
+                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={(i) => { setYearIdx(i); setDobTouched(true); }} />
                   </div>
-                  <p className="text-xs text-center mt-3" style={{ color: computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
-                    {computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
+                  <p className="text-xs text-center mt-3" style={{ color: !dobTouched ? "#9ca3af" : computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
+                    {!dobTouched ? "Scroll to select your date of birth" : computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
                   </p>
                 </div>
               ) : (
