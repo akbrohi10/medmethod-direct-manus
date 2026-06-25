@@ -1,20 +1,21 @@
 /* =============================================================================
    Popular Programs — MedMethod Direct
-   Updated: New pricing structure — labs replace initiation fee as commitment.
-   Patients who bring their own labs (within 3 months) pay a Clinical Review Fee.
+   Updated: tier copy, pricing, and structure now match the official
+   MedMethod Pricing Plans reference (Ignite / Transformation / Longevity).
 
    Pricing (per-month, paid upfront):
-     Ignite          → 3mo $129 · 6mo $109 · 12mo $99
-     Transformation  → 3mo $249 · 6mo $215 · 12mo $199
-     Longevity       → 3mo $379 · 6mo $325 · 12mo $299
+     Ignite          → 3mo $129 · 6mo $109 · 12mo $99   (was $129)
+     Transformation  → 3mo $249 · 6mo $215 · 12mo $199  (was $249)
+     Longevity       → 3mo $379 · 6mo $325 · 12mo $299  (was $379)
 
-   Get Started:
-     Labs through us → no separate setup fee (labs ARE the commitment)
-     Bring own labs  → Clinical Review Fee: Ignite $39, Transformation $129, Longevity $199
-
-   Lab panels shown:
-     Ignite & Transformation: GLP-1 ($69), Hormones ($311), GLP-1 + Hormones ($373)
-     Longevity: All 4 (adds Longevity Labs $192)
+   Card structure:
+     - Plan name + tagline + price (visible)
+     - Initiation fee line under price
+     - One-line "for the patient who…" description
+     - Two collapsible accordions (chevron, FAQ-style):
+         · INITIATION FEE INCLUDES
+         · ONGOING MONTHLY INCLUDES
+     - CTA at the bottom (wired to ConsultationModal via onConsultClick)
 
    Brand: magenta #E8339E → deep purple #7A1E7E gradient.
    ============================================================================= */
@@ -24,98 +25,31 @@ import { ChevronDown } from "lucide-react";
 type Term = 3 | 6 | 12;
 
 interface TierPricing {
-  base: number;
+  base: number;          // line-through "was" price (always 3-month rate)
   m3: number; m6: number; m12: number;
 }
 
-interface LabPanel {
-  name: string;
-  price: number;
-  tests: string[];
+interface InitiationFee {
+  m3: number; m6: number; m12: number;
+  m12Note?: string;       // e.g. "waived on 12-month plan"
+  m12Was?: number;        // optional strikethrough on the 12-month fee line
 }
 
 interface Tier {
   id: "ignite" | "transformation" | "longevity";
-  tierTag: string;
+  tierTag: string;        // "TIER U1", "TIER U2 · ★ MOST POPULAR", etc.
   badge?: { label: string; variant: "featured" | "longevity" };
   name: string;
-  tagline: string;
-  valueStack: string;
-  description: string;
+  tagline: string;        // short eyebrow under name
+  valueStack: string;     // bold one-liner above price — pre-frames the dollar figure
+  description: string;    // italic "for the patient who…" line
   pricing: TierPricing;
-  clinicalReviewFee: number;
-  inheritsFrom?: string;
+  initiation: InitiationFee;
+  inheritsFrom?: string;  // name of tier whose features carry up (used in ongoing list)
   initiationIncludes: string[];
   ongoingIncludes: string[];
   ctaVariant: "outline" | "solid" | "purple";
-  labPanels: LabPanel[];
 }
-
-// ── Lab Panel Data ──────────────────────────────────────────────────────────
-const GLP1_PANEL: LabPanel = {
-  name: "GLP-1 Panel",
-  price: 69,
-  tests: [
-    "CMP (Comprehensive Metabolic Panel)",
-    "TSH (Thyroid Stimulating Hormone)",
-    "HbA1c (W/EAG REFL)",
-    "CBC with Differential/Platelet",
-    "Basic Lipid Panel (HDL, Total Cholesterol, Triglycerides, LDL, LDL/HDL ratio)",
-  ],
-};
-
-const HORMONE_PANEL: LabPanel = {
-  name: "Hormone Panel",
-  price: 311,
-  tests: [
-    "Free T3",
-    "Progesterone",
-    "Prolactin",
-    "Estradiol",
-    "FSH & LH",
-    "Testosterone Free and Total (DIAL)",
-    "DHEA-Sulfate",
-    "Vitamin D",
-    "CBC (DIFF/PLT)",
-  ],
-};
-
-const GLP1_HORMONE_PANEL: LabPanel = {
-  name: "GLP-1 + Hormones",
-  price: 373,
-  tests: [
-    "CMP (Comprehensive Metabolic Panel)",
-    "TSH (Thyroid Stimulating Hormone)",
-    "HbA1c (W/EAG REFL)",
-    "CBC with Differential/Platelet",
-    "Basic Lipid Panel (HDL, Total Cholesterol, Triglycerides, LDL, LDL/HDL ratio)",
-    "Free T3",
-    "Progesterone",
-    "Prolactin",
-    "Estradiol",
-    "FSH & LH",
-    "Testosterone Free and Total (DIAL)",
-    "DHEA-Sulfate",
-    "Vitamin D",
-  ],
-};
-
-const LONGEVITY_PANEL: LabPanel = {
-  name: "Longevity Panel",
-  price: 192,
-  tests: [
-    "Cardiac IQ Panel (APO B)",
-    "Homocysteine",
-    "HsCRP (High-Sensitivity C-Reactive Protein)",
-    "Insulin",
-    "Iron, Total TIBC",
-    "Magnesium",
-    "Ferritin",
-    "B12",
-    "Folate",
-    "Cortisol A.M.",
-  ],
-};
 
 const TIERS: Tier[] = [
   {
@@ -123,11 +57,11 @@ const TIERS: Tier[] = [
     tierTag: "",
     name: "Ignite",
     tagline: "Async access · price-sensitive",
-    valueStack: "Your physician + your protocol, every month.",
+    valueStack: "Your physician + your medication, every month.",
     description:
       "Patients who know what they want & value speed + price over coaching.",
     pricing: { base: 129, m3: 129, m6: 109, m12: 99 },
-    clinicalReviewFee: 39,
+    initiation: { m3: 49, m6: 49, m12: 0, m12Was: 49, m12Note: "waived on 12-month plan" },
     initiationIncludes: [
       "Asynchronous physician health history review",
       "Custom protocol design tailored to your goals",
@@ -145,7 +79,6 @@ const TIERS: Tier[] = [
       "Full formulary access — all available treatment options",
     ],
     ctaVariant: "outline",
-    labPanels: [GLP1_PANEL, HORMONE_PANEL, GLP1_HORMONE_PANEL],
   },
   {
     id: "transformation",
@@ -157,11 +90,15 @@ const TIERS: Tier[] = [
     description:
       "For the patient who wants structure, accountability, and a team that keeps them on track.",
     pricing: { base: 249, m3: 249, m6: 215, m12: 199 },
-    clinicalReviewFee: 129,
+    initiation: { m3: 199, m6: 199, m12: 199 },
     inheritsFrom: "Ignite",
     initiationIncludes: [
       "30-minute in-depth live physician video consultation",
-      "Comprehensive baseline lab panel — 30+ biomarkers",
+      "Baseline lab panel — 30+ biomarkers",
+      "Includes: CBC, comprehensive metabolic panel, lipid panel",
+      "HbA1c & fasting glucose, full thyroid (TSH, free T4)",
+      "Hormone baseline (testosterone, estradiol, progesterone where applicable)",
+      "Vitamin D, hsCRP inflammation marker",
       "Lab review session with your physician",
       "Structured nutrition + fitness plan design",
       "Performance Coach introduction",
@@ -177,7 +114,6 @@ const TIERS: Tier[] = [
       "Unlimited secure messaging (24hr SLA)",
     ],
     ctaVariant: "solid",
-    labPanels: [GLP1_PANEL, HORMONE_PANEL, GLP1_HORMONE_PANEL],
   },
   {
     id: "longevity",
@@ -189,7 +125,7 @@ const TIERS: Tier[] = [
     description:
       "For the patient who wants a true physician partner — advanced imaging, real-time monitoring, and chronic condition management that supplements your PCP.",
     pricing: { base: 379, m3: 379, m6: 325, m12: 299 },
-    clinicalReviewFee: 199,
+    initiation: { m3: 349, m6: 349, m12: 349 },
     inheritsFrom: "Transformation",
     initiationIncludes: [
       "45-minute in-depth physician strategy consultation",
@@ -217,7 +153,6 @@ const TIERS: Tier[] = [
       "White-glove onboarding (first 90 days)",
     ],
     ctaVariant: "purple",
-    labPanels: [GLP1_PANEL, HORMONE_PANEL, GLP1_HORMONE_PANEL, LONGEVITY_PANEL],
   },
 ];
 
@@ -251,189 +186,20 @@ function priceFor(t: Tier, term: Term): number {
   return term === 3 ? t.pricing.m3 : term === 6 ? t.pricing.m6 : t.pricing.m12;
 }
 
-// ── Lab Options Modal ──────────────────────────────────────────────────────
-function LabOptionsModal({ open, onClose, panels }: { open: boolean; onClose: () => void; panels: LabPanel[] }) {
-  if (!open) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto"
-        style={{
-          background: "#fff",
-          borderRadius: 16,
-          padding: "32px 28px",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.25)",
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            background: "#F3F1EF",
-            border: "none",
-            borderRadius: "50%",
-            width: 32,
-            height: 32,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 18,
-            color: "#555",
-          }}
-        >
-          ×
-        </button>
-
-        <h3
-          style={{
-            fontFamily: "Montserrat, sans-serif",
-            fontSize: 20,
-            fontWeight: 800,
-            color: "#111",
-            marginBottom: 6,
-            letterSpacing: "-0.3px",
-          }}
-        >
-          Lab Panel Options
-        </h3>
-        <p
-          style={{
-            fontFamily: "Inter, Montserrat, sans-serif",
-            fontSize: 13,
-            color: "#767676",
-            marginBottom: 24,
-            lineHeight: 1.5,
-          }}
-        >
-          Your physician will recommend the right panel based on your treatment plan. One-time cost at onboarding.
-        </p>
-
-        {panels.map((panel, idx) => (
-          <div
-            key={idx}
-            style={{
-              marginBottom: 16,
-              border: "1px solid #ECECEC",
-              borderRadius: 12,
-              overflow: "hidden",
-            }}
-          >
-            <div
-              className="flex items-center justify-between"
-              style={{
-                padding: "14px 16px",
-                background: "#FAFAFA",
-                borderBottom: "1px solid #ECECEC",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  color: "#111",
-                }}
-              >
-                {panel.name}
-              </span>
-              <span
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: 15,
-                  fontWeight: 800,
-                  color: "#E8339E",
-                }}
-              >
-                ${panel.price}
-              </span>
-            </div>
-            <ul
-              style={{
-                padding: "12px 16px",
-                listStyle: "none",
-                margin: 0,
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "4px 12px",
-              }}
-            >
-              {panel.tests.map((test, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontFamily: "Inter, Montserrat, sans-serif",
-                    fontSize: 11.5,
-                    color: "#555",
-                    lineHeight: 1.5,
-                    padding: "2px 0",
-                  }}
-                >
-                  <span style={{ color: "#E8339E", fontWeight: 700, marginRight: 4 }}>·</span>
-                  {test}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-
-        {/* Bring your own labs note */}
-        <div
-          style={{
-            marginTop: 8,
-            padding: "14px 16px",
-            borderRadius: 10,
-            border: "1px dashed #D6D6D6",
-            background: "#FAFAFA",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontSize: 13,
-              fontWeight: 700,
-              color: "#111",
-              marginBottom: 4,
-            }}
-          >
-            Already have recent labs? (within 3 months)
-          </div>
-          <div
-            style={{
-              fontFamily: "Inter, Montserrat, sans-serif",
-              fontSize: 12,
-              color: "#767676",
-              lineHeight: 1.5,
-            }}
-          >
-            Skip the lab order — Clinical Review Fee: <span style={{ fontWeight: 700, color: "#E8339E" }}>$39–$199</span> depending on your plan.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+function initiationFeeFor(t: Tier, term: Term): number {
+  return term === 3 ? t.initiation.m3 : term === 6 ? t.initiation.m6 : t.initiation.m12;
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
 export default function PopularPrograms({
   onConsultClick,
 }: {
+  // Accept an optional tier name so each Get Started button can pre-fill the
+  // ConsultationModal with the chosen tier (e.g. "Ignite", "Transformation",
+  // "Longevity") for clean tier-attribution on every booked discovery call.
   onConsultClick: (tierName?: string) => void;
 }) {
   const [term, setTerm] = useState<Term>(12);
-  const [labModalOpen, setLabModalOpen] = useState(false);
-
-  // Combine all unique panels for the modal
-  const allPanels = [GLP1_PANEL, HORMONE_PANEL, GLP1_HORMONE_PANEL, LONGEVITY_PANEL];
 
   return (
     <section
@@ -441,16 +207,22 @@ export default function PopularPrograms({
       className="pt-7 pb-12 md:pt-10 md:pb-16 lg:pt-14 lg:pb-24 px-4"
       style={{ background: "#F3F1EF", fontFamily: "Montserrat, sans-serif" }}
     >
+      {/* Responsive rules for the pricing cards.
+         - On mobile (<lg) cards stack, so we drop minHeight reservations and shrink
+           the dark card's heavy pink halo shadow so it doesn't bleed into Longevity.
+         - On desktop (>=lg) we reserve uniform vertical space row-by-row so all three
+           cards align (tagline, price block, description, accordions, CTA). */}
       <style>{`
         .pp-card-body { padding: 30px 26px 24px; }
         @media (min-width: 1024px) {
           .pp-card-body { padding: 30px 24px 24px; }
           .pp-tagline { min-height: 60px; }
-          .pp-price-block { min-height: 140px; }
+          .pp-price-block { min-height: 186px; }
           .pp-description { min-height: 84px; }
         }
         .pp-card { box-shadow: 0 4px 18px rgba(0,0,0,0.06); }
         .pp-featured-card {
+          /* mobile: tighter, less-bleeding halo */
           box-shadow: 0 10px 28px rgba(232,51,142,0.16), 0 4px 12px rgba(0,0,0,0.18) !important;
         }
         @media (min-width: 1024px) {
@@ -478,7 +250,7 @@ export default function PopularPrograms({
             className="mx-auto max-w-2xl"
             style={{ fontSize: 14, color: "#5A5A5A", lineHeight: 1.6 }}
           >
-            Your membership covers your clinical relationship — physician oversight, coaching, and protocol design. Labs are ordered separately based on your treatment plan.
+            Your membership covers your clinical relationship — physician oversight, coaching, and protocol design. Medications are prescribed and priced separately so you only pay for what your physician recommends.
           </p>
         </div>
 
@@ -533,7 +305,6 @@ export default function PopularPrograms({
               tier={tier}
               term={term}
               onConsultClick={onConsultClick}
-              onLabModalOpen={() => setLabModalOpen(true)}
             />
           ))}
         </div>
@@ -543,12 +314,9 @@ export default function PopularPrograms({
           className="text-center mt-6 italic"
           style={{ fontSize: 12, color: "#767676" }}
         >
-          All terms paid upfront at enrollment. Lab costs are one-time at onboarding.
+          All terms paid upfront at enrollment.
         </p>
       </div>
-
-      {/* Lab Options Modal */}
-      <LabOptionsModal open={labModalOpen} onClose={() => setLabModalOpen(false)} panels={allPanels} />
     </section>
   );
 }
@@ -566,6 +334,7 @@ function CollapsibleList({
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
+  // Theme tokens — light is default; dark is used inside the lifted Transformation card
   const restingBg = dark
     ? (open ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.06)")
     : (open ? "#FFFFFF" : "#F7F4FA");
@@ -660,24 +429,34 @@ function PricingCard({
   tier,
   term,
   onConsultClick,
-  onLabModalOpen,
 }: {
   tier: Tier;
   term: Term;
   onConsultClick: (tierName?: string) => void;
-  onLabModalOpen: () => void;
 }) {
   const price = priceFor(tier, term);
   const billedToday = price * term;
   const showWas = term !== 3;
+  // Per-card savings vs. 3-month rate across the full term
   const cardSavings =
     term === 6 ? Math.round((tier.pricing.m3 - tier.pricing.m6) * 6)
     : term === 12 ? Math.round((tier.pricing.m3 - tier.pricing.m12) * 12)
     : 0;
   const isFeatured = tier.badge?.variant === "featured";
   const isLongevity = tier.badge?.variant === "longevity";
+
+  const feeAmount = initiationFeeFor(tier, term);
+  const feeIsWaived = feeAmount === 0;
+  const showFeeWas = term === 12 && tier.initiation.m12Was !== undefined && feeIsWaived;
+  const feeNote = term === 12 ? tier.initiation.m12Note : undefined;
+
+  // Theme: Transformation now renders dark, lifted, and visually "won".
+  // Photo at the top of every card is preserved exactly as-is.
   const dark = isFeatured;
 
+  // Card outer styles per variant — note: heavy pink halo shadow is desktop-only
+  // (it gets reduced on mobile via the .pp-featured-card class below to prevent
+  // bleeding into the Longevity card stacked underneath).
   const cardStyle: React.CSSProperties = isFeatured
     ? {
         background:
@@ -706,7 +485,7 @@ function PricingCard({
       }`}
       style={cardStyle}
     >
-      {/* Image hero with optional badge bar */}
+      {/* Image hero with optional badge bar (Transformation only) */}
       {isLongevity ? (
         <div
           className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px] overflow-hidden"
@@ -770,7 +549,7 @@ function PricingCard({
 
       {/* Body */}
       <div className="pp-card-body flex flex-col h-full">
-        {/* Tier tag */}
+        {/* Tier tag — only rendered when present (kept for Longevity "Concierge") */}
         {tier.tierTag && (
           <div
             className="font-bold uppercase mb-2"
@@ -797,7 +576,9 @@ function PricingCard({
           {tier.name}
         </div>
 
-        {/* Tagline */}
+        {/* Tagline — desktop reserves uniform vertical space (60px) so 1- vs 2-line
+            taglines align across all three cards. On mobile the cards are stacked so
+            we drop the reserved space and let the tagline auto-size. */}
         <div
           className="pp-tagline mb-5"
           style={{
@@ -811,7 +592,7 @@ function PricingCard({
           {tier.tagline}
         </div>
 
-        {/* Value-stack */}
+        {/* Value-stack — bold one-liner that pre-frames the price ("why am I paying this?") */}
         <div
           className="mb-3"
           style={{
@@ -826,7 +607,8 @@ function PricingCard({
           {tier.valueStack}
         </div>
 
-        {/* Price block */}
+        {/* Price block — desktop reserves 186px so initiation fee block aligns
+            across all three cards. On mobile we drop the minHeight since cards stack. */}
         <div
           className="pp-price-block mb-5"
           style={{
@@ -835,7 +617,7 @@ function PricingCard({
             borderBottom: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid #ECECEC",
           }}
         >
-          {/* Was price */}
+          {/* Was price (line-through), reserve space when hidden */}
           <span
             className="block mb-1"
             style={{
@@ -905,55 +687,61 @@ function PricingCard({
                 fontWeight: 800,
                 color: "#E8339E",
                 letterSpacing: "0.3px",
+                marginBottom: 6,
               }}
             >
               You save ${cardSavings.toLocaleString()} vs. 3-month plan
             </div>
           )}
-        </div>
 
-        {/* ── One-line lab cost + modal trigger ─────────────────────────── */}
-        <div
-          className="mb-5"
-          style={{
-            padding: "12px 14px",
-            borderRadius: 10,
-            border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid #ECECEC",
-            background: dark ? "rgba(255,255,255,0.04)" : "#FAFAFA",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <span
+          {/* Initiation fee — primary line + optional muted secondary line */}
+          {feeIsWaived ? (
+            <>
+              <div
+                style={{
+                  fontFamily: "Inter, Montserrat, sans-serif",
+                  fontSize: 13,
+                  color: dark ? "#4ADE80" : "#16A34A",
+                  fontWeight: 800,
+                  lineHeight: 1.4,
+                }}
+              >
+                + $0 initiation fee
+              </div>
+              {(tier.initiation.m12Was !== undefined || feeNote) && (
+                <div
+                  style={{
+                    fontFamily: "Inter, Montserrat, sans-serif",
+                    fontSize: 11.5,
+                    color: dark ? "#9CA3AF" : "#767676",
+                    fontWeight: 500,
+                    lineHeight: 1.5,
+                    marginTop: 2,
+                  }}
+                >
+                  ({tier.initiation.m12Was !== undefined && (
+                    <>was <span style={{ textDecoration: "line-through" }}>${tier.initiation.m12Was}</span>{feeNote ? " — " : ""}</>
+                  )}{feeNote})
+                </div>
+              )}
+            </>
+          ) : (
+            <div
               style={{
                 fontFamily: "Inter, Montserrat, sans-serif",
-                fontSize: 13,
+                fontSize: 12.5,
+                color: dark ? "#D4D4D8" : "#3A3A3A",
                 fontWeight: 600,
-                color: dark ? "#E5E5EA" : "#1F1F1F",
+                lineHeight: 1.5,
               }}
             >
-              One-time labs: from{" "}
-              <span style={{ fontWeight: 800, color: "#E8339E" }}>$69</span>
-            </span>
-            <button
-              onClick={() => onLabModalOpen()}
-              style={{
-                fontFamily: "Inter, Montserrat, sans-serif",
-                fontSize: 12,
-                fontWeight: 600,
-                color: dark ? "#F4C8E2" : "#7A1E7E",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                textDecoration: "underline",
-                textUnderlineOffset: "2px",
-              }}
-            >
-              View lab options →
-            </button>
-          </div>
+              + ${feeAmount} one-time initiation fee
+            </div>
+          )}
         </div>
 
-        {/* Description */}
+        {/* Description — desktop reserves 84px so the next row (accordions) aligns
+            across all three cards. On mobile we drop it since cards are stacked. */}
         <p
           className="pp-description italic mb-5"
           style={{
@@ -967,10 +755,10 @@ function PricingCard({
           {tier.description}
         </p>
 
-        {/* Accordions */}
+        {/* Accordions wrapper — flex-1 pushes CTA to a uniform bottom across all cards */}
         <div className="flex-1 flex flex-col">
           <CollapsibleList
-            label="Onboarding Includes"
+            label="Initiation Fee Includes"
             items={tier.initiationIncludes}
             dark={dark}
           />
@@ -981,7 +769,8 @@ function PricingCard({
           />
         </div>
 
-        {/* CTA */}
+        {/* CTA — unified magenta→purple gradient on all three tiers, anchored to the bottom.
+            Pre-fills the ConsultationModal with the chosen tier name for attribution. */}
         <button
           onClick={() => onConsultClick(tier.name)}
           aria-label={`Get started with the ${tier.name} plan`}

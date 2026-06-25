@@ -132,7 +132,6 @@ import LocationHerndonVA from "@/pages/LocationHerndonVA";
 import DiscoveryCall from "@/pages/DiscoveryCall";
 import ThankYou from "@/pages/ThankYou";
 import MedicationPricing from "@/pages/MedicationPricing";
-import BeforeYouStartTreatment from "@/pages/BeforeYouStartTreatment";
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -254,7 +253,6 @@ function Router() {
       <Route path="/book" component={DiscoveryCall} />
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/pricing-guide" component={MedicationPricing} />
-      <Route path="/before-you-start-treatment" component={BeforeYouStartTreatment} />
       <Route path="/locations" component={Locations} />
       <Route path="/start/women" component={StartWomen} />
       <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
