@@ -146,13 +146,13 @@ export default function DiscoveryCall() {
               >
                 A free 15-minute call with our care team. No cost, no obligation.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-3 md:gap-5 text-xs md:text-sm text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  100% Virtual
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8339E]/8 border border-[#E8339E]/20 mb-3">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-semibold text-[#1a1a2e]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                  100% Virtual — No Office Visit Needed
                 </span>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-3 md:gap-5 text-xs md:text-sm text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 <span className="flex items-center gap-1">
                   <svg className="w-3.5 h-3.5 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
