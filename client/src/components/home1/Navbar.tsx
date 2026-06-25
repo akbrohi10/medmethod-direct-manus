@@ -66,53 +66,14 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
           {/* Logo */}
           <a href="/" className="flex items-center">
-            <div className="flex flex-col items-start leading-none" style={{ width: "fit-content" }}>
-              <div className="flex items-baseline gap-0">
-                <span
-                  className="font-black"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.6rem", letterSpacing: "-0.02em", color: "#111" }}
-                >
-                  Med
-                </span>
-                <span
-                  className="font-black"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "1.6rem",
-                    letterSpacing: "-0.02em",
-                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Method
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 mt-0.5 w-full">
-                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #E8339E, #7A1E7E)" }} />
-                <span
-                  className="font-semibold tracking-[0.25em]"
-                  style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.65rem", color: "#111" }}
-                >
-                  DIRECT
-                </span>
-                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
-              </div>
-              <span
-                className="mt-1.5 text-center w-full"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "0.72rem",
-                  fontWeight: 400,
-                  letterSpacing: "0",
-                  color: "#888",
-                  fontStyle: "normal",
-                }}
-              >
-                Feel Like Yourself Again
-              </span>
-            </div>
+            <img
+              src="/manus-storage/B2ED3089-ED7B-4224-A95F-C263A7FE2021_c754ae8b.png"
+              alt="MedMethod Direct — Feel Like Yourself Again"
+              className="h-14 lg:h-[60px] w-auto object-contain"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
           </a>
 
           {/* Desktop Nav */}
