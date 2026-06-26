@@ -20,21 +20,21 @@ const CONFIG = {
 const LOCATIONS = [
   "Florida",
   "Virginia",
-  "Maryland",
   "Colorado",
-  "North Carolina",
-  "Pennsylvania",
-  "Arizona",
-  "Texas",
-  "Georgia",
-  "South Carolina",
-  "Tennessee",
-  "New Jersey",
-  "Ohio",
+  "Maryland",
   "Michigan",
   "Illinois",
-  "Indiana",
+  "Texas",
+  "Arizona",
+  "Tennessee",
+  "New Jersey",
+  "Washington, D.C.",
+  "Georgia",
+  "Alabama",
   "Washington",
+  "North Carolina",
+  "Pennsylvania",
+  "Ohio",
 ];
 
 // ─── Message categories with weights ─────────────────────────────────────────
@@ -84,8 +84,11 @@ const MESSAGES: NotificationMessage[] = [
   { category: "scarcity", text: "Discovery calls help determine if the program is a good fit." },
 ];
 
-// First notification is always this:
-const FIRST_MESSAGE = "Someone recently scheduled a free discovery call.";
+// First notification is always location-based:
+function getFirstMessage(): string {
+  const loc = pickLocation();
+  return `Someone from ${loc} recently scheduled a free discovery call.`;
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function pickLocation(): string {
@@ -129,9 +132,11 @@ function generateLocationMessage(): string {
   const location = pickLocation();
   const templates = [
     `Someone from ${location} recently scheduled a discovery call.`,
-    `A ${location} resident recently requested more information.`,
+    `A patient in ${location} just booked a consultation.`,
     `Someone from ${location} is exploring physician-led care.`,
     `A ${location} resident recently took the next step.`,
+    `A new consultation was just booked from ${location}.`,
+    `Someone in ${location} just scheduled their free call.`,
   ];
   return templates[Math.floor(Math.random() * templates.length)];
 }
@@ -145,8 +150,8 @@ function pickMessage(lastMessage: string): string {
   else if (rand < 0.95) targetCategory = "trust";
   else targetCategory = "scarcity";
 
-  // For discovery category, 40% chance of using a location-based message
-  if (targetCategory === "discovery" && Math.random() < 0.4) {
+  // For discovery category, 60% chance of using a location-based message
+  if (targetCategory === "discovery" && Math.random() < 0.6) {
     const msg = generateLocationMessage();
     if (msg !== lastMessage) return msg;
   }
@@ -244,7 +249,7 @@ export default function SocialProofNotifications() {
     // Pick message
     let msg: string;
     if (countRef.current === 0) {
-      msg = FIRST_MESSAGE;
+      msg = getFirstMessage();
     } else {
       msg = pickMessage(lastMessageRef.current);
     }
