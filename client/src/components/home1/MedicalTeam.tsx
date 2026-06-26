@@ -381,6 +381,17 @@ export default function MedicalTeam({
                     backgroundImage: "none",
                   }}
                 >
+                  Done Right.
+                </span>
+                <br />
+                <span
+                  className="text-[0.72em] font-extrabold"
+                  style={{
+                    color: "#111111",
+                    WebkitTextFillColor: "#111111",
+                    backgroundImage: "none",
+                  }}
+                >
                   100% Virtual.
                 </span>
               </h1>
