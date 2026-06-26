@@ -196,6 +196,8 @@ interface LeadData {
   email: string;
   phone: string;
   zip: string;
+  transactionalConsent: boolean;
+  promotionalConsent: boolean;
 }
 
 function isValidEmail(v: string) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
@@ -207,7 +209,7 @@ function formatPhone(raw: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: LeadData) => void }) {
+function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData; onChange: (d: LeadData) => void; showConsentError?: boolean }) {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const blur = (f: string) => setTouched((p) => ({ ...p, [f]: true }));
 
@@ -271,14 +273,46 @@ function LeadCaptureForm({ data, onChange }: { data: LeadData; onChange: (d: Lea
           onFocus={(e) => { e.target.style.borderColor = BRAND_PINK; e.target.style.boxShadow = "0 0 0 3px rgba(232,51,158,0.12)"; }}
           onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.boxShadow = "none"; }} />
       </div>
-      <div style={{
-        display: "flex", alignItems: "flex-start", gap: 10, borderRadius: 12, padding: "12px 14px",
-        background: "rgba(232,51,158,0.05)", border: "1px solid rgba(232,51,158,0.15)", marginTop: 4,
-      }}>
-        <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>🔒</span>
-        <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
-          We respect your privacy. No spam, ever. Your information is used only to prepare for your
-          consultation and will never be sold or shared with third parties.
+      {/* ── SMS Consent (A2P 10DLC compliant) ── */}
+      <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* Checkbox 1: Transactional (required) */}
+        <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", minHeight: 44 }}>
+          <input
+            type="checkbox"
+            checked={data.transactionalConsent}
+            onChange={(e) => onChange({ ...data, transactionalConsent: e.target.checked })}
+            style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: BRAND_PINK, cursor: "pointer" }}
+          />
+          <span style={{ fontSize: 11.5, color: "#374151", lineHeight: 1.6 }}>
+            I consent to receive non-marketing messages about appointment confirmations, reminders, scheduling updates, inquiry responses, and patient care communications from MedMethod Direct. Message frequency varies, up to 8 messages per month. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.
+            <span style={{ color: BRAND_PINK, marginLeft: 4, fontWeight: 600 }}>*</span>
+          </span>
+        </label>
+
+        {showConsentError && !data.transactionalConsent && (
+          <p style={{ fontSize: 12, color: "#ef4444", margin: "-4px 0 0 28px", lineHeight: 1.4 }}>
+            Please consent to transactional messages to continue.
+          </p>
+        )}
+
+        {/* Checkbox 2: Promotional (optional) */}
+        <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", minHeight: 44 }}>
+          <input
+            type="checkbox"
+            checked={data.promotionalConsent}
+            onChange={(e) => onChange({ ...data, promotionalConsent: e.target.checked })}
+            style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: BRAND_PINK, cursor: "pointer" }}
+          />
+          <span style={{ fontSize: 11.5, color: "#374151", lineHeight: 1.6 }}>
+            I consent to receive promotional messages about wellness tips, program updates, new services, educational health content, and special offers from MedMethod Direct at the phone number provided. Message frequency varies, up to 4 messages per month. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.
+          </span>
+        </label>
+
+        {/* Privacy Policy · Terms of Service footer */}
+        <p style={{ fontSize: 12, color: "#6b7280", marginTop: 4, textAlign: "center" }}>
+          <a href="/privacy-policy" style={{ color: BRAND_PINK, textDecoration: "underline" }}>Privacy Policy</a>
+          {" · "}
+          <a href="/terms" style={{ color: BRAND_PINK, textDecoration: "underline" }}>Terms of Service</a>
         </p>
       </div>
     </div>
@@ -292,7 +326,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
   const [goalsText, setGoalsText] = useState("");
-  const [leadData, setLeadData] = useState<LeadData>({ firstName: "", email: "", phone: "", zip: "" });
+  const [leadData, setLeadData] = useState<LeadData>({ firstName: "", email: "", phone: "", zip: "", transactionalConsent: false, promotionalConsent: false });
+  const [consentAttempted, setConsentAttempted] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const currentYear = new Date().getFullYear();
@@ -350,7 +385,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isLeadValid =
     leadData.firstName.trim().length >= 2 &&
     isValidEmail(leadData.email) &&
-    isValidPhone(leadData.phone);
+    isValidPhone(leadData.phone) &&
+    leadData.transactionalConsent;
 
   const isNextDisabled = isServiceStep
     ? selectedServices.length === 0
@@ -391,6 +427,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       setSelected(null);
       setStep((s) => s + 1);
     } else if (isLeadStep) {
+      setConsentAttempted(true);
       if (!isLeadValid) return;
       setAnswers((prev) => ({
         ...prev,
@@ -398,6 +435,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         email: leadData.email.trim(),
         phone: leadData.phone,
         zip: leadData.zip,
+        transactionalConsent: String(leadData.transactionalConsent),
+        promotionalConsent: String(leadData.promotionalConsent),
       }));
       setStep((s) => s + 1);
     } else if (isExpectationStep) {
@@ -422,9 +461,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     setAnswers({});
     setSelected(null);
     setGoalsText("");
-    setLeadData({ firstName: "", email: "", phone: "", zip: "" });
+    setLeadData({ firstName: "", email: "", phone: "", zip: "", transactionalConsent: false, promotionalConsent: false });
     setSelectedServices([]);
     setShowExitConfirm(false);
+    setConsentAttempted(false);
     onClose();
   };
 
@@ -675,7 +715,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               <p className="text-sm text-gray-400 mb-5">
                 We'll use this to confirm your appointment and send your personalized summary.
               </p>
-              <LeadCaptureForm data={leadData} onChange={setLeadData} />
+              <LeadCaptureForm data={leadData} onChange={setLeadData} showConsentError={consentAttempted} />
             </div>
           )}
 
