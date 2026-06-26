@@ -31,7 +31,7 @@ function useHashScroll() {
     const timer = setTimeout(() => {
       const el = document.getElementById(id);
       if (el) {
-        const navbarHeight = 80;
+        const navbarHeight = 110; // 72px nav + ~38px top banner
         const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
         window.scrollTo({ top, behavior: "smooth" });
         // Clean up hash from URL without triggering re-render

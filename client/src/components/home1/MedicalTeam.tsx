@@ -123,7 +123,7 @@ export default function MedicalTeam({
   return (
     <section
       id="medical-team"
-      className="py-12 md:py-16 lg:py-24"
+      className="pt-[7rem] pb-12 md:pt-[8rem] md:pb-16 lg:pt-[9rem] lg:pb-24"
       style={{ background: "#F4F4F8" }}
     >
       <div className="max-w-[1280px] xl:max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-4 lg:px-8">
@@ -373,7 +373,18 @@ export default function MedicalTeam({
                 >
                   Menopause Care.
                 </span>
-                {/* Mobile inline: "Done right." on same line as "Care." */}
+                <br />
+                <span
+                  className="text-[0.7em] font-extrabold tracking-[0.02em]"
+                  style={{
+                    color: "#111111",
+                    WebkitTextFillColor: "#111111",
+                    backgroundImage: "none",
+                  }}
+                >
+                  100% Virtual.
+                </span>
+                {/* Mobile inline: "Done right." on same line */}
                 <span
                   className="inline sm:hidden text-[#555] text-[0.55em] font-medium italic tracking-wide ml-2"
                   style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}

@@ -13,7 +13,7 @@ import { useLocation } from "wouter";
 function scrollTo(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-  const navbarHeight = 80;
+  const navbarHeight = 110; // 72px nav + ~38px top banner
   const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
   window.scrollTo({ top, behavior: "smooth" });
 }
@@ -61,6 +61,23 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
         scrolled ? "bg-white/98 shadow-lg border-b border-gray-100" : "bg-white border-b border-gray-100"
       }`}
     >
+      {/* ── 100% VIRTUAL TOP BANNER ─────────────────────────────── */}
+      <div
+        className="w-full text-center py-2 px-4"
+        style={{
+          background: "linear-gradient(90deg, #7A1E7E 0%, #E8339E 100%)",
+          fontFamily: "Montserrat, sans-serif",
+        }}
+      >
+        <p className="text-white text-[11px] sm:text-[12px] font-bold tracking-[0.08em] uppercase flex items-center justify-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+          </span>
+          100% Virtual Care — See Your Doctor From Home, Anywhere in 17 States
+        </p>
+      </div>
+
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
 
