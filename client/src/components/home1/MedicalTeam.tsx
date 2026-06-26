@@ -373,28 +373,23 @@ export default function MedicalTeam({
                 >
                   Menopause Care.
                 </span>
-                {" "}
-                <span
-                  style={{
-                    color: "#111111",
-                    WebkitTextFillColor: "#111111",
-                    backgroundImage: "none",
-                  }}
-                >
-                  Done Right.
-                </span>
-                <br />
-                <span
-                  className="text-[0.72em] font-extrabold"
-                  style={{
-                    color: "#111111",
-                    WebkitTextFillColor: "#111111",
-                    backgroundImage: "none",
-                  }}
-                >
-                  100% Virtual.
-                </span>
               </h1>
+              <p
+                className="mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
+                style={{ fontFamily: "Playfair Display, serif" }}
+              >
+                Done right.
+              </p>
+              <p
+                className="mt-2 font-extrabold text-[#111111]"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: "clamp(1.5rem, 3vw, 2.4rem)",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                100% Virtual.
+              </p>
               <p
                 className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
