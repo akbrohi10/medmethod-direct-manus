@@ -1,9 +1,9 @@
 /* =============================================================================
-   BookTeaser — MedMethod Direct (Optimized / Compact)
+   BookTeaser — MedMethod Direct
    
-   Design: Dark plum/aubergine background. Dr. Al-Deek holding the book on the
-   left. Right side has serif heading, one punchy paragraph, italic tagline,
-   and a pink "ORDER ON BARNES & NOBLE" CTA button.
+   Design: Dark plum/aubergine background. Book cover on the left with "NEW BOOK"
+   badge overlaying the top. Right side has elegant serif headings, body copy,
+   italic tagline, and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
 const BOOK_COVER_URL = "/manus-storage/dr-aldeek-holding-book_27c4bf09.png";
@@ -12,7 +12,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
   return (
     <section
       id="book"
-      className="py-12 lg:py-16 px-4 relative overflow-hidden"
+      className="py-20 lg:py-28 px-4 relative overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #1a0a1e 0%, #2d1233 30%, #1f0d24 70%, #140a17 100%)",
         fontFamily: "Montserrat, sans-serif",
@@ -28,16 +28,16 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
       />
 
       <div className="max-w-6xl mx-auto relative">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14">
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
 
           {/* ── Dr. Al-Deek holding the book — Left side ── */}
-          <div className="flex-shrink-0 relative self-center">
+          <div className="flex-shrink-0 relative self-center lg:self-start">
             {/* Ambient glow behind photo */}
             <div
               className="absolute rounded-full blur-3xl"
               style={{
-                width: 320,
-                height: 380,
+                width: 380,
+                height: 450,
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
@@ -49,7 +49,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
             <div
               className="relative transition-transform duration-500 hover:scale-[1.01]"
               style={{
-                filter: "drop-shadow(0 16px 32px rgba(90,20,120,0.3)) drop-shadow(0 6px 16px rgba(0,0,0,0.3))",
+                filter: "drop-shadow(0 20px 40px rgba(90,20,120,0.35)) drop-shadow(0 8px 20px rgba(0,0,0,0.35))",
               }}
             >
               <img
@@ -59,11 +59,11 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 loading="lazy"
                 decoding="async"
                 style={{
-                  width: 360,
+                  width: 440,
                   maxWidth: "100%",
                   height: "auto",
-                  borderRadius: 16,
-                  aspectRatio: "4 / 5",
+                  borderRadius: 20,
+                  aspectRatio: "1 / 1",
                   objectPosition: "center top",
                 }}
               />
@@ -71,20 +71,20 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
           </div>
 
           {/* ── Copy — Right side ── */}
-          <div className="flex-1 text-center lg:text-left">
+          <div className="flex-1 text-center lg:text-left pt-0 lg:pt-4">
 
             {/* Heading — serif style */}
             <h2
-              className="mb-5"
+              className="mb-8"
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+                fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)",
                 fontWeight: 400,
                 color: "#fff",
                 lineHeight: 1.15,
               }}
             >
-              The Menopause{" "}
+              The Menopause<br />
               <span
                 style={{
                   fontStyle: "italic",
@@ -95,25 +95,36 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               </span>
             </h2>
 
-            {/* Single condensed paragraph */}
+            {/* Body copy */}
             <p
-              className="mb-5 leading-relaxed"
-              style={{ fontSize: 15, color: "rgba(255,255,255,0.85)", maxWidth: 520 }}
+              className="mb-6 leading-relaxed"
+              style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", maxWidth: 560 }}
             >
-              You're doing everything right — and the scale still won't budge. You're not failing.
-              The rules changed, and no one told you. This book hands you the missing knowledge
-              so you can <strong style={{ color: "#fff", fontWeight: 700 }}>reclaim your energy,
-              your clarity, and your life</strong>.
+              You're doing everything right — and the scale still climbs. The fatigue, the
+              fog, the frustration don't just wear on your body; they chip away at your
+              confidence and your life. You're not failing. The rules changed, and no
+              one told you.
+            </p>
+
+            <p
+              className="mb-8 leading-relaxed"
+              style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", maxWidth: 560 }}
+            >
+              This book hands you the missing knowledge to make your body respond
+              again — so you don't just lose the weight, you{" "}
+              <strong style={{ color: "#fff", fontWeight: 700 }}>
+                reclaim your energy, your clarity, and your life
+              </strong>.
             </p>
 
             {/* Italic tagline */}
             <p
-              className="mb-7"
+              className="mb-10"
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontStyle: "italic",
-                fontSize: 16,
-                color: "rgba(255,255,255,0.75)",
+                fontSize: 18,
+                color: "rgba(255,255,255,0.8)",
               }}
             >
               Your best days aren't behind you — they're still ahead.
@@ -124,36 +135,36 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 w-full sm:w-auto text-sm sm:text-base px-8 py-3.5 sm:px-10 sm:py-4"
+              className="inline-flex items-center justify-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 w-full sm:w-auto text-sm sm:text-base lg:text-lg px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-5"
               style={{
-                letterSpacing: "2.5px",
+                letterSpacing: "3px",
                 background: "linear-gradient(135deg, #E8339E, #d64a8f)",
                 color: "#fff",
                 border: "none",
-                boxShadow: "0 10px 32px rgba(232,51,158,0.4), 0 4px 12px rgba(232,51,158,0.2)",
+                boxShadow: "0 12px 40px rgba(232,51,158,0.45), 0 4px 16px rgba(232,51,158,0.25)",
                 textDecoration: "none",
                 cursor: "pointer",
               }}
             >
               Order on Barnes & Noble
-              <span className="text-sm sm:text-base">→</span>
+              <span className="text-sm sm:text-base lg:text-lg">→</span>
             </a>
 
-            {/* Secondary link */}
+            {/* Secondary link — Dr. Al-Deek personal site (muted so it doesn't compete with CTA) */}
             <a
               href="https://drjumanaaldeek.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 mt-4 group transition-all hover:gap-3 justify-center lg:justify-start"
+              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3 justify-center lg:justify-start"
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.5)",
+                color: "rgba(255,255,255,0.55)",
                 textDecoration: "none",
               }}
             >
               Read more about Dr. Jumana Al-Deek
-              <span className="transition-transform group-hover:translate-x-1" style={{ color: "rgba(255,255,255,0.35)" }}>→</span>
+              <span className="transition-transform group-hover:translate-x-1" style={{ color: "rgba(255,255,255,0.4)" }}>→</span>
             </a>
           </div>
 
