@@ -372,7 +372,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                   className="text-xs font-semibold ml-2"
                   style={{ color: "rgba(255,255,255,0.7)" }}
                 >
-                  Available on Amazon
+                  Available on Barnes & Noble
                 </span>
               </div>
             </div>
@@ -468,7 +468,9 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 </button>
 
                 <a
-                  href="#"
+                  href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
                   style={{
                     padding: "15px 24px",
@@ -486,7 +488,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                     (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.7)";
                   }}
                 >
-                  View on Amazon
+                  View on Barnes & Noble
                   <ChevronRight size={14} />
                 </a>
               </div>

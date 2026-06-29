@@ -132,7 +132,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
 
             {/* CTA Button */}
             <a
-              href="https://www.amazon.com/dp/B0F1TQ2MBM"
+              href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full font-extrabold uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 w-full sm:w-auto text-sm sm:text-base lg:text-lg px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-5"
@@ -146,7 +146,7 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 cursor: "pointer",
               }}
             >
-              Order on Amazon
+              Order on Barnes & Noble
               <span className="text-sm sm:text-base lg:text-lg">→</span>
             </a>
 
