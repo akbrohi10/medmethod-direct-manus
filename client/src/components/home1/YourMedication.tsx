@@ -1537,6 +1537,8 @@ function MedCard({
               <img
                 src={med.bgImageCutout}
                 alt={med.name}
+                loading="lazy"
+                decoding="async"
                 className="object-contain transition-transform duration-300 ease-out relative z-[1]"
                 style={{
                   maxHeight: "calc(100% - 24px)",
@@ -1562,6 +1564,8 @@ function MedCard({
               <img
                 src={med.bgImage}
                 alt={med.name}
+                loading="lazy"
+                decoding="async"
                 className="object-contain transition-transform duration-300 ease-out relative z-[1]"
                 style={{
                   maxHeight: "calc(100% - 32px)",
@@ -1579,6 +1583,8 @@ function MedCard({
           <img
             src={med.logo}
             alt={`${med.name} logo`}
+            loading="lazy"
+            decoding="async"
             className="absolute top-3 left-3 object-contain z-[2]"
             style={{
               height: "28px",
@@ -1592,6 +1598,8 @@ function MedCard({
           <img
             src={med.image}
             alt={med.name}
+            loading="lazy"
+            decoding="async"
             className="object-contain transition-transform duration-300 relative z-[1]"
             style={{
               height: med.isBrandName ? "160px" : "180px",

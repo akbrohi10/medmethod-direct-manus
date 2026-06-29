@@ -129,6 +129,8 @@ function VideoEmbed() {
         <img
           src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
           alt="How MedMethod Direct Works"
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Dark overlay on hover */}

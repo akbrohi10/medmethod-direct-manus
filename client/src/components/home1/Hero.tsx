@@ -160,6 +160,9 @@ function MobileHero({ onConsultClick }: { onConsultClick: () => void }) {
           alt="A doctor with a trainer and a coach next to a lineup of medication options"
           className="block w-full h-auto max-h-[58vh] object-cover object-center select-none"
           draggable={false}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
 
@@ -209,6 +212,9 @@ export default function Hero({ onConsultClick }: { onConsultClick: () => void })
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-center select-none"
             draggable={false}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
           {/* CSS-side blend: black-to-transparent so the photo dissolves into
               the left panel even on wider viewports where the image fade alone

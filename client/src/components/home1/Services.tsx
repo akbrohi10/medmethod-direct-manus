@@ -154,6 +154,8 @@ export default function Services({ onConsultClick }: Props) {
                     <img
                       src={(service as any).partnerLogo}
                       alt="Send Me a Trainer"
+                      loading="lazy"
+                      decoding="async"
                       style={{ height: 22, width: "auto", display: "block", maxWidth: 110 }}
                     />
                   </div>

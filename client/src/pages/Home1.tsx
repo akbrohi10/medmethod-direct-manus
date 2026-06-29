@@ -152,12 +152,22 @@ export default function Home1() {
       {/* Dr. Al-Deek / Medical Team is now the top hero */}
       <MedicalTeam onConsultClick={() => openConsult()} />
       <BookTeaser onConsultClick={openConsult} />
-      <HowItWorks onConsultClick={() => openConsult()} />
-      <PopularPrograms onConsultClick={openConsult} />
-      {SHOW_MEDICATIONS && <YourMedication onConsultClick={() => openConsult()} />}
-      <Testimonials />
-      <Services onConsultClick={openConsult} />
-      <FAQ onConsultClick={() => openConsult()} />
+      <div className="cv-auto">
+        <HowItWorks onConsultClick={() => openConsult()} />
+      </div>
+      <div className="cv-auto">
+        <PopularPrograms onConsultClick={openConsult} />
+      </div>
+      {SHOW_MEDICATIONS && <div className="cv-auto"><YourMedication onConsultClick={() => openConsult()} /></div>}
+      <div className="cv-auto">
+        <Testimonials />
+      </div>
+      <div className="cv-auto">
+        <Services onConsultClick={openConsult} />
+      </div>
+      <div className="cv-auto">
+        <FAQ onConsultClick={() => openConsult()} />
+      </div>
       <Footer onConsultClick={() => openConsult()} />
       <StickyMobileCTA onConsultClick={() => openConsult()} />
       <ConsultationModal
