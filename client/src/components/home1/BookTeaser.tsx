@@ -6,7 +6,7 @@
    italic tagline, and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
-const BOOK_COVER_URL = "/manus-storage/dr-aldeek-book-hero_65fd1689.png";
+const BOOK_COVER_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/KzPyKVdwkqgxjlHd.png";
 
 export default function BookTeaser({ onConsultClick }: { onConsultClick: () => void }) {
   return (

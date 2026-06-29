@@ -16,7 +16,7 @@ import PopularPrograms from "@/components/home1/PopularPrograms";
 import MedicalTeam from "@/components/home1/MedicalTeam";
 import Testimonials from "@/components/home1/Testimonials";
 import Services from "@/components/home1/Services";
-// import BookTeaser from "@/components/home1/BookTeaser"; // TEMPORARILY REMOVED — bring back in a few weeks
+import BookTeaser from "@/components/home1/BookTeaser";
 import FAQ from "@/components/home1/FAQ";
 import Footer from "@/components/home1/Footer";
 import StickyMobileCTA from "@/components/home1/StickyMobileCTA";
@@ -151,7 +151,7 @@ export default function Home1() {
       {/* ── Cold-traffic ad landing page section order ────────── */}
       {/* Dr. Al-Deek / Medical Team is now the top hero */}
       <MedicalTeam onConsultClick={() => openConsult()} />
-      {/* <BookTeaser onConsultClick={openConsult} /> — TEMPORARILY REMOVED, bring back in a few weeks */}
+      <BookTeaser onConsultClick={openConsult} />
       <HowItWorks onConsultClick={() => openConsult()} />
       <PopularPrograms onConsultClick={openConsult} />
       {SHOW_MEDICATIONS && <YourMedication onConsultClick={() => openConsult()} />}
