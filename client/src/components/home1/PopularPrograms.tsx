@@ -57,7 +57,7 @@ const TIERS: Tier[] = [
     tierTag: "",
     name: "Ignite",
     tagline: "Async access · price-sensitive",
-    valueStack: "Your physician + your medication, every month.",
+    valueStack: "Your physician + your protocol, every month.",
     description:
       "Patients who know what they want & value speed + price over coaching.",
     pricing: { base: 129, m3: 129, m6: 109, m12: 99 },
@@ -110,7 +110,7 @@ const TIERS: Tier[] = [
       "Dedicated Performance Coach",
       "Weigh-ins & ongoing accountability",
       "Structured nutrition & fitness plans (GLP-1 aware, preserves lean mass)",
-      "BHRT and TRT available in this tier",
+      "Physician management of BHRT & TRT protocols available at this tier (medications billed separately by the pharmacy)",
       "Unlimited secure messaging (24hr SLA)",
     ],
     ctaVariant: "solid",

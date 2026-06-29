@@ -43,7 +43,7 @@ const steps: Step[] = [
     step: "04",
     title: "Your Program Launches",
     description:
-      "Your medications are shipped directly to you or called into your local pharmacy. You meet your dedicated Performance Coach, set up your custom fitness and nutrition plan, and begin bi-weekly weigh-ins. This is where real change starts.",
+      "Your physician sends your prescription to a licensed pharmacy, which dispenses and ships your medication to you. You meet your dedicated Performance Coach, set up your custom fitness and nutrition plan, and begin bi-weekly weigh-ins. This is where real change starts.",
     subNote: "Ongoing · Your team, always on",
   },
 ];

@@ -60,7 +60,7 @@ const faqCategories: {
       },
       {
         q: "What am I actually paying for in the membership?",
-        a: "The depth of your care. Ignite covers asynchronous physician access and protocol design; Transformation adds live video visits, baseline labs, structured nutrition and fitness plans, and a Performance Coach; Longevity adds quarterly physician strategy sessions, expanded diagnostics, and premium peptide access. Medications are a separate line item layered on top.",
+        a: "The depth of your care. Ignite covers asynchronous physician access and protocol design; Transformation adds live video visits, baseline labs, structured nutrition and fitness plans, and a Performance Coach; Longevity adds quarterly physician strategy sessions, expanded diagnostics, and premium peptide access. Medications are prescribed by your physician and billed separately by the pharmacy.",
       },
       {
         q: "Do I need to be on medication to have a membership?",
@@ -79,7 +79,7 @@ const faqCategories: {
       },
       {
         q: "Can I start on one tier and upgrade later?",
-        a: "Yes. Tier upgrades are available at any time without re-enrolling, and your medication pricing carries over unchanged. Many patients begin on Transformation and move to Longevity as they get deeper into hormone optimization or want quarterly diagnostics.",
+        a: "Yes. Tier upgrades are available at any time without re-enrolling, and your medications continue uninterrupted (medication pricing is set and billed by the pharmacy). Many patients begin on Transformation and move to Longevity as they get deeper into hormone optimization or want quarterly diagnostics.",
       },
       {
         q: "What's the real difference in physician access between tiers?",
@@ -110,11 +110,11 @@ const faqCategories: {
       },
       {
         q: "Are there hidden fees?",
-        a: "No. Your membership fee at enrollment covers your clinical services. Any prescribed medications are billed separately and transparently by the pharmacy. All pricing is listed on our website so you always know exactly what you are paying for before you enroll. Any labs beyond what your tier includes are quoted before you commit.",
+        a: "No. Your membership fee at enrollment covers your clinical services. Any prescribed medications are billed separately and transparently by the pharmacy. All membership and service pricing is listed on our website so you always know exactly what you are paying for before you enroll. Medications are prescribed by your physician and billed separately by the pharmacy. Any labs beyond what your tier includes are quoted before you commit.",
       },
       {
         q: "Does my medication price change as my dose increases?",
-        a: "For some medications, yes — pricing can vary by dosage, and your cost may change if your physician adjusts your dose. We are fully transparent about this: every medication and dosage is priced exactly as listed on our website, so you always know what you will pay before any change takes effect. There are no surprise markups — just the prices as shown.",
+        a: "For some medications, yes — pharmacy pricing can vary by dosage, so your medication cost may change if your physician adjusts your dose. Your dispensing pharmacy provides the exact price for each medication and dose before it is filled, so you always know the cost up front. Your MedMethod membership fee does not change with your dose.",
       },
     ],
   },
@@ -126,7 +126,7 @@ const faqCategories: {
 
       {
         q: "Can I switch or pause my medication mid-term?",
-        a: "Yes. With physician approval, medications can be swapped or paused at any point during your term, and your membership continues uninterrupted. Any medication you add or change is priced exactly as listed on our website.",
+        a: "Yes. With physician approval, medications can be swapped or paused at any point during your term, and your membership continues uninterrupted. Any medication you add or change is prescribed by your physician and billed separately by the dispensing pharmacy.",
       },
     ],
   },
@@ -149,7 +149,7 @@ const faqCategories: {
       },
       {
         q: "What happens if I'm not eligible after my intake?",
-        a: "Eligibility for your state is confirmed during enrollment before your charge is finalized, and your membership covers a real physician evaluation regardless of the outcome. If your physician determines a specific medication isn't appropriate for you, they'll work with you to find a suitable alternative within your protocol. Please note that subscription and medication charges are final once made — we don't issue refunds. You can review the complete details in our Subscription and Refund Policy at medmethoddirect.com/subscription-policy.",
+        a: "Eligibility for your state is confirmed during enrollment before your charge is finalized, and your membership covers a real physician evaluation regardless of the outcome. If your physician determines a specific medication isn't appropriate for you, they'll work with you to find a suitable alternative within your protocol. Please note that membership charges are final once billed; medications are billed separately by the pharmacy and are subject to the pharmacy's own policies. You can review the complete details in our Subscription and Refund Policy at medmethoddirect.com/subscription-policy.",
       },
     ],
   },
@@ -183,11 +183,11 @@ const faqCategories: {
       },
       {
         q: "How does my medication ship?",
-        a: "Compounded medications ship directly from our partner pharmacies to your door; brand-name prescriptions ship from the manufacturers' direct programs. Refills are coordinated through your dashboard so you're not managing it manually.",
+        a: "Compounded medications ship directly from licensed partner pharmacies to your door; brand-name prescriptions ship from the manufacturers' direct programs. Your dashboard helps you track the refills your pharmacy fills, so you're not managing it manually.",
       },
       {
         q: "What's the cancellation and refund policy?",
-        a: "You can cancel your subscription at any time, and it will stop renewing going forward — you're never locked into another term. All sales are final, however: subscription and medication charges are final at the time they're made, and we don't issue refunds for any period already billed. Full billing and cancellation details are in our Subscription and Refund Policy at medmethoddirect.com/subscription-policy. Tier upgrades and medication changes never require re-enrollment.",
+        a: "You can cancel your subscription at any time, and it will stop renewing going forward — you're never locked into another term. Membership charges are final at the time they're billed, and we don't issue refunds for any period already billed. Medications are billed separately by the pharmacy and are subject to the pharmacy's own policies. Full billing and cancellation details are in our Subscription and Refund Policy at medmethoddirect.com/subscription-policy. Tier upgrades and medication changes never require re-enrollment.",
       },
     ],
   },

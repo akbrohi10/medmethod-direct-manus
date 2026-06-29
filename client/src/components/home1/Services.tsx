@@ -2,7 +2,7 @@
    Services.tsx — Key Services Section
    Style: Clinical Noir — light surface (#F4F4F8) sits between dark Testimonials
    and white FAQ. 4-column responsive grid. Photo card + name + desc + outline CTA.
-   Each "START NOW" pre-fills the discovery-call modal with the service name.
+   Each "Schedule a Consult" pre-fills the discovery-call modal with the service name.
    ============================================================================= */
 
 const services = [
@@ -14,7 +14,7 @@ const services = [
   },
   {
     title: "GLP-1 Weight Care",
-    description: "FDA-approved Semaglutide & Tirzepatide programs with bi-weekly check-ins and expert support…",
+    description: "Physician-managed metabolic weight program — personalized protocols, bi-weekly check-ins, and expert support. Medications, when appropriate, are prescribed by your physician.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/service-weight-dQbnaFgp7jCDrEp4DMNUvC.webp",
     alt: "Fit woman in athletic wear outdoors in golden light",
   },
@@ -56,7 +56,7 @@ const services = [
   },
   {
     title: "Eyelash Serum",
-    description: "Clinically formulated lash growth serums for longer, fuller, darker lashes — physician-prescribed and delivered to your door…",
+    description: "Physician-managed lash-growth program for longer, fuller lashes — evaluated and prescribed by your physician.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/eyelash-serum-9PtRPdxFFSw83CquvUTUpN.webp",
     alt: "Close-up of woman's eye with long healthy lashes applying serum with a brush",
   },
@@ -191,7 +191,7 @@ export default function Services({ onConsultClick }: Props) {
                   (e.currentTarget as HTMLButtonElement).style.color = "#E8339E";
                 }}
               >
-                START NOW
+                Schedule a Consult
               </button>
             </div>
           ))}
