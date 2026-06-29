@@ -6,7 +6,7 @@
    italic tagline, and a pink "ORDER ON AMAZON" CTA button.
    ============================================================================= */
 
-const BOOK_COVER_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/KzPyKVdwkqgxjlHd.png";
+const BOOK_COVER_URL = "/manus-storage/dr-aldeek-holding-book_27c4bf09.png";
 
 export default function BookTeaser({ onConsultClick }: { onConsultClick: () => void }) {
   return (
@@ -30,29 +30,28 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
       <div className="max-w-6xl mx-auto relative">
         <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
 
-          {/* ── Book Cover — Left side ── */}
+          {/* ── Dr. Al-Deek holding the book — Left side ── */}
           <div className="flex-shrink-0 relative self-center lg:self-start">
-            {/* Ambient glow behind book */}
+            {/* Ambient glow behind photo */}
             <div
               className="absolute rounded-full blur-3xl"
               style={{
-                width: 320,
-                height: 400,
+                width: 380,
+                height: 450,
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 background:
-                  "radial-gradient(ellipse at center, rgba(122,30,126,0.35) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at center, rgba(122,30,126,0.3) 0%, transparent 70%)",
               }}
             />
 
             <div
               className="relative transition-transform duration-500 hover:scale-[1.01]"
               style={{
-                filter: "drop-shadow(0 24px 48px rgba(90,20,120,0.4)) drop-shadow(0 8px 20px rgba(0,0,0,0.4))",
+                filter: "drop-shadow(0 20px 40px rgba(90,20,120,0.35)) drop-shadow(0 8px 20px rgba(0,0,0,0.35))",
               }}
             >
-
               <img
                 src={BOOK_COVER_URL}
                 alt="Dr. Al-Deek holding The Menopause Weight Loss Trap book"
@@ -60,10 +59,12 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
                 loading="lazy"
                 decoding="async"
                 style={{
-                  width: 420,
+                  width: 440,
                   maxWidth: "100%",
                   height: "auto",
-                  borderRadius: 16,
+                  borderRadius: 20,
+                  aspectRatio: "1 / 1",
+                  objectPosition: "center top",
                 }}
               />
             </div>
