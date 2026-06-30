@@ -436,6 +436,53 @@ export default function BookPage() {
         </div>
       </section>
 
+      {/* ── Transformation / Outcome Narrative ── */}
+      <section className="py-20 lg:py-28 px-4 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a0a1e 0%, #2d1233 40%, #3a1540 70%, #1f0d24 100%)" }}>
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(ellipse at 50% 30%, rgba(232,51,158,0.3) 0%, transparent 70%)" }} />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <p className="text-[#E8339E] uppercase tracking-[0.2em] text-sm font-semibold mb-6" style={{ fontFamily: "Montserrat, sans-serif" }}>The Outcome</p>
+          <h2
+            className="text-3xl lg:text-5xl font-bold text-white mb-8 leading-tight"
+            style={{ fontFamily: "Playfair Display, serif" }}
+          >
+            What Life Looks Like on the <em className="text-[#E8339E] not-italic">Other Side</em>
+          </h2>
+          <div className="space-y-6 text-white/85 text-lg lg:text-xl leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <p>
+              By managing menopause and weight effectively, you unlock the freedom to <strong className="text-white">feel like yourself again</strong>. You regain a vibrant, healthy body that supports a full, thriving lifestyle.
+            </p>
+            <p>
+              Instead of losing momentum or feeling stuck — sluggish, less sharp, less ambitious in both career and personal life — you break through. That was the old way.
+            </p>
+            <p className="text-white font-medium text-xl lg:text-2xl">
+              Now, you revive your ambition. You thrive in your career. You show up at your best for yourself and your loved ones.
+            </p>
+            <p>
+              With renewed energy, clarity, and a healthy body, you're ready to <strong className="text-white">live fully</strong> — excelling in this next phase and beyond.
+            </p>
+          </div>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#E8339E] hover:bg-[#d12a8e] text-white font-bold py-4 px-8 rounded-full tracking-wider text-sm uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(232,51,158,0.4)]"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Get Your Copy →
+            </a>
+            <a
+              href="/discovery-call"
+              className="inline-block border-2 border-white/30 hover:border-[#E8339E] text-white font-bold py-4 px-8 rounded-full tracking-wider text-sm uppercase transition-all duration-300 hover:scale-105"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Start Your Transformation
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ Section ── */}
       <section className="py-16 lg:py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
