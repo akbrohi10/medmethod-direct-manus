@@ -67,7 +67,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
           {/* Logo */}
           <a href="/" className="flex items-center">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/medmethod-logo-cropped_d1f53d27.png"
+              src="/manus-storage/medmethod-logo-new_22054082.png"
               alt="MedMethod Direct — Your Path to Longevity"
               className="h-12 lg:h-[56px] w-auto object-contain"
             />
