@@ -36,6 +36,7 @@ const FOCUS_AREA_PILLS = [
   "GLP-1 & Metabolic Therapy",
   "Hormone Optimization",
   "Thyroid Specialist",
+  "Metabolism",
   "Virtual Urgent Care",
   "Longevity Medicine",
 ];
@@ -537,11 +538,11 @@ export default function MedicalTeam({
                 >
                   Focus Areas
                 </span>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap gap-2">
                   {FOCUS_AREA_PILLS.map((pill) => (
                     <span
                       key={pill}
-                      className="px-4 py-1.5 rounded-full text-[12px] font-semibold tracking-wide"
+                      className="px-3.5 py-1.5 rounded-full text-[11.5px] font-semibold tracking-wide"
                       style={{
                         fontFamily: "Montserrat, sans-serif",
                         background: "#FFFFFF",
