@@ -55,7 +55,7 @@ const JSONLD_BOOK = {
   offers: {
     "@type": "Offer",
     url: BN_LINK,
-    price: "24.99",
+    price: "19.99",
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
     seller: { "@type": "Organization", name: "Barnes & Noble" },
@@ -75,7 +75,7 @@ const FAQ_DATA = [
   },
   {
     question: "Where can I buy The Menopause Weight Loss Trap?",
-    answer: "The Menopause Weight Loss Trap is available for purchase on Barnes & Noble in paperback format (ISBN: 979-8-9965390-0-0). It is 192 pages and priced at $24.99.",
+    answer: "The Menopause Weight Loss Trap is available for purchase on Barnes & Noble in paperback format (ISBN: 979-8-9965390-0-0). It is 192 pages and priced at $19.99.",
   },
   {
     question: "What is the DIRECT method explained in the book?",
@@ -267,7 +267,7 @@ export default function BookPage() {
                 <span>•</span>
                 <span>First Edition</span>
                 <span>•</span>
-                <span>$24.99</span>
+                <span>$19.99</span>
               </div>
             </div>
           </div>
@@ -629,7 +629,7 @@ export default function BookPage() {
             Order on Barnes & Noble →
           </a>
           <p className="mt-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>
-            Available now • ISBN 979-8-9965390-0-0 • 192 pages • $24.99
+            Available now • ISBN 979-8-9965390-0-0 • 192 pages • $19.99
           </p>
 
           {/* Internal cross-links for SEO */}
