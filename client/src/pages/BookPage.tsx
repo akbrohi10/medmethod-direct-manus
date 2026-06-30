@@ -44,26 +44,7 @@ const JSONLD_BOOK = {
   },
 };
 
-const chapters = [
-  { num: "Preface", title: "When Everything Stops Working" },
-  { num: "1", title: "Why Your Body Changed — The Physiology Behind It" },
-  { num: "2", title: "Why Traditional Weight Loss Fails in Menopause" },
-  { num: "3", title: "The Clinical Gap in Menopause Care" },
-  { num: "4", title: "What GLP-1 Medications Actually Do" },
-  { num: "5", title: "GLP-1 Use in the Menopausal Patient" },
-  { num: "6", title: "Risks, Limitations, and Misuse" },
-  { num: "7", title: "Common Clinical Mistakes in GLP-1 Use" },
-  { num: "8", title: "D — Define the Metabolic Shift" },
-  { num: "9", title: "I — Intervention" },
-  { num: "10", title: "R — Retain Lean Muscle Mass" },
-  { num: "11", title: "E — Engineer the Nutritional Strategy" },
-  { num: "12", title: "C — Control Stress and Sleep" },
-  { num: "13", title: "T — Transition and Maintain: The Forever Method" },
-  { num: "14", title: "Case-Based Applications" },
-  { num: "15", title: "Precision Monitoring — Lab-Based Pivots" },
-  { num: "16", title: "Long-Term Strategy and Prevention" },
-  { num: "Epilogue", title: "The Heart of the Method" },
-];
+
 
 export default function BookPage() {
   return (
@@ -350,40 +331,7 @@ export default function BookPage() {
         </div>
       </section>
 
-      {/* ── Chapter Overview ── */}
-      <section className="py-16 lg:py-20 px-4" style={{ background: "#faf7fb" }}>
-        <div className="max-w-4xl mx-auto">
-          <h2
-            className="text-center mb-12"
-            style={{
-              fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: "clamp(1.8rem, 3.5vw, 2.4rem)",
-              fontWeight: 600,
-              color: "#1a0a1e",
-              lineHeight: 1.2,
-            }}
-          >
-            Inside <em style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</em> — Chapter by Chapter
-          </h2>
 
-          <div className="grid sm:grid-cols-2 gap-3">
-            {chapters.map((ch, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-100"
-              >
-                <span
-                  className="flex-shrink-0 text-xs font-bold px-2 py-1 rounded"
-                  style={{ background: "#f3e8f9", color: "#7a1e7e", minWidth: 56, textAlign: "center" }}
-                >
-                  {ch.num === "Preface" || ch.num === "Epilogue" ? ch.num : `Ch. ${ch.num}`}
-                </span>
-                <span className="text-gray-800 text-sm font-medium">{ch.title}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── About the Author ── */}
       <section className="py-16 lg:py-20 px-4 bg-white">
