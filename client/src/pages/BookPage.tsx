@@ -6,6 +6,7 @@
    image alts, JSON-LD Book schema, and OG tags.
    ============================================================================= */
 import { Helmet } from "react-helmet-async";
+import Navbar from "@/components/home1/Navbar";
 
 const BN_LINK = "https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000";
 const DR_HOLDING_BOOK = "/manus-storage/dr-aldeek-holding-book_27c4bf09.png";
@@ -73,31 +74,8 @@ export default function BookPage() {
         <script type="application/ld+json">{JSON.stringify(JSONLD_BOOK)}</script>
       </Helmet>
 
-      {/* ── Navigation Bar (minimal for book page) ── */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2 text-decoration-none">
-            <span style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: 18, color: "#1a0a1e" }}>
-              Med<span style={{ color: "#E8339E" }}>Method</span>
-            </span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: "#666", letterSpacing: 2, textTransform: "uppercase" }}>Direct</span>
-          </a>
-          <a
-            href={BN_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full font-bold text-sm px-6 py-3 transition-all hover:opacity-90 hover:-translate-y-0.5"
-            style={{
-              background: "linear-gradient(135deg, #E8339E, #d64a8f)",
-              color: "#fff",
-              textDecoration: "none",
-              boxShadow: "0 4px 16px rgba(232,51,158,0.3)",
-            }}
-          >
-            Order Now →
-          </a>
-        </div>
-      </nav>
+      {/* ── Main Site Navigation ── */}
+      <Navbar onConsultClick={() => { window.location.href = "/discovery-call"; }} />
 
       {/* ── Hero Section ── */}
       <section
