@@ -819,7 +819,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Last step before your discovery call
+                Last step before scheduling your discovery call
               </h2>
               <p className="text-sm text-gray-400 mb-5">
                 We'll use this to confirm your appointment and send your personalized summary.
