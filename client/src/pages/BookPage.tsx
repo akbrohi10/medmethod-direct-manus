@@ -665,21 +665,21 @@ export default function BookPage() {
 
       {/* ── Sticky Mobile Bottom CTA Bar ── */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden backdrop-blur-xl"
         style={{
-          background: "linear-gradient(135deg, #1a0a1e 0%, #2d1233 100%)",
-          borderTop: "1px solid rgba(232,51,158,0.3)",
-          boxShadow: "0 -4px 20px rgba(0,0,0,0.4)",
-          padding: "12px 16px",
-          paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
+          background: "rgba(255,255,255,0.95)",
+          borderTop: "1px solid rgba(0,0,0,0.08)",
+          boxShadow: "0 -2px 16px rgba(0,0,0,0.08)",
+          padding: "10px 16px",
+          paddingBottom: "calc(10px + env(safe-area-inset-bottom))",
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <a
             href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center bg-[#E8339E] hover:bg-[#d12a8e] text-white font-bold py-3 px-4 rounded-full text-sm uppercase tracking-wider transition-all"
+            className="flex-1 text-center bg-[#E8339E] hover:bg-[#d12a8e] text-white font-semibold py-2.5 px-3 rounded-lg text-xs tracking-wide transition-all"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Buy the Book
@@ -688,7 +688,7 @@ export default function BookPage() {
             href="https://drjumanaaldeek.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center border-2 border-white/40 hover:border-[#E8339E] text-white font-bold py-3 px-4 rounded-full text-sm uppercase tracking-wider transition-all"
+            className="flex-1 text-center bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-3 rounded-lg text-xs tracking-wide transition-all"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             About Dr. Al-Deek
@@ -697,7 +697,7 @@ export default function BookPage() {
       </div>
 
       {/* Bottom spacer for mobile sticky bar */}
-      <div className="h-20 lg:hidden" />
+      <div className="h-16 lg:hidden" />
     </div>
   );
 }
