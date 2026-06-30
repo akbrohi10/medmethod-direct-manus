@@ -957,29 +957,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 Pick a 15-minute slot with a MedMethod Care Coordinator.
               </p>
 
-              {/* Commitment + What Happens Preview */}
-              <div className="rounded-xl p-4 mb-5" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)", border: "1px solid rgba(232,51,158,0.12)" }}>
-                <p className="text-sm font-semibold text-gray-800 mb-3" style={{ lineHeight: 1.5 }}>
-                  Your Care Coordinator is reviewing your intake now. By selecting a time below, you're reserving a 1-on-1 slot prepared specifically for you.
-                </p>
-                <p className="text-xs font-bold tracking-wide uppercase mb-2" style={{ color: BRAND_PLUM }}>
-                  What happens on your call
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <span className="text-sm mt-0.5" style={{ color: BRAND_PINK }}>✓</span>
-                    <p className="text-sm text-gray-600">We'll review your symptoms & goals together</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-sm mt-0.5" style={{ color: BRAND_PINK }}>✓</span>
-                    <p className="text-sm text-gray-600">You'll get a personalized treatment recommendation</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-sm mt-0.5" style={{ color: BRAND_PINK }}>✓</span>
-                    <p className="text-sm text-gray-600">No pressure — just clarity on your next step</p>
-                  </div>
-                </div>
-              </div>
 
               {/* No-Show Warning */}
               <div className="rounded-xl p-4 mb-5" style={{ background: "#FFF7ED", border: "1px solid #FDBA74" }}>
