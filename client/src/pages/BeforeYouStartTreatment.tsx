@@ -12,7 +12,7 @@ const YOUTUBE_VIDEO_ID = "AGrpLj1jmfw";
 const BRAND_PINK = "#E8339E";
 const BRAND_PURPLE = "#7A1E7E";
 const GRADIENT = `linear-gradient(135deg, ${BRAND_PINK}, ${BRAND_PURPLE})`;
-const LOGO_URL = "/manus-storage/medmethod-logo-new_22054082.png";
+const LOGO_URL = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 
 /* ─── Reading Progress Bar ─── */
 function ReadingProgress() {

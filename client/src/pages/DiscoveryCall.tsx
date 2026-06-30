@@ -115,7 +115,7 @@ export default function DiscoveryCall() {
           <div className="max-w-4xl mx-auto flex items-center justify-center">
             <a href="/" className="block">
               <img
-                src="/manus-storage/medmethod-logo-new_22054082.png"
+                src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
                 alt="MedMethod Direct — Your Path to Longevity"
                 className="h-12 md:h-14"
               />
