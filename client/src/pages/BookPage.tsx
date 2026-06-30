@@ -284,21 +284,21 @@ export default function BookPage() {
             Who Should Read <em style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</em>
           </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: "🔬", text: "Women over 40 experiencing unexplained weight gain despite diet and exercise" },
-              { icon: "💊", text: "Patients considering or currently using GLP-1 medications (Ozempic, Mounjaro, Zepbound)" },
-              { icon: "🩺", text: "Women in perimenopause or menopause seeking physician-backed guidance" },
-              { icon: "⚡", text: "Anyone frustrated by brain fog, fatigue, and metabolic slowdown" },
-              { icon: "🏋️", text: "Women who want to preserve lean muscle while losing weight" },
-              { icon: "📋", text: "Healthcare professionals looking for evidence-based menopause protocols" },
-            ].map((item, i) => (
+              "Women over 40 experiencing unexplained weight gain despite diet and exercise",
+              "Patients considering or currently using GLP-1 medications (Ozempic, Mounjaro, Zepbound)",
+              "Women in perimenopause or menopause seeking physician-backed guidance",
+              "Anyone frustrated by brain fog, fatigue, and metabolic slowdown",
+              "Women who want to preserve lean muscle while losing weight",
+              "Healthcare professionals looking for evidence-based menopause protocols",
+            ].map((text, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm"
+                className="bg-white rounded-xl p-5 shadow-sm"
+                style={{ borderLeft: "4px solid #E8339E" }}
               >
-                <span className="text-2xl mb-3 block">{item.icon}</span>
-                <p className="text-gray-700 text-sm leading-relaxed">{item.text}</p>
+                <p className="text-gray-700 text-sm leading-relaxed font-medium">{text}</p>
               </div>
             ))}
           </div>
