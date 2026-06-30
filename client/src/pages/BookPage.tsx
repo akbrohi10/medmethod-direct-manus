@@ -94,30 +94,31 @@ export default function BookPage() {
 
         <div className="max-w-6xl mx-auto relative">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-            {/* Book cover */}
+            {/* Dr. Al-Deek holding the book */}
             <div className="flex-shrink-0 relative">
               <div
                 className="absolute rounded-full blur-3xl"
                 style={{
-                  width: 350,
-                  height: 420,
+                  width: 400,
+                  height: 480,
                   top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  background: "radial-gradient(ellipse at center, rgba(232,51,158,0.2) 0%, transparent 70%)",
+                  background: "radial-gradient(ellipse at center, rgba(232,51,158,0.15) 0%, transparent 70%)",
                 }}
               />
               <img
-                src={BOOK_COVER_URL}
-                alt="The Menopause Weight Loss Trap book cover by Dr. Jumana Al-Deek"
+                src={DR_HOLDING_BOOK}
+                alt="Dr. Jumana Al-Deek holding The Menopause Weight Loss Trap book"
                 className="relative z-10"
                 loading="eager"
                 style={{
-                  width: 340,
+                  width: 400,
                   maxWidth: "100%",
                   height: "auto",
-                  borderRadius: 8,
-                  filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))",
+                  borderRadius: 16,
+                  filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
+                  objectFit: "cover",
                 }}
               />
             </div>
