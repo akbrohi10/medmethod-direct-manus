@@ -35,6 +35,7 @@ const FOCUS_AREA_PILLS = [
   "Menopause & Perimenopause",
   "GLP-1 & Metabolic Therapy",
   "Hormone Optimization",
+  "Thyroid & Metabolic Health",
   "Virtual Urgent Care",
   "Longevity Medicine",
 ];
