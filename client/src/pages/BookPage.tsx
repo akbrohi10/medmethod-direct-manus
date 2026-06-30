@@ -162,20 +162,11 @@ export default function BookPage() {
       {/* ── Main Site Navigation ── */}
       <Navbar onConsultClick={() => { window.location.href = "/discovery-call"; }} />
 
-      {/* ── Breadcrumb (visible) ── */}
-      <div className="pt-28 lg:pt-32 px-4 bg-white">
-        <nav className="max-w-6xl mx-auto" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-gray-500">
-            <li><a href="/" className="hover:text-[#E8339E] transition-colors">Home</a></li>
-            <li><span className="mx-1">›</span></li>
-            <li className="text-gray-900 font-medium">The Menopause Weight Loss Trap</li>
-          </ol>
-        </nav>
-      </div>
+      {/* Breadcrumb schema still in <head> for SEO, visible breadcrumb removed per user request */}
 
       {/* ── Hero Section ── */}
       <section
-        className="pt-8 lg:pt-12 pb-16 lg:pb-24 px-4 relative overflow-hidden"
+        className="pt-28 lg:pt-32 pb-16 lg:pb-24 px-4 relative overflow-hidden"
         style={{
           background: "linear-gradient(135deg, #1a0a1e 0%, #2d1233 30%, #1f0d24 70%, #140a17 100%)",
         }}

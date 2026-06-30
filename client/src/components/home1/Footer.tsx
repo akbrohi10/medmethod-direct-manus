@@ -153,6 +153,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "FAQ", href: "#faq" },
                 { label: "Dr. Jumana Al-Deek", href: "https://drjumanaaldeek.com" },
                 { label: "Blog", href: "/blog" },
+                { label: "The Menopause Weight Loss Trap", href: "/the-menopause-weight-loss-trap" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
