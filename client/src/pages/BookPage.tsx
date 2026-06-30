@@ -79,7 +79,7 @@ export default function BookPage() {
 
       {/* ── Hero Section ── */}
       <section
-        className="py-16 lg:py-24 px-4 relative overflow-hidden"
+        className="pt-32 lg:pt-36 pb-16 lg:pb-24 px-4 relative overflow-hidden"
         style={{
           background: "linear-gradient(135deg, #1a0a1e 0%, #2d1233 30%, #1f0d24 70%, #140a17 100%)",
         }}
