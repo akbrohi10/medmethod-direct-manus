@@ -130,6 +130,7 @@ import LocationFallsChurchVA from "@/pages/LocationFallsChurchVA";
 import LocationTysonsVA from "@/pages/LocationTysonsVA";
 import LocationHerndonVA from "@/pages/LocationHerndonVA";
 import DiscoveryCall from "@/pages/DiscoveryCall";
+import BookPage from "@/pages/BookPage";
 import ThankYou from "@/pages/ThankYou";
 import MedicationPricing from "@/pages/MedicationPricing";
 import BeforeYouStartTreatment from "@/pages/BeforeYouStartTreatment";
@@ -251,7 +252,8 @@ function Router() {
       <Route path="/texas/frisco" component={LocationFriscoTX} />
       <Route path="/texas/round-rock" component={LocationRoundRockTX} />
       <Route path="/discovery-call" component={DiscoveryCall} />
-      <Route path="/book" component={DiscoveryCall} />
+      <Route path="/book" component={BookPage} />
+      <Route path="/the-menopause-weight-loss-trap" component={BookPage} />
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/pricing-guide" component={MedicationPricing} />
       <Route path="/before-you-start-treatment" component={BeforeYouStartTreatment} />
