@@ -349,6 +349,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [webhookSubmitting, setWebhookSubmitting] = useState(false);
   const [webhookSubmitted, setWebhookSubmitted] = useState(false);
   const [consentAttempted, setConsentAttempted] = useState(false);
+  const [schedulingPolicyAgreed, setSchedulingPolicyAgreed] = useState(false);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -978,11 +979,37 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     <p className="text-sm text-gray-600">No pressure — just clarity on your next step</p>
                   </div>
                 </div>
-                <p className="text-xs text-gray-400 mt-3 italic">
-                  Please only book a time you can commit to — our slots are limited.
-                </p>
               </div>
 
+              {/* No-Show Warning */}
+              <div className="rounded-xl p-4 mb-5" style={{ background: "#FFF7ED", border: "1px solid #FDBA74" }}>
+                <div className="flex items-start gap-3 mb-3">
+                  <span className="text-lg flex-shrink-0 mt-0.5">⚠️</span>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900 mb-1">Scheduling Policy</p>
+                    <p className="text-sm text-gray-700" style={{ lineHeight: 1.6 }}>
+                      If you book and do not attend without 24-hour notice, your account may be restricted from future scheduling. We keep our availability limited to serve each patient personally — a missed slot means another woman waits longer for care.
+                    </p>
+                  </div>
+                </div>
+                <label className="flex items-center gap-3 cursor-pointer pt-3" style={{ borderTop: "1px solid #FDBA74" }}>
+                  <span
+                    onClick={() => setSchedulingPolicyAgreed(!schedulingPolicyAgreed)}
+                    className="flex-shrink-0 w-5 h-5 rounded flex items-center justify-center transition-all"
+                    style={{
+                      border: schedulingPolicyAgreed ? "none" : "2px solid #9ca3af",
+                      background: schedulingPolicyAgreed ? BRAND_PINK : "transparent",
+                    }}
+                  >
+                    {schedulingPolicyAgreed && <span className="text-white text-xs font-bold">✓</span>}
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800" onClick={() => setSchedulingPolicyAgreed(!schedulingPolicyAgreed)}>
+                    I agree to attend my scheduled appointment or provide 24-hour notice to reschedule.
+                  </span>
+                </label>
+              </div>
+
+              {schedulingPolicyAgreed ? (
               <div className="rounded-xl overflow-hidden border border-gray-100">
 <iframe
                    src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
@@ -995,6 +1022,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   style={{ border: "none", overflow: "auto", display: "block" }}
                 />
               </div>
+              ) : (
+              <div className="rounded-xl p-6 text-center" style={{ background: "#f9fafb", border: "1px dashed #d1d5db" }}>
+                <p className="text-sm text-gray-500">Please agree to the scheduling policy above to view available times.</p>
+              </div>
+              )}
             </div>
           )}
         </div>
