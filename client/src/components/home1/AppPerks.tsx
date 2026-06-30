@@ -98,7 +98,7 @@ export default function AppPerks() {
           {PERKS.map((perk) => (
             <div
               key={perk.number}
-              className="flex flex-col items-center text-center rounded-2xl border border-gray-100 bg-[#FAFAFA] p-5 pt-7 pb-4 transition-shadow hover:shadow-lg"
+              className="flex flex-col items-center text-center rounded-2xl border border-gray-100 bg-[#FAF8F5] p-5 pt-7 pb-4"
             >
               {/* Icon */}
               <div
