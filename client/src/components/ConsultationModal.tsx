@@ -124,8 +124,9 @@ function WheelColumn({
       const idx = Math.round(el.scrollTop / ITEM_H);
       const clamped = Math.max(0, Math.min(idx, items.length - 1));
       onSelect(clamped);
+      onUserClick?.();
     }, 120);
-  }, [items.length, onSelect]);
+  }, [items.length, onSelect, onUserClick]);
 
   return (
     <div className="relative flex-1 overflow-hidden" style={{ height: ITEM_H * 5 }}>

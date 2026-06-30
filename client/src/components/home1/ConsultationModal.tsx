@@ -96,10 +96,12 @@ function WheelColumn({
   items,
   selectedIndex,
   onSelect,
+  onInteract,
 }: {
   items: string[];
   selectedIndex: number;
   onSelect: (idx: number) => void;
+  onInteract?: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isScrolling = useRef(false);
@@ -120,9 +122,10 @@ function WheelColumn({
       const idx = Math.round(el.scrollTop / ITEM_H);
       const clamped = Math.max(0, Math.min(idx, items.length - 1));
       onSelect(clamped);
+      onInteract?.();
       isScrolling.current = false;
     });
-  }, [items.length, onSelect]);
+  }, [items.length, onSelect, onInteract]);
 
   return (
     <div className="relative flex-1 overflow-hidden" style={{ height: ITEM_H * 5 }}>
@@ -759,11 +762,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <div
                     className="flex rounded-xl overflow-hidden"
                     style={{ background: "#fafafa", userSelect: "none" }}
-                    onPointerUp={() => setDobTouched(true)}
                   >
-                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={setMonthIdx} />
-                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={setDayIdx} />
-                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={setYearIdx} />
+                    <WheelColumn items={months} selectedIndex={monthIdx} onSelect={setMonthIdx} onInteract={() => setDobTouched(true)} />
+                    <WheelColumn items={days} selectedIndex={dayIdx} onSelect={setDayIdx} onInteract={() => setDobTouched(true)} />
+                    <WheelColumn items={years} selectedIndex={yearIdx} onSelect={setYearIdx} onInteract={() => setDobTouched(true)} />
                   </div>
                   <p className="text-xs text-center mt-3" style={{ color: !dobTouched ? "#9ca3af" : computedAge >= 18 ? "#9ca3af" : BRAND_PINK }}>
                     {!dobTouched ? "Scroll to select your date of birth" : computedAge >= 18 ? `Age: ${computedAge} years old` : "Must be 18 or older to enroll"}
