@@ -24,7 +24,7 @@ const navLinks: { label: string; anchor?: string; href?: string }[] = [
   { label: "Services",     anchor: "services" },
   { label: "Doctors",      anchor: "medical-team" },
   { label: "FAQ",           anchor: "faq" },
-  // { label: "The Book",      anchor: "book" }, // TEMPORARILY REMOVED — bring back in a few weeks
+  { label: "The Book",     href: "/the-menopause-weight-loss-trap" },
 ];
 
 export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {

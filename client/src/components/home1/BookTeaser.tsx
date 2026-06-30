@@ -150,16 +150,31 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <span className="text-sm sm:text-base lg:text-lg">→</span>
             </a>
 
-            {/* Secondary link — Dr. Al-Deek personal site (muted so it doesn't compete with CTA) */}
+            {/* Internal link to book page for SEO */}
+            <a
+              href="/the-menopause-weight-loss-trap"
+              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3 justify-center lg:justify-start"
+              style={{
+                fontSize: 14,
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.7)",
+                textDecoration: "none",
+              }}
+            >
+              Learn more about the book
+              <span className="transition-transform group-hover:translate-x-1" style={{ color: "rgba(255,255,255,0.5)" }}>→</span>
+            </a>
+
+            {/* Secondary link — Dr. Al-Deek personal site */}
             <a
               href="https://drjumanaaldeek.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 mt-6 group transition-all hover:gap-3 justify-center lg:justify-start"
+              className="flex items-center gap-2 mt-3 group transition-all hover:gap-3 justify-center lg:justify-start"
               style={{
                 fontSize: 14,
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.55)",
+                color: "rgba(255,255,255,0.45)",
                 textDecoration: "none",
               }}
             >

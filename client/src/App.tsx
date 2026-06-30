@@ -252,7 +252,7 @@ function Router() {
       <Route path="/texas/frisco" component={LocationFriscoTX} />
       <Route path="/texas/round-rock" component={LocationRoundRockTX} />
       <Route path="/discovery-call" component={DiscoveryCall} />
-      <Route path="/book" component={BookPage} />
+      <Route path="/book">{() => { window.location.replace("/the-menopause-weight-loss-trap"); return null; }}</Route>
       <Route path="/the-menopause-weight-loss-trap" component={BookPage} />
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/pricing-guide" component={MedicationPricing} />
