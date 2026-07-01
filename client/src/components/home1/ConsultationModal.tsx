@@ -998,11 +998,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     2
                   </span>
                   <p className="text-sm font-bold text-gray-900">
-                    Schedule your free discovery call
+                    Schedule a free call with our care team
                   </p>
                 </div>
                 <p className="text-sm text-gray-700 mb-2 ml-10">
-                  Choose a time that works for you. This is a no-pressure conversation to see if we’re the right fit.
+                  Pick a time that works for you. A MedMethod Care Coordinator will call to answer your questions and see if we're the right fit — no pressure, no obligation.
                 </p>
                 <p className="text-xs text-gray-600 mb-3 ml-10 italic">
                   Please note: If you book and do not attend without 24-hour notice, your account may be restricted from future scheduling.
