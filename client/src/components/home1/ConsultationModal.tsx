@@ -579,14 +579,14 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           : attribution;
         setAnswers((prev) => ({ ...prev, attribution: attrValue }));
       }
-      // Fire the GHL webhook when they press Next on the attribution step
-      await submitToWebhook();
+      // Advance to expectation step (webhook now fires on budget step)
+      setStep((s) => s + 1);
     } else if (isExpectationStep) {
       // Advance to budget/plan selection step
       setStep((s) => s + 1);
     } else if (isBudgetStep) {
-      // "Select Plan & Continue" advances to calendar
-      setStep(CALENDAR_STEP);
+      // Fire the GHL webhook when they select a plan and click Continue
+      await submitToWebhook();
     }
   };
 
@@ -609,6 +609,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       email: leadData.email.trim() || answers.email || "",
       phone: leadData.phone || answers.phone || "",
       zip_code: leadData.zip || answers.zip || "",
+      selected_plan: selectedPlan ? BUDGET_PLANS.find(p => p.id === selectedPlan)?.name || selectedPlan : "",
+      selected_term_months: String(budgetTerm),
       source: "Manus Website",
       form_name: "New Website Intake Form",
     };
@@ -1383,8 +1385,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               {/* Bottom buttons */}
               <div className="mt-6">
                 <button
-                  onClick={() => setStep(CALENDAR_STEP)}
-                  disabled={!selectedPlan}
+                  onClick={handleNext}
+                  disabled={!selectedPlan || webhookSubmitting}
                   className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all"
                   style={{
                     background: selectedPlan ? BRAND_GRADIENT : '#D1D5DB',
@@ -1393,9 +1395,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     opacity: selectedPlan ? 1 : 0.7,
                   }}
                 >
-                  {selectedPlan
-                    ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
-                    : 'Select a program to continue'}
+                  {webhookSubmitting
+                    ? 'Submitting...'
+                    : selectedPlan
+                      ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
+                      : 'Select a program to continue'}
                 </button>
                 <button
                   onClick={() => setBudgetDeclined(true)}
