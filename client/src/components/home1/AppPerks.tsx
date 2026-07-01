@@ -16,7 +16,7 @@ const PERKS = [
     icon: Dumbbell,
     iconColor: "#7C3AED",
     iconBg: "#F3E8FF",
-    image: "/manus-storage/phone-fitness-white_38c39472.png",
+    image: "/manus-storage/phone-fitness-clean_3f2a98b1.png",
     alt: "App screen showing Today's Workout with Upper Body Strength exercises",
   },
   {
@@ -27,7 +27,7 @@ const PERKS = [
     icon: TrendingUp,
     iconColor: "#059669",
     iconBg: "#ECFDF5",
-    image: "/manus-storage/phone-progress-white_f255ebb1.png",
+    image: "/manus-storage/phone-progress-clean_45ba2cdd.png",
     alt: "App screen showing Progress with weight loss chart and body measurements",
   },
   {
@@ -38,7 +38,7 @@ const PERKS = [
     icon: Apple,
     iconColor: "#E11D48",
     iconBg: "#FFF1F2",
-    image: "/manus-storage/phone-nutrition-white_7b7514fc.png",
+    image: "/manus-storage/phone-nutrition-clean_bd4955cb.png",
     alt: "App screen showing Nutrition tracker with calories, macros, and meals",
   },
   {
@@ -49,7 +49,7 @@ const PERKS = [
     icon: Watch,
     iconColor: "#2563EB",
     iconBg: "#EFF6FF",
-    image: "/manus-storage/phone-activity-white_4e7a51a5.png",
+    image: "/manus-storage/phone-activity-clean_041c6f51.png",
     alt: "App screen showing Activity with steps, calories, distance, and connected Apple Watch",
   },
 ];
