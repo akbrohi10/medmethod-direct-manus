@@ -52,10 +52,7 @@ export default function PatientTools() {
             Powerful Tools to Keep You on Track
           </h2>
           <p className="text-base text-gray-600 max-w-2xl mx-auto">
-            Every MedMethod patient gets access to our integrated health app — designed to support your journey between visits.
-          </p>
-          <p className="text-sm text-gray-500 italic max-w-2xl mx-auto mt-2">
-            Included with Transformation & Longevity memberships.
+            Transformation & Longevity members get access to our integrated health app — designed to support your journey between visits.
           </p>
         </div>
 
