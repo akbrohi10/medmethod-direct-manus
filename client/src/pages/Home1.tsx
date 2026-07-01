@@ -13,6 +13,7 @@ import ConsultationModal from "@/components/home1/ConsultationModal";
 import HowItWorks from "@/components/home1/HowItWorks";
 import YourMedication from "@/components/home1/YourMedication";
 import PopularPrograms from "@/components/home1/PopularPrograms";
+import PatientTools from "@/components/home1/PatientTools";
 import MedicalTeam from "@/components/home1/MedicalTeam";
 import Testimonials from "@/components/home1/Testimonials";
 import Services from "@/components/home1/Services";
@@ -155,6 +156,7 @@ export default function Home1() {
       <div className="cv-auto">
         <HowItWorks onConsultClick={() => openConsult()} />
       </div>
+      <PatientTools />
       <div className="cv-auto">
         <PopularPrograms onConsultClick={openConsult} />
       </div>
