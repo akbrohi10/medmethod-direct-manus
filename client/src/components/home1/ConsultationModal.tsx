@@ -987,6 +987,26 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               </div>
 
               {schedulingPolicyAgreed ? (
+              <>
+              {/* Overview Video — watch before scheduling */}
+              <div className="mb-5">
+                <p className="text-sm font-semibold text-gray-700 mb-2" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                  Watch this quick overview before you book:
+                </p>
+                <div className="w-full rounded-xl overflow-hidden bg-black">
+                  <video
+                    className="w-full h-auto"
+                    controls
+                    preload="metadata"
+                    playsInline
+                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
+                  >
+                    <source src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+
               <div className="rounded-xl overflow-hidden border border-gray-100">
 <iframe
                    src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
@@ -999,6 +1019,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   style={{ border: "none", overflow: "auto", display: "block" }}
                 />
               </div>
+              </>
               ) : (
               <div className="rounded-xl p-6 text-center" style={{ background: "#f9fafb", border: "1px dashed #d1d5db" }}>
                 <p className="text-sm text-gray-500">Please agree to the scheduling policy above to view available times.</p>
