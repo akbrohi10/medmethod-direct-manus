@@ -7,28 +7,28 @@ const tools = [
     icon: Dumbbell,
     title: "Custom Workout Plans",
     description: "Personalized strength & cardio routines built for your body, goals, and fitness level.",
-    image: "/manus-storage/phone_workout_3be09515.png",
+    image: "/manus-storage/phone_workout_trimmed_5ff2e831.png",
     accent: "#7C3AED", // purple to match the app's workout button
   },
   {
     icon: TrendingUp,
     title: "Track Your Progress",
     description: "See weight, measurements, and activity trends over time — real data that keeps you motivated.",
-    image: "/manus-storage/phone_progress_f78edd81.png",
+    image: "/manus-storage/phone_progress_trimmed_b93118b6.png",
     accent: "#10B981", // green to match the app's progress charts
   },
   {
     icon: UtensilsCrossed,
     title: "Personalized Nutrition",
     description: "Meal plans with macros, calories, and recipes tailored to your metabolism and treatment.",
-    image: "/manus-storage/phone_nutrition_7571264d.png",
+    image: "/manus-storage/phone_nutrition_trimmed_97f21361.png",
     accent: BRAND_PINK, // pink to match the calorie bar
   },
   {
     icon: Activity,
     title: "Activity & Device Sync",
     description: "Connect your Apple Watch or wearable to track steps, calories, and daily movement automatically.",
-    image: "/manus-storage/phone_activity_af0ef6e0.png",
+    image: "/manus-storage/phone_activity_trimmed_bce06435.png",
     accent: "#2563EB", // blue to match the activity ring
   },
 ];
@@ -86,7 +86,7 @@ export default function PatientTools() {
                   <img
                     src={tool.image}
                     alt={tool.title}
-                    className="w-full h-auto rounded-2xl shadow-lg"
+                    className="w-full h-auto drop-shadow-lg"
                     loading="lazy"
                   />
                 </div>
