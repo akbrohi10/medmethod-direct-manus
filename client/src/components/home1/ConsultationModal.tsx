@@ -435,7 +435,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [schedulingPolicyAgreed, setSchedulingPolicyAgreed] = useState(false);
 
   // Budget step state
-  const [budgetTerm, setBudgetTerm] = useState<BudgetTerm>(6);
+  const [budgetTerm, setBudgetTerm] = useState<BudgetTerm>(12);
   const [budgetExpanded, setBudgetExpanded] = useState<string | null>(null);
   const [budgetDeclined, setBudgetDeclined] = useState(false);
 
@@ -1060,8 +1060,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
               {/* Term toggle */}
               <div
-                className="flex rounded-full overflow-hidden mb-5"
-                style={{ border: "1px solid #E5E7EB" }}
+                className="flex rounded-full mb-5 relative"
+                style={{ border: "1px solid #E5E7EB", overflow: "visible" }}
               >
                 {([3, 6, 12] as BudgetTerm[]).map((t) => {
                   const active = budgetTerm === t;
@@ -1079,8 +1079,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                       {t} Months
                       {t === 12 && (
                         <span
-                          className="absolute -top-1.5 right-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                          style={{ background: "#16A34A", color: "#fff" }}
+                          className="absolute -top-2 -right-0.5 text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm"
+                          style={{ background: "#16A34A", color: "#fff", zIndex: 10 }}
                         >
                           best
                         </span>
@@ -1157,19 +1157,30 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
                           {/* Tagline */}
                           <p
-                            className="text-[12px] mb-1.5"
+                            className="text-[12px] mb-2"
                             style={{ color: isDark ? "#D4D4D8" : "#6B7280" }}
                           >
                             {plan.tagline}
                           </p>
 
-                          {/* Billed total + initiation */}
-                          <p className="text-[11px] mb-1" style={{ color: isDark ? "#D4D4D8" : "#374151" }}>
-                            ${billedTotal.toLocaleString()} billed · {budgetTerm}-mo term{" "}
-                            <span style={{ color: initFee === 0 ? "#16A34A" : BRAND_PINK, fontWeight: 600 }}>
-                              {initFee === 0 ? "+ $0 initiation" : `+ $${initFee} initiation`}
-                            </span>
-                          </p>
+                          {/* Pricing block: total paid in full + initiation */}
+                          <div
+                            className="rounded-lg px-2.5 py-1.5 mb-1 inline-block"
+                            style={{ background: isDark ? "rgba(255,255,255,0.08)" : "#F9FAFB" }}
+                          >
+                            <p className="text-[11px] font-semibold" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
+                              ${billedTotal.toLocaleString()} paid in full · {budgetTerm}-mo term
+                            </p>
+                            <p className="text-[10px] mt-0.5" style={{ color: isDark ? "#D4D4D8" : "#6B7280" }}>
+                              {initFee === 0 ? (
+                                <span style={{ color: "#16A34A", fontWeight: 600 }}>Initiation fee waived</span>
+                              ) : (
+                                <>
+                                  <span style={{ color: initFee === 0 ? "#16A34A" : BRAND_PINK, fontWeight: 600 }}>+ ${initFee} one-time initiation</span>
+                                </>
+                              )}
+                            </p>
+                          </div>
 
                           {/* See details toggle */}
                           <button
@@ -1192,13 +1203,18 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         {plan.image && (
                           <div className="flex flex-col flex-shrink-0 relative" style={{ width: 160 }}>
                             {/* Price top-right */}
-                            <div className="flex items-baseline gap-0.5 pt-3 pr-3 justify-end">
-                              <span className="text-[26px] font-black" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
-                                ${price}
-                              </span>
-                              <span className="text-xs font-medium" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
-                                /mo
-                              </span>
+                            <div className="pt-3 pr-3 text-right">
+                              <div className="flex items-baseline gap-0.5 justify-end">
+                                <span className="text-[26px] font-black" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
+                                  ${price}
+                                </span>
+                                <span className="text-xs font-medium" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
+                                  /mo
+                                </span>
+                              </div>
+                              <p className="text-[9px] mt-0.5" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
+                                ${billedTotal.toLocaleString()} total
+                              </p>
                             </div>
 
                             {/* Image fills remaining height */}
