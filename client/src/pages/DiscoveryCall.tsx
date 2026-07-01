@@ -168,24 +168,13 @@ export default function DiscoveryCall() {
               </div>
             </div>
 
-            {/* Video Section */}
+            {/* Video Section - YouTube */}
             <div className="mb-8">
               <VideoEmbed />
             </div>
 
-            {/* Calendar Embed */}
-            <div className="bg-white rounded-2xl shadow-lg">
-              <iframe
-                src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
-                style={{ width: "100%", height: "1000px", border: "none" }}
-                id="Qxw3vN2dmBw9LSUQag8J_1781812832314"
-                title="Schedule a Discovery Call"
-                loading="lazy"
-              />
-            </div>
-
             {/* Overview Video — watch before scheduling */}
-            <div className="mt-10 mb-8">
+            <div className="mb-8">
               <div className="text-center mb-4">
                 <h2
                   className="text-xl md:text-2xl font-bold text-[#1a1a2e] mb-2"
@@ -213,6 +202,17 @@ export default function DiscoveryCall() {
                   Your browser does not support the video tag.
                 </video>
               </div>
+            </div>
+
+            {/* Calendar Embed */}
+            <div className="bg-white rounded-2xl shadow-lg">
+              <iframe
+                src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
+                style={{ width: "100%", height: "1000px", border: "none" }}
+                id="Qxw3vN2dmBw9LSUQag8J_1781812832314"
+                title="Schedule a Discovery Call"
+                loading="lazy"
+              />
             </div>
 
             {/* Back to home link */}
