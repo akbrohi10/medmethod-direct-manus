@@ -54,6 +54,19 @@ export default function PatientTools() {
           <p className="text-base text-gray-600 max-w-2xl mx-auto">
             Transformation & Longevity members get access to our integrated health app — designed to support your journey between visits.
           </p>
+
+          {/* Coach callout */}
+          <div
+            className="mt-6 mx-auto max-w-xl rounded-xl px-5 py-4 text-left"
+            style={{ background: "#FDF2F8", border: "1px solid #FBCFE8" }}
+          >
+            <p className="text-sm font-bold text-gray-900 mb-1">
+              Your coach. Your corner.
+            </p>
+            <p className="text-[13px] text-gray-700 leading-relaxed">
+              Your dedicated performance coach doesn't just give you access — they build your plans, monitor your progress, and adjust your nutrition and exercise as you evolve. Real accountability, not just another app.
+            </p>
+          </div>
         </div>
 
         {/* Tools Grid */}
