@@ -438,6 +438,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [budgetTerm, setBudgetTerm] = useState<BudgetTerm>(12);
   const [budgetExpanded, setBudgetExpanded] = useState<string | null>(null);
   const [budgetDeclined, setBudgetDeclined] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -671,9 +672,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     setWebhookSubmitting(false);
     setWebhookSubmitted(false);
     setConsentAttempted(false);
-    setBudgetTerm(6);
+    setBudgetTerm(12);
     setBudgetExpanded(null);
     setBudgetDeclined(false);
+    setSelectedPlan(null);
     onClose();
   };
 
@@ -1051,10 +1053,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 className="text-[22px] font-bold text-gray-900 mb-1.5 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Choose your care team
+                Which program would you like to discuss on your discovery call?
               </h2>
               <p className="text-[13px] text-gray-600 leading-relaxed mb-5">
-                Your membership includes ongoing support, accountability, and expert guidance.
+                Select one below. Your membership includes ongoing support, accountability, and expert guidance.
                 Medication is billed separately — no charge until approved.
               </p>
 
@@ -1098,16 +1100,33 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   const billedTotal = price * budgetTerm;
                   const isExpanded = budgetExpanded === plan.id;
                   const isDark = plan.dark;
+                  const isSelected = selectedPlan === plan.id;
 
                   return (
                     <div
                       key={plan.id}
-                      className="rounded-2xl overflow-hidden transition-all"
+                      className="rounded-2xl overflow-hidden transition-all cursor-pointer"
+                      onClick={() => setSelectedPlan(plan.id)}
                       style={{
                         background: plan.cardBg,
-                        border: `1.5px solid ${plan.cardBorder}`,
+                        border: isSelected
+                          ? `2.5px solid ${BRAND_PINK}`
+                          : `1.5px solid ${plan.cardBorder}`,
+                        boxShadow: isSelected ? `0 0 0 3px rgba(232,51,158,0.15)` : 'none',
+                        position: 'relative',
                       }}
                     >
+                      {/* Selection checkmark */}
+                      {isSelected && (
+                        <div
+                          className="absolute top-3 right-3 flex items-center justify-center rounded-full"
+                          style={{ width: 22, height: 22, background: BRAND_PINK, zIndex: 10 }}
+                        >
+                          <svg viewBox="0 0 12 12" fill="none" style={{ width: 12, height: 12 }}>
+                            <path d="M2.5 6l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
                       <div className="flex" style={{ minHeight: plan.image ? 160 : 'auto' }}>
                         {/* Left content */}
                         <div className="flex-1 p-4 flex flex-col">
@@ -1285,13 +1304,18 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               <div className="mt-6">
                 <button
                   onClick={() => setStep(CALENDAR_STEP)}
-                  className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all hover:opacity-90"
+                  disabled={!selectedPlan}
+                  className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all"
                   style={{
-                    background: BRAND_GRADIENT,
-                    boxShadow: "0 8px 24px rgba(232,51,158,0.3)",
+                    background: selectedPlan ? BRAND_GRADIENT : '#D1D5DB',
+                    boxShadow: selectedPlan ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
+                    cursor: selectedPlan ? 'pointer' : 'not-allowed',
+                    opacity: selectedPlan ? 1 : 0.7,
                   }}
                 >
-                  Select Plan & Continue
+                  {selectedPlan
+                    ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
+                    : 'Select a program to continue'}
                 </button>
                 <button
                   onClick={() => setBudgetDeclined(true)}
