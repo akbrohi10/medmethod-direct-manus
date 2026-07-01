@@ -63,23 +63,25 @@ export default function PatientTools() {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center text-center group h-full"
+                className="flex flex-col items-center text-center group"
               >
-                {/* Icon + Title + Description — fixed height so phones align */}
-                <div className="mb-5 h-[150px] flex flex-col items-center justify-start">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: `${tool.accent}15` }}
-                  >
-                    <Icon className="w-6 h-6" style={{ color: tool.accent }} />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1.5">
-                    {tool.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto">
-                    {tool.description}
-                  </p>
+                {/* Icon */}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${tool.accent}15` }}
+                >
+                  <Icon className="w-6 h-6" style={{ color: tool.accent }} />
                 </div>
+
+                {/* Title — fixed height */}
+                <h3 className="text-lg font-bold text-gray-900 mb-1.5 h-[28px] flex items-center">
+                  {tool.title}
+                </h3>
+
+                {/* Description — fixed height */}
+                <p className="text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto mb-5 h-[60px] flex items-start justify-center">
+                  {tool.description}
+                </p>
 
                 {/* Phone Image */}
                 <div className="w-full max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2">
