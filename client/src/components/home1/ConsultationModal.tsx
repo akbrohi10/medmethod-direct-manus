@@ -104,9 +104,9 @@ const BUDGET_PLANS = [
     pricing: { m3: 129, m6: 109, m12: 99 },
     initiation: { m3: 49, m6: 49, m12: 0 },
     initiationNote12: "waived on 12-month plan",
-    image: "",
-    cardBg: "#FFFFFF",
-    cardBorder: "#E5E7EB",
+    image: "/manus-storage/ignite-program-card-v3_7203d5db.png",
+    cardBg: "#F8FAFB",
+    cardBorder: "#3D6B5E",
     dark: false,
     ongoingIncludes: [
       "Asynchronous physician intake at enrollment",
@@ -1249,7 +1249,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                           </svg>
                         </div>
                       )}
-                      <div className="flex" style={{ minHeight: plan.image ? 160 : 'auto' }}>
+                      <div className="flex" style={{ minHeight: 160 }}>
                         {/* Left content */}
                         <div className="flex-1 p-4 flex flex-col">
                           {/* Badge pill (for featured plans) */}
@@ -1276,25 +1276,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                             </p>
                           )}
 
-                          {/* Plan name + price row */}
-                          <div className="flex items-baseline justify-between gap-3 mb-1">
-                            <h3
-                              className="text-[20px] font-extrabold"
-                              style={{ color: isDark ? "#FFFFFF" : "#111" }}
-                            >
-                              {plan.name}
-                            </h3>
-                            {!plan.image && (
-                              <div className="flex items-baseline gap-0.5 flex-shrink-0">
-                                <span className="text-[28px] font-black" style={{ color: "#111" }}>
-                                  ${price}
-                                </span>
-                                <span className="text-sm font-medium" style={{ color: "#6B7280" }}>
-                                  /mo
-                                </span>
-                              </div>
-                            )}
-                          </div>
+                          {/* Plan name */}
+                          <h3
+                            className="text-[20px] font-extrabold mb-1"
+                            style={{ color: isDark ? "#FFFFFF" : "#111" }}
+                          >
+                            {plan.name}
+                          </h3>
 
                           {/* Tagline */}
                           <p
@@ -1340,9 +1328,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                           </button>
                         </div>
 
-                        {/* Right side: price + image (only for cards with images) */}
-                        {plan.image && (
-                          <div className="flex flex-col flex-shrink-0 relative" style={{ width: 160 }}>
+                        {/* Right side: price + image */}
+                        <div className="flex flex-col flex-shrink-0 relative" style={{ width: 160 }}>
                             {/* Price top-right */}
                             <div className="pt-3 pr-3 text-right">
                               <div className="flex items-baseline gap-0.5 justify-end">
@@ -1364,12 +1351,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                                 src={plan.image}
                                 alt={`${plan.name} program`}
                                 className="w-full h-full object-cover"
-                                style={{ minHeight: 100, objectPosition: plan.id === 'longevity' ? 'center 40%' : 'center top' }}
+                                style={{ minHeight: 100, objectPosition: plan.id === 'longevity' ? 'center 40%' : plan.id === 'ignite' ? 'center 20%' : 'center top' }}
                                 loading="lazy"
                               />
                             </div>
-                          </div>
-                        )}
+                        </div>
                       </div>
 
                       {/* Expanded details */}
