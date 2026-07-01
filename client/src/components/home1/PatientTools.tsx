@@ -57,16 +57,16 @@ export default function PatientTools() {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
             return (
               <div
                 key={index}
-                className="flex flex-col items-center text-center group"
+                className="flex flex-col items-center text-center group h-full"
               >
-                {/* Icon + Title + Description */}
-                <div className="mb-5 min-h-[130px] flex flex-col items-center justify-start">
+                {/* Icon + Title + Description — fixed height so phones align */}
+                <div className="mb-5 h-[150px] flex flex-col items-center justify-start">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 transition-transform duration-300 group-hover:scale-110"
                     style={{ background: `${tool.accent}15` }}
