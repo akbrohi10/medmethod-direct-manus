@@ -9,7 +9,7 @@
 // Replace CALENDLY_URL with your actual Calendly link.
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { X, Check } from "lucide-react";
+import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
@@ -90,6 +90,89 @@ const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
 const ITEM_H = 44;
+
+// ── Budget step plan data (mirrors PopularPrograms TIERS) ───────────────────
+type BudgetTerm = 3 | 6 | 12;
+const BUDGET_PLANS = [
+  {
+    id: "ignite",
+    name: "Ignite",
+    tierLabel: "TIER 01",
+    badge: "",
+    tagline: "Async access · price-sensitive",
+    description: "Patients who know what they want & value speed + price over coaching.",
+    pricing: { m3: 129, m6: 109, m12: 99 },
+    initiation: { m3: 49, m6: 49, m12: 0 },
+    initiationNote12: "waived on 12-month plan",
+    image: "",
+    cardBg: "#FFFFFF",
+    cardBorder: "#E5E7EB",
+    dark: false,
+    ongoingIncludes: [
+      "Asynchronous physician intake at enrollment",
+      "Custom protocol design",
+      "Secure messaging — 48hr response weekdays",
+      "Monthly async check-in",
+      "Eligibility maintenance for ongoing Rx",
+      "Full formulary access — all available treatment options",
+    ],
+  },
+  {
+    id: "transformation",
+    name: "Transformation",
+    tierLabel: "",
+    badge: "✦ Most Popular",
+    tagline: "Coached & guided · your team in your corner",
+    description: "Structure, accountability, and a team that keeps you on track.",
+    pricing: { m3: 249, m6: 215, m12: 199 },
+    initiation: { m3: 199, m6: 199, m12: 199 },
+    image: "/manus-storage/transformation-card_86b62a37.jpg",
+    cardBg: "#1a1a2e",
+    cardBorder: "rgba(232,51,158,0.4)",
+    dark: true,
+    ongoingIncludes: [
+      "Everything in Ignite",
+      "Initial live physician video call — labs reviewed & plan prescribed",
+      "Monthly or every-other-month physician check-ins",
+      "Dedicated Performance Coach",
+      "Weigh-ins & ongoing accountability",
+      "Structured nutrition & fitness plans (GLP-1 aware)",
+      "BHRT & TRT protocols available (meds billed separately)",
+      "Unlimited secure messaging (24hr SLA)",
+    ],
+  },
+  {
+    id: "longevity",
+    name: "Longevity",
+    tierLabel: "TIER 03",
+    badge: "✦ Longevity Program",
+    tagline: "More physician time · deeper diagnostics · advanced monitoring",
+    description: "A true physician partner — advanced imaging, real-time monitoring, and concierge care.",
+    pricing: { m3: 379, m6: 325, m12: 299 },
+    initiation: { m3: 349, m6: 349, m12: 349 },
+    image: "/manus-storage/longevity-card_5cb8f20e.png",
+    cardBg: "#2a2a1e",
+    cardBorder: "rgba(180,160,80,0.4)",
+    dark: true,
+    ongoingIncludes: [
+      "Everything in Transformation",
+      "Quarterly 45-min physician strategy session",
+      "Expanded diagnostic testing & advanced lab access",
+      "Quarterly comprehensive lab panel (75+ biomarkers)",
+      "Advanced diagnostic ordering: CT calcium, DEXA, CGM",
+      "Priority physician access (12hr SLA)",
+      "At-home phlebotomy where available",
+      "White-glove onboarding (first 90 days)",
+    ],
+  },
+] as const;
+
+function budgetPriceFor(plan: typeof BUDGET_PLANS[number], term: BudgetTerm): number {
+  return term === 3 ? plan.pricing.m3 : term === 6 ? plan.pricing.m6 : plan.pricing.m12;
+}
+function budgetInitiationFor(plan: typeof BUDGET_PLANS[number], term: BudgetTerm): number {
+  return term === 3 ? plan.initiation.m3 : term === 6 ? plan.initiation.m6 : plan.initiation.m12;
+}
 
 // ── Pure CSS scroll-snap column ──────────────────────────────────────────────
 function WheelColumn({
@@ -351,6 +434,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [consentAttempted, setConsentAttempted] = useState(false);
   const [schedulingPolicyAgreed, setSchedulingPolicyAgreed] = useState(false);
 
+  // Budget step state
+  const [budgetTerm, setBudgetTerm] = useState<BudgetTerm>(6);
+  const [budgetExpanded, setBudgetExpanded] = useState<string | null>(null);
+  const [budgetDeclined, setBudgetDeclined] = useState(false);
+
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
   const days = useMemo(() => Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, "0")), []);
@@ -389,14 +477,16 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   // 6    = lead capture form
   // 7    = attribution (optional)
   // 8    = expectation screen
-  // 9    = calendar embed
+  // 9    = budget / choose your plan
+  // 10   = calendar embed
   const SERVICE_STEP = 0;
   const QUESTIONS_START = 1;
   const LEAD_STEP = QUESTIONS_START + questions.length;      // 6
   const ATTRIBUTION_STEP = LEAD_STEP + 1;                    // 7
   const EXPECTATION_STEP = ATTRIBUTION_STEP + 1;             // 8
-  const CALENDAR_STEP = EXPECTATION_STEP + 1;                // 9
-  const TOTAL_STEPS = CALENDAR_STEP + 1;                     // 10
+  const BUDGET_STEP = EXPECTATION_STEP + 1;                  // 9
+  const CALENDAR_STEP = BUDGET_STEP + 1;                     // 10
+  const TOTAL_STEPS = CALENDAR_STEP + 1;                     // 11
 
   // "Virtual Urgent Care" skip logic: if only "Virtual Urgent Care" is selected, skip qualifying Qs (goal, duration, tried)
   const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
@@ -410,6 +500,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isLeadStep = step === LEAD_STEP;
   const isAttributionStep = step === ATTRIBUTION_STEP;
   const isExpectationStep = step === EXPECTATION_STEP;
+  const isBudgetStep = step === BUDGET_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
 
   const isLeadValid =
@@ -488,8 +579,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       // Fire the GHL webhook when they press Next on the attribution step
       await submitToWebhook();
     } else if (isExpectationStep) {
-      // Advance to calendar (webhook already fired on attribution step)
+      // Advance to budget/plan selection step
       setStep((s) => s + 1);
+    } else if (isBudgetStep) {
+      // "Select Plan & Continue" advances to calendar
+      setStep(CALENDAR_STEP);
     }
   };
 
@@ -542,6 +636,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
   const handleBack = () => {
     if (step === 0) return;
+    // If on budget exit screen, go back to plan selection (not previous step)
+    if (isBudgetStep && budgetDeclined) {
+      setBudgetDeclined(false);
+      return;
+    }
     // If on age step and "Virtual Urgent Care" only, go back to service selection
     if (isQuestionStep && questions[questionIndex]?.id === "age" && isNotSureOnly) {
       setStep(SERVICE_STEP);
@@ -571,6 +670,9 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     setWebhookSubmitting(false);
     setWebhookSubmitted(false);
     setConsentAttempted(false);
+    setBudgetTerm(6);
+    setBudgetExpanded(null);
+    setBudgetDeclined(false);
     onClose();
   };
 
@@ -941,7 +1043,311 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
             </div>
           )}
 
-          {/* ── Step 9: Calendar embed ── */}
+          {/* ── Step 9: Budget / Choose your plan ── */}
+          {isBudgetStep && !budgetDeclined && (
+            <div className="px-6 pt-6 pb-6">
+              <h2
+                className="text-[22px] font-bold text-gray-900 mb-1.5 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                Choose your care team
+              </h2>
+              <p className="text-[13px] text-gray-600 leading-relaxed mb-5">
+                Your membership includes ongoing support, accountability, and expert guidance.
+                Medication is billed separately — no charge until approved.
+              </p>
+
+              {/* Term toggle */}
+              <div
+                className="flex rounded-full overflow-hidden mb-5"
+                style={{ border: "1px solid #E5E7EB" }}
+              >
+                {([3, 6, 12] as BudgetTerm[]).map((t) => {
+                  const active = budgetTerm === t;
+                  return (
+                    <button
+                      key={t}
+                      onClick={() => setBudgetTerm(t)}
+                      className="flex-1 py-2.5 text-sm font-semibold transition-all relative"
+                      style={{
+                        background: active ? "#1a1a2e" : "transparent",
+                        color: active ? "#fff" : "#374151",
+                        borderRadius: "9999px",
+                      }}
+                    >
+                      {t} Months
+                      {t === 12 && (
+                        <span
+                          className="absolute -top-1.5 right-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                          style={{ background: "#16A34A", color: "#fff" }}
+                        >
+                          best
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Plan cards */}
+              <div className="flex flex-col gap-4">
+                {BUDGET_PLANS.map((plan) => {
+                  const price = budgetPriceFor(plan, budgetTerm);
+                  const initFee = budgetInitiationFor(plan, budgetTerm);
+                  const billedTotal = price * budgetTerm;
+                  const isExpanded = budgetExpanded === plan.id;
+                  const isDark = plan.dark;
+
+                  return (
+                    <div
+                      key={plan.id}
+                      className="rounded-2xl overflow-hidden transition-all"
+                      style={{
+                        background: plan.cardBg,
+                        border: `1.5px solid ${plan.cardBorder}`,
+                      }}
+                    >
+                      {/* Badge for featured plans */}
+                      {plan.badge && (
+                        <div
+                          className="text-center flex items-center justify-center"
+                          style={{
+                            height: 32,
+                            fontSize: 10,
+                            fontWeight: 800,
+                            letterSpacing: "2px",
+                            textTransform: "uppercase" as const,
+                            color: "#fff",
+                            background: plan.id === "transformation" ? BRAND_GRADIENT : "linear-gradient(135deg, #8B7A2B 0%, #4A3F1A 100%)",
+                          }}
+                        >
+                          {plan.badge}
+                        </div>
+                      )}
+
+                      <div className="flex">
+                        {/* Left content */}
+                        <div className="flex-1 p-4">
+                          {/* Tier label (for non-badge plans) */}
+                          {plan.tierLabel && !plan.badge && (
+                            <p
+                              className="text-[10px] font-bold tracking-widest uppercase mb-1"
+                              style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}
+                            >
+                              {plan.tierLabel}
+                            </p>
+                          )}
+
+                          {/* Plan name + price row */}
+                          <div className="flex items-baseline justify-between gap-2 mb-1">
+                            <h3
+                              className="text-lg font-extrabold"
+                              style={{ color: isDark ? "#FFFFFF" : "#111" }}
+                            >
+                              {plan.name}
+                            </h3>
+                            <div className="flex items-baseline gap-0.5 flex-shrink-0">
+                              <span className="text-2xl font-black" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
+                                ${price}
+                              </span>
+                              <span className="text-sm font-medium" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
+                                /mo
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Tagline */}
+                          <p
+                            className="text-[12px] mb-1.5"
+                            style={{ color: isDark ? "#D4D4D8" : "#6B7280" }}
+                          >
+                            {plan.tagline}
+                          </p>
+
+                          {/* Billed total + initiation */}
+                          <p className="text-[11px] mb-1" style={{ color: isDark ? "#D4D4D8" : "#374151" }}>
+                            ${billedTotal.toLocaleString()} billed · {budgetTerm}-mo term{" "}
+                            <span style={{ color: initFee === 0 ? "#16A34A" : BRAND_PINK, fontWeight: 600 }}>
+                              {initFee === 0 ? "+ $0 initiation" : `+ $${initFee} initiation`}
+                            </span>
+                          </p>
+
+                          {/* See details toggle */}
+                          <button
+                            onClick={() => setBudgetExpanded(isExpanded ? null : plan.id)}
+                            className="flex items-center gap-1 mt-2 text-[12px] font-semibold"
+                            style={{ color: isDark ? "#F4C8E2" : BRAND_PLUM, background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                          >
+                            See details
+                            <ChevronDown
+                              size={14}
+                              style={{
+                                transition: "transform 200ms ease",
+                                transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                              }}
+                            />
+                          </button>
+                        </div>
+
+                        {/* Right image (only for featured plans) */}
+                        {plan.image && (
+                          <div className="w-[100px] sm:w-[120px] flex-shrink-0 overflow-hidden">
+                            <img
+                              src={plan.image}
+                              alt={`${plan.name} program`}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Expanded details */}
+                      {isExpanded && (
+                        <div
+                          className="px-4 pb-4"
+                          style={{ borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#F0E6F2"}` }}
+                        >
+                          <p
+                            className="text-[10px] font-bold tracking-wider uppercase mt-3 mb-2"
+                            style={{ color: isDark ? "#F4C8E2" : BRAND_PLUM }}
+                          >
+                            ONGOING MONTHLY INCLUDES
+                          </p>
+                          <ul className="flex flex-col gap-1.5">
+                            {plan.ongoingIncludes.map((item, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <span
+                                  className="flex-shrink-0 mt-[2px] flex items-center justify-center rounded-full"
+                                  style={{
+                                    width: 14,
+                                    height: 14,
+                                    background: isDark ? "rgba(34,197,94,0.18)" : "#F0FDF4",
+                                    border: isDark ? "1.5px solid rgba(134,239,172,0.65)" : "1.5px solid #86EFAC",
+                                  }}
+                                >
+                                  <svg viewBox="0 0 10 10" fill="none" style={{ width: 7, height: 7 }}>
+                                    <path
+                                      d="M2 5l2 2 4-4"
+                                      stroke={isDark ? "#86EFAC" : "#16A34A"}
+                                      strokeWidth="1.8"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </span>
+                                <span
+                                  className="text-[12px] leading-snug"
+                                  style={{ color: isDark ? "#E5E5EA" : "#1F1F1F" }}
+                                >
+                                  {item}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom buttons */}
+              <div className="mt-6">
+                <button
+                  onClick={() => setStep(CALENDAR_STEP)}
+                  className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all hover:opacity-90"
+                  style={{
+                    background: BRAND_GRADIENT,
+                    boxShadow: "0 8px 24px rgba(232,51,158,0.3)",
+                  }}
+                >
+                  Select Plan & Continue
+                </button>
+                <button
+                  onClick={() => setBudgetDeclined(true)}
+                  className="w-full mt-3 py-3 rounded-full text-sm font-medium transition-colors"
+                  style={{ color: "#6B7280", background: "none", border: "1px solid #E5E7EB", cursor: "pointer" }}
+                >
+                  I don't have the budget right now
+                </button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="flex items-center justify-center gap-5 mt-4">
+                <span className="flex items-center gap-1.5 text-[11px] text-gray-400">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  HIPAA Compliant
+                </span>
+                <span className="flex items-center gap-1.5 text-[11px] text-gray-400">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                  </svg>
+                  256-bit Encrypted
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Budget declined — warm exit screen */}
+          {isBudgetStep && budgetDeclined && (
+            <div className="px-6 pt-10 pb-8 flex flex-col items-center text-center">
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mb-5"
+                style={{ background: "rgba(232,51,158,0.08)", border: "1.5px solid rgba(232,51,158,0.2)" }}
+              >
+                <span style={{ fontSize: 30 }}>💜</span>
+              </div>
+              <h2
+                className="text-xl font-bold text-gray-900 mb-3 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                We'll be here when you're ready
+              </h2>
+              <p className="text-sm text-gray-600 leading-relaxed mb-5 max-w-xs">
+                Your health journey is personal, and timing matters. We want you to feel confident and prepared when you join.
+              </p>
+              <div
+                className="rounded-xl p-4 mb-5 text-left w-full"
+                style={{ background: "#F9FAFB", border: "1px solid #E5E7EB" }}
+              >
+                <p className="text-[11px] font-bold tracking-wider uppercase mb-2" style={{ color: BRAND_PLUM }}>
+                  FREE RESOURCES IN THE MEANTIME
+                </p>
+                <ul className="flex flex-col gap-2">
+                  {[
+                    "Follow us on Instagram for daily health tips",
+                    "Watch our free educational videos on the website",
+                    "Join our email list for exclusive content & offers",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check className="w-4 h-4 flex-shrink-0 mt-0.5" strokeWidth={3} style={{ color: BRAND_PLUM }} />
+                      <span className="text-[13px] text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <button
+                onClick={() => setBudgetDeclined(false)}
+                className="text-sm font-semibold transition-colors hover:opacity-80"
+                style={{ color: BRAND_PINK, background: "none", border: "none", cursor: "pointer" }}
+              >
+                Changed your mind? Go back to plans →
+              </button>
+              <button
+                onClick={handleClose}
+                className="mt-3 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                style={{ background: "none", border: "none", cursor: "pointer" }}
+              >
+                Close
+              </button>
+            </div>
+          )}
+
+          {/* ── Step 10: Calendar embed ── */}
           {isCalendarStep && (
             <div className="px-6 pt-8 pb-4">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
@@ -1025,7 +1431,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         </div>
 
         {/* Bottom sticky button */}
-        {!isCalendarStep && (
+        {!isCalendarStep && !isBudgetStep && (
           <div className="flex-shrink-0 px-6 pt-3 bg-white border-t border-gray-50" style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom, 2rem))" }}>
             <button
               onClick={handleNext}
@@ -1037,7 +1443,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {webhookSubmitting ? "Submitting..." : isExpectationStep ? "Choose a Time →" : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
+              {webhookSubmitting ? "Submitting..." : isExpectationStep ? "Review Our Programs →" : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
             </button>
             {step > 0 && (
               <button
