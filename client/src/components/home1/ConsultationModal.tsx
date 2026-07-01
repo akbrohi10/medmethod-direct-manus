@@ -953,7 +953,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               >
                 You’re almost there!
               </h2>
-              <p className="text-sm text-gray-400 mb-6">
+              <p className="text-sm text-gray-600 mb-6">
                 Two quick steps to schedule your free discovery call.
               </p>
 
@@ -968,7 +968,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   </span>
                   <p className="text-sm font-bold text-gray-900">
                     Watch this short video
-                    <span className="ml-2 text-xs font-normal text-gray-400">(5 min)</span>
+                    <span className="ml-2 text-xs font-normal text-gray-600">(5 min)</span>
                   </p>
                 </div>
                 <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
@@ -983,7 +983,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     Your browser does not support the video tag.
                   </video>
                 </div>
-                <p className="text-xs text-gray-400 mt-2 italic">
+                <p className="text-xs text-gray-600 mt-2 italic">
                   We recommend watching before booking so you know exactly what to expect.
                 </p>
               </div>
@@ -1001,10 +1001,10 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     Schedule your free discovery call
                   </p>
                 </div>
-                <p className="text-xs text-gray-500 mb-2 ml-10">
+                <p className="text-sm text-gray-700 mb-2 ml-10">
                   Choose a time that works for you. This is a no-pressure conversation to see if we’re the right fit.
                 </p>
-                <p className="text-xs text-gray-400 mb-3 ml-10 italic">
+                <p className="text-xs text-gray-600 mb-3 ml-10 italic">
                   Please note: If you book and do not attend without 24-hour notice, your account may be restricted from future scheduling.
                 </p>
                 <div className="rounded-xl overflow-hidden border border-gray-100">
