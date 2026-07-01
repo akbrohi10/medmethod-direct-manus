@@ -79,7 +79,7 @@ export default function PatientTools() {
                 </h3>
 
                 {/* Description — fixed height */}
-                <p className="text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto mb-5 h-[60px] flex items-start justify-center">
+                <p className="text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto mb-5 min-h-[72px] flex items-start justify-center text-center">
                   {tool.description}
                 </p>
 
