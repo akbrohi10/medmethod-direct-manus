@@ -990,7 +990,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
               {/* Step 2: Book Your Call */}
               <div>
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <span
                     className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
                     style={{ background: BRAND_GRADIENT }}
@@ -998,9 +998,15 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     2
                   </span>
                   <p className="text-sm font-bold text-gray-900">
-                    Pick a time that works for you
+                    Schedule your free discovery call
                   </p>
                 </div>
+                <p className="text-xs text-gray-500 mb-2 ml-10">
+                  Choose a time that works for you. This is a no-pressure conversation to see if we’re the right fit.
+                </p>
+                <p className="text-xs text-gray-400 mb-3 ml-10 italic">
+                  Please note: If you book and do not attend without 24-hour notice, your account may be restricted from future scheduling.
+                </p>
                 <div className="rounded-xl overflow-hidden border border-gray-100">
                   <iframe
                     src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
