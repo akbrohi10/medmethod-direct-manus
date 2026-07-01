@@ -1049,6 +1049,34 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 9: Budget / Choose your plan ── */}
           {isBudgetStep && !budgetDeclined && (
             <div className="px-6 pt-6 pb-6">
+              {/* Video section */}
+              <div className="mb-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
+                    style={{ background: BRAND_GRADIENT }}
+                  >
+                    ▶
+                  </span>
+                  <p className="text-[13px] font-bold text-gray-900">
+                    Watch this short overview
+                    <span className="ml-1.5 text-[11px] font-normal text-gray-500">(5 min)</span>
+                  </p>
+                </div>
+                <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
+                  <video
+                    className="w-full h-auto"
+                    controls
+                    preload="auto"
+                    playsInline
+                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
+                  >
+                    <source src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+
               <h2
                 className="text-[22px] font-bold text-gray-900 mb-1.5 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
@@ -1413,57 +1441,15 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 You’re almost there!
               </h2>
               <p className="text-sm text-gray-600 mb-6">
-                Two quick steps to schedule your free discovery call.
+                Schedule your free discovery call below.
               </p>
 
-              {/* Step 1: Watch the Video */}
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span
-                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                    style={{ background: BRAND_GRADIENT }}
-                  >
-                    1
-                  </span>
-                  <p className="text-sm font-bold text-gray-900">
-                    Watch this short video
-                    <span className="ml-2 text-xs font-normal text-gray-600">(5 min)</span>
-                  </p>
-                </div>
-                <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
-                  <video
-                    className="w-full h-auto"
-                    controls
-                    preload="auto"
-                    playsInline
-                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
-                  >
-                    <source src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                <p className="text-xs text-gray-600 mt-2 italic">
-                  We recommend watching before booking so you know exactly what to expect.
-                </p>
-              </div>
-
-              {/* Step 2: Book Your Call */}
+              {/* Book Your Call */}
               <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span
-                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                    style={{ background: BRAND_GRADIENT }}
-                  >
-                    2
-                  </span>
-                  <p className="text-sm font-bold text-gray-900">
-                    Schedule a free call with our care team
-                  </p>
-                </div>
-                <p className="text-sm text-gray-700 mb-2 ml-10">
+                <p className="text-sm text-gray-700 mb-2">
                   Pick a time that works for you. A MedMethod Care Coordinator will call to answer your questions and see if we're the right fit — no pressure, no obligation.
                 </p>
-                <p className="text-xs text-gray-600 mb-3 ml-10 italic">
+                <p className="text-xs text-gray-600 mb-3 italic">
                   Please note: If you book and do not attend without 24-hour notice, your account may be restricted from future scheduling.
                 </p>
                 <div className="rounded-xl overflow-hidden border border-gray-100">
