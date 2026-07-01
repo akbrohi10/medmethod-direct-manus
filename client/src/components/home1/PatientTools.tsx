@@ -82,11 +82,11 @@ export default function PatientTools() {
                 </div>
 
                 {/* Phone Image */}
-                <div className="w-full max-w-[220px] mx-auto h-[400px] overflow-hidden rounded-2xl shadow-lg transition-transform duration-500 group-hover:-translate-y-2">
+                <div className="w-full max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2">
                   <img
                     src={tool.image}
                     alt={tool.title}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-auto rounded-2xl shadow-lg"
                     loading="lazy"
                   />
                 </div>
