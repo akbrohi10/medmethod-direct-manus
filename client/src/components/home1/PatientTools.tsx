@@ -27,7 +27,7 @@ const tools = [
   {
     icon: Activity,
     title: "Activity & Device Sync",
-    description: "Connect your Apple Watch or wearable to track steps, calories, and daily movement automatically.",
+    description: "Connect your Apple Watch or wearable to automatically track steps, calories, and movement.",
     image: "/manus-storage/phone_activity_trimmed_bce06435.png",
     accent: "#2563EB", // blue to match the activity ring
   },
@@ -84,11 +84,11 @@ export default function PatientTools() {
                 </p>
 
                 {/* Phone Image */}
-                <div className="w-full max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2" style={{ height: 420, overflow: 'hidden' }}>
+                <div className="w-full max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2">
                   <img
                     src={tool.image}
                     alt={tool.title}
-                    className="w-full h-full object-cover object-top drop-shadow-lg"
+                    className="w-full h-auto object-contain drop-shadow-lg"
                     loading="lazy"
                   />
                 </div>
