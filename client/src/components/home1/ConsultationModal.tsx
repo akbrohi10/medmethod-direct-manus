@@ -1083,10 +1083,48 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               >
                 Which program would you like to discuss on your discovery call?
               </h2>
-              <p className="text-[13px] text-gray-600 leading-relaxed mb-5">
-                Select one below. Your membership includes ongoing support, accountability, and expert guidance.
-                Medication is billed separately — no charge until approved.
+              <p className="text-[13px] text-gray-600 leading-relaxed mb-4">
+                Select one below. Your membership covers your care team, coaching, and ongoing support.
               </p>
+
+              {/* Medication info card */}
+              <div
+                className="rounded-xl p-3.5 mb-5"
+                style={{ background: "#F0FDF4", border: "1px solid #BBF7D0" }}
+              >
+                <div className="flex items-start gap-2.5">
+                  <span className="flex-shrink-0 mt-0.5">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18h9" />
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="text-[12px] font-bold text-gray-900 mb-1">
+                      Medication is separate from your membership.
+                    </p>
+                    <p className="text-[11px] text-gray-600 leading-relaxed mb-1.5">
+                      Your doctor prescribes what’s right for you. You choose how to fill it:
+                    </p>
+                    <ul className="flex flex-col gap-1">
+                      <li className="flex items-center gap-2 text-[11px] text-gray-700">
+                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
+                        <span><strong>Local pharmacy</strong> — use your insurance or pay retail</span>
+                      </li>
+                      <li className="flex items-center gap-2 text-[11px] text-gray-700">
+                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
+                        <span><strong>LillyDirect</strong> — brand-name shipped to your door</span>
+                      </li>
+                      <li className="flex items-center gap-2 text-[11px] text-gray-700">
+                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
+                        <span><strong>Compounded</strong> — pre-negotiated rate through our partner pharmacy</span>
+                      </li>
+                    </ul>
+                    <p className="text-[10px] text-gray-500 mt-1.5 italic">
+                      No medication charge until your doctor approves your plan.
+                    </p>
+                  </div>
+                </div>
+              </div>
 
               {/* Term toggle */}
               <div
