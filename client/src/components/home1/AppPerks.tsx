@@ -16,7 +16,7 @@ const PERKS = [
     icon: Dumbbell,
     iconColor: "#7C3AED",
     iconBg: "#F3E8FF",
-    image: "/manus-storage/phone-fitness_7ec5cfb5.png",
+    image: "/manus-storage/phone-fitness-white_38c39472.png",
     alt: "App screen showing Today's Workout with Upper Body Strength exercises",
   },
   {
@@ -27,7 +27,7 @@ const PERKS = [
     icon: TrendingUp,
     iconColor: "#059669",
     iconBg: "#ECFDF5",
-    image: "/manus-storage/phone-progress_7f660b82.png",
+    image: "/manus-storage/phone-progress-white_f255ebb1.png",
     alt: "App screen showing Progress with weight loss chart and body measurements",
   },
   {
@@ -38,7 +38,7 @@ const PERKS = [
     icon: Apple,
     iconColor: "#E11D48",
     iconBg: "#FFF1F2",
-    image: "/manus-storage/phone-nutrition_e2ad6578.png",
+    image: "/manus-storage/phone-nutrition-white_7b7514fc.png",
     alt: "App screen showing Nutrition tracker with calories, macros, and meals",
   },
   {
@@ -49,7 +49,7 @@ const PERKS = [
     icon: Watch,
     iconColor: "#2563EB",
     iconBg: "#EFF6FF",
-    image: "/manus-storage/phone-activity_16180640.png",
+    image: "/manus-storage/phone-activity-white_4e7a51a5.png",
     alt: "App screen showing Activity with steps, calories, distance, and connected Apple Watch",
   },
 ];
@@ -152,11 +152,11 @@ export default function AppPerks() {
               </p>
 
               {/* Phone Image */}
-              <div className="mt-auto w-full flex justify-center bg-white rounded-xl">
+              <div className="mt-auto w-full flex justify-center">
                 <img
                   src={perk.image}
                   alt={perk.alt}
-                  className="w-full max-w-[200px] h-auto object-contain mix-blend-multiply"
+                  className="w-full max-w-[200px] h-auto object-contain rounded-xl"
                   loading="lazy"
                   decoding="async"
                 />
