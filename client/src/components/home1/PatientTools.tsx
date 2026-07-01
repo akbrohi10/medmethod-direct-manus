@@ -54,6 +54,9 @@ export default function PatientTools() {
           <p className="text-base text-gray-600 max-w-2xl mx-auto">
             Every MedMethod patient gets access to our integrated health app — designed to support your journey between visits.
           </p>
+          <p className="text-sm text-gray-500 italic max-w-2xl mx-auto mt-2">
+            Included with Transformation & Longevity memberships.
+          </p>
         </div>
 
         {/* Tools Grid */}
