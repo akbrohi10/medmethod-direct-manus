@@ -439,6 +439,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [budgetExpanded, setBudgetExpanded] = useState<string | null>(null);
   const [budgetDeclined, setBudgetDeclined] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [medsExpanded, setMedsExpanded] = useState(false);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -1087,21 +1088,34 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 Select one below. Your membership covers your care team, coaching, and ongoing support.
               </p>
 
-              {/* Medication info card */}
+              {/* Medication info card — collapsible */}
               <div
-                className="rounded-xl p-3.5 mb-5"
+                className="rounded-xl mb-5 overflow-hidden transition-all"
                 style={{ background: "#F0FDF4", border: "1px solid #BBF7D0" }}
               >
-                <div className="flex items-start gap-2.5">
-                  <span className="flex-shrink-0 mt-0.5">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  type="button"
+                  onClick={() => setMedsExpanded(!medsExpanded)}
+                  className="w-full flex items-center gap-2.5 p-3.5 text-left"
+                >
+                  <span className="flex-shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18h9" />
                     </svg>
                   </span>
-                  <div>
-                    <p className="text-[12px] font-bold text-gray-900 mb-1">
-                      Medication is separate from your membership.
-                    </p>
+                  <span className="flex-1 text-[12px] font-bold text-gray-900">
+                    Medication is separate from your membership.
+                  </span>
+                  <span className="flex-shrink-0 text-[11px] font-semibold" style={{ color: "#16A34A" }}>
+                    {medsExpanded ? 'Hide' : 'Learn more'}
+                  </span>
+                  <ChevronDown
+                    className="flex-shrink-0 transition-transform"
+                    style={{ width: 14, height: 14, color: "#16A34A", transform: medsExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                  />
+                </button>
+                {medsExpanded && (
+                  <div className="px-3.5 pb-3.5 pt-0">
                     <p className="text-[11px] text-gray-600 leading-relaxed mb-1.5">
                       Your doctor prescribes what’s right for you. You choose how to fill it:
                     </p>
@@ -1123,7 +1137,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                       No medication charge until your doctor approves your plan.
                     </p>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Term toggle */}
