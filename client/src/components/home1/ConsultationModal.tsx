@@ -951,18 +951,27 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Choose a time that works for you
+                You’re almost there!
               </h2>
-              <p className="text-sm text-gray-400 mb-5">
-                Pick a 15-minute slot with a MedMethod Care Coordinator.
+              <p className="text-sm text-gray-400 mb-6">
+                Two quick steps to schedule your free discovery call.
               </p>
 
-              {/* Overview Video — watch before scheduling */}
-              <div className="mb-5">
-                <p className="text-sm font-semibold text-gray-700 mb-2" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                  Watch this quick overview before you book:
-                </p>
-                <div className="w-full rounded-xl overflow-hidden bg-black">
+              {/* Step 1: Watch the Video */}
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span
+                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    style={{ background: BRAND_GRADIENT }}
+                  >
+                    1
+                  </span>
+                  <p className="text-sm font-bold text-gray-900">
+                    Watch this short video
+                    <span className="ml-2 text-xs font-normal text-gray-400">(5 min)</span>
+                  </p>
+                </div>
+                <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
                   <video
                     className="w-full h-auto"
                     controls
@@ -974,19 +983,36 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     Your browser does not support the video tag.
                   </video>
                 </div>
+                <p className="text-xs text-gray-400 mt-2 italic">
+                  We recommend watching before booking so you know exactly what to expect.
+                </p>
               </div>
 
-              <div className="rounded-xl overflow-hidden border border-gray-100">
-                <iframe
-                  src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
-                  width="100%"
-                  height="800"
-                  frameBorder="0"
-                  scrolling="yes"
-                  id="Qxw3vN2dmBw9LSUQag8J_1780696816287"
-                  title="Schedule your free consultation"
-                  style={{ border: "none", overflow: "auto", display: "block" }}
-                />
+              {/* Step 2: Book Your Call */}
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span
+                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    style={{ background: BRAND_GRADIENT }}
+                  >
+                    2
+                  </span>
+                  <p className="text-sm font-bold text-gray-900">
+                    Pick a time that works for you
+                  </p>
+                </div>
+                <div className="rounded-xl overflow-hidden border border-gray-100">
+                  <iframe
+                    src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
+                    width="100%"
+                    height="800"
+                    frameBorder="0"
+                    scrolling="yes"
+                    id="Qxw3vN2dmBw9LSUQag8J_1780696816287"
+                    title="Schedule your free consultation"
+                    style={{ border: "none", overflow: "auto", display: "block" }}
+                  />
+                </div>
               </div>
             </div>
           )}
