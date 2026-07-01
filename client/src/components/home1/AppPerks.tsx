@@ -152,11 +152,11 @@ export default function AppPerks() {
               </p>
 
               {/* Phone Image */}
-              <div className="mt-auto w-full flex justify-center">
+              <div className="mt-auto w-full flex justify-center bg-white rounded-xl">
                 <img
                   src={perk.image}
                   alt={perk.alt}
-                  className="w-full max-w-[200px] h-auto object-contain"
+                  className="w-full max-w-[200px] h-auto object-contain mix-blend-multiply"
                   loading="lazy"
                   decoding="async"
                 />
