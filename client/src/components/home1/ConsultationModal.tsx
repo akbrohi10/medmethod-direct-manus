@@ -571,6 +571,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         transactionalConsent: String(leadData.transactionalConsent),
         promotionalConsent: String(leadData.promotionalConsent),
       }));
+      // Fire webhook immediately to capture the lead
+      await submitLeadWebhook();
       setStep((s) => s + 1);
     } else if (isAttributionStep) {
       if (attribution) {
@@ -585,17 +587,55 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       // Advance to budget/plan selection step
       setStep((s) => s + 1);
     } else if (isBudgetStep) {
-      // Fire the GHL webhook when they select a plan and click Continue
-      await submitToWebhook();
+      // Fire webhook again with plan selection data (updates existing contact in GHL)
+      await submitPlanWebhook();
     }
   };
 
-  const submitToWebhook = async () => {
-    if (webhookSubmitting || webhookSubmitted) {
-      setStep((s) => s + 1);
-      return;
-    }
+  // First webhook: fires after lead capture (name/email/phone/zip)
+  const submitLeadWebhook = async () => {
+    const payload = {
+      services_selected: selectedServices.join(", ") || "",
+      primary_goal: answers.goal || "",
+      time_on_mind: answers.duration || "",
+      previous_treatments: answers.tried || "",
+      date_of_birth: answers.age || "",
+      desired_change: answers.goals || goalsText.trim() || "",
+      how_did_you_find_us: "",
+      how_did_you_find_us_other: "",
+      first_name: leadData.firstName.trim(),
+      email: leadData.email.trim(),
+      phone: leadData.phone,
+      zip_code: leadData.zip,
+      selected_plan: "",
+      selected_term_months: "",
+      source: "Manus Website",
+      form_name: "New Website Intake Form",
+    };
 
+    console.log("GHL webhook (lead capture):", payload);
+
+    setWebhookSubmitting(true);
+    try {
+      const response = await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) {
+        throw new Error(`Webhook failed with status ${response.status}`);
+      }
+      setWebhookSubmitted(true);
+    } catch (error) {
+      console.error("GHL webhook (lead capture) error:", error);
+      // Don't block the user — lead capture failure is non-critical for UX
+    } finally {
+      setWebhookSubmitting(false);
+    }
+  };
+
+  // Second webhook: fires on budget step with plan selection (updates existing contact)
+  const submitPlanWebhook = async () => {
     const payload = {
       services_selected: answers.services || selectedServices.join(", ") || "",
       primary_goal: answers.goal || "",
@@ -615,7 +655,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       form_name: "New Website Intake Form",
     };
 
-    console.log("GHL webhook payload:", payload);
+    console.log("GHL webhook (plan selection):", payload);
 
     setWebhookSubmitting(true);
     try {
@@ -632,7 +672,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       setWebhookSubmitted(true);
       setStep((s) => s + 1);
     } catch (error) {
-      console.error("GHL webhook error:", error);
+      console.error("GHL webhook (plan selection) error:", error);
       toast.error("Something went wrong submitting your information. Please try again.");
     } finally {
       setWebhookSubmitting(false);
