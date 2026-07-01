@@ -454,6 +454,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const initialYearIdx = useRef(30);
   const dobTouched = monthIdx !== initialMonthIdx.current || dayIdx !== initialDayIdx.current || yearIdx !== initialYearIdx.current;
 
+
   // Pre-select service when modal opens with a specific service
   useEffect(() => {
     if (open && preselectedService) {
@@ -1107,53 +1108,51 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         border: `1.5px solid ${plan.cardBorder}`,
                       }}
                     >
-                      {/* Badge for featured plans */}
-                      {plan.badge && (
-                        <div
-                          className="text-center flex items-center justify-center"
-                          style={{
-                            height: 32,
-                            fontSize: 10,
-                            fontWeight: 800,
-                            letterSpacing: "2px",
-                            textTransform: "uppercase" as const,
-                            color: "#fff",
-                            background: plan.id === "transformation" ? BRAND_GRADIENT : "linear-gradient(135deg, #8B7A2B 0%, #4A3F1A 100%)",
-                          }}
-                        >
-                          {plan.badge}
-                        </div>
-                      )}
-
-                      <div className="flex">
+                      <div className="flex" style={{ minHeight: plan.image ? 160 : 'auto' }}>
                         {/* Left content */}
-                        <div className="flex-1 p-4">
+                        <div className="flex-1 p-4 flex flex-col">
+                          {/* Badge pill (for featured plans) */}
+                          {plan.badge && (
+                            <span
+                              className="inline-flex items-center self-start px-2.5 py-1 rounded-full text-[10px] font-bold mb-2"
+                              style={{
+                                background: plan.id === "transformation" ? "#1B5E3B" : "#4A3F1A",
+                                color: plan.id === "transformation" ? "#D4EDDA" : "#F5E6A3",
+                                letterSpacing: "0.5px",
+                              }}
+                            >
+                              {plan.badge}
+                            </span>
+                          )}
+
                           {/* Tier label (for non-badge plans) */}
                           {plan.tierLabel && !plan.badge && (
                             <p
                               className="text-[10px] font-bold tracking-widest uppercase mb-1"
-                              style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}
+                              style={{ color: plan.id === "ignite" ? "#3D6B5E" : isDark ? "#C4A84D" : "#6B7280" }}
                             >
                               {plan.tierLabel}
                             </p>
                           )}
 
                           {/* Plan name + price row */}
-                          <div className="flex items-baseline justify-between gap-2 mb-1">
+                          <div className="flex items-baseline justify-between gap-3 mb-1">
                             <h3
-                              className="text-lg font-extrabold"
+                              className="text-[20px] font-extrabold"
                               style={{ color: isDark ? "#FFFFFF" : "#111" }}
                             >
                               {plan.name}
                             </h3>
-                            <div className="flex items-baseline gap-0.5 flex-shrink-0">
-                              <span className="text-2xl font-black" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
-                                ${price}
-                              </span>
-                              <span className="text-sm font-medium" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
-                                /mo
-                              </span>
-                            </div>
+                            {!plan.image && (
+                              <div className="flex items-baseline gap-0.5 flex-shrink-0">
+                                <span className="text-[28px] font-black" style={{ color: "#111" }}>
+                                  ${price}
+                                </span>
+                                <span className="text-sm font-medium" style={{ color: "#6B7280" }}>
+                                  /mo
+                                </span>
+                              </div>
+                            )}
                           </div>
 
                           {/* Tagline */}
@@ -1189,15 +1188,29 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                           </button>
                         </div>
 
-                        {/* Right image (only for featured plans) */}
+                        {/* Right side: price + image (only for cards with images) */}
                         {plan.image && (
-                          <div className="w-[100px] sm:w-[120px] flex-shrink-0 overflow-hidden">
-                            <img
-                              src={plan.image}
-                              alt={`${plan.name} program`}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
+                          <div className="flex flex-col flex-shrink-0 relative" style={{ width: 160 }}>
+                            {/* Price top-right */}
+                            <div className="flex items-baseline gap-0.5 pt-3 pr-3 justify-end">
+                              <span className="text-[26px] font-black" style={{ color: isDark ? "#FFFFFF" : "#111" }}>
+                                ${price}
+                              </span>
+                              <span className="text-xs font-medium" style={{ color: isDark ? "#9CA3AF" : "#6B7280" }}>
+                                /mo
+                              </span>
+                            </div>
+
+                            {/* Image fills remaining height */}
+                            <div className="flex-1 overflow-hidden" style={{ borderRadius: '0 0 14px 0', marginTop: 6 }}>
+                              <img
+                                src={plan.image}
+                                alt={`${plan.name} program`}
+                                className="w-full h-full object-cover"
+                                style={{ minHeight: 100, objectPosition: plan.id === 'longevity' ? 'center 40%' : 'center top' }}
+                                loading="lazy"
+                              />
+                            </div>
                           </div>
                         )}
                       </div>
