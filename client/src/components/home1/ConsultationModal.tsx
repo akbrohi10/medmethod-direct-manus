@@ -3,9 +3,11 @@
 // full-width brand-gradient "Next" button pinned at bottom.
 // Step 0: Service selection (multi-select grid, can be pre-selected from service card CTAs)
 // Steps 1-5: Intake questions
-// Step 6: Lead capture form
-// Step 7: Expectation screen
-// Step 8: Calendly embed
+// Step 6: Attribution (how did you find us)
+// Step 7: Lead capture form
+// Step 8: Expectation screen
+// Step 9: Budget / plan selection
+// Step 10: Calendar embed
 // Replace CALENDLY_URL with your actual Calendly link.
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
@@ -477,26 +479,26 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   // Step layout:
   // 0    = service selection (new)
   // 1-5  = questions (goal, duration, tried, age, goals)
-  // 6    = lead capture form
-  // 7    = attribution (optional)
+  // 6    = attribution (optional) — moved BEFORE lead capture so webhook includes it
+  // 7    = lead capture form
   // 8    = expectation screen
   // 9    = budget / choose your plan
   // 10   = calendar embed
   const SERVICE_STEP = 0;
   const QUESTIONS_START = 1;
-  const LEAD_STEP = QUESTIONS_START + questions.length;      // 6
-  const ATTRIBUTION_STEP = LEAD_STEP + 1;                    // 7
-  const EXPECTATION_STEP = ATTRIBUTION_STEP + 1;             // 8
-  const BUDGET_STEP = EXPECTATION_STEP + 1;                  // 9
-  const CALENDAR_STEP = BUDGET_STEP + 1;                     // 10
-  const TOTAL_STEPS = CALENDAR_STEP + 1;                     // 11
+  const ATTRIBUTION_STEP = QUESTIONS_START + questions.length; // 6
+  const LEAD_STEP = ATTRIBUTION_STEP + 1;                     // 7
+  const EXPECTATION_STEP = LEAD_STEP + 1;                     // 8
+  const BUDGET_STEP = EXPECTATION_STEP + 1;                   // 9
+  const CALENDAR_STEP = BUDGET_STEP + 1;                      // 10
+  const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 11
 
   // "Virtual Urgent Care" skip logic: if only "Virtual Urgent Care" is selected, skip qualifying Qs (goal, duration, tried)
   const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
 
   const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
-  const isQuestionStep = step >= QUESTIONS_START && step < LEAD_STEP;
+  const isQuestionStep = step >= QUESTIONS_START && step < ATTRIBUTION_STEP;
   const questionIndex = step - QUESTIONS_START; // 0-based index into questions[]
   const isAgeStep = isQuestionStep && questions[questionIndex]?.id === "age";
   const isGoalsStep = isQuestionStep && questions[questionIndex]?.id === "goals";
@@ -516,8 +518,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     ? selectedServices.length === 0
     : isQuestionStep
       ? isAgeStep ? !dobTouched || computedAge < 18 : isGoalsStep ? false : !selected
-      : isLeadStep ? !isLeadValid
       : isAttributionStep ? false
+      : isLeadStep ? !isLeadValid
       : false);
 
   const toggleService = (label: string) => {
@@ -559,6 +561,15 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       setAnswers((prev) => ({ ...prev, [questions[questionIndex].id]: selected }));
       setSelected(null);
       setStep((s) => s + 1);
+    } else if (isAttributionStep) {
+      if (attribution) {
+        const attrValue = attribution === "Other" && attributionOther.trim()
+          ? `Other: ${attributionOther.trim()}`
+          : attribution;
+        setAnswers((prev) => ({ ...prev, attribution: attrValue }));
+      }
+      // Advance to lead capture step
+      setStep((s) => s + 1);
     } else if (isLeadStep) {
       setConsentAttempted(true);
       if (!isLeadValid) return;
@@ -571,17 +582,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         transactionalConsent: String(leadData.transactionalConsent),
         promotionalConsent: String(leadData.promotionalConsent),
       }));
-      // Fire webhook immediately to capture the lead
+      // Fire webhook immediately to capture the lead (attribution is now already set)
       await submitLeadWebhook();
-      setStep((s) => s + 1);
-    } else if (isAttributionStep) {
-      if (attribution) {
-        const attrValue = attribution === "Other" && attributionOther.trim()
-          ? `Other: ${attributionOther.trim()}`
-          : attribution;
-        setAnswers((prev) => ({ ...prev, attribution: attrValue }));
-      }
-      // Advance to expectation step (webhook now fires on budget step)
       setStep((s) => s + 1);
     } else if (isExpectationStep) {
       // Advance to budget/plan selection step
@@ -601,8 +603,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       previous_treatments: answers.tried || "",
       date_of_birth: answers.age || "",
       desired_change: answers.goals || goalsText.trim() || "",
-      how_did_you_find_us: "",
-      how_did_you_find_us_other: "",
+      how_did_you_find_us: attribution && attribution !== "Other" ? attribution : (attribution === "Other" ? "Other" : ""),
+      how_did_you_find_us_other: attribution === "Other" ? attributionOther.trim() : "",
       first_name: leadData.firstName.trim(),
       email: leadData.email.trim(),
       phone: leadData.phone,
@@ -694,7 +696,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     }
     const prevStep = step - 1;
     setStep(prevStep);
-    if (prevStep >= QUESTIONS_START && prevStep < LEAD_STEP) {
+    if (prevStep >= QUESTIONS_START && prevStep < ATTRIBUTION_STEP) {
       const qi = prevStep - QUESTIONS_START;
       setSelected(answers[questions[qi].id] || null);
     } else {
@@ -958,26 +960,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
             </div>
           )}
 
-          {/* ── Step 6: Lead capture form ── */}
-          {isLeadStep && (
-            <div className="px-6 pt-8 pb-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
-                ALMOST THERE
-              </p>
-              <h2
-                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-              >
-                Last step before scheduling your discovery call
-              </h2>
-              <p className="text-sm text-gray-400 mb-5">
-                We'll use this to confirm your appointment and send your personalized summary.
-              </p>
-              <LeadCaptureForm data={leadData} onChange={setLeadData} showConsentError={consentAttempted} />
-            </div>
-          )}
-
-          {/* ── Step 7: Attribution (optional) ── */}
+          {/* ── Step 6: Attribution (optional) ── */}
           {isAttributionStep && (
             <div className="px-6 pt-8 pb-2">
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
@@ -1038,6 +1021,25 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   />
                 )}
               </div>
+            </div>
+          )}
+
+          {/* ── Step 7: Lead capture form ── */}
+          {isLeadStep && (
+            <div className="px-6 pt-8 pb-2">
+              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
+                ALMOST THERE
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                Last step before scheduling your discovery call
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                We'll use this to confirm your appointment and send your personalized summary.
+              </p>
+              <LeadCaptureForm data={leadData} onChange={setLeadData} showConsentError={consentAttempted} />
             </div>
           )}
 
