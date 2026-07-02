@@ -185,24 +185,24 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           className="text-center font-bold text-gray-900 mb-2"
           style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontFamily: "Playfair Display, serif" }}
         >
-          See How It Works in 2 Minutes
+          Watch What Most Women Go Through During Menopause{" "}
+          <span style={{ background: GRADIENT, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            & how we help
+          </span>
         </h2>
 
-        {/* Pulsing PLAY pill badge */}
-        <div className="flex justify-center mb-5">
-          <div
-            className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-xs font-bold tracking-widest uppercase cursor-pointer animate-pulse"
-            style={{
-              background: GRADIENT,
-              boxShadow: `0 0 20px rgba(232, 51, 158, 0.5), 0 0 40px rgba(232, 51, 158, 0.2)`,
-              animationDuration: '1.8s',
-            }}
+        {/* Bouncing arrow pointing to video */}
+        <div className="flex justify-center mb-4">
+          <svg
+            className="w-6 h-6 animate-bounce"
+            style={{ color: PINK }}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            viewBox="0 0 24 24"
           >
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            PLAY
-          </div>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
 
         {/* YouTube Video — thumbnail with play button, loads iframe on click */}
