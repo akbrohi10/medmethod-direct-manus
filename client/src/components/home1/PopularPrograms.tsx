@@ -94,11 +94,7 @@ const TIERS: Tier[] = [
     inheritsFrom: "Ignite",
     initiationIncludes: [
       "30-minute in-depth live physician video consultation",
-      "Baseline lab panel — 30+ biomarkers",
-      "Includes: CBC, comprehensive metabolic panel, lipid panel",
-      "HbA1c & fasting glucose, full thyroid (TSH, free T4)",
-      "Hormone baseline (testosterone, estradiol, progesterone where applicable)",
-      "Vitamin D, hsCRP inflammation marker",
+      "Basic weight-loss labs included. Additional labs available as recommended.",
       "Lab review session with your physician",
       "Structured nutrition + fitness plan design",
       "Performance Coach introduction",
@@ -129,14 +125,7 @@ const TIERS: Tier[] = [
     inheritsFrom: "Transformation",
     initiationIncludes: [
       "45-minute in-depth physician strategy consultation",
-      "Premium baseline panel — 75+ biomarkers across:",
-      "Full metabolic & advanced cardiovascular (ApoB, Lp(a), homocysteine)",
-      "Comprehensive hormone optimization (full sex hormones, SHBG, DHEA-S, IGF-1)",
-      "Full thyroid panel (TSH, free T3, free T4, reverse T3)",
-      "Insulin resistance markers (fasting insulin, HOMA-IR)",
-      "Iron studies (ferritin, TIBC, transferrin saturation)",
-      "Vitamin & micronutrient panel (D, B12, folate, magnesium)",
-      "Cortisol, methylation markers, oxidative stress",
+      "Basic weight-loss labs included. Additional labs available as recommended.",
       "At-home phlebotomy where available",
       "Dedicated care coordinator assignment",
       "White-glove onboarding (first 90 days)",
@@ -244,13 +233,13 @@ export default function PopularPrograms({
               maxWidth: "48rem",
             }}
           >
-            Choose your level of care.
+            Find the Care That’s Right for You
           </h2>
           <p
             className="mx-auto max-w-2xl"
             style={{ fontSize: 14, color: "#5A5A5A", lineHeight: 1.6 }}
           >
-            Your membership covers your clinical relationship — physician oversight, coaching, and protocol design. Medications are prescribed and priced separately so you only pay for what your physician recommends.
+            Every woman is different. That’s why we offer thoughtfully designed membership options tailored to your goals, health history, hormones, and lifestyle—so you can choose the level of support that’s right for you.
           </p>
         </div>
 

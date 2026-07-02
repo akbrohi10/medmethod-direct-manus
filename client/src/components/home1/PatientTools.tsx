@@ -52,7 +52,7 @@ export default function PatientTools() {
             Powerful Tools to Keep You on Track
           </h2>
           <p className="text-sm text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Transformation & Longevity members get a dedicated performance coach who builds your plans, monitors progress, and adjusts your nutrition and exercise — all through our integrated health app.
+            Included with Transformation & Longevity memberships.
           </p>
         </div>
 
@@ -97,10 +97,7 @@ export default function PatientTools() {
           })}
         </div>
 
-        {/* Bottom note */}
-        <p className="text-center text-sm text-gray-500 mt-12 italic">
-          Included with Transformation & Longevity memberships.
-        </p>
+
       </div>
     </section>
   );
