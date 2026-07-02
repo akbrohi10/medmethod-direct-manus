@@ -135,19 +135,31 @@ function VideoEmbed() {
         />
         {/* Dark overlay on hover */}
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-all duration-300" />
-        {/* Play button */}
+        {/* Play button with pulsing glow ring */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            className="w-18 h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300"
-            style={{ background: GRADIENT }}
-          >
-            <svg
-              className="w-7 h-7 md:w-8 md:h-8 text-white ml-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+          <div className="relative">
+            {/* Pulsing glow ring */}
+            <div
+              className="absolute inset-0 rounded-full animate-ping opacity-30"
+              style={{ background: GRADIENT, animationDuration: '2s' }}
+            />
+            <div
+              className="absolute -inset-2 rounded-full animate-pulse opacity-20"
+              style={{ background: GRADIENT, animationDuration: '1.5s' }}
+            />
+            {/* Play button */}
+            <div
+              className="relative w-18 h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300"
+              style={{ background: GRADIENT }}
             >
-              <path d="M8 5v14l11-7z" />
-            </svg>
+              <svg
+                className="w-7 h-7 md:w-8 md:h-8 text-white ml-1"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
           </div>
         </div>
       </button>
@@ -170,11 +182,26 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
 
         {/* Header */}
         <h2
-          className="text-center font-bold text-gray-900 mb-8"
+          className="text-center font-bold text-gray-900 mb-2"
           style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontFamily: "Playfair Display, serif" }}
         >
-          How It Works
+          See How It Works in 2 Minutes
         </h2>
+        <p className="text-center text-gray-500 text-sm mb-3">Watch Dr. Al-Deek explain the program</p>
+
+        {/* Bouncing arrow pointing to video */}
+        <div className="flex justify-center mb-4">
+          <svg
+            className="w-6 h-6 animate-bounce"
+            style={{ color: PINK }}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
 
         {/* YouTube Video — thumbnail with play button, loads iframe on click */}
         <VideoEmbed />
