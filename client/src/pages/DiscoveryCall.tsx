@@ -173,36 +173,6 @@ export default function DiscoveryCall() {
               <VideoEmbed />
             </div>
 
-            {/* Overview Video — watch before scheduling */}
-            <div className="mb-8">
-              <div className="text-center mb-4">
-                <h2
-                  className="text-xl md:text-2xl font-bold text-[#1a1a2e] mb-2"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Before You Schedule — Watch This
-                </h2>
-                <p
-                  className="text-gray-600 text-sm md:text-base"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
-                  A quick overview of what to expect from your MedMethod Direct experience.
-                </p>
-              </div>
-              <div className="w-full max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg bg-black">
-                <video
-                  className="w-full h-auto"
-                  controls
-                  preload="metadata"
-                  playsInline
-                  poster=""
-                  style={{ aspectRatio: "16/9", objectFit: "contain" }}
-                >
-                  <source src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
 
             {/* Calendar Embed */}
             <div className="bg-white rounded-2xl shadow-lg">
