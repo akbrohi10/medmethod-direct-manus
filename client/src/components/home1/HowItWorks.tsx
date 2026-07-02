@@ -222,16 +222,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center mt-10 md:mt-12">
-          <button
-            onClick={onConsultClick}
-            className="inline-block text-sm font-bold tracking-wider px-8 py-3.5 rounded-full text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
-            style={{ background: GRADIENT, boxShadow: "0 6px 24px rgba(232,51,158,0.35)" }}
-          >
-            SCHEDULE A DISCOVERY CALL
-          </button>
-        </div>
+
 
       </div>
     </section>

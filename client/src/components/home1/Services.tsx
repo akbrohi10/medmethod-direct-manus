@@ -193,7 +193,7 @@ export default function Services({ onConsultClick }: Props) {
                   (e.currentTarget as HTMLButtonElement).style.color = "#E8339E";
                 }}
               >
-                Schedule a Consult
+                Learn More
               </button>
             </div>
           ))}

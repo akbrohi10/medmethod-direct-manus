@@ -20,7 +20,6 @@ import Services from "@/components/home1/Services";
 import BookTeaser from "@/components/home1/BookTeaser";
 import FAQ from "@/components/home1/FAQ";
 import Footer from "@/components/home1/Footer";
-import StickyMobileCTA from "@/components/home1/StickyMobileCTA";
 
 // Scroll to hash section after page load (e.g. navigating from /blog to /#services)
 function useHashScroll() {
@@ -171,7 +170,6 @@ export default function Home1() {
         <FAQ onConsultClick={() => openConsult()} />
       </div>
       <Footer onConsultClick={() => openConsult()} />
-      <StickyMobileCTA onConsultClick={() => openConsult()} />
       <ConsultationModal
         open={consultOpen}
         onClose={() => { setConsultOpen(false); setPreselectedService(undefined); }}
