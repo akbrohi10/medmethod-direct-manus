@@ -162,8 +162,7 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
-                  loading="eager"
-                  fetchPriority="high"
+                  loading="lazy"
                   decoding="async"
                 />
               </div>
@@ -431,8 +430,7 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
-                  loading="eager"
-                  fetchPriority="high"
+                  loading="lazy"
                   decoding="async"
                 />
 
