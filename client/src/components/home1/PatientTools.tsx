@@ -57,7 +57,7 @@ export default function PatientTools() {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
             return (
@@ -67,24 +67,24 @@ export default function PatientTools() {
               >
                 {/* Icon */}
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110"
                   style={{ background: `${tool.accent}15` }}
                 >
-                  <Icon className="w-6 h-6" style={{ color: tool.accent }} />
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: tool.accent }} />
                 </div>
 
                 {/* Title — fixed height */}
-                <h3 className="text-lg font-bold text-gray-900 mb-1.5 h-[28px] flex items-center">
+                <h3 className="text-sm sm:text-lg font-bold text-gray-900 mb-1 sm:mb-1.5 min-h-[20px] sm:h-[28px] flex items-center">
                   {tool.title}
                 </h3>
 
                 {/* Description — fixed height */}
-                <p className="text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto mb-5 min-h-[72px] flex items-start justify-center text-center">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-[240px] mx-auto mb-3 sm:mb-5 min-h-[48px] sm:min-h-[72px] flex items-start justify-center text-center">
                   {tool.description}
                 </p>
 
                 {/* Phone Image */}
-                <div className="w-full max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2">
+                <div className="w-full max-w-[160px] sm:max-w-[200px] lg:max-w-[220px] mx-auto transition-transform duration-500 group-hover:-translate-y-2">
                   <img
                     src={tool.image}
                     alt={tool.title}

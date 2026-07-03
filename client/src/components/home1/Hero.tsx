@@ -158,7 +158,7 @@ function MobileHero({ onConsultClick }: { onConsultClick: () => void }) {
         <img
           src={HERO_PHOTO_MOBILE}
           alt="A doctor with a trainer and a coach next to a lineup of medication options"
-          className="block w-full h-auto max-h-[58vh] object-cover object-center select-none"
+          className="block w-full h-auto max-h-[65vh] sm:max-h-[58vh] object-cover object-center select-none"
           draggable={false}
           loading="eager"
           fetchPriority="high"

@@ -421,7 +421,7 @@ export default function MedicalTeam({
                   the first scroll. Duplicated (vs. moved) so the desktop
                   layout is preserved exactly. */}
               <div
-                className="lg:hidden mt-6 -mx-6 md:-mx-10 relative w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] aspect-[3/4] sm:aspect-[4/3] overflow-hidden"
+                className="lg:hidden mt-6 -mx-6 md:-mx-10 relative w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] aspect-[3/4] sm:aspect-[3/4] md:aspect-[4/3] overflow-hidden"
                 style={{
                   background:
                     "linear-gradient(135deg, #E8D5DC 0%, #C9A8B6 100%)",

@@ -200,7 +200,10 @@ export default function PopularPrograms({
          - On desktop (>=lg) we reserve uniform vertical space row-by-row so all three
            cards align (tagline, price block, description, accordions, CTA). */}
       <style>{`
-        .pp-card-body { padding: 30px 26px 24px; }
+        .pp-card-body { padding: 24px 18px 20px; }
+        @media (min-width: 640px) {
+          .pp-card-body { padding: 30px 26px 24px; }
+        }
         @media (min-width: 1024px) {
           .pp-card-body { padding: 30px 24px 24px; }
           .pp-tagline { min-height: 60px; }
@@ -234,7 +237,7 @@ export default function PopularPrograms({
             Find the Care That’s Right for You
           </h2>
           <p
-            className="mx-auto max-w-2xl"
+            className="mx-auto max-w-2xl px-2 sm:px-0"
             style={{ fontSize: 14, color: "#5A5A5A", lineHeight: 1.6 }}
           >
             Every woman is different. That’s why we offer thoughtfully designed membership options tailored to your goals, health history, hormones, and lifestyle—so you can choose the level of support that’s right for you.
@@ -242,7 +245,7 @@ export default function PopularPrograms({
         </div>
 
         {/* ── Plan Length Toggle ───────────────────────────────────────── */}
-        <div className="flex justify-center mb-6 md:mb-8 px-2 items-center gap-4 flex-wrap">
+        <div className="flex justify-center mb-6 md:mb-8 px-2 items-center gap-3 sm:gap-4 flex-wrap">
           <span
             className="font-bold uppercase"
             style={{ fontSize: 11, letterSpacing: "2px", color: "#767676" }}
@@ -285,7 +288,7 @@ export default function PopularPrograms({
         </div>
 
         {/* ── Cards Grid ────────────────────────────────────────────────────── */}
-        <div className="grid gap-6 lg:gap-[22px] grid-cols-1 lg:grid-cols-3 items-stretch max-w-[1060px] mx-auto">
+        <div className="grid gap-6 md:gap-5 lg:gap-[22px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch max-w-[1060px] mx-auto">
           {TIERS.map((tier) => (
             <PricingCard
               key={tier.id}
@@ -475,7 +478,7 @@ function PricingCard({
       {/* Image hero with optional badge bar (Transformation only) */}
       {isLongevity ? (
         <div
-          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px] overflow-hidden"
+          className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden"
           style={{
             backgroundColor: "#F5C9A1",
             borderRadius: "16px 16px 0 0",
@@ -507,7 +510,7 @@ function PricingCard({
             {tier.badge?.label}
           </div>
           <div
-            className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[220px] overflow-hidden"
+            className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden"
             style={{ backgroundColor: "#1a1a2e" }}
           >
             <img
@@ -521,7 +524,7 @@ function PricingCard({
         </>
       ) : (
         <div
-          className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[260px] overflow-hidden"
+          className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden"
           style={{ borderRadius: "16px 16px 0 0" }}
         >
           <img
@@ -633,8 +636,8 @@ function PricingCard({
               $
             </span>
             <span
+              className="text-[44px] sm:text-[56px]"
               style={{
-                fontSize: 56,
                 fontWeight: 900,
                 letterSpacing: "-2.5px",
                 color: dark ? "#FFFFFF" : "#111",
