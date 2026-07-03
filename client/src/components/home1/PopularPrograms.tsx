@@ -134,9 +134,7 @@ const TIERS: Tier[] = [
       "Everything in Transformation",
       "Quarterly 45-min physician strategy session",
       "Expanded diagnostic testing & advanced lab access",
-      "Quarterly comprehensive lab panel (75+ biomarkers)",
-      "Advanced diagnostic ordering: CT calcium score, DEXA scan interpretation, CGM monitoring",
-      "Chronic condition deep-dives — supplementing your yearly PCP visits",
+
       "Priority physician access (12hr SLA)",
       "At-home phlebotomy where available",
       "White-glove onboarding (first 90 days)",
