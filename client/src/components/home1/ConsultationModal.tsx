@@ -420,6 +420,40 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
   );
 }
 
+// ── Auto-play video with sound (works because user has already interacted) ────
+function AutoPlayVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Attempt to play with sound first (should work since user has clicked through steps)
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If browser blocks unmuted autoplay, mute and try again
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      className="w-full h-auto"
+      controls
+      preload="auto"
+      playsInline
+      style={{ aspectRatio: "16/9", objectFit: "contain" }}
+    >
+      <source src={src} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  );
+}
+
 // ── Main modal ───────────────────────────────────────────────────────────────
 export default function ConsultationModal({ open, onClose, preselectedService }: Props) {
   const [showExitConfirm, setShowExitConfirm] = useState(false);
@@ -1109,16 +1143,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   </p>
                 </div>
                 <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
-                  <video
-                    className="w-full h-auto"
-                    controls
-                    preload="auto"
-                    playsInline
-                    style={{ aspectRatio: "16/9", objectFit: "contain" }}
-                  >
-                    <source src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                  <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" />
                 </div>
               </div>
 
