@@ -4,7 +4,7 @@
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
    ============================================================================= */
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 
 const PINK = "#E8339E";
@@ -55,13 +55,40 @@ const JSONLD_VIDEO = {
 
 function VideoEmbed() {
   const [playing, setPlaying] = useState(false);
+  const [hasAutoPlayed, setHasAutoPlayed] = useState(false);
   const playerContainerRef = useRef<HTMLDivElement>(null);
+  const thumbnailRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
 
+  // Intersection Observer — auto-play when 50% of the video is visible
+  useEffect(() => {
+    if (playing || hasAutoPlayed) return;
+
+    const el = thumbnailRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAutoPlayed) {
+            setPlaying(true);
+            setHasAutoPlayed(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 } // Trigger when 50% visible
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, [playing, hasAutoPlayed]);
+
+  // Load and create YouTube player
   useEffect(() => {
     if (!playing) return;
 
-    // Load YouTube IFrame API if not already loaded
     const loadYTApi = () => {
       return new Promise<void>((resolve) => {
         if ((window as any).YT && (window as any).YT.Player) {
@@ -118,9 +145,9 @@ function VideoEmbed() {
   }
 
   return (
-    <div className="max-w-[640px] mx-auto mb-8">
+    <div className="max-w-[640px] mx-auto mb-8" ref={thumbnailRef}>
       <button
-        onClick={() => setPlaying(true)}
+        onClick={() => { setPlaying(true); setHasAutoPlayed(true); }}
         className="relative w-full rounded-2xl overflow-hidden shadow-xl group cursor-pointer block"
         style={{ paddingBottom: "56.25%" }}
         aria-label="Play video: How MedMethod Direct Works"
@@ -205,7 +232,7 @@ export default function HowItWorks({ onConsultClick }: { onConsultClick: () => v
           </svg>
         </div>
 
-        {/* YouTube Video — thumbnail with play button, loads iframe on click */}
+        {/* YouTube Video — auto-plays when scrolled into view */}
         <VideoEmbed />
 
         {/* Positioning statement */}
