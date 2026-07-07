@@ -493,7 +493,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [medsExpanded, setMedsExpanded] = useState(false);
   const [videoWatchPct, setVideoWatchPct] = useState(0);
-  const videoUnlocked = videoWatchPct >= 80;
+  const videoUnlocked = videoWatchPct >= 100;
 
   const handleVideoProgress = useCallback((pct: number) => {
     setVideoWatchPct((prev) => Math.max(prev, pct));
@@ -1153,18 +1153,43 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               {/* Video section */}
               <div className="mb-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
-                    style={{ background: BRAND_GRADIENT }}
-                  >
-                    ▶
-                  </span>
+                  {videoUnlocked ? (
+                    <span
+                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{ background: "#16A34A" }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2.5 6l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  ) : (
+                    <span
+                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
+                      style={{ background: BRAND_GRADIENT }}
+                    >
+                      ▶
+                    </span>
+                  )}
                   <p className="text-[13px] font-bold text-gray-900">
-                    Watch this short overview
-                    <span className="ml-1.5 text-[11px] font-normal text-gray-500">(5 min)</span>
+                    {videoUnlocked ? (
+                      <span style={{ color: "#16A34A" }}>Video complete ✓</span>
+                    ) : (
+                      <>
+                        <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
+                        Watch this before continuing
+                        <span className="ml-1.5 text-[11px] font-normal text-gray-500">(5 min)</span>
+                      </>
+                    )}
                   </p>
                 </div>
-                <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
+                <div
+                  className={`w-full rounded-xl overflow-hidden transition-all duration-500 ${!videoUnlocked ? 'video-gate-pulse' : ''}`}
+                  style={{
+                    background: "#1a1a2e",
+                    border: videoUnlocked ? "2px solid #16A34A" : "2px solid rgba(232, 51, 158, 0.6)",
+                    boxShadow: videoUnlocked ? "0 0 0 0 transparent" : undefined,
+                  }}
+                >
                   <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" onProgress={handleVideoProgress} />
                 </div>
               </div>
@@ -1483,13 +1508,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[12px] font-medium text-gray-600">Progress</span>
                     <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
-                      {Math.round(videoWatchPct)}% / 80%
+                      {Math.round(videoWatchPct)}% / 100%
                     </span>
                   </div>
                   <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(232, 51, 158, 0.12)" }}>
                     <div
                       className="h-full rounded-full transition-all duration-300"
-                      style={{ width: `${Math.min(videoWatchPct, 100) * (100/80)}%`, background: BRAND_GRADIENT }}
+                      style={{ width: `${Math.min(videoWatchPct, 100)}%`, background: BRAND_GRADIENT }}
                     />
                   </div>
                 </div>
