@@ -421,7 +421,7 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
 }
 
 // ── Auto-play video with sound (works because user has already interacted) ────
-function AutoPlayVideo({ src }: { src: string }) {
+function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: number) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -438,6 +438,22 @@ function AutoPlayVideo({ src }: { src: string }) {
       });
     }
   }, []);
+
+  // Report progress to parent
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !onProgress) return;
+
+    const handleTimeUpdate = () => {
+      if (video.duration > 0) {
+        const pct = (video.currentTime / video.duration) * 100;
+        onProgress(pct);
+      }
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [onProgress]);
 
   return (
     <video
@@ -476,6 +492,12 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [budgetDeclined, setBudgetDeclined] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [medsExpanded, setMedsExpanded] = useState(false);
+  const [videoWatchPct, setVideoWatchPct] = useState(0);
+  const videoUnlocked = videoWatchPct >= 80;
+
+  const handleVideoProgress = useCallback((pct: number) => {
+    setVideoWatchPct((prev) => Math.max(prev, pct));
+  }, []);
 
   const currentYear = new Date().getFullYear();
   const months = useMemo(() => ["January","February","March","April","May","June","July","August","September","October","November","December"], []);
@@ -1143,7 +1165,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   </p>
                 </div>
                 <div className="w-full rounded-xl overflow-hidden" style={{ background: "#1a1a2e" }}>
-                  <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" />
+                  <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" onProgress={handleVideoProgress} />
                 </div>
               </div>
 
@@ -1435,24 +1457,42 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 })}
               </div>
 
+              {/* Video progress bar */}
+              {!videoUnlocked && (
+                <div className="mt-4 mb-2">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] font-medium text-gray-500">Watch video to continue</span>
+                    <span className="text-[11px] font-bold" style={{ color: BRAND_PINK }}>{Math.round(videoWatchPct)}% / 80%</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-300"
+                      style={{ width: `${Math.min(videoWatchPct, 100) * (100/80)}%`, background: BRAND_GRADIENT }}
+                    />
+                  </div>
+                </div>
+              )}
+
               {/* Bottom buttons */}
               <div className="mt-6">
                 <button
                   onClick={handleNext}
-                  disabled={!selectedPlan || webhookSubmitting}
+                  disabled={!selectedPlan || !videoUnlocked || webhookSubmitting}
                   className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all"
                   style={{
-                    background: selectedPlan ? BRAND_GRADIENT : '#D1D5DB',
-                    boxShadow: selectedPlan ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
-                    cursor: selectedPlan ? 'pointer' : 'not-allowed',
-                    opacity: selectedPlan ? 1 : 0.7,
+                    background: (selectedPlan && videoUnlocked) ? BRAND_GRADIENT : '#D1D5DB',
+                    boxShadow: (selectedPlan && videoUnlocked) ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
+                    cursor: (selectedPlan && videoUnlocked) ? 'pointer' : 'not-allowed',
+                    opacity: (selectedPlan && videoUnlocked) ? 1 : 0.7,
                   }}
                 >
                   {webhookSubmitting
                     ? 'Submitting...'
-                    : selectedPlan
-                      ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
-                      : 'Select a program to continue'}
+                    : !videoUnlocked
+                      ? 'Watch video to continue →'
+                      : selectedPlan
+                        ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
+                        : 'Select a program to continue'}
                 </button>
                 <button
                   onClick={() => setBudgetDeclined(true)}
