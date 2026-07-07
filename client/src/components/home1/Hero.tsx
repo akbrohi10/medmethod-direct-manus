@@ -13,8 +13,8 @@
 import { ArrowRight, Scale, Stethoscope, Monitor } from "lucide-react";
 
 const HERO_PHOTO_DESKTOP =
-  "/manus-storage/hero-photo-right-blend_69fe9751_ad73d2c6.png";
-const HERO_PHOTO_MOBILE = "/manus-storage/hero-photo-mobile_58542d69_a70dc6e5.png";
+  "/manus-storage/dr-aldeek-hero_90d9f737.png";
+const HERO_PHOTO_MOBILE = "/manus-storage/dr-aldeek-hero_90d9f737.png";
 const PINK = "#E8339E";
 const GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 
