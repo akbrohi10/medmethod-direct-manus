@@ -216,6 +216,15 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
+          "radix-ui": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-accordion",
+            "@radix-ui/react-select",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-tabs",
+            "@radix-ui/react-dropdown-menu",
+          ],
         },
       },
     },
