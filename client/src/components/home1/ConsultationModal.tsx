@@ -1457,14 +1457,36 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 })}
               </div>
 
-              {/* Video progress bar */}
+              {/* Video watch gate banner */}
               {!videoUnlocked && (
-                <div className="mt-4 mb-2">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[11px] font-medium text-gray-500">Watch video to continue</span>
-                    <span className="text-[11px] font-bold" style={{ color: BRAND_PINK }}>{Math.round(videoWatchPct)}% / 80%</span>
+                <div
+                  className="mt-5 mb-3 rounded-xl p-4"
+                  style={{
+                    background: "rgba(232, 51, 158, 0.06)",
+                    border: "1.5px solid rgba(232, 51, 158, 0.3)",
+                  }}
+                >
+                  <div className="flex items-center gap-2.5 mb-2.5">
+                    <span
+                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
+                      style={{ background: "rgba(232, 51, 158, 0.12)" }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                    </span>
+                    <p className="text-[14px] font-bold text-gray-900">
+                      Please watch the video above to continue
+                    </p>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[12px] font-medium text-gray-600">Progress</span>
+                    <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
+                      {Math.round(videoWatchPct)}% / 80%
+                    </span>
+                  </div>
+                  <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(232, 51, 158, 0.12)" }}>
                     <div
                       className="h-full rounded-full transition-all duration-300"
                       style={{ width: `${Math.min(videoWatchPct, 100) * (100/80)}%`, background: BRAND_GRADIENT }}
@@ -1478,7 +1500,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 <button
                   onClick={handleNext}
                   disabled={!selectedPlan || !videoUnlocked || webhookSubmitting}
-                  className="w-full py-4 rounded-full text-white font-bold text-[15px] transition-all"
+                  className={`w-full py-4 rounded-full text-white font-bold text-[15px] transition-all ${(selectedPlan && videoUnlocked) ? 'btn-gradient-pulse' : ''}`}
                   style={{
                     background: (selectedPlan && videoUnlocked) ? BRAND_GRADIENT : '#D1D5DB',
                     boxShadow: (selectedPlan && videoUnlocked) ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
@@ -1489,9 +1511,9 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   {webhookSubmitting
                     ? 'Submitting...'
                     : !videoUnlocked
-                      ? 'Watch video to continue →'
+                      ? 'Select a program above'
                       : selectedPlan
-                        ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name}`
+                        ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name} →`
                         : 'Select a program to continue'}
                 </button>
                 <button
