@@ -5,9 +5,8 @@
 // Steps 1-5: Intake questions
 // Step 6: Attribution (how did you find us)
 // Step 7: Lead capture form
-// Step 8: Expectation screen
-// Step 9: Budget / plan selection
-// Step 10: Calendar embed
+// Step 8: Budget / plan selection
+// Step 9: Calendar embed
 // Replace CALENDLY_URL with your actual Calendly link.
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
@@ -544,10 +543,9 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const QUESTIONS_START = 1;
   const ATTRIBUTION_STEP = QUESTIONS_START + questions.length; // 6
   const LEAD_STEP = ATTRIBUTION_STEP + 1;                     // 7
-  const EXPECTATION_STEP = LEAD_STEP + 1;                     // 8
-  const BUDGET_STEP = EXPECTATION_STEP + 1;                   // 9
-  const CALENDAR_STEP = BUDGET_STEP + 1;                      // 10
-  const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 11
+  const BUDGET_STEP = LEAD_STEP + 1;                          // 8
+  const CALENDAR_STEP = BUDGET_STEP + 1;                      // 9
+  const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 10
 
   // "Virtual Urgent Care" skip logic: if only "Virtual Urgent Care" is selected, skip qualifying Qs (goal, duration, tried)
   const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
@@ -560,7 +558,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const isGoalsStep = isQuestionStep && questions[questionIndex]?.id === "goals";
   const isLeadStep = step === LEAD_STEP;
   const isAttributionStep = step === ATTRIBUTION_STEP;
-  const isExpectationStep = step === EXPECTATION_STEP;
   const isBudgetStep = step === BUDGET_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
 
@@ -640,9 +637,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
       }));
       // Fire webhook immediately to capture the lead (attribution is now already set)
       await submitLeadWebhook();
-      setStep((s) => s + 1);
-    } else if (isExpectationStep) {
-      // Advance to budget/plan selection step
       setStep((s) => s + 1);
     } else if (isBudgetStep) {
       // Fire webhook again with plan selection data (updates existing contact in GHL)
@@ -1099,55 +1093,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
             </div>
           )}
 
-          {/* ── Step 8: Expectation screen ── */}
-          {isExpectationStep && (
-            <div className="px-6 pt-6 pb-2">
-              <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: BRAND_PINK }}>
-                YOUR DISCOVERY CALL
-              </p>
-              <h2
-                className="text-xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-              >
-                What to expect on your call
-              </h2>
-              <p className="text-[13px] font-semibold mb-2" style={{ color: BRAND_PLUM }}>
-                Free · 15 min · No obligation · No medical advice provided
-              </p>
-              <p className="text-[13px] italic mb-3" style={{ color: BRAND_PLUM }}>
-                You'll speak with a Care Coordinator who works directly with Dr. Al-Deek.
-              </p>
-              {answers["services"] && (
-                <div
-                  className="mb-3 px-3 py-2 rounded-lg text-[13px]"
-                  style={{ background: "rgba(232,51,158,0.06)", border: "1px solid rgba(232,51,158,0.2)" }}
-                >
-                  <span className="font-semibold" style={{ color: BRAND_PLUM }}>Your interest: </span>
-                  <span style={{ color: "#374151" }}>{answers["services"]}</span>
-                </div>
-              )}
-              <p className="text-[10px] font-bold tracking-wider uppercase text-gray-400 mb-2">On your call, we'll cover:</p>
-              <div className="divide-y divide-gray-100">
-                {[
-                  { title: "What membership includes", desc: "Programs, pricing, and what's right for you." },
-                  { title: "How Dr. Al-Deek's approach is different", desc: "Physician-led, personalized care vs. one-size-fits-all prescription mills." },
-                  { title: "Determine if we're a good fit", desc: "We'll ask the right questions to see if MedMethod is the right partner for your goals." },
-                  { title: "What happens next?", desc: "If you decide to move forward, you'll be connected directly with Dr. Al-Deek for your personalized care plan." },
-                ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-3 py-2.5">
-                    <Check className="w-5 h-5 flex-shrink-0 mt-0.5" strokeWidth={3} style={{ color: BRAND_PLUM }} />
-                    <div>
-                      <p className="font-semibold text-gray-900 text-[13px] leading-tight">{item.title}</p>
-                      <p className="text-[12px] text-gray-400 leading-snug">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-            </div>
-          )}
-
-          {/* ── Step 9: Budget / Choose your plan ── */}
+          {/* ── Step 8: Budget / Choose your plan ── */}
           {isBudgetStep && !budgetDeclined && (
             <div className="px-6 pt-6 pb-6">
               {/* Video section */}
@@ -1176,11 +1122,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   )}
                   <p className="text-[13px] font-bold text-gray-900">
                     {videoUnlocked ? (
-                      <span style={{ color: "#16A34A" }}>Video complete — reserve your free Discovery Call below ✓</span>
+                      <span style={{ color: "#16A34A" }}>Video complete — reserve your Discovery Call below ✓</span>
                     ) : (
                       <>
                         <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
-                        Watch to reserve your free Discovery Call{" "}
+                        Watch to reserve your Discovery Call{" "}
                         <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
                           — {Math.round(videoWatchPct)}% complete
                         </span>
@@ -1273,7 +1219,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         </svg>
                       </div>
                       <p className="text-white font-bold text-[15px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        Watch to reserve your free Discovery Call
+                        Watch to reserve your Discovery Call
                       </p>
                       <p className="text-gray-300 text-[12px]">
                         {Math.round(videoWatchPct)}% watched
@@ -1729,7 +1675,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {webhookSubmitting ? "Submitting..." : isExpectationStep ? "Review Our Programs →" : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
+              {webhookSubmitting ? "Submitting..." : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
             </button>
             {step > 0 && (
               <button
