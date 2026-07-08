@@ -9,7 +9,7 @@
 // Step 9: Calendar embed
 // Replace CALENDLY_URL with your actual Calendly link.
 
-import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 
@@ -493,6 +493,14 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const [medsExpanded, setMedsExpanded] = useState(false);
   const [videoWatchPct, setVideoWatchPct] = useState(0);
   const videoUnlocked = videoWatchPct >= 100;
+  const scrollBodyRef = useRef<HTMLDivElement>(null);
+
+  // Scroll modal body to top whenever step changes
+  useLayoutEffect(() => {
+    if (scrollBodyRef.current) {
+      scrollBodyRef.current.scrollTop = 0;
+    }
+  }, [step]);
 
   const handleVideoProgress = useCallback((pct: number) => {
     setVideoWatchPct((prev) => Math.max(prev, pct));
@@ -859,7 +867,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         )}
 
         {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto" ref={scrollBodyRef}>
 
           {/* ── Step 0: Service selection ── */}
           {isServiceStep && (
@@ -1098,7 +1106,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
             <div className="px-6 pt-6 pb-6">
               {/* Almost done header */}
               <h2
-                className="text-[22px] font-bold text-gray-900 mb-4 leading-snug"
+                className="text-[22px] font-bold text-gray-900 mb-4 leading-snug text-center"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
                 You're almost done!
