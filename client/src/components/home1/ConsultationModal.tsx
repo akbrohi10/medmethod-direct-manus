@@ -1176,11 +1176,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   )}
                   <p className="text-[13px] font-bold text-gray-900">
                     {videoUnlocked ? (
-                      <span style={{ color: "#16A34A" }}>Video complete — you may now book your Discovery Call ✓</span>
+                      <span style={{ color: "#16A34A" }}>Video complete — reserve your free Discovery Call below ✓</span>
                     ) : (
                       <>
                         <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
-                        Watch to book your Discovery Call{" "}
+                        Watch to reserve your free Discovery Call{" "}
                         <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
                           — {Math.round(videoWatchPct)}% complete
                         </span>
@@ -1255,7 +1255,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         </svg>
                       </div>
                       <p className="text-white font-bold text-[15px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        Complete the video to book your Discovery Call
+                        Watch to reserve your free Discovery Call
                       </p>
                       <p className="text-gray-300 text-[12px]">
                         {Math.round(videoWatchPct)}% watched
