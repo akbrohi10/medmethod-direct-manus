@@ -1244,12 +1244,30 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     }}
                   >
                     <div className="flex flex-col items-center gap-3 px-6 text-center w-full">
-                      {/* Large lock icon — positioned near top */}
-                      <div
-                        className="w-16 h-16 rounded-full flex items-center justify-center"
-                        style={{ background: "rgba(232, 51, 158, 0.15)", border: "2px solid rgba(232, 51, 158, 0.4)" }}
-                      >
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {/* Lock icon with progress ring */}
+                      <div className="relative w-20 h-20 flex items-center justify-center">
+                        {/* Background ring (track) */}
+                        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 80 80">
+                          <circle
+                            cx="40" cy="40" r="35"
+                            fill="rgba(232, 51, 158, 0.08)"
+                            stroke="rgba(232, 51, 158, 0.25)"
+                            strokeWidth="4"
+                          />
+                          {/* Progress arc */}
+                          <circle
+                            cx="40" cy="40" r="35"
+                            fill="none"
+                            stroke={BRAND_PINK}
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                            strokeDasharray={`${2 * Math.PI * 35}`}
+                            strokeDashoffset={`${2 * Math.PI * 35 * (1 - videoWatchPct / 100)}`}
+                            style={{ transition: "stroke-dashoffset 0.4s ease" }}
+                          />
+                        </svg>
+                        {/* Lock icon in center */}
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
                           <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
