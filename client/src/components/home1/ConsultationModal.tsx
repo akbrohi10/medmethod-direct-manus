@@ -1163,21 +1163,27 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                       </svg>
                     </span>
                   ) : (
+                    /* Lock icon */
                     <span
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
-                      style={{ background: BRAND_GRADIENT }}
+                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{ background: "rgba(232, 51, 158, 0.12)" }}
                     >
-                      ▶
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
                     </span>
                   )}
                   <p className="text-[13px] font-bold text-gray-900">
                     {videoUnlocked ? (
-                      <span style={{ color: "#16A34A" }}>Video complete ✓</span>
+                      <span style={{ color: "#16A34A" }}>Video complete — you may continue ✓</span>
                     ) : (
                       <>
                         <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
-                        Watch this before continuing
-                        <span className="ml-1.5 text-[11px] font-normal text-gray-500">(5 min)</span>
+                        Watch to continue{" "}
+                        <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
+                          — {Math.round(videoWatchPct)}% complete
+                        </span>
                       </>
                     )}
                   </p>
@@ -1191,6 +1197,37 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   }}
                 >
                   <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" onProgress={handleVideoProgress} />
+                </div>
+                {/* Progress bar directly under the video */}
+                <div className="mt-1.5 flex items-center gap-2">
+                  {/* Lock/unlock icon */}
+                  <span className="flex-shrink-0">
+                    {videoUnlocked ? (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 7-4.5" />
+                      </svg>
+                    ) : (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                    )}
+                  </span>
+                  {/* Progress bar */}
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: videoUnlocked ? "rgba(22, 163, 74, 0.12)" : "rgba(232, 51, 158, 0.12)" }}>
+                    <div
+                      className="h-full rounded-full transition-all duration-300"
+                      style={{
+                        width: `${Math.min(videoWatchPct, 100)}%`,
+                        background: videoUnlocked ? "#16A34A" : BRAND_GRADIENT,
+                      }}
+                    />
+                  </div>
+                  {/* Percentage */}
+                  <span className="text-[11px] font-bold flex-shrink-0" style={{ color: videoUnlocked ? "#16A34A" : BRAND_PINK }}>
+                    {Math.round(videoWatchPct)}%
+                  </span>
                 </div>
               </div>
 
