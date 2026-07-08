@@ -940,20 +940,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Steps 1-5: Intake questions ── */}
           {isQuestionStep && (
             <div className="px-6 pt-8 pb-2">
-              {/* Step indicator dots */}
-              <div className="flex items-center gap-1.5 mb-4">
-                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-1.5 rounded-full transition-all duration-300"
-                    style={{
-                      width: i === step ? 20 : 8,
-                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
-                      opacity: i <= step ? 1 : 0.5,
-                    }}
-                  />
-                ))}
-              </div>
               <h2
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
@@ -1034,20 +1020,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 6: Attribution (optional) ── */}
           {isAttributionStep && (
             <div className="px-6 pt-8 pb-2">
-              {/* Step indicator dots */}
-              <div className="flex items-center gap-1.5 mb-4">
-                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-1.5 rounded-full transition-all duration-300"
-                    style={{
-                      width: i === step ? 20 : 8,
-                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
-                      opacity: i <= step ? 1 : 0.5,
-                    }}
-                  />
-                ))}
-              </div>
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 ONE QUICK QUESTION
               </p>
@@ -1112,20 +1084,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 7: Lead capture form ── */}
           {isLeadStep && (
             <div className="px-6 pt-8 pb-2">
-              {/* Step indicator dots */}
-              <div className="flex items-center gap-1.5 mb-4">
-                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-1.5 rounded-full transition-all duration-300"
-                    style={{
-                      width: i === step ? 20 : 8,
-                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
-                      opacity: i <= step ? 1 : 0.5,
-                    }}
-                  />
-                ))}
-              </div>
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 ALMOST THERE
               </p>
