@@ -1176,11 +1176,11 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   )}
                   <p className="text-[13px] font-bold text-gray-900">
                     {videoUnlocked ? (
-                      <span style={{ color: "#16A34A" }}>Video complete — you may continue ✓</span>
+                      <span style={{ color: "#16A34A" }}>Video complete — you may now book your Discovery Call ✓</span>
                     ) : (
                       <>
                         <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
-                        Watch to continue{" "}
+                        Watch to book your Discovery Call{" "}
                         <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
                           — {Math.round(videoWatchPct)}% complete
                         </span>
@@ -1236,15 +1236,15 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 {/* Dark overlay with lock — visible until video is 100% */}
                 {!videoUnlocked && (
                   <div
-                    className="absolute inset-0 z-20 flex flex-col items-center justify-center rounded-xl transition-opacity duration-500"
+                    className="absolute inset-0 z-20 flex flex-col items-start justify-start pt-8 rounded-xl transition-opacity duration-500"
                     style={{
                       background: "rgba(20, 20, 30, 0.65)",
                       backdropFilter: "blur(2px)",
                       pointerEvents: "all",
                     }}
                   >
-                    <div className="flex flex-col items-center gap-3 px-6 text-center">
-                      {/* Large lock icon */}
+                    <div className="flex flex-col items-center gap-3 px-6 text-center w-full">
+                      {/* Large lock icon — positioned near top */}
                       <div
                         className="w-16 h-16 rounded-full flex items-center justify-center"
                         style={{ background: "rgba(232, 51, 158, 0.15)", border: "2px solid rgba(232, 51, 158, 0.4)" }}
@@ -1255,7 +1255,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                         </svg>
                       </div>
                       <p className="text-white font-bold text-[15px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        Complete the video to unlock
+                        Complete the video to book your Discovery Call
                       </p>
                       <p className="text-gray-300 text-[12px]">
                         {Math.round(videoWatchPct)}% watched
