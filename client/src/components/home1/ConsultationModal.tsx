@@ -1096,6 +1096,18 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 8: Budget / Choose your plan ── */}
           {isBudgetStep && !budgetDeclined && (
             <div className="px-6 pt-6 pb-6">
+              {/* Almost done header */}
+              <div className="flex items-center gap-2.5 mb-4 px-3.5 py-2.5 rounded-lg" style={{ background: "rgba(22, 163, 98, 0.08)", border: "1px solid rgba(22, 163, 98, 0.2)" }}>
+                <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ background: "#16A34A" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <p className="text-[13px] font-semibold text-gray-800">
+                  Almost done — watch this short video, then book your call.
+                </p>
+              </div>
+
               {/* Video section */}
               <div className="mb-5">
                 <div className="flex items-center gap-2 mb-2">
