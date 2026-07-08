@@ -422,6 +422,8 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
 // ── Auto-play video with sound (works because user has already interacted) ────
 function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: number) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showUnmuteHint, setShowUnmuteHint] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -430,13 +432,27 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
     // Attempt to play with sound first (should work since user has clicked through steps)
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
+      playPromise.then(() => {
+        // Played with sound successfully
+        setIsMuted(false);
+        setShowUnmuteHint(false);
+      }).catch(() => {
         // If browser blocks unmuted autoplay, mute and try again
         video.muted = true;
+        setIsMuted(true);
+        setShowUnmuteHint(true);
         video.play().catch(() => {});
       });
     }
   }, []);
+
+  const handleUnmute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    setIsMuted(false);
+    setShowUnmuteHint(false);
+  };
 
   // Report progress to parent
   useEffect(() => {
@@ -455,17 +471,34 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
   }, [onProgress]);
 
   return (
-    <video
-      ref={videoRef}
-      className="w-full h-auto"
-      controls
-      preload="auto"
-      playsInline
-      style={{ aspectRatio: "16/9", objectFit: "contain" }}
-    >
-      <source src={src} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <div className="relative">
+      <video
+        ref={videoRef}
+        className="w-full h-auto"
+        controls
+        preload="auto"
+        playsInline
+        style={{ aspectRatio: "16/9", objectFit: "contain" }}
+      >
+        <source src={src} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      {/* Unmute overlay — shown when browser forces muted autoplay */}
+      {showUnmuteHint && (
+        <button
+          onClick={handleUnmute}
+          className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-2 rounded-full text-white text-xs font-bold shadow-lg transition-all hover:scale-105 animate-pulse"
+          style={{ background: "rgba(232,51,158,0.9)", backdropFilter: "blur(4px)" }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+          Tap to unmute
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -500,6 +533,13 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     if (scrollBodyRef.current) {
       scrollBodyRef.current.scrollTop = 0;
     }
+    // Fallback: some mobile browsers need a slight delay
+    const timer = setTimeout(() => {
+      if (scrollBodyRef.current) {
+        scrollBodyRef.current.scrollTop = 0;
+      }
+    }, 50);
+    return () => clearTimeout(timer);
   }, [step]);
 
   const handleVideoProgress = useCallback((pct: number) => {
