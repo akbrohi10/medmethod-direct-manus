@@ -544,9 +544,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   // 1-5  = questions (goal, duration, tried, age, goals)
   // 6    = attribution (optional) — moved BEFORE lead capture so webhook includes it
   // 7    = lead capture form
-  // 8    = expectation screen
-  // 9    = budget / choose your plan
-  // 10   = calendar embed
+  // 8    = budget / choose your plan (video gate + plan cards)
+  // 9    = calendar embed
   const SERVICE_STEP = 0;
   const QUESTIONS_START = 1;
   const ATTRIBUTION_STEP = QUESTIONS_START + questions.length; // 6
@@ -826,7 +825,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
         {/* Exit-intent confirmation overlay */}
         {showExitConfirm && (
           <div
-            className="absolute inset-0 z-20 flex items-center justify-center p-6"
+            className="absolute inset-0 z-[100] flex items-center justify-center p-6"
             style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(4px)", borderRadius: "inherit" }}
           >
             <div className="flex flex-col items-center text-center max-w-xs">
@@ -941,6 +940,20 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Steps 1-5: Intake questions ── */}
           {isQuestionStep && (
             <div className="px-6 pt-8 pb-2">
+              {/* Step indicator dots */}
+              <div className="flex items-center gap-1.5 mb-4">
+                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      width: i === step ? 20 : 8,
+                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
+                      opacity: i <= step ? 1 : 0.5,
+                    }}
+                  />
+                ))}
+              </div>
               <h2
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
@@ -1021,6 +1034,20 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 6: Attribution (optional) ── */}
           {isAttributionStep && (
             <div className="px-6 pt-8 pb-2">
+              {/* Step indicator dots */}
+              <div className="flex items-center gap-1.5 mb-4">
+                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      width: i === step ? 20 : 8,
+                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
+                      opacity: i <= step ? 1 : 0.5,
+                    }}
+                  />
+                ))}
+              </div>
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 ONE QUICK QUESTION
               </p>
@@ -1085,6 +1112,20 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
           {/* ── Step 7: Lead capture form ── */}
           {isLeadStep && (
             <div className="px-6 pt-8 pb-2">
+              {/* Step indicator dots */}
+              <div className="flex items-center gap-1.5 mb-4">
+                {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      width: i === step ? 20 : 8,
+                      background: i < step ? BRAND_PINK : i === step ? BRAND_PINK : '#E5E7EB',
+                      opacity: i <= step ? 1 : 0.5,
+                    }}
+                  />
+                ))}
+              </div>
               <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
                 ALMOST THERE
               </p>
@@ -1106,7 +1147,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
             <div className="px-6 pt-6 pb-6">
               {/* Almost done header */}
               <h2
-                className="text-[22px] font-bold text-gray-900 mb-4 leading-snug text-center"
+                key={`almost-done-${step}`}
+                className="text-[22px] font-bold text-gray-900 mb-4 leading-snug text-center animate-fade-in-down"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
                 You're almost done!
@@ -1665,12 +1707,12 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   <iframe
                     src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
                     width="100%"
-                    height="800"
+                    height="700"
                     frameBorder="0"
                     scrolling="yes"
                     id="Qxw3vN2dmBw9LSUQag8J_1780696816287"
                     title="Schedule your free consultation"
-                    style={{ border: "none", overflow: "auto", display: "block" }}
+                    style={{ border: "none", overflow: "auto", display: "block", minHeight: "500px", maxHeight: "calc(95vh - 200px)" }}
                   />
                 </div>
               </div>
