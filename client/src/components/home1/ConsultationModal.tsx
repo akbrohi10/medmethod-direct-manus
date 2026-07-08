@@ -1231,6 +1231,39 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 </div>
               </div>
 
+              {/* Plan selection area — locked behind video overlay */}
+              <div className="relative">
+                {/* Dark overlay with lock — visible until video is 100% */}
+                {!videoUnlocked && (
+                  <div
+                    className="absolute inset-0 z-20 flex flex-col items-center justify-center rounded-xl transition-opacity duration-500"
+                    style={{
+                      background: "rgba(20, 20, 30, 0.65)",
+                      backdropFilter: "blur(2px)",
+                      pointerEvents: "all",
+                    }}
+                  >
+                    <div className="flex flex-col items-center gap-3 px-6 text-center">
+                      {/* Large lock icon */}
+                      <div
+                        className="w-16 h-16 rounded-full flex items-center justify-center"
+                        style={{ background: "rgba(232, 51, 158, 0.15)", border: "2px solid rgba(232, 51, 158, 0.4)" }}
+                      >
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                      </div>
+                      <p className="text-white font-bold text-[15px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        Complete the video to unlock
+                      </p>
+                      <p className="text-gray-300 text-[12px]">
+                        {Math.round(videoWatchPct)}% watched
+                      </p>
+                    </div>
+                  </div>
+                )}
+
               <h2
                 className="text-[22px] font-bold text-gray-900 mb-1.5 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
@@ -1519,44 +1552,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 })}
               </div>
 
-              {/* Video watch gate banner */}
-              {!videoUnlocked && (
-                <div
-                  className="mt-5 mb-3 rounded-xl p-4"
-                  style={{
-                    background: "rgba(232, 51, 158, 0.06)",
-                    border: "1.5px solid rgba(232, 51, 158, 0.3)",
-                  }}
-                >
-                  <div className="flex items-center gap-2.5 mb-2.5">
-                    <span
-                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
-                      style={{ background: "rgba(232, 51, 158, 0.12)" }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                      </svg>
-                    </span>
-                    <p className="text-[14px] font-bold text-gray-900">
-                      Please watch the video above to continue
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[12px] font-medium text-gray-600">Progress</span>
-                    <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
-                      {Math.round(videoWatchPct)}% / 100%
-                    </span>
-                  </div>
-                  <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(232, 51, 158, 0.12)" }}>
-                    <div
-                      className="h-full rounded-full transition-all duration-300"
-                      style={{ width: `${Math.min(videoWatchPct, 100)}%`, background: BRAND_GRADIENT }}
-                    />
-                  </div>
-                </div>
-              )}
-
               {/* Bottom buttons */}
               <div className="mt-6">
                 <button
@@ -1603,6 +1598,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   256-bit Encrypted
                 </span>
               </div>
+              </div>{/* End of relative overlay container */}
             </div>
           )}
 
