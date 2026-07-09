@@ -70,7 +70,7 @@ const CONDITIONS = [
   {
     title: "Mood Changes & Anxiety",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-X8Gj3MGeimoWtgSaKWFPZD.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-v2-EdYkds9dXSDNPvLRcXEQDL.webp",
   },
   {
     title: "Hormone Optimization",
