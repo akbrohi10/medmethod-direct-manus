@@ -23,34 +23,57 @@ const HERO_IMG =
 
 const CONDITIONS = [
   {
-    title: "Weight Loss",
-    subtitle: "GLP-1 & Metabolic Therapy",
-    description:
-      "Physician-prescribed semaglutide and tirzepatide protocols designed for lasting results — not crash diets.",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightloss-eeYgo3B6sTHPtVWuLYsDTK.webp",
-  },
-  {
     title: "Menopause",
-    subtitle: "Hormone Replacement Therapy",
-    description:
-      "Evidence-based HRT to relieve hot flashes, night sweats, mood changes, and metabolic slowdown.",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-menopause-a79CVoKTMNP2ZhyD8UMeBp.webp",
   },
   {
-    title: "Brain Fog & Fatigue",
-    subtitle: "Cognitive Clarity",
-    description:
-      "Hormonal imbalances affect focus, memory, and energy. We identify root causes and treat them directly.",
+    title: "Hot Flashes & Night Sweats",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hotflashes-ayi2TzXcHCcgkcufKazGTN.webp",
+  },
+  {
+    title: "Brain Fog & Moodiness",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-eCUYwwJTLnLEYGkbTJdqQd.webp",
   },
   {
+    title: "Irregular Periods",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-periods-P8hMHgBRemkLcBZeNNGUVa.webp",
+  },
+  {
+    title: "Hair & Skin Changes",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hairskin-EMAYf6Pxz9WR9dQwrmDwis.webp",
+  },
+  {
+    title: "Painful Sex, Vaginal Dryness & Libido",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sexual-9rRFJN6rp7QgA8UGSnmHFa.webp",
+  },
+  {
+    title: "Trouble Sleeping",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sleep-cAHyrBU4YjcA4UgCAyPWmy.webp",
+  },
+  {
+    title: "Weight Gain",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightloss-eeYgo3B6sTHPtVWuLYsDTK.webp",
+  },
+  {
+    title: "Joint Pain & Bone Loss",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-jointpain-Vw5AeDiMRfHffN2Xb97FXh.webp",
+  },
+  {
+    title: "Mood Changes & Anxiety",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-X8Gj3MGeimoWtgSaKWFPZD.webp",
+  },
+  {
     title: "Hormone Optimization",
-    subtitle: "BHRT & Thyroid",
-    description:
-      "Personalized bioidentical hormone therapy and thyroid protocols to restore balance and vitality.",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hormones-jmbuf4UVP6j9jChDVDvpQK.webp",
   },
@@ -290,14 +313,14 @@ export default function LpHrt() {
 
         {/* ═══════════════ CONDITIONS CAROUSEL ═══════════════ */}
         <section className="bg-[#FDF8F3] py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
-                How We Help
-              </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900">
-                Conditions We Treat
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div className="mb-10">
+              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                How Hormone Replacement Therapy Works
               </h2>
+              <p className="text-gray-600 max-w-3xl text-lg leading-relaxed">
+                When hormone levels drop during the menopause transition, you can experience symptoms from head to toe. HRT replenishes just enough estrogen and progesterone to bring you relief.
+              </p>
             </div>
             {/* Carousel controls */}
             <div className="flex justify-end gap-2 mb-4">
@@ -316,34 +339,31 @@ export default function LpHrt() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
               </button>
             </div>
-            {/* Scrollable cards */}
+            {/* Scrollable cards — Midi-style large image + title only */}
             <div
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
+              className="relative flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4"
               style={{ scrollbarWidth: "none" }}
             >
               {CONDITIONS.map((c) => (
                 <div
                   key={c.title}
-                  className="snap-start shrink-0 w-[280px] sm:w-[300px] bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-xl transition-shadow"
+                  className="snap-start shrink-0 w-[260px] sm:w-[300px] lg:w-[320px] group cursor-pointer"
                 >
-                  <div className="h-56 overflow-hidden">
+                  <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-4">
                     <img
                       src={c.image}
                       alt={c.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-5">
-                    <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-1">
-                      {c.subtitle}
-                    </p>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{c.title}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{c.description}</p>
-                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
+                    {c.title}
+                  </h3>
                 </div>
               ))}
             </div>
+
           </div>
         </section>
 
