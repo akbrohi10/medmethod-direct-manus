@@ -23,39 +23,9 @@ const HERO_IMG =
 
 const CONDITIONS = [
   {
-    title: "Menopause",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-menopause-a79CVoKTMNP2ZhyD8UMeBp.webp",
-  },
-  {
     title: "Hot Flashes & Night Sweats",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hotflashes-ayi2TzXcHCcgkcufKazGTN.webp",
-  },
-  {
-    title: "Brain Fog & Moodiness",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-v2-cUscmfbqbvpMk9eBdkNgvX.webp",
-  },
-  {
-    title: "Irregular Periods",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-periods-P8hMHgBRemkLcBZeNNGUVa.webp",
-  },
-  {
-    title: "Hair & Skin Changes",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hairskin-EMAYf6Pxz9WR9dQwrmDwis.webp",
-  },
-  {
-    title: "Painful Sex, Vaginal Dryness & Libido",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sexual-v2-iSrXZ39brxC7LWgBRUtfr2.webp",
-  },
-  {
-    title: "Trouble Sleeping",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sleep-cAHyrBU4YjcA4UgCAyPWmy.webp",
   },
   {
     title: "Weight Gain",
@@ -63,14 +33,44 @@ const CONDITIONS = [
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
   },
   {
-    title: "Joint Pain & Bone Loss",
+    title: "Brain Fog & Moodiness",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-jointpain-Vw5AeDiMRfHffN2Xb97FXh.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-v2-cUscmfbqbvpMk9eBdkNgvX.webp",
+  },
+  {
+    title: "Trouble Sleeping",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sleep-cAHyrBU4YjcA4UgCAyPWmy.webp",
   },
   {
     title: "Mood Changes & Anxiety",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-v2-EdYkds9dXSDNPvLRcXEQDL.webp",
+  },
+  {
+    title: "Menopause",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-menopause-a79CVoKTMNP2ZhyD8UMeBp.webp",
+  },
+  {
+    title: "Painful Sex, Vaginal Dryness & Libido",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sexual-v2-iSrXZ39brxC7LWgBRUtfr2.webp",
+  },
+  {
+    title: "Hair & Skin Changes",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hairskin-EMAYf6Pxz9WR9dQwrmDwis.webp",
+  },
+  {
+    title: "Irregular Periods",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-periods-P8hMHgBRemkLcBZeNNGUVa.webp",
+  },
+  {
+    title: "Joint Pain & Bone Loss",
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-jointpain-Vw5AeDiMRfHffN2Xb97FXh.webp",
   },
   {
     title: "Hormone Optimization",
