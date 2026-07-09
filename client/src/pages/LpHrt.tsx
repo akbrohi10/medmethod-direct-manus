@@ -264,11 +264,14 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Your Physician
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
                 Dr. Jumana Al-Deek, DO
               </h2>
+              <p className="text-gray-600 mb-4 text-sm">
+                Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
+              </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Menopause Specialist", "Licensed in 17 States"].map(
+                {["Board-Certified DO", "Menopause Specialist", "Author", "Mom of Four", "Licensed in 17 States"].map(
                   (pill) => (
                     <span
                       key={pill}
@@ -279,15 +282,27 @@ export default function LpHrt() {
                   )
                 )}
               </div>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  Dr. Jumana Al-Deek is a board-certified family physician and co-founder of MedMethod Direct, a telehealth-based medical practice focused on menopause medicine, metabolic health, hormone optimization, and medical weight management.
+              <div className="space-y-4 text-gray-700 leading-relaxed text-[1.05rem]">
+                <p className="text-gray-600 italic text-lg">
+                  She gets it. Not from a textbook. From real life.
                 </p>
                 <p>
-                  She specializes in evidence-based, personalized care for women navigating midlife health, body composition changes, and long-term wellness. Her clinical background includes obesity medicine, preventive care, chronic disease management, and women's health.
+                  Dr. Al-Deek's mission is singular: helping women in perimenopause and menopause feel like themselves again. She knows what it feels like when your body stops responding the way it used to — when the brain fog hits mid-sentence, when the scale won't budge no matter what you do, when you don't recognize yourself anymore.
+                </p>
+                <p className="font-semibold text-gray-900">
+                  But here's what makes her different from every other doctor you've seen:
                 </p>
                 <p>
-                  Dr. Al-Deek believes in a holistic, whole-person approach — understanding how hormones, metabolism, nutrition, sleep, stress, and lifestyle all work together to impact overall well-being and healthy aging.
+                  Long before medical school, Dr. Al-Deek was a certified personal trainer working exclusively with women navigating hormonal changes and weight gain. She spent years on the gym floor watching the same story repeat — women doing everything "right" but losing the battle against their own hormones.
+                </p>
+                <p>
+                  That experience didn't just shape her — it <em>drove</em> her to medicine. She went to medical school specifically to solve this problem at its root. Not to manage symptoms. To fix what's actually happening inside.
+                </p>
+                <p>
+                  Today, she's the same advocate who's been in your corner for over a decade — except now she's armed with a medical degree, clinical tools, and the expertise to rebalance your hormones and give you your life back.
+                </p>
+                <p className="font-semibold text-gray-900 text-lg">
+                  She's not just your doctor. She's the doctor who was built for this.
                 </p>
               </div>
               <div className="mt-6 flex flex-wrap gap-2">
