@@ -35,7 +35,7 @@ const CONDITIONS = [
   {
     title: "Brain Fog & Moodiness",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-eCUYwwJTLnLEYGkbTJdqQd.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-v2-cUscmfbqbvpMk9eBdkNgvX.webp",
   },
   {
     title: "Irregular Periods",
@@ -50,7 +50,7 @@ const CONDITIONS = [
   {
     title: "Painful Sex, Vaginal Dryness & Libido",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sexual-9rRFJN6rp7QgA8UGSnmHFa.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sexual-v2-iSrXZ39brxC7LWgBRUtfr2.webp",
   },
   {
     title: "Trouble Sleeping",
@@ -60,7 +60,7 @@ const CONDITIONS = [
   {
     title: "Weight Gain",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightloss-eeYgo3B6sTHPtVWuLYsDTK.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
   },
   {
     title: "Joint Pain & Bone Loss",
