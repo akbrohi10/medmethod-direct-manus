@@ -83,22 +83,22 @@ const STEPS = [
   {
     num: "01",
     title: "Book Your Visit",
-    desc: "Complete a brief intake and schedule your virtual appointment — takes less than 5 minutes.",
+    desc: "Pick a time that works for you and schedule your virtual appointment in under 5 minutes.",
   },
   {
     num: "02",
-    title: "Virtual Consultation",
-    desc: "Meet with Dr. Al-Deek one-on-one via video. Discuss your symptoms, goals, and medical history.",
+    title: "Fill Out Your Intake Form",
+    desc: "Complete your health questionnaire and upload recent labs (within 6 months). Don't have labs? We'll order them for you.",
   },
   {
     num: "03",
-    title: "Lab Work & Diagnosis",
-    desc: "We order targeted labs (at-home or local draw) to uncover the root cause of your symptoms.",
+    title: "Virtual Consultation",
+    desc: "Meet Dr. Al-Deek one-on-one via video to discuss your concerns and build your care plan.",
   },
   {
     num: "04",
     title: "Your Treatment Plan",
-    desc: "Receive a personalized protocol — medications shipped to your door, with ongoing physician support.",
+    desc: "Receive your personalized protocol — medications shipped to your door with ongoing support.",
   },
 ];
 
@@ -201,28 +201,28 @@ export default function LpHrt() {
       <main className="overflow-x-hidden">
         {/* ═══════════════ HERO ═══════════════ */}
         <section className="bg-[#FDF8F3] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-24 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
             {/* Left — Copy */}
             <div className="order-2 md:order-1">
               <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-4">
                 <span className="w-2 h-2 rounded-full bg-[#E8339E] animate-pulse" />
                 100% Virtual Care
               </p>
-              <h1 className="font-['Playfair_Display',serif] text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.12] font-bold text-gray-900 mb-6">
+              <h1 className="font-['Playfair_Display',serif] text-3xl sm:text-5xl lg:text-[3.4rem] leading-[1.12] font-bold text-gray-900 mb-4 sm:mb-6">
                 Hormone therapy &amp; weight loss,{" "}
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8 max-w-lg">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
                 Board-certified physician care for menopause, GLP-1 weight loss, and hormone optimization — from the comfort of your home.
               </p>
               <button
                 onClick={openConsult}
-                className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
                 Book My Discovery Call
               </button>
               {/* Social proof */}
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500">
+              <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500">
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                   Helped thousands of patients
@@ -242,21 +242,21 @@ export default function LpHrt() {
               <img
                 src={HERO_IMG}
                 alt="Confident woman feeling healthy and vital"
-                className="w-full max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
+                className="w-full max-w-[280px] sm:max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
               />
             </div>
           </div>
         </section>
 
         {/* ═══════════════ DR. BIO ═══════════════ */}
-        <section className="bg-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-[320px_1fr] lg:grid-cols-[380px_1fr] gap-10 items-start">
+        <section className="bg-white py-12 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-[320px_1fr] lg:grid-cols-[380px_1fr] gap-8 md:gap-10 items-start">
             {/* Photo */}
             <div className="flex justify-center md:justify-start">
               <img
                 src={DR_PHOTO}
                 alt="Dr. Jumana Al-Deek, DO"
-                className="w-64 md:w-full max-w-[360px] rounded-2xl shadow-lg object-cover aspect-[3/4]"
+                className="w-48 sm:w-64 md:w-full max-w-[360px] rounded-2xl shadow-lg object-cover aspect-[3/4]"
               />
             </div>
             {/* Bio */}
@@ -271,7 +271,7 @@ export default function LpHrt() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Menopause Specialist", "Author", "Mom of Four", "Licensed in 17 States"].map(
+                {["Board-Certified DO", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 17 States"].map(
                   (pill) => (
                     <span
                       key={pill}
@@ -282,7 +282,7 @@ export default function LpHrt() {
                   )
                 )}
               </div>
-              <div className="space-y-4 text-gray-700 leading-relaxed text-[1.05rem]">
+              <div className="space-y-3 sm:space-y-4 text-gray-700 leading-relaxed text-[0.95rem] sm:text-[1.05rem]">
                 <p className="text-gray-600 italic text-lg">
                   She gets it. Not from a textbook. From real life.
                 </p>
@@ -305,35 +305,19 @@ export default function LpHrt() {
                   She's not just your doctor. She's the doctor who was built for this.
                 </p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {[
-                  "Medical Weight Loss",
-                  "Menopause & Perimenopause",
-                  "GLP-1 Therapy",
-                  "Hormone Optimization",
-                  "Thyroid",
-                  "Longevity Medicine",
-                ].map((area) => (
-                  <span
-                    key={area}
-                    className="text-xs font-medium px-3 py-1.5 rounded-full bg-gray-100 text-gray-700"
-                  >
-                    {area}
-                  </span>
-                ))}
-              </div>
+
             </div>
           </div>
         </section>
 
         {/* ═══════════════ CONDITIONS CAROUSEL ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="mb-10">
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <div className="mb-6 sm:mb-10">
+              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 How Hormone Replacement Therapy Works
               </h2>
-              <p className="text-gray-600 max-w-3xl text-lg leading-relaxed">
+              <p className="text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed">
                 When hormone levels drop during the menopause transition, you can experience symptoms from head to toe. HRT replenishes just enough estrogen and progesterone to bring you relief.
               </p>
             </div>
@@ -363,7 +347,7 @@ export default function LpHrt() {
               {CONDITIONS.map((c) => (
                 <div
                   key={c.title}
-                  className="snap-start shrink-0 w-[260px] sm:w-[300px] lg:w-[320px] group cursor-pointer"
+                  className="snap-start shrink-0 w-[220px] sm:w-[280px] lg:w-[320px] group cursor-pointer"
                 >
                   <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-4">
                     <img
@@ -372,7 +356,7 @@ export default function LpHrt() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-snug">
                     {c.title}
                   </h3>
                 </div>
@@ -383,13 +367,13 @@ export default function LpHrt() {
         </section>
 
         {/* ═══════════════ PERSONALIZED TREATMENT ═══════════════ */}
-        <section className="bg-white py-20">
+        <section className="bg-white py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Your Protocol
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 Personalized Treatment, Prescribed by an Expert
               </h2>
               <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -412,20 +396,20 @@ export default function LpHrt() {
         </section>
 
         {/* ═══════════════ PRICING ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
               Transparent Pricing
             </p>
-            <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Simple, Straightforward Pricing
             </h2>
-            <p className="text-gray-600 max-w-xl mx-auto mb-12">
+            <p className="text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12">
               No hidden fees. No surprise bills. Just expert physician care at a fair price.
             </p>
-            <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
               {/* Initial */}
-              <div className="bg-white rounded-2xl p-8 shadow-md border border-gray-100">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100">
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
                   Initial Consultation
                 </p>
@@ -437,7 +421,7 @@ export default function LpHrt() {
                 </p>
               </div>
               {/* Follow-up */}
-              <div className="bg-white rounded-2xl p-8 shadow-md border border-gray-100">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100">
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
                   Follow-Up Visits
                 </p>
@@ -458,18 +442,58 @@ export default function LpHrt() {
           </div>
         </section>
 
-        {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-        <section className="bg-white py-20">
+        {/* ═══════════════ PHARMACY OPTIONS ═══════════════ */}
+        <section className="bg-white py-12 md:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="text-center mb-8 sm:mb-12">
+              <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
+                Filling Your Prescription
+              </p>
+              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                Convenient Options to Fit Your Life
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We guide you toward the most convenient and affordable way to fill your prescriptions. Dr. Al-Deek will discuss your options and make a recommendation during your initial consultation.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
+              {/* Brand-Name */}
+              <div className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-pink-50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016A3.001 3.001 0 0021 9.349m-18 0a2.997 2.997 0 00.177-.756L3.75 4.5h16.5l.573 4.093c.068.487.03.964-.177 1.756"/></svg>
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">Brand-Name Medications</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  FDA-approved brand-name hormones shipped to your door or picked up at your local pharmacy — your choice.
+                </p>
+              </div>
+              {/* Compounded */}
+              <div className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100 ring-2 ring-[#E8339E]/20">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-pink-50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">Compounded Medications</h3>
+                <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Discounted Pre-Negotiated Rates</p>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Bioidentical hormones custom-compounded for you through our partnered pharmacies at pre-negotiated rates — shipped directly to your door.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════ HOW IT WORKS ═══════════════ */}
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8 sm:mb-14">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Getting Started
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 How It Works
               </h2>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
               {STEPS.map((s) => (
                 <div key={s.num} className="text-center">
                   <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
@@ -484,13 +508,13 @@ export default function LpHrt() {
         </section>
 
         {/* ═══════════════ FAQ ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Questions?
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -510,9 +534,9 @@ export default function LpHrt() {
         </section>
 
         {/* ═══════════════ FINAL CTA ═══════════════ */}
-        <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] py-20">
+        <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to feel like yourself again?
             </h2>
             <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
@@ -520,7 +544,7 @@ export default function LpHrt() {
             </p>
             <button
               onClick={openConsult}
-              className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+              className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
               Book My Discovery Call
             </button>
