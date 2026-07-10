@@ -429,19 +429,14 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
     const video = videoRef.current;
     if (!video) return;
 
-    // Attempt to play with sound first (should work since user has clicked through steps)
+    // Start muted for reliable autoplay across all browsers/devices
+    video.muted = true;
+    setIsMuted(true);
+    setShowUnmuteHint(true);
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.then(() => {
-        // Played with sound successfully
-        setIsMuted(false);
-        setShowUnmuteHint(false);
-      }).catch(() => {
-        // If browser blocks unmuted autoplay, mute and try again
-        video.muted = true;
-        setIsMuted(true);
-        setShowUnmuteHint(true);
-        video.play().catch(() => {});
+      playPromise.catch(() => {
+        // Autoplay still blocked — user will need to tap play
       });
     }
   }, []);
@@ -478,6 +473,8 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
         controls
         preload="auto"
         playsInline
+        autoPlay
+        muted
         style={{ aspectRatio: "16/9", objectFit: "contain" }}
       >
         <source src={src} type="video/mp4" />
@@ -1160,7 +1157,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     background: "#1a1a2e",
                   }}
                 >
-                  <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" onProgress={handleVideoProgress} />
+                  <AutoPlayVideo src="/manus-storage/Take2_0d0c5ce3.MP4" onProgress={handleVideoProgress} />
                 </div>
               </div>
 

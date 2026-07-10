@@ -1,12 +1,54 @@
 /* =============================================================================
    Thank You / Booking Confirmation Page
    - Fires GTM dataLayer event for conversion tracking
-   - Focused on two actions: accept calendar invite + reply to text
-   - No navigation distractions — keep patient focused
+   - Dotted timeline layout for next steps (no boxes)
+   - Step 4: Create patient account
    ============================================================================= */
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen, Download } from "lucide-react";
+import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen, Download, UserPlus } from "lucide-react";
+
+const BRAND_PINK = "#E8339E";
+const BRAND_PLUM = "#7A1E7E";
+
+const STEPS = [
+  {
+    icon: Mail,
+    label: "Step 1",
+    title: "Accept Your Calendar Invite",
+    description:
+      "Check your email for a calendar invitation and accept it now. This confirms your time slot with our care team.",
+    color: BRAND_PINK,
+    link: null,
+  },
+  {
+    icon: MessageSquare,
+    label: "Step 2",
+    title: "Reply to Our Text to Secure Your Spot",
+    description:
+      "You'll receive a confirmation text shortly. We keep our schedule open and available so serious patients can get in quickly — reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.",
+    color: BRAND_PLUM,
+    link: null,
+  },
+  {
+    icon: BookOpen,
+    label: "Step 3",
+    title: "Review Our Programs & Pricing",
+    description:
+      "Your Care Coordinator will ask which program interests you and answer your specific questions. Patients who review our site beforehand get significantly more out of their call.",
+    color: BRAND_PINK,
+    link: { href: "/#programs", text: "View Programs & Pricing" },
+  },
+  {
+    icon: UserPlus,
+    label: "Step 4",
+    title: "Create Your Patient Account",
+    description:
+      "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate directly with Dr. Al-Deek before your appointment.",
+    color: BRAND_PLUM,
+    link: { href: "https://medmethoddirect.md-hq.com/registration", text: "Create Account", external: true },
+  },
+];
 
 export default function ThankYou() {
   // Fire GTM conversion event on page load
@@ -91,107 +133,69 @@ export default function ThankYou() {
           </div>
         </div>
 
-        {/* Two Action Steps */}
-        <div className="w-full max-w-lg space-y-5 mb-10">
-          {/* Step 1: Calendar Invite */}
-          <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
-                <Mail className="w-6 h-6 text-[#E8339E]" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className="text-xs font-bold tracking-[0.1em] uppercase text-[#E8339E]"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Step 1
-                  </span>
-                </div>
-                <h2
-                  className="text-lg font-bold text-[#1a1a2e] mb-1.5"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Accept Your Calendar Invite
-                </h2>
-                <p
-                  className="text-[#4a4a5a] text-sm leading-relaxed"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Check your email for a calendar invitation and accept it now. This confirms your time slot with our care team.
-                </p>
-              </div>
-            </div>
-          </div>
+        {/* ── Timeline Steps (no boxes, dotted line on left) ── */}
+        <div className="w-full max-w-lg mb-10">
+          <div className="relative pl-10 md:pl-14">
+            {/* Dotted vertical line */}
+            <div
+              className="absolute left-[22px] md:left-[30px] top-6 bottom-6"
+              style={{
+                width: 2,
+                backgroundImage: `repeating-linear-gradient(to bottom, ${BRAND_PINK} 0px, ${BRAND_PINK} 6px, transparent 6px, transparent 14px)`,
+              }}
+            />
 
-          {/* Step 2: Reply to Text */}
-          <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-[#7A1E7E]" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className="text-xs font-bold tracking-[0.1em] uppercase text-[#7A1E7E]"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
+            {STEPS.map((step, i) => {
+              const Icon = step.icon;
+              const isLast = i === STEPS.length - 1;
+              return (
+                <div key={i} className={`relative ${!isLast ? "pb-10" : "pb-0"}`}>
+                  {/* Timeline node */}
+                  <div
+                    className="absolute left-[-18px] md:left-[-22px] w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-sm"
+                    style={{
+                      background: `linear-gradient(135deg, ${step.color}15, ${step.color}25)`,
+                      border: `2px solid ${step.color}40`,
+                    }}
                   >
-                    Step 2
-                  </span>
-                </div>
-                <h2
-                  className="text-lg font-bold text-[#1a1a2e] mb-1.5"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Reply to Our Text to Secure Your Spot
-                </h2>
-                <p
-                  className="text-[#4a4a5a] text-sm leading-relaxed"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  You'll receive a confirmation text shortly. We keep our schedule open and available so serious patients can get in quickly — reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.
-                </p>
-              </div>
-            </div>
-          </div>
+                    <Icon className="w-5 h-5 md:w-5.5 md:h-5.5" style={{ color: step.color }} />
+                  </div>
 
-          {/* Step 3: Prepare for Your Call */}
-          <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-[#E8339E]" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className="text-xs font-bold tracking-[0.1em] uppercase text-[#E8339E]"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Step 3
-                  </span>
+                  {/* Step content */}
+                  <div className="ml-4 md:ml-6 pt-1">
+                    <span
+                      className="text-xs font-bold tracking-[0.12em] uppercase mb-1 block"
+                      style={{ fontFamily: "Montserrat, sans-serif", color: step.color }}
+                    >
+                      {step.label}
+                    </span>
+                    <h2
+                      className="text-lg font-bold text-[#1a1a2e] mb-1.5"
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {step.title}
+                    </h2>
+                    <p
+                      className="text-[#4a4a5a] text-sm leading-relaxed"
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {step.description}
+                    </p>
+                    {step.link && (
+                      <a
+                        href={step.link.href}
+                        {...((step.link as any).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="inline-flex items-center gap-2 mt-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                        style={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {step.link.text}
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-                <h2
-                  className="text-lg font-bold text-[#1a1a2e] mb-1.5"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Review Our Programs & Pricing
-                </h2>
-                <p
-                  className="text-[#4a4a5a] text-sm leading-relaxed mb-3"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Your Care Coordinator will ask which program interests you and answer your specific questions. <strong>Patients who review our site beforehand get significantly more out of their call.</strong>
-                </p>
-                <a
-                  href="/#programs"
-                  className="inline-flex items-center gap-2 mt-1 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  View Programs & Pricing
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
 
@@ -292,7 +296,6 @@ export default function ThankYou() {
             </div>
           </a>
         </div>
-
 
         {/* Continue Exploring Link */}
         <div className="w-full max-w-lg text-center pt-6 border-t border-[#e8e6e3]">
