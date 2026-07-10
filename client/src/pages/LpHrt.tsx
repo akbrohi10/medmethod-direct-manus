@@ -60,7 +60,7 @@ const CONDITIONS = [
   {
     title: "Hair & Skin Changes",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hairskin-EMAYf6Pxz9WR9dQwrmDwis.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hairskin-diverse-DuDBJom9nS6f8rRiiiFJh6.webp",
   },
   {
     title: "Irregular Periods",
@@ -70,7 +70,7 @@ const CONDITIONS = [
   {
     title: "Joint Pain & Bone Loss",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-jointpain-Vw5AeDiMRfHffN2Xb97FXh.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-jointpain-diverse-DDFsWqK9XutCXLGXbD9TPQ.webp",
   },
   {
     title: "Hormone Optimization",
@@ -203,7 +203,7 @@ export default function LpHrt() {
         <section className="bg-[#FDF8F3] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-24 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
             {/* Left — Copy */}
-            <div className="order-2 md:order-1">
+            <div className="order-2 md:order-1 text-center md:text-left">
               <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-4">
                 <span className="w-2 h-2 rounded-full bg-[#E8339E] animate-pulse" />
                 100% Virtual Care
@@ -213,7 +213,7 @@ export default function LpHrt() {
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
-                Board-certified physician care for menopause, GLP-1 weight loss, and hormone optimization — from the comfort of your home.
+                Most women notice a difference within days, not months — 100% virtual, from the comfort of your home.
               </p>
               <button
                 onClick={openConsult}
@@ -222,7 +222,7 @@ export default function LpHrt() {
                 Book My Discovery Call
               </button>
               {/* Social proof */}
-              <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-6 gap-y-2 text-sm text-gray-500 mx-auto md:mx-0 w-fit">
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                   Helped thousands of patients
@@ -242,7 +242,7 @@ export default function LpHrt() {
               <img
                 src={HERO_IMG}
                 alt="Confident woman feeling healthy and vital"
-                className="w-full max-w-[280px] sm:max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
+                className="w-full max-w-[320px] sm:max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
               />
             </div>
           </div>
@@ -256,7 +256,7 @@ export default function LpHrt() {
               <img
                 src={DR_PHOTO}
                 alt="Dr. Jumana Al-Deek, DO"
-                className="w-48 sm:w-64 md:w-full max-w-[360px] rounded-2xl shadow-lg object-cover aspect-[3/4]"
+                className="w-full max-w-[300px] sm:max-w-[320px] md:w-full md:max-w-[360px] rounded-2xl shadow-lg object-cover aspect-[3/4]"
               />
             </div>
             {/* Bio */}
@@ -464,7 +464,7 @@ export default function LpHrt() {
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Brand-Name Medications</h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  FDA-approved brand-name hormones shipped to your door or picked up at your local pharmacy — your choice.
+                  FDA-approved brand-name medications shipped to your door or picked up at your local pharmacy — your choice.
                 </p>
               </div>
               {/* Compounded */}
@@ -475,7 +475,7 @@ export default function LpHrt() {
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Compounded Medications</h3>
                 <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Discounted Pre-Negotiated Rates</p>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  Bioidentical hormones custom-compounded for you through our partnered pharmacies at pre-negotiated rates — shipped directly to your door.
+                  Compounded for you through our partnered pharmacies at pre-negotiated rates — shipped directly to your door.
                 </p>
               </div>
             </div>

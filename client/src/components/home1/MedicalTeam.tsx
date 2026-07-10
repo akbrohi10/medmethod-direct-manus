@@ -27,6 +27,9 @@ const COACHES: { url: string; initials: string; name: string }[] = [
 const CREDENTIAL_PILLS = [
   "Board-Certified DO",
   "Menopause Specialist",
+  "Metabolism",
+  "Author",
+  "Mom of Four",
   "Licensed in 17 States",
 ];
 
@@ -53,16 +56,16 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
   {
     label: "Practice Focus",
     teaser:
-      "Dr. Jumana Al-Deek is a board-certified family physician and co-founder of MedMethod Direct, a telehealth-based medical practice focused on menopause medicine, metabolic health, hormone optimization, and medical weight management.",
+      "Dr. Jumana Al-Deek is a board-certified physician, menopause specialist, and author of The Menopause Weight Loss Trap \u2014 one of the fastest-emerging books in its category. She founded MedMethod Direct to give women navigating perimenopause and menopause access to expert-level care without the waitlists, dismissive appointments, or one-size-fits-all protocols.",
     rest:
-      "She specializes in evidence-based, personalized care for women navigating midlife health, body composition changes, and long-term wellness.",
+      "Her clinical focus spans hormone replacement therapy, GLP-1 medical weight loss, metabolic health, thyroid optimization, and longevity medicine \u2014 all delivered virtually across 17 states.",
   },
   {
     label: "Philosophy",
     teaser:
-      "Dr. Al-Deek believes in taking a holistic, whole-person approach to patient care.",
+      "Long before medical school, Dr. Al-Deek was a certified personal trainer working exclusively with women struggling through hormonal weight gain. She spent years watching the same story repeat \u2014 women doing everything \u201Cright\u201D but losing the battle against their own biology.",
     rest:
-      "Rather than focusing on a single symptom or diagnosis in isolation, her philosophy centers on understanding how hormones, metabolism, nutrition, muscle health, sleep, stress, lifestyle, and preventive health all work together to impact overall well-being and healthy aging.",
+      "That experience drove her to medicine. Not to manage symptoms, but to fix what\u2019s actually happening inside. Today, as a physician and a mom of four, she brings the same hands-on advocacy to every patient \u2014 combining clinical expertise with a deep, personal understanding of what midlife women are going through.",
   },
   {
     label: "Clinical Background",
