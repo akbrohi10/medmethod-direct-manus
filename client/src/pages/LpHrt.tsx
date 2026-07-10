@@ -7,7 +7,7 @@
    ============================================================================= */
 import { useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import ConsultationModal from "@/components/home1/ConsultationModal";
+import LpConsultationModal from "@/components/home1/LpConsultationModal";
 import {
   Accordion,
   AccordionItem,
@@ -219,7 +219,7 @@ export default function LpHrt() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Book My Discovery Call
+                Book Now
               </button>
               {/* Social proof */}
               <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-6 gap-y-2 text-sm text-gray-500 mx-auto md:mx-0 w-fit">
@@ -318,7 +318,7 @@ export default function LpHrt() {
                 How Hormone Replacement Therapy Works
               </h2>
               <p className="text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed">
-                When hormone levels drop during the menopause transition, you can experience symptoms from head to toe. HRT replenishes just enough estrogen and progesterone to bring you relief.
+                Not only does HRT replenish estrogen and progesterone to bring you relief, but it helps protect your heart, bones and other organs from the side effects of estrogen deficiency.
               </p>
             </div>
             {/* Carousel controls */}
@@ -405,7 +405,7 @@ export default function LpHrt() {
               Simple, Straightforward Pricing
             </h2>
             <p className="text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12">
-              No hidden fees. No surprise bills. Just expert physician care at a fair price.
+              No insurance middleman. No rushed visits. Just the undivided attention from your doctor.
             </p>
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
               {/* Initial */}
@@ -417,7 +417,7 @@ export default function LpHrt() {
                   $250
                 </p>
                 <p className="text-sm text-gray-500">
-                  Comprehensive evaluation, lab review &amp; treatment plan
+                  Up to 45 minutes — comprehensive evaluation, lab review &amp; treatment plan
                 </p>
               </div>
               {/* Follow-up */}
@@ -437,7 +437,7 @@ export default function LpHrt() {
               onClick={openConsult}
               className="mt-10 bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Book My Discovery Call
+              Book Now
             </button>
           </div>
         </section>
@@ -546,7 +546,7 @@ export default function LpHrt() {
               onClick={openConsult}
               className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Book My Discovery Call
+              Book Now
             </button>
             <p className="mt-4 text-sm text-gray-400">
               100% virtual · Licensed in 17 states · No insurance needed
@@ -571,7 +571,7 @@ export default function LpHrt() {
       </footer>
 
       {/* ═══════════════ CONSULTATION MODAL ═══════════════ */}
-      <ConsultationModal
+      <LpConsultationModal
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
       />
