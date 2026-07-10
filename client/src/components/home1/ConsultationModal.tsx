@@ -1154,135 +1154,18 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
 
               {/* Video section */}
               <div className="mb-5">
-                <div className="flex items-center gap-2 mb-2">
-                  {videoUnlocked ? (
-                    <span
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{ background: "#16A34A" }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2.5 6l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  ) : (
-                    /* Lock icon */
-                    <span
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{ background: "rgba(232, 51, 158, 0.12)" }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                    </span>
-                  )}
-                  <p className="text-[13px] font-bold text-gray-900">
-                    {videoUnlocked ? (
-                      <span style={{ color: "#16A34A" }}>Video complete — reserve your Discovery Call below ✓</span>
-                    ) : (
-                      <>
-                        <span style={{ color: BRAND_PINK }}>Required:</span>{" "}
-                        Watch to reserve your Discovery Call{" "}
-                        <span className="text-[12px] font-bold" style={{ color: BRAND_PINK }}>
-                          — {Math.round(videoWatchPct)}% complete
-                        </span>
-                      </>
-                    )}
-                  </p>
-                </div>
                 <div
-                  className={`w-full rounded-xl overflow-hidden transition-all duration-500 ${!videoUnlocked ? 'video-gate-pulse' : ''}`}
+                  className="w-full rounded-xl overflow-hidden"
                   style={{
                     background: "#1a1a2e",
-                    border: videoUnlocked ? "2px solid #16A34A" : "2px solid rgba(232, 51, 158, 0.6)",
-                    boxShadow: videoUnlocked ? "0 0 0 0 transparent" : undefined,
                   }}
                 >
                   <AutoPlayVideo src="/manus-storage/MMDOverviewVideoMuhssinJune2026_8a07ead5.mp4" onProgress={handleVideoProgress} />
                 </div>
-                {/* Progress bar directly under the video */}
-                <div className="mt-1.5 flex items-center gap-2">
-                  {/* Lock/unlock icon */}
-                  <span className="flex-shrink-0">
-                    {videoUnlocked ? (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 7-4.5" />
-                      </svg>
-                    ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                    )}
-                  </span>
-                  {/* Progress bar */}
-                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: videoUnlocked ? "rgba(22, 163, 74, 0.12)" : "rgba(232, 51, 158, 0.12)" }}>
-                    <div
-                      className="h-full rounded-full transition-all duration-300"
-                      style={{
-                        width: `${Math.min(videoWatchPct, 100)}%`,
-                        background: videoUnlocked ? "#16A34A" : BRAND_GRADIENT,
-                      }}
-                    />
-                  </div>
-                  {/* Percentage */}
-                  <span className="text-[11px] font-bold flex-shrink-0" style={{ color: videoUnlocked ? "#16A34A" : BRAND_PINK }}>
-                    {Math.round(videoWatchPct)}%
-                  </span>
-                </div>
               </div>
 
-              {/* Plan selection area — locked behind video overlay */}
-              <div className="relative">
-                {/* Dark overlay with lock — visible until video is 100% */}
-                {!videoUnlocked && (
-                  <div
-                    className="absolute inset-0 z-20 flex flex-col items-start justify-start pt-8 rounded-xl transition-opacity duration-500"
-                    style={{
-                      background: "rgba(20, 20, 30, 0.65)",
-                      backdropFilter: "blur(2px)",
-                      pointerEvents: "all",
-                    }}
-                  >
-                    <div className="flex flex-col items-center gap-3 px-6 text-center w-full">
-                      {/* Lock icon with progress ring */}
-                      <div className="relative w-20 h-20 flex items-center justify-center">
-                        {/* Background ring (track) */}
-                        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 80 80">
-                          <circle
-                            cx="40" cy="40" r="35"
-                            fill="rgba(232, 51, 158, 0.08)"
-                            stroke="rgba(232, 51, 158, 0.25)"
-                            strokeWidth="4"
-                          />
-                          {/* Progress arc */}
-                          <circle
-                            cx="40" cy="40" r="35"
-                            fill="none"
-                            stroke={BRAND_PINK}
-                            strokeWidth="4"
-                            strokeLinecap="round"
-                            strokeDasharray={`${2 * Math.PI * 35}`}
-                            strokeDashoffset={`${2 * Math.PI * 35 * (1 - videoWatchPct / 100)}`}
-                            style={{ transition: "stroke-dashoffset 0.4s ease" }}
-                          />
-                        </svg>
-                        {/* Lock icon in center */}
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={BRAND_PINK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
-                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                      </div>
-                      <p className="text-white font-bold text-[15px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        Watch to reserve your Discovery Call
-                      </p>
-                      <p className="text-gray-300 text-[12px]">
-                        {Math.round(videoWatchPct)}% watched
-                      </p>
-                    </div>
-                  </div>
-                )}
+              {/* Plan selection area */}
+              <div>
 
               <h2
                 className="text-[22px] font-bold text-gray-900 mb-1.5 leading-snug"
@@ -1576,22 +1459,20 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               <div className="mt-6">
                 <button
                   onClick={handleNext}
-                  disabled={!selectedPlan || !videoUnlocked || webhookSubmitting}
-                  className={`w-full py-4 rounded-full text-white font-bold text-[15px] transition-all ${(selectedPlan && videoUnlocked) ? 'btn-gradient-pulse' : ''}`}
+                  disabled={!selectedPlan || webhookSubmitting}
+                  className={`w-full py-4 rounded-full text-white font-bold text-[15px] transition-all ${selectedPlan ? 'btn-gradient-pulse' : ''}`}
                   style={{
-                    background: (selectedPlan && videoUnlocked) ? BRAND_GRADIENT : '#D1D5DB',
-                    boxShadow: (selectedPlan && videoUnlocked) ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
-                    cursor: (selectedPlan && videoUnlocked) ? 'pointer' : 'not-allowed',
-                    opacity: (selectedPlan && videoUnlocked) ? 1 : 0.7,
+                    background: selectedPlan ? BRAND_GRADIENT : '#D1D5DB',
+                    boxShadow: selectedPlan ? "0 8px 24px rgba(232,51,158,0.3)" : 'none',
+                    cursor: selectedPlan ? 'pointer' : 'not-allowed',
+                    opacity: selectedPlan ? 1 : 0.7,
                   }}
                 >
                   {webhookSubmitting
                     ? 'Submitting...'
-                    : !videoUnlocked
-                      ? 'Select a program above'
-                      : selectedPlan
-                        ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name} →`
-                        : 'Select a program to continue'}
+                    : selectedPlan
+                      ? `Continue with ${BUDGET_PLANS.find(p => p.id === selectedPlan)?.name} →`
+                      : 'Select a program to continue'}
                 </button>
                 <button
                   onClick={() => setBudgetDeclined(true)}
