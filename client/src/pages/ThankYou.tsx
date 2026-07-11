@@ -13,40 +13,31 @@ const BRAND_PLUM = "#7A1E7E";
 
 const STEPS = [
   {
-    icon: Mail,
+    icon: UserPlus,
     label: "Step 1",
+    title: "Create Your Patient Account",
+    description:
+      "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate with Dr. Al-Deek and our care team before your appointment.",
+    color: BRAND_PINK,
+    link: { href: "https://medmethoddirect.md-hq.com/registration", text: "Create Account", external: true },
+  },
+  {
+    icon: Mail,
+    label: "Step 2",
     title: "Accept Your Calendar Invite",
     description:
       "Check your email for a calendar invitation and accept it now. This confirms your time slot with our care team.",
-    color: BRAND_PINK,
+    color: BRAND_PLUM,
     link: null,
   },
   {
     icon: MessageSquare,
-    label: "Step 2",
+    label: "Step 3",
     title: "Reply to Our Text to Secure Your Spot",
     description:
       "You'll receive a confirmation text shortly. We keep our schedule open and available so serious patients can get in quickly — reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.",
-    color: BRAND_PLUM,
-    link: null,
-  },
-  {
-    icon: BookOpen,
-    label: "Step 3",
-    title: "Review Our Programs & Pricing",
-    description:
-      "Your Care Coordinator will ask which program interests you and answer your specific questions. Patients who review our site beforehand get significantly more out of their call.",
     color: BRAND_PINK,
-    link: { href: "/#programs", text: "View Programs & Pricing" },
-  },
-  {
-    icon: UserPlus,
-    label: "Step 4",
-    title: "Create Your Patient Account",
-    description:
-      "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate directly with Dr. Al-Deek before your appointment.",
-    color: BRAND_PLUM,
-    link: { href: "https://medmethoddirect.md-hq.com/registration", text: "Create Account", external: true },
+    link: null,
   },
 ];
 
@@ -133,70 +124,67 @@ export default function ThankYou() {
           </div>
         </div>
 
-        {/* ── Timeline Steps (no boxes, dotted line on left) ── */}
+        {/* ── Steps with cards + subtle connector ── */}
         <div className="w-full max-w-lg mb-10">
-          <div className="relative pl-10 md:pl-14">
-            {/* Dotted vertical line */}
-            <div
-              className="absolute left-[22px] md:left-[30px] top-6 bottom-6"
-              style={{
-                width: 2,
-                backgroundImage: `repeating-linear-gradient(to bottom, ${BRAND_PINK} 0px, ${BRAND_PINK} 6px, transparent 6px, transparent 14px)`,
-              }}
-            />
-
-            {STEPS.map((step, i) => {
-              const Icon = step.icon;
-              const isLast = i === STEPS.length - 1;
-              return (
-                <div key={i} className={`relative ${!isLast ? "pb-10" : "pb-0"}`}>
-                  {/* Timeline node */}
-                  <div
-                    className="absolute left-[-18px] md:left-[-22px] w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-sm"
-                    style={{
-                      background: `linear-gradient(135deg, ${step.color}15, ${step.color}25)`,
-                      border: `2px solid ${step.color}40`,
-                    }}
-                  >
-                    <Icon className="w-5 h-5 md:w-5.5 md:h-5.5" style={{ color: step.color }} />
-                  </div>
-
-                  {/* Step content */}
-                  <div className="ml-4 md:ml-6 pt-1">
-                    <span
-                      className="text-xs font-bold tracking-[0.12em] uppercase mb-1 block"
-                      style={{ fontFamily: "Montserrat, sans-serif", color: step.color }}
+          {STEPS.map((step, i) => {
+            const Icon = step.icon;
+            const isLast = i === STEPS.length - 1;
+            return (
+              <div key={i}>
+                {/* Step card */}
+                <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{ background: `linear-gradient(135deg, ${step.color}12, ${step.color}22)` }}
                     >
-                      {step.label}
-                    </span>
-                    <h2
-                      className="text-lg font-bold text-[#1a1a2e] mb-1.5"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {step.title}
-                    </h2>
-                    <p
-                      className="text-[#4a4a5a] text-sm leading-relaxed"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {step.description}
-                    </p>
-                    {step.link && (
-                      <a
-                        href={step.link.href}
-                        {...((step.link as any).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="inline-flex items-center gap-2 mt-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                      <Icon className="w-6 h-6" style={{ color: step.color }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span
+                        className="text-xs font-bold tracking-[0.1em] uppercase mb-1 block"
+                        style={{ fontFamily: "Montserrat, sans-serif", color: step.color }}
+                      >
+                        {step.label}
+                      </span>
+                      <h2
+                        className="text-lg font-bold text-[#1a1a2e] mb-1.5"
                         style={{ fontFamily: "Montserrat, sans-serif" }}
                       >
-                        {step.link.text}
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                    )}
+                        {step.title}
+                      </h2>
+                      <p
+                        className="text-[#4a4a5a] text-sm leading-relaxed"
+                        style={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {step.description}
+                      </p>
+                      {step.link && (
+                        <a
+                          href={step.link.href}
+                          {...((step.link as any).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="inline-flex items-center gap-2 mt-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                          style={{ fontFamily: "Montserrat, sans-serif" }}
+                        >
+                          {step.link.text}
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Connector dots between cards */}
+                {!isLast && (
+                  <div className="flex flex-col items-center py-2">
+                    <div className="w-1 h-1 rounded-full bg-[#E8339E]/30" />
+                    <div className="w-1 h-1 rounded-full bg-[#E8339E]/30 mt-1.5" />
+                    <div className="w-1 h-1 rounded-full bg-[#E8339E]/30 mt-1.5" />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Urgency Notice */}
@@ -241,58 +229,41 @@ export default function ThankYou() {
           </div>
         </div>
 
-        {/* Questions CTA */}
-        <div className="w-full max-w-lg text-center mb-10">
-          <div className="flex items-center justify-center gap-2 text-[#4a4a5a]">
-            <HelpCircle className="w-4 h-4" />
-            <p
-              className="text-sm"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              Questions before your call?{" "}
-              <a
-                href="tel:8883627011"
-                className="text-[#E8339E] font-semibold hover:underline"
-              >
-                (888) 362-7011
-              </a>
-            </p>
-          </div>
+        {/* View Programs & Pricing */}
+        <div className="w-full max-w-lg mb-10 text-center">
+          <a
+            href="/#programs"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#E8339E]/30 text-[#E8339E] text-sm font-semibold hover:bg-[#E8339E]/5 hover:border-[#E8339E]/50 transition-all"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            <BookOpen className="w-4 h-4" />
+            View Programs & Pricing
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
 
-        {/* Free PDF Guide Download */}
-        <div className="w-full max-w-lg mb-8">
+        {/* Big Call Button */}
+        <div className="w-full max-w-lg mb-10">
           <a
-            href="/manus-storage/medmethod_direct_guide_with_contact-5_3418a630.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-gradient-to-r from-[#fdf2f8] to-[#faf5ff] rounded-xl border-2 border-[#E8339E]/20 p-5 hover:border-[#E8339E]/50 hover:shadow-md transition-all group"
+            href="tel:8883627011"
+            className="flex items-center justify-center gap-3 w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
           >
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-[#E8339E] to-[#9b1d7a] flex items-center justify-center">
-                <Download className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3
-                  className="text-base font-bold text-[#1a1a2e] group-hover:text-[#E8339E] transition-colors mb-1"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Free Guide: Before You Start GLP-1s or Hormone Therapy
-                </h3>
-                <p
-                  className="text-sm text-[#4a4a5a] mb-2"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  A 9-page guide on safety, personalization, and choosing the right care model — written by Dr. Al-Deek.
-                </p>
-                <span
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-[#E8339E]"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Download Your Free Guide
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            <div className="text-left">
+              <span
+                className="block text-lg font-bold"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                (888) 362-7011
+              </span>
+              <span
+                className="block text-xs text-white/80 font-medium"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Questions? Call us anytime
+              </span>
             </div>
           </a>
         </div>
