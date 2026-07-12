@@ -429,14 +429,20 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
     const video = videoRef.current;
     if (!video) return;
 
-    // Start muted for reliable autoplay across all browsers/devices
-    video.muted = true;
-    setIsMuted(true);
-    setShowUnmuteHint(true);
+    // Try playing WITH sound first (user has interacted with the page already)
+    video.muted = false;
+    setIsMuted(false);
+    setShowUnmuteHint(false);
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        // Autoplay still blocked — user will need to tap play
+        // Browser blocked autoplay with sound — fall back to muted
+        video.muted = true;
+        setIsMuted(true);
+        setShowUnmuteHint(true);
+        video.play().catch(() => {
+          // Even muted autoplay blocked — user will need to tap play
+        });
       });
     }
   }, []);
@@ -474,7 +480,6 @@ function AutoPlayVideo({ src, onProgress }: { src: string; onProgress?: (pct: nu
         preload="auto"
         playsInline
         autoPlay
-        muted
         style={{ aspectRatio: "16/9", objectFit: "contain" }}
       >
         <source src={src} type="video/mp4" />

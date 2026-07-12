@@ -55,8 +55,13 @@ const COACH_PILLS = [
 const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
   {
     label: "Practice Focus",
-    teaser:
-      "Dr. Jumana Al-Deek is a board-certified physician, menopause specialist, and author of The Menopause Weight Loss Trap \u2014 one of the fastest-emerging books in its category. She founded MedMethod Direct to give women navigating perimenopause and menopause access to expert-level care without the waitlists, dismissive appointments, or one-size-fits-all protocols.",
+    teaser: (
+      <>
+        Dr. Jumana Al-Deek is a board-certified physician, menopause specialist, and author of{" "}
+        <strong className="font-bold" style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</strong>
+        {" "}&mdash; one of the fastest-emerging books in its category. She founded MedMethod Direct to give women navigating perimenopause and menopause access to expert-level care without the waitlists, dismissive appointments, or one-size-fits-all protocols.
+      </>
+    ),
     rest:
       "Her clinical focus spans hormone replacement therapy, GLP-1 medical weight loss, metabolic health, thyroid optimization, and longevity medicine \u2014 all delivered virtually across 17 states.",
   },
