@@ -271,7 +271,7 @@ export default function LpHrt() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 17 States"].map(
+                {["Board-Certified DO", "Menopause Specialist", "Medical Weight Loss", "Metabolism", "Author", "Mom of Four", "Licensed in 17 States"].map(
                   (pill) => (
                     <span
                       key={pill}
