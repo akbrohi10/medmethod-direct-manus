@@ -451,7 +451,7 @@ export default function LpHrt() {
               </div>
 
               {/* Card 2 — Month 2 */}
-              <div className="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <div className="bg-white rounded-xl p-5 shadow-xl border-2 border-[#E8339E]/30">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5">Month 2</p>
                 <p className="text-3xl font-bold text-gray-900 mb-0.5">$99</p>
                 <p className="text-xs text-gray-500 mb-3">Async physician access</p>
@@ -461,7 +461,7 @@ export default function LpHrt() {
                 <div className="space-y-1.5 text-left">
                   <div className="flex items-start gap-1.5">
                     <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Monthly async physician check-in</span>
+                    <span className="text-xs text-gray-600">Monthly physician review & adjustments</span>
                   </div>
                   <div className="flex items-start gap-1.5">
                     <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
@@ -483,7 +483,7 @@ export default function LpHrt() {
               </div>
 
               {/* Card 3 — Month 3 */}
-              <div className="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <div className="bg-white rounded-xl p-5 shadow-xl border-2 border-[#E8339E]/30">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5">Month 3</p>
                 <p className="text-3xl font-bold text-gray-900 mb-0.5">$99</p>
                 <p className="text-xs text-gray-500 mb-3">Optimize &amp; refine</p>
@@ -493,7 +493,7 @@ export default function LpHrt() {
                 <div className="space-y-1.5 text-left">
                   <div className="flex items-start gap-1.5">
                     <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Monthly async physician check-in</span>
+                    <span className="text-xs text-gray-600">Monthly physician review & adjustments</span>
                   </div>
                   <div className="flex items-start gap-1.5">
                     <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
