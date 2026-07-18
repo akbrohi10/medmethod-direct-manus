@@ -408,129 +408,144 @@ export default function LpHrt() {
               One plan. One doctor. Real results.
             </p>
 
-            {/* 3-Card Pricing Layout */}
-            <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {/* Unified Timeline Card */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 max-w-3xl mx-auto p-6 sm:p-10 text-left">
 
-              {/* Card 1 — Month 1 (highlighted) */}
-              <div className="relative bg-white rounded-xl p-5 shadow-xl border-2 border-[#E8339E]/30 md:scale-[1.02]">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wide">
-                  Start Here
+              {/* Month 1 */}
+              <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-gradient-to-b border-[#E8339E]/40 ml-3 sm:ml-4">
+                {/* Timeline dot */}
+                <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">1</span>
                 </div>
-                <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mt-2 mb-0.5">Month 1</p>
-                <p className="text-3xl font-bold text-gray-900 mb-0.5">$199</p>
-                <p className="text-xs font-medium text-[#E8339E] mb-3">$50 today reserves your appointment — remaining balance due day-of</p>
-                <p className="text-xs text-gray-600 mb-3 text-left leading-relaxed">
-                  45-minute live video consultation with Dr. Al-Deek — personalized protocol &amp; prescription.
-                </p>
-                <div className="space-y-1.5 text-left">
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">45-min video virtual appointment</span>
+                <div className="flex flex-wrap items-baseline gap-3 mb-1">
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 1</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$199</span>
+                </div>
+                <p className="text-base text-gray-600 mb-4">Only <span className="font-bold text-gray-900">$50</span> today to reserve your appointment — remaining $149 due day of visit</p>
+
+                {/* Hero feature — Live Video Consultation */}
+                <div className="bg-gradient-to-r from-[#E8339E]/5 to-[#7A1E7E]/5 border border-[#E8339E]/20 rounded-xl p-4 mb-5">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-gray-900">45-Minute Live Video Consultation</p>
+                      <p className="text-base text-gray-600 mt-1">Face-to-face with Dr. Al-Deek — your personalized protocol &amp; prescription</p>
+                    </div>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Custom protocol design</span>
+                </div>
+
+                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Also included:</p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Custom protocol design</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Personalized treatment &amp; Rx</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Personalized treatment &amp; prescription</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Secure messaging (48hr response)</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Secure messaging (48hr response)</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Patient dashboard &amp; tracking</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Patient dashboard &amp; tracking</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Full formulary access</span>
-                  </div>
+
                 </div>
               </div>
 
-              {/* Card 2 — Month 2 */}
-              <div className="bg-white rounded-xl p-5 shadow-xl border-2 border-[#E8339E]/30">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5">Month 2</p>
-                <p className="text-3xl font-bold text-gray-900 mb-0.5">$99</p>
-                <p className="text-xs text-gray-500 mb-3">Async physician access</p>
-                <p className="text-xs text-gray-600 mb-3 text-left leading-relaxed">
+              {/* Month 2 */}
+              <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/25 ml-3 sm:ml-4">
+                <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">2</span>
+                </div>
+                <div className="flex flex-wrap items-baseline gap-3 mb-1">
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
+                </div>
+                <p className="text-base text-gray-700 mb-4 leading-relaxed">
                   Your plan is in action — Dr. Al-Deek monitors progress and adjusts as needed.
                 </p>
-                <div className="space-y-1.5 text-left">
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Monthly physician review & adjustments</span>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Monthly physician review &amp; adjustments</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Secure messaging (48hr weekdays)</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Secure messaging (48hr weekdays)</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Prescription renewals & refills</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Prescription renewals &amp; refills</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Dosage adjustments</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Dosage adjustments</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Full formulary access</span>
-                  </div>
+
                 </div>
               </div>
 
-              {/* Card 3 — Month 3 */}
-              <div className="bg-white rounded-xl p-5 shadow-xl border-2 border-[#E8339E]/30">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5">Month 3</p>
-                <p className="text-3xl font-bold text-gray-900 mb-0.5">$99</p>
-                <p className="text-xs text-gray-500 mb-3">Optimize &amp; refine</p>
-                <p className="text-xs text-gray-600 mb-3 text-left leading-relaxed">
+              {/* Month 3 */}
+              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4">
+                <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">3</span>
+                </div>
+                <div className="flex flex-wrap items-baseline gap-3 mb-1">
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 3</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
+                </div>
+                <p className="text-base text-gray-700 mb-4 leading-relaxed">
                   Fine-tune your protocol for long-term results — continued care team access.
                 </p>
-                <div className="space-y-1.5 text-left">
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Monthly physician review & adjustments</span>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Monthly physician review &amp; adjustments</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Secure messaging (48hr weekdays)</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Secure messaging (48hr weekdays)</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Prescription renewals & refills</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Prescription renewals &amp; refills</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Protocol refinement</span>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Protocol refinement</span>
                   </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="text-emerald-500 text-xs mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-xs text-gray-600">Full formulary access</span>
-                  </div>
+
                 </div>
+              </div>
+
+              {/* CTA inside card */}
+              <div className="mt-10 text-center">
+                <button
+                  onClick={openConsult}
+                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                >
+                  Start Your Plan — Only $50 Today
+                </button>
               </div>
             </div>
 
-            {/* Notes below cards */}
-            <div className="mt-8 max-w-2xl mx-auto space-y-2">
-              <p className="text-sm text-gray-600">
+            {/* Notes below card */}
+            <div className="mt-8 max-w-2xl mx-auto space-y-3">
+              <p className="text-base text-gray-600">
                 After your 3-month commitment, continue month-to-month at <span className="font-semibold">$99/mo</span> with 30-day cancellation notice.
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-base text-gray-500">
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
               </p>
             </div>
-
-            <button
-              onClick={openConsult}
-              className="mt-10 bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
-            >
-              Book Now
-            </button>
           </div>
         </section>
 
