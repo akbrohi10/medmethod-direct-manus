@@ -88,7 +88,7 @@ const STEPS = [
   {
     num: "02",
     title: "Fill Out Your Intake Form",
-    desc: "Complete your health questionnaire and upload recent labs (within 6 months). Don't have labs? We'll order them for you.",
+    desc: "Complete your health questionnaire and upload recent labs (within 6 months). Don't have labs? We can order them for you.",
   },
   {
     num: "03",
@@ -126,6 +126,10 @@ const FAQS = [
   {
     q: "What GLP-1 medications do you prescribe for weight loss?",
     a: "We prescribe semaglutide (Ozempic/Wegovy) and tirzepatide (Mounjaro/Zepbound) based on your metabolic profile, goals, and insurance situation. All prescriptions include physician monitoring and dosage titration.",
+  },
+  {
+    q: "Why is it a 3-month plan?",
+    a: "Whether it's hormone therapy or GLP-1 medications, your body needs time to respond — and your protocol needs careful adjustment based on how you feel. Month 1 is your consultation, labs review, and initial prescription. Months 2 and 3 give Dr. Al-Deek time to monitor how your body is responding, adjust dosages, manage any side effects, and dial in the right protocol before transitioning you to ongoing maintenance care. Most patients start noticing changes within the first few weeks, but the full benefit comes from staying the course.",
   },
   {
     q: "Do you accept insurance?",
@@ -187,7 +191,7 @@ export default function LpHrt() {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <a href="/" className="flex items-center gap-2">
-            <img src={LOGO} alt="MedMethod Direct" className="h-9 w-auto" />
+            <img src={LOGO} alt="MedMethod Direct" className="h-12 w-auto" />
           </a>
           <button
             onClick={openConsult}
@@ -208,8 +212,8 @@ export default function LpHrt() {
                 <span className="w-2 h-2 rounded-full bg-[#E8339E] animate-pulse" />
                 100% Virtual Care
               </p>
-              <h1 className="font-['Playfair_Display',serif] text-3xl sm:text-5xl lg:text-[3.4rem] leading-[1.12] font-bold text-gray-900 mb-4 sm:mb-6">
-                Hormone therapy &amp; weight loss,{" "}
+              <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-5xl lg:text-[3.4rem] leading-[1.12] font-extrabold text-gray-900 mb-4 sm:mb-6">
+                Hormone therapy &amp; GLP-1 weight loss,{" "}
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
@@ -264,7 +268,7 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Your Physician
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
                 Dr. Jumana Al-Deek, DO
               </h2>
               <p className="text-gray-600 mb-4 text-sm">
@@ -314,7 +318,7 @@ export default function LpHrt() {
         <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="mb-6 sm:mb-10">
-              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 How Hormone Replacement Therapy Works
               </h2>
               <p className="text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed">
@@ -373,7 +377,7 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Your Protocol
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 Personalized Treatment, Prescribed by an Expert
               </h2>
               <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -401,11 +405,11 @@ export default function LpHrt() {
             <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
               Transparent Pricing
             </p>
-            <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Simple, Straightforward Pricing
+            <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Your <span style={{fontVariantNumeric: 'lining-nums'}}>3</span>-Month Care Plan
             </h2>
             <p className="text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12">
-              One plan. One doctor. Real results.
+              No insurance. No middlemen. Just results.
             </p>
 
             {/* Unified Timeline Card */}
@@ -442,6 +446,10 @@ export default function LpHrt() {
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-base text-gray-700">Comprehensive lab review</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
                     <span className="text-base text-gray-700">Custom protocol design</span>
                   </div>
                   <div className="flex items-start gap-2">
@@ -450,7 +458,7 @@ export default function LpHrt() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Secure messaging (48hr response)</span>
+                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
@@ -475,11 +483,7 @@ export default function LpHrt() {
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Monthly physician review &amp; adjustments</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Secure messaging (48hr weekdays)</span>
+                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
@@ -487,7 +491,7 @@ export default function LpHrt() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Dosage adjustments</span>
+                    <span className="text-base text-gray-700">Dosage adjustments as needed</span>
                   </div>
 
                 </div>
@@ -503,16 +507,12 @@ export default function LpHrt() {
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
                 </div>
                 <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Fine-tune your protocol for long-term results — continued care team access.
+                  Your protocol is dialed in — seamlessly continue with ongoing access to Dr. Al-Deek.
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Monthly physician review &amp; adjustments</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Secure messaging (48hr weekdays)</span>
+                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
@@ -520,7 +520,7 @@ export default function LpHrt() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Protocol refinement</span>
+                    <span className="text-base text-gray-700">Dosage adjustments as needed</span>
                   </div>
 
                 </div>
@@ -534,13 +534,14 @@ export default function LpHrt() {
                 >
                   Start Your Plan — Only $50 Today
                 </button>
+                <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 
             {/* Notes below card */}
             <div className="mt-8 max-w-2xl mx-auto space-y-3">
               <p className="text-base text-gray-600">
-                After your 3-month commitment, continue month-to-month at <span className="font-semibold">$99/mo</span> with 30-day cancellation notice.
+                After your 3-month plan, keep your physician access active at <span className="font-semibold">$99/mo</span> — cancel anytime with 30 days notice.
               </p>
               <p className="text-base text-gray-500">
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
@@ -556,7 +557,7 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Filling Your Prescription
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 Convenient Options to Fit Your Life
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
@@ -580,9 +581,9 @@ export default function LpHrt() {
                   <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Compounded Medications</h3>
-                <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Discounted Pre-Negotiated Rates</p>
+                <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Save 30–45% vs. Brand-Name</p>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  Compounded for you through our partnered pharmacies at pre-negotiated rates — shipped directly to your door.
+                  Compounded for you through our partnered pharmacies — typically 30–45% less than brand-name, shipped directly to your door.
                 </p>
               </div>
             </div>
@@ -596,7 +597,7 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Getting Started
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 How It Works
               </h2>
             </div>
@@ -621,7 +622,7 @@ export default function LpHrt() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Questions?
               </p>
-              <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -643,7 +644,7 @@ export default function LpHrt() {
         {/* ═══════════════ FINAL CTA ═══════════════ */}
         <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-['Playfair_Display',serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to feel like yourself again?
             </h2>
             <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
@@ -665,7 +666,7 @@ export default function LpHrt() {
       {/* ═══════════════ MINIMAL FOOTER ═══════════════ */}
       <footer className="bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <img src={LOGO} alt="MedMethod Direct" className="h-7 w-auto brightness-0 invert" />
+          <img src={LOGO} alt="MedMethod Direct" className="h-12 w-auto brightness-0 invert" />
           <p className="text-sm text-gray-400">
             &copy; {new Date().getFullYear()} MedMethod Direct. All rights reserved.
           </p>
