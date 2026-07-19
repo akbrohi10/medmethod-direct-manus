@@ -207,7 +207,7 @@ export default function LpGlp1() {
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
-                Semaglutide & Tirzepatide — most patients see results <span className="text-[#E8339E] font-semibold">within weeks</span>, not months. 100% virtual, from the comfort of your home.
+                Semaglutide & Tirzepatide — most patients see results <span className="text-[#E8339E] font-semibold">within weeks</span>, not months. <span className="text-[#E8339E] font-semibold">100% virtual</span>, from the comfort of your home.
               </p>
               <button
                 onClick={openConsult}
