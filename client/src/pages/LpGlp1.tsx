@@ -506,29 +506,17 @@ export default function LpGlp1() {
               </div>
 
               {/* CTA inside card */}
-              <div className="mt-10 text-center pl-10 sm:pl-12 ml-3 sm:ml-4">
-                {/* Trust strip */}
-                <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-2 sm:gap-x-5 sm:gap-y-2 mb-5 text-sm text-gray-600">
-                  <span className="flex items-center gap-1.5">
-                    <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                    Cancel anytime
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                    HIPAA-secure
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                    Real doctor, not a chatbot
-                  </span>
-                </div>
+              <div className="mt-10 pt-8 border-t border-gray-100 text-center">
                 <button
                   onClick={openConsult}
-                  className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 py-3.5 sm:px-10 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                   Start Your Plan — Only $50 Today
                 </button>
-                <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
+                <p className="mt-3 text-xs sm:text-sm text-gray-500">
+                  Cancel anytime · HIPAA-secure · Real doctor, not a chatbot
+                </p>
+                <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 
