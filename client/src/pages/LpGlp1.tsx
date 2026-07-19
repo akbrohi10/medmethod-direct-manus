@@ -121,24 +121,6 @@ const FAQS = [
   },
 ];
 
-const TREATMENTS = [
-  {
-    title: "Physician-Guided, Not a Prescription Mill",
-    desc: "Every patient gets a comprehensive evaluation before starting medication. We don't prescribe GLP-1s to everyone — only when it's medically appropriate for your situation.",
-  },
-  {
-    title: "Personalized Dosing",
-    desc: "We start low and titrate based on your body's response — not a one-size-fits-all protocol. Your dosage is adjusted in real-time through ongoing physician communication.",
-  },
-  {
-    title: "Beyond the Medication",
-    desc: "Weight loss isn't just about the drug. Dr. Al-Deek evaluates your hormones, metabolism, and lifestyle to address the full picture — not just suppress appetite.",
-  },
-  {
-    title: "Ongoing Monitoring",
-    desc: "Your care doesn't end at the prescription. We track your progress, manage side effects, and adjust your protocol as your body responds — ensuring sustainable results.",
-  },
-];
 
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function LpGlp1() {
@@ -407,28 +389,6 @@ export default function LpGlp1() {
           </div>
         </section>
 
-        {/* ═══════════════ TREATMENT APPROACH ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-12 md:py-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12">
-              <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
-                Our Approach
-              </p>
-              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
-                Personalized Treatment, Not a Prescription Mill
-              </h2>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {TREATMENTS.map((t) => (
-                <div key={t.title} className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
-                  <h3 className="font-bold text-gray-900 text-lg mb-3">{t.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-[15px]">{t.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ═══════════════ PRICING — 3-MONTH TIMELINE ═══════════════ */}
         <section className="bg-white py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -436,6 +396,7 @@ export default function LpGlp1() {
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Transparent Pricing
               </p>
+              <p className="text-gray-500 text-sm mb-4 italic">Same doctor. Every visit. Not a prescription mill.</p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
                 Your <span className="font-sans">3</span>-Month Care Plan
               </h2>
