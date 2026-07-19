@@ -390,7 +390,7 @@ export default function LpGlp1() {
         </section>
 
         {/* ═══════════════ PRICING — 3-MONTH TIMELINE ═══════════════ */}
-        <section className="bg-white py-12 md:py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
