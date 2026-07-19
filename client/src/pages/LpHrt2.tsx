@@ -221,9 +221,9 @@ export default function LpHrt() {
               </p>
               <button
                 onClick={openConsult}
-                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Book Now
+                Start Your Plan — Only $50 Today
               </button>
               {/* Social proof */}
               <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-6 gap-y-2 text-sm text-gray-500 mx-auto md:mx-0 w-fit">
