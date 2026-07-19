@@ -49,7 +49,7 @@ const BARRIERS = [
   {
     title: "Hormonal Weight Gain",
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-menopause-a79CVoKTMNP2ZhyD8UMeBp.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-barrier-hormonal-weightgain-T7EYmm92fFhinGUE9wRfBJ.webp",
   },
   {
     title: "Post-Pregnancy Weight",
