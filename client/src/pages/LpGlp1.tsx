@@ -157,7 +157,7 @@ export default function LpGlp1() {
           </a>
           <button
             onClick={openConsult}
-            className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-semibold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
+            className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-semibold text-xs sm:text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-full hover:opacity-90 transition-opacity"
           >
             Book Now
           </button>
@@ -524,7 +524,7 @@ export default function LpGlp1() {
                 </div>
                 <button
                   onClick={openConsult}
-                  className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 py-3.5 sm:px-10 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                   Start Your Plan — Only $50 Today
                 </button>
@@ -672,7 +672,7 @@ export default function LpGlp1() {
               ].map((t, i) => (
                 <div
                   key={i}
-                  className="min-w-[300px] sm:min-w-[340px] max-w-[360px] flex-shrink-0 snap-start bg-white border border-gray-100 rounded-2xl p-6 shadow-sm"
+                  className="min-w-[300px] sm:min-w-[340px] max-w-[360px] flex-shrink-0 snap-start bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-md"
                 >
                   {/* Stars */}
                   <div className="flex gap-0.5 mb-3">
