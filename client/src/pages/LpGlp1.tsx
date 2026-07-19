@@ -398,7 +398,7 @@ export default function LpGlp1() {
             </div>
 
             {/* Single unified timeline card */}
-            <div className="bg-[#FDF8F3] rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-lg relative">
+            <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-gray-200 shadow-xl relative">
               {/* Timeline line */}
               <div className="absolute left-[22px] sm:left-[26px] top-[60px] bottom-[180px] w-[2px] bg-gradient-to-b from-[#E8339E] to-[#7A1E7E]/40 ml-3 sm:ml-4" />
 
