@@ -513,9 +513,7 @@ export default function LpGlp1() {
                 >
                   Start Your Plan — Only $50 Today
                 </button>
-                <p className="mt-3 text-xs sm:text-sm text-gray-500">
-                  Cancel anytime · HIPAA-secure · Real doctor, not a chatbot
-                </p>
+
                 <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
               </div>
             </div>
