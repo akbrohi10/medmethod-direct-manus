@@ -356,42 +356,47 @@ export default function LpGlp1() {
                 GLP-1 receptor agonists work with your body's natural systems to make weight loss achievable — without relying on willpower alone.
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {[
                 {
+                  step: "01",
                   title: "Reduce Appetite",
                   desc: "Signal your brain that you're full sooner, naturally reducing how much you eat without feeling deprived.",
                   icon: (
-                    <svg className="w-7 h-7" fill="none" stroke="url(#grad1)" strokeWidth={1.8} viewBox="0 0 24 24">
-                      <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 7v1m9-5a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m-8-9H3m18 0h-1M5.636 5.636l.707.707m12.02 12.02l.707.707M5.636 18.364l.707-.707m12.02-12.02l.707-.707" />
+                      <circle cx="12" cy="12" r="4" />
                     </svg>
                   ),
                 },
                 {
-                  title: "Improve Metabolism",
+                  step: "02",
+                  title: "Boost Metabolism",
                   desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain.",
                   icon: (
-                    <svg className="w-7 h-7" fill="none" stroke="url(#grad2)" strokeWidth={1.8} viewBox="0 0 24 24">
-                      <defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
+                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
                     </svg>
                   ),
                 },
                 {
-                  title: "Reduce Cravings",
+                  step: "03",
+                  title: "Silence Cravings",
                   desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible.",
                   icon: (
-                    <svg className="w-7 h-7" fill="none" stroke="url(#grad3)" strokeWidth={1.8} viewBox="0 0 24 24">
-                      <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728M9.172 14.828a4 4 0 010-5.656m5.656 0a4 4 0 010 5.656" />
+                      <line x1="4" y1="4" x2="20" y2="20" strokeWidth={2.5} />
                     </svg>
                   ),
                 },
               ].map((item) => (
-                <div key={item.title} className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100 hover:shadow-md transition-shadow">
-                  <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
+                <div key={item.title} className="relative bg-white rounded-2xl p-7 sm:p-8 text-center border-l-4 border-l-[#E8339E] border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  {/* Step number */}
+                  <span className="absolute top-4 right-5 text-xs font-bold text-[#E8339E]/40 tracking-wider">{item.step}</span>
+                  {/* Icon */}
+                  <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center shadow-md">
                     {item.icon}
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-3">{item.title}</h3>
