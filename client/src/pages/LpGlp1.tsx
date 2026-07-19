@@ -171,28 +171,28 @@ export default function LpGlp1() {
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/5 rounded-full blur-3xl" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-24 grid md:grid-cols-2 gap-8 md:gap-10 items-center relative z-10">
-            {/* Left — Copy with bold energy */}
+          <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20 lg:py-24 grid md:grid-cols-[1fr_1fr] lg:grid-cols-[55%_45%] gap-10 lg:gap-16 items-center relative z-10">
+            {/* Left — Copy */}
             <div className="order-2 md:order-1 text-center md:text-left">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-4">
+              <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-5">
                 <span className="w-2 h-2 rounded-full bg-[#E8339E] animate-pulse" />
                 GLP-1 Weight Loss
               </p>
-              <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-4 sm:mb-6">
-                Medically guided weight loss,<br />
+              <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-5">
+                Medically guided weight loss,<br className="hidden md:block" />
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
                 Semaglutide & Tirzepatide — most patients see results <span className="text-[#E8339E] font-semibold">within weeks</span>, not months. <span className="text-[#E8339E] font-semibold">100% virtual</span>, from the comfort of your home.
               </p>
               <button
                 onClick={openConsult}
-                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Book Now
+                Book Now — $50 Deposit
               </button>
               {/* Social proof */}
-              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-6 gap-y-2 text-sm text-gray-500 mx-auto md:mx-0 w-fit">
+              <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-5 gap-y-2 text-sm text-gray-500">
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                   Helped thousands of patients
@@ -203,16 +203,16 @@ export default function LpGlp1() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  15–20% average body weight loss
+                  15–20% avg body weight loss
                 </span>
               </div>
             </div>
             {/* Right — Hero image */}
-            <div className="order-1 md:order-2 flex justify-center">
+            <div className="order-1 md:order-2 flex justify-center md:justify-end">
               <img
                 src={HERO_IMG}
                 alt="Woman smiling during a virtual telehealth consultation from her kitchen"
-                className="w-full max-w-[320px] sm:max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
+                className="w-full max-w-[340px] md:max-w-[420px] lg:max-w-[460px] rounded-2xl shadow-2xl object-cover aspect-[4/5]"
               />
             </div>
           </div>
