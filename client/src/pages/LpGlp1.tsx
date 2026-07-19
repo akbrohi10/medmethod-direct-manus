@@ -524,7 +524,7 @@ export default function LpGlp1() {
                 </div>
                 <button
                   onClick={openConsult}
-                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                   Start Your Plan — Only $50 Today
                 </button>
@@ -595,7 +595,7 @@ export default function LpGlp1() {
                 How It Works
               </h2>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {STEPS.map((s, i) => (
                 <div key={s.num} className="relative text-center bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm flex flex-col items-center">
                   {/* Connector arrow (hidden on first card and mobile) */}
