@@ -179,7 +179,7 @@ export default function LpGlp1() {
                 GLP-1 Weight Loss
               </p>
               <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-5">
-                Medically guided weight loss,<br className="hidden md:block" />
+                Medically guided <span className="whitespace-nowrap">weight loss,</span><br className="hidden md:block" />
                 <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
