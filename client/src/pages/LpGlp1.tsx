@@ -67,22 +67,22 @@ const STEPS = [
   {
     num: "01",
     title: "Book Your Visit",
-    desc: "Pick a time that works for you and schedule your virtual appointment in under 5 minutes.",
+    desc: "Pick a time that works and schedule your virtual appointment in under 5 minutes.",
   },
   {
     num: "02",
-    title: "Fill Out Your Intake Form",
-    desc: "Complete your health questionnaire and upload recent labs (within 6 months). Don't have labs? We can order them for you.",
+    title: "Complete Intake",
+    desc: "Fill out your health questionnaire and upload recent labs. No labs? We'll order them for you.",
   },
   {
     num: "03",
-    title: "Virtual Consultation",
-    desc: "Meet Dr. Al-Deek one-on-one via video to discuss your weight loss goals and build your care plan.",
+    title: "Meet Your Doctor",
+    desc: "Video consultation with Dr. Al-Deek to discuss your goals and build your personalized care plan.",
   },
   {
     num: "04",
-    title: "Your Treatment Plan",
-    desc: "Receive your personalized GLP-1 protocol — medications shipped to your door with ongoing physician support.",
+    title: "Start Treatment",
+    desc: "Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.",
   },
 ];
 
@@ -640,14 +640,20 @@ export default function LpGlp1() {
                 How It Works
               </h2>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-              {STEPS.map((s) => (
-                <div key={s.num} className="text-center">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">{s.num}</span>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {STEPS.map((s, i) => (
+                <div key={s.num} className="relative text-center bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm flex flex-col items-center">
+                  {/* Connector arrow (hidden on first card and mobile) */}
+                  {i > 0 && (
+                    <div className="hidden lg:block absolute -left-4 top-1/2 -translate-y-1/2 text-[#E8339E]/40">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3l5 5-5 5V3z"/></svg>
+                    </div>
+                  )}
+                  <div className="w-12 h-12 mb-4 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center shadow-md">
+                    <span className="text-white font-bold text-sm">{s.num}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">{s.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{s.desc}</p>
+                  <h3 className="font-bold text-gray-900 text-base mb-2">{s.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">{s.desc}</p>
                 </div>
               ))}
             </div>
