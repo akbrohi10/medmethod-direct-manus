@@ -18,7 +18,7 @@ import {
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const DR_PHOTO = "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
 const HERO_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-hrt-hero-patch-v5-mMuEFMeaNE5vW6YPpLj4Te.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-hero-telehealth-visit-bzRimbqQGTxgQBkXv9nxzx.webp";
 
 const BARRIERS = [
   {
@@ -235,7 +235,7 @@ export default function LpGlp1() {
             <div className="order-1 md:order-2 flex justify-center">
               <img
                 src={HERO_IMG}
-                alt="Confident woman feeling healthy and energized"
+                alt="Woman smiling during a virtual telehealth consultation from her kitchen"
                 className="w-full max-w-[320px] sm:max-w-md rounded-2xl shadow-2xl object-cover aspect-[3/4]"
               />
             </div>
