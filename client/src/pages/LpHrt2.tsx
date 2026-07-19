@@ -19,7 +19,7 @@ import {
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const DR_PHOTO = "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
 const HERO_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-hrt-hero-patch-v5-mMuEFMeaNE5vW6YPpLj4Te.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/hrt2-hero-telehealth-patch-PjquXUwLssTUdwpgQBRfTK.webp";
 
 const CONDITIONS = [
   {
