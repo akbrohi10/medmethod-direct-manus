@@ -560,7 +560,7 @@ export default function LpGlp1() {
             </div>
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
               {/* Brand-Name */}
-              <div className="bg-white rounded-2xl p-6 sm:p-8 text-center border border-gray-100">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 text-center border-2 border-gray-200 shadow-md">
                 <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-pink-50 flex items-center justify-center">
                   <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016A3.001 3.001 0 0021 9.349m-18 0a2.997 2.997 0 00.177-.756L3.75 4.5h16.5l.573 4.093c.068.487.03.964-.177 1.756"/></svg>
                 </div>
