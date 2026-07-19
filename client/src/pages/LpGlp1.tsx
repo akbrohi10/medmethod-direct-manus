@@ -551,7 +551,7 @@ export default function LpGlp1() {
         </section>
 
         {/* ═══════════════ PHARMACY OPTIONS ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-12 md:py-20">
+        <section className="bg-white py-12 md:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
@@ -591,7 +591,7 @@ export default function LpGlp1() {
         </section>
 
         {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-        <section className="bg-white py-12 md:py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-14">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
@@ -622,7 +622,7 @@ export default function LpGlp1() {
         </section>
 
         {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-12 md:py-20">
+        <section className="bg-white py-12 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Stats bar */}
             <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10">
@@ -697,7 +697,7 @@ export default function LpGlp1() {
         </section>
 
         {/* ═══════════════ FAQ ═══════════════ */}
-        <section className="bg-white py-12 md:py-20">
+        <section className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
