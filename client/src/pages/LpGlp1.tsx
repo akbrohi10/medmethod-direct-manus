@@ -358,13 +358,43 @@ export default function LpGlp1() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { icon: "🧠", title: "Reduce Appetite", desc: "Signal your brain that you're full sooner, naturally reducing how much you eat without feeling deprived." },
-                { icon: "⚡", title: "Improve Metabolism", desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain." },
-                { icon: "🎯", title: "Reduce Cravings", desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible." },
+                {
+                  title: "Reduce Appetite",
+                  desc: "Signal your brain that you're full sooner, naturally reducing how much you eat without feeling deprived.",
+                  icon: (
+                    <svg className="w-7 h-7" fill="none" stroke="url(#grad1)" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 7v1m9-5a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Improve Metabolism",
+                  desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain.",
+                  icon: (
+                    <svg className="w-7 h-7" fill="none" stroke="url(#grad2)" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Reduce Cravings",
+                  desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible.",
+                  icon: (
+                    <svg className="w-7 h-7" fill="none" stroke="url(#grad3)" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E8339E"/><stop offset="100%" stopColor="#7A1E7E"/></linearGradient></defs>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                    </svg>
+                  ),
+                },
               ].map((item) => (
-                <div key={item.title} className="bg-[#FDF8F3] rounded-2xl p-6 text-center border border-gray-100">
-                  <div className="text-4xl mb-4">{item.icon}</div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">{item.title}</h3>
+                <div key={item.title} className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100 hover:shadow-md transition-shadow">
+                  <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#E8339E]/10 to-[#7A1E7E]/10 flex items-center justify-center">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-lg mb-3">{item.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
