@@ -180,11 +180,7 @@ export default function LpGlp1() {
               </p>
               <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-4 sm:mb-6">
                 Medically guided weight loss,<br />
-                <span className="relative inline-block mt-1">
-                  <span className="relative z-10 text-[#E8339E]">prescribed by a specialist.</span>
-                  {/* Brush stroke accent */}
-                  <span className="absolute bottom-1 left-0 right-0 h-3 bg-gradient-to-r from-[#E8339E]/20 to-[#7A1E7E]/10 -skew-y-[0.5deg] rounded-sm -z-0" />
-                </span>
+                <span className="text-[#E8339E]">prescribed by a specialist.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
                 Semaglutide & Tirzepatide — most patients see results <span className="text-[#E8339E] font-semibold">within weeks</span>, not months. <span className="text-[#E8339E] font-semibold">100% virtual</span>, from the comfort of your home.
