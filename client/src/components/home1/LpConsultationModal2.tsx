@@ -521,8 +521,8 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
 
   useEffect(() => {
     if (open) {
-      // Pre-select "Hormone Therapy" for this LP
-      setSelectedServices(["Hormone Therapy"]);
+      // No pre-selection — let user choose
+      setSelectedServices([]);
     }
   }, [open]);
 
