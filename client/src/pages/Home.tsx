@@ -24,7 +24,7 @@ import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import BookTeaser from "@/components/BookTeaser";
 import YourMedication from "@/components/YourMedication";
-
+import { useAuth } from "@/_core/hooks/useAuth";
 // Scroll to hash section after page load (e.g. navigating from /blog to /#services)
 function useHashScroll() {
   useEffect(() => {
@@ -47,6 +47,13 @@ function useHashScroll() {
 }
 
 export default function Home() {
+  // The useAuth hook provides authentication state.
+  // To implement login/logout, call logout(), or start login from an event
+  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
+  // startLogin() during render (no href={startLogin()}) — it mints a one-time
+  // nonce cookie and must run only at the moment of navigation.
+  const _auth = useAuth(); // Auth state available if needed
+
   useHashScroll();
   const [consultOpen, setConsultOpen] = useState(false);
   const [preselectedService, setPreselectedService] = useState<string | undefined>(undefined);

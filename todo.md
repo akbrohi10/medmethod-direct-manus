@@ -8,3 +8,15 @@
 - [ ] Verify TypeScript compiles at 0 errors
 - [ ] Spot-check rendering on sample pages
 - [ ] Save checkpoint
+
+## Stripe Payment System (Admin Dashboard + /lp/hrt2)
+
+- [x] Database schema: `stripe_settings` and `payments` tables created and migrated
+- [x] Backend tRPC router: `server/routers/stripe.ts` with key management + payment intents
+- [x] Admin dashboard: `/admin/settings` — Stripe key management (test/live toggle, key entry)
+- [x] Admin dashboard: payments tab with all payment records
+- [x] Stripe Elements integration: `StripePaymentForm.tsx` replaces mock card form in LpConsultationModal2
+- [x] GHL webhooks preserved unchanged in LpConsultationModal2
+- [x] All 11 vitest tests passing
+- [ ] Promote owner user to admin role in database (run SQL: UPDATE users SET role='admin' WHERE openId='...')
+- [ ] Scheduled $149 charge: Heartbeat cron job to charge remaining balance on appointment date

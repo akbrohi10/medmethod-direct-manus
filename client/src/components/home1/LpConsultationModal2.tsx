@@ -5,8 +5,9 @@
    Deposit: $50 now, $149 due day of appointment.
    ============================================================================= */
 import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } from "react";
-import { X, Check, ChevronDown, Lock, CreditCard } from "lucide-react";
+import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
+import StripePaymentForm from "./StripePaymentForm";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
@@ -307,173 +308,7 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
   );
 }
 
-// ── Payment Form (Placeholder — will connect to Stripe later) ────────────────
-function PaymentForm({ onComplete, submitting }: { onComplete: () => void; submitting: boolean }) {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [name, setName] = useState("");
-  const [zip, setZip] = useState("");
-
-  const formatCardNumber = (raw: string) => {
-    const digits = raw.replace(/\D/g, "").slice(0, 16);
-    return digits.replace(/(.{4})/g, "$1 ").trim();
-  };
-
-  const formatExpiry = (raw: string) => {
-    const digits = raw.replace(/\D/g, "").slice(0, 4);
-    if (digits.length <= 2) return digits;
-    return `${digits.slice(0, 2)}/${digits.slice(2)}`;
-  };
-
-  const isFormValid = cardNumber.replace(/\s/g, "").length >= 15 && expiry.length >= 5 && cvc.length >= 3 && name.trim().length >= 2;
-
-  const inputBase: React.CSSProperties = {
-    outline: "none", borderWidth: 1, borderStyle: "solid", borderRadius: 12,
-    padding: "14px 16px", width: "100%", fontSize: 16, color: "#1f2937",
-    background: "#fff", transition: "border-color 0.15s, box-shadow 0.15s", boxSizing: "border-box",
-    borderColor: "#e5e7eb",
-  };
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      {/* Pricing summary */}
-      <div className="rounded-xl border border-gray-200 overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <span className="text-sm text-gray-700">Month 1 — Video consultation + protocol</span>
-          <span className="text-sm font-semibold text-gray-900">$199</span>
-        </div>
-        <div className="px-4 py-3 bg-green-50">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-green-800">Due today (25% deposit)</span>
-            <span className="text-lg font-bold text-green-800">$50</span>
-          </div>
-          <p className="text-xs text-green-700 mt-1">
-            Remaining $149 due the day of your appointment
-          </p>
-        </div>
-      </div>
-
-      {/* Card information */}
-      <div>
-        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 8 }}>
-          Card information
-        </label>
-        <div className="relative">
-          <input
-            type="text"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-            placeholder="1234 1234 1234 1234"
-            autoComplete="cc-number"
-            style={{ ...inputBase, borderRadius: "12px 12px 0 0", borderBottomWidth: 0, paddingRight: 120 }}
-          />
-          {/* Card brand icons */}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
-            <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><rect width="28" height="18" rx="2" fill="#1A1F71"/><path d="M11.5 12.5L13 5.5h2l-1.5 7h-2z" fill="#fff"/><path d="M18.5 5.7c-.4-.15-.9-.3-1.6-.3-1.8 0-3 .9-3 2.2 0 1 .9 1.5 1.6 1.8.7.3 1 .5 1 .8 0 .4-.6.6-1.1.6-.7 0-1.2-.1-1.8-.4l-.3 1.5c.4.2 1.2.3 2 .3 1.9 0 3.1-.9 3.1-2.3 0-1.8-2.5-1.9-2.5-2.7 0-.3.3-.6.9-.6.5 0 1 .1 1.4.3l.3-1.2z" fill="#fff"/><path d="M22 5.5l1.5 7h-1.8l-.2-1h-2.2l-.4 1h-2l2.8-6.4c.1-.4.5-.6.9-.6h1.4zm-.8 2.3l-.9 2.7h1.7l-.5-2.7h-.3z" fill="#fff"/><path d="M9.5 5.5l-1.7 4.8-.2-1-.6-3.1c-.1-.5-.5-.7-.9-.7H3.5l0 .2c.7.2 1.5.4 2 .7l1.7 6.1h2l3-7h-2z" fill="#fff"/></svg>
-            <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><rect width="28" height="18" rx="2" fill="#fff" stroke="#e5e7eb"/><circle cx="11" cy="9" r="5.5" fill="#EB001B"/><circle cx="17" cy="9" r="5.5" fill="#F79E1B"/><path d="M14 4.8a5.5 5.5 0 010 8.4 5.5 5.5 0 000-8.4z" fill="#FF5F00"/></svg>
-            <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><rect width="28" height="18" rx="2" fill="#016FD0"/><path d="M14 13.5l1.2-7h2l-1.2 7h-2z" fill="#fff"/></svg>
-          </div>
-        </div>
-        <div className="flex">
-          <input
-            type="text"
-            value={expiry}
-            onChange={(e) => setExpiry(formatExpiry(e.target.value))}
-            placeholder="MM / YY"
-            autoComplete="cc-exp"
-            style={{ ...inputBase, borderRadius: "0 0 0 12px", borderRightWidth: 0, flex: 1 }}
-          />
-          <input
-            type="text"
-            value={cvc}
-            onChange={(e) => setCvc(e.target.value.replace(/\D/g, "").slice(0, 4))}
-            placeholder="CVC"
-            autoComplete="cc-csc"
-            style={{ ...inputBase, borderRadius: "0 0 12px 0", flex: 1 }}
-          />
-        </div>
-      </div>
-
-      {/* Name on card */}
-      <div>
-        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
-          Name on card
-        </label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full name"
-          autoComplete="cc-name"
-          style={inputBase}
-        />
-      </div>
-
-      {/* Billing ZIP */}
-      <div>
-        <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
-          Billing ZIP code
-        </label>
-        <input
-          type="text"
-          value={zip}
-          onChange={(e) => setZip(e.target.value.replace(/[^0-9-]/g, "").slice(0, 10))}
-          placeholder="90210"
-          autoComplete="postal-code"
-          style={inputBase}
-        />
-      </div>
-
-      {/* Consent text */}
-      <p className="text-xs text-gray-500 leading-relaxed">
-        By providing your card information, you authorize MedMethod Direct to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. This is a 3-month care plan commitment ($199 first month + $99/mo for months 2 & 3). You may cancel or reschedule with at least 24 hours' notice for a full refund of the deposit.
-      </p>
-
-      {/* Submit button */}
-      <button
-        onClick={onComplete}
-        disabled={!isFormValid || submitting}
-        className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all flex items-center justify-center gap-2"
-        style={{
-          background: isFormValid && !submitting ? BRAND_GRADIENT : BRAND_DISABLED,
-          cursor: isFormValid && !submitting ? "pointer" : "not-allowed",
-          boxShadow: isFormValid && !submitting ? "0 8px 24px rgba(232,51,158,0.3)" : "none",
-        }}
-      >
-        {submitting ? (
-          "Processing..."
-        ) : (
-          <>
-            <Lock size={16} />
-            Reserve My Consultation — $50
-          </>
-        )}
-      </button>
-
-      {/* Trust badges */}
-      <div className="flex items-center justify-center gap-5 mt-1">
-        <span className="flex items-center gap-1.5 text-[11px] text-gray-400">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-          HIPAA Compliant
-        </span>
-        <span className="flex items-center gap-1.5 text-[11px] text-gray-400">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0110 0v4" />
-          </svg>
-          256-bit Encrypted
-        </span>
-        <span className="flex items-center gap-1.5 text-[11px] text-gray-400">
-          <CreditCard size={14} />
-          Powered by Stripe
-        </span>
-      </div>
-    </div>
-  );
-}
+// PaymentForm is now handled by StripePaymentForm component
 
 // ── Main modal ───────────────────────────────────────────────────────────────
 export default function LpConsultationModal2({ open, onClose }: Props) {
@@ -490,6 +325,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
   const [webhookSubmitted, setWebhookSubmitted] = useState(false);
   const [consentAttempted, setConsentAttempted] = useState(false);
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
+  const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
 
   // Scroll modal body to top whenever step changes
@@ -641,14 +477,8 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
   };
 
   const handlePaymentComplete = async () => {
-    setPaymentSubmitting(true);
-    // Simulate payment processing (placeholder — will connect to Stripe later)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    // Fire webhook with payment info
+    // Fire webhook with payment info (GHL)
     await submitPaymentWebhook();
-    
-    setPaymentSubmitting(false);
     setStep(CALENDAR_STEP);
     toast.success("Deposit received! Now let's book your appointment.");
   };
@@ -1070,7 +900,13 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
               <p className="text-sm text-gray-500 mb-6">
                 We only charge $50 today to hold your spot. The remaining $149 is due the day of your appointment — and you can cancel anytime with 24-hour notice. This is a 3-month care plan commitment.
               </p>
-              <PaymentForm onComplete={handlePaymentComplete} submitting={paymentSubmitting} />
+              <StripePaymentForm
+                patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
+                patientEmail={leadData.email.trim() || answers.email || ""}
+                patientPhone={leadData.phone || answers.phone}
+                onComplete={handlePaymentComplete}
+                onPaymentId={(id) => setStripePaymentId(id)}
+              />
             </div>
           )}
 
