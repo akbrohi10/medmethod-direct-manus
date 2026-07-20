@@ -14,7 +14,8 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Eye, EyeOff, CheckCircle, AlertCircle, CreditCard, Settings, RefreshCw, DollarSign } from "lucide-react";
+import { Eye, EyeOff, CheckCircle, AlertCircle, CreditCard, Settings, RefreshCw, DollarSign, LogOut } from "lucide-react";
+import { useLocation } from "wouter";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -87,15 +88,35 @@ function PaymentStatusBadge({ status }: { status: string }) {
 
 export default function AdminSettings() {
   const { user, loading, isAuthenticated } = useAuth();
+  const [, navigate] = useLocation();
+
+  // Super admin session check
+  const saMe = trpc.superAdmin.me.useQuery();
+  const saLogout = trpc.superAdmin.logout.useMutation({
+    onSuccess: () => {
+      navigate("/admin/login");
+    },
+  });
+
+  // Access is granted if: Manus OAuth admin OR super admin session
+  const isSuperAdmin = saMe.data?.isSuperAdmin === true;
+  const isOAuthAdmin = isAuthenticated && user?.role === "admin";
+  const hasAccess = isSuperAdmin || isOAuthAdmin;
+  const isCheckingAuth = loading || saMe.isLoading;
+
+  // Display name for header
+  const displayName = isSuperAdmin
+    ? saMe.data?.email
+    : (user?.name ?? user?.email);
 
   // Stripe settings query
   const settingsQuery = trpc.stripe.getSettings.useQuery(undefined, {
-    enabled: isAuthenticated && user?.role === "admin",
+    enabled: hasAccess,
   });
 
   // Payments query
   const paymentsQuery = trpc.stripe.listPayments.useQuery(undefined, {
-    enabled: isAuthenticated && user?.role === "admin",
+    enabled: hasAccess,
   });
 
   // Schedule remaining charge mutation (admin can manually trigger for a payment)
@@ -154,7 +175,7 @@ export default function AdminSettings() {
 
   // ── Auth guard ──────────────────────────────────────────────────────────────
 
-  if (loading) {
+  if (isCheckingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" />
@@ -162,16 +183,23 @@ export default function AdminSettings() {
     );
   }
 
-  if (!isAuthenticated || user?.role !== "admin") {
+  if (!hasAccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-sm">
           <AlertCircle className="mx-auto mb-4 text-red-400" size={48} />
           <h2 className="text-xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm mb-4">
             You must be an admin to access this page.
           </p>
-          <a href="/" className="mt-4 inline-block text-pink-600 hover:underline text-sm">
+          <a
+            href="/admin/login"
+            className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
+          >
+            Admin Login
+          </a>
+          <br />
+          <a href="/" className="mt-3 inline-block text-pink-600 hover:underline text-sm">
             ← Back to home
           </a>
         </div>
@@ -203,13 +231,27 @@ export default function AdminSettings() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-500">Logged in as <strong>{user?.name ?? user?.email}</strong></span>
-            <a
-              href="/"
-              className="text-xs text-pink-600 hover:underline"
-            >
-              ← Back to site
-            </a>
+            <span className="text-xs text-gray-500">
+              Logged in as <strong>{displayName}</strong>
+              {isSuperAdmin && (
+                <span className="ml-1 px-1.5 py-0.5 bg-purple-100 text-purple-700 rounded text-xs font-bold">
+                  Super Admin
+                </span>
+              )}
+            </span>
+            {isSuperAdmin ? (
+              <button
+                onClick={() => saLogout.mutate()}
+                className="flex items-center gap-1 text-xs text-red-500 hover:text-red-700 transition"
+              >
+                <LogOut size={12} />
+                Logout
+              </button>
+            ) : (
+              <a href="/" className="text-xs text-pink-600 hover:underline">
+                ← Back to site
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# Testimonial Update Task
+# Testimonial Update Task (separate task — not part of Stripe payment system)
 
 - [ ] Audit current testimonial structure (how quotes are rendered, where they live in each page)
 - [ ] Write 4-5 unique testimonials per state (8 states) with diverse personas
@@ -24,3 +24,15 @@
   - scheduleRemainingCharge tRPC mutation creates Heartbeat cron at 09:00 UTC on appointment date
   - Handler mounted in server/_core/index.ts before tRPC middleware
   - scheduledChargePaymentCronTaskUid column added to payments table
+
+## Super Admin Login System
+
+- [x] Add bcrypt for password hashing
+- [x] Add super_admin_credentials table to schema (email, passwordHash)
+- [x] Seed super admin: akbrohi4567@gmail.com with strong hashed password
+- [x] tRPC router: superAdmin.login mutation (email + password → JWT session, sa_session cookie)
+- [x] tRPC router: superAdmin.logout mutation
+- [x] tRPC router: superAdmin.me query (session check)
+- [x] Build /admin/login page with email/password form
+- [x] Update AdminSettings to accept super admin session (not just Manus OAuth admin)
+- [x] Run tests and save checkpoint

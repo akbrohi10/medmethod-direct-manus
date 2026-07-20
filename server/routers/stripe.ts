@@ -25,7 +25,7 @@ import {
   updatePayment,
   upsertStripeSettings,
 } from "../db";
-import { adminProcedure, publicProcedure, router } from "../_core/trpc";
+import { adminProcedure, publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
 import { createHeartbeatJob } from "../_core/heartbeat";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ export const stripeRouter = router({
   /**
    * Admin: get current settings (keys are redacted for display).
    */
-  getSettings: adminProcedure.query(async () => {
+  getSettings: superAdminOrAdminProcedure.query(async () => {
     const settings = await getStripeSettings();
     if (!settings) {
       return {
@@ -101,7 +101,7 @@ export const stripeRouter = router({
    * Admin: save/update Stripe keys and mode.
    * Only updates fields that are provided (non-empty strings).
    */
-  updateSettings: adminProcedure
+  updateSettings: superAdminOrAdminProcedure
     .input(
       z.object({
         mode: z.enum(["test", "live"]).optional(),
@@ -235,7 +235,7 @@ export const stripeRouter = router({
    * The cron fires at 09:00 UTC on the appointment date.
    * The callback at /api/scheduled/charge-remaining handles the actual charge.
    */
-  scheduleRemainingCharge: publicProcedure
+  scheduleRemainingCharge: superAdminOrAdminProcedure
     .input(
       z.object({
         paymentId: z.number(),
@@ -315,7 +315,7 @@ export const stripeRouter = router({
   /**
    * Admin: list all payment records.
    */
-  listPayments: adminProcedure.query(async () => {
+  listPayments: superAdminOrAdminProcedure.query(async () => {
     return getAllPayments();
   }),
 });

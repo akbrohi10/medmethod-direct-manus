@@ -6,8 +6,10 @@ import {
   InsertUser,
   Payment,
   StripeSettings,
+  SuperAdminCredential,
   payments,
   stripeSettings,
+  superAdminCredentials,
   users,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -178,4 +180,22 @@ export async function getAllPayments(): Promise<Payment[]> {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(payments).orderBy(payments.createdAt);
+}
+
+// ─── Super Admin Credentials ─────────────────────────────────────────────────
+
+/**
+ * Get a super admin credential row by email.
+ */
+export async function getSuperAdminByEmail(
+  email: string
+): Promise<SuperAdminCredential | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db
+    .select()
+    .from(superAdminCredentials)
+    .where(eq(superAdminCredentials.email, email.toLowerCase().trim()))
+    .limit(1);
+  return result.length > 0 ? result[0] : null;
 }

@@ -28,6 +28,7 @@ const LpGlp1 = lazy(() => import("@/pages/LpGlp1"));
 const BeforeYouStartTreatment = lazy(() => import("@/pages/BeforeYouStartTreatment"));
 const Locations = lazy(() => import("@/pages/Locations"));
 const AdminSettings = lazy(() => import("@/pages/AdminSettings"));
+const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
 
 // Legal pages
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
@@ -311,6 +312,7 @@ function Router() {
         <Route path="/subscription-policy" component={SubscriptionPolicy} />
         <Route path="/accessibility" component={Accessibility} />
         <Route path="/privacy">{() => { window.location.href = "/privacy-policy"; return null; }}</Route>
+        <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/settings" component={AdminSettings} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
