@@ -50,17 +50,27 @@ export default function BrandAmbassador() {
       className="min-h-screen bg-white"
       style={{ fontFamily: "Montserrat, sans-serif" }}
     >
-      {/* Global style overrides for dot-grid texture and body text color */}
+      {/* ── Global styles ─────────────────────────────────────────────────────── */}
       <style>{`
+        /* Dot-grid texture — 3% opacity (whisper, not pattern) */
         .ba-section-tinted {
           background-color: #F9F9F9;
-          background-image: radial-gradient(circle, rgba(0,0,0,0.045) 1px, transparent 1px);
+          background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
           background-size: 22px 22px;
         }
+        /* Force all paragraph/description text to #444444 — no purple bleed */
+        .ba-section-tinted p,
+        .ba-section-tinted span:not([class*="eyebrow"]):not([class*="badge"]),
+        .bg-white p,
+        .ba-card p,
+        .ba-card span:not([style*="color:#111"]):not([style*="color: #111"]) {
+          color: #444444 !important;
+        }
+        /* Card styles */
         .ba-card {
           border: 1px solid #E5E7EB;
           border-radius: 16px;
-          padding: 24px;
+          padding: 32px;
           position: relative;
           overflow: hidden;
           background: #fff;
@@ -68,7 +78,7 @@ export default function BrandAmbassador() {
           transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
         .ba-card:hover {
-          box-shadow: 0 4px 32px rgba(232,51,158,0.15), 0 0 0 1.5px transparent;
+          box-shadow: 0 8px 40px rgba(232,51,158,0.15);
           border-color: transparent;
           background-clip: padding-box;
         }
@@ -90,9 +100,10 @@ export default function BrandAmbassador() {
           position: relative;
           z-index: 1;
         }
+        /* Icon circles — 56px */
         .ba-icon-circle {
-          width: 44px;
-          height: 44px;
+          width: 56px;
+          height: 56px;
           border-radius: 50%;
           background: linear-gradient(135deg, rgba(232,51,158,0.12) 0%, rgba(122,30,126,0.10) 100%);
           display: flex;
@@ -100,13 +111,32 @@ export default function BrandAmbassador() {
           justify-content: center;
           margin-bottom: 16px;
           margin-top: 8px;
+          flex-shrink: 0;
         }
+        /* Watermark number in card bottom-right */
+        .ba-card-watermark {
+          position: absolute;
+          bottom: 12px;
+          right: 16px;
+          font-size: 52px;
+          font-weight: 900;
+          line-height: 1;
+          background: linear-gradient(135deg,#E8339E,#7A1E7E);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          opacity: 0.04;
+          pointer-events: none;
+          user-select: none;
+          z-index: 0;
+        }
+        /* FAQ rows */
         .ba-faq-item {
           background: #fff;
           border-radius: 10px;
           border: 1px solid #E5E7EB;
           overflow: hidden;
-          margin-bottom: 8px;
+          margin-bottom: 10px;
           transition: border-color 0.2s;
         }
         .ba-faq-item.open {
@@ -121,6 +151,7 @@ export default function BrandAmbassador() {
         .ba-faq-chevron.open {
           transform: rotate(180deg);
         }
+        /* Input styles */
         .ba-input {
           width: 100%;
           padding: 14px;
@@ -130,12 +161,13 @@ export default function BrandAmbassador() {
           font-family: Montserrat, sans-serif;
           color: #444444;
           outline: none;
-          transition: border-color 0.18s;
+          transition: border-color 0.18s, box-shadow 0.18s;
           background: #fff;
           box-sizing: border-box;
         }
         .ba-input:focus {
           border-color: #E833FE;
+          box-shadow: 0 0 0 3px rgba(232,51,254,0.12);
         }
         .ba-input::placeholder {
           color: #AAAAAA;
@@ -175,19 +207,21 @@ export default function BrandAmbassador() {
         style={{ padding: "90px 24px 100px" }}
       >
         {/* Ambient gradient orbs */}
+        {/* Right orb — enlarged to fill bottom-right void */}
         <div
           aria-hidden="true"
           style={{
             position: "absolute",
-            bottom: "-60px",
-            right: "-80px",
-            width: 480,
-            height: 480,
+            bottom: "-80px",
+            right: "-100px",
+            width: 600,
+            height: 600,
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(232,51,254,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(232,51,254,0.09) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
+        {/* Left orb */}
         <div
           aria-hidden="true"
           style={{
@@ -313,6 +347,17 @@ export default function BrandAmbassador() {
         </div>
       </section>
 
+      {/* Full-width gradient divider between Hero and Section 2 */}
+      <div
+        aria-hidden="true"
+        style={{
+          width: "100%",
+          height: 1,
+          background: "linear-gradient(90deg, transparent 0%, #E8339E 25%, #7A1E7E 75%, transparent 100%)",
+          opacity: 0.35,
+        }}
+      />
+
       {/* ── SECTION 2 — Why Join Cards ───────────────────────────────────────── */}
       <section className="bg-white" style={{ padding: "90px 24px 100px" }}>
         <div className="max-w-5xl mx-auto">
@@ -351,8 +396,9 @@ export default function BrandAmbassador() {
             {/* Card 1 */}
             <div className="ba-card">
               <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <span className="ba-card-watermark">01</span>
               <div className="ba-icon-circle">
-                <svg className="w-5 h-5" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
               </div>
@@ -362,11 +408,12 @@ export default function BrandAmbassador() {
               </p>
             </div>
 
-            {/* Card 2 — updated copy */}
+            {/* Card 2 */}
             <div className="ba-card">
               <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <span className="ba-card-watermark">02</span>
               <div className="ba-icon-circle">
-                <svg className="w-5 h-5" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                 </svg>
               </div>
@@ -379,8 +426,9 @@ export default function BrandAmbassador() {
             {/* Card 3 */}
             <div className="ba-card">
               <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <span className="ba-card-watermark">03</span>
               <div className="ba-icon-circle">
-                <svg className="w-5 h-5" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                 </svg>
               </div>
@@ -398,8 +446,10 @@ export default function BrandAmbassador() {
         style={{
           padding: "90px 24px 100px",
           background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%), #F9F9F9",
-          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)",
+          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)",
           backgroundSize: "22px 22px, 100% 100%",
+          borderTop: "4px solid transparent",
+          borderImage: "linear-gradient(90deg,#E8339E,#7A1E7E) 1",
         }}
       >
         <div className="max-w-4xl mx-auto">
@@ -454,7 +504,7 @@ export default function BrandAmbassador() {
                 1
               </div>
               <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 6, fontSize: 15 }}>Apply</h3>
-              <p style={{ fontSize: 12, color: "#888888", fontStyle: "italic", marginBottom: 6 }}>Takes less than 2 minutes</p>
+              <p style={{ fontSize: 12, color: "#888780", fontStyle: "italic", marginBottom: 6 }}>Takes less than 2 minutes</p>
               <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
                 Fill out the short application form. We review submissions within 5 to 7 business days.
               </p>
@@ -482,13 +532,13 @@ export default function BrandAmbassador() {
                 2
               </div>
               <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 6, fontSize: 15 }}>Get Approved</h3>
-              <p style={{ fontSize: 12, color: "#888888", fontStyle: "italic", marginBottom: 6 }}>Usually within 5–7 business days</p>
+              <p style={{ fontSize: 12, color: "#888780", fontStyle: "italic", marginBottom: 6 }}>Usually within 5–7 business days</p>
               <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
                 Once approved, you'll receive your ambassador portal, unique promo code, and affiliate link.
               </p>
             </div>
 
-            {/* Step 3 — updated copy */}
+            {/* Step 3 */}
             <div style={{ textAlign: "center", position: "relative" }}>
               <div
                 style={{
@@ -510,7 +560,7 @@ export default function BrandAmbassador() {
                 3
               </div>
               <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 6, fontSize: 15 }}>Share &amp; Earn</h3>
-              <p style={{ fontSize: 12, color: "#888888", fontStyle: "italic", marginBottom: 6 }}>Rewards paid every month</p>
+              <p style={{ fontSize: 12, color: "#888780", fontStyle: "italic", marginBottom: 6 }}>Rewards paid every month</p>
               <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
                 Post your authentic experience, refer your audience, and receive referral rewards paid monthly.
               </p>
@@ -538,11 +588,11 @@ export default function BrandAmbassador() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
               gap: 40,
-              alignItems: "start",
+              alignItems: "center",
             }}
           >
-            {/* Left column — decorative gradient bar */}
-            <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+            {/* Left column — decorative gradient bar, vertically centered */}
+            <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
               <div
                 aria-hidden="true"
                 style={{
@@ -559,50 +609,54 @@ export default function BrandAmbassador() {
               </p>
             </div>
 
-            {/* Right column — checklist card */}
+            {/* Right column — checklist card with gradient top accent bar */}
             <div
               style={{
                 border: "1px solid #E5E7EB",
                 borderRadius: 14,
                 background: "#fff",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
-                padding: "24px 28px",
+                overflow: "hidden",
               }}
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {[
-                  "Public social media profile with an engaged, health-focused audience",
-                  "Minimum 3,000 followers (Instagram, TikTok, Facebook, or YouTube)",
-                  "Content that is high quality, clear, and authentically yours",
-                  "Aligned values: longevity, wellness, hormone health, or medically supervised weight loss",
-                  "No profanity, explicit content, or messaging that conflicts with clinical positioning",
-                ].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                    {/* Gradient checkmark */}
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      style={{ flexShrink: 0, marginTop: 1 }}
-                    >
-                      <defs>
-                        <linearGradient id={`chk-${i}`} x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#E8339E" />
-                          <stop offset="100%" stopColor="#7A1E7E" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="m4.5 12.75 6 6 9-13.5"
-                        stroke={`url(#chk-${i})`}
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <span style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>{item}</span>
-                  </div>
-                ))}
+              {/* Gradient top accent bar */}
+              <div style={{ height: 4, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <div style={{ padding: "40px 32px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  {[
+                    "Public social media profile with an engaged, health-focused audience",
+                    "Minimum 3,000 followers (Instagram, TikTok, Facebook, or YouTube)",
+                    "Content that is high quality, clear, and authentically yours",
+                    "Aligned values: longevity, wellness, hormone health, or medically supervised weight loss",
+                    "No profanity, explicit content, or messaging that conflicts with clinical positioning",
+                  ].map((item, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                      {/* Gradient checkmark */}
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        style={{ flexShrink: 0, marginTop: 1 }}
+                      >
+                        <defs>
+                          <linearGradient id={`chk-${i}`} x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stopColor="#E8339E" />
+                            <stop offset="100%" stopColor="#7A1E7E" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="m4.5 12.75 6 6 9-13.5"
+                          stroke={`url(#chk-${i})`}
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -611,8 +665,12 @@ export default function BrandAmbassador() {
 
       {/* ── SECTION 5 — FAQ Accordion ────────────────────────────────────────── */}
       <section
-        className="ba-section-tinted"
-        style={{ padding: "90px 24px 100px" }}
+        style={{
+          padding: "90px 24px 100px",
+          backgroundColor: "rgba(248,240,255,0.40)",
+          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+        }}
       >
         <div className="max-w-3xl mx-auto">
           <h2
@@ -639,7 +697,7 @@ export default function BrandAmbassador() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "16px 24px",
+                    padding: "20px 24px",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
@@ -647,7 +705,16 @@ export default function BrandAmbassador() {
                     fontFamily: "Montserrat,sans-serif",
                   }}
                 >
-                  <span style={{ fontWeight: 600, fontSize: 14, color: "#111111" }}>{faq.q}</span>
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      fontSize: 14,
+                      color: openFaq === i ? "#7A1E7E" : "#111111",
+                      transition: "color 0.2s",
+                    }}
+                  >
+                    {faq.q}
+                  </span>
                   <svg
                     className={`ba-faq-chevron${openFaq === i ? " open" : ""}`}
                     width="20"
@@ -662,7 +729,7 @@ export default function BrandAmbassador() {
                   </svg>
                 </button>
                 {openFaq === i && (
-                  <div style={{ padding: "0 24px 16px" }}>
+                  <div style={{ padding: "0 24px 20px" }}>
                     <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.7 }}>{faq.a}</p>
                   </div>
                 )}
@@ -681,7 +748,7 @@ export default function BrandAmbassador() {
           overflow: "hidden",
         }}
       >
-        {/* Abstract white circle bottom-left */}
+        {/* Abstract white circle — bottom-left */}
         <div
           aria-hidden="true"
           style={{
@@ -692,6 +759,20 @@ export default function BrandAmbassador() {
             height: 320,
             borderRadius: "50%",
             background: "rgba(255,255,255,0.20)",
+            pointerEvents: "none",
+          }}
+        />
+        {/* Second smaller circle — top-right for balance */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "-60px",
+            right: "-60px",
+            width: 200,
+            height: 200,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.10)",
             pointerEvents: "none",
           }}
         />
@@ -717,7 +798,7 @@ export default function BrandAmbassador() {
               cursor: "pointer",
               fontSize: 14,
               fontFamily: "Montserrat,sans-serif",
-              boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+              boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
             }}
           >
             Apply to Become an Ambassador
@@ -786,118 +867,137 @@ export default function BrandAmbassador() {
               </p>
             </div>
           ) : (
-            <div>
-              {/* MMD Logo lockup */}
-              <div style={{ display: "flex", alignItems: "baseline", gap: 2, justifyContent: "center", marginBottom: 12 }}>
-                <span style={{ fontSize: 22, fontWeight: 800, color: "#111111" }}>Med</span>
-                <span style={{ fontSize: 22, fontWeight: 800, color: "#7A1E7E" }}>Method</span>
-                <span style={{ fontSize: 9, fontWeight: 700, color: "#111111", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
-              </div>
-              <p style={{ textAlign: "center", fontSize: 14, color: "#444444", marginBottom: 8 }}>
-                It only takes a few minutes. We review every application personally.
-              </p>
-              <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#111111", textAlign: "center", marginBottom: 32 }}>
-                Ambassador Application
-              </h2>
-              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="ba-input"
-                    placeholder="Your full name"
-                  />
+            /* Form card container */
+            <div
+              style={{
+                border: "1px solid #E0E0E0",
+                borderRadius: 16,
+                background: "#fff",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.07)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Gradient top accent bar */}
+              <div style={{ height: 4, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+
+              <div style={{ padding: "40px 36px" }}>
+                {/* MMD Logo lockup */}
+                <div style={{ display: "flex", alignItems: "baseline", gap: 2, justifyContent: "center", marginBottom: 12 }}>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: "#111111" }}>Med</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: "#7A1E7E" }}>Method</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "#111111", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
                 </div>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Email Address</label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="ba-input"
-                    placeholder="you@email.com"
-                  />
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Social Media Handle (primary)</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.socialHandle}
-                    onChange={(e) => setFormData({ ...formData, socialHandle: e.target.value })}
-                    className="ba-input"
-                    placeholder="@yourhandle"
-                  />
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Platform</label>
-                  <select
-                    required
-                    value={formData.platform}
-                    onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-                    className="ba-input"
-                    style={{ appearance: "auto" }}
+
+                <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#111111", textAlign: "center", marginBottom: 8 }}>
+                  Ambassador Application
+                </h2>
+
+                {/* Subtext directly above first form field */}
+                <p style={{ textAlign: "center", fontSize: 13, color: "#888780", fontStyle: "italic", marginBottom: 28 }}>
+                  It only takes a few minutes. We review every application personally.
+                </p>
+
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      className="ba-input"
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Email Address</label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="ba-input"
+                      placeholder="you@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Social Media Handle (primary)</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.socialHandle}
+                      onChange={(e) => setFormData({ ...formData, socialHandle: e.target.value })}
+                      className="ba-input"
+                      placeholder="@yourhandle"
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Platform</label>
+                    <select
+                      required
+                      value={formData.platform}
+                      onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
+                      className="ba-input"
+                      style={{ appearance: "auto" }}
+                    >
+                      <option value="">Select your primary platform</option>
+                      <option value="instagram">Instagram</option>
+                      <option value="tiktok">TikTok</option>
+                      <option value="facebook">Facebook</option>
+                      <option value="youtube">YouTube</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Approximate Follower Count</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.followerCount}
+                      onChange={(e) => setFormData({ ...formData, followerCount: e.target.value })}
+                      className="ba-input"
+                      placeholder="e.g. 5,000"
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>
+                      Why do you want to be an MMD Ambassador?{" "}
+                      <span style={{ fontWeight: 400, color: "#888780" }}>(max 300 characters)</span>
+                    </label>
+                    <textarea
+                      required
+                      maxLength={300}
+                      rows={4}
+                      value={formData.whyJoin}
+                      onChange={(e) => setFormData({ ...formData, whyJoin: e.target.value })}
+                      className="ba-input"
+                      placeholder="Tell us why you'd be a great fit..."
+                      style={{ resize: "none" }}
+                    />
+                    <p style={{ fontSize: 12, color: "#888780", textAlign: "right", marginTop: 4 }}>
+                      {formData.whyJoin.length}/300
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    style={{
+                      width: "100%",
+                      padding: "14px",
+                      background: "linear-gradient(135deg,#E8339E,#7A1E7E)",
+                      color: "#fff",
+                      fontWeight: 700,
+                      borderRadius: 12,
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: 15,
+                      fontFamily: "Montserrat,sans-serif",
+                      boxShadow: "0 4px 16px rgba(232,51,158,0.25)",
+                    }}
                   >
-                    <option value="">Select your primary platform</option>
-                    <option value="instagram">Instagram</option>
-                    <option value="tiktok">TikTok</option>
-                    <option value="facebook">Facebook</option>
-                    <option value="youtube">YouTube</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>Approximate Follower Count</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.followerCount}
-                    onChange={(e) => setFormData({ ...formData, followerCount: e.target.value })}
-                    className="ba-input"
-                    placeholder="e.g. 5,000"
-                  />
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#111111", marginBottom: 6 }}>
-                    Why do you want to be an MMD Ambassador?{" "}
-                    <span style={{ fontWeight: 400, color: "#888780" }}>(max 300 characters)</span>
-                  </label>
-                  <textarea
-                    required
-                    maxLength={300}
-                    rows={4}
-                    value={formData.whyJoin}
-                    onChange={(e) => setFormData({ ...formData, whyJoin: e.target.value })}
-                    className="ba-input"
-                    placeholder="Tell us why you'd be a great fit..."
-                    style={{ resize: "none" }}
-                  />
-                  <p style={{ fontSize: 12, color: "#888780", textAlign: "right", marginTop: 4 }}>
-                    {formData.whyJoin.length}/300
-                  </p>
-                </div>
-                <button
-                  type="submit"
-                  style={{
-                    width: "100%",
-                    padding: "14px",
-                    background: "linear-gradient(135deg,#E8339E,#7A1E7E)",
-                    color: "#fff",
-                    fontWeight: 700,
-                    borderRadius: 10,
-                    border: "none",
-                    cursor: "pointer",
-                    fontSize: 15,
-                    fontFamily: "Montserrat,sans-serif",
-                  }}
-                >
-                  Submit Application
-                </button>
-              </form>
+                    Submit Application
+                  </button>
+                </form>
+              </div>
             </div>
           )}
         </div>
