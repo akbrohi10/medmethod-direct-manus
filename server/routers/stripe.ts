@@ -15,6 +15,8 @@
 
 import Stripe from "stripe";
 import { z } from "zod";
+import { parse as parseCookie } from "cookie";
+import { COOKIE_NAME } from "@shared/const";
 import {
   createPayment,
   getAllPayments,
@@ -24,6 +26,7 @@ import {
   upsertStripeSettings,
 } from "../db";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
+import { createHeartbeatJob } from "../_core/heartbeat";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -226,11 +229,11 @@ export const stripeRouter = router({
 
   /**
    * Public: schedule the $149 remaining charge on the appointment date.
-   * Saves the appointment date to the DB and creates a PaymentIntent
-   * that will be charged off-session on that date via a scheduled job.
+   * Saves the appointment date to the DB, creates a $149 PaymentIntent,
+   * and schedules a Heartbeat cron job to confirm it off-session on that date.
    *
-   * Note: Stripe does not natively support "charge on date X" for PaymentIntents.
-   * We store the appointment date and use a Heartbeat cron job to charge on that day.
+   * The cron fires at 09:00 UTC on the appointment date.
+   * The callback at /api/scheduled/charge-remaining handles the actual charge.
    */
   scheduleRemainingCharge: publicProcedure
     .input(
@@ -239,7 +242,7 @@ export const stripeRouter = router({
         appointmentDate: z.number(), // UTC timestamp in ms
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const payment = await getPaymentById(input.paymentId);
       if (!payment) throw new Error("Payment record not found");
 
@@ -269,13 +272,44 @@ export const stripeRouter = router({
         },
       });
 
-      // Save appointment date and scheduled PI to DB
+      // Build cron expression: fire at 09:00 UTC on the appointment date
+      const apptDate = new Date(input.appointmentDate);
+      const cronExpr = `0 0 9 ${apptDate.getUTCDate()} ${apptDate.getUTCMonth() + 1} *`;
+
+      // Get the session token for Heartbeat authentication
+      const sessionToken = parseCookie(ctx.req.headers.cookie ?? "")[COOKIE_NAME] ?? "";
+
+      // Create the Heartbeat cron job
+      let taskUid: string | null = null;
+      try {
+        const job = await createHeartbeatJob(
+          {
+            name: `charge-remaining-${input.paymentId}`,
+            cron: cronExpr,
+            path: "/api/scheduled/charge-remaining",
+            method: "POST",
+            description: `Charge $149 remaining for patient ${payment.patientName ?? ""} (payment #${input.paymentId})`,
+          },
+          sessionToken
+        );
+        taskUid = job.taskUid;
+      } catch (heartbeatErr) {
+        // Log but don't fail — the PI is already created; admin can manually charge
+        console.error("[ScheduleRemainingCharge] Heartbeat job creation failed:", heartbeatErr);
+      }
+
+      // Save appointment date, scheduled PI, and cron task UID to DB
       await updatePayment(input.paymentId, {
         appointmentDate: input.appointmentDate,
         scheduledChargePaymentIntentId: pi.id,
+        scheduledChargePaymentCronTaskUid: taskUid ?? undefined,
       });
 
-      return { success: true, scheduledPaymentIntentId: pi.id };
+      return {
+        success: true,
+        scheduledPaymentIntentId: pi.id,
+        cronTaskUid: taskUid,
+      };
     }),
 
   /**

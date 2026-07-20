@@ -18,5 +18,9 @@
 - [x] Stripe Elements integration: `StripePaymentForm.tsx` replaces mock card form in LpConsultationModal2
 - [x] GHL webhooks preserved unchanged in LpConsultationModal2
 - [x] All 11 vitest tests passing
-- [ ] Promote owner user to admin role in database (run SQL: UPDATE users SET role='admin' WHERE openId='...')
-- [ ] Scheduled $149 charge: Heartbeat cron job to charge remaining balance on appointment date
+- [x] Promote owner user to admin role in database — auto-assigned on first login via upsertUser (OWNER_OPEN_ID check)
+- [x] Scheduled $149 charge: Heartbeat cron job to charge remaining balance on appointment date
+  - /api/scheduled/charge-remaining Express handler (server/scheduledChargeHandler.ts)
+  - scheduleRemainingCharge tRPC mutation creates Heartbeat cron at 09:00 UTC on appointment date
+  - Handler mounted in server/_core/index.ts before tRPC middleware
+  - scheduledChargePaymentCronTaskUid column added to payments table

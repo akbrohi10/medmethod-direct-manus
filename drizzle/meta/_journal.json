@@ -15,6 +15,13 @@
       "when": 1784571441066,
       "tag": "0001_silly_bloodaxe",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1784572459338,
+      "tag": "0002_first_colossus",
+      "breakpoints": true
     }
   ]
 }

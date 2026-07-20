@@ -1,0 +1,1 @@
+ALTER TABLE `payments` ADD `scheduledChargePaymentCronTaskUid` varchar(65);

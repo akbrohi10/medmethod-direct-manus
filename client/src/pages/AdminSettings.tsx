@@ -98,6 +98,20 @@ export default function AdminSettings() {
     enabled: isAuthenticated && user?.role === "admin",
   });
 
+  // Schedule remaining charge mutation (admin can manually trigger for a payment)
+  const scheduleChargeMutation = trpc.stripe.scheduleRemainingCharge.useMutation({
+    onSuccess: () => {
+      toast.success("Scheduled $149 charge created successfully!");
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Failed to schedule charge: ${err.message}`);
+    },
+  });
+
+  const [schedulingPaymentId, setSchedulingPaymentId] = useState<number | null>(null);
+  const [apptDateInputs, setApptDateInputs] = useState<Record<number, string>>({});
+
   // Update settings mutation
   const updateMutation = trpc.stripe.updateSettings.useMutation({
     onSuccess: () => {
@@ -418,6 +432,7 @@ export default function AdminSettings() {
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Appt. Date</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
+                      <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -437,6 +452,56 @@ export default function AdminSettings() {
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-xs">
                           {new Date(p.createdAt).toLocaleString()}
+                        </td>
+                        <td className="px-4 py-3">
+                          {p.status === "deposit_paid" && !p.scheduledChargePaymentCronTaskUid && (
+                            <div className="flex flex-col gap-1.5">
+                              {schedulingPaymentId === p.id ? (
+                                <>
+                                  <input
+                                    type="date"
+                                    value={apptDateInputs[p.id] ?? ""}
+                                    onChange={(e) => setApptDateInputs(prev => ({ ...prev, [p.id]: e.target.value }))}
+                                    className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-pink-400"
+                                  />
+                                  <div className="flex gap-1">
+                                    <button
+                                      onClick={() => {
+                                        const dateStr = apptDateInputs[p.id];
+                                        if (!dateStr) { toast.error("Please select an appointment date"); return; }
+                                        const ts = new Date(dateStr + "T09:00:00Z").getTime();
+                                        scheduleChargeMutation.mutate({ paymentId: p.id, appointmentDate: ts });
+                                        setSchedulingPaymentId(null);
+                                      }}
+                                      disabled={scheduleChargeMutation.isPending}
+                                      className="text-xs px-2 py-1 bg-pink-600 text-white rounded hover:bg-pink-700 disabled:opacity-50"
+                                    >
+                                      Confirm
+                                    </button>
+                                    <button
+                                      onClick={() => setSchedulingPaymentId(null)}
+                                      className="text-xs px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
+                                    >
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <button
+                                  onClick={() => setSchedulingPaymentId(p.id)}
+                                  className="text-xs px-2 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 transition whitespace-nowrap"
+                                >
+                                  Schedule $149
+                                </button>
+                              )}
+                            </div>
+                          )}
+                          {p.scheduledChargePaymentCronTaskUid && (
+                            <span className="text-xs text-green-600 font-medium">✓ Scheduled</span>
+                          )}
+                          {p.status === "fully_paid" && (
+                            <span className="text-xs text-green-600">✓ Paid in full</span>
+                          )}
                         </td>
                       </tr>
                     ))}

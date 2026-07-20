@@ -65,6 +65,8 @@ export const payments = mysqlTable("payments", {
   status: mysqlEnum("status", ["deposit_paid", "fully_paid", "failed"]).default("deposit_paid").notNull(),
   /** Which landing page triggered this payment (e.g. 'hrt2') */
   landingPage: varchar("landingPage", { length: 64 }),
+  /** Heartbeat cron task UID for the scheduled $149 remaining charge */
+  scheduledChargePaymentCronTaskUid: varchar("scheduledChargePaymentCronTaskUid", { length: 65 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
