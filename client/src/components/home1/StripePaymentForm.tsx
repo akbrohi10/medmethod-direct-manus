@@ -75,6 +75,15 @@ function CheckoutForm({
       elements,
       confirmParams: {
         return_url: returnUrl,
+        // Required because we hide the country field in PaymentElement.
+        // Stripe requires us to supply any field we opted out of collecting.
+        payment_method_data: {
+          billing_details: {
+            address: {
+              country: "US",
+            },
+          },
+        },
       },
       redirect: "if_required",
     });
@@ -153,6 +162,8 @@ function CheckoutForm({
               layout: "tabs",
               fields: {
                 billingDetails: {
+                  // We default country to US server-side; hide it from the form
+                  // but MUST supply it in confirmParams.payment_method_data above
                   address: { country: "never", postalCode: "auto" },
                 },
               },
