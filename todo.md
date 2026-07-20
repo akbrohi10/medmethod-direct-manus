@@ -36,3 +36,14 @@
 - [x] Build /admin/login page with email/password form
 - [x] Update AdminSettings to accept super admin session (not just Manus OAuth admin)
 - [x] Run tests and save checkpoint
+
+## Brand Ambassador Page Design Refinements
+
+- [x] Global: subtle dot-grid or gradient texture on #F9F9F9 sections, 80-100px section padding, body text #444444
+- [x] Hero: gradient orbs (pink bottom-right, purple top-left), stat badges row, larger H1
+- [x] Why Join Cards: copy update card 2, box shadows, icon tint, hover glow border, eyebrow label
+- [x] How It Works: copy update step 3, thicker gradient line (3px), sub-labels per step, gradient wash background
+- [x] Ambassador Guidelines: decorative gradient bar left of paragraph, gradient checkmarks, card container around checklist
+- [x] FAQ: copy updates (2 items), left border accent on open item, animated chevron, row spacing
+- [x] Closing CTA Banner: diagonal gradient, white button with purple text + shadow, abstract white circle shape
+- [x] Ready to Apply form: MMD logo lockup, subtext above form, styled inputs, gradient submit button
