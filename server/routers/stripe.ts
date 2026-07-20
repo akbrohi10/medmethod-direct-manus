@@ -171,7 +171,7 @@ export const stripeRouter = router({
         },
       });
 
-      // Save the payment record to our DB
+      // Save the payment record to our DB with status 'pending' until Stripe confirms
       const paymentId = await createPayment({
         patientName: input.patientName,
         patientEmail: input.patientEmail,
@@ -180,7 +180,7 @@ export const stripeRouter = router({
         remainingAmount: 14900,
         stripeCustomerId: customer.id,
         depositPaymentIntentId: paymentIntent.id,
-        status: "deposit_paid",
+        status: "pending",
         landingPage: input.landingPage ?? "hrt2",
       });
 

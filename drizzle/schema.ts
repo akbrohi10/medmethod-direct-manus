@@ -62,7 +62,7 @@ export const payments = mysqlTable("payments", {
   stripePaymentMethodId: varchar("stripePaymentMethodId", { length: 64 }),
   depositPaymentIntentId: varchar("depositPaymentIntentId", { length: 64 }),
   scheduledChargePaymentIntentId: varchar("scheduledChargePaymentIntentId", { length: 64 }),
-  status: mysqlEnum("status", ["deposit_paid", "fully_paid", "failed"]).default("deposit_paid").notNull(),
+  status: mysqlEnum("status", ["pending", "deposit_paid", "fully_paid", "failed"]).default("pending").notNull(),
   /** Which landing page triggered this payment (e.g. 'hrt2') */
   landingPage: varchar("landingPage", { length: 64 }),
   /** Heartbeat cron task UID for the scheduled $149 remaining charge */

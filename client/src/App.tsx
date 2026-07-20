@@ -29,6 +29,7 @@ const BeforeYouStartTreatment = lazy(() => import("@/pages/BeforeYouStartTreatme
 const Locations = lazy(() => import("@/pages/Locations"));
 const AdminSettings = lazy(() => import("@/pages/AdminSettings"));
 const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
+const ThanksPayment = lazy(() => import("@/pages/ThanksPayment"));
 
 // Legal pages
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
@@ -314,6 +315,7 @@ function Router() {
         <Route path="/privacy">{() => { window.location.href = "/privacy-policy"; return null; }}</Route>
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/settings" component={AdminSettings} />
+        <Route path="/thanks-payment" component={ThanksPayment} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>

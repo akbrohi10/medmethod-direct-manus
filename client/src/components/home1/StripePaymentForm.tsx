@@ -66,13 +66,21 @@ function CheckoutForm({
       return;
     }
 
-    // Confirm the payment with Stripe
+    // Confirm the payment with Stripe.
+    // return_url is required for 3D Secure / bank redirect flows.
+    // We pass the thanks page URL so Stripe can redirect back after auth.
+    const returnUrl = `${window.location.origin}/thanks-payment?paymentId=${paymentId}`;
+
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
+      confirmParams: {
+        return_url: returnUrl,
+      },
       redirect: "if_required",
     });
 
     if (error) {
+      // error.type === 'card_error' or 'validation_error' means the card was declined
       onError(error.message ?? "Payment failed. Please try again.");
       setSubmitting(false);
       return;
@@ -84,6 +92,9 @@ function CheckoutForm({
         paymentId,
         paymentIntentId: paymentIntent.id,
       });
+    } else if (paymentIntent?.status === "requires_action") {
+      // 3DS redirect is happening — Stripe will redirect to return_url automatically
+      // Nothing to do here; the page will reload at /thanks-payment after auth
     } else {
       onError("Payment was not completed. Please try again.");
       setSubmitting(false);
