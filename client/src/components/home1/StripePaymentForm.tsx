@@ -174,7 +174,7 @@ function CheckoutForm({
 
       {/* Consent text */}
       <p className="text-xs text-gray-500 leading-relaxed">
-        By providing your card information, you authorize MedMethod Direct to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. This is a 3-month care plan commitment ($199 first month + $99/mo for months 2 & 3). You may cancel or reschedule with at least 24 hours' notice for a full refund of the deposit.
+        By providing your card information, you authorize MedMethod Direct to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. You may cancel or reschedule with at least 24 hours' notice for a full refund of the deposit.
       </p>
 
       {/* Submit button */}

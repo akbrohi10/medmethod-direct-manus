@@ -999,7 +999,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
                 Secure your appointment with a small deposit
               </h2>
               <p className="text-sm text-gray-500 mb-6">
-                We only charge $50 today to hold your spot. The remaining $149 is due the day of your appointment — and you can cancel anytime with 24-hour notice. This is a 3-month care plan commitment.
+                We only charge $50 today to hold your spot. The remaining $149 is due the day of your appointment — and you can cancel anytime with 24-hour notice.
               </p>
               <StripePaymentForm
                 patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
