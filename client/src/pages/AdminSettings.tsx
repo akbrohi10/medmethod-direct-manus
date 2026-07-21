@@ -122,16 +122,28 @@ export default function AdminSettings() {
   // Schedule remaining charge mutation (admin can manually trigger for a payment)
   const scheduleChargeMutation = trpc.stripe.scheduleRemainingCharge.useMutation({
     onSuccess: () => {
-      toast.success("Scheduled $149 charge created successfully!");
+      toast.success("\u2713 Scheduled! $149 will be charged on the appointment date.");
       paymentsQuery.refetch();
     },
     onError: (err) => {
-      toast.error(`Failed to schedule charge: ${err.message}`);
+      toast.error(`Schedule failed: ${err.message}`);
+    },
+  });
+
+  // Charge now mutation (admin immediately charges $149)
+  const chargeNowMutation = trpc.stripe.chargeNow.useMutation({
+    onSuccess: () => {
+      toast.success("\u2713 $149 charged successfully! Payment marked as fully paid.");
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Charge failed: ${err.message}`);
     },
   });
 
   const [schedulingPaymentId, setSchedulingPaymentId] = useState<number | null>(null);
   const [apptDateInputs, setApptDateInputs] = useState<Record<number, string>>({});
+  const [chargeNowConfirmId, setChargeNowConfirmId] = useState<number | null>(null);
 
   // Update settings mutation
   const updateMutation = trpc.stripe.updateSettings.useMutation({
@@ -522,10 +534,24 @@ export default function AdminSettings() {
                           {new Date(p.createdAt).toLocaleString()}
                         </td>
                         <td className="px-4 py-3">
-                          {p.status === "deposit_paid" && !p.scheduledChargePaymentCronTaskUid && (
-                            <div className="flex flex-col gap-1.5">
+                          {/* ── Fully paid ── */}
+                          {p.status === "fully_paid" && (
+                            <span className="text-xs text-green-600 font-medium">✓ Paid in full</span>
+                          )}
+
+                          {/* ── Scheduled (cron set) ── */}
+                          {p.status !== "fully_paid" && p.scheduledChargePaymentCronTaskUid && !p.scheduledChargePaymentCronTaskUid.startsWith("cancelled") && (
+                            <span className="text-xs text-blue-600 font-medium">✓ Scheduled</span>
+                          )}
+
+                          {/* ── deposit_paid, not yet scheduled ── */}
+                          {p.status === "deposit_paid" && (!p.scheduledChargePaymentCronTaskUid || p.scheduledChargePaymentCronTaskUid.startsWith("cancelled")) && (
+                            <div className="flex flex-col gap-2">
+
+                              {/* Schedule $149 section */}
                               {schedulingPaymentId === p.id ? (
-                                <>
+                                <div className="flex flex-col gap-1">
+                                  <label className="text-[10px] text-gray-500 font-medium">Appointment date</label>
                                   <input
                                     type="date"
                                     value={apptDateInputs[p.id] ?? ""}
@@ -542,9 +568,9 @@ export default function AdminSettings() {
                                         setSchedulingPaymentId(null);
                                       }}
                                       disabled={scheduleChargeMutation.isPending}
-                                      className="text-xs px-2 py-1 bg-pink-600 text-white rounded hover:bg-pink-700 disabled:opacity-50"
+                                      className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
                                     >
-                                      Confirm
+                                      {scheduleChargeMutation.isPending ? "Scheduling..." : "Confirm Schedule"}
                                     </button>
                                     <button
                                       onClick={() => setSchedulingPaymentId(null)}
@@ -553,7 +579,7 @@ export default function AdminSettings() {
                                       Cancel
                                     </button>
                                   </div>
-                                </>
+                                </div>
                               ) : (
                                 <button
                                   onClick={() => setSchedulingPaymentId(p.id)}
@@ -562,13 +588,43 @@ export default function AdminSettings() {
                                   Schedule $149
                                 </button>
                               )}
+
+                              {/* Divider */}
+                              <div className="border-t border-gray-100 pt-1">
+                                {/* Charge Now section */}
+                                {chargeNowConfirmId === p.id ? (
+                                  <div className="flex flex-col gap-1">
+                                    <p className="text-[10px] text-orange-700 font-semibold">Charge $149 now?</p>
+                                    <p className="text-[10px] text-gray-500">This will immediately charge the card on file. No future cron charge.</p>
+                                    <div className="flex gap-1">
+                                      <button
+                                        onClick={() => {
+                                          chargeNowMutation.mutate({ paymentId: p.id });
+                                          setChargeNowConfirmId(null);
+                                        }}
+                                        disabled={chargeNowMutation.isPending}
+                                        className="text-xs px-2 py-1 bg-orange-600 text-white rounded hover:bg-orange-700 disabled:opacity-50"
+                                      >
+                                        {chargeNowMutation.isPending ? "Charging..." : "Yes, Charge Now"}
+                                      </button>
+                                      <button
+                                        onClick={() => setChargeNowConfirmId(null)}
+                                        className="text-xs px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
+                                      >
+                                        Cancel
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => setChargeNowConfirmId(p.id)}
+                                    className="text-xs px-2 py-1 bg-orange-50 text-orange-700 border border-orange-200 rounded hover:bg-orange-100 transition whitespace-nowrap"
+                                  >
+                                    Charge $149 Now
+                                  </button>
+                                )}
+                              </div>
                             </div>
-                          )}
-                          {p.scheduledChargePaymentCronTaskUid && (
-                            <span className="text-xs text-green-600 font-medium">✓ Scheduled</span>
-                          )}
-                          {p.status === "fully_paid" && (
-                            <span className="text-xs text-green-600">✓ Paid in full</span>
                           )}
                         </td>
                       </tr>

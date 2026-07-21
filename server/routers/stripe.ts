@@ -284,8 +284,34 @@ export const stripeRouter = router({
       const stripe = await getStripeClientForMode(paymentStripeMode);
       if (!stripe) throw new Error(`Stripe not configured for ${paymentStripeMode} mode`);
 
-      if (!payment.stripeCustomerId || !payment.stripePaymentMethodId) {
-        throw new Error("Customer or payment method not found for this payment");
+      if (!payment.stripeCustomerId) {
+        throw new Error("No Stripe customer found for this payment. The patient may not have completed the payment form.");
+      }
+
+      // Auto-recover missing payment method from the original deposit PaymentIntent.
+      // This can happen if confirmDeposit was not called (e.g. 3DS redirect, network error).
+      let paymentMethodId = payment.stripePaymentMethodId;
+      if (!paymentMethodId && payment.depositPaymentIntentId) {
+        try {
+          const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
+          if (depositPi.status === "succeeded") {
+            const pmId = typeof depositPi.payment_method === "string"
+              ? depositPi.payment_method
+              : depositPi.payment_method?.id ?? null;
+            if (pmId) {
+              // Save it for future use
+              await updatePayment(input.paymentId, { stripePaymentMethodId: pmId, status: "deposit_paid" });
+              paymentMethodId = pmId;
+              console.log(`[ScheduleRemainingCharge] Recovered payment method ${pmId} for payment #${input.paymentId}`);
+            }
+          }
+        } catch (recoverErr) {
+          console.error("[ScheduleRemainingCharge] Failed to recover payment method:", recoverErr);
+        }
+      }
+
+      if (!paymentMethodId) {
+        throw new Error("No payment method found for this payment. The $50 deposit may not have been fully confirmed. Please check Stripe dashboard.");
       }
 
       // Create a $149 PaymentIntent in "requires_confirmation" state
@@ -294,7 +320,7 @@ export const stripeRouter = router({
         amount: 14900, // $149 in cents
         currency: "usd",
         customer: payment.stripeCustomerId,
-        payment_method: payment.stripePaymentMethodId,
+        payment_method: paymentMethodId,
         confirm: false, // Will be confirmed by cron on appointment date
         off_session: true,
         description: "MedMethod Direct — $149 remaining balance (HRT consultation)",
@@ -342,6 +368,100 @@ export const stripeRouter = router({
         success: true,
         scheduledPaymentIntentId: pi.id,
         cronTaskUid: taskUid,
+      };
+    }),
+
+  /**
+   * Admin: immediately charge the $149 remaining balance now (off-session).
+   * Also saves the appointment date if provided.
+   * After a successful charge, marks the payment as fully_paid and cancels
+   * any pending Heartbeat cron job so the patient is not double-charged.
+   */
+  chargeNow: superAdminOrAdminProcedure
+    .input(
+      z.object({
+        paymentId: z.number(),
+        appointmentDate: z.number().optional(), // UTC timestamp in ms (optional)
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payment = await getPaymentById(input.paymentId);
+      if (!payment) throw new Error("Payment record not found");
+
+      if (payment.status === "fully_paid") {
+        throw new Error("This payment has already been paid in full.");
+      }
+
+      if (!payment.stripeCustomerId) {
+        throw new Error("No Stripe customer found for this payment.");
+      }
+
+      const paymentStripeMode = payment.stripeMode ?? "test";
+      const stripe = await getStripeClientForMode(paymentStripeMode);
+      if (!stripe) throw new Error(`Stripe not configured for ${paymentStripeMode} mode`);
+
+      // Auto-recover missing payment method from the original deposit PaymentIntent
+      let paymentMethodId = payment.stripePaymentMethodId;
+      if (!paymentMethodId && payment.depositPaymentIntentId) {
+        try {
+          const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
+          if (depositPi.status === "succeeded") {
+            const pmId = typeof depositPi.payment_method === "string"
+              ? depositPi.payment_method
+              : depositPi.payment_method?.id ?? null;
+            if (pmId) {
+              await updatePayment(input.paymentId, { stripePaymentMethodId: pmId, status: "deposit_paid" });
+              paymentMethodId = pmId;
+              console.log(`[ChargeNow] Recovered payment method ${pmId} for payment #${input.paymentId}`);
+            }
+          }
+        } catch (recoverErr) {
+          console.error("[ChargeNow] Failed to recover payment method:", recoverErr);
+        }
+      }
+
+      if (!paymentMethodId) {
+        throw new Error("No payment method found. The $50 deposit may not have been fully confirmed. Check Stripe dashboard.");
+      }
+
+      // Create and immediately confirm a $149 PaymentIntent off-session
+      const pi = await stripe.paymentIntents.create({
+        amount: 14900,
+        currency: "usd",
+        customer: payment.stripeCustomerId,
+        payment_method: paymentMethodId,
+        confirm: true, // Charge immediately
+        off_session: true,
+        description: "MedMethod Direct — $149 remaining balance (HRT consultation, charged by admin)",
+        metadata: {
+          source: "medmethod-direct",
+          paymentId: String(input.paymentId),
+          patientName: payment.patientName ?? "",
+          patientEmail: payment.patientEmail ?? "",
+          triggeredBy: "admin_charge_now",
+        },
+      });
+
+      if (pi.status !== "succeeded") {
+        throw new Error(`Charge failed. Stripe status: ${pi.status}. Check Stripe dashboard for details.`);
+      }
+
+      // Save appointment date (if provided), mark fully paid, and clear the cron task
+      // so the Heartbeat job (if any) won't double-charge.
+      await updatePayment(input.paymentId, {
+        ...(input.appointmentDate ? { appointmentDate: input.appointmentDate } : {}),
+        status: "fully_paid",
+        // Clear the cron task UID so the admin UI shows 'Paid in full'
+        // and the scheduled handler skips this payment if it fires.
+        scheduledChargePaymentCronTaskUid: `cancelled-by-admin-${Date.now()}`,
+      });
+
+      console.log(`[ChargeNow] Payment #${input.paymentId} charged $149 immediately. PI: ${pi.id}`);
+
+      return {
+        success: true,
+        chargedPaymentIntentId: pi.id,
+        amount: 149,
       };
     }),
 
