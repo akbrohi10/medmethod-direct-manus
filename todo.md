@@ -75,3 +75,7 @@
 - [x] appointmentDate column already present in payments table (bigint, UTC ms)
 - [x] scheduleRemainingCharge updated: publicProcedure, status/double-schedule guards, empty session token for Heartbeat
 - [x] Run tests and save checkpoint (27 tests passing)
+
+## Dr. Al-Deek Booking Page
+
+- [x] Create dedicated booking page at /dr-aldeek-booking with doctor name + calendar embed

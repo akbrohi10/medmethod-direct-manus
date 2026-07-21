@@ -30,6 +30,7 @@ const Locations = lazy(() => import("@/pages/Locations"));
 const AdminSettings = lazy(() => import("@/pages/AdminSettings"));
 const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
 const ThanksPayment = lazy(() => import("@/pages/ThanksPayment"));
+const DrAldeekBooking = lazy(() => import("@/pages/DrAldeekBooking"));
 
 // Legal pages
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
@@ -294,6 +295,7 @@ function Router() {
         <Route path="/lp/hrt2" component={LpHrt2} />
         <Route path="/lp/glp1" component={LpGlp1} />
         <Route path="/brand-ambassador" component={BrandAmbassador} />
+        <Route path="/dr-aldeek-booking" component={DrAldeekBooking} />
         <Route path="/discovery-call" component={DiscoveryCall} />
         <Route path="/book">{() => { window.location.replace("/the-menopause-weight-loss-trap"); return null; }}</Route>
         <Route path="/the-menopause-weight-loss-trap" component={BookPage} />
