@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import StripePaymentForm from "./StripePaymentForm";
 import { trpc } from "@/lib/trpc";
 
-const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
+const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
 
 interface Props {
@@ -1033,7 +1033,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
 
               <div className="rounded-xl overflow-hidden border border-gray-100">
                 <iframe
-                  src="https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J"
+                  src={BOOKING_URL}
                   width="100%"
                   height="700"
                   frameBorder="0"
