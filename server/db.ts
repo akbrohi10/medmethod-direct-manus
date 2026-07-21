@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertPayment,
@@ -184,9 +184,9 @@ export async function getAllPayments(mode?: "test" | "live"): Promise<Payment[]>
       .select()
       .from(payments)
       .where(eq(payments.stripeMode, mode))
-      .orderBy(payments.createdAt);
+      .orderBy(desc(payments.createdAt));
   }
-  return db.select().from(payments).orderBy(payments.createdAt);
+  return db.select().from(payments).orderBy(desc(payments.createdAt));
 }
 
 // ─── Super Admin Credentials ─────────────────────────────────────────────────

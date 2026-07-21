@@ -163,6 +163,7 @@ export default function AdminSettings() {
   const [livePubKey, setLivePubKey] = useState("");
   const [liveSecKey, setLiveSecKey] = useState("");
   const [activeTab, setActiveTab] = useState<"settings" | "payments">("settings");
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Populate form from fetched settings
   useEffect(() => {
@@ -221,7 +222,15 @@ export default function AdminSettings() {
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
+  const RECORDS_PER_PAGE = 30;
+
   const payments = paymentsQuery.data ?? [];
+  const totalPages = Math.max(1, Math.ceil(payments.length / RECORDS_PER_PAGE));
+  const paginatedPayments = payments.slice(
+    (currentPage - 1) * RECORDS_PER_PAGE,
+    currentPage * RECORDS_PER_PAGE
+  );
+
   const totalRevenue = payments.reduce((sum, p) => {
     if (p.status === "deposit_paid") return sum + p.depositAmount;
     if (p.status === "fully_paid") return sum + p.depositAmount + p.remainingAmount;
@@ -501,6 +510,7 @@ export default function AdminSettings() {
                 </p>
               </div>
             ) : (
+              <>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -516,7 +526,7 @@ export default function AdminSettings() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {payments.map((p) => (
+                    {paginatedPayments.map((p) => (
                       <tr key={p.id} className="hover:bg-gray-50 transition">
                         <td className="px-4 py-3 font-medium text-gray-900">{p.patientName ?? "—"}</td>
                         <td className="px-4 py-3 text-gray-500">{p.patientEmail ?? "—"}</td>
@@ -632,6 +642,44 @@ export default function AdminSettings() {
                   </tbody>
                 </table>
               </div>
+              {/* Pagination footer */}
+              {totalPages > 1 && (
+                <div className="px-6 py-3 border-t border-gray-100 flex items-center justify-between">
+                  <span className="text-xs text-gray-400">
+                    Showing {(currentPage - 1) * RECORDS_PER_PAGE + 1}–{Math.min(currentPage * RECORDS_PER_PAGE, payments.length)} of {payments.length} payments
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                      className="px-2 py-1 text-xs rounded border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    >
+                      ← Prev
+                    </button>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`px-2.5 py-1 text-xs rounded border transition ${
+                          page === currentPage
+                            ? "bg-pink-600 text-white border-pink-600"
+                            : "border-gray-200 text-gray-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                      disabled={currentPage === totalPages}
+                      className="px-2 py-1 text-xs rounded border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
+              </>
             )}
           </div>
         )}
