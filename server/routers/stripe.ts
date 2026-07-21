@@ -171,7 +171,9 @@ export const stripeRouter = router({
         },
       });
 
-      // Save the payment record to our DB with status 'pending' until Stripe confirms
+      // Save the payment record to our DB with status 'pending' until Stripe confirms.
+      // Tag with the active Stripe mode so the admin dashboard can filter by environment.
+      const activeSettings = await getStripeSettings();
       const paymentId = await createPayment({
         patientName: input.patientName,
         patientEmail: input.patientEmail,
@@ -182,6 +184,7 @@ export const stripeRouter = router({
         depositPaymentIntentId: paymentIntent.id,
         status: "pending",
         landingPage: input.landingPage ?? "hrt2",
+        stripeMode: activeSettings?.mode ?? "test",
       });
 
       return {
@@ -313,9 +316,12 @@ export const stripeRouter = router({
     }),
 
   /**
-   * Admin: list all payment records.
+   * Admin: list all payment records, filtered by the currently active Stripe mode.
+   * Test mode shows only test payments; Live mode shows only real payments.
    */
   listPayments: superAdminOrAdminProcedure.query(async () => {
-    return getAllPayments();
+    const settings = await getStripeSettings();
+    const mode = settings?.mode ?? "test";
+    return getAllPayments(mode);
   }),
 });

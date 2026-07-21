@@ -264,7 +264,18 @@ export default function AdminSettings() {
               <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center">
                 <CreditCard size={18} className="text-blue-500" />
               </div>
-              <span className="text-sm text-gray-500 font-medium">Total Payments</span>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-500 font-medium">Total Payments</span>
+                {settingsQuery.data?.mode && (
+                  <span className={`text-xs font-semibold mt-0.5 ${
+                    settingsQuery.data.mode === "live"
+                      ? "text-green-600"
+                      : "text-amber-600"
+                  }`}>
+                    {settingsQuery.data.mode === "live" ? "🟢 Live" : "🧪 Test"} mode only
+                  </span>
+                )}
+              </div>
             </div>
             <p className="text-2xl font-bold text-gray-900">{payments.length}</p>
           </div>
@@ -273,7 +284,18 @@ export default function AdminSettings() {
               <div className="w-9 h-9 bg-green-50 rounded-lg flex items-center justify-center">
                 <DollarSign size={18} className="text-green-500" />
               </div>
-              <span className="text-sm text-gray-500 font-medium">Revenue Collected</span>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-500 font-medium">Revenue Collected</span>
+                {settingsQuery.data?.mode && (
+                  <span className={`text-xs font-semibold mt-0.5 ${
+                    settingsQuery.data.mode === "live"
+                      ? "text-green-600"
+                      : "text-amber-600"
+                  }`}>
+                    {settingsQuery.data.mode === "live" ? "Real payments" : "Test payments"}
+                  </span>
+                )}
+              </div>
             </div>
             <p className="text-2xl font-bold text-gray-900">
               ${(totalRevenue / 100).toFixed(2)}
@@ -281,13 +303,17 @@ export default function AdminSettings() {
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-9 h-9 bg-pink-50 rounded-lg flex items-center justify-center">
-                <CheckCircle size={18} className="text-pink-500" />
+              <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
+                settingsQuery.data?.mode === "live" ? "bg-green-50" : "bg-amber-50"
+              }`}>
+                <CheckCircle size={18} className={settingsQuery.data?.mode === "live" ? "text-green-500" : "text-amber-500"} />
               </div>
               <span className="text-sm text-gray-500 font-medium">Active Mode</span>
             </div>
-            <p className="text-2xl font-bold text-gray-900 capitalize">
-              {settingsQuery.data?.mode ?? "—"}
+            <p className={`text-2xl font-bold capitalize ${
+              settingsQuery.data?.mode === "live" ? "text-green-700" : "text-amber-700"
+            }`}>
+              {settingsQuery.data?.mode === "live" ? "🟢 Live" : settingsQuery.data?.mode === "test" ? "🧪 Test" : "—"}
             </p>
           </div>
         </div>

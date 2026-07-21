@@ -1,0 +1,1 @@
+ALTER TABLE `payments` ADD `stripeMode` enum('test','live') DEFAULT 'test' NOT NULL;

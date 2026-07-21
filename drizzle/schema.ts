@@ -67,6 +67,8 @@ export const payments = mysqlTable("payments", {
   landingPage: varchar("landingPage", { length: 64 }),
   /** Heartbeat cron task UID for the scheduled $149 remaining charge */
   scheduledChargePaymentCronTaskUid: varchar("scheduledChargePaymentCronTaskUid", { length: 65 }),
+  /** Which Stripe environment was used to create this payment (test or live) */
+  stripeMode: mysqlEnum("stripeMode", ["test", "live"]).default("test").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

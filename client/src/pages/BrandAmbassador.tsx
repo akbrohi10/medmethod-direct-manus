@@ -621,7 +621,7 @@ export default function BrandAmbassador() {
             >
               {/* Gradient top accent bar */}
               <div style={{ height: 4, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
-              <div style={{ padding: "40px 32px" }}>
+              <div style={{ padding: "40px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                   {[
                     "Public social media profile with an engaged, health-focused audience",

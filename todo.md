@@ -50,12 +50,20 @@
 
 ## Brand Ambassador Page — Final Visual Polish Pass
 
-- [ ] Global: force all paragraph/description text to #444444, reduce dot-grid opacity to 3%
-- [ ] Section 1 Hero: full-width gradient divider line between hero and Section 2, enlarge right orb
-- [ ] Section 2 Cards: 32px internal padding, 56px icon circles, watermark numbers (01/02/03) at 4% opacity, fix body text color
-- [ ] Section 3 How It Works: 4px gradient top border strip, fix italic sub-labels to #888780
-- [ ] Section 4 Guidelines: vertically center left column, 40px card padding, gradient top accent bar on checklist card
-- [ ] Section 5 FAQ: 20px top/bottom row padding, lavender #F8F0FF 40% background wash, purple #7A1E7E question text when expanded
-- [ ] Section 6 CTA Banner: second white circle (10% opacity) top-right, stronger button shadow 0 6px 20px rgba(0,0,0,0.25)
-- [ ] Section 7 Form: card container (white, 1px #E0E0E0 border, 16px radius, shadow), 4px gradient top bar, MMD logo lockup, subtext above first field, styled inputs, gradient submit button
-- [ ] Run tests and save checkpoint
+- [x] Global: force all paragraph/description text to #444444, reduce dot-grid opacity to 3%
+- [x] Section 1 Hero: full-width gradient divider line between hero and Section 2, enlarge right orb
+- [x] Section 2 Cards: 32px internal padding, 56px icon circles, watermark numbers (01/02/03) at 4% opacity, fix body text color
+- [x] Section 3 How It Works: 4px gradient top border strip, fix italic sub-labels to #888780
+- [x] Section 4 Guidelines: vertically center left column, 40px card padding, gradient top accent bar on checklist card
+- [x] Section 5 FAQ: 20px top/bottom row padding, lavender #F8F0FF 40% background wash, purple #7A1E7E question text when expanded
+- [x] Section 6 CTA Banner: second white circle (10% opacity) top-right, stronger button shadow 0 6px 20px rgba(0,0,0,0.25)
+- [x] Section 7 Form: card container (white, 1px #E0E0E0 border, 16px radius, shadow), 4px gradient top bar, MMD logo lockup, subtext above first field, styled inputs, gradient submit button
+- [x] Run tests and save checkpoint
+
+## Admin Dashboard — Mode-Filtered Stats
+
+- [x] Add `stripeMode` column to payments table (enum: test | live)
+- [x] Tag new payments with active mode at creation time in createDepositIntent
+- [x] Filter listPayments by active mode (only show payments for current mode)
+- [x] Filter stats cards (Total Payments, Revenue Collected) by active mode
+- [x] Run tests and save checkpoint

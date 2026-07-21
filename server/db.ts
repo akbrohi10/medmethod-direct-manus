@@ -174,11 +174,18 @@ export async function getPaymentById(id: number): Promise<Payment | null> {
 }
 
 /**
- * Get all payments (for admin dashboard).
+ * Get all payments (for admin dashboard), optionally filtered by Stripe mode.
  */
-export async function getAllPayments(): Promise<Payment[]> {
+export async function getAllPayments(mode?: "test" | "live"): Promise<Payment[]> {
   const db = await getDb();
   if (!db) return [];
+  if (mode) {
+    return db
+      .select()
+      .from(payments)
+      .where(eq(payments.stripeMode, mode))
+      .orderBy(payments.createdAt);
+  }
   return db.select().from(payments).orderBy(payments.createdAt);
 }
 
