@@ -288,30 +288,55 @@ export const stripeRouter = router({
         throw new Error("No Stripe customer found for this payment. The patient may not have completed the payment form.");
       }
 
-      // Auto-recover missing payment method from the original deposit PaymentIntent.
-      // This can happen if confirmDeposit was not called (e.g. 3DS redirect, network error).
+      // Auto-recover missing payment method.
+      // Strategy 1: retrieve from the original deposit PaymentIntent.
+      // Strategy 2: list the customer's saved payment methods.
       let paymentMethodId = payment.stripePaymentMethodId;
-      if (!paymentMethodId && payment.depositPaymentIntentId) {
-        try {
-          const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
-          if (depositPi.status === "succeeded") {
+      if (!paymentMethodId) {
+        // Strategy 1: retrieve from deposit PaymentIntent
+        if (payment.depositPaymentIntentId) {
+          try {
+            const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
+            console.log(`[Recovery] Deposit PI status: ${depositPi.status}, payment_method: ${JSON.stringify(depositPi.payment_method)}`);
             const pmId = typeof depositPi.payment_method === "string"
               ? depositPi.payment_method
-              : depositPi.payment_method?.id ?? null;
+              : (depositPi.payment_method as any)?.id ?? null;
             if (pmId) {
-              // Save it for future use
               await updatePayment(input.paymentId, { stripePaymentMethodId: pmId, status: "deposit_paid" });
               paymentMethodId = pmId;
-              console.log(`[ScheduleRemainingCharge] Recovered payment method ${pmId} for payment #${input.paymentId}`);
+              console.log(`[Recovery] Recovered PM ${pmId} from deposit PI for payment #${input.paymentId}`);
+            } else {
+              console.warn(`[Recovery] Deposit PI ${payment.depositPaymentIntentId} has no payment_method attached (status: ${depositPi.status})`);
             }
+          } catch (recoverErr: any) {
+            console.error(`[Recovery] Failed to retrieve deposit PI ${payment.depositPaymentIntentId}:`, recoverErr?.message ?? recoverErr);
           }
-        } catch (recoverErr) {
-          console.error("[ScheduleRemainingCharge] Failed to recover payment method:", recoverErr);
+        }
+
+        // Strategy 2: list the customer's saved payment methods
+        if (!paymentMethodId && payment.stripeCustomerId) {
+          try {
+            const pms = await stripe.paymentMethods.list({
+              customer: payment.stripeCustomerId,
+              type: "card",
+              limit: 1,
+            });
+            const pm = pms.data[0];
+            if (pm) {
+              await updatePayment(input.paymentId, { stripePaymentMethodId: pm.id, status: "deposit_paid" });
+              paymentMethodId = pm.id;
+              console.log(`[Recovery] Recovered PM ${pm.id} from customer PM list for payment #${input.paymentId}`);
+            } else {
+              console.warn(`[Recovery] Customer ${payment.stripeCustomerId} has no saved payment methods`);
+            }
+          } catch (listErr: any) {
+            console.error(`[Recovery] Failed to list PMs for customer ${payment.stripeCustomerId}:`, listErr?.message ?? listErr);
+          }
         }
       }
 
       if (!paymentMethodId) {
-        throw new Error("No payment method found for this payment. The $50 deposit may not have been fully confirmed. Please check Stripe dashboard.");
+        throw new Error("No payment method found. The patient's card could not be retrieved from Stripe. Please check the Stripe dashboard for this customer's payment methods.");
       }
 
       // Create a $149 PaymentIntent in "requires_confirmation" state
@@ -400,28 +425,55 @@ export const stripeRouter = router({
       const stripe = await getStripeClientForMode(paymentStripeMode);
       if (!stripe) throw new Error(`Stripe not configured for ${paymentStripeMode} mode`);
 
-      // Auto-recover missing payment method from the original deposit PaymentIntent
+      // Auto-recover missing payment method.
+      // Strategy 1: retrieve from the original deposit PaymentIntent.
+      // Strategy 2: list the customer's saved payment methods.
       let paymentMethodId = payment.stripePaymentMethodId;
-      if (!paymentMethodId && payment.depositPaymentIntentId) {
-        try {
-          const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
-          if (depositPi.status === "succeeded") {
+      if (!paymentMethodId) {
+        // Strategy 1: retrieve from deposit PaymentIntent
+        if (payment.depositPaymentIntentId) {
+          try {
+            const depositPi = await stripe.paymentIntents.retrieve(payment.depositPaymentIntentId);
+            console.log(`[ChargeNow Recovery] Deposit PI status: ${depositPi.status}, payment_method: ${JSON.stringify(depositPi.payment_method)}`);
             const pmId = typeof depositPi.payment_method === "string"
               ? depositPi.payment_method
-              : depositPi.payment_method?.id ?? null;
+              : (depositPi.payment_method as any)?.id ?? null;
             if (pmId) {
               await updatePayment(input.paymentId, { stripePaymentMethodId: pmId, status: "deposit_paid" });
               paymentMethodId = pmId;
-              console.log(`[ChargeNow] Recovered payment method ${pmId} for payment #${input.paymentId}`);
+              console.log(`[ChargeNow Recovery] Recovered PM ${pmId} from deposit PI for payment #${input.paymentId}`);
+            } else {
+              console.warn(`[ChargeNow Recovery] Deposit PI has no payment_method attached (status: ${depositPi.status})`);
             }
+          } catch (recoverErr: any) {
+            console.error(`[ChargeNow Recovery] Failed to retrieve deposit PI:`, recoverErr?.message ?? recoverErr);
           }
-        } catch (recoverErr) {
-          console.error("[ChargeNow] Failed to recover payment method:", recoverErr);
+        }
+
+        // Strategy 2: list the customer's saved payment methods
+        if (!paymentMethodId && payment.stripeCustomerId) {
+          try {
+            const pms = await stripe.paymentMethods.list({
+              customer: payment.stripeCustomerId,
+              type: "card",
+              limit: 1,
+            });
+            const pm = pms.data[0];
+            if (pm) {
+              await updatePayment(input.paymentId, { stripePaymentMethodId: pm.id, status: "deposit_paid" });
+              paymentMethodId = pm.id;
+              console.log(`[ChargeNow Recovery] Recovered PM ${pm.id} from customer PM list for payment #${input.paymentId}`);
+            } else {
+              console.warn(`[ChargeNow Recovery] Customer ${payment.stripeCustomerId} has no saved payment methods`);
+            }
+          } catch (listErr: any) {
+            console.error(`[ChargeNow Recovery] Failed to list PMs for customer:`, listErr?.message ?? listErr);
+          }
         }
       }
 
       if (!paymentMethodId) {
-        throw new Error("No payment method found. The $50 deposit may not have been fully confirmed. Check Stripe dashboard.");
+        throw new Error("No payment method found. The patient's card could not be retrieved from Stripe. Please check the Stripe dashboard for this customer's payment methods.");
       }
 
       // Create and immediately confirm a $149 PaymentIntent off-session
