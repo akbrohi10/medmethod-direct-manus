@@ -15,8 +15,6 @@
 
 import Stripe from "stripe";
 import { z } from "zod";
-import { parse as parseCookie } from "cookie";
-import { COOKIE_NAME } from "@shared/const";
 import {
   createPayment,
   getAllPayments,
@@ -25,7 +23,7 @@ import {
   updatePayment,
   upsertStripeSettings,
 } from "../db";
-import { adminProcedure, publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
 import { createHeartbeatJob } from "../_core/heartbeat";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -39,6 +37,21 @@ async function getStripeClient(): Promise<Stripe | null> {
       ? settings.liveSecretKey
       : settings.testSecretKey;
 
+  if (!secretKey) return null;
+
+  return new Stripe(secretKey, { apiVersion: "2026-06-24.dahlia" });
+}
+
+/**
+ * Get a Stripe client for a specific mode (test or live).
+ * Used when we need to charge using the same mode the payment was created in,
+ * regardless of the current global mode setting.
+ */
+async function getStripeClientForMode(mode: "test" | "live"): Promise<Stripe | null> {
+  const settings = await getStripeSettings();
+  if (!settings) return null;
+
+  const secretKey = mode === "live" ? settings.liveSecretKey : settings.testSecretKey;
   if (!secretKey) return null;
 
   return new Stripe(secretKey, { apiVersion: "2026-06-24.dahlia" });
@@ -237,20 +250,39 @@ export const stripeRouter = router({
    *
    * The cron fires at 09:00 UTC on the appointment date.
    * The callback at /api/scheduled/charge-remaining handles the actual charge.
+   *
+   * This is a publicProcedure because it is called from the frontend after
+   * the patient books their appointment in the GHL calendar iframe (Option B).
+   * The paymentId is validated against the DB to ensure it exists and belongs
+   * to a real deposit_paid payment before scheduling.
    */
-  scheduleRemainingCharge: superAdminOrAdminProcedure
+  scheduleRemainingCharge: publicProcedure
     .input(
       z.object({
         paymentId: z.number(),
         appointmentDate: z.number(), // UTC timestamp in ms
       })
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ input }) => {
       const payment = await getPaymentById(input.paymentId);
       if (!payment) throw new Error("Payment record not found");
 
-      const stripe = await getStripeClient();
-      if (!stripe) throw new Error("Stripe not configured");
+      // Guard: only allow scheduling for payments that are in deposit_paid status
+      if (payment.status !== "deposit_paid") {
+        throw new Error(`Payment #${input.paymentId} is not in deposit_paid status (status: ${payment.status})`);
+      }
+
+      // Guard: prevent double-scheduling
+      if (payment.appointmentDate) {
+        throw new Error(`Payment #${input.paymentId} already has an appointment scheduled`);
+      }
+
+      // Use the Stripe mode that was active when the payment was created.
+      // This ensures we charge in the correct environment even if the admin
+      // has since switched between test and live mode.
+      const paymentStripeMode = payment.stripeMode ?? "test";
+      const stripe = await getStripeClientForMode(paymentStripeMode);
+      if (!stripe) throw new Error(`Stripe not configured for ${paymentStripeMode} mode`);
 
       if (!payment.stripeCustomerId || !payment.stripePaymentMethodId) {
         throw new Error("Customer or payment method not found for this payment");
@@ -279,10 +311,8 @@ export const stripeRouter = router({
       const apptDate = new Date(input.appointmentDate);
       const cronExpr = `0 0 9 ${apptDate.getUTCDate()} ${apptDate.getUTCMonth() + 1} *`;
 
-      // Get the session token for Heartbeat authentication
-      const sessionToken = parseCookie(ctx.req.headers.cookie ?? "")[COOKIE_NAME] ?? "";
-
       // Create the Heartbeat cron job
+      // Empty session token = use project owner identity for Heartbeat authentication
       let taskUid: string | null = null;
       try {
         const job = await createHeartbeatJob(
@@ -293,7 +323,7 @@ export const stripeRouter = router({
             method: "POST",
             description: `Charge $149 remaining for patient ${payment.patientName ?? ""} (payment #${input.paymentId})`,
           },
-          sessionToken
+          "" // Empty = use project owner identity
         );
         taskUid = job.taskUid;
       } catch (heartbeatErr) {

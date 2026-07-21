@@ -9,6 +9,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { chargeRemainingHandler } from "../scheduledChargeHandler";
+import { ghlBookingWebhookHandler } from "../ghlWebhookHandler";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -39,6 +40,11 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Scheduled cron endpoints — MUST be registered before tRPC and Vite fallthrough
   app.post("/api/scheduled/charge-remaining", chargeRemainingHandler);
+  // GHL booking webhook — fires when a patient books an appointment in the GHL calendar
+  // Setup: GHL → Settings → Integrations → Webhooks → Add Webhook
+  // URL: https://medmethoddirect.com/api/ghl/booking-confirmed
+  // Events: Appointment Created / Appointment Booked
+  app.post("/api/ghl/booking-confirmed", ghlBookingWebhookHandler);
   // tRPC API
   app.use(
     "/api/trpc",

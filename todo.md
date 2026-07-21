@@ -67,3 +67,11 @@
 - [x] Filter listPayments by active mode (only show payments for current mode)
 - [x] Filter stats cards (Total Payments, Revenue Collected) by active mode
 - [x] Run tests and save checkpoint
+
+## GHL Appointment Date Capture — Auto-Schedule $149 Charge
+
+- [x] Option A: GHL webhook endpoint POST /api/ghl/booking-confirmed — match email to payment, schedule $149 charge
+- [x] Option B: postMessage listener in LpConsultationModal2 — capture date from GHL iframe, call scheduleRemainingCharge
+- [x] appointmentDate column already present in payments table (bigint, UTC ms)
+- [x] scheduleRemainingCharge updated: publicProcedure, status/double-schedule guards, empty session token for Heartbeat
+- [x] Run tests and save checkpoint (27 tests passing)

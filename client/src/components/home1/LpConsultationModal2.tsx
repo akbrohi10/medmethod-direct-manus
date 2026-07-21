@@ -8,6 +8,7 @@ import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffe
 import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import StripePaymentForm from "./StripePaymentForm";
+import { trpc } from "@/lib/trpc";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Qxw3vN2dmBw9LSUQag8J";
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
@@ -326,7 +327,107 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
   const [consentAttempted, setConsentAttempted] = useState(false);
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
+  const [chargeScheduled, setChargeScheduled] = useState(false);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
+
+  // ── Option B: postMessage listener for GHL calendar iframe ──────────────────
+  // GHL fires a window.postMessage when the patient completes booking.
+  // We parse the appointment date and call scheduleRemainingCharge automatically.
+  const scheduleRemainingCharge = trpc.stripe.scheduleRemainingCharge.useMutation({
+    onSuccess: () => {
+      setChargeScheduled(true);
+      toast.success(
+        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        { duration: 6000 }
+      );
+    },
+    onError: (err) => {
+      console.error("[GHL postMessage] scheduleRemainingCharge failed:", err);
+      // Silent failure — Option A (GHL webhook) is the primary path
+    },
+  });
+
+  // CALENDAR_STEP = 9 (PAYMENT_STEP + 1 = 8 + 1)
+  const CALENDAR_STEP_VALUE = 9;
+
+  useEffect(() => {
+    if (step !== CALENDAR_STEP_VALUE) return;
+
+    const handleMessage = (event: MessageEvent) => {
+      // Only process messages from the GHL booking iframe domain
+      const allowedOrigins = [
+        "https://link.sendmeapro.com",
+        "https://app.gohighlevel.com",
+        "https://crm.gohighlevel.com",
+        "https://app.leadconnectorhq.com",
+      ];
+      if (!allowedOrigins.some((o) => event.origin.startsWith(o))) return;
+
+      try {
+        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        if (!data) return;
+
+        console.log("[GHL postMessage] Received:", data);
+
+        // GHL sends various event types — look for booking confirmation signals
+        const isBookingEvent =
+          data.type === "appointment_booked" ||
+          data.type === "booking_confirmed" ||
+          data.type === "appointmentBooked" ||
+          data.event === "appointment_booked" ||
+          data.event === "booking_confirmed" ||
+          data.action === "appointment_booked" ||
+          // GHL sometimes sends a generic 'formSubmit' or 'calendarBooked' event
+          data.type === "calendarBooked" ||
+          data.type === "formSubmit" ||
+          data.type === "APPOINTMENT_BOOKED";
+
+        if (!isBookingEvent) return;
+
+        // Extract appointment date/time from the message
+        const rawDate =
+          data.startTime ||
+          data.start_time ||
+          data.appointmentDate ||
+          data.appointment_date ||
+          data.date ||
+          data.selectedDate ||
+          data.appointment?.startTime ||
+          data.appointment?.start_time;
+
+        if (!rawDate) {
+          console.warn("[GHL postMessage] Booking event received but no date found", data);
+          return;
+        }
+
+        const appointmentDate = new Date(rawDate);
+        if (isNaN(appointmentDate.getTime())) {
+          console.warn("[GHL postMessage] Invalid date:", rawDate);
+          return;
+        }
+
+        const appointmentTimestamp = appointmentDate.getTime();
+
+        // Only schedule if we have a valid payment ID and haven't already scheduled
+        if (!stripePaymentId || chargeScheduled) return;
+
+        console.log(
+          `[GHL postMessage] Scheduling $149 charge for payment #${stripePaymentId} on ${appointmentDate.toISOString()}`
+        );
+
+        scheduleRemainingCharge.mutate({
+          paymentId: stripePaymentId,
+          appointmentDate: appointmentTimestamp,
+        });
+      } catch (err) {
+        console.error("[GHL postMessage] Parse error:", err);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, stripePaymentId, chargeScheduled]);
 
   // Scroll modal body to top whenever step changes
   useLayoutEffect(() => {
