@@ -227,7 +227,7 @@ export default function LpHrt() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Reserve Your Spot — $50 Deposit
+                Reserve Your Appt. — $50 Deposit
               </button>
               <p className="mt-3 text-sm text-gray-500 max-w-sm mx-auto md:mx-0">
                 $50 deposit today, $149 due at your visit — $199 total for Month 1.
@@ -557,7 +557,7 @@ export default function LpHrt() {
                   onClick={openConsult}
                   className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
-                  Reserve Your Spot — $50 Deposit
+                  Reserve Your Appt. — $50 Deposit
                 </button>
                 <p className="mt-3 text-sm text-gray-500">$50 deposit today, $149 due at your visit — $199 total for Month 1.</p>
                 <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
