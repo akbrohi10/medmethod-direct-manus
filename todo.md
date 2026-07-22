@@ -98,3 +98,10 @@
 - [x] FAQ: add "How much does medication cost?" entry
 - [x] Consistency check: all standalone "$50" mentions must be paired with deposit/total language
 - [x] Save checkpoint
+
+## New Landing Page /lp/hrt3
+
+- [x] Create client/src/pages/LpHrt3.tsx with MedicalTeam hero + hrt2 sections from "How HRT Works" onward
+- [x] Wire all CTAs to LpConsultationModal2 (same as /lp/hrt2)
+- [x] Register /lp/hrt3 route in App.tsx
+- [x] Save checkpoint

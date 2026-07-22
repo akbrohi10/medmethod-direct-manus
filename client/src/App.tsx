@@ -23,6 +23,7 @@ const ThankYou = lazy(() => import("@/pages/ThankYou"));
 const MedicationPricing = lazy(() => import("@/pages/MedicationPricing"));
 const LpHrt = lazy(() => import("@/pages/LpHrt"));
 const LpHrt2 = lazy(() => import("@/pages/LpHrt2"));
+const LpHrt3 = lazy(() => import("@/pages/LpHrt3"));
 const BrandAmbassador = lazy(() => import("@/pages/BrandAmbassador"));
 const LpGlp1 = lazy(() => import("@/pages/LpGlp1"));
 const BeforeYouStartTreatment = lazy(() => import("@/pages/BeforeYouStartTreatment"));
@@ -293,6 +294,7 @@ function Router() {
         <Route path="/texas/round-rock" component={LocationRoundRockTX} />
         <Route path="/lp/hrt" component={LpHrt} />
         <Route path="/lp/hrt2" component={LpHrt2} />
+        <Route path="/lp/hrt3" component={LpHrt3} />
         <Route path="/lp/glp1" component={LpGlp1} />
         <Route path="/brand-ambassador" component={BrandAmbassador} />
         <Route path="/dr-aldeek-booking" component={DrAldeekBooking} />
