@@ -114,7 +114,9 @@ const DEFAULT_EXPANDED = new Set(["Practice Focus", "Philosophy"]);
 
 export default function MedicalTeam({
   onConsultClick,
-}: { onConsultClick?: () => void } = {}) {
+  ctaLabel,
+  ctaMicrocopy,
+}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -459,9 +461,10 @@ export default function MedicalTeam({
                     boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
                   }}
                 >
-                  Schedule a Discovery Call
+                  {ctaLabel ?? "Schedule a Discovery Call"}
                 </button>
                 <div className="flex flex-col gap-1.5">
+                  {ctaMicrocopy ?? (
                   <p
                     className="text-[13px] leading-snug"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
@@ -470,6 +473,7 @@ export default function MedicalTeam({
                     {" \u00b7 "}
                     <span>No cost, no obligation</span>
                   </p>
+                  )}
                   <div
                     className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] font-medium"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}

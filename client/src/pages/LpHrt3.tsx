@@ -213,7 +213,25 @@ export default function LpHrt3() {
             we override here since we have a fixed 64px nav instead of
             the home-1 sticky nav + banner combo. */}
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
-          <MedicalTeam onConsultClick={openConsult} />
+          <MedicalTeam
+            onConsultClick={openConsult}
+            ctaLabel={
+              <span className="flex flex-col items-center leading-tight">
+                <span>Book Your 45-Min Appointment</span>
+                <span className="text-[11px] font-medium tracking-wide opacity-90 mt-0.5">$199 Month 1 · $50 due today</span>
+              </span>
+            }
+            ctaMicrocopy={
+              <p
+                className="text-[13px] leading-snug"
+                style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+              >
+                <span className="font-semibold text-[#7A1E7E]">45-minute physician consultation</span>
+                {" · "}
+                <span>$50 deposit today, $149 at your visit</span>
+              </p>
+            }
+          />
         </div>
 
         {/* ═══════════════ CONDITIONS CAROUSEL ═══════════════ */}
