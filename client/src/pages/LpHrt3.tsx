@@ -266,7 +266,7 @@ export default function LpHrt3() {
                     const el = document.getElementById('pricing-details');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="mt-3 text-[12px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80"
+                  className="mt-3 text-[12px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
                   style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
                 >
                   See full pricing details
@@ -290,8 +290,8 @@ export default function LpHrt3() {
                 Not only does HRT replenish estrogen and progesterone to bring you relief, but it helps protect your heart, bones and other organs from the side effects of estrogen deficiency.
               </p>
             </div>
-            {/* Carousel controls */}
-            <div className="flex justify-end gap-2 mb-4">
+            {/* Carousel controls — hidden on mobile (touch swipe works) */}
+            <div className="hidden sm:flex justify-end gap-2 mb-4">
               <button
                 onClick={() => scrollCarousel("left")}
                 className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
@@ -469,7 +469,7 @@ export default function LpHrt3() {
 
               {/* Total + CTA */}
               <div className="ml-3 sm:ml-4 pt-4 border-t border-gray-100">
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 mb-6">
                   <div className="flex flex-wrap gap-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1.5">
                       <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
@@ -562,7 +562,7 @@ export default function LpHrt3() {
                 How It Works
               </h2>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {STEPS.map((s) => (
                 <div key={s.num} className="text-center">
                   <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
@@ -714,7 +714,7 @@ export default function LpHrt3() {
       </div>
 
       {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
-      <div className="sm:hidden h-20" />
+      <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-20' : 'h-0'}`} />
     </>
   );
 }

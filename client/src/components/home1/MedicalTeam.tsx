@@ -450,7 +450,7 @@ export default function MedicalTeam({
               {/* Primary CTA + microcopy + reassurance row.
                   Mobile: button is full-width, microcopy + bullets stack underneath.
                   Desktop: button left, microcopy + bullets right. */}
-              <div id="hero-cta-sentinel" className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div id="hero-cta-sentinel" className="mt-6 flex flex-col gap-4">
                 <button
                   type="button"
                   onClick={onConsultClick}
