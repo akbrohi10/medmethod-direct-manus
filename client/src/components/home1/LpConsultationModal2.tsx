@@ -364,6 +364,9 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
       if (!allowedOrigins.some((o) => event.origin.startsWith(o))) return;
 
       try {
+        // Skip iFrameResizer internal messages (e.g. "[iFrameResizer]...") and
+        // any other non-JSON strings that come from the GHL iframe origin.
+        if (typeof event.data === "string" && !event.data.trim().startsWith("{")) return;
         const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
         if (!data) return;
 
