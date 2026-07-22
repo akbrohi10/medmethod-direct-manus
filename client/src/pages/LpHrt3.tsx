@@ -244,7 +244,20 @@ export default function LpHrt3() {
                     </div>
                   ))}
                 </div>
-
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById('pricing-details');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="mt-3 text-[12px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80"
+                  style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
+                >
+                  See full pricing details
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                    <path d="M6 2.5v7M3 7l3 3 3-3" stroke="#7A1E7E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
               </div>
             }
           />
@@ -339,7 +352,7 @@ export default function LpHrt3() {
         </section>
 
         {/* ═══════════════ PRICING ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-12 md:py-20">
+        <section id="pricing-details" className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
               Transparent Pricing
