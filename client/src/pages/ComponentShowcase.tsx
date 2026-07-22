@@ -960,20 +960,20 @@ export default function ComponentsShowcase() {
           <section className="space-y-4">
             <h3 className="text-2xl font-semibold">Accordion</h3>
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
+              <AccordionItem value="item-1" className="border-b border-gray-200">
                 <AccordionTrigger>Is it accessible?</AccordionTrigger>
                 <AccordionContent>
                   Yes. It adheres to the WAI-ARIA design pattern.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-2">
+              <AccordionItem value="item-2" className="border-b border-gray-200">
                 <AccordionTrigger>Is it styled?</AccordionTrigger>
                 <AccordionContent>
                   Yes. It comes with default styles that matches the other
                   components' aesthetic.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-3">
+              <AccordionItem value="item-3" className="border-b border-gray-200 last:border-b-0">
                 <AccordionTrigger>Is it animated?</AccordionTrigger>
                 <AccordionContent>
                   Yes. It's animated by default, but you can disable it if you

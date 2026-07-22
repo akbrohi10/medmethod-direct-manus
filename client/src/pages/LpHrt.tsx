@@ -382,7 +382,7 @@ export default function LpHrt() {
             </div>
             <Accordion type="single" collapsible className="w-full">
               {TREATMENTS.map((t, i) => (
-                <AccordionItem key={i} value={`treatment-${i}`} className="border-gray-200">
+                <AccordionItem key={i} value={`treatment-${i}`} className="border-b border-gray-200 last:border-b-0">
                   <AccordionTrigger className="text-base font-semibold text-gray-900 hover:no-underline py-5">
                     {t.title}
                   </AccordionTrigger>
