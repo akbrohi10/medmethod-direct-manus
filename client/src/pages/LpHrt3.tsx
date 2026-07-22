@@ -273,7 +273,7 @@ export default function LpHrt3() {
 
         {/* ═══════════════ PERSONALIZED TREATMENT ═══════════════ */}
         <section className="bg-white py-12 md:py-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Your Protocol
@@ -285,62 +285,18 @@ export default function LpHrt3() {
                 Every patient receives a treatment plan built around their unique labs, symptoms, and goals — not a one-size-fits-all protocol.
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-              {[
-                {
-                  title: "Safety First",
-                  desc: "Every treatment plan begins with a comprehensive health evaluation and lab work. We screen for contraindications and monitor your progress with regular check-ins and repeat labs.",
-                  icon: (
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Personalized Formulations",
-                  desc: "No two patients are alike. Your hormones, metabolism, and lifestyle inform a protocol built specifically for you — whether that's bioidentical estrogen, progesterone, testosterone, thyroid, or GLP-1 therapy.",
-                  icon: (
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Precise Dosing",
-                  desc: "We start conservatively and titrate based on your symptom response and lab values. Dosage adjustments happen in real-time through ongoing physician communication — not on a fixed schedule.",
-                  icon: (
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-                    </svg>
-                  ),
-                },
-                {
-                  title: "Ongoing Monitoring",
-                  desc: "Your care doesn't end at the prescription. We schedule follow-ups, track biomarkers, and adjust your protocol as your body responds — ensuring optimal outcomes long-term.",
-                  icon: (
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                  ),
-                },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="group bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 border border-gray-100 hover:border-pink-200 hover:shadow-md transition-all duration-200"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center mb-4 shadow-sm">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-['Nunito_Sans',sans-serif] text-lg font-bold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 text-[15px] leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
+            <Accordion type="single" collapsible className="w-full">
+              {TREATMENTS.map((t, i) => (
+                <AccordionItem key={i} value={`treatment-${i}`} className="border-gray-200">
+                  <AccordionTrigger className="text-base font-semibold text-gray-900 hover:no-underline py-5">
+                    {t.title}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 leading-relaxed text-[15px]">
+                    {t.desc}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
