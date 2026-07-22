@@ -212,7 +212,7 @@ export default function LpHrt3() {
           </a>
           <button
             onClick={openConsult}
-            className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-semibold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
+            className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-semibold text-sm px-5 py-2 rounded-full hover:opacity-90 transition-opacity whitespace-nowrap shrink-0"
           >
             Book Now
           </button>
