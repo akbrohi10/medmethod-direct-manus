@@ -79,3 +79,13 @@
 ## Dr. Al-Deek Booking Page
 
 - [x] Create dedicated booking page at /dr-aldeek-booking with doctor name + calendar embed
+
+## Crawler-Detection Middleware for Social Media Link Previews
+
+- [x] Create server/crawlerMiddleware.ts with bot user-agent detection (Facebook, Twitter, WhatsApp, iMessage, LinkedIn, Telegram, Slack, Discord)
+- [x] Define per-route OG meta map (/, /dr-aldeek-booking, /lp/hrt, /lp/hrt2, /lp/glp1, state pages)
+- [x] Return minimal HTML with correct OG/Twitter meta tags for detected bots
+- [x] Mount middleware in server/_core/index.ts before static file serving
+- [x] Write vitest tests for crawler middleware
+- [x] Verify no regressions (pnpm test)
+- [ ] Save checkpoint

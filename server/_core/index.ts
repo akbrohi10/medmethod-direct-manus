@@ -10,6 +10,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { chargeRemainingHandler } from "../scheduledChargeHandler";
 import { ghlBookingWebhookHandler } from "../ghlWebhookHandler";
+import { crawlerMiddleware } from "../crawlerMiddleware";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -53,6 +54,10 @@ async function startServer() {
       createContext,
     })
   );
+  // Crawler detection middleware — serves minimal HTML with OG tags to social media bots
+  // Must be BEFORE Vite/static serving so bots get the meta tags, not the SPA shell
+  app.use(crawlerMiddleware);
+
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);

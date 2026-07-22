@@ -36,6 +36,16 @@ export default function DrAldeekBooking() {
           name="description"
           content="Schedule your appointment with Dr. Jumana Al-Deek, DO — Board-Certified Physician specializing in hormone therapy, menopause care, and medical weight loss. 100% virtual."
         />
+        <meta property="og:title" content="Book with Dr. Jumana Al-Deek, DO | MedMethod Direct" />
+        <meta property="og:description" content="Schedule your virtual appointment with Dr. Jumana Al-Deek, DO — Board-Certified Physician specializing in hormone therapy, menopause care, and medical weight loss." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://medmethoddirect.com/dr-aldeek-booking" />
+        <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-hero-single-face-v1_ad2544a9.jpg" />
+        <meta property="og:site_name" content="MedMethod Direct" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Book with Dr. Jumana Al-Deek, DO | MedMethod Direct" />
+        <meta name="twitter:description" content="Schedule your virtual appointment with Dr. Jumana Al-Deek, DO — Board-Certified Physician specializing in hormone therapy, menopause care, and medical weight loss." />
+        <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-hero-single-face-v1_ad2544a9.jpg" />
       </Helmet>
 
       {/* Header */}
