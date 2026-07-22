@@ -643,6 +643,29 @@ export default function LpHrt3() {
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
       />
+
+      {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
+      {/* Visible on mobile only — fixed to bottom of screen, follows scroll */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-[env(safe-area-inset-bottom,12px)] pt-3 bg-white/95 backdrop-blur-sm border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        <button
+          onClick={openConsult}
+          className="w-full flex flex-col items-center justify-center gap-0.5 py-3.5 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+          style={{
+            background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+            boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
+          }}
+        >
+          <span className="text-[15px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Book Your 45-Min Appt.
+          </span>
+          <span className="text-[11px] font-medium opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            $199 Month 1 &middot; $50 Due Today
+          </span>
+        </button>
+      </div>
+
+      {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
+      <div className="sm:hidden h-20" />
     </>
   );
 }
