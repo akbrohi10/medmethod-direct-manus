@@ -42,6 +42,12 @@ interface GHLWebhookPayload {
     contactEmail?: string;
     email?: string;
   };
+  // GHL nests appointment data inside "calendar" object
+  calendar?: {
+    startTime?: string;
+    appointmentId?: string;
+    status?: string;
+  };
   // GHL sometimes sends snake_case
   start_time?: string;
   contact_email?: string;
@@ -65,6 +71,7 @@ export function extractStartTime(payload: GHLWebhookPayload): string | null {
   return (
     payload.startTime ||
     payload.start_time ||
+    payload.calendar?.startTime ||
     payload.appointment?.startTime ||
     null
   );
