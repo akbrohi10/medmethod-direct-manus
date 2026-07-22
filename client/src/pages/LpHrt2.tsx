@@ -391,10 +391,14 @@ export default function LpHrt() {
                 Every patient receives a treatment plan built around their unique labs, symptoms, and goals — not a one-size-fits-all protocol.
               </p>
             </div>
-            <Accordion type="single" collapsible className="w-full divide-y divide-gray-100">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {TREATMENTS.map((t, i) => (
-                <AccordionItem key={i} value={`treatment-${i}`} className="border-none group">
-                  <AccordionTrigger className="text-base font-semibold text-[#7A1E7E] hover:no-underline py-5 [&>svg]:text-[#E8339E] [&>svg]:stroke-[#E8339E] group-data-[state=open]:border-l-[3px] group-data-[state=open]:border-[#E8339E] group-data-[state=open]:pl-3 transition-all duration-150">
+                <AccordionItem
+                  key={i}
+                  value={`treatment-${i}`}
+                  className="border border-gray-200 rounded-xl px-5 group data-[state=open]:border-[#E8339E] transition-colors duration-150"
+                >
+                  <AccordionTrigger className="text-base font-semibold text-[#7A1E7E] hover:no-underline py-5 [&>svg]:text-[#E8339E] [&>svg]:stroke-[#E8339E]">
                     {t.title}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-600 leading-relaxed text-[15px] pb-5">
