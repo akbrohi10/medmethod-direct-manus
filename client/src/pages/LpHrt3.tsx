@@ -658,7 +658,7 @@ export default function LpHrt3() {
           <span className="text-[15px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
             Book Your 45-Min Appt.
           </span>
-          <span className="text-[11px] font-medium opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
+          <span className="text-[13px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
             $199 Month 1 &middot; $50 Due Today
           </span>
         </button>
