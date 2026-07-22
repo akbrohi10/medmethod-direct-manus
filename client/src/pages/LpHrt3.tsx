@@ -491,7 +491,7 @@ export default function LpHrt3() {
                 </div>
                 <button
                   onClick={openConsult}
-                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all whitespace-nowrap"
+                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base w-full sm:w-auto px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                   Reserve Your Appt. — $50 Deposit
                 </button>
