@@ -215,21 +215,16 @@ export default function LpHrt3() {
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
           <MedicalTeam
             onConsultClick={openConsult}
-            ctaLabel={
-              <span className="flex flex-col items-center leading-tight">
-                <span>Book Your 45-Min Appt.</span>
-                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 Month 1 · $50 due today</span>
-              </span>
-            }
+            ctaLabel="Book Your 45-Min Appt."
             ctaMicrocopy={
-              <p
-                className="text-[13px] leading-snug"
-                style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
-              >
-                <span className="font-semibold text-[#7A1E7E]">45-minute physician consultation</span>
-                {" · "}
-                <span>$50 deposit today, $149 at your visit</span>
-              </p>
+              <div className="flex flex-col gap-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <p className="text-[14px] font-semibold" style={{ color: "#7A1E7E" }}>
+                  $199 Month 1 · $50 due today
+                </p>
+                <p className="text-[12px]" style={{ color: "#8a6070" }}>
+                  45-min physician consultation · $149 due at your visit
+                </p>
+              </div>
             }
           />
         </div>
