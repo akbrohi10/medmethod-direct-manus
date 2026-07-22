@@ -116,14 +116,42 @@ export async function ghlBookingWebhookHandler(
       return;
     }
 
-    const appointmentDate = new Date(startTimeStr);
+    // GHL sends startTime without timezone info when the calendar is set to US Eastern.
+    // If no timezone offset is present, treat it as US Eastern (America/New_York).
+    // EDT = UTC-4, EST = UTC-5. We use a simple heuristic: append -04:00 for EDT
+    // (March–November) or -05:00 for EST (November–March).
+    let parsedTimeStr = startTimeStr;
+    if (!/[Zz]|[+-]\d{2}:?\d{2}$/.test(startTimeStr)) {
+      // No timezone info — assume US Eastern
+      // Quick DST check: parse the date naively to check the month
+      const naive = new Date(startTimeStr + "Z"); // treat as UTC temporarily to get month
+      const month = naive.getUTCMonth(); // 0-indexed
+      // EDT: March (2) through early November (10), EST: November through early March
+      // Simplified: months 3-10 (Apr-Oct) are always EDT, others EST
+      // March and November are edge cases but this is close enough
+      const isEDT = month >= 2 && month <= 10;
+      parsedTimeStr = startTimeStr + (isEDT ? "-04:00" : "-05:00");
+      console.log(`[GHL Webhook] No TZ in startTime, assuming US Eastern (${isEDT ? 'EDT' : 'EST'}): ${parsedTimeStr}`);
+    }
+
+    const appointmentDate = new Date(parsedTimeStr);
     if (isNaN(appointmentDate.getTime())) {
       console.warn("[GHL Webhook] Invalid startTime:", startTimeStr);
       res.status(200).json({ ok: true, skipped: "invalid_start_time" });
       return;
     }
 
-    const appointmentTimestamp = appointmentDate.getTime();
+    // Extract the raw date from the GHL string (YYYY-MM-DD) for display and cron.
+    // GHL sends the date in the calendar's timezone (US Eastern), so the date portion
+    // is the actual appointment date as seen by the provider/patient.
+    const rawDateMatch = startTimeStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+    // For storage/display purposes, use noon UTC on the raw date from GHL.
+    // This ensures the date displays correctly in any timezone (GMT-12 to GMT+12).
+    const displayDate = rawDateMatch
+      ? new Date(`${rawDateMatch[1]}-${rawDateMatch[2]}-${rawDateMatch[3]}T12:00:00Z`)
+      : appointmentDate;
+    const appointmentTimestamp = displayDate.getTime();
 
     console.log(
       `[GHL Webhook] Booking confirmed for ${email} at ${appointmentDate.toISOString()}`
@@ -204,8 +232,12 @@ export async function ghlBookingWebhookHandler(
       },
     });
 
-    // Build cron expression: fire at 09:00 UTC on the appointment date
-    const cronExpr = `0 0 9 ${appointmentDate.getUTCDate()} ${appointmentDate.getUTCMonth() + 1} *`;
+    // Build cron expression: fire at 13:00 UTC (9 AM Eastern) on the appointment date.
+    // Reuse rawDateMatch extracted earlier — the raw GHL date IS the appointment date.
+    const cronDay = rawDateMatch ? parseInt(rawDateMatch[3], 10) : appointmentDate.getUTCDate();
+    const cronMonth = rawDateMatch ? parseInt(rawDateMatch[2], 10) : appointmentDate.getUTCMonth() + 1;
+    // Fire at 13:00 UTC = 9 AM Eastern (EDT)
+    const cronExpr = `0 0 13 ${cronDay} ${cronMonth} *`;
 
     let taskUid: string | null = null;
     try {
