@@ -460,9 +460,14 @@ export default function LpHrt3() {
             </div>
 
             {/* À la carte note */}
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center space-y-3">
               <p className="text-base text-gray-500">
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
+              </p>
+              <p className="text-sm text-gray-500 border-t border-gray-100 pt-3">
+                After your 3-month plan, keep your physician access active at{" "}
+                <span className="font-semibold text-[#7A1E7E]">$99/mo</span>{" "}
+                — cancel anytime with 30 days notice.
               </p>
             </div>
           </div>
