@@ -218,7 +218,7 @@ export default function LpHrt3() {
             ctaLabel={
               <span className="flex flex-col items-center leading-tight">
                 <span>Book Your 45-Min Appt.</span>
-                <span className="text-[11px] font-medium tracking-wide opacity-90 mt-0.5">$199 Month 1 · $50 due today</span>
+                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 Month 1 · $50 due today</span>
               </span>
             }
             ctaMicrocopy={
