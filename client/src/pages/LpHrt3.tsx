@@ -5,7 +5,7 @@
          Therapy Works" (conditions carousel onward)
    Modal: LpConsultationModal2 (intake + Stripe deposit)
    ============================================================================= */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import MedicalTeam from "@/components/home1/MedicalTeam";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
@@ -166,6 +166,20 @@ const TREATMENTS = [
 export default function LpHrt3() {
   const [consultOpen, setConsultOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [heroCTAVisible, setHeroCTAVisible] = useState(true);
+
+  // Hide sticky mobile CTA while the hero button is still on screen;
+  // show it only once the hero button has scrolled out of view.
+  useEffect(() => {
+    const el = document.getElementById('hero-cta-sentinel');
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroCTAVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const openConsult = () => setConsultOpen(true);
 
@@ -675,7 +689,11 @@ export default function LpHrt3() {
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
       {/* Visible on mobile only — fixed to bottom of screen, follows scroll */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-[env(safe-area-inset-bottom,12px)] pt-3 bg-white/95 backdrop-blur-sm border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+      <div
+        className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-[env(safe-area-inset-bottom,12px)] pt-3 bg-white/95 backdrop-blur-sm border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${heroCTAVisible ? 'translate-y-full' : 'translate-y-0'}`}
+        style={{ pointerEvents: heroCTAVisible ? 'none' : 'auto' }}
+        aria-hidden={heroCTAVisible}
+      >
         <button
           onClick={openConsult}
           className="w-full flex flex-col items-center justify-center gap-0.5 py-3.5 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
