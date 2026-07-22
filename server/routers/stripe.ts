@@ -347,7 +347,6 @@ export const stripeRouter = router({
         customer: payment.stripeCustomerId,
         payment_method: paymentMethodId,
         confirm: false, // Will be confirmed by cron on appointment date
-        off_session: true,
         description: "MedMethod Direct — $149 remaining balance (HRT consultation)",
         metadata: {
           source: "medmethod-direct",

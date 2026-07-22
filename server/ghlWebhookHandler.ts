@@ -185,14 +185,13 @@ export async function ghlBookingWebhookHandler(
       return;
     }
 
-    // Create the $149 PaymentIntent (off-session, to be confirmed by cron)
+    // Create the $149 PaymentIntent (to be confirmed by cron on appointment day)
     const pi = await stripe.paymentIntents.create({
       amount: 14900,
       currency: "usd",
       customer: matchingPayment.stripeCustomerId,
       payment_method: matchingPayment.stripePaymentMethodId,
       confirm: false,
-      off_session: true,
       description: "MedMethod Direct — $149 remaining balance (HRT consultation)",
       metadata: {
         source: "medmethod-direct",
