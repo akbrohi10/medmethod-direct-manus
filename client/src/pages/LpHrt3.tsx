@@ -215,14 +215,36 @@ export default function LpHrt3() {
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
           <MedicalTeam
             onConsultClick={openConsult}
-            ctaLabel="Book Your 45-Min Appt."
+            ctaLabel={
+              <span className="flex flex-col items-center leading-tight">
+                <span>Book Your 45-Min Appt.</span>
+                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 Month 1 · $50 Due Today</span>
+              </span>
+            }
             ctaMicrocopy={
-              <div className="flex flex-col gap-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                <p className="text-[14px] font-semibold" style={{ color: "#7A1E7E" }}>
-                  $199 Month 1 · $50 due today
-                </p>
-                <p className="text-[12px]" style={{ color: "#8a6070" }}>
-                  45-min physician consultation · $149 due at your visit
+              <div style={{ fontFamily: "Montserrat, sans-serif" }}>
+                {/* 3-column pricing strip */}
+                <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
+                  {[
+                    { label: "Month 1", price: "$199", note: "$50 today" },
+                    { label: "Month 2", price: "$99", note: "continuation" },
+                    { label: "Month 3", price: "$99", note: "cancel anytime" },
+                  ].map((col, i) => (
+                    <div
+                      key={col.label}
+                      className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
+                      style={{
+                        borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none",
+                      }}
+                    >
+                      <span className="text-[10px] font-bold tracking-[0.08em] uppercase" style={{ color: "#9a6080" }}>{col.label}</span>
+                      <span className="text-[18px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
+                      <span className="text-[10px] mt-0.5" style={{ color: "#b08090" }}>{col.note}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-1.5 text-[11px]" style={{ color: "#b08090" }}>
+                  Medication billed separately · Cancel with 30 days notice
                 </p>
               </div>
             }
