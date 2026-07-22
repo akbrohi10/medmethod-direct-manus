@@ -240,7 +240,7 @@ export default function LpHrt3() {
                     >
                       <span className="text-[10px] font-bold tracking-[0.08em] uppercase" style={{ color: "#9a6080" }}>{col.label}</span>
                       <span className="text-[18px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
-                      <span className="text-[10px] mt-0.5" style={{ color: "#b08090" }}>{col.note}</span>
+                      <span className="text-[10px] mt-0.5 leading-tight" style={{ color: "#b08090", minHeight: "2.4em", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>{col.note}</span>
                     </div>
                   ))}
                 </div>
