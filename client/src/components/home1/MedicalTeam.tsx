@@ -116,7 +116,8 @@ export default function MedicalTeam({
   onConsultClick,
   ctaLabel,
   ctaMicrocopy,
-}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode } = {}) {
+  hideBullets,
+}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode; hideBullets?: boolean } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -474,6 +475,7 @@ export default function MedicalTeam({
                     <span>No cost, no obligation</span>
                   </p>
                   )}
+                  {!hideBullets && (
                   <div
                     className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] font-medium"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}
@@ -487,6 +489,7 @@ export default function MedicalTeam({
                       Same Doctor. Every Visit.
                     </span>
                   </div>
+                  )}
                 </div>
               </div>
 

@@ -215,6 +215,7 @@ export default function LpHrt3() {
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
           <MedicalTeam
             onConsultClick={openConsult}
+            hideBullets
             ctaLabel={
               <span className="flex flex-col items-center leading-tight">
                 <span>Book Your 45-Min Appt.</span>
@@ -243,9 +244,7 @@ export default function LpHrt3() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-1.5 text-[11px]" style={{ color: "#b08090" }}>
-                  Medication billed separately · Cancel with 30 days notice
-                </p>
+
               </div>
             }
           />
