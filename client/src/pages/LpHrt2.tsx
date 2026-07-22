@@ -563,8 +563,7 @@ export default function LpHrt() {
                 >
                   Reserve Your Appt. — $50 Deposit
                 </button>
-                <p className="mt-3 text-sm text-gray-500">$50 deposit today, $149 due at your visit — $199 total for Month 1.</p>
-                <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
+                <p className="mt-3 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 
