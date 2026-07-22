@@ -88,4 +88,13 @@
 - [x] Mount middleware in server/_core/index.ts before static file serving
 - [x] Write vitest tests for crawler middleware
 - [x] Verify no regressions (pnpm test)
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## /lp/hrt2 Pricing Copy Updates
+
+- [x] Hero CTA: change button text from "Start Your Plan — Only $50 Today" to "Reserve Your Spot — $50 Deposit" and add subtext "$50 deposit today, $149 due at your visit — $199 total for Month 1."
+- [x] Pricing card: add line under Month 1 $199 — "$199 total for Month 1 — $50 today to reserve your appointment, $149 due the day of your visit."
+- [x] Add medication cost disclosure near pricing table
+- [x] FAQ: add "How much does medication cost?" entry
+- [x] Consistency check: all standalone "$50" mentions must be paired with deposit/total language
+- [x] Save checkpoint

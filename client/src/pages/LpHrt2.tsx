@@ -136,6 +136,10 @@ const FAQS = [
     a: "MedMethod Direct is a membership-based practice. We do not bill insurance directly, but we provide superbills you can submit for potential reimbursement. Many patients find our pricing comparable to — or less than — specialist copays.",
   },
   {
+    q: "How much does medication cost?",
+    a: "Our program fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
+  },
+  {
     q: "What states are you licensed in?",
     a: "Dr. Al-Deek is licensed to practice in 17 states including Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, Texas, and more. Check our locations page for the full list.",
   },
@@ -223,8 +227,11 @@ export default function LpHrt() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Start Your Plan — Only $50 Today
+                Reserve Your Spot — $50 Deposit
               </button>
+              <p className="mt-3 text-sm text-gray-500 max-w-sm mx-auto md:mx-0">
+                $50 deposit today, $149 due at your visit — $199 total for Month 1.
+              </p>
               {/* Social proof */}
               <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-6 gap-y-2 text-sm text-gray-500 mx-auto md:mx-0 w-fit">
                 <span className="flex items-center gap-1.5">
@@ -411,6 +418,9 @@ export default function LpHrt() {
             <p className="text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12">
               No insurance. No middlemen. Just results.
             </p>
+            <p className="text-sm text-gray-500 max-w-xl mx-auto -mt-6 mb-8 sm:mb-12">
+              Pricing above covers physician care, monitoring, and prescribing. Medication cost is separate and will be discussed during your consultation — compounded options typically cost less than brand-name.
+            </p>
 
             {/* Unified Timeline Card */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 max-w-3xl mx-auto p-6 sm:p-10 text-left">
@@ -425,7 +435,7 @@ export default function LpHrt() {
                   <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 1</span>
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$199</span>
                 </div>
-                <p className="text-base text-gray-600 mb-4">Only <span className="font-bold text-gray-900">$50</span> today to reserve your appointment — remaining $149 due day of visit</p>
+                <p className="text-base text-gray-600 mb-1">$199 total for Month 1 — $50 today to reserve your appointment, $149 due the day of your visit.</p>
 
                 {/* Hero feature — Live Video Consultation */}
                 <div className="bg-gradient-to-r from-[#E8339E]/5 to-[#7A1E7E]/5 border border-[#E8339E]/20 rounded-xl p-4 mb-5">
@@ -547,9 +557,10 @@ export default function LpHrt() {
                   onClick={openConsult}
                   className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
-                  Start Your Plan — Only $50 Today
+                  Reserve Your Spot — $50 Deposit
                 </button>
-                <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
+                <p className="mt-3 text-sm text-gray-500">$50 deposit today, $149 due at your visit — $199 total for Month 1.</p>
+                <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 

@@ -198,7 +198,7 @@ function CheckoutForm({
         ) : (
           <>
             <Lock size={16} />
-            Reserve My Consultation — $50
+            Reserve My Consultation — $50 Deposit
           </>
         )}
       </button>

@@ -999,7 +999,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
                 Secure your appointment with a small deposit
               </h2>
               <p className="text-sm text-gray-500 mb-6">
-                We only charge $50 today to hold your spot. The remaining $149 is due the day of your appointment — and you can cancel anytime with 24-hour notice.
+                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining $149 is due the day of your appointment — <strong>$199 total for Month 1</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
               <StripePaymentForm
                 patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
@@ -1024,7 +1024,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
                 You're all set! Pick your time.
               </h2>
               <p className="text-sm text-gray-600 mb-2">
-                Your $50 deposit is confirmed. Choose a time below for your video consultation with Dr. Al-Deek.
+                Your <strong>$50 deposit</strong> is confirmed. Choose a time below for your video consultation with Dr. Al-Deek.
               </p>
               <p className="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
                 <Check size={14} className="text-green-600" />
