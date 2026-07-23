@@ -445,20 +445,20 @@ export default function LpHrt3() {
                 </div>
               </div>
 
-              {/* Month 3 */}
-              <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/10 ml-3 sm:ml-4">
+              {/* Month 2 Onward */}
+              <div className="relative pl-10 sm:pl-12 pb-8 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">3</span>
+                  <span className="text-white text-xs font-bold" style={{ fontSize: 11 }}>∞</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 3</span>
-                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2 Onward</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99<span className="text-lg font-semibold text-gray-500">/mo</span></span>
                 </div>
                 <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Fine-tuning your protocol for long-term results and sustainable health.
+                  Month-to-month — no long-term commitment. Stay as long as you’re seeing results, cancel anytime with 30 days’ notice.
                 </p>
                 <div className="space-y-2">
-                  {["Follow-up lab review", "Protocol refinement", "Transition to ongoing care plan"].map((item) => (
+                  {["Ongoing physician access", "Protocol adjustments as needed", "Cancel anytime with 30 days\u2019 notice"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-700">{item}</span>
