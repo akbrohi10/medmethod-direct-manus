@@ -24,7 +24,6 @@ import {
   upsertStripeSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
-import { createHeartbeatJob } from "../_core/heartbeat";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -357,41 +356,17 @@ export const stripeRouter = router({
         },
       });
 
-      // Build cron expression: fire at 09:00 UTC on the appointment date
-      const apptDate = new Date(input.appointmentDate);
-      const cronExpr = `0 0 9 ${apptDate.getUTCDate()} ${apptDate.getUTCMonth() + 1} *`;
-
-      // Create the Heartbeat cron job
-      // Empty session token = use project owner identity for Heartbeat authentication
-      let taskUid: string | null = null;
-      try {
-        const job = await createHeartbeatJob(
-          {
-            name: `charge-remaining-${input.paymentId}`,
-            cron: cronExpr,
-            path: "/api/scheduled/charge-remaining",
-            method: "POST",
-            description: `Charge $149 remaining for patient ${payment.patientName ?? ""} (payment #${input.paymentId})`,
-          },
-          "" // Empty = use project owner identity
-        );
-        taskUid = job.taskUid;
-      } catch (heartbeatErr) {
-        // Log but don't fail — the PI is already created; admin can manually charge
-        console.error("[ScheduleRemainingCharge] Heartbeat job creation failed:", heartbeatErr);
-      }
-
-      // Save appointment date, scheduled PI, and cron task UID to DB
+      // Save appointment date and scheduled PI to DB.
+      // The global hourly sweep cron (/api/scheduled/sweep-due-charges) will
+      // pick this up and charge it once the appointmentDate has passed.
       await updatePayment(input.paymentId, {
         appointmentDate: input.appointmentDate,
         scheduledChargePaymentIntentId: pi.id,
-        scheduledChargePaymentCronTaskUid: taskUid ?? undefined,
       });
 
       return {
         success: true,
         scheduledPaymentIntentId: pi.id,
-        cronTaskUid: taskUid,
       };
     }),
 

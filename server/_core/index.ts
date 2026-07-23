@@ -8,7 +8,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-import { chargeRemainingHandler } from "../scheduledChargeHandler";
+import { chargeRemainingHandler, ensureGlobalSweepCron } from "../scheduledChargeHandler";
 import { ghlBookingWebhookHandler } from "../ghlWebhookHandler";
 import { crawlerMiddleware } from "../crawlerMiddleware";
 
@@ -40,7 +40,14 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   // Scheduled cron endpoints — MUST be registered before tRPC and Vite fallthrough
+  // Legacy per-payment endpoint (kept for any old cron jobs still in flight)
   app.post("/api/scheduled/charge-remaining", chargeRemainingHandler);
+  // Global hourly sweep — charges all due deposit_paid payments
+  app.post("/api/scheduled/sweep-due-charges", chargeRemainingHandler);
+  // Register the global hourly sweep cron job (idempotent — safe to call on every startup)
+  ensureGlobalSweepCron().catch((err: unknown) =>
+    console.error("[Startup] Failed to register global sweep cron:", err)
+  );
   // GHL booking webhook — fires when a patient books an appointment in the GHL calendar
   // Setup: GHL → Settings → Integrations → Webhooks → Add Webhook
   // URL: https://medmethoddirect.com/api/ghl/booking-confirmed
