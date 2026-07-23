@@ -391,10 +391,23 @@ export default function LpHrt3() {
                   <span className="text-white text-xs font-bold">1</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 1</span>
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Initial Consultation</span>
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$199</span>
                 </div>
-                <p className="text-base text-gray-600 mb-4">$199 total for Month 1 — $50 today to reserve your appointment, $149 due the day of your visit.</p>
+                <div className="mb-4 space-y-1">
+                  <div className="flex items-center justify-between max-w-xs">
+                    <span className="text-base font-bold text-gray-800">Reserve Today:</span>
+                    <span className="text-base font-semibold text-gray-700">$50 deposit</span>
+                  </div>
+                  <div className="flex items-center justify-between max-w-xs">
+                    <span className="text-base font-bold text-gray-800">Day of Your Visit:</span>
+                    <span className="text-base font-semibold text-gray-700">Remaining $149</span>
+                  </div>
+                  <div className="flex items-center justify-between max-w-xs border-t border-gray-100 pt-1 mt-1">
+                    <span className="text-base font-bold text-gray-900">Total Initial Consultation:</span>
+                    <span className="text-base font-bold text-[#7A1E7E]">$199</span>
+                  </div>
+                </div>
 
                 {/* Hero feature */}
                 <div className="bg-gradient-to-r from-[#E8339E]/5 to-[#7A1E7E]/5 border border-[#E8339E]/20 rounded-xl p-4 mb-5">
@@ -405,15 +418,15 @@ export default function LpHrt3() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-gray-900">45-Minute Live Video Consultation</p>
-                      <p className="text-base text-gray-600 mt-1">Face-to-face with Dr. Al-Deek — your personalized protocol &amp; prescription</p>
+                      <p className="text-lg font-bold text-gray-900">45-Minute Physician Consultation</p>
+                      <p className="text-base text-gray-600 mt-1">Meet one-on-one with Dr. Jumana Al-Deek to review your symptoms, medical history, and create your personalized treatment plan.</p>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
-                  {["Comprehensive lab review", "Custom protocol design", "Personalized treatment & prescription", "Direct text access with Dr. Al-Deek", "Patient dashboard & tracking"].map((item) => (
+                  {["Comprehensive medical & lab review", "Personalized treatment plan", "Prescriptions when clinically appropriate", "Direct text access with Dr. Al-Deek", "Patient dashboard & progress tracking"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-700">{item}</span>
