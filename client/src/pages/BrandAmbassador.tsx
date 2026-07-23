@@ -645,7 +645,9 @@ export default function BrandAmbassador() {
           className="ba-section3"
           style={{
             padding: "90px 24px 100px",
-            background: "linear-gradient(135deg, rgba(232,51,158,0.03) 0%, rgba(122,30,126,0.03) 100%), #F9F9F9",
+            backgroundImage: "url('/manus-storage/sec3_baae4735.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className="max-w-4xl mx-auto">
