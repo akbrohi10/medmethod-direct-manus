@@ -15,11 +15,42 @@ export default function BrandAmbassador() {
     whyJoin: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const GHL_WEBHOOK_URL =
+    "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/2bbee6b2-07f2-4f8a-b456-ec067152cba4";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder — would connect to GHL or backend
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const payload = {
+        full_name: formData.fullName,
+        email: formData.email,
+        social_handle: formData.socialHandle,
+        platform: formData.platform,
+        follower_count: formData.followerCount,
+        why_join: formData.whyJoin,
+        source: "Brand Ambassador Application",
+        submitted_at: new Date().toISOString(),
+      };
+      const res = await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        throw new Error(`Submission failed (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error("[Ambassador Form] GHL webhook error:", err);
+      setSubmitError("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const faqs = [
@@ -1190,24 +1221,32 @@ export default function BrandAmbassador() {
                         {formData.whyJoin.length}/300
                       </p>
                     </div>
+                    {submitError && (
+                      <p style={{ fontSize: 13, color: "#E8339E", textAlign: "center", marginTop: -8 }}>
+                        {submitError}
+                      </p>
+                    )}
                     <button
                       type="submit"
+                      disabled={submitting}
                       className="ba-btn-shimmer"
                       style={{
                         width: "100%",
                         padding: "15px",
-                        background: "linear-gradient(135deg,#E8339E,#7A1E7E)",
+                        background: submitting ? "#ccc" : "linear-gradient(135deg,#E8339E,#7A1E7E)",
                         color: "#fff",
                         fontWeight: 700,
                         borderRadius: 12,
                         border: "none",
-                        cursor: "pointer",
+                        cursor: submitting ? "not-allowed" : "pointer",
                         fontSize: 15,
                         fontFamily: "Montserrat,sans-serif",
-                        boxShadow: "0 4px 16px rgba(232,51,158,0.30)",
+                        boxShadow: submitting ? "none" : "0 4px 16px rgba(232,51,158,0.30)",
+                        opacity: submitting ? 0.7 : 1,
+                        transition: "all 0.2s ease",
                       }}
                     >
-                      Submit Application
+                      {submitting ? "Submitting…" : "Submit Application"}
                     </button>
                   </form>
                 </div>
