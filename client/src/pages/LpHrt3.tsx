@@ -435,7 +435,7 @@ export default function LpHrt3() {
                   Your plan is in action — Dr. Al-Deek monitors progress and adjusts as needed. Month-to-month, cancel anytime with 30 days' notice.
                 </p>
                 <div className="space-y-2">
-                  {["Direct text access with Dr. Al-Deek", "Prescription renewals & refills", "Dosage adjustments as needed"].map((item) => (
+                  {["Direct text access with Dr. Al-Deek", "Prescription renewals & refills", "Medication adjustments as needed", "Personalized treatment updates"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-700">{item}</span>
