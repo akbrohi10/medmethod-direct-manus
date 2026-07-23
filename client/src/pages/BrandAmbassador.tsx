@@ -740,39 +740,48 @@ export default function BrandAmbassador() {
                 alignItems: "center",
               }}
             >
-              {/* Left column — vertically centered with decorative element above */}
-              <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                {/* Decorative abstract gradient line cluster above text */}
-                <div style={{ marginBottom: 20 }}>
-                  <div style={{ display: "flex", gap: 4, alignItems: "flex-end", height: 28 }}>
-                    {[18, 28, 22, 14, 24, 10, 20].map((h, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          width: 4,
-                          height: h,
-                          borderRadius: 2,
-                          background: `linear-gradient(180deg, #E8339E, #7A1E7E)`,
-                          opacity: 0.25 + i * 0.06,
-                        }}
-                      />
-                    ))}
+              {/* Left column — image background with text overlay */}
+              <div
+                style={{
+                  backgroundImage: "url('/manus-storage/sec4left_6748e484.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  minHeight: 320,
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                  padding: "40px 32px",
+                }}
+              >
+                {/* Dark gradient overlay for text readability */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(8,0,18,0.80) 0%, rgba(8,0,18,0.30) 60%, transparent 100%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ display: "flex", gap: 16, alignItems: "stretch" }}>
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        width: 4,
+                        borderRadius: 4,
+                        background: "linear-gradient(180deg,#E8339E,#7A1E7E)",
+                        flexShrink: 0,
+                        minHeight: 80,
+                      }}
+                    />
+                    <p style={{ fontSize: 15, color: "rgba(255,255,255,0.90)", lineHeight: 1.75 }}>
+                      We partner with voices who reflect our values — premium, credible, and science-minded. Here's what we look for in an MMD Ambassador:
+                    </p>
                   </div>
-                </div>
-                <div style={{ display: "flex", gap: 16, alignItems: "stretch" }}>
-                  <div
-                    aria-hidden="true"
-                    style={{
-                      width: 4,
-                      borderRadius: 4,
-                      background: "linear-gradient(180deg,#E8339E,#7A1E7E)",
-                      flexShrink: 0,
-                      minHeight: 80,
-                    }}
-                  />
-                  <p style={{ fontSize: 15, color: "#444444", lineHeight: 1.75 }}>
-                    We partner with voices who reflect our values — premium, credible, and science-minded. Here's what we look for in an MMD Ambassador:
-                  </p>
                 </div>
               </div>
 
