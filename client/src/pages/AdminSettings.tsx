@@ -164,6 +164,7 @@ export default function AdminSettings() {
   const [liveSecKey, setLiveSecKey] = useState("");
   const [activeTab, setActiveTab] = useState<"settings" | "payments">("settings");
   const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "deposit_paid" | "fully_paid" | "failed">("all");
 
   // Populate form from fetched settings
   useEffect(() => {
@@ -225,8 +226,16 @@ export default function AdminSettings() {
   const RECORDS_PER_PAGE = 30;
 
   const payments = paymentsQuery.data ?? [];
-  const totalPages = Math.max(1, Math.ceil(payments.length / RECORDS_PER_PAGE));
-  const paginatedPayments = payments.slice(
+  const statusCounts = {
+    all: payments.length,
+    pending: payments.filter(p => p.status === "pending").length,
+    deposit_paid: payments.filter(p => p.status === "deposit_paid").length,
+    fully_paid: payments.filter(p => p.status === "fully_paid").length,
+    failed: payments.filter(p => p.status === "failed").length,
+  };
+  const filteredPayments = statusFilter === "all" ? payments : payments.filter(p => p.status === statusFilter);
+  const totalPages = Math.max(1, Math.ceil(filteredPayments.length / RECORDS_PER_PAGE));
+  const paginatedPayments = filteredPayments.slice(
     (currentPage - 1) * RECORDS_PER_PAGE,
     currentPage * RECORDS_PER_PAGE
   );
@@ -491,17 +500,53 @@ export default function AdminSettings() {
         {/* Payments Tab */}
         {activeTab === "payments" && (
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-base font-bold text-gray-900">Payment Records</h2>
-              <button
-                onClick={() => paymentsQuery.refetch()}
-                className="text-gray-400 hover:text-gray-600 transition"
-              >
-                <RefreshCw size={16} className={paymentsQuery.isFetching ? "animate-spin" : ""} />
-              </button>
+            <div className="px-6 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-base font-bold text-gray-900">Payment Records</h2>
+                <button
+                  onClick={() => paymentsQuery.refetch()}
+                  className="text-gray-400 hover:text-gray-600 transition"
+                >
+                  <RefreshCw size={16} className={paymentsQuery.isFetching ? "animate-spin" : ""} />
+                </button>
+              </div>
+              {/* Status filter pills */}
+              <div className="flex flex-wrap gap-2">
+                {([
+                  { key: "all" as const, label: "All" },
+                  { key: "pending" as const, label: "Pending" },
+                  { key: "deposit_paid" as const, label: "Deposit Paid" },
+                  { key: "fully_paid" as const, label: "Fully Paid" },
+                  { key: "failed" as const, label: "Failed" },
+                ]).map(({ key, label }) => {
+                  const active = statusFilter === key;
+                  const activeCls =
+                    key === "all" ? "bg-gray-800 text-white border-gray-800" :
+                    key === "pending" ? "bg-gray-500 text-white border-gray-500" :
+                    key === "deposit_paid" ? "bg-blue-600 text-white border-blue-600" :
+                    key === "fully_paid" ? "bg-green-600 text-white border-green-600" :
+                    "bg-red-600 text-white border-red-600";
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => { setStatusFilter(key); setCurrentPage(1); }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition ${
+                        active ? activeCls : "bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700"
+                      }`}
+                    >
+                      {label}
+                      <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        active ? "bg-white/25 text-white" : "bg-gray-100 text-gray-500"
+                      }`}>
+                        {statusCounts[key]}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {payments.length === 0 ? (
+            {filteredPayments.length === 0 ? (
               <div className="py-16 text-center">
                 <CreditCard size={40} className="mx-auto mb-3 text-gray-200" />
                 <p className="text-gray-400 text-sm">No payments yet.</p>
@@ -682,7 +727,7 @@ export default function AdminSettings() {
               {totalPages > 1 && (
                 <div className="px-6 py-3 border-t border-gray-100 flex items-center justify-between">
                   <span className="text-xs text-gray-400">
-                    Showing {(currentPage - 1) * RECORDS_PER_PAGE + 1}–{Math.min(currentPage * RECORDS_PER_PAGE, payments.length)} of {payments.length} payments
+                    Showing {(currentPage - 1) * RECORDS_PER_PAGE + 1}–{Math.min(currentPage * RECORDS_PER_PAGE, filteredPayments.length)} of {filteredPayments.length} payments
                   </span>
                   <div className="flex items-center gap-1">
                     <button
