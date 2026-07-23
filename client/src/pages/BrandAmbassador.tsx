@@ -135,7 +135,7 @@ export default function BrandAmbassador() {
           width: 56px;
           height: 56px;
           border-radius: 50%;
-          background: linear-gradient(135deg, rgba(232,51,158,0.12) 0%, rgba(122,30,126,0.10) 100%);
+          background: linear-gradient(135deg, rgba(232,51,158,0.28) 0%, rgba(122,30,126,0.22) 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -279,37 +279,21 @@ export default function BrandAmbassador() {
         {/* ── SECTION 1 — Hero ─────────────────────────────────────────────────── */}
         <section
           style={{
-            background: "#F9F9F9",
-            position: "relative",
-            overflow: "hidden",
-            padding: "90px 24px 100px",
+          backgroundImage: "url('/manus-storage/hero_c7b724be.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "relative",
+          overflow: "hidden",
+          padding: "90px 24px 100px",
           }}
         >
-          {/* Right orb — large, immersive */}
+          {/* Dark overlay for text readability */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
-              bottom: "-120px",
-              right: "-140px",
-              width: 800,
-              height: 800,
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(232,51,254,0.11) 0%, transparent 65%)",
-              pointerEvents: "none",
-            }}
-          />
-          {/* Left orb — large, immersive */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: "-140px",
-              left: "-140px",
-              width: 700,
-              height: 700,
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(122,30,126,0.09) 0%, transparent 65%)",
+              inset: 0,
+              background: "rgba(10,0,20,0.50)",
               pointerEvents: "none",
             }}
           />
@@ -322,7 +306,7 @@ export default function BrandAmbassador() {
                 fontWeight: 700,
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
-                color: "#7A1E7E",
+                color: "#F0A0D0",
                 marginBottom: 16,
               }}
             >
@@ -332,7 +316,7 @@ export default function BrandAmbassador() {
               style={{
                 fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
                 fontWeight: 800,
-                color: "#111111",
+                color: "#ffffff",
                 lineHeight: 1.15,
                 marginBottom: 20,
               }}
@@ -342,7 +326,7 @@ export default function BrandAmbassador() {
             <p
               style={{
                 fontSize: 18,
-                color: "#444444",
+                color: "rgba(255,255,255,0.88)",
                 maxWidth: 560,
                 margin: "0 auto 36px",
                 lineHeight: 1.65,
@@ -385,8 +369,8 @@ export default function BrandAmbassador() {
               <button
                 style={{
                   padding: "13px 34px",
-                  border: "2px solid #7A1E7E",
-                  color: "#7A1E7E",
+                  border: "2px solid rgba(255,255,255,0.70)",
+                  color: "#ffffff",
                   fontWeight: 700,
                   borderRadius: 10,
                   background: "transparent",
@@ -415,14 +399,14 @@ export default function BrandAmbassador() {
                   className="ba-badge"
                   style={{
                     padding: "6px 16px",
-                    border: "1px solid #E0E0E0",
-                    borderRadius: 999,
-                    background: "#F9F9F9",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "#888888",
+                  border: "1px solid rgba(255,255,255,0.28)",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.10)",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.80)",
                   }}
                 >
                   {label}
@@ -470,10 +454,10 @@ export default function BrandAmbassador() {
                 <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "0 18px" }}>
                     {item.icon}
-                    <span style={{ fontSize: 12, color: "#888780", fontWeight: 600 }}>{item.label}</span>
+                    <span                     style={{ fontSize: 12, color: "rgba(255,255,255,0.75)", fontWeight: 600 }}>{item.label}</span>
                   </div>
                   {i < arr.length - 1 && (
-                    <div style={{ width: 1, height: 16, background: "#D0D0D0", flexShrink: 0 }} />
+                    <div style={{ width: 1, height: 16, background: "rgba(255,255,255,0.30)", flexShrink: 0 }} />
                   )}
                 </div>
               ))}
@@ -528,8 +512,10 @@ export default function BrandAmbassador() {
               }}
             >
               {/* Card 1 — Webinar */}
-              <div className="ba-card">
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <div className="ba-card" style={{ backgroundImage: "url('/manus-storage/card1_1d57ccab.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                {/* Dark overlay */}
+                <div style={{ position: "absolute", inset: 0, background: "rgba(8,0,18,0.62)", pointerEvents: "none", zIndex: 0 }} />
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)", zIndex: 2 }} />
                 <span className="ba-watermark">01</span>
                 {/* LIVE badge */}
                 <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 14 }}>
@@ -553,20 +539,22 @@ export default function BrandAmbassador() {
                 <div style={{ position: "relative" }}>
                   <div className="ba-icon-blob" />
                   <div className="ba-icon-circle">
-                    <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <svg className="w-6 h-6" style={{ color: "#E8339E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
                     </svg>
                   </div>
                 </div>
-                <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 8, fontSize: 15 }}>Exclusive Webinar Access with Dr. Aldeek</h3>
-                <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
+                <h3 style={{ fontWeight: 700, color: "#ffffff", marginBottom: 8, fontSize: 15 }}>Exclusive Webinar Access with Dr. Aldeek</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.82)", lineHeight: 1.65 }}>
                   As an MMD Ambassador, you'll get exclusive access to live webinar consultations hosted by Dr. Aldeek — covering longevity, hormone health, and the science behind what we do.
                 </p>
               </div>
 
               {/* Card 2 — Referral Rewards */}
-              <div className="ba-card">
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <div className="ba-card" style={{ backgroundImage: "url('/manus-storage/card2_9b9b7191.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                {/* Dark overlay */}
+                <div style={{ position: "absolute", inset: 0, background: "rgba(8,0,18,0.62)", pointerEvents: "none", zIndex: 0 }} />
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)", zIndex: 2 }} />
                 <span className="ba-watermark">02</span>
                 {/* Decorative % motif */}
                 <div
@@ -593,20 +581,22 @@ export default function BrandAmbassador() {
                 <div style={{ position: "relative" }}>
                   <div className="ba-icon-blob" />
                   <div className="ba-icon-circle">
-                    <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <svg className="w-6 h-6" style={{ color: "#E8339E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                     </svg>
                   </div>
                 </div>
-                <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 8, fontSize: 15 }}>Referral Rewards Program</h3>
-                <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
+                <h3 style={{ fontWeight: 700, color: "#ffffff", marginBottom: 8, fontSize: 15 }}>Referral Rewards Program</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.82)", lineHeight: 1.65 }}>
                   Receive referral rewards each time your audience shops through your personal link or promo code.
                 </p>
               </div>
 
               {/* Card 3 — Community */}
-              <div className="ba-card">
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+              <div className="ba-card" style={{ backgroundImage: "url('/manus-storage/card3_b47ae6e7.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                {/* Dark overlay */}
+                <div style={{ position: "absolute", inset: 0, background: "rgba(8,0,18,0.62)", pointerEvents: "none", zIndex: 0 }} />
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg,#E8339E,#7A1E7E)", zIndex: 2 }} />
                 <span className="ba-watermark">03</span>
                 {/* Decorative network nodes motif */}
                 <svg
@@ -636,13 +626,13 @@ export default function BrandAmbassador() {
                 <div style={{ position: "relative" }}>
                   <div className="ba-icon-blob" />
                   <div className="ba-icon-circle">
-                    <svg className="w-6 h-6" style={{ color: "#7A1E7E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <svg className="w-6 h-6" style={{ color: "#E8339E" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                     </svg>
                   </div>
                 </div>
-                <h3 style={{ fontWeight: 700, color: "#111111", marginBottom: 8, fontSize: 15 }}>Join a Premium Health Community</h3>
-                <p style={{ fontSize: 14, color: "#444444", lineHeight: 1.65 }}>
+                <h3 style={{ fontWeight: 700, color: "#ffffff", marginBottom: 8, fontSize: 15 }}>Join a Premium Health Community</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.82)", lineHeight: 1.65 }}>
                   Connect with like-minded advocates in the longevity, hormone health, and wellness space.
                 </p>
               </div>
