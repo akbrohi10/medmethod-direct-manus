@@ -235,7 +235,7 @@ export default function LpHrt3() {
             ctaLabel={
               <span className="flex flex-col items-center leading-tight">
                 <span>Book Your 45-Min Appt.</span>
-                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 Month 1 · $50 Due Today</span>
+                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 First Visit · $50 Due Today</span>
               </span>
             }
             ctaMicrocopy={
@@ -243,7 +243,7 @@ export default function LpHrt3() {
                 {/* 3-column pricing strip */}
                 <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
                   {[
-                    { label: "Month 1", price: "$199", note: "$50 today" },
+                    { label: "Your First Visit", price: "$199", note: "$50 today" },
                     { label: "Month 2+", price: "$99", note: "month-to-month" },
                   ].map((col, i) => (
                     <div
