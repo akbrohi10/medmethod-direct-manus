@@ -242,7 +242,9 @@ export default function BrandAmbassador() {
 
         /* ── Section 5 lavender bg ── */
         .ba-section5 {
-          background-color: #FAF5FF;
+          background-image: url('/manus-storage/faq_54577767.png');
+          background-size: cover;
+          background-position: center;
         }
       `}</style>
 
