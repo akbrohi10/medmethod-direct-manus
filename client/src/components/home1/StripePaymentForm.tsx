@@ -167,6 +167,9 @@ function CheckoutForm({
                   address: { country: "never", postalCode: "auto" },
                 },
               },
+              // Hide Stripe's auto-generated mandate text (which shows the Stripe
+              // account business name). Our own consent text below replaces it.
+              terms: { card: "never" },
             }}
           />
         </div>
@@ -174,7 +177,7 @@ function CheckoutForm({
 
       {/* Consent text */}
       <p className="text-xs text-gray-500 leading-relaxed">
-        By providing your card information, you authorize MedMethod Direct to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. You may cancel or reschedule with at least 24 hours' notice for a full refund of the deposit.
+        By providing your card information, you authorize <strong className="font-semibold text-gray-600">MedMethod Direct</strong> to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. You may cancel or reschedule with at least 24 hours&apos; notice for a full refund of the deposit.
       </p>
 
       {/* Submit button */}
