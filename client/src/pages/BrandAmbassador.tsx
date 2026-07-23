@@ -914,7 +914,9 @@ export default function BrandAmbassador() {
         {/* ── SECTION 6 — Closing CTA Banner ──────────────────────────────────── */}
         <section
           style={{
-            background: "linear-gradient(135deg,#E8339E 0%,#7A1E7E 100%)",
+            backgroundImage: "url('/manus-storage/form_22b5f11c.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
             padding: "80px 24px 90px",
             position: "relative",
             overflow: "hidden",
@@ -995,23 +997,34 @@ export default function BrandAmbassador() {
         </section>
 
         {/* ── SECTION 7 — Application Form ─────────────────────────────────────── */}
-        <section id="apply-section" className="bg-white" style={{ padding: "90px 24px 100px" }}>
-          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+        <section
+          id="apply-section"
+          style={{
+            padding: "90px 24px 100px",
+            backgroundImage: "url('/manus-storage/form_22b5f11c.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            position: "relative",
+          }}
+        >
+          {/* Dark overlay for form readability */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(8,0,18,0.72)", pointerEvents: "none" }} />
+          <div style={{ maxWidth: 600, margin: "0 auto", position: "relative", zIndex: 1 }}>
             {!showForm ? (
               <div style={{ textAlign: "center" }}>
                 {/* MMD Logo lockup */}
                 <div style={{ display: "flex", alignItems: "baseline", gap: 2, justifyContent: "center", marginBottom: 20 }}>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: "#111111" }}>Med</span>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: "#7A1E7E" }}>Method</span>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: "#111111", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: "#fff" }}>Med</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: "#E8339E" }}>Method</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
                 </div>
-                <p style={{ fontSize: 14, color: "#888780", fontStyle: "italic", marginBottom: 8 }}>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", fontStyle: "italic", marginBottom: 8 }}>
                   It only takes a few minutes. We review every application personally.
                 </p>
-                <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#111111", marginBottom: 16 }}>
+                <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#fff", marginBottom: 16 }}>
                   Ready to Apply?
                 </h2>
-                <p style={{ color: "#444444", marginBottom: 32, fontSize: 15 }}>
+                <p style={{ color: "rgba(255,255,255,0.80)", marginBottom: 32, fontSize: 15 }}>
                   Click below to open the application form.
                 </p>
                 <button
@@ -1051,8 +1064,8 @@ export default function BrandAmbassador() {
                     <path d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                 </div>
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#111111", marginBottom: 12 }}>Application Submitted!</h2>
-                <p style={{ color: "#444444", fontSize: 15, lineHeight: 1.65 }}>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#fff", marginBottom: 12 }}>Application Submitted!</h2>
+                <p style={{ color: "rgba(255,255,255,0.80)", fontSize: 15, lineHeight: 1.65 }}>
                   Thank you for applying. We'll review your submission and get back to you within 5–7 business days via email.
                 </p>
               </div>
