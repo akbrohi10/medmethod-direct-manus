@@ -253,9 +253,9 @@ export default function LpHrt3() {
                         borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none",
                       }}
                     >
-                      <span className="text-[12px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>{col.label}</span>
-                      <span className="text-[20px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
-                      <span className="text-[13px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060", minHeight: "2.4em", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>{col.note}</span>
+                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>{col.label}</span>
+                      <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
+                      <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060", minHeight: "2.4em", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>{col.note}</span>
                     </div>
                   ))}
                 </div>
@@ -265,7 +265,7 @@ export default function LpHrt3() {
                     const el = document.getElementById('pricing-details');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="mt-3 text-[12px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
+                  className="mt-3 text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
                   style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
                 >
                   See full pricing details
@@ -357,7 +357,7 @@ export default function LpHrt3() {
                   <AccordionTrigger className="text-base font-semibold text-[#7A1E7E] hover:no-underline py-5 [&>svg]:text-[#E8339E] [&>svg]:stroke-[#E8339E]">
                     {t.title}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 leading-relaxed text-[15px] pb-5">
+                  <AccordionContent className="text-gray-600 leading-relaxed text-base pb-5">
                     {t.desc}
                   </AccordionContent>
                 </AccordionItem>
@@ -378,7 +378,7 @@ export default function LpHrt3() {
             <p className="text-gray-600 max-w-xl mx-auto mb-2">
               No insurance. No middlemen. Just results.
             </p>
-            <p className="text-sm text-gray-500 max-w-xl mx-auto mb-8 sm:mb-12">
+            <p className="text-base text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed">
               Pricing covers physician care, monitoring, and prescribing. Medication is billed separately — compounded options are typically <span className="font-semibold text-[#7A1E7E]">30–45% more affordable</span> than brand-name and will be discussed during your consultation.
             </p>
 
@@ -424,12 +424,12 @@ export default function LpHrt3() {
                   </div>
                 </div>
 
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Also included:</p>
+                <p className="text-base font-semibold text-gray-700 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
                   {["Comprehensive medical & lab review", "Personalized treatment plan", "Prescriptions when clinically appropriate", "Direct text access with Dr. Al-Deek", "Patient dashboard & progress tracking"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
-                      <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                      <span className="text-base text-gray-700">{item}</span>
+                      <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
+                      <span className="text-base text-gray-800 leading-relaxed">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -450,8 +450,8 @@ export default function LpHrt3() {
                 <div className="space-y-2">
                   {["Direct text access with Dr. Al-Deek", "Prescription renewals & refills", "Medication adjustments as needed", "Personalized treatment updates"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
-                      <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                      <span className="text-base text-gray-700">{item}</span>
+                      <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
+                      <span className="text-base text-gray-800 leading-relaxed">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -462,7 +462,7 @@ export default function LpHrt3() {
               {/* Total + CTA */}
               <div className="ml-3 sm:ml-4 pt-4 border-t border-gray-100">
                 <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 mb-6">
-                  <div className="flex flex-wrap gap-3 text-xs text-gray-500">
+                  <div className="flex flex-wrap gap-3 text-sm text-gray-600">
                     <span className="flex items-center gap-1.5">
                       <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                       No hidden fees
@@ -493,10 +493,10 @@ export default function LpHrt3() {
 
             {/* À la carte note */}
             <div className="mt-8 text-center space-y-3">
-              <p className="text-base text-gray-500">
-                Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
+              <p className="text-base text-gray-600">
+                Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-800">$149</span> per appointment.
               </p>
-              <p className="text-sm text-gray-500 border-t border-gray-100 pt-3">
+              <p className="text-base text-gray-600 border-t border-gray-100 pt-3">
                 Month-to-month — no long-term commitment. Keep your physician access active at{" "}
                 <span className="font-semibold text-[#7A1E7E]">$99/mo</span>{" "}
                 — cancel anytime with 30 days' notice.
@@ -525,7 +525,7 @@ export default function LpHrt3() {
                   <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016A3.001 3.001 0 0021 9.349m-18 0a2.997 2.997 0 00.177-.756L3.75 4.5h16.5l.573 4.093c.068.487.03.964-.177 1.756"/></svg>
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Brand-Name Medications</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-base text-gray-600 leading-relaxed">
                   FDA-approved brand-name medications shipped to your door or picked up at your local pharmacy — your choice.
                 </p>
               </div>
@@ -535,7 +535,7 @@ export default function LpHrt3() {
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Compounded Medications</h3>
                 <p className="text-xs font-bold text-[#E8339E] uppercase tracking-wide mb-3">Save 30–45% vs. Brand-Name</p>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-base text-gray-600 leading-relaxed">
                   Compounded for you through our partnered pharmacies — typically <strong className="text-gray-800">30–45% less than brand-name</strong>, shipped directly to your door. Dr. Al-Deek will recommend the best option for your protocol.
                 </p>
               </div>
@@ -561,7 +561,7 @@ export default function LpHrt3() {
                     <span className="text-white font-bold text-lg">{s.num}</span>
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-2">{s.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{s.desc}</p>
+                  <p className="text-base text-gray-600 leading-relaxed">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -605,7 +605,7 @@ export default function LpHrt3() {
                     ))}
                   </div>
                   <p className="text-gray-700 text-base leading-relaxed mb-4">"{t.quote}"</p>
-                  <p className="text-sm font-semibold text-gray-900">— {t.name}, {t.age}</p>
+                  <p className="text-base font-semibold text-gray-900">— {t.name}, {t.age}</p>
                 </div>
               ))}
             </div>
@@ -626,10 +626,10 @@ export default function LpHrt3() {
             <Accordion type="single" collapsible className="w-full">
               {FAQS.map((faq, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="border-gray-200 bg-white rounded-xl mb-3 px-5 border">
-                  <AccordionTrigger className="text-[15px] font-semibold text-gray-900 hover:no-underline py-5">
+                  <AccordionTrigger className="text-base font-semibold text-gray-900 hover:no-underline py-5">
                     {faq.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 leading-relaxed text-[15px]">
+                  <AccordionContent className="text-gray-600 leading-relaxed text-base pb-2">
                     {faq.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -644,7 +644,7 @@ export default function LpHrt3() {
             <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to feel like yourself again?
             </h2>
-            <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
               Book a virtual discovery call with Dr. Al-Deek. No commitment, no pressure — just expert guidance on your next step.
             </p>
             <button
@@ -653,7 +653,7 @@ export default function LpHrt3() {
             >
               Book Now
             </button>
-            <p className="mt-4 text-sm text-gray-400">
+            <p className="mt-4 text-base text-gray-300">
               100% virtual · Licensed in 17 states · No insurance needed
             </p>
           </div>
