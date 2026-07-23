@@ -373,7 +373,7 @@ export default function LpHrt3() {
               Transparent Pricing
             </p>
             <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Your <span style={{fontVariantNumeric: 'lining-nums'}}>3</span>-Month Care Plan
+              Your Care Plan
             </h2>
             <p className="text-gray-600 max-w-xl mx-auto mb-2">
               No insurance. No middlemen. Just results.
@@ -504,9 +504,9 @@ export default function LpHrt3() {
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
               </p>
               <p className="text-sm text-gray-500 border-t border-gray-100 pt-3">
-                After your 3-month plan, keep your physician access active at{" "}
+                Month-to-month — no long-term commitment. Keep your physician access active at{" "}
                 <span className="font-semibold text-[#7A1E7E]">$99/mo</span>{" "}
-                — cancel anytime with 30 days notice.
+                — cancel anytime with 30 days' notice.
               </p>
             </div>
           </div>
