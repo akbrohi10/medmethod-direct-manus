@@ -932,7 +932,7 @@ export default function BrandAmbassador() {
               width: 320,
               height: 320,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.20)",
+              background: "rgba(255,255,255,0.13)",
               pointerEvents: "none",
             }}
           />
@@ -946,7 +946,7 @@ export default function BrandAmbassador() {
               width: 200,
               height: 200,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.10)",
+              background: "rgba(255,255,255,0.12)",
               pointerEvents: "none",
             }}
           />
@@ -961,7 +961,7 @@ export default function BrandAmbassador() {
               width: 120,
               height: 120,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.06)",
+              background: "rgba(255,255,255,0.08)",
               pointerEvents: "none",
             }}
           />
@@ -1001,50 +1001,60 @@ export default function BrandAmbassador() {
           id="apply-section"
           style={{
             padding: "90px 24px 100px",
-            backgroundImage: "url('/manus-storage/form_22b5f11c.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center bottom",
+            background: "#FFFFFF",
             position: "relative",
           }}
         >
-          {/* Dark overlay for form readability */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(8,0,18,0.72)", pointerEvents: "none" }} />
-          <div style={{ maxWidth: 600, margin: "0 auto", position: "relative", zIndex: 1 }}>
+          <div style={{ maxWidth: 560, margin: "0 auto", position: "relative", zIndex: 1 }}>
             {!showForm ? (
-              <div style={{ textAlign: "center" }}>
-                {/* MMD Logo lockup */}
-                <div style={{ display: "flex", alignItems: "baseline", gap: 2, justifyContent: "center", marginBottom: 20 }}>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: "#fff" }}>Med</span>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: "#E8339E" }}>Method</span>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
+              /* Pre-form teaser card */
+              <div
+                style={{
+                  border: "1px solid #E8E8E8",
+                  borderRadius: 20,
+                  background: "#fff",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                  overflow: "hidden",
+                }}
+              >
+                {/* 4px brand gradient top border */}
+                <div style={{ height: 4, width: "100%", background: "linear-gradient(90deg,#E8339E,#7A1E7E)" }} />
+                <div style={{ padding: "48px 44px", textAlign: "center" }}>
+                  {/* MMD Logo lockup */}
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 2, justifyContent: "center", marginBottom: 20 }}>
+                    <span style={{ fontSize: 22, fontWeight: 800, color: "#111111" }}>Med</span>
+                    <span style={{ fontSize: 22, fontWeight: 800, color: "#7A1E7E" }}>Method</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: "#111111", textTransform: "uppercase", letterSpacing: "0.2em", marginLeft: 4, alignSelf: "flex-end", marginBottom: 2 }}>DIRECT</span>
+                  </div>
+                  <p style={{ fontSize: 14, color: "#888780", fontStyle: "italic", marginBottom: 8 }}>
+                    It only takes a few minutes. We review every application personally.
+                  </p>
+                  <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#111111", marginBottom: 16 }}>
+                    Ready to Apply?
+                  </h2>
+                  <p style={{ color: "#444444", marginBottom: 32, fontSize: 15 }}>
+                    Click below to open the application form.
+                  </p>
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="ba-btn-shimmer"
+                    style={{
+                      padding: "14px 0",
+                      width: "100%",
+                      background: "linear-gradient(135deg,#E8339E,#7A1E7E)",
+                      color: "#fff",
+                      fontWeight: 700,
+                      borderRadius: 12,
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: 14,
+                      fontFamily: "Montserrat,sans-serif",
+                      boxShadow: "0 4px 16px rgba(232,51,158,0.3)",
+                    }}
+                  >
+                    Open Application
+                  </button>
                 </div>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", fontStyle: "italic", marginBottom: 8 }}>
-                  It only takes a few minutes. We review every application personally.
-                </p>
-                <h2 style={{ fontSize: "clamp(1.4rem,3vw,1.9rem)", fontWeight: 800, color: "#fff", marginBottom: 16 }}>
-                  Ready to Apply?
-                </h2>
-                <p style={{ color: "rgba(255,255,255,0.80)", marginBottom: 32, fontSize: 15 }}>
-                  Click below to open the application form.
-                </p>
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="ba-btn-shimmer"
-                  style={{
-                    padding: "14px 36px",
-                    background: "linear-gradient(135deg,#E8339E,#7A1E7E)",
-                    color: "#fff",
-                    fontWeight: 700,
-                    borderRadius: 12,
-                    border: "none",
-                    cursor: "pointer",
-                    fontSize: 14,
-                    fontFamily: "Montserrat,sans-serif",
-                    boxShadow: "0 4px 16px rgba(232,51,158,0.3)",
-                  }}
-                >
-                  Open Application
-                </button>
               </div>
             ) : submitted ? (
               <div style={{ textAlign: "center" }}>
@@ -1064,8 +1074,8 @@ export default function BrandAmbassador() {
                     <path d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                 </div>
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#fff", marginBottom: 12 }}>Application Submitted!</h2>
-                <p style={{ color: "rgba(255,255,255,0.80)", fontSize: 15, lineHeight: 1.65 }}>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#111111", marginBottom: 12 }}>Application Submitted!</h2>
+                <p style={{ color: "#444444", fontSize: 15, lineHeight: 1.65 }}>
                   Thank you for applying. We'll review your submission and get back to you within 5–7 business days via email.
                 </p>
               </div>
