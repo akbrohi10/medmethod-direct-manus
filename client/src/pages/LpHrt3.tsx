@@ -244,8 +244,7 @@ export default function LpHrt3() {
                 <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
                   {[
                     { label: "Month 1", price: "$199", note: "$50 today" },
-                    { label: "Month 2", price: "$99", note: "continuation" },
-                    { label: "Month 3", price: "$99", note: "cancel anytime" },
+                    { label: "Month 2+", price: "$99", note: "month-to-month" },
                   ].map((col, i) => (
                     <div
                       key={col.label}
