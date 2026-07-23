@@ -551,7 +551,43 @@ export default function AdminSettings() {
 
                           {/* ── Scheduled (cron set) ── */}
                           {p.status !== "fully_paid" && p.scheduledChargePaymentCronTaskUid && !p.scheduledChargePaymentCronTaskUid.startsWith("cancelled") && (
-                            <span className="text-xs text-blue-600 font-medium">✓ Scheduled</span>
+                            <div className="flex flex-col gap-2">
+                              <span className="text-xs text-blue-600 font-medium">✓ Scheduled</span>
+                              {/* Charge Now — for missed cron windows */}
+                              <div className="border-t border-gray-100 pt-1">
+                                {chargeNowConfirmId === p.id ? (
+                                  <div className="flex flex-col gap-1">
+                                    <p className="text-[10px] text-orange-700 font-semibold">Charge $149 now?</p>
+                                    <p className="text-[10px] text-gray-500">Immediately charges the card on file and cancels the scheduled cron.</p>
+                                    <div className="flex gap-1">
+                                      <button
+                                        onClick={() => {
+                                          chargeNowMutation.mutate({ paymentId: p.id });
+                                          setChargeNowConfirmId(null);
+                                        }}
+                                        disabled={chargeNowMutation.isPending}
+                                        className="text-xs px-2 py-1 bg-orange-600 text-white rounded hover:bg-orange-700 disabled:opacity-50"
+                                      >
+                                        {chargeNowMutation.isPending ? "Charging..." : "Yes, Charge Now"}
+                                      </button>
+                                      <button
+                                        onClick={() => setChargeNowConfirmId(null)}
+                                        className="text-xs px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
+                                      >
+                                        Cancel
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => setChargeNowConfirmId(p.id)}
+                                    className="text-xs px-2 py-1 bg-orange-50 text-orange-700 border border-orange-200 rounded hover:bg-orange-100 transition whitespace-nowrap"
+                                  >
+                                    Charge $149 Now
+                                  </button>
+                                )}
+                              </div>
+                            </div>
                           )}
 
                           {/* ── deposit_paid, not yet scheduled ── */}
