@@ -685,16 +685,16 @@ export default function LpHrt3() {
               Ready to feel like yourself again?
             </h2>
             <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
-              Book a virtual discovery call with Dr. Al-Deek. No commitment, no pressure — just expert guidance on your next step.
+              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, labs, and goals, and leave with a personalized treatment plan and prescription.
             </p>
             <button
               onClick={openConsult}
               className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Book Now
+              Book Your First Visit — $50 Today
             </button>
             <p className="mt-4 text-base text-gray-300">
-              100% virtual · Licensed in 17 states · No insurance needed
+              $199 total · $50 reserves your appointment · $149 due at your visit
             </p>
           </div>
         </section>
