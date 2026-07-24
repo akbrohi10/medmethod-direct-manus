@@ -441,7 +441,7 @@ export default function LpHrt3() {
                   <span className="text-white text-xs font-bold">2</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2</span>
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2+</span>
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
                 </div>
                 <p className="text-base text-gray-700 mb-4 leading-relaxed">
