@@ -128,11 +128,11 @@ const FAQS = [
 
   {
     q: "Do you accept insurance?",
-    a: "MedMethod Direct is a membership-based practice. We do not bill insurance directly, but we provide superbills you can submit for potential reimbursement. Many patients find our pricing comparable to — or less than — specialist copays.",
+    a: "MedMethod Direct is a direct-care practice. We do not bill insurance directly, but we provide superbills you can submit for potential reimbursement. Many patients find our pricing comparable to — or less than — specialist copays.",
   },
   {
     q: "How much does medication cost?",
-    a: "Our program fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
+    a: "Your monthly physician care fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
   },
   {
     q: "What states are you licensed in?",
@@ -740,7 +740,7 @@ export default function LpHrt3() {
             Book Your 45-Min Appt.
           </span>
           <span className="text-[13px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            $199 Month 1 &middot; $50 Due Today
+            $199 First Visit &middot; $50 Due Today
           </span>
         </button>
       </div>
