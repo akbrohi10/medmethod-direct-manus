@@ -125,10 +125,7 @@ const FAQS = [
     q: "What GLP-1 medications do you prescribe for weight loss?",
     a: "We prescribe semaglutide (Ozempic/Wegovy) and tirzepatide (Mounjaro/Zepbound) based on your metabolic profile, goals, and insurance situation. All prescriptions include physician monitoring and dosage titration.",
   },
-  {
-    q: "Why is it a 3-month plan?",
-    a: "Whether it's hormone therapy or GLP-1 medications, your body needs time to respond — and your protocol needs careful adjustment based on how you feel. Month 1 is your consultation, labs review, and initial prescription. Months 2 and 3 give Dr. Al-Deek time to monitor how your body is responding, adjust dosages, manage any side effects, and dial in the right protocol before transitioning you to ongoing maintenance care. Most patients start noticing changes within the first few weeks, but the full benefit comes from staying the course.",
-  },
+
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a membership-based practice. We do not bill insurance directly, but we provide superbills you can submit for potential reimbursement. Many patients find our pricing comparable to — or less than — specialist copays.",
