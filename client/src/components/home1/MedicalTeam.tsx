@@ -414,7 +414,7 @@ export default function MedicalTeam({
                 className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek.
+                Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek, DO, MS.
               </p>
 
 
