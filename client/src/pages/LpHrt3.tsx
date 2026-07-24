@@ -534,6 +534,7 @@ export default function LpHrt3() {
                       <p className="text-base font-semibold text-gray-800">Compounded</p>
                       <p className="text-sm text-gray-500">Semaglutide or tirzepatide</p>
                       <p className="text-xs text-[#E8339E] font-medium mt-0.5">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$100–$300<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -541,6 +542,7 @@ export default function LpHrt3() {
                     <div>
                       <p className="text-base font-semibold text-gray-800">Brand-Name</p>
                       <p className="text-sm text-gray-500">Wegovy or Zepbound</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Shipped to your door or picked up at your local pharmacy — your choice</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$450<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -559,9 +561,10 @@ export default function LpHrt3() {
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-4 pb-3 border-b border-gray-100">
                     <div>
-                      <p className="text-base font-semibold text-gray-800">Individual hormones</p>
+                      <p className="text-base font-semibold text-gray-800">Individual hormones (compounded)</p>
                       <p className="text-sm text-gray-500">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
                       <p className="text-xs text-[#E8339E] font-medium mt-0.5">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$30–$100<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -569,6 +572,7 @@ export default function LpHrt3() {
                     <div>
                       <p className="text-base font-semibold text-gray-800">Most patients (2–3 hormones)</p>
                       <p className="text-sm text-gray-500">Typical combined protocol</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Brand-name available at your pharmacy or shipped to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$250<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
