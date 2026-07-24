@@ -513,7 +513,7 @@ export default function LpHrt3() {
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                 What to Expect for Medication
               </h2>
-              <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
                 We guide you toward the most convenient and affordable way to fill your prescriptions. We've partnered with pre-vetted, licensed compounded pharmacies to offer pre-negotiated rates for patients who prefer that route — and for those who prefer brand-name, we prescribe that too. Dr. Al-Deek will discuss your options and make a recommendation based on your goals and budget during your initial consultation. Physician care is billed separately — these are estimated medication costs only.
               </p>
             </div>
@@ -527,22 +527,22 @@ export default function LpHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Weight-Loss Medication</h3>
                 </div>
-                <p className="text-sm text-gray-500 mb-4">Semaglutide &amp; tirzepatide — priced monthly</p>
+                <p className="text-base text-gray-600 mb-4">Semaglutide &amp; tirzepatide — priced monthly</p>
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-4 pb-3 border-b border-gray-100">
                     <div>
-                      <p className="text-base font-semibold text-gray-800">Compounded</p>
-                      <p className="text-sm text-gray-500">Semaglutide or tirzepatide</p>
-                      <p className="text-xs text-[#E8339E] font-medium mt-0.5">Pre-negotiated rate through our partnered pharmacies</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Shipped directly to your door</p>
+                      <p className="text-lg font-semibold text-gray-800">Compounded</p>
+                      <p className="text-base text-gray-600">Semaglutide or tirzepatide</p>
+                      <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-sm text-gray-500 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$100–$300<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-base font-semibold text-gray-800">Brand-Name</p>
-                      <p className="text-sm text-gray-500">Wegovy or Zepbound</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Shipped to your door or picked up at your local pharmacy — your choice</p>
+                      <p className="text-lg font-semibold text-gray-800">Brand-Name</p>
+                      <p className="text-base text-gray-600">Wegovy or Zepbound</p>
+                      <p className="text-sm text-gray-500 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$450<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -557,22 +557,22 @@ export default function LpHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Hormone Therapy</h3>
                 </div>
-                <p className="text-sm text-gray-500 mb-4">Priced per hormone, based on your protocol</p>
+                <p className="text-base text-gray-600 mb-4">Priced per hormone, based on your protocol</p>
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-4 pb-3 border-b border-gray-100">
                     <div>
-                      <p className="text-base font-semibold text-gray-800">Individual hormones (compounded)</p>
-                      <p className="text-sm text-gray-500">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
-                      <p className="text-xs text-[#E8339E] font-medium mt-0.5">Pre-negotiated rate through our partnered pharmacies</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Shipped directly to your door</p>
+                      <p className="text-lg font-semibold text-gray-800">Individual hormones (compounded)</p>
+                      <p className="text-base text-gray-600">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
+                      <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-sm text-gray-500 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$30–$100<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-base font-semibold text-gray-800">Most patients (2–3 hormones)</p>
-                      <p className="text-sm text-gray-500">Typical combined protocol</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Brand-name available at your pharmacy or shipped to your door</p>
+                      <p className="text-lg font-semibold text-gray-800">Most patients (2–3 hormones)</p>
+                      <p className="text-base text-gray-600">Typical combined protocol</p>
+                      <p className="text-sm text-gray-500 mt-1">Brand-name available at your pharmacy or shipped to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$250<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -580,7 +580,7 @@ export default function LpHrt3() {
               </div>
             </div>
 
-            <p className="text-sm text-gray-400 text-center mt-6 max-w-xl mx-auto leading-relaxed">
+            <p className="text-base text-gray-500 text-center mt-6 max-w-xl mx-auto leading-relaxed">
               Estimates only. Actual costs vary by pharmacy, dosage, and insurance. Dr. Al-Deek will walk you through your specific options during your consultation.
             </p>
           </div>
