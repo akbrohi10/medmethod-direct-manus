@@ -414,13 +414,7 @@ export default function MedicalTeam({
                 className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                Personalized treatment designed for women.
-              </p>
-              <p
-                className="mt-3 text-[#555] text-base md:text-lg leading-relaxed"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Meet your doctor — <strong className="text-[#2a2a2a]">Dr. Jumana Al-Deek, DO.</strong>
+                Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek.
               </p>
 
 
