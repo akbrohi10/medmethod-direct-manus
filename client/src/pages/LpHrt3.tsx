@@ -514,7 +514,7 @@ export default function LpHrt3() {
                 What to Expect for Medication
               </h2>
               <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                We guide you toward the most convenient and affordable way to fill your prescriptions. We've partnered with pre-vetted, licensed compounded pharmacies to offer pre-negotiated rates for patients who prefer that route — and for those who prefer brand-name, we'll help you navigate that too. Dr. Al-Deek will discuss your options and make a recommendation based on your goals and budget during your initial consultation. Physician care is billed separately — these are estimated medication costs only.
+                We guide you toward the most convenient and affordable way to fill your prescriptions. We've partnered with pre-vetted, licensed compounded pharmacies to offer pre-negotiated rates for patients who prefer that route — and for those who prefer brand-name, we prescribe that too. Dr. Al-Deek will discuss your options and make a recommendation based on your goals and budget during your initial consultation. Physician care is billed separately — these are estimated medication costs only.
               </p>
             </div>
 
