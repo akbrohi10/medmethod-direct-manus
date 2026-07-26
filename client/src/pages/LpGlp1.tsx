@@ -222,16 +222,47 @@ export default function LpGlp1() {
               {/* Countdown urgency strip */}
               <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
                 {offerActive ? (
-                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#fdf6fb", border: "1px solid rgba(232,51,158,0.22)" }}>
-                    <svg className="w-4 h-4 flex-shrink-0" style={{ color: "#E8339E" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <circle cx="12" cy="12" r="10" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
-                    </svg>
-                    <span className="text-[13px] leading-snug" style={{ color: "#5A2060" }}>
-                      <span className="font-extrabold" style={{ color: "#E8339E" }}>Save $30</span> — book in the next{" "}
-                      <span className="font-extrabold tabular-nums" style={{ color: "#7A1E7E" }}>{countdown}</span>{" "}
-                      and pay <span className="font-extrabold" style={{ color: "#7A1E7E" }}>$169</span> instead of $199.
-                    </span>
+                  <div
+                    className="relative overflow-hidden rounded-xl px-4 py-3"
+                    style={{
+                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      boxShadow: "0 4px 20px rgba(232,51,158,0.35)",
+                    }}
+                  >
+                    {/* Subtle animated shimmer */}
+                    <div
+                      className="absolute inset-0 opacity-20"
+                      style={{
+                        background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
+                        animation: "shimmer 2.5s infinite",
+                        backgroundSize: "200% 100%",
+                      }}
+                    />
+                    <div className="relative flex items-center gap-3">
+                      {/* Pulsing clock icon */}
+                      <div className="flex-shrink-0 w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <circle cx="12" cy="12" r="10" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-white font-extrabold text-[15px] tracking-tight">Limited-Time Offer</span>
+                          <span
+                            className="font-extrabold tabular-nums text-[15px] px-2 py-0.5 rounded-md"
+                            style={{ background: "rgba(255,255,255,0.22)", color: "#fff", letterSpacing: "0.05em" }}
+                          >
+                            {countdown}
+                          </span>
+                        </div>
+                        <p className="text-white/90 text-[13px] mt-0.5 leading-snug">
+                          Book now and pay <span className="font-extrabold text-white">$169</span>
+                          <span className="line-through opacity-60 ml-1">$199</span>
+                          {" "}— save <span className="font-extrabold text-white">$30</span> on your first visit.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#fdf6fb", border: "1px solid rgba(122,30,126,0.15)" }}>
