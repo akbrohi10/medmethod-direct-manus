@@ -104,16 +104,12 @@ const FAQS = [
     a: "The most common side effects are mild nausea, reduced appetite, and occasional digestive changes — especially in the first few weeks. These typically improve as your body adjusts. Dr. Al-Deek starts you at a low dose and titrates slowly to minimize side effects.",
   },
   {
-    q: "Why is it a 3-month plan?",
-    a: "GLP-1 medications require careful dosage titration — starting low and gradually increasing based on how your body responds. Month 1 is your consultation and initial prescription. Months 2 and 3 give Dr. Al-Deek time to monitor your progress, adjust dosages, manage any side effects, and dial in the right protocol. Most patients start noticing changes within the first few weeks, but the full benefit comes from staying the course.",
-  },
-  {
     q: "Is virtual care as effective as in-person visits?",
     a: "Yes. Telehealth visits allow the same thorough evaluation, lab review, and treatment planning as in-person appointments — with the added convenience of no commute, no waiting room, and access from any state where we're licensed.",
   },
   {
     q: "Do you accept insurance?",
-    a: "MedMethod Direct is a membership-based practice. We do not bill insurance directly, but we can prescribe brand-name medications to your local pharmacy for insurance pickup. If your insurance doesn't cover GLP-1s for weight loss, we're happy to complete a prior authorization for an additional cost.",
+    a: "MedMethod Direct is a direct-care practice. We do not bill insurance directly, but we can prescribe brand-name medications to your local pharmacy for insurance pickup. If your insurance doesn't cover GLP-1s for weight loss, we're happy to complete a prior authorization for an additional cost.",
   },
   {
     q: "What states are you licensed in?",
@@ -189,7 +185,7 @@ export default function LpGlp1() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                Book Now — $50 Deposit
+                  Book Your First Visit — $50 Today
               </button>
               {/* Social proof */}
               <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-5 gap-y-2 text-sm text-gray-500">
@@ -392,7 +388,7 @@ export default function LpGlp1() {
               </p>
               <p className="text-gray-500 text-sm mb-4 italic">Same doctor. Every visit. Not a prescription mill.</p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                Your <span className="font-sans">3</span>-Month Care Plan
+                Your Care Plan
               </h2>
               <p className="text-gray-600">No insurance. No middlemen. Just results.</p>
             </div>
@@ -408,11 +404,11 @@ export default function LpGlp1() {
                   <span className="text-white text-xs font-bold">1</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 1</span>
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Initial Consultation</span>
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$199</span>
                 </div>
                 <p className="text-base text-gray-600 mb-4">
-                  Only <span className="font-bold text-gray-900">$50</span> today to reserve your appointment — remaining $149 due day of visit
+                  <span className="font-bold text-gray-900">$50</span> due today · <span className="font-bold text-gray-900">$149</span> due day of visit
                 </p>
 
                 {/* Hero feature — Video consultation */}
@@ -422,7 +418,7 @@ export default function LpGlp1() {
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-base">45-Minute Live Video Consultation</p>
+                      <p className="font-bold text-gray-900 text-base">45-Minute Physician Consultation</p>
                       <p className="text-sm text-gray-600">Face-to-face with Dr. Al-Deek — comprehensive metabolic evaluation & personalized GLP-1 protocol</p>
                     </div>
                   </div>
@@ -449,17 +445,17 @@ export default function LpGlp1() {
                 </div>
               </div>
 
-              {/* Month 2 */}
-              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4 mb-10">
+              {/* Month 2+ */}
+              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">2</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2</span>
-                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
+                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2+</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99<span className="text-base font-normal text-gray-500">/mo</span></span>
                 </div>
                 <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Your plan is in action — Dr. Al-Deek monitors progress and adjusts as needed.
+                  Month-to-month physician care — cancel anytime with 30 days' notice.
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
@@ -472,35 +468,11 @@ export default function LpGlp1() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Dosage adjustments as needed</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Month 3 */}
-              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4">
-                <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">3</span>
-                </div>
-                <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 3</span>
-                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
-                </div>
-                <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Your protocol is dialed in — seamlessly continue with ongoing access to Dr. Al-Deek.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
+                    <span className="text-base text-gray-700">Medication adjustments as needed</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Prescription renewals & refills</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Dosage adjustments as needed</span>
+                    <span className="text-base text-gray-700">Personalized treatment updates</span>
                   </div>
                 </div>
               </div>
@@ -511,7 +483,7 @@ export default function LpGlp1() {
                   onClick={openConsult}
                   className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
-                  Start Your Plan — Only $50 Today
+                  Book Your First Visit — $50 Today
                 </button>
 
                 <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
@@ -521,7 +493,7 @@ export default function LpGlp1() {
             {/* Notes below card */}
             <div className="mt-8 max-w-2xl mx-auto space-y-3">
               <p className="text-base text-gray-600">
-                After your 3-month plan, keep your physician access active at <span className="font-semibold">$99/mo</span> — cancel anytime with 30 days notice.
+                Month-to-month care — no long-term commitment. Cancel anytime with 30 days' notice.
               </p>
               <p className="text-base text-gray-500">
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
@@ -715,10 +687,10 @@ export default function LpGlp1() {
               onClick={openConsult}
               className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
             >
-              Book Now
+              Book Your First Visit — $50 Today
             </button>
             <p className="mt-4 text-sm text-gray-400">
-              100% virtual · Licensed in 17 states · No insurance needed
+              $199 total · $50 reserves your appointment · $149 due at your visit
             </p>
           </div>
         </section>
