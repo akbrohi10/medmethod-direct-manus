@@ -392,8 +392,8 @@ export default function LpGlp1() {
                   step: "02",
                   title: "Boost Metabolism",
                   desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain.",
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
-                  objectPosition: "center",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-boost-metabolism-walk-v1-XvUbciFYZNVrSLgyKKNPrJ.webp",
+                  objectPosition: "center top",
                 },
                 {
                   step: "03",
