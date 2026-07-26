@@ -386,18 +386,21 @@ export default function LpGlp1() {
                   title: "Reduce Appetite",
                   desc: "Signal your brain that you're full sooner, naturally reducing how much you eat without feeling deprived.",
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-barrier-cravings-8iJjjCutCDpHRnerUK2Fpv.webp",
+                  objectPosition: "center",
                 },
                 {
                   step: "02",
                   title: "Boost Metabolism",
                   desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain.",
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
+                  objectPosition: "center",
                 },
                 {
                   step: "03",
                   title: "Silence Cravings",
                   desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible.",
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-cravings-walkaway-v1-L3TkZQgkx9sihRboCcLbEp.webp",
+                  objectPosition: "center bottom",
                 },
               ].map((item) => (
                 <div
@@ -410,6 +413,7 @@ export default function LpGlp1() {
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: item.objectPosition ?? "center" }}
                     />
                     {/* Dark gradient overlay — stronger at bottom so title reads cleanly */}
                     <div
