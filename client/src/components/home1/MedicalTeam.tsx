@@ -390,7 +390,7 @@ export default function MedicalTeam({
                   className="inline sm:hidden text-[#555] text-[0.5em] font-medium italic tracking-wide ml-2"
                   style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}
                 >
-                  Done right.
+                  Done right for you!
                 </span>
               </h1>
               {/* Desktop: "Done right." on its own line */}
@@ -398,7 +398,7 @@ export default function MedicalTeam({
                 className="hidden sm:block mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
-                Done right.
+                Done right for you!
               </p>
               <p
                 className="mt-2 font-extrabold text-[#111111]"
