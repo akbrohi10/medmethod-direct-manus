@@ -225,41 +225,46 @@ export default function LpGlp1() {
                   <div
                     className="relative overflow-hidden rounded-xl px-4 py-3"
                     style={{
-                      background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                      boxShadow: "0 4px 20px rgba(232,51,158,0.35)",
+                      background: "#12102A",
+                      boxShadow: "0 4px 24px rgba(0,0,0,0.22)",
                     }}
                   >
-                    {/* Subtle animated shimmer */}
+                    {/* Shimmer sweep */}
                     <div
-                      className="absolute inset-0 opacity-20"
+                      className="absolute inset-0 pointer-events-none"
                       style={{
-                        background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
-                        animation: "shimmer 2.5s infinite",
+                        background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%)",
+                        animation: "shimmer 3s infinite",
                         backgroundSize: "200% 100%",
                       }}
                     />
                     <div className="relative flex items-center gap-3">
-                      {/* Pulsing clock icon */}
-                      <div className="flex-shrink-0 w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      {/* Amber clock badge */}
+                      <div
+                        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{ background: "rgba(245,158,11,0.15)", border: "1.5px solid rgba(245,158,11,0.4)" }}
+                      >
+                        <svg className="w-5 h-5" style={{ color: "#F59E0B" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                           <circle cx="12" cy="12" r="10" />
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
                         </svg>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-baseline gap-2 flex-wrap">
-                          <span className="text-white font-extrabold text-[15px] tracking-tight">Limited-Time Offer</span>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[11px] font-bold tracking-[0.12em] uppercase" style={{ color: "#F59E0B" }}>Limited-Time Offer</span>
                           <span
-                            className="font-extrabold tabular-nums text-[15px] px-2 py-0.5 rounded-md"
-                            style={{ background: "rgba(255,255,255,0.22)", color: "#fff", letterSpacing: "0.05em" }}
+                            className="font-extrabold tabular-nums text-[14px] px-2.5 py-0.5 rounded-lg"
+                            style={{ background: "#F59E0B", color: "#12102A", letterSpacing: "0.06em" }}
                           >
                             {countdown}
                           </span>
                         </div>
-                        <p className="text-white/90 text-[13px] mt-0.5 leading-snug">
-                          Book now and pay <span className="font-extrabold text-white">$169</span>
-                          <span className="line-through opacity-60 ml-1">$199</span>
-                          {" "}— save <span className="font-extrabold text-white">$30</span> on your first visit.
+                        <p className="text-[13px] mt-1 leading-snug" style={{ color: "rgba(255,255,255,0.8)" }}>
+                          Book now and pay{" "}
+                          <span className="font-extrabold text-white text-[15px]">$169</span>{" "}
+                          <span className="line-through text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>$199</span>
+                          {" "}—{" "}
+                          <span className="font-extrabold" style={{ color: "#F59E0B" }}>save $30</span>{" "}on your first visit.
                         </p>
                       </div>
                     </div>
