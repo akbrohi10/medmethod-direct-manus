@@ -482,7 +482,7 @@ export default function LpHrt3() {
                   onClick={openConsult}
                   className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base w-full sm:w-auto px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
-                  Reserve Your Appt. — $50 Deposit
+                  Book Your Appt. — $50 Deposit
                 </button>
                 <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
               </div>
