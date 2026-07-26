@@ -600,7 +600,7 @@ export default function LpHrt3() {
                   <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                     <span className="text-white font-bold text-lg">{s.num}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">{s.title}</h3>
+                  <h3 className="font-bold text-gray-900 text-lg mb-2" style={{ minHeight: "3.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>{s.title}</h3>
                   <p className="text-base text-gray-600 leading-relaxed">{s.desc}</p>
                 </div>
               ))}
