@@ -385,45 +385,60 @@ export default function LpGlp1() {
                   step: "01",
                   title: "Reduce Appetite",
                   desc: "Signal your brain that you're full sooner, naturally reducing how much you eat without feeling deprived.",
-                  icon: (
-                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m-8-9H3m18 0h-1M5.636 5.636l.707.707m12.02 12.02l.707.707M5.636 18.364l.707-.707m12.02-12.02l.707-.707" />
-                      <circle cx="12" cy="12" r="4" />
-                    </svg>
-                  ),
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-barrier-cravings-8iJjjCutCDpHRnerUK2Fpv.webp",
                 },
                 {
                   step: "02",
                   title: "Boost Metabolism",
                   desc: "Enhance insulin sensitivity and help your body process glucose more efficiently — addressing the root cause of metabolic weight gain.",
-                  icon: (
-                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
-                    </svg>
-                  ),
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
                 },
                 {
                   step: "03",
                   title: "Silence Cravings",
                   desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible.",
-                  icon: (
-                    <svg className="w-8 h-8" fill="none" stroke="white" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728M9.172 14.828a4 4 0 010-5.656m5.656 0a4 4 0 010 5.656" />
-                      <line x1="4" y1="4" x2="20" y2="20" strokeWidth={2.5} />
-                    </svg>
-                  ),
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-v2-EdYkds9dXSDNPvLRcXEQDL.webp",
                 },
               ].map((item) => (
-                <div key={item.title} className="relative bg-white rounded-2xl p-7 sm:p-8 text-center border-l-4 border-l-[#E8339E] border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  {/* Step number */}
-                  <span className="absolute top-4 right-5 text-xs font-bold text-[#E8339E]/40 tracking-wider">{item.step}</span>
-                  {/* Icon */}
-                  <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center shadow-md">
-                    {item.icon}
+                <div
+                  key={item.title}
+                  className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                >
+                  {/* Photo top half with cinematic overlay */}
+                  <div className="relative h-52 sm:h-56 overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Dark gradient overlay — stronger at bottom so title reads cleanly */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.72) 100%)",
+                      }}
+                    />
+                    {/* Step number — top right */}
+                    <span
+                      className="absolute top-4 right-4 text-xs font-bold tracking-widest"
+                      style={{ color: "rgba(255,255,255,0.55)", fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {item.step}
+                    </span>
+                    {/* Title printed on photo at bottom of image */}
+                    <div className="absolute bottom-0 left-0 right-0 px-5 pb-4">
+                      <h3
+                        className="font-['Nunito_Sans',sans-serif] text-xl font-extrabold text-white leading-tight drop-shadow-sm"
+                      >
+                        {item.title}
+                      </h3>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-3">{item.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+
+                  {/* Description panel — clean white bottom half */}
+                  <div className="bg-white px-5 py-5 flex-1 flex flex-col justify-between border-t-2 border-[#E8339E]/20">
+                    <p className="text-[15px] text-gray-600 leading-relaxed">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
