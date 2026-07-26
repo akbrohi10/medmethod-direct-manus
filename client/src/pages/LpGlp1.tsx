@@ -188,10 +188,10 @@ export default function LpGlp1() {
                 GLP-1 Weight Loss
               </p>
               <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-5">
-                Get GLP-1 <span className="whitespace-nowrap">Weight Loss Care.</span>
+                Book Your Virtual <span className="text-[#E8339E] whitespace-nowrap">GLP-1 Consultation.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
-                Book your virtual GLP-1 consultation today — semaglutide or tirzepatide, <span className="text-[#E8339E] font-semibold">prescribed by a specialist</span>, no insurance needed.
+                Physician-prescribed semaglutide or tirzepatide — <span className="text-[#E8339E] font-semibold">real oversight, real results.</span> 100% virtual, no insurance needed.
               </p>
               <button
                 onClick={openConsult}
