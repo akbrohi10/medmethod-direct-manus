@@ -124,6 +124,26 @@ export default function LpGlp1() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
 
+  // 60-minute countdown offer
+  const OFFER_DURATION = 60 * 60; // seconds
+  const [secondsLeft, setSecondsLeft] = useState(() => {
+    const stored = sessionStorage.getItem('glp1_offer_start');
+    if (stored) {
+      const elapsed = Math.floor((Date.now() - parseInt(stored)) / 1000);
+      return Math.max(0, OFFER_DURATION - elapsed);
+    }
+    sessionStorage.setItem('glp1_offer_start', Date.now().toString());
+    return OFFER_DURATION;
+  });
+  const offerActive = secondsLeft > 0;
+  const countdown = `${String(Math.floor(secondsLeft / 60)).padStart(2, '0')}:${String(secondsLeft % 60).padStart(2, '0')}`;
+
+  useEffect(() => {
+    if (secondsLeft <= 0) return;
+    const t = setInterval(() => setSecondsLeft(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(t);
+  }, [secondsLeft]);
+
   useEffect(() => {
     const check = () => {
       const el = document.getElementById('hero-cta-sentinel');
@@ -199,32 +219,35 @@ export default function LpGlp1() {
                 </span>
               </button>
 
-              {/* Hero pricing strip */}
+              {/* Countdown urgency strip */}
               <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
-                  {[
-                    { label: "Your First Visit", price: "$199", note: "$50 today" },
-                    { label: "Month 2+", price: "$99", note: "month-to-month" },
-                  ].map((col, i) => (
-                    <div
-                      key={col.label}
-                      className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
-                      style={{ borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none" }}
-                    >
-                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>{col.label}</span>
-                      <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
-                      <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>{col.note}</span>
-                    </div>
-                  ))}
-                </div>
+                {offerActive ? (
+                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#fdf6fb", border: "1px solid rgba(232,51,158,0.22)" }}>
+                    <svg className="w-4 h-4 flex-shrink-0" style={{ color: "#E8339E" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <circle cx="12" cy="12" r="10" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                    </svg>
+                    <span className="text-[13px] leading-snug" style={{ color: "#5A2060" }}>
+                      <span className="font-extrabold" style={{ color: "#E8339E" }}>Save $30</span> — book in the next{" "}
+                      <span className="font-extrabold tabular-nums" style={{ color: "#7A1E7E" }}>{countdown}</span>{" "}
+                      and pay <span className="font-extrabold" style={{ color: "#7A1E7E" }}>$169</span> instead of $199.
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#fdf6fb", border: "1px solid rgba(122,30,126,0.15)" }}>
+                    <span className="text-[13px]" style={{ color: "#5A2060" }}>
+                      <span className="font-bold">$199</span> first visit · <span className="font-bold">$99/mo</span> after · cancel anytime
+                    </span>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => {
                     const el = document.getElementById('pricing-details');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="mt-3 text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80"
-                  style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
+                  className="mt-2.5 text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80"
+                  style={{ color: "#7A1E7E" }}
                 >
                   See full pricing details
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
