@@ -86,7 +86,7 @@ const STEPS = [
   {
     num: "02",
     title: "Fill Out Your Intake Form",
-    desc: "Complete your health questionnaire and upload recent labs (within 6 months). Don't have labs? We can order them for you.",
+    desc: "Complete your health questionnaire and upload recent labs. No labs yet? We can order them.",
   },
   {
     num: "03",
