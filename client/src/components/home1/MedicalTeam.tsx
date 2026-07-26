@@ -323,7 +323,7 @@ export default function MedicalTeam({
                     medicated."
                   </p>
                   <footer
-                    className="mt-3 text-[10px] tracking-[0.2em] uppercase font-bold"
+                    className="mt-3 text-xs tracking-[0.2em] uppercase font-bold"
                     style={{
                       fontFamily: "Montserrat, sans-serif",
                       color: "#7A1E7E",
@@ -387,7 +387,7 @@ export default function MedicalTeam({
                 </span>
                 {/* Mobile: "Done right." inline after "Care." */}
                 <span
-                  className="inline sm:hidden text-[#555] text-[0.5em] font-medium italic tracking-wide ml-2"
+                  className="inline sm:hidden text-[#555] text-base font-medium italic tracking-wide ml-2"
                   style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}
                 >
                   Done right for you!
@@ -461,7 +461,7 @@ export default function MedicalTeam({
                 <div className="flex flex-col gap-1.5">
                   {ctaMicrocopy ?? (
                   <p
-                    className="text-[13px] leading-snug"
+                    className="text-sm leading-snug"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
                   >
                     <span className="font-semibold text-[#7A1E7E]">Free 15-min discovery call with our care team</span>
@@ -471,7 +471,7 @@ export default function MedicalTeam({
                   )}
                   {!hideBullets && (
                   <div
-                    className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] font-medium"
+                    className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}
                   >
                     <span className="flex items-center gap-1.5">
@@ -507,7 +507,7 @@ export default function MedicalTeam({
               {/* Credentials — solid pink fill, conveys authority. */}
               <div className="mt-5">
                 <span
-                  className="text-[12px] tracking-[0.18em] uppercase font-semibold block mb-2"
+                  className="text-xs tracking-[0.18em] uppercase font-semibold block mb-2"
                   style={{
                     fontFamily: "Montserrat, sans-serif",
                     color: "#8a4a72",
@@ -519,7 +519,7 @@ export default function MedicalTeam({
                   {CREDENTIAL_PILLS.map((pill) => (
                     <span
                       key={pill}
-                      className="px-4 py-1.5 rounded-full text-[12px] font-semibold tracking-wide"
+                      className="px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide"
                       style={{
                         fontFamily: "Montserrat, sans-serif",
                         background: "#F4E8EE",
@@ -537,7 +537,7 @@ export default function MedicalTeam({
                   distinct from credentials so the two rows don't blur. */}
               <div className="mt-5">
                 <span
-                  className="text-[12px] tracking-[0.18em] uppercase font-semibold block mb-2"
+                  className="text-xs tracking-[0.18em] uppercase font-semibold block mb-2"
                   style={{
                     fontFamily: "Montserrat, sans-serif",
                     color: "#8a4a72",

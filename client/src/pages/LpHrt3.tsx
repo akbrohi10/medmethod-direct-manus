@@ -459,7 +459,7 @@ export default function LpHrt3() {
               {/* Total + CTA */}
               <div className="ml-3 sm:ml-4 pt-4 border-t border-gray-100">
                 <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 mb-6">
-                  <div className="flex flex-wrap gap-3 text-sm text-gray-600">
+                  <div className="flex flex-wrap gap-3 text-base text-gray-700">
                     <span className="flex items-center gap-1.5">
                       <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                       No hidden fees
@@ -484,7 +484,7 @@ export default function LpHrt3() {
                 >
                   Reserve Your Appt. — $50 Deposit
                 </button>
-                <p className="mt-3 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
+                <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 
@@ -531,7 +531,7 @@ export default function LpHrt3() {
                       <p className="text-lg font-semibold text-gray-800">Compounded</p>
                       <p className="text-base text-gray-600">Semaglutide or tirzepatide</p>
                       <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
-                      <p className="text-sm text-gray-500 mt-0.5">Shipped directly to your door</p>
+                      <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$100–$300<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -539,7 +539,7 @@ export default function LpHrt3() {
                     <div>
                       <p className="text-lg font-semibold text-gray-800">Brand-Name</p>
                       <p className="text-base text-gray-600">Wegovy or Zepbound</p>
-                      <p className="text-sm text-gray-500 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
+                      <p className="text-base text-gray-600 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$450<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -561,7 +561,7 @@ export default function LpHrt3() {
                       <p className="text-lg font-semibold text-gray-800">Individual hormones (compounded)</p>
                       <p className="text-base text-gray-600">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
                       <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
-                      <p className="text-sm text-gray-500 mt-0.5">Shipped directly to your door</p>
+                      <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$30–$100<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -569,7 +569,7 @@ export default function LpHrt3() {
                     <div>
                       <p className="text-lg font-semibold text-gray-800">Most patients (2–3 hormones)</p>
                       <p className="text-base text-gray-600">Typical combined protocol</p>
-                      <p className="text-sm text-gray-500 mt-1">Brand-name available at your pharmacy or shipped to your door</p>
+                      <p className="text-base text-gray-600 mt-1">Brand-name available at your pharmacy or shipped to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$250<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
@@ -614,17 +614,17 @@ export default function LpHrt3() {
             <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10">
               <div className="text-center">
                 <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">1,000+</p>
-                <p className="text-sm text-gray-500 mt-1">Patients Treated</p>
+                <p className="text-base text-gray-600 mt-1">Patients Treated</p>
               </div>
               <div className="hidden sm:block w-px h-12 bg-gray-200" />
               <div className="text-center">
                 <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">4.9<span className="text-[#E8339E]">★</span></p>
-                <p className="text-sm text-gray-500 mt-1">Patient Satisfaction</p>
+                <p className="text-base text-gray-600 mt-1">Patient Satisfaction</p>
               </div>
               <div className="hidden sm:block w-px h-12 bg-gray-200" />
               <div className="text-center">
                 <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">17</p>
-                <p className="text-sm text-gray-500 mt-1">States Licensed</p>
+                <p className="text-base text-gray-600 mt-1">States Licensed</p>
               </div>
             </div>
             <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
@@ -704,10 +704,10 @@ export default function LpHrt3() {
       <footer className="bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <img src={LOGO} alt="MedMethod Direct" className="h-12 w-auto brightness-0 invert" />
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-500">
             &copy; {new Date().getFullYear()} MedMethod Direct. All rights reserved.
           </p>
-          <div className="flex gap-4 text-sm text-gray-400">
+          <div className="flex gap-4 text-sm text-gray-300">
             <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy</a>
             <a href="/terms" className="hover:text-white transition-colors">Terms</a>
             <a href="/hipaa-notice" className="hover:text-white transition-colors">HIPAA</a>
