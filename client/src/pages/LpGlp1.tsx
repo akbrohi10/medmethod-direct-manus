@@ -183,16 +183,15 @@ export default function LpGlp1() {
           <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20 lg:py-24 grid md:grid-cols-[1fr_1fr] lg:grid-cols-[55%_45%] gap-10 lg:gap-16 items-center relative z-10">
             {/* Left — Copy */}
             <div className="order-2 md:order-1 text-center md:text-left">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-5">
+                <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#E8339E] tracking-wide uppercase mb-5">
                 <span className="w-2 h-2 rounded-full bg-[#E8339E] animate-pulse" />
                 GLP-1 Weight Loss
               </p>
               <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-5">
-                Medically guided <span className="whitespace-nowrap">weight loss,</span><br className="hidden md:block" />
-                <span className="text-[#E8339E]">prescribed by a specialist.</span>
+                Get GLP-1 <span className="whitespace-nowrap">Weight Loss Care.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
-                Semaglutide & Tirzepatide — most patients see results <span className="text-[#E8339E] font-semibold">within weeks</span>, not months. <span className="text-[#E8339E] font-semibold">100% virtual</span>, from the comfort of your home.
+                Book your physician consultation today — semaglutide or tirzepatide, <span className="text-[#E8339E] font-semibold">prescribed virtually</span>, no insurance needed.
               </p>
               <button
                 onClick={openConsult}
