@@ -4,7 +4,7 @@
    - Weight loss focused for all women (30-60+)
    - Same structure as /lp/hrt2 but adapted for GLP-1 audience
    ============================================================================= */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import {
@@ -122,6 +122,19 @@ const FAQS = [
 export default function LpGlp1() {
   const [consultOpen, setConsultOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const el = document.getElementById('hero-cta-sentinel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setShowStickyCTA(rect.bottom < 0);
+    };
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+    return () => window.removeEventListener('scroll', check);
+  }, []);
 
   const openConsult = () => setConsultOpen(true);
 
@@ -185,8 +198,46 @@ export default function LpGlp1() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                  Book Your First Visit — $50 Today
+                <span className="flex flex-col items-center leading-tight">
+                  <span>Book Your 45-Min Appt.</span>
+                  <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 First Visit · $50 Due Today</span>
+                </span>
               </button>
+
+              {/* Hero pricing strip */}
+              <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
+                  {[
+                    { label: "Your First Visit", price: "$199", note: "$50 today" },
+                    { label: "Month 2+", price: "$99", note: "month-to-month" },
+                  ].map((col, i) => (
+                    <div
+                      key={col.label}
+                      className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
+                      style={{ borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none" }}
+                    >
+                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>{col.label}</span>
+                      <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
+                      <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>{col.note}</span>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById('pricing-details');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="mt-3 text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80"
+                  style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
+                >
+                  See full pricing details
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                    <path d="M6 2.5v7M3 7l3 3 3-3" stroke="#7A1E7E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+
               {/* Social proof */}
               <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-5 gap-y-2 text-sm text-gray-500">
                 <span className="flex items-center gap-1.5">
@@ -231,7 +282,7 @@ export default function LpGlp1() {
                 Your Physician
               </p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                Dr. Jumana Al-Deek, DO
+                Dr. Jumana Al-Deek, DO, MS
               </h2>
               <p className="text-gray-600 mb-4 text-sm">
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
@@ -379,27 +430,29 @@ export default function LpGlp1() {
           </div>
         </section>
 
-        {/* ═══════════════ PRICING — 3-MONTH TIMELINE ═══════════════ */}
-        <section className="bg-[#FDF8F3] py-12 md:py-20">
+        {/* ═══════════════ PRICING ═══════════════ */}
+        <section id="pricing-details" className="bg-[#FDF8F3] py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">
                 Transparent Pricing
               </p>
-              <p className="text-gray-500 text-sm mb-4 italic">Same doctor. Every visit. Not a prescription mill.</p>
-              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 Your Care Plan
               </h2>
-              <p className="text-gray-600">No insurance. No middlemen. Just results.</p>
+              <p className="text-gray-600 max-w-xl mx-auto mb-2">
+                No insurance. No middlemen. Just results.
+              </p>
+              <p className="text-base text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+                Pricing covers physician care, monitoring, and prescribing. Medication is billed separately — compounded options are typically <span className="font-semibold text-[#7A1E7E]">30–45% more affordable</span> than brand-name and will be discussed during your consultation.
+              </p>
             </div>
 
-            {/* Single unified timeline card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-gray-200 shadow-xl relative">
-              {/* Timeline line */}
-              <div className="absolute left-[22px] sm:left-[26px] top-[60px] bottom-[180px] w-[2px] bg-gradient-to-b from-[#E8339E] to-[#7A1E7E]/40 ml-3 sm:ml-4" />
+            {/* Unified timeline card */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 max-w-3xl mx-auto p-6 sm:p-10 text-left">
 
-              {/* Month 1 */}
-              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4 mb-10">
+              {/* Initial Consultation */}
+              <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/40 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">1</span>
                 </div>
@@ -407,96 +460,109 @@ export default function LpGlp1() {
                   <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Initial Consultation</span>
                   <span className="text-3xl sm:text-4xl font-bold text-gray-900">$199</span>
                 </div>
-                <p className="text-base text-gray-600 mb-4">
-                  <span className="font-bold text-gray-900">$50</span> due today · <span className="font-bold text-gray-900">$149</span> due day of visit
-                </p>
+                <div className="mb-4 space-y-1">
+                  <div className="flex items-center justify-between max-w-xs">
+                    <span className="text-base font-bold text-gray-800">Reserve Today:</span>
+                    <span className="text-base font-semibold text-gray-700">$50 deposit</span>
+                  </div>
+                  <div className="flex items-center justify-between max-w-xs">
+                    <span className="text-base font-bold text-gray-800">Day of Your Visit:</span>
+                    <span className="text-base font-semibold text-gray-700">Remaining $149</span>
+                  </div>
+                  <div className="flex items-center justify-between max-w-xs border-t border-gray-100 pt-1 mt-1">
+                    <span className="text-base font-bold text-gray-900">Total Initial Consultation:</span>
+                    <span className="text-base font-bold text-[#7A1E7E]">$199</span>
+                  </div>
+                </div>
 
-                {/* Hero feature — Video consultation */}
-                <div className="bg-white rounded-xl p-4 border border-[#E8339E]/20 mb-4 shadow-sm">
+                {/* Hero feature */}
+                <div className="bg-gradient-to-r from-[#E8339E]/5 to-[#7A1E7E]/5 border border-[#E8339E]/20 rounded-xl p-4 mb-5">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E8339E] to-[#7A1E7E] flex items-center justify-center flex-shrink-0">
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-base">45-Minute Physician Consultation</p>
-                      <p className="text-sm text-gray-600">Face-to-face with Dr. Al-Deek — comprehensive metabolic evaluation & personalized GLP-1 protocol</p>
+                      <p className="text-lg font-bold text-gray-900">45-Minute Physician Consultation</p>
+                      <p className="text-base text-gray-600 mt-1">Meet one-on-one with Dr. Jumana Al-Deek to review your symptoms, medical history, and create your personalized GLP-1 treatment plan.</p>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Also included:</p>
+                <p className="text-base font-semibold text-gray-700 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Comprehensive lab review</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Custom GLP-1 protocol & prescription</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Patient dashboard & tracking</span>
-                  </div>
+                  {["Comprehensive medical & lab review", "Personalized GLP-1 treatment plan", "Prescriptions when clinically appropriate", "Direct text access with Dr. Al-Deek", "Patient dashboard & progress tracking"].map((item) => (
+                    <div key={item} className="flex items-start gap-2">
+                      <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
+                      <span className="text-base text-gray-800 leading-relaxed">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               {/* Month 2+ */}
-              <div className="relative pl-10 sm:pl-12 ml-3 sm:ml-4">
+              <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/25 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">2</span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2+</span>
-                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99<span className="text-base font-normal text-gray-500">/mo</span></span>
+                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
                 </div>
                 <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Month-to-month physician care — cancel anytime with 30 days' notice.
+                  Your plan is in action — Dr. Al-Deek monitors progress and adjusts as needed. Month-to-month, cancel anytime with 30 days' notice.
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Direct text access with Dr. Al-Deek</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Prescription renewals & refills</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Medication adjustments as needed</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-emerald-500 text-base mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-base text-gray-700">Personalized treatment updates</span>
-                  </div>
+                  {["Direct text access with Dr. Al-Deek", "Prescription renewals & refills", "Medication adjustments as needed", "Personalized treatment updates"].map((item) => (
+                    <div key={item} className="flex items-start gap-2">
+                      <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
+                      <span className="text-base text-gray-800 leading-relaxed">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* CTA inside card */}
-              <div className="mt-10 pt-8 border-t border-gray-100 text-center">
+              {/* Total + CTA */}
+              <div className="ml-3 sm:ml-4 pt-4 border-t border-gray-100">
+                <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 mb-6">
+                  <div className="flex flex-wrap gap-3 text-base text-gray-700">
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                      No hidden fees
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                      Cancel anytime
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                      HIPAA-secure
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                      Real doctor, not a chatbot
+                    </span>
+                  </div>
+                </div>
                 <button
                   onClick={openConsult}
-                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                  className="bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base w-full sm:w-auto px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
-                  Book Your First Visit — $50 Today
+                  Book Your Appt. — $50 Deposit
                 </button>
-
-                <p className="mt-1 text-xs text-gray-400">Currently accepting new patients — limited availability</p>
+                <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
               </div>
             </div>
 
-            {/* Notes below card */}
-            <div className="mt-8 max-w-2xl mx-auto space-y-3">
+            <div className="mt-8 text-center space-y-3">
               <p className="text-base text-gray-600">
-                Month-to-month care — no long-term commitment. Cancel anytime with 30 days' notice.
+                Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-800">$149</span> per appointment.
               </p>
-              <p className="text-base text-gray-500">
-                Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-700">$149</span> per appointment.
+              <p className="text-base text-gray-600 border-t border-gray-100 pt-3">
+                Month-to-month — no long-term commitment. Keep your physician access active at{" "}
+                <span className="font-semibold text-[#7A1E7E]">$99/mo</span>{" "}
+                — cancel anytime with 30 days' notice.
               </p>
             </div>
           </div>
@@ -680,8 +746,8 @@ export default function LpGlp1() {
             <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to lose the weight for good?
             </h2>
-            <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
-              Book a virtual consultation with Dr. Al-Deek. No commitment, no pressure — just expert guidance on your next step.
+            <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
+              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, labs, and goals, and leave with a personalized GLP-1 treatment plan and prescription.
             </p>
             <button
               onClick={openConsult}
@@ -689,7 +755,7 @@ export default function LpGlp1() {
             >
               Book Your First Visit — $50 Today
             </button>
-            <p className="mt-4 text-sm text-gray-400">
+            <p className="mt-4 text-base text-gray-300">
               $199 total · $50 reserves your appointment · $149 due at your visit
             </p>
           </div>
@@ -716,6 +782,32 @@ export default function LpGlp1() {
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
       />
+
+      {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
+      <div
+        className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-[env(safe-area-inset-bottom,12px)] pt-3 bg-white/95 backdrop-blur-sm border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${showStickyCTA ? 'translate-y-0' : 'translate-y-full'}`}
+        style={{ pointerEvents: showStickyCTA ? 'auto' : 'none' }}
+        aria-hidden={!showStickyCTA}
+      >
+        <button
+          onClick={openConsult}
+          className="w-full flex flex-col items-center justify-center gap-0.5 py-3.5 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+          style={{
+            background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+            boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
+          }}
+        >
+          <span className="text-[15px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            Book Your 45-Min Appt.
+          </span>
+          <span className="text-[13px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            $199 First Visit &middot; $50 Due Today
+          </span>
+        </button>
+      </div>
+
+      {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
+      <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-20' : 'h-0'}`} />
     </>
   );
 }
