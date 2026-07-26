@@ -397,7 +397,7 @@ export default function LpGlp1() {
                   step: "03",
                   title: "Silence Cravings",
                   desc: "Quiet the constant food noise and emotional eating triggers that make dieting feel impossible.",
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-mood-v2-EdYkds9dXSDNPvLRcXEQDL.webp",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/glp1-cravings-walkaway-v1-L3TkZQgkx9sihRboCcLbEp.webp",
                 },
               ].map((item) => (
                 <div
