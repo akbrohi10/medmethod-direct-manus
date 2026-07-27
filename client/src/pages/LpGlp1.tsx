@@ -184,10 +184,10 @@ export default function LpGlp1() {
             {/* Left — Copy */}
             <div className="order-2 md:order-1 text-center md:text-left">
               <h1 className="font-['Nunito_Sans',sans-serif] text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-extrabold text-gray-900 mb-5">
-                Book Your Virtual <span className="text-[#E8339E] whitespace-nowrap">GLP-1 Consultation.</span>
+                Find Out If <span className="text-[#E8339E] whitespace-nowrap">GLP-1 Is Right for You.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
-                Physician-prescribed semaglutide or tirzepatide — <span className="text-[#E8339E] font-semibold">real oversight, real results.</span> 100% virtual, no insurance needed.
+                Book a 45-minute virtual consultation with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide <span className="text-[#E8339E] font-semibold">if you qualify.</span> 100% virtual, no insurance needed.
               </p>
               <button
                 onClick={openConsult}
