@@ -193,10 +193,7 @@ export default function LpGlp1() {
                 onClick={openConsult}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
               >
-                <span className="flex flex-col items-center leading-tight">
-                  <span>Book Your 45-Min Appt.</span>
-                  <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 First Visit · $50 Due Today</span>
-                </span>
+                Book Your 45-Min Appt.
               </button>
 
               {/* Hero pricing strip */}
@@ -814,9 +811,6 @@ export default function LpGlp1() {
         >
           <span className="text-[15px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
             Book Your 45-Min Appt.
-          </span>
-          <span className="text-[13px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            $199 First Visit &middot; $50 Due Today
           </span>
         </button>
       </div>
