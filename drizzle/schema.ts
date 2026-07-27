@@ -91,3 +91,34 @@ export const superAdminCredentials = mysqlTable("super_admin_credentials", {
 
 export type SuperAdminCredential = typeof superAdminCredentials.$inferSelect;
 export type InsertSuperAdminCredential = typeof superAdminCredentials.$inferInsert;
+
+/**
+ * Payment webhook log — tracks every GHL payment-success webhook attempt.
+ * The transaction_id column acts as the idempotency key so a retried Stripe
+ * event never fires the GHL webhook twice for the same payment.
+ *
+ * One row is inserted per attempt (up to 3 per transaction_id).
+ * A successful attempt has http_status 2xx and error_message = null.
+ */
+export const paymentWebhookLog = mysqlTable("payment_webhook_log", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Stripe PaymentIntent ID — used as idempotency key */
+  transactionId: varchar("transactionId", { length: 128 }).notNull(),
+  /** /lp/glp1 or /lp/hrt3 */
+  landingPagePath: varchar("landingPagePath", { length: 64 }).notNull(),
+  /** Attempt number: 1, 2, or 3 */
+  attemptNumber: int("attemptNumber").notNull().default(1),
+  /** Full JSON payload sent to GHL */
+  requestBody: text("requestBody").notNull(),
+  /** HTTP status code returned by GHL (0 if network error) */
+  httpStatus: int("httpStatus").notNull().default(0),
+  /** GHL response body (truncated to 2000 chars) */
+  responseBody: text("responseBody"),
+  /** Error message if the attempt threw (network error, timeout, etc.) */
+  errorMessage: text("errorMessage"),
+  /** Whether this attempt was considered successful (2xx) */
+  success: int("success").notNull().default(0), // 0 = false, 1 = true
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type PaymentWebhookLog = typeof paymentWebhookLog.$inferSelect;
+export type InsertPaymentWebhookLog = typeof paymentWebhookLog.$inferInsert;

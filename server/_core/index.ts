@@ -11,6 +11,7 @@ import { serveStatic, setupVite } from "./vite";
 import { chargeRemainingHandler, ensureGlobalSweepCron } from "../scheduledChargeHandler";
 import { ghlBookingWebhookHandler } from "../ghlWebhookHandler";
 import { crawlerMiddleware } from "../crawlerMiddleware";
+import { stripePaymentWebhookHandler } from "../stripePaymentWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -34,6 +35,19 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  // ── Stripe payment webhook — MUST be registered BEFORE express.json() ──────
+  // Stripe signature verification requires the raw request body (a Buffer).
+  // express.raw() captures it before express.json() parses it away.
+  // This route fires ONLY for /lp/glp1 and /lp/hrt3 payments.
+  // Setup: Stripe Dashboard → Developers → Webhooks → Add endpoint
+  //   URL: https://medmethoddirect.com/api/webhooks/stripe-payment
+  //   Events: payment_intent.succeeded
+  app.post(
+    "/api/webhooks/stripe-payment",
+    express.raw({ type: "application/json" }),
+    stripePaymentWebhookHandler
+  );
+
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));

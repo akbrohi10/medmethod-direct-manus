@@ -7,4 +7,8 @@ export const ENV = {
   isProduction: process.env.NODE_ENV === "production",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+  /** Stripe webhook signing secret for /api/webhooks/stripe-payment */
+  stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? "",
+  /** GoHighLevel payment webhook destination URL */
+  ghlPaymentWebhookUrl: process.env.GHL_PAYMENT_WEBHOOK_URL ?? "",
 };
