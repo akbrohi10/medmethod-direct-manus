@@ -117,7 +117,10 @@ export default function MedicalTeam({
   ctaLabel,
   ctaMicrocopy,
   hideBullets,
-}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode; hideBullets?: boolean } = {}) {
+  overrideHeadline,
+  overrideSubline,
+  overrideBody,
+}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode; hideBullets?: boolean; overrideHeadline?: ReactNode; overrideSubline?: ReactNode; overrideBody?: ReactNode } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -354,52 +357,67 @@ export default function MedicalTeam({
               </h3>
 
               {/* ===== Hero header (patient-centered) ===== */}
-              <h1
-                className="font-black text-[#111111] leading-[1.05]"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                <span
+              {overrideHeadline ? (
+                <h1
+                  className="font-black text-[#111111] leading-[1.05]"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "clamp(1.8rem, 3.8vw, 3rem)",
+                    letterSpacing: "-0.02em",
                   }}
                 >
-                  Weight Loss
-                </span>
-                {" & "}
-                <span
+                  {overrideHeadline}
+                </h1>
+              ) : (
+                <h1
+                  className="font-black text-[#111111] leading-[1.05]"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
+                    letterSpacing: "-0.02em",
                   }}
                 >
-                  Menopause Care.
-                </span>
-                {/* Mobile: "Done right." inline after "Care." */}
-                <span
-                  className="inline sm:hidden text-[#555] text-base font-medium italic tracking-wide ml-2"
-                  style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}
+                  <span
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Weight Loss
+                  </span>
+                  {" & "}
+                  <span
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Menopause Care.
+                  </span>
+                  {/* Mobile: "Done right." inline after "Care." */}
+                  <span
+                    className="inline sm:hidden text-[#555] text-base font-medium italic tracking-wide ml-2"
+                    style={{ fontFamily: "Playfair Display, serif", WebkitTextFillColor: "#555", backgroundImage: "none" }}
+                  >
+                    Done right for you!
+                  </span>
+                </h1>
+              )}
+              {/* Desktop: "Done right." on its own line — only when using default headline */}
+              {!overrideHeadline && (
+                <p
+                  className="hidden sm:block mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
+                  style={{ fontFamily: "Playfair Display, serif" }}
                 >
                   Done right for you!
-                </span>
-              </h1>
-              {/* Desktop: "Done right." on its own line */}
-              <p
-                className="hidden sm:block mt-2 text-[#555] text-lg md:text-xl font-medium italic tracking-wide"
-                style={{ fontFamily: "Playfair Display, serif" }}
-              >
-                Done right for you!
-              </p>
+                </p>
+              )}
               <p
                 className="mt-2 font-extrabold text-[#111111]"
                 style={{
@@ -408,13 +426,13 @@ export default function MedicalTeam({
                   letterSpacing: "-0.01em",
                 }}
               >
-                100% Virtual.
+                {overrideSubline ?? "100% Virtual."}
               </p>
               <p
                 className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek, DO, MS.
+                {overrideBody ?? <>Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek, DO, MS.</>}
               </p>
 
 

@@ -229,6 +229,23 @@ export default function LpHrt3() {
           <MedicalTeam
             onConsultClick={openConsult}
             hideBullets
+            overrideHeadline={
+              <>
+                Is Hormone Therapy or GLP-1{" "}
+                <span
+                  style={{
+                    backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Right for You?
+                </span>
+              </>
+            }
+            overrideSubline="100% Virtual"
+            overrideBody="Get personalized menopause, hormone, and weight loss care with Dr. Jumana Al-Deek."
             ctaLabel={
               <span className="flex flex-col items-center leading-tight">
                 <span>Book Your 45-Min Appt.</span>
