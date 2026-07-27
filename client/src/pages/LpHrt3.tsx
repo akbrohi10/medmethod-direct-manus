@@ -239,7 +239,7 @@ export default function LpHrt3() {
                 }}
               >
                 Is Hormone Therapy or{" "}
-                <span style={{ whiteSpace: "nowrap" }}>GLP-1</span>
+                <span style={{ whiteSpace: "nowrap", WebkitTextFillColor: "#111111", backgroundImage: "none" }}>GLP-1</span>
                 <br />
                 Right for You?
               </span>
