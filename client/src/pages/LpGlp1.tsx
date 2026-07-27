@@ -208,7 +208,11 @@ export default function LpGlp1() {
                       className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
                       style={{ borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none" }}
                     >
-                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>{col.label}</span>
+                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>
+                        {col.label === "Your 1st Visit"
+                          ? <>Your 1<span className="normal-case">st</span> Visit</>
+                          : col.label}
+                      </span>
                       <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
                       <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>{col.note}</span>
                     </div>
