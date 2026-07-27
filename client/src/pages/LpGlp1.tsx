@@ -795,6 +795,7 @@ export default function LpGlp1() {
       <LpConsultationModal2
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
+        landingPage="/lp/glp1"
       />
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}

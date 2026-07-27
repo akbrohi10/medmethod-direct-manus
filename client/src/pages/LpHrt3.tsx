@@ -719,6 +719,7 @@ export default function LpHrt3() {
       <LpConsultationModal2
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
+        landingPage="/lp/hrt3"
       />
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}

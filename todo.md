@@ -105,3 +105,17 @@
 - [x] Wire all CTAs to LpConsultationModal2 (same as /lp/hrt2)
 - [x] Register /lp/hrt3 route in App.tsx
 - [x] Save checkpoint
+## Stripe Payment Webhook → GHL (payment_success)
+- [x] Audit existing codebase: Stripe setup, existing webhook handlers, schema
+- [x] Add payment_webhook_log table to drizzle/schema.ts (idempotency + attempt logging)
+- [x] Run db:push migration and apply SQL via webdev_execute_sql
+- [x] Create server/stripePaymentWebhook.ts — POST /api/webhooks/stripe-payment handler
+- [x] Scope filter: only fires for /lp/glp1 and /lp/hrt3 (ALLOWED_LANDING_PAGES)
+- [x] Idempotency: skip if transaction_id already delivered (success=1 row in DB)
+- [x] Retry logic: exponential backoff, up to 3 attempts, logs every attempt
+- [x] Flat JSON payload with all 14 fields always present (empty string not omitted)
+- [x] Register route in server/_core/index.ts BEFORE express.json() for raw body
+- [x] Add STRIPE_WEBHOOK_SECRET and GHL_PAYMENT_WEBHOOK_URL to env.ts
+- [x] Write vitest tests (18 tests, all passing)
+- [x] Send 2 test payloads to GHL — both HTTP 200 confirmed
+- [x] Save checkpoint (version 4a621e4a)

@@ -33,10 +33,12 @@ function CheckoutForm({
   paymentId,
   onComplete,
   onError,
+  onPaymentIntentId,
 }: {
   paymentId: number;
   onComplete: () => void;
   onError: (msg: string) => void;
+  onPaymentIntentId?: (piId: string) => void;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -96,6 +98,8 @@ function CheckoutForm({
     }
 
     if (paymentIntent?.status === "succeeded") {
+      // Notify parent of the PaymentIntent ID so it can include it in the GHL payload
+      onPaymentIntentId?.(paymentIntent.id);
       // Update our DB record with the confirmed payment method
       confirmDeposit.mutate({
         paymentId,
@@ -236,16 +240,22 @@ interface StripePaymentFormProps {
   patientName: string;
   patientEmail: string;
   patientPhone?: string;
+  /** e.g. "/lp/glp1" or "/lp/hrt3" — stored in Stripe metadata for webhook routing */
+  landingPage?: string;
   onComplete: () => void;
   onPaymentId: (id: number) => void;
+  /** Called with the Stripe PaymentIntent ID once payment succeeds */
+  onPaymentIntentId?: (piId: string) => void;
 }
 
 export default function StripePaymentForm({
   patientName,
   patientEmail,
   patientPhone,
+  landingPage,
   onComplete,
   onPaymentId,
+  onPaymentIntentId,
 }: StripePaymentFormProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentId, setPaymentId] = useState<number | null>(null);
@@ -285,7 +295,7 @@ export default function StripePaymentForm({
       patientName,
       patientEmail,
       patientPhone,
-      landingPage: "hrt2",
+      landingPage: landingPage ?? "hrt2",
     });
   }, [pubKeyQuery.data?.publishableKey]);
 
@@ -357,6 +367,7 @@ export default function StripePaymentForm({
           paymentId={paymentId!}
           onComplete={onComplete}
           onError={(msg) => setErrorMsg(msg)}
+          onPaymentIntentId={onPaymentIntentId}
         />
       </Elements>
     </div>

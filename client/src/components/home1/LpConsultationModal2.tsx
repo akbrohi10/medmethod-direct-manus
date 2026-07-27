@@ -11,11 +11,16 @@ import StripePaymentForm from "./StripePaymentForm";
 import { trpc } from "@/lib/trpc";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
+/** Intake form webhook — fires on lead capture (creates/updates contact in GHL) */
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
+/** Payment success webhook — fires after $50 deposit is confirmed */
+const GHL_PAYMENT_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/d37a2de2-c00f-40ed-bb00-a8efa3127093";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  /** The originating landing page path, e.g. "/lp/glp1" or "/lp/hrt3" */
+  landingPage?: string;
 }
 
 const SERVICE_OPTIONS = [
@@ -312,7 +317,7 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
 // PaymentForm is now handled by StripePaymentForm component
 
 // ── Main modal ───────────────────────────────────────────────────────────────
-export default function LpConsultationModal2({ open, onClose }: Props) {
+export default function LpConsultationModal2({ open, onClose, landingPage = "/lp/hrt2" }: Props) {
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -327,6 +332,7 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
   const [consentAttempted, setConsentAttempted] = useState(false);
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
+  const [stripePaymentIntentId, setStripePaymentIntentId] = useState<string | null>(null);
   const [chargeScheduled, setChargeScheduled] = useState(false);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
 
@@ -580,9 +586,9 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
     }
   };
 
-  const handlePaymentComplete = async () => {
-    // Fire webhook with payment info (GHL)
-    await submitPaymentWebhook();
+  const handlePaymentComplete = async (piId?: string) => {
+    // Fire GHL payment webhook with all 14 required fields
+    await submitPaymentWebhook(piId);
     setStep(CALENDAR_STEP);
     toast.success("Deposit received! Now let's book your appointment.");
   };
@@ -626,32 +632,43 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
     }
   };
 
-  // Second webhook: fires after payment
-  const submitPaymentWebhook = async () => {
+  // Second webhook: fires after payment — posts to the dedicated payment webhook URL
+  // Uses all 14 required fields so GHL can trigger the correct automation.
+  const submitPaymentWebhook = async (paymentIntentId?: string | null) => {
+    const firstName = leadData.firstName.trim() || answers.firstName || "";
+    const lastName = ""; // LP form only collects first name
+    const email = leadData.email.trim() || answers.email || "";
+    const phone = leadData.phone || answers.phone || "";
+
     const payload = {
-      first_name: leadData.firstName.trim() || answers.firstName || "",
-      email: leadData.email.trim() || answers.email || "",
-      phone: leadData.phone || answers.phone || "",
-      zip_code: leadData.zip || answers.zip || "",
-      selected_plan: "3-Month Care Plan - $199 + $99/mo",
-      payment_status: "deposit_paid",
-      deposit_amount: "$50",
-      remaining_amount: "$149",
-      source: "LP /lp/hrt2",
-      form_name: "LP HRT2 Payment",
+      event: "payment_success",
+      landing_page_path: landingPage,
+      email,
+      phone,
+      first_name: firstName,
+      last_name: lastName,
+      form_submission_id: stripePaymentId ? String(stripePaymentId) : "",
+      payment_amount: "50.00",
+      payment_currency: "USD",
+      payment_status: "succeeded",
+      transaction_id: paymentIntentId || stripePaymentIntentId || "",
+      payment_processor: "stripe",
+      product_name: `MedMethod Direct \u2014 $50 deposit (${landingPage.includes("glp") ? "GLP-1" : "HRT"} consultation)`,
+      paid_at: new Date().toISOString(),
     };
 
-    console.log("GHL webhook (LP payment):", payload);
+    console.log("GHL payment webhook:", payload);
 
     try {
-      const response = await fetch(GHL_WEBHOOK_URL, {
+      const response = await fetch(GHL_PAYMENT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error(`Webhook failed with status ${response.status}`);
+      if (!response.ok) throw new Error(`Payment webhook failed with status ${response.status}`);
+      console.log("GHL payment webhook delivered ✓");
     } catch (error) {
-      console.error("GHL webhook (LP payment) error:", error);
+      console.error("GHL payment webhook error:", error);
     }
   };
 
@@ -1008,8 +1025,15 @@ export default function LpConsultationModal2({ open, onClose }: Props) {
                 patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
                 patientEmail={leadData.email.trim() || answers.email || ""}
                 patientPhone={leadData.phone || answers.phone}
-                onComplete={handlePaymentComplete}
+                landingPage={landingPage}
+                onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
                 onPaymentId={(id) => setStripePaymentId(id)}
+                onPaymentIntentId={(piId) => {
+                  setStripePaymentIntentId(piId);
+                  // Fire the GHL webhook immediately when we have the PaymentIntent ID
+                  // (before confirmDeposit DB call completes, to minimise latency)
+                  handlePaymentComplete(piId);
+                }}
               />
             </div>
           )}
