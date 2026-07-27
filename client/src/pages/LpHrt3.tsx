@@ -231,7 +231,8 @@ export default function LpHrt3() {
             hideBullets
             overrideHeadline={
               <>
-                Is Hormone Therapy or GLP-1{" "}
+                Is Hormone Therapy or GLP-1
+                <br />
                 <span
                   style={{
                     backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",

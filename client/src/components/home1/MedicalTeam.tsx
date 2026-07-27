@@ -362,7 +362,7 @@ export default function MedicalTeam({
                   className="font-black text-[#111111] leading-[1.05]"
                   style={{
                     fontFamily: "Montserrat, sans-serif",
-                    fontSize: "clamp(1.8rem, 3.8vw, 3rem)",
+                    fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
                     letterSpacing: "-0.02em",
                   }}
                 >
