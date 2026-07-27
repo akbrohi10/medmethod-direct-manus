@@ -200,7 +200,7 @@ export default function LpGlp1() {
               <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
                 <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
                   {[
-                    { label: "Your First Visit", price: "$199", note: "$50 today" },
+                    { label: "Your 1st Visit", price: "$199", note: "$50 today" },
                     { label: "Month 2+", price: "$99", note: "month-to-month" },
                   ].map((col, i) => (
                     <div
