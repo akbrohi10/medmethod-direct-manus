@@ -429,7 +429,7 @@ export default function MedicalTeam({
                 {overrideSubline ?? "100% Virtual."}
               </p>
               <p
-                className="mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"
+                className={overrideBody ? "mt-3 text-[#666666] text-sm md:text-base font-normal leading-relaxed" : "mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"}
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 {overrideBody ?? <>Personalized Hormone &amp; GLP-1 Care, Guided by Dr. Jumana Al-Deek, DO, MS.</>}
