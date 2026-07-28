@@ -238,9 +238,11 @@ export default function LpHrt3() {
                   backgroundClip: "text",
                 }}
               >
-                Is Hormone Therapy or{" "}
-                <span style={{ whiteSpace: "nowrap" }}>GLP-1</span>
-                {" "}Right for You?
+                Is Hormone Therapy
+                <br />
+                or GLP-1
+                <br />
+                Right for You?
               </span>
             }
             overrideSubline="100% Virtual"
