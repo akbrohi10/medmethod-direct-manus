@@ -253,11 +253,11 @@ export default function LpHrt3() {
                 {/* 3-column pricing strip */}
                 <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
                   {[
-                    { label: "Your 1st Visit", price: "$199", note: "$50 today" },
-                    { label: "Month 2+", price: "$99", note: "month-to-month" },
+                    { label: <span>YOUR 1<span style={{ textTransform: "lowercase" }}>st</span> VISIT</span>, price: "$199", note: "$50 today", key: "1st" },
+                    { label: "Month 2+", price: "$99", note: "month-to-month", key: "month2" },
                   ].map((col, i) => (
                     <div
-                      key={col.label}
+                      key={col.key}
                       className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
                       style={{
                         borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none",
