@@ -247,12 +247,7 @@ export default function LpHrt3() {
             }
             overrideSubline="100% Virtual"
             overrideBody="Get personalized menopause, hormone, and weight loss care with Dr. Jumana Al-Deek."
-            ctaLabel={
-              <span className="flex flex-col items-center leading-tight">
-                <span>Book Your 45-Min Appt.</span>
-                <span className="text-[13px] font-semibold tracking-wide mt-0.5">$199 First Visit · $50 Due Today</span>
-              </span>
-            }
+            ctaLabel="Book Your 45-Min Appt."
             ctaMicrocopy={
               <div style={{ fontFamily: "Montserrat, sans-serif" }}>
                 {/* 3-column pricing strip */}
