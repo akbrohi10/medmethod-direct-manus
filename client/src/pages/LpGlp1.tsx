@@ -800,8 +800,8 @@ export default function LpGlp1() {
             href="tel:+18883627011"
             className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold border active:scale-[0.98] transition-transform duration-150"
             style={{
-              background: "#1a0a1e",
-              borderColor: "rgba(232,51,158,0.3)",
+              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
               color: "#fff",
             }}
           >
