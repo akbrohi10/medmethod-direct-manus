@@ -199,24 +199,11 @@ export default function LpGlp1() {
               {/* Hero pricing strip */}
               <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
                 <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
-                  {[
-                    { label: "Your 1st Visit", price: "$199", note: "$50 today" },
-                    { label: "Month 2+", price: "$99", note: "month-to-month" },
-                  ].map((col, i) => (
-                    <div
-                      key={col.label}
-                      className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center"
-                      style={{ borderLeft: i > 0 ? "1px solid rgba(122,30,126,0.12)" : "none" }}
-                    >
-                      <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>
-                        {col.label === "Your 1st Visit"
-                          ? <>Your 1<span className="normal-case">st</span> Visit</>
-                          : col.label}
-                      </span>
-                      <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>{col.price}</span>
-                      <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>{col.note}</span>
-                    </div>
-                  ))}
+                  <div className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center">
+                    <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>Your 1<span className="normal-case">st</span> Visit</span>
+                    <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>$199</span>
+                    <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>$50 today</span>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -516,26 +503,15 @@ export default function LpGlp1() {
                 </div>
               </div>
 
-              {/* Month 2+ */}
+              {/* Continued Care note */}
               <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/25 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">2</span>
                 </div>
-                <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Month 2+</span>
-                  <span className="text-3xl sm:text-4xl font-bold text-gray-900">$99</span>
-                </div>
-                <p className="text-base text-gray-700 mb-4 leading-relaxed">
-                  Your plan is in action — Dr. Al-Deek monitors progress and adjusts as needed. Month-to-month, cancel anytime with 30 days' notice.
+                <span className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide">Continued Care</span>
+                <p className="text-base text-gray-700 mt-2 leading-relaxed">
+                  Continued doctor care is available after your first visit, starting at $79/mo — we'll go over your options at your appointment.
                 </p>
-                <div className="space-y-2">
-                  {["Direct text access with Dr. Al-Deek", "Prescription renewals & refills", "Medication adjustments as needed", "Personalized treatment updates"].map((item) => (
-                    <div key={item} className="flex items-start gap-2">
-                      <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
-                      <span className="text-base text-gray-800 leading-relaxed">{item}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* Total + CTA */}
@@ -575,9 +551,7 @@ export default function LpGlp1() {
                 Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-800">$149</span> per appointment.
               </p>
               <p className="text-base text-gray-600 border-t border-gray-100 pt-3">
-                Month-to-month — no long-term commitment. Keep your physician access active at{" "}
-                <span className="font-semibold text-[#7A1E7E]">$99/mo</span>{" "}
-                — cancel anytime with 30 days' notice.
+                Continued doctor care is available after your first visit, starting at $79/mo — we'll go over your options at your appointment.
               </p>
             </div>
           </div>
