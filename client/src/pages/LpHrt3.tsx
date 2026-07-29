@@ -115,11 +115,11 @@ const FAQS = [
   },
   {
     q: "When should I start hormone replacement therapy?",
-    a: "The ideal window is within 10 years of your last period or before age 60. However, many women benefit from HRT at any stage of menopause. During your consultation, we'll evaluate your symptoms, labs, and history to determine the right timing for you.",
+    a: "The ideal window is within 10 years of your last period or before age 60. However, many women benefit from HRT at any stage of menopause. During your consultation, we'll evaluate your symptoms, medical history, and health profile to determine the right timing for you.",
   },
   {
     q: "How long can I safely be on HRT?",
-    a: "There is no universal time limit. Many women stay on HRT for years with regular monitoring. We reassess your protocol annually based on updated labs, symptoms, and the latest clinical guidelines.",
+    a: "There is no universal time limit. Many women stay on HRT for years with regular monitoring. We reassess your protocol annually based on your symptoms, how your body is responding, and the latest clinical guidelines.",
   },
   {
     q: "What GLP-1 medications do you prescribe for weight loss?",
@@ -132,11 +132,27 @@ const FAQS = [
   },
   {
     q: "How much does medication cost?",
-    a: "Your monthly physician care fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
+    a: "Your physician care fee covers your consultation, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
   },
   {
     q: "What states are you licensed in?",
     a: "Dr. Al-Deek is licensed to practice in 17 states including Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, Texas, and more. Check our locations page for the full list.",
+  },
+  {
+    q: "Do I need bloodwork before my appointment?",
+    a: "No — you don't need to bring any bloodwork to your first visit. If you have recent results, you're welcome to upload them and Dr. Al-Deek will review them. If not, she'll guide you on any next steps after your consultation. Nothing is required upfront.",
+  },
+  {
+    q: "What if I don't qualify for HRT or GLP-1?",
+    a: "Dr. Al-Deek will always be honest with you. If HRT or GLP-1 therapy isn't the right fit based on your health history, she'll explain why and discuss what alternatives may be appropriate for your situation. You'll never leave without a clear path forward.",
+  },
+  {
+    q: "How quickly will I see results?",
+    a: "It depends on the treatment. Most women on GLP-1 therapy begin noticing appetite changes within the first 1–2 weeks, with meaningful weight loss typically visible by weeks 4–8. For HRT, many women report improved sleep and reduced hot flashes within 2–4 weeks, with fuller hormonal balance developing over 2–3 months. Dr. Al-Deek will set realistic expectations for your specific protocol at your visit.",
+  },
+  {
+    q: "What happens after the 30-day text access period?",
+    a: "The 30 days of direct text access with Dr. Al-Deek is included with your initial visit to make sure your first weeks on treatment go smoothly. After that, continued physician access is available starting at $79/mo — Dr. Al-Deek will go over your options at your appointment so you can decide what level of ongoing support makes sense for you.",
   },
 ];
 
