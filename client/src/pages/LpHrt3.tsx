@@ -425,7 +425,7 @@ export default function LpHrt3() {
 
                 <p className="text-base font-semibold text-gray-700 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
-                  {["Comprehensive medical & lab review", "Personalized treatment plan", "Prescriptions when clinically appropriate", "Direct text access with Dr. Al-Deek", "Patient dashboard & progress tracking"].map((item) => (
+                  {["Comprehensive medical & lab review", "Personalized treatment plan", "Prescription written at your visit — if clinically appropriate", "Personalized dosing plan & titration guidance", "Medications shipped to your door or picked up at your pharmacy", "Direct text access with Dr. Al-Deek (30 days included)", "Patient dashboard & progress tracking"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-800 leading-relaxed">{item}</span>
