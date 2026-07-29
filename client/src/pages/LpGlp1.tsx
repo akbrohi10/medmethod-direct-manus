@@ -72,7 +72,7 @@ const STEPS = [
   {
     num: "02",
     title: "Complete Intake",
-    desc: "Fill out your health questionnaire and upload recent labs. No labs? We'll order them for you.",
+    desc: "Fill out your health questionnaire. Have recent bloodwork? You can upload it — otherwise Dr. Al-Deek will guide you on next steps.",
   },
   {
     num: "03",
@@ -494,7 +494,7 @@ export default function LpGlp1() {
 
                 <p className="text-base font-semibold text-gray-700 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
-                  {["Comprehensive medical & lab review", "Personalized treatment plan", "Prescription written at your visit — if clinically appropriate", "Personalized dosing plan & titration guidance", "Medications shipped to your door or picked up at your pharmacy", "Direct text access with Dr. Al-Deek (30 days included)", "Patient dashboard & progress tracking"].map((item) => (
+                  {["Comprehensive medical diagnostic review", "Personalized treatment plan", "Prescription written at your visit — if clinically appropriate", "Personalized dosing plan & titration guidance", "Medications shipped to your door or picked up at your pharmacy", "Direct text access with Dr. Al-Deek (30 days included)", "Patient dashboard & progress tracking"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-800 leading-relaxed">{item}</span>
@@ -736,7 +736,7 @@ export default function LpGlp1() {
               Ready to lose the weight for good?
             </h2>
             <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
-              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, labs, and goals, and leave with a personalized GLP-1 treatment plan and prescription.
+              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, health history, and goals, and leave with a personalized GLP-1 treatment plan and prescription.
             </p>
             <button
               onClick={openConsult}
