@@ -100,6 +100,15 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="https://medmethoddirect.md-hq.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 text-gray-600 hover:border-[#E8339E] hover:text-[#E8339E] transition-colors"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Patient Login
+            </a>
             <button
               onClick={onConsultClick}
               className="btn-gradient btn-gradient-pulse px-6 py-2.5 rounded-full text-sm font-bold tracking-wider"
@@ -145,9 +154,19 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
               Licensed in 9 States
             </a>
 
+            <a
+              href="https://medmethoddirect.md-hq.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 py-3 text-center rounded-full text-sm font-semibold border border-gray-300 text-gray-600 block"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+              onClick={() => setMobileOpen(false)}
+            >
+              Patient Login
+            </a>
             <button
               onClick={() => { onConsultClick(); setMobileOpen(false); }}
-              className="btn-gradient mt-3 py-3 rounded-full text-sm font-bold tracking-wider text-center"
+              className="btn-gradient mt-2 py-3 rounded-full text-sm font-bold tracking-wider text-center"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
               FREE CONSULTATION
