@@ -6,6 +6,7 @@
    Modal: LpConsultationModal2 (intake + Stripe deposit)
    ============================================================================= */
 import { useState, useRef, useEffect } from "react";
+import { Phone, CalendarCheck } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import MedicalTeam from "@/components/home1/MedicalTeam";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
@@ -738,15 +739,16 @@ export default function LpHrt3() {
           {/* Primary: Book Now */}
           <button
             onClick={openConsult}
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+            className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
             }}
           >
-            <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Book Now
-            </span>
+            <div className="flex items-center gap-1.5">
+              <CalendarCheck size={14} strokeWidth={2.5} />
+              <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>Book Now</span>
+            </div>
             <span className="text-[11px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
               $50 Today
             </span>
@@ -754,18 +756,22 @@ export default function LpHrt3() {
           {/* Secondary: Call Now */}
           <a
             href="tel:+18883627011"
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold border active:scale-[0.98] transition-transform duration-150"
+            className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 rounded-full font-bold border active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "#1a0a1e",
               borderColor: "rgba(232,51,158,0.3)",
               color: "#fff",
             }}
           >
-            <span className="text-[11px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.7)" }}>
+            <span className="text-[10px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.65)" }}>
               Have questions?
             </span>
-            <span className="text-[13px] font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Call Now
+            <div className="flex items-center gap-1.5">
+              <Phone size={13} strokeWidth={2.5} />
+              <span className="text-[13px] font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>Call Now</span>
+            </div>
+            <span className="text-[10px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.55)" }}>
+              (888) 362-7011
             </span>
           </a>
         </div>
