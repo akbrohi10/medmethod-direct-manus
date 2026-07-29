@@ -1,6 +1,8 @@
 import { Suspense, lazy } from "react";
 import { Toaster } from "sonner";
 import SocialProofNotifications from "./components/SocialProofNotifications";
+import SocialProofNotificationsLP from "./components/SocialProofNotificationsLP";
+import { useLocation } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -327,13 +329,20 @@ function Router() {
   );
 }
 
+function SocialProofNotificationsRouter() {
+  const [location] = useLocation();
+  const isLpPage = location === "/lp/glp1" || location === "/lp/hrt3";
+  if (isLpPage) return <SocialProofNotificationsLP />;
+  return <SocialProofNotifications />;
+}
+
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster position="top-center" richColors />
-          <SocialProofNotifications />
+          <SocialProofNotificationsRouter />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
