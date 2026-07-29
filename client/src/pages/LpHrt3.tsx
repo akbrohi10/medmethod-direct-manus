@@ -262,7 +262,7 @@ export default function LpHrt3() {
               </span>
             }
             overrideSubline="100% Virtual"
-            overrideBody="Get personalized menopause, hormone, and weight loss care with Dr. Jumana Al-Deek."
+            overrideBody="A 45-minute visit with Dr. Al-Deek — personalized hormone therapy or GLP-1 weight loss, if it's right for you. 100% virtual. No insurance needed."
             ctaLabel="Book Your 45-Min Appt."
             ctaMicrocopy={
               <div style={{ fontFamily: "Montserrat, sans-serif" }}>

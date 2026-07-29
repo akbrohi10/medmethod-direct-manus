@@ -187,7 +187,7 @@ export default function LpGlp1() {
                 Is GLP-1 Right for You?<br /><span className="text-[#E8339E]">Let's Build Your Plan.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
-                A 45-minute visit with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide <span className="text-[#E8339E] font-semibold">if you qualify.</span> 100% virtual. No insurance needed.
+                A 45-minute visit with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide <span className="text-[#E8339E] font-semibold">if it's right for you.</span> 100% virtual. No insurance needed.
               </p>
               <button
                 onClick={openConsult}
