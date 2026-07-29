@@ -184,10 +184,10 @@ export default function LpGlp1() {
             {/* Left — Copy */}
             <div className="order-2 md:order-1 text-center md:text-left">
               <h1 className="text-[1.65rem] sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-black mb-5" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                Is GLP-1<span className="hidden md:inline"><br /></span>{" "}Right for You?<br /><span className="text-[#E8339E]">Let's Build Your Plan.</span>
+                Is GLP-1 Right for You?<br /><span className="text-[#E8339E]">Let's Build Your Plan.</span>
               </h1>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
-                Book a 45-minute virtual consultation with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide <span className="text-[#E8339E] font-semibold">if you qualify.</span> 100% virtual, no insurance needed.
+                A 45-minute visit with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide <span className="text-[#E8339E] font-semibold">if you qualify.</span> 100% virtual. No insurance needed.
               </p>
               <button
                 onClick={openConsult}
@@ -198,12 +198,12 @@ export default function LpGlp1() {
 
               {/* Hero pricing strip */}
               <div id="hero-cta-sentinel" className="mt-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
-                  <div className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center">
-                    <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>Your 1<span className="normal-case">st</span> Visit</span>
-                    <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>$199</span>
-                    <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>$50 today</span>
-                  </div>
+                <div className="inline-flex items-center gap-3 rounded-full border px-5 py-2.5" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
+                  <span className="text-[12px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>Your 1<span className="normal-case">st</span> Visit</span>
+                  <span className="w-px h-4 bg-[#7A1E7E]/20" />
+                  <span className="text-[20px] font-extrabold leading-none" style={{ color: "#7A1E7E" }}>$199</span>
+                  <span className="w-px h-4 bg-[#7A1E7E]/20" />
+                  <span className="text-[13px] font-semibold" style={{ color: "#5A2060" }}>$50 today</span>
                 </div>
                 <button
                   type="button"
@@ -222,19 +222,18 @@ export default function LpGlp1() {
               </div>
 
               {/* Social proof */}
-              <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-start sm:items-center md:justify-start gap-x-5 gap-y-2 text-sm text-gray-500">
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  Helped thousands of patients
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  Licensed in 17 states
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  15–20% avg body weight loss
-                </span>
+              <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-2 text-sm text-gray-500 max-w-xs md:max-w-none">
+                {[
+                  "Helped thousands of patients",
+                  "Licensed in 17 states",
+                  "15–20% avg body weight loss",
+                  "Same doctor, every visit",
+                ].map((item) => (
+                  <span key={item} className="flex items-center gap-1.5">
+                    <svg className="w-4 h-4 flex-shrink-0 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
             {/* Right — Hero image */}
