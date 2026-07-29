@@ -229,7 +229,16 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           >
             © 2026 MedMethod Direct. All rights reserved. | www.medmethoddirect.com
           </p>
-          <div className="flex gap-6 flex-wrap justify-center md:justify-end">
+          <div className="flex gap-6 flex-wrap justify-center md:justify-end items-center">
+            <a
+              href="https://medmethoddirect.md-hq.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 transition-colors"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              Patient Login
+            </a>
             {[
               { label: "Terms & Conditions", href: "/terms" },
               { label: "Privacy Policy", href: "/privacy-policy" },
