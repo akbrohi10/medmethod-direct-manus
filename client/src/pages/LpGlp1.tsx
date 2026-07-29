@@ -222,7 +222,7 @@ export default function LpGlp1() {
               </div>
 
               {/* Social proof */}
-              <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-2 text-sm text-gray-500 max-w-xs md:max-w-none">
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2 text-sm text-gray-500">
                 {[
                   "Helped thousands of patients",
                   "Licensed in 17 states",
