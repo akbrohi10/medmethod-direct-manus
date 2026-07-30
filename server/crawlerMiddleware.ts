@@ -83,7 +83,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
     title: "MedMethod Direct | Virtual Hormone Therapy & GLP-1 Weight Loss for Women",
     description:
       "Physician-led virtual hormone therapy, menopause care, and GLP-1 weight loss — 100% virtual. Board-certified care with Dr. Al-Deek. Book your consultation today.",
-    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/YFmFDMOObpTVvRTE.jpg",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/gQaqEInQGsbxCqPk.jpg",
     url: BASE_URL,
   },
   "/dr-aldeek-booking": {
