@@ -150,6 +150,24 @@ export default function ThankYou() {
           </div>
         </div>
 
+        {/* ── Info Band ── */}
+        <div className="w-full max-w-2xl mb-8">
+          <div className="bg-white rounded-2xl border border-[#e8e6e3] divide-y divide-[#f0eee9]">
+            <div className="flex items-start gap-3 px-5 py-4">
+              <span className="text-[#E8339E] mt-0.5 flex-shrink-0">📋</span>
+              <p className="text-sm text-[#4a4a5a] leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <strong className="text-[#1a1a2e]">Your physician will review your intake information</strong> before the visit so your consultation is personalized from the first minute.
+              </p>
+            </div>
+            <div className="flex items-start gap-3 px-5 py-4">
+              <span className="text-[#E8339E] mt-0.5 flex-shrink-0">💳</span>
+              <p className="text-sm text-[#4a4a5a] leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <strong className="text-[#1a1a2e]">The remaining $149 will be charged on the day of your appointment.</strong> No surprises.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* ── Steps with cards + subtle connector ── */}
         <div className="w-full max-w-lg mb-10">
           {STEPS.map((step, i) => {
