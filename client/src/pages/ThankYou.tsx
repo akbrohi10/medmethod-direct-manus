@@ -213,61 +213,6 @@ export default function ThankYou() {
           })}
         </div>
 
-        {/* Urgency Notice */}
-        <div className="w-full max-w-lg mb-10">
-          <div className="bg-amber-50 border border-amber-200/60 rounded-xl p-5 flex items-start gap-3.5">
-            <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <p
-              className="text-amber-900 text-sm leading-relaxed"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              <strong>Please confirm within 24 hours.</strong> We keep our availability open for patients who are ready to take action. Unconfirmed appointments (calendar not accepted + text not replied) are automatically released so those serious about their health can get in quickly.
-            </p>
-          </div>
-        </div>
-
-        {/* What to Expect */}
-        <div className="w-full max-w-lg mb-10">
-          <h3
-            className="text-sm font-bold tracking-[0.1em] uppercase text-[#4a4a5a] mb-4"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            What to Expect
-          </h3>
-          <div className="bg-white rounded-2xl border border-[#e8e6e3] p-6 shadow-sm">
-            <ul className="space-y-3">
-              {[
-                "Your call will be 15 minutes with a care coordinator",
-                "Please review our programs and pricing before your call",
-                "We'll discuss your goals and whether our program is the right fit",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#E8339E] mt-2 flex-shrink-0" />
-                  <span
-                    className="text-[#4a4a5a] text-sm leading-relaxed"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* View Programs & Pricing */}
-        <div className="w-full max-w-lg mb-10 text-center">
-          <a
-            href="/#programs"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#E8339E]/30 text-[#E8339E] text-sm font-semibold hover:bg-[#E8339E]/5 hover:border-[#E8339E]/50 transition-all"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            <BookOpen className="w-4 h-4" />
-            View Programs & Pricing
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-
         {/* Big Call Button */}
         <div className="w-full max-w-lg mb-10">
           <a
