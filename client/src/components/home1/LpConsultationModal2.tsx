@@ -1,7 +1,7 @@
 /* =============================================================================
    LpConsultationModal2.tsx — LP-specific intake modal for /lp/hrt2
    Flow: Questions → Attribution → Lead Capture → Payment (deposit) → Calendar
-   3-month plan commitment: $199 Month 1 (video visit) + $99/mo Months 2-3 (async).
+   Initial visit: $199 (video consultation + protocol). $50 deposit today, $149 due day of appointment.
    Deposit: $50 now, $149 due day of appointment.
    ============================================================================= */
 import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } from "react";
@@ -1019,7 +1019,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
                 Secure your appointment with a small deposit
               </h2>
               <p className="text-sm text-gray-500 mb-6">
-                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining $149 is due the day of your appointment — <strong>$199 total for Month 1</strong>. Cancel anytime with 24-hour notice for a full refund.
+                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining $149 is due the day of your appointment — <strong>$199 total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
               <StripePaymentForm
                 patientName={leadData.firstName.trim() || answers.firstName || "Patient"}

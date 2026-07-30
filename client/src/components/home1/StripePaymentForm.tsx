@@ -121,7 +121,7 @@ function CheckoutForm({
       {/* Pricing summary */}
       <div className="rounded-xl border border-gray-200 overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <span className="text-sm text-gray-700">Month 1 — Video consultation + protocol</span>
+          <span className="text-sm text-gray-700">1st Visit — Video consultation + protocol</span>
           <span className="text-sm font-semibold text-gray-900">$199</span>
         </div>
         <div className="px-4 py-3 bg-green-50">

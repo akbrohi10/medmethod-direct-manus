@@ -400,7 +400,7 @@ export default function LpHrt3() {
             {/* Unified Timeline Card */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 max-w-3xl mx-auto p-6 sm:p-10 text-left">
 
-              {/* Month 1 */}
+              {/* 1st Visit */}
               <div className="relative pl-10 sm:pl-12 pb-8 border-l-[3px] border-[#E8339E]/40 ml-3 sm:ml-4">
                 <div className="absolute -left-[14px] top-0 w-[25px] h-[25px] rounded-full bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">1</span>
