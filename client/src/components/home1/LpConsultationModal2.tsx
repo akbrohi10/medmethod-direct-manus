@@ -593,8 +593,8 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const handlePaymentComplete = async (piId?: string) => {
     // Fire GHL payment webhook with all 14 required fields
     await submitPaymentWebhook(piId);
-    setStep(CALENDAR_STEP);
-    toast.success("Deposit received! Now let's book your appointment.");
+    // Navigate to thank-you page immediately after payment — calendar is embedded there
+    navigate("/thank-you");
   };
 
   // First webhook: fires after lead capture

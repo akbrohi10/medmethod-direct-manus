@@ -105,13 +105,13 @@ export default function ThankYou() {
             className="text-3xl md:text-4xl font-bold text-[#1a1a2e] mb-3"
             style={{ fontFamily: "Playfair Display, serif" }}
           >
-            You're Confirmed!
+            Payment Confirmed!
           </h1>
           <p
             className="text-[#4a4a5a] text-base md:text-lg max-w-md mx-auto"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Your Discovery Call with our care team is scheduled. Here's what to do next to secure your spot.
+            Your $50 deposit is confirmed. Now pick a time below to meet with Dr. Al-Deek.
           </p>
           <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-[#E8339E]/5 border border-[#E8339E]/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -121,6 +121,32 @@ export default function ThankYou() {
             >
               100% Virtual — No Office Visit Needed
             </span>
+          </div>
+        </div>
+
+        {/* ── GHL Calendar Embed ── */}
+        <div className="w-full max-w-2xl mb-10">
+          <div className="bg-white rounded-2xl border border-[#e8e6e3] shadow-sm overflow-hidden">
+            <div className="px-6 pt-5 pb-3 border-b border-[#f0eee9]">
+              <h2
+                className="text-lg font-bold text-[#1a1a2e]"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Book Your 45-Min Appointment with Dr. Al-Deek
+              </h2>
+              <p
+                className="text-sm text-[#4a4a5a] mt-0.5"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Choose a date and time that works for you
+              </p>
+            </div>
+            <iframe
+              src="https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826"
+              style={{ width: "100%", height: "700px", border: "none" }}
+              title="Book your appointment with Dr. Al-Deek"
+              loading="lazy"
+            />
           </div>
         </div>
 
