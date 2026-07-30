@@ -1112,18 +1112,18 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
             >
               ← Back
             </button>
-            {/* Hidden skip for internal testing — triple-tap the text to skip */}
-            <p
-              className="text-[10px] text-gray-200 text-center mt-1 select-none cursor-default"
-              onClick={(e) => {
-                if (e.detail === 3) {
+            {/* Dev-only skip button — hidden in production builds */}
+            {import.meta.env.DEV && (
+              <button
+                onClick={() => {
                   setStep(CALENDAR_STEP);
-                  toast.success("[DEV] Skipped payment for testing");
-                }
-              }}
-            >
-              internal testing
-            </p>
+                  toast.success("[DEV] Payment skipped — going to calendar");
+                }}
+                className="w-full mt-2 py-1.5 text-xs font-medium text-amber-600 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors"
+              >
+                ⚡ Skip payment (test mode)
+              </button>
+            )}
           </div>
         )}
       </div>
