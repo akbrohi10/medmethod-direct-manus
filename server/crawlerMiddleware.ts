@@ -108,12 +108,18 @@ const ROUTE_META: Record<string, RouteMeta> = {
     url: `${BASE_URL}/lp/hrt2`,
   },
   "/lp/glp1": {
-    title:
-      "Medical Weight Loss — Semaglutide & Tirzepatide | MedMethod Direct",
+    title: "Is GLP-1 Right for You? | MedMethod Direct",
     description:
-      "Physician-guided GLP-1 weight loss with semaglutide and tirzepatide. Prescribed by a specialist, not a chatbot. 100% virtual. Book your consultation today.",
+      "Book a 45-minute virtual consultation with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide, if it's right for you. 100% virtual. $50 deposit today.",
     image: HERO_IMAGE,
     url: `${BASE_URL}/lp/glp1`,
+  },
+  "/lp/hrt3": {
+    title: "Is Hormone Therapy Right for You? | MedMethod Direct",
+    description:
+      "Book a 45-minute virtual consultation with Dr. Al-Deek — personalized hormone therapy or GLP-1 weight loss, if it's right for you. 100% virtual. $50 deposit today.",
+    image: HERO_IMAGE,
+    url: `${BASE_URL}/lp/hrt3`,
   },
   // ─── State Pages ────────────────────────────────────────────────────────
   "/virginia": {
@@ -253,6 +259,8 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
 <meta name="twitter:description" content="${d}">
 <meta name="twitter:image" content="${img}">
 <link rel="canonical" href="${url}">
+<link rel="icon" type="image/x-icon" href="https://medmethoddirect.com/favicon.ico">
+<link rel="shortcut icon" href="https://medmethoddirect.com/favicon.ico">
 </head>
 <body>
 <h1>${t}</h1>
