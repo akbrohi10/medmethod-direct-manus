@@ -1116,8 +1116,8 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
             {import.meta.env.DEV && (
               <button
                 onClick={() => {
-                  setStep(CALENDAR_STEP);
-                  toast.success("[DEV] Payment skipped — going to calendar");
+                  navigate("/thank-you");
+                  toast.success("[DEV] Payment skipped — going to thank-you");
                 }}
                 className="w-full mt-2 py-1.5 text-xs font-medium text-amber-600 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors"
               >
