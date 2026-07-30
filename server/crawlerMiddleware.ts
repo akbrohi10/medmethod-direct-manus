@@ -110,7 +110,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
   "/lp/glp1": {
     title: "Is GLP-1 Right for You? | MedMethod Direct",
     description:
-      "Book a 45-minute virtual consultation with Dr. Al-Deek — physician-prescribed semaglutide or tirzepatide, if it's right for you. 100% virtual. $50 deposit today.",
+      "GLP-1 weight loss with physician-prescribed semaglutide or tirzepatide. Book a 45-minute virtual consultation with Dr. Al-Deek — if it's right for you. 100% virtual. $50 deposit today.",
     image: HERO_IMAGE,
     url: `${BASE_URL}/lp/glp1`,
   },

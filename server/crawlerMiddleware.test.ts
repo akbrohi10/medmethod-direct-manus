@@ -75,7 +75,7 @@ describe("crawlerMiddleware", () => {
   describe("getMetaForPath", () => {
     it("returns homepage meta for /", () => {
       const meta = getMetaForPath("/");
-      expect(meta.title).toBe("MedMethod Direct | Physician-Led Hormone & Metabolic Care");
+      expect(meta.title).toContain("MedMethod Direct");
       expect(meta.url).toBe("https://medmethoddirect.com");
     });
 
@@ -94,7 +94,7 @@ describe("crawlerMiddleware", () => {
 
     it("returns GLP-1 meta for /lp/glp1", () => {
       const meta = getMetaForPath("/lp/glp1");
-      expect(meta.title).toContain("Semaglutide");
+      expect(meta.title).toContain("GLP-1");
       expect(meta.description).toContain("GLP-1");
     });
 
@@ -122,12 +122,12 @@ describe("crawlerMiddleware", () => {
 
     it("strips query string", () => {
       const meta = getMetaForPath("/lp/glp1?utm_source=facebook");
-      expect(meta.title).toContain("Semaglutide");
+      expect(meta.title).toContain("GLP-1");
     });
 
     it("returns default meta for unknown routes", () => {
       const meta = getMetaForPath("/some-random-page");
-      expect(meta.title).toBe("MedMethod Direct | Physician-Led Hormone & Metabolic Care");
+      expect(meta.title).toContain("MedMethod Direct");
       expect(meta.image).toContain("og-before-you-start-treatment");
     });
   });

@@ -5,7 +5,7 @@
    - Stripped nav (logo + Book Now only)
    - Single repeated CTA → opens existing ConsultationModal
    ============================================================================= */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import {
@@ -167,7 +167,20 @@ const TREATMENTS = [
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function LpHrt() {
   const [consultOpen, setConsultOpen] = useState(false);
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const check = () => {
+      const el = document.getElementById('hero-cta-sentinel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setShowStickyCTA(rect.bottom < 0);
+    };
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+    return () => window.removeEventListener('scroll', check);
+  }, []);
 
   const openConsult = () => setConsultOpen(true);
 
@@ -223,12 +236,14 @@ export default function LpHrt() {
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8 max-w-lg">
                 Most women notice a difference <span className="text-[#E8339E] font-semibold">within days</span>, not months — 100% virtual, from the comfort of your home.
               </p>
-              <button
-                onClick={openConsult}
-                className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
-              >
-                Reserve Your Appt. — $50 Deposit
-              </button>
+              <div id="hero-cta-sentinel">
+                <button
+                  onClick={openConsult}
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#E8339E] to-[#7A1E7E] text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                >
+                  Reserve Your Appt. — $50 Deposit
+                </button>
+              </div>
               <p className="mt-3 text-sm text-gray-500 max-w-sm mx-auto md:mx-0">
                 $50 deposit today, $149 due at your visit — $199 total for Month 1.
               </p>
@@ -782,6 +797,40 @@ export default function LpHrt() {
         </div>
       </footer>
 
+      {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
+      <div
+        className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-[env(safe-area-inset-bottom,12px)] pt-3 bg-white/95 backdrop-blur-sm border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${showStickyCTA ? 'translate-y-0' : 'translate-y-full'}`}
+        style={{ pointerEvents: showStickyCTA ? 'auto' : 'none' }}
+        aria-hidden={!showStickyCTA}
+      >
+        <div className="flex gap-2">
+          <button
+            onClick={openConsult}
+            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+            style={{
+              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
+            }}
+          >
+            <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>Book Now</span>
+            <span className="text-[11px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>$50 Today</span>
+          </button>
+          <a
+            href="tel:+18883627011"
+            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
+            style={{
+              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
+              color: "#fff",
+            }}
+          >
+            <span className="text-[11px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.7)" }}>Have questions?</span>
+            <span className="text-[13px] font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>Call Now</span>
+          </a>
+        </div>
+      </div>
+      {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
+      <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-20' : 'h-0'}`} />
       {/* ═══════════════ CONSULTATION MODAL ═══════════════ */}
       <LpConsultationModal2
         open={consultOpen}

@@ -722,7 +722,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
       onClick={(e) => e.target === e.currentTarget && handleAttemptClose()}
     >
       <div
-        className="relative w-full bg-white flex flex-col overflow-hidden"
+        className="relative w-full bg-white flex flex-col overflow-hidden sm:rounded-[20px]"
         style={{
           maxWidth: isCalendarStep ? 860 : 480,
           maxHeight: "95vh",

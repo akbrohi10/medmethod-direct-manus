@@ -143,7 +143,7 @@ export default function ThankYou() {
             </div>
             <iframe
               src="https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826"
-              style={{ width: "100%", height: "700px", border: "none" }}
+              style={{ width: "100%", height: "clamp(700px, 90vw, 900px)", border: "none" }}
               title="Book your appointment with Dr. Al-Deek"
               loading="lazy"
             />
@@ -166,6 +166,22 @@ export default function ThankYou() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* ── What Happens Next heading ── */}
+        <div className="w-full max-w-lg mb-5 text-center">
+          <span
+            className="text-xs font-extrabold tracking-[0.2em] uppercase"
+            style={{ fontFamily: "Montserrat, sans-serif", color: BRAND_PINK }}
+          >
+            What Happens Next
+          </span>
+          <h3
+            className="text-xl font-bold text-[#1a1a2e] mt-1"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Complete these 3 steps to prepare for your visit
+          </h3>
         </div>
 
         {/* ── Steps with cards + subtle connector ── */}

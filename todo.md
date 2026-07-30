@@ -119,3 +119,13 @@
 - [x] Write vitest tests (18 tests, all passing)
 - [x] Send 2 test payloads to GHL — both HTTP 200 confirmed
 - [x] Save checkpoint (version 4a621e4a)
+
+## Mobile & UX Audit
+- [x] ThankYou page: add "WHAT HAPPENS NEXT" heading above the 3 steps
+- [x] ThankYou page: make calendar iframe height responsive (taller on mobile)
+- [x] LpHrt2: add sticky mobile CTA (Book Now + Call Now) matching LpHrt3 and LpGlp1
+- [x] LpHrt2: add hero-cta-sentinel div to trigger sticky CTA after scroll
+- [x] crawlerMiddleware.ts: update GLP-1 description to include "GLP-1" keyword
+- [x] crawlerMiddleware.test.ts: update tests to use .toContain() for flexible title matching
+- [x] All 72 tests passing
+- [x] Save checkpoint
