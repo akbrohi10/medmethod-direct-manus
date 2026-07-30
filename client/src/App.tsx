@@ -10,6 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Eagerly load the main homepage (most visitors land here)
 import Home1 from "./pages/Home1";
+const HomeHrt3 = lazy(() => import("./pages/HomeHrt3"));
 
 // Lazy load everything else
 const Home = lazy(() => import("./pages/Home"));
@@ -187,7 +188,7 @@ function Router() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
-        <Route path={"/"} component={Home1} />
+        <Route path={"/"} component={HomeHrt3} />
         <Route path={"/male"} component={MaleHome} />
         <Route path={"/blog"} component={BlogIndex} />
         <Route path={"/blog/:slug"} component={BlogPost} />
@@ -310,6 +311,7 @@ function Router() {
         <Route path="/start/women" component={StartWomen} />
         <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
         <Route path="/home-1" component={Home1} />
+        <Route path="/home-v1" component={Home1} />
         <Route path="/home-2" component={Home2} />
         <Route path="/home-3" component={Home} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />

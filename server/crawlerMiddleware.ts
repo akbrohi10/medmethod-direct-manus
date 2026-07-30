@@ -80,10 +80,10 @@ const STATE_IMAGES: Record<string, string> = {
  */
 const ROUTE_META: Record<string, RouteMeta> = {
   "/": {
-    title: "MedMethod Direct | Physician-Led Hormone & Metabolic Care",
+    title: "MedMethod Direct | Virtual Hormone Therapy & GLP-1 Weight Loss for Women",
     description:
-      "Physician-led virtual clinical care for hormone optimization, menopause management, metabolic health, and longevity medicine for women. 100% virtual, licensed in 17 states.",
-    image: DEFAULT_OG_IMAGE,
+      "Physician-led virtual hormone therapy, menopause care, and GLP-1 weight loss — 100% virtual. Board-certified care with Dr. Al-Deek. Book your consultation today.",
+    image: HERO_IMAGE,
     url: BASE_URL,
   },
   "/dr-aldeek-booking": {
