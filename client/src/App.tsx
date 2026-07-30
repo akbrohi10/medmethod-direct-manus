@@ -333,7 +333,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
-  const isLpPage = location === "/lp/glp1" || location === "/lp/hrt3";
+  const isLpPage = location === "/lp/glp1" || location === "/lp/hrt3" || location === "/";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;
 }
