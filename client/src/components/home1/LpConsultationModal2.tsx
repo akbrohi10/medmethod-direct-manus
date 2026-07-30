@@ -9,6 +9,7 @@ import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import StripePaymentForm from "./StripePaymentForm";
 import { trpc } from "@/lib/trpc";
+import { useLocation } from "wouter";
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
 /** Intake form webhook — fires on lead capture (creates/updates contact in GHL) */
@@ -318,6 +319,7 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
 
 // ── Main modal ───────────────────────────────────────────────────────────────
 export default function LpConsultationModal2({ open, onClose, landingPage = "/lp/hrt2" }: Props) {
+  const [, navigate] = useLocation();
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -417,17 +419,19 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
 
         const appointmentTimestamp = appointmentDate.getTime();
 
-        // Only schedule if we have a valid payment ID and haven't already scheduled
-        if (!stripePaymentId || chargeScheduled) return;
+        // Redirect to thank-you page for conversion tracking
+        navigate("/thank-you");
 
-        console.log(
-          `[GHL postMessage] Scheduling $149 charge for payment #${stripePaymentId} on ${appointmentDate.toISOString()}`
-        );
-
-        scheduleRemainingCharge.mutate({
-          paymentId: stripePaymentId,
-          appointmentDate: appointmentTimestamp,
-        });
+        // Schedule remaining charge if payment ID is available
+        if (stripePaymentId && !chargeScheduled) {
+          console.log(
+            `[GHL postMessage] Scheduling $149 charge for payment #${stripePaymentId} on ${appointmentDate.toISOString()}`
+          );
+          scheduleRemainingCharge.mutate({
+            paymentId: stripePaymentId,
+            appointmentDate: appointmentTimestamp,
+          });
+        }
       } catch (err) {
         console.error("[GHL postMessage] Parse error:", err);
       }
