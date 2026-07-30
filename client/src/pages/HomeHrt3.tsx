@@ -269,7 +269,8 @@ export default function HomeHrt3() {
       <main className="overflow-x-hidden">
 
         {/* ═══════════════ HERO — Dr. Al-Deek Profile ═══════════════ */}
-        {/* The Navbar has its own fixed height; MedicalTeam's pt-[7rem] handles spacing */}
+        {/* Override MedicalTeam's large pt (designed for old 110px navbar) to match new 64px header */}
+        <div style={{ marginTop: "-3rem" }}>
         <MedicalTeam
           onConsultClick={openConsult}
           hideBullets
@@ -319,6 +320,7 @@ export default function HomeHrt3() {
             </div>
           }
         />
+        </div>
 
         {/* ═══════════════ CONDITIONS CAROUSEL ═══════════════ */}
         <section className="bg-[#FDF8F3] py-12 md:py-20">
