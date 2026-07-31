@@ -51,14 +51,14 @@ const SITE_NAME = "MedMethod Direct";
 const BASE_URL = "https://medmethoddirect.com";
 
 // Default OG image (used for homepage and fallback)
-// Uses image/webp — correctly typed so iMessage, Facebook, etc. render the preview image
+// files.manuscdn.com serves as image/jpeg — correct content-type for all social crawlers
 const DEFAULT_OG_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/doctor-consult-65ULkU9ZVxvNFPTLGJr9pR.webp";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/gQaqEInQGsbxCqPk.jpg";
 
 // Hero image (used for Dr. Al-Deek and landing pages)
-// hrt2-hero.webp serves as image/webp — safe for all social crawlers
+// Same branded image — correct content-type, shows the Dr. Al-Deek branded card in iMessage/social previews
 const HERO_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/hrt2-hero-telehealth-patch-PjquXUwLssTUdwpgQBRfTK.webp";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/gQaqEInQGsbxCqPk.jpg";
 
 // State-specific hero images
 const STATE_IMAGES: Record<string, string> = {
