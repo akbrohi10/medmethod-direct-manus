@@ -466,8 +466,8 @@ export default function LpHrt3() {
                       <li>Frequency determined together with Dr. Al-Deek.</li>
                     </ul>
                   </div>
-                  <div className="bg-pink-50 rounded-xl border border-pink-100 p-4">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#E8339E] mb-1">Option 2</p>
+                  <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Option 2</p>
                     <p className="text-lg font-bold text-gray-900">$50<span className="text-sm font-medium text-gray-500">/month Ongoing Care</span></p>
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mt-2 mb-1.5">Includes</p>
                     <ul className="space-y-1.5 text-sm text-gray-600">
@@ -516,17 +516,7 @@ export default function LpHrt3() {
                 <p className="mt-3 text-sm text-gray-500">Currently accepting new patients — limited availability</p>
               </div>
             </div>
-
-            {/* À la carte note */}
-            <div className="mt-8 text-center space-y-3">
-              <p className="text-base text-gray-600">
-                Need an additional video visit? Available à la carte for <span className="font-semibold text-gray-800">$149</span> per appointment.
-              </p>
-              <p className="text-base text-gray-600 border-t border-gray-100 pt-3">
-                Follow-up options start at <span className="font-semibold text-gray-800">$50/mo</span> — Dr. Al-Deek will go over both options at your appointment.
-              </p>
             </div>
-          </div>
         </section>
 
         {/* ═══════════════ MEDICATION COST ESTIMATES ═══════════════ */}

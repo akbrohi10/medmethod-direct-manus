@@ -521,7 +521,7 @@ export default function LpGlp1() {
                   </div>
                   {/* Option 2 */}
                   <div className="rounded-xl border border-[#E8339E]/30 bg-pink-50/50 p-4">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#E8339E] mb-1">Option 2</p>
+                    <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Option 2</p>
                     <p className="text-lg font-bold text-gray-900">$50<span className="text-sm font-medium text-gray-500">/month Ongoing Care</span></p>
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mt-2 mb-1.5">Includes</p>
                     <ul className="space-y-1.5 text-sm text-gray-600">
