@@ -4,9 +4,9 @@
    - Weight loss focused for all women (30-60+)
    - Same structure as /lp/hrt2 but adapted for GLP-1 audience
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+const LpConsultationModal2 = React.lazy(() => import("@/components/home1/LpConsultationModal2"));
 import {
   Accordion,
   AccordionItem,
@@ -766,11 +766,13 @@ export default function LpGlp1() {
       </footer>
 
       {/* ═══════════════ CONSULTATION MODAL ═══════════════ */}
-      <LpConsultationModal2
-        open={consultOpen}
-        onClose={() => setConsultOpen(false)}
-        landingPage="/lp/glp1"
-      />
+      <React.Suspense fallback={null}>
+        <LpConsultationModal2
+          open={consultOpen}
+          onClose={() => setConsultOpen(false)}
+          landingPage="/lp/glp1"
+        />
+      </React.Suspense>
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
       <div

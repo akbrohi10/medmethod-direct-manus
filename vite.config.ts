@@ -216,7 +216,16 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ["react", "react-dom"],
+          // Core React runtime — tiny, cached forever
+          "react-core": ["react", "react-dom"],
+          // tRPC + data fetching — changes rarely, cache aggressively
+          "trpc-query": [
+            "@trpc/client",
+            "@trpc/react-query",
+            "@tanstack/react-query",
+            "superjson",
+          ],
+          // Radix UI primitives — large but stable
           "radix-ui": [
             "@radix-ui/react-dialog",
             "@radix-ui/react-accordion",
@@ -225,10 +234,31 @@ export default defineConfig({
             "@radix-ui/react-tooltip",
             "@radix-ui/react-tabs",
             "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-label",
+            "@radix-ui/react-checkbox",
+            "@radix-ui/react-radio-group",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-switch",
+            "@radix-ui/react-toggle",
           ],
+          // Stripe — only loaded on payment pages
+          "stripe-js": ["@stripe/stripe-js", "@stripe/react-stripe-js"],
+          // Charting — only loaded on pages that use recharts
+          charts: ["recharts"],
+          // Routing
+          router: ["wouter"],
+          // Form handling
+          forms: ["react-hook-form", "@hookform/resolvers", "zod"],
+          // Utility libs
+          utils: ["clsx", "tailwind-merge", "class-variance-authority", "date-fns"],
         },
       },
     },
+    // Enable CSS code splitting for faster initial CSS load
+    cssCodeSplit: true,
+    // Increase chunk size warning threshold (we're intentionally splitting)
+    chunkSizeWarningLimit: 600,
   },
   server: {
     host: true,

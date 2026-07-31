@@ -5,10 +5,10 @@
          Therapy Works" (conditions carousel onward)
    Modal: LpConsultationModal2 (intake + Stripe deposit)
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import MedicalTeam from "@/components/home1/MedicalTeam";
-import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+const LpConsultationModal2 = React.lazy(() => import("@/components/home1/LpConsultationModal2"));
 import {
   Accordion,
   AccordionItem,
@@ -721,11 +721,13 @@ export default function LpHrt3() {
       </footer>
 
       {/* ═══════════════ CONSULTATION MODAL ═══════════════ */}
-      <LpConsultationModal2
-        open={consultOpen}
-        onClose={() => setConsultOpen(false)}
-        landingPage="/lp/hrt3"
-      />
+      <React.Suspense fallback={null}>
+        <LpConsultationModal2
+          open={consultOpen}
+          onClose={() => setConsultOpen(false)}
+          landingPage="/lp/hrt3"
+        />
+      </React.Suspense>
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
       {/* Visible on mobile only — fixed to bottom of screen, follows scroll */}

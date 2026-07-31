@@ -39,12 +39,30 @@
     <link rel="dns-prefetch" href="https://img.youtube.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Non-blocking font load: media=print trick defers font CSS until after render -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+    <!-- Preconnect to third-party origins used on LP pages -->
+    <link rel="preconnect" href="https://js.stripe.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.stripe.com" />
+    <link rel="dns-prefetch" href="https://link.sendmeapro.com" />
+    <link rel="dns-prefetch" href="https://files.manuscdn.com" />
 
     <style>
       html { scroll-behavior: smooth; }
       /* Ensure content-visibility for below-fold sections */
       .cv-auto { content-visibility: auto; contain-intrinsic-size: auto 600px; }
+      /* Critical: prevent layout shift while Montserrat loads — fallback stack matches metrics */
+      body { font-family: Montserrat, 'Arial Narrow', Arial, sans-serif; }
+      /* Prevent invisible text during font swap */
+      @font-face { font-display: swap; }
     </style>
   </head>
   <body>

@@ -5,9 +5,9 @@
    - Stripped nav (logo + Book Now only)
    - Single repeated CTA → opens existing ConsultationModal
    ============================================================================= */
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+const LpConsultationModal2 = React.lazy(() => import("@/components/home1/LpConsultationModal2"));
 import {
   Accordion,
   AccordionItem,
@@ -832,10 +832,12 @@ export default function LpHrt() {
       {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
       <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-20' : 'h-0'}`} />
       {/* ═══════════════ CONSULTATION MODAL ═══════════════ */}
-      <LpConsultationModal2
-        open={consultOpen}
-        onClose={() => setConsultOpen(false)}
-      />
+      <React.Suspense fallback={null}>
+        <LpConsultationModal2
+          open={consultOpen}
+          onClose={() => setConsultOpen(false)}
+        />
+      </React.Suspense>
     </>
   );
 }
