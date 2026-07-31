@@ -47,10 +47,10 @@ export default function ThankYou() {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
       (window as any).dataLayer.push({ event: "booking_complete" });
     }
-    // Meta Pixel — fire PageView + Purchase on thank-you page load
+    // Meta Pixel — fire PageView + Subscribe on thank-you page load
     if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
       (window as any).fbq("track", "PageView");
-      (window as any).fbq("track", "Purchase", { value: 50.00, currency: "USD" });
+      (window as any).fbq("track", "Subscribe", { value: 50.00, currency: "USD", predicted_ltv: 50.00 });
     }
   }, []);
 
