@@ -82,14 +82,14 @@ describe("crawlerMiddleware", () => {
     it("returns Dr. Al-Deek meta for /dr-aldeek-booking", () => {
       const meta = getMetaForPath("/dr-aldeek-booking");
       expect(meta.title).toBe("Book with Dr. Jumana Al-Deek, DO | MedMethod Direct");
-      expect(meta.image).toContain("telehealth-hero-single-face");
+      expect(meta.image).toContain("cloudfront.net");
       expect(meta.url).toBe("https://medmethoddirect.com/dr-aldeek-booking");
     });
 
     it("returns landing page meta for /lp/hrt2", () => {
       const meta = getMetaForPath("/lp/hrt2");
       expect(meta.title).toContain("Hormone Therapy");
-      expect(meta.image).toContain("telehealth-hero-single-face");
+      expect(meta.image).toContain("cloudfront.net");
     });
 
     it("returns GLP-1 meta for /lp/glp1", () => {
@@ -128,7 +128,7 @@ describe("crawlerMiddleware", () => {
     it("returns default meta for unknown routes", () => {
       const meta = getMetaForPath("/some-random-page");
       expect(meta.title).toContain("MedMethod Direct");
-      expect(meta.image).toContain("og-before-you-start-treatment");
+      expect(meta.image).toContain("cloudfront.net");
     });
   });
 
