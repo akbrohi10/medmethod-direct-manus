@@ -525,7 +525,7 @@ export default function LpGlp1() {
                     <p className="text-lg font-bold text-gray-900">$50<span className="text-sm font-medium text-gray-500">/month Ongoing Care</span></p>
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mt-2 mb-1.5">Includes</p>
                     <ul className="space-y-1.5 text-sm text-gray-600">
-                      {["Direct secure messaging", "Immediate medication adjustments", "Prescription refills", "Lab review", "Asynchronous care"].map((item) => (
+                      {["Direct secure messaging", "Immediate medication adjustments", "Prescription refills", "Lab review", "Answers without a visit"].map((item) => (
                         <li key={item} className="flex items-start gap-1.5">
                           <svg className="w-3.5 h-3.5 text-[#E8339E] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                           {item}
