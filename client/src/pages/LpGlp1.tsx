@@ -520,7 +520,7 @@ export default function LpGlp1() {
                     </ul>
                   </div>
                   {/* Option 2 */}
-                  <div className="rounded-xl border border-[#E8339E]/30 bg-pink-50/50 p-4">
+                  <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
                     <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Option 2</p>
                     <p className="text-lg font-bold text-gray-900">$50<span className="text-sm font-medium text-gray-500">/month Ongoing Care</span></p>
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mt-2 mb-1.5">Includes</p>
@@ -533,6 +533,7 @@ export default function LpGlp1() {
                       ))}
                     </ul>
                     <p className="mt-3 text-xs text-gray-500 italic">Need a video visit? Just add one for <span className="font-semibold text-gray-700">$50</span>.</p>
+                    <p className="mt-1 text-xs text-gray-400">Requires 30-day notice to cancel.</p>
                   </div>
                 </div>
               </div>
