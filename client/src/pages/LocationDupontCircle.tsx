@@ -47,7 +47,7 @@ const JSONLD_FAQ = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a menopause doctor near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." } },
+    { "@type": "Question", "name": "Is there a menopause doctor near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." } },
     { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Dupont Circle and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." } },
     { "@type": "Question", "name": "Do I need to come in for bloodwork near Dupont Circle?", "acceptedAnswer": { "@type": "Answer", "text": "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Northwest DC, including near Dupont Circle and Logan Circle. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." } },
     { "@type": "Question", "name": "How is MedMethod Direct different from local practices near Dupont Circle?", "acceptedAnswer": { "@type": "Answer", "text": "Dupont Circle is one of DC's most health-conscious neighborhoods — but even the best local practices can't offer same-week availability, 30–60 minute appointments, and a program that treats hormones and GLP-1 weight loss as a single clinical problem. MedMethod Direct does all three, virtually, without the commute." } },
@@ -66,7 +66,7 @@ const JSONLD_BREADCRUMB = {
 };
 
 const faqs = [
-  { q: "Is there a menopause doctor near Dupont Circle, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." },
+  { q: "Is there a menopause doctor near Dupont Circle, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Dupont Circle and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
   { q: "Do I need to come in for bloodwork near Dupont Circle?", a: "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Northwest DC, including near Dupont Circle and Logan Circle. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
   { q: "What is bioidentical hormone therapy (BHRT) and is it available near Dupont Circle?", a: "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing and shipped to your Dupont Circle address." },
@@ -74,7 +74,7 @@ const faqs = [
   { q: "Can MedMethod Direct also serve patients in nearby neighborhoods?", a: "Yes. MedMethod Direct is licensed throughout DC, Maryland, and Virginia. We serve patients in Logan Circle, Adams Morgan, Kalorama, Georgetown, and throughout Northwest DC — as well as patients in nearby Bethesda MD and McLean VA." },
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." },
-  { q: "How soon can I start as a patient in Dupont Circle?", a: "Most patients complete their free consultation within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Dupont Circle patients are on their program within 1–2 weeks of their first call." },
+  { q: "How soon can I start as a patient in Dupont Circle?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Dupont Circle patients are on their program within 1–2 weeks of their first call." },
 ,
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
@@ -109,8 +109,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   ...pricingFaqs,
   {
@@ -175,7 +175,7 @@ const faqCategories = [
 const whyCards = [
   { icon: <Leaf className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Built for Health-Conscious DC Women", desc: "Dupont Circle women are progressive, informed, and health-conscious. MedMethod Direct offers integrative hormone care that matches that standard — evidence-based, lab-driven, and physician-led." },
   { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Dupont Circle patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Dupont Circle patients are seen within days of their appointment and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Dupont Circle or Northwest DC." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Dupont Circle address. No pharmacy runs, no prior authorization battles." },
   { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
@@ -235,7 +235,7 @@ export default function LocationDupontCircle() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -458,7 +458,7 @@ export default function LocationDupontCircle() {
             Free 20-minute consultation with a member of our clinical team. No obligation, no pressure. Available to all Dupont Circle and Washington DC residents.
           </p>
           <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2">
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/25 text-xs mt-5">
             Serving Dupont Circle · Logan Circle · Adams Morgan · Kalorama · 14th Street Corridor · and all of Washington DC

@@ -162,7 +162,7 @@ export default function LocationArizona() {
                 className="px-8 py-4 rounded-none font-bold text-sm tracking-widest uppercase text-white transition-all hover:opacity-90"
                 style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
               >
-                Schedule Free Consultation
+                Book Your 45-Min Appointment
               </button>
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function LocationArizona() {
             className="px-10 py-4 font-bold text-sm tracking-widest uppercase text-white transition-all hover:opacity-90"
             style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
           >
-            Schedule Free Consultation
+            Book Your 45-Min Appointment
           </button>
           <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
             Licensed in Arizona · 100% Virtual · No Office Visit Required

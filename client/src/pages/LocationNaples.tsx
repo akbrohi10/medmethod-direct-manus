@@ -77,7 +77,7 @@ const localFaqs = [
   { q: "Do you serve patients in Naples, Florida?", a: "Yes — MedMethod Direct is fully licensed to serve patients throughout Naples and Southwest Florida, including Marco Island, Bonita Springs, Estero, and Fort Myers. All care is delivered 100% virtually, so you never need to leave Naples." },
   { q: "Is there a menopause specialist near Naples?", a: "Yes — MedMethod Direct provides specialist-level menopause care to women in Naples and throughout Collier County. Dr. Al-Deek is board-certified in family medicine with advanced training in hormone therapy, menopause management, and metabolic health. All visits are 100% virtual, so you get expert care without driving to a specialist in Fort Myers or Miami." },
   { q: "What areas near Naples do you serve?", a: "We serve women throughout Southwest Florida, including Naples, Marco Island, Bonita Springs, Estero, Fort Myers, Cape Coral, and Sanibel. Since all care is virtual, you can connect with us from anywhere in Florida." },
-  { q: "How does the $449 diagnostic setup work for Naples patients?", a: "After your free consultation, you pay a one-time $449 clinical diagnostic fee. This includes a comprehensive lab panel ordered to a LabCorp or Quest near you in Collier County, a MedMethod Smart Scale shipped to your door, a full hormone and metabolic assessment, and your first physician strategy session to review results and build your personalized protocol." },
+  { q: "How does the $449 diagnostic setup work for Naples patients?", a: "After your appointment, you pay a one-time $449 clinical diagnostic fee. This includes a comprehensive lab panel ordered to a LabCorp or Quest near you in Collier County, a MedMethod Smart Scale shipped to your door, a full hormone and metabolic assessment, and your first physician strategy session to review results and build your personalized protocol." },
   { q: "Can Naples patients get medications delivered to their home?", a: "Absolutely. All compounded medications — including semaglutide and tirzepatide — are shipped directly from our FDA-registered 503B pharmacy to your Naples address. Brand-name prescriptions can also be sent to your local pharmacy in Collier County if you prefer to use insurance." },
   { q: "Can I get semaglutide or tirzepatide online in Naples?", a: "Yes. We offer access to both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy, prescribed by Dr. Al-Deek after a thorough review of your labs and health history. Medications are shipped directly to your Naples address." },
   { q: "Do I need to come into an office for bloodwork in Naples?", a: "No office visits required. We order your labs to a LabCorp or Quest Diagnostics location near you in Naples or Southwest Florida. You go in for a standard blood draw, and we review the results together on your next virtual visit." },
@@ -121,8 +121,8 @@ const faqs = [...localFaqs, ...pricingFaqs,
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
 ];
 
@@ -192,16 +192,16 @@ export default function LocationNaples() {
     <div className="min-h-screen bg-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Naples, FL | MedMethod Direct</title>
-        <meta name="description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — free consultation." />
+        <meta name="description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — appointment." />
         <link rel="canonical" href="https://medmethoddirect.com/florida/naples" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Naples, FL | MedMethod Direct" />
         <meta property="og:url" content="https://medmethoddirect.com/florida/naples" />
         <meta property="og:image" content={HERO_IMAGE} />
-        <meta property="og:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
+        <meta property="og:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. appointment." />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Naples, FL | MedMethod Direct" />
-        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
+        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Naples, FL. Physician-prescribed semaglutide, BHRT & testosterone. appointment." />
         <script type="application/ld+json">{JSON.stringify(JSONLD_MEDICAL_BUSINESS)}</script>
         <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
                 <script type="application/ld+json">
@@ -255,7 +255,7 @@ export default function LocationNaples() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -484,10 +484,10 @@ export default function LocationNaples() {
           <p className="text-xs font-bold tracking-widest uppercase mb-4 text-white/80" style={{ fontFamily: "Montserrat, sans-serif" }}>Naples, Florida</p>
           <h2 className="font-black text-white leading-tight mb-4" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Ready to feel like yourself again?</h2>
           <p className="text-white/85 text-base leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            Naples women deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you. Your free consultation is 20 minutes and completely obligation-free.
+            Naples women deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you. Your appointment is 20 minutes and completely obligation-free.
           </p>
           <button onClick={() => setConsultOpen(true)} className="bg-white font-bold rounded-full px-8 py-4 text-sm tracking-wider flex items-center gap-2 mx-auto group hover:shadow-xl transition-shadow" style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}>
-            SCHEDULE MY FREE CONSULTATION
+            SCHEDULE MY appointment
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
           <p className="text-white/70 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>100% Virtual · No Obligation · No Pressure · Licensed in Florida</p>

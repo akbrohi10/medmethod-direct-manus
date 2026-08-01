@@ -483,7 +483,7 @@ export default function Locations() {
         />
         <link rel="canonical" href="https://www.medmethoddirect.com/locations" />
         <meta property="og:title" content="Service Locations | MedMethod Direct" />
-        <meta property="og:description" content="Premium virtual women's health care licensed in 9 states. Find your city and book a free consultation today." />
+        <meta property="og:description" content="Premium virtual women's health care licensed in 9 states. Find your city and book your appointment today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.medmethoddirect.com/locations" />
         <script type="application/ld+json">{JSON.stringify(JSONLD)}</script>

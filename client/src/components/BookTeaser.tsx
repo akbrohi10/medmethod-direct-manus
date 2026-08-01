@@ -223,7 +223,7 @@ function PrefaceModal({ onClose }: { onClose: () => void }) {
               </h3>
               <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 We'll text you the preface link shortly. In the meantime, feel
-                free to explore our programs or schedule a free consultation.
+                free to explore our programs or schedule a appointment.
               </p>
               <button
                 onClick={onClose}

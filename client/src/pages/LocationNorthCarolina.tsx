@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: "How quickly can I get started as a North Carolina patient?",
-    a: "Most patients complete their free consultation within 24–48 hours of scheduling. After your consultation and lab work, your physician typically reviews results and issues your prescription within 3–5 business days. Medication ships directly from our 503B compounding pharmacy to your North Carolina address.",
+    a: "Most patients complete their appointment within 24–48 hours of scheduling. After your consultation and lab work, your physician typically reviews results and issues your prescription within 3–5 business days. Medication ships directly from our 503B compounding pharmacy to your North Carolina address.",
   },
 ];
 
@@ -162,7 +162,7 @@ export default function LocationNorthCarolina() {
               className="px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white transition-all hover:opacity-90"
               style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", boxShadow: "0 8px 32px rgba(232,51,158,0.35)" }}
             >
-              Schedule Free Consultation
+              Book Your 45-Min Appointment
             </button>
           </div>
           <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: "16/10" }}>
@@ -186,7 +186,7 @@ export default function LocationNorthCarolina() {
             Find Your City in North Carolina
           </h2>
           <p className="text-sm font-medium text-center mb-12 max-w-xl mx-auto" style={{ color: "#666" }}>
-            MedMethod Direct is fully licensed in North Carolina. Select your city for localized information, or schedule a free consultation from anywhere in the state.
+            MedMethod Direct is fully licensed in North Carolina. Select your city for localized information, or book your appointment from anywhere in the state.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {NC_CITIES.map((city) => (
@@ -294,7 +294,7 @@ export default function LocationNorthCarolina() {
           className="px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white transition-all hover:opacity-90"
           style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}
         >
-          Schedule Free Consultation
+          Book Your 45-Min Appointment
         </button>
         <p className="mt-6 text-xs font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>
           <Link href="/locations" className="hover:text-white transition-colors">View all locations</Link>

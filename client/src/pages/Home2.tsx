@@ -92,7 +92,7 @@ export default function Home2() {
     <div className="min-h-screen" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women</title>
-        <meta name="description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states. Schedule your free consultation today." />
+        <meta name="description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states. Schedule your appointment today." />
         <link rel="canonical" href="https://medmethoddirect.com/" />
         <meta property="og:title" content="MedMethod Direct | Virtual Hormone Therapy, Menopause & Weight Loss for Women" />
         <meta property="og:description" content="Physician-led virtual hormone therapy, menopause care, GLP-1 medical weight loss, and longevity medicine for women. 100% virtual, licensed in 9 states." />

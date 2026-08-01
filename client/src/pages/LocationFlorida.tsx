@@ -216,17 +216,17 @@ export default function LocationFlorida() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Florida | MedMethod Direct</title>
         <meta
           name="description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/florida" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Florida | MedMethod Direct" />
-        <meta property="og:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
+        <meta property="og:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. appointment." />
         <meta property="og:url" content="https://medmethoddirect.com/florida" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={HERO_IMAGE} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctors in Florida | MedMethod Direct" />
-        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation." />
+        <meta name="twitter:description" content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women throughout Florida. Physician-prescribed semaglutide, BHRT & testosterone. appointment." />
         <script type="application/ld+json">{JSON.stringify(JSONLD_MEDICAL_BUSINESS)}</script>
         <script type="application/ld+json">{JSON.stringify(JSONLD_FAQ)}</script>
         <script type="application/ld+json">{JSON.stringify({
@@ -300,7 +300,7 @@ export default function LocationFlorida() {
                     className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -601,14 +601,14 @@ export default function LocationFlorida() {
             Ready to feel like yourself again?
           </h2>
           <p className="text-white/85 text-base leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            Florida women deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you. Your free consultation is 20 minutes and completely obligation-free.
+            Florida women deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you. Your appointment is 20 minutes and completely obligation-free.
           </p>
           <button
             onClick={() => setConsultOpen(true)}
             className="bg-white font-bold rounded-full px-8 py-4 text-sm tracking-wider flex items-center gap-2 mx-auto group hover:shadow-xl transition-shadow"
             style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
           >
-            SCHEDULE MY FREE CONSULTATION
+            SCHEDULE MY appointment
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
           <p className="text-white/70 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>

@@ -23,7 +23,7 @@ const faqs = [
   { q: "Is MedMethod Direct licensed to practice in North Carolina?", a: "Yes. MedMethod Direct is fully licensed to practice medicine in North Carolina. Our board-certified physicians are authorized to evaluate, prescribe, and manage hormone therapy and medical weight loss programs for patients throughout the state — including Wilmington — entirely via telehealth, with no in-person visit required." },
   { q: "Do I need to visit an office to become a patient in Wilmington?", a: "No. MedMethod Direct is a 100% virtual practice. Everything — your consultation, lab review, prescription, and ongoing check-ins — happens online via secure video. Your medication ships directly from a licensed 503B compounding pharmacy to your Wilmington address." },
   { q: "Why do Wilmington women choose telehealth for hormone therapy?", a: "Wilmington and the Cape Fear coast — including Wrightsville Beach and Figure Eight Island — have a significant population of women 45–65 who are active, health-conscious, and accustomed to quality services. Specialist access in the Wilmington area is limited compared to the Triangle; many women have historically driven hours to Raleigh or Charlotte for care that MedMethod Direct can now deliver virtually, directly to their coastal home." },
-  { q: "How quickly can I start a program from Wilmington?", a: "Most Wilmington patients complete their free consultation within 24–48 hours of scheduling. After your consultation and lab work, your physician typically reviews results and issues your prescription within 3–5 business days. Medication ships directly from our 503B compounding pharmacy to your Wilmington or Wrightsville Beach address." },
+  { q: "How quickly can I start a program from Wilmington?", a: "Most Wilmington patients complete their appointment within 24–48 hours of scheduling. After your consultation and lab work, your physician typically reviews results and issues your prescription within 3–5 business days. Medication ships directly from our 503B compounding pharmacy to your Wilmington or Wrightsville Beach address." },
   { q: "What services does MedMethod Direct offer Wilmington patients?", a: "We offer bioidentical hormone replacement therapy (BHRT), GLP-1 medical weight loss (semaglutide and tirzepatide), perimenopause and menopause management, and testosterone optimization. All programs are personalized based on your lab results and health history, with ongoing physician oversight included." },
 
   {
@@ -59,8 +59,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   ...pricingFaqs,
   {
@@ -195,7 +195,7 @@ export default function LocationWilmingtonNC() {
                   className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  SCHEDULE FREE CONSULTATION
+                  SCHEDULE appointment
                   <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
               </div>
@@ -435,7 +435,7 @@ export default function LocationWilmingtonNC() {
         <p className="text-xs font-black tracking-widest uppercase mb-3" style={{ color: "#E8339E" }}>Licensed in North Carolina</p>
         <h2 className="font-black text-3xl mb-4 text-white" style={{ letterSpacing: "-0.02em" }}>Ready to Start in Wilmington?</h2>
         <p className="text-base mb-8 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>Your free 20-minute consultation is the first step. No commitment required.</p>
-        <button onClick={() => setConsultOpen(true)} className="px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white" style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}>Schedule Free Consultation</button>
+        <button onClick={() => setConsultOpen(true)} className="px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white" style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)" }}>Book Your 45-Min Appointment</button>
         <p className="mt-6 text-xs font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>
           <Link href="/locations" className="hover:text-white transition-colors">View all locations</Link>{" · "}
           <Link href="/" className="hover:text-white transition-colors">Back to home</Link>

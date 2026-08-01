@@ -97,8 +97,8 @@ const faqCategories = [
     icon: "💳",
     questions: [
       {
-        q: "What does treatment cost?",
-        a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible — and we're committed to being upfront about every cost.",
+        q: "How is pricing structured?",
+        a: "Your first visit is $199 total — $50 deposit to reserve your appointment, $149 due at the time of your visit. This covers your 45-minute consultation with Dr. Al-Deek, your personalized treatment plan, prescription (if appropriate), and 30 days of direct text access with Dr. Al-Deek. Medication is separate and billed based on what Dr. Al-Deek prescribes — both brand-name and compounded options are available. After your first visit, follow-up options depend on which plan works best for your care — Dr. Al-Deek will walk you through both at your appointment. We accept HSA/FSA. No insurance needed.",
       },
       ...pricingFaqs,
       {

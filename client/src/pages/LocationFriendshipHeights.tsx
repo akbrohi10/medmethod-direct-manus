@@ -50,7 +50,7 @@ const JSONLD_FAQ = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a menopause doctor near Friendship Heights or Tenleytown, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Friendship Heights, Tenleytown, American University Park, Spring Valley, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." } },
+    { "@type": "Question", "name": "Is there a menopause doctor near Friendship Heights or Tenleytown, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Friendship Heights, Tenleytown, American University Park, Spring Valley, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." } },
     { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Friendship Heights, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Friendship Heights and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." } },
     { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." } },
   ],
@@ -67,7 +67,7 @@ const JSONLD_BREADCRUMB = {
 };
 
 const faqs = [
-  { q: "Is there a menopause doctor near Friendship Heights or Tenleytown, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Friendship Heights, Tenleytown, American University Park, Spring Valley, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." },
+  { q: "Is there a menopause doctor near Friendship Heights or Tenleytown, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Friendship Heights, Tenleytown, American University Park, Spring Valley, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Friendship Heights, DC?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Friendship Heights and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
   { q: "Do I need to come in for bloodwork near Friendship Heights or Tenleytown?", a: "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Upper Northwest DC and just across the line in Chevy Chase Maryland. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
   { q: "What is the difference between HRT and BHRT?", a: "HRT (hormone replacement therapy) typically refers to FDA-approved synthetic or bioidentical hormones in standardized doses. BHRT (bioidentical hormone replacement therapy) uses hormones molecularly identical to those your body produces, often in compounded formulations customized to your lab results. MedMethod Direct offers both, and Dr. Al-Deek will recommend the right approach based on your comprehensive bloodwork." },
@@ -75,7 +75,7 @@ const faqs = [
   { q: "Can MedMethod Direct also serve patients in nearby Chevy Chase Maryland?", a: "Yes. MedMethod Direct is licensed in DC, Maryland, and Virginia. Many Friendship Heights and Tenleytown patients have family or colleagues in nearby Chevy Chase MD or Bethesda — we serve the entire DC metro area under the same physician-led program." },
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." },
-  { q: "How soon can I start as a patient in Friendship Heights or Tenleytown?", a: "Most patients complete their free consultation within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most patients in this area are on their program within 1–2 weeks of their first call." },
+  { q: "How soon can I start as a patient in Friendship Heights or Tenleytown?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most patients in this area are on their program within 1–2 weeks of their first call." },
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
@@ -110,8 +110,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   {
     q: "Do you accept insurance?",
@@ -175,7 +175,7 @@ const faqCategories = [
 const whyCards = [
   { icon: <Home className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Upper Northwest's Most Trusted Virtual Clinic", desc: "Friendship Heights and Tenleytown women expect evidence-based care from physicians who take time. MedMethod Direct delivers exactly that — virtually, on your schedule." },
   { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most patients in this area are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most patients in this area are seen within days of their appointment and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Friendship Heights or Upper Northwest DC." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Friendship Heights or Tenleytown address. No pharmacy runs, no prior authorization battles." },
   { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
@@ -235,7 +235,7 @@ export default function LocationFriendshipHeights() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -457,7 +457,7 @@ export default function LocationFriendshipHeights() {
             Free 20-minute consultation with a member of our clinical team. No obligation, no pressure. Available to all Friendship Heights, Tenleytown, and Washington DC residents.
           </p>
           <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2">
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/25 text-xs mt-5">
             Serving Friendship Heights · Tenleytown · American University Park · Spring Valley · Upper Northwest DC

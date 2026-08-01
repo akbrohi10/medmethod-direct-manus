@@ -47,7 +47,7 @@ const JSONLD_FAQ = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a menopause doctor near Capitol Hill, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Capitol Hill, Eastern Market, Barracks Row, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of a free consultation." } },
+    { "@type": "Question", "name": "Is there a menopause doctor near Capitol Hill, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Capitol Hill, Eastern Market, Barracks Row, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of a appointment." } },
     { "@type": "Question", "name": "Can I get semaglutide prescribed online near Capitol Hill, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Capitol Hill and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped to your Capitol Hill address." } },
     { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "We are a direct-care practice and do not bill insurance. Many Capitol Hill patients use FEHB HSA or FSA funds. We provide itemized receipts for potential out-of-network reimbursement." } },
   ],
@@ -64,7 +64,7 @@ const JSONLD_BREADCRUMB = {
 };
 
 const faqs = [
-  { q: "Is there a menopause doctor near Capitol Hill, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Capitol Hill, Eastern Market, Barracks Row, Navy Yard, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." },
+  { q: "Is there a menopause doctor near Capitol Hill, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Capitol Hill, Eastern Market, Barracks Row, Navy Yard, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Capitol Hill, DC?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Capitol Hill and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
   { q: "Do I need to come in for bloodwork near Capitol Hill?", a: "No office visit to MedMethod Direct is ever required. DC has excellent lab density — LabCorp and Quest Diagnostics locations throughout Southeast and Northeast DC. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
   { q: "I work on the Hill — can I schedule appointments around my schedule?", a: "Absolutely. MedMethod Direct was built for professionals with demanding schedules. All appointments are virtual and can be scheduled early morning, evening, or during a lunch break. No commute, no waiting room, no parking. Most Capitol Hill patients complete their first consultation within 24–48 hours of requesting it." },
@@ -73,7 +73,7 @@ const faqs = [
   { q: "Can MedMethod Direct also serve patients in nearby Maryland or Virginia?", a: "Yes. MedMethod Direct is licensed in DC, Maryland, and Virginia. Many Capitol Hill patients have family or colleagues in nearby Bethesda MD, McLean VA, or Northern Virginia — we serve the entire DC metro area under the same physician-led program." },
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many Capitol Hill patients use FEHB HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." },
-  { q: "How soon can I start as a patient in Capitol Hill?", a: "Most patients complete their free consultation within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Capitol Hill patients are on their program within 1–2 weeks of their first call." },
+  { q: "How soon can I start as a patient in Capitol Hill?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Capitol Hill patients are on their program within 1–2 weeks of their first call." },
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
@@ -108,8 +108,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   {
     q: "Do you accept insurance?",
@@ -173,7 +173,7 @@ const faqCategories = [
 const whyCards = [
   { icon: <Building2 className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Built for Hill Professionals", desc: "Staffers, attorneys, lobbyists, and policy professionals with demanding schedules — virtual care that fits around your calendar, not the other way around." },
   { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Capitol Hill patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Capitol Hill patients are seen within days of their appointment and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Capitol Hill or Southeast DC." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Capitol Hill address. No pharmacy runs, no prior authorization battles." },
   { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
@@ -233,7 +233,7 @@ export default function LocationCapitolHill() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -460,7 +460,7 @@ export default function LocationCapitolHill() {
             Free 20-minute consultation with a member of our clinical team. No obligation, no pressure. Schedule around your workday — morning, lunch, or evening.
           </p>
           <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2">
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/25 text-xs mt-5">
             Serving Capitol Hill · Eastern Market · Barracks Row · Navy Yard · Hill East · and all of Washington DC

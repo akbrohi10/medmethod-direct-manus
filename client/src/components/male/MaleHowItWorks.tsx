@@ -5,7 +5,7 @@ const NAVY = "#0A1628";
 const CREAM = "#F5F2EC";
 
 const steps = [
-  { num: "01", title: "Free Consultation", desc: "Book a no-pressure 20-minute call with a MedMethod Enrollment Specialist who will review your symptoms and goals." },
+  { num: "01", title: "Book Your Appointment", desc: "Book a 45-minute consultation with Dr. Al-Deek to review your health history, goals, and determine the right treatment plan for you." },
   { num: "02", title: "Lab Work Ordered", desc: "We order a comprehensive hormone panel — testosterone, thyroid, metabolic markers — shipped directly to you or a local lab." },
   { num: "03", title: "Lab Review & Program Selection", desc: "Your physician reviews your results, walks you through treatment options, and together you select the protocol that fits your biology and goals." },
   { num: "04", title: "Medication Delivered & Ongoing Optimization", desc: "Your prescription ships discreetly to your door. Bi-weekly check-ins, quarterly labs, and dose adjustments keep you performing at your peak." },

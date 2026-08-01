@@ -85,7 +85,7 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Texas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. Prescriptions are sent to your pharmacy or shipped to your door. All follow-up visits are virtual.",
+        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. Prescriptions are sent to your pharmacy or shipped to your door. All follow-up visits are virtual.",
       },
     },
     {
@@ -182,7 +182,7 @@ const faqs = [
   },
   {
     q: "How does virtual hormone therapy work in Texas?",
-    a: "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
+    a: "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
   },
   {
     q: "Do I need to live in a major Texas city to be a patient?",
@@ -240,7 +240,7 @@ export default function LocationTexas() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct</title>
         <meta
           name="description"
-          content="Texas's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Texas. Free consultation."
+          content="Texas's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Texas. appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/texas" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct" />
@@ -318,7 +318,7 @@ export default function LocationTexas() {
                 className="px-8 py-4 rounded-none font-bold text-sm tracking-widest uppercase text-white transition-all hover:opacity-90"
                 style={{ fontFamily: "Montserrat, sans-serif", background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)" }}
               >
-                Schedule Free Consultation
+                Book Your 45-Min Appointment
               </button>
             </div>
           </div>
@@ -590,7 +590,7 @@ export default function LocationTexas() {
             className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            SCHEDULE FREE CONSULTATION →
+            SCHEDULE appointment →
           </button>
         </div>
       </section>

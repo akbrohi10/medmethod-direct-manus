@@ -1592,7 +1592,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                     frameBorder="0"
                     scrolling="yes"
                     id="Qxw3vN2dmBw9LSUQag8J_1780696816287"
-                    title="Schedule your free consultation"
+                    title="Schedule your appointment"
                     style={{ border: "none", overflow: "auto", display: "block", minHeight: "500px", maxHeight: "calc(95vh - 200px)" }}
                   />
                 </div>

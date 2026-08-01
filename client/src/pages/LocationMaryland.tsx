@@ -90,7 +90,7 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Maryland?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Maryland — Montgomery County has exceptional lab density with locations in Bethesda, Chevy Chase, Rockville, and Silver Spring. Dr. Al-Deek reviews your results and builds a personalized protocol including HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
+        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Maryland — Montgomery County has exceptional lab density with locations in Bethesda, Chevy Chase, Rockville, and Silver Spring. Dr. Al-Deek reviews your results and builds a personalized protocol including HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
       },
     },
     {
@@ -209,7 +209,7 @@ const faqs = [
   },
   {
     q: "How does virtual hormone therapy work in Maryland?",
-    a: "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you — Montgomery County has exceptional lab density with locations in Bethesda, Chevy Chase, Rockville, and Silver Spring. Dr. Al-Deek reviews your results and builds a personalized protocol. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
+    a: "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you — Montgomery County has exceptional lab density with locations in Bethesda, Chevy Chase, Rockville, and Silver Spring. Dr. Al-Deek reviews your results and builds a personalized protocol. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
   },
   {
     q: "Do I need to live in the DC suburbs to be a patient?",
@@ -348,7 +348,7 @@ export default function LocationMaryland() {
                   onClick={() => setConsultOpen(true)}
                   className="btn-gradient btn-gradient-pulse px-8 py-3.5 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2"
                 >
-                  SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+                  SCHEDULE appointment <ArrowRight className="w-4 h-4" />
                 </button>
                 <a
                   href="#neighborhoods"
@@ -555,7 +555,7 @@ export default function LocationMaryland() {
                 onClick={() => setConsultOpen(true)}
                 className="mt-5 w-full btn-gradient py-2.5 rounded-full text-xs font-bold tracking-wider"
               >
-                SCHEDULE FREE CONSULTATION
+                SCHEDULE appointment
               </button>
             </div>
           </div>
@@ -736,7 +736,7 @@ export default function LocationMaryland() {
             onClick={() => setConsultOpen(true)}
             className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2"
           >
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/25 text-xs mt-5">
             Serving Bethesda · Chevy Chase · Potomac · Rockville · Silver Spring · Baltimore · Annapolis · Frederick · Columbia · and all of Maryland

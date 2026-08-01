@@ -47,7 +47,7 @@ const JSONLD_FAQ = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a menopause doctor near Chevy Chase DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Chevy Chase DC, Friendship Heights, Tenleytown, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." } },
+    { "@type": "Question", "name": "Is there a menopause doctor near Chevy Chase DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Chevy Chase DC, Friendship Heights, Tenleytown, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." } },
     { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Chevy Chase DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Chevy Chase DC and throughout the District. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." } },
     { "@type": "Question", "name": "How is Chevy Chase DC different from Chevy Chase Maryland — and do you serve both?", "acceptedAnswer": { "@type": "Answer", "text": "Chevy Chase DC is the portion of the Chevy Chase neighborhood within the District of Columbia boundary, while Chevy Chase Maryland is just across the state line. MedMethod Direct is licensed in both DC and Maryland, so we serve patients on both sides of the line under the same physician-led program." } },
     { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." } },
@@ -65,7 +65,7 @@ const JSONLD_BREADCRUMB = {
 };
 
 const faqs = [
-  { q: "Is there a menopause doctor near Chevy Chase DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Chevy Chase DC, Friendship Heights, Tenleytown, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." },
+  { q: "Is there a menopause doctor near Chevy Chase DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Chevy Chase DC, Friendship Heights, Tenleytown, and throughout Upper Northwest DC. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Chevy Chase DC?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Chevy Chase DC and throughout the District. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
   { q: "How is Chevy Chase DC different from Chevy Chase Maryland — and do you serve both?", a: "Chevy Chase DC is the portion of the Chevy Chase neighborhood within the District of Columbia boundary, while Chevy Chase Maryland is just across the state line. MedMethod Direct is licensed in both DC and Maryland, so we serve patients on both sides of the line under the same physician-led program." },
   { q: "Do I need to come in for bloodwork near Chevy Chase DC?", a: "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations in Upper Northwest DC and just across the line in Chevy Chase Maryland. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
@@ -73,7 +73,7 @@ const faqs = [
   { q: "Can MedMethod Direct also serve patients in nearby Chevy Chase Maryland or Bethesda?", a: "Yes. MedMethod Direct is licensed in DC, Maryland, and Virginia. Many Chevy Chase DC patients have family or colleagues in nearby Chevy Chase MD, Bethesda, or Potomac — we serve the entire DC metro area under the same physician-led program." },
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." },
-  { q: "How soon can I start as a patient in Chevy Chase DC?", a: "Most patients complete their free consultation within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Chevy Chase DC patients are on their program within 1–2 weeks of their first call." },
+  { q: "How soon can I start as a patient in Chevy Chase DC?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Chevy Chase DC patients are on their program within 1–2 weeks of their first call." },
 
   {
     q: "What makes MedMethod Direct different from other telehealth services?",
@@ -108,8 +108,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   {
     q: "Do you accept insurance?",
@@ -173,7 +173,7 @@ const faqCategories = [
 const whyCards = [
   { icon: <Home className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Upper Northwest's Premier Virtual Clinic", desc: "Chevy Chase DC women expect the best — MedMethod Direct delivers physician-led, lab-driven hormone and weight loss care that matches the standard of the neighborhood." },
   { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Chevy Chase DC patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No long waits. Most Chevy Chase DC patients are seen within days of their appointment and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven, Not Symptom-Driven", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Chevy Chase DC or Upper Northwest." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Chevy Chase DC address. No pharmacy runs, no prior authorization battles." },
   { icon: <Map className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Serving Both Sides of the DC-MD Line", desc: "Licensed in DC and Maryland — we serve Chevy Chase DC and Chevy Chase MD under the same program, so your care doesn't change if you move across the line." },
@@ -233,7 +233,7 @@ export default function LocationChevyChaseDC() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -455,7 +455,7 @@ export default function LocationChevyChaseDC() {
             Free 20-minute consultation with a member of our clinical team. No obligation, no pressure. Available to all Chevy Chase DC and Washington DC residents.
           </p>
           <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2">
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/25 text-xs mt-5">
             Serving Chevy Chase DC · Friendship Heights · Tenleytown · American University Park · Upper Northwest DC

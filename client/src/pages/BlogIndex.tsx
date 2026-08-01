@@ -310,7 +310,7 @@ export default function BlogIndex() {
               className="px-8 py-3 rounded-full text-sm font-bold tracking-wider text-white transition-all hover:opacity-90"
               style={{ background: BRAND_GRADIENT, fontFamily: "Montserrat, sans-serif" }}
             >
-              Schedule Free Consultation
+              Book Your 45-Min Appointment
             </button>
           </div>
         ) : (
@@ -354,14 +354,14 @@ export default function BlogIndex() {
             Knowledge is the first step. A conversation is the second.
           </h2>
           <p className="text-gray-500 mb-8">
-            Schedule a free consultation with our wellness team and get personalized guidance — no pressure, no obligation.
+            Schedule a appointment with our wellness team and get personalized guidance — no pressure, no obligation.
           </p>
           <button
             onClick={() => setConsultOpen(true)}
             className="px-10 py-4 rounded-full text-sm font-bold tracking-wider text-white transition-all hover:opacity-90"
             style={{ background: BRAND_GRADIENT, boxShadow: "0 8px 30px rgba(232,51,158,0.3)", fontFamily: "Montserrat, sans-serif" }}
           >
-            Schedule Free Consultation →
+            Book Your 45-Min Appointment →
           </button>
         </div>
       </section>

@@ -50,7 +50,7 @@ const JSONLD_FAQ = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a menopause doctor near Arlington, VA?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Arlington, Alexandria, Crystal City, Rosslyn, and the broader Northern Virginia area. All care is 100% virtual — Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." } },
+    { "@type": "Question", "name": "Is there a menopause doctor near Arlington, VA?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Arlington, Alexandria, Crystal City, Rosslyn, and the broader Northern Virginia area. All care is 100% virtual — Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." } },
     { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Arlington, Virginia?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Arlington and Alexandria. Bloodwork is ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped to your Arlington address." } },
     { "@type": "Question", "name": "How is MedMethod Direct different from local practices in Arlington?", "acceptedAnswer": { "@type": "Answer", "text": "Arlington has more medical practices per capita than most Northern Virginia cities, but very few specialize in the intersection of hormones and weight loss. MedMethod Direct treats both as a unified clinical problem — not two separate referrals. Appointments are 30–60 minutes, same-week availability, and your physician stays with you for the full program." } },
     { "@type": "Question", "name": "Do I need to come in for bloodwork near Arlington?", "acceptedAnswer": { "@type": "Answer", "text": "No. We order your labs to a LabCorp or Quest Diagnostics draw site near Arlington or Alexandria. You go in, get your blood drawn, and results come directly to Dr. Al-Deek. No office visit to MedMethod Direct is ever required." } },
@@ -72,7 +72,7 @@ const JSONLD_BREADCRUMB = {
 };
 
 const faqs = [
-  { q: "Is there a menopause doctor near Arlington, VA?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Arlington, Alexandria, Crystal City, Rosslyn, Clarendon, and the broader Northern Virginia area. All care is 100% virtual — Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation." },
+  { q: "Is there a menopause doctor near Arlington, VA?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Arlington, Alexandria, Crystal City, Rosslyn, Clarendon, and the broader Northern Virginia area. All care is 100% virtual — Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Arlington, Virginia?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Arlington and Alexandria. Bloodwork is ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
   { q: "How is MedMethod Direct different from local practices in Arlington?", a: "Arlington has more medical practices per capita than most Northern Virginia cities, but very few specialize in the intersection of hormones and weight loss. MedMethod Direct treats both as a unified clinical problem. Appointments are 30–60 minutes, same-week availability, and your physician stays with you for the full 6 or 12-month program." },
   { q: "Do I need to come in for bloodwork near Arlington?", a: "No. We order your labs to a LabCorp or Quest Diagnostics draw site near Arlington or Alexandria. You go in, get your blood drawn, and results come directly to Dr. Al-Deek. No office visit to MedMethod Direct is ever required." },
@@ -116,8 +116,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   {
     q: "Do you accept insurance?",
@@ -181,7 +181,7 @@ const faqCategories = [
 const whyCards = [
   { icon: <Building2 className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Urban Convenience, Zero Commute", desc: "Arlington is dense and fast-paced. MedMethod Direct gives you specialist-level care without adding another appointment to your commute." },
   { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: One Program", desc: "We're one of the few virtual practices treating hormones and GLP-1 weight loss as a unified clinical problem — not two separate referrals." },
-  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No 6-week specialist waits. Most Arlington patients are seen within days of their free consultation and on their protocol within two weeks." },
+  { icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Same-Week Availability", desc: "No 6-week specialist waits. Most Arlington patients are seen within days of their appointment and on their protocol within two weeks." },
   { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab-Driven Protocols", desc: "Every protocol starts with comprehensive bloodwork ordered to a LabCorp or Quest Diagnostics near Arlington or Alexandria." },
   { icon: <Pill className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Semaglutide, Tirzepatide & BHRT Delivered", desc: "Medications shipped directly to your Arlington address. No pharmacy runs, no prior authorization battles." },
   { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
@@ -245,7 +245,7 @@ export default function LocationArlington() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-3">
                   <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -426,7 +426,7 @@ export default function LocationArlington() {
           <h2 className="font-black mb-4" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "-0.02em" }}>Ready to Feel Like Yourself Again?</h2>
           <p className="text-white/60 text-base mb-8 leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>Your free 20-minute consultation is the first step. No obligation, no pressure — just a real conversation with a physician who understands what you're going through.</p>
           <button onClick={() => setConsultOpen(true)} className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>Serving Arlington, Alexandria, Crystal City, Rosslyn, Clarendon, and Northern Virginia</p>
         </div>

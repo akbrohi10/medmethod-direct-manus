@@ -1,6 +1,6 @@
 /* =============================================================================
    Consultation CTA — MedMethod Direct
-   Clinical Noir Design | Women 40+ focused free consultation form
+   Clinical Noir Design | Women 40+ focused appointment form
    ============================================================================= */
 import { useState } from "react";
 import { ArrowRight, CheckCircle } from "lucide-react";
@@ -111,7 +111,7 @@ export default function ConsultationCTA() {
                   className="text-gray-600"
                   style={{ fontFamily: "Montserrat, sans-serif", fontSize: "0.9rem" }}
                 >
-                  A MedMethod Direct care coordinator will reach out within 24 hours to schedule your free consultation. Your path to longevity starts now.
+                  A MedMethod Direct care coordinator will reach out within 24 hours to schedule your appointment. Your path to longevity starts now.
                 </p>
               </div>
             ) : (
@@ -120,7 +120,7 @@ export default function ConsultationCTA() {
                   className="font-black text-[#111111] mb-1"
                   style={{ fontFamily: "Montserrat, sans-serif", fontSize: "1.3rem" }}
                 >
-                  Schedule Your Free Consultation
+                  Schedule Your appointment
                 </h3>
                 <p
                   className="text-gray-500 text-sm mb-6"
@@ -210,7 +210,7 @@ export default function ConsultationCTA() {
                     className="btn-gradient w-full py-4 rounded-xl text-sm font-bold tracking-wider flex items-center justify-center gap-2 mt-2"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    SCHEDULE MY FREE CONSULTATION
+                    SCHEDULE MY appointment
                     <ArrowRight className="w-4 h-4" />
                   </button>
 

@@ -82,7 +82,7 @@ export default function StartWomen() {
     <div className="min-h-screen bg-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>Finally, a Doctor Who Treats the Whole Picture | MedMethod Direct</title>
-        <meta name="description" content="Virtual hormone therapy, menopause care, and GLP-1 medical weight loss — all in one program. Led by a board-certified physician. Schedule your free consultation today." />
+        <meta name="description" content="Virtual hormone therapy, menopause care, and GLP-1 medical weight loss — all in one program. Led by a board-certified physician. Schedule your appointment today." />
         <meta name="robots" content="noindex" />
       </Helmet>
 
@@ -100,7 +100,7 @@ export default function StartWomen() {
             className="px-5 py-2.5 rounded-full text-white text-sm font-bold tracking-wider transition-all duration-200 hover:opacity-90 active:scale-95"
             style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.05em" }}
           >
-            SCHEDULE FREE CONSULT
+            SCHEDULE appointment
           </button>
         </div>
       </header>
@@ -143,7 +143,7 @@ export default function StartWomen() {
               className="flex items-center gap-3 px-8 py-4 rounded-full text-white font-black text-sm tracking-wider w-fit transition-all duration-200 hover:scale-105 active:scale-95 shadow-2xl mb-4"
               style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.08em" }}
             >
-              SCHEDULE FREE CONSULTATION
+              SCHEDULE appointment
               <ArrowRight className="w-4 h-4" />
             </button>
             <p className="text-white/40 text-xs">No commitment · 15-minute call · Results in 7–10 days</p>
@@ -197,7 +197,7 @@ export default function StartWomen() {
               className="px-8 py-4 rounded-full text-white font-black text-sm tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
               style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.08em" }}
             >
-              YES — SCHEDULE MY FREE CONSULT
+              YES — SCHEDULE MY appointment
             </button>
             <p className="text-gray-400 text-xs mt-3">Takes 2 minutes · No credit card required</p>
           </div>
@@ -280,7 +280,7 @@ export default function StartWomen() {
           </div>
           <div className="space-y-6">
             {[
-              { n: "01", title: "Schedule Your Free Consultation", body: "A 15-minute call to understand your goals and confirm we're a fit. No pressure, no commitment." },
+              { n: "01", title: "Book Your 45-Min Appointment", body: "A 45-minute consultation with Dr. Al-Deek to review your health history, goals, and determine the right treatment plan for you." },
               { n: "02", title: "Complete Your At-Home Lab Panel", body: "Your comprehensive hormone and metabolic lab kit ships to your door. Results reviewed by Dr. Al-Deek before your first full appointment." },
               { n: "03", title: "Start Your Personalised Program", body: "Your 60-minute physician consultation, your custom protocol, and your first prescription — all within 7–10 days of signing up." },
             ].map((step) => (
@@ -304,7 +304,7 @@ export default function StartWomen() {
               className="px-8 py-4 rounded-full text-white font-black text-sm tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
               style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.08em" }}
             >
-              SCHEDULE FREE CONSULTATION
+              SCHEDULE appointment
             </button>
           </div>
         </div>
@@ -363,7 +363,7 @@ export default function StartWomen() {
             className="px-10 py-5 rounded-full text-white font-black text-base tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 shadow-2xl mb-4"
             style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.08em" }}
           >
-            SCHEDULE FREE CONSULTATION →
+            SCHEDULE appointment →
           </button>
           <p className="text-white/30 text-xs">
             Licensed in VA · FL · MD · DC · CO · AZ · NC · PA

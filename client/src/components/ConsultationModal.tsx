@@ -785,7 +785,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                   width="100%"
                   height="560"
                   frameBorder="0"
-                  title="Schedule your free consultation"
+                  title="Schedule your appointment"
                   style={{ border: "none", display: "block" }}
                 />
               </div>

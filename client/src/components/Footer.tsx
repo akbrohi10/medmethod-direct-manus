@@ -189,7 +189,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { label: "Free Consultation", href: null, action: onConsultClick },
+                { label: "Book Appointment", href: null, action: onConsultClick },
                 { label: "Terms & Conditions", href: "/terms", action: null },
                 { label: "Privacy Policy", href: "/privacy-policy", action: null },
                 { label: "HIPAA Notice", href: "/hipaa-notice", action: null },

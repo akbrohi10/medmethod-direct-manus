@@ -237,7 +237,7 @@ export default function BlogPost() {
                 className="text-xl font-bold text-white mb-3"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Schedule a free consultation with our wellness team
+                Schedule a appointment with our wellness team
               </h3>
               <p className="text-white/75 text-sm mb-6">
                 No pressure. No obligation. Just a conversation about what's possible for you.
@@ -264,7 +264,7 @@ export default function BlogPost() {
                   className="text-xs font-bold tracking-widest uppercase mb-2"
                   style={{ color: BRAND_PINK, fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Free Consultation
+                  appointment
                 </p>
                 <h3
                   className="text-base font-bold text-gray-900 mb-3 leading-snug"

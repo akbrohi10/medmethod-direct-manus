@@ -143,7 +143,7 @@ const JSONLD_BREADCRUMB = {
 const faqs = [
   {
     q: "Is there a menopause doctor near Vienna or Tysons Corner, VA?",
-    a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Vienna, Tysons Corner, and all of Fairfax County. All care is delivered 100% virtually — no commute through Tysons traffic required. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your free consultation.",
+    a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Virginia, serving women in Vienna, Tysons Corner, and all of Fairfax County. All care is delivered 100% virtually — no commute through Tysons traffic required. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment.",
   },
   {
     q: "Can I get semaglutide or tirzepatide online near Vienna, Virginia?",
@@ -176,7 +176,7 @@ const faqs = [
   },
   {
     q: "How soon can I start as a patient in Vienna or Tysons Corner?",
-    a: "Most patients complete their free consultation within 24–48 hours of requesting it. Labs are typically ordered the same day as your consultation. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Vienna and Tysons patients are on their program within 1–2 weeks of their first call.",
+    a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day as your consultation. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Vienna and Tysons patients are on their program within 1–2 weeks of their first call.",
   },
 
   {
@@ -212,8 +212,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
   {
     q: "Do you accept insurance?",
@@ -289,7 +289,7 @@ const whyCards = [
   {
     icon: <Calendar className="w-6 h-6" style={{ color: "#E8339E" }} />,
     title: "Same-Week Availability",
-    desc: "No 6-week wait for a specialist appointment. Most Vienna and Tysons patients are seen within days of their free consultation.",
+    desc: "No 6-week wait for a specialist appointment. Most Vienna and Tysons patients are seen within days of their appointment.",
   },
   {
     icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />,
@@ -385,7 +385,7 @@ export default function LocationVienna() {
                     className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -612,7 +612,7 @@ export default function LocationVienna() {
             className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider inline-flex items-center gap-2"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            SCHEDULE FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            SCHEDULE appointment <ArrowRight className="w-4 h-4" />
           </button>
           <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
             Serving Vienna, Tysons Corner, Oakton, Fairfax, Merrifield, and all of Fairfax County

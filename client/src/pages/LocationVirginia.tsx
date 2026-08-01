@@ -81,7 +81,7 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Virginia?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Virginia. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. Prescriptions are sent to your pharmacy or shipped to your door. All follow-up visits are virtual.",
+        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Virginia. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. Prescriptions are sent to your pharmacy or shipped to your door. All follow-up visits are virtual.",
       },
     },
     {
@@ -178,7 +178,7 @@ const faqs = [
   },
   {
     q: "How does virtual hormone therapy work in Virginia?",
-    a: "After your free consultation, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Virginia. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
+    a: "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Virginia. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
   },
   {
     q: "Do I need to live in Northern Virginia to be a patient?",
@@ -236,7 +236,7 @@ export default function LocationVirginia() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Virginia | MedMethod Direct</title>
         <meta
           name="description"
-          content="Virginia's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Virginia. Free consultation."
+          content="Virginia's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Virginia. appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/virginia" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Virginia | MedMethod Direct" />
@@ -347,7 +347,7 @@ export default function LocationVirginia() {
               className="btn-gradient btn-gradient-pulse px-8 py-3.5 rounded-full text-sm font-bold tracking-wider"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              SCHEDULE FREE CONSULTATION →
+              SCHEDULE appointment →
             </button>
             <a
               href="#neighborhoods"
@@ -617,7 +617,7 @@ export default function LocationVirginia() {
             className="btn-gradient btn-gradient-pulse px-10 py-4 rounded-full text-sm font-bold tracking-wider"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            SCHEDULE FREE CONSULTATION →
+            SCHEDULE appointment →
           </button>
         </div>
       </section>

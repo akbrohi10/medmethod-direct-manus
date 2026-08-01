@@ -151,7 +151,7 @@ const JSONLD_FAQ = {
       "name": "What is the cost of a program for McLean patients?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Programs require a commitment of either six or twelve months. Pricing is discussed during your free consultation so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
+        "text": "Programs require a commitment of either six or twelve months. Pricing is discussed during your appointment so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
       },
     },
   ],
@@ -194,7 +194,7 @@ const faqs = [
   },
   {
     q: "What is the cost of a program for McLean patients?",
-    a: "Programs require a commitment of either six or twelve months. Pricing is discussed during your free consultation so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
+    a: "Programs require a commitment of either six or twelve months. Pricing is discussed during your appointment so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
   },
 
   {
@@ -230,8 +230,8 @@ const faqs = [
     a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
   },
   {
-    q: "What does treatment cost?",
-    a: "We offer transparent, flat-rate pricing with no hidden fees. Your free consultation will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
+    q: "How is pricing structured?",
+    a: "We offer transparent, flat-rate pricing with no hidden fees. Your appointment will include a full breakdown of pricing for your personalized plan. We offer flexible payment options and accept HSA/FSA. We believe premium, personalized care should be accessible \u2014 and we're committed to being upfront about every cost.",
   },
 ];
 
@@ -318,13 +318,13 @@ export default function LocationMcLean() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct</title>
         <meta
           name="description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/mclean" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           property="og:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <meta property="og:url" content="https://medmethoddirect.com/virginia/mclean" />
         <meta property="og:type" content="website" />
@@ -333,7 +333,7 @@ export default function LocationMcLean() {
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           name="twitter:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. Free consultation."
+          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_MEDICAL_BUSINESS)}
@@ -433,7 +433,7 @@ export default function LocationMcLean() {
                     className="btn-gradient btn-gradient-pulse px-5 py-2.5 rounded-full text-xs font-bold tracking-wider flex items-center justify-center gap-2 group"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    SCHEDULE FREE CONSULTATION
+                    SCHEDULE appointment
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -732,14 +732,14 @@ export default function LocationMcLean() {
             className="text-white/85 text-base leading-relaxed mb-8 max-w-xl mx-auto"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Women in McLean deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you — not for the average patient. Your free consultation is 20 minutes and completely obligation-free.
+            Women in McLean deserve more than a rushed appointment and a prescription handed to them on the way out the door. You deserve a physician who knows your name, knows your labs, and is building a plan specifically for you — not for the average patient. Your appointment is 20 minutes and completely obligation-free.
           </p>
           <button
             onClick={() => setConsultOpen(true)}
             className="bg-white font-bold rounded-full px-8 py-4 text-sm tracking-wider flex items-center gap-2 mx-auto group hover:shadow-xl transition-shadow"
             style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
           >
-            SCHEDULE MY FREE CONSULTATION
+            SCHEDULE MY appointment
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
           <p className="text-white/70 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>

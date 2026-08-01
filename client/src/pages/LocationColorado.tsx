@@ -124,7 +124,7 @@ export default function LocationColorado() {
               Physician-led hormone therapy, GLP-1 weight loss, and menopause care — delivered entirely online to women across Colorado. No commute, no waiting room.
             </p>
             <button onClick={() => setConsultOpen(true)} className="px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white transition-all hover:opacity-90" style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", boxShadow: "0 8px 32px rgba(232,51,158,0.35)", fontFamily: "Montserrat, sans-serif" }}>
-              Schedule Free Consultation
+              Book Your 45-Min Appointment
             </button>
           </div>
           <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "16/10" }}>
@@ -219,7 +219,7 @@ export default function LocationColorado() {
         <h2 className="font-black text-3xl mb-4 text-white" style={{ letterSpacing: "-0.02em", fontFamily: "Montserrat, sans-serif" }}>Ready to Start in Colorado?</h2>
         <p className="text-base mb-8 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Montserrat, sans-serif" }}>Your free 20-minute consultation is the first step. No commitment required.</p>
         <button onClick={() => setConsultOpen(true)} className="px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest text-white" style={{ background: "linear-gradient(135deg, #E8339E, #7A1E7E)", fontFamily: "Montserrat, sans-serif" }}>
-          Schedule Free Consultation
+          Book Your 45-Min Appointment
         </button>
         <p className="mt-6 text-xs font-medium" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "Montserrat, sans-serif" }}>
           <Link href="/locations" className="hover:text-white transition-colors">View all locations</Link>{" · "}
