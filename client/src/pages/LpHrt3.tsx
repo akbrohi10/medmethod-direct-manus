@@ -479,7 +479,7 @@ export default function LpHrt3() {
                       ))}
                     </ul>
                     <p className="mt-3 text-xs text-gray-500 italic">Need a video visit? Just add one for $50.</p>
-                    <p className="mt-1 text-xs text-gray-400">30-day notice to cancel.</p>
+                    <p className="mt-1 text-xs text-gray-700">30-day notice to cancel.</p>
                   </div>
                 </div>
               </div>
