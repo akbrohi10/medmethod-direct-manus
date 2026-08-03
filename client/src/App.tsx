@@ -298,7 +298,7 @@ function Router() {
         <Route path="/lp/hrt" component={LpHrt} />
         <Route path="/lp/hrt2" component={LpHrt2} />
         <Route path="/lp/hrt3" component={LpHrt3} />
-        <Route path="/lp/glp1" component={LpGlp1} />
+        <Route path="/lp/WL" component={LpGlp1} />
         <Route path="/brand-ambassador" component={BrandAmbassador} />
         <Route path="/dr-aldeek-booking" component={DrAldeekBooking} />
         <Route path="/discovery-call" component={DiscoveryCall} />
@@ -333,7 +333,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
-  const isLpPage = location === "/lp/glp1" || location === "/lp/hrt3" || location === "/";
+  const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;
 }

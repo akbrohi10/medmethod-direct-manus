@@ -1,5 +1,5 @@
 /* =============================================================================
-   /lp/glp1 — GLP-1 Weight Loss Landing Page
+   /lp/WL — GLP-1 Weight Loss Landing Page
    Design: Bold visual energy hero with brush-stroke style emphasis
    - Weight loss focused for all women (30-60+)
    - Same structure as /lp/hrt2 but adapted for GLP-1 audience
@@ -781,7 +781,7 @@ export default function LpGlp1() {
         <LpConsultationModal2
           open={consultOpen}
           onClose={() => setConsultOpen(false)}
-          landingPage="/lp/glp1"
+          landingPage="/lp/WL"
         />
       </React.Suspense>
 

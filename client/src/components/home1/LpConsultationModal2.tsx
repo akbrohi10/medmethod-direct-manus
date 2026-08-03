@@ -20,7 +20,7 @@ const GHL_PAYMENT_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQr
 interface Props {
   open: boolean;
   onClose: () => void;
-  /** The originating landing page path, e.g. "/lp/glp1" or "/lp/hrt3" */
+  /** The originating landing page path, e.g. "/lp/WL" or "/lp/hrt3" */
   landingPage?: string;
 }
 

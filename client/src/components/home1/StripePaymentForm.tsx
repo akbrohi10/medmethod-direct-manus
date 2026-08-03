@@ -240,7 +240,7 @@ interface StripePaymentFormProps {
   patientName: string;
   patientEmail: string;
   patientPhone?: string;
-  /** e.g. "/lp/glp1" or "/lp/hrt3" — stored in Stripe metadata for webhook routing */
+  /** e.g. "/lp/WL" or "/lp/hrt3" — stored in Stripe metadata for webhook routing */
   landingPage?: string;
   onComplete: () => void;
   onPaymentId: (id: number) => void;

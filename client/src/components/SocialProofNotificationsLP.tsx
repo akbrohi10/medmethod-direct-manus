@@ -1,6 +1,6 @@
 /* =============================================================================
    SocialProofNotificationsLP.tsx — LP-specific social proof notifications
-   Used ONLY on /lp/glp1 and /lp/hrt3.
+   Used ONLY on /lp/WL and /lp/hrt3.
    All messages are focused on booking the initial appointment with Dr. Al-Deek.
    No membership/package references.
    Brand: Montserrat, Medical Pink #E8339E, Deep Purple #7A1E7E
