@@ -92,10 +92,10 @@ describe("crawlerMiddleware", () => {
       expect(meta.image).toMatch(/cloudfront\.net|manuscdn\.com/);
     });
 
-    it("returns GLP-1 meta for /lp/glp1", () => {
-      const meta = getMetaForPath("/lp/glp1");
-      expect(meta.title).toContain("GLP-1");
-      expect(meta.description).toContain("GLP-1");
+    it("returns weight loss meta for /lp/WL", () => {
+      const meta = getMetaForPath("/lp/WL");
+      expect(meta.title).toContain("Weight Loss");
+      expect(meta.description).toContain("weight loss");
     });
 
     it("returns Texas meta for /texas", () => {
@@ -121,8 +121,8 @@ describe("crawlerMiddleware", () => {
     });
 
     it("strips query string", () => {
-      const meta = getMetaForPath("/lp/glp1?utm_source=facebook");
-      expect(meta.title).toContain("GLP-1");
+      const meta = getMetaForPath("/lp/WL?utm_source=facebook");
+      expect(meta.title).toContain("Weight Loss");
     });
 
     it("returns default meta for unknown routes", () => {

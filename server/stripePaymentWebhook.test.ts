@@ -24,23 +24,23 @@ describe("normaliseLandingPage", () => {
   function normaliseLandingPage(raw: string | null | undefined): string {
     if (!raw) return "";
     const s = raw.trim().toLowerCase();
-    if (s === "glp1" || s === "lp/glp1" || s === "/lp/glp1") return "/lp/glp1";
+    if (s === "wl" || s === "lp/wl" || s === "/lp/wl" || s === "glp1" || s === "lp/glp1" || s === "/lp/glp1") return "/lp/WL";
     if (s === "hrt3" || s === "lp/hrt3" || s === "/lp/hrt3") return "/lp/hrt3";
-    if (s.includes("glp1") || s.includes("glp-1")) return "/lp/glp1";
+    if (s.includes("wl") || s.includes("glp1") || s.includes("glp-1")) return "/lp/WL";
     if (s.includes("hrt3") || s.includes("hrt-3")) return "/lp/hrt3";
     return "";
   }
 
   it("normalises bare slug 'glp1'", () => {
-    expect(normaliseLandingPage("glp1")).toBe("/lp/glp1");
+    expect(normaliseLandingPage("WL")).toBe("/lp/WL");
   });
 
-  it("normalises 'lp/glp1' (no leading slash)", () => {
-    expect(normaliseLandingPage("lp/glp1")).toBe("/lp/glp1");
+  it("normalises 'lp/WL' (no leading slash)", () => {
+    expect(normaliseLandingPage("lp/WL")).toBe("/lp/WL");
   });
 
-  it("normalises '/lp/glp1' (canonical)", () => {
-    expect(normaliseLandingPage("/lp/glp1")).toBe("/lp/glp1");
+  it("normalises '/lp/WL' (canonical)", () => {
+    expect(normaliseLandingPage("/lp/WL")).toBe("/lp/WL");
   });
 
   it("normalises 'hrt3'", () => {
@@ -109,9 +109,9 @@ describe("WEBHOOK_CONFIG", () => {
     expect(WEBHOOK_CONFIG.GHL_PAYMENT_WEBHOOK_URL).toContain("cFQraxSJv1aDKQFAghbI");
   });
 
-  it("only allows /lp/glp1 and /lp/hrt3", async () => {
+  it("only allows /lp/WL and /lp/hrt3", async () => {
     const { WEBHOOK_CONFIG } = await import("./stripePaymentWebhook");
-    expect(WEBHOOK_CONFIG.ALLOWED_LANDING_PAGES).toEqual(["/lp/glp1", "/lp/hrt3"]);
+    expect(WEBHOOK_CONFIG.ALLOWED_LANDING_PAGES).toEqual(["/lp/WL", "/lp/hrt3"]);
   });
 
   it("has MAX_ATTEMPTS = 3", async () => {

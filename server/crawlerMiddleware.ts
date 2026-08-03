@@ -109,12 +109,12 @@ const ROUTE_META: Record<string, RouteMeta> = {
     image: HERO_IMAGE,
     url: `${BASE_URL}/lp/hrt2`,
   },
-  "/lp/glp1": {
-    title: "Is GLP-1 Right for You? | MedMethod Direct",
+  "/lp/WL": {
+    title: "A Custom Medical Weight Loss Plan Built Around You | MedMethod Direct",
     description:
-      "GLP-1 weight loss with physician-prescribed semaglutide or tirzepatide. Book a 45-minute virtual consultation with Dr. Al-Deek — if it's right for you. 100% virtual. $50 deposit today.",
+      "Physician-prescribed medical weight loss — custom plan built around you. Book a 45-minute virtual consultation with Dr. Al-Deek. No insurance needed. $50 deposit today.",
     image: HERO_IMAGE,
-    url: `${BASE_URL}/lp/glp1`,
+    url: `${BASE_URL}/lp/WL`,
   },
   "/lp/hrt3": {
     title: "Is Hormone Therapy Right for You? | MedMethod Direct",

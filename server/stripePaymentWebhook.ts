@@ -1,10 +1,10 @@
 /**
  * Stripe Payment Webhook Handler
  *
- * Fires ONLY for successful payments originating from /lp/glp1 or /lp/hrt3.
+ * Fires ONLY for successful payments originating from /lp/WL or /lp/hrt3.
  * On a successful payment_intent.succeeded event, this handler:
  *   1. Verifies the Stripe webhook signature (when STRIPE_WEBHOOK_SECRET is set).
- *   2. Checks that the payment's landingPage metadata is "/lp/glp1" or "/lp/hrt3".
+ *   2. Checks that the payment's landingPage metadata is "/lp/WL" or "/lp/hrt3".
  *   3. Checks idempotency — skips if this transaction_id was already successfully sent.
  *   4. Builds a flat JSON payload and POSTs it to the GHL inbound webhook URL.
  *   5. Retries up to 3 times with exponential backoff on non-2xx responses.
@@ -55,7 +55,7 @@ export const WEBHOOK_CONFIG = {
    * Only payments whose Stripe metadata.landingPage matches one of these
    * values will be forwarded to GHL. All other payments are silently ignored.
    */
-  ALLOWED_LANDING_PAGES: ["/lp/glp1", "/lp/hrt3"] as string[],
+  ALLOWED_LANDING_PAGES: ["/lp/WL", "/lp/hrt3"] as string[],
 
   /** Maximum number of delivery attempts per transaction_id */
   MAX_ATTEMPTS: 3,
@@ -93,16 +93,16 @@ function sleep(ms: number): Promise<void> {
 
 /**
  * Normalise a Stripe landingPage metadata value to a canonical path.
- * Stripe metadata stores values like "glp1", "hrt3", "/lp/glp1", "lp/glp1".
- * We normalise all variants to "/lp/glp1" or "/lp/hrt3".
+ * Stripe metadata stores values like "WL", "hrt3", "/lp/WL", "lp/WL".
+ * We normalise all variants to "/lp/WL" or "/lp/hrt3".
  */
 function normaliseLandingPage(raw: string | null | undefined): string {
   if (!raw) return "";
   const s = raw.trim().toLowerCase();
-  if (s === "glp1" || s === "lp/glp1" || s === "/lp/glp1") return "/lp/glp1";
+  if (s === "wl" || s === "lp/wl" || s === "/lp/wl" || s === "glp1" || s === "lp/glp1" || s === "/lp/glp1") return "/lp/WL";
   if (s === "hrt3" || s === "lp/hrt3" || s === "/lp/hrt3") return "/lp/hrt3";
   // Also handle older landing page slugs that map to these two paths
-  if (s.includes("glp1") || s.includes("glp-1")) return "/lp/glp1";
+  if (s.includes("wl") || s.includes("glp1") || s.includes("glp-1")) return "/lp/WL";
   if (s.includes("hrt3") || s.includes("hrt-3")) return "/lp/hrt3";
   return "";
 }
