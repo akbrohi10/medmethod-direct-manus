@@ -184,7 +184,7 @@ export default function LpGlp1() {
             {/* Left — Copy */}
             <div className="order-2 md:order-1 text-center md:text-left">
               <h1 className="text-[1.65rem] sm:text-4xl lg:text-[2.85rem] xl:text-5xl leading-[1.15] font-black mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                A Custom<br />Medical Weight Loss Plan<br /><span className="text-[#E8339E]">Built Around You.</span>
+                A Custom Medical<br />Weight Loss Plan<br /><span className="text-[#E8339E]">Built Around You.</span>
               </h1>
               <p className="text-[1.35rem] sm:text-2xl lg:text-[1.75rem] font-extrabold text-[#111111] mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>100% Virtual</p>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-7 max-w-md mx-auto md:mx-0">
