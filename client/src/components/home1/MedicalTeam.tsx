@@ -418,16 +418,18 @@ export default function MedicalTeam({
                   Done right for you!
                 </p>
               )}
-              <p
-                className="mt-2 font-extrabold text-[#111111]"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "clamp(1.5rem, 3vw, 2.4rem)",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {overrideSubline ?? "100% Virtual."}
-              </p>
+              {overrideSubline !== "" && (
+                <p
+                  className="mt-2 font-extrabold text-[#111111]"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "clamp(1.5rem, 3vw, 2.4rem)",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {overrideSubline ?? "100% Virtual."}
+                </p>
+              )}
               <p
                 className={overrideBody ? "mt-3 text-[#2a2a2a] text-base md:text-lg font-medium leading-relaxed" : "mt-3 text-[#2a2a2a] text-xl md:text-2xl font-semibold leading-snug"}
                 style={{ fontFamily: "Montserrat, sans-serif" }}

@@ -261,7 +261,7 @@ export default function LpHrt3() {
                 You.
               </span>
             }
-            overrideSubline="100% Virtual"
+            overrideSubline=""
             overrideBody="A 45-minute visit with Dr. Al-Deek to create a personalized hormone and/or GLP-1 treatment plan—if it's right for you. 100% virtual. No insurance needed."
             ctaLabel="Book Your 45-Min Appt."
             ctaMicrocopy={
