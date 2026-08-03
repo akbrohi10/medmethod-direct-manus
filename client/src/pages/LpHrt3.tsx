@@ -254,11 +254,11 @@ export default function LpHrt3() {
                   backgroundClip: "text",
                 }}
               >
-                Is Hormone Therapy
+                A Custom Plan
                 <br />
-                or GLP-1
+                Built Around
                 <br />
-                Right for You?
+                You.
               </span>
             }
             overrideSubline="100% Virtual"
