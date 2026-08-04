@@ -77,6 +77,10 @@ export const payments = mysqlTable("payments", {
   paypalRemainingOrderId: varchar("paypalRemainingOrderId", { length: 64 }),
   /** PayPal environment used: sandbox or live */
   paypalMode: mysqlEnum("paypalMode", ["sandbox", "live"]).default("sandbox"),
+  /** PayPal Vault token — saved payment method for future server-side charges */
+  paypalVaultToken: varchar("paypalVaultToken", { length: 128 }),
+  /** PayPal customer ID associated with the vault token */
+  paypalCustomerId: varchar("paypalCustomerId", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

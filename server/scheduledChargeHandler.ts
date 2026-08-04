@@ -163,14 +163,19 @@ export async function chargeRemainingHandler(req: Request, res: Response) {
           const baseUrl = getPayPalBaseUrl(mode);
           const token = await getPayPalAccessToken(clientId, clientSecret, mode);
 
-          // Create a new $149 order using the vault token (billing agreement)
-          // PayPal requires a vault token for off-session charges.
-          // We use the original order ID as the billing agreement reference.
+          // Use the stored vault token for off-session charging
+          if (!payment.paypalVaultToken) {
+            console.error(`[SweepDueCharges] No vault token for PayPal payment ${payment.id} — skipping`);
+            results.push({ paymentId: payment.id, provider: "paypal", status: "skipped_no_vault_token" });
+            continue;
+          }
+
           const createRes = await fetch(`${baseUrl}/v2/checkout/orders`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
+              "PayPal-Request-Id": `sweep-${payment.id}-${Date.now()}`,
             },
             body: JSON.stringify({
               intent: "CAPTURE",
@@ -182,9 +187,8 @@ export async function chargeRemainingHandler(req: Request, res: Response) {
                 },
               ],
               payment_source: {
-                token: {
-                  id: payment.paypalOrderId,
-                  type: "BILLING_AGREEMENT",
+                paypal: {
+                  vault_id: payment.paypalVaultToken,
                 },
               },
             }),

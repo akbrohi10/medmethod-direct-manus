@@ -148,6 +148,8 @@ export default function PayPalPaymentForm(props: PayPalPaymentFormProps) {
         clientId: clientIdQuery.data.clientId,
         currency: "USD",
         intent: "capture",
+        vault: true,
+        "enable-funding": "paypal",
       }}
     >
       <PayPalFormInner {...props} clientId={clientIdQuery.data.clientId} />

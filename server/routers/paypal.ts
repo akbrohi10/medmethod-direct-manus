@@ -1,16 +1,14 @@
 /**
- * PayPal tRPC Router
- *
- * Mirrors the Stripe router (server/routers/stripe.ts) but uses PayPal Orders API.
+ * PayPal tRPC Router — Vault-enabled
  *
  * Flow:
- *   1. createOrder  — creates a $50 PayPal order and returns the order ID
- *   2. captureOrder — captures the approved order, saves payment record, schedules $149
- *   3. scheduleRemainingCharge — schedules the $149 charge on the appointment date
- *   4. chargeNow    — immediately charges the $149 remaining balance (admin)
- *   5. getSettings  — returns PayPal settings (keys masked) + active provider
- *   6. updateSettings — saves PayPal credentials + active provider toggle
- *   7. listPayments — lists all PayPal payments for the admin dashboard
+ *   1. createSetupToken  — creates a PayPal setup token to vault the payment method
+ *   2. createOrder       — creates a $50 PayPal order using the vaulted payment method
+ *   3. captureOrder      — captures the approved order, saves vault token, marks deposit_paid
+ *   4. scheduleRemainingCharge — saves appointment date; sweep cron charges on that date
+ *   5. chargeNow         — admin: immediately charges $149 using the vault token
+ *   6. getSettings       — returns PayPal settings (keys masked) + active provider
+ *   7. updateSettings    — saves PayPal credentials + active provider toggle
  *
  * PayPal webhook for GHL is handled by server/paypalPaymentWebhook.ts
  * Webhook URL: https://medmethoddirect.com/api/webhooks/paypal-payment
@@ -63,6 +61,7 @@ async function getPayPalAccessToken(
 async function getPayPalClient(mode: PayPalMode): Promise<{
   baseUrl: string;
   token: string;
+  clientId: string;
 } | null> {
   const settings = await getPaypalSettings();
   if (!settings) return null;
@@ -76,10 +75,95 @@ async function getPayPalClient(mode: PayPalMode): Promise<{
 
   try {
     const token = await getPayPalAccessToken(clientId, clientSecret, mode);
-    return { baseUrl: getPayPalBaseUrl(mode), token };
+    return { baseUrl: getPayPalBaseUrl(mode), token, clientId };
   } catch {
     return null;
   }
+}
+
+/**
+ * Charge $149 via PayPal Vault token (server-side, no customer interaction needed).
+ * Used by both chargeNow and the sweep cron.
+ */
+export async function chargePayPalVault(
+  paymentId: number,
+  vaultToken: string,
+  mode: PayPalMode
+): Promise<{ success: boolean; captureId?: string; error?: string }> {
+  const client = await getPayPalClient(mode);
+  if (!client) return { success: false, error: `PayPal ${mode} credentials not configured` };
+
+  // Create order using saved payment method (vault token)
+  const createRes = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${client.token}`,
+      "Content-Type": "application/json",
+      "PayPal-Request-Id": `charge-${paymentId}-${Date.now()}`,
+    },
+    body: JSON.stringify({
+      intent: "CAPTURE",
+      purchase_units: [
+        {
+          amount: { currency_code: "USD", value: "149.00" },
+          description: "MedMethod Direct — $149 remaining balance",
+          custom_id: String(paymentId),
+        },
+      ],
+      payment_source: {
+        paypal: {
+          vault_id: vaultToken,
+        },
+      },
+    }),
+  });
+
+  if (!createRes.ok) {
+    const text = await createRes.text();
+    return { success: false, error: `PayPal order creation failed: ${text}` };
+  }
+
+  const order = (await createRes.json()) as { id: string; status: string };
+
+  // If order is already COMPLETED (auto-captured), we're done
+  if (order.status === "COMPLETED") {
+    await updatePayment(paymentId, {
+      status: "fully_paid",
+      paypalRemainingOrderId: order.id,
+      scheduledChargePaymentCronTaskUid: `cancelled-by-charge-${Date.now()}`,
+    });
+    return { success: true, captureId: order.id };
+  }
+
+  // Otherwise capture it
+  const captureRes = await fetch(
+    `${client.baseUrl}/v2/checkout/orders/${order.id}/capture`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${client.token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!captureRes.ok) {
+    const text = await captureRes.text();
+    return { success: false, error: `PayPal capture failed: ${text}` };
+  }
+
+  const capture = (await captureRes.json()) as { status: string; id: string };
+  if (capture.status !== "COMPLETED") {
+    return { success: false, error: `PayPal capture status: ${capture.status}` };
+  }
+
+  await updatePayment(paymentId, {
+    status: "fully_paid",
+    paypalRemainingOrderId: order.id,
+    scheduledChargePaymentCronTaskUid: `cancelled-by-charge-${Date.now()}`,
+  });
+
+  return { success: true, captureId: capture.id };
 }
 
 // ─── Router ───────────────────────────────────────────────────────────────────
@@ -87,7 +171,6 @@ async function getPayPalClient(mode: PayPalMode): Promise<{
 export const paypalRouter = router({
   /**
    * Get PayPal settings (keys masked) + active provider.
-   * Used by the admin settings page.
    */
   getSettings: superAdminOrAdminProcedure.query(async () => {
     const settings = await getPaypalSettings();
@@ -127,8 +210,8 @@ export const paypalRouter = router({
     }),
 
   /**
-   * Public: get the active client ID for the current mode (used by frontend PayPal SDK).
-   * Never exposes the secret.
+   * Public: get the active client ID + vault intent for the current mode.
+   * Used by the frontend PayPal SDK to initialize the button.
    */
   getPublicClientId: publicProcedure.query(async () => {
     const settings = await getPaypalSettings();
@@ -144,8 +227,8 @@ export const paypalRouter = router({
   }),
 
   /**
-   * Public: create a $50 PayPal order and return the order ID.
-   * The frontend uses this to render the PayPal button.
+   * Public: create a $50 PayPal order with vault intent.
+   * Returns orderId and paymentId. The frontend PayPal button uses orderId.
    */
   createOrder: publicProcedure
     .input(
@@ -178,12 +261,13 @@ export const paypalRouter = router({
         stripeMode: "test", // not used for PayPal, but column is NOT NULL
       });
 
-      // Create PayPal order
+      // Create PayPal order with vault intent so the payment method is saved
       const res = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${client.token}`,
           "Content-Type": "application/json",
+          "PayPal-Request-Id": `create-${paymentId}-${Date.now()}`,
         },
         body: JSON.stringify({
           intent: "CAPTURE",
@@ -194,9 +278,20 @@ export const paypalRouter = router({
               custom_id: String(paymentId),
             },
           ],
-          application_context: {
-            brand_name: "MedMethod Direct",
-            user_action: "PAY_NOW",
+          payment_source: {
+            paypal: {
+              experience_context: {
+                brand_name: "MedMethod Direct",
+                user_action: "PAY_NOW",
+              },
+              attributes: {
+                vault: {
+                  store_in_vault: "ON_SUCCESS",
+                  usage_type: "MERCHANT",
+                  customer_type: "CONSUMER",
+                },
+              },
+            },
           },
         }),
       });
@@ -213,7 +308,7 @@ export const paypalRouter = router({
     }),
 
   /**
-   * Public: capture an approved PayPal order and mark deposit as paid.
+   * Public: capture an approved PayPal order, extract vault token, mark deposit_paid.
    */
   captureOrder: publicProcedure
     .input(
@@ -249,6 +344,16 @@ export const paypalRouter = router({
       const capture = (await res.json()) as {
         status: string;
         id: string;
+        payment_source?: {
+          paypal?: {
+            attributes?: {
+              vault?: {
+                id?: string;
+                customer?: { id?: string };
+              };
+            };
+          };
+        };
         purchase_units?: Array<{
           payments?: { captures?: Array<{ id: string; status: string }> };
         }>;
@@ -258,17 +363,23 @@ export const paypalRouter = router({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
       }
 
+      // Extract vault token and customer ID from the capture response
+      const vaultToken = capture.payment_source?.paypal?.attributes?.vault?.id ?? null;
+      const customerId = capture.payment_source?.paypal?.attributes?.vault?.customer?.id ?? null;
+
       await updatePayment(input.paymentId, {
         status: "deposit_paid",
         paypalOrderId: input.orderId,
+        ...(vaultToken ? { paypalVaultToken: vaultToken } : {}),
+        ...(customerId ? { paypalCustomerId: customerId } : {}),
       });
 
-      return { success: true, captureId: capture.id };
+      return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken };
     }),
 
   /**
    * Public: schedule the $149 remaining charge on the appointment date.
-   * Called after the patient selects their appointment slot.
+   * The global sweep cron will pick this up and charge via vault token.
    */
   scheduleRemainingCharge: publicProcedure
     .input(
@@ -288,9 +399,6 @@ export const paypalRouter = router({
         return { success: true, alreadyScheduled: true };
       }
 
-      // Save the appointment date — the global hourly sweep cron
-      // (/api/scheduled/sweep-due-charges) will pick this up and charge it
-      // once the appointmentDate has passed.
       await updatePayment(input.paymentId, {
         appointmentDate: input.appointmentDate,
         scheduledChargePaymentCronTaskUid: `paypal-sweep-${input.paymentId}-${Date.now()}`,
@@ -300,8 +408,7 @@ export const paypalRouter = router({
     }),
 
   /**
-   * Admin: immediately charge the $149 remaining balance via PayPal.
-   * Uses PayPal Orders API to create and capture a new order.
+   * Admin: immediately charge $149 via the stored vault token.
    */
   chargeNow: superAdminOrAdminProcedure
     .input(
@@ -319,83 +426,33 @@ export const paypalRouter = router({
       if (payment.status === "fully_paid") {
         throw new TRPCError({ code: "CONFLICT", message: "Payment is already fully paid" });
       }
-
-      const mode = payment.paypalMode ?? "sandbox";
-      const client = await getPayPalClient(mode);
-      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: `PayPal ${mode} credentials not configured` });
-
-      // Create a new $149 order
-      const createRes = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${client.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          intent: "CAPTURE",
-          purchase_units: [
-            {
-              amount: { currency_code: "USD", value: "149.00" },
-              description: "MedMethod Direct — $149 remaining balance (charged by admin)",
-              custom_id: String(input.paymentId),
-            },
-          ],
-          payment_source: {
-            token: {
-              id: payment.paypalOrderId,
-              type: "BILLING_AGREEMENT",
-            },
-          },
-        }),
-      });
-
-      if (!createRes.ok) {
-        const text = await createRes.text();
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal order creation failed: ${text}` });
+      if (!payment.paypalVaultToken) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "No saved PayPal payment method on file. The customer must complete a new checkout to save their payment method before automatic charging is available.",
+        });
       }
 
-      const order = (await createRes.json()) as { id: string; status: string };
-
-      // Capture immediately
-      const captureRes = await fetch(
-        `${client.baseUrl}/v2/checkout/orders/${order.id}/capture`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${client.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!captureRes.ok) {
-        const text = await captureRes.text();
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture failed: ${text}` });
+      const mode = (payment.paypalMode ?? "sandbox") as PayPalMode;
+      if (input.appointmentDate) {
+        await updatePayment(input.paymentId, { appointmentDate: input.appointmentDate });
       }
 
-      const capture = (await captureRes.json()) as { status: string; id: string };
-      if (capture.status !== "COMPLETED") {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
+      const result = await chargePayPalVault(input.paymentId, payment.paypalVaultToken, mode);
+      if (!result.success) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.error ?? "PayPal charge failed" });
       }
 
-      await updatePayment(input.paymentId, {
-        ...(input.appointmentDate ? { appointmentDate: input.appointmentDate } : {}),
-        status: "fully_paid",
-        paypalRemainingOrderId: order.id,
-        scheduledChargePaymentCronTaskUid: `cancelled-by-admin-${Date.now()}`,
-      });
-
-      return { success: true, chargedOrderId: order.id, amount: 149 };
+      return { success: true, captureId: result.captureId, amount: 149 };
     }),
 
   /**
-   * Admin: list all PayPal payment records.
+   * Admin: list all PayPal payment records for the current mode.
    */
   listPayments: superAdminOrAdminProcedure.query(async () => {
     const settings = await getPaypalSettings();
     const mode = settings?.mode ?? "sandbox";
     const all = await getAllPayments();
-    // Filter to PayPal payments matching current mode
     return all.filter(
       (p) =>
         p.paymentProvider === "paypal" &&
