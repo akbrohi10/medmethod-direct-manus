@@ -2,12 +2,15 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertPayment,
+  InsertPaypalSettings,
   InsertStripeSettings,
   InsertUser,
   Payment,
+  PaypalSettings,
   StripeSettings,
   SuperAdminCredential,
   payments,
+  paypalSettings,
   stripeSettings,
   superAdminCredentials,
   users,
@@ -187,6 +190,42 @@ export async function getAllPayments(mode?: "test" | "live"): Promise<Payment[]>
       .orderBy(desc(payments.createdAt));
   }
   return db.select().from(payments).orderBy(desc(payments.createdAt));
+}
+
+// ─── PayPal Settings ────────────────────────────────────────────────────────
+
+/**
+ * Get the single paypal settings row (id = 1).
+ * Returns null if not yet configured.
+ */
+export async function getPaypalSettings(): Promise<PaypalSettings | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(paypalSettings).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Upsert the paypal settings row (always id = 1).
+ */
+export async function upsertPaypalSettings(
+  data: Partial<InsertPaypalSettings>
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const existing = await getPaypalSettings();
+  if (existing) {
+    await db
+      .update(paypalSettings)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(paypalSettings.id, existing.id));
+  } else {
+    await db.insert(paypalSettings).values({
+      mode: "sandbox",
+      activeProvider: "stripe",
+      ...data,
+    });
+  }
 }
 
 // ─── Super Admin Credentials ─────────────────────────────────────────────────

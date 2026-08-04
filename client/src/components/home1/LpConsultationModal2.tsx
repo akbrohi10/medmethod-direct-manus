@@ -7,6 +7,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { X, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
+import PayPalPaymentForm from "./PayPalPaymentForm";
 import StripePaymentForm from "./StripePaymentForm";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
@@ -335,13 +336,17 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
   const [stripePaymentIntentId, setStripePaymentIntentId] = useState<string | null>(null);
+  const [paypalPaymentId, setPaypalPaymentId] = useState<number | null>(null);
   const [chargeScheduled, setChargeScheduled] = useState(false);
+  // Fetch the active payment provider (stripe | paypal) — public endpoint, no auth needed
+  const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery();
+  const activeProvider = activeProviderQuery.data?.activeProvider ?? "stripe";
   const scrollBodyRef = useRef<HTMLDivElement>(null);
 
   // ── Option B: postMessage listener for GHL calendar iframe ──────────────────
   // GHL fires a window.postMessage when the patient completes booking.
   // We parse the appointment date and call scheduleRemainingCharge automatically.
-  const scheduleRemainingCharge = trpc.stripe.scheduleRemainingCharge.useMutation({
+  const stripeScheduleCharge = trpc.stripe.scheduleRemainingCharge.useMutation({
     onSuccess: () => {
       setChargeScheduled(true);
       toast.success(
@@ -350,10 +355,37 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
       );
     },
     onError: (err) => {
-      console.error("[GHL postMessage] scheduleRemainingCharge failed:", err);
-      // Silent failure — Option A (GHL webhook) is the primary path
+      console.error("[GHL postMessage] stripe scheduleRemainingCharge failed:", err);
     },
   });
+  const paypalScheduleCharge = trpc.paypal.scheduleRemainingCharge.useMutation({
+    onSuccess: () => {
+      setChargeScheduled(true);
+      toast.success(
+        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        { duration: 6000 }
+      );
+    },
+    onError: (err) => {
+      console.error("[GHL postMessage] paypal scheduleRemainingCharge failed:", err);
+    },
+  });
+  // Alias: picks the right mutation based on active provider
+  const scheduleRemainingCharge = activeProvider === "paypal" ? paypalScheduleCharge : stripeScheduleCharge;
+  // Keep a dummy reference to the original to avoid unused-var TS errors
+  const _scheduleRemainingCharge = trpc.stripe.scheduleRemainingCharge.useMutation({
+    onSuccess: () => {
+      setChargeScheduled(true);
+      toast.success(
+        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        { duration: 6000 }
+      );
+    },
+    onError: (err) => {
+      console.error("[GHL postMessage] scheduleRemainingCharge (unused ref) failed:", err);
+    },
+  });
+  void _scheduleRemainingCharge;
 
   // CALENDAR_STEP = 9 (PAYMENT_STEP + 1 = 8 + 1)
   const CALENDAR_STEP_VALUE = 9;
@@ -423,12 +455,13 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
         navigate("/thank-you");
 
         // Schedule remaining charge if payment ID is available
-        if (stripePaymentId && !chargeScheduled) {
+        const effectivePaymentId = stripePaymentId ?? paypalPaymentId;
+        if (effectivePaymentId && !chargeScheduled) {
           console.log(
-            `[GHL postMessage] Scheduling $149 charge for payment #${stripePaymentId} on ${appointmentDate.toISOString()}`
+            `[GHL postMessage] Scheduling $149 charge for payment #${effectivePaymentId} on ${appointmentDate.toISOString()}`
           );
           scheduleRemainingCharge.mutate({
-            paymentId: stripePaymentId,
+            paymentId: effectivePaymentId,
             appointmentDate: appointmentTimestamp,
           });
         }
@@ -651,12 +684,12 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
       phone,
       first_name: firstName,
       last_name: lastName,
-      form_submission_id: stripePaymentId ? String(stripePaymentId) : "",
+      form_submission_id: stripePaymentId ? String(stripePaymentId) : (paypalPaymentId ? String(paypalPaymentId) : ""),
       payment_amount: "50.00",
       payment_currency: "USD",
       payment_status: "succeeded",
       transaction_id: paymentIntentId || stripePaymentIntentId || "",
-      payment_processor: "stripe",
+      payment_processor: activeProvider,
       product_name: `MedMethod Direct \u2014 $50 deposit (${landingPage.includes("glp") ? "GLP-1" : "HRT"} consultation)`,
       paid_at: new Date().toISOString(),
     };
@@ -1025,20 +1058,32 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
               <p className="text-sm text-gray-500 mb-6">
                 We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining $149 is due the day of your appointment — <strong>$199 total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
-              <StripePaymentForm
-                patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
-                patientEmail={leadData.email.trim() || answers.email || ""}
-                patientPhone={leadData.phone || answers.phone}
-                landingPage={landingPage}
-                onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
-                onPaymentId={(id) => setStripePaymentId(id)}
-                onPaymentIntentId={(piId) => {
-                  setStripePaymentIntentId(piId);
-                  // Fire the GHL webhook immediately when we have the PaymentIntent ID
-                  // (before confirmDeposit DB call completes, to minimise latency)
-                  handlePaymentComplete(piId);
-                }}
-              />
+              {activeProvider === "paypal" ? (
+                <PayPalPaymentForm
+                  patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
+                  patientEmail={leadData.email.trim() || answers.email || ""}
+                  patientPhone={leadData.phone || answers.phone}
+                  landingPage={landingPage}
+                  onComplete={() => handlePaymentComplete(undefined)}
+                  onPaymentId={(id) => setPaypalPaymentId(id)}
+                  onError={(msg) => toast.error(msg)}
+                />
+              ) : (
+                <StripePaymentForm
+                  patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
+                  patientEmail={leadData.email.trim() || answers.email || ""}
+                  patientPhone={leadData.phone || answers.phone}
+                  landingPage={landingPage}
+                  onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
+                  onPaymentId={(id) => setStripePaymentId(id)}
+                  onPaymentIntentId={(piId) => {
+                    setStripePaymentIntentId(piId);
+                    // Fire the GHL webhook immediately when we have the PaymentIntent ID
+                    // (before confirmDeposit DB call completes, to minimise latency)
+                    handlePaymentComplete(piId);
+                  }}
+                />
+              )}
             </div>
           )}
 

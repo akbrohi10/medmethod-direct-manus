@@ -11,6 +11,7 @@ import { serveStatic, setupVite } from "./vite";
 import { chargeRemainingHandler, ensureGlobalSweepCron } from "../scheduledChargeHandler";
 import { ghlBookingWebhookHandler } from "../ghlWebhookHandler";
 import { crawlerMiddleware } from "../crawlerMiddleware";
+import { paypalPaymentWebhookHandler } from "../paypalPaymentWebhook";
 import { stripePaymentWebhookHandler } from "../stripePaymentWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -46,6 +47,15 @@ async function startServer() {
     "/api/webhooks/stripe-payment",
     express.raw({ type: "application/json" }),
     stripePaymentWebhookHandler
+  );
+  // PayPal payment webhook — fires when a PayPal capture completes
+  // Setup: PayPal Developer Dashboard → your app → Webhooks → Add Webhook
+  //   URL: https://medmethoddirect.com/api/webhooks/paypal-payment
+  //   Events: PAYMENT.CAPTURE.COMPLETED
+  app.post(
+    "/api/webhooks/paypal-payment",
+    express.json(),
+    paypalPaymentWebhookHandler
   );
 
   // Configure body parser with larger size limit for file uploads

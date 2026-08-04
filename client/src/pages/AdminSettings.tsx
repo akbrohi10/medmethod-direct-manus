@@ -20,6 +20,8 @@ import { useLocation } from "wouter";
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type Mode = "test" | "live";
+type PayPalMode = "sandbox" | "live";
+type ActiveProvider = "stripe" | "paypal";
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
@@ -114,6 +116,11 @@ export default function AdminSettings() {
     enabled: hasAccess,
   });
 
+  // PayPal settings query
+  const paypalSettingsQuery = trpc.paypal.getSettings.useQuery(undefined, {
+    enabled: hasAccess,
+  });
+
   // Payments query
   const paymentsQuery = trpc.stripe.listPayments.useQuery(undefined, {
     enabled: hasAccess,
@@ -156,17 +163,36 @@ export default function AdminSettings() {
     },
   });
 
+  // PayPal update mutation
+  const updatePaypalMutation = trpc.paypal.updateSettings.useMutation({
+    onSuccess: () => {
+      toast.success("PayPal settings saved successfully!");
+      paypalSettingsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Failed to save PayPal settings: ${err.message}`);
+    },
+  });
+
   // Local form state
   const [mode, setMode] = useState<Mode>("test");
   const [testPubKey, setTestPubKey] = useState("");
   const [testSecKey, setTestSecKey] = useState("");
   const [livePubKey, setLivePubKey] = useState("");
   const [liveSecKey, setLiveSecKey] = useState("");
-  const [activeTab, setActiveTab] = useState<"settings" | "payments">("settings");
+  const [activeTab, setActiveTab] = useState<"settings" | "paypal" | "payments">("settings");
+
+  // PayPal local form state
+  const [ppMode, setPpMode] = useState<PayPalMode>("sandbox");
+  const [ppActiveProvider, setPpActiveProvider] = useState<ActiveProvider>("stripe");
+  const [ppSandboxClientId, setPpSandboxClientId] = useState("");
+  const [ppSandboxClientSecret, setPpSandboxClientSecret] = useState("");
+  const [ppLiveClientId, setPpLiveClientId] = useState("");
+  const [ppLiveClientSecret, setPpLiveClientSecret] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "deposit_paid" | "fully_paid" | "failed">("all");
 
-  // Populate form from fetched settings
+  // Populate Stripe form from fetched settings
   useEffect(() => {
     if (settingsQuery.data) {
       setMode(settingsQuery.data.mode);
@@ -176,6 +202,29 @@ export default function AdminSettings() {
       setLiveSecKey(settingsQuery.data.liveSecretKey ?? "");
     }
   }, [settingsQuery.data]);
+
+  // Populate PayPal form from fetched settings
+  useEffect(() => {
+    if (paypalSettingsQuery.data) {
+      setPpMode(paypalSettingsQuery.data.mode as PayPalMode);
+      setPpActiveProvider((paypalSettingsQuery.data.activeProvider ?? "stripe") as ActiveProvider);
+      setPpSandboxClientId(paypalSettingsQuery.data.sandboxClientIdMasked ?? "");
+      setPpSandboxClientSecret(paypalSettingsQuery.data.sandboxClientSecretMasked ?? "");
+      setPpLiveClientId(paypalSettingsQuery.data.liveClientIdMasked ?? "");
+      setPpLiveClientSecret(paypalSettingsQuery.data.liveClientSecretMasked ?? "");
+    }
+  }, [paypalSettingsQuery.data]);
+
+  const handlePaypalSave = () => {
+    updatePaypalMutation.mutate({
+      mode: ppMode,
+      activeProvider: ppActiveProvider,
+      sandboxClientId: ppSandboxClientId.includes("...") ? undefined : ppSandboxClientId || undefined,
+      sandboxClientSecret: ppSandboxClientSecret.includes("...") ? undefined : ppSandboxClientSecret || undefined,
+      liveClientId: ppLiveClientId.includes("...") ? undefined : ppLiveClientId || undefined,
+      liveClientSecret: ppLiveClientSecret.includes("...") ? undefined : ppLiveClientSecret || undefined,
+    });
+  };
 
   const handleSave = () => {
     updateMutation.mutate({
@@ -349,7 +398,7 @@ export default function AdminSettings() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1 w-fit">
+        <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1 w-fit flex-wrap">
           <button
             onClick={() => setActiveTab("settings")}
             className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
@@ -359,6 +408,16 @@ export default function AdminSettings() {
             }`}
           >
             Stripe Settings
+          </button>
+          <button
+            onClick={() => setActiveTab("paypal")}
+            className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
+              activeTab === "paypal"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            PayPal Settings
           </button>
           <button
             onClick={() => setActiveTab("payments")}
@@ -372,7 +431,190 @@ export default function AdminSettings() {
           </button>
         </div>
 
-        {/* Settings Tab */}
+        {/* PayPal Settings Tab */}
+        {activeTab === "paypal" && (
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-base font-bold text-gray-900">PayPal Configuration</h2>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  Manage your PayPal API credentials, payment mode, and active payment provider.
+                </p>
+              </div>
+              {paypalSettingsQuery.isLoading && (
+                <RefreshCw size={16} className="animate-spin text-gray-400" />
+              )}
+            </div>
+
+            {/* Active Provider Toggle */}
+            <div className="mb-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <label className="text-sm font-semibold text-gray-700 block mb-3">
+                Active Payment Provider
+              </label>
+              <p className="text-xs text-gray-500 mb-3">
+                Choose which payment processor is shown to customers on the checkout page.
+              </p>
+              <div className="flex gap-3">
+                {(["stripe", "paypal"] as ActiveProvider[]).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setPpActiveProvider(p)}
+                    className={`flex-1 max-w-[180px] py-3 px-5 rounded-xl border-2 text-sm font-bold transition ${
+                      ppActiveProvider === p
+                        ? p === "paypal"
+                          ? "border-blue-500 bg-blue-50 text-blue-700"
+                          : "border-purple-500 bg-purple-50 text-purple-700"
+                        : "border-gray-200 bg-white text-gray-400 hover:border-gray-300"
+                    }`}
+                  >
+                    {p === "stripe" ? "💳 Stripe" : "🅿 PayPal"}
+                  </button>
+                ))}
+              </div>
+              {ppActiveProvider === "paypal" && (
+                <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-xs text-blue-700 font-medium">
+                    PayPal is active. Customers will see the PayPal button at checkout.
+                    Make sure your PayPal credentials are saved below.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* PayPal Mode Toggle */}
+            <div className="mb-8">
+              <label className="text-sm font-semibold text-gray-700 block mb-3">
+                PayPal Environment
+              </label>
+              <div className="flex gap-3">
+                {(["sandbox", "live"] as PayPalMode[]).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setPpMode(m)}
+                    className={`flex-1 max-w-[180px] py-3 px-5 rounded-xl border-2 text-sm font-bold transition ${
+                      ppMode === m
+                        ? m === "live"
+                          ? "border-green-500 bg-green-50 text-green-700"
+                          : "border-blue-500 bg-blue-50 text-blue-700"
+                        : "border-gray-200 bg-white text-gray-400 hover:border-gray-300"
+                    }`}
+                  >
+                    {m === "sandbox" ? "🧪 Sandbox" : "🚀 Live"}
+                  </button>
+                ))}
+              </div>
+              {ppMode === "live" && (
+                <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-xs text-amber-700 font-medium">
+                    ⚠ Live mode is active. Real charges will be made via PayPal.
+                    Make sure your live credentials are correct before saving.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Sandbox Keys */}
+            <div className="mb-8">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-blue-400" />
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                  Sandbox Credentials
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <SecretInput
+                  label="Sandbox Client ID"
+                  value={ppSandboxClientId}
+                  onChange={setPpSandboxClientId}
+                  placeholder="AYour_Sandbox_Client_ID..."
+                  hint="From PayPal Developer Dashboard → Sandbox app"
+                />
+                <SecretInput
+                  label="Sandbox Client Secret"
+                  value={ppSandboxClientSecret}
+                  onChange={setPpSandboxClientSecret}
+                  placeholder="EYour_Sandbox_Secret..."
+                  hint="Never share this — keep it server-side only"
+                />
+              </div>
+            </div>
+
+            {/* Live Keys */}
+            <div className="mb-8">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-green-400" />
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                  Live Credentials
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <SecretInput
+                  label="Live Client ID"
+                  value={ppLiveClientId}
+                  onChange={setPpLiveClientId}
+                  placeholder="AYour_Live_Client_ID..."
+                  hint="From PayPal Developer Dashboard → Live app"
+                />
+                <SecretInput
+                  label="Live Client Secret"
+                  value={ppLiveClientSecret}
+                  onChange={setPpLiveClientSecret}
+                  placeholder="EYour_Live_Secret..."
+                  hint="Never share this — keep it server-side only"
+                />
+              </div>
+            </div>
+
+            {/* Webhook URL */}
+            <div className="mb-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <h3 className="text-sm font-bold text-gray-700 mb-2">PayPal Webhook URL</h3>
+              <p className="text-xs text-gray-500 mb-3">
+                Add this URL in your PayPal Developer Dashboard → your app → Webhooks.
+                Select event: <strong>PAYMENT.CAPTURE.COMPLETED</strong>
+              </p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 font-mono text-gray-800 break-all">
+                  https://medmethoddirect.com/api/webhooks/paypal-payment
+                </code>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText("https://medmethoddirect.com/api/webhooks/paypal-payment");
+                    toast.success("Copied to clipboard!");
+                  }}
+                  className="px-3 py-2 text-xs bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold text-gray-700 transition whitespace-nowrap"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            {/* Save Button */}
+            <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+              <button
+                onClick={handlePaypalSave}
+                disabled={updatePaypalMutation.isPending}
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-sm font-bold rounded-lg transition flex items-center gap-2"
+              >
+                {updatePaypalMutation.isPending ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle size={14} />
+                    Save PayPal Settings
+                  </>
+                )}
+              </button>
+              <p className="text-xs text-gray-400">
+                Credentials are encrypted at rest.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Stripe Settings Tab */}
         {activeTab === "settings" && (
           <div className="bg-white rounded-xl border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">

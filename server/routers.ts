@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { paypalRouter } from "./routers/paypal";
 import { stripeRouter } from "./routers/stripe";
 import { superAdminRouter } from "./routers/superAdmin";
 
@@ -20,6 +21,7 @@ export const appRouter = router({
   }),
 
   stripe: stripeRouter,
+  paypal: paypalRouter,
   superAdmin: superAdminRouter,
 });
 

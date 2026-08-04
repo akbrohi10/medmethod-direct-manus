@@ -129,3 +129,15 @@
 - [x] crawlerMiddleware.test.ts: update tests to use .toContain() for flexible title matching
 - [x] All 72 tests passing
 - [x] Save checkpoint
+
+## PayPal Payment Option
+
+- [x] Add paypalSettings table to drizzle schema (test/live client ID + secret, active provider toggle)
+- [x] Add paymentProvider field to payments table (stripe | paypal)
+- [x] Run DB migration for new schema
+- [x] Build PayPal server router (createOrder, captureOrder, scheduleRemainingCharge, chargeNow)
+- [x] Build PayPal GHL webhook handler (mirrors stripePaymentWebhook.ts)
+- [x] Build PayPal checkout UI component (PayPalButtons from @paypal/react-paypal-js)
+- [x] Update LpConsultationModal2 to render Stripe or PayPal form based on active provider
+- [x] Update AdminSettings: add PayPal settings tab, provider toggle, webhook URL display
+- [x] All 72 tests passing

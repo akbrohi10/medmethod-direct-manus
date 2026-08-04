@@ -69,6 +69,14 @@ export const payments = mysqlTable("payments", {
   scheduledChargePaymentCronTaskUid: varchar("scheduledChargePaymentCronTaskUid", { length: 65 }),
   /** Which Stripe environment was used to create this payment (test or live) */
   stripeMode: mysqlEnum("stripeMode", ["test", "live"]).default("test").notNull(),
+  /** Which payment processor was used: stripe or paypal */
+  paymentProvider: mysqlEnum("paymentProvider", ["stripe", "paypal"]).default("stripe").notNull(),
+  /** PayPal Order ID for the $50 deposit (when paymentProvider = paypal) */
+  paypalOrderId: varchar("paypalOrderId", { length: 64 }),
+  /** PayPal Order ID for the $149 remaining charge (when paymentProvider = paypal) */
+  paypalRemainingOrderId: varchar("paypalRemainingOrderId", { length: 64 }),
+  /** PayPal environment used: sandbox or live */
+  paypalMode: mysqlEnum("paypalMode", ["sandbox", "live"]).default("sandbox"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -122,3 +130,24 @@ export const paymentWebhookLog = mysqlTable("payment_webhook_log", {
 });
 export type PaymentWebhookLog = typeof paymentWebhookLog.$inferSelect;
 export type InsertPaymentWebhookLog = typeof paymentWebhookLog.$inferInsert;
+
+/**
+ * PayPal settings table — stores sandbox and live credentials plus the active mode.
+ * Also controls which payment provider (Stripe vs PayPal) is active site-wide.
+ * Only one row should exist (id = 1). Use upsert pattern to update.
+ */
+export const paypalSettings = mysqlTable("paypal_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Active PayPal environment */
+  mode: mysqlEnum("mode", ["sandbox", "live"]).default("sandbox").notNull(),
+  /** Which payment provider is active site-wide */
+  activeProvider: mysqlEnum("activeProvider", ["stripe", "paypal"]).default("stripe").notNull(),
+  sandboxClientId: text("sandboxClientId"),
+  sandboxClientSecret: text("sandboxClientSecret"),
+  liveClientId: text("liveClientId"),
+  liveClientSecret: text("liveClientSecret"),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PaypalSettings = typeof paypalSettings.$inferSelect;
+export type InsertPaypalSettings = typeof paypalSettings.$inferInsert;

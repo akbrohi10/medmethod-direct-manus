@@ -50,6 +50,13 @@
       "when": 1785164667493,
       "tag": "0006_long_darwin",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1785865362424,
+      "tag": "0007_cold_vampiro",
+      "breakpoints": true
     }
   ]
 }
