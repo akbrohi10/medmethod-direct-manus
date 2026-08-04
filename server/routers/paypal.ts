@@ -283,6 +283,8 @@ export const paypalRouter = router({
               experience_context: {
                 brand_name: "MedMethod Direct",
                 user_action: "PAY_NOW",
+                return_url: "https://medmethoddirect.com/thank-you",
+                cancel_url: "https://medmethoddirect.com",
               },
               attributes: {
                 vault: {
