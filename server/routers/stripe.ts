@@ -496,8 +496,9 @@ export const stripeRouter = router({
    * Test mode shows only test payments; Live mode shows only real payments.
    */
   listPayments: superAdminOrAdminProcedure.query(async () => {
-    const settings = await getStripeSettings();
-    const mode = settings?.mode ?? "test";
-    return getAllPayments(mode);
+    // Return ALL payments (both Stripe and PayPal) so the admin dashboard
+    // shows a complete picture regardless of which provider is active.
+    // The frontend payment table shows the paymentProvider column for clarity.
+    return getAllPayments();
   }),
 });

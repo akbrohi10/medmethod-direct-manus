@@ -126,7 +126,7 @@ export default function AdminSettings() {
     enabled: hasAccess,
   });
 
-  // Schedule remaining charge mutation (admin can manually trigger for a payment)
+  // Stripe: Schedule remaining charge mutation
   const scheduleChargeMutation = trpc.stripe.scheduleRemainingCharge.useMutation({
     onSuccess: () => {
       toast.success("\u2713 Scheduled! $149 will be charged on the appointment date.");
@@ -137,7 +137,7 @@ export default function AdminSettings() {
     },
   });
 
-  // Charge now mutation (admin immediately charges $149)
+  // Stripe: Charge now mutation
   const chargeNowMutation = trpc.stripe.chargeNow.useMutation({
     onSuccess: () => {
       toast.success("\u2713 $149 charged successfully! Payment marked as fully paid.");
@@ -145,6 +145,28 @@ export default function AdminSettings() {
     },
     onError: (err) => {
       toast.error(`Charge failed: ${err.message}`);
+    },
+  });
+
+  // PayPal: Schedule remaining charge mutation
+  const ppScheduleChargeMutation = trpc.paypal.scheduleRemainingCharge.useMutation({
+    onSuccess: () => {
+      toast.success("\u2713 Scheduled! $149 will be charged on the appointment date via PayPal.");
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`PayPal schedule failed: ${err.message}`);
+    },
+  });
+
+  // PayPal: Charge now mutation
+  const ppChargeNowMutation = trpc.paypal.chargeNow.useMutation({
+    onSuccess: () => {
+      toast.success("\u2713 $149 charged via PayPal! Payment marked as fully paid.");
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`PayPal charge failed: ${err.message}`);
     },
   });
 
@@ -338,22 +360,14 @@ export default function AdminSettings() {
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* Stats row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
+            <div className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center">
                 <CreditCard size={18} className="text-blue-500" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm text-gray-500 font-medium">Total Payments</span>
-                {settingsQuery.data?.mode && (
-                  <span className={`text-xs font-semibold mt-0.5 ${
-                    settingsQuery.data.mode === "live"
-                      ? "text-green-600"
-                      : "text-amber-600"
-                  }`}>
-                    {settingsQuery.data.mode === "live" ? "🟢 Live" : "🧪 Test"} mode only
-                  </span>
-                )}
+                <span className="text-xs font-semibold mt-0.5 text-gray-400">All providers</span>
               </div>
             </div>
             <p className="text-2xl font-bold text-gray-900">{payments.length}</p>
@@ -365,15 +379,7 @@ export default function AdminSettings() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm text-gray-500 font-medium">Revenue Collected</span>
-                {settingsQuery.data?.mode && (
-                  <span className={`text-xs font-semibold mt-0.5 ${
-                    settingsQuery.data.mode === "live"
-                      ? "text-green-600"
-                      : "text-amber-600"
-                  }`}>
-                    {settingsQuery.data.mode === "live" ? "Real payments" : "Test payments"}
-                  </span>
-                )}
+                <span className="text-xs font-semibold mt-0.5 text-gray-400">Deposits + full payments</span>
               </div>
             </div>
             <p className="text-2xl font-bold text-gray-900">
@@ -383,16 +389,18 @@ export default function AdminSettings() {
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center gap-3 mb-2">
               <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
-                settingsQuery.data?.mode === "live" ? "bg-green-50" : "bg-amber-50"
+                ppActiveProvider === "paypal" ? "bg-blue-50" : settingsQuery.data?.mode === "live" ? "bg-green-50" : "bg-amber-50"
               }`}>
-                <CheckCircle size={18} className={settingsQuery.data?.mode === "live" ? "text-green-500" : "text-amber-500"} />
+                <CheckCircle size={18} className={ppActiveProvider === "paypal" ? "text-blue-500" : settingsQuery.data?.mode === "live" ? "text-green-500" : "text-amber-500"} />
               </div>
-              <span className="text-sm text-gray-500 font-medium">Active Mode</span>
+              <span className="text-sm text-gray-500 font-medium">Active Provider</span>
             </div>
             <p className={`text-2xl font-bold capitalize ${
-              settingsQuery.data?.mode === "live" ? "text-green-700" : "text-amber-700"
+              ppActiveProvider === "paypal" ? "text-blue-700" : settingsQuery.data?.mode === "live" ? "text-green-700" : "text-amber-700"
             }`}>
-              {settingsQuery.data?.mode === "live" ? "🟢 Live" : settingsQuery.data?.mode === "test" ? "🧪 Test" : "—"}
+              {ppActiveProvider === "paypal"
+                ? `🅿 PayPal (${ppMode})`
+                : settingsQuery.data?.mode === "live" ? "🟢 Stripe Live" : settingsQuery.data?.mode === "test" ? "🧪 Stripe Test" : "—"}
             </p>
           </div>
         </div>
@@ -878,8 +886,16 @@ export default function AdminSettings() {
                           )}
 
                           {/* ── deposit_paid, not yet scheduled ── */}
-                          {p.status === "deposit_paid" && (!p.scheduledChargePaymentCronTaskUid || p.scheduledChargePaymentCronTaskUid.startsWith("cancelled")) && (
+                          {p.status === "deposit_paid" && (!p.scheduledChargePaymentCronTaskUid || p.scheduledChargePaymentCronTaskUid.startsWith("cancelled")) && (() => {
+                            const isPayPal = p.paymentProvider === "paypal";
+                            const schedMut = isPayPal ? ppScheduleChargeMutation : scheduleChargeMutation;
+                            const chargeMut = isPayPal ? ppChargeNowMutation : chargeNowMutation;
+                            return (
                             <div className="flex flex-col gap-2">
+                              {/* Provider badge */}
+                              {isPayPal && (
+                                <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">PayPal</span>
+                              )}
 
                               {/* Schedule $149 section */}
                               {schedulingPaymentId === p.id ? (
@@ -897,13 +913,13 @@ export default function AdminSettings() {
                                         const dateStr = apptDateInputs[p.id];
                                         if (!dateStr) { toast.error("Please select an appointment date"); return; }
                                         const ts = new Date(dateStr + "T09:00:00Z").getTime();
-                                        scheduleChargeMutation.mutate({ paymentId: p.id, appointmentDate: ts });
+                                        schedMut.mutate({ paymentId: p.id, appointmentDate: ts });
                                         setSchedulingPaymentId(null);
                                       }}
-                                      disabled={scheduleChargeMutation.isPending}
+                                      disabled={schedMut.isPending}
                                       className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
                                     >
-                                      {scheduleChargeMutation.isPending ? "Scheduling..." : "Confirm Schedule"}
+                                      {schedMut.isPending ? "Scheduling..." : "Confirm Schedule"}
                                     </button>
                                     <button
                                       onClick={() => setSchedulingPaymentId(null)}
@@ -928,17 +944,21 @@ export default function AdminSettings() {
                                 {chargeNowConfirmId === p.id ? (
                                   <div className="flex flex-col gap-1">
                                     <p className="text-[10px] text-orange-700 font-semibold">Charge $149 now?</p>
-                                    <p className="text-[10px] text-gray-500">This will immediately charge the card on file. No future cron charge.</p>
+                                    <p className="text-[10px] text-gray-500">
+                                      {isPayPal
+                                        ? "Immediately charges via PayPal. No future cron charge."
+                                        : "Immediately charges the card on file. No future cron charge."}
+                                    </p>
                                     <div className="flex gap-1">
                                       <button
                                         onClick={() => {
-                                          chargeNowMutation.mutate({ paymentId: p.id });
+                                          chargeMut.mutate({ paymentId: p.id });
                                           setChargeNowConfirmId(null);
                                         }}
-                                        disabled={chargeNowMutation.isPending}
+                                        disabled={chargeMut.isPending}
                                         className="text-xs px-2 py-1 bg-orange-600 text-white rounded hover:bg-orange-700 disabled:opacity-50"
                                       >
-                                        {chargeNowMutation.isPending ? "Charging..." : "Yes, Charge Now"}
+                                        {chargeMut.isPending ? "Charging..." : "Yes, Charge Now"}
                                       </button>
                                       <button
                                         onClick={() => setChargeNowConfirmId(null)}
@@ -958,7 +978,8 @@ export default function AdminSettings() {
                                 )}
                               </div>
                             </div>
-                          )}
+                            );
+                          })()}
                         </td>
                       </tr>
                     ))}
