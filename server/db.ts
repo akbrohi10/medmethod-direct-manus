@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertPayment,
@@ -179,15 +179,42 @@ export async function getPaymentById(id: number): Promise<Payment | null> {
 /**
  * Get all payments (for admin dashboard), optionally filtered by Stripe mode.
  */
-export async function getAllPayments(mode?: "test" | "live"): Promise<Payment[]> {
+export async function getAllPayments(
+  filter?: {
+    provider: "stripe" | "paypal";
+    mode: "test" | "live" | "sandbox";
+  }
+): Promise<Payment[]> {
   const db = await getDb();
   if (!db) return [];
-  if (mode) {
-    return db
-      .select()
-      .from(payments)
-      .where(eq(payments.stripeMode, mode))
-      .orderBy(desc(payments.createdAt));
+  if (filter) {
+    if (filter.provider === "stripe") {
+      // stripeMode is "test" or "live"
+      const stripeMode = filter.mode === "live" ? "live" : "test";
+      return db
+        .select()
+        .from(payments)
+        .where(
+          and(
+            eq(payments.paymentProvider, "stripe"),
+            eq(payments.stripeMode, stripeMode)
+          )
+        )
+        .orderBy(desc(payments.createdAt));
+    } else {
+      // PayPal: paypalMode is "sandbox" or "live"
+      const paypalMode = filter.mode === "live" ? "live" : "sandbox";
+      return db
+        .select()
+        .from(payments)
+        .where(
+          and(
+            eq(payments.paymentProvider, "paypal"),
+            eq(payments.paypalMode, paypalMode)
+          )
+        )
+        .orderBy(desc(payments.createdAt));
+    }
   }
   return db.select().from(payments).orderBy(desc(payments.createdAt));
 }

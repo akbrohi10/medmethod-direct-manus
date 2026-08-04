@@ -19,6 +19,7 @@ import {
   createPayment,
   getAllPayments,
   getPaymentById,
+  getPaypalSettings,
   getStripeSettings,
   updatePayment,
   upsertStripeSettings,
@@ -496,9 +497,19 @@ export const stripeRouter = router({
    * Test mode shows only test payments; Live mode shows only real payments.
    */
   listPayments: superAdminOrAdminProcedure.query(async () => {
-    // Return ALL payments (both Stripe and PayPal) so the admin dashboard
-    // shows a complete picture regardless of which provider is active.
-    // The frontend payment table shows the paymentProvider column for clarity.
-    return getAllPayments();
+    // Determine active provider and mode, then filter payments accordingly.
+    // PayPal settings take priority if PayPal is the active provider.
+    const paypalSettings = await getPaypalSettings();
+    const activeProvider = (paypalSettings?.activeProvider ?? "stripe") as "stripe" | "paypal";
+
+    if (activeProvider === "paypal") {
+      const ppMode = (paypalSettings?.mode ?? "sandbox") as "sandbox" | "live";
+      return getAllPayments({ provider: "paypal", mode: ppMode });
+    }
+
+    // Stripe path
+    const stripeSettings = await getStripeSettings();
+    const stripeMode = (stripeSettings?.mode ?? "test") as "test" | "live";
+    return getAllPayments({ provider: "stripe", mode: stripeMode });
   }),
 });
