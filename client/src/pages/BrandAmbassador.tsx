@@ -354,7 +354,7 @@ export default function BrandAmbassador() {
                 marginBottom: 20,
               }}
             >
-              Be the Face of Longevity
+              Earn $50 for Every Qualified Signup You Send Our Way
             </h1>
             <p
               style={{
