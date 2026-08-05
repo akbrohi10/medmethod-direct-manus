@@ -291,7 +291,7 @@ export default function HomeHrt3() {
             </span>
           }
           overrideSubline="100% Virtual"
-          overrideBody="A 45-minute visit with Dr. Al-Deek to create or optimize your personalized hormone and/or GLP-1 treatment plan."
+          overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
           ctaLabel="Book Your 45-Min Appt."
           ctaMicrocopy={
             <div style={{ fontFamily: "Montserrat, sans-serif" }}>
