@@ -463,14 +463,14 @@ export default function HomeHrt3() {
                     </div>
                     <div>
                       <p className="text-lg font-bold text-gray-900">45-Minute Physician Consultation</p>
-                      <p className="text-base text-gray-600 mt-1">Meet one-on-one with Dr. Jumana Al-Deek to review your symptoms, medical history, and create your personalized treatment plan.</p>
+                      <p className="text-base text-gray-600 mt-1">Meet one-on-one with Dr. Jumana Al-Deek to review your health, symptoms, current medications, and goals—and create or optimize your personalized treatment plan.</p>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-base font-semibold text-gray-700 uppercase tracking-wide mb-3">Also included:</p>
                 <div className="space-y-2">
-                  {["Comprehensive medical diagnostic review", "Personalized treatment plan", "Prescription written at your visit — if clinically appropriate", "Personalized dosing plan & titration guidance", "Medications shipped to your door or picked up at your pharmacy", "Direct text access with Dr. Al-Deek (30 days included)", "Patient dashboard & progress tracking"].map((item) => (
+                  {["Comprehensive medical review", "Review of your current medications & treatment", "Personalized treatment plan", "Prescription at your visit — if clinically appropriate", "Personalized dosing & adjustment guidance", "Medication options based on your needs & preferences", "Direct text access with Dr. Al-Deek — 30 days included", "Patient dashboard & progress tracking"].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <span className="text-emerald-500 text-lg mt-0.5 flex-shrink-0">✓</span>
                       <span className="text-base text-gray-800 leading-relaxed">{item}</span>
