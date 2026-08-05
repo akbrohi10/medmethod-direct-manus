@@ -481,6 +481,39 @@ export const paypalRouter = router({
     }),
 
   /**
+   * Admin: retry all Failed PayPal payments that have a vault token saved.
+   * Re-attempts the $149 charge using chargePayPalVault.
+   */
+  retryFailed: superAdminOrAdminProcedure.mutation(async () => {
+    const all = await getAllPayments();
+    const failedWithVault = all.filter(
+      (p) => p.paymentProvider === "paypal" && p.status === "failed" && !!p.paypalVaultToken
+    );
+
+    const results: Array<{ paymentId: number; status: string; error?: string }> = [];
+
+    for (const payment of failedWithVault) {
+      const mode = (payment.paypalMode ?? "sandbox") as PayPalMode;
+      // Reset to deposit_paid so chargePayPalVault won't reject it as already paid
+      await updatePayment(payment.id, { status: "deposit_paid" });
+      const result = await chargePayPalVault(payment.id, payment.paypalVaultToken!, mode);
+      if (result.success) {
+        results.push({ paymentId: payment.id, status: "fully_paid" });
+      } else {
+        // Revert back to failed if charge failed again
+        await updatePayment(payment.id, { status: "failed" });
+        results.push({ paymentId: payment.id, status: "failed", error: result.error });
+      }
+    }
+
+    return {
+      attempted: failedWithVault.length,
+      charged: results.filter((r) => r.status === "fully_paid").length,
+      results,
+    };
+  }),
+
+  /**
    * Admin: list all PayPal payment records for the current mode.
    */
   listPayments: superAdminOrAdminProcedure.query(async () => {

@@ -174,6 +174,21 @@ export default function AdminSettings() {
     },
   });
 
+  // Retry Failed PayPal payments mutation
+  const retryFailedMutation = trpc.paypal.retryFailed.useMutation({
+    onSuccess: (data) => {
+      if (data.attempted === 0) {
+        toast.success("No failed payments with a saved card found.");
+      } else {
+        toast.success(`✓ Retry complete — ${data.charged}/${data.attempted} payment(s) charged.`);
+      }
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Retry failed: ${err.message}`);
+    },
+  });
+
   // PayPal: Charge now mutation
   const ppChargeNowMutation = trpc.paypal.chargeNow.useMutation({
     onSuccess: () => {
@@ -769,6 +784,18 @@ export default function AdminSettings() {
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-base font-bold text-gray-900">Payment Records</h2>
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => retryFailedMutation.mutate()}
+                    disabled={retryFailedMutation.isPending}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 transition"
+                    title="Retry all Failed payments that have a saved card"
+                  >
+                    {retryFailedMutation.isPending ? (
+                      <><RefreshCw size={12} className="animate-spin" /> Retrying...</>
+                    ) : (
+                      <><RefreshCw size={12} /> Retry Failed</>  
+                    )}
+                  </button>
                   <button
                     onClick={() => triggerSweepMutation.mutate()}
                     disabled={triggerSweepMutation.isPending}
