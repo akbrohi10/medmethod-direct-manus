@@ -845,6 +845,7 @@ export default function AdminSettings() {
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Remaining</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Appt. Date</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Card Saved</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -863,6 +864,27 @@ export default function AdminSettings() {
                         </td>
                         <td className="px-4 py-3">
                           <PaymentStatusBadge status={p.status} />
+                        </td>
+                        <td className="px-4 py-3">
+                          {p.paymentProvider === "paypal" ? (
+                            p.paypalVaultToken ? (
+                              <span
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700"
+                                title="Card is vaulted — $149 can be auto-charged"
+                              >
+                                ✓ Card saved
+                              </span>
+                            ) : (
+                              <span
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700"
+                                title="No vault token — $149 cannot be auto-charged. Patient must re-pay or use manual collection."
+                              >
+                                ⚠ No card
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-gray-300 text-xs">—</span>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-xs">
                           {new Date(p.createdAt).toLocaleString()}

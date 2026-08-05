@@ -377,7 +377,11 @@ export const paypalRouter = router({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
       }
 
+      // Log the full payment_source for debugging vault token extraction
+      console.log("[PayPal captureOrder] payment_source:", JSON.stringify(capture.payment_source, null, 2));
+
       // Extract vault token — works for both card (Advanced Card Fields) and paypal (wallet) flows
+      // PayPal Advanced Card Fields returns vault id at: payment_source.card.attributes.vault.id
       const vaultToken =
         capture.payment_source?.card?.attributes?.vault?.id ??
         capture.payment_source?.paypal?.attributes?.vault?.id ??
@@ -386,6 +390,8 @@ export const paypalRouter = router({
         capture.payment_source?.card?.attributes?.vault?.customer?.id ??
         capture.payment_source?.paypal?.attributes?.vault?.customer?.id ??
         null;
+
+      console.log("[PayPal captureOrder] vaultToken:", vaultToken, "customerId:", customerId);
 
       await updatePayment(input.paymentId, {
         status: "deposit_paid",
