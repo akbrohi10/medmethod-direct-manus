@@ -102,6 +102,15 @@ export async function runSweep(): Promise<{
 
   const nowMs = Date.now();
 
+  // Compute end-of-day (23:59:59.999) for today in UTC so that any payment
+  // whose appointmentDate falls anywhere on today (or earlier) is charged as
+  // soon as the first sweep fires on that day, not waiting for the exact time.
+  const todayEndMs = (() => {
+    const d = new Date(nowMs);
+    d.setUTCHours(23, 59, 59, 999);
+    return d.getTime();
+  })();
+
   // ── 2a. Clean up stale pending records (abandoned form sessions) ─────────
   // Pending records with no PayPal order ID or Stripe PI are orphans created
   // when the payment form loaded but was never completed. Delete them if they
@@ -130,7 +139,7 @@ export async function runSweep(): Promise<{
       and(
         eq(payments.status, "deposit_paid"),
         isNotNull(payments.appointmentDate),
-        lte(payments.appointmentDate, nowMs),
+        lte(payments.appointmentDate, todayEndMs),
         or(
           // Stripe: has a scheduled PI
           isNotNull(payments.scheduledChargePaymentIntentId),
