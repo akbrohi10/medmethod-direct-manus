@@ -542,10 +542,10 @@ export default function HomeHrt3() {
             <div className="text-center mb-8">
               <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Your Prescription Options</p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                What to Expect for Medication
+                Your Medication Options
               </h2>
               <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-                We guide you toward the most convenient and affordable way to fill your prescriptions. We've partnered with pre-vetted, licensed compounded pharmacies to offer pre-negotiated rates for patients who prefer that route — and for those who prefer brand-name, we prescribe that too. Dr. Al-Deek will discuss your options and make a recommendation based on your goals and budget during your initial consultation. Physician care is billed separately — these are estimated medication costs only.
+                Medication is separate from your visit. When clinically appropriate, Dr. Al-Deek will discuss brand-name and compounded options with you—including differences in treatment, convenience, and cost—so you can make an informed decision based on your needs and preferences.
               </p>
             </div>
 
@@ -564,7 +564,7 @@ export default function HomeHrt3() {
                     <div>
                       <p className="text-lg font-semibold text-gray-800">Compounded</p>
                       <p className="text-base text-gray-600">Semaglutide or tirzepatide</p>
-                      <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-sm text-[#E8339E] font-medium mt-1">Preferred pricing may be available through partner pharmacies.</p>
                       <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$100–$300<span className="text-sm font-semibold text-gray-500">/mo</span></span>
@@ -594,7 +594,7 @@ export default function HomeHrt3() {
                     <div>
                       <p className="text-lg font-semibold text-gray-800">Individual hormones (compounded)</p>
                       <p className="text-base text-gray-600">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
-                      <p className="text-sm text-[#E8339E] font-medium mt-1">Pre-negotiated rate through our partnered pharmacies</p>
+                      <p className="text-sm text-[#E8339E] font-medium mt-1">Preferred pricing may be available through partner pharmacies.</p>
                       <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
                     </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$30–$100<span className="text-sm font-semibold text-gray-500">/mo</span></span>
@@ -612,7 +612,7 @@ export default function HomeHrt3() {
             </div>
 
             <p className="text-base text-gray-500 text-center mt-6 max-w-xl mx-auto leading-relaxed">
-              Estimates only. Actual costs vary by pharmacy, dosage, and insurance. Dr. Al-Deek will walk you through your specific options during your consultation.
+              Estimates only. Actual medication costs vary by medication, dose, pharmacy, insurance coverage, and treatment plan. Dr. Al-Deek will review appropriate options with you during your consultation.
             </p>
           </div>
         </section>
