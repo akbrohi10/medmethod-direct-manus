@@ -490,20 +490,21 @@ export default function HomeHrt3() {
                     <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Option 1 — Pay As You Go</p>
                     <p className="text-lg font-bold text-gray-900">$150 Follow-up Visits</p>
                     <p className="mt-2 text-sm text-gray-600">Schedule a physician follow-up when needed to review your progress, treatment, labs, or medications.</p>
+                    <p className="mt-2 text-sm text-gray-500">No monthly commitment. Pay only when you need a follow-up.</p>
                   </div>
                   <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
                     <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Option 2</p>
                     <p className="text-lg font-bold text-gray-900">$50<span className="text-sm font-medium text-gray-500">/month Ongoing Care</span></p>
-                    <p className="mt-2 mb-2 text-sm text-gray-600">For patients who want continued access and medication management between visits.</p>
+                    <p className="mt-2 mb-2 text-sm text-gray-600">For patients who want continued physician support between visits.</p>
                     <ul className="space-y-1.5 text-sm text-gray-600">
-                      {["Direct secure messaging with Dr. Al-Deek", "Medication & dosing adjustments", "Prescription renewals & refills", "Lab review", "Questions answered between visits"].map((item) => (
+                      {["Direct secure messaging with Dr. Al-Deek", "Medication & dosing management", "Prescription refills & lab review"].map((item) => (
                         <li key={item} className="flex items-start gap-1.5">
                           <svg className="w-3.5 h-3.5 text-[#E8339E] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-3 text-xs text-gray-500 italic">Need a video visit? Add one for $50.</p>
+                    <p className="mt-3 text-xs text-gray-500 italic">Video visits available for $50.</p>
                     <p className="mt-1 text-xs text-gray-700">Cancel anytime with 30 days' notice.</p>
                   </div>
                 </div>
