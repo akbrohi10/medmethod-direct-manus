@@ -504,7 +504,7 @@ export default function HomeHrt3() {
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-3 text-xs text-gray-500 italic">Video visits available for $50.</p>
+                    <p className="mt-3 text-xs text-gray-700">Video visits available for $50.</p>
                     <p className="mt-1 text-xs text-gray-700">Cancel anytime with 30 days' notice.</p>
                   </div>
                 </div>
