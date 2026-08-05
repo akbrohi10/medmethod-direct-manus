@@ -115,7 +115,7 @@ const FAQS = [
   },
   {
     q: "When should I start hormone replacement therapy?",
-    a: "The ideal window is within 10 years of your last period or before age 60. However, many women benefit from HRT at any stage of menopause. During your consultation, we'll evaluate your symptoms, medical history, and health profile to determine the right timing for you.",
+    a: "There's no single right age — it depends on your symptoms, health history, and goals. Many women begin noticing hormonal changes in their late 30s or 40s, during perimenopause, and can benefit from evaluation and treatment well before their last period. If you're experiencing symptoms like irregular cycles, sleep disruption, mood changes, brain fog, or weight gain, it may be worth a conversation — regardless of your age. During your consultation, Dr. Al-Deek will review your symptoms and health history to determine whether treatment makes sense for you.",
   },
   {
     q: "How long can I safely be on HRT?",
