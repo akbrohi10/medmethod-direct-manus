@@ -57,13 +57,11 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
     label: "Practice Focus",
     teaser: (
       <>
-        Dr. Jumana Al-Deek is a board-certified physician, menopause specialist, and author of{" "}
-        <strong className="font-bold" style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</strong>
-        {" "}&mdash; one of the fastest-emerging books in its category. She founded MedMethod Direct to give women navigating perimenopause and menopause access to expert-level care without the waitlists, dismissive appointments, or one-size-fits-all protocols. The prescription starts the journey. Expert management is what drives long-term success.
+        The prescription is only the beginning. Hormone and weight-loss treatments aren’t one-size-fits-all. Whether you’re considering treatment or already taking medication, Dr. Al-Deek reviews your symptoms, health history, current medications, response to treatment, and goals to create—or optimize—a plan built around you.
       </>
     ),
     rest:
-      "Her clinical focus spans hormone replacement therapy, GLP-1 medical weight loss, metabolic health, thyroid optimization, and longevity medicine \u2014 all delivered virtually across 17 states.",
+      "Dr. Al-Deek is a board-certified physician, menopause specialist, and author of The Menopause Weight Loss Trap. Her clinical focus spans hormone management, medical weight loss, metabolic health, thyroid optimization, and longevity medicine.",
   },
   {
     label: "Philosophy",
