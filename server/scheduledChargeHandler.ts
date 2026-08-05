@@ -144,6 +144,17 @@ export async function runSweep(): Promise<{
     );
 
   console.log(`[SweepDueCharges] Found ${duePayments.length} due payment(s) to charge`);
+  console.log(`[SweepDueCharges] nowMs=${nowMs} (${new Date(nowMs).toISOString()})`);
+  for (const p of duePayments) {
+    console.log(`[SweepDueCharges] Due payment: id=${p.id} provider=${p.paymentProvider} appointmentDate=${p.appointmentDate} (${p.appointmentDate ? new Date(p.appointmentDate).toISOString() : 'null'}) hasVault=${!!p.paypalVaultToken} orderId=${p.paypalOrderId}`);
+  }
+
+  // Also log all deposit_paid PayPal payments for debugging
+  const allDepositPaid = await db.select().from(payments).where(and(eq(payments.status, 'deposit_paid'), eq(payments.paymentProvider, 'paypal')));
+  console.log(`[SweepDueCharges] All deposit_paid PayPal payments (${allDepositPaid.length}):`);
+  for (const p of allDepositPaid) {
+    console.log(`  id=${p.id} appointmentDate=${p.appointmentDate} hasVault=${!!p.paypalVaultToken} orderId=${p.paypalOrderId}`);
+  }
 
   const results: Array<{
       paymentId: number;
