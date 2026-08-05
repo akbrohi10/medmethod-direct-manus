@@ -493,6 +493,17 @@ export const stripeRouter = router({
     }),
 
   /**
+   * Admin: manually trigger the sweep cron to charge all due payments immediately.
+   * Calls the internal sweep handler directly (bypasses HTTP auth).
+   */
+  triggerSweep: superAdminOrAdminProcedure.mutation(async () => {
+    // Import and call the sweep handler logic directly
+    const { runSweep } = await import("../scheduledChargeHandler");
+    const result = await runSweep();
+    return result;
+  }),
+
+  /**
    * Admin: list all payment records, filtered by the currently active Stripe mode.
    * Test mode shows only test payments; Live mode shows only real payments.
    */

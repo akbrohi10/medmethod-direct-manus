@@ -89,67 +89,63 @@ async function getPayPalAccessToken(
   return data.access_token;
 }
 
-// ─── Main sweep handler ────────────────────────────────────────────────────────
+// ─── Core sweep logic (exported so admin tRPC can call it directly) ─────────────
 
-export async function chargeRemainingHandler(req: Request, res: Response) {
-  try {
-    // ── 1. Authenticate — cron-only ──────────────────────────────────────────
-    const user = await sdk.authenticateRequest(req);
-    if (!user.isCron) {
-      return res.status(403).json({ error: "cron-only endpoint" });
-    }
+export async function runSweep(): Promise<{
+  ok: boolean;
+  swept: number;
+  results: Array<{ paymentId: number; provider: string; status: string; error?: string }>;
+  timestamp: string;
+}> {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
 
-    const db = await getDb();
-    if (!db) {
-      return res.status(500).json({ error: "Database unavailable" });
-    }
+  const nowMs = Date.now();
 
-    const nowMs = Date.now();
+  // ── 2a. Clean up stale pending records (abandoned form sessions) ─────────
+  // Pending records with no PayPal order ID or Stripe PI are orphans created
+  // when the payment form loaded but was never completed. Delete them if they
+  // are older than 2 hours to keep the admin dashboard clean.
+  const twoHoursAgoMs = nowMs - 2 * 60 * 60 * 1000;
+  const twoHoursAgoDate = new Date(twoHoursAgoMs);
+  await db
+    .delete(payments)
+    .where(
+      and(
+        eq(payments.status, "pending"),
+        isNull(payments.paypalOrderId),
+        isNull(payments.depositPaymentIntentId),
+        lt(payments.createdAt, twoHoursAgoDate)
+      )
+    );
+  console.log(`[SweepDueCharges] Cleaned up stale pending orphans older than 2h`);
 
-    // ── 2a. Clean up stale pending records (abandoned form sessions) ─────────
-    // Pending records with no PayPal order ID or Stripe PI are orphans created
-    // when the payment form loaded but was never completed. Delete them if they
-    // are older than 2 hours to keep the admin dashboard clean.
-    const twoHoursAgoMs = nowMs - 2 * 60 * 60 * 1000;
-    const twoHoursAgoDate = new Date(twoHoursAgoMs);
-    const deletedOrphans = await db
-      .delete(payments)
-      .where(
-        and(
-          eq(payments.status, "pending"),
-          isNull(payments.paypalOrderId),
-          isNull(payments.depositPaymentIntentId),
-          lt(payments.createdAt, twoHoursAgoDate)
-        )
-      );
-    console.log(`[SweepDueCharges] Cleaned up stale pending orphans older than 2h`);
-
-    // ── 2b. Find all deposit_paid payments whose appointment date has passed ──
-    // Include both Stripe (have scheduledChargePaymentIntentId) and PayPal
-    // (have paypalOrderId and paymentProvider = 'paypal') payments.
-    const duePayments = await db
-      .select()
-      .from(payments)
-      .where(
-        and(
-          eq(payments.status, "deposit_paid"),
-          isNotNull(payments.appointmentDate),
-          lte(payments.appointmentDate, nowMs),
-          or(
-            // Stripe: has a scheduled PI
-            isNotNull(payments.scheduledChargePaymentIntentId),
-            // PayPal: has a paypal order ID (sweep approach)
-            and(
-              eq(payments.paymentProvider, "paypal"),
-              isNotNull(payments.paypalOrderId)
-            )
+  // ── 2b. Find all deposit_paid payments whose appointment date has passed ──
+  // Include both Stripe (have scheduledChargePaymentIntentId) and PayPal
+  // (have paypalOrderId and paymentProvider = 'paypal') payments.
+  const duePayments = await db
+    .select()
+    .from(payments)
+    .where(
+      and(
+        eq(payments.status, "deposit_paid"),
+        isNotNull(payments.appointmentDate),
+        lte(payments.appointmentDate, nowMs),
+        or(
+          // Stripe: has a scheduled PI
+          isNotNull(payments.scheduledChargePaymentIntentId),
+          // PayPal: has a paypal order ID (sweep approach)
+          and(
+            eq(payments.paymentProvider, "paypal"),
+            isNotNull(payments.paypalOrderId)
           )
         )
-      );
+      )
+    );
 
-    console.log(`[SweepDueCharges] Found ${duePayments.length} due payment(s) to charge`);
+  console.log(`[SweepDueCharges] Found ${duePayments.length} due payment(s) to charge`);
 
-    const results: Array<{
+  const results: Array<{
       paymentId: number;
       provider: string;
       status: string;
@@ -329,21 +325,29 @@ export async function chargeRemainingHandler(req: Request, res: Response) {
       }
     }
 
-    return res.json({
-      ok: true,
-      swept: duePayments.length,
-      results,
-      timestamp: new Date().toISOString(),
-    });
+  return {
+    ok: true,
+    swept: duePayments.length,
+    results,
+    timestamp: new Date().toISOString(),
+  };
+}
 
+// ─── HTTP handler (cron-only) ────────────────────────────────────────────────────────
+
+export async function chargeRemainingHandler(req: Request, res: Response) {
+  try {
+    // Authenticate — cron-only
+    const user = await sdk.authenticateRequest(req);
+    if (!user.isCron) {
+      return res.status(403).json({ error: "cron-only endpoint" });
+    }
+    const result = await runSweep();
+    return res.json(result);
   } catch (err: unknown) {
     const errMsg = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? err.stack : undefined;
     console.error("[SweepDueCharges] Unhandled error:", errMsg);
-    return res.status(500).json({
-      error: errMsg,
-      stack,
-      timestamp: new Date().toISOString(),
-    });
+    return res.status(500).json({ error: errMsg, stack, timestamp: new Date().toISOString() });
   }
 }

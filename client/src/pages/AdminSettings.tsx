@@ -159,6 +159,21 @@ export default function AdminSettings() {
     },
   });
 
+  // Trigger sweep mutation
+  const triggerSweepMutation = trpc.stripe.triggerSweep.useMutation({
+    onSuccess: (data) => {
+      if (data.swept === 0) {
+        toast.success("Sweep complete — no due payments found.");
+      } else {
+        toast.success(`✓ Sweep complete — ${data.swept} payment(s) processed.`);
+      }
+      paymentsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Sweep failed: ${err.message}`);
+    },
+  });
+
   // PayPal: Charge now mutation
   const ppChargeNowMutation = trpc.paypal.chargeNow.useMutation({
     onSuccess: () => {
@@ -753,12 +768,26 @@ export default function AdminSettings() {
             <div className="px-6 py-4 border-b border-gray-100">
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-base font-bold text-gray-900">Payment Records</h2>
-                <button
-                  onClick={() => paymentsQuery.refetch()}
-                  className="text-gray-400 hover:text-gray-600 transition"
-                >
-                  <RefreshCw size={16} className={paymentsQuery.isFetching ? "animate-spin" : ""} />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => triggerSweepMutation.mutate()}
+                    disabled={triggerSweepMutation.isPending}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                    title="Manually run the sweep cron to charge all due payments now"
+                  >
+                    {triggerSweepMutation.isPending ? (
+                      <><RefreshCw size={12} className="animate-spin" /> Running...</>
+                    ) : (
+                      <><RefreshCw size={12} /> Trigger Sweep Now</>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => paymentsQuery.refetch()}
+                    className="text-gray-400 hover:text-gray-600 transition"
+                  >
+                    <RefreshCw size={16} className={paymentsQuery.isFetching ? "animate-spin" : ""} />
+                  </button>
+                </div>
               </div>
               {/* Status filter pills */}
               <div className="flex flex-wrap gap-2">
