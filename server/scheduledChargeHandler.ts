@@ -19,8 +19,9 @@ import { and, eq, isNotNull, isNull, lt, lte, or } from "drizzle-orm";
 import { getDb } from "./db";
 import { payments } from "../drizzle/schema";
 import { sdk } from "./_core/sdk";
-import { getStripeSettings, getPaypalSettings } from "./db";
+import { getStripeSettings } from "./db";
 import { createHeartbeatJob, listHeartbeatJobs } from "./_core/heartbeat";
+import { chargePayPalVault } from "./routers/paypal";
 
 /**
  * Ensure the global hourly sweep cron job exists.
@@ -54,39 +55,6 @@ export async function ensureGlobalSweepCron(): Promise<void> {
     console.error(`[SweepCron] Failed to register global sweep cron: ${msg}`);
     throw err;
   }
-}
-
-// ─── PayPal helpers ────────────────────────────────────────────────────────────
-
-type PayPalMode = "sandbox" | "live";
-
-function getPayPalBaseUrl(mode: PayPalMode): string {
-  return mode === "live"
-    ? "https://api-m.paypal.com"
-    : "https://api-m.sandbox.paypal.com";
-}
-
-async function getPayPalAccessToken(
-  clientId: string,
-  clientSecret: string,
-  mode: PayPalMode
-): Promise<string> {
-  const base = getPayPalBaseUrl(mode);
-  const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
-  const res = await fetch(`${base}/v1/oauth2/token`, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${credentials}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "grant_type=client_credentials",
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`PayPal auth failed (${res.status}): ${text}`);
-  }
-  const data = (await res.json()) as { access_token: string };
-  return data.access_token;
 }
 
 // ─── Core sweep logic (exported so admin tRPC can call it directly) ─────────────
@@ -175,109 +143,32 @@ export async function runSweep(): Promise<{
     // ── 3. Charge each due payment ───────────────────────────────────────────
     for (const payment of duePayments) {
       if (payment.paymentProvider === "paypal") {
-        // ── PayPal path ──────────────────────────────────────────────────────
+        // ── PayPal path — uses the same chargePayPalVault function as the admin "Charge $149 Now" button ──
+        if (!payment.paypalVaultToken) {
+          console.error(`[SweepDueCharges] No vault token for PayPal payment ${payment.id} — skipping`);
+          results.push({ paymentId: payment.id, provider: "paypal", status: "skipped_no_vault_token" });
+          continue;
+        }
+
         try {
-          const ppSettings = await getPaypalSettings();
-          if (!ppSettings) {
-            console.error(`[SweepDueCharges] PayPal not configured for payment ${payment.id}`);
-            results.push({ paymentId: payment.id, provider: "paypal", status: "skipped_no_config" });
-            continue;
-          }
+          const mode = (payment.paypalMode ?? "sandbox") as "sandbox" | "live";
+          console.log(`[SweepDueCharges] Charging PayPal payment ${payment.id} via chargePayPalVault (mode=${mode})`);
+          const result = await chargePayPalVault(payment.id, payment.paypalVaultToken, mode);
 
-          const mode = (payment.paypalMode ?? ppSettings.mode ?? "sandbox") as PayPalMode;
-          const clientId = mode === "live" ? ppSettings.liveClientId : ppSettings.sandboxClientId;
-          const clientSecret = mode === "live" ? ppSettings.liveClientSecret : ppSettings.sandboxClientSecret;
-
-          if (!clientId || !clientSecret) {
-            console.error(`[SweepDueCharges] PayPal ${mode} credentials missing for payment ${payment.id}`);
-            results.push({ paymentId: payment.id, provider: "paypal", status: "skipped_no_credentials" });
-            continue;
-          }
-
-          const baseUrl = getPayPalBaseUrl(mode);
-          const token = await getPayPalAccessToken(clientId, clientSecret, mode);
-
-          // Use the stored vault token for off-session charging
-          if (!payment.paypalVaultToken) {
-            console.error(`[SweepDueCharges] No vault token for PayPal payment ${payment.id} — skipping`);
-            results.push({ paymentId: payment.id, provider: "paypal", status: "skipped_no_vault_token" });
-            continue;
-          }
-
-          const createRes = await fetch(`${baseUrl}/v2/checkout/orders`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-              "PayPal-Request-Id": `sweep-${payment.id}-${Date.now()}`,
-            },
-            body: JSON.stringify({
-              intent: "CAPTURE",
-              purchase_units: [
-                {
-                  amount: { currency_code: "USD", value: "149.00" },
-                  description: "MedMethod Direct — $149 remaining balance (auto-charged on appointment date)",
-                  custom_id: String(payment.id),
-                },
-              ],
-              payment_source: {
-                // Advanced Card Fields vault — card saved during inline checkout
-                // stored_credentials marks this as a subsequent merchant-initiated transaction
-                card: {
-                  vault_id: payment.paypalVaultToken,
-                  stored_credentials: {
-                    payment_initiator: "MERCHANT",
-                    payment_type: "UNSCHEDULED",
-                    usage: "SUBSEQUENT",
-                  },
-                },
-              },
-            }),
-          });
-
-          if (!createRes.ok) {
-            const text = await createRes.text();
-            throw new Error(`PayPal order creation failed (${createRes.status}): ${text}`);
-          }
-
-          const order = (await createRes.json()) as { id: string; status: string };
-          console.log(`[SweepDueCharges] Created new PayPal order for payment ${payment.id}: orderId=${order.id} status=${order.status}`);
-
-          // Capture immediately
-          const captureRes = await fetch(`${baseUrl}/v2/checkout/orders/${order.id}/capture`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (!captureRes.ok) {
-            const text = await captureRes.text();
-            throw new Error(`PayPal capture failed (${captureRes.status}): ${text}`);
-          }
-
-          const capture = (await captureRes.json()) as { status: string; id: string };
-
-          if (capture.status === "COMPLETED") {
-            await db
-              .update(payments)
-              .set({
-                status: "fully_paid",
-                paypalRemainingOrderId: order.id,
-                updatedAt: new Date(),
-              })
-              .where(eq(payments.id, payment.id));
-
-            console.log(`[SweepDueCharges] PayPal payment ${payment.id} → fully_paid`);
+          if (result.success) {
+            console.log(`[SweepDueCharges] PayPal payment ${payment.id} → fully_paid (captureId=${result.captureId})`);
             results.push({ paymentId: payment.id, provider: "paypal", status: "fully_paid" });
           } else {
-            console.warn(`[SweepDueCharges] PayPal unexpected capture status: ${capture.status} for payment ${payment.id}`);
-            results.push({ paymentId: payment.id, provider: "paypal", status: capture.status });
+            console.error(`[SweepDueCharges] PayPal charge failed for payment ${payment.id}: ${result.error}`);
+            await db
+              .update(payments)
+              .set({ status: "failed", updatedAt: new Date() })
+              .where(eq(payments.id, payment.id));
+            results.push({ paymentId: payment.id, provider: "paypal", status: "failed", error: result.error });
           }
         } catch (ppErr: unknown) {
           const errMsg = ppErr instanceof Error ? ppErr.message : String(ppErr);
-          console.error(`[SweepDueCharges] PayPal charge failed for payment ${payment.id}:`, errMsg);
+          console.error(`[SweepDueCharges] PayPal charge exception for payment ${payment.id}:`, errMsg);
 
           await db
             .update(payments)
