@@ -81,22 +81,22 @@ const STEPS = [
   {
     num: "01",
     title: "Book Your Visit",
-    desc: "Pick a time that works for you and schedule your virtual appointment in under 5 minutes.",
+    desc: "Choose a time that works for you and reserve your 45-minute virtual visit with a $50 deposit.",
   },
   {
     num: "02",
     title: "Complete Your Intake Form",
-    desc: "Fill out your health questionnaire. Have recent bloodwork? You can upload it — otherwise Dr. Al-Deek will guide you on next steps.",
+    desc: "Tell us about your health, symptoms, current medications, treatment history, and goals. Upload recent labs if available.",
   },
   {
     num: "03",
-    title: "Virtual Consultation",
-    desc: "Meet Dr. Al-Deek one-on-one via video to discuss your concerns and build your care plan.",
+    title: "Meet With Dr. Al-Deek",
+    desc: "Meet one-on-one with Dr. Al-Deek to review your health, current treatment, concerns, and goals.",
   },
   {
     num: "04",
-    title: "Your Treatment Plan",
-    desc: "Receive your personalized protocol — medications shipped to your door with ongoing support.",
+    title: "Get Your Personalized Plan",
+    desc: "Leave with a personalized treatment plan, including medication or treatment adjustments when clinically appropriate.",
   },
 ];
 
