@@ -26,17 +26,17 @@ const CONDITIONS = [
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-hotflashes-ayi2TzXcHCcgkcufKazGTN.webp",
   },
   {
-    title: "Weight Gain",
+    title: "Weight Gain & Metabolism",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-weightgain-v2-nK2psrLF5MCkdvbZgXMQWN.webp",
   },
   {
-    title: "Brain Fog & Moodiness",
+    title: "Brain Fog & Fatigue",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-brainfog-v2-cUscmfbqbvpMk9eBdkNgvX.webp",
   },
   {
-    title: "Trouble Sleeping",
+    title: "Sleep Changes",
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/lp-condition-sleep-cAHyrBU4YjcA4UgCAyPWmy.webp",
   },
@@ -158,19 +158,19 @@ const FAQS = [
 const TREATMENTS = [
   {
     title: "Safety First",
-    desc: "Every treatment plan begins with a comprehensive health evaluation and lab work. We screen for contraindications and monitor your progress with regular check-ins and repeat labs.",
+    desc: "Every treatment plan begins with a comprehensive health evaluation. Dr. Al-Deek reviews your medical history, current medications, symptoms, and relevant lab work to help determine which treatment options may be appropriate and to monitor your progress over time.",
   },
   {
-    title: "Personalized Formulations",
-    desc: "No two patients are alike. Your hormones, metabolism, and lifestyle inform a protocol built specifically for you — whether that's bioidentical estrogen, progesterone, testosterone, thyroid, or GLP-1 therapy.",
+    title: "Choosing the Right Treatment",
+    desc: "No two patients are alike. Your health history, symptoms, current medications, response to previous treatment, metabolism, and goals help guide your plan — whether that involves hormone therapy, GLP-1 medication, thyroid treatment, or another appropriate approach.",
   },
   {
-    title: "Precise Dosing",
-    desc: "We start conservatively and titrate based on your symptom response and lab values. Dosage adjustments happen in real-time through ongoing physician communication — not on a fixed schedule.",
+    title: "Dosing & Treatment Adjustments",
+    desc: "Already on treatment? Dr. Al-Deek can review how you're responding and whether your medication, dose, formulation, or overall treatment strategy may need adjustment. Treatment can evolve based on your symptoms, response, lab findings, and clinical needs.",
   },
   {
-    title: "Ongoing Monitoring",
-    desc: "Your care doesn't end at the prescription. We schedule follow-ups, track biomarkers, and adjust your protocol as your body responds — ensuring optimal outcomes long-term.",
+    title: "Ongoing Physician Management",
+    desc: "Your care doesn't end with a prescription. Dr. Al-Deek can continue to monitor your response, review relevant labs, manage medications, and make treatment adjustments as your needs change over time.",
   },
 ];
 
@@ -327,10 +327,10 @@ export default function HomeHrt3() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="mb-6 sm:mb-10">
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-                How Hormone Replacement Therapy Works
+                Menopause, Hormones &amp; Weight Loss — Connected Care
               </h2>
               <p className="text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed">
-                Not only does HRT replenish estrogen and progesterone to bring you relief, but it helps protect your heart, bones and other organs from the side effects of estrogen deficiency.
+                Midlife symptoms rarely happen in isolation. Hormones, metabolism, thyroid health, sleep, mood, and weight can overlap. Dr. Al-Deek looks at the whole picture to understand what may be contributing and determine which treatment approach may be appropriate for you.
               </p>
             </div>
             {/* Carousel controls — hidden on mobile (touch swipe works) */}
@@ -385,10 +385,10 @@ export default function HomeHrt3() {
                 Your Protocol
               </p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
-                Personalized Treatment, Prescribed by an Expert
+                Your Treatment Should Evolve With You
               </h2>
               <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                Every patient receives a treatment plan built around their unique labs, symptoms, and goals — not a one-size-fits-all protocol.
+                Whether you're starting treatment or already taking medication, your plan should evolve as your symptoms, response, health, and goals change.
               </p>
             </div>
             <Accordion type="single" collapsible className="w-full space-y-3">
