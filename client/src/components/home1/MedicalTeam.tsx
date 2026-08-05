@@ -60,8 +60,13 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
         The prescription is only the beginning. Hormone and weight-loss treatments aren’t one-size-fits-all. Whether you’re considering treatment or already taking medication, Dr. Al-Deek reviews your symptoms, health history, current medications, response to treatment, and goals to create—or optimize—a plan built around you.
       </>
     ),
-    rest:
-      "Dr. Al-Deek is a board-certified physician, menopause specialist, and author of The Menopause Weight Loss Trap. Her clinical focus spans hormone management, medical weight loss, metabolic health, thyroid optimization, and longevity medicine.",
+    rest: (
+      <>
+        Dr. Al-Deek is a board-certified physician, menopause specialist, and author of{" "}
+        <strong className="font-bold" style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</strong>.
+        {" "}Her clinical focus spans hormone management, medical weight loss, metabolic health, thyroid optimization, and longevity medicine.
+      </>
+    ),
   },
   {
     label: "Philosophy",
