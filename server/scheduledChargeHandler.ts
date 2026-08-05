@@ -15,7 +15,7 @@
 
 import type { Request, Response } from "express";
 import Stripe from "stripe";
-import { and, eq, isNotNull, lte, or } from "drizzle-orm";
+import { and, eq, isNotNull, isNull, lt, lte, or } from "drizzle-orm";
 import { getDb } from "./db";
 import { payments } from "../drizzle/schema";
 import { sdk } from "./_core/sdk";
@@ -106,7 +106,25 @@ export async function chargeRemainingHandler(req: Request, res: Response) {
 
     const nowMs = Date.now();
 
-    // ── 2. Find all deposit_paid payments whose appointment date has passed ──
+    // ── 2a. Clean up stale pending records (abandoned form sessions) ─────────
+    // Pending records with no PayPal order ID or Stripe PI are orphans created
+    // when the payment form loaded but was never completed. Delete them if they
+    // are older than 2 hours to keep the admin dashboard clean.
+    const twoHoursAgoMs = nowMs - 2 * 60 * 60 * 1000;
+    const twoHoursAgoDate = new Date(twoHoursAgoMs);
+    const deletedOrphans = await db
+      .delete(payments)
+      .where(
+        and(
+          eq(payments.status, "pending"),
+          isNull(payments.paypalOrderId),
+          isNull(payments.depositPaymentIntentId),
+          lt(payments.createdAt, twoHoursAgoDate)
+        )
+      );
+    console.log(`[SweepDueCharges] Cleaned up stale pending orphans older than 2h`);
+
+    // ── 2b. Find all deposit_paid payments whose appointment date has passed ──
     // Include both Stripe (have scheduledChargePaymentIntentId) and PayPal
     // (have paypalOrderId and paymentProvider = 'paypal') payments.
     const duePayments = await db
