@@ -283,11 +283,11 @@ export default function HomeHrt3() {
                 backgroundClip: "text",
               }}
             >
-              Is Hormone Therapy
+              Menopause, Hormones
               <br />
-              or GLP-1
+              &amp; Weight Loss.
               <br />
-              Right for You?
+              Done Right for You.
             </span>
           }
           overrideSubline="100% Virtual"

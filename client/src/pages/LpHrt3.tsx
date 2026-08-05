@@ -254,11 +254,11 @@ export default function LpHrt3() {
                   backgroundClip: "text",
                 }}
               >
-                A Custom Plan
+                Menopause, Hormones
                 <br />
-                Built Around
+                &amp; Weight Loss.
                 <br />
-                You.
+                Done Right for You.
               </span>
             }
             overrideSubline="100% Virtual"
