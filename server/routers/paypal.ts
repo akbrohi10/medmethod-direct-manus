@@ -112,15 +112,23 @@ export async function chargePayPalVault(
       ],
       payment_source: {
         // Advanced Card Fields vault — card saved during inline checkout
+        // stored_credentials marks this as a subsequent merchant-initiated transaction
         card: {
           vault_id: vaultToken,
+          stored_credentials: {
+            payment_initiator: "MERCHANT",
+            payment_type: "UNSCHEDULED",
+            usage: "SUBSEQUENT",
+          },
         },
       },
     }),
   });
 
+  console.log(`[chargePayPalVault] createRes status: ${createRes.status}`);
   if (!createRes.ok) {
     const text = await createRes.text();
+    console.error(`[chargePayPalVault] order creation failed: ${text}`);
     return { success: false, error: `PayPal order creation failed: ${text}` };
   }
 

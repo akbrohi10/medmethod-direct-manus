@@ -222,8 +222,14 @@ export async function runSweep(): Promise<{
               ],
               payment_source: {
                 // Advanced Card Fields vault — card saved during inline checkout
+                // stored_credentials marks this as a subsequent merchant-initiated transaction
                 card: {
                   vault_id: payment.paypalVaultToken,
+                  stored_credentials: {
+                    payment_initiator: "MERCHANT",
+                    payment_type: "UNSCHEDULED",
+                    usage: "SUBSEQUENT",
+                  },
                 },
               },
             }),
@@ -235,6 +241,7 @@ export async function runSweep(): Promise<{
           }
 
           const order = (await createRes.json()) as { id: string; status: string };
+          console.log(`[SweepDueCharges] Created new PayPal order for payment ${payment.id}: orderId=${order.id} status=${order.status}`);
 
           // Capture immediately
           const captureRes = await fetch(`${baseUrl}/v2/checkout/orders/${order.id}/capture`, {
