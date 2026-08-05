@@ -111,7 +111,8 @@ export async function chargePayPalVault(
         },
       ],
       payment_source: {
-        paypal: {
+        // Advanced Card Fields vault — card saved during inline checkout
+        card: {
           vault_id: vaultToken,
         },
       },
