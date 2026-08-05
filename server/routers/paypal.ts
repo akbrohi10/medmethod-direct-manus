@@ -261,13 +261,15 @@ export const paypalRouter = router({
         stripeMode: "test", // not used for PayPal, but column is NOT NULL
       });
 
-      // Create PayPal order with vault intent so the payment method is saved
+      // Create PayPal order using Advanced Card Fields (inline card form, no popup).
+      // payment_source.card with vault intent stores the card for the $149 follow-up charge.
       const res = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${client.token}`,
           "Content-Type": "application/json",
           "PayPal-Request-Id": `create-${paymentId}-${Date.now()}`,
+          "Prefer": "return=representation",
         },
         body: JSON.stringify({
           intent: "CAPTURE",
@@ -279,19 +281,18 @@ export const paypalRouter = router({
             },
           ],
           payment_source: {
-            paypal: {
-              experience_context: {
-                brand_name: "MedMethod Direct",
-                user_action: "PAY_NOW",
-                return_url: "https://medmethoddirect.com/thank-you",
-                cancel_url: "https://medmethoddirect.com",
-              },
+            card: {
               attributes: {
                 vault: {
                   store_in_vault: "ON_SUCCESS",
-                  usage_type: "MERCHANT",
-                  customer_type: "CONSUMER",
                 },
+                verification: {
+                  method: "SCA_WHEN_REQUIRED",
+                },
+              },
+              experience_context: {
+                return_url: "https://medmethoddirect.com/thank-you",
+                cancel_url: "https://medmethoddirect.com",
               },
             },
           },
@@ -347,7 +348,17 @@ export const paypalRouter = router({
         status: string;
         id: string;
         payment_source?: {
+          // PayPal wallet flow (legacy)
           paypal?: {
+            attributes?: {
+              vault?: {
+                id?: string;
+                customer?: { id?: string };
+              };
+            };
+          };
+          // Advanced Card Fields flow
+          card?: {
             attributes?: {
               vault?: {
                 id?: string;
@@ -365,9 +376,15 @@ export const paypalRouter = router({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
       }
 
-      // Extract vault token and customer ID from the capture response
-      const vaultToken = capture.payment_source?.paypal?.attributes?.vault?.id ?? null;
-      const customerId = capture.payment_source?.paypal?.attributes?.vault?.customer?.id ?? null;
+      // Extract vault token — works for both card (Advanced Card Fields) and paypal (wallet) flows
+      const vaultToken =
+        capture.payment_source?.card?.attributes?.vault?.id ??
+        capture.payment_source?.paypal?.attributes?.vault?.id ??
+        null;
+      const customerId =
+        capture.payment_source?.card?.attributes?.vault?.customer?.id ??
+        capture.payment_source?.paypal?.attributes?.vault?.customer?.id ??
+        null;
 
       await updatePayment(input.paymentId, {
         status: "deposit_paid",
