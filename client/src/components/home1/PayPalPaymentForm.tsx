@@ -49,13 +49,25 @@ function SubmitButton({
 }) {
   const { cardFieldsForm } = usePayPalCardFields();
   const [ready, setReady] = useState(false);
+  const [notEligible, setNotEligible] = useState(false);
 
   useEffect(() => {
     if (!cardFieldsForm) return;
     // Poll until the hosted fields are ready (isEligible becomes true)
+    let attempts = 0;
     const check = () => {
       try {
-        if (cardFieldsForm.isEligible()) setReady(true);
+        const eligible = cardFieldsForm.isEligible();
+        console.log(`[PayPal CardFields] isEligible=${eligible} (attempt ${attempts})`);
+        if (eligible) {
+          setReady(true);
+        } else {
+          attempts++;
+          // After 10 seconds of polling, mark as not eligible
+          if (attempts > 33) {
+            setNotEligible(true);
+          }
+        }
       } catch {
         // not ready yet
       }
@@ -66,6 +78,18 @@ function SubmitButton({
   }, [cardFieldsForm]);
 
   const isDisabled = !ready || submitting;
+
+  if (notEligible) {
+    return (
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
+        <p className="text-sm font-semibold text-amber-700 mb-1">Card fields not available</p>
+        <p className="text-xs text-amber-600">
+          PayPal Advanced Card Fields are not eligible for this account in the current mode.
+          Please check the browser console for details, or contact PayPal support to enable ACDC on your Live account.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <button
