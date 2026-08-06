@@ -365,8 +365,7 @@ export default function PayPalPaymentForm({
         components: "card-fields",
         intent: "capture",
         vault: true,
-        currency: "USD",
-        ...(mode === "sandbox" ? { "buyer-country": "US" } : {}),
+        ...(mode === "sandbox" ? { currency: "USD", "buyer-country": "US" } : {}),
       }}
     >
       <PayPalCardFormWithProvider
