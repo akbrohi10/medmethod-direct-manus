@@ -14,6 +14,7 @@
  */
 
 import Stripe from "stripe";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import {
   createPayment,
@@ -522,5 +523,22 @@ export const stripeRouter = router({
     const stripeSettings = await getStripeSettings();
     const stripeMode = (stripeSettings?.mode ?? "test") as "test" | "live";
     return getAllPayments({ provider: "stripe", mode: stripeMode });
+  }),
+
+  /**
+   * Public: create a $5 TEST Stripe PaymentIntent (for live integration testing only).
+   */
+  createTestIntent: publicProcedure.mutation(async () => {
+    const stripe = await getStripeClient();
+    if (!stripe) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Stripe is not configured." });
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 500, // $5 in cents
+      currency: "usd",
+      description: "MedMethod Direct — $5 live payment test",
+      metadata: { source: "test-payment-page" },
+    });
+
+    return { clientSecret: paymentIntent.client_secret };
   }),
 });

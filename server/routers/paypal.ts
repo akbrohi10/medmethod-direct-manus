@@ -526,4 +526,90 @@ export const paypalRouter = router({
         (p.paypalMode ?? "sandbox") === mode
     );
   }),
+
+  /**
+   * Public: create a $5 TEST PayPal order (for live integration testing only).
+   * Uses the same vault flow as the real $50 order.
+   */
+  createTestOrder: publicProcedure.mutation(async () => {
+    const settings = await getPaypalSettings();
+    if (!settings) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal not configured" });
+
+    const mode = settings.mode ?? "sandbox";
+    const client = await getPayPalClient(mode);
+    if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: `PayPal ${mode} credentials not configured` });
+
+    const res = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${client.token}`,
+        "Content-Type": "application/json",
+        "PayPal-Request-Id": `test-${Date.now()}`,
+        "Prefer": "return=representation",
+      },
+      body: JSON.stringify({
+        intent: "CAPTURE",
+        purchase_units: [
+          {
+            amount: { currency_code: "USD", value: "5.00" },
+            description: "MedMethod Direct — $5 live payment test",
+          },
+        ],
+        payment_source: {
+          card: {
+            attributes: {
+              vault: { store_in_vault: "ON_SUCCESS" },
+              verification: { method: "SCA_WHEN_REQUIRED" },
+            },
+            experience_context: {
+              return_url: "https://medmethoddirect.com/test-payment",
+              cancel_url: "https://medmethoddirect.com/test-payment",
+            },
+          },
+        },
+      }),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal test order failed: ${text}` });
+    }
+
+    const order = (await res.json()) as { id: string };
+    return { orderId: order.id, mode };
+  }),
+
+  /**
+   * Public: capture the $5 test PayPal order.
+   */
+  captureTestOrder: publicProcedure
+    .input(z.object({ orderId: z.string() }))
+    .mutation(async ({ input }) => {
+      const settings = await getPaypalSettings();
+      if (!settings) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal not configured" });
+
+      const mode = settings.mode ?? "sandbox";
+      const client = await getPayPalClient(mode);
+      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal credentials not configured" });
+
+      const res = await fetch(`${client.baseUrl}/v2/checkout/orders/${input.orderId}/capture`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${client.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal test capture failed: ${text}` });
+      }
+
+      const capture = (await res.json()) as { status: string; id: string };
+      if (capture.status !== "COMPLETED") {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
+      }
+
+      return { success: true, captureId: capture.id };
+    }),
 });

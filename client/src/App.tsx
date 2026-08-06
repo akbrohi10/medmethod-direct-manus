@@ -42,6 +42,7 @@ const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const HipaaNotice = lazy(() => import("@/pages/HipaaNotice"));
 const ConsentTelehealth = lazy(() => import("@/pages/ConsentTelehealth"));
 const SubscriptionPolicy = lazy(() => import("@/pages/SubscriptionPolicy"));
+const TestPayment = lazy(() => import("@/pages/TestPayment"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 
 // Location pages - Virginia
@@ -324,6 +325,7 @@ function Router() {
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/settings" component={AdminSettings} />
         <Route path="/thanks-payment" component={ThanksPayment} />
+        <Route path="/test-payment" component={TestPayment} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
