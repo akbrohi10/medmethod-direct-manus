@@ -658,13 +658,13 @@ export default function LpWL2() {
             </button>
 
             {/* Single trust line */}
-            <p className="text-xs text-gray-500 mt-3">
-              <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>Board-Certified Physician
-              <span className="mx-2 text-gray-200">·</span>
-              <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>100% Virtual
-              <span className="mx-2 text-gray-200">·</span>
-              <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>No Insurance Needed
-            </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+              {["Board-Certified Physician", "100% Virtual", "No Insurance Needed"].map((item) => (
+                <span key={item} className="text-sm text-gray-600 whitespace-nowrap">
+                  <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>{item}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Right: Dr. Al-Deek photo */}
