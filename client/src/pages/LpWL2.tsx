@@ -682,7 +682,7 @@ export default function LpWL2() {
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
             Simple. Transparent. No surprises.
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {/* Card 01 */}
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>01</p>
@@ -704,6 +704,12 @@ export default function LpWL2() {
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
               <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
               <p className="text-sm text-gray-500 leading-relaxed">Discuss your health, weight-loss goals, and treatment options to determine the right next step for you.</p>
+            </div>
+            {/* Card 04 */}
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>04</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Start Treatment</p>
+              <p className="text-sm text-gray-500 leading-relaxed">Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.</p>
             </div>
           </div>
         </div>
