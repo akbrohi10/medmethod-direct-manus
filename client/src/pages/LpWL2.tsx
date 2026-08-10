@@ -748,9 +748,9 @@ export default function LpWL2() {
               </div>
               <ul className="flex flex-col gap-4 mb-5">
                 {[
-                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Responses within 24–48 hours." },
-                  { title: "Treatment & prescription management", desc: "Adjustments and refills as your needs change." },
-                  { title: "Ongoing guidance between visits", desc: "A physician you can reach when questions come up." },
+                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions, symptoms, or guidance — responses within 24–48 hours." },
+                  { title: "Treatment & dosing adjustments", desc: "Your plan can be updated as your needs change." },
+                  { title: "Prescription management & refills", desc: "Stay on track without starting over each time." },
                 ].map((item) => (
                   <li key={item.title} className="flex items-start gap-2.5">
                     <Check size={14} className="flex-shrink-0 mt-1" style={{ color: BRAND_PINK }} />
@@ -761,7 +761,7 @@ export default function LpWL2() {
                   </li>
                 ))}
               </ul>
-              <p className="text-xs text-gray-400 mb-4">Cancel anytime with 30 days' notice.</p>
+              <p className="text-sm text-gray-600 mb-4">Cancel anytime with 30 days' notice.</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <p className="text-sm font-semibold text-gray-700 mb-0.5">Prefer a face-to-face follow-up?</p>
                 <p className="text-sm text-gray-600">
