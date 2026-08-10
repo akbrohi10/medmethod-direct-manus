@@ -746,13 +746,11 @@ export default function LpWL2() {
                 <span className="text-4xl font-extrabold text-gray-900">$49</span>
                 <span className="text-gray-500 text-sm">/month</span>
               </div>
-              <p className="text-sm text-gray-600 italic mb-4 -mt-2">All ongoing care is delivered through secure messaging with Dr. Al-Deek.</p>
               <ul className="flex flex-col gap-4 mb-5">
                 {[
-                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions or new symptoms? Get a response within 24–48 hours." },
-                  { title: "Ongoing treatment management", desc: "Your treatment can be adjusted as your needs change." },
-                  { title: "Prescription management & refills", desc: "Stay on track without having to start over each time." },
-                  { title: "Ongoing support & guidance", desc: "Have a physician you can reach when questions come up." },
+                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Responses within 24–48 hours." },
+                  { title: "Treatment & prescription management", desc: "Adjustments and refills as your needs change." },
+                  { title: "Ongoing guidance between visits", desc: "A physician you can reach when questions come up." },
                 ].map((item) => (
                   <li key={item.title} className="flex items-start gap-2.5">
                     <Check size={14} className="flex-shrink-0 mt-1" style={{ color: BRAND_PINK }} />
@@ -763,7 +761,7 @@ export default function LpWL2() {
                   </li>
                 ))}
               </ul>
-              <p className="text-sm text-gray-600 mb-4">Cancel anytime with 30 days' notice.</p>
+              <p className="text-xs text-gray-400 mb-4">Cancel anytime with 30 days' notice.</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <p className="text-sm font-semibold text-gray-700 mb-0.5">Prefer a face-to-face follow-up?</p>
                 <p className="text-sm text-gray-600">
