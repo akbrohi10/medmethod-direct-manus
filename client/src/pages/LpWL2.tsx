@@ -714,39 +714,42 @@ export default function LpWL2() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <p className="text-xs font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>ONGOING CARE</p>
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
-            If GLP-1 is right for you
+            Your Customized Treatment Plan
           </h2>
           <p className="text-sm text-gray-500 text-center mb-8 max-w-xl mx-auto">
-            Dr. Al-Deek will write your prescription on the call. You'll then have the option to join our membership for ongoing physician support.
+            If treatment is appropriate, Dr. Al-Deek will create a personalized plan based on your health, goals, and needs—with the option for ongoing physician support as your treatment progresses.
           </p>
           <div className="max-w-sm mx-auto bg-white rounded-2xl border-2 shadow-lg overflow-hidden" style={{ borderColor: BRAND_PINK }}>
             <div className="px-6 py-5" style={{ background: BRAND_GRADIENT }}>
-              <p className="text-white font-bold text-lg">Monthly Membership</p>
-              <p className="text-white/80 text-sm">Ongoing physician-led care</p>
+              <p className="text-white font-bold text-lg">Ongoing Physician Support</p>
+              <p className="text-white/80 text-sm">Continue your care with Dr. Al-Deek</p>
             </div>
             <div className="px-6 py-5">
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-4xl font-extrabold text-gray-900">$49</span>
                 <span className="text-gray-500 text-sm">/month</span>
               </div>
-              <ul className="flex flex-col gap-3 mb-5">
+              <ul className="flex flex-col gap-4 mb-5">
                 {[
-                  "Direct secure messaging with Dr. Al-Deek",
-                  "Prescription management",
-                  "Dosing adjustments",
-                  "Prescription refills",
-                  "Ongoing support & guidance",
+                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions or new symptoms? Get a response within 24–48 hours." },
+                  { title: "Ongoing treatment management", desc: "Your treatment can be adjusted as your needs change." },
+                  { title: "Prescription management & refills", desc: "Stay on track without having to start over each time." },
+                  { title: "Ongoing support & guidance", desc: "Have a physician you can reach when questions come up." },
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
-                    <Check size={14} className="flex-shrink-0 mt-0.5" style={{ color: BRAND_PINK }} />
-                    {item}
+                  <li key={item.title} className="flex items-start gap-2.5">
+                    <Check size={14} className="flex-shrink-0 mt-1" style={{ color: BRAND_PINK }} />
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+                      <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{item.desc}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
-              <p className="text-xs text-gray-400">Cancel anytime with 30 days' notice.</p>
+              <p className="text-xs text-gray-400 mb-4">Cancel anytime with 30 days' notice.</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-xs font-semibold text-gray-600 mb-0.5">Prefer a face-to-face follow-up?</p>
                 <p className="text-xs text-gray-500">
-                  Want a video visit? Add one for <strong>$50</strong> — 30 minutes with Dr. Al-Deek.
+                  Add a 30-minute virtual visit with Dr. Al-Deek for <strong>$50</strong>.
                 </p>
               </div>
             </div>
