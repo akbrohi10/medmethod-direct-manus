@@ -631,9 +631,9 @@ export default function LpWL2() {
 
             {/* $15 refund — inline, no box */}
             <div className="mb-8">
-              <p className="text-sm text-gray-700 mb-1">
+              <p className="text-base font-semibold text-gray-800 mb-1">
                 $15 reserves your visit ·{" "}
-                <span className="font-semibold" style={{ color: BRAND_PLUM }}>Show up → Get your $15 back</span>
+                <span style={{ color: BRAND_PLUM }}>Show up → Get your $15 back</span>
               </p>
               <p className="text-xs text-gray-400 italic">Even if you decide not to move forward.</p>
             </div>
@@ -643,11 +643,11 @@ export default function LpWL2() {
               className="w-full sm:w-auto px-10 py-4 rounded-xl text-white font-bold text-base transition-all hover:opacity-90"
               style={{ background: BRAND_GRADIENT, boxShadow: "0 8px 32px rgba(232,51,158,0.35)" }}
             >
-              Reserve My 15-Min Visit →
+              Reserve My Visit →
             </button>
 
             {/* Single trust line */}
-            <p className="text-xs text-gray-400 mt-4">
+            <p className="text-xs text-gray-500 mt-3">
               <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>Board-Certified Physician
               <span className="mx-2 text-gray-200">·</span>
               <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>100% Virtual
