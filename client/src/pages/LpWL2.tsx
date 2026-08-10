@@ -679,7 +679,7 @@ export default function LpWL2() {
               {/* Name card */}
               <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
                 <p className="font-bold text-gray-900 text-sm">Dr. Jumana Al-Deek, DO</p>
-                <p className="text-xs text-gray-500">Board-Certified Physician · Medical Weight Loss Specialist</p>
+                <p className="text-xs text-gray-500">Board-Certified Physician · Medical Weight Loss & Menopause Specialist</p>
               </div>
             </div>
           </div>
