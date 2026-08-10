@@ -636,7 +636,7 @@ export default function LpWL2() {
                 100% Virtual
               </span>
             </div>
-            <p className="text-base text-gray-600 mb-7 leading-relaxed">
+            <p className="text-base text-gray-700 mb-7 leading-relaxed">
               Talk one-on-one with Dr. Al-Deek to find out which weight-loss approach may be right for you.
             </p>
 
@@ -646,7 +646,7 @@ export default function LpWL2() {
                 $15 reserves your visit ·{" "}
                 <span style={{ color: BRAND_PLUM }}>Show up → Get your $15 back</span>
               </p>
-              <p className="text-sm text-gray-500 italic">Even if you decide not to continue.</p>
+              <p className="text-sm text-gray-600 italic">Even if you decide not to continue.</p>
             </div>
 
             <button
@@ -698,7 +698,7 @@ export default function LpWL2() {
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>01</p>
               <p className="font-bold text-gray-900 mb-2 text-sm">Tell us about yourself</p>
-              <p className="text-sm text-gray-500 leading-relaxed">Complete a quick 3-minute intake so Dr. Al-Deek can review your health and goals before your visit.</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Complete a quick 3-minute intake so Dr. Al-Deek can review your health and goals before your visit.</p>
             </div>
             {/* Card 02 */}
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
@@ -714,13 +714,13 @@ export default function LpWL2() {
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
               <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
-              <p className="text-sm text-gray-500 leading-relaxed">Discuss your health, weight-loss goals, and treatment options to determine the right next step for you.</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Discuss your health, weight-loss goals, and treatment options to determine the right next step for you.</p>
             </div>
             {/* Card 04 */}
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>04</p>
               <p className="font-bold text-gray-900 mb-2 text-sm">Start Treatment</p>
-              <p className="text-sm text-gray-500 leading-relaxed">Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.</p>
             </div>
           </div>
         </div>
@@ -733,7 +733,7 @@ export default function LpWL2() {
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
             Your Customized Treatment Plan
           </h2>
-          <p className="text-sm text-gray-500 text-center mb-8 max-w-xl mx-auto">
+          <p className="text-base text-gray-700 text-center mb-8 max-w-xl mx-auto">
             If treatment is appropriate, Dr. Al-Deek will create a personalized plan based on your health, goals, and needs—with the option for ongoing physician support as your treatment progresses.
           </p>
           <div className="max-w-sm mx-auto bg-white rounded-2xl border-2 shadow-lg overflow-hidden" style={{ borderColor: BRAND_PINK }}>
@@ -746,7 +746,7 @@ export default function LpWL2() {
                 <span className="text-4xl font-extrabold text-gray-900">$49</span>
                 <span className="text-gray-500 text-sm">/month</span>
               </div>
-              <p className="text-xs text-gray-500 italic mb-4 -mt-2">All ongoing care is delivered through secure messaging with Dr. Al-Deek.</p>
+              <p className="text-sm text-gray-600 italic mb-4 -mt-2">All ongoing care is delivered through secure messaging with Dr. Al-Deek.</p>
               <ul className="flex flex-col gap-4 mb-5">
                 {[
                   { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions or new symptoms? Get a response within 24–48 hours." },
@@ -757,16 +757,16 @@ export default function LpWL2() {
                   <li key={item.title} className="flex items-start gap-2.5">
                     <Check size={14} className="flex-shrink-0 mt-1" style={{ color: BRAND_PINK }} />
                     <div>
-                      <p className="text-sm font-semibold text-gray-800">{item.title}</p>
-                      <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{item.desc}</p>
+                      <p className="text-sm font-semibold text-gray-900">{item.title}</p>
+                      <p className="text-sm text-gray-600 mt-0.5 leading-relaxed">{item.desc}</p>
                     </div>
                   </li>
                 ))}
               </ul>
-              <p className="text-xs text-gray-400 mb-4">Cancel anytime with 30 days' notice.</p>
+              <p className="text-sm text-gray-600 mb-4">Cancel anytime with 30 days' notice.</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-600 mb-0.5">Prefer a face-to-face follow-up?</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-sm font-semibold text-gray-700 mb-0.5">Prefer a face-to-face follow-up?</p>
+                <p className="text-sm text-gray-600">
                   Add a 30-minute virtual visit with Dr. Al-Deek for <strong>$50</strong>.
                 </p>
               </div>
@@ -784,20 +784,20 @@ export default function LpWL2() {
           </h2>
           <div className="text-center mb-8">
             <p className="text-base text-gray-500">Semaglutide &amp; tirzepatide — priced monthly</p>
-            <p className="text-sm text-gray-400 italic mt-1">Hormone therapy pricing available upon consultation.</p>
+            <p className="text-sm italic mt-1" style={{ color: "#7A1E7E" }}>Hormone therapy pricing available upon consultation.</p>
           </div>
           <div className="max-w-md mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="px-6 py-5 border-b border-gray-100">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-bold text-gray-900 mb-1">Compounded</p>
-                  <p className="text-base text-gray-500">Semaglutide or tirzepatide</p>
+                  <p className="text-base text-gray-700">Semaglutide or tirzepatide</p>
                   <p className="text-sm mt-1" style={{ color: BRAND_PINK }}>Access pre-negotiated rates through our preferred partner pharmacies.</p>
-                  <p className="text-base text-gray-500 mt-1">Shipped directly to your door</p>
+                  <p className="text-base text-gray-700 mt-1">Shipped directly to your door</p>
                 </div>
                 <div className="text-right flex-shrink-0 ml-4">
                   <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$100–$300</p>
-                  <p className="text-sm text-gray-400">/mo</p>
+                  <p className="text-sm text-gray-600">/mo</p>
                 </div>
               </div>
             </div>
@@ -805,8 +805,8 @@ export default function LpWL2() {
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-bold text-gray-900 mb-1">Brand-Name</p>
-                  <p className="text-base text-gray-500">Wegovy or Zepbound</p>
-                  <p className="text-base text-gray-500 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
+                  <p className="text-base text-gray-700">Wegovy or Zepbound</p>
+                  <p className="text-base text-gray-700 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
                 </div>
                 <div className="text-right flex-shrink-0 ml-4">
                   <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$150–$450</p>
@@ -815,7 +815,7 @@ export default function LpWL2() {
               </div>
             </div>
           </div>
-          <p className="text-sm text-gray-500 text-center mt-4 max-w-sm mx-auto">
+          <p className="text-sm text-gray-600 text-center mt-4 max-w-sm mx-auto">
             Medication pricing varies based on dosage, formulation, and pharmacy. Dr. Al-Deek will discuss your options on your call.
           </p>
         </div>
@@ -826,7 +826,7 @@ export default function LpWL2() {
         <h2 className="text-2xl font-bold text-gray-900 mb-3" style={{ fontFamily: "Georgia, serif" }}>
           Ready to find out if GLP-1 is right for you?
         </h2>
-        <p className="text-base text-gray-500 mb-6 max-w-md mx-auto">
+        <p className="text-base text-gray-700 mb-6 max-w-md mx-auto">
           15 minutes with Dr. Al-Deek. $15 fully refunded when you attend.
         </p>
         <button
@@ -836,7 +836,7 @@ export default function LpWL2() {
         >
           Book My Appt.
         </button>
-        <p className="text-sm text-gray-400 mt-3">No insurance needed · 100% virtual · Cancel anytime</p>
+        <p className="text-sm text-gray-600 mt-3">No insurance needed · 100% virtual · Cancel anytime</p>
       </section>
 
       {/* ── Footer ── */}
