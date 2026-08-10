@@ -653,7 +653,7 @@ export default function LpWL2() {
               className="w-full sm:w-auto px-10 py-4 rounded-xl text-white font-bold text-base transition-all hover:opacity-90"
               style={{ background: BRAND_GRADIENT, boxShadow: "0 8px 32px rgba(232,51,158,0.35)" }}
             >
-              Reserve My Visit →
+              Book My Visit →
             </button>
           </div>
 
