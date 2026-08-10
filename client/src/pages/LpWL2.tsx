@@ -618,21 +618,26 @@ export default function LpWL2() {
           {/* Left: copy */}
           <div>
             <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: BRAND_PINK }}>
-              VIRTUAL · 100% ONLINE · NO INSURANCE NEEDED
+              VIRTUAL · 15-MINUTE VISIT · NO INSURANCE NEEDED
             </p>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-4" style={{ fontFamily: "Georgia, serif" }}>
-              Is GLP-1<br />Right for You?
+            <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4" style={{ fontFamily: "Georgia, serif" }}>
+              <span className="text-gray-900">Medical Weight Loss.</span><br />
+              <span style={{ background: BRAND_GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Done Right.</span>
             </h1>
-            <p className="text-lg text-gray-600 mb-2 leading-relaxed">
-              Book a 15-minute virtual visit with Dr. Al-Deek to find out.
-            </p>
-            <p className="text-base text-gray-500 mb-8 leading-relaxed">
-              Reserve your appointment with a fully refundable <strong className="text-gray-700">$15 hold</strong>. Attend your appointment and your $15 is refunded — even if you decide not to move forward.
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              Talk one-on-one with Dr. Al-Deek during a 15-minute virtual visit to find out which weight-loss approach may be right for you.
             </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {["Board-Certified Physician", "100% Virtual", "No Insurance Needed", "$15 Fully Refundable"].map((badge) => (
+            {/* Refundable reservation — prominent block */}
+            <div className="rounded-xl border-2 px-5 py-4 mb-7" style={{ borderColor: "rgba(232,51,158,0.3)", background: "rgba(232,51,158,0.04)" }}>
+              <p className="font-bold text-gray-900 text-base mb-0.5">$15 reserves your appointment.</p>
+              <p className="font-bold text-base mb-1" style={{ color: BRAND_PLUM }}>Show up → Get your $15 back.</p>
+              <p className="text-sm text-gray-500 italic">Even if you decide not to move forward.</p>
+            </div>
+
+            {/* Trust badges — 3 only */}
+            <div className="flex flex-wrap gap-3 mb-7">
+              {["Board-Certified Physician", "100% Virtual", "No Insurance Needed"].map((badge) => (
                 <span
                   key={badge}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border"
@@ -649,9 +654,9 @@ export default function LpWL2() {
               className="w-full sm:w-auto px-10 py-4 rounded-xl text-white font-bold text-base transition-all hover:opacity-90"
               style={{ background: BRAND_GRADIENT, boxShadow: "0 8px 32px rgba(232,51,158,0.35)" }}
             >
-              Book My Appt.
+              Reserve My 15-Min Visit →
             </button>
-            <p className="text-xs text-gray-400 mt-3">$15 hold · Fully refunded when you attend</p>
+            <p className="text-xs text-gray-400 mt-3">$15 refundable reservation · No obligation to continue</p>
           </div>
 
           {/* Right: Dr. Al-Deek photo */}
@@ -666,7 +671,7 @@ export default function LpWL2() {
               {/* Name card */}
               <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
                 <p className="font-bold text-gray-900 text-sm">Dr. Jumana Al-Deek, DO</p>
-                <p className="text-xs text-gray-500">Board-Certified · Weight Loss Specialist · GLP-1 Expert</p>
+                <p className="text-xs text-gray-500">Board-Certified Physician · Medical Weight Loss Specialist</p>
               </div>
             </div>
           </div>
