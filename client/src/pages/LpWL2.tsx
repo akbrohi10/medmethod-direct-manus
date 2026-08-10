@@ -57,6 +57,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [zipCode, setZipCode] = useState("");
 
   // Payment state
   const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
@@ -77,7 +78,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
       setWeightGoal(""); setWeightDuration(""); setGlp1Before(""); setGlp1Details("");
       setConditions([]); setMedications(""); setHasLabs(""); setPrimaryGoal("");
       setActivityLevel(""); setHeightFt(""); setHeightIn(""); setWeight(""); setAge(""); setSex("");
-      setFirstName(""); setEmail(""); setPhone("");
+      setFirstName(""); setEmail(""); setPhone(""); setZipCode("");
       setStripePaymentId(null); setStripePaymentIntentId(null); setPaypalPaymentId(null);
       setChargeScheduled(false);
     }
@@ -469,6 +470,10 @@ function WL2Modal({ open, onClose }: ModalProps) {
               <div>
                 <label className={labelCls}>Phone number</label>
                 <input className={inputCls} type="tel" placeholder="(555) 000-0000" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              </div>
+              <div>
+                <label className={labelCls}>ZIP Code</label>
+                <input className={inputCls} type="text" inputMode="numeric" maxLength={10} placeholder="12345" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
               </div>
             </div>
           )}
