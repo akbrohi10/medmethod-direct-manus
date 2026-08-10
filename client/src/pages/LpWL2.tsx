@@ -778,7 +778,7 @@ export default function LpWL2() {
                 <div>
                   <p className="font-bold text-gray-900 mb-1">Compounded</p>
                   <p className="text-sm text-gray-500">Semaglutide or tirzepatide</p>
-                  <p className="text-xs mt-1" style={{ color: BRAND_PINK }}>Preferred pricing may be available through partner pharmacies.</p>
+                  <p className="text-xs mt-1" style={{ color: BRAND_PINK }}>Access pre-negotiated rates through our preferred partner pharmacies.</p>
                   <p className="text-sm text-gray-500 mt-1">Shipped directly to your door</p>
                 </div>
                 <div className="text-right flex-shrink-0 ml-4">
