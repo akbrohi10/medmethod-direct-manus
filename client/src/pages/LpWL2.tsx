@@ -782,7 +782,10 @@ export default function LpWL2() {
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
             Weight-Loss Medication
           </h2>
-          <p className="text-base text-gray-500 text-center mb-8">Semaglutide &amp; tirzepatide — priced monthly</p>
+          <div className="text-center mb-8">
+            <p className="text-base text-gray-500">Semaglutide &amp; tirzepatide — priced monthly</p>
+            <p className="text-sm text-gray-400 italic mt-1">Hormone therapy pricing available upon consultation.</p>
+          </div>
           <div className="max-w-md mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="px-6 py-5 border-b border-gray-100">
               <div className="flex items-start justify-between">
