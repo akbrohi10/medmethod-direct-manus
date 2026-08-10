@@ -729,6 +729,7 @@ export default function LpWL2() {
                 <span className="text-4xl font-extrabold text-gray-900">$49</span>
                 <span className="text-gray-500 text-sm">/month</span>
               </div>
+              <p className="text-xs text-gray-500 italic mb-4 -mt-2">All ongoing care is delivered through secure messaging with Dr. Al-Deek.</p>
               <ul className="flex flex-col gap-4 mb-5">
                 {[
                   { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions or new symptoms? Get a response within 24–48 hours." },
