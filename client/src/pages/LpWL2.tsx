@@ -683,7 +683,7 @@ export default function LpWL2() {
           {/* Stat bar */}
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-8">
             {[
-              { number: "1,000+", label: "Patients Seen" },
+              { number: "10,000+", label: "Patients Seen" },
               { number: "17", label: "States Licensed" },
               { number: "Board-Certified", label: "Physician, DO" },
             ].map((stat) => (
