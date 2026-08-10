@@ -670,12 +670,7 @@ export default function LpWL2() {
               <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
                 <p className="font-bold text-gray-900 text-sm">Dr. Jumana Al-Deek, DO</p>
                 <p className="text-xs text-gray-500">Board-Certified Physician · Medical Weight Loss & Menopause Specialist</p>
-              </div>
-              {/* Trust indicators below photo */}
-              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 w-72 sm:w-80 lg:w-96">
-                <span className="text-sm text-gray-600 whitespace-nowrap">
-                  <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>No Insurance Needed
-                </span>
+                <p className="text-xs mt-1.5 font-semibold" style={{ color: BRAND_PINK }}>✓ No Insurance Needed</p>
               </div>
             </div>
           </div>
