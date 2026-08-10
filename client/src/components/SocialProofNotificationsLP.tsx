@@ -51,7 +51,7 @@ const MESSAGES: NotificationMessage[] = [
   // CATEGORY 1: Appointment Activity (60%)
   { category: "appointment", text: "Someone just booked their initial consultation with Dr. Al-Deek." },
   { category: "appointment", text: "A new patient appointment was confirmed today." },
-  { category: "appointment", text: "Someone just reserved their spot with a $50 deposit." },
+  { category: "appointment", text: "Someone just reserved their spot with Dr. Al-Deek." },
   { category: "appointment", text: "A patient just took the first step toward personalized care." },
   { category: "appointment", text: "A new 45-minute consultation was just booked." },
   { category: "appointment", text: "Someone just secured their appointment with Dr. Al-Deek." },
