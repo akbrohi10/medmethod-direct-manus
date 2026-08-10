@@ -673,11 +673,9 @@ export default function LpWL2() {
               </div>
               {/* Trust indicators below photo */}
               <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 w-72 sm:w-80 lg:w-96">
-                {["Board-Certified Physician", "100% Virtual", "No Insurance Needed"].map((item) => (
-                  <span key={item} className="text-sm text-gray-600 whitespace-nowrap">
-                    <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>{item}
-                  </span>
-                ))}
+                <span className="text-sm text-gray-600 whitespace-nowrap">
+                  <span className="mr-1" style={{ color: BRAND_PINK }}>✓</span>No Insurance Needed
+                </span>
               </div>
             </div>
           </div>
