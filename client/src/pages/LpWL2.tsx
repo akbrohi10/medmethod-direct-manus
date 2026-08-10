@@ -713,7 +713,7 @@ export default function LpWL2() {
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
               <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
               <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
-              <p className="text-sm text-gray-700 leading-relaxed">Discuss your health, weight-loss goals, and treatment options to determine the right next step for you.</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Together, you and Dr. Al-Deek will map out a personalized weight-loss approach based on your health, goals, and needs.</p>
             </div>
             {/* Card 04 */}
             <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
