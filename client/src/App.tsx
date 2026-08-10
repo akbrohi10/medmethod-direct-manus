@@ -44,6 +44,7 @@ const ConsentTelehealth = lazy(() => import("@/pages/ConsentTelehealth"));
 const SubscriptionPolicy = lazy(() => import("@/pages/SubscriptionPolicy"));
 const TestPayment = lazy(() => import("@/pages/TestPayment"));
 const LpWL2 = lazy(() => import("@/pages/LpWL2"));
+const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 
 // Location pages - Virginia
@@ -328,6 +329,7 @@ function Router() {
         <Route path="/thanks-payment" component={ThanksPayment} />
         <Route path="/test-payment" component={TestPayment} />
         <Route path="/lp/WL2" component={LpWL2} />
+        <Route path="/thank-you2" component={ThankYou2} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
