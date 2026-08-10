@@ -795,7 +795,7 @@ export default function LpWL2() {
               </div>
             </div>
           </div>
-          <p className="text-xs text-gray-400 text-center mt-4 max-w-sm mx-auto">
+          <p className="text-sm text-gray-500 text-center mt-4 max-w-sm mx-auto">
             Medication pricing varies based on dosage, formulation, and pharmacy. Dr. Al-Deek will discuss your options on your call.
           </p>
         </div>
