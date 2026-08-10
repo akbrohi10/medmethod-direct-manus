@@ -635,7 +635,7 @@ export default function LpWL2() {
                 $15 reserves your visit ·{" "}
                 <span style={{ color: BRAND_PLUM }}>Show up → Get your $15 back</span>
               </p>
-              <p className="text-xs text-gray-400 italic">Even if you decide not to move forward.</p>
+              <p className="text-xs text-gray-400 italic">Even if you decide not to continue.</p>
             </div>
 
             <button
