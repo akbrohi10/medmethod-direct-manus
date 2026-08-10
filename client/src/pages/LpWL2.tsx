@@ -682,18 +682,29 @@ export default function LpWL2() {
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
             Simple. Transparent. No surprises.
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { step: "01", title: "Fill out your intake form", desc: "Takes 3 minutes. Dr. Al-Deek reviews it before your call so you can make the most of your 15 minutes." },
-              { step: "02", title: "Reserve with a $15 hold", desc: "Fully refunded when you attend — even if GLP-1 isn't the right fit for you." },
-              { step: "03", title: "Meet virtually with Dr. Al-Deek", desc: "She'll review your health, determine if GLP-1 is appropriate, and outline your personalized plan." },
-            ].map((item) => (
-              <div key={item.step} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <p className="text-3xl font-extrabold mb-3" style={{ color: "rgba(232,51,158,0.25)" }}>{item.step}</p>
-                <p className="font-bold text-gray-900 mb-2">{item.title}</p>
-                <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-stretch">
+            {/* Card 01 */}
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>01</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Tell us about yourself</p>
+              <p className="text-sm text-gray-500 leading-relaxed">Complete a quick 3-minute intake so Dr. Al-Deek can review your health and goals before your visit.</p>
+            </div>
+            {/* Card 02 */}
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>02</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Reserve your visit for $15</p>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                Your $15 is{" "}
+                <span className="font-semibold" style={{ color: BRAND_PLUM }}>fully refunded when you attend</span>
+                —even if you decide not to continue.
+              </p>
+            </div>
+            {/* Card 03 */}
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
+              <p className="text-sm text-gray-500 leading-relaxed">Discuss your health, weight-loss goals, and treatment options to determine the right next step for you.</p>
+            </div>
           </div>
         </div>
       </section>
