@@ -677,6 +677,33 @@ export default function LpWL2() {
         </div>
       </section>
 
+      {/* ── Social Proof ── */}
+      <section className="border-y border-gray-100 py-8 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          {/* Stat bar */}
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-8">
+            {[
+              { number: "1,000+", label: "Patients Seen" },
+              { number: "17", label: "States Licensed" },
+              { number: "Board-Certified", label: "Physician, DO" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-2xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>{stat.number}</p>
+                <p className="text-sm text-gray-600 mt-0.5">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+          {/* Physician quote */}
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-base text-gray-700 italic leading-relaxed mb-3">
+              "My goal is simple — to understand your health, your goals, and what hasn't worked before. Then we build a plan that actually fits your life."
+            </p>
+            <p className="text-sm font-semibold text-gray-800">Dr. Jumana Al-Deek, DO</p>
+            <p className="text-xs text-gray-500 mt-0.5">Author, <em>The Menopause Weight Loss Trap</em></p>
+          </div>
+        </div>
+      </section>
+
       {/* ── How It Works ── */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
