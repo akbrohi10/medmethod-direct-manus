@@ -680,23 +680,25 @@ export default function LpWL2() {
       {/* ── Social Proof ── */}
       <section className="border-y border-gray-100 py-8 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          {/* Stat bar */}
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-8">
-            {[
-              { number: "10,000+", label: "Patients Seen" },
-              { number: "17", label: "States Licensed" },
-              { number: "Board-Certified", label: "Physician, DO" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>{stat.number}</p>
-                <p className="text-sm text-gray-600 mt-0.5">{stat.label}</p>
-              </div>
-            ))}
+          {/* 2-stat row */}
+          <div className="flex justify-center items-center gap-0 mb-7">
+            <div className="text-center px-8 sm:px-14">
+              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>10,000+</p>
+              <p className="text-sm text-gray-600 mt-1">Patients Seen</p>
+            </div>
+            <div className="w-px h-12 bg-gray-200 flex-shrink-0" />
+            <div className="text-center px-8 sm:px-14">
+              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>17</p>
+              <p className="text-sm text-gray-600 mt-1">States Licensed</p>
+            </div>
           </div>
+          {/* Divider */}
+          <div className="w-16 h-px bg-gray-200 mx-auto mb-6" />
           {/* Physician quote */}
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="max-w-xl mx-auto text-center">
+            <p className="text-lg font-bold mb-1" style={{ color: BRAND_PINK }}>"</p>
             <p className="text-base text-gray-700 italic leading-relaxed mb-3">
-              "My goal is simple — to understand your health, your goals, and what hasn't worked before. Then we build a plan that actually fits your life."
+              My goal is simple — to understand your health, your goals, and what hasn't worked before. Then we build a plan that actually fits your life.
             </p>
             <p className="text-sm font-semibold text-gray-800">Dr. Jumana Al-Deek, DO</p>
             <p className="text-xs text-gray-500 mt-0.5">Author, <em>The Menopause Weight Loss Trap</em></p>
