@@ -772,23 +772,23 @@ export default function LpWL2() {
       {/* ── Medication Pricing ── */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>MEDICATION PRICING</p>
+          <p className="text-sm font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>MEDICATION PRICING</p>
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
             Weight-Loss Medication
           </h2>
-          <p className="text-sm text-gray-500 text-center mb-8">Semaglutide &amp; tirzepatide — priced monthly</p>
+          <p className="text-base text-gray-500 text-center mb-8">Semaglutide &amp; tirzepatide — priced monthly</p>
           <div className="max-w-md mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="px-6 py-5 border-b border-gray-100">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-bold text-gray-900 mb-1">Compounded</p>
-                  <p className="text-sm text-gray-500">Semaglutide or tirzepatide</p>
-                  <p className="text-xs mt-1" style={{ color: BRAND_PINK }}>Access pre-negotiated rates through our preferred partner pharmacies.</p>
-                  <p className="text-sm text-gray-500 mt-1">Shipped directly to your door</p>
+                  <p className="text-base text-gray-500">Semaglutide or tirzepatide</p>
+                  <p className="text-sm mt-1" style={{ color: BRAND_PINK }}>Access pre-negotiated rates through our preferred partner pharmacies.</p>
+                  <p className="text-base text-gray-500 mt-1">Shipped directly to your door</p>
                 </div>
                 <div className="text-right flex-shrink-0 ml-4">
                   <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$100–$300</p>
-                  <p className="text-xs text-gray-400">/mo</p>
+                  <p className="text-sm text-gray-400">/mo</p>
                 </div>
               </div>
             </div>
@@ -796,8 +796,8 @@ export default function LpWL2() {
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-bold text-gray-900 mb-1">Brand-Name</p>
-                  <p className="text-sm text-gray-500">Wegovy or Zepbound</p>
-                  <p className="text-sm text-gray-500 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
+                  <p className="text-base text-gray-500">Wegovy or Zepbound</p>
+                  <p className="text-base text-gray-500 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
                 </div>
                 <div className="text-right flex-shrink-0 ml-4">
                   <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$150–$450</p>
@@ -817,17 +817,17 @@ export default function LpWL2() {
         <h2 className="text-2xl font-bold text-gray-900 mb-3" style={{ fontFamily: "Georgia, serif" }}>
           Ready to find out if GLP-1 is right for you?
         </h2>
-        <p className="text-sm text-gray-500 mb-6 max-w-md mx-auto">
+        <p className="text-base text-gray-500 mb-6 max-w-md mx-auto">
           15 minutes with Dr. Al-Deek. $15 fully refunded when you attend.
         </p>
         <button
           onClick={() => setModalOpen(true)}
-          className="px-10 py-4 rounded-xl text-white font-bold text-base transition-all hover:opacity-90"
+          className="w-full sm:w-auto px-10 py-4 rounded-xl text-white font-bold text-lg transition-all hover:opacity-90"
           style={{ background: BRAND_GRADIENT, boxShadow: "0 8px 32px rgba(232,51,158,0.35)" }}
         >
           Book My Appt.
         </button>
-        <p className="text-xs text-gray-400 mt-3">No insurance needed · 100% virtual · Cancel anytime</p>
+        <p className="text-sm text-gray-400 mt-3">No insurance needed · 100% virtual · Cancel anytime</p>
       </section>
 
       {/* ── Footer ── */}
