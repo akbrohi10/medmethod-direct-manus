@@ -20,8 +20,8 @@ import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
 const GHL_PAYMENT_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/d37a2de2-c00f-40ed-bb00-a8efa3127093";
 
-const DR_PHOTO = "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
-const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
+const DR_PHOTO = "/manus-storage/wl2-dr-aldeek-hero_8cc8a264.webp";
+const LOGO = "/manus-storage/wl2-medmethod-logo_7ec29944.webp";
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
@@ -627,13 +627,15 @@ export default function LpWL2() {
         <meta property="og:title" content="Is GLP-1 Right for You? | MedMethod Direct" />
         <meta property="og:description" content="Book a 15-minute virtual visit with Dr. Al-Deek to find out if GLP-1 is right for you." />
         <meta property="og:image" content={OG_IMAGE} />
+        <link rel="preload" as="image" href={DR_PHOTO} type="image/webp" fetchPriority="high" />
+        <link rel="preload" as="image" href={LOGO} type="image/webp" fetchPriority="high" />
       </Helmet>
 
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <a href="/">
-            <img src={LOGO} alt="MedMethod Direct" className="h-10 w-auto object-contain" />
+            <img src={LOGO} alt="MedMethod Direct" width="240" height="80" fetchPriority="high" decoding="async" className="h-10 w-auto object-contain" />
           </a>
           <div className="flex items-center gap-3">
             <a href="tel:+18883627011" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-gray-500 hover:text-pink-600 transition-colors">
@@ -697,6 +699,10 @@ export default function LpWL2() {
               <img
                 src={DR_PHOTO}
                 alt="Dr. Jumana Al-Deek, DO"
+                width="960"
+                height="1280"
+                fetchPriority="high"
+                decoding="async"
                 className="w-72 sm:w-80 lg:w-96 rounded-2xl object-cover shadow-xl"
                 style={{ aspectRatio: "3/4", objectPosition: "top" }}
               />
@@ -893,7 +899,7 @@ export default function LpWL2() {
 
       {/* ── Footer ── */}
       <footer className="border-t border-gray-100 py-8 px-4 text-center">
-        <img src={LOGO} alt="MedMethod Direct" className="h-8 w-auto mx-auto mb-3 object-contain" />
+        <img src={LOGO} alt="MedMethod Direct" width="240" height="80" loading="lazy" decoding="async" className="h-8 w-auto mx-auto mb-3 object-contain" />
         <p className="text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
           MedMethod Direct is a physician-led virtual telehealth practice. All prescriptions are issued only after a valid patient-provider relationship is established through a proper medical evaluation. Individual results may vary. This page is not intended as medical advice.
         </p>

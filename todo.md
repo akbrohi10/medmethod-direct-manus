@@ -186,3 +186,9 @@
 - [x] Restrict a WL2 payment-skip control to recognized preview environments
 - [x] Add a preview-only button that opens the embedded booking step without charging a card
 - [x] Test visibility rules, run tests, and save checkpoint
+
+## WL2 Loading Performance
+
+- [x] Audit WL2 images, fonts, scripts, and embedded calendar loading for avoidable delays
+- [x] Optimize high-impact WL2 asset and third-party loading without visual changes
+- [x] Validate performance improvements, run tests, and save checkpoint
