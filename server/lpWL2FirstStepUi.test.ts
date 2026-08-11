@@ -28,4 +28,10 @@ describe("LpWL2 first-step UI", () => {
     expect(componentSource).toContain("Please complete {WL2_FIELD_LABELS[missingField]} to continue.");
     expect(componentSource).toContain('id="wl2-field-medications"');
   });
+
+  it("keeps the recent-labs question focused on the two answer choices", () => {
+    expect(componentSource).toContain('"Yes, I have labs"');
+    expect(componentSource).toContain('"No labs available"');
+    expect(componentSource).not.toContain("You can share your labs with Dr. Al-Deek");
+  });
 });

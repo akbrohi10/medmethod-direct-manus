@@ -508,12 +508,6 @@ function WL2Modal({ open, onClose }: ModalProps) {
                     </button>
                   ))}
                 </div>
-                {hasLabs === "yes" && (
-                  <div className="mt-2 flex items-center gap-2 px-4 py-3 rounded-xl border border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500">
-                    <Upload size={14} className="flex-shrink-0" />
-                    <span>You can share your labs with Dr. Al-Deek during your call or via the patient portal.</span>
-                  </div>
-                )}
               </div>
 
               {/* Primary goal */}

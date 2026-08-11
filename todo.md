@@ -241,3 +241,13 @@
 - [x] Identify the first missing required WL2 intake answer in form order
 - [x] Show a clear notice, highlight the missing field, and scroll it into view when Next is attempted
 - [x] Test the guided validation flow and save checkpoint
+
+## WL2 GHL Field-Remapping Test
+
+- [x] Send one updated, clearly labeled WL2 test intake with Date of Birth to the configured GHL webhook
+- [x] Confirm delivery details for GHL field remapping
+
+## WL2 Labs Helper Text
+
+- [x] Remove the lab-sharing helper text shown after selecting “Yes, I have labs” on `/lp/WL2`
+- [x] Validate the targeted UI change and save checkpoint
