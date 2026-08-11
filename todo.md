@@ -148,3 +148,11 @@
 - [x] Preserve the existing payment and calendar-booking flow if the webhook is temporarily unavailable
 - [x] Add automated coverage for the WL2 intake webhook payload and failure handling
 - [x] Run tests and save checkpoint
+
+## WL2 One-Time $15 Payment Flow
+
+- [x] Create $15 one-time Stripe and PayPal payment procedures for `/lp/WL2` only
+- [x] Store successful WL2 payments as `Fully Paid` with no remaining $149 balance or scheduled charge
+- [x] Replace the shared $50/$149 payment forms only in the WL2 modal and update related payment copy
+- [x] Add Vitest coverage and verify the existing payment flows remain unchanged
+- [x] Run tests and save checkpoint

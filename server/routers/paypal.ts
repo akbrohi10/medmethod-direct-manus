@@ -24,6 +24,7 @@ import {
   upsertPaypalSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
 // ─── PayPal REST API helpers ──────────────────────────────────────────────────
 
@@ -409,6 +410,111 @@ export const paypalRouter = router({
       });
 
       return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken };
+    }),
+
+  /** Creates a one-time $15 WL2 PayPal order with no vault or later balance. */
+  createWl2OneTimeOrder: publicProcedure
+    .input(
+      z.object({
+        patientName: z.string(),
+        patientEmail: z.string().email(),
+        patientPhone: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const settings = await getPaypalSettings();
+      if (!settings) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal not configured" });
+
+      const mode = settings.mode ?? "sandbox";
+      const client = await getPayPalClient(mode);
+      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: `PayPal ${mode} credentials not configured` });
+
+      const paymentId = await createPayment(createWl2OneTimePaymentRecord({
+        patientName: input.patientName,
+        patientEmail: input.patientEmail,
+        patientPhone: input.patientPhone,
+        paymentProvider: "paypal",
+        stripeMode: "test",
+        paypalMode: mode,
+      }));
+
+      const res = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${client.token}`,
+          "Content-Type": "application/json",
+          "PayPal-Request-Id": `wl2-one-time-${paymentId}-${Date.now()}`,
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify({
+          intent: "CAPTURE",
+          purchase_units: [
+            {
+              amount: { currency_code: "USD", value: "15.00" },
+              description: "MedMethod Direct — $15 refundable WL2 appointment hold",
+              custom_id: String(paymentId),
+            },
+          ],
+          payment_source: {
+            card: {
+              attributes: {
+                verification: { method: "SCA_WHEN_REQUIRED" },
+              },
+            },
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal order creation failed: ${text}` });
+      }
+
+      const order = (await res.json()) as { id: string };
+      await updatePayment(paymentId, { paypalOrderId: order.id });
+      return { orderId: order.id, paymentId };
+    }),
+
+  /** Captures a completed WL2 $15 PayPal order and marks the record fully paid. */
+  captureWl2OneTimeOrder: publicProcedure
+    .input(z.object({ orderId: z.string(), paymentId: z.number() }))
+    .mutation(async ({ input }) => {
+      const payment = await getPaymentById(input.paymentId);
+      if (!payment || payment.landingPage !== "/lp/WL2" || payment.paymentProvider !== "paypal") {
+        throw new TRPCError({ code: "NOT_FOUND", message: "WL2 payment not found" });
+      }
+      if (payment.paypalOrderId !== input.orderId) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "PayPal order does not match this WL2 payment" });
+      }
+
+      const mode = payment.paypalMode ?? "sandbox";
+      const client = await getPayPalClient(mode);
+      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal credentials not configured" });
+
+      const res = await fetch(`${client.baseUrl}/v2/checkout/orders/${input.orderId}/capture`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${client.token}`, "Content-Type": "application/json" },
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture failed: ${text}` });
+      }
+
+      const capture = (await res.json()) as {
+        status: string;
+        id: string;
+      };
+      if (capture.status !== "COMPLETED") {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal capture status: ${capture.status}` });
+      }
+
+      await updatePayment(input.paymentId, {
+        paypalOrderId: input.orderId,
+        remainingAmount: WL2_ONE_TIME_PAYMENT.remainingAmountCents,
+        status: WL2_ONE_TIME_PAYMENT.finalStatus,
+      });
+
+      return { success: true, captureId: capture.id };
     }),
 
   /**

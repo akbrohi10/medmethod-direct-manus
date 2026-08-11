@@ -9,8 +9,8 @@ import { Helmet } from "react-helmet-async";
 import { X, Check, ChevronDown, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
-import PayPalPaymentForm from "@/components/home1/PayPalPaymentForm";
-import StripePaymentForm from "@/components/home1/StripePaymentForm";
+import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
+import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -59,18 +59,9 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [zipCode, setZipCode] = useState("");
 
   // Payment state
-  const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
-  const [stripePaymentIntentId, setStripePaymentIntentId] = useState<string | null>(null);
-  const [paypalPaymentId, setPaypalPaymentId] = useState<number | null>(null);
-
   const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery();
   const activeProvider = activeProviderQuery.data?.activeProvider ?? "stripe";
-
-  const stripeScheduleCharge = trpc.stripe.scheduleRemainingCharge.useMutation();
-  const paypalScheduleCharge = trpc.paypal.scheduleRemainingCharge.useMutation();
   const submitWl2Intake = trpc.wl2Intake.submit.useMutation();
-
-  const [chargeScheduled, setChargeScheduled] = useState(false);
 
   useEffect(() => {
     if (!open) {
@@ -79,31 +70,28 @@ function WL2Modal({ open, onClose }: ModalProps) {
       setConditions([]); setMedications(""); setHasLabs(""); setPrimaryGoal("");
       setActivityLevel(""); setHeightFt(""); setHeightIn(""); setWeight(""); setAge(""); setSex("");
       setFirstName(""); setEmail(""); setPhone(""); setZipCode("");
-      setStripePaymentId(null); setStripePaymentIntentId(null); setPaypalPaymentId(null);
-      setChargeScheduled(false);
     }
   }, [open]);
 
-  const handlePaymentComplete = (piId?: string) => {
-    const effectivePaymentId = stripePaymentId ?? paypalPaymentId;
-    if (effectivePaymentId && !chargeScheduled) {
-      setChargeScheduled(true);
-      // Fire GHL payment webhook
-      fetch(GHL_PAYMENT_WEBHOOK_URL, {
+  const handleOneTimePaymentComplete = (paymentId: number, transactionId: string) => {
+    // The $15 WL2 hold is fully paid at capture. No $149 charge is created or scheduled.
+    fetch(GHL_PAYMENT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           first_name: firstName,
           email,
           phone,
-          payment_id: effectivePaymentId,
-          transaction_id: piId ?? stripePaymentIntentId ?? "",
+          payment_id: paymentId,
+          transaction_id: transactionId,
           payment_processor: activeProvider,
           landing_page: "/lp/WL2",
           amount: 15,
+          remaining_amount: 0,
+          payment_status: "fully_paid",
+          payment_type: "one_time_refundable_hold",
         }),
-      }).catch(() => {});
-    }
+    }).catch(() => {});
     setStep("calendar");
   };
 
@@ -489,28 +477,25 @@ function WL2Modal({ open, onClose }: ModalProps) {
               <p className="text-sm text-gray-500 mb-5">
                 Attend your appointment and your $15 is refunded — even if you decide not to move forward.
               </p>
-              {activeProvider === "paypal" ? (
-                <PayPalPaymentForm
+              {activeProviderQuery.isLoading ? (
+                <div className="flex flex-col items-center justify-center gap-3 py-12">
+                  <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: BRAND_PINK, borderTopColor: "transparent" }} />
+                  <p className="text-sm text-gray-500">Preparing secure $15 payment...</p>
+                </div>
+              ) : activeProvider === "paypal" ? (
+                <WL2PayPalPaymentForm
                   patientName={firstName}
                   patientEmail={email}
                   patientPhone={phone}
-                  landingPage="/lp/WL2"
-                  onComplete={() => handlePaymentComplete(undefined)}
-                  onPaymentId={(id) => setPaypalPaymentId(id)}
+                  onComplete={handleOneTimePaymentComplete}
                   onError={(msg) => toast.error(msg)}
                 />
               ) : (
-                <StripePaymentForm
+                <WL2StripePaymentForm
                   patientName={firstName}
                   patientEmail={email}
                   patientPhone={phone}
-                  landingPage="/lp/WL2"
-                  onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
-                  onPaymentId={(id) => setStripePaymentId(id)}
-                  onPaymentIntentId={(piId) => {
-                    setStripePaymentIntentId(piId);
-                    handlePaymentComplete(piId);
-                  }}
+                  onComplete={handleOneTimePaymentComplete}
                 />
               )}
             </div>

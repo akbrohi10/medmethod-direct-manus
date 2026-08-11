@@ -26,6 +26,7 @@ import {
   upsertStripeSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -239,6 +240,82 @@ export const stripeRouter = router({
       await updatePayment(input.paymentId, {
         stripePaymentMethodId: paymentMethodId ?? undefined,
         status: "deposit_paid",
+      });
+
+      return { success: true };
+    }),
+
+  /**
+   * Public: create a one-time $15 PaymentIntent for the /lp/WL2 refundable hold.
+   * This intentionally does not save a payment method or create a future balance.
+   */
+  createWl2OneTimeIntent: publicProcedure
+    .input(
+      z.object({
+        patientName: z.string(),
+        patientEmail: z.string().email(),
+        patientPhone: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const stripe = await getStripeClient();
+      if (!stripe) throw new Error("Stripe is not configured. Please contact support.");
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: 1500,
+        currency: "usd",
+        receipt_email: input.patientEmail,
+        description: "MedMethod Direct — WL2 $15 refundable appointment hold",
+        metadata: {
+          source: "medmethod-direct",
+          landingPage: "/lp/WL2",
+          paymentType: "one_time_refundable_hold",
+          patientName: input.patientName,
+          patientEmail: input.patientEmail,
+        },
+      });
+
+      const activeSettings = await getStripeSettings();
+      const paymentId = await createPayment(createWl2OneTimePaymentRecord({
+        patientName: input.patientName,
+        patientEmail: input.patientEmail,
+        patientPhone: input.patientPhone,
+        paymentProvider: "stripe",
+        stripeMode: activeSettings?.mode ?? "test",
+        paymentIntentId: paymentIntent.id,
+      }));
+
+      return { clientSecret: paymentIntent.client_secret, paymentId };
+    }),
+
+  /** Confirms the successful WL2 $15 charge and finalizes it with no later charge. */
+  confirmWl2OneTimePayment: publicProcedure
+    .input(z.object({ paymentId: z.number(), paymentIntentId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payment = await getPaymentById(input.paymentId);
+      if (!payment || payment.landingPage !== "/lp/WL2" || payment.paymentProvider !== "stripe") {
+        throw new TRPCError({ code: "NOT_FOUND", message: "WL2 payment not found" });
+      }
+      if (payment.depositPaymentIntentId !== input.paymentIntentId) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Payment intent does not match this WL2 payment" });
+      }
+
+      const stripe = await getStripeClientForMode(payment.stripeMode ?? "test");
+      if (!stripe) throw new Error("Stripe not configured");
+      const intent = await stripe.paymentIntents.retrieve(input.paymentIntentId);
+      if (intent.status !== "succeeded") {
+        throw new Error(`Payment not confirmed. Status: ${intent.status}`);
+      }
+
+      const paymentMethodId =
+        typeof intent.payment_method === "string"
+          ? intent.payment_method
+          : intent.payment_method?.id ?? null;
+
+      await updatePayment(input.paymentId, {
+        stripePaymentMethodId: paymentMethodId ?? undefined,
+        remainingAmount: WL2_ONE_TIME_PAYMENT.remainingAmountCents,
+        status: WL2_ONE_TIME_PAYMENT.finalStatus,
       });
 
       return { success: true };
