@@ -235,3 +235,9 @@
 
 - [x] Add targeted component-source coverage for the WL2 Next-button and visual scroll affordance
 - [x] Run full validation and save the WL2 first-step usability checkpoint
+
+## WL2 Guided Missing-Field Validation
+
+- [x] Identify the first missing required WL2 intake answer in form order
+- [x] Show a clear notice, highlight the missing field, and scroll it into view when Next is attempted
+- [x] Test the guided validation flow and save checkpoint

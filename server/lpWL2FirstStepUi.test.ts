@@ -15,8 +15,17 @@ describe("LpWL2 first-step UI", () => {
   });
 
   it("binds the rendered Next button to the completed intake state and a familiar Date of Birth field", () => {
-    expect(componentSource).toContain('disabled={step === "intake" ? intakeNextButton.disabled : !leadValid}');
+    expect(componentSource).toContain('if (step === "intake") handleIntakeNext();');
+    expect(componentSource).toContain('disabled={step === "lead" && !leadValid}');
     expect(componentSource).toContain('placeholder="MM/DD/YYYY"');
     expect(componentSource).toContain("formatWl2DateOfBirthInput(e.target.value)");
+  });
+
+  it("guides an incomplete submission to the first missing field with a visible alert", () => {
+    expect(componentSource).toContain("const handleIntakeNext = () => {");
+    expect(componentSource).toContain("document.getElementById(WL2_FIELD_ANCHORS[missing])?.scrollIntoView");
+    expect(componentSource).toContain('role="alert"');
+    expect(componentSource).toContain("Please complete {WL2_FIELD_LABELS[missingField]} to continue.");
+    expect(componentSource).toContain('id="wl2-field-medications"');
   });
 });

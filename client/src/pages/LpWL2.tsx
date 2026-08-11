@@ -13,7 +13,7 @@ import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
 import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
-import { getWl2IntakeNextButtonState, isWl2IntakeComplete, WL2_SCROLL_AFFORDANCE_LABEL } from "@/lib/wl2IntakeValidation";
+import { getWl2FirstMissingField, getWl2IntakeNextButtonState, isWl2IntakeComplete, WL2_FIELD_LABELS, WL2_SCROLL_AFFORDANCE_LABEL, type Wl2MissingField } from "@/lib/wl2IntakeValidation";
 import { handoffWl2PostPayment, WL2_PREVIEW_PAYMENT_SKIP_PATH } from "@/lib/wl2PostPayment";
 import { formatWl2DateOfBirthInput, toWl2IsoDateOfBirth } from "@/lib/wl2DateOfBirth";
 
@@ -28,6 +28,23 @@ const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
+
+const WL2_FIELD_ANCHORS: Record<Wl2MissingField, string> = {
+  heightFt: "wl2-field-height",
+  heightIn: "wl2-field-height",
+  weight: "wl2-field-height",
+  dateOfBirth: "wl2-field-dob",
+  sex: "wl2-field-dob",
+  weightGoal: "wl2-field-weight-goal",
+  weightDuration: "wl2-field-weight-duration",
+  glp1Before: "wl2-field-glp1-history",
+  glp1Details: "wl2-field-glp1-history",
+  conditions: "wl2-field-conditions",
+  medications: "wl2-field-medications",
+  hasLabs: "wl2-field-labs",
+  primaryGoal: "wl2-field-primary-goal",
+  activityLevel: "wl2-field-activity-level",
+};
 
 // ─── Intake Modal ─────────────────────────────────────────────────────────────
 
@@ -63,6 +80,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [zipCode, setZipCode] = useState("");
   const [resumingStripePayment, setResumingStripePayment] = useState(false);
   const [intakeScrolledToEnd, setIntakeScrolledToEnd] = useState(false);
+  const [missingField, setMissingField] = useState<Wl2MissingField | null>(null);
   const resumeHandled = useRef(false);
   const intakeScrollRef = useRef<HTMLDivElement>(null);
   const showPreviewPaymentSkip = isPreviewEnvironment(window.location.hostname);
@@ -80,6 +98,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
       setActivityLevel(""); setHeightFt(""); setHeightIn(""); setWeight(""); setDateOfBirth(""); setSex("");
       setFirstName(""); setEmail(""); setPhone(""); setZipCode("");
       setIntakeScrolledToEnd(false);
+      setMissingField(null);
     }
   }, [open]);
 
@@ -149,7 +168,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
     setConditions((prev) => prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]);
   };
 
-  const intakeValid = isWl2IntakeComplete({
+  const intakeAnswers = {
     weightGoal,
     weightDuration,
     glp1Before,
@@ -164,25 +183,30 @@ function WL2Modal({ open, onClose }: ModalProps) {
     weight,
     dateOfBirth,
     sex,
-  });
-  const intakeNextButton = getWl2IntakeNextButtonState({
-    weightGoal,
-    weightDuration,
-    glp1Before,
-    glp1Details,
-    conditions,
-    medications,
-    hasLabs,
-    primaryGoal,
-    activityLevel,
-    heightFt,
-    heightIn,
-    weight,
-    dateOfBirth,
-    sex,
-  });
+  };
+  const intakeValid = isWl2IntakeComplete(intakeAnswers);
+  const intakeNextButton = getWl2IntakeNextButtonState(intakeAnswers);
+  const firstMissingField = getWl2FirstMissingField(intakeAnswers);
+
+  useEffect(() => {
+    if (missingField && firstMissingField !== missingField) setMissingField(null);
+  }, [missingField, firstMissingField]);
 
   const leadValid = firstName.trim() !== "" && email.includes("@") && phone.trim().length >= 7 && zipCode.trim() !== "";
+
+  const handleIntakeNext = () => {
+    const missing = getWl2FirstMissingField(intakeAnswers);
+    if (!missing) {
+      setStep("lead");
+      return;
+    }
+    setMissingField(missing);
+    requestAnimationFrame(() => {
+      document.getElementById(WL2_FIELD_ANCHORS[missing])?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  };
+
+  const isMissing = (...fields: Wl2MissingField[]) => missingField !== null && fields.includes(missingField);
 
   const handleLeadSubmit = () => {
     if (glp1Before !== "yes" && glp1Before !== "no") return;
@@ -294,7 +318,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Height & Weight */}
-              <div className="grid grid-cols-3 gap-3">
+              <div id="wl2-field-height" className={`grid grid-cols-3 gap-3 rounded-xl transition-shadow ${isMissing("heightFt", "heightIn", "weight") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <div className="col-span-1">
                   <label className={labelCls}>Height (ft)</label>
                   <input className={inputCls} placeholder="5" value={heightFt} onChange={(e) => setHeightFt(e.target.value)} type="number" min="3" max="8" />
@@ -310,7 +334,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Date of Birth & Sex */}
-              <div className="grid grid-cols-2 gap-3">
+              <div id="wl2-field-dob" className={`grid grid-cols-2 gap-3 rounded-xl transition-shadow ${isMissing("dateOfBirth", "sex") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <div>
                   <label className={labelCls}>Date of Birth</label>
                   <input
@@ -347,7 +371,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Weight loss goal */}
-              <div>
+              <div id="wl2-field-weight-goal" className={`rounded-xl transition-shadow ${isMissing("weightGoal") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>How much weight are you looking to lose?</label>
                 <div className="grid grid-cols-2 gap-2">
                   {["10–20 lbs", "21–40 lbs", "41–60 lbs", "60+ lbs"].map((opt) => (
@@ -369,7 +393,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* How long */}
-              <div>
+              <div id="wl2-field-weight-duration" className={`rounded-xl transition-shadow ${isMissing("weightDuration") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>How long have you struggled with weight?</label>
                 <div className="grid grid-cols-2 gap-2">
                   {["Less than 1 year", "1–3 years", "3–5 years", "5+ years"].map((opt) => (
@@ -391,7 +415,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* GLP-1 before */}
-              <div>
+              <div id="wl2-field-glp1-history" className={`rounded-xl transition-shadow ${isMissing("glp1Before", "glp1Details") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Have you taken semaglutide or tirzepatide before?</label>
                 <div className="flex gap-2">
                   {(["yes", "no"] as const).map((v) => (
@@ -422,7 +446,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Medical conditions */}
-              <div>
+              <div id="wl2-field-conditions" className={`rounded-xl transition-shadow ${isMissing("conditions") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Do you have any of the following? (select all that apply)</label>
                 <div className="grid grid-cols-1 gap-2">
                   {["Type 2 diabetes", "History of thyroid cancer", "Pancreatitis", "Kidney disease", "Heart disease", "None of the above"].map((c) => (
@@ -453,7 +477,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Current medications */}
-              <div>
+              <div id="wl2-field-medications" className={`rounded-xl transition-shadow ${isMissing("medications") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Current medications & supplements</label>
                 <textarea
                   className={inputCls}
@@ -465,7 +489,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Labs */}
-              <div>
+              <div id="wl2-field-labs" className={`rounded-xl transition-shadow ${isMissing("hasLabs") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Do you have labs from the past 6–12 months?</label>
                 <div className="flex gap-2">
                   {(["yes", "no"] as const).map((v) => (
@@ -493,7 +517,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Primary goal */}
-              <div>
+              <div id="wl2-field-primary-goal" className={`rounded-xl transition-shadow ${isMissing("primaryGoal") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Primary goal</label>
                 <div className="grid grid-cols-1 gap-2">
                   {["Weight loss", "Blood sugar control", "Both weight loss & blood sugar"].map((opt) => (
@@ -515,7 +539,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
               </div>
 
               {/* Activity level */}
-              <div>
+              <div id="wl2-field-activity-level" className={`rounded-xl transition-shadow ${isMissing("activityLevel") ? "ring-2 ring-pink-300 p-2" : ""}`}>
                 <label className={labelCls}>Activity level</label>
                 <div className="grid grid-cols-2 gap-2">
                   {["Sedentary", "Lightly active", "Moderately active", "Very active"].map((opt) => (
@@ -632,17 +656,22 @@ function WL2Modal({ open, onClose }: ModalProps) {
         {/* Footer button */}
         {step !== "payment" && (
           <div className="flex-shrink-0 px-6 pt-3 pb-6 bg-white border-t border-gray-50">
+            {step === "intake" && missingField && (
+              <p role="alert" className="mb-2 rounded-lg bg-pink-50 px-3 py-2 text-center text-xs font-semibold" style={{ color: BRAND_PLUM }}>
+                Please complete {WL2_FIELD_LABELS[missingField]} to continue.
+              </p>
+            )}
             <button
               onClick={() => {
-                if (step === "intake") setStep("lead");
+                if (step === "intake") handleIntakeNext();
                 else if (step === "lead") handleLeadSubmit();
               }}
-              disabled={step === "intake" ? intakeNextButton.disabled : !leadValid}
+              disabled={step === "lead" && !leadValid}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? "not-allowed" : "pointer",
-                boxShadow: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: (step === "lead" && !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: (step === "lead" && !leadValid) ? "not-allowed" : "pointer",
+                boxShadow: (step === "lead" && !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
               {step === "lead" ? "Continue to Payment →" : intakeNextButton.label}

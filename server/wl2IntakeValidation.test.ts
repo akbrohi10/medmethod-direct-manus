@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getWl2IntakeNextButtonState, isWl2IntakeComplete, WL2_SCROLL_AFFORDANCE_LABEL, type Wl2IntakeAnswers } from "../client/src/lib/wl2IntakeValidation";
+import { getWl2FirstMissingField, getWl2IntakeNextButtonState, isWl2IntakeComplete, WL2_SCROLL_AFFORDANCE_LABEL, type Wl2IntakeAnswers } from "../client/src/lib/wl2IntakeValidation";
 
 const completeAnswers: Wl2IntakeAnswers = {
   weightGoal: "21–40 lbs",
@@ -36,5 +36,11 @@ describe("WL2 intake completion", () => {
     expect(getWl2IntakeNextButtonState(completeAnswers)).toEqual({ disabled: false, label: "Next →" });
     expect(getWl2IntakeNextButtonState({ ...completeAnswers, activityLevel: "" }).disabled).toBe(true);
     expect(WL2_SCROLL_AFFORDANCE_LABEL).toBe("Show more required intake questions");
+  });
+
+  it("identifies the first missing answer in the order patients see the form", () => {
+    expect(getWl2FirstMissingField({ ...completeAnswers, medications: "" })).toBe("medications");
+    expect(getWl2FirstMissingField({ ...completeAnswers, dateOfBirth: "" })).toBe("dateOfBirth");
+    expect(getWl2FirstMissingField({ ...completeAnswers, heightIn: "" })).toBe("heightIn");
   });
 });
