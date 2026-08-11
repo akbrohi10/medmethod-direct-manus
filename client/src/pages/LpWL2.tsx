@@ -13,6 +13,7 @@ import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
+import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -61,6 +62,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [zipCode, setZipCode] = useState("");
   const [resumingStripePayment, setResumingStripePayment] = useState(false);
   const resumeHandled = useRef(false);
+  const showPreviewPaymentSkip = isPreviewEnvironment(window.location.hostname);
 
   // Payment state
   const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery();
@@ -544,6 +546,19 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   onComplete={handleOneTimePaymentComplete}
                   onThreeDsRedirect={(paymentId) => saveWl2PaymentResume({ paymentId, firstName, email, phone })}
                 />
+              )}
+              {showPreviewPaymentSkip && !resumingStripePayment && (
+                <div className="mt-5 pt-4 border-t border-dashed border-gray-200 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">Preview mode only</p>
+                  <button
+                    type="button"
+                    onClick={() => setStep("calendar")}
+                    className="text-sm font-semibold text-[#7A1E7E] underline underline-offset-4 hover:text-[#E8339E] transition-colors"
+                  >
+                    Skip payment and preview booking step →
+                  </button>
+                  <p className="text-xs text-gray-500 mt-1">No payment is created or charged in this preview shortcut.</p>
+                </div>
               )}
             </div>
           )}

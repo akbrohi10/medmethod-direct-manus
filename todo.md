@@ -180,3 +180,9 @@
 - [x] Identify and remove avoidable sequential loading before WL2 card fields render
 - [x] Improve WL2 payment loading feedback without changing checkout behavior
 - [x] Run tests and save checkpoint
+
+## WL2 Preview Payment Skip
+
+- [x] Restrict a WL2 payment-skip control to recognized preview environments
+- [x] Add a preview-only button that opens the embedded booking step without charging a card
+- [x] Test visibility rules, run tests, and save checkpoint
