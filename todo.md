@@ -218,3 +218,20 @@
 - [x] Extract and test the WL2 payment-success redirect and webhook handoff
 - [x] Route both standard capture and Stripe 3DS success through the tested handoff
 - [x] Run full validation and save the post-payment redirect checkpoint
+
+## WL2 First-Step Usability Repair
+
+- [x] Replace written WL2 scroll instructions with a visual-only scroll affordance
+- [x] Simplify the WL2 Date of Birth selection experience
+- [x] Fix the WL2 Next-button progression gate after required first-step fields are completed
+- [x] Test the repaired first-step flow and save checkpoint
+
+## WL2 First-Step UI Validation
+
+- [x] Add focused coverage for the completed first-step Next-button state and visual scroll affordance
+- [x] Run full tests and save the WL2 first-step usability checkpoint
+
+## WL2 First-Step Component Validation
+
+- [x] Add targeted component-source coverage for the WL2 Next-button and visual scroll affordance
+- [x] Run full validation and save the WL2 first-step usability checkpoint

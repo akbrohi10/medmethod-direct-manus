@@ -1,3 +1,5 @@
+import { toWl2IsoDateOfBirth } from "./wl2DateOfBirth";
+
 export interface Wl2IntakeAnswers {
   weightGoal: string;
   weightDuration: string;
@@ -15,6 +17,8 @@ export interface Wl2IntakeAnswers {
   sex: string;
 }
 
+export const WL2_SCROLL_AFFORDANCE_LABEL = "Show more required intake questions";
+
 export function isWl2IntakeComplete(answers: Wl2IntakeAnswers): boolean {
   return (
     answers.weightGoal.trim() !== "" &&
@@ -24,7 +28,7 @@ export function isWl2IntakeComplete(answers: Wl2IntakeAnswers): boolean {
     answers.heightFt !== "" &&
     answers.heightIn !== "" &&
     answers.weight !== "" &&
-    /^\d{4}-\d{2}-\d{2}$/.test(answers.dateOfBirth) &&
+    toWl2IsoDateOfBirth(answers.dateOfBirth) !== null &&
     answers.conditions.length > 0 &&
     answers.medications.trim() !== "" &&
     answers.hasLabs !== "" &&
@@ -32,4 +36,11 @@ export function isWl2IntakeComplete(answers: Wl2IntakeAnswers): boolean {
     answers.activityLevel !== "" &&
     (answers.glp1Before !== "yes" || answers.glp1Details.trim() !== "")
   );
+}
+
+export function getWl2IntakeNextButtonState(answers: Wl2IntakeAnswers) {
+  return {
+    disabled: !isWl2IntakeComplete(answers),
+    label: "Next →",
+  } as const;
 }

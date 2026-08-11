@@ -13,8 +13,9 @@ import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
 import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
-import { isWl2IntakeComplete } from "@/lib/wl2IntakeValidation";
+import { getWl2IntakeNextButtonState, isWl2IntakeComplete, WL2_SCROLL_AFFORDANCE_LABEL } from "@/lib/wl2IntakeValidation";
 import { handoffWl2PostPayment, WL2_PREVIEW_PAYMENT_SKIP_PATH } from "@/lib/wl2PostPayment";
+import { formatWl2DateOfBirthInput, toWl2IsoDateOfBirth } from "@/lib/wl2DateOfBirth";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -164,6 +165,22 @@ function WL2Modal({ open, onClose }: ModalProps) {
     dateOfBirth,
     sex,
   });
+  const intakeNextButton = getWl2IntakeNextButtonState({
+    weightGoal,
+    weightDuration,
+    glp1Before,
+    glp1Details,
+    conditions,
+    medications,
+    hasLabs,
+    primaryGoal,
+    activityLevel,
+    heightFt,
+    heightIn,
+    weight,
+    dateOfBirth,
+    sex,
+  });
 
   const leadValid = firstName.trim() !== "" && email.includes("@") && phone.trim().length >= 7 && zipCode.trim() !== "";
 
@@ -187,7 +204,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
       activity_level: activityLevel,
       height: `${heightFt}'${heightIn}"`,
       weight_lbs: weight,
-      date_of_birth: dateOfBirth,
+      date_of_birth: toWl2IsoDateOfBirth(dateOfBirth)!,
       sex,
       landing_page: "/lp/WL2",
     });
@@ -254,6 +271,17 @@ function WL2Modal({ open, onClose }: ModalProps) {
             setIntakeScrolledToEnd(target.scrollTop + target.clientHeight >= target.scrollHeight - 16);
           }}
         >
+          {step === "intake" && !intakeScrolledToEnd && (
+            <button
+              type="button"
+              aria-label={WL2_SCROLL_AFFORDANCE_LABEL}
+              onClick={() => intakeScrollRef.current?.scrollBy({ top: Math.max(320, intakeScrollRef.current.clientHeight * 0.72), behavior: "smooth" })}
+              className="sticky top-3 z-10 ml-auto mr-4 mt-3 flex h-10 w-10 items-center justify-center rounded-full border border-pink-200 bg-white/95 shadow-md transition-transform hover:scale-105"
+              style={{ color: BRAND_PLUM }}
+            >
+              <ChevronDown size={22} strokeWidth={2.5} />
+            </button>
+          )}
 
           {/* ── STEP 1: Intake form ── */}
           {step === "intake" && (
@@ -263,9 +291,6 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   Tell us about yourself
                 </h2>
                 <p className="text-sm text-gray-500">Dr. Al-Deek reviews this before your call so you can make the most of your 15 minutes.</p>
-                <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-pink-50 px-3 py-1.5 text-xs font-semibold" style={{ color: BRAND_PLUM }}>
-                  ↓ Scroll down to complete all required questions
-                </p>
               </div>
 
               {/* Height & Weight */}
@@ -288,7 +313,16 @@ function WL2Modal({ open, onClose }: ModalProps) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className={labelCls}>Date of Birth</label>
-                  <input className={inputCls} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} type="date" min="1900-01-01" max={new Date().toISOString().slice(0, 10)} />
+                  <input
+                    className={inputCls}
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(formatWl2DateOfBirthInput(e.target.value))}
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="bday"
+                    placeholder="MM/DD/YYYY"
+                    maxLength={10}
+                  />
                 </div>
                 <div>
                   <label className={labelCls}>Sex assigned at birth</label>
@@ -598,25 +632,20 @@ function WL2Modal({ open, onClose }: ModalProps) {
         {/* Footer button */}
         {step !== "payment" && (
           <div className="flex-shrink-0 px-6 pt-3 pb-6 bg-white border-t border-gray-50">
-            {step === "intake" && !intakeScrolledToEnd && (
-              <p className="mb-2 text-center text-xs font-semibold" style={{ color: BRAND_PLUM }}>
-                ↓ More required questions below — scroll down to continue
-              </p>
-            )}
             <button
               onClick={() => {
                 if (step === "intake") setStep("lead");
                 else if (step === "lead") handleLeadSubmit();
               }}
-              disabled={step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid}
+              disabled={step === "intake" ? intakeNextButton.disabled : !leadValid}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? "not-allowed" : "pointer",
-                boxShadow: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? "not-allowed" : "pointer",
+                boxShadow: (step === "intake" ? intakeNextButton.disabled : !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {step === "lead" ? "Continue to Payment →" : !intakeScrolledToEnd ? "Scroll down to continue ↓" : "Next →"}
+              {step === "lead" ? "Continue to Payment →" : intakeNextButton.label}
             </button>
             {step !== "intake" && (
               <button
