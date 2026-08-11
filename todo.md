@@ -251,3 +251,15 @@
 
 - [x] Remove the lab-sharing helper text shown after selecting “Yes, I have labs” on `/lp/WL2`
 - [x] Validate the targeted UI change and save checkpoint
+
+## WL2 Mobile Form Continuation
+
+- [x] Remove competing mobile page actions while the WL2 intake modal is open
+- [x] Strengthen the visual-only cue that additional required intake content continues below the fold
+- [x] Validate the revised mobile intake experience and save checkpoint
+
+## WL2 Intake Mobile Action Isolation
+
+- [x] Hide the page-level Call Now and Book My Appt. sticky bar whenever the WL2 intake modal is open
+- [x] Confirm the sticky bar remains visible on the landing page after the modal is closed
+- [x] Run focused validation and save checkpoint

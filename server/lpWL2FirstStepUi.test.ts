@@ -9,7 +9,8 @@ const componentSource = readFileSync(
 describe("LpWL2 first-step UI", () => {
   it("uses a visual-only scroll affordance instead of written scroll instructions", () => {
     expect(componentSource).toContain("aria-label={WL2_SCROLL_AFFORDANCE_LABEL}");
-    expect(componentSource).toContain("<ChevronDown size={22}");
+    expect(componentSource).toContain("<ChevronDown size={28}");
+    expect(componentSource).toContain("animate-bounce");
     expect(componentSource).not.toContain("Scroll down to complete all required questions");
     expect(componentSource).not.toContain("More required questions below");
   });
@@ -33,5 +34,11 @@ describe("LpWL2 first-step UI", () => {
     expect(componentSource).toContain('"Yes, I have labs"');
     expect(componentSource).toContain('"No labs available"');
     expect(componentSource).not.toContain("You can share your labs with Dr. Al-Deek");
+  });
+
+  it("hides page-level mobile actions during the intake modal and uses a prominent visual scroll cue", () => {
+    expect(componentSource).toContain("{!modalOpen && (");
+    expect(componentSource).toContain("animate-bounce");
+    expect(componentSource).toContain('aria-label={WL2_SCROLL_AFFORDANCE_LABEL}');
   });
 });
