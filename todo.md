@@ -263,3 +263,9 @@
 - [x] Hide the page-level Call Now and Book My Appt. sticky bar whenever the WL2 intake modal is open
 - [x] Confirm the sticky bar remains visible on the landing page after the modal is closed
 - [x] Run focused validation and save checkpoint
+
+## WL2 Social-Proof Refinement
+
+- [x] Tighten the social-proof section spacing and improve visual separation
+- [x] Add a restrained brand-accent line and clearer dividers without adding cards
+- [x] Validate the refined social-proof section and save checkpoint

@@ -799,22 +799,23 @@ export default function LpWL2() {
       </section>
 
       {/* ── Social Proof ── */}
-      <section className="border-y border-gray-100 py-8 bg-white">
+      <section className="border-y py-9 sm:py-10 bg-[#fdfafb]" style={{ borderColor: "#eee3e6" }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="w-12 h-1 rounded-full mx-auto mb-7" style={{ background: BRAND_GRADIENT }} />
           {/* 2-stat row */}
-          <div className="flex justify-center items-center gap-0 mb-7">
+          <div className="flex justify-center items-center gap-0 mb-6">
             <div className="text-center px-8 sm:px-14">
               <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>10,000+</p>
               <p className="text-sm text-gray-600 mt-1">Patients Seen</p>
             </div>
-            <div className="w-px h-12 bg-gray-200 flex-shrink-0" />
+            <div className="w-px h-14 flex-shrink-0" style={{ background: "#d8cbd0" }} />
             <div className="text-center px-8 sm:px-14">
               <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>17</p>
               <p className="text-sm text-gray-600 mt-1">States Licensed</p>
             </div>
           </div>
           {/* Divider */}
-          <div className="w-16 h-px bg-gray-200 mx-auto mb-6" />
+          <div className="w-20 h-px mx-auto mb-6" style={{ background: "#d8cbd0" }} />
           {/* Physician quote */}
           <div className="max-w-xl mx-auto text-center">
             <p className="text-lg font-bold mb-1" style={{ color: BRAND_PINK }}>"</p>
