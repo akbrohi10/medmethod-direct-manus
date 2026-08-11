@@ -14,6 +14,7 @@ import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
 import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
+import { isWl2IntakeComplete } from "@/lib/wl2IntakeValidation";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -52,7 +53,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [heightFt, setHeightFt] = useState("");
   const [heightIn, setHeightIn] = useState("");
   const [weight, setWeight] = useState("");
-  const [age, setAge] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [sex, setSex] = useState("");
 
   // Lead capture state
@@ -61,7 +62,9 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [phone, setPhone] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [resumingStripePayment, setResumingStripePayment] = useState(false);
+  const [intakeScrolledToEnd, setIntakeScrolledToEnd] = useState(false);
   const resumeHandled = useRef(false);
+  const intakeScrollRef = useRef<HTMLDivElement>(null);
   const showPreviewPaymentSkip = isPreviewEnvironment(window.location.hostname);
 
   // Payment state
@@ -74,10 +77,20 @@ function WL2Modal({ open, onClose }: ModalProps) {
       setStep("intake");
       setWeightGoal(""); setWeightDuration(""); setGlp1Before(""); setGlp1Details("");
       setConditions([]); setMedications(""); setHasLabs(""); setPrimaryGoal("");
-      setActivityLevel(""); setHeightFt(""); setHeightIn(""); setWeight(""); setAge(""); setSex("");
+      setActivityLevel(""); setHeightFt(""); setHeightIn(""); setWeight(""); setDateOfBirth(""); setSex("");
       setFirstName(""); setEmail(""); setPhone(""); setZipCode("");
+      setIntakeScrolledToEnd(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!open || step !== "intake") return;
+    const frame = requestAnimationFrame(() => {
+      const container = intakeScrollRef.current;
+      if (container) setIntakeScrolledToEnd(container.scrollHeight <= container.clientHeight + 16);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [open, step]);
 
   const handleOneTimePaymentComplete = (paymentId: number, transactionId: string, processor = activeProvider) => {
     // The $15 WL2 hold is fully paid at capture. No $149 charge is created or scheduled.
@@ -136,16 +149,24 @@ function WL2Modal({ open, onClose }: ModalProps) {
     setConditions((prev) => prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]);
   };
 
-  const intakeValid =
-    weightGoal.trim() !== "" &&
-    weightDuration !== "" &&
-    glp1Before !== "" &&
-    sex !== "" &&
-    heightFt !== "" &&
-    weight !== "" &&
-    age !== "";
+  const intakeValid = isWl2IntakeComplete({
+    weightGoal,
+    weightDuration,
+    glp1Before,
+    glp1Details,
+    conditions,
+    medications,
+    hasLabs,
+    primaryGoal,
+    activityLevel,
+    heightFt,
+    heightIn,
+    weight,
+    dateOfBirth,
+    sex,
+  });
 
-  const leadValid = firstName.trim() !== "" && email.includes("@") && phone.trim().length >= 7;
+  const leadValid = firstName.trim() !== "" && email.includes("@") && phone.trim().length >= 7 && zipCode.trim() !== "";
 
   const handleLeadSubmit = () => {
     if (glp1Before !== "yes" && glp1Before !== "no") return;
@@ -165,9 +186,9 @@ function WL2Modal({ open, onClose }: ModalProps) {
       has_labs: hasLabs,
       primary_goal: primaryGoal,
       activity_level: activityLevel,
-      height: `${heightFt}'${heightIn}\"`,
+      height: `${heightFt}'${heightIn}"`,
       weight_lbs: weight,
-      age,
+      date_of_birth: dateOfBirth,
       sex,
       landing_page: "/lp/WL2",
     });
@@ -226,7 +247,15 @@ function WL2Modal({ open, onClose }: ModalProps) {
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto">
+        <div
+          ref={intakeScrollRef}
+          className="flex-1 overflow-y-auto"
+          onScroll={(event) => {
+            if (step !== "intake") return;
+            const target = event.currentTarget;
+            setIntakeScrolledToEnd(target.scrollTop + target.clientHeight >= target.scrollHeight - 16);
+          }}
+        >
 
           {/* ── STEP 1: Intake form ── */}
           {step === "intake" && (
@@ -236,6 +265,9 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   Tell us about yourself
                 </h2>
                 <p className="text-sm text-gray-500">Dr. Al-Deek reviews this before your call so you can make the most of your 15 minutes.</p>
+                <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-pink-50 px-3 py-1.5 text-xs font-semibold" style={{ color: BRAND_PLUM }}>
+                  ↓ Scroll down to complete all required questions
+                </p>
               </div>
 
               {/* Height & Weight */}
@@ -254,11 +286,11 @@ function WL2Modal({ open, onClose }: ModalProps) {
                 </div>
               </div>
 
-              {/* Age & Sex */}
+              {/* Date of Birth & Sex */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelCls}>Age</label>
-                  <input className={inputCls} placeholder="38" value={age} onChange={(e) => setAge(e.target.value)} type="number" min="18" max="99" />
+                  <label className={labelCls}>Date of Birth</label>
+                  <input className={inputCls} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} type="date" min="1900-01-01" max={new Date().toISOString().slice(0, 10)} />
                 </div>
                 <div>
                   <label className={labelCls}>Sex assigned at birth</label>
@@ -574,20 +606,25 @@ function WL2Modal({ open, onClose }: ModalProps) {
         {/* Footer button */}
         {step !== "payment" && step !== "calendar" && (
           <div className="flex-shrink-0 px-6 pt-3 pb-6 bg-white border-t border-gray-50">
+            {step === "intake" && !intakeScrolledToEnd && (
+              <p className="mb-2 text-center text-xs font-semibold" style={{ color: BRAND_PLUM }}>
+                ↓ More required questions below — scroll down to continue
+              </p>
+            )}
             <button
               onClick={() => {
                 if (step === "intake") setStep("lead");
                 else if (step === "lead") handleLeadSubmit();
               }}
-              disabled={step === "intake" ? !intakeValid : !leadValid}
+              disabled={step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid}
               className="w-full py-4 rounded-xl text-white font-semibold text-base transition-all"
               style={{
-                background: (step === "intake" ? !intakeValid : !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
-                cursor: (step === "intake" ? !intakeValid : !leadValid) ? "not-allowed" : "pointer",
-                boxShadow: (step === "intake" ? !intakeValid : !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
+                background: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? BRAND_DISABLED : BRAND_GRADIENT,
+                cursor: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? "not-allowed" : "pointer",
+                boxShadow: (step === "intake" ? !intakeValid || !intakeScrolledToEnd : !leadValid) ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {step === "lead" ? "Continue to Payment →" : "Next →"}
+              {step === "lead" ? "Continue to Payment →" : !intakeScrolledToEnd ? "Scroll down to continue ↓" : "Next →"}
             </button>
             {step !== "intake" && (
               <button

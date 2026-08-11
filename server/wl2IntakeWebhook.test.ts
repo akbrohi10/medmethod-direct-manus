@@ -18,7 +18,7 @@ const samplePayload: WL2IntakeWebhookPayload = {
   activity_level: "Lightly active",
   height: "5'6\"",
   weight_lbs: "180",
-  age: "40",
+  date_of_birth: "1986-08-11",
   sex: "Female",
   landing_page: "/lp/WL2",
 };
@@ -42,6 +42,7 @@ describe("WL2 intake webhook", () => {
       expect.objectContaining({ method: "POST" }),
     );
     expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual(samplePayload);
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body).date_of_birth).toBe("1986-08-11");
   });
 
   it("reports a failed GHL response without throwing", async () => {

@@ -18,7 +18,7 @@ const wl2IntakeSchema = z.object({
   activity_level: z.string().trim().max(100),
   height: z.string().trim().max(20),
   weight_lbs: z.string().trim().max(20),
-  age: z.string().trim().max(3),
+  date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date of birth must use YYYY-MM-DD format"),
   sex: z.string().trim().max(20),
   landing_page: z.literal("/lp/WL2"),
 });

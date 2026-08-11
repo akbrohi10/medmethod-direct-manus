@@ -16,7 +16,7 @@ export interface WL2IntakeWebhookPayload {
   activity_level: string;
   height: string;
   weight_lbs: string;
-  age: string;
+  date_of_birth: string;
   sex: string;
   landing_page: "/lp/WL2";
 }

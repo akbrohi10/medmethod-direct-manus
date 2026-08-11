@@ -192,3 +192,16 @@
 - [x] Audit WL2 images, fonts, scripts, and embedded calendar loading for avoidable delays
 - [x] Optimize high-impact WL2 asset and third-party loading without visual changes
 - [x] Validate performance improvements, run tests, and save checkpoint
+
+## WL2 Intake Completion
+
+- [x] Replace the Age field with Date of Birth and send the date to the WL2 GHL webhook
+- [x] Require all relevant WL2 intake answers before allowing advancement
+- [x] Add a clear scroll cue and completion state for lower intake questions
+- [x] Test the improved intake flow and save checkpoint
+
+## WL2 Intake Completion Follow-Up
+
+- [x] Require or normalize the visible Height (in) input before WL2 progression
+- [x] Add focused tests for the Date of Birth payload and full intake progression gate
+- [x] Run full validation and save the WL2 intake completion checkpoint
