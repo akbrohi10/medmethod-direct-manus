@@ -174,3 +174,9 @@
 - [x] Add tests for persisted WL2 resume data, 3DS return parsing, and cleared resume state after confirmation
 - [x] Route the WL2 modal through the tested resume helpers before opening embedded booking content
 - [x] Run focused and full tests, then save checkpoint
+
+## WL2 Payment-Step Performance
+
+- [x] Identify and remove avoidable sequential loading before WL2 card fields render
+- [x] Improve WL2 payment loading feedback without changing checkout behavior
+- [x] Run tests and save checkpoint

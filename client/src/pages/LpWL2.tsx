@@ -522,8 +522,14 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: BRAND_PINK, borderTopColor: "transparent" }} />
                   <p className="text-sm text-gray-500">Confirming your payment and opening booking…</p>
                 </div>
+              ) : activeProvider === "paypal" && !activeProviderQuery.data?.clientId ? (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-center text-sm text-amber-700">
+                  PayPal is not configured. Please contact the clinic to complete your booking.
+                </div>
               ) : activeProvider === "paypal" ? (
                 <WL2PayPalPaymentForm
+                  clientId={activeProviderQuery.data!.clientId!}
+                  mode={activeProviderQuery.data?.mode ?? "sandbox"}
                   patientName={firstName}
                   patientEmail={email}
                   patientPhone={phone}
