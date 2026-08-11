@@ -156,3 +156,21 @@
 - [x] Replace the shared $50/$149 payment forms only in the WL2 modal and update related payment copy
 - [x] Add Vitest coverage and verify the existing payment flows remain unchanged
 - [x] Run tests and save checkpoint
+
+## WL2 Embedded Booking Step
+
+- [x] Replace the final WL2 calendar step with the booking and follow-up content from `/thank-you2` inside the intake modal
+- [x] Keep WL2 patients inside the modal after the $15 payment with no redirect to a separate page
+- [x] Test the embedded booking flow and save checkpoint
+
+## WL2 Embedded Booking Follow-Up
+
+- [x] Return Stripe 3DS completions to the WL2 intake modal instead of `/thank-you2`
+- [x] Restore WL2 booking prefill data and show the embedded final booking step after authentication
+- [x] Add targeted coverage for the WL2 booking-step resume behavior, run tests, and save checkpoint
+
+## WL2 Resume-Flow Validation
+
+- [x] Add tests for persisted WL2 resume data, 3DS return parsing, and cleared resume state after confirmation
+- [x] Route the WL2 modal through the tested resume helpers before opening embedded booking content
+- [x] Run focused and full tests, then save checkpoint

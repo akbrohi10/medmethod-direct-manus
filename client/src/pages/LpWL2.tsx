@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
+import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
+import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -57,6 +59,8 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [resumingStripePayment, setResumingStripePayment] = useState(false);
+  const resumeHandled = useRef(false);
 
   // Payment state
   const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery();
@@ -73,8 +77,13 @@ function WL2Modal({ open, onClose }: ModalProps) {
     }
   }, [open]);
 
-  const handleOneTimePaymentComplete = (paymentId: number, transactionId: string) => {
+  const handleOneTimePaymentComplete = (paymentId: number, transactionId: string, processor = activeProvider) => {
     // The $15 WL2 hold is fully paid at capture. No $149 charge is created or scheduled.
+    clearWl2PaymentResume();
+    setResumingStripePayment(false);
+    if (window.location.search.includes("wl2_3ds")) {
+      window.history.replaceState({}, "", "/lp/WL2");
+    }
     fetch(GHL_PAYMENT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +93,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
           phone,
           payment_id: paymentId,
           transaction_id: transactionId,
-          payment_processor: activeProvider,
+          payment_processor: processor,
           landing_page: "/lp/WL2",
           amount: 15,
           remaining_amount: 0,
@@ -94,6 +103,32 @@ function WL2Modal({ open, onClose }: ModalProps) {
     }).catch(() => {});
     setStep("calendar");
   };
+
+  const confirmThreeDsReturn = trpc.stripe.confirmWl2OneTimePayment.useMutation({
+    onSuccess: (_, variables) => handleOneTimePaymentComplete(variables.paymentId, variables.paymentIntentId, "stripe"),
+    onError: (error) => {
+      setResumingStripePayment(false);
+      toast.error(`Payment confirmation failed: ${error.message}`);
+      clearWl2PaymentResume();
+    },
+  });
+
+  useEffect(() => {
+    if (!open || resumeHandled.current) return;
+    const paymentIntentId = getWl2ThreeDsPaymentIntent(window.location.search);
+    if (!paymentIntentId) return;
+
+    const resume = getWl2PaymentResume();
+    if (!resume) return;
+    resumeHandled.current = true;
+    setFirstName(resume.firstName);
+    setEmail(resume.email);
+    setPhone(resume.phone);
+    setStep("payment");
+    setResumingStripePayment(true);
+    confirmThreeDsReturn.mutate({ paymentId: resume.paymentId, paymentIntentId });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const toggleCondition = (c: string) => {
     setConditions((prev) => prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]);
@@ -482,6 +517,11 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: BRAND_PINK, borderTopColor: "transparent" }} />
                   <p className="text-sm text-gray-500">Preparing secure $15 payment...</p>
                 </div>
+              ) : resumingStripePayment ? (
+                <div className="flex flex-col items-center justify-center gap-3 py-12">
+                  <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: BRAND_PINK, borderTopColor: "transparent" }} />
+                  <p className="text-sm text-gray-500">Confirming your payment and opening booking…</p>
+                </div>
               ) : activeProvider === "paypal" ? (
                 <WL2PayPalPaymentForm
                   patientName={firstName}
@@ -496,6 +536,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   patientEmail={email}
                   patientPhone={phone}
                   onComplete={handleOneTimePaymentComplete}
+                  onThreeDsRedirect={(paymentId) => saveWl2PaymentResume({ paymentId, firstName, email, phone })}
                 />
               )}
             </div>
@@ -503,27 +544,8 @@ function WL2Modal({ open, onClose }: ModalProps) {
 
           {/* ── STEP 4: Calendar ── */}
           {step === "calendar" && (
-            <div className="px-6 py-6">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
-                YOU'RE ALL SET
-              </p>
-              <h2 className="text-xl font-bold text-gray-900 mb-1 leading-snug" style={{ fontFamily: "Georgia, serif" }}>
-                Pick your time with Dr. Al-Deek
-              </h2>
-              <p className="text-sm text-gray-500 mb-4">
-                Your $15 hold is confirmed. Choose a 15-minute slot below.
-              </p>
-              <div className="rounded-xl overflow-hidden border border-gray-100">
-                <iframe
-                  src={`${BOOKING_URL}?name=${encodeURIComponent(firstName)}&email=${encodeURIComponent(email)}`}
-                  width="100%"
-                  height="700"
-                  frameBorder="0"
-                  scrolling="yes"
-                  title="Book your appointment"
-                  style={{ border: "none", display: "block", minHeight: "500px", maxHeight: "calc(95vh - 200px)" }}
-                />
-              </div>
+            <div className="px-6 py-6 bg-[#faf9f7]">
+              <WL2BookingFollowup firstName={firstName} email={email} compact />
             </div>
           )}
         </div>
@@ -565,6 +587,13 @@ function WL2Modal({ open, onClose }: ModalProps) {
 
 export default function LpWL2() {
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("wl2_3ds") === "1") {
+      setModalOpen(true);
+    }
+  }, []);
 
   const OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-hero-single-face-v1_ad2544a9.jpg";
 

@@ -3,6 +3,7 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe, type Stripe as StripeType } from "@stripe/stripe-js";
 import { Lock } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { createWl2ThreeDsReturnUrl } from "@/lib/wl2PaymentResume";
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
@@ -13,12 +14,14 @@ interface WL2StripePaymentFormProps {
   patientEmail: string;
   patientPhone?: string;
   onComplete: (paymentId: number, paymentIntentId: string) => void;
+  onThreeDsRedirect: (paymentId: number) => void;
 }
 
-function StripeCheckout({ paymentId, onComplete, onError }: {
+function StripeCheckout({ paymentId, onComplete, onError, onThreeDsRedirect }: {
   paymentId: number;
   onComplete: (paymentId: number, paymentIntentId: string) => void;
   onError: (message: string) => void;
+  onThreeDsRedirect: (paymentId: number) => void;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -44,10 +47,13 @@ function StripeCheckout({ paymentId, onComplete, onError }: {
       return;
     }
 
+    // Persist the minimal data needed to reopen the final modal screen if Stripe
+    // requires a 3DS bank-authentication redirect.
+    onThreeDsRedirect(paymentId);
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/thanks-payment-wl2?paymentId=${paymentId}`,
+        return_url: createWl2ThreeDsReturnUrl(window.location.origin),
         payment_method_data: { billing_details: { address: { country: "US" } } },
       },
       redirect: "if_required",
@@ -104,7 +110,7 @@ function StripeCheckout({ paymentId, onComplete, onError }: {
   );
 }
 
-export default function WL2StripePaymentForm({ patientName, patientEmail, patientPhone, onComplete }: WL2StripePaymentFormProps) {
+export default function WL2StripePaymentForm({ patientName, patientEmail, patientPhone, onComplete, onThreeDsRedirect }: WL2StripePaymentFormProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentId, setPaymentId] = useState<number | null>(null);
   const [stripeInstance, setStripeInstance] = useState<StripeType | null>(null);
@@ -132,7 +138,7 @@ export default function WL2StripePaymentForm({ patientName, patientEmail, patien
     <div>
       {errorMessage && <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{errorMessage}</div>}
       <Elements stripe={stripeInstance} options={{ clientSecret, appearance: { theme: "stripe", variables: { colorPrimary: BRAND_PINK, fontFamily: "Montserrat, system-ui, sans-serif", borderRadius: "12px" } } }}>
-        <StripeCheckout paymentId={paymentId} onComplete={onComplete} onError={setErrorMessage} />
+        <StripeCheckout paymentId={paymentId} onComplete={onComplete} onError={setErrorMessage} onThreeDsRedirect={onThreeDsRedirect} />
       </Elements>
     </div>
   );
