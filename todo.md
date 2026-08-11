@@ -205,3 +205,16 @@
 - [x] Require or normalize the visible Height (in) input before WL2 progression
 - [x] Add focused tests for the Date of Birth payload and full intake progression gate
 - [x] Run full validation and save the WL2 intake completion checkpoint
+
+## WL2 Post-Payment Thank-You Redirect
+
+- [x] Remove the WL2 modal booking step and show only three intake progress steps
+- [x] Redirect successful WL2 $15 payments, including Stripe 3DS returns, to `/thank-you2`
+- [x] Preserve the WL2 payment webhook and test the post-payment redirect flow
+- [x] Save checkpoint
+
+## WL2 Post-Payment Redirect Validation
+
+- [x] Extract and test the WL2 payment-success redirect and webhook handoff
+- [x] Route both standard capture and Stripe 3DS success through the tested handoff
+- [x] Run full validation and save the post-payment redirect checkpoint

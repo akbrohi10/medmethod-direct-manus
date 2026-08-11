@@ -11,14 +11,13 @@ import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
-import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
 import { isPreviewEnvironment } from "@/lib/isPreviewEnvironment";
 import { isWl2IntakeComplete } from "@/lib/wl2IntakeValidation";
+import { handoffWl2PostPayment, WL2_PREVIEW_PAYMENT_SKIP_PATH } from "@/lib/wl2PostPayment";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
 const GHL_PAYMENT_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/d37a2de2-c00f-40ed-bb00-a8efa3127093";
 
 const DR_PHOTO = "/manus-storage/wl2-dr-aldeek-hero_8cc8a264.webp";
@@ -37,7 +36,7 @@ interface ModalProps {
 }
 
 function WL2Modal({ open, onClose }: ModalProps) {
-  type Step = "intake" | "lead" | "payment" | "calendar";
+  type Step = "intake" | "lead" | "payment";
   const [step, setStep] = useState<Step>("intake");
 
   // Intake form state
@@ -99,24 +98,24 @@ function WL2Modal({ open, onClose }: ModalProps) {
     if (window.location.search.includes("wl2_3ds")) {
       window.history.replaceState({}, "", "/lp/WL2");
     }
-    fetch(GHL_PAYMENT_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          first_name: firstName,
-          email,
-          phone,
-          payment_id: paymentId,
-          transaction_id: transactionId,
-          payment_processor: processor,
-          landing_page: "/lp/WL2",
-          amount: 15,
-          remaining_amount: 0,
-          payment_status: "fully_paid",
-          payment_type: "one_time_refundable_hold",
-        }),
-    }).catch(() => {});
-    setStep("calendar");
+    handoffWl2PostPayment({
+      fetchImpl: fetch,
+      navigate: (path) => window.location.assign(path),
+      webhookUrl: GHL_PAYMENT_WEBHOOK_URL,
+      payload: {
+        first_name: firstName,
+        email,
+        phone,
+        payment_id: paymentId,
+        transaction_id: transactionId,
+        payment_processor: processor,
+        landing_page: "/lp/WL2",
+        amount: 15,
+        remaining_amount: 0,
+        payment_status: "fully_paid",
+        payment_type: "one_time_refundable_hold",
+      },
+    });
   };
 
   const confirmThreeDsReturn = trpc.stripe.confirmWl2OneTimePayment.useMutation({
@@ -199,9 +198,8 @@ function WL2Modal({ open, onClose }: ModalProps) {
     intake: "About You",
     lead: "Your Info",
     payment: "Reserve ($15)",
-    calendar: "Book Your Call",
   };
-  const STEPS: Step[] = ["intake", "lead", "payment", "calendar"];
+  const STEPS: Step[] = ["intake", "lead", "payment"];
   const stepIdx = STEPS.indexOf(step);
   const progressPct = Math.round(((stepIdx + 1) / STEPS.length) * 100);
 
@@ -584,10 +582,10 @@ function WL2Modal({ open, onClose }: ModalProps) {
                   <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">Preview mode only</p>
                   <button
                     type="button"
-                    onClick={() => setStep("calendar")}
+                    onClick={() => window.location.assign(WL2_PREVIEW_PAYMENT_SKIP_PATH)}
                     className="text-sm font-semibold text-[#7A1E7E] underline underline-offset-4 hover:text-[#E8339E] transition-colors"
                   >
-                    Skip payment and preview booking step →
+                    Skip payment and preview thank-you page →
                   </button>
                   <p className="text-xs text-gray-500 mt-1">No payment is created or charged in this preview shortcut.</p>
                 </div>
@@ -595,16 +593,10 @@ function WL2Modal({ open, onClose }: ModalProps) {
             </div>
           )}
 
-          {/* ── STEP 4: Calendar ── */}
-          {step === "calendar" && (
-            <div className="px-6 py-6 bg-[#faf9f7]">
-              <WL2BookingFollowup firstName={firstName} email={email} compact />
-            </div>
-          )}
         </div>
 
         {/* Footer button */}
-        {step !== "payment" && step !== "calendar" && (
+        {step !== "payment" && (
           <div className="flex-shrink-0 px-6 pt-3 pb-6 bg-white border-t border-gray-50">
             {step === "intake" && !intakeScrolledToEnd && (
               <p className="mb-2 text-center text-xs font-semibold" style={{ color: BRAND_PLUM }}>
