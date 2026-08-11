@@ -15,7 +15,6 @@ import StripePaymentForm from "@/components/home1/StripePaymentForm";
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
-const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/66201c6d-9b98-4fac-9725-e44c0415f8e7";
 const GHL_PAYMENT_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cFQraxSJv1aDKQFAghbI/webhook-trigger/d37a2de2-c00f-40ed-bb00-a8efa3127093";
 
 const DR_PHOTO = "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
@@ -69,6 +68,7 @@ function WL2Modal({ open, onClose }: ModalProps) {
 
   const stripeScheduleCharge = trpc.stripe.scheduleRemainingCharge.useMutation();
   const paypalScheduleCharge = trpc.paypal.scheduleRemainingCharge.useMutation();
+  const submitWl2Intake = trpc.wl2Intake.submit.useMutation();
 
   const [chargeScheduled, setChargeScheduled] = useState(false);
 
@@ -123,30 +123,29 @@ function WL2Modal({ open, onClose }: ModalProps) {
   const leadValid = firstName.trim() !== "" && email.includes("@") && phone.trim().length >= 7;
 
   const handleLeadSubmit = () => {
-    // Fire GHL intake webhook
-    fetch(GHL_WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        first_name: firstName,
-        email,
-        phone,
-        weight_goal: weightGoal,
-        weight_duration: weightDuration,
-        glp1_before: glp1Before,
-        glp1_details: glp1Details,
-        conditions: conditions.join(", "),
-        medications,
-        has_labs: hasLabs,
-        primary_goal: primaryGoal,
-        activity_level: activityLevel,
-        height: `${heightFt}'${heightIn}"`,
-        weight_lbs: weight,
-        age,
-        sex,
-        landing_page: "/lp/WL2",
-      }),
-    }).catch(() => {});
+    if (glp1Before !== "yes" && glp1Before !== "no") return;
+
+    // Submit intake in the background. A temporary GHL outage must not prevent checkout.
+    submitWl2Intake.mutate({
+      first_name: firstName,
+      email,
+      phone,
+      zip_code: zipCode,
+      weight_goal: weightGoal,
+      weight_duration: weightDuration,
+      glp1_before: glp1Before,
+      glp1_details: glp1Details,
+      conditions: conditions.join(", "),
+      medications,
+      has_labs: hasLabs,
+      primary_goal: primaryGoal,
+      activity_level: activityLevel,
+      height: `${heightFt}'${heightIn}\"`,
+      weight_lbs: weight,
+      age,
+      sex,
+      landing_page: "/lp/WL2",
+    });
     setStep("payment");
   };
 

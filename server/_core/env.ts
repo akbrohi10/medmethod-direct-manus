@@ -11,4 +11,6 @@ export const ENV = {
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? "",
   /** GoHighLevel payment webhook destination URL */
   ghlPaymentWebhookUrl: process.env.GHL_PAYMENT_WEBHOOK_URL ?? "",
+  /** GoHighLevel destination for completed /lp/WL2 intake forms */
+  ghlWl2IntakeWebhookUrl: process.env.GHL_WL2_INTAKE_WEBHOOK_URL ?? "",
 };

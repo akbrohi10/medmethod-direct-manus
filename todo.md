@@ -141,3 +141,10 @@
 - [x] Update LpConsultationModal2 to render Stripe or PayPal form based on active provider
 - [x] Update AdminSettings: add PayPal settings tab, provider toggle, webhook URL display
 - [x] All 72 tests passing
+
+## WL2 Intake Form → GHL Webhook
+
+- [x] Send completed `/lp/WL2` intake details to the supplied GHL webhook through a secure server-side endpoint
+- [x] Preserve the existing payment and calendar-booking flow if the webhook is temporarily unavailable
+- [x] Add automated coverage for the WL2 intake webhook payload and failure handling
+- [x] Run tests and save checkpoint
