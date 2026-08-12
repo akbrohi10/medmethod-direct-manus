@@ -297,4 +297,10 @@
 
 - [x] Correct the tablet and mobile hero copy-to-image alignment on `/lp/WL2`
 - [x] Remove unintended intermediate-layout whitespace while preserving the approved desktop hero
-- [ ] Validate responsive hero composition and save checkpoint
+- [x] Validate responsive hero composition and save checkpoint
+
+## WL2 Thank-You Meta Pixel Verification
+
+- [x] Verify the deployed `/thank-you2` Meta Pixel initialization and Purchase event for Pixel ID 1589326469554181
+- [x] Confirm the page event path needs no code repair; the sandbox browser blocks third-party Meta script execution
+- [x] Validate the queued init and Purchase calls and save checkpoint
