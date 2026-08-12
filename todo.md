@@ -322,3 +322,7 @@
 - [x] Trace live Meta Pixel runtime, requests, and GTM/sitewide tracking interactions on `/thank-you2`
 - [x] Repair the confirmed tracking-delivery root cause without duplicating Pixel events
 - [x] Validate the live event-delivery path and save checkpoint
+
+## WL2 Navbar Logo Removal
+
+- [x] Remove the clickable logo from the `/lp/WL2` navbar to prevent users navigating to homepage
