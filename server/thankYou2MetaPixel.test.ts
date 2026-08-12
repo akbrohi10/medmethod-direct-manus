@@ -15,17 +15,19 @@ const documentHeadSource = readFileSync(
 );
 
 describe("ThankYou2 Meta Purchase tracking", () => {
-  it("loads the pixel library sitewide and fires Purchase only on /thank-you2", () => {
-    // Library loads on every page (no pathname gate around the loader)
+  it("loads the pixel library sitewide via static header and fires Purchase on /thank-you2", () => {
+    // Static header: library loads on every page
     expect(documentHeadSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(documentHeadSource).toContain("fbq('init', '1589326469554181')");
     expect(documentHeadSource).toContain("fbq('track', 'PageView')");
-    // Purchase event is still gated to /thank-you2
+    // Static header: Purchase gated to /thank-you2
     expect(documentHeadSource).toContain("window.location.pathname === '/thank-you2'");
     expect(documentHeadSource).toContain("fbq('track', 'Purchase')");
-    // No duplicate pixel bootstrap in page-level components
-    expect(thankYou2Source).not.toContain("initializeWl2MetaPixel");
-    expect(thankYou2Source).not.toContain("purchaseTracked");
+    // Component-level backup: ThankYou2 also fires the pixel in useEffect
+    expect(thankYou2Source).toContain("1589326469554181");
+    expect(thankYou2Source).toContain("Purchase");
+    expect(thankYou2Source).toContain("connect.facebook.net/en_US/fbevents.js");
+    // Pixel must NOT be on the WL2 landing page itself
     expect(wl2Source).not.toContain("1589326469554181");
   });
 });

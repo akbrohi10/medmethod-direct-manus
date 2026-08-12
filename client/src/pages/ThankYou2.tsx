@@ -15,6 +15,45 @@ export default function ThankYou2() {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
       (window as any).dataLayer.push({ event: "booking_complete_wl2" });
     }
+
+    // Meta Pixel: ensure the library is loaded and Purchase fires even if the
+    // static header script didn't execute (e.g. client-side navigation, caching).
+    // This is a belt-and-suspenders approach that guarantees the conversion event.
+    const w = window as any;
+    // Only bootstrap fbq if the header script didn't already do it
+    const alreadyInitialized = w.fbq && w.fbq.callMethod;
+    if (!w.fbq) {
+      const n: any = (w.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      });
+      if (!w._fbq) w._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = "2.0";
+      n.queue = [];
+    }
+    // Load fbevents.js if not already present
+    if (!document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')) {
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://connect.facebook.net/en_US/fbevents.js";
+      document.head.appendChild(s);
+    }
+    // Only fire events if the header script didn't already queue them
+    if (!alreadyInitialized) {
+      // Check if init was already queued by the header
+      const alreadyQueued = w.fbq.queue && w.fbq.queue.some(function (q: any) {
+        return q[0] === "init" && q[1] === "1589326469554181";
+      });
+      if (!alreadyQueued) {
+        w.fbq("init", "1589326469554181");
+        w.fbq("track", "PageView");
+        w.fbq("track", "Purchase");
+      }
+    } else {
+      // Library already fully loaded — just fire Purchase directly
+      w.fbq("track", "Purchase");
+    }
   }, []);
 
   return (
