@@ -304,3 +304,9 @@
 - [x] Verify the deployed `/thank-you2` Meta Pixel initialization and Purchase event for Pixel ID 1589326469554181
 - [x] Confirm the page event path needs no code repair; the sandbox browser blocks third-party Meta script execution
 - [x] Validate the queued init and Purchase calls and save checkpoint
+
+## WL2 Full Meta Pixel Bootstrap
+
+- [x] Replace the `/thank-you2` tracking logic with the supplied full Meta Pixel bootstrap
+- [x] Add PageView, Purchase, and no-script fallback tracking for Pixel ID 1589326469554181 on `/thank-you2` only
+- [ ] Validate the full tracking markup and save checkpoint

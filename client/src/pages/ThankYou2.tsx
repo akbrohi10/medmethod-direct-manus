@@ -60,6 +60,7 @@ export default function ThankYou2() {
       purchaseTracked.current = true;
       const fbq = initializeWl2MetaPixel();
       fbq?.("init", WL2_META_PIXEL_ID);
+      fbq?.("track", "PageView");
       fbq?.("track", "Purchase");
     }
   }, []);
@@ -71,6 +72,16 @@ export default function ThankYou2() {
         <meta name="description" content="Your 15-minute visit with Dr. Al-Deek is scheduled. Accept your calendar invite and reply to our text to confirm your spot." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
+
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: "none" }}
+          src="https://www.facebook.com/tr?id=1589326469554181&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
 
       <div className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 pt-0 pb-12 md:pb-20">
         {/* Minimal Logo Header */}
