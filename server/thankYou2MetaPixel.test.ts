@@ -15,12 +15,15 @@ const documentHeadSource = readFileSync(
 );
 
 describe("ThankYou2 Meta Purchase tracking", () => {
-  it("places the supplied pixel in the static header only for the WL2 thank-you route", () => {
-    expect(documentHeadSource).toContain("window.location.pathname === '/thank-you2'");
+  it("loads the pixel library sitewide and fires Purchase only on /thank-you2", () => {
+    // Library loads on every page (no pathname gate around the loader)
     expect(documentHeadSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(documentHeadSource).toContain("fbq('init', '1589326469554181')");
     expect(documentHeadSource).toContain("fbq('track', 'PageView')");
+    // Purchase event is still gated to /thank-you2
+    expect(documentHeadSource).toContain("window.location.pathname === '/thank-you2'");
     expect(documentHeadSource).toContain("fbq('track', 'Purchase')");
+    // No duplicate pixel bootstrap in page-level components
     expect(thankYou2Source).not.toContain("initializeWl2MetaPixel");
     expect(thankYou2Source).not.toContain("purchaseTracked");
     expect(wl2Source).not.toContain("1589326469554181");

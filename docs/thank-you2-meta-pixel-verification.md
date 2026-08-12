@@ -17,3 +17,7 @@ The deployed ThankYou2 bundle contains the supplied Pixel ID and Purchase call. 
 ## Static-header repair verification
 
 The supplied bootstrap now runs in the static document header for the `/thank-you2` path before the React app mounts. In preview, the document contains the header snippet and the queued calls are `init` for Pixel ID `1589326469554181`, followed by `PageView` and `Purchase`.
+
+## Fresh production verification
+
+With a cache-busting query on production, the static header is present and the Meta queue contains the expected `init`, `PageView`, and `Purchase` calls. The GTM data layer also contains `booking_complete_wl2`. The third-party Meta library remains only a queued stub in this browser environment, preventing the queued events from reaching Meta during sandbox verification.

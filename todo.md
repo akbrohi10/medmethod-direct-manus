@@ -315,4 +315,10 @@
 
 - [x] Move the supplied Meta Pixel bootstrap into the static document header for `/thank-you2`
 - [x] Remove duplicate page-level Pixel bootstrap while preserving the WL2 dataLayer event
-- [ ] Validate header-based PageView and Purchase markup and save checkpoint
+- [x] Validate header-based PageView and Purchase markup and save checkpoint
+
+## WL2 Meta Pixel Delivery Diagnosis
+
+- [x] Trace live Meta Pixel runtime, requests, and GTM/sitewide tracking interactions on `/thank-you2`
+- [x] Repair the confirmed tracking-delivery root cause without duplicating Pixel events
+- [x] Validate the live event-delivery path and save checkpoint
