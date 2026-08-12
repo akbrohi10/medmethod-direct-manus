@@ -285,4 +285,10 @@
 
 - [x] Remove the Your Customized Treatment Plan / ongoing-care section from `/lp/WL2`
 - [x] Place Medication Pricing before How It Works on `/lp/WL2`
-- [ ] Validate the simplified section order and save checkpoint
+- [x] Validate the simplified section order and save checkpoint
+
+## WL2 Thank-You Meta Purchase Tracking
+
+- [x] Add Meta Pixel ID 1589326469554181 initialization and Purchase event to `/thank-you2` only
+- [x] Add targeted coverage confirming the event is isolated to the WL2 thank-you page
+- [ ] Test the conversion event integration and save checkpoint
