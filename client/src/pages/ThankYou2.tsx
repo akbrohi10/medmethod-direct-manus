@@ -5,63 +5,15 @@
    - Info band: $15 refund message instead of $149 charge notice
    - Calendar title updated for 15-min visit
    ============================================================================= */
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight } from "lucide-react";
 import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
 
-const WL2_META_PIXEL_ID = "1589326469554181";
-
-type MetaPixelFunction = ((...args: unknown[]) => void) & {
-  callMethod?: (...args: unknown[]) => void;
-  loaded?: boolean;
-  version?: string;
-  queue?: unknown[][];
-  push?: (...args: unknown[]) => void;
-};
-
-function initializeWl2MetaPixel() {
-  const metaWindow = window as typeof window & { fbq?: MetaPixelFunction; _fbq?: MetaPixelFunction };
-
-  if (!metaWindow.fbq) {
-    const fbq = function (...args: unknown[]) {
-      if (fbq.callMethod) {
-        fbq.callMethod(...args);
-      } else {
-        fbq.queue?.push(args);
-      }
-    } as MetaPixelFunction;
-
-    fbq.push = fbq;
-    fbq.loaded = true;
-    fbq.version = "2.0";
-    fbq.queue = [];
-    metaWindow.fbq = fbq;
-    metaWindow._fbq = fbq;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://connect.facebook.net/en_US/fbevents.js";
-    document.head.appendChild(script);
-  }
-
-  return metaWindow.fbq;
-}
-
 export default function ThankYou2() {
-  const purchaseTracked = useRef(false);
-
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
       (window as any).dataLayer.push({ event: "booking_complete_wl2" });
-    }
-
-    if (!purchaseTracked.current) {
-      purchaseTracked.current = true;
-      const fbq = initializeWl2MetaPixel();
-      fbq?.("init", WL2_META_PIXEL_ID);
-      fbq?.("track", "PageView");
-      fbq?.("track", "Purchase");
     }
   }, []);
 
@@ -72,16 +24,6 @@ export default function ThankYou2() {
         <meta name="description" content="Your 15-minute visit with Dr. Al-Deek is scheduled. Accept your calendar invite and reply to our text to confirm your spot." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src="https://www.facebook.com/tr?id=1589326469554181&ev=PageView&noscript=1"
-          alt=""
-        />
-      </noscript>
 
       <div className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 pt-0 pb-12 md:pb-20">
         {/* Minimal Logo Header */}

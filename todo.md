@@ -309,4 +309,10 @@
 
 - [x] Replace the `/thank-you2` tracking logic with the supplied full Meta Pixel bootstrap
 - [x] Add PageView, Purchase, and no-script fallback tracking for Pixel ID 1589326469554181 on `/thank-you2` only
-- [ ] Validate the full tracking markup and save checkpoint
+- [x] Validate the full tracking markup and save checkpoint
+
+## WL2 Header-Based Meta Pixel Repair
+
+- [x] Move the supplied Meta Pixel bootstrap into the static document header for `/thank-you2`
+- [x] Remove duplicate page-level Pixel bootstrap while preserving the WL2 dataLayer event
+- [ ] Validate header-based PageView and Purchase markup and save checkpoint

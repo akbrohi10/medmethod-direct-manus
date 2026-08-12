@@ -13,3 +13,7 @@
 ## Runtime diagnosis
 
 The deployed ThankYou2 bundle contains the supplied Pixel ID and Purchase call. However, in the browser session the Meta library resource reports no transferred body, the `fbq` function remains only the initial queue stub, and no Meta tracking request is created. This browser environment is preventing the third-party Meta script from executing, so it cannot verify the event delivery from this session.
+
+## Static-header repair verification
+
+The supplied bootstrap now runs in the static document header for the `/thank-you2` path before the React app mounts. In preview, the document contains the header snippet and the queued calls are `init` for Pixel ID `1589326469554181`, followed by `PageView` and `Purchase`.
