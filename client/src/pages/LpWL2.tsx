@@ -734,8 +734,8 @@ export default function LpWL2() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-8 lg:gap-10 items-center">
           {/* Left: copy */}
           <div>
             <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-3" style={{ fontFamily: "Georgia, serif" }}>
@@ -774,8 +774,8 @@ export default function LpWL2() {
           </div>
 
           {/* Right: Dr. Al-Deek photo */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative flex flex-col items-center lg:items-end">
+          <div className="flex justify-center md:justify-end">
+            <div className="relative flex flex-col items-center md:items-end">
               <img
                 src={DR_PHOTO}
                 alt="Dr. Jumana Al-Deek, DO"
@@ -783,7 +783,7 @@ export default function LpWL2() {
                 height="1280"
                 fetchPriority="high"
                 decoding="async"
-                className="w-72 sm:w-80 lg:w-96 rounded-2xl object-cover shadow-xl"
+                className="w-72 sm:w-80 md:w-full md:max-w-[360px] lg:max-w-none lg:w-96 rounded-2xl object-cover shadow-xl"
                 style={{ aspectRatio: "3/4", objectPosition: "top" }}
               />
               {/* Name card */}

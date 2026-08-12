@@ -291,4 +291,10 @@
 
 - [x] Add Meta Pixel ID 1589326469554181 initialization and Purchase event to `/thank-you2` only
 - [x] Add targeted coverage confirming the event is isolated to the WL2 thank-you page
-- [ ] Test the conversion event integration and save checkpoint
+- [x] Test the conversion event integration and save checkpoint
+
+## WL2 Responsive Hero Alignment
+
+- [x] Correct the tablet and mobile hero copy-to-image alignment on `/lp/WL2`
+- [x] Remove unintended intermediate-layout whitespace while preserving the approved desktop hero
+- [ ] Validate responsive hero composition and save checkpoint

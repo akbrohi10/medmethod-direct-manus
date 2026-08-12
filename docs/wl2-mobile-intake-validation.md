@@ -10,3 +10,9 @@
 ## Validation status
 
 The updated modal was opened in preview after the action-isolation change. TypeScript, focused UI tests, the full test suite, and production build are also validated separately.
+
+## Responsive hero alignment spot-check
+
+- Previewed `/lp/WL2` at the browser's tablet-width viewport after the hero breakpoint update.
+- The copy and physician image now render as a coordinated two-column composition without the prior blank intermediate image area after loading.
+- The social-proof strip remains directly below the hero, preserving the intended reading flow.
