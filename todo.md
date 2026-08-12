@@ -279,4 +279,10 @@
 
 - [x] Replace the 10K+ serif treatment with a clean bold sans-serif treatment
 - [x] Tighten the supporting Patients Seen spacing and validate the adjustment
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## WL2 Conversion-Focused Section Order
+
+- [x] Remove the Your Customized Treatment Plan / ongoing-care section from `/lp/WL2`
+- [x] Place Medication Pricing before How It Works on `/lp/WL2`
+- [ ] Validate the simplified section order and save checkpoint

@@ -2,7 +2,6 @@
  * LpWL2.tsx — /lp/WL2
  * GLP-1 Weight Loss landing page — conversion-focused
  * $15 fully refundable booking fee · 15-min virtual visit with Dr. Al-Deek
- * Membership: $49/month · Cancel anytime with 30 days' notice
  */
 import { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -828,98 +827,11 @@ export default function LpWL2() {
         </div>
       </section>
 
-      {/* ── How It Works ── */}
-      <section className="bg-gray-50 py-12">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>HOW IT WORKS</p>
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
-            Simple. Transparent. No surprises.
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-            {/* Card 01 */}
-            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
-              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>01</p>
-              <p className="font-bold text-gray-900 mb-2 text-sm">Tell us about yourself</p>
-              <p className="text-sm text-gray-700 leading-relaxed">Complete a quick 3-minute intake so Dr. Al-Deek can review your health and goals before your visit.</p>
-            </div>
-            {/* Card 02 */}
-            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
-              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>02</p>
-              <p className="font-bold text-gray-900 mb-2 text-sm">Reserve your visit for $15</p>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                Your $15 is{" "}
-                <span className="font-semibold" style={{ color: BRAND_PLUM }}>fully refunded when you attend</span>
-                —even if you decide not to continue.
-              </p>
-            </div>
-            {/* Card 03 */}
-            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
-              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
-              <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
-              <p className="text-sm text-gray-700 leading-relaxed">Together, you and Dr. Al-Deek will map out a personalized weight-loss approach based on your health, goals, and needs.</p>
-            </div>
-            {/* Card 04 */}
-            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
-              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>04</p>
-              <p className="font-bold text-gray-900 mb-2 text-sm">Start Treatment</p>
-              <p className="text-sm text-gray-700 leading-relaxed">Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Membership ── */}
-      <section className="py-12">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>ONGOING CARE</p>
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
-            Your Customized Treatment Plan
-          </h2>
-          <p className="text-base text-gray-700 text-center mb-8 max-w-xl mx-auto">
-            If treatment is appropriate, Dr. Al-Deek will create a personalized plan based on your health, goals, and needs—with the option for ongoing physician support as your treatment progresses.
-          </p>
-          <div className="max-w-sm mx-auto bg-white rounded-2xl border-2 shadow-lg overflow-hidden" style={{ borderColor: BRAND_PINK }}>
-            <div className="px-6 py-5" style={{ background: BRAND_GRADIENT }}>
-              <p className="text-white font-bold text-lg">Ongoing Physician Support</p>
-              <p className="text-white/80 text-sm">Continue your care with Dr. Al-Deek</p>
-            </div>
-            <div className="px-6 py-5">
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-4xl font-extrabold text-gray-900">$49</span>
-                <span className="text-gray-500 text-sm">/month</span>
-              </div>
-              <ul className="flex flex-col gap-4 mb-5">
-                {[
-                  { title: "Direct secure messaging with Dr. Al-Deek", desc: "Questions, symptoms, or guidance — responses within 24–48 hours." },
-                  { title: "Treatment & dosing adjustments", desc: "Your plan can be updated as your needs change." },
-                  { title: "Prescription management & refills", desc: "Stay on track without starting over each time." },
-                ].map((item) => (
-                  <li key={item.title} className="flex items-start gap-2.5">
-                    <Check size={14} className="flex-shrink-0 mt-1" style={{ color: BRAND_PINK }} />
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{item.title}</p>
-                      <p className="text-sm text-gray-600 mt-0.5 leading-relaxed">{item.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm text-gray-600 mb-4">Cancel anytime with 30 days' notice.</p>
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-sm font-semibold text-gray-700 mb-0.5">Prefer a face-to-face follow-up?</p>
-                <p className="text-sm text-gray-600">
-                  Add a 30-minute virtual visit with Dr. Al-Deek for <strong>$50</strong>.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Medication Pricing ── */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <p className="text-sm font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>MEDICATION PRICING</p>
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2" style={{ fontFamily: "Georgia, serif" }}>
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
             Weight-Loss Medication
           </h2>
           <div className="text-center mb-8">
@@ -958,6 +870,40 @@ export default function LpWL2() {
           <p className="text-sm text-gray-600 text-center mt-4 max-w-sm mx-auto">
             Medication pricing varies based on dosage, formulation, and pharmacy. Dr. Al-Deek will discuss your options on your call.
           </p>
+        </div>
+      </section>
+
+      {/* ── How It Works ── */}
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <p className="text-xs font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>HOW IT WORKS</p>
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
+            Simple. Transparent. No surprises.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>01</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Tell us about yourself</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Complete a quick 3-minute intake so Dr. Al-Deek can review your health and goals before your visit.</p>
+            </div>
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>02</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Reserve your visit for $15</p>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                Your $15 is <span className="font-semibold" style={{ color: BRAND_PLUM }}>fully refunded when you attend</span>—even if you decide not to continue.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>03</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Meet one-on-one with Dr. Al-Deek</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Together, you and Dr. Al-Deek will map out a personalized weight-loss approach based on your health, goals, and needs.</p>
+            </div>
+            <div className="bg-white rounded-2xl px-5 py-5 shadow-sm border border-gray-100 flex flex-col">
+              <p className="text-2xl font-extrabold mb-2" style={{ color: "rgba(232,51,158,0.2)" }}>04</p>
+              <p className="font-bold text-gray-900 mb-2 text-sm">Start Treatment</p>
+              <p className="text-sm text-gray-700 leading-relaxed">Receive your GLP-1 protocol — medications shipped to your door with ongoing physician support.</p>
+            </div>
+          </div>
         </div>
       </section>
 
