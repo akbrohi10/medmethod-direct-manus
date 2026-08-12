@@ -269,3 +269,8 @@
 - [x] Tighten the social-proof section spacing and improve visual separation
 - [x] Add a restrained brand-accent line and clearer dividers without adding cards
 - [x] Validate the refined social-proof section and save checkpoint
+
+## WL2 Social-Proof Statistic Copy
+
+- [x] Change the displayed patient statistic from 10,000+ to 10K+ on `/lp/WL2`
+- [ ] Validate the targeted copy update and save checkpoint

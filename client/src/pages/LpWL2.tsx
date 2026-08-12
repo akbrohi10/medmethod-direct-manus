@@ -805,7 +805,7 @@ export default function LpWL2() {
           {/* 2-stat row */}
           <div className="flex justify-center items-center gap-0 mb-6">
             <div className="text-center px-8 sm:px-14">
-              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>10,000+</p>
+              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>10K+</p>
               <p className="text-sm text-gray-600 mt-1">Patients Seen</p>
             </div>
             <div className="w-px h-14 flex-shrink-0" style={{ background: "#d8cbd0" }} />

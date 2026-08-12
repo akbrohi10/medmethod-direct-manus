@@ -13,6 +13,8 @@ describe("LpWL2 social-proof section", () => {
     expect(componentSource).toContain('w-12 h-1 rounded-full mx-auto mb-7');
     expect(componentSource).toContain('background: BRAND_GRADIENT');
     expect(componentSource).toContain('background: "#d8cbd0"');
+    expect(componentSource).toContain('>10K+</p>');
+    expect(componentSource).not.toContain('>10,000+</p>');
     expect(componentSource).not.toContain("Social proof card");
   });
 });
