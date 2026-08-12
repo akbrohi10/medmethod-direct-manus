@@ -41,3 +41,35 @@ After removing the pathname gate:
 4. There's a conflict with GTM also loading a pixel
 
 **Next approach**: Instead of relying solely on the static header, also fire the pixel from the React component using a dynamic script injection that doesn't depend on the initial page load timing.
+
+## Comparison: /thank-you vs /thank-you2 (Aug 12 2026)
+
+Both pages show IDENTICAL behavior in this sandbox:
+- Both have `fbq` function present
+- Both have `fbevents.js` script tag in DOM
+- Both show `transferSize=0`, `decodedBodySize=0` (sandbox blocks the library)
+- Both have `callMethod=undefined` (library never executed)
+- `/thank-you` queue: init + PageView (no Purchase — correct, it's not gated)
+- `/thank-you2` queue: init + PageView + Purchase (correct)
+
+The user confirms `/thank-you` works in Meta Events Manager but `/thank-you2` doesn't.
+Since the code is now identical in approach (both use the same sitewide header pixel),
+the difference MUST be in how the user ARRIVES at each page:
+- `/thank-you` is reached via the $50 payment flow (likely a different redirect mechanism)
+- `/thank-you2` is reached via the $15 WL2 payment flow
+
+KEY INSIGHT: The ThankYou component does NOT have any pixel-specific code — it relies
+entirely on the sitewide header. So if /thank-you works, the sitewide header approach
+IS correct. The issue must be something specific to the /thank-you2 page that prevents
+the library from executing AFTER it loads.
+
+WAIT — looking at the page title: /thank-you shows "You're Confirmed | MedMethod Direct"
+which means react-helmet-async updated the title. But the initial HTML title is
+"MedMethod Direct | Virtual Hormone Therapy & GLP-1 Weight Loss for Women".
+
+This means /thank-you is loaded as a FULL PAGE LOAD (the default HTML title shows first,
+then React updates it). The same should be true for /thank-you2.
+
+REAL DIFFERENCE: The user may have tested /thank-you BEFORE the recent changes that
+removed the old pixel from that page. Or there's a GTM trigger configured for /thank-you
+but not /thank-you2.

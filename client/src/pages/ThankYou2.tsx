@@ -16,12 +16,15 @@ export default function ThankYou2() {
       (window as any).dataLayer.push({ event: "booking_complete_wl2" });
     }
 
-    // Meta Pixel: ensure the library is loaded and Purchase fires even if the
-    // static header script didn't execute (e.g. client-side navigation, caching).
-    // This is a belt-and-suspenders approach that guarantees the conversion event.
+    // ─── Meta Pixel 1589326469554181: Triple-layer approach ───
+    // Layer 1: fbq() calls (works if fbevents.js loaded via header or GTM)
+    // Layer 2: Dynamic script injection (works if header didn't load it)
+    // Layer 3: Direct image pixel (bypasses everything — sends directly to Meta)
+
+    const PIXEL_ID = "1589326469554181";
     const w = window as any;
-    // Only bootstrap fbq if the header script didn't already do it
-    const alreadyInitialized = w.fbq && w.fbq.callMethod;
+
+    // Layer 1 & 2: Standard fbq approach
     if (!w.fbq) {
       const n: any = (w.fbq = function () {
         n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
@@ -32,28 +35,26 @@ export default function ThankYou2() {
       n.version = "2.0";
       n.queue = [];
     }
-    // Load fbevents.js if not already present
     if (!document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')) {
       const s = document.createElement("script");
       s.async = true;
       s.src = "https://connect.facebook.net/en_US/fbevents.js";
       document.head.appendChild(s);
     }
-    // Only fire events if the header script didn't already queue them
-    if (!alreadyInitialized) {
-      // Check if init was already queued by the header
-      const alreadyQueued = w.fbq.queue && w.fbq.queue.some(function (q: any) {
-        return q[0] === "init" && q[1] === "1589326469554181";
-      });
-      if (!alreadyQueued) {
-        w.fbq("init", "1589326469554181");
-        w.fbq("track", "PageView");
-        w.fbq("track", "Purchase");
-      }
-    } else {
-      // Library already fully loaded — just fire Purchase directly
-      w.fbq("track", "Purchase");
-    }
+    w.fbq("init", PIXEL_ID);
+    w.fbq("track", "PageView");
+    w.fbq("track", "Purchase");
+
+    // Layer 3: Direct image pixel — fires Purchase directly to Meta's servers.
+    // This bypasses fbevents.js, GTM, ad blockers on the JS library, and any
+    // script execution issues. Meta will deduplicate with the fbq() call above.
+    const img = new Image(1, 1);
+    img.src = "https://www.facebook.com/tr?id=" + PIXEL_ID +
+      "&ev=Purchase&noscript=1&cd[currency]=USD&cd[value]=15.00";
+
+    // Also fire PageView via direct image
+    const img2 = new Image(1, 1);
+    img2.src = "https://www.facebook.com/tr?id=" + PIXEL_ID + "&ev=PageView&noscript=1";
   }, []);
 
   return (
