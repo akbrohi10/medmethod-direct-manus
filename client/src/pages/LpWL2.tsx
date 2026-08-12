@@ -805,13 +805,13 @@ export default function LpWL2() {
           {/* 2-stat row */}
           <div className="flex justify-center items-center gap-0 mb-6">
             <div className="text-center px-8 sm:px-14">
-              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>10K+</p>
-              <p className="text-sm text-gray-600 mt-1">Patients Seen</p>
+              <p className="text-3xl leading-none font-black tracking-tight text-gray-900">10K+</p>
+              <p className="text-sm font-medium leading-none text-gray-600 mt-1.5">Patients Seen</p>
             </div>
             <div className="w-px h-14 flex-shrink-0" style={{ background: "#d8cbd0" }} />
             <div className="text-center px-8 sm:px-14">
-              <p className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: "Georgia, serif" }}>17</p>
-              <p className="text-sm text-gray-600 mt-1">States Licensed</p>
+              <p className="text-3xl leading-none font-black tracking-tight text-gray-900">17</p>
+              <p className="text-sm font-medium leading-none text-gray-600 mt-1.5">States Licensed</p>
             </div>
           </div>
           {/* Divider */}

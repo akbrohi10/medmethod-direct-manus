@@ -15,6 +15,8 @@ describe("LpWL2 social-proof section", () => {
     expect(componentSource).toContain('background: "#d8cbd0"');
     expect(componentSource).toContain('>10K+</p>');
     expect(componentSource).not.toContain('>10,000+</p>');
+    expect(componentSource).toContain('font-black tracking-tight text-gray-900');
+    expect(componentSource).toContain('font-medium leading-none text-gray-600 mt-1.5');
     expect(componentSource).not.toContain("Social proof card");
   });
 });

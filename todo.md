@@ -273,4 +273,10 @@
 ## WL2 Social-Proof Statistic Copy
 
 - [x] Change the displayed patient statistic from 10,000+ to 10K+ on `/lp/WL2`
-- [ ] Validate the targeted copy update and save checkpoint
+- [x] Validate the targeted copy update and save checkpoint
+
+## WL2 Patient Statistic Typography
+
+- [x] Replace the 10K+ serif treatment with a clean bold sans-serif treatment
+- [x] Tighten the supporting Patients Seen spacing and validate the adjustment
+- [ ] Save checkpoint
