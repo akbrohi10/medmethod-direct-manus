@@ -21,6 +21,9 @@
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1589326469554181');
       fbq('track', 'PageView');
+      if (window.location.pathname === '/thank-you2') {
+        fbq('track', 'Purchase');
+      }
     </script>
     <!-- End Meta Pixel Code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
