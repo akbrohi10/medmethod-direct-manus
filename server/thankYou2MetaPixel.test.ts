@@ -1,24 +1,19 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-const thankYou2Source = readFileSync(
-  new URL("../client/src/pages/ThankYou2.tsx", import.meta.url),
-  "utf8",
-);
 const documentHeadSource = readFileSync(
   new URL("../client/index.html", import.meta.url),
   "utf8",
 );
 
-describe("Meta Pixel removal verification", () => {
-  it("Meta Pixel 1589326469554181 is completely removed from the site", () => {
-    // No pixel in static header
-    expect(documentHeadSource).not.toContain("fbevents.js");
-    expect(documentHeadSource).not.toContain("1589326469554181");
-    // No pixel in ThankYou2 component
-    expect(thankYou2Source).not.toContain("1589326469554181");
-    expect(thankYou2Source).not.toContain("fbevents");
-    // GTM dataLayer event is preserved
-    expect(thankYou2Source).toContain("booking_complete_wl2");
+describe("Meta Pixel sitewide installation", () => {
+  it("loads pixel 1589326469554181 with init + PageView on all pages", () => {
+    expect(documentHeadSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
+    expect(documentHeadSource).toContain("fbq('init', '1589326469554181')");
+    expect(documentHeadSource).toContain("fbq('track', 'PageView')");
+    // No Purchase event in the sitewide header
+    expect(documentHeadSource).not.toContain("fbq('track', 'Purchase')");
+    // Noscript fallback present
+    expect(documentHeadSource).toContain("facebook.com/tr?id=1589326469554181&ev=PageView&noscript=1");
   });
 });
