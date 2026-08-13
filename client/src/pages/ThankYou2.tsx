@@ -13,7 +13,7 @@ import WL2BookingFollowup from "@/components/home1/WL2BookingFollowup";
 export default function ThankYou2() {
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
-      (window as any).dataLayer.push({ event: "booking_complete_wl2" });
+      (window as any).dataLayer.push({ event: "booking_complete" });
     }
 
     // Meta Pixel: fire PageView + Purchase on /thank-you2
