@@ -15,46 +15,6 @@ export default function ThankYou2() {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
       (window as any).dataLayer.push({ event: "booking_complete_wl2" });
     }
-
-    // ─── Meta Pixel 1589326469554181: Triple-layer approach ───
-    // Layer 1: fbq() calls (works if fbevents.js loaded via header or GTM)
-    // Layer 2: Dynamic script injection (works if header didn't load it)
-    // Layer 3: Direct image pixel (bypasses everything — sends directly to Meta)
-
-    const PIXEL_ID = "1589326469554181";
-    const w = window as any;
-
-    // Layer 1 & 2: Standard fbq approach
-    if (!w.fbq) {
-      const n: any = (w.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      });
-      if (!w._fbq) w._fbq = n;
-      n.push = n;
-      n.loaded = true;
-      n.version = "2.0";
-      n.queue = [];
-    }
-    if (!document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')) {
-      const s = document.createElement("script");
-      s.async = true;
-      s.src = "https://connect.facebook.net/en_US/fbevents.js";
-      document.head.appendChild(s);
-    }
-    w.fbq("init", PIXEL_ID);
-    w.fbq("track", "PageView");
-    w.fbq("track", "Purchase");
-
-    // Layer 3: Direct image pixel — fires Purchase directly to Meta's servers.
-    // This bypasses fbevents.js, GTM, ad blockers on the JS library, and any
-    // script execution issues. Meta will deduplicate with the fbq() call above.
-    const img = new Image(1, 1);
-    img.src = "https://www.facebook.com/tr?id=" + PIXEL_ID +
-      "&ev=Purchase&noscript=1&cd[currency]=USD&cd[value]=15.00";
-
-    // Also fire PageView via direct image
-    const img2 = new Image(1, 1);
-    img2.src = "https://www.facebook.com/tr?id=" + PIXEL_ID + "&ev=PageView&noscript=1";
   }, []);
 
   return (

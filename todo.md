@@ -326,3 +326,11 @@
 ## WL2 Navbar Logo Removal
 
 - [x] Remove the clickable logo from the `/lp/WL2` navbar to prevent users navigating to homepage
+
+## Meta Pixel Complete Removal
+
+- [x] Remove Meta Pixel 1589326469554181 from static header (index.html)
+- [x] Remove Meta Pixel from ThankYou2 component (useEffect)
+- [x] Remove noscript pixel fallback from body
+- [x] Update tests to verify pixel is fully removed
+- [x] Preserve GTM dataLayer event (booking_complete_wl2) for future use
