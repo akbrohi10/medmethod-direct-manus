@@ -1,17 +1,15 @@
 import { trpc } from "@/lib/trpc";
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
 
 /** Handles the rare Stripe 3DS redirect for the WL2 one-time $15 payment. */
 export default function ThanksPaymentWL2() {
-  const [, navigate] = useLocation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const params = new URLSearchParams(window.location.search);
   const paymentIntentId = params.get("payment_intent");
   const paymentId = params.get("paymentId");
   const redirectStatus = params.get("redirect_status");
   const confirmPayment = trpc.stripe.confirmWl2OneTimePayment.useMutation({
-    onSuccess: () => navigate("/thank-you2"),
+    onSuccess: () => { window.location.href = "/thank-you2"; },
     onError: (error) => setErrorMessage(error.message),
   });
 
@@ -20,7 +18,7 @@ export default function ThanksPaymentWL2() {
     if (redirectStatus === "succeeded" && paymentIntentId && paymentId) {
       confirmPayment.mutate({ paymentId: Number(paymentId), paymentIntentId });
     } else {
-      navigate("/thank-you2");
+      window.location.href = "/thank-you2";
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
