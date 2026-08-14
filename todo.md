@@ -334,3 +334,7 @@
 - [x] Remove noscript pixel fallback from body
 - [x] Update tests to verify pixel is fully removed
 - [x] Preserve GTM dataLayer event (booking_complete_wl2) for future use
+
+## Affiliate Ref Code in Stripe Metadata
+
+- [x] Pass affiliate `ref` URL parameter into Stripe PaymentIntent metadata as `affiliate_code` for $50 deposit

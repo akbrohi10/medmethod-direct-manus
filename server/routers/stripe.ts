@@ -154,6 +154,7 @@ export const stripeRouter = router({
         patientEmail: z.string().email(),
         patientPhone: z.string().optional(),
         landingPage: z.string().optional(),
+        affiliateCode: z.string().optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -167,7 +168,11 @@ export const stripeRouter = router({
         name: input.patientName,
         email: input.patientEmail,
         phone: input.patientPhone,
-        metadata: { source: "medmethod-direct", landingPage: input.landingPage ?? "hrt2" },
+        metadata: {
+          source: "medmethod-direct",
+          landingPage: input.landingPage ?? "hrt2",
+          ...(input.affiliateCode ? { affiliate_code: input.affiliateCode } : {}),
+        },
       });
 
       // Create a $50 PaymentIntent with setup_future_usage so the payment method
@@ -183,6 +188,7 @@ export const stripeRouter = router({
           landingPage: input.landingPage ?? "hrt2",
           patientName: input.patientName,
           patientEmail: input.patientEmail,
+          ...(input.affiliateCode ? { affiliate_code: input.affiliateCode } : {}),
         },
       });
 

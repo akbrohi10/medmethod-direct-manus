@@ -296,6 +296,7 @@ export default function StripePaymentForm({
       patientEmail,
       patientPhone,
       landingPage: landingPage ?? "hrt2",
+      affiliateCode: new URLSearchParams(window.location.search).get("ref") || undefined,
     });
   }, [pubKeyQuery.data?.publishableKey]);
 
