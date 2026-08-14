@@ -47,6 +47,13 @@ export default function ThankYou() {
     if (typeof window !== "undefined" && (window as any).dataLayer) {
       (window as any).dataLayer.push({ event: "booking_complete" });
     }
+
+    // Meta Pixel: fire PageView + CompleteRegistration on /thank-you
+    const w = window as any;
+    if (w.fbq) {
+      w.fbq("track", "PageView");
+      w.fbq("track", "CompleteRegistration");
+    }
   }, []);
 
   return (

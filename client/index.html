@@ -14,6 +14,10 @@
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1589326469554181');
       fbq('track', 'PageView');
+      if (window.location.pathname === '/thank-you' || window.location.pathname === '/thank-you2') {
+        fbq('track', 'PageView');
+        fbq('track', 'CompleteRegistration');
+      }
       if (window.location.pathname === '/thank-you2') {
         fbq('track', 'Purchase');
       }

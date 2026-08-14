@@ -20,6 +20,7 @@ export default function ThankYou2() {
     const w = window as any;
     if (w.fbq) {
       w.fbq("track", "PageView");
+      w.fbq("track", "CompleteRegistration");
       w.fbq("track", "Purchase");
     }
   }, []);
