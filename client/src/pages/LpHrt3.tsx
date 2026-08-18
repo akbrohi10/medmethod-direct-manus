@@ -219,31 +219,31 @@ export default function LpHrt3() {
 
       {/* ═══════════════ STRIPPED NAV ═══════════════ */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="w-full px-3 sm:px-6 lg:px-8 flex items-center justify-between h-14">
-          {/* Logo — far left */}
-          <a href="/" className="flex items-center shrink-0 mr-auto">
+        <div className="w-full px-2 sm:px-6 lg:px-8 flex items-center h-14">
+          {/* Logo — far left, fixed width */}
+          <a href="/" className="flex items-center shrink-0">
             <img
               src={LOGO}
               alt="MedMethod Direct"
-              className="h-10 sm:h-11 w-auto object-contain"
+              className="h-8 sm:h-11 w-auto object-contain"
               style={{ clipPath: "inset(0 0 30% 0)", marginBottom: "-6px" }}
             />
           </a>
-          {/* Phone — centered */}
+          {/* Phone — centered, takes remaining space */}
           <a
             href="tel:+18883627011"
-            className="flex items-center gap-1.5 font-bold text-[#E8339E] hover:text-[#7A1E7E] transition-colors whitespace-nowrap absolute left-1/2 -translate-x-1/2"
+            className="flex items-center justify-center gap-1.5 font-bold text-[#E8339E] hover:text-[#7A1E7E] transition-colors whitespace-nowrap flex-1"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span className="text-[14px] sm:text-[15px]">(888) 362-7011</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span className="text-[13px] sm:text-[15px]">(888) 362-7011</span>
           </a>
           {/* Patient Login — far right */}
           <a
             href="https://medmethoddirect.md-hq.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-auto shrink-0 px-4 py-2 rounded-full text-[12px] sm:text-[13px] font-semibold border border-gray-300 text-gray-600 hover:border-[#E8339E] hover:text-[#E8339E] transition-colors whitespace-nowrap"
+            className="shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-[13px] font-semibold border border-gray-300 text-gray-600 hover:border-[#E8339E] hover:text-[#E8339E] transition-colors whitespace-nowrap"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Patient Login
