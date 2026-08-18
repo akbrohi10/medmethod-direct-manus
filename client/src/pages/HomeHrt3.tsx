@@ -228,23 +228,25 @@ export default function HomeHrt3() {
 
       {/* ═══════════════ MINIMAL HOMEPAGE HEADER ═══════════════ */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
           <a href="/" className="flex items-center">
             <img
               src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
               alt="MedMethod Direct"
-              className="h-12 w-auto object-contain"
+              className="h-9 w-auto object-contain object-top"
+              style={{ objectPosition: "left top", clipPath: "inset(0 0 18% 0)" }}
               loading="eager"
             />
           </a>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Phone — mobile: icon only, desktop: full number */}
             <a
               href="tel:+18883627011"
-              className="hidden sm:flex items-center gap-1.5 text-[13px] font-semibold text-[#7A1E7E] hover:text-[#E8339E] transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 font-bold text-[#E8339E] hover:text-[#7A1E7E] transition-colors whitespace-nowrap"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              (888) 362-7011
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span className="hidden sm:inline text-[15px]">(888) 362-7011</span>
             </a>
             <a
               href="https://medmethoddirect.md-hq.com/"
