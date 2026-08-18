@@ -224,8 +224,8 @@ export default function LpHrt3() {
             <img
               src={LOGO}
               alt="MedMethod Direct"
-              className="h-10 w-auto object-contain"
-              style={{ clipPath: "inset(0 0 22% 0)" }}
+              className="h-8 sm:h-9 w-auto object-contain"
+              style={{ clipPath: "inset(0 0 30% 0)", marginBottom: "-6px" }}
             />
           </a>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
