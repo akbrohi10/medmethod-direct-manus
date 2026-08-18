@@ -233,8 +233,8 @@ export default function HomeHrt3() {
             <img
               src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
               alt="MedMethod Direct"
-              className="h-9 w-auto object-contain object-top"
-              style={{ objectPosition: "left top", clipPath: "inset(0 0 18% 0)" }}
+              className="h-10 w-auto object-contain"
+              style={{ clipPath: "inset(0 0 22% 0)" }}
               loading="eager"
             />
           </a>
