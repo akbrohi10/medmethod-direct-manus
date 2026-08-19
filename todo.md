@@ -338,3 +338,9 @@
 ## Affiliate Ref Code in Stripe Metadata
 
 - [x] Pass affiliate `ref` URL parameter into Stripe PaymentIntent metadata as `affiliate_code` for $50 deposit
+
+## Care Team Booking Page
+
+- [x] Create `/care-team-booking` page with embedded SendMeAPro calendar
+- [x] Add header with logo, phone number, and Patient Login
+- [x] Register route in App.tsx
