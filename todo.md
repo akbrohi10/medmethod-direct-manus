@@ -361,4 +361,4 @@
 - [x] Restore the production main-server bundle at `dist/index.js`
 - [x] Preserve separate Replit helper bundles for sweep and super-admin seed commands
 - [x] Validate TypeScript, tests, build output, and production startup on an isolated port
-- [ ] Save and deliver a deployment-ready checkpoint
+- [x] Save and deliver a deployment-ready checkpoint
