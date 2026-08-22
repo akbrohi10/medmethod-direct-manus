@@ -3,6 +3,8 @@
 **Author:** Manus AI  
 **Scope:** Code, empty database structure, public marketing assets, configuration template, and operational setup. **No live patient, payment, admin-credential, or production database records are included.**
 
+For a ready-to-paste Replit Agent prompt and a shorter ordered checklist, start with [`REPLIT_AGENT_PROMPT.md`](./REPLIT_AGENT_PROMPT.md).
+
 ## 1. What this package contains
 
 | Item | Location | Contains live data? |

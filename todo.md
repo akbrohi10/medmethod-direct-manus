@@ -362,3 +362,10 @@
 - [x] Preserve separate Replit helper bundles for sweep and super-admin seed commands
 - [x] Validate TypeScript, tests, build output, and production startup on an isolated port
 - [x] Save and deliver a deployment-ready checkpoint
+
+## Replit Duplication Guide
+
+- [x] Write a copy-paste Replit Agent prompt that preserves the existing application and migration scope
+- [x] Write ordered setup instructions for code, public assets, empty MySQL schema, Secrets, payment test modes, webhooks, and the hourly sweep
+- [x] Validate the guide against the current repository and migration archives
+- [ ] Save and deliver the Replit duplication guide
