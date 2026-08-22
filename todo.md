@@ -354,4 +354,4 @@
 - [x] Prepare Replit-compatible setup files and a safe environment-variable template without secret values
 - [x] Document database-data, storage, payment, webhook, authentication, scheduler, and domain migration steps
 - [x] Validate the portable build and migration materials without connecting to the production database
-- [ ] Save a checkpoint and deliver the migration package
+- [x] Save a checkpoint and deliver the migration package
