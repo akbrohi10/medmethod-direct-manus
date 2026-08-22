@@ -61,7 +61,11 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  registerStorageProxy(app);
+  // Replit migration mode can serve backed-up assets from
+  // client/public/manus-storage instead of the Manus Forge signing proxy.
+  if (process.env.LOCAL_ASSET_MODE !== "true") {
+    registerStorageProxy(app);
+  }
   registerOAuthRoutes(app);
   // Scheduled cron endpoints — MUST be registered before tRPC and Vite fallthrough
   // Legacy per-payment endpoint (kept for any old cron jobs still in flight)
@@ -69,9 +73,13 @@ async function startServer() {
   // Global hourly sweep — charges all due deposit_paid payments
   app.post("/api/scheduled/sweep-due-charges", chargeRemainingHandler);
   // Register the global hourly sweep cron job (idempotent — safe to call on every startup)
-  ensureGlobalSweepCron().catch((err: unknown) =>
-    console.error("[Startup] Failed to register global sweep cron:", err)
-  );
+  // Manus uses Heartbeat to register the hourly sweep. On Replit, set this
+  // flag and run `pnpm sweep` from a Scheduled Deployment instead.
+  if (process.env.DISABLE_MANUS_HEARTBEAT !== "true") {
+    ensureGlobalSweepCron().catch((err: unknown) =>
+      console.error("[Startup] Failed to register global sweep cron:", err)
+    );
+  }
   // GHL booking webhook — fires when a patient books an appointment in the GHL calendar
   // Setup: GHL → Settings → Integrations → Webhooks → Add Webhook
   // URL: https://medmethoddirect.com/api/ghl/booking-confirmed

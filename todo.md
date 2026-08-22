@@ -344,3 +344,14 @@
 - [x] Create `/care-team-booking` page with embedded SendMeAPro calendar
 - [x] Add header with logo, phone number, and Patient Login
 - [x] Register route in App.tsx
+
+## Complete Replit Migration Package
+
+- [x] Inventory application runtime, database schema, hosted assets, secrets, integrations, and scheduled workflows
+- [x] Confirm production medical-data security and hosting requirements; user selected empty tables/test data only with no live records
+- [x] Create a schema-only MySQL migration package with no patient or payment records
+- [x] Create an inventory and backup plan for public images, fonts, icons, and uploaded files
+- [x] Prepare Replit-compatible setup files and a safe environment-variable template without secret values
+- [x] Document database-data, storage, payment, webhook, authentication, scheduler, and domain migration steps
+- [x] Validate the portable build and migration materials without connecting to the production database
+- [ ] Save a checkpoint and deliver the migration package

@@ -1,0 +1,2 @@
+360c2d431201cd729c001d36a176b57d4fcd5e42031e0d9c882ac55c02e696f0  medmethod-public-assets.zip
+cafc7c1720c4c52283bf9a9dea1d0c00590108582849691a0e317a4359c02366  medmethod-large-video.zip

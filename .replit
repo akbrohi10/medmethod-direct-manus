@@ -1,0 +1,11 @@
+entrypoint = "server/_core/index.ts"
+modules = ["nodejs-22"]
+run = "pnpm dev"
+
+[deployment]
+build = "pnpm install --frozen-lockfile && pnpm build"
+run = "pnpm start"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
