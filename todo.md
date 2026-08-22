@@ -1,13 +1,13 @@
 # Testimonial Update Task (separate task — not part of Stripe payment system)
 
-- [ ] Audit current testimonial structure (how quotes are rendered, where they live in each page)
-- [ ] Write 4-5 unique testimonials per state (8 states) with diverse personas
-- [ ] Include wellness advisor accountability theme in several testimonials
-- [ ] Persona variety: busy professional mom, executive, perimenopause, full menopause, weight loss seeker, post-GLP1 plateau, empty nester, fitness-focused
-- [ ] Deploy state-specific testimonials to all 84+ city pages
-- [ ] Verify TypeScript compiles at 0 errors
-- [ ] Spot-check rendering on sample pages
-- [ ] Save checkpoint
+- [x] Audit current testimonial task scope; canceled because reviews/testimonials must come from genuine, approved customer records
+- [x] Do not write fabricated state-specific testimonials or fictional personas
+- [x] Do not add unverified wellness-advisor claims to testimonials
+- [x] Do not create fictional patient personas for testimonial content
+- [x] Do not deploy fabricated testimonials to location pages
+- [x] Verify TypeScript compiles at 0 errors
+- [x] Confirm no testimonial rendering changes were made
+- [x] Save checkpoint documenting the policy-safe cancellation
 
 ## Stripe Payment System (Admin Dashboard + /lp/hrt2)
 
@@ -355,3 +355,10 @@
 - [x] Document database-data, storage, payment, webhook, authentication, scheduler, and domain migration steps
 - [x] Validate the portable build and migration materials without connecting to the production database
 - [x] Save a checkpoint and deliver the migration package
+
+## Production Deployment Entrypoint Repair
+
+- [x] Restore the production main-server bundle at `dist/index.js`
+- [x] Preserve separate Replit helper bundles for sweep and super-admin seed commands
+- [x] Validate TypeScript, tests, build output, and production startup on an isolated port
+- [ ] Save and deliver a deployment-ready checkpoint
