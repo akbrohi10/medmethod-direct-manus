@@ -364,8 +364,20 @@
 - [x] Save and deliver a deployment-ready checkpoint
 
 ## Replit Duplication Guide
-
 - [x] Write a copy-paste Replit Agent prompt that preserves the existing application and migration scope
 - [x] Write ordered setup instructions for code, public assets, empty MySQL schema, Secrets, payment test modes, webhooks, and the hourly sweep
 - [x] Validate the guide against the current repository and migration archives
 - [x] Save and deliver the Replit duplication guide
+
+## Custom Domain Return from Replit to Manus
+
+- [x] Inspect public DNS and HTTPS responses for `medmethoddirect.com` and `www.medmethoddirect.com`
+- [x] Identify and document the stale Replit DNS records without changing email or verification records
+- [x] Verify both hostnames route to the Manus deployment after DNS correction
+
+## PayPal Settings Query Repair
+
+- [x] Inspect the expected `paypal_settings` schema, query implementation, current database columns, and runtime error details
+- [x] Clear the stale application database connection state without changing existing payment configuration data
+- [x] Run the full regression suite and verify PayPal public settings retrieval
+- [x] Verify the homepage and PayPal settings endpoint after the server repair
