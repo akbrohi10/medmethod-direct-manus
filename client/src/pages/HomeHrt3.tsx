@@ -112,7 +112,7 @@ const FAQS = [
   },
   {
     q: "I heard that hormone replacement therapy isn't safe — is that true?",
-    a: "Modern evidence shows that for most women, the benefits of HRT far outweigh the risks — especially when started within 10 years of menopause onset. Dr. Al-Deek uses bioidentical hormones and evidence-based protocols tailored to your individual risk profile.",
+    a: "Whether HRT is appropriate depends on your symptoms, health history, age, timing, and individual risk factors. Dr. Al-Deek reviews potential benefits, risks, alternatives, and monitoring needs with each patient before recommending treatment.",
   },
   {
     q: "When should I start hormone replacement therapy?",
@@ -144,7 +144,7 @@ const FAQS = [
   },
   {
     q: "How quickly will I see results?",
-    a: "It depends on the treatment. Most women on GLP-1 therapy begin noticing appetite changes within the first 1–2 weeks, with meaningful weight loss typically visible by weeks 4–8. For HRT, many women report improved sleep and reduced hot flashes within 2–4 weeks, with fuller hormonal balance developing over 2–3 months. Dr. Al-Deek will set realistic expectations for your specific protocol at your visit.",
+    a: "Response and timing vary by patient, treatment, dose, health history, and other individual factors. Some people notice changes sooner than others, and no specific outcome or timeline can be guaranteed. Dr. Al-Deek will discuss realistic expectations and monitoring based on your individual treatment plan.",
   },
   {
     q: "What happens after the 30-day text access period?",
@@ -653,7 +653,7 @@ export default function HomeHrt3() {
               Ready to feel like yourself again?
             </h2>
             <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
-              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, health history, and goals, and leave with a personalized treatment plan and prescription.
+              Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, health history, and goals, and leave with a personalized treatment plan and, when clinically appropriate, a prescription.
             </p>
             <button
               onClick={openConsult}

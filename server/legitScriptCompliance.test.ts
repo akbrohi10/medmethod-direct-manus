@@ -73,6 +73,27 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
+  it("keeps the homepage prescription and treatment-response copy appropriately qualified", () => {
+    const homepageSource = readFileSync(
+      resolve(sourceRoot, "pages/HomeHrt3.tsx"),
+      "utf8",
+    );
+
+    expect(homepageSource).toContain(
+      "when clinically appropriate, a prescription",
+    );
+    expect(homepageSource).not.toContain(
+      "leave with a personalized treatment plan and prescription",
+    );
+    expect(homepageSource).not.toContain("benefits of HRT far outweigh the risks");
+    expect(homepageSource).not.toMatch(
+      /(?:1–2 weeks|4–8 weeks|2–4 weeks|2–3 months)/,
+    );
+    expect(homepageSource).toContain(
+      "no specific outcome or timeline can be guaranteed",
+    );
+  });
+
   it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
     const locationsSource = readFileSync(
       resolve(sourceRoot, "pages/Locations.tsx"),

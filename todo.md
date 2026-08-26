@@ -477,3 +477,11 @@
 - [x] Audit the locations directory and Georgia, Illinois, and Michigan hubs for compliance, coherence, SEO, links, conversion flow, and responsive layout
 - [x] Validate findings with source review, route checks, browser screenshots, and automated scans without changing website content
 - [x] Prepare a prioritized no-change audit report with recommended fixes for user approval
+
+## Minimal Homepage Compliance Copy Corrections
+
+- [x] Qualify the final homepage CTA so a prescription is described only as clinically appropriate rather than guaranteed
+- [x] Replace quantified result timelines and broad benefit-versus-risk language in the homepage FAQ with neutral patient-specific wording
+- [x] Confirm no state-page, layout, pricing, payment, booking, tracking, or integration changes are introduced
+- [x] Run focused compliance checks, TypeScript, tests, production build, and homepage visual verification
+- [x] Save and deliver the minimal homepage copy-only checkpoint
