@@ -440,3 +440,22 @@
 - [x] Move each disclosure beside relevant treatment content without changing the mandated wording
 - [x] Verify desktop and mobile spacing, readability, exact wording, tests, and production build
 - [x] Save and deliver the corrected disclosure-placement checkpoint
+
+## Comprehensive Compliance Before-and-After Verification Package
+
+- [x] Map every material compliance edit to matched screenshot evidence or technical verification
+- [x] Build an isolated pre-compliance environment without altering the live site or current project
+- [x] Capture matched historical and current screenshots for the representative homepage, locations, HRT, weight-loss, legal, blog, city-template, and removed-route pages
+- [x] Document repeated city-page changes with template-level file counts, disclosure coverage, and compliance scan evidence
+- [x] Collect redirect, metadata, sitemap, hidden-content, disclosure, test, and preserved-system evidence
+- [x] Write and quality-check a requirement-by-requirement verification report tied directly to `MMD_Website_Update_Instructions_2026-08-25.docx`
+- [x] Write and quality-check a separate report containing only improvements completed beyond the supplied requirements
+- [x] Deliver both reports, supporting images, and the updated documentation checkpoint
+
+## Exact 12-Jurisdiction Correction from Supplied Instructions
+
+- [x] Replace Nevada, Oregon, and West Virginia with Georgia, Illinois, and Michigan in every visible and hidden licensing reference
+- [x] Verify the exact approved list on the homepage, landing pages, locations, Terms, metadata, structured data, social proof, and public indexes
+- [x] Update compliance regression tests to enforce the supplied jurisdiction list and reject the incorrect substitutions
+- [x] Re-run TypeScript, all tests, production build, source scans, and representative page verification
+- [x] Recapture affected current screenshots and update both verification reports before delivery

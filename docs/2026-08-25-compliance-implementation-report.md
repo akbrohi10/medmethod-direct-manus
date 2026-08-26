@@ -80,18 +80,18 @@ The approved licensing scope is now stated as **12 jurisdictions**:
 
 | Approved Jurisdictions |
 |---|
+| Florida |
 | Arizona |
 | Colorado |
 | District of Columbia |
-| Florida |
+| Georgia |
+| Illinois |
 | Maryland |
-| Nevada |
+| Michigan |
 | North Carolina |
-| Oregon |
 | Pennsylvania |
 | Texas |
 | Virginia |
-| West Virginia |
 
 All outdated 9-state, 17-state, and five-state counts were removed. Tennessee, New Jersey, Alabama, Washington State, and Ohio were removed from licensing statements and social-proof location arrays. “Washington DC” references were retained only where they refer to the approved District of Columbia.
 
@@ -120,7 +120,7 @@ All non-Florida location references to testosterone treatment for women were rem
 | Validation | Result |
 |---|---|
 | TypeScript | Passed with no errors |
-| Automated tests | **114 passed across 22 test files** |
+| Automated tests | **115 passed across 22 test files** |
 | Production build | Passed |
 | Compliance regression suite | Passed all state, brand, claim, service, disclosure, route, and footer checks[3] |
 | Final prohibited-content scans | Zero matches for removed states, banned brands, body claims, outcome claims, drug comparisons, disallowed services, prohibited fitness language, and outdated state counts |

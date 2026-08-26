@@ -73,6 +73,35 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
+  it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
+    const locationsSource = readFileSync(
+      resolve(sourceRoot, "pages/Locations.tsx"),
+      "utf8",
+    );
+    const approvedJurisdictions = [
+      "Florida",
+      "Arizona",
+      "Colorado",
+      "District of Columbia",
+      "Georgia",
+      "Illinois",
+      "Maryland",
+      "Michigan",
+      "North Carolina",
+      "Pennsylvania",
+      "Texas",
+      "Virginia",
+    ];
+
+    for (const jurisdiction of approvedJurisdictions) {
+      expect(locationsSource).toContain(`\"${jurisdiction}\"`);
+    }
+
+    expect(locationsSource).not.toContain('"Nevada"');
+    expect(locationsSource).not.toContain('"Oregon"');
+    expect(locationsSource).not.toContain('"West Virginia"');
+  });
+
   it("keeps hardcoded testimonial and noncompliant program-section components removed", () => {
     const removedComponents = [
       "components/Testimonials.tsx",

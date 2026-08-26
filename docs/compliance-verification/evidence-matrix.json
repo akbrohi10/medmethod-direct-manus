@@ -1,0 +1,900 @@
+{
+  "baseline": "c20c8501",
+  "current": "50c2f472",
+  "screenshot_routes": [
+    {
+      "route": "/",
+      "before_component": "HomeHrt3",
+      "after_component": "HomeHrt3",
+      "after_destination": "/",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona",
+      "before_component": "LocationArizona",
+      "after_component": "LocationArizona",
+      "after_destination": "/arizona",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/chandler",
+      "before_component": "LocationChandlerAZ",
+      "after_component": "LocationChandlerAZ",
+      "after_destination": "/arizona/chandler",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/fountain-hills",
+      "before_component": "LocationFountainHillsAZ",
+      "after_component": "LocationFountainHillsAZ",
+      "after_destination": "/arizona/fountain-hills",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/gilbert",
+      "before_component": "LocationGilbertAZ",
+      "after_component": "LocationGilbertAZ",
+      "after_destination": "/arizona/gilbert",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/paradise-valley",
+      "before_component": "LocationParadiseValleyAZ",
+      "after_component": "LocationParadiseValleyAZ",
+      "after_destination": "/arizona/paradise-valley",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/peoria",
+      "before_component": "LocationPeoriaAZ",
+      "after_component": "LocationPeoriaAZ",
+      "after_destination": "/arizona/peoria",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/prescott",
+      "before_component": "LocationPrescottAZ",
+      "after_component": "LocationPrescottAZ",
+      "after_destination": "/arizona/prescott",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/queen-creek",
+      "before_component": "LocationQueenCreekAZ",
+      "after_component": "LocationQueenCreekAZ",
+      "after_destination": "/arizona/queen-creek",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/scottsdale",
+      "before_component": "LocationScottsdaleAZ",
+      "after_component": "LocationScottsdaleAZ",
+      "after_destination": "/arizona/scottsdale",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/surprise",
+      "before_component": "LocationSurpriseAZ",
+      "after_component": "LocationSurpriseAZ",
+      "after_destination": "/arizona/surprise",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/tempe",
+      "before_component": "LocationTempeAZ",
+      "after_component": "LocationTempeAZ",
+      "after_destination": "/arizona/tempe",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/arizona/tucson",
+      "before_component": "LocationTucsonAZ",
+      "after_component": "LocationTucsonAZ",
+      "after_destination": "/arizona/tucson",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/before-you-start-treatment",
+      "before_component": "BeforeYouStartTreatment",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/blog",
+      "before_component": "BlogIndex",
+      "after_component": "BlogIndex",
+      "after_destination": "/blog",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/blog/hormone-therapy-weight-sleep-metabolism",
+      "before_component": "BlogPost",
+      "after_component": "BlogPost",
+      "after_destination": "/blog/hormone-therapy-weight-sleep-metabolism",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/blog/putting-yourself-last-has-to-change",
+      "before_component": "BlogPost",
+      "after_component": "BlogPost",
+      "after_destination": "/blog/putting-yourself-last-has-to-change",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/blog/semaglutide-vs-tirzepatide-women-midlife",
+      "before_component": "BlogPost",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/blog",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/blog/why-weight-gain-feels-different-in-menopause",
+      "before_component": "BlogPost",
+      "after_component": "BlogPost",
+      "after_destination": "/blog/why-weight-gain-feels-different-in-menopause",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado",
+      "before_component": "LocationColorado",
+      "after_component": "LocationColorado",
+      "after_destination": "/colorado",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/boulder",
+      "before_component": "LocationBoulderCO",
+      "after_component": "LocationBoulderCO",
+      "after_destination": "/colorado/boulder",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/castle-rock",
+      "before_component": "LocationCastleRockCO",
+      "after_component": "LocationCastleRockCO",
+      "after_destination": "/colorado/castle-rock",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/colorado-springs",
+      "before_component": "LocationColoradoSpringsCO",
+      "after_component": "LocationColoradoSpringsCO",
+      "after_destination": "/colorado/colorado-springs",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/denver",
+      "before_component": "LocationDenverCO",
+      "after_component": "LocationDenverCO",
+      "after_destination": "/colorado/denver",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/fort-collins",
+      "before_component": "LocationFortCollinsCO",
+      "after_component": "LocationFortCollinsCO",
+      "after_destination": "/colorado/fort-collins",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/greenwood-village",
+      "before_component": "LocationGreenwoodVillageCO",
+      "after_component": "LocationGreenwoodVillageCO",
+      "after_destination": "/colorado/greenwood-village",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/highlands-ranch",
+      "before_component": "LocationHighlandsRanchCO",
+      "after_component": "LocationHighlandsRanchCO",
+      "after_destination": "/colorado/highlands-ranch",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/longmont",
+      "before_component": "LocationLongmontCO",
+      "after_component": "LocationLongmontCO",
+      "after_destination": "/colorado/longmont",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/loveland",
+      "before_component": "LocationLovelandCO",
+      "after_component": "LocationLovelandCO",
+      "after_destination": "/colorado/loveland",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/parker",
+      "before_component": "LocationParkerCO",
+      "after_component": "LocationParkerCO",
+      "after_destination": "/colorado/parker",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/colorado/steamboat-springs",
+      "before_component": "LocationSteamboatSpringsCO",
+      "after_component": "LocationSteamboatSpringsCO",
+      "after_destination": "/colorado/steamboat-springs",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/discovery-call",
+      "before_component": "DiscoveryCall",
+      "after_component": "DiscoveryCall",
+      "after_destination": "/discovery-call",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/dr-aldeek-booking",
+      "before_component": "DrAldeekBooking",
+      "after_component": "DrAldeekBooking",
+      "after_destination": "/dr-aldeek-booking",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida",
+      "before_component": "LocationFlorida",
+      "after_component": "LocationFlorida",
+      "after_destination": "/florida",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/boca-raton",
+      "before_component": "LocationBocaRaton",
+      "after_component": "LocationBocaRaton",
+      "after_destination": "/florida/boca-raton",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/jupiter",
+      "before_component": "LocationJupiterFL",
+      "after_component": "LocationJupiterFL",
+      "after_destination": "/florida/jupiter",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/marco-island",
+      "before_component": "LocationMarcoIslandFL",
+      "after_component": "LocationMarcoIslandFL",
+      "after_destination": "/florida/marco-island",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/miami",
+      "before_component": "LocationMiami",
+      "after_component": "LocationMiami",
+      "after_destination": "/florida/miami",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/naples",
+      "before_component": "LocationNaples",
+      "after_component": "LocationNaples",
+      "after_destination": "/florida/naples",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/palm-beach-gardens",
+      "before_component": "LocationPalmBeachGardensFL",
+      "after_component": "LocationPalmBeachGardensFL",
+      "after_destination": "/florida/palm-beach-gardens",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/ponte-vedra",
+      "before_component": "LocationPonteVedraFL",
+      "after_component": "LocationPonteVedraFL",
+      "after_destination": "/florida/ponte-vedra",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/sarasota",
+      "before_component": "LocationSarasota",
+      "after_component": "LocationSarasota",
+      "after_destination": "/florida/sarasota",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/tampa",
+      "before_component": "LocationTampa",
+      "after_component": "LocationTampa",
+      "after_destination": "/florida/tampa",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/florida/vero-beach",
+      "before_component": "LocationVeroBeachFL",
+      "after_component": "LocationVeroBeachFL",
+      "after_destination": "/florida/vero-beach",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/guide/how-it-works",
+      "before_component": "dynamic/manual",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/home-2",
+      "before_component": "Home2",
+      "after_component": "dynamic/manual",
+      "after_destination": "/home-2",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/home-3",
+      "before_component": "Home",
+      "after_component": "dynamic/manual",
+      "after_destination": "/home-3",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/locations",
+      "before_component": "Locations",
+      "after_component": "Locations",
+      "after_destination": "/locations",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/lp/glp1",
+      "before_component": "dynamic/manual",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/lp/WL",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/lp/hrt",
+      "before_component": "LpHrt",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/lp/hrt3",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/lp/hrt2",
+      "before_component": "LpHrt2",
+      "after_component": "LpHrt2",
+      "after_destination": "/lp/hrt2",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/lp/hrt3",
+      "before_component": "LpHrt3",
+      "after_component": "LpHrt3",
+      "after_destination": "/lp/hrt3",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/lp/WL",
+      "before_component": "LpGlp1",
+      "after_component": "LpGlp1",
+      "after_destination": "/lp/WL",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/lp/WL2",
+      "before_component": "LpWL2",
+      "after_component": "LpWL2",
+      "after_destination": "/lp/WL2",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/male",
+      "before_component": "dynamic/manual",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/maryland",
+      "before_component": "LocationMaryland",
+      "after_component": "LocationMaryland",
+      "after_destination": "/maryland",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/annapolis",
+      "before_component": "LocationAnnapolisMD",
+      "after_component": "LocationAnnapolisMD",
+      "after_destination": "/maryland/annapolis",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/bel-air",
+      "before_component": "LocationBelAirMD",
+      "after_component": "LocationBelAirMD",
+      "after_destination": "/maryland/bel-air",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/bethesda",
+      "before_component": "LocationBethesda",
+      "after_component": "LocationBethesda",
+      "after_destination": "/maryland/bethesda",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/chevy-chase",
+      "before_component": "LocationChevyChase",
+      "after_component": "LocationChevyChase",
+      "after_destination": "/maryland/chevy-chase",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/chevy-chase-md",
+      "before_component": "LocationChevyChaseMD",
+      "after_component": "LocationChevyChaseMD",
+      "after_destination": "/maryland/chevy-chase-md",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/easton",
+      "before_component": "LocationEastonMD",
+      "after_component": "LocationEastonMD",
+      "after_destination": "/maryland/easton",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/ellicott-city",
+      "before_component": "LocationEllicottCityMD",
+      "after_component": "LocationEllicottCityMD",
+      "after_destination": "/maryland/ellicott-city",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/frederick",
+      "before_component": "LocationFrederickMD",
+      "after_component": "LocationFrederickMD",
+      "after_destination": "/maryland/frederick",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/potomac",
+      "before_component": "LocationPotomac",
+      "after_component": "LocationPotomac",
+      "after_destination": "/maryland/potomac",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/rockville",
+      "before_component": "LocationRockville",
+      "after_component": "LocationRockville",
+      "after_destination": "/maryland/rockville",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/maryland/silver-spring",
+      "before_component": "LocationSilverSpring",
+      "after_component": "LocationSilverSpring",
+      "after_destination": "/maryland/silver-spring",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina",
+      "before_component": "LocationNorthCarolina",
+      "after_component": "LocationNorthCarolina",
+      "after_destination": "/north-carolina",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/apex",
+      "before_component": "LocationApexNC",
+      "after_component": "LocationApexNC",
+      "after_destination": "/north-carolina/apex",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/asheville",
+      "before_component": "LocationAshevilleNC",
+      "after_component": "LocationAshevilleNC",
+      "after_destination": "/north-carolina/asheville",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/cary",
+      "before_component": "LocationCaryNC",
+      "after_component": "LocationCaryNC",
+      "after_destination": "/north-carolina/cary",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/chapel-hill",
+      "before_component": "LocationChapelHillNC",
+      "after_component": "LocationChapelHillNC",
+      "after_destination": "/north-carolina/chapel-hill",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/charlotte",
+      "before_component": "LocationCharlotteNC",
+      "after_component": "LocationCharlotteNC",
+      "after_destination": "/north-carolina/charlotte",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/mooresville",
+      "before_component": "LocationMooresvilleNC",
+      "after_component": "LocationMooresvilleNC",
+      "after_destination": "/north-carolina/mooresville",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/pinehurst",
+      "before_component": "LocationPinehurstNC",
+      "after_component": "LocationPinehurstNC",
+      "after_destination": "/north-carolina/pinehurst",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/raleigh",
+      "before_component": "LocationRaleighNC",
+      "after_component": "LocationRaleighNC",
+      "after_destination": "/north-carolina/raleigh",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/southern-pines",
+      "before_component": "LocationSouthernPinesNC",
+      "after_component": "LocationSouthernPinesNC",
+      "after_destination": "/north-carolina/southern-pines",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/waxhaw",
+      "before_component": "LocationWaxhawNC",
+      "after_component": "LocationWaxhawNC",
+      "after_destination": "/north-carolina/waxhaw",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/north-carolina/wilmington",
+      "before_component": "LocationWilmingtonNC",
+      "after_component": "LocationWilmingtonNC",
+      "after_destination": "/north-carolina/wilmington",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/doylestown",
+      "before_component": "LocationDoylestownPA",
+      "after_component": "LocationDoylestownPA",
+      "after_destination": "/pennsylvania/doylestown",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/horsham",
+      "before_component": "LocationHorshamPA",
+      "after_component": "LocationHorshamPA",
+      "after_destination": "/pennsylvania/horsham",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/kennett-square",
+      "before_component": "LocationKennettSquarePA",
+      "after_component": "LocationKennettSquarePA",
+      "after_destination": "/pennsylvania/kennett-square",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/lansdale",
+      "before_component": "LocationLansdalePA",
+      "after_component": "LocationLansdalePA",
+      "after_destination": "/pennsylvania/lansdale",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/malvern",
+      "before_component": "LocationMalvernPA",
+      "after_component": "LocationMalvernPA",
+      "after_destination": "/pennsylvania/malvern",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/newtown",
+      "before_component": "LocationNewtownPA",
+      "after_component": "LocationNewtownPA",
+      "after_destination": "/pennsylvania/newtown",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/newtown-square",
+      "before_component": "LocationNewtownSquarePA",
+      "after_component": "LocationNewtownSquarePA",
+      "after_destination": "/pennsylvania/newtown-square",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/philadelphia",
+      "before_component": "LocationPhiladelphiaPA",
+      "after_component": "LocationPhiladelphiaPA",
+      "after_destination": "/pennsylvania/philadelphia",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/pittsburgh",
+      "before_component": "LocationPittsburghPA",
+      "after_component": "LocationPittsburghPA",
+      "after_destination": "/pennsylvania/pittsburgh",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/wayne",
+      "before_component": "LocationWaynePA",
+      "after_component": "LocationWaynePA",
+      "after_destination": "/pennsylvania/wayne",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pennsylvania/west-chester",
+      "before_component": "LocationWestChesterPA",
+      "after_component": "LocationWestChesterPA",
+      "after_destination": "/pennsylvania/west-chester",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/pricing-guide",
+      "before_component": "dynamic/manual",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/start/women",
+      "before_component": "StartWomen",
+      "after_component": "StartWomen",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/terms",
+      "before_component": "TermsOfService",
+      "after_component": "TermsOfService",
+      "after_destination": "/terms",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas",
+      "before_component": "LocationTexas",
+      "after_component": "LocationTexas",
+      "after_destination": "/texas",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/austin",
+      "before_component": "LocationAustinTX",
+      "after_component": "LocationAustinTX",
+      "after_destination": "/texas/austin",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/dallas",
+      "before_component": "LocationDallasTX",
+      "after_component": "LocationDallasTX",
+      "after_destination": "/texas/dallas",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/frisco",
+      "before_component": "LocationFriscoTX",
+      "after_component": "LocationFriscoTX",
+      "after_destination": "/texas/frisco",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/houston",
+      "before_component": "LocationHoustonTX",
+      "after_component": "LocationHoustonTX",
+      "after_destination": "/texas/houston",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/mckinney",
+      "before_component": "LocationMcKinneyTX",
+      "after_component": "LocationMcKinneyTX",
+      "after_destination": "/texas/mckinney",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/plano",
+      "before_component": "LocationPlanoTX",
+      "after_component": "LocationPlanoTX",
+      "after_destination": "/texas/plano",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/round-rock",
+      "before_component": "LocationRoundRockTX",
+      "after_component": "LocationRoundRockTX",
+      "after_destination": "/texas/round-rock",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/san-antonio",
+      "before_component": "LocationSanAntonioTX",
+      "after_component": "LocationSanAntonioTX",
+      "after_destination": "/texas/san-antonio",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/sugar-land",
+      "before_component": "LocationSugarLandTX",
+      "after_component": "LocationSugarLandTX",
+      "after_destination": "/texas/sugar-land",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/texas/the-woodlands",
+      "before_component": "LocationTheWoodlandsTX",
+      "after_component": "LocationTheWoodlandsTX",
+      "after_destination": "/texas/the-woodlands",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/the-menopause-weight-loss-trap",
+      "before_component": "BookPage",
+      "after_component": "HTTP 301 redirect",
+      "after_destination": "/",
+      "evidence_type": "before screenshot + redirect proof + destination screenshot"
+    },
+    {
+      "route": "/virginia",
+      "before_component": "LocationVirginia",
+      "after_component": "LocationVirginia",
+      "after_destination": "/virginia",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/alexandria",
+      "before_component": "LocationAlexandriaVA",
+      "after_component": "LocationAlexandriaVA",
+      "after_destination": "/virginia/alexandria",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/arlington",
+      "before_component": "LocationArlington",
+      "after_component": "LocationArlington",
+      "after_destination": "/virginia/arlington",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/culpeper",
+      "before_component": "LocationCulpeperVA",
+      "after_component": "LocationCulpeperVA",
+      "after_destination": "/virginia/culpeper",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/falls-church",
+      "before_component": "LocationFallsChurchVA",
+      "after_component": "LocationFallsChurchVA",
+      "after_destination": "/virginia/falls-church",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/fredericksburg",
+      "before_component": "LocationFredericksburgVA",
+      "after_component": "LocationFredericksburgVA",
+      "after_destination": "/virginia/fredericksburg",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/great-falls",
+      "before_component": "LocationGreatFalls",
+      "after_component": "LocationGreatFalls",
+      "after_destination": "/virginia/great-falls",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/herndon",
+      "before_component": "LocationHerndonVA",
+      "after_component": "LocationHerndonVA",
+      "after_destination": "/virginia/herndon",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/leesburg",
+      "before_component": "LocationLeesburgVA",
+      "after_component": "LocationLeesburgVA",
+      "after_destination": "/virginia/leesburg",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/mclean",
+      "before_component": "LocationMcLean",
+      "after_component": "LocationMcLean",
+      "after_destination": "/virginia/mclean",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/middleburg",
+      "before_component": "LocationMiddleburgVA",
+      "after_component": "LocationMiddleburgVA",
+      "after_destination": "/virginia/middleburg",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/reston",
+      "before_component": "LocationReston",
+      "after_component": "LocationReston",
+      "after_destination": "/virginia/reston",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/tysons",
+      "before_component": "LocationTysonsVA",
+      "after_component": "LocationTysonsVA",
+      "after_destination": "/virginia/tysons",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/vienna",
+      "before_component": "LocationVienna",
+      "after_component": "LocationVienna",
+      "after_destination": "/virginia/vienna",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/virginia/warrenton",
+      "before_component": "LocationWarrentonVA",
+      "after_component": "LocationWarrentonVA",
+      "after_destination": "/virginia/warrenton",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc",
+      "before_component": "LocationDC",
+      "after_component": "LocationDC",
+      "after_destination": "/washington-dc",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc/capitol-hill",
+      "before_component": "LocationCapitolHill",
+      "after_component": "LocationCapitolHill",
+      "after_destination": "/washington-dc/capitol-hill",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc/chevy-chase-dc",
+      "before_component": "LocationChevyChaseDC",
+      "after_component": "LocationChevyChaseDC",
+      "after_destination": "/washington-dc/chevy-chase-dc",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc/dupont-circle",
+      "before_component": "LocationDupontCircle",
+      "after_component": "LocationDupontCircle",
+      "after_destination": "/washington-dc/dupont-circle",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc/friendship-heights",
+      "before_component": "LocationFriendshipHeights",
+      "after_component": "LocationFriendshipHeights",
+      "after_destination": "/washington-dc/friendship-heights",
+      "evidence_type": "matched before/after screenshots"
+    },
+    {
+      "route": "/washington-dc/georgetown",
+      "before_component": "LocationGeorgetown",
+      "after_component": "LocationGeorgetown",
+      "after_destination": "/washington-dc/georgetown",
+      "evidence_type": "matched before/after screenshots"
+    }
+  ],
+  "technical_evidence": [
+    "HTTP 301 redirect status and Location header for every discontinued URL",
+    "Source and route removal for deleted legacy pages and modules",
+    "Crawler metadata, sitemap, llms.txt, and blog-registry cleanup",
+    "Exact 12-jurisdiction licensing text and removed-state scan",
+    "Exact compounded-medication disclosure coverage",
+    "Exact Florida women’s-testosterone disclosure coverage and placement",
+    "Footer destination status checks and placeholder-link removal",
+    "Prohibited-content zero-match scan",
+    "TypeScript, 114 automated tests, compliance regression suite, and production build",
+    "Preserved Stripe, PayPal, GHL webhook, scheduling, intake, and admin routes"
+  ]
+}

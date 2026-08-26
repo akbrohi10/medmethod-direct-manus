@@ -221,18 +221,18 @@ const REGIONS = [
 ];
 
 const APPROVED_JURISDICTIONS = [
+  "Florida",
   "Arizona",
   "Colorado",
   "District of Columbia",
-  "Florida",
+  "Georgia",
+  "Illinois",
   "Maryland",
-  "Nevada",
+  "Michigan",
   "North Carolina",
-  "Oregon",
   "Pennsylvania",
   "Texas",
   "Virginia",
-  "West Virginia",
 ];
 
 // Flat list for search
@@ -400,7 +400,7 @@ export default function Locations() {
         <title>Service Locations | MedMethod Direct — Virtual Women's Health in 12 Jurisdictions</title>
         <meta
           name="description"
-          content="MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in Arizona, Colorado, the District of Columbia, Florida, Maryland, Nevada, North Carolina, Oregon, Pennsylvania, Texas, Virginia, and West Virginia."
+          content="MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia."
         />
         <link rel="canonical" href="https://www.medmethoddirect.com/locations" />
         <meta property="og:title" content="Service Locations | MedMethod Direct" />

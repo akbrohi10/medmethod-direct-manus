@@ -37,10 +37,10 @@ The site now identifies MedMethod Direct as licensed in the following **12 juris
 
 | Approved Jurisdictions |  |  |
 |---|---|---|
-| Arizona | Colorado | District of Columbia |
-| Florida | Maryland | Nevada |
-| North Carolina | Oregon | Pennsylvania |
-| Texas | Virginia | West Virginia |
+| Florida | Arizona | Colorado |
+| District of Columbia | Georgia | Illinois |
+| Maryland | Michigan | North Carolina |
+| Pennsylvania | Texas | Virginia |
 
 Tennessee, New Jersey, Alabama, Washington State, and Ohio were removed from licensing statements and location-based social-proof arrays. References to Washington, DC were retained only when they refer to the approved District of Columbia. Terms of Service, page metadata, structured data, public indexing information, and visible state counts were aligned to the same scope.[1]
 
@@ -114,7 +114,7 @@ The updated project was subjected to automated, route-level, visual, and runtime
 | Validation | Result |
 |---|---|
 | TypeScript | Passed with no errors |
-| Automated tests | **114 passed across 22 test files** |
+| Automated tests | **115 passed across 22 test files** |
 | Production build | Passed |
 | Compliance regression suite | Passed all prohibited-state, brand, claim, comparison, service, disclosure, route, and footer checks |
 | Final source scans | Zero matches for the targeted removed states, brands, body claims, outcome claims, comparisons, disallowed services, prohibited fitness terms, and outdated counts |
