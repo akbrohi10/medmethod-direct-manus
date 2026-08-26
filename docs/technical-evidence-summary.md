@@ -37,14 +37,24 @@ The supplied document’s approved list is enforced as:
 | Maryland | Michigan | North Carolina |
 | Pennsylvania | Texas | Virginia |
 
-Nevada and Oregon were removed from public client source. “West Virginia” remains only inside Dr. Al-Deek’s legitimate education credential, not as a licensing claim. The locations-page regression test explicitly rejects Nevada, Oregon, and West Virginia from the approved-jurisdiction array.
+Nevada and Oregon were removed from public client source. “West Virginia” remains only inside Dr. Al-Deek’s legitimate education credential, not as a licensing claim. The regression suites explicitly reject Nevada, Oregon, and West Virginia from patient-service location content.
+
+## New State-Hub Evidence
+
+| State | Route | Integration Evidence |
+|---|---|---|
+| Georgia | `/georgia` | Router, locations directory, footer, sitemap, crawler metadata, `llms.txt` |
+| Illinois | `/illinois` | Router, locations directory, footer, sitemap, crawler metadata, `llms.txt` |
+| Michigan | `/michigan` | Router, locations directory, footer, sitemap, crawler metadata, `llms.txt` |
+
+All three pages use the shared compliant statewide hub template with unique copy, state-specific representative cities, approved services, FAQ content, SEO metadata, and MedicalBusiness/FAQ/Breadcrumb structured data. Desktop and mobile screenshots verified the three pages and the updated `/locations` directory.
 
 ## Scope and Deletion Evidence
 
 | Metric | Result |
 |---|---:|
-| Changed client/server/shared/drizzle files from baseline | 170 |
-| Insertions from baseline | 957 |
+| Changed files from baseline | 192 |
+| Insertions from baseline | 4,078 |
 | Deletions from baseline | 18,627 |
 | Deleted source files | 23 |
 | Remaining location-page source files covered by template rules | 104 |
@@ -66,8 +76,8 @@ The server handles discontinued routes before the SPA fallback. The redirect set
 | Validation | Result |
 |---|---:|
 | TypeScript | Passed |
-| Automated test files | 22 passed |
-| Automated tests | 115 passed |
+| Automated test files | 23 passed |
+| Automated tests | 119 passed |
 | Production build | Passed |
 | Exact 12-jurisdiction check | Passed |
 | Nevada/Oregon public-source scan | Zero matches |
@@ -85,5 +95,6 @@ The compliance work did not intentionally modify payment amounts or payment-prov
 | Comparison boards | External deliverables package: `comparisons/` |
 | Redirect implementation | `server/_core/index.ts` |
 | Compliance regression suite | `server/legitScriptCompliance.test.ts` |
+| State-hub and removed-state regression suite | `server/stateHubRoutes.test.ts` |
 | Shared disclosure component | `client/src/components/ComplianceDisclosures.tsx` |
 | Detailed five-section report | `docs/2026-08-25-compliance-implementation-report.md` |

@@ -21,7 +21,7 @@ The verification package combines matched visual evidence with source-level and 
 |---|---|
 | Representative screenshot pairs | 15 matched route pairs, including active pages and discontinued URLs |
 | Repeated city-page scope | 104 location-page source files covered by template-level scans and safeguards |
-| Automated validation | 115 passing tests across 22 test files |
+| Automated validation | 119 passing tests across 23 test files |
 | Build validation | TypeScript and production build passed |
 | Hidden-content review | Metadata, structured data, labels, form options, public indexes, route registrations, and obsolete components |
 
@@ -118,7 +118,7 @@ The audit included page titles, meta descriptions, crawler metadata, JSON-LD str
 | `/male` and discontinued-route redirects | Passed |
 | Footer destination checks | Passed |
 | TypeScript | Passed |
-| Automated tests | 115 passed across 22 files |
+| Automated tests | 119 passed across 23 files |
 | Production build | Passed |
 | Representative screenshot capture | 15 of 15 matched route pairs completed |
 

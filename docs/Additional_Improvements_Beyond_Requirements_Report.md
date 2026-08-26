@@ -17,11 +17,12 @@ The separate **Required Changes Verification Report** proves completion of the s
 | Genuine server-side redirects | Ensures removed URLs return HTTP 301 before the SPA instead of visually redirecting while reporting an incorrect HTTP 200 status. | Redirect implementation and route checks |
 | Shared exact-disclosure component | Keeps mandated wording consistent across repeated HRT, legal, article, and location contexts. | Shared component and automated coverage test |
 | Template-level location cleanup | Applies the approved standards consistently across 104 location-page source files rather than limiting work to the examples named in the documents. | Representative city screenshots, file counts, and source scans |
-| Automated compliance regression suite | Prevents prohibited jurisdictions, brands, claims, services, redirects, footer placeholders, or missing disclosures from returning unnoticed. | 115 passing tests across 22 test files |
+| Automated compliance regression suite | Prevents prohibited jurisdictions, brands, claims, services, redirects, footer placeholders, or missing disclosures from returning unnoticed. | 119 passing tests across 23 test files |
 | Responsive disclosure placement repair | Keeps the Florida women’s-testosterone disclosure fully readable and beside relevant treatment content instead of hidden behind sticky headers. | Desktop/mobile visual verification and checkpoint `50c2f472` |
 | Payment and booking preservation validation | Reduces the risk that extensive content deletion disrupts revenue or scheduling workflows. | Tests, build, endpoint, and route verification |
 | Metadata and indexing hardening | Removes obsolete content from crawler descriptions, structured data, public AI/index files, sitemap references, and hidden labels. | Source audit and public-index review |
 | Requirement cross-check safeguard | Caught and corrected the initial three-jurisdiction substitution before the final evidence reports were issued. | Exact-list regression test and refreshed locations screenshots |
+| Dedicated statewide access pages | Added individual Georgia, Illinois, and Michigan hubs with unique statewide copy, SEO metadata, schemas, FAQs, navigation, sitemap, and indexing integration. | `/georgia`, `/illinois`, `/michigan`, route tests, desktop/mobile verification |
 | Evidence-quality controls | Uses true historical checkpoints, matched viewports, and technical proof where screenshots cannot establish a change. | 15 matched route pairs and manifest |
 
 ## 1. Legacy Route and Duplicate-Page Hardening
@@ -58,12 +59,12 @@ The audit examples did not require a separate screenshot for every city. The imp
 
 ## 4. Automated Regression Safeguards
 
-The project now contains compliance-specific tests that fail if prohibited brands, removed jurisdictions, outdated state counts, result-oriented claims, unsupported services, fitness-program language, removed routes, footer placeholders, or missing disclosures are reintroduced. The jurisdiction test separately enforces the exact 12-state list in the supplied document while allowing the legitimate “West Virginia School of Osteopathic Medicine” credential to remain.[3] [5]
+The project now contains compliance-specific tests that fail if prohibited brands, removed jurisdictions, outdated state counts, result-oriented claims, unsupported services, fitness-program language, removed routes, footer placeholders, or missing disclosures are reintroduced. The jurisdiction test separately enforces the exact 12-jurisdiction list in the supplied document while allowing the legitimate “West Virginia School of Osteopathic Medicine” credential to remain. A separate state-hub suite verifies the Georgia, Illinois, and Michigan routes, templates, navigation, sitemap, crawler metadata, and public-index entries.[3] [5]
 
 | Validation Safeguard | Current Result |
 |---|---:|
 | Compliance-specific regression tests | Passed |
-| Complete automated suite | 115 passed across 22 files |
+| Complete automated suite | 119 passed across 23 files |
 | TypeScript | Passed |
 | Production build | Passed |
 | Representative screenshot capture | 15 of 15 pairs completed |
@@ -88,6 +89,12 @@ Historical screenshots were captured from isolated Git checkpoints rather than b
 
 During preparation of the two-document package, a line-by-line comparison with the supplied Word document found that an earlier summary had substituted Nevada, Oregon, and West Virginia for Georgia, Illinois, and Michigan. The website, locations metadata, internal implementation report, and automated test were corrected to the exact supplied list before final delivery. The legitimate physician education reference to West Virginia School of Osteopathic Medicine remains because it is a credential, not a licensing claim.[1] [5]
 
+## 10. Individual Georgia, Illinois, and Michigan State Hubs
+
+After the exact jurisdiction correction, MedMethod Direct requested dedicated main pages for the three newly confirmed states. Individual statewide hubs were added at `/georgia`, `/illinois`, and `/michigan`. Each uses unique state-specific copy, representative city coverage without unsupported city routes, approved service categories, state-level SEO metadata, MedicalBusiness/FAQ/Breadcrumb structured data, and the shared booking flow.
+
+The pages were integrated into the locations directory, shared footer, XML sitemap, crawler metadata, and `llms.txt`. Desktop and mobile captures verified all three pages and the updated locations directory. A source-wide regression check confirms Nevada and Oregon are absent and West Virginia appears only in the physician’s legitimate education credential.
+
 ## Conclusion
 
 These additional improvements are separate from the required remediation. They strengthen consistency, prevent regression, preserve operational systems, improve disclosure usability, and provide more reliable evidence for internal and external review. Future website changes should be tested against the same automated safeguards and exact jurisdiction source before publication.
@@ -100,3 +107,4 @@ These additional improvements are separate from the required remediation. They s
 [4]: ../../client/src/components/ComplianceDisclosures.tsx "Shared exact disclosure component"
 [5]: ../../server/legitScriptCompliance.test.ts "Automated compliance regression suite"
 [6]: manus-webdev://50c2f472 "Responsive disclosure placement checkpoint"
+[7]: ../../server/stateHubRoutes.test.ts "State-hub and removed-state regression suite"

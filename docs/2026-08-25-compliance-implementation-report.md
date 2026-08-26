@@ -120,7 +120,7 @@ All non-Florida location references to testosterone treatment for women were rem
 | Validation | Result |
 |---|---|
 | TypeScript | Passed with no errors |
-| Automated tests | **115 passed across 22 test files** |
+| Automated tests | **119 passed across 23 test files** |
 | Production build | Passed |
 | Compliance regression suite | Passed all state, brand, claim, service, disclosure, route, and footer checks[3] |
 | Final prohibited-content scans | Zero matches for removed states, banned brands, body claims, outcome claims, drug comparisons, disallowed services, prohibited fitness language, and outdated state counts |

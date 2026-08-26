@@ -191,6 +191,27 @@ const ROUTE_META: Record<string, RouteMeta> = {
       STATE_IMAGES["texas"] || DEFAULT_OG_IMAGE,
     url: `${BASE_URL}/texas`,
   },
+  "/georgia": {
+    title: "Georgia Women's Health | MedMethod Direct",
+    description:
+      "Physician-led virtual women's health care across Georgia, including medical weight management and hormone therapy for women.",
+    image: DEFAULT_OG_IMAGE,
+    url: `${BASE_URL}/georgia`,
+  },
+  "/illinois": {
+    title: "Illinois Women's Health | MedMethod Direct",
+    description:
+      "Physician-led virtual women's health care across Illinois, including medical weight management and hormone therapy for women.",
+    image: DEFAULT_OG_IMAGE,
+    url: `${BASE_URL}/illinois`,
+  },
+  "/michigan": {
+    title: "Michigan Women's Health | MedMethod Direct",
+    description:
+      "Physician-led virtual women's health care across Michigan, including medical weight management and hormone therapy for women.",
+    image: DEFAULT_OG_IMAGE,
+    url: `${BASE_URL}/michigan`,
+  },
 };
 
 // Default fallback meta (same as index.html)

@@ -161,6 +161,11 @@ const LocationSugarLandTX = lazy(() => import("@/pages/LocationSugarLandTX"));
 const LocationFriscoTX = lazy(() => import("@/pages/LocationFriscoTX"));
 const LocationRoundRockTX = lazy(() => import("@/pages/LocationRoundRockTX"));
 
+// Location pages - Georgia, Illinois, and Michigan statewide hubs
+const LocationGeorgia = lazy(() => import("@/pages/LocationGeorgia"));
+const LocationIllinois = lazy(() => import("@/pages/LocationIllinois"));
+const LocationMichigan = lazy(() => import("@/pages/LocationMichigan"));
+
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
@@ -289,6 +294,9 @@ function Router() {
         <Route path="/texas/sugar-land" component={LocationSugarLandTX} />
         <Route path="/texas/frisco" component={LocationFriscoTX} />
         <Route path="/texas/round-rock" component={LocationRoundRockTX} />
+        <Route path="/georgia" component={LocationGeorgia} />
+        <Route path="/illinois" component={LocationIllinois} />
+        <Route path="/michigan" component={LocationMichigan} />
         <Route path="/lp/hrt2" component={LpHrt2} />
         <Route path="/lp/hrt3" component={LpHrt3} />
         <Route path="/lp/WL" component={LpGlp1} />

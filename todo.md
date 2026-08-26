@@ -459,3 +459,13 @@
 - [x] Update compliance regression tests to enforce the supplied jurisdiction list and reject the incorrect substitutions
 - [x] Re-run TypeScript, all tests, production build, source scans, and representative page verification
 - [x] Recapture affected current screenshots and update both verification reports before delivery
+
+## Georgia, Illinois, and Michigan State Hub Pages
+
+- [x] Audit all Nevada, Oregon, and West Virginia patient-service references while preserving the physician’s legitimate West Virginia education credential
+- [x] Remove Nevada, Oregon, and West Virginia location pages, routes, links, metadata, structured data, social proof, sitemap, and public-index references
+- [x] Build compliant Georgia, Illinois, and Michigan state hub pages using the approved MedMethod location template and exact required disclosures
+- [x] Register the three new state routes and update the locations directory, navigation, sitemap, crawler metadata, social proof, and public indexes
+- [x] Add route and compliance regression coverage for removed and added state routes
+- [x] Validate desktop and mobile rendering, links, TypeScript, all tests, production build, and state-reference scans
+- [x] Update verification documentation and save a publishable checkpoint

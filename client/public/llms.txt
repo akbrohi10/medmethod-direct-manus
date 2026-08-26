@@ -47,6 +47,9 @@ MedMethod Direct serves patients in these approved jurisdictions:
 
 - [Homepage](https://medmethoddirect.com/)
 - [Locations](https://medmethoddirect.com/locations)
+- [Georgia](https://medmethoddirect.com/georgia)
+- [Illinois](https://medmethoddirect.com/illinois)
+- [Michigan](https://medmethoddirect.com/michigan)
 - [Blog](https://medmethoddirect.com/blog)
 - [Care Team Booking](https://medmethoddirect.com/care-team-booking)
 - [Privacy Policy](https://medmethoddirect.com/privacy-policy)

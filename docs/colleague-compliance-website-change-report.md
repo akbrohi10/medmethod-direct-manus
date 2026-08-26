@@ -114,7 +114,7 @@ The updated project was subjected to automated, route-level, visual, and runtime
 | Validation | Result |
 |---|---|
 | TypeScript | Passed with no errors |
-| Automated tests | **115 passed across 22 test files** |
+| Automated tests | **119 passed across 23 test files** |
 | Production build | Passed |
 | Compliance regression suite | Passed all prohibited-state, brand, claim, comparison, service, disclosure, route, and footer checks |
 | Final source scans | Zero matches for the targeted removed states, brands, body claims, outcome claims, comparisons, disallowed services, prohibited fitness terms, and outdated counts |

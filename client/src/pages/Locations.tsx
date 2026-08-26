@@ -144,6 +144,56 @@ const REGIONS = [
           { name: "Apex", href: "/north-carolina/apex" },
         ],
       },
+      {
+        name: "Georgia",
+        abbr: "GA",
+        href: "/georgia",
+        tagline: "Statewide Virtual Women's Health Care in Georgia",
+        tier1: [
+          { name: "Atlanta", href: "/georgia" },
+          { name: "Savannah", href: "/georgia" },
+          { name: "Augusta", href: "/georgia" },
+          { name: "Macon", href: "/georgia" },
+          { name: "Columbus", href: "/georgia" },
+          { name: "Athens", href: "/georgia" },
+        ],
+        tier2: [],
+      },
+    ],
+  },
+  {
+    name: "Midwest",
+    states: [
+      {
+        name: "Illinois",
+        abbr: "IL",
+        href: "/illinois",
+        tagline: "Statewide Virtual Women's Health Care in Illinois",
+        tier1: [
+          { name: "Chicago", href: "/illinois" },
+          { name: "Naperville", href: "/illinois" },
+          { name: "Springfield", href: "/illinois" },
+          { name: "Peoria", href: "/illinois" },
+          { name: "Rockford", href: "/illinois" },
+          { name: "Champaign", href: "/illinois" },
+        ],
+        tier2: [],
+      },
+      {
+        name: "Michigan",
+        abbr: "MI",
+        href: "/michigan",
+        tagline: "Statewide Virtual Women's Health Care in Michigan",
+        tier1: [
+          { name: "Detroit", href: "/michigan" },
+          { name: "Grand Rapids", href: "/michigan" },
+          { name: "Ann Arbor", href: "/michigan" },
+          { name: "Lansing", href: "/michigan" },
+          { name: "Kalamazoo", href: "/michigan" },
+          { name: "Traverse City", href: "/michigan" },
+        ],
+        tier2: [],
+      },
     ],
   },
   {
@@ -374,6 +424,7 @@ export default function Locations() {
   const [openRegions, setOpenRegions] = useState<Record<string, boolean>>({
     "Mid-Atlantic": true,
     "Southeast": true,
+    "Midwest": true,
     "Mountain West": true,
     "South Central": true,
   });
