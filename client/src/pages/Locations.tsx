@@ -301,7 +301,7 @@ const JSONLD = {
   name: "MedMethod Direct",
   url: "https://www.medmethoddirect.com/locations",
   description:
-    "MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in 12 approved jurisdictions.",
+    "MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in 12 approved states.",
   medicalSpecialty: ["Endocrinology", "Obstetrics and Gynecology", "Internal Medicine"],
   areaServed: APPROVED_JURISDICTIONS,
 };
@@ -448,14 +448,14 @@ export default function Locations() {
   return (
     <>
       <Helmet>
-        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 12 Jurisdictions</title>
+        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 12 States</title>
         <meta
           name="description"
           content="MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia."
         />
         <link rel="canonical" href="https://www.medmethoddirect.com/locations" />
         <meta property="og:title" content="Service Locations | MedMethod Direct" />
-        <meta property="og:description" content="Premium virtual women's health care across our approved licensed jurisdictions. Find your city and book your appointment today." />
+        <meta property="og:description" content="Premium virtual women's health care across our approved licensed states. Find your city and book your appointment today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.medmethoddirect.com/locations" />
         <script type="application/ld+json">{JSON.stringify(JSONLD)}</script>
@@ -483,7 +483,7 @@ export default function Locations() {
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#E8339E]/30 bg-[#E8339E]/5">
                 <MapPin className="w-3.5 h-3.5 text-[#E8339E]" />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                  Licensed in 12 jurisdictions
+                  Licensed in 12 states
                 </span>
               </div>
               <h1
@@ -549,7 +549,7 @@ export default function Locations() {
               {/* Stats */}
               <div className="flex items-center gap-8 mt-8">
                 {[
-                  { value: "12", label: "Licensed Jurisdictions" },
+                  { value: "12", label: "Licensed States" },
                   { value: "99+", label: "Cities Listed" },
                 ].map((s) => (
                   <div key={s.label}>
@@ -563,7 +563,7 @@ export default function Locations() {
             {/* Right — exact approved licensing list */}
             <div className="rounded-3xl border border-white/10 bg-white/5 p-7 md:p-9">
               <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#E8339E] mb-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                Approved Jurisdictions
+                Approved States
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {APPROVED_JURISDICTIONS.map((jurisdiction) => (

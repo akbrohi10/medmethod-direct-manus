@@ -87,13 +87,13 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
               </a>
             ))}
 
-            {/* Licensed in 12 jurisdictions */}
+            {/* Licensed in 12 states */}
             <a
               href="/locations"
               className="flex items-center gap-1.5 px-4 py-2 text-gray-500 hover:text-[#E8339E] font-semibold text-sm tracking-wide transition-colors duration-200"
               style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
             >
-              <MapPin className="w-3.5 h-3.5" />12 jurisdictions</a>
+              <MapPin className="w-3.5 h-3.5" />12 states</a>
           </nav>
 
           {/* CTA */}
@@ -149,7 +149,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
               onClick={() => setMobileOpen(false)}
             >
               <MapPin className="w-3.5 h-3.5" />
-              Licensed in 12 jurisdictions
+              Licensed in 12 states
             </a>
 
             <a

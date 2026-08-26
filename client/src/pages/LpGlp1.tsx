@@ -222,7 +222,7 @@ export default function LpGlp1() {
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2 text-sm text-gray-500">
                 {[
                   "Helped thousands of patients",
-                  "Licensed in 12 jurisdictions",
+                  "Licensed in 12 states",
                   "Progress monitored over time",
                   "Same doctor, every visit",
                 ].map((item) => (
@@ -267,7 +267,7 @@ export default function LpGlp1() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Medical Weight Loss", "Metabolism Expert", "GLP-1 Specialist", "Author", "Licensed in 12 jurisdictions"].map(
+                {["Board-Certified DO", "Medical Weight Loss", "Metabolism Expert", "GLP-1 Specialist", "Author", "Licensed in 12 states"].map(
                   (pill) => (
                     <span
                       key={pill}

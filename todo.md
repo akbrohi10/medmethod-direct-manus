@@ -494,3 +494,11 @@
 - [x] Add regression coverage for the route, policy content, and footer link
 - [x] Validate TypeScript, tests, production build, route response, footer navigation, and desktop/mobile rendering
 - [x] Save and deliver the Shipping Policy update checkpoint
+
+## Sitewide Licensing Count Wording
+
+- [x] Find every customer-facing “12 jurisdictions” licensing-count reference
+- [x] Replace the approved count wording with “12 states” while preserving the exact location list
+- [x] Update regression coverage to enforce the new customer-facing wording
+- [x] Validate affected pages, TypeScript, tests, production build, and responsive rendering
+- [x] Save and deliver the sitewide licensing-count wording checkpoint

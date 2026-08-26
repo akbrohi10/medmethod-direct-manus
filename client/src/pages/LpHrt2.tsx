@@ -252,7 +252,7 @@ export default function LpHrt() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  Licensed in 12 jurisdictions
+                  Licensed in 12 states
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
@@ -294,7 +294,7 @@ export default function LpHrt() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Menopause Specialist", "Medical Weight Loss", "Metabolism", "Author", "Mom of Four", "Licensed in 12 jurisdictions"].map(
+                {["Board-Certified DO", "Menopause Specialist", "Medical Weight Loss", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"].map(
                   (pill) => (
                     <span
                       key={pill}
@@ -690,7 +690,7 @@ export default function LpHrt() {
               Book Now
             </button>
             <p className="mt-4 text-sm text-gray-400">
-              100% virtual · Licensed in 12 jurisdictions · No insurance needed
+              100% virtual · Licensed in 12 states · No insurance needed
             </p>
           </div>
         </section>

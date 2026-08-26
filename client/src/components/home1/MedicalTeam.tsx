@@ -30,7 +30,7 @@ const CREDENTIAL_PILLS = [
   "Metabolism",
   "Author",
   "Mom of Four",
-  "Licensed in 12 jurisdictions",
+  "Licensed in 12 states",
 ];
 
 const FOCUS_AREA_PILLS = [

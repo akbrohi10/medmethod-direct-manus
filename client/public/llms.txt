@@ -24,9 +24,9 @@ MedMethod Direct is a physician-led virtual medical practice for women.
 
 ---
 
-# LICENSED JURISDICTIONS
+# LICENSED STATES
 
-MedMethod Direct serves patients in these approved jurisdictions:
+MedMethod Direct serves patients in these approved states:
 
 1. Florida
 2. Arizona

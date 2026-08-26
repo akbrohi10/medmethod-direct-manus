@@ -123,6 +123,27 @@ describe("LegitScript compliance remediation", () => {
     expect(locationsSource).not.toContain('"West Virginia"');
   });
 
+  it("uses the approved customer-facing 12 states wording sitewide", () => {
+    const clientText = readClientText();
+    const navbarSource = readFileSync(
+      resolve(sourceRoot, "components/Navbar.tsx"),
+      "utf8",
+    );
+    const locationsSource = readFileSync(
+      resolve(sourceRoot, "pages/Locations.tsx"),
+      "utf8",
+    );
+
+    expect(clientText).not.toMatch(/12 (?:approved )?jurisdictions/i);
+    expect(navbarSource).toContain("Licensed in 12 states");
+    expect(locationsSource).toContain("Licensed in 12 states");
+    expect(locationsSource).toContain("Women's Health in 12 States");
+    expect(locationsSource).toContain('label: "Licensed States"');
+    expect(locationsSource).toContain("Approved States");
+    expect(locationsSource).not.toContain("Licensed Jurisdictions");
+    expect(locationsSource).not.toContain("Approved Jurisdictions");
+  });
+
   it("keeps hardcoded testimonial and noncompliant program-section components removed", () => {
     const removedComponents = [
       "components/Testimonials.tsx",

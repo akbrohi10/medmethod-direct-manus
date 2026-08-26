@@ -89,7 +89,7 @@ export default function StartWomen() {
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-px bg-[#E8339E]" />
               <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase">
-                Virtual Care · 12 jurisdictions
+                Virtual Care · 12 states
               </span>
             </div>
 

@@ -18,7 +18,7 @@ const CONFIG = {
   dismissCooldown: 90000,
 };
 
-// ─── Location pool (approved licensed jurisdictions) ──────────────────────────
+// ─── Location pool (approved licensed states) ────────────────────────────────
 const LOCATIONS = [
   "Florida",
   "Arizona",
