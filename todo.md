@@ -388,3 +388,10 @@
 - [x] Remove the `/male` page and all project references without affecting other routes
 - [x] Verify `/male` returns the not-found page and run the full test/build checks
 - [x] Save a publishable checkpoint for removing `/male` from the live website
+
+## LegitScript Compliance Audit Review
+
+- [x] Extract the complete LegitScript feedback from `MMD.pages`
+- [x] Classify each finding by requirement, risk, affected URL, and required supporting evidence
+- [x] Compare every finding with the current website without changing live content
+- [x] Prepare a prioritized proposed change plan for user approval before implementation
