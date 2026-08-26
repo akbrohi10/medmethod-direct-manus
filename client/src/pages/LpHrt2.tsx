@@ -137,7 +137,7 @@ const FAQS = [
   },
   {
     q: "How much does medication cost?",
-    a: "Our program fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
+    a: "Our program fee covers your physician visits, lab review, personalized protocol, and ongoing monitoring. Medication is billed separately, and costs vary by the medication prescribed, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review clinically appropriate options and expected costs during your consultation.",
   },
   {
     q: "What states are you licensed in?",
@@ -435,10 +435,10 @@ export default function LpHrt() {
               Your <span style={{fontVariantNumeric: 'lining-nums'}}>3</span>-Month Care Plan
             </h2>
             <p className="text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12">
-              No insurance. No middlemen. Just results.
+              Thoughtful, physician-led care built around you.
             </p>
             <p className="text-sm text-gray-500 max-w-xl mx-auto -mt-6 mb-8 sm:mb-12">
-              Pricing above covers physician care, monitoring, and prescribing. Medication cost is separate and will be discussed during your consultation — compounded options typically cost less than brand-name.
+              Pricing above covers physician care, monitoring, and prescribing. Medication is billed separately, and costs vary by medication, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review clinically appropriate options and expected costs during your consultation.
             </p>
 
             {/* Unified Timeline Card */}
@@ -594,7 +594,7 @@ export default function LpHrt() {
           </div>
         </section>
 
-        {/* ═══════════════ PHARMACY OPTIONS ═══════════════ */}
+        {/* ═══════════════ PRESCRIPTION FULFILLMENT ═══════════════ */}
         <section className="bg-white py-12 md:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
@@ -602,33 +602,23 @@ export default function LpHrt() {
                 Filling Your Prescription
               </p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-                Convenient Options to Fit Your Life
+                Your Prescription, Reviewed With You
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                We guide you toward the most convenient and affordable way to fill your prescriptions. Dr. Al-Deek will discuss your options and make a recommendation during your initial consultation.
+                If medication is clinically appropriate, Dr. Al-Deek will explain the medication, expected costs, insurance considerations, and available fulfillment before you decide how to proceed.
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
-              {/* Brand-Name */}
-              <div className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-pink-50 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016A3.001 3.001 0 0021 9.349m-18 0a2.997 2.997 0 00.177-.756L3.75 4.5h16.5l.573 4.093c.068.487.03.964-.177 1.756"/></svg>
-                </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Brand-Name Medications</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  FDA-approved brand-name medications shipped to your door or picked up at your local pharmacy — your choice.
-                </p>
-              </div>
-              {/* Compounded */}
-              <div className="bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 text-center border border-gray-100 ring-2 ring-[#E8339E]/20">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-pink-50 flex items-center justify-center">
+            <div className="max-w-3xl mx-auto bg-[#FDF8F3] rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-[#E8339E]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
                 </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-2">Compounded Medications</h3>
-                <p className="text-xs font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Save 30–45% vs. Brand-Name</p>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Compounded for you through our partnered pharmacies — typically 30–45% less than brand-name, shipped directly to your door.
-                </p>
+                <div>
+                  <h3 className="font-bold text-gray-900 text-lg mb-2">Individualized medication review</h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    Medication choice and fulfillment depend on your health history, clinical needs, pharmacy availability, and insurance coverage. Compounded medications are not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -653,81 +643,6 @@ export default function LpHrt() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-2">{s.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-        <section className="bg-white py-12 md:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Stats bar */}
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10">
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">1,000+</p>
-                <p className="text-sm text-gray-500 mt-1">Patients Treated</p>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">4.9<span className="text-[#E8339E]">★</span></p>
-                <p className="text-sm text-gray-500 mt-1">Patient Satisfaction</p>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">17</p>
-                <p className="text-sm text-gray-500 mt-1">States Licensed</p>
-              </div>
-            </div>
-
-            {/* Testimonial cards — horizontal scroll */}
-            <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-              {[
-                {
-                  quote: "I spent years counting calories, exercising five days a week, and trying every diet imaginable. Nothing seemed to work anymore. Dr. Al-Deek helped me realize my hormones were the missing piece. Once we balanced my hormones, my body finally started responding again.",
-                  name: "Emily",
-                  age: 42,
-                },
-                {
-                  quote: "I thought I needed more willpower, but what I really needed was a doctor who understood perimenopause. Between my hormone treatment and personalized weight loss plan, I've lost 28 pounds, I'm sleeping through the night again, and my mood has completely changed.",
-                  name: "Jessica",
-                  age: 44,
-                },
-                {
-                  quote: "I had been taking a GLP-1 through another clinic, but my progress stalled after the first few months. Dr. Al-Deek looked beyond the medication and found that my hormones were working against me. After adjusting my treatment plan, the weight loss started again.",
-                  name: "Michelle",
-                  age: 47,
-                },
-                {
-                  quote: "Hot flashes, brain fog, weight gain, and exhaustion became my new normal. Dr. Al-Deek explained what was happening to my body and developed a plan that actually addressed the root cause. Within a few months I felt like myself again.",
-                  name: "Karen",
-                  age: 53,
-                },
-                {
-                  quote: "Dr. Al-Deek spent so much time getting to know me, my health history, and my goals. I can send her a quick message whenever I have questions, and she adjusts my treatment whenever needed. It's the easiest healthcare experience I've ever had.",
-                  name: "Lisa",
-                  age: 56,
-                },
-                {
-                  quote: "I was skeptical about hormone therapy, but Dr. Al-Deek answered every question I had. Now my sleep has improved, my hot flashes are almost gone, and I've lost over 30 pounds with a combination of hormone therapy and physician-guided medical weight loss.",
-                  name: "Rachel",
-                  age: 49,
-                },
-              ].map((t, i) => (
-                <div
-                  key={i}
-                  className="min-w-[300px] sm:min-w-[340px] max-w-[360px] flex-shrink-0 snap-start bg-[#FDF8F3] border border-gray-100 rounded-2xl p-6 shadow-sm"
-                >
-                  {/* Stars */}
-                  <div className="flex gap-0.5 mb-3">
-                    {[...Array(5)].map((_, s) => (
-                      <svg key={s} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-gray-700 text-base leading-relaxed mb-4">"{t.quote}"</p>
-                  <p className="text-sm font-semibold text-gray-900">— {t.name}, {t.age}</p>
                 </div>
               ))}
             </div>

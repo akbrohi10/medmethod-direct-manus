@@ -887,7 +887,7 @@ const medications: Med[] = [
     hidePrice: true,
     availabilityLabel: "Brand Name or Compounded \u00B7 Rx",
     details: [
-      "Generic alternative to Latisse — same active ingredient at a lower cost",
+      "Prescription eyelash treatment considered only when clinically appropriate",
       "Extends the lash growth cycle for visibly fuller, longer lashes",
       "Brand name or compounded available",
     ],
@@ -1025,7 +1025,7 @@ export default function YourMedication({ onConsultClick }: { onConsultClick?: ()
             className="text-base md:text-lg max-w-2xl mx-auto mb-2"
             style={{ color: "#666" }}
           >
-            Brand-name or compounded, we prescribe both. Your doctor guides you through the options — so you choose what fits your body and your budget.
+            Your doctor reviews clinically appropriate treatment options, pharmacy fulfillment, expected costs, and insurance considerations with you.
           </p>
         </div>
 

@@ -82,7 +82,7 @@ const JSONLD_FAQ = {
       "name": "Can I get semaglutide or tirzepatide prescribed online in Washington DC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Dr. Al-Deek can prescribe both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy. Prescriptions are issued after a thorough review of your labs and health history. Medications are shipped directly to your DC address.",
+        "text": "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
       },
     },
     {
@@ -183,11 +183,6 @@ const comparisonRows = [
 ];
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
-const testimonials = [
-  { quote: "As a Black woman, I felt like my symptoms were being dismissed by every doctor I saw. \'It\'s stress.\' \'Try yoga.\' \'Lose weight.\' Dr. Al-Deek was the first physician who actually ran comprehensive labs and said \'your hormones are a mess — let\'s fix this.\' That validation alone was worth it. The results — 23 lbs lost, no more night sweats, mental clarity back — that\'s the bonus.", name: "Jasmine W.", location: "Washington, DC", rating: 5 },
-  { quote: "The accountability factor is what sets MedMethod apart. I\'ve done every diet, every app, every challenge. What I never had was someone checking in weekly who actually understood the medical side — not just \'eat less, move more\' but \'your cortisol is elevated, let\'s adjust your protocol.\' My performance coach is the reason I stuck with it past the hard part.", name: "Christine A.", location: "Washington, DC", rating: 5 },
-  { quote: "I travel constantly for work — international flights, different time zones, hotel food. MedMethod works from anywhere. My meds ship to wherever I am, my virtual visits happen between meetings, and my performance coach adjusts my plan when I\'m in a tough travel stretch. I\'ve lost 20 lbs while living out of a suitcase. That shouldn\'t be possible but here we are.", name: "Samantha G.", location: "DC Metro", rating: 5 },
-];
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────
 const faqs = [
@@ -197,7 +192,7 @@ const faqs = [
   },
   {
     q: "Can I get semaglutide or tirzepatide prescribed online in Washington DC?",
-    a: "Yes. Dr. Al-Deek can prescribe both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy. All prescriptions are issued after a thorough review of your labs and health history, and medications are shipped directly to your DC address.",
+    a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
     q: "How does virtual hormone therapy work in Washington DC?",
@@ -226,7 +221,7 @@ const faqs = [
   },
   {
     q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door without the insurance process.",
+    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -622,43 +617,6 @@ export default function LocationDC() {
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
       <WhyChoose onConsultClick={() => setConsultOpen(true)} />
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-12">
-            <span className="block text-xs font-extrabold tracking-[0.22em] uppercase mb-3" style={{ color: "#E8339E" }}>
-              Patient Stories
-            </span>
-            <h2
-              className="font-black"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "#111111",
-              }}
-            >
-              What DC Women Are Saying
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#E8339E] text-[#E8339E]" />
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic flex-1">"{t.quote}"</p>
-                <div>
-                  <p className="font-bold text-[#111111] text-sm">{t.name}</p>
-                  <p className="text-[#E8339E] text-xs">{t.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 bg-[#F9F9FB]" id="faq">

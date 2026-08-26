@@ -82,7 +82,7 @@ const JSONLD_FAQ = {
       "name": "Can I get semaglutide or tirzepatide prescribed online in Maryland?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Dr. Al-Deek can prescribe both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy. Prescriptions are issued after a thorough review of your labs and health history. Medications are shipped directly to your Maryland address.",
+        "text": "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
       },
     },
     {
@@ -191,11 +191,6 @@ const comparisonRows = [
 ];
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
-const testimonials = [
-  { quote: "I\'m a single mom running a small business. I don\'t have time to drive to a specialist, sit in a waiting room, and then drive back. MedMethod is a 20-minute video call from my home office. My performance coach texts me every Thursday to check in — she\'s caught me slipping on sleep and hydration more than once. That kind of support doesn\'t exist anywhere else.", name: "Megan F.", location: "Maryland", rating: 5 },
-  { quote: "At 58 I thought it was too late to feel good again. I\'d accepted the weight gain, the joint pain, the terrible sleep as just \'getting older.\' MedMethod showed me that most of it was hormonal and treatable. Six months in, I\'ve lost 21 lbs, I\'m back to morning walks, and I genuinely look forward to things again. I only wish I\'d started five years ago.", name: "Patricia H.", location: "Maryland area", rating: 5 },
-  { quote: "I work in healthcare myself — I\'m an NP — and I was embarrassed that I couldn\'t figure out my own hormones. Everything I tried on my own wasn\'t working. Dr. Al-Deek\'s protocol was methodical, evidence-based, and actually personalized. The weekly check-ins with my performance coach kept me accountable in a way I never managed alone. Down 19 lbs and my patients keep asking what I\'m doing differently.", name: "Tonya R.", location: "Maryland", rating: 5 },
-];
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────
 const faqs = [
@@ -205,7 +200,7 @@ const faqs = [
   },
   {
     q: "Can I get semaglutide or tirzepatide prescribed online in Maryland?",
-    a: "Yes. Dr. Al-Deek can prescribe both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy. All prescriptions are issued after a thorough review of your labs and health history, and medications are shipped directly to your Maryland address.",
+    a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
     q: "How does virtual hormone therapy work in Maryland?",
@@ -234,7 +229,7 @@ const faqs = [
   },
   {
     q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door without the insurance process.",
+    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -368,7 +363,7 @@ export default function LocationMaryland() {
                 <div className="space-y-4">
                   {[
                     { icon: <Thermometer className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Perimenopause & Menopause", desc: "Hot flashes, night sweats, mood changes, brain fog — addressed at the hormonal root cause." },
-                    { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "GLP-1 Medical Weight Loss", desc: "Physician-prescribed semaglutide and tirzepatide — compounded or brand-name, shipped to your door." },
+                    { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "GLP-1 Medical Weight Loss", desc: "Physician-led medication evaluation with individualized prescribing, monitoring, and pharmacy fulfillment." },
                     { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Bioidentical Hormone Therapy", desc: "BHRT and FDA-approved HRT — estradiol, progesterone, testosterone — based on comprehensive labs." },
                     { icon: <Dumbbell className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Testosterone Therapy for Women", desc: "Low libido, fatigue, and muscle loss addressed with physician-supervised testosterone protocols." },
                     { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Thyroid & Metabolic Optimization", desc: "Thyroid function evaluated and optimized as part of every comprehensive hormone workup." },
@@ -639,43 +634,6 @@ export default function LocationMaryland() {
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
       <WhyChoose onConsultClick={() => setConsultOpen(true)} />
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-12">
-            <span className="block text-xs font-extrabold tracking-[0.22em] uppercase mb-3" style={{ color: "#E8339E" }}>
-              Patient Stories
-            </span>
-            <h2
-              className="font-black"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "#111111",
-              }}
-            >
-              What Maryland Women Are Saying
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#E8339E] text-[#E8339E]" />
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic flex-1">"{t.quote}"</p>
-                <div>
-                  <p className="font-bold text-[#111111] text-sm">{t.name}</p>
-                  <p className="text-[#E8339E] text-xs">{t.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 bg-[#F9F9FB]" id="faq">

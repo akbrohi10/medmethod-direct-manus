@@ -131,7 +131,7 @@ const FAQS = [
   },
   {
     q: "How much does medication cost?",
-    a: "Your physician care fee covers your consultation, personalized protocol, and ongoing monitoring. Medication is billed separately based on your prescription and pharmacy choice. Dr. Al-Deek will walk you through your specific options and costs during your consultation — including brand-name and lower-cost compounded alternatives.",
+    a: "Your physician care fee covers your consultation, personalized protocol, and ongoing monitoring. Medication is billed separately, and costs vary by the medication prescribed, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review clinically appropriate options and expected costs during your consultation.",
   },
   {
     q: "What states are you licensed in?",
@@ -415,10 +415,10 @@ export default function HomeHrt3() {
               Your Care Plan
             </h2>
             <p className="text-gray-600 max-w-xl mx-auto mb-2">
-              No insurance. No middlemen. Just results.
+              Thoughtful, physician-led care built around you.
             </p>
             <p className="text-base text-gray-600 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed">
-              Pricing covers physician care, monitoring, and prescribing. Medication is billed separately — compounded options are typically <span className="font-semibold text-[#7A1E7E]">30–45% more affordable</span> than brand-name and will be discussed during your consultation.
+              Pricing covers physician care, monitoring, and prescribing. Medication is billed separately, and costs vary by medication, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review clinically appropriate options and expected costs during your consultation.
             </p>
 
             {/* Unified Timeline Card */}
@@ -540,7 +540,7 @@ export default function HomeHrt3() {
                 Your Medication Options
               </h2>
               <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-                Medication is separate from your visit. When clinically appropriate, Dr. Al-Deek will discuss brand-name and compounded options with you—including differences in treatment, convenience, and cost—so you can make an informed decision based on your needs and preferences.
+                Medication is separate from your visit. When clinically appropriate, Dr. Al-Deek will review available treatment and fulfillment options, expected costs, and insurance considerations so you can make an informed decision based on your clinical needs and preferences.
               </p>
             </div>
 
@@ -553,25 +553,14 @@ export default function HomeHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Weight-Loss Medication</h3>
                 </div>
-                <p className="text-base text-gray-600 mb-4">Semaglutide &amp; tirzepatide — priced monthly</p>
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-4 pb-3 border-b border-gray-100">
-                    <div>
-                      <p className="text-lg font-semibold text-gray-800">Compounded</p>
-                      <p className="text-base text-gray-600">Semaglutide or tirzepatide</p>
-                      <p className="text-sm text-[#E8339E] font-medium mt-1">Preferred pricing may be available through partner pharmacies.</p>
-                      <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
-                    </div>
-                    <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$100–$300<span className="text-sm font-semibold text-gray-500">/mo</span></span>
-                  </div>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-semibold text-gray-800">Brand-Name</p>
-                      <p className="text-base text-gray-600">Wegovy or Zepbound</p>
-                      <p className="text-base text-gray-600 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
-                    </div>
-                    <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$450<span className="text-sm font-semibold text-gray-500">/mo</span></span>
-                  </div>
+                <p className="text-base text-gray-600 mb-4">Medication selection and fulfillment are based on your individual clinical needs.</p>
+                <div className="rounded-xl bg-[#FDF8F3] border border-gray-100 p-4 space-y-3">
+                  <p className="text-base text-gray-700 leading-relaxed">
+                    Costs vary by the medication prescribed, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review appropriate options and expected costs before you decide how to proceed.
+                  </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Compounded medications are not FDA-approved. FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.
+                  </p>
                 </div>
               </div>
 
@@ -631,50 +620,6 @@ export default function HomeHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-2" style={{ minHeight: "3.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>{s.title}</h3>
                   <p className="text-base text-gray-600 leading-relaxed">{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-        <section className="bg-white py-12 md:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10">
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">1,000+</p>
-                <p className="text-base text-gray-600 mt-1">Patients Treated</p>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">4.9<span className="text-[#E8339E]">★</span></p>
-                <p className="text-base text-gray-600 mt-1">Patient Satisfaction</p>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-200" />
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-extrabold text-gray-900">17</p>
-                <p className="text-base text-gray-600 mt-1">States Licensed</p>
-              </div>
-            </div>
-            <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
-              {[
-                { quote: "I spent years counting calories, exercising five days a week, and trying every diet imaginable. Nothing seemed to work anymore. Dr. Al-Deek helped me realize my hormones were the missing piece. Once we balanced my hormones, my body finally started responding again.", name: "Emily", age: 42 },
-                { quote: "I thought I needed more willpower, but what I really needed was a doctor who understood perimenopause. Between my hormone treatment and personalized weight loss plan, I've lost 28 pounds, I'm sleeping through the night again, and my mood has completely changed.", name: "Jessica", age: 44 },
-                { quote: "I had been taking a GLP-1 through another clinic, but my progress stalled after the first few months. Dr. Al-Deek looked beyond the medication and found that my hormones were working against me. After adjusting my treatment plan, the weight loss started again.", name: "Michelle", age: 47 },
-                { quote: "Hot flashes, brain fog, weight gain, and exhaustion became my new normal. Dr. Al-Deek explained what was happening to my body and developed a plan that actually addressed the root cause. Within a few months I felt like myself again.", name: "Karen", age: 53 },
-                { quote: "Dr. Al-Deek spent so much time getting to know me, my health history, and my goals. I can send her a quick message whenever I have questions, and she adjusts my treatment whenever needed. It's the easiest healthcare experience I've ever had.", name: "Lisa", age: 56 },
-                { quote: "I was skeptical about hormone therapy, but Dr. Al-Deek answered every question I had. Now my sleep has improved, my hot flashes are almost gone, and I've lost over 30 pounds with a combination of hormone therapy and physician-guided medical weight loss.", name: "Rachel", age: 49 },
-              ].map((t, i) => (
-                <div key={i} className="min-w-[300px] sm:min-w-[340px] max-w-[360px] flex-shrink-0 snap-start bg-[#FDF8F3] border border-gray-100 rounded-2xl p-6 shadow-sm">
-                  <div className="flex gap-0.5 mb-3">
-                    {[...Array(5)].map((_, s) => (
-                      <svg key={s} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-gray-700 text-base leading-relaxed mb-4">"{t.quote}"</p>
-                  <p className="text-base font-semibold text-gray-900">— {t.name}, {t.age}</p>
                 </div>
               ))}
             </div>

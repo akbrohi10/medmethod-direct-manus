@@ -62,21 +62,6 @@ export const blogPosts: BlogPost[] = [
     heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-food-noise-GXQM8uF8FQQwQCbCHfGfng.webp",
   },
   {
-    slug: "semaglutide-vs-tirzepatide-women-midlife",
-    title: "Semaglutide vs. Tirzepatide: What Women in Midlife Should Know",
-    excerpt:
-      "Both are weekly injections. Both produce significant weight loss. But they work differently — and for women in perimenopause and menopause, those differences matter. Here's a clear, clinical comparison.",
-    pillar: "glp1-education",
-    pillarLabel: "GLP-1 Education",
-    readTime: 9,
-    publishDate: "2026-03-27",
-    author: AUTHOR_DR_ALDEEK,
-    primaryKeyword: "semaglutide vs tirzepatide women",
-    metaDescription:
-      "Semaglutide vs. tirzepatide for women in menopause — Dr. Jumana Al-Deek compares mechanisms, weight loss results, and which may be right for midlife metabolic changes.",
-    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-semaglutide-vs-tirzepatide-9ARyQv8ChgJFMKMAEM4bCx.webp",
-  },
-  {
     slug: "hormone-therapy-weight-sleep-metabolism",
     title: "Can Hormone Therapy Help With Weight, Sleep, and Metabolism?",
     excerpt:

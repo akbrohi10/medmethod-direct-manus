@@ -395,3 +395,14 @@
 - [x] Classify each finding by requirement, risk, affected URL, and required supporting evidence
 - [x] Compare every finding with the current website without changing live content
 - [x] Prepare a prioritized proposed change plan for user approval before implementation
+
+## LegitScript Compliance Website Remediation
+
+- [x] Define neutral replacement copy and enumerate all affected routes, shared components, and location templates
+- [x] Temporarily unpublish `/blog/semaglutide-vs-tirzepatide-women-midlife` and remove its public references
+- [x] Remove compounded-versus-brand pricing, affordability, and Wegovy/Zepbound comparison framing from the homepage and landing pages
+- [x] Remove flagged quantified testimonials, hormone-linked weight-loss claims, and “Just results” from all affected pages
+- [x] Replace repeated “same active ingredient” and compounded-affordability language across location pages and shared medication content
+- [x] Add automated compliance regression checks for every explicitly prohibited claim
+- [x] Validate affected routes, TypeScript, the complete test suite, and the production build
+- [x] Save a publishable compliance-remediation checkpoint

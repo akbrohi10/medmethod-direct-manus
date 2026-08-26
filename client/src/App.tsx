@@ -22,7 +22,6 @@ const StartWomen = lazy(() => import("@/pages/StartWomen"));
 const DiscoveryCall = lazy(() => import("@/pages/DiscoveryCall"));
 const BookPage = lazy(() => import("@/pages/BookPage"));
 const ThankYou = lazy(() => import("@/pages/ThankYou"));
-const MedicationPricing = lazy(() => import("@/pages/MedicationPricing"));
 const LpHrt = lazy(() => import("@/pages/LpHrt"));
 const LpHrt2 = lazy(() => import("@/pages/LpHrt2"));
 const LpHrt3 = lazy(() => import("@/pages/LpHrt3"));
@@ -172,7 +171,6 @@ const LocationRoundRockTX = lazy(() => import("@/pages/LocationRoundRockTX"));
 // Article imports — each file self-registers into articleComponents on load
 import "./articles/why-weight-gain-feels-different-in-menopause";
 import "./articles/what-is-food-noise-midlife";
-import "./articles/semaglutide-vs-tirzepatide-women-midlife";
 import "./articles/hormone-therapy-weight-sleep-metabolism";
 import "./articles/putting-yourself-last-has-to-change";
 
@@ -308,7 +306,6 @@ function Router() {
         <Route path="/book">{() => { window.location.replace("/the-menopause-weight-loss-trap"); return null; }}</Route>
         <Route path="/the-menopause-weight-loss-trap" component={BookPage} />
         <Route path="/thank-you" component={ThankYou} />
-        <Route path="/pricing-guide" component={MedicationPricing} />
         <Route path="/before-you-start-treatment" component={BeforeYouStartTreatment} />
         <Route path="/locations" component={Locations} />
         <Route path="/start/women" component={StartWomen} />

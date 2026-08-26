@@ -7,8 +7,8 @@ const componentSource = readFileSync(
 );
 
 describe("LpWL2 conversion-focused section order", () => {
-  it("shows Medication Pricing before How It Works and removes ongoing-care membership copy", () => {
-    const medicationIndex = componentSource.indexOf("/* ── Medication Pricing ── */");
+  it("shows medication-cost guidance before How It Works and removes ongoing-care membership copy", () => {
+    const medicationIndex = componentSource.indexOf("/* ── Medication Costs ── */");
     const howItWorksIndex = componentSource.indexOf("/* ── How It Works ── */");
 
     expect(medicationIndex).toBeGreaterThan(-1);

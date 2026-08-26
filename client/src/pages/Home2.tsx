@@ -14,7 +14,6 @@ import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import ToolsForSuccess from "@/components/ToolsForSuccess";
 import WhyChoose from "@/components/WhyChoose";
-import Testimonials from "@/components/Testimonials";
 import MedicalTeam from "@/components/MedicalTeam";
 import FAQ from "@/components/FAQ";
 import Blog from "@/components/Blog";
@@ -113,7 +112,6 @@ export default function Home2() {
       <DiagnosticSetup onConsultClick={() => openConsult()} />
       <YourMedication onConsultClick={() => openConsult()} />
       <Services onConsultClick={openConsult} />
-      <Testimonials />
       <BookTeaser onConsultClick={() => openConsult()} />
       <ToolsForSuccess onConsultClick={() => openConsult()} />
       <WhyChoose onConsultClick={() => openConsult()} />

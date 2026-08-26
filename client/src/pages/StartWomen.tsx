@@ -26,27 +26,6 @@ const trustPoints = [
   { icon: Star, label: "4.9★ Patient Rating", sub: "Across 10,000+ women served" },
 ];
 
-const testimonials = [
-  {
-    quote: "I lost 22 lbs in 4 months and my hot flashes are completely gone. I finally feel like myself again.",
-    name: "Sarah M.",
-    location: "McLean, VA",
-    result: "22 lbs lost · Menopause symptoms resolved",
-  },
-  {
-    quote: "After years of being told my labs were 'normal,' Dr. Al-Deek found the real problem in our first visit.",
-    name: "Jennifer K.",
-    location: "Reston, VA",
-    result: "Hormone imbalance identified & treated",
-  },
-  {
-    quote: "The combination of GLP-1 and hormone therapy is what finally worked. No other doctor offered both.",
-    name: "Michelle R.",
-    location: "Tysons, VA",
-    result: "18 lbs lost · Energy fully restored",
-  },
-];
-
 const faqs = [
   ...pricingFaqs,
   {
@@ -55,7 +34,7 @@ const faqs = [
   },
   {
     q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. If your plan requires a prior authorization, we can complete one for an additional fee — but please be aware that if it is denied, we do not complete appeals. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door without the insurance process. Your physician will walk you through both options during your consultation.",
+    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
   {
     q: "What states do you serve?",
@@ -146,14 +125,14 @@ export default function StartWomen() {
               SCHEDULE appointment
               <ArrowRight className="w-4 h-4" />
             </button>
-            <p className="text-white/40 text-xs">No commitment · 15-minute call · Results in 7–10 days</p>
+            <p className="text-white/40 text-xs">100% virtual · No insurance needed for your visit</p>
 
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-white/10">
               {[
                 { n: "10K+", l: "Women Served" },
                 { n: "4.9★", l: "Patient Rating" },
-                { n: "15%+", l: "Avg. Weight Loss" },
+                { n: "17", l: "States Licensed" },
               ].map((s) => (
                 <div key={s.l}>
                   <div className="text-white font-black text-xl" style={{ letterSpacing: "-0.02em" }}>{s.n}</div>
@@ -230,52 +209,13 @@ export default function StartWomen() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-[#0D0D1A] py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase block mb-4">Real Women · Real Results</span>
-            <h2 className="font-black text-white text-3xl lg:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              What our patients say
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
-              <div key={t.name} className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#E8339E" }} />
-                  ))}
-                </div>
-                <p className="text-white/80 text-sm leading-relaxed mb-4 italic">"{t.quote}"</p>
-                <div className="border-t border-white/10 pt-4">
-                  <div className="text-white font-bold text-sm">{t.name}</div>
-                  <div className="text-white/40 text-xs">{t.location}</div>
-                  <div className="mt-2 text-xs font-bold tracking-wider" style={{ color: "#E8339E" }}>{t.result}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <button
-              onClick={handleCTA}
-              className="px-8 py-4 rounded-full text-white font-black text-sm tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 shadow-2xl"
-              style={{ background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", letterSpacing: "0.08em" }}
-            >
-              START MY JOURNEY →
-            </button>
-            <p className="text-white/30 text-xs mt-3">Free 15-minute consultation · No commitment</p>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works — 3 steps */}
       <section className="bg-white py-16 lg:py-20">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase block mb-4">Simple Process</span>
             <h2 className="font-black text-[#111111] text-3xl lg:text-4xl" style={{ letterSpacing: "-0.02em" }}>
-              From today to results in 3 steps
+              Getting started in 3 steps
             </h2>
           </div>
           <div className="space-y-6">

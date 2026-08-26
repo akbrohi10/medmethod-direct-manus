@@ -79,13 +79,13 @@ const localFaqs = [
   { q: "Is there a menopause specialist near Sarasota?", a: "Yes — MedMethod Direct provides specialist-level menopause care to women in Sarasota and throughout Sarasota County. Dr. Al-Deek is board-certified in family medicine with advanced training in hormone therapy, menopause management, and metabolic health. All visits are 100% virtual, so you get expert care without driving to Tampa or Fort Myers for a specialist." },
   { q: "What areas near Sarasota do you serve?", a: "We serve women throughout the Sarasota-Bradenton area, including Sarasota, Bradenton, Lakewood Ranch, Venice, Osprey, Siesta Key, and Longboat Key. Since all care is virtual, you can connect with us from anywhere in Florida." },
   { q: "How does the $449 diagnostic setup work for Sarasota patients?", a: "After your appointment, you pay a one-time $449 clinical diagnostic fee. This includes a comprehensive lab panel ordered to a LabCorp or Quest near you in Sarasota County, a MedMethod Smart Scale shipped to your door, a full hormone and metabolic assessment, and your first physician strategy session to review results and build your personalized protocol." },
-  { q: "Can Sarasota patients get medications delivered to their home?", a: "Absolutely. All compounded medications — including semaglutide and tirzepatide — are shipped directly from our FDA-registered 503B pharmacy to your Sarasota address. Brand-name prescriptions can also be sent to your local pharmacy in Sarasota County if you prefer to use insurance." },
-  { q: "Can I get semaglutide or tirzepatide online in Sarasota?", a: "Yes. We offer access to both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy, prescribed by Dr. Al-Deek after a thorough review of your labs and health history. Medications are shipped directly to your Sarasota address." },
+  { q: "Can Sarasota patients get medications delivered to their home?", a: "Yes. Medication fulfillment depends on the prescription and dispensing pharmacy. If medication is clinically appropriate, Dr. Al-Deek will explain available shipping or local pharmacy options during your visit." },
+  { q: "Can I get semaglutide or tirzepatide online in Sarasota?", a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." },
   { q: "Do I need to come into an office for bloodwork in Sarasota?", a: "No office visits required. We order your labs to a LabCorp or Quest Diagnostics location near you in Sarasota or the surrounding area. You go in for a standard blood draw, and we review the results together on your next virtual visit." },
   { q: "Why choose virtual care over a local OB/GYN in Sarasota?", a: "Most local practices in Sarasota have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits." },
   { q: "Do you accept insurance?", a: "We are a direct-care practice, which means we do not bill insurance. This allows us to spend more time with each patient, offer same-week availability, and provide care that isn't dictated by insurance coverage limits. Many patients use HSA or FSA funds for their program." },
   { q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?", a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. We also integrate weight loss, hormone therapy, and longevity care into a single comprehensive program — rather than treating each issue in isolation." },
-  { q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?", a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door. Your physician will walk you through both options during your consultation." },
+  { q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?", a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation." },
 ];
 
 const faqs = [...localFaqs, ...pricingFaqs,
@@ -111,15 +111,15 @@ const faqs = [...localFaqs, ...pricingFaqs,
   },
   {
     q: "Is everything done virtually?",
-    a: "Yes \u2014 all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications (FDA-approved brand or compounded from a licensed 503B outsourcing pharmacy) and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
+    a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },
   {
     q: "How quickly will I see results?",
-    a: "Many patients report noticeable improvements in sleep, energy, and mood within 4\u20136 weeks of starting treatment. Optimal hormone balance typically occurs at the 3\u20136 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4\u20138 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
+    a: "Responses to treatment vary. Dr. Al-Deek will monitor your symptoms, laboratory findings, medication response, and goals and will adjust your plan when clinically appropriate.",
   },
   {
     q: "Do you use FDA-approved medications or compounded ones?",
-    a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
+    a: "Medication selection is individualized and based on your health history, clinical needs, and treatment goals. If a compounded medication is clinically appropriate, Dr. Al-Deek will explain why it is being considered, available alternatives, expected costs, and pharmacy fulfillment before you decide how to proceed. Compounded medications are not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
     q: "How is pricing structured?",
@@ -127,11 +127,6 @@ const faqs = [...localFaqs, ...pricingFaqs,
   },
 ];
 
-const testimonials = [
-  { quote: "As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.", name: "Carolina M.", location: "Sarasota, FL" },
-  { quote: "The performance coach is what makes this different from every other telehealth company. I\'ve tried Noom, I\'ve tried Calibrate, I\'ve tried doing it alone. Nobody ever checked in on me the way my MedMethod advisor does. She knows my schedule, she knows my triggers, she adjusts my plan when life gets chaotic. That human accountability is worth more than any app.", name: "Allison D.", location: "Florida area" },
-  { quote: "I moved to Florida for retirement and expected to enjoy it — instead I was dealing with weight gain, zero energy, and joints that ached every morning. My MedMethod physician explained that menopause had tanked my hormones and my metabolism had basically shut down. Six months later I\'ve lost 27 lbs, I\'m back on the pickleball court, and my performance coach won\'t let me skip my morning walks.", name: "Barbara J.", location: "Florida" },
-];
 
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -310,7 +305,6 @@ export default function LocationSarasota() {
             </span>
             {[
               { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
-              { label: "Semaglutide vs. tirzepatide for women", href: "/blog/semaglutide-vs-tirzepatide-women-midlife" },
               { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
             ].map((link) => (
               <Link
@@ -334,39 +328,6 @@ export default function LocationSarasota() {
       <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
-      {/* ── PATIENT STORIES ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              PATIENT STORIES
-            </p>
-            <h2 className="font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em" }}>
-              What Women in Florida Are Saying
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { quote: "I spent two years bouncing between my OB-GYN and an endocrinologist. MedMethod got me on the right protocol in one visit. My hot flashes are gone, I'm sleeping through the night, and I've lost 18 pounds.", name: "Sarah M.", location: "Florida Patient", rating: 5 },
-              { quote: "The combination of hormone therapy and GLP-1 medication changed everything. I finally feel like myself again — more energy, clearer thinking, and the weight is actually coming off.", name: "Jennifer L.", location: "Florida Patient", rating: 5 },
-              { quote: "I was skeptical about telehealth for something this personal, but my MedMethod physician spent a full hour with me. She knew more about menopause than any doctor I've seen in person.", name: "Patricia K.", location: "Florida Patient", rating: 5 },
-            ].map((t) => (
-              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)" }}>
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <span key={i} className="text-[#E8339E] text-base">★</span>
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic flex-1" style={{ fontFamily: "Montserrat, sans-serif" }}>"{t.quote}"</p>
-                <div>
-                  <p className="font-bold text-[#111111] text-sm" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.name}</p>
-                  <p className="text-[#E8339E] text-xs" style={{ fontFamily: "Montserrat, sans-serif" }}>{t.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <div className="w-full flex flex-col items-center justify-center text-center px-6" style={{ background: "#0D0D1A", borderTop: "1px solid rgba(232,51,158,0.18)", borderBottom: "1px solid rgba(232,51,158,0.18)", padding: "52px 24px" }}>
         <span className="block text-xs font-extrabold tracking-[0.22em] uppercase mb-5" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>The MedMethod Standard</span>
@@ -400,30 +361,6 @@ export default function LocationSarasota() {
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>{card.icon}</div>
                 <h3 className="font-bold text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>{card.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#666" }}>{card.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>Real Patients</p>
-            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              What women in{" "}<span style={gradientText}>Sarasota are saying</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.location} className="rounded-2xl p-7 flex flex-col gap-4" style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)", border: "1px solid rgba(232,51,158,0.12)" }}>
-                <Quote className="w-8 h-8 opacity-30" style={{ color: "#E8339E" }} />
-                <p className="text-sm leading-relaxed flex-1 italic" style={{ fontFamily: "Montserrat, sans-serif", color: "#333" }}>"{t.quote}"</p>
-                <div>
-                  <p className="text-xs font-bold" style={{ fontFamily: "Montserrat, sans-serif", color: "#111" }}>{t.name}</p>
-                  <p className="text-xs" style={{ fontFamily: "Montserrat, sans-serif", color: "#999" }}>{t.location}</p>
-                </div>
               </div>
             ))}
           </div>

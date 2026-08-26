@@ -825,48 +825,28 @@ export default function LpWL2() {
         </div>
       </section>
 
-      {/* ── Medication Pricing ── */}
+      {/* ── Medication Costs ── */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-sm font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>MEDICATION PRICING</p>
+          <p className="text-sm font-bold tracking-widest uppercase text-center mb-2" style={{ color: BRAND_PINK }}>MEDICATION COSTS</p>
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-8" style={{ fontFamily: "Georgia, serif" }}>
-            Weight-Loss Medication
+            Costs Vary by Treatment
           </h2>
           <div className="text-center mb-8">
-            <p className="text-base text-gray-500">Semaglutide &amp; tirzepatide — priced monthly</p>
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">Medication is billed separately. The medication prescribed, dosage, dispensing pharmacy, and insurance coverage all affect your final cost.</p>
             <p className="text-sm italic mt-1" style={{ color: "#7A1E7E" }}>Hormone therapy pricing available upon consultation.</p>
           </div>
-          <div className="max-w-md mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="px-6 py-5 border-b border-gray-100">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="font-bold text-gray-900 mb-1">Compounded</p>
-                  <p className="text-base text-gray-700">Semaglutide or tirzepatide</p>
-                  <p className="text-sm mt-1" style={{ color: BRAND_PINK }}>Access pre-negotiated rates through our preferred partner pharmacies.</p>
-                  <p className="text-base text-gray-700 mt-1">Shipped directly to your door</p>
-                </div>
-                <div className="text-right flex-shrink-0 ml-4">
-                  <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$100–$300</p>
-                  <p className="text-sm text-gray-600">/mo</p>
-                </div>
-              </div>
-            </div>
-            <div className="px-6 py-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="font-bold text-gray-900 mb-1">Brand-Name</p>
-                  <p className="text-base text-gray-700">Wegovy or Zepbound</p>
-                  <p className="text-base text-gray-700 mt-1">Shipped to your door or picked up at your local pharmacy — your choice</p>
-                </div>
-                <div className="text-right flex-shrink-0 ml-4">
-                  <p className="font-bold text-lg" style={{ color: BRAND_PINK }}>~$150–$450</p>
-                  <p className="text-xs text-gray-400">/mo</p>
-                </div>
-              </div>
-            </div>
+          <div className="max-w-xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm px-6 py-6">
+            <p className="font-bold text-gray-900 mb-2">Your options will be reviewed during your visit</p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              Dr. Al-Deek will explain clinically appropriate medication options, expected costs, and fulfillment before you decide how to proceed.
+            </p>
+            <p className="text-sm text-gray-600 leading-relaxed mt-3">
+              Compounded medications are not FDA-approved. FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.
+            </p>
           </div>
           <p className="text-sm text-gray-600 text-center mt-4 max-w-sm mx-auto">
-            Medication pricing varies based on dosage, formulation, and pharmacy. Dr. Al-Deek will discuss your options on your call.
+            Your final cost will be discussed before a prescription is sent.
           </p>
         </div>
       </section>

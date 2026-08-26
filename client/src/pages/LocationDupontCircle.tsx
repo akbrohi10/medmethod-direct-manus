@@ -48,7 +48,7 @@ const JSONLD_FAQ = {
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Is there a menopause doctor near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." } },
-    { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Dupont Circle and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." } },
+    { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." } },
     { "@type": "Question", "name": "Do I need to come in for bloodwork near Dupont Circle?", "acceptedAnswer": { "@type": "Answer", "text": "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Northwest DC, including near Dupont Circle and Logan Circle. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." } },
     { "@type": "Question", "name": "How is MedMethod Direct different from local practices near Dupont Circle?", "acceptedAnswer": { "@type": "Answer", "text": "Dupont Circle is one of DC's most health-conscious neighborhoods — but even the best local practices can't offer same-week availability, 30–60 minute appointments, and a program that treats hormones and GLP-1 weight loss as a single clinical problem. MedMethod Direct does all three, virtually, without the commute." } },
     { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." } },
@@ -67,7 +67,7 @@ const JSONLD_BREADCRUMB = {
 
 const faqs = [
   { q: "Is there a menopause doctor near Dupont Circle, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
-  { q: "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", a: "Yes. Dr. Al-Deek prescribes both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide to patients in Dupont Circle and throughout DC. Labs are ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped directly to your door." },
+  { q: "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." },
   { q: "Do I need to come in for bloodwork near Dupont Circle?", a: "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Northwest DC, including near Dupont Circle and Logan Circle. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
   { q: "What is bioidentical hormone therapy (BHRT) and is it available near Dupont Circle?", a: "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing and shipped to your Dupont Circle address." },
   { q: "How is MedMethod Direct different from local practices near Dupont Circle?", a: "Dupont Circle is one of DC's most health-conscious neighborhoods — but even the best local practices can't offer same-week availability, 30–60 minute appointments, and a program that treats hormones and GLP-1 weight loss as a single clinical problem. MedMethod Direct does all three, virtually, without the commute." },
@@ -98,15 +98,15 @@ const faqs = [
   },
   {
     q: "Is everything done virtually?",
-    a: "Yes \u2014 all consultations, follow-ups, and ongoing care are conducted via telehealth. You'll complete lab work at a local lab near you (we'll provide the order), and your medications (FDA-approved brand or compounded from a licensed 503B outsourcing pharmacy) and supplements are shipped directly to your home. No waiting rooms, no commuting, no disruption to your schedule.",
+    a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },
   {
     q: "How quickly will I see results?",
-    a: "Many patients report noticeable improvements in sleep, energy, and mood within 4\u20136 weeks of starting treatment. Optimal hormone balance typically occurs at the 3\u20136 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4\u20138 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
+    a: "Responses to treatment vary. Dr. Al-Deek will monitor your symptoms, laboratory findings, medication response, and goals and will adjust your plan when clinically appropriate.",
   },
   {
     q: "Do you use FDA-approved medications or compounded ones?",
-    a: "Both \u2014 and the distinction matters. FDA-approved brand-name medications like Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, and Zepbound\u00ae have undergone full FDA review for safety and efficacy. Compounded medications use the same active ingredients (Semaglutide or Tirzepatide) but are prepared by a licensed 503B outsourcing facility \u2014 a federally registered, FDA-inspected pharmacy held to strict quality and sterility standards. Compounded options are often more affordable and allow for custom dosing. Your physician will discuss both options during your consultation and recommend the best fit based on your insurance, budget, and clinical needs. Either way, your medication ships directly to your door.",
+    a: "Medication selection is individualized and based on your health history, clinical needs, and treatment goals. If a compounded medication is clinically appropriate, Dr. Al-Deek will explain why it is being considered, available alternatives, expected costs, and pharmacy fulfillment before you decide how to proceed. Compounded medications are not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
     q: "How is pricing structured?",
@@ -119,7 +119,7 @@ const faqs = [
   },
   {
     q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "Yes \u2014 we can write prescriptions for brand-name medications (Ozempic\u00ae, Wegovy\u00ae, Mounjaro\u00ae, Zepbound\u00ae) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. If your plan requires a prior authorization, we can complete one for an additional fee \u2014 but please be aware that if it is denied, we do not complete appeals. In many cases, compounded semaglutide or tirzepatide from our licensed 503B pharmacy is more affordable and ships directly to your door without the insurance process. Your physician will walk you through both options during your consultation.",
+    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -181,11 +181,6 @@ const whyCards = [
   { icon: <UserCheck className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "One Physician. Your Whole Journey.", desc: "Dr. Al-Deek is your physician for the full 6 or 12-month program — not a rotating roster of telehealth providers." },
 ];
 
-const testimonials = [
-  { quote: "The accountability factor is what sets MedMethod apart. I\'ve done every diet, every app, every challenge. What I never had was someone checking in weekly who actually understood the medical side — not just \'eat less, move more\' but \'your cortisol is elevated, let\'s adjust your protocol.\' My performance coach is the reason I stuck with it past the hard part.", name: "Christine A.", location: "Dupont Circle, DC", rating: 5 },
-  { quote: "I travel constantly for work — international flights, different time zones, hotel food. MedMethod works from anywhere. My meds ship to wherever I am, my virtual visits happen between meetings, and my performance coach adjusts my plan when I\'m in a tough travel stretch. I\'ve lost 20 lbs while living out of a suitcase. That shouldn\'t be possible but here we are.", name: "Samantha G.", location: "Washington, DC", rating: 5 },
-  { quote: "I\'m a lobbyist on the Hill and appearances matter in my world — I know that sounds shallow but it\'s the reality. I gained 30 pounds during perimenopause and nothing I did at the gym was working. MedMethod\'s combined hormone and GLP-1 approach got me results in weeks, not months. My performance coach keeps me honest about nutrition and sleep even when work gets insane. Down 26 lbs.", name: "Victoria L.", location: "DC Metro", rating: 5 },
-];
 
 
 export default function LocationDupontCircle() {
@@ -338,30 +333,6 @@ export default function LocationDupontCircle() {
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>{card.icon}</div>
                 <h3 className="font-bold text-[#111111] text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#E8339E] mb-3 text-center" style={{ fontFamily: "Montserrat, sans-serif" }}>PATIENT STORIES</p>
-          <h2 className="font-black text-[#111111] mb-10 text-center" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>What Dupont Circle Women Are Saying</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col gap-4">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#E8339E] text-[#E8339E]" />
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic flex-1">"{t.quote}"</p>
-                <div>
-                  <p className="font-bold text-[#111111] text-sm">{t.name}</p>
-                  <p className="text-[#E8339E] text-xs">{t.location}</p>
-                </div>
               </div>
             ))}
           </div>

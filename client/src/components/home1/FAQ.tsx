@@ -183,7 +183,7 @@ const faqCategories: {
       },
       {
         q: "How does my medication ship?",
-        a: "Compounded medications ship directly from licensed partner pharmacies to your door; brand-name prescriptions ship from the manufacturers' direct programs. Your dashboard helps you track the refills your pharmacy fills, so you're not managing it manually.",
+        a: "Medication fulfillment depends on the prescription and dispensing pharmacy. Your care team will explain available shipping or local pharmacy options, and your dashboard helps you track refills.",
       },
       {
         q: "What's the cancellation and refund policy?",

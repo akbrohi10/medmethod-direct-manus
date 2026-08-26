@@ -79,7 +79,7 @@ const faqCategories = [
       },
       {
         q: "How quickly will I see results?",
-        a: "Many patients report noticeable improvements in sleep, energy, and mood within 4–6 weeks of starting treatment. Optimal hormone balance typically occurs at the 3–6 month mark. Weight loss results vary, but most patients see meaningful progress within the first 4–8 weeks, especially when the nutrition and fitness plan is followed alongside medical treatment.",
+        a: "Responses to treatment vary. Your physician will monitor your symptoms, laboratory findings, medication response, and goals and will adjust your plan when clinically appropriate.",
       },
       {
         q: "What medications do you prescribe?",
@@ -87,7 +87,7 @@ const faqCategories = [
       },
       {
         q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-        a: "Yes — we can write prescriptions for brand-name medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) that you can take to your pharmacy and attempt to run through your insurance. However, most insurance plans either exclude GLP-1s for weight loss entirely, or require prior authorization. If your plan requires a prior authorization, we can complete one for an additional fee — but please be aware that if it is denied, we do not complete appeals. Your physician will walk you through all options during your consultation.",
+        a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
       },
     ],
   },
@@ -98,7 +98,7 @@ const faqCategories = [
     questions: [
       {
         q: "How is pricing structured?",
-        a: "Your first visit is $199 total — $50 deposit to reserve your appointment, $149 due at the time of your visit. This covers your 45-minute consultation with Dr. Al-Deek, your personalized treatment plan, prescription (if appropriate), and 30 days of direct text access with Dr. Al-Deek. Medication is separate and billed based on what Dr. Al-Deek prescribes — both brand-name and compounded options are available. After your first visit, follow-up options depend on which plan works best for your care — Dr. Al-Deek will walk you through both at your appointment. We accept HSA/FSA. No insurance needed.",
+        a: "Your first visit is $199 total — $50 deposit to reserve your appointment, $149 due at the time of your visit. This covers your 45-minute consultation with Dr. Al-Deek, your personalized treatment plan, prescription (if appropriate), and 30 days of direct text access with Dr. Al-Deek. Medication is billed separately, and costs vary by the medication prescribed, dosage, dispensing pharmacy, and insurance coverage. After your first visit, Dr. Al-Deek will review the follow-up option that best fits your care. We accept HSA/FSA. No insurance is needed for the visit.",
       },
       ...pricingFaqs,
       {

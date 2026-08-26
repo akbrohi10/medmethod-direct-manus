@@ -8,7 +8,6 @@ import { blogPosts, PILLAR_COLORS } from "@/data/blogPosts";
 // Pick the 3 best articles: featured first, then by pillar diversity
 const FEATURED_SLUGS = [
   "why-weight-gain-feels-different-in-menopause",
-  "semaglutide-vs-tirzepatide-women-midlife",
   "putting-yourself-last-has-to-change",
 ];
 

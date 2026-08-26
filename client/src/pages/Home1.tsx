@@ -15,7 +15,6 @@ import YourMedication from "@/components/home1/YourMedication";
 import PopularPrograms from "@/components/home1/PopularPrograms";
 import PatientTools from "@/components/home1/PatientTools";
 import MedicalTeam from "@/components/home1/MedicalTeam";
-import Testimonials from "@/components/home1/Testimonials";
 import Services from "@/components/home1/Services";
 import BookTeaser from "@/components/home1/BookTeaser";
 import FAQ from "@/components/home1/FAQ";
@@ -84,7 +83,7 @@ export default function Home1() {
       { "@type": "Question", "name": "Is it safe to combine GLP-1 weight loss and hormone therapy?", "acceptedAnswer": { "@type": "Answer", "text": "Combining metabolic and hormone therapy is exactly the kind of integrated care our model is designed to manage, with a single physician overseeing both so the protocols are coordinated rather than working against each other. Your physician will evaluate your full picture and design a plan specific to you." } },
       { "@type": "Question", "name": "Is my health information private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, and we take it seriously. Your records live in a HIPAA-compliant clinical system, and we've deliberately built our infrastructure to avoid the kind of large-scale data exposure that has affected other telehealth operators. We don't sell your data." } },
       { "@type": "Question", "name": "How fast can I get started?", "acceptedAnswer": { "@type": "Answer", "text": "Most patients complete enrollment and physician intake quickly, with medication shipping shortly after your prescription is written. Transformation and Longevity patients schedule their live consultation as part of onboarding." } },
-      { "@type": "Question", "name": "How does my medication ship?", "acceptedAnswer": { "@type": "Answer", "text": "Compounded medications ship directly from licensed partner pharmacies to your door; brand-name prescriptions ship from the manufacturers' direct programs. Your dashboard helps you track the refills your pharmacy fills, so you're not managing it manually." } },
+      { "@type": "Question", "name": "How does my medication ship?", "acceptedAnswer": { "@type": "Answer", "text": "Medication fulfillment depends on the prescription and dispensing pharmacy. Your care team will explain available shipping or local pharmacy options, and your dashboard helps you track refills." } },
       { "@type": "Question", "name": "What's the cancellation and refund policy?", "acceptedAnswer": { "@type": "Answer", "text": "You can cancel your subscription at any time, and it will stop renewing going forward — you're never locked into another term. Membership charges are final at the time they're billed, and we don't issue refunds for any period already billed. Medications are billed separately by the pharmacy and are subject to the pharmacy's own policies." } }
     ]
   };
@@ -161,9 +160,6 @@ export default function Home1() {
         <PopularPrograms onConsultClick={openConsult} />
       </div>
       {SHOW_MEDICATIONS && <div className="cv-auto"><YourMedication onConsultClick={() => openConsult()} /></div>}
-      <div className="cv-auto">
-        <Testimonials />
-      </div>
       <div className="cv-auto">
         <Services onConsultClick={openConsult} />
       </div>

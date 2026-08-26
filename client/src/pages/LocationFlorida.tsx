@@ -100,7 +100,7 @@ const JSONLD_FAQ = {
       "name": "Can I get semaglutide or tirzepatide online in Florida?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We offer access to both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy, prescribed by Dr. Al-Deek after a thorough review of your labs and health history. Medications are shipped directly to your Florida address.",
+        "text": "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
       },
     },
     {
@@ -146,7 +146,7 @@ const localFaqs = [
   },
   {
     q: "Can I get semaglutide or tirzepatide online in Florida?",
-    a: "Yes. We offer access to both FDA-approved GLP-1 medications (Ozempic®, Wegovy®, Mounjaro®, Zepbound®) and compounded semaglutide and tirzepatide from an FDA-registered 503B outsourcing pharmacy, prescribed by Dr. Al-Deek after a thorough review of your labs and health history. Medications are shipped directly to your Florida address.",
+    a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
     q: "Do I need to come into an office for bloodwork in Florida?",
@@ -169,11 +169,6 @@ const localFaqs = [
 const faqs = [...localFaqs, ...pricingFaqs];
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
-const testimonials = [
-  { quote: "I run a real estate team and I\'m on my feet showing houses all day in the Florida heat. The hot flashes on top of that were unbearable. MedMethod had me on BHRT within a week and the flashes stopped within three weeks. I also lost 15 lbs I wasn\'t even trying to lose. My clients keep asking for my secret — I just tell them to call MedMethod.", name: "Maria V.", location: "Florida" },
-  { quote: "I\'d been bouncing between weight loss clinics for two years — Semaglutide here, B12 shots there, none of them looking at the whole picture. MedMethod was the first practice that said \'your weight and your hormones are the same problem.\' That one insight changed everything. Down 31 lbs and my performance coach keeps me accountable even when I want to cheat on vacation.", name: "Jennifer S.", location: "Florida area" },
-  { quote: "As a Latina woman going through menopause, I felt like the medical system didn\'t understand my experience. The cultural stigma around aging, the dismissiveness from doctors who didn\'t look like me — it was isolating. MedMethod treated me like a whole person. Dr. Al-Deek spent real time understanding my symptoms, my goals, and my life. I\'ve never felt more seen by a medical practice.", name: "Carolina M.", location: "Florida" },
-];
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────
 function FAQItem({ q, a }: { q: string; a: string }) {
@@ -529,39 +524,6 @@ export default function LocationFlorida() {
                 <p className="text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#666" }}>
                   {card.body}
                 </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Real Patients
-            </p>
-            <h2 className="font-black leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", color: "#111111" }}>
-              What women in{" "}
-              <span style={gradientText}>Florida are saying</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div
-                key={t.location}
-                className="rounded-2xl p-7 flex flex-col gap-4"
-                style={{ background: "linear-gradient(135deg, rgba(232,51,158,0.04) 0%, rgba(122,30,126,0.04) 100%)", border: "1px solid rgba(232,51,158,0.12)" }}
-              >
-                <Quote className="w-8 h-8 opacity-30" style={{ color: "#E8339E" }} />
-                <p className="text-sm leading-relaxed flex-1 italic" style={{ fontFamily: "Montserrat, sans-serif", color: "#333" }}>
-                  "{t.quote}"
-                </p>
-                <div>
-                  <p className="text-xs font-bold" style={{ fontFamily: "Montserrat, sans-serif", color: "#111" }}>{t.name}</p>
-                  <p className="text-xs" style={{ fontFamily: "Montserrat, sans-serif", color: "#999" }}>{t.location}</p>
-                </div>
               </div>
             ))}
           </div>
