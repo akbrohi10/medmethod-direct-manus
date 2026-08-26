@@ -8,8 +8,12 @@ import superjson from "superjson";
 import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
+import { readPreviewBearerToken, resolveTrpcEndpoint } from "./lib/trpcTransport";
 
 const queryClient = new QueryClient();
+const trpcEndpoint = resolveTrpcEndpoint(
+  typeof window === "undefined" ? undefined : window.location.href,
+);
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
@@ -38,18 +42,14 @@ queryClient.getMutationCache().subscribe(event => {
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "/api/trpc",
+      url: trpcEndpoint,
       transformer: superjson,
       headers() {
         try {
           const raw = sessionStorage.getItem("manus-cookie");
-          if (raw) {
-            const prefix = `${COOKIE_NAME}=`;
-            const pair = raw.split(";").find(s => s.trim().startsWith(prefix));
-            const token = pair?.trim().slice(prefix.length);
-            if (token) {
-              return { Authorization: `Bearer ${token}` };
-            }
+          const token = readPreviewBearerToken(raw, COOKIE_NAME);
+          if (token) {
+            return { Authorization: `Bearer ${token}` };
           }
         } catch {
           // sessionStorage unavailable

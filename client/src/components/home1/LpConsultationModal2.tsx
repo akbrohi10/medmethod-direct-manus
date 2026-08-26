@@ -330,7 +330,9 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const [paypalPaymentId, setPaypalPaymentId] = useState<number | null>(null);
   const [chargeScheduled, setChargeScheduled] = useState(false);
   // Fetch the active payment provider (stripe | paypal) — public endpoint, no auth needed
-  const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery();
+  const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery(undefined, {
+    enabled: open,
+  });
   const activeProvider = activeProviderQuery.data?.activeProvider ?? "stripe";
   const scrollBodyRef = useRef<HTMLDivElement>(null);
 

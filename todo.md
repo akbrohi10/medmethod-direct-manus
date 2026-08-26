@@ -502,3 +502,12 @@
 - [x] Update regression coverage to enforce the new customer-facing wording
 - [x] Validate affected pages, TypeScript, tests, production build, and responsive rendering
 - [x] Save and deliver the sitewide licensing-count wording checkpoint
+
+## Homepage Preview API Query Pattern Error
+
+- [x] Reproduce the homepage `/?from_webdev=1` API query error from browser, network, and server logs
+- [x] Trace “The string did not match the expected pattern” to the exact request, URL, or input source
+- [x] Apply the smallest safe repair without changing unrelated homepage or payment behavior
+- [x] Add focused regression coverage for the confirmed failure mode
+- [x] Validate homepage runtime, affected API calls, TypeScript, tests, production build, and browser logs
+- [x] Save and deliver the homepage API query repair checkpoint
