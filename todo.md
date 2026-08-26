@@ -469,3 +469,11 @@
 - [x] Add route and compliance regression coverage for removed and added state routes
 - [x] Validate desktop and mobile rendering, links, TypeScript, all tests, production build, and state-reference scans
 - [x] Update verification documentation and save a publishable checkpoint
+
+## Homepage and New State-Hub Compliance/UX Audit
+
+- [x] Review the approved compliance requirements and define the homepage/state-hub audit criteria
+- [x] Audit the homepage for content flow, CTA hierarchy, disclosures, navigation, readability, and mobile usability
+- [x] Audit the locations directory and Georgia, Illinois, and Michigan hubs for compliance, coherence, SEO, links, conversion flow, and responsive layout
+- [x] Validate findings with source review, route checks, browser screenshots, and automated scans without changing website content
+- [x] Prepare a prioritized no-change audit report with recommended fixes for user approval
