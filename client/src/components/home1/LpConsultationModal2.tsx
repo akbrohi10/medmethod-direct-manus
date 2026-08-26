@@ -27,17 +27,10 @@ interface Props {
 
 const SERVICE_OPTIONS = [
   { label: "Weight Loss", subtitle: "GLP-1 / Semaglutide · Tirzepatide", icon: "🔥" },
-  { label: "Hormone Therapy", subtitle: "", icon: "🧬" },
-  { label: "Menopause", subtitle: "", icon: "🌸" },
-  { label: "Sexual Health", subtitle: "", icon: "💗" },
-  { label: "Hair Care", subtitle: "", icon: "💇‍♀️" },
-  { label: "Gut Health", subtitle: "", icon: "🥗" },
-  { label: "Skincare", subtitle: "", icon: "✨" },
-  { label: "Longevity & Aging", subtitle: "", icon: "⏳" },
-  { label: "Vitamins & Supplements", subtitle: "", icon: "💊" },
-  { label: "Personal Training", subtitle: "", icon: "🏋️‍♀️" },
-  { label: "Virtual Primary Care", subtitle: "", icon: "🩺" },
-  { label: "Virtual Urgent Care", subtitle: "", icon: "⚡" },
+  { label: "Hormone Therapy for Women", subtitle: "", icon: "🧬" },
+  { label: "Nutrition & Vitamin Optimization", subtitle: "", icon: "💊" },
+  { label: "Dermatology & Skin", subtitle: "", icon: "✨" },
+  { label: "Hair Restoration", subtitle: "", icon: "💇‍♀️" },
 ];
 
 const questions = [
@@ -70,8 +63,6 @@ const questions = [
     subtitle: "No judgment — we just want to help you succeed this time",
     options: [
       "No, this is my first time",
-      "Yes, but didn't get results",
-      "Yes, results didn't last",
       "I've tried multiple approaches",
     ],
   },

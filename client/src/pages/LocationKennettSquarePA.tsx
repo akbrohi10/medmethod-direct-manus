@@ -8,9 +8,7 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import WhyChoose from "@/components/WhyChoose";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import { ArrowRight, CheckCircle, ChevronDown, MapPin, Package, Smartphone, Star, Video } from "lucide-react";
 import { pricingFaqs } from "@/data/pricingFaqs";
@@ -24,14 +22,6 @@ const faqs = [
     a: "Kennett Square and southern Chester County have very few OB-GYNs who specialize in menopause management — most are in West Chester or Wilmington, DE. MedMethod Direct provides board-certified hormone therapy and menopause care via telehealth, so Kennett Square residents get specialist-level care without the drive."
   },
   {
-    q: "Can I get HRT prescribed online in Pennsylvania?",
-    a: "Yes. Pennsylvania allows licensed physicians to prescribe hormone replacement therapy via telehealth after a proper medical evaluation. MedMethod Direct physicians are PA-licensed and can prescribe bioidentical HRT, progesterone, and testosterone therapy with medication shipped directly to your Kennett Square address."
-  },
-  {
-    q: "What services does MedMethod Direct offer in Kennett Square?",
-    a: "We offer comprehensive women's health services including menopause management, bioidentical hormone therapy, GLP-1 weight loss programs (semaglutide/tirzepatide), thyroid optimization, and preventive longevity care — all via telehealth from your home."
-  },
-  {
     q: "How does the $449 diagnostic setup work?",
     a: "Your $449 onboarding includes a comprehensive lab panel (hormones, thyroid, metabolic markers), a 60-minute physician consultation to review your results, and a personalized treatment protocol. Most patients have their first prescription within 5–7 days of labs."
   },
@@ -40,24 +30,8 @@ const faqs = [
     a: "Yes — we serve all of Chester County including West Chester, Malvern, Newtown Square, Downingtown, and Coatesville. Any Pennsylvania resident can schedule a telehealth appointment regardless of their specific town."
   },
   {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
-  {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -79,10 +53,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -315,14 +285,6 @@ export default function LocationKennettSquarePA() {
               <strong>medical weight loss physician serving Kennett Square, Pennsylvania</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
             <p>
-              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
-              <strong>perimenopause and menopause management</strong>,{" "}
-              <strong>hormone replacement therapy (HRT)</strong>,{" "}
-              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
-              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
-            </p>
-            <p>
               Whether you're experiencing{" "}
               <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in Pennsylvania that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Philadelphia or Wilmington. No waiting rooms. Just one team, one plan, and results that last.
             </p>
@@ -354,7 +316,6 @@ export default function LocationKennettSquarePA() {
         </div>
       </section>
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
@@ -378,7 +339,6 @@ export default function LocationKennettSquarePA() {
           </p>
         </div>
       </div>
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
       {/* ── WHY KENNETT SQUARE WOMEN CHOOSE US ── */}
       <section className="py-20 bg-[#F8F4F9]">
         <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
@@ -394,9 +354,7 @@ export default function LocationKennettSquarePA() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Kennett Square", desc: "We order your labs to a convenient LabCorp or Quest draw site near Kennett Square. Results reviewed within 48 hours." },
-              { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Kennett Square address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
             ].map((card) => (
               <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">

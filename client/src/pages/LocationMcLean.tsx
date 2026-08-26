@@ -1,13 +1,12 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    McLean, Virginia Location Page — MedMethod Direct
    Brand: Montserrat, Medical Pink #E8339E → Deep Purple #7A1E7E gradient
    Structure: Helmet SEO → Navbar → Hero → Intro → Services → HowItWorks →
-   VirtualVsLocal → WhyChoose → Testimonials → MedicalTeam → FAQ → CTA → Footer
    Primary keyword: menopause doctor McLean VA
    Secondary: hormone therapy McLean Virginia, GLP-1 weight loss McLean VA,
    semaglutide McLean Virginia, bioidentical hormone therapy McLean,
    perimenopause treatment McLean VA, virtual menopause care McLean Virginia,
-   women's health telehealth McLean, testosterone therapy for women Virginia
    Long-tail: perimenopause weight gain doctor McLean, compounded semaglutide
    Virginia telehealth, online hormone testing Virginia, can I get semaglutide
    online in Virginia, menopause brain fog doctor Northern Virginia
@@ -23,9 +22,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import MedicalTeam from "@/components/MedicalTeam";
-import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/telehealth-hero-single-face-v1_ad2544a9.jpg";
@@ -46,7 +43,6 @@ const JSONLD_MEDICAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — McLean, Virginia",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in McLean, Virginia. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Virginia.",
   "url": "https://medmethoddirect.com/virginia/mclean",
   "telephone": "",
   "priceRange": "$$",
@@ -56,9 +52,6 @@ const JSONLD_MEDICAL_BUSINESS = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": [
     { "@type": "City", "name": "McLean", "containedInPlace": { "@type": "State", "name": "Virginia" } },
@@ -76,7 +69,7 @@ const JSONLD_MEDICAL_BUSINESS = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -127,7 +120,7 @@ const JSONLD_FAQ = {
       "name": "Why choose virtual care over a local OB/GYN or endocrinologist in McLean?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most local practices in McLean and Tysons have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in McLean.",
+        "text": "Most local practices in McLean and Tysons have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. You get more time, more attention, and deeper expertise — all from your home in McLean.",
       },
     },
     {
@@ -177,7 +170,7 @@ const faqs = [
   },
   {
     q: "Why choose virtual care over a local OB/GYN or endocrinologist in McLean?",
-    a: "Most local practices in McLean and Tysons have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in McLean.",
+    a: "Most local practices in McLean and Tysons have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. You get more time, more attention, and deeper expertise — all from your home in McLean.",
   },
   {
     q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?",
@@ -189,33 +182,12 @@ const faqs = [
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
   },
   {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
-  },
-  {
     q: "What is the cost of a program for McLean patients?",
     a: "Programs require a commitment of either six or twelve months. Pricing is discussed during your appointment so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
-  },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -235,7 +207,6 @@ const faqs = [
   },
 ];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────
 function FAQItem({ q, a }: { q: string; a: string }) {
@@ -313,13 +284,11 @@ export default function LocationMcLean() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct</title>
         <meta
           name="description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/mclean" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           property="og:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <meta property="og:url" content="https://medmethoddirect.com/virginia/mclean" />
         <meta property="og:type" content="website" />
@@ -328,7 +297,6 @@ export default function LocationMcLean() {
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA | MedMethod Direct" />
         <meta
           name="twitter:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in McLean, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_MEDICAL_BUSINESS)}
@@ -342,7 +310,6 @@ export default function LocationMcLean() {
             "@type": "MedicalWebPage",
             "name": "Virtual Hormone, Menopause & Weight Loss Doctor in McLean, VA",
             "url": "https://medmethoddirect.com/virginia/mclean",
-            "description": "MedMethod Direct provides physician-led virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, and testosterone therapy for women in McLean, Virginia.",
             "about": [
               { "@type": "MedicalCondition", "name": "Menopause" },
               { "@type": "MedicalCondition", "name": "Perimenopause" },
@@ -493,14 +460,6 @@ export default function LocationMcLean() {
               <strong>medical weight loss physician in McLean, Virginia</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
             <p>
-              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
-              <strong>perimenopause and menopause management</strong>,{" "}
-              <strong>hormone replacement therapy (HRT)</strong>,{" "}
-              <strong>bioidentical hormone therapy</strong>,{" "}
-              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care. Everything is managed virtually by Dr. Jumana Al-Deek, DO — a physician who has dedicated her practice to helping women in their 40s, 50s, and beyond reclaim their bodies and their energy.
-            </p>
-            <p>
               Whether you're experiencing{" "}
               <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in Virginia that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No siloed specialists. No starting over. Just one team, one plan, and results that last.
             </p>
@@ -537,9 +496,10 @@ export default function LocationMcLean() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────── */}
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES (reused from homepage) ──────────────────────────────────── */}
+      <ComplianceDisclosures compounded />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── HOW IT WORKS (reused from homepage) ──────────────────────────────── */}
@@ -559,9 +519,7 @@ export default function LocationMcLean() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near McLean", desc: "We order your labs to a convenient LabCorp or Quest draw site near McLean. Results reviewed within 48 hours." },
-              { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your McLean address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
             ].map((card) => (
               <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -621,7 +579,6 @@ export default function LocationMcLean() {
       </div>
 
       {/* ── WHY MOST PEOPLE FAIL / THE MEDMETHOD WAY ─────────────────────── */}
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── MEDICAL TEAM (reused from homepage) ──────────────────────────────── */}
       <MedicalTeam />

@@ -3,7 +3,6 @@
    Design: Clinical Noir — white hero with pink gradient accents
    Target keywords: menopause doctor Dupont Circle DC, virtual hormone therapy Dupont Circle Washington DC,
    GLP-1 weight loss Dupont Circle DC, perimenopause treatment Dupont Circle, semaglutide Dupont Circle DC,
-   bioidentical hormone therapy Dupont Circle DC, testosterone therapy women Dupont Circle,
    online menopause doctor Dupont Circle Washington DC
    ============================================================================= */
 import { useState, useEffect } from "react";
@@ -15,16 +14,13 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 const JSONLD_LOCAL = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Dupont Circle, Washington DC",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Dupont Circle, Washington DC. Physician-prescribed GLP-1 weight loss, HRT, BHRT, testosterone therapy — 100% virtual, licensed in DC.",
   "url": "https://medmethoddirect.com/washington-dc/dupont-circle",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -33,13 +29,12 @@ const JSONLD_LOCAL = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
   ],
   "areaServed": { "@type": "Neighborhood", "name": "Dupont Circle", "containedInPlace": { "@type": "City", "name": "Washington DC" } },
   "isAcceptingNewPatients": true,
   "paymentAccepted": "Cash, Credit Card, HSA, FSA",
-  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine" },
+  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine" },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "10000", "bestRating": "5" },
 };
 
@@ -69,7 +64,6 @@ const faqs = [
   { q: "Is there a menopause doctor near Dupont Circle, DC?", a: "Yes. MedMethod Direct is a virtual menopause and hormone clinic licensed in Washington DC, serving women in Dupont Circle, Logan Circle, Adams Morgan, Kalorama, and throughout the District. Dr. Jumana Al-Deek, DO, can typically see new patients within days of your appointment." },
   { q: "Can I get semaglutide or tirzepatide prescribed online near Dupont Circle, DC?", a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." },
   { q: "Do I need to come in for bloodwork near Dupont Circle?", a: "No office visit to MedMethod Direct is ever required. There are LabCorp and Quest Diagnostics locations throughout Northwest DC, including near Dupont Circle and Logan Circle. We order your labs, you go in for the draw, and results come directly to Dr. Al-Deek." },
-  { q: "What is bioidentical hormone therapy (BHRT) and is it available near Dupont Circle?", a: "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing and shipped to your Dupont Circle address." },
   { q: "How is MedMethod Direct different from local practices near Dupont Circle?", a: "Dupont Circle is one of DC's most health-conscious neighborhoods — but even the best local practices can't offer same-week availability, 30–60 minute appointments, and a program that treats hormones and GLP-1 weight loss as a single clinical problem. MedMethod Direct does all three, virtually, without the commute." },
   { q: "Can MedMethod Direct also serve patients in nearby neighborhoods?", a: "Yes. MedMethod Direct is licensed throughout DC, Maryland, and Virginia. We serve patients in Logan Circle, Adams Morgan, Kalorama, Georgetown, and throughout Northwest DC — as well as patients in nearby Bethesda MD and McLean VA." },
   ...pricingFaqs,
@@ -77,24 +71,8 @@ const faqs = [
   { q: "How soon can I start as a patient in Dupont Circle?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Dupont Circle patients are on their program within 1–2 weeks of their first call." },
 ,
   {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
-  {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -116,10 +94,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -192,7 +166,6 @@ export default function LocationDupontCircle() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Dupont Circle, DC | MedMethod Direct</title>
-        <meta name="description" content="Virtual menopause doctor and GLP-1 weight loss physician serving Dupont Circle, Washington DC. Same-week appointments. Semaglutide, tirzepatide, HRT, BHRT, testosterone therapy. No office visits required. Dr. Jumana Al-Deek, DO." />
         <link rel="canonical" href="https://medmethoddirect.com/washington-dc/dupont-circle" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Dupont Circle, DC | MedMethod Direct" />
         <meta property="og:description" content="Physician-led virtual clinic for women in Dupont Circle, Washington DC. Hormone therapy, GLP-1 weight loss, menopause care — all virtual, same-week availability." />
@@ -271,19 +244,12 @@ export default function LocationDupontCircle() {
             <p>
               If you've been searching for a <strong>menopause doctor near Dupont Circle DC</strong> or a <strong>GLP-1 weight loss physician in Northwest Washington DC</strong>, MedMethod Direct was built for you. Dupont Circle is one of DC's most progressive and health-conscious neighborhoods — home to consultants, creatives, nonprofit leaders, and professionals who take their health seriously and expect care that matches.
             </p>
-            <p>
-              Led by <strong>Dr. Jumana Al-Deek, DO</strong>, MedMethod Direct offers <strong>perimenopause and menopause management</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone therapy for women</strong>, and <strong>physician-prescribed semaglutide and tirzepatide</strong> — all through a single integrated virtual program. No waiting rooms. No commute. Same-week availability.
-            </p>
-            <p>
-              What makes MedMethod Direct different from other <strong>telehealth hormone therapy DC</strong> options is the clinical integration. Declining estrogen during perimenopause drives insulin resistance — which directly blunts the effectiveness of GLP-1 medications. Treating one without the other is why so many women plateau. Our program addresses both simultaneously, which is why our patients see results that other programs can't replicate.
-            </p>
-          </div>
+            </div>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               "Licensed to see patients throughout Washington DC",
               "Hormones + weight loss treated as one integrated program",
               "Physician-prescribed semaglutide & tirzepatide",
-              "BHRT, HRT & testosterone therapy for women",
               "Labs ordered to LabCorp or Quest near Dupont Circle",
               "Same-week availability — no 4–8 week wait",
               "One physician for your full 6 or 12-month program",
@@ -299,7 +265,6 @@ export default function LocationDupontCircle() {
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
@@ -318,7 +283,6 @@ export default function LocationDupontCircle() {
         </div>
       </div>
 
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── LOCAL WHY CARDS ── */}
       <section className="py-20 bg-[#F8F4F9]">

@@ -11,40 +11,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
 import { CheckCircle, ChevronDown, MapPin, Package, Smartphone, Star, Video } from "lucide-react";
-import WhyChoose from "@/components/WhyChoose";
 import { pricingFaqs } from "@/data/pricingFaqs";
 
 const faqs = [
   { q: "Is MedMethod Direct licensed to serve Tucson, Arizona patients?", a: "Yes. MedMethod Direct holds an active Arizona medical license and is fully authorized to provide telehealth services to patients in Tucson and throughout the state. Our board-certified physicians can evaluate, diagnose, and prescribe medications — including bioidentical hormones and GLP-1 weight loss therapies — through secure video consultations." },
   { q: "Do Tucson patients need to visit a clinic?", a: "No in-person visit is ever required. MedMethod Direct is a 100% virtual practice. All consultations, lab reviews, follow-ups, and prescription management happen through secure video appointments. Medications are compounded and shipped directly to your Tucson address through our FDA-registered 503B pharmacy partners." },
   { q: "Why is telehealth hormone care especially valuable for Tucson women?", a: "Despite being Arizona's second-largest city, Tucson has historically been underserved by hormone and menopause specialists relative to the Phoenix metro. The University of Arizona Health Sciences campus creates a health-aware population, but specialist access remains limited. MedMethod Direct fills this gap by delivering board-certified hormone care to Tucson women within 48 hours — no Phoenix commute required." },
-  { q: "What treatments are available for Tucson patients?", a: "We offer hormone replacement therapy (HRT) including estradiol, progesterone, and testosterone optimization; GLP-1 medical weight loss with semaglutide and tirzepatide; perimenopause and menopause management; thyroid optimization; and longevity protocols. All treatments are personalized based on comprehensive lab results." },
   { q: "How does the initial consultation work for Tucson patients?", a: "Your first consultation is a free 45-minute video call with a board-certified physician. You'll discuss your symptoms, health history, and goals. If labs are needed, we provide a requisition for a local Tucson draw site. Once results are in, your physician presents a personalized treatment plan — typically within 3–5 business days of your initial call." },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -66,10 +46,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -254,14 +230,6 @@ export default function LocationTucsonAZ() {
               <strong>medical weight loss physician serving Tucson, Arizona</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
             <p>
-              We specialize in the full spectrum of women's metabolic and hormonal health:{" "}
-              <strong>perimenopause and menopause management</strong>,{" "}
-              <strong>hormone replacement therapy (HRT)</strong>,{" "}
-              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
-              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
-            </p>
-            <p>
               Whether you're experiencing{" "}
               <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in Arizona that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No driving to Phoenix or Sierra Vista. No waiting rooms. Just one team, one plan, and results that last.
             </p>
@@ -290,17 +258,8 @@ export default function LocationTucsonAZ() {
               </Link>
             ))}
           </div></div>
-          <div className="flex flex-col gap-4">
-            {[{ title: "Hormone Replacement Therapy", desc: "Personalized estradiol, progesterone, and testosterone protocols based on your labs." }, { title: "GLP-1 Medical Weight Loss", desc: "Semaglutide and tirzepatide with physician oversight and metabolic monitoring." }, { title: "Menopause Management", desc: "Comprehensive perimenopause and menopause care for hot flashes, sleep, and cognition." }, { title: "Thyroid Optimization", desc: "Full thyroid panel review and optimization to address fatigue and weight gain." }].map(({ title, desc }) => (
-              <div key={title} className="bg-white border border-[#0d0d0d]/8 p-5">
-                <p className="font-bold text-[#0d0d0d] mb-1" style={{ fontFamily: "Montserrat, sans-serif" }}>{title}</p>
-                <p className="text-[#0d0d0d]/60 text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>{desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
@@ -325,7 +284,6 @@ export default function LocationTucsonAZ() {
           </p>
         </div>
       </div>
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
       {/* ── WHY TUCSON WOMEN CHOOSE US ── */}
       <section className="py-20 bg-[#F8F4F9]">
         <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
@@ -341,9 +299,7 @@ export default function LocationTucsonAZ() {
             {[
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "60-Minute Physician Consultations", desc: "Not a rushed 10-minute slot. Your physician has time to listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + Weight Loss: Treated Together", desc: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated Performance Coach", desc: "Between every physician visit, your personal performance coach answers questions, adjusts your plan, and keeps you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab Work Near Tucson", desc: "We order your labs to a convenient LabCorp or Quest draw site near Tucson. Results reviewed within 48 hours." },
-              { icon: <Package className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Medications Delivered to Your Door", desc: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Tucson address, discreetly and on schedule." },
               { icon: <Smartphone className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "100% Virtual — No Commute", desc: "Every consultation happens over secure video. No waiting rooms, no traffic — just expert care from your living room." },
             ].map((card) => (
               <div key={card.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">

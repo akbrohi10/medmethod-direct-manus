@@ -219,10 +219,7 @@ export default function BlogPost() {
                 <p className="text-xs font-semibold tracking-wider uppercase mb-3" style={{ color: BRAND_PINK, fontFamily: "Montserrat, sans-serif" }}>
                   {post.author.title}
                 </p>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  Dr. Jumana Al-Deek is a board-certified osteopathic physician specializing in women's hormonal health, menopause management, medically guided weight loss, and longevity medicine. She founded MedMethod Direct to give women direct access to thoughtful, personalized medical care — without the wait, the dismissal, or the guesswork.
-                </p>
-              </div>
+                </div>
             </div>
 
             {/* Bottom CTA */}

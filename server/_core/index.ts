@@ -85,6 +85,25 @@ async function startServer() {
   // URL: https://medmethoddirect.com/api/ghl/booking-confirmed
   // Events: Appointment Created / Appointment Booked
   app.post("/api/ghl/booking-confirmed", ghlBookingWebhookHandler);
+
+  // Permanent compliance and legacy-route redirects — registered before tRPC,
+  // crawler metadata, Vite, and static fallthrough so the HTTP response is a
+  // genuine 301 rather than a client-side SPA navigation.
+  app.get("/male", (_req, res) => res.redirect(301, "/"));
+  app.get("/before-you-start-treatment", (_req, res) => res.redirect(301, "/"));
+  app.get("/the-menopause-weight-loss-trap", (_req, res) => res.redirect(301, "/"));
+  app.get("/guide/how-it-works", (_req, res) => res.redirect(301, "/"));
+  app.get("/start/women", (_req, res) => res.redirect(301, "/"));
+  app.get("/pricing-guide", (_req, res) => res.redirect(301, "/"));
+  app.get("/blog/semaglutide-vs-tirzepatide-women-midlife", (_req, res) =>
+    res.redirect(301, "/blog")
+  );
+  app.get("/lp/glp1", (_req, res) => res.redirect(301, "/lp/WL"));
+  app.get(["/home-1", "/home-v1", "/home-2", "/home-3"], (_req, res) =>
+    res.redirect(301, "/")
+  );
+  app.get("/lp/hrt", (_req, res) => res.redirect(301, "/lp/hrt3"));
+
   // tRPC API
   app.use(
     "/api/trpc",

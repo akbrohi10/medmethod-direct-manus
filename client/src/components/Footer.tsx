@@ -2,7 +2,6 @@
    Footer — Clinical Noir Design
    Dark background, logo, nav columns, social links, legal
    ============================================================================= */
-import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import MetabolicQuiz from "./MetabolicQuiz";
 
@@ -48,44 +47,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 </span>
                 <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
               </div>
-              <span
-                className="text-center"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.1em",
-                  color: "rgba(255,255,255,0.4)",
-                  fontStyle: "italic",
-                }}
-              >
-                Your Path to Longevity
-              </span>
-            </div>
-
-            <p
-              className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-  Premium virtual medical clinic focused on longevity, hormones, and medically supervised weight loss for women over 40. Doctor-led. Personalized. Accountable.
-            </p>
-
-            {/* Social */}
-            <div className="flex gap-3">
-              {[
-                { Icon: Instagram, label: "Instagram" },
-                { Icon: Facebook, label: "Facebook" },
-                { Icon: Twitter, label: "Twitter" },
-                { Icon: Linkedin, label: "LinkedIn" },
-              ].map(({ Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-[#E8339E]/50 transition-all"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
             </div>
           </div>
 
@@ -100,12 +61,11 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { label: "Hormone Replacement Therapy", href: "#services" },
-                { label: "Medical Weight Loss", href: "#services" },
-                { label: "Perimenopause Care", href: "#services" },
-                { label: "Menopause Management", href: "#services" },
-                { label: "Thyroid Optimization", href: "#services" },
-                { label: "Longevity Protocols", href: "#services" },
+                { label: "Medical weight management (GLP-1)", href: "#services" },
+                { label: "Hormone therapy for women", href: "#services" },
+                { label: "Nutrition and vitamin optimization", href: "#services" },
+                { label: "Dermatology and skin", href: "#services" },
+                { label: "Hair restoration", href: "#services" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -128,14 +88,18 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               Company
             </h4>
             <ul className="flex flex-col gap-2.5">
-              {["About Us", "Our Providers", "How It Works", "Blog", "FAQ", "Contact"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "Blog", href: "/blog" },
+                { label: "Locations", href: "/locations" },
+                { label: "Care Team Booking", href: "/care-team-booking" },
+              ].map(({ label, href }) => (
+                <li key={label}>
                   <a
-                    href="#about"
+                    href={href}
                     className="text-white/50 hover:text-white text-sm transition-colors"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    {item}
+                    {label}
                   </a>
                 </li>
               ))}

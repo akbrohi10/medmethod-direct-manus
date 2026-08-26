@@ -1,3 +1,4 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /lp/hrt2 — A/B Test Landing Page (3-month plan)
    Design: Midi Health–inspired editorial/magazine style
@@ -124,10 +125,6 @@ const FAQS = [
     a: "There is no universal time limit. Many women stay on HRT for years with regular monitoring. We reassess your protocol annually based on updated labs, symptoms, and the latest clinical guidelines.",
   },
   {
-    q: "What GLP-1 medications do you prescribe for weight loss?",
-    a: "We prescribe semaglutide (Ozempic/Wegovy) and tirzepatide (Mounjaro/Zepbound) based on your metabolic profile, goals, and insurance situation. All prescriptions include physician monitoring and dosage titration.",
-  },
-  {
     q: "Why is it a 3-month plan?",
     a: "Whether it's hormone therapy or GLP-1 medications, your body needs time to respond — and your protocol needs careful adjustment based on how you feel. Month 1 is your consultation, labs review, and initial prescription. Months 2 and 3 give Dr. Al-Deek time to monitor how your body is responding, adjust dosages, manage any side effects, and dial in the right protocol before transitioning you to ongoing maintenance care. Most patients start noticing changes within the first few weeks, but the full benefit comes from staying the course.",
   },
@@ -141,7 +138,7 @@ const FAQS = [
   },
   {
     q: "What states are you licensed in?",
-    a: "Dr. Al-Deek is licensed to practice in 17 states including Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, Texas, and more. Check our locations page for the full list.",
+    a: "Dr. Al-Deek is licensed to practice in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia.",
   },
 ];
 
@@ -255,7 +252,7 @@ export default function LpHrt() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
-                  Licensed in 17 states
+                  Licensed in 12 jurisdictions
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-[#E8339E]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
@@ -297,7 +294,7 @@ export default function LpHrt() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Menopause Specialist", "Medical Weight Loss", "Metabolism", "Author", "Mom of Four", "Licensed in 17 States"].map(
+                {["Board-Certified DO", "Menopause Specialist", "Medical Weight Loss", "Metabolism", "Author", "Mom of Four", "Licensed in 12 jurisdictions"].map(
                   (pill) => (
                     <span
                       key={pill}
@@ -391,6 +388,8 @@ export default function LpHrt() {
 
           </div>
         </section>
+
+        <ComplianceDisclosures testosteroneForWomen />
 
         {/* ═══════════════ PERSONALIZED TREATMENT ═══════════════ */}
         <section className="bg-white py-12 md:py-20">
@@ -691,7 +690,7 @@ export default function LpHrt() {
               Book Now
             </button>
             <p className="mt-4 text-sm text-gray-400">
-              100% virtual · Licensed in 17 states · No insurance needed
+              100% virtual · Licensed in 12 jurisdictions · No insurance needed
             </p>
           </div>
         </section>

@@ -30,7 +30,7 @@ const CREDENTIAL_PILLS = [
   "Metabolism",
   "Author",
   "Mom of Four",
-  "Licensed in 17 States",
+  "Licensed in 12 jurisdictions",
 ];
 
 const FOCUS_AREA_PILLS = [
@@ -41,7 +41,6 @@ const FOCUS_AREA_PILLS = [
   "Thyroid Specialist",
   "Metabolism",
   "Virtual Urgent Care",
-  "Longevity Medicine",
 ];
 
 const COACH_PILLS = [
@@ -64,7 +63,6 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
       <>
         Dr. Al-Deek is a board-certified physician, menopause specialist, and author of{" "}
         <strong className="font-bold" style={{ color: "#E8339E" }}>The Menopause Weight Loss Trap</strong>.
-        {" "}Her clinical focus spans hormone management, medical weight loss, metabolic health, thyroid optimization, and longevity medicine.
       </>
     ),
   },
@@ -79,22 +77,7 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
     label: "Clinical Background",
     teaser:
       "Her clinical background includes outpatient family medicine, obesity medicine, preventive care, chronic disease management, and women's health.",
-    rest:
-      "She has experience treating a wide range of metabolic and hormone-related concerns including menopause symptoms, insulin resistance, weight gain, body composition changes, fatigue, and hair loss.",
-  },
-  {
-    label: "Before Medicine",
-    teaser: (
-      <>
-        Before pursuing medicine, Dr. Al-Deek co-founded{" "}
-        <strong className="font-semibold text-[#111]">Send Me a Trainer</strong>, an early-stage fitness and wellness company that grew into one of the world’s largest in-home and virtual personal training franchise systems — often described as <em>“the Uber for personal training.”</em> She also worked as a personal trainer certified by the <strong className="font-semibold text-[#111]">National Academy of Sports Medicine</strong>.
-      </>
-    ),
-    rest: (
-      <>
-        Her background in fitness, coaching, and exercise science continues to shape her medical philosophy today, with a strong emphasis on muscle preservation, metabolic health, sustainable lifestyle interventions, accountability, and long-term health optimization.
-      </>
-    ),
+    rest: null,
   },
   {
     label: "Medical Training",
@@ -107,8 +90,7 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
     label: "Advanced Training & Approach",
     teaser:
       "Dr. Al-Deek has completed advanced menopause training through The Menopause Society as well as additional training in obesity medicine and metabolic health.",
-    rest:
-      "Her approach centers on evidence-based care that prioritizes metabolic health, muscle preservation, longevity, and helping patients feel stronger, healthier, and more confident throughout every stage of life.",
+    rest: "",
   },
 ];
 

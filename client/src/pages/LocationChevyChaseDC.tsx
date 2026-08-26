@@ -1,9 +1,9 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /washington-dc/chevy-chase-dc — Chevy Chase DC Location Page
    Design: Clinical Noir — white hero with pink gradient accents
    Target keywords: menopause doctor Chevy Chase DC, virtual hormone therapy Chevy Chase Washington DC,
    GLP-1 weight loss Chevy Chase DC, perimenopause treatment Chevy Chase DC, semaglutide Chevy Chase DC,
-   bioidentical hormone therapy Chevy Chase DC, testosterone therapy women Chevy Chase DC,
    online menopause doctor Chevy Chase Washington DC
    ============================================================================= */
 import { useState, useEffect } from "react";
@@ -15,16 +15,13 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 const JSONLD_LOCAL = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Chevy Chase DC, Washington DC",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Chevy Chase DC, Washington DC. Physician-prescribed GLP-1 weight loss, HRT, BHRT, testosterone therapy — 100% virtual, licensed in DC.",
   "url": "https://medmethoddirect.com/washington-dc/chevy-chase-dc",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -33,13 +30,12 @@ const JSONLD_LOCAL = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
   ],
   "areaServed": { "@type": "Neighborhood", "name": "Chevy Chase DC", "containedInPlace": { "@type": "City", "name": "Washington DC" } },
   "isAcceptingNewPatients": true,
   "paymentAccepted": "Cash, Credit Card, HSA, FSA",
-  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine" },
+  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine" },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "10000", "bestRating": "5" },
 };
 
@@ -74,26 +70,9 @@ const faqs = [
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement." },
   { q: "How soon can I start as a patient in Chevy Chase DC?", a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Chevy Chase DC patients are on their program within 1–2 weeks of their first call." },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -114,10 +93,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -190,7 +165,6 @@ export default function LocationChevyChaseDC() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Chevy Chase DC | MedMethod Direct</title>
-        <meta name="description" content="Virtual menopause doctor and GLP-1 weight loss physician serving Chevy Chase DC, Washington DC. Same-week appointments. Semaglutide, tirzepatide, HRT, BHRT, testosterone therapy. No office visits required. Dr. Jumana Al-Deek, DO." />
         <link rel="canonical" href="https://medmethoddirect.com/washington-dc/chevy-chase-dc" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Chevy Chase DC | MedMethod Direct" />
         <meta property="og:description" content="Physician-led virtual clinic for women in Chevy Chase DC. Hormone therapy, GLP-1 weight loss, menopause care — all virtual, same-week availability." />
@@ -270,9 +244,6 @@ export default function LocationChevyChaseDC() {
               If you've been searching for a <strong>menopause doctor near Chevy Chase DC</strong> or a <strong>GLP-1 weight loss physician in Upper Northwest Washington</strong>, MedMethod Direct was built for you. Chevy Chase DC is one of the District's most affluent and health-conscious neighborhoods — home to professionals, executives, and families who expect the highest standard of care.
             </p>
             <p>
-              Led by <strong>Dr. Jumana Al-Deek, DO</strong>, MedMethod Direct offers <strong>perimenopause and menopause management</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone therapy for women</strong>, and <strong>physician-prescribed semaglutide and tirzepatide</strong> — all through a single integrated virtual program. No waiting rooms. No commute. Same-week availability.
-            </p>
-            <p>
               MedMethod Direct is also unique in serving both <strong>Chevy Chase DC</strong> and <strong>Chevy Chase Maryland</strong> under the same physician-led program. If you live on the DC side but work or shop on the Maryland side, your care is seamless — one physician, one program, one relationship.
             </p>
           </div>
@@ -281,7 +252,6 @@ export default function LocationChevyChaseDC() {
               "Licensed in both Washington DC and Maryland",
               "Hormones + weight loss treated as one integrated program",
               "Physician-prescribed semaglutide & tirzepatide",
-              "BHRT, HRT & testosterone therapy for women",
               "Labs ordered to LabCorp or Quest near Chevy Chase DC",
               "Same-week availability — no 4–8 week wait",
               "One physician for your full 6 or 12-month program",
@@ -297,9 +267,10 @@ export default function LocationChevyChaseDC() {
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <ComplianceDisclosures compounded />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
@@ -316,7 +287,6 @@ export default function LocationChevyChaseDC() {
         </div>
       </div>
 
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── LOCAL WHY CARDS ── */}
       <section className="py-20 bg-[#F8F4F9]">

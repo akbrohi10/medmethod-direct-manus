@@ -413,3 +413,16 @@
 - [x] Compare each requirement with the current website and completed LegitScript remediation
 - [x] Classify each item as complete, partial, missing, conflicting, or requiring clarification
 - [x] Prepare a no-change gap report for user approval before any implementation
+
+## 2026-08-25 Compliance Instructions Implementation
+
+- [x] Add the required permanent `/male` redirect to `/` and remove remaining hidden men’s-testosterone references
+- [x] Replace every outdated 9-state/17-state list and remove Tennessee, New Jersey, Alabama, Washington State, and Ohio
+- [x] Remove all prohibited brand names, body/muscle/result phrases, comparisons, and disallowed service categories from visible and hidden content
+- [x] Audit and correct every remaining blog post, book page, metadata field, structured-data block, label, public index file, and legacy route
+- [x] Add the exact compounded-medication and Florida women’s-testosterone disclosures wherever required
+- [x] Restrict fitness-app copy to weight-loss pages using the exact approved Everfit wording
+- [x] Repair or remove every broken, placeholder, misleading, or outdated footer link and label
+- [x] Add automated compliance and redirect regression coverage
+- [x] Validate all affected routes, footer links, TypeScript, full tests, production build, and representative page rendering
+- [x] Produce the required five-section deletion report and save a publishable checkpoint

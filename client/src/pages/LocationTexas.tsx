@@ -16,7 +16,6 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 
@@ -28,7 +27,6 @@ const JSONLD_STATE_PAGE = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Texas",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women throughout Texas. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Texas.",
   "url": "https://medmethoddirect.com/texas",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -37,10 +35,7 @@ const JSONLD_STATE_PAGE = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": { "@type": "State", "name": "Texas", "containedInPlace": { "@type": "Country", "name": "United States" } },
   "isAcceptingNewPatients": true,
@@ -50,7 +45,7 @@ const JSONLD_STATE_PAGE = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -85,7 +80,6 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Texas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. Prescriptions are sent to your pharmacy or shipped to your door. All follow-up visits are virtual.",
       },
     },
     {
@@ -117,7 +111,6 @@ const JSONLD_FAQ = {
       "name": "What does the $449 Clinical Diagnostic & Setup Fee include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
       },
     },
   ],
@@ -150,14 +143,13 @@ const neighborhoods = [
     name: "San Antonio",
     href: "/texas/san-antonio",
     description: "San Antonio metro and surrounding Hill Country communities.",
-    keywords: "Menopause · GLP-1 · Testosterone Therapy",
     available: true,
   },
   {
     name: "The Woodlands",
     href: "/texas/the-woodlands",
     description: "Affluent master-planned community north of Houston. Strong demand for hormone and longevity care.",
-    keywords: "Menopause · BHRT · Longevity Medicine",
+    keywords: "Menopause · BHRT ·",
     available: true,
   },
   {
@@ -181,25 +173,13 @@ const faqs = [
     a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.",
   },
   {
-    q: "How does virtual hormone therapy work in Texas?",
-    a: "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Texas. Dr. Al-Deek reviews your results and builds a personalized protocol — which may include HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
-  },
-  {
     q: "Do I need to live in a major Texas city to be a patient?",
     a: "No. We serve patients throughout the entire state of Texas. Whether you're in Houston, a small Hill Country town, or anywhere else in Texas, you can access the same physician-led care. All visits are virtual — no commute required.",
-  },
-  {
-    q: "What is the $449 Clinical Diagnostic & Setup Fee?",
-    a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
   },
   ...pricingFaqs,
   {
     q: "Does MedMethod Direct accept insurance in Texas?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -240,13 +220,11 @@ export default function LocationTexas() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct</title>
         <meta
           name="description"
-          content="Texas's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Texas. appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/texas" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct" />
         <meta
           property="og:description"
-          content="Texas's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Texas."
         />
         <meta property="og:url" content="https://medmethoddirect.com/texas" />
         <meta property="og:type" content="website" />
@@ -256,7 +234,6 @@ export default function LocationTexas() {
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Texas | MedMethod Direct" />
         <meta
           name="twitter:description"
-          content="Texas's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Texas."
         />
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_STATE_PAGE)}
@@ -401,7 +378,6 @@ export default function LocationTexas() {
               "Licensed to see patients throughout all of Texas",
               "Hormones + weight loss treated as one program",
               "Physician-prescribed semaglutide & tirzepatide",
-              "BHRT, HRT & testosterone therapy for women",
               "Labs ordered to LabCorp or Quest near you",
               "Same-week availability — no 6-week wait",
             ].map((item) => (
@@ -512,7 +488,6 @@ export default function LocationTexas() {
 
       {/* ── DIAGNOSTIC SETUP + PROGRAMS ──────────────────────────────────────── */}
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />

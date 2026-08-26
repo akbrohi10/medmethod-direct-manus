@@ -16,25 +16,20 @@ const CONFIG = {
   dismissCooldown: 90000,                         // 90s after manual dismiss
 };
 
-// ─── Location pool (all 17 licensed states) ───────────────────────────────────
+// ─── Location pool (approved licensed jurisdictions) ──────────────────────────
 const LOCATIONS = [
   "Florida",
-  "Virginia",
-  "Colorado",
-  "Maryland",
-  "Michigan",
-  "Illinois",
-  "Texas",
   "Arizona",
-  "Tennessee",
-  "New Jersey",
+  "Colorado",
   "Washington, D.C.",
   "Georgia",
-  "Alabama",
-  "Washington",
+  "Illinois",
+  "Maryland",
+  "Michigan",
   "North Carolina",
   "Pennsylvania",
-  "Ohio",
+  "Texas",
+  "Virginia",
 ];
 
 // ─── Message categories with weights ─────────────────────────────────────────
@@ -59,11 +54,8 @@ const MESSAGES: NotificationMessage[] = [
   { category: "discovery", text: `A ${pickLocation()} resident recently took the next step.` },
 
   // CATEGORY 2: Membership Interest (20%)
-  { category: "membership", text: "Transformation is currently our most selected membership." },
   { category: "membership", text: "Someone recently joined Med Method Direct." },
-  { category: "membership", text: "A new member recently selected the Transformation membership." },
   { category: "membership", text: "More patients are choosing physician-led care." },
-  { category: "membership", text: "Transformation remains our most requested option." },
   { category: "membership", text: "A new member recently joined one of our care memberships." },
   { category: "membership", text: "Members across multiple states are choosing Med Method Direct." },
 

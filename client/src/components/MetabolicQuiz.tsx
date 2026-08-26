@@ -22,16 +22,6 @@ const questions = [
     ],
   },
   {
-    id: 2,
-    question: "Have you noticed unexplained weight gain, especially around your midsection?",
-    options: [
-      { label: "No — my weight has been stable", score: 0 },
-      { label: "Slight gain — a few pounds I can't explain", score: 1 },
-      { label: "Moderate gain — 10–20 lbs despite no major lifestyle changes", score: 2 },
-      { label: "Significant gain — 20+ lbs that won't respond to diet or exercise", score: 3 },
-    ],
-  },
-  {
     id: 3,
     question: "How is your sleep quality?",
     options: [

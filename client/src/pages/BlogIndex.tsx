@@ -189,17 +189,14 @@ export default function BlogIndex() {
     <div className="min-h-screen bg-[#fafafa]">
       <Helmet>
         <title>The MedMethod Journal | Hormone, Menopause & Weight Loss Insights</title>
-        <meta name="description" content="Expert articles on menopause, hormone therapy, GLP-1 weight loss, and longevity medicine by Dr. Jumana Al-Deek, DO. Evidence-based guidance for women in midlife." />
         <link rel="canonical" href="https://medmethoddirect.com/blog" />
         <meta property="og:title" content="The MedMethod Journal | Hormone, Menopause & Weight Loss Insights" />
-        <meta property="og:description" content="Expert articles on menopause, hormone therapy, GLP-1 weight loss, and longevity medicine by Dr. Jumana Al-Deek, DO." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://medmethoddirect.com/blog" />
         <meta property="og:site_name" content="MedMethod Direct" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="The MedMethod Journal | Hormone, Menopause & Weight Loss Insights" />
-        <meta name="twitter:description" content="Expert articles on menopause, hormone therapy, GLP-1 weight loss, and longevity medicine by Dr. Jumana Al-Deek, DO." />
-      </Helmet>
+        </Helmet>
       <Navbar onConsultClick={() => setConsultOpen(true)} />
       <ConsultationModal open={consultOpen} onClose={() => setConsultOpen(false)} />
 

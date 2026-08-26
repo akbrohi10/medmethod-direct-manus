@@ -23,17 +23,14 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 // ─── JSON-LD Structured Data ──────────────────────────────────────────────────
 const JSONLD_STATE_PAGE = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Washington DC",
-  "description": "Washington DC's premier virtual hormone therapy, GLP-1 medical weight loss, and menopause clinic. Physician-prescribed semaglutide, tirzepatide, BHRT, HRT, and testosterone therapy — serving Georgetown, Capitol Hill, Dupont Circle, Chevy Chase DC, Friendship Heights, and all of Washington DC. 100% virtual, licensed in DC.",
   "url": "https://medmethoddirect.com/washington-dc",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -43,9 +40,6 @@ const JSONLD_STATE_PAGE = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss — Semaglutide & Tirzepatide" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": { "@type": "City", "name": "Washington", "containedInPlace": { "@type": "Country", "name": "United States" } },
   "isAcceptingNewPatients": true,
@@ -55,7 +49,7 @@ const JSONLD_STATE_PAGE = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -90,7 +84,6 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Washington DC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in DC. The District has excellent lab access with locations in Northwest DC, Capitol Hill, and throughout the metro area. Dr. Al-Deek reviews your results and builds a personalized protocol including HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
       },
     },
     {
@@ -164,7 +157,6 @@ const neighborhoods = [
     href: "/washington-dc/friendship-heights",
     tagline: "Northwest DC — adjacent to Bethesda and Chevy Chase",
     description: "Upscale Northwest DC neighborhood bordering Bethesda. Affluent, health-conscious women with strong demand for hormone and weight loss care and minimal virtual competition in this specific area.",
-    services: ["Menopause", "Weight Loss", "Testosterone"],
     badge: "Growing Market",
     badgeColor: "#7A1E7E",
   },
@@ -176,13 +168,11 @@ const comparisonRows = [
   { feature: "Appointment length", us: "30–60 minutes", them: "10–15 minutes" },
   { feature: "Hormones + weight loss integrated", us: "Yes — one program", them: "Separate referrals" },
   { feature: "GLP-1 prescriptions", us: "Semaglutide & tirzepatide", them: "Varies by provider" },
-  { feature: "BHRT & testosterone therapy", us: "Yes — lab-driven protocol", them: "Often not offered" },
   { feature: "Physician continuity", us: "Same physician every visit", them: "Rotating providers" },
   { feature: "Lab ordering", us: "LabCorp/Quest near you", them: "In-office only" },
   { feature: "Medication delivery", us: "Shipped to your door", them: "Pharmacy pickup" },
 ];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────
 const faqs = [
@@ -206,22 +196,10 @@ const faqs = [
     q: "How is MedMethod Direct different from local practices in Washington DC?",
     a: "DC professionals are among the most time-constrained patients in the country. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most DC practices), and a virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in DC offers this combination.",
   },
-  {
-    q: "Why do hormones affect GLP-1 weight loss results?",
-    a: "Declining estrogen during perimenopause and menopause drives insulin resistance — which directly blunts the effectiveness of GLP-1 medications like semaglutide and tirzepatide. Many women on GLP-1s plateau or see minimal results because their hormones are working against the medication. MedMethod Direct is one of the few programs that addresses both simultaneously, which is why our patients see results that other programs can't replicate.",
-  },
-  {
-    q: "What is the $449 Clinical Diagnostic & Setup Fee?",
-    a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
-  },
   ...pricingFaqs,
   {
     q: "Does MedMethod Direct accept insurance in Washington DC?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many DC patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. DC has a high concentration of federal employees with FEHB coverage — we can provide documentation to support any out-of-network claims.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -252,11 +230,9 @@ export default function LocationDC() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Washington DC | MedMethod Direct</title>
         <meta
           name="description"
-          content="Washington DC's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone therapy — serving Georgetown, Capitol Hill, Dupont Circle, Chevy Chase DC, Friendship Heights & all of DC. Same-week appointments. Dr. Jumana Al-Deek, DO."
         />
         <link rel="canonical" href="https://medmethoddirect.com/washington-dc" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Washington DC | MedMethod Direct" />
-        <meta property="og:description" content="Washington DC's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of DC." />
         <meta property="og:url" content="https://medmethoddirect.com/washington-dc" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -427,7 +403,6 @@ export default function LocationDC() {
               "Licensed to see patients throughout all of Washington DC",
               "Hormones + weight loss treated as one integrated program",
               "Physician-prescribed semaglutide & tirzepatide",
-              "BHRT, HRT & testosterone therapy for women",
               "Labs ordered to LabCorp or Quest near you in DC",
               "Same-week availability — no 4–8 week wait",
               "One physician for your full 6 or 12-month program",
@@ -452,7 +427,6 @@ export default function LocationDC() {
               "Menopause Doctor Georgetown DC",
               "Telehealth Women's Health DC",
               "Tirzepatide Washington DC",
-              "Testosterone Therapy Women DC",
             ].map((kw) => (
               <span key={kw} className="text-xs font-semibold px-3 py-1 rounded-full border border-[#E8339E]/25 text-[#E8339E]">{kw}</span>
             ))}
@@ -505,7 +479,7 @@ export default function LocationDC() {
                 <p className="text-xs font-semibold mb-2" style={{ color: "#E8339E" }}>{n.tagline}</p>
                 <p className="text-xs text-gray-500 leading-relaxed mb-4">{n.description}</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {n.services.map((s) => (
+                  {n.services?.map((s) => (
                     <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{s}</span>
                   ))}
                 </div>
@@ -611,12 +585,10 @@ export default function LocationDC() {
 
       {/* ── DIAGNOSTIC SETUP + PROGRAMS ──────────────────────────────────────── */}
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── FAQ ──────────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 bg-[#F9F9FB]" id="faq">

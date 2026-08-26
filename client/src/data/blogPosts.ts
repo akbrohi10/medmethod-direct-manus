@@ -8,7 +8,7 @@ export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
-  pillar: "menopause-metabolism" | "glp1-education" | "hormone-therapy" | "longevity" | "symptoms-identity";
+  pillar: "menopause-metabolism" | "glp1-education" | "hormone-therapy" | "symptoms-identity";
   pillarLabel: string;
   readTime: number; // minutes
   publishDate: string; // ISO format: YYYY-MM-DD
@@ -64,16 +64,14 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hormone-therapy-weight-sleep-metabolism",
     title: "Can Hormone Therapy Help With Weight, Sleep, and Metabolism?",
-    excerpt:
-      "The science on hormone therapy has moved significantly since 2002. Here's what the current evidence actually says about HRT, body composition, sleep quality, and metabolic health in menopause.",
+    excerpt: "The science on hormone therapy has moved significantly since 2002.",
     pillar: "hormone-therapy",
-    pillarLabel: "Hormone Therapy & Testosterone",
+    pillarLabel: "Hormone Therapy for Women",
     readTime: 10,
     publishDate: "2026-03-27",
     author: AUTHOR_DR_ALDEEK,
     primaryKeyword: "hormone therapy weight loss menopause",
-    metaDescription:
-      "Can hormone therapy help with menopause weight gain, sleep, and metabolism? Dr. Jumana Al-Deek reviews the current evidence on HRT and body composition.",
+    metaDescription: "Can hormone therapy help with menopause weight gain, sleep, and metabolism?",
     heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-hormone-therapy-MMsbifkEGanthJdeAvCaKS.webp",
   },
   {
@@ -96,8 +94,7 @@ export const blogPosts: BlogPost[] = [
 export const PILLAR_LABELS: Record<BlogPost["pillar"], string> = {
   "menopause-metabolism": "Menopause & Metabolism",
   "glp1-education": "GLP-1 Education",
-  "hormone-therapy": "Hormone Therapy & Testosterone",
-  "longevity": "Longevity & Healthy Aging",
+  "hormone-therapy": "Hormone Therapy for Women",
   "symptoms-identity": "Symptoms & Feeling Like Yourself",
 };
 
@@ -105,6 +102,5 @@ export const PILLAR_COLORS: Record<BlogPost["pillar"], string> = {
   "menopause-metabolism": "#E8339E",
   "glp1-education": "#7A1E7E",
   "hormone-therapy": "#C2185B",
-  "longevity": "#6A1B9A",
   "symptoms-identity": "#AD1457",
 };

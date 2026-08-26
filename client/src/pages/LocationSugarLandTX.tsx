@@ -7,7 +7,6 @@ import Footer from '@/components/Footer';
 import ConsultationModal from '@/components/ConsultationModal';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
 import HowItWorks from '@/components/HowItWorks';
-import PopularPrograms from '@/components/PopularPrograms';
 import Services from '@/components/Services';
 import DiagnosticSetup from '@/components/DiagnosticSetup';
 import { pricingFaqs } from '@/data/pricingFaqs';
@@ -275,7 +274,6 @@ const LocationSugarLand = () => {
 
       <HowItWorks onConsultClick={() => setIsModalOpen(true)} />
       <Services onConsultClick={() => setIsModalOpen(true)} />
-      <PopularPrograms onConsultClick={() => setIsModalOpen(true)} />
       <DiagnosticSetup onConsultClick={() => setIsModalOpen(true)} />
 
       {/* FAQs Section */}

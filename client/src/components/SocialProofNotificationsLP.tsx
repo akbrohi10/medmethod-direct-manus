@@ -18,25 +18,20 @@ const CONFIG = {
   dismissCooldown: 90000,
 };
 
-// ─── Location pool (all 17 licensed states) ───────────────────────────────────
+// ─── Location pool (approved licensed jurisdictions) ──────────────────────────
 const LOCATIONS = [
   "Florida",
-  "Virginia",
-  "Colorado",
-  "Maryland",
-  "Michigan",
-  "Illinois",
-  "Texas",
   "Arizona",
-  "Tennessee",
-  "New Jersey",
+  "Colorado",
   "Washington, D.C.",
   "Georgia",
-  "Alabama",
-  "Washington",
+  "Illinois",
+  "Maryland",
+  "Michigan",
   "North Carolina",
   "Pennsylvania",
-  "Ohio",
+  "Texas",
+  "Virginia",
 ];
 
 // ─── Message categories ───────────────────────────────────────────────────────

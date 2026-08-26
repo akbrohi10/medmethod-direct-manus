@@ -8,26 +8,19 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
-// Eagerly load the main homepage (most visitors land here)
-import Home1 from "./pages/Home1";
 const HomeHrt3 = lazy(() => import("./pages/HomeHrt3"));
 
 // Lazy load everything else
-const Home = lazy(() => import("./pages/Home"));
-const Home2 = lazy(() => import("./pages/Home2"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const StartWomen = lazy(() => import("@/pages/StartWomen"));
 const DiscoveryCall = lazy(() => import("@/pages/DiscoveryCall"));
-const BookPage = lazy(() => import("@/pages/BookPage"));
 const ThankYou = lazy(() => import("@/pages/ThankYou"));
-const LpHrt = lazy(() => import("@/pages/LpHrt"));
 const LpHrt2 = lazy(() => import("@/pages/LpHrt2"));
 const LpHrt3 = lazy(() => import("@/pages/LpHrt3"));
 const BrandAmbassador = lazy(() => import("@/pages/BrandAmbassador"));
 const LpGlp1 = lazy(() => import("@/pages/LpGlp1"));
-const BeforeYouStartTreatment = lazy(() => import("@/pages/BeforeYouStartTreatment"));
 const Locations = lazy(() => import("@/pages/Locations"));
 const AdminSettings = lazy(() => import("@/pages/AdminSettings"));
 const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
@@ -296,7 +289,6 @@ function Router() {
         <Route path="/texas/sugar-land" component={LocationSugarLandTX} />
         <Route path="/texas/frisco" component={LocationFriscoTX} />
         <Route path="/texas/round-rock" component={LocationRoundRockTX} />
-        <Route path="/lp/hrt" component={LpHrt} />
         <Route path="/lp/hrt2" component={LpHrt2} />
         <Route path="/lp/hrt3" component={LpHrt3} />
         <Route path="/lp/WL" component={LpGlp1} />
@@ -304,15 +296,9 @@ function Router() {
         <Route path="/dr-aldeek-booking" component={DrAldeekBooking} />
         <Route path="/discovery-call" component={DiscoveryCall} />
         <Route path="/book">{() => { window.location.replace("/the-menopause-weight-loss-trap"); return null; }}</Route>
-        <Route path="/the-menopause-weight-loss-trap" component={BookPage} />
         <Route path="/thank-you" component={ThankYou} />
-        <Route path="/before-you-start-treatment" component={BeforeYouStartTreatment} />
         <Route path="/locations" component={Locations} />
         <Route path="/start/women" component={StartWomen} />
-        <Route path="/home-1" component={Home1} />
-        <Route path="/home-v1" component={Home1} />
-        <Route path="/home-2" component={Home2} />
-        <Route path="/home-3" component={Home} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms" component={TermsOfService} />
         <Route path="/hipaa-notice" component={HipaaNotice} />

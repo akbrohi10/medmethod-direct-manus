@@ -108,12 +108,8 @@ const FAQS = [
     a: "Yes. Telehealth visits allow the same thorough evaluation, lab review, and treatment planning as in-person appointments — with the added convenience of no commute, no waiting room, and access from any state where we're licensed.",
   },
   {
-    q: "Do you accept insurance?",
-    a: "MedMethod Direct is a direct-care practice. We do not bill insurance directly, but we can prescribe brand-name medications to your local pharmacy for insurance pickup. If your insurance doesn't cover GLP-1s for weight loss, we're happy to complete a prior authorization for an additional cost.",
-  },
-  {
     q: "What states are you licensed in?",
-    a: "Dr. Al-Deek is licensed to practice in 17 states including Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, Texas, and more. Check our locations page for the full list.",
+    a: "Dr. Al-Deek is licensed to practice in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia.",
   },
 ];
 
@@ -226,7 +222,7 @@ export default function LpGlp1() {
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2 text-sm text-gray-500">
                 {[
                   "Helped thousands of patients",
-                  "Licensed in 17 states",
+                  "Licensed in 12 jurisdictions",
                   "Progress monitored over time",
                   "Same doctor, every visit",
                 ].map((item) => (
@@ -271,7 +267,7 @@ export default function LpGlp1() {
                 Author of <em className="text-gray-900 font-medium">The Menopause Weight Loss Trap</em> — one of the fastest-emerging books in its category.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {["Board-Certified DO", "Medical Weight Loss", "Metabolism Expert", "GLP-1 Specialist", "Author", "Licensed in 17 States"].map(
+                {["Board-Certified DO", "Medical Weight Loss", "Metabolism Expert", "GLP-1 Specialist", "Author", "Licensed in 12 jurisdictions"].map(
                   (pill) => (
                     <span
                       key={pill}

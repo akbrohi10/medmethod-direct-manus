@@ -164,6 +164,9 @@ function WhyWeightGainFeelsDifferentInMenopause() {
         hormonal decline. For women who have made lifestyle changes and are still struggling, these
         medications can provide meaningful support under physician guidance.
       </p>
+      <aside className="my-6 rounded-xl border border-[#E8D7E5] bg-[#FFF9FC] p-5 text-sm leading-7 text-[#444]">
+        Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.
+      </aside>
 
       <h2>When to seek medical support</h2>
       <p>
@@ -172,13 +175,6 @@ function WhyWeightGainFeelsDifferentInMenopause() {
         conversation with a physician who understands the hormonal landscape of menopause. This is not
         a sign of failure. It is a sign that your body's hormonal environment may need medical
         attention, just as you would seek medical attention for any other physiological change.
-      </p>
-      <p>
-        A thorough evaluation should include a review of your hormonal status (estrogen, progesterone,
-        testosterone, thyroid), metabolic markers (fasting insulin, HbA1c, lipid panel), and a
-        discussion of your symptoms, lifestyle, and goals. From there, a personalized plan — which may
-        include hormone therapy, metabolic support, nutritional guidance, or medication — can be
-        developed.
       </p>
       <p>
         The weight gain of menopause is real. The biology behind it is well understood. And there are

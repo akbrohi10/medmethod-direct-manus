@@ -12,11 +12,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
-import WhyChoose from "@/components/WhyChoose";
 import { pricingFaqs } from "@/data/pricingFaqs";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/tx-hero-houston-9hTc5LM7cxkXxFo9knev4F.webp";
@@ -254,7 +252,6 @@ const LocationHouston = () => {
       </section>
 
       <Services onConsultClick={() => setIsModalOpen(true)} />
-      <PopularPrograms onConsultClick={() => setIsModalOpen(true)} />
       <DiagnosticSetup onConsultClick={() => setIsModalOpen(true)} />
       <HowItWorks onConsultClick={() => setIsModalOpen(true)} />
 

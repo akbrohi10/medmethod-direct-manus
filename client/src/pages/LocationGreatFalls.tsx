@@ -1,14 +1,13 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /virginia/great-falls — Great Falls, Virginia Location Page
    Brand: Montserrat, Medical Pink #E8339E → Deep Purple #7A1E7E gradient
    Structure: Helmet SEO → Navbar → Hero → Intro → DiagnosticSetup →
    PopularPrograms → Services → HowItWorks → DarkDivider → WhyChoose →
-   WhyGreatFalls cards → Testimonials → MedicalTeam → FAQ → CTA → Footer
    Primary keyword: menopause doctor Great Falls VA
    Secondary: hormone therapy Great Falls Virginia, GLP-1 weight loss Great Falls VA,
    menopause specialist near Great Falls, virtual women's health Great Falls Virginia,
    bioidentical hormone therapy Great Falls, perimenopause treatment Great Falls VA,
-   semaglutide Great Falls Virginia, testosterone therapy for women Virginia
    Long-tail: perimenopause weight gain doctor Great Falls, compounded semaglutide
    Virginia telehealth, online hormone testing Virginia, virtual menopause care
    Northern Virginia, menopause brain fog doctor Great Falls
@@ -24,9 +23,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import MedicalTeam from "@/components/MedicalTeam";
-import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 // Hero image — upscale Great Falls / Northern Virginia aesthetic
@@ -48,7 +45,6 @@ const JSONLD_MEDICAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Great Falls, Virginia",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Great Falls, Virginia. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Virginia.",
   "url": "https://medmethoddirect.com/virginia/great-falls",
   "telephone": "",
   "priceRange": "$$",
@@ -58,10 +54,7 @@ const JSONLD_MEDICAL_BUSINESS = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": [
     { "@type": "City", "name": "Great Falls", "containedInPlace": { "@type": "State", "name": "Virginia" } },
@@ -79,7 +72,7 @@ const JSONLD_MEDICAL_BUSINESS = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -130,7 +123,7 @@ const JSONLD_FAQ = {
       "name": "Why choose virtual care over a local specialist near Great Falls?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
+        "text": "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
       },
     },
     {
@@ -180,7 +173,7 @@ const faqs = [
   },
   {
     q: "Why choose virtual care over a local specialist near Great Falls?",
-    a: "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
+    a: "Great Falls has limited local options for specialized menopause and hormone care — most women drive to McLean, Reston, or Tysons for specialist appointments, often waiting 3–6 weeks. You get more time, more attention, and deeper expertise — without leaving Great Falls.",
   },
   {
     q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?",
@@ -192,33 +185,12 @@ const faqs = [
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
   },
   {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
-  },
-  {
     q: "What is the cost of a program for Great Falls patients?",
     a: "Programs require a commitment of either six or twelve months. Pricing is discussed during your appointment so we can match you to the right program for your goals and budget. Most patients find our programs significantly more affordable than comparable in-person concierge practices in Northern Virginia.",
-  },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -238,7 +210,6 @@ const faqs = [
   },
 ];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────
 function FAQItem({ q, a }: { q: string; a: string }) {
@@ -316,13 +287,11 @@ export default function LocationGreatFalls() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Great Falls, VA | MedMethod Direct</title>
         <meta
           name="description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Great Falls, VA. Physician-prescribed semaglutide, BHRT & testosterone. See a doctor this week — appointment."
         />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/great-falls" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Great Falls, VA | MedMethod Direct" />
         <meta
           property="og:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Great Falls, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <meta property="og:url" content="https://medmethoddirect.com/virginia/great-falls" />
         <meta property="og:type" content="website" />
@@ -331,7 +300,6 @@ export default function LocationGreatFalls() {
         <meta name="twitter:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Great Falls, VA | MedMethod Direct" />
         <meta
           name="twitter:description"
-          content="Expert virtual hormone therapy, GLP-1 medical weight loss & menopause care for women in Great Falls, VA. Physician-prescribed semaglutide, BHRT & testosterone. appointment."
         />
         <script type="application/ld+json">
           {JSON.stringify(JSONLD_MEDICAL_BUSINESS)}
@@ -345,7 +313,6 @@ export default function LocationGreatFalls() {
             "@type": "MedicalWebPage",
             "name": "Virtual Hormone, Menopause & Weight Loss Doctor in Great Falls, VA",
             "url": "https://medmethoddirect.com/virginia/great-falls",
-            "description": "MedMethod Direct provides physician-led virtual hormone therapy, GLP-1 medical weight loss (semaglutide, tirzepatide), menopause management, BHRT, and testosterone therapy for women in Great Falls, Virginia.",
             "about": [
               { "@type": "MedicalCondition", "name": "Menopause" },
               { "@type": "MedicalCondition", "name": "Perimenopause" },
@@ -496,14 +463,6 @@ export default function LocationGreatFalls() {
               <strong>medical weight loss physician serving Great Falls, Virginia</strong>, or a hormone specialist who treats the whole picture — you've found the right place. MedMethod Direct is a virtual women's health clinic built around one insight most practices miss: <strong>hormones and weight are the same problem</strong>. You cannot fix one without addressing the other.
             </p>
             <p>
-              Great Falls is one of the wealthiest communities in the United States — and one of the most underserved when it comes to specialized women's hormone and metabolic care. Most women in Great Falls are driving to McLean, Reston, or Tysons for specialist appointments, waiting weeks, and getting 12-minute slots. MedMethod Direct changes that entirely. We specialize in{" "}
-              <strong>perimenopause and menopause management</strong>,{" "}
-              <strong>hormone replacement therapy (HRT)</strong>,{" "}
-              <strong>bioidentical hormone therapy (BHRT)</strong>,{" "}
-              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care — all managed virtually by Dr. Jumana Al-Deek, DO.
-            </p>
-            <p>
               Whether you're experiencing{" "}
               <strong>perimenopause weight gain</strong>, brain fog, night sweats, low libido, or you've tried GLP-1s elsewhere and hit a plateau — the missing piece is almost always hormonal. MedMethod Direct is one of the few virtual practices in Virginia that addresses <strong>weight loss and hormone balance together</strong>, in a single physician-led program. No siloed specialists. No commute. Just one team, one plan, and results that last.
             </p>
@@ -540,9 +499,10 @@ export default function LocationGreatFalls() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────── */}
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <ComplianceDisclosures compounded />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
@@ -586,85 +546,9 @@ export default function LocationGreatFalls() {
           </span>
           "
         </p>
-        <p
-          className="mt-4 text-sm max-w-xl mx-auto"
-          style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}
-        >
-          Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.
-        </p>
       </div>
 
       {/* ── WHY MOST PEOPLE FAIL / THE MEDMETHOD WAY ─────────────────────── */}
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
-
-      {/* ── WHY GREAT FALLS WOMEN CHOOSE US ──────────────────────────────── */}
-      <section className="py-20" style={{ background: "#f9f9fb" }}>
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Built for Your Life
-            </p>
-            <h2
-              className="font-black leading-tight"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.6rem)", color: "#111111" }}
-            >
-              Why Great Falls Women Choose{" "}
-              <span style={gradientText}>MedMethod Direct</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <Clock className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "No Drive to McLean or Reston",
-                body: "Great Falls has limited local specialist options. Most women are commuting 20–30 minutes each way for a 12-minute appointment. We bring the specialist to you — from your home, on your schedule.",
-              },
-              {
-                icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "30–60 Minute Appointments",
-                body: "Not a rushed 10-minute slot. Your physician has time to actually listen, review your labs, and build a protocol that fits your life — not a generic template.",
-              },
-              {
-                icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Hormones + Weight Loss: Treated Together",
-                body: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, testosterone optimization, and metabolic medicine into one unified program. That's why our results last.",
-              },
-              {
-                icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Dedicated Performance Coach",
-                body: "Between every physician visit, your personal performance coach is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
-              },
-              {
-                icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Lab Work Near Great Falls",
-                body: "We order your labs to a convenient LabCorp or Quest Diagnostics draw site near Great Falls — including locations in Reston, Herndon, and McLean. Results reviewed within 48 hours.",
-              },
-              {
-                icon: <ArrowRight className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "GLP-1s + Hormones Delivered to Your Door",
-                body: "Semaglutide, tirzepatide, BHRT, testosterone — FDA-approved brands or compounded alternatives from our 503B pharmacy, shipped directly to your Great Falls address, discreetly and on schedule.",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="rounded-2xl p-6 bg-white shadow-sm border"
-                style={{ borderColor: "rgba(232,51,158,0.12)" }}
-              >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>
-                  {card.icon}
-                </div>
-                <h3 className="font-bold text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>
-                  {card.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#666" }}>
-                  {card.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── MEDICAL TEAM ──────────────────────────────────────────────────────── */}
       <MedicalTeam />

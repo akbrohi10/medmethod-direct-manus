@@ -26,15 +26,9 @@ const SERVICE_OPTIONS = [
   { label: "Weight Loss", subtitle: "GLP-1 / Semaglutide · Tirzepatide", icon: "🔥" },
   { label: "Hormone Therapy", subtitle: "", icon: "🧬" },
   { label: "Menopause", subtitle: "", icon: "🌸" },
-  { label: "Sexual Health", subtitle: "", icon: "💗" },
   { label: "Hair Care", subtitle: "", icon: "💇‍♀️" },
-  { label: "Gut Health", subtitle: "", icon: "🥗" },
   { label: "Skincare", subtitle: "", icon: "✨" },
-  { label: "Longevity & Aging", subtitle: "", icon: "⏳" },
-  { label: "Vitamins & Supplements", subtitle: "", icon: "💊" },
-  { label: "Personal Training", subtitle: "", icon: "🏋️‍♀️" },
-  { label: "Virtual Primary Care", subtitle: "", icon: "🩺" },
-  { label: "Virtual Urgent Care", subtitle: "", icon: "⚡" },
+  { label: "Nutrition & Vitamin Optimization", subtitle: "", icon: "💊" },
 ];
 
 const questions = [
@@ -67,8 +61,6 @@ const questions = [
     subtitle: "No judgment — we just want to help you succeed this time",
     options: [
       "No, this is my first time",
-      "Yes, but didn't get results",
-      "Yes, results didn't last",
       "I've tried multiple approaches",
     ],
   },
@@ -100,8 +92,8 @@ const BUDGET_PLANS = [
     name: "Ignite",
     tierLabel: "TIER 01",
     badge: "",
-    tagline: "Async access · price-sensitive",
-    description: "Patients who know what they want & value speed + price over coaching.",
+    tagline: "Async access · streamlined support",
+    description: "For patients who value speed and streamlined support.",
     pricing: { m3: 129, m6: 109, m12: 99 },
     initiation: { m3: 49, m6: 49, m12: 0 },
     initiationNote12: "waived on 12-month plan",
@@ -119,15 +111,15 @@ const BUDGET_PLANS = [
     ],
   },
   {
-    id: "transformation",
-    name: "Transformation",
+    id: "ongoing_care",
+    name: "Ongoing Care",
     tierLabel: "",
     badge: "✦ Most Popular",
-    tagline: "Coached & guided · your team in your corner",
-    description: "Structure, accountability, and a team that keeps you on track.",
+    tagline: "Ongoing physician support",
+    description: "Scheduled check-ins and ongoing clinical support.",
     pricing: { m3: 249, m6: 215, m12: 199 },
     initiation: { m3: 199, m6: 199, m12: 199 },
-    image: "/manus-storage/transformation-card_86b62a37.jpg",
+    image: "/manus-storage/ignite-program-card-v3_7203d5db.png",
     cardBg: "#1a1a2e",
     cardBorder: "rgba(232,51,158,0.4)",
     dark: true,
@@ -135,32 +127,27 @@ const BUDGET_PLANS = [
       "Everything in Ignite",
       "Initial live physician video call — labs reviewed & plan prescribed",
       "Monthly or every-other-month physician check-ins",
-      "Dedicated Performance Coach",
       "Weigh-ins & ongoing accountability",
-      "Structured nutrition & fitness plans (GLP-1 aware)",
-      "BHRT & TRT protocols available (meds billed separately)",
       "Unlimited secure messaging (24hr SLA)",
     ],
   },
   {
-    id: "longevity",
-    name: "Longevity",
+    id: "advanced_care",
+    name: "Advanced Care",
     tierLabel: "TIER 03",
-    badge: "✦ Longevity Program",
-    tagline: "More physician time · deeper diagnostics · advanced monitoring",
-    description: "A true physician partner — advanced imaging, real-time monitoring, and concierge care.",
+    badge: "✦ Extended Care",
+    tagline: "More physician time · ongoing monitoring",
+    description: "Extended physician access and ongoing clinical monitoring.",
     pricing: { m3: 379, m6: 325, m12: 299 },
     initiation: { m3: 349, m6: 349, m12: 349 },
-    image: "/manus-storage/longevity-card_5cb8f20e.png",
+    image: "/manus-storage/ignite-program-card-v3_7203d5db.png",
     cardBg: "#2a2a1e",
     cardBorder: "rgba(180,160,80,0.4)",
     dark: true,
     ongoingIncludes: [
-      "Everything in Transformation",
-      "Quarterly 45-min physician strategy session",
-      "Expanded diagnostic testing & advanced lab access",
-      "Quarterly comprehensive lab panel (75+ biomarkers)",
-      "Advanced diagnostic ordering: CT calcium, DEXA, CGM",
+      "Everything in Ongoing Care",
+      "Quarterly 45-min physician session",
+      "Quarterly lab review",
       "Priority physician access (12hr SLA)",
       "At-home phlebotomy where available",
       "White-glove onboarding (first 90 days)",
@@ -1208,20 +1195,12 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                 {medsExpanded && (
                   <div className="px-3.5 pb-3.5 pt-0">
                     <p className="text-[11px] text-gray-600 leading-relaxed mb-1.5">
-                      Your doctor prescribes what’s right for you. You choose how to fill it:
+                      Your doctor will review clinically appropriate prescription options with you.
                     </p>
                     <ul className="flex flex-col gap-1">
                       <li className="flex items-center gap-2 text-[11px] text-gray-700">
                         <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
                         <span><strong>Local pharmacy</strong> — use your insurance or pay retail</span>
-                      </li>
-                      <li className="flex items-center gap-2 text-[11px] text-gray-700">
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
-                        <span><strong>LillyDirect</strong> — brand-name shipped to your door</span>
-                      </li>
-                      <li className="flex items-center gap-2 text-[11px] text-gray-700">
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#16A34A" }} />
-                        <span><strong>Compounded</strong> — pre-negotiated rate through our partner pharmacy</span>
                       </li>
                     </ul>
                     <p className="text-[10px] text-gray-500 mt-1.5 italic">
@@ -1306,8 +1285,8 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                             <span
                               className="inline-flex items-center self-start px-2.5 py-1 rounded-full text-[10px] font-bold mb-2"
                               style={{
-                                background: plan.id === "transformation" ? "#1B5E3B" : "#4A3F1A",
-                                color: plan.id === "transformation" ? "#D4EDDA" : "#F5E6A3",
+                                background: plan.id === "ongoing_care" ? "#1B5E3B" : "#4A3F1A",
+                                color: plan.id === "ongoing_care" ? "#D4EDDA" : "#F5E6A3",
                                 letterSpacing: "0.5px",
                               }}
                             >
@@ -1400,7 +1379,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
                                 src={plan.image}
                                 alt={`${plan.name} program`}
                                 className="w-full h-full object-cover"
-                                style={{ minHeight: 100, objectPosition: plan.id === 'longevity' ? 'center 40%' : plan.id === 'ignite' ? 'center 20%' : 'center top' }}
+                                style={{ minHeight: 100, objectPosition: plan.id === 'advanced_care' ? 'center 40%' : plan.id === 'ignite' ? 'center 20%' : 'center top' }}
                                 loading="lazy"
                               />
                             </div>

@@ -220,6 +220,21 @@ const REGIONS = [
   },
 ];
 
+const APPROVED_JURISDICTIONS = [
+  "Arizona",
+  "Colorado",
+  "District of Columbia",
+  "Florida",
+  "Maryland",
+  "Nevada",
+  "North Carolina",
+  "Oregon",
+  "Pennsylvania",
+  "Texas",
+  "Virginia",
+  "West Virginia",
+];
+
 // Flat list for search
 const ALL_CITIES = REGIONS.flatMap((r) =>
   r.states.flatMap((s) => [
@@ -227,9 +242,6 @@ const ALL_CITIES = REGIONS.flatMap((r) =>
     ...s.tier2.map((c) => ({ ...c, state: s.name, abbr: s.abbr, stateHref: s.href })),
   ])
 );
-
-// Active state abbreviations for SVG map highlight
-const ACTIVE_STATE_ABBRS = new Set(["VA", "MD", "DC", "FL", "NC", "PA", "CO", "AZ", "TX"]);
 
 // ─── JSON-LD ──────────────────────────────────────────────────────────────────
 
@@ -239,95 +251,10 @@ const JSONLD = {
   name: "MedMethod Direct",
   url: "https://www.medmethoddirect.com/locations",
   description:
-    "MedMethod Direct is a premium virtual women's health clinic licensed in Virginia, Maryland, Washington DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, and Texas. Specializing in hormone therapy, medical weight loss, and menopause care.",
+    "MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in 12 approved jurisdictions.",
   medicalSpecialty: ["Endocrinology", "Obstetrics and Gynecology", "Internal Medicine"],
-  areaServed: ["Virginia", "Maryland", "Washington DC", "Florida", "North Carolina", "Pennsylvania", "Colorado", "Arizona", "Texas"],
+  areaServed: APPROVED_JURISDICTIONS,
 };
-
-// ─── Interactive US Map (branded image with clickable state hotspots) ─────────
-// Percentage-based hotspot positions mapped to the branded map image
-// Each hotspot is positioned as a % of the image dimensions for responsive scaling
-
-const MAP_IMAGE_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/us-map-9states-CSDQ9Ff3B2YZB89RAzhrmq.webp";
-
-const STATE_HOTSPOTS: { abbr: string; label: string; top: string; left: string; width: string; height: string }[] = [
-  { abbr: "AZ", label: "Arizona", top: "42%", left: "14%", width: "7%", height: "14%" },
-  { abbr: "CO", label: "Colorado", top: "32%", left: "23%", width: "7%", height: "10%" },
-  { abbr: "FL", label: "Florida", top: "68%", left: "68%", width: "9%", height: "18%" },
-  { abbr: "MD", label: "Maryland", top: "35%", left: "72%", width: "6%", height: "7%" },
-  { abbr: "DC", label: "Washington DC", top: "40%", left: "74%", width: "3%", height: "4%" },
-  { abbr: "NC", label: "North Carolina", top: "48%", left: "66%", width: "10%", height: "8%" },
-  { abbr: "PA", label: "Pennsylvania", top: "26%", left: "68%", width: "9%", height: "9%" },
-  { abbr: "VA", label: "Virginia", top: "38%", left: "64%", width: "10%", height: "10%" },
-  { abbr: "TX", label: "Texas", top: "55%", left: "28%", width: "10%", height: "18%" },
-];
-
-function USMap({ onStateClick }: { onStateClick: (abbr: string) => void }) {
-  const [hovered, setHovered] = useState<string | null>(null);
-
-  return (
-    <div className="relative w-full" aria-label="Interactive US map showing MedMethod Direct service states">
-      {/* Branded map image */}
-      <img
-        src={MAP_IMAGE_URL}
-        alt="US map showing MedMethod Direct active states: Virginia, Maryland, DC, Pennsylvania, Florida, North Carolina, Colorado, Arizona, and Texas highlighted in pink/magenta"
-        className="w-full h-auto rounded-2xl"
-        loading="eager"
-        style={{ maxHeight: 420 }}
-      />
-
-      {/* Clickable state hotspots */}
-      {STATE_HOTSPOTS.map((spot) => (
-        <button
-          key={spot.abbr}
-          onClick={() => onStateClick(spot.abbr)}
-          onMouseEnter={() => setHovered(spot.abbr)}
-          onMouseLeave={() => setHovered(null)}
-          className="absolute rounded-lg transition-all duration-200"
-          style={{
-            top: spot.top,
-            left: spot.left,
-            width: spot.width,
-            height: spot.height,
-            background: hovered === spot.abbr ? "rgba(232,51,158,0.3)" : "transparent",
-            border: hovered === spot.abbr ? "2px solid rgba(232,51,158,0.6)" : "2px solid transparent",
-            cursor: "pointer",
-          }}
-          aria-label={`View ${spot.label} cities`}
-          title={spot.label}
-        />
-      ))}
-
-      {/* Hover tooltip */}
-      {hovered && (
-        <div
-          className="absolute pointer-events-none z-20 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg"
-          style={{
-            fontFamily: "Montserrat, sans-serif",
-            background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-            top: "8px",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          {STATE_HOTSPOTS.find((s) => s.abbr === hovered)?.label}
-        </div>
-      )}
-
-      {/* Legend */}
-      <div className="absolute bottom-3 right-4 flex items-center gap-4">
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-sm" style={{ background: "rgba(232,51,158,0.5)", border: "1px solid rgba(232,51,158,0.8)" }} />
-          <span className="text-[9px] font-semibold text-white/50" style={{ fontFamily: "Montserrat, sans-serif" }}>Active</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-sm" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }} />
-          <span className="text-[9px] font-semibold text-white/30" style={{ fontFamily: "Montserrat, sans-serif" }}>Coming Soon</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── State Card ───────────────────────────────────────────────────────────────
 
@@ -463,12 +390,6 @@ export default function Locations() {
     ).slice(0, 12);
   }, [searchQuery]);
 
-  // Scroll to state section when map state is clicked
-  function handleMapStateClick(abbr: string) {
-    const el = document.getElementById(`state-${abbr}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function toggleRegion(name: string) {
     setOpenRegions((prev) => ({ ...prev, [name]: !prev[name] }));
   }
@@ -476,14 +397,14 @@ export default function Locations() {
   return (
     <>
       <Helmet>
-        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 9 States</title>
+        <title>Service Locations | MedMethod Direct — Virtual Women's Health in 12 Jurisdictions</title>
         <meta
           name="description"
-          content="MedMethod Direct provides premium virtual women's health care — hormone therapy, medical weight loss, and menopause management — across Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, and Texas."
+          content="MedMethod Direct provides virtual hormone therapy for women, medical weight management, and menopause care in Arizona, Colorado, the District of Columbia, Florida, Maryland, Nevada, North Carolina, Oregon, Pennsylvania, Texas, Virginia, and West Virginia."
         />
         <link rel="canonical" href="https://www.medmethoddirect.com/locations" />
         <meta property="og:title" content="Service Locations | MedMethod Direct" />
-        <meta property="og:description" content="Premium virtual women's health care licensed in 9 states. Find your city and book your appointment today." />
+        <meta property="og:description" content="Premium virtual women's health care across our approved licensed jurisdictions. Find your city and book your appointment today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.medmethoddirect.com/locations" />
         <script type="application/ld+json">{JSON.stringify(JSONLD)}</script>
@@ -511,7 +432,7 @@ export default function Locations() {
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#E8339E]/30 bg-[#E8339E]/5">
                 <MapPin className="w-3.5 h-3.5 text-[#E8339E]" />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                  Licensed in 9 States · Expanding Nationwide
+                  Licensed in 12 jurisdictions
                 </span>
               </div>
               <h1
@@ -577,9 +498,8 @@ export default function Locations() {
               {/* Stats */}
               <div className="flex items-center gap-8 mt-8">
                 {[
-                  { value: "9", label: "Active States" },
-                  { value: "99+", label: "Cities Served" },
-                  { value: "50", label: "States Goal" },
+                  { value: "12", label: "Licensed Jurisdictions" },
+                  { value: "99+", label: "Cities Listed" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p className="text-2xl font-black text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>{s.value}</p>
@@ -589,12 +509,21 @@ export default function Locations() {
               </div>
             </div>
 
-            {/* Right — Interactive US Map */}
-            <div className="relative">
-              <USMap onStateClick={handleMapStateClick} />
-              <p className="text-center text-[10px] text-white/30 mt-3" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                Click an active state to jump to its cities
+            {/* Right — exact approved licensing list */}
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-7 md:p-9">
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#E8339E] mb-5" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                Approved Jurisdictions
               </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {APPROVED_JURISDICTIONS.map((jurisdiction) => (
+                  <div key={jurisdiction} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <MapPin className="w-3.5 h-3.5 text-[#E8339E]" />
+                    <span className="text-sm font-semibold text-white/80" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                      {jurisdiction}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -605,10 +534,10 @@ export default function Locations() {
         <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-3 text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Currently Accepting Patients
+              Detailed City Guides
             </p>
             <h2 className="text-3xl md:text-4xl font-black text-[#111111]" style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "-0.02em" }}>
-              Active Service Areas
+              Explore Service Areas
             </h2>
           </div>
 
@@ -652,37 +581,6 @@ export default function Locations() {
           </div>
         </div>
       </section>
-
-      {/* ── Not in your state CTA ── */}
-      <section
-        className="py-16"
-        style={{ background: "linear-gradient(135deg, #0d0d0d 0%, #1a0a1a 100%)" }}
-      >
-        <div className="max-w-[860px] mx-auto px-4 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full border border-[#E8339E]/20 bg-[#E8339E]/5">
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Expanding to All 50 States
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4" style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "-0.02em" }}>
-            Don't See Your State Yet?
-          </h2>
-          <p className="text-white/50 text-base leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            We're actively licensing in new states every quarter. Join the waitlist and we'll notify you the moment we launch in your area — you'll be first in line.
-          </p>
-          <button
-            onClick={() => setConsultOpen(true)}
-            className="btn-gradient btn-gradient-pulse px-8 py-3.5 rounded-full text-sm font-bold tracking-wider"
-            style={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-            JOIN THE WAITLIST →
-          </button>
-          <p className="text-white/25 text-xs mt-4" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            No spam. One email when we launch in your state.
-          </p>
-        </div>
-      </section>
-
 
       {/* ── Legal / LegitScript compliance disclaimer ── */}
       <div className="bg-gray-50 border-t border-gray-100 py-6">

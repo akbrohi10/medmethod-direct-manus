@@ -1,10 +1,10 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /virginia/vienna — Vienna & Tysons Corner, VA Location Page
    Design: Clinical Noir — dark hero, white content sections, pink accents
    Target keywords: menopause doctor Vienna VA, virtual hormone therapy Tysons Corner,
    GLP-1 weight loss Vienna Virginia, perimenopause treatment Vienna VA,
    bioidentical hormone therapy Tysons, semaglutide Vienna Virginia telehealth,
-   testosterone therapy for women Tysons Corner, online menopause doctor Fairfax County
    ============================================================================= */
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -15,17 +15,14 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 // ─── JSON-LD Structured Data ──────────────────────────────────────────────────
 const JSONLD_LOCAL = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Vienna & Tysons Corner, VA",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Vienna, Tysons Corner, and Fairfax County, Virginia. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management — 100% virtual, licensed in Virginia.",
   "url": "https://medmethoddirect.com/virginia/vienna",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -34,9 +31,7 @@ const JSONLD_LOCAL = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
   ],
   "areaServed": [
     { "@type": "City", "name": "Vienna", "containedInPlace": { "@type": "State", "name": "Virginia" } },
@@ -48,7 +43,7 @@ const JSONLD_LOCAL = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -99,7 +94,6 @@ const JSONLD_FAQ = {
       "name": "What is bioidentical hormone therapy (BHRT) and is it available near Tysons?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing. All prescriptions are managed virtually and shipped to your Vienna or Tysons address.",
       },
     },
     {
@@ -123,7 +117,6 @@ const JSONLD_FAQ = {
       "name": "What does the $449 Clinical Diagnostic & Setup Fee include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
       },
     },
   ],
@@ -154,10 +147,6 @@ const faqs = [
     a: "No. We order your labs to a LabCorp or Quest Diagnostics draw site near Vienna or Tysons Corner. You go in, get your blood drawn, and results come directly to Dr. Al-Deek. Every appointment and follow-up is virtual — no office visit to MedMethod Direct is ever required.",
   },
   {
-    q: "What is bioidentical hormone therapy (BHRT) and is it available near Tysons?",
-    a: "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing. All prescriptions are managed virtually and shipped to your Vienna or Tysons address.",
-  },
-  {
     q: "How is MedMethod Direct different from Hers, Winona, or other telehealth platforms?",
     a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your labs, builds a protocol specific to your biology, and remains your physician for the full 6 or 12-month program. We also integrate hormone therapy and weight loss into a single program — rather than treating each issue separately as most telehealth platforms do.",
   },
@@ -167,37 +156,12 @@ const faqs = [
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
   },
   {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
-  },
-  {
-    q: "What does the $449 Clinical Diagnostic & Setup Fee include?",
-    a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
-  },
-  {
     q: "How soon can I start as a patient in Vienna or Tysons Corner?",
     a: "Most patients complete their appointment within 24–48 hours of requesting it. Labs are typically ordered the same day as your consultation. Once results are in (usually 3–5 business days), Dr. Al-Deek reviews them and your personalized protocol is ready. Most Vienna and Tysons patients are on their program within 1–2 weeks of their first call.",
-  },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
   },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -218,10 +182,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -308,7 +268,6 @@ const whyCards = [
   },
 ];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
 
@@ -321,7 +280,6 @@ export default function LocationVienna() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Vienna & Tysons Corner, VA | MedMethod Direct</title>
-        <meta name="description" content="Virtual menopause doctor and GLP-1 weight loss physician serving Vienna, Tysons Corner, and Fairfax County, VA. Same-week appointments. Semaglutide, tirzepatide, HRT, BHRT, testosterone therapy. No office visits required. Dr. Jumana Al-Deek, DO." />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/vienna" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Vienna & Tysons Corner, VA | MedMethod Direct" />
         <meta property="og:description" content="Physician-led virtual clinic for women in Vienna and Tysons Corner, VA. Hormone therapy, GLP-1 weight loss, menopause care — all virtual, same-week availability." />
@@ -430,19 +388,6 @@ export default function LocationVienna() {
             <p>
               If you've been searching for a <strong>menopause doctor near Vienna VA</strong> or a <strong>GLP-1 weight loss physician near Tysons Corner</strong>, you already know the problem: local specialists have 6-week wait times, 10-minute appointments, and rarely treat hormones and weight loss together. MedMethod Direct was built to fix exactly that.
             </p>
-            <p>
-              Led by <strong>Dr. Jumana Al-Deek, DO</strong>, MedMethod Direct is a Virginia-licensed virtual clinic offering <strong>perimenopause and menopause management</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone therapy for women</strong>, and <strong>physician-prescribed semaglutide and tirzepatide</strong> — all in one integrated program. Bloodwork is ordered to a <strong>LabCorp or Quest Diagnostics near Vienna or Tysons Corner</strong>. Medications are shipped to your door. Every appointment is virtual.
-            </p>
-            <p>
-              Women in Vienna and Tysons Corner often come to us after plateauing on GLP-1 medications elsewhere. The reason is almost always hormonal — declining estrogen, low testosterone, and insulin resistance all blunt the effectiveness of semaglutide and tirzepatide. By treating <strong>hormones and weight loss as a unified clinical problem</strong>, we consistently achieve results that single-specialty programs miss.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              {["Menopause Doctor Vienna VA", "GLP-1 Weight Loss Tysons", "Hormone Therapy Fairfax County", "BHRT Vienna Virginia", "Semaglutide Tysons Corner", "Perimenopause Specialist Vienna", "Testosterone Therapy Women VA", "Online Hormone Testing Virginia"].map((kw) => (
-                <span key={kw} className="text-xs font-semibold px-3 py-1 rounded-full border border-[#E8339E]/30 text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                  {kw}
-                </span>
-              ))}
-            </div>
             <p className="text-sm text-gray-500 pt-2">
               Related reading:{" "}
               <a href="/blog" className="text-[#E8339E] hover:underline">Semaglutide vs. Tirzepatide for Women in Midlife</a>
@@ -459,10 +404,11 @@ export default function LocationVienna() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── POPULAR PROGRAMS ── */}
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <ComplianceDisclosures compounded />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
       {/* ── HOW IT WORKS ── */}
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
@@ -488,7 +434,6 @@ export default function LocationVienna() {
       </div>
 
       {/* ── WHY MOST PEOPLE FAIL ── */}
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── WHY VIENNA WOMEN CHOOSE US ── */}
       <section className="py-20 bg-[#F8F4F9]">

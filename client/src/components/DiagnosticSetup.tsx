@@ -269,7 +269,6 @@ export default function DiagnosticSetup({ onConsultClick }: { onConsultClick: ()
                     "Diagnostic Bloodwork",
                     "Doctor Consultation",
                     "Smart Scale + FedEx Shipping",
-                    "Meet Your Performance Coach",
                     "Fitness & Nutrition App Set Up",
                   ].map((t, i) => (
                     <li key={i} className="flex items-center gap-2">

@@ -1,8 +1,8 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    Florida Hub Page — MedMethod Direct
    Brand: Montserrat, Medical Pink #E8339E → Deep Purple #7A1E7E gradient
    Structure: Helmet SEO → Navbar → Hero → Intro → Services → HowItWorks →
-   WhyChoose → Testimonials → MedicalTeam → FAQ → CTA → Footer
    Primary keyword: menopause doctor Florida telehealth
    Secondary: hormone therapy Florida online, GLP-1 weight loss Florida,
    semaglutide Florida telehealth, virtual menopause care Florida,
@@ -20,9 +20,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import MedicalTeam from "@/components/MedicalTeam";
-import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/florida-hub-hero-ggUpBHC7z4TNuVPwpZ8K58.webp";
@@ -43,7 +41,6 @@ const JSONLD_MEDICAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Florida",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women throughout Florida. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Florida.",
   "url": "https://medmethoddirect.com/florida",
   "telephone": "",
   "priceRange": "$$",
@@ -54,8 +51,6 @@ const JSONLD_MEDICAL_BUSINESS = {
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
     { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": [
     { "@type": "State", "name": "Florida" },
@@ -73,7 +68,7 @@ const JSONLD_MEDICAL_BUSINESS = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -124,7 +119,7 @@ const JSONLD_FAQ = {
       "name": "Why choose virtual care over a local OB/GYN or endocrinologist in Florida?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
+        "text": "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. You get more time, more attention, and deeper expertise — all from your home in Florida.",
       },
     },
     {
@@ -158,7 +153,7 @@ const localFaqs = [
   },
   {
     q: "Why choose virtual care over a local OB/GYN or endocrinologist in Florida?",
-    a: "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home in Florida.",
+    a: "Most local practices in Florida have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. You get more time, more attention, and deeper expertise — all from your home in Florida.",
   },
   {
     q: "Do you accept insurance?",
@@ -168,7 +163,6 @@ const localFaqs = [
 
 const faqs = [...localFaqs, ...pricingFaqs];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── FAQ Accordion Item ───────────────────────────────────────────────────────
 function FAQItem({ q, a }: { q: string; a: string }) {
@@ -415,14 +409,6 @@ export default function LocationFlorida() {
           </h2>
           <div className="space-y-4 text-base leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#444" }}>
             <p>
-              MedMethod Direct is now accepting patients throughout Florida — from Miami and Fort Lauderdale to Naples, Sarasota, Tampa, and beyond. Whether you're in a beachside condo, a suburban home, or anywhere in between, our physician-led virtual clinic brings expert{" "}
-              <strong>perimenopause and menopause management</strong>,{" "}
-              <strong>hormone replacement therapy (HRT)</strong>,{" "}
-              <strong>bioidentical hormone therapy</strong>,{" "}
-              <strong>testosterone optimization for women</strong>, GLP-1 medications including{" "}
-              <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care directly to you.
-            </p>
-            <p>
               Florida has one of the highest concentrations of women in perimenopause and menopause in the country — yet access to specialized, attentive care remains frustratingly limited. Most practices are overbooked, rushed, and insurance-driven. MedMethod Direct is different: a direct-care model where Dr. Jumana Al-Deek, DO, personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. No rushed 10-minute slots. No starting over with a new specialist every time.
             </p>
           </div>
@@ -433,9 +419,10 @@ export default function LocationFlorida() {
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── POPULAR PROGRAMS ─────────────────────────────────────────────────── */}
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
+      <ComplianceDisclosures testosteroneForWomen />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────────────────── */}
@@ -459,77 +446,9 @@ export default function LocationFlorida() {
           </span>
           "
         </p>
-        <p className="mt-4 text-sm max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>
-          Most programs treat the symptom. We treat the biology — and we stay with you until the results are real.
-        </p>
       </div>
 
       {/* ── WHY CHOOSE ───────────────────────────────────────────────────────── */}
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
-{/* ── WHY FLORIDA WOMEN CHOOSE US ──────────────────────────────────────── */}
-      <section className="py-20" style={{ background: "#f9f9fb" }}>
-        <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#E8339E", fontFamily: "Montserrat, sans-serif" }}>
-              Built for Your Life
-            </p>
-            <h2
-              className="font-black leading-tight"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.6rem)", color: "#111111" }}
-            >
-              Why Florida women choose{" "}
-              <span style={gradientText}>MedMethod Direct</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <Clock className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "No more 6-week waits",
-                body: "Florida's top OB/GYN practices are booked out for months. We can see you this week — from your home, your condo, or anywhere in the Sunshine State.",
-              },
-              {
-                icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "30–60 minute appointments",
-                body: "Not a rushed 10-minute slot. Your physician has time to actually listen, review your labs, and build a protocol that fits your life — not a generic template.",
-              },
-              {
-                icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Hormones + weight loss: treated together",
-                body: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, testosterone optimization, and metabolic medicine into one unified program.",
-              },
-              {
-                icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Dedicated performance coach",
-                body: "Between every physician visit, your personal performance coach is available to answer questions, adjust your plan, and keep you on track — something no local practice offers.",
-              },
-              {
-                icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "Lab work near you in Florida",
-                body: "We order your labs to a convenient LabCorp or Quest Diagnostics draw site near you anywhere in Florida. No in-office phlebotomy required — results reviewed within 48 hours.",
-              },
-              {
-                icon: <ArrowRight className="w-6 h-6" style={{ color: "#E8339E" }} />,
-                title: "GLP-1s + hormones delivered to your door",
-                body: "Semaglutide, tirzepatide, BHRT, testosterone — FDA-approved brands or compounded alternatives from our 503B pharmacy, shipped directly to your Florida address, discreetly and on schedule.",
-              },
-            ].map((card) => (
-              <div key={card.title} className="rounded-2xl p-6 bg-white shadow-sm border" style={{ borderColor: "rgba(232,51,158,0.12)" }}>
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(232,51,158,0.08)" }}>
-                  {card.icon}
-                </div>
-                <h3 className="font-bold text-base mb-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#111111" }}>
-                  {card.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif", color: "#666" }}>
-                  {card.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── MEDICAL TEAM ─────────────────────────────────────────────────────── */}
       <MedicalTeam />
 

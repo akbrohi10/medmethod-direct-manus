@@ -55,13 +55,13 @@ export default function TermsOfService() {
             <p className="text-gray-700 leading-relaxed mb-4">You must meet all of the following requirements to use Med Method Direct services:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
               <li>You are at least 18 years of age.</li>
-              <li>You are a legal resident of the United States residing in Florida, Texas, California, Arizona, or Colorado.</li>
+              <li>You are a legal resident of the United States residing in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, or Virginia.</li>
               <li>You have a compatible device and stable internet connection for telehealth visits.</li>
               <li>You are not pregnant or breastfeeding, unless otherwise cleared by your provider.</li>
               <li>You have not been previously terminated from Med Method Direct for violation of these Terms.</li>
             </ul>
             <p className="text-gray-700 leading-relaxed mb-6">
-              If you do not meet these requirements, you are not eligible to use our services. We do not serve patients outside the five states listed above.
+              If you do not meet these requirements, you are not eligible to use our services. We do not serve patients outside the jurisdictions listed above.
             </p>
 
             {/* 4 */}
@@ -71,6 +71,10 @@ export default function TermsOfService() {
               <li><strong>GLP-1 Weight Management</strong> — medically supervised weight loss using compounded tirzepatide, prescribed by our licensed providers.</li>
               <li><strong>Bioidentical Hormone Replacement Therapy (BHRT) for Women</strong> — physician-managed hormone therapy including estrogen, progesterone, and testosterone and related treatments.</li>
             </ul>
+            <div className="rounded-xl border border-[#E8D7E5] bg-[#FFF9FC] p-5 mb-6 text-gray-700 leading-relaxed space-y-3">
+              <p>Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.</p>
+              <p>Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.</p>
+            </div>
             <p className="text-gray-700 leading-relaxed mb-6">
               All clinical services are delivered via secure video consultation and secure messaging. We are a cash-pay only practice. We do not accept, bill, or process any form of insurance, including Medicare, Medicaid, and all private insurance plans. You are responsible for all subscription and medication costs.
             </p>
@@ -132,14 +136,10 @@ export default function TermsOfService() {
             <p className="text-gray-700 leading-relaxed mb-6">
               Every prescription issued through Med Method Direct is a clinical decision made by your licensed provider based on your individual medical history, lab results, and evaluation. No prescription is guaranteed. We do not pre-approve prescriptions before a clinical evaluation is complete. Your provider may decline to prescribe, change your dosage, or discontinue your treatment at any time based on clinical judgment, patient safety, or changes in your health status.
             </p>
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Testosterone is a Schedule III controlled substance under federal law. Prescriptions for testosterone are subject to federal and state controlled substance regulations. Some states — including California and Texas — may require specific documentation or protocols before a controlled substance can be prescribed via telehealth. Your provider will inform you of any requirements that apply to your situation.
-            </p>
-
             {/* 10 */}
             <h2 className="text-xl font-black text-gray-900 mt-10 mb-4" style={{ fontFamily: "Montserrat, sans-serif" }}>10. Compounded Medications</h2>
             <p className="text-gray-700 leading-relaxed mb-6">
-              Some medications we prescribe, including compounded tirzepatide and certain bioidentical hormone preparations, are compounded by licensed 503A compounding pharmacies. Compounded medications are not FDA-approved in the same manner as commercially manufactured drugs. Before receiving any compounded prescription, you will be required to read and sign our Compounded Medication Disclosure, which explains in full what compounded medications are, how they are regulated, and the risks and benefits associated with them.
+              Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.
             </p>
 
             {/* 11 */}

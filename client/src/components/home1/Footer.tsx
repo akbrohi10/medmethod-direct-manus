@@ -2,7 +2,6 @@
    Footer — Clinical Noir Design
    Dark background, logo, nav columns, social links, legal
    ============================================================================= */
-import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import MetabolicQuiz from "./MetabolicQuiz";
 
@@ -48,26 +47,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 </span>
                 <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #7A1E7E, #E8339E)" }} />
               </div>
-              <span
-                className="mt-1 text-center w-full"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.1em",
-                  color: "rgba(255,255,255,0.4)",
-                  fontStyle: "italic",
-                }}
-              >
-                Your Path to Longevity
-              </span>
             </div>
-
-            <p
-              className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-  Premium virtual medical clinic focused on longevity, hormones, and medically supervised weight loss for women over 40. Doctor-led. Personalized. Accountable.
-            </p>
 
             {/* Office Address */}
             <div className="mb-6">
@@ -87,24 +67,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               </p>
             </div>
 
-            {/* Social */}
-            <div className="flex gap-3">
-              {[
-                { Icon: Instagram, label: "Instagram" },
-                { Icon: Facebook, label: "Facebook" },
-                { Icon: Twitter, label: "Twitter" },
-                { Icon: Linkedin, label: "LinkedIn" },
-              ].map(({ Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-[#E8339E]/50 transition-all"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Nav Columns */}
@@ -118,12 +80,11 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                "Hormone Replacement Therapy",
-                "Medical Weight Loss",
-                "Perimenopause Care",
-                "Menopause Management",
-                "Thyroid Optimization",
-                "Longevity Protocols",
+                "Medical weight management (GLP-1)",
+                "Hormone therapy for women",
+                "Nutrition and vitamin optimization",
+                "Dermatology and skin",
+                "Hair restoration",
               ].map((label) => (
                 <li key={label}>
                   <a
@@ -147,13 +108,9 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { label: "How It Works", href: "#how-it-works" },
-                { label: "About", href: "#about" },
-                { label: "Our Providers", href: "#about" },
-                { label: "FAQ", href: "#faq" },
-                { label: "Dr. Jumana Al-Deek", href: "https://drjumanaaldeek.com" },
                 { label: "Blog", href: "/blog" },
-                { label: "The Menopause Weight Loss Trap", href: "/the-menopause-weight-loss-trap" },
+                { label: "Locations", href: "/locations" },
+                { label: "Care Team Booking", href: "/care-team-booking" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -184,7 +141,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                   className="text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Schedule a Discovery Call
+                  Book Appointment
                 </a>
               </li>
 
@@ -206,21 +163,15 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 </h5>
               </li>
               {[
-                // All 5 links match the v3 compliance doc URL spec exactly.
-                // Some destination pages (/privacy, /subscription-policy, /accessibility) may
-                // temporarily 404 on medmethoddirect.com until those pages are published or
-                // until redirects are configured.
-                { label: "Terms and Conditions", href: "https://medmethoddirect.com/terms" },
-                { label: "Privacy Policy", href: "https://medmethoddirect.com/privacy" },
-                { label: "Notice of Privacy Practices", href: "https://medmethoddirect.com/hipaa-notice" },
-                { label: "Subscription and Refund Policy", href: "https://medmethoddirect.com/subscription-policy" },
-                { label: "Accessibility Statement", href: "https://medmethoddirect.com/accessibility" },
+                { label: "Terms and Conditions", href: "/terms" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Notice of Privacy Practices", href: "/hipaa-notice" },
+                { label: "Subscription and Refund Policy", href: "/subscription-policy" },
+                { label: "Accessibility Statement", href: "/accessibility" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
@@ -244,7 +195,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             className="text-white/50 text-sm leading-relaxed"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Florida · Virginia · Colorado · Maryland · Michigan · Illinois · Texas · Arizona · Tennessee · New Jersey · Washington, D.C. · Georgia · Alabama · Washington · North Carolina · Pennsylvania · Ohio
+            Florida · Arizona · Colorado · District of Columbia · Georgia · Illinois · Maryland · Michigan · North Carolina · Pennsylvania · Texas · Virginia
           </p>
         </div>
 
@@ -267,18 +218,15 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               Patient Login
             </a>
             {[
-              // Mirrors the Legal & Compliance column above — all 5 links per spec.
-              { label: "Terms", href: "https://medmethoddirect.com/terms" },
-              { label: "Privacy", href: "https://medmethoddirect.com/privacy" },
-              { label: "HIPAA Notice", href: "https://medmethoddirect.com/hipaa-notice" },
-              { label: "Subscription & Refunds", href: "https://medmethoddirect.com/subscription-policy" },
-              { label: "Accessibility", href: "https://medmethoddirect.com/accessibility" },
+              { label: "Terms", href: "/terms" },
+              { label: "Privacy", href: "/privacy-policy" },
+              { label: "HIPAA Notice", href: "/hipaa-notice" },
+              { label: "Subscription & Refunds", href: "/subscription-policy" },
+              { label: "Accessibility", href: "/accessibility" },
             ].map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-white/50 hover:text-white/80 text-xs transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >

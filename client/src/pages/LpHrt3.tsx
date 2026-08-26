@@ -1,3 +1,4 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /lp/hrt3 — Hybrid Landing Page
    Hero: MedicalTeam (Dr. Al-Deek profile) from /home-1
@@ -121,10 +122,6 @@ const FAQS = [
     q: "How long can I safely be on HRT?",
     a: "There is no universal time limit. Many women stay on HRT for years with regular monitoring. We reassess your protocol annually based on your symptoms, how your body is responding, and the latest clinical guidelines.",
   },
-  {
-    q: "What GLP-1 medications do you prescribe for weight loss?",
-    a: "We prescribe semaglutide (Ozempic/Wegovy) and tirzepatide (Mounjaro/Zepbound) based on your metabolic profile, goals, and insurance situation. All prescriptions include physician monitoring and dosage titration.",
-  },
 
   {
     q: "Do you accept insurance?",
@@ -136,7 +133,7 @@ const FAQS = [
   },
   {
     q: "What states are you licensed in?",
-    a: "Dr. Al-Deek is licensed to practice in 17 states including Virginia, Maryland, DC, Florida, North Carolina, Pennsylvania, Colorado, Arizona, Texas, and more. Check our locations page for the full list.",
+    a: "Dr. Al-Deek is licensed to practice in Florida, Arizona, Colorado, the District of Columbia, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia.",
   },
   {
     q: "Do I need bloodwork before my appointment?",
@@ -160,10 +157,6 @@ const TREATMENTS = [
   {
     title: "Safety First",
     desc: "Every treatment plan begins with a comprehensive health evaluation. Dr. Al-Deek reviews your medical history, current medications, symptoms, and relevant lab work to help determine which treatment options may be appropriate and to monitor your progress over time.",
-  },
-  {
-    title: "Choosing the Right Treatment",
-    desc: "No two patients are alike. Your health history, symptoms, current medications, response to previous treatment, metabolism, and goals help guide your plan — whether that involves hormone therapy, GLP-1 medication, thyroid treatment, or another appropriate approach.",
   },
   {
     title: "Dosing & Treatment Adjustments",
@@ -261,6 +254,8 @@ export default function LpHrt3() {
             we override here since we have a fixed 64px nav instead of
             the home-1 sticky nav + banner combo. */}
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
+        <ComplianceDisclosures testosteroneForWomen />
+
           <MedicalTeam
             onConsultClick={openConsult}
             hideBullets
@@ -584,8 +579,7 @@ export default function LpHrt3() {
                     <div>
                       <p className="text-lg font-semibold text-gray-800">Most patients (2–3 hormones)</p>
                       <p className="text-base text-gray-600">Typical combined protocol</p>
-                      <p className="text-base text-gray-600 mt-1">Brand-name available at your pharmacy or shipped to your door</p>
-                    </div>
+                      </div>
                     <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$250<span className="text-sm font-semibold text-gray-500">/mo</span></span>
                   </div>
                 </div>

@@ -8,7 +8,7 @@ const team = [
   {
     name: "Dr. Amanda Chen, MD",
     role: "Medical Director",
-    specialty: "Hormone & Longevity Medicine",
+    specialty: "Hormone &",
     image: DOCTOR_IMG,
   },
   {
@@ -38,7 +38,7 @@ const team = [
   {
     name: "Dr. Jennifer Zhao, DO",
     role: "Wellness Physician",
-    specialty: "Thyroid & Metabolic Health",
+    specialty: "Nutrition and Vitamin Optimization",
     image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=533&fit=crop&q=80",
   },
 ];
@@ -135,12 +135,7 @@ export default function MedicalTeam() {
         </div>
 
         {/* Bottom text */}
-        <p
-          className="text-center text-gray-400 mt-8 text-sm"
-          style={{ fontFamily: "Montserrat, sans-serif" }}
-        >
-          Every MedMethod Direct patient works with the same doctor and Performance Coach throughout their entire journey. No rotating providers. No starting over. Just consistent, expert care built for women over 40.
-        </p>
+        
       </div>
     </section>
   );

@@ -9,7 +9,6 @@ import { Link } from "wouter";
 import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
 import HowItWorks from "@/components/HowItWorks";
@@ -39,10 +38,6 @@ const FAQS = [
   {
     q: "How does telehealth prescribing work in North Carolina?",
     a: "North Carolina law permits licensed physicians to prescribe medications via telehealth following a proper medical evaluation. MedMethod Direct complies with all NC telehealth prescribing regulations. After reviewing your bloodwork, your physician will prescribe the appropriate hormone or GLP-1 protocol and your compounding pharmacy will ship directly to your home.",
-  },
-  {
-    q: "What women's health services does MedMethod Direct offer in North Carolina?",
-    a: "We offer comprehensive virtual women's health programs including bioidentical hormone replacement therapy (BHRT), GLP-1 medical weight loss (semaglutide and tirzepatide), perimenopause and menopause management, and testosterone optimization. All programs are personalized based on your lab results and health history, with ongoing physician oversight.",
   },
   {
     q: "How quickly can I get started as a North Carolina patient?",
@@ -260,7 +255,6 @@ export default function LocationNorthCarolina() {
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />

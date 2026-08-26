@@ -1,9 +1,9 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    /virginia/arlington — Arlington, VA Location Page
    Design: Clinical Noir — dark hero, white content sections, pink accents
    Target keywords: menopause doctor Arlington VA, virtual hormone therapy Arlington Virginia,
    GLP-1 weight loss Arlington VA, perimenopause treatment Arlington, semaglutide Arlington VA,
-   bioidentical hormone therapy Arlington, testosterone therapy women Arlington VA,
    online menopause doctor Northern Virginia
    ============================================================================= */
 import { useState, useEffect } from "react";
@@ -15,16 +15,13 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 const JSONLD_LOCAL = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Arlington, VA",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Arlington, Alexandria, and Northern Virginia. Physician-prescribed GLP-1 weight loss, HRT, BHRT, testosterone therapy, perimenopause management — 100% virtual, licensed in Virginia.",
   "url": "https://medmethoddirect.com/virginia/arlington",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -33,7 +30,6 @@ const JSONLD_LOCAL = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss (Semaglutide & Tirzepatide)" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
     { "@type": "MedicalTherapy", "name": "Bioidentical Hormone Therapy (BHRT)" },
   ],
   "areaServed": [
@@ -42,7 +38,7 @@ const JSONLD_LOCAL = {
   ],
   "isAcceptingNewPatients": true,
   "paymentAccepted": "Cash, Credit Card, HSA, FSA",
-  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine" },
+  "physician": { "@type": "Physician", "name": "Dr. Jumana Al-Deek", "honorificSuffix": "DO", "medicalSpecialty": "Women's Health, Hormone Medicine" },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "10000", "bestRating": "5" },
 };
 
@@ -54,10 +50,8 @@ const JSONLD_FAQ = {
     { "@type": "Question", "name": "Can I get semaglutide or tirzepatide prescribed online near Arlington, Virginia?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. MedMethod Direct prescribes both FDA-approved GLP-1 medications and compounded semaglutide and tirzepatide to patients in Arlington and Alexandria. Bloodwork is ordered to a LabCorp or Quest Diagnostics near you. Medications are shipped to your Arlington address." } },
     { "@type": "Question", "name": "How is MedMethod Direct different from local practices in Arlington?", "acceptedAnswer": { "@type": "Answer", "text": "Arlington has more medical practices per capita than most Northern Virginia cities, but very few specialize in the intersection of hormones and weight loss. MedMethod Direct treats both as a unified clinical problem — not two separate referrals. Appointments are 30–60 minutes, same-week availability, and your physician stays with you for the full program." } },
     { "@type": "Question", "name": "Do I need to come in for bloodwork near Arlington?", "acceptedAnswer": { "@type": "Answer", "text": "No. We order your labs to a LabCorp or Quest Diagnostics draw site near Arlington or Alexandria. You go in, get your blood drawn, and results come directly to Dr. Al-Deek. No office visit to MedMethod Direct is ever required." } },
-    { "@type": "Question", "name": "What is bioidentical hormone therapy (BHRT) and is it available near Arlington?", "acceptedAnswer": { "@type": "Answer", "text": "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing and shipped to your Arlington address." } },
     { "@type": "Question", "name": "How is MedMethod Direct different from Hers, Winona, or other telehealth platforms?", "acceptedAnswer": { "@type": "Answer", "text": "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your labs, builds a protocol specific to your biology, and remains your physician for the full 6 or 12-month program. We also integrate hormone therapy and weight loss into a single program." } },
     { "@type": "Question", "name": "Does MedMethod Direct accept insurance?", "acceptedAnswer": { "@type": "Answer", "text": "We are a direct-care practice and do not bill insurance. Many patients use HSA or FSA funds. We provide itemized receipts for potential out-of-network reimbursement." } },
-    { "@type": "Question", "name": "What does the $449 Clinical Diagnostic & Setup Fee include?", "acceptedAnswer": { "@type": "Answer", "text": "The $449 fee covers your comprehensive initial bloodwork, your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app." } },
   ],
 };
 
@@ -76,32 +70,12 @@ const faqs = [
   { q: "Can I get semaglutide or tirzepatide prescribed online near Arlington, Virginia?", a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." },
   { q: "How is MedMethod Direct different from local practices in Arlington?", a: "Arlington has more medical practices per capita than most Northern Virginia cities, but very few specialize in the intersection of hormones and weight loss. MedMethod Direct treats both as a unified clinical problem. Appointments are 30–60 minutes, same-week availability, and your physician stays with you for the full 6 or 12-month program." },
   { q: "Do I need to come in for bloodwork near Arlington?", a: "No. We order your labs to a LabCorp or Quest Diagnostics draw site near Arlington or Alexandria. You go in, get your blood drawn, and results come directly to Dr. Al-Deek. No office visit to MedMethod Direct is ever required." },
-  { q: "What is bioidentical hormone therapy (BHRT) and is it available near Arlington?", a: "BHRT uses hormones molecularly identical to those your body produces — typically estradiol, progesterone, and testosterone. MedMethod Direct offers both FDA-approved bioidentical hormones and compounded BHRT formulations, prescribed based on comprehensive lab testing and shipped to your Arlington address." },
   { q: "How is MedMethod Direct different from Hers, Winona, or other telehealth platforms?", a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your labs, builds a protocol specific to your biology, and remains your physician for the full 6 or 12-month program. We also integrate hormone therapy and weight loss into a single program — rather than treating each issue separately." },
   ...pricingFaqs,
   { q: "Does MedMethod Direct accept insurance?", a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process." },
-  { q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?", a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation." },
-  { q: "What does the $449 Clinical Diagnostic & Setup Fee include?", a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee." },
-
-  {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
   {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
-  },
-  {
-    q: "What kind of lab work do you order?",
-    a: "We order comprehensive panels that go far beyond what most primary care physicians check. This includes full hormone panels (estrogen, progesterone, testosterone, DHEA, cortisol), thyroid function, metabolic markers, inflammatory markers, vitamin levels, and more. This deep-dive diagnostic is what allows us to build a truly personalized plan \u2014 not a guess.",
   },
   {
     q: "Is everything done virtually?",
@@ -122,10 +96,6 @@ const faqs = [
   {
     q: "Do you accept insurance?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -198,7 +168,6 @@ export default function LocationArlington() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Arlington, VA | MedMethod Direct</title>
-        <meta name="description" content="Virtual menopause doctor and GLP-1 weight loss physician serving Arlington, Alexandria, and Northern Virginia. Same-week appointments. Semaglutide, tirzepatide, HRT, BHRT, testosterone therapy. No office visits required. Dr. Jumana Al-Deek, DO." />
         <link rel="canonical" href="https://medmethoddirect.com/virginia/arlington" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Arlington, VA | MedMethod Direct" />
         <meta property="og:description" content="Physician-led virtual clinic for women in Arlington and Alexandria, VA. Hormone therapy, GLP-1 weight loss, menopause care — all virtual, same-week availability." />
@@ -282,17 +251,6 @@ export default function LocationArlington() {
             <p>
               Arlington is one of the most competitive medical markets in Northern Virginia — but very few local practices specialize in the intersection of <strong>hormone therapy and medical weight loss</strong>. If you've been searching for a <strong>menopause doctor near Arlington VA</strong> or a <strong>GLP-1 weight loss physician in Northern Virginia</strong>, MedMethod Direct offers something the local market doesn't: a physician who treats both as one problem.
             </p>
-            <p>
-              Led by <strong>Dr. Jumana Al-Deek, DO</strong>, MedMethod Direct offers <strong>perimenopause and menopause management</strong>, <strong>bioidentical hormone therapy (BHRT)</strong>, <strong>testosterone therapy for women</strong>, and <strong>physician-prescribed semaglutide and tirzepatide</strong> — all in one integrated virtual program. Labs ordered to <strong>LabCorp or Quest Diagnostics near Arlington or Alexandria</strong>. Medications shipped to your door.
-            </p>
-            <p>
-              Arlington women often come to us after being told their labs are "normal" by local practices. The issue is that standard reference ranges don't reflect optimal hormonal function for women in perimenopause. Dr. Al-Deek reads the same labs differently — and the results speak for themselves.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              {["Menopause Doctor Arlington VA", "GLP-1 Weight Loss Alexandria", "Hormone Therapy Northern Virginia", "BHRT Arlington Virginia", "Semaglutide Arlington VA", "Perimenopause Specialist Arlington", "Testosterone Therapy Women VA", "Online Menopause Doctor Northern Virginia"].map((kw) => (
-                <span key={kw} className="text-xs font-semibold px-3 py-1 rounded-full border border-[#E8339E]/30 text-[#E8339E]" style={{ fontFamily: "Montserrat, sans-serif" }}>{kw}</span>
-              ))}
-            </div>
             <p className="text-sm text-gray-500 pt-2">
               Related reading:{" "}
               <a href="/blog" className="text-[#E8339E] hover:underline">Semaglutide vs. Tirzepatide for Women in Midlife</a>
@@ -304,9 +262,10 @@ export default function LocationArlington() {
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
+      <ComplianceDisclosures compounded />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
@@ -324,7 +283,6 @@ export default function LocationArlington() {
         </div>
       </div>
 
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── WHY ARLINGTON WOMEN CHOOSE US ── */}
       <section className="py-20 bg-[#F8F4F9]">

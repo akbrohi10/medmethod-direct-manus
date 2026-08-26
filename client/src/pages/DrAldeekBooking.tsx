@@ -129,7 +129,7 @@ export default function DrAldeekBooking() {
         {/* Footer note */}
         <p className="text-center text-xs text-gray-400 mt-6">
           MedMethod Direct &bull; Physician-led virtual care &bull; Licensed in
-          17 states
+          12 jurisdictions
         </p>
       </main>
     </div>

@@ -1,3 +1,4 @@
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 /* =============================================================================
    Miami, Florida Location Page — MedMethod Direct
    Primary keyword: menopause doctor Miami FL telehealth
@@ -16,9 +17,7 @@ import ConsultationModal from "@/components/ConsultationModal";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import MedicalTeam from "@/components/MedicalTeam";
-import PopularPrograms from "@/components/PopularPrograms";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import { Link } from "wouter";
 
@@ -35,7 +34,6 @@ const JSONLD_MEDICAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Miami, Florida",
-  "description": "Virtual hormone therapy, medical weight loss, and menopause clinic serving women in Miami, Florida. Physician-prescribed GLP-1 weight loss (semaglutide, tirzepatide), HRT, BHRT, testosterone therapy, perimenopause management, and longevity medicine — 100% virtual, licensed in Florida.",
   "url": "https://medmethoddirect.com/florida/miami",
   "telephone": "",
   "hasMap": "https://medmethoddirect.com/florida/miami",
@@ -47,8 +45,6 @@ const JSONLD_MEDICAL_BUSINESS = {
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
     { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": [
     { "@type": "City", "name": "Miami", "containedInPlace": { "@type": "State", "name": "Florida" } },
@@ -65,7 +61,7 @@ const JSONLD_MEDICAL_BUSINESS = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "10000", "bestRating": "5" },
 };
@@ -92,7 +88,7 @@ const JSONLD_FAQ = {
     {
       "@type": "Question",
       "name": "Why choose virtual care over a local OB/GYN in Miami?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Most local practices in Miami have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home or condo in Miami." },
+      "acceptedAnswer": { "@type": "Answer", "text": "Most local practices in Miami have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. You get more time, more attention, and deeper expertise — all from your home or condo in Miami." },
     },
   ],
 };
@@ -105,28 +101,14 @@ const localFaqs = [
   { q: "Can Miami patients get medications delivered to their home?", a: "Yes. Medication fulfillment depends on the prescription and dispensing pharmacy. If medication is clinically appropriate, Dr. Al-Deek will explain available shipping or local pharmacy options during your visit." },
   { q: "Can I get semaglutide or tirzepatide online in Miami?", a: "Yes. After reviewing your health history and clinical needs, Dr. Al-Deek can prescribe an appropriate medication when indicated. Medication selection, pharmacy fulfillment, and insurance considerations are discussed during your visit. If a compounded medication is considered, it is not FDA-approved, and FDA does not review compounded drugs for safety, effectiveness, or quality before marketing." },
   { q: "Do I need to come into an office for bloodwork in Miami?", a: "No office visits required. We order your labs to a LabCorp or Quest Diagnostics location near you in Miami or South Florida. You go in for a standard blood draw, and we review the results together on your next virtual visit." },
-  { q: "Why choose virtual care over a local OB/GYN in Miami?", a: "Most local practices in Miami have 3–6 week wait times for new patients, and appointments are often limited to 10–15 minutes. With MedMethod Direct, you can be seen within days, your appointments are 30–60 minutes, and you have a dedicated performance coach between visits. You get more time, more attention, and deeper expertise — all from your home or condo in Miami." },
   { q: "Do you accept insurance?", a: "We are a direct-care practice, which means we do not bill insurance. This allows us to spend more time with each patient, offer same-week availability, and provide care that isn't dictated by insurance coverage limits. Many patients use HSA or FSA funds for their program. We provide itemized receipts for potential out-of-network reimbursement." },
   { q: "How is MedMethod Direct different from other telehealth services like Hers or Winona?", a: "MedMethod Direct is a physician-led program, not a subscription service. Dr. Al-Deek personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. We also integrate weight loss, hormone therapy, and longevity care into a single comprehensive program — rather than treating each issue in isolation." },
-  { q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?", a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation." },
 ];
 
 const faqs = [...localFaqs, ...pricingFaqs,
   {
-    q: "What makes MedMethod Direct different from other telehealth services?",
-    a: "Most telehealth services ship you a box and disappear. MedMethod Direct provides a more responsible, doctor-led path \u2014 starting with comprehensive labs and a deep-dive diagnostic to build a fully customized plan. We meet with you virtually every two weeks to complete a weigh-in, closely track your progress, and provide personalized recommendations. You'll work with the same doctor and the same dedicated Performance Coach throughout your entire journey.",
-  },
-  {
     q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
     a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
-    q: "What does the process look like from start to finish?",
-    a: "It starts with a free virtual consultation with one of our board-certified physicians. Then we order comprehensive lab work at a local lab near you. Once we have your results, your doctor builds a fully customized treatment protocol, personalized nutrition program, and custom fitness plan. After that, we meet with you virtually every two weeks to track progress and adjust your plan. You'll always work with the same doctor and Performance Coach.",
-  },
-  {
-    q: "How is this different from just getting a prescription online?",
-    a: "We don't just prescribe and disappear. Our approach includes comprehensive diagnostics, a personalized multi-faceted plan (treatment + nutrition + fitness), bi-weekly check-ins with your doctor, ongoing monitoring and adjustments, and a dedicated Performance Coach who supports you every step of the way. We treat the whole person, not just a symptom.",
   },
   {
     q: "What kind of lab work do you order?",
@@ -314,9 +296,6 @@ export default function LocationMiami() {
               If you live in Miami and you've been searching for a <strong>menopause doctor near Miami, FL</strong> or a <strong>medical weight loss physician serving Miami</strong>, you've found the right place.
             </p>
             <p>
-              MedMethod Direct is now accepting patients throughout Miami and South Florida — from Brickell and Coral Gables to Miami Beach, Coconut Grove, and Fort Lauderdale. Our physician-led virtual clinic brings expert <strong>perimenopause and menopause management</strong>, <strong>hormone replacement therapy (HRT)</strong>, <strong>bioidentical hormone therapy</strong>, <strong>testosterone optimization for women</strong>, GLP-1 medications including <strong>compounded semaglutide and tirzepatide</strong>, insulin resistance, thyroid optimization, and longevity-focused care directly to you.
-            </p>
-            <p>
               Miami is one of the most health-conscious cities in the country — yet specialized menopause and hormone care remains surprisingly hard to access. Most practices are overbooked, rushed, and insurance-driven. MedMethod Direct is different: a direct-care model where Dr. Jumana Al-Deek, DO, personally reviews your case, orders and interprets your labs, and builds a protocol specific to you. Whether you're in a Brickell high-rise or a Coral Gables estate, your care comes to you.
             </p>
           </div>
@@ -348,7 +327,8 @@ export default function LocationMiami() {
       </section>
 
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
+      <ComplianceDisclosures testosteroneForWomen />
+
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
 
@@ -364,7 +344,6 @@ export default function LocationMiami() {
         </p>
       </div>
 
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 {/* WHY MIAMI WOMEN CHOOSE US */}
       <section className="py-20" style={{ background: "#f9f9fb" }}>
         <div className="max-w-[1100px] mx-auto px-4 lg:px-8">
@@ -379,7 +358,6 @@ export default function LocationMiami() {
               { icon: <Clock className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "No more 6-week waits", body: "Miami's top practices are booked out for months. We can see you this week — from your condo, your home, or anywhere in South Florida." },
               { icon: <Video className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "30–60 minute appointments", body: "Not a rushed 10-minute slot. Your physician has time to actually listen, review your labs, and build a protocol that fits your life." },
               { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Hormones + weight loss: treated together", body: "Most practices treat weight loss or hormones — never both. We combine GLP-1 therapy, BHRT, testosterone optimization, and metabolic medicine into one unified program." },
-              { icon: <CheckCircle className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Dedicated performance coach", body: "Between every physician visit, your personal performance coach is available to answer questions, adjust your plan, and keep you on track." },
               { icon: <MapPin className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Lab work near you in Miami", body: "We order your labs to a convenient LabCorp or Quest Diagnostics draw site near you in Miami or South Florida. Results reviewed within 48 hours." },
               { icon: <ArrowRight className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "GLP-1s + hormones delivered to your door", body: "Semaglutide, tirzepatide, BHRT, testosterone — shipped directly to your Miami address, discreetly and on schedule." },
             ].map((card) => (

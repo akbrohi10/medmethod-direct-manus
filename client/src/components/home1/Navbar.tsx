@@ -74,7 +74,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
           </span>
-          100% Virtual Care — See Your Doctor From Home, Anywhere in 17 States
+          100% Virtual Care — See Your Doctor From Home, Across 12 jurisdictions
         </p>
       </div>
 

@@ -33,10 +33,6 @@ const faqs = [
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement. We're happy to provide documentation to support that process.",
   },
   {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
-  },
-  {
     q: "What states do you serve?",
     a: "We are currently licensed in Virginia, Florida, Maryland, Washington DC, Colorado, Arizona, North Carolina, Pennsylvania, and Texas. All care is delivered virtually — no office visits required.",
   },
@@ -93,7 +89,7 @@ export default function StartWomen() {
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-px bg-[#E8339E]" />
               <span className="text-[#E8339E] text-xs font-bold tracking-[0.2em] uppercase">
-                Virtual Care · 9 States
+                Virtual Care · 12 jurisdictions
               </span>
             </div>
 

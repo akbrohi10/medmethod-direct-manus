@@ -9,10 +9,6 @@ export const pricingFaqs = [
     a: "Yes — all MedMethod Direct programs require a minimum 3-month commitment. This isn't fine print; it's clinical reality. Hormonal and metabolic change takes time, and a 3-month minimum ensures you give your body the window it needs to respond. Most patients who see real results stay well beyond their initial term — which is why our 6 and 12-month programs are by far our most popular.",
   },
   {
-    q: "Why are the 6 and 12-month programs the most popular?",
-    a: "Because accountability is the missing ingredient in most weight loss and hormone programs. Anyone can start — the patients who transform are the ones who stay consistent. Our 6 and 12-month programs provide the structured accountability that makes the difference: bi-weekly check-ins, ongoing physician oversight, and a dedicated Performance Coach who knows your history and holds you to your goals. Patients on longer programs lose more weight, feel better longer, and are far less likely to backslide. The 6-month program is our most popular because it hits the sweet spot — enough time for full hormonal recalibration and meaningful, lasting weight loss.",
-  },
-  {
     q: "Do I pay for the full program upfront or am I billed monthly?",
     a: "You have a choice. All programs can be billed monthly within your contract term — you pay each month as you go. If you choose to pay your full program cost upfront at enrollment, you unlock an additional discount on top of your commitment-length rate. Paying upfront is entirely optional, but patients who do it tend to be more committed to completing the program — and their results show it.",
   },

@@ -23,17 +23,14 @@ import Footer from "@/components/Footer";
 import ConsultationModal from "@/components/ConsultationModal";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import HowItWorks from "@/components/HowItWorks";
-import PopularPrograms from "@/components/PopularPrograms";
 import Services from "@/components/Services";
 import DiagnosticSetup from "@/components/DiagnosticSetup";
-import WhyChoose from "@/components/WhyChoose";
 
 // ─── JSON-LD Structured Data ──────────────────────────────────────────────────
 const JSONLD_STATE_PAGE = {
   "@context": "https://schema.org",
   "@type": ["MedicalBusiness", "LocalBusiness"],
   "name": "MedMethod Direct — Maryland",
-  "description": "Maryland's premier virtual hormone therapy, GLP-1 medical weight loss, and menopause clinic. Physician-prescribed semaglutide, tirzepatide, BHRT, HRT, and testosterone therapy — serving Bethesda, Chevy Chase, Potomac, Rockville, Silver Spring, Baltimore, Annapolis, and all of Maryland. 100% virtual, licensed in Maryland.",
   "url": "https://medmethoddirect.com/maryland",
   "priceRange": "$$",
   "medicalSpecialty": ["Obstetrics and Gynecology", "Endocrinology", "Internal Medicine"],
@@ -43,9 +40,6 @@ const JSONLD_STATE_PAGE = {
     { "@type": "MedicalTherapy", "name": "GLP-1 Weight Loss — Semaglutide & Tirzepatide" },
     { "@type": "MedicalTherapy", "name": "Menopause Management" },
     { "@type": "MedicalTherapy", "name": "Perimenopause Treatment" },
-    { "@type": "MedicalTherapy", "name": "Testosterone Therapy for Women" },
-    { "@type": "MedicalTherapy", "name": "Thyroid Optimization" },
-    { "@type": "MedicalTherapy", "name": "Longevity Medicine" },
   ],
   "areaServed": { "@type": "State", "name": "Maryland", "containedInPlace": { "@type": "Country", "name": "United States" } },
   "isAcceptingNewPatients": true,
@@ -55,7 +49,7 @@ const JSONLD_STATE_PAGE = {
     "@type": "Physician",
     "name": "Dr. Jumana Al-Deek",
     "honorificSuffix": "DO",
-    "medicalSpecialty": "Women's Health, Hormone Medicine, Longevity Medicine",
+    "medicalSpecialty": "Women's Health, Hormone Medicine",
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -90,7 +84,6 @@ const JSONLD_FAQ = {
       "name": "How does virtual hormone therapy work in Maryland?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "After your appointment, we order comprehensive hormone labs to a LabCorp or Quest Diagnostics near you in Maryland — Montgomery County has exceptional lab density with locations in Bethesda, Chevy Chase, Rockville, and Silver Spring. Dr. Al-Deek reviews your results and builds a personalized protocol including HRT, BHRT, testosterone therapy, or a combination. All follow-up visits are virtual, and prescriptions are sent to your pharmacy or shipped to your door.",
       },
     },
     {
@@ -114,7 +107,6 @@ const JSONLD_FAQ = {
       "name": "What does the $449 Clinical Diagnostic & Setup Fee include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
       },
     },
   ],
@@ -172,7 +164,6 @@ const neighborhoods = [
     href: "/maryland/silver-spring",
     tagline: "Gateway to the DC corridor",
     description: "High-density diverse professional community on the DC border. Growing demand for hormone and weight loss care with very little virtual competition serving this market.",
-    services: ["Menopause", "Weight Loss", "Testosterone"],
     badge: "Growing Market",
     badgeColor: "#7A1E7E",
   },
@@ -184,13 +175,11 @@ const comparisonRows = [
   { feature: "Appointment length", us: "30–60 minutes", them: "10–15 minutes" },
   { feature: "Hormones + weight loss integrated", us: "Yes — one program", them: "Separate referrals" },
   { feature: "GLP-1 prescriptions", us: "Semaglutide & tirzepatide", them: "Varies by provider" },
-  { feature: "BHRT & testosterone therapy", us: "Yes — lab-driven protocol", them: "Often not offered" },
   { feature: "Physician continuity", us: "Same physician every visit", them: "Rotating providers" },
   { feature: "Lab ordering", us: "LabCorp/Quest near you", them: "In-office only" },
   { feature: "Medication delivery", us: "Shipped to your door", them: "Pharmacy pickup" },
 ];
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────
 const faqs = [
@@ -214,22 +203,10 @@ const faqs = [
     q: "How is MedMethod Direct different from local practices near Bethesda or Rockville?",
     a: "Maryland women near NIH and Johns Hopkins know what specialist-level care looks like — and they know when they're not getting it. MedMethod Direct offers 30–60 minute appointments (vs. 10–15 minutes locally), same-week availability (vs. 4–8 weeks at most Montgomery County practices), and a virtual program that treats hormones and GLP-1 weight loss as a single clinical problem. No in-person competitor in Maryland offers this combination.",
   },
-  {
-    q: "Why do hormones affect GLP-1 weight loss results?",
-    a: "Declining estrogen during perimenopause and menopause drives insulin resistance — which directly blunts the effectiveness of GLP-1 medications like semaglutide and tirzepatide. Many women on GLP-1s plateau or see minimal results because their hormones are working against the medication. MedMethod Direct is one of the few programs that addresses both simultaneously, which is why our patients see results that other programs can't replicate.",
-  },
-  {
-    q: "What is the $449 Clinical Diagnostic & Setup Fee?",
-    a: "The $449 fee covers your comprehensive initial bloodwork (hormone panel, metabolic panel, thyroid), your first physician consultation with Dr. Al-Deek, a smart scale for tracking body composition, and access to a personalized fitness and nutrition app. This one-time fee is separate from your monthly program fee.",
-  },
   ...pricingFaqs,
   {
     q: "Does MedMethod Direct accept insurance in Maryland?",
     a: "MedMethod Direct is a cash-pay practice. We do not bill insurance directly. Maryland has a high rate of employer-sponsored insurance, and we understand this is a common question. Many patients use HSA or FSA funds, and we provide detailed receipts that can be submitted for potential out-of-network reimbursement.",
-  },
-  {
-    q: "Can you prescribe brand-name GLP-1 medications so I can use my insurance at the pharmacy?",
-    a: "When clinically appropriate, Dr. Al-Deek can send a prescription to a retail or mail-order pharmacy. Coverage and prior-authorization requirements vary by insurance plan. If prior authorization is required, our team can explain the available support and any applicable fee before proceeding; denied requests do not include an appeal. Medication and fulfillment options will be reviewed during your consultation.",
   },
 ];
 
@@ -260,11 +237,9 @@ export default function LocationMaryland() {
         <title>Virtual Hormone, Menopause & Weight Loss Doctor in Maryland | MedMethod Direct</title>
         <meta
           name="description"
-          content="Maryland's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone therapy — serving Bethesda, Chevy Chase, Potomac, Rockville, Silver Spring, Baltimore, Annapolis & all of Maryland. Same-week appointments. Dr. Jumana Al-Deek, DO."
         />
         <link rel="canonical" href="https://medmethoddirect.com/maryland" />
         <meta property="og:title" content="Virtual Hormone, Menopause & Weight Loss Doctor in Maryland | MedMethod Direct" />
-        <meta property="og:description" content="Maryland's premier virtual hormone therapy, GLP-1 medical weight loss & menopause clinic. Physician-prescribed semaglutide, BHRT & testosterone — serving all of Maryland." />
         <meta property="og:url" content="https://medmethoddirect.com/maryland" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -364,9 +339,6 @@ export default function LocationMaryland() {
                   {[
                     { icon: <Thermometer className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Perimenopause & Menopause", desc: "Hot flashes, night sweats, mood changes, brain fog — addressed at the hormonal root cause." },
                     { icon: <Star className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "GLP-1 Medical Weight Loss", desc: "Physician-led medication evaluation with individualized prescribing, monitoring, and pharmacy fulfillment." },
-                    { icon: <FlaskConical className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Bioidentical Hormone Therapy", desc: "BHRT and FDA-approved HRT — estradiol, progesterone, testosterone — based on comprehensive labs." },
-                    { icon: <Dumbbell className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Testosterone Therapy for Women", desc: "Low libido, fatigue, and muscle loss addressed with physician-supervised testosterone protocols." },
-                    { icon: <Microscope className="w-6 h-6" style={{ color: "#E8339E" }} />, title: "Thyroid & Metabolic Optimization", desc: "Thyroid function evaluated and optimized as part of every comprehensive hormone workup." },
                   ].map((item) => (
                     <div key={item.title} className="flex gap-3 items-start">
                       <span className="text-xl mt-0.5">{item.icon}</span>
@@ -443,7 +415,6 @@ export default function LocationMaryland() {
               "Licensed to see patients throughout all of Maryland",
               "Hormones + weight loss treated as one integrated program",
               "Physician-prescribed semaglutide & tirzepatide",
-              "BHRT, HRT & testosterone therapy for women",
               "Labs ordered to LabCorp or Quest near you",
               "Same-week availability — no 4–8 week wait",
               "One physician for your full 6 or 12-month program",
@@ -468,7 +439,6 @@ export default function LocationMaryland() {
               "Menopause Doctor Montgomery County",
               "Telehealth Women's Health Maryland",
               "Tirzepatide Maryland",
-              "Testosterone Therapy Women Maryland",
             ].map((kw) => (
               <span key={kw} className="text-xs font-semibold px-3 py-1 rounded-full border border-[#E8339E]/25 text-[#E8339E]">{kw}</span>
             ))}
@@ -521,7 +491,7 @@ export default function LocationMaryland() {
                 <p className="text-xs font-semibold mb-2" style={{ color: "#E8339E" }}>{n.tagline}</p>
                 <p className="text-xs text-gray-500 leading-relaxed mb-4">{n.description}</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {n.services.map((s) => (
+                  {n.services?.map((s) => (
                     <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{s}</span>
                   ))}
                 </div>
@@ -628,12 +598,10 @@ export default function LocationMaryland() {
 
       {/* ── DIAGNOSTIC SETUP + PROGRAMS ──────────────────────────────────────── */}
       <DiagnosticSetup onConsultClick={() => setConsultOpen(true)} />
-      <PopularPrograms onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── SERVICES ──────────────────────────────────────────────────────── */}
       <Services onConsultClick={() => setConsultOpen(true)} />
       <HowItWorks onConsultClick={() => setConsultOpen(true)} />
-      <WhyChoose onConsultClick={() => setConsultOpen(true)} />
 
       {/* ── FAQ ──────────────────────────────────────────────────────────────── */}
       <section className="py-20 px-6 bg-[#F9F9FB]" id="faq">

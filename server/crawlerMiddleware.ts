@@ -95,13 +95,6 @@ const ROUTE_META: Record<string, RouteMeta> = {
     image: HERO_IMAGE,
     url: `${BASE_URL}/dr-aldeek-booking`,
   },
-  "/lp/hrt": {
-    title: "Hormone Therapy & Weight Loss — 100% Virtual | MedMethod Direct",
-    description:
-      "Board-certified physician-led hormone therapy, menopause care, and GLP-1 weight loss — 100% virtual. Book your consultation with Dr. Al-Deek today.",
-    image: HERO_IMAGE,
-    url: `${BASE_URL}/lp/hrt`,
-  },
   "/lp/hrt2": {
     title: "Hormone Therapy & Weight Loss — 100% Virtual | MedMethod Direct",
     description:
@@ -204,7 +197,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
 const DEFAULT_META: RouteMeta = {
   title: "MedMethod Direct | Physician-Led Hormone & Metabolic Care",
   description:
-    "Physician-led virtual clinical care for hormone optimization, menopause management, metabolic health, and longevity medicine for women. 100% virtual, licensed in 17 states.",
+    "Physician-led virtual care for medical weight management, hormone therapy for women, nutrition and vitamin optimization, dermatology and skin, and hair restoration.",
   image: DEFAULT_OG_IMAGE,
   url: BASE_URL,
 };
