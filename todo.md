@@ -406,3 +406,10 @@
 - [x] Add automated compliance regression checks for every explicitly prohibited claim
 - [x] Validate affected routes, TypeScript, the complete test suite, and the production build
 - [x] Save a publishable compliance-remediation checkpoint
+
+## 2026-08-25 Compliance Instructions Gap Review
+
+- [x] Extract every requirement from `MMD_Website_Update_Instructions_2026-08-25.docx`
+- [x] Compare each requirement with the current website and completed LegitScript remediation
+- [x] Classify each item as complete, partial, missing, conflicting, or requiring clarification
+- [x] Prepare a no-change gap report for user approval before any implementation
