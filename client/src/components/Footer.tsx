@@ -106,7 +106,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "Menopause Management", href: "#services" },
                 { label: "Thyroid Optimization", href: "#services" },
                 { label: "Longevity Protocols", href: "#services" },
-                { label: "For Men", href: "/male" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a

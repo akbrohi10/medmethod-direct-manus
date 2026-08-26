@@ -381,3 +381,10 @@
 - [x] Clear the stale application database connection state without changing existing payment configuration data
 - [x] Run the full regression suite and verify PayPal public settings retrieval
 - [x] Verify the homepage and PayPal settings endpoint after the server repair
+
+## Remove Male Page
+
+- [x] Locate the `/male` route, page component, internal links, sitemap entries, and metadata references
+- [x] Remove the `/male` page and all project references without affecting other routes
+- [x] Verify `/male` returns the not-found page and run the full test/build checks
+- [x] Save a publishable checkpoint for removing `/male` from the live website

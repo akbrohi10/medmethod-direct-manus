@@ -15,7 +15,6 @@ const HomeHrt3 = lazy(() => import("./pages/HomeHrt3"));
 // Lazy load everything else
 const Home = lazy(() => import("./pages/Home"));
 const Home2 = lazy(() => import("./pages/Home2"));
-const MaleHome = lazy(() => import("./pages/MaleHome"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
@@ -194,7 +193,6 @@ function Router() {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path={"/"} component={HomeHrt3} />
-        <Route path={"/male"} component={MaleHome} />
         <Route path={"/blog"} component={BlogIndex} />
         <Route path={"/blog/:slug"} component={BlogPost} />
         <Route path={"/virginia"} component={LocationVirginia} />
@@ -314,7 +312,6 @@ function Router() {
         <Route path="/before-you-start-treatment" component={BeforeYouStartTreatment} />
         <Route path="/locations" component={Locations} />
         <Route path="/start/women" component={StartWomen} />
-        <Route path="/start/men">{() => { window.location.href = "/male"; return null; }}</Route>
         <Route path="/home-1" component={Home1} />
         <Route path="/home-v1" component={Home1} />
         <Route path="/home-2" component={Home2} />
