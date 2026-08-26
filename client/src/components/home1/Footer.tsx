@@ -167,6 +167,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "Privacy Policy", href: "/privacy-policy" },
                 { label: "Notice of Privacy Practices", href: "/hipaa-notice" },
                 { label: "Subscription and Refund Policy", href: "/subscription-policy" },
+                { label: "Shipping Policy", href: "/shipping-policy" },
                 { label: "Accessibility Statement", href: "/accessibility" },
               ].map(({ label, href }) => (
                 <li key={label}>
@@ -222,6 +223,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               { label: "Privacy", href: "/privacy-policy" },
               { label: "HIPAA Notice", href: "/hipaa-notice" },
               { label: "Subscription & Refunds", href: "/subscription-policy" },
+              { label: "Shipping", href: "/shipping-policy" },
               { label: "Accessibility", href: "/accessibility" },
             ].map(({ label, href }) => (
               <a

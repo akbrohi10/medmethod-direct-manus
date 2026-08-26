@@ -33,6 +33,7 @@ const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const HipaaNotice = lazy(() => import("@/pages/HipaaNotice"));
 const ConsentTelehealth = lazy(() => import("@/pages/ConsentTelehealth"));
 const SubscriptionPolicy = lazy(() => import("@/pages/SubscriptionPolicy"));
+const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 const TestPayment = lazy(() => import("@/pages/TestPayment"));
 const LpWL2 = lazy(() => import("@/pages/LpWL2"));
 const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
@@ -312,6 +313,7 @@ function Router() {
         <Route path="/hipaa-notice" component={HipaaNotice} />
         <Route path="/consent-to-telehealth" component={ConsentTelehealth} />
         <Route path="/subscription-policy" component={SubscriptionPolicy} />
+        <Route path="/shipping-policy" component={ShippingPolicy} />
         <Route path="/accessibility" component={Accessibility} />
         <Route path="/privacy">{() => { window.location.href = "/privacy-policy"; return null; }}</Route>
         <Route path="/admin/login" component={AdminLogin} />

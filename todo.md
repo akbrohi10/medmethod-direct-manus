@@ -485,3 +485,12 @@
 - [x] Confirm no state-page, layout, pricing, payment, booking, tracking, or integration changes are introduced
 - [x] Run focused compliance checks, TypeScript, tests, production build, and homepage visual verification
 - [x] Save and deliver the minimal homepage copy-only checkpoint
+
+## Shipping Policy Page and Footer Link
+
+- [x] Create a dedicated Shipping Policy page using the exact substantive content supplied in `Med_Method_Direct_Shipping_Policy1.pdf`
+- [x] Register the public Shipping Policy route with appropriate page metadata and existing legal-page styling
+- [x] Add a Shipping Policy link to the footer Legal & Compliance section without changing the footer design
+- [x] Add regression coverage for the route, policy content, and footer link
+- [x] Validate TypeScript, tests, production build, route response, footer navigation, and desktop/mobile rendering
+- [x] Save and deliver the Shipping Policy update checkpoint

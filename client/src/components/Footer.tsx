@@ -160,6 +160,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "Privacy Policy", href: "/privacy-policy", action: null },
                 { label: "HIPAA Notice", href: "/hipaa-notice", action: null },
                 { label: "Subscription & Refund Policy", href: "/subscription-policy", action: null },
+                { label: "Shipping Policy", href: "/shipping-policy", action: null },
                 { label: "Consent to Telehealth", href: "/consent-to-telehealth", action: null },
                 { label: "Accessibility", href: "/accessibility", action: null },
               ].map(({ label, href, action }) => (
@@ -210,6 +211,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
               { label: "Privacy Policy", href: "/privacy-policy" },
               { label: "HIPAA Notice", href: "/hipaa-notice" },
               { label: "Subscription Policy", href: "/subscription-policy" },
+              { label: "Shipping Policy", href: "/shipping-policy" },
               { label: "Telehealth Consent", href: "/consent-to-telehealth" },
               { label: "Accessibility", href: "/accessibility" },
             ].map(({ label, href }) => (
