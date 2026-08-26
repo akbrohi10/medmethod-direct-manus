@@ -433,3 +433,10 @@
 - [x] Write a concise shareable summary of removed content, rewritten sections, redirects, licensing corrections, disclosures, and preserved functionality
 - [x] Add labeled before-and-after visuals and validation evidence to the report
 - [x] Quality-check the report against checkpoint `bb04542e` and deliver the report with supporting images
+
+## Florida Women’s Testosterone Disclosure Placement
+
+- [x] Inventory every page using the Florida women’s testosterone disclosure and identify clipped or misplaced instances
+- [x] Move each disclosure beside relevant treatment content without changing the mandated wording
+- [x] Verify desktop and mobile spacing, readability, exact wording, tests, and production build
+- [x] Save and deliver the corrected disclosure-placement checkpoint

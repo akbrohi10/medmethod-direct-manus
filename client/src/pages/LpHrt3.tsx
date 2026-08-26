@@ -254,8 +254,6 @@ export default function LpHrt3() {
             we override here since we have a fixed 64px nav instead of
             the home-1 sticky nav + banner combo. */}
         <div className="[&_section]:!pt-8 [&_section]:md:!pt-12 [&_section]:lg:!pt-16">
-        <ComplianceDisclosures testosteroneForWomen />
-
           <MedicalTeam
             onConsultClick={openConsult}
             hideBullets
@@ -591,6 +589,8 @@ export default function LpHrt3() {
             </p>
           </div>
         </section>
+
+        <ComplianceDisclosures testosteroneForWomen />
 
         {/* ═══════════════ HOW IT WORKS ═══════════════ */}
         <section className="bg-[#FDF8F3] py-12 md:py-20">

@@ -389,8 +389,6 @@ export default function LpHrt() {
           </div>
         </section>
 
-        <ComplianceDisclosures testosteroneForWomen />
-
         {/* ═══════════════ PERSONALIZED TREATMENT ═══════════════ */}
         <section className="bg-white py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -423,6 +421,8 @@ export default function LpHrt() {
             </Accordion>
           </div>
         </section>
+
+        <ComplianceDisclosures testosteroneForWomen />
 
         {/* ═══════════════ PRICING ═══════════════ */}
         <section className="bg-[#FDF8F3] py-12 md:py-20">

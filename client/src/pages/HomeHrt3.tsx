@@ -259,8 +259,6 @@ export default function HomeHrt3() {
         {/* ═══════════════ HERO — Dr. Al-Deek Profile ═══════════════ */}
         {/* Override MedicalTeam's large pt (designed for old 110px navbar) to match new 64px header */}
         <div style={{ marginTop: "-3rem" }}>
-        <ComplianceDisclosures testosteroneForWomen />
-
         <MedicalTeam
           onConsultClick={openConsult}
           hideBullets
@@ -594,6 +592,8 @@ export default function HomeHrt3() {
             </p>
           </div>
         </section>
+
+        <ComplianceDisclosures testosteroneForWomen />
 
         {/* ═══════════════ HOW IT WORKS ═══════════════ */}
         <section id="how-it-works" className="bg-[#FDF8F3] py-12 md:py-20">
