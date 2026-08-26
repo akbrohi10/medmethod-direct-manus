@@ -426,3 +426,10 @@
 - [x] Add automated compliance and redirect regression coverage
 - [x] Validate all affected routes, footer links, TypeScript, full tests, production build, and representative page rendering
 - [x] Produce the required five-section deletion report and save a publishable checkpoint
+
+## Colleague-Facing Compliance Change Report
+
+- [x] Collect reliable pre-update and post-update screenshots for representative website pages
+- [x] Write a concise shareable summary of removed content, rewritten sections, redirects, licensing corrections, disclosures, and preserved functionality
+- [x] Add labeled before-and-after visuals and validation evidence to the report
+- [x] Quality-check the report against checkpoint `bb04542e` and deliver the report with supporting images
