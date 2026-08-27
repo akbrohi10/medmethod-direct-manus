@@ -567,3 +567,14 @@
 - [x] Confirm the applied desktop checkout has no horizontal overflow and that browser-only interception prevented live PayPal and referral API writes during visual inspection
 - [x] Verify the applied LECTURE50 checkout remains readable and unclipped at a simulated 375-pixel mobile width
 - [x] Restore the browser’s original fetch behavior and remove all temporary validation-only styling after checkout inspection
+
+## Retired Menopause Book Page Discovery Cleanup
+
+- [x] Remove `/the-menopause-weight-loss-trap` from the active sitemap so search engines are no longer told it is an indexable page
+- [x] Remove the obsolete `/book` client shortcut that points to the retired internal URL
+- [x] Replace the remaining internal BookTeaser link with the existing external Barnes & Noble destination
+- [x] Preserve the server-side HTTP 301 redirect from `/the-menopause-weight-loss-trap` to `/`
+- [x] Add regression coverage for sitemap exclusion, route removal, external book linking, and redirect preservation
+- [x] Validate TypeScript, all tests, production build, sitemap XML, live-style HTTP behavior, and absence of active internal discovery references
+- [x] Save and deliver the retired-page discovery cleanup checkpoint
+- [ ] Resubmit the updated sitemap in Google Search Console after the new checkpoint is published

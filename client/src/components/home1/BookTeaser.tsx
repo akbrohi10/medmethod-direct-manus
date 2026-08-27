@@ -150,9 +150,11 @@ export default function BookTeaser({ onConsultClick }: { onConsultClick: () => v
               <span className="text-sm sm:text-base lg:text-lg">→</span>
             </a>
 
-            {/* Internal link to book page for SEO */}
+            {/* Secondary external book link */}
             <a
-              href="/the-menopause-weight-loss-trap"
+              href="https://www.barnesandnoble.com/w/the-menopause-weight-loss-trap-jumana-al-deek/1150481457?ean=9798996539000"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 mt-6 group transition-all hover:gap-3 justify-center lg:justify-start"
               style={{
                 fontSize: 14,

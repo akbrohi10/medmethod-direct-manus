@@ -304,7 +304,6 @@ function Router() {
         <Route path="/brand-ambassador" component={BrandAmbassador} />
         <Route path="/dr-aldeek-booking" component={DrAldeekBooking} />
         <Route path="/discovery-call" component={DiscoveryCall} />
-        <Route path="/book">{() => { window.location.replace("/the-menopause-weight-loss-trap"); return null; }}</Route>
         <Route path="/thank-you" component={ThankYou} />
         <Route path="/locations" component={Locations} />
         <Route path="/start/women" component={StartWomen} />
