@@ -530,3 +530,12 @@
 - [x] Confirm no other modal step, question, payment, booking, or external integration changes
 - [x] Add focused regression coverage and validate TypeScript, tests, production build, and desktop/mobile modal rendering
 - [x] Save and deliver the homepage intake update
+
+## Homepage Intake Live-Event Attribution Option
+
+- [x] Add “Live event or webinar” between “Dr. Al-Deek’s book” and “Podcast” in the homepage intake attribution list
+- [x] Preserve the existing optional attribution step, Skip action, Other behavior, and GHL payload mapping
+- [x] Confirm no service-choice, question, payment, booking, or webhook endpoint changes
+- [x] Interactively confirm the unchanged intake sequence advances normally without any new required field
+- [x] Add focused regression coverage and validate TypeScript, tests, production build, and responsive rendering
+- [x] Save and deliver the homepage attribution update

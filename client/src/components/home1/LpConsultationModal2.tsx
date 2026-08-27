@@ -92,6 +92,7 @@ const ATTRIBUTION_OPTIONS = [
   "Google search",
   "Friend or family referral",
   "Dr. Al-Deek's book",
+  "Live event or webinar",
   "Podcast",
   "Other",
 ];
