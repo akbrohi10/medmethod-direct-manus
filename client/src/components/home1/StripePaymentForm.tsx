@@ -31,11 +31,17 @@ const BRAND_DISABLED = "#f0abcf";
 
 function CheckoutForm({
   paymentId,
+  consultationTotalAmountCents,
+  remainingAmountCents,
+  referralCreditAmountCents,
   onComplete,
   onError,
   onPaymentIntentId,
 }: {
   paymentId: number;
+  consultationTotalAmountCents: number;
+  remainingAmountCents: number;
+  referralCreditAmountCents: number;
   onComplete: () => void;
   onError: (msg: string) => void;
   onPaymentIntentId?: (piId: string) => void;
@@ -115,6 +121,8 @@ function CheckoutForm({
   };
 
   const isLoading = submitting || confirmDeposit.isPending;
+  const totalLabel = `$${consultationTotalAmountCents / 100}`;
+  const remainingLabel = `$${remainingAmountCents / 100}`;
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -122,7 +130,7 @@ function CheckoutForm({
       <div className="rounded-xl border border-gray-200 overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <span className="text-sm text-gray-700">1st Visit — Video consultation + protocol</span>
-          <span className="text-sm font-semibold text-gray-900">$199</span>
+          <span className="text-sm font-semibold text-gray-900">{totalLabel}</span>
         </div>
         <div className="px-4 py-3 bg-green-50">
           <div className="flex items-center justify-between">
@@ -130,9 +138,15 @@ function CheckoutForm({
             <span className="text-lg font-bold text-green-800">$50</span>
           </div>
           <p className="text-xs text-green-700 mt-1">
-            Remaining $149 due the day of your appointment
+            Remaining {remainingLabel} due the day of your appointment
           </p>
         </div>
+        {referralCreditAmountCents > 0 && (
+          <div className="flex items-center justify-between border-t border-green-100 bg-white px-4 py-2.5 text-xs font-semibold text-green-700">
+            <span>Referral credit applied</span>
+            <span>−${referralCreditAmountCents / 100}</span>
+          </div>
+        )}
       </div>
 
       {/* Stripe Elements */}
@@ -181,7 +195,7 @@ function CheckoutForm({
 
       {/* Consent text */}
       <p className="text-xs text-gray-500 leading-relaxed">
-        By providing your card information, you authorize <strong className="font-semibold text-gray-600">MedMethod Direct</strong> to charge a $50 deposit today. The remaining $149 will be charged the day of your appointment. You may cancel or reschedule with at least 24 hours&apos; notice for a full refund of the deposit.
+        By providing your card information, you authorize <strong className="font-semibold text-gray-600">MedMethod Direct</strong> to charge a $50 deposit today. The remaining {remainingLabel} will be charged the day of your appointment. You may cancel or reschedule with at least 24 hours&apos; notice for a full refund of the deposit.
       </p>
 
       {/* Submit button */}
@@ -242,6 +256,9 @@ interface StripePaymentFormProps {
   patientPhone?: string;
   /** e.g. "/lp/WL" or "/lp/hrt3" — stored in Stripe metadata for webhook routing */
   landingPage?: string;
+  consultationTotalAmountCents: number;
+  remainingAmountCents: number;
+  referralCreditAmountCents: number;
   onComplete: () => void;
   onPaymentId: (id: number) => void;
   /** Called with the Stripe PaymentIntent ID once payment succeeds */
@@ -253,6 +270,9 @@ export default function StripePaymentForm({
   patientEmail,
   patientPhone,
   landingPage,
+  consultationTotalAmountCents,
+  remainingAmountCents,
+  referralCreditAmountCents,
   onComplete,
   onPaymentId,
   onPaymentIntentId,
@@ -366,6 +386,9 @@ export default function StripePaymentForm({
       >
         <CheckoutForm
           paymentId={paymentId!}
+          consultationTotalAmountCents={consultationTotalAmountCents}
+          remainingAmountCents={remainingAmountCents}
+          referralCreditAmountCents={referralCreditAmountCents}
           onComplete={onComplete}
           onError={(msg) => setErrorMsg(msg)}
           onPaymentIntentId={onPaymentIntentId}

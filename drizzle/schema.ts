@@ -52,12 +52,18 @@ export const payments = mysqlTable("payments", {
   patientName: varchar("patientName", { length: 255 }),
   patientEmail: varchar("patientEmail", { length: 320 }),
   patientPhone: varchar("patientPhone", { length: 32 }),
-  /** UTC timestamp (ms) of the appointment date — $149 is charged on this date */
+  /** UTC timestamp (ms) of the appointment date — the persisted remaining balance is charged on this date */
   appointmentDate: bigint("appointmentDate", { mode: "number" }),
+  /** Total consultation price in cents after any referral credit (default 19900 = $199) */
+  consultationTotalAmount: int("consultationTotalAmount").default(19900).notNull(),
   /** Deposit amount in cents (default 5000 = $50) */
   depositAmount: int("depositAmount").default(5000).notNull(),
   /** Remaining amount in cents (default 14900 = $149) */
   remainingAmount: int("remainingAmount").default(14900).notNull(),
+  /** Normalized referral code applied to this payment, if any */
+  referralCode: varchar("referralCode", { length: 64 }),
+  /** Referral credit applied to the consultation total in cents */
+  referralCreditAmount: int("referralCreditAmount").default(0).notNull(),
   stripeCustomerId: varchar("stripeCustomerId", { length: 64 }),
   stripePaymentMethodId: varchar("stripePaymentMethodId", { length: 64 }),
   depositPaymentIntentId: varchar("depositPaymentIntentId", { length: 64 }),

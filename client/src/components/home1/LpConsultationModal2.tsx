@@ -86,6 +86,27 @@ const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
 const ITEM_H = 44;
+const STANDARD_CONSULTATION_PRICING = {
+  consultationTotalAmount: 19_900,
+  depositAmount: 5_000,
+  remainingAmount: 14_900,
+  referralCreditAmount: 0,
+  referralCode: null as string | null,
+};
+
+type ReferralPricing = typeof STANDARD_CONSULTATION_PRICING;
+
+const LECTURE50_PRICING: ReferralPricing = {
+  consultationTotalAmount: 14_900,
+  depositAmount: 5_000,
+  remainingAmount: 9_900,
+  referralCreditAmount: 5_000,
+  referralCode: "LECTURE50",
+};
+
+function dollarsFromCents(amount: number): string {
+  return `$${(amount / 100).toFixed(amount % 100 === 0 ? 0 : 2)}`;
+}
 
 const ATTRIBUTION_OPTIONS = [
   "Social media",
@@ -311,6 +332,120 @@ function LeadCaptureForm({ data, onChange, showConsentError }: { data: LeadData;
 
 // PaymentForm is now handled by StripePaymentForm component
 
+function ReferralCodeControl({
+  paymentId,
+  onApplied,
+}: {
+  paymentId: number | null;
+  onApplied: (pricing: ReferralPricing) => void;
+}) {
+  const [code, setCode] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
+  const [applied, setApplied] = useState(false);
+  const persistedPaymentIdRef = useRef<number | null>(null);
+  const redeemReferralCredit = trpc.referralCredits.redeem.useMutation({
+    onSuccess: (result) => {
+      setMessage(result.message);
+      if (!result.applied) {
+        setApplied(false);
+        onApplied(STANDARD_CONSULTATION_PRICING);
+        return;
+      }
+      setApplied(true);
+      onApplied({
+        consultationTotalAmount: result.consultationTotalAmount,
+        depositAmount: result.depositAmount,
+        remainingAmount: result.remainingAmount,
+        referralCreditAmount: result.referralCreditAmount,
+        referralCode: result.referralCode,
+      });
+    },
+    onError: (error) => {
+      persistedPaymentIdRef.current = null;
+      setApplied(false);
+      onApplied(STANDARD_CONSULTATION_PRICING);
+      setMessage(error.message || "Unable to apply referral code");
+    },
+  });
+
+  const handleApply = () => {
+    const normalizedCode = code.trim().toUpperCase();
+    setCode(normalizedCode);
+    setMessage(null);
+    if (!normalizedCode) return;
+    if (normalizedCode !== "LECTURE50") {
+      setApplied(false);
+      onApplied(STANDARD_CONSULTATION_PRICING);
+      setMessage("Referral code not recognized");
+      return;
+    }
+
+    setApplied(true);
+    onApplied(LECTURE50_PRICING);
+    setMessage("LECTURE50 applied — $50 consultation credit");
+
+    if (paymentId) {
+      persistedPaymentIdRef.current = paymentId;
+      redeemReferralCredit.mutate({ paymentId, code: normalizedCode });
+    }
+  };
+
+  useEffect(() => {
+    const normalizedCode = code.trim().toUpperCase();
+    if (!paymentId || !applied || normalizedCode !== "LECTURE50") return;
+    if (persistedPaymentIdRef.current === paymentId || redeemReferralCredit.isPending) return;
+
+    persistedPaymentIdRef.current = paymentId;
+    redeemReferralCredit.mutate({ paymentId, code: normalizedCode });
+  }, [paymentId, applied, code, redeemReferralCredit]);
+
+  return (
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 mb-5">
+      <label htmlFor="homepage-referral-code" className="block text-sm font-semibold text-gray-800 mb-2">
+        Have a referral code?
+      </label>
+      <div className="flex gap-2">
+        <input
+          id="homepage-referral-code"
+          value={code}
+          onChange={(event) => {
+            setCode(event.target.value.toUpperCase());
+            setMessage(null);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              handleApply();
+            }
+          }}
+          placeholder="Enter referral code"
+          autoCapitalize="characters"
+          autoComplete="off"
+          disabled={applied}
+          className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium uppercase tracking-wide text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100 disabled:bg-gray-100"
+        />
+        <button
+          type="button"
+          onClick={handleApply}
+          disabled={!code.trim() || redeemReferralCredit.isPending || applied}
+          className="rounded-lg px-4 py-2.5 text-sm font-semibold text-white transition active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+          style={{ background: BRAND_GRADIENT }}
+        >
+          {redeemReferralCredit.isPending ? "Applying..." : applied ? "Applied" : "Apply Code"}
+        </button>
+      </div>
+      {message && (
+        <p className={`mt-2 text-xs font-semibold ${applied ? "text-green-700" : "text-red-600"}`} role="status">
+          {message}
+        </p>
+      )}
+      {applied && !paymentId && (
+        <p className="mt-2 text-xs text-gray-500">Your credit will be secured with the checkout record automatically.</p>
+      )}
+    </div>
+  );
+}
+
 // ── Main modal ───────────────────────────────────────────────────────────────
 export default function LpConsultationModal2({ open, onClose, landingPage = "/lp/hrt2" }: Props) {
   const [, navigate] = useLocation();
@@ -330,12 +465,17 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const [stripePaymentId, setStripePaymentId] = useState<number | null>(null);
   const [stripePaymentIntentId, setStripePaymentIntentId] = useState<string | null>(null);
   const [paypalPaymentId, setPaypalPaymentId] = useState<number | null>(null);
+  const [referralPricing, setReferralPricing] = useState<ReferralPricing>(STANDARD_CONSULTATION_PRICING);
   const [chargeScheduled, setChargeScheduled] = useState(false);
   // Fetch the active payment provider (stripe | paypal) — public endpoint, no auth needed
   const activeProviderQuery = trpc.paypal.getPublicClientId.useQuery(undefined, {
     enabled: open,
   });
   const activeProvider = activeProviderQuery.data?.activeProvider ?? "stripe";
+  const currentPaymentId = activeProvider === "paypal" ? paypalPaymentId : stripePaymentId;
+  const referralCodeEnabled = landingPage === "/";
+  const remainingBalanceLabel = dollarsFromCents(referralPricing.remainingAmount);
+  const consultationTotalLabel = dollarsFromCents(referralPricing.consultationTotalAmount);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
 
   // ── Option B: postMessage listener for GHL calendar iframe ──────────────────
@@ -345,7 +485,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     onSuccess: () => {
       setChargeScheduled(true);
       toast.success(
-        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        `Appointment booked! Your remaining ${remainingBalanceLabel} balance will be charged on your appointment date.`,
         { duration: 6000 }
       );
     },
@@ -357,7 +497,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     onSuccess: () => {
       setChargeScheduled(true);
       toast.success(
-        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        `Appointment booked! Your remaining ${remainingBalanceLabel} balance will be charged on your appointment date.`,
         { duration: 6000 }
       );
     },
@@ -372,7 +512,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     onSuccess: () => {
       setChargeScheduled(true);
       toast.success(
-        "Appointment booked! Your remaining $149 balance will be charged on your appointment date.",
+        `Appointment booked! Your remaining ${remainingBalanceLabel} balance will be charged on your appointment date.`,
         { duration: 6000 }
       );
     },
@@ -453,7 +593,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
         const effectivePaymentId = stripePaymentId ?? paypalPaymentId;
         if (effectivePaymentId && !chargeScheduled) {
           console.log(
-            `[GHL postMessage] Scheduling $149 charge for payment #${effectivePaymentId} on ${appointmentDate.toISOString()}`
+            `[GHL postMessage] Scheduling ${remainingBalanceLabel} charge for payment #${effectivePaymentId} on ${appointmentDate.toISOString()}`
           );
           scheduleRemainingCharge.mutate({
             paymentId: effectivePaymentId,
@@ -686,6 +826,11 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
       transaction_id: paymentIntentId || stripePaymentIntentId || "",
       payment_processor: activeProvider,
       product_name: `MedMethod Direct \u2014 $50 deposit (${landingPage.includes("glp") ? "GLP-1" : "HRT"} consultation)`,
+      referral_code: referralPricing.referralCode ?? "",
+      referral_credit_amount: (referralPricing.referralCreditAmount / 100).toFixed(2),
+      consultation_total_amount: (referralPricing.consultationTotalAmount / 100).toFixed(2),
+      deposit_amount: (referralPricing.depositAmount / 100).toFixed(2),
+      remaining_balance: (referralPricing.remainingAmount / 100).toFixed(2),
       paid_at: new Date().toISOString(),
     };
 
@@ -735,6 +880,10 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     setWebhookSubmitted(false);
     setConsentAttempted(false);
     setPaymentSubmitting(false);
+    setStripePaymentId(null);
+    setStripePaymentIntentId(null);
+    setPaypalPaymentId(null);
+    setReferralPricing(STANDARD_CONSULTATION_PRICING);
     onClose();
   };
 
@@ -1051,14 +1200,20 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
                 Secure your appointment with a small deposit
               </h2>
               <p className="text-sm text-gray-500 mb-6">
-                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining $149 is due the day of your appointment — <strong>$199 total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
+                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining {remainingBalanceLabel} is due the day of your appointment — <strong>{consultationTotalLabel} total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
+              {referralCodeEnabled && (
+                <ReferralCodeControl paymentId={currentPaymentId} onApplied={setReferralPricing} />
+              )}
               {activeProvider === "paypal" ? (
                 <PayPalPaymentForm
                   patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
                   patientEmail={leadData.email.trim() || answers.email || ""}
                   patientPhone={leadData.phone || answers.phone}
                   landingPage={landingPage}
+                  consultationTotalAmountCents={referralPricing.consultationTotalAmount}
+                  remainingAmountCents={referralPricing.remainingAmount}
+                  referralCreditAmountCents={referralPricing.referralCreditAmount}
                   onComplete={() => handlePaymentComplete(undefined)}
                   onPaymentId={(id) => setPaypalPaymentId(id)}
                   onError={(msg) => toast.error(msg)}
@@ -1069,6 +1224,9 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
                   patientEmail={leadData.email.trim() || answers.email || ""}
                   patientPhone={leadData.phone || answers.phone}
                   landingPage={landingPage}
+                  consultationTotalAmountCents={referralPricing.consultationTotalAmount}
+                  remainingAmountCents={referralPricing.remainingAmount}
+                  referralCreditAmountCents={referralPricing.referralCreditAmount}
                   onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
                   onPaymentId={(id) => setStripePaymentId(id)}
                   onPaymentIntentId={(piId) => {
@@ -1099,7 +1257,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
               </p>
               <p className="text-xs text-gray-500 mb-4 flex items-center gap-1.5">
                 <Check size={14} className="text-green-600" />
-                Remaining $149 will be charged the day of your appointment
+                Remaining {remainingBalanceLabel} will be charged the day of your appointment
               </p>
 
               <div className="rounded-xl overflow-hidden border border-gray-100">

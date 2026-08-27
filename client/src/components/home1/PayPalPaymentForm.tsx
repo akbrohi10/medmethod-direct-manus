@@ -33,6 +33,9 @@ interface PayPalPaymentFormProps {
   patientEmail: string;
   patientPhone: string;
   landingPage?: string;
+  consultationTotalAmountCents: number;
+  remainingAmountCents: number;
+  referralCreditAmountCents: number;
   onComplete: () => void;
   onError: (msg: string) => void;
   onPaymentId?: (id: number) => void;
@@ -122,12 +125,20 @@ function SubmitButton({
 
 function CardFormInner({
   submitting,
+  consultationTotalAmountCents,
+  remainingAmountCents,
+  referralCreditAmountCents,
   onSubmit,
 }: {
   submitting: boolean;
+  consultationTotalAmountCents: number;
+  remainingAmountCents: number;
+  referralCreditAmountCents: number;
   onSubmit: () => void;
 }) {
   const { cardFieldsForm } = usePayPalCardFields();
+  const totalLabel = `$${consultationTotalAmountCents / 100}`;
+  const remainingLabel = `$${remainingAmountCents / 100}`;
 
   const handleSubmit = async () => {
     if (!cardFieldsForm || submitting) return;
@@ -148,7 +159,7 @@ function CardFormInner({
       <div className="rounded-xl border border-gray-200 overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <span className="text-sm text-gray-700">1st Visit — Video consultation + protocol</span>
-          <span className="text-sm font-semibold text-gray-900">$199</span>
+          <span className="text-sm font-semibold text-gray-900">{totalLabel}</span>
         </div>
         <div className="px-4 py-3 bg-green-50">
           <div className="flex items-center justify-between">
@@ -156,9 +167,15 @@ function CardFormInner({
             <span className="text-lg font-bold text-green-800">$50</span>
           </div>
           <p className="text-xs text-green-700 mt-1">
-            Remaining $149 due the day of your appointment
+            Remaining {remainingLabel} due the day of your appointment
           </p>
         </div>
+        {referralCreditAmountCents > 0 && (
+          <div className="flex items-center justify-between border-t border-green-100 bg-white px-4 py-2.5 text-xs font-semibold text-green-700">
+            <span>Referral credit applied</span>
+            <span>−${referralCreditAmountCents / 100}</span>
+          </div>
+        )}
       </div>
 
       {/* Security badge */}
@@ -190,7 +207,7 @@ function CardFormInner({
       <p className="text-xs text-gray-500 leading-relaxed">
         By providing your card information, you authorize{" "}
         <strong className="font-semibold text-gray-600">MedMethod Direct</strong> to charge a $50
-        deposit today. The remaining $149 will be charged the day of your appointment. You may
+        deposit today. The remaining {remainingLabel} will be charged the day of your appointment. You may
         cancel or reschedule with at least 24 hours&apos; notice for a full refund of the deposit.
       </p>
 
@@ -226,11 +243,17 @@ function CardFormInner({
 function PayPalCardFormWithProvider({
   orderId,
   paymentId,
+  consultationTotalAmountCents,
+  remainingAmountCents,
+  referralCreditAmountCents,
   onComplete,
   onError,
 }: {
   orderId: string;
   paymentId: number;
+  consultationTotalAmountCents: number;
+  remainingAmountCents: number;
+  referralCreditAmountCents: number;
   onComplete: () => void;
   onError: (msg: string) => void;
 }) {
@@ -260,6 +283,9 @@ function PayPalCardFormWithProvider({
     >
       <CardFormInner
         submitting={submitting || captureOrder.isPending}
+        consultationTotalAmountCents={consultationTotalAmountCents}
+        remainingAmountCents={remainingAmountCents}
+        referralCreditAmountCents={referralCreditAmountCents}
         onSubmit={() => setSubmitting(true)}
       />
     </PayPalCardFieldsProvider>
@@ -273,6 +299,9 @@ export default function PayPalPaymentForm({
   patientEmail,
   patientPhone,
   landingPage,
+  consultationTotalAmountCents,
+  remainingAmountCents,
+  referralCreditAmountCents,
   onComplete,
   onError,
   onPaymentId,
@@ -371,6 +400,9 @@ export default function PayPalPaymentForm({
       <PayPalCardFormWithProvider
         orderId={orderId}
         paymentId={paymentId}
+        consultationTotalAmountCents={consultationTotalAmountCents}
+        remainingAmountCents={remainingAmountCents}
+        referralCreditAmountCents={referralCreditAmountCents}
         onComplete={onComplete}
         onError={onError}
       />

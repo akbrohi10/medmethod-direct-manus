@@ -24,6 +24,7 @@ import {
   upsertPaypalSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { formatUsdFromCents, STANDARD_CONSULTATION_PRICING } from "../referralCredits";
 import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
 // ─── PayPal REST API helpers ──────────────────────────────────────────────────
@@ -94,6 +95,10 @@ export async function chargePayPalVault(
   const client = await getPayPalClient(mode);
   if (!client) return { success: false, error: `PayPal ${mode} credentials not configured` };
 
+  const payment = await getPaymentById(paymentId);
+  if (!payment) return { success: false, error: "Payment record not found" };
+  const remainingAmountUsd = formatUsdFromCents(payment.remainingAmount);
+
   // Create order using saved payment method (vault token)
   const createRes = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
     method: "POST",
@@ -106,8 +111,8 @@ export async function chargePayPalVault(
       intent: "CAPTURE",
       purchase_units: [
         {
-          amount: { currency_code: "USD", value: "149.00" },
-          description: "MedMethod Direct — $149 remaining balance",
+          amount: { currency_code: "USD", value: remainingAmountUsd },
+          description: `MedMethod Direct — $${remainingAmountUsd} remaining balance${payment.referralCode ? ` (${payment.referralCode})` : ""}`,
           custom_id: String(paymentId),
         },
       ],
@@ -264,8 +269,10 @@ export const paypalRouter = router({
         patientPhone: input.patientPhone,
         landingPage: input.landingPage ?? "",
         status: "pending",
-        depositAmount: 5000,
-        remainingAmount: 14900,
+        consultationTotalAmount: STANDARD_CONSULTATION_PRICING.consultationTotalAmount,
+        depositAmount: STANDARD_CONSULTATION_PRICING.depositAmount,
+        remainingAmount: STANDARD_CONSULTATION_PRICING.remainingAmount,
+        referralCreditAmount: STANDARD_CONSULTATION_PRICING.referralCreditAmount,
         paymentProvider: "paypal",
         paypalMode: mode,
         stripeMode: "test", // not used for PayPal, but column is NOT NULL
@@ -285,7 +292,7 @@ export const paypalRouter = router({
           intent: "CAPTURE",
           purchase_units: [
             {
-              amount: { currency_code: "USD", value: "50.00" },
+              amount: { currency_code: "USD", value: formatUsdFromCents(STANDARD_CONSULTATION_PRICING.depositAmount) },
               description: "MedMethod Direct — $50 consultation deposit",
               custom_id: String(paymentId),
             },
@@ -547,9 +554,7 @@ export const paypalRouter = router({
       return { success: true };
     }),
 
-  /**
-   * Admin: immediately charge $149 via the stored vault token.
-   */
+  /** Admin: immediately charge the persisted remaining balance via the stored vault token. */
   chargeNow: superAdminOrAdminProcedure
     .input(
       z.object({
@@ -583,12 +588,12 @@ export const paypalRouter = router({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.error ?? "PayPal charge failed" });
       }
 
-      return { success: true, captureId: result.captureId, amount: 149 };
+      return { success: true, captureId: result.captureId, amount: payment.remainingAmount / 100 };
     }),
 
   /**
    * Admin: retry all Failed PayPal payments that have a vault token saved.
-   * Re-attempts the $149 charge using chargePayPalVault.
+   * Re-attempts the persisted remaining balance using chargePayPalVault.
    */
   retryFailed: superAdminOrAdminProcedure.mutation(async () => {
     const all = await getAllPayments();

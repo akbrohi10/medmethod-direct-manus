@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { paypalRouter } from "./routers/paypal";
+import { referralCreditsRouter } from "./routers/referralCredits";
 import { stripeRouter } from "./routers/stripe";
 import { superAdminRouter } from "./routers/superAdmin";
 import { wl2IntakeRouter } from "./routers/wl2Intake";
@@ -23,6 +24,7 @@ export const appRouter = router({
 
   stripe: stripeRouter,
   paypal: paypalRouter,
+  referralCredits: referralCreditsRouter,
   wl2Intake: wl2IntakeRouter,
   superAdmin: superAdminRouter,
 });

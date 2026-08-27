@@ -547,3 +547,23 @@
 - [x] Confirm the removed service links remain available only where intentionally used outside the footer
 - [x] Add focused regression coverage and validate TypeScript, tests, production build, footer links, and desktop/mobile rendering
 - [x] Save and deliver the footer-only update
+
+## Homepage LECTURE50 Referral Credit
+
+- [x] Add a homepage-only Referral Code field to checkout with Apply Code feedback and no effect on shared landing-page checkout flows
+- [x] Validate LECTURE50 securely on the server and apply a $50 consultation credit while preserving the $50 deposit
+- [x] Reduce only the appointment-day balance from $149 to $99 for valid LECTURE50 payments; retain $149 for standard payments
+- [x] Persist referral code, credit amount, total visit price, deposit, and remaining balance with each applicable payment
+- [x] Apply the correct deferred charge for both Stripe and PayPal payment paths and prevent client-side amount tampering
+- [x] Include referral-credit details in Stripe/PayPal metadata and the current GHL lead/payment payloads
+- [x] Preserve standard checkout, payment, booking, scheduling, affiliate, WL2, and admin behavior
+- [x] Add focused regression coverage and validate database migration, TypeScript, all tests, production build, payment APIs, and desktop/mobile checkout rendering
+- [x] Save and deliver the homepage referral-credit checkout checkpoint
+- [x] Confirm the homepage and intake modal render normally in preview; avoid creating a disposable live PayPal order during visual validation because the active provider is currently live
+- [x] Confirm the refreshed homepage mounts the updated consultation modal normally without browser-console or network errors
+- [x] Confirm the open homepage modal owns the isolated referral-pricing state before payment-provider rendering
+- [x] Verify the desktop checkout shows the homepage-only Referral Code field above standard $199/$50/$149 pricing without creating a live PayPal order during inspection
+- [x] Verify LECTURE50 updates the desktop checkout to a $149 total, $50 deposit, $99 later balance, and visible $50 referral credit without creating a live PayPal order or charge
+- [x] Confirm the applied desktop checkout has no horizontal overflow and that browser-only interception prevented live PayPal and referral API writes during visual inspection
+- [x] Verify the applied LECTURE50 checkout remains readable and unclipped at a simulated 375-pixel mobile width
+- [x] Restore the browser’s original fetch behavior and remove all temporary validation-only styling after checkout inspection

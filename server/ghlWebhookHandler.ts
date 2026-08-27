@@ -213,14 +213,17 @@ export async function ghlBookingWebhookHandler(
       return;
     }
 
-    // Create the $149 PaymentIntent (to be confirmed by cron on appointment day)
+    const remainingAmount = matchingPayment.remainingAmount;
+    const remainingAmountUsd = (remainingAmount / 100).toFixed(2);
+
+    // Create the persisted remaining-balance PaymentIntent (to be confirmed by cron on appointment day)
     const pi = await stripe.paymentIntents.create({
-      amount: 14900,
+      amount: remainingAmount,
       currency: "usd",
       customer: matchingPayment.stripeCustomerId,
       payment_method: matchingPayment.stripePaymentMethodId,
       confirm: false,
-      description: "MedMethod Direct — $149 remaining balance (HRT consultation)",
+      description: `MedMethod Direct — $${remainingAmountUsd} remaining balance (consultation)`,
       metadata: {
         source: "medmethod-direct",
         paymentId: String(matchingPayment.id),
@@ -229,6 +232,10 @@ export async function ghlBookingWebhookHandler(
         patientEmail: matchingPayment.patientEmail ?? "",
         triggeredBy: "ghl_webhook",
         stripeMode: paymentStripeMode,
+        referral_code: matchingPayment.referralCode ?? "",
+        referral_credit_amount: (matchingPayment.referralCreditAmount / 100).toFixed(2),
+        consultation_total_amount: (matchingPayment.consultationTotalAmount / 100).toFixed(2),
+        remaining_amount: remainingAmountUsd,
       },
     });
 
@@ -247,7 +254,7 @@ export async function ghlBookingWebhookHandler(
           cron: cronExpr,
           path: "/api/scheduled/charge-remaining",
           method: "POST",
-          description: `Auto-charge $149 for ${matchingPayment.patientName ?? email} (payment #${matchingPayment.id}) — booked via GHL`,
+          description: `Auto-charge $${remainingAmountUsd} for ${matchingPayment.patientName ?? email} (payment #${matchingPayment.id}) — booked via GHL`,
         },
         "" // Empty = use project owner identity for Heartbeat authentication
       );

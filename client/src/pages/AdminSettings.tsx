@@ -129,7 +129,7 @@ export default function AdminSettings() {
   // Stripe: Schedule remaining charge mutation
   const scheduleChargeMutation = trpc.stripe.scheduleRemainingCharge.useMutation({
     onSuccess: () => {
-      toast.success("\u2713 Scheduled! $149 will be charged on the appointment date.");
+      toast.success("\u2713 Remaining balance scheduled for the appointment date.");
       paymentsQuery.refetch();
     },
     onError: (err) => {
@@ -139,8 +139,8 @@ export default function AdminSettings() {
 
   // Stripe: Charge now mutation
   const chargeNowMutation = trpc.stripe.chargeNow.useMutation({
-    onSuccess: () => {
-      toast.success("\u2713 $149 charged successfully! Payment marked as fully paid.");
+    onSuccess: (data) => {
+      toast.success(`\u2713 $${data.amount.toFixed(2)} charged successfully! Payment marked as fully paid.`);
       paymentsQuery.refetch();
     },
     onError: (err) => {
@@ -151,7 +151,7 @@ export default function AdminSettings() {
   // PayPal: Schedule remaining charge mutation
   const ppScheduleChargeMutation = trpc.paypal.scheduleRemainingCharge.useMutation({
     onSuccess: () => {
-      toast.success("\u2713 Scheduled! $149 will be charged on the appointment date via PayPal.");
+      toast.success("\u2713 Remaining balance scheduled for the appointment date via PayPal.");
       paymentsQuery.refetch();
     },
     onError: (err) => {
@@ -191,8 +191,8 @@ export default function AdminSettings() {
 
   // PayPal: Charge now mutation
   const ppChargeNowMutation = trpc.paypal.chargeNow.useMutation({
-    onSuccess: () => {
-      toast.success("\u2713 $149 charged via PayPal! Payment marked as fully paid.");
+    onSuccess: (data) => {
+      toast.success(`\u2713 $${data.amount.toFixed(2)} charged via PayPal! Payment marked as fully paid.`);
       paymentsQuery.refetch();
     },
     onError: (err) => {
@@ -870,6 +870,7 @@ export default function AdminSettings() {
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Deposit</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Remaining</th>
+                      <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Referral</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Appt. Date</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Card Saved</th>
@@ -885,6 +886,14 @@ export default function AdminSettings() {
                         <td className="px-4 py-3 text-gray-700">${(p.depositAmount / 100).toFixed(2)}</td>
                         <td className="px-4 py-3 text-gray-700">${(p.remainingAmount / 100).toFixed(2)}</td>
                         <td className="px-4 py-3 text-gray-500">
+                          {p.referralCode ? (
+                            <div className="flex flex-col">
+                              <span className="text-xs font-semibold text-purple-700">{p.referralCode}</span>
+                              <span className="text-[10px] text-green-700">−${(p.referralCreditAmount / 100).toFixed(2)} credit</span>
+                            </div>
+                          ) : "—"}
+                        </td>
+                        <td className="px-4 py-3 text-gray-500">
                           {p.appointmentDate
                             ? new Date(p.appointmentDate).toLocaleDateString()
                             : "—"}
@@ -897,14 +906,14 @@ export default function AdminSettings() {
                             p.paypalVaultToken ? (
                               <span
                                 className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700"
-                                title="Card is vaulted — $149 can be auto-charged"
+                                title={`Card is vaulted — $${(p.remainingAmount / 100).toFixed(2)} can be auto-charged`}
                               >
                                 ✓ Card saved
                               </span>
                             ) : (
                               <span
                                 className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700"
-                                title="No vault token — $149 cannot be auto-charged. Patient must re-pay or use manual collection."
+                                title={`No vault token — $${(p.remainingAmount / 100).toFixed(2)} cannot be auto-charged. Patient must re-pay or use manual collection.`}
                               >
                                 ⚠ No card
                               </span>
@@ -930,7 +939,7 @@ export default function AdminSettings() {
                               <div className="border-t border-gray-100 pt-1">
                                 {chargeNowConfirmId === p.id ? (
                                   <div className="flex flex-col gap-1">
-                                    <p className="text-[10px] text-orange-700 font-semibold">Charge $149 now?</p>
+                                    <p className="text-[10px] text-orange-700 font-semibold">Charge ${(p.remainingAmount / 100).toFixed(2)} now?</p>
                                     <p className="text-[10px] text-gray-500">Immediately charges the card on file and cancels the scheduled cron.</p>
                                     <div className="flex gap-1">
                                       <button
@@ -956,7 +965,7 @@ export default function AdminSettings() {
                                     onClick={() => setChargeNowConfirmId(p.id)}
                                     className="text-xs px-2 py-1 bg-orange-50 text-orange-700 border border-orange-200 rounded hover:bg-orange-100 transition whitespace-nowrap"
                                   >
-                                    Charge $149 Now
+                                    Charge ${(p.remainingAmount / 100).toFixed(2)} Now
                                   </button>
                                 )}
                               </div>
@@ -975,7 +984,7 @@ export default function AdminSettings() {
                                 <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">PayPal</span>
                               )}
 
-                              {/* Schedule $149 section */}
+                              {/* Schedule remaining-balance section */}
                               {schedulingPaymentId === p.id ? (
                                 <div className="flex flex-col gap-1">
                                   <label className="text-[10px] text-gray-500 font-medium">Appointment date</label>
@@ -1012,7 +1021,7 @@ export default function AdminSettings() {
                                   onClick={() => setSchedulingPaymentId(p.id)}
                                   className="text-xs px-2 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 transition whitespace-nowrap"
                                 >
-                                  Schedule $149
+                                  Schedule ${(p.remainingAmount / 100).toFixed(2)}
                                 </button>
                               )}
 
@@ -1021,7 +1030,7 @@ export default function AdminSettings() {
                                 {/* Charge Now section */}
                                 {chargeNowConfirmId === p.id ? (
                                   <div className="flex flex-col gap-1">
-                                    <p className="text-[10px] text-orange-700 font-semibold">Charge $149 now?</p>
+                                    <p className="text-[10px] text-orange-700 font-semibold">Charge ${(p.remainingAmount / 100).toFixed(2)} now?</p>
                                     <p className="text-[10px] text-gray-500">
                                       {isPayPal
                                         ? "Immediately charges via PayPal. No future cron charge."
@@ -1051,7 +1060,7 @@ export default function AdminSettings() {
                                     onClick={() => setChargeNowConfirmId(p.id)}
                                     className="text-xs px-2 py-1 bg-orange-50 text-orange-700 border border-orange-200 rounded hover:bg-orange-100 transition whitespace-nowrap"
                                   >
-                                    Charge $149 Now
+                                    Charge ${(p.remainingAmount / 100).toFixed(2)} Now
                                   </button>
                                 )}
                               </div>

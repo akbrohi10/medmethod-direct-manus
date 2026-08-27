@@ -26,6 +26,7 @@ import {
   upsertStripeSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { formatUsdFromCents, STANDARD_CONSULTATION_PRICING } from "../referralCredits";
 import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -49,7 +50,7 @@ async function getStripeClient(): Promise<Stripe | null> {
  * Used when we need to charge using the same mode the payment was created in,
  * regardless of the current global mode setting.
  */
-async function getStripeClientForMode(mode: "test" | "live"): Promise<Stripe | null> {
+export async function getStripeClientForMode(mode: "test" | "live"): Promise<Stripe | null> {
   const settings = await getStripeSettings();
   if (!settings) return null;
 
@@ -178,7 +179,7 @@ export const stripeRouter = router({
       // Create a $50 PaymentIntent with setup_future_usage so the payment method
       // is saved for the future $149 charge
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: 5000, // $50 in cents
+        amount: STANDARD_CONSULTATION_PRICING.depositAmount,
         currency: "usd",
         customer: customer.id,
         setup_future_usage: "off_session",
@@ -188,6 +189,9 @@ export const stripeRouter = router({
           landingPage: input.landingPage ?? "hrt2",
           patientName: input.patientName,
           patientEmail: input.patientEmail,
+          consultation_total_amount: formatUsdFromCents(STANDARD_CONSULTATION_PRICING.consultationTotalAmount),
+          deposit_amount: formatUsdFromCents(STANDARD_CONSULTATION_PRICING.depositAmount),
+          remaining_amount: formatUsdFromCents(STANDARD_CONSULTATION_PRICING.remainingAmount),
           ...(input.affiliateCode ? { affiliate_code: input.affiliateCode } : {}),
         },
       });
@@ -199,8 +203,10 @@ export const stripeRouter = router({
         patientName: input.patientName,
         patientEmail: input.patientEmail,
         patientPhone: input.patientPhone ?? null,
-        depositAmount: 5000,
-        remainingAmount: 14900,
+        consultationTotalAmount: STANDARD_CONSULTATION_PRICING.consultationTotalAmount,
+        depositAmount: STANDARD_CONSULTATION_PRICING.depositAmount,
+        remainingAmount: STANDARD_CONSULTATION_PRICING.remainingAmount,
+        referralCreditAmount: STANDARD_CONSULTATION_PRICING.referralCreditAmount,
         stripeCustomerId: customer.id,
         depositPaymentIntentId: paymentIntent.id,
         status: "pending",
@@ -423,21 +429,28 @@ export const stripeRouter = router({
         throw new Error("No payment method found. The patient's card could not be retrieved from Stripe. Please check the Stripe dashboard for this customer's payment methods.");
       }
 
-      // Create a $149 PaymentIntent in "requires_confirmation" state
-      // We will confirm it off-session on the appointment date via a cron job
+      const remainingAmount = payment.remainingAmount;
+      const remainingAmountUsd = formatUsdFromCents(remainingAmount);
+
+      // Create the persisted remaining-balance PaymentIntent in "requires_confirmation" state.
+      // We will confirm it off-session on the appointment date via a cron job.
       const pi = await stripe.paymentIntents.create({
-        amount: 14900, // $149 in cents
+        amount: remainingAmount,
         currency: "usd",
         customer: payment.stripeCustomerId,
         payment_method: paymentMethodId,
         confirm: false, // Will be confirmed by cron on appointment date
-        description: "MedMethod Direct — $149 remaining balance (HRT consultation)",
+        description: `MedMethod Direct — $${remainingAmountUsd} remaining balance (consultation)`,
         metadata: {
           source: "medmethod-direct",
           paymentId: String(input.paymentId),
           appointmentDate: String(input.appointmentDate),
           patientName: payment.patientName ?? "",
           patientEmail: payment.patientEmail ?? "",
+          referral_code: payment.referralCode ?? "",
+          referral_credit_amount: formatUsdFromCents(payment.referralCreditAmount),
+          consultation_total_amount: formatUsdFromCents(payment.consultationTotalAmount),
+          remaining_amount: remainingAmountUsd,
         },
       });
 
@@ -452,6 +465,7 @@ export const stripeRouter = router({
       return {
         success: true,
         scheduledPaymentIntentId: pi.id,
+        remainingAmount,
       };
     }),
 
@@ -535,21 +549,28 @@ export const stripeRouter = router({
         throw new Error("No payment method found. The patient's card could not be retrieved from Stripe. Please check the Stripe dashboard for this customer's payment methods.");
       }
 
-      // Create and immediately confirm a $149 PaymentIntent off-session
+      const remainingAmount = payment.remainingAmount;
+      const remainingAmountUsd = formatUsdFromCents(remainingAmount);
+
+      // Create and immediately confirm the persisted remaining balance off-session.
       const pi = await stripe.paymentIntents.create({
-        amount: 14900,
+        amount: remainingAmount,
         currency: "usd",
         customer: payment.stripeCustomerId,
         payment_method: paymentMethodId,
         confirm: true, // Charge immediately
         off_session: true,
-        description: "MedMethod Direct — $149 remaining balance (HRT consultation, charged by admin)",
+        description: `MedMethod Direct — $${remainingAmountUsd} remaining balance (consultation, charged by admin)`,
         metadata: {
           source: "medmethod-direct",
           paymentId: String(input.paymentId),
           patientName: payment.patientName ?? "",
           patientEmail: payment.patientEmail ?? "",
           triggeredBy: "admin_charge_now",
+          referral_code: payment.referralCode ?? "",
+          referral_credit_amount: formatUsdFromCents(payment.referralCreditAmount),
+          consultation_total_amount: formatUsdFromCents(payment.consultationTotalAmount),
+          remaining_amount: remainingAmountUsd,
         },
       });
 
@@ -567,12 +588,12 @@ export const stripeRouter = router({
         scheduledChargePaymentCronTaskUid: `cancelled-by-admin-${Date.now()}`,
       });
 
-      console.log(`[ChargeNow] Payment #${input.paymentId} charged $149 immediately. PI: ${pi.id}`);
+      console.log(`[ChargeNow] Payment #${input.paymentId} charged $${remainingAmountUsd} immediately. PI: ${pi.id}`);
 
       return {
         success: true,
         chargedPaymentIntentId: pi.id,
-        amount: 149,
+        amount: remainingAmount / 100,
       };
     }),
 
