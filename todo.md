@@ -539,3 +539,11 @@
 - [x] Interactively confirm the unchanged intake sequence advances normally without any new required field
 - [x] Add focused regression coverage and validate TypeScript, tests, production build, and responsive rendering
 - [x] Save and deliver the homepage attribution update
+
+## Footer Services Column Removal
+
+- [x] Remove the complete Services column and its five service links from every active website footer variant
+- [x] Rebalance the remaining footer columns without changing their content or destinations
+- [x] Confirm the removed service links remain available only where intentionally used outside the footer
+- [x] Add focused regression coverage and validate TypeScript, tests, production build, footer links, and desktop/mobile rendering
+- [x] Save and deliver the footer-only update
