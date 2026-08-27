@@ -524,16 +524,15 @@ export default function HomeHrt3() {
             </div>
         </section>
 
-        {/* ═══════════════ MEDICATION COST ESTIMATES ═══════════════ */}
+        {/* ═══════════════ MEDICATION OPTIONS ═══════════════ */}
         <section className="bg-white py-12 md:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <p className="text-sm font-semibold text-[#E8339E] uppercase tracking-wide mb-2">Your Prescription Options</p>
               <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                Your Medication Options
+                Medication Options
               </h2>
               <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-                Medication is separate from your visit. When clinically appropriate, Dr. Al-Deek will review available treatment and fulfillment options, expected costs, and insurance considerations so you can make an informed decision based on your clinical needs and preferences.
+                Medication is separate from your visit. Dr. Al-Deek will review available treatment options and expected costs with you.
               </p>
             </div>
 
@@ -546,15 +545,9 @@ export default function HomeHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Weight-Loss Medication</h3>
                 </div>
-                <p className="text-base text-gray-600 mb-4">Medication selection and fulfillment are based on your individual clinical needs.</p>
-                <div className="rounded-xl bg-[#FDF8F3] border border-gray-100 p-4 space-y-3">
-                  <p className="text-base text-gray-700 leading-relaxed">
-                    Costs vary by the medication prescribed, dosage, dispensing pharmacy, and insurance coverage. Dr. Al-Deek will review appropriate options and expected costs before you decide how to proceed.
-                  </p>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Compounded medications are not FDA-approved. FDA does not review compounded drugs for safety, effectiveness, or quality before marketing.
-                  </p>
-                </div>
+                <p className="text-base text-gray-600 leading-relaxed">
+                  Medication selection and cost depend on your clinical needs, dosage, pharmacy, and insurance coverage.
+                </p>
               </div>
 
               {/* Hormone Therapy Card */}
@@ -565,31 +558,17 @@ export default function HomeHrt3() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Hormone Therapy</h3>
                 </div>
-                <p className="text-base text-gray-600 mb-4">Priced per hormone, based on your protocol</p>
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-4 pb-3 border-b border-gray-100">
-                    <div>
-                      <p className="text-lg font-semibold text-gray-800">Individual hormones (compounded)</p>
-                      <p className="text-base text-gray-600">Estrogen · progesterone · testosterone · DHEA · vaginal estrogen</p>
-                      <p className="text-sm text-[#E8339E] font-medium mt-1">Preferred pricing may be available through partner pharmacies.</p>
-                      <p className="text-base text-gray-600 mt-0.5">Shipped directly to your door</p>
-                    </div>
-                    <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$30–$100<span className="text-sm font-semibold text-gray-500">/mo</span></span>
-                  </div>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-semibold text-gray-800">Most patients (2–3 hormones)</p>
-                      <p className="text-base text-gray-600">Typical combined protocol</p>
-                      </div>
-                    <span className="text-lg font-bold text-[#7A1E7E] whitespace-nowrap">~$150–$250<span className="text-sm font-semibold text-gray-500">/mo</span></span>
-                  </div>
-                </div>
+                <p className="text-base text-gray-600 leading-relaxed">
+                  Treatment and medication costs are based on your personalized hormone protocol.
+                </p>
               </div>
             </div>
 
-            <p className="text-base text-gray-500 text-center mt-6 max-w-xl mx-auto leading-relaxed">
-              Estimates only. Actual medication costs vary by medication, dose, pharmacy, insurance coverage, and treatment plan. Dr. Al-Deek will review appropriate options with you during your consultation.
-            </p>
+            <div className="mt-6 rounded-2xl border border-[#E8D7E5] bg-[#FFF9FC] p-5 sm:p-6">
+              <p className="text-sm sm:text-base text-[#444] leading-7">
+                Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.
+              </p>
+            </div>
           </div>
         </section>
 

@@ -511,3 +511,13 @@
 - [x] Add focused regression coverage for the confirmed failure mode
 - [x] Validate homepage runtime, affected API calls, TypeScript, tests, production build, and browser logs
 - [x] Save and deliver the homepage API query repair checkpoint
+
+## Homepage Medication Options Simplification
+
+- [x] Simplify only the homepage medication-options introduction and two treatment cards
+- [x] Remove repeated pricing, fulfillment, shipping, and generalized patient-protocol clutter from that homepage section
+- [x] Use “FDA-approved alternatives” rather than prohibited brand-comparison terminology
+- [x] Preserve the exact required compounded-medication disclosure without changing a word
+- [x] Confirm no other page, pricing flow, booking flow, payment flow, or integration is modified
+- [x] Add focused regression coverage and validate TypeScript, tests, production build, and desktop/mobile rendering
+- [x] Save and present the homepage-only revision for user approval before applying it elsewhere
