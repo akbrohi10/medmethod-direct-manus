@@ -94,6 +94,35 @@ describe("LegitScript compliance remediation", () => {
     );
   });
 
+  it("keeps the auditor-flagged blog and location FAQ language fully removed", () => {
+    const articleSource = readFileSync(
+      resolve(
+        sourceRoot,
+        "articles/why-weight-gain-feels-different-in-menopause.tsx",
+      ),
+      "utf8",
+    );
+
+    expect(articleSource).not.toContain("Protecting and building muscle mass");
+    expect(articleSource).not.toContain("improved body composition");
+
+    const locationFiles = readdirSync(resolve(sourceRoot, "pages")).filter(
+      (name) => /^Location.*\.tsx$/.test(name),
+    );
+
+    expect(locationFiles.length).toBeGreaterThan(0);
+    for (const file of locationFiles) {
+      const source = readFileSync(resolve(sourceRoot, "pages", file), "utf8");
+      expect(source).not.toContain(
+        "hormonal weight gain, low energy, low libido",
+      );
+      expect(source).not.toContain("They're symptoms of hormonal imbalance");
+      expect(source).not.toContain(
+        "I'm a woman over 40 and feel like my body is working against me. Can you help?",
+      );
+    }
+  });
+
   it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
     const locationsSource = readFileSync(
       resolve(sourceRoot, "pages/Locations.tsx"),

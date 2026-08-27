@@ -23,10 +23,6 @@ const faqs = [
   { q: "Is MedMethod Direct a good fit for Asheville's wellness culture?", a: "Asheville is known as North Carolina's wellness capital — a city that embraces integrative health, functional medicine, and evidence-based nutrition. MedMethod Direct fits naturally into that culture. Our physicians take a whole-person approach, grounding every protocol in your lab results and health history rather than a one-size-fits-all prescription. Women in Asheville who are already engaged with yoga, nutrition, and integrative health often find that a science-backed hormone program is the missing piece." },
   { q: "Is specialist access limited in the Asheville area?", a: "Yes. Despite Asheville's health-forward culture, the mountain geography means that specialist access for perimenopause management and hormone therapy can be limited compared to Charlotte or Raleigh. Women in the Biltmore Forest area and surrounding communities have historically had to travel significant distances for the kind of care MedMethod Direct now delivers virtually, directly to your Asheville home." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why is Chandler a strong market for telehealth hormone care?", a: "Chandler's tech corridor — anchored by Intel, PayPal, and a growing biotech cluster — is home to a large population of professional women in their 40s and 50s who are health-conscious but time-constrained. MedMethod Direct's virtual model removes the scheduling friction that prevents many Chandler women from getting the specialist hormone care they need." },
   { q: "How does telehealth prescribing work in Arizona for Chandler residents?", a: "Arizona's telehealth laws allow licensed physicians to evaluate, diagnose, and prescribe medications through synchronous video consultations. Your MedMethod Direct physician conducts a thorough evaluation, reviews your lab results, and issues prescriptions through our 503B-certified compounding pharmacy partners — all without you leaving Chandler." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

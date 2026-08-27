@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Philadelphia women choose MedMethod Direct over Penn Medicine or Jefferson Health?", a: "Penn Medicine and Jefferson Health are world-class institutions, but their endocrinology and OB/GYN departments are heavily booked — specialist wait times for perimenopause management can stretch months. MedMethod Direct offers same-week consultations with board-certified physicians who specialize specifically in women's hormonal health and GLP-1 weight loss, without the wait and without the commute to a Center City clinic." },
   { q: "Does MedMethod Direct serve the Philadelphia Main Line?", a: "Yes. MedMethod Direct serves patients across the entire Philadelphia metro, including the Main Line communities of Wayne, Malvern, Newtown Square, and Doylestown. Because we are 100% virtual, your location within the metro area does not affect access — you receive the same physician-led care whether you are in Center City, Rittenhouse Square, or the western suburbs." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

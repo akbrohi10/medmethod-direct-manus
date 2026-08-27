@@ -118,13 +118,6 @@ function WhyWeightGainFeelsDifferentInMenopause() {
         actually works — and why the strategies that worked in your thirties may no longer be sufficient.
       </p>
       <p>
-        <strong>Protecting and building muscle mass</strong> is arguably the highest-leverage
-        intervention available. Resistance training — lifting weights, using resistance bands, or
-        bodyweight exercises — directly counteracts the muscle loss driven by declining estrogen. More
-        muscle means a higher resting metabolic rate, better insulin sensitivity, and improved body
-        composition regardless of what the scale says.
-      </p>
-      <p>
         <strong>Prioritizing protein</strong> supports muscle preservation and has a higher thermic
         effect than carbohydrates or fat, meaning your body burns more calories digesting it. Most
         women in midlife are significantly under-eating protein relative to what their changing body

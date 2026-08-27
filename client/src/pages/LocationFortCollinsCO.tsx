@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Fort Collins women choose MedMethod Direct?", a: "Fort Collins is home to Colorado State University, a thriving craft and tech industry, and a large population of educated, health-conscious women who expect evidence-based care. The city's proximity to the Cache la Poudre corridor and its outdoor culture attract women who are proactive about their health — and frustrated by the limited specialist availability in Northern Colorado. MedMethod Direct delivers physician-led hormone therapy and GLP-1 programs without the drive to Denver." },
   { q: "How does telehealth prescribing work in Colorado?", a: "Colorado's telehealth laws allow licensed physicians to evaluate patients, order labs, and prescribe medications — including bioidentical hormones and GLP-1 medications — via secure video consultation. MedMethod Direct complies with all Colorado telehealth regulations, and your medication ships from a licensed 503B compounding pharmacy directly to your Fort Collins address." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

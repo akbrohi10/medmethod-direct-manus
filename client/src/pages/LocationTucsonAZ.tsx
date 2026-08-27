@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why is telehealth hormone care especially valuable for Tucson women?", a: "Despite being Arizona's second-largest city, Tucson has historically been underserved by hormone and menopause specialists relative to the Phoenix metro. The University of Arizona Health Sciences campus creates a health-aware population, but specialist access remains limited. MedMethod Direct fills this gap by delivering board-certified hormone care to Tucson women within 48 hours — no Phoenix commute required." },
   { q: "How does the initial consultation work for Tucson patients?", a: "Your first consultation is a free 45-minute video call with a board-certified physician. You'll discuss your symptoms, health history, and goals. If labs are needed, we provide a requisition for a local Tucson draw site. Once results are in, your physician presents a personalized treatment plan — typically within 3–5 business days of your initial call." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

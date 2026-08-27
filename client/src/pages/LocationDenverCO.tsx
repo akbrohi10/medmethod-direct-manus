@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Denver women choose MedMethod Direct?", a: "Denver's Cherry Creek and Washington Park neighborhoods are home to a highly educated, health-conscious population of women who are accustomed to premium services and frustrated by the limitations of traditional specialist care. MedMethod Direct delivers physician-led hormone therapy and GLP-1 weight loss care without the months-long wait for a specialist appointment — and without leaving home." },
   { q: "Does MedMethod Direct serve the entire Denver metro area?", a: "Yes. MedMethod Direct serves patients across the Denver metro, including Cherry Creek, Washington Park, Stapleton, Highlands, Lowry, and all surrounding neighborhoods and suburbs. Because we are 100% virtual, your specific location within the metro does not affect access to care." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

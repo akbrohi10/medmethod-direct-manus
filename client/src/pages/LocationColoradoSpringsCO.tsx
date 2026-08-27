@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Colorado Springs women choose MedMethod Direct?", a: "Colorado Springs is home to a large military and veteran community, a growing tech sector, and a significant population of women in their 40s and 50s who are active, health-conscious, and underserved by local specialist care. MedMethod Direct delivers physician-led hormone therapy and GLP-1 weight loss programs without the long wait times typical of Colorado Springs OB-GYN and endocrinology practices." },
   { q: "How does telehealth prescribing work in Colorado?", a: "Colorado's telehealth laws allow licensed physicians to evaluate patients, order labs, and prescribe medications — including bioidentical hormones and GLP-1 medications — via secure video consultation. MedMethod Direct complies with all Colorado telehealth regulations, and your medication ships from a licensed 503B compounding pharmacy directly to your Colorado Springs address." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

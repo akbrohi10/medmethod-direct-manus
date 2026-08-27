@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Doylestown women choose MedMethod Direct?", a: "Doylestown is the cultural and civic heart of Bucks County — a community known for its arts scene, historic charm, and a well-educated, health-conscious population. Women here are accustomed to quality and convenience. MedMethod Direct delivers physician-led hormone therapy and GLP-1 weight loss care without requiring a drive to Philadelphia or a months-long wait for a specialist appointment." },
   { q: "Does MedMethod Direct serve all of Bucks County?", a: "Yes. MedMethod Direct serves patients across Bucks County, including Doylestown, New Hope, Newtown, Yardley, and Langhorne. Because we are 100% virtual, your location within the county does not affect access — you receive the same physician-led care regardless of where you live in Bucks County." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

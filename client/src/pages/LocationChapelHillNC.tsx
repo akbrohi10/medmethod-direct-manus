@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why do Chapel Hill women choose MedMethod Direct over UNC Health specialists?", a: "Even in a university medical town like Chapel Hill, specialist wait times for perimenopause management and hormone therapy can stretch months. UNC Health's endocrinology and OB/GYN departments are excellent but heavily booked. MedMethod Direct offers same-week consultations with board-certified physicians who specialize specifically in women's hormonal health and GLP-1 weight loss — without the wait." },
   { q: "Is MedMethod Direct appropriate for health-literate patients in Chapel Hill?", a: "Absolutely. Chapel Hill's population includes a high concentration of physicians, researchers, and academics who approach their own healthcare with the same rigor they apply professionally. MedMethod Direct physicians are comfortable discussing the evidence base for BHRT, semaglutide, and tirzepatide in depth, and our lab-based protocols are grounded in peer-reviewed clinical guidelines." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },

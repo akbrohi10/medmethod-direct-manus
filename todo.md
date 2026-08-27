@@ -577,4 +577,14 @@
 - [x] Add regression coverage for sitemap exclusion, route removal, external book linking, and redirect preservation
 - [x] Validate TypeScript, all tests, production build, sitemap XML, live-style HTTP behavior, and absence of active internal discovery references
 - [x] Save and deliver the retired-page discovery cleanup checkpoint
-- [ ] Resubmit the updated sitemap in Google Search Console after the new checkpoint is published
+- [x] Defer Google Search Console sitemap resubmission at the user’s request; the live sitemap cleanup is already published and verified
+
+## Auditor Follow-Up: Blog and Location FAQ Language
+
+- [x] Locate the complete affected sentence or paragraph containing “improved body composition” and “protecting and building muscle mass” in the menopause weight-gain blog
+- [x] Remove the full affected blog sentence or paragraph rather than relying on a disclaimer
+- [x] Locate every shared and page-level occurrence of the hormonal weight gain, low energy, low libido, and hormonal imbalance FAQ language
+- [x] Remove the full affected location FAQ language from all 84 remaining page-level duplicates
+- [x] Add regression coverage that prohibits the auditor-flagged phrases in the blog and location-page sources
+- [x] Validate TypeScript, all 157 tests, production build, source-wide phrase scans, affected blog rendering, and representative location pages
+- [x] Save and deliver the auditor-requested compliance-removal checkpoint

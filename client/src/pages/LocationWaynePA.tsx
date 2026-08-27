@@ -23,10 +23,6 @@ const faqs = [
   { q: "Why is Wayne, PA such a strong fit for MedMethod Direct?", a: "Wayne is one of the most affluent communities on the Philadelphia Main Line, with a median household income well above $185,000 and a high concentration of professional women 40–65. The community has a strong orientation toward premium services and health-conscious living. Women in Wayne are accustomed to the best — and MedMethod Direct delivers physician-led hormone therapy and GLP-1 care at the same level of quality, without the commute to a Center City specialist." },
   { q: "How quickly can I start a program from Wayne?", a: "Most Wayne patients complete their appointment within 24–48 hours of scheduling. After your consultation and lab work, your physician typically reviews results and issues your prescription within 3–5 business days. Medication ships directly from our 503B compounding pharmacy to your Wayne or Main Line address." },
   {
-    q: "I'm a woman over 40 and feel like my body is working against me. Can you help?",
-    a: "Yes \u2014 this is exactly who we're built for. Night sweats, brain fog, mood swings, hormonal weight gain, low energy, low libido \u2014 these are not just 'part of aging.' They're symptoms of hormonal imbalance that can be addressed with the right clinical approach. We start with comprehensive labs to find the real answers, then build a personalized plan to help you feel like yourself again.",
-  },
-  {
     q: "Is everything done virtually?",
     a: "Yes — consultations, follow-ups, and ongoing care are conducted through secure telehealth. You may complete ordered lab work at a local lab, and any medication prescribed by your physician will be fulfilled through an appropriate pharmacy. No waiting rooms, commuting, or unnecessary disruption to your schedule.",
   },
