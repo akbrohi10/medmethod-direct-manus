@@ -521,3 +521,12 @@
 - [x] Confirm no other page, pricing flow, booking flow, payment flow, or integration is modified
 - [x] Add focused regression coverage and validate TypeScript, tests, production build, and desktop/mobile rendering
 - [x] Save and present the homepage-only revision for user approval before applying it elsewhere
+
+## Homepage Intake Other Option
+
+- [x] Add one sixth homepage intake option labeled “Other” with no follow-up field
+- [x] Preserve the existing five approved service choices and balanced two-column layout
+- [x] Confirm “Other” is included in the existing `services_selected` GHL webhook value
+- [x] Confirm no other modal step, question, payment, booking, or external integration changes
+- [x] Add focused regression coverage and validate TypeScript, tests, production build, and desktop/mobile modal rendering
+- [x] Save and deliver the homepage intake update

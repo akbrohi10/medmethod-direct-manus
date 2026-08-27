@@ -31,6 +31,7 @@ const SERVICE_OPTIONS = [
   { label: "Nutrition & Vitamin Optimization", subtitle: "", icon: "💊" },
   { label: "Dermatology & Skin", subtitle: "", icon: "✨" },
   { label: "Hair Restoration", subtitle: "", icon: "💇‍♀️" },
+  { label: "Other", subtitle: "", icon: "➕" },
 ];
 
 const questions = [
