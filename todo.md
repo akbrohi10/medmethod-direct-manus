@@ -588,3 +588,13 @@
 - [x] Add regression coverage that prohibits the auditor-flagged phrases in the blog and location-page sources
 - [x] Validate TypeScript, all 157 tests, production build, source-wide phrase scans, affected blog rendering, and representative location pages
 - [x] Save and deliver the auditor-requested compliance-removal checkpoint
+
+## Website Loading-Speed and Mobile-Usability Audit
+
+- [x] Audit six representative live journeys only: homepage, locations directory, Georgia state hub, Alexandria city page, menopause weight-gain blog, and `/lp/WL2`
+- [x] Inspect the shared state-hub and city-page templates once rather than loading every individual location URL
+- [x] Measure response timing, page weight, Core Web Vitals indicators, render-blocking work, image loading, and third-party impact
+- [x] Check desktop and 375-pixel mobile rendering for overflow, clipping, readability, tap targets, navigation, and layout stability
+- [x] Inspect fresh browser, network, and server logs for runtime or API errors during representative page loads
+- [x] Classify findings by high, medium, and low priority without changing website code
+- [x] Deliver a concise no-change audit with only clearly justified optimization recommendations
