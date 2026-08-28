@@ -58,21 +58,8 @@ export const blogPosts: BlogPost[] = [
     author: AUTHOR_DR_ALDEEK,
     primaryKeyword: "food noise midlife",
     metaDescription:
-      "What is food noise and why does it get louder in midlife? Dr. Jumana Al-Deek explains the hormonal science behind food preoccupation and what actually quiets it.",
+      "What is food noise and why can it feel more noticeable in midlife? Review contributing factors and topics to discuss with a qualified clinician.",
     heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-food-noise-GXQM8uF8FQQwQCbCHfGfng.webp",
-  },
-  {
-    slug: "hormone-therapy-weight-sleep-metabolism",
-    title: "Can Hormone Therapy Help With Weight, Sleep, and Metabolism?",
-    excerpt: "The science on hormone therapy has moved significantly since 2002.",
-    pillar: "hormone-therapy",
-    pillarLabel: "Hormone Therapy for Women",
-    readTime: 10,
-    publishDate: "2026-03-27",
-    author: AUTHOR_DR_ALDEEK,
-    primaryKeyword: "hormone therapy weight loss menopause",
-    metaDescription: "Can hormone therapy help with menopause weight gain, sleep, and metabolism?",
-    heroImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663416709267/KyWCLydSK7KZUFLqfZ7cfe/blog-hero-hormone-therapy-MMsbifkEGanthJdeAvCaKS.webp",
   },
   {
     slug: "putting-yourself-last-has-to-change",

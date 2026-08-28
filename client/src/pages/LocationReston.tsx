@@ -250,8 +250,6 @@ export default function LocationReston() {
             <p className="text-sm text-gray-500 pt-2">
               Related reading:{" "}
               <a href="/blog" className="text-[#E8339E] hover:underline">Semaglutide vs. Tirzepatide for Women in Midlife</a>
-              {" · "}
-              <a href="/blog" className="text-[#E8339E] hover:underline">Can Hormone Therapy Help With Weight, Sleep & Metabolism?</a>
             </p>
           </div>
         </div>

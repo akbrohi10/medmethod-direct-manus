@@ -17,7 +17,7 @@ function WhatIsFoodNoiseMidlife() {
       <p>
         This is what researchers and clinicians now call <strong>food noise</strong> — and if you've noticed it getting
         louder in your 40s and 50s, you're not imagining it. There's a real biological reason it happens in midlife,
-        and understanding it is the first step toward quieting it.
+        and understanding it can help you discuss your concerns with a qualified clinician.
       </p>
 
       <h2>What Exactly Is Food Noise?</h2>
@@ -87,41 +87,10 @@ function WhatIsFoodNoiseMidlife() {
         more willpower — it's addressing the underlying biology.
       </p>
 
-      <h2>How GLP-1 Medications Quiet Food Noise</h2>
+      <h2>Factors to Discuss With a Clinician</h2>
       <p>
-        One of the most significant discoveries in the clinical use of GLP-1 receptor agonists — medications like
-        semaglutide and tirzepatide — is their effect on food noise. Patients consistently report that within days to
-        weeks of starting treatment, the mental chatter about food simply quiets down.
-      </p>
-      <p>
-        GLP-1 (glucagon-like peptide-1) is a naturally occurring hormone produced in the gut after eating. It signals
-        the brain — specifically the hypothalamus and the reward centers — that food has been consumed and that the
-        body is satisfied. GLP-1 receptor agonists mimic and amplify this signal, and in doing so, they appear to
-        reduce the reward-seeking, food-preoccupation behavior that characterizes food noise.
-      </p>
-      <p>
-        Patients describe it as "the food thoughts just stopped." Or: "I could walk past the kitchen without thinking
-        about it for the first time in years." For women who have spent decades managing food noise through sheer
-        force of will, this experience can feel genuinely transformative — not because they've lost their appetite
-        entirely, but because the compulsive, intrusive quality of the thoughts is gone.
-      </p>
-      <p>
-        It's worth noting that GLP-1 medications are not appropriate for everyone, and the decision to use them should
-        be made in partnership with a physician who understands your full health picture. But for women whose food
-        noise is rooted in the hormonal and metabolic changes of midlife, they represent a meaningful clinical option
-        — not a shortcut, but a tool that addresses the biology rather than demanding more willpower from a system
-        that's already overloaded.
-      </p>
-
-      <h2>Other Approaches That Help</h2>
-      <p>
-        GLP-1 therapy is one tool among several. For women in midlife, a comprehensive approach to quieting food noise
-        typically involves:
-      </p>
-      <p>
-        <strong>Hormone optimization.</strong> Addressing the estrogen decline that underlies much of the neurochemical
-        disruption can meaningfully reduce food noise for some women. Hormone therapy, when appropriate, restores
-        estrogen's regulatory effect on leptin, dopamine, and appetite signaling.
+        Persistent food-related thoughts can have multiple contributing factors. Topics to discuss with a qualified
+        clinician may include eating patterns, sleep, stress, medications, and other elements of your health history.
       </p>
       <p>
         <strong>Blood sugar stabilization.</strong> Eating patterns that minimize blood sugar spikes and crashes —
@@ -142,17 +111,12 @@ function WhatIsFoodNoiseMidlife() {
       <h2>You're Not Broken</h2>
       <p>
         If food noise has been a constant companion in your life — and especially if it's gotten louder in recent
-        years — the most important thing to understand is that this is not a personal failing. It is a biological
-        signal. Your brain is responding to hormonal and metabolic changes that are real, measurable, and addressable.
+        years — the most important thing to understand is that this is not a personal failing. Persistent food-related
+        thoughts can have multiple contributing factors and are worth discussing with a qualified clinician.
       </p>
       <p>
-        The goal isn't to fight harder. The goal is to understand what's driving the noise and to address it at the
-        source — whether that's through hormone optimization, metabolic support, GLP-1 therapy, or some combination of
-        all three.
-      </p>
-      <p>
-        A free consultation with the MedMethod Direct wellness team is a good place to start. Not to be sold anything
-        — but to understand what's actually happening in your body and what options are available to you.
+        A consultation can help review your symptoms, health history, and individual risk factors and identify
+        appropriate next steps.
       </p>
 
       <h2>Frequently Asked Questions</h2>
@@ -169,13 +133,6 @@ function WhatIsFoodNoiseMidlife() {
         stabilizes. However, for many women — particularly those with insulin resistance or metabolic changes that
         persist post-menopause — the underlying drivers remain active. Waiting it out is not always the most effective
         strategy.
-      </p>
-      <h3>Do GLP-1 medications work differently for women in menopause?</h3>
-      <p>
-        Emerging research suggests that the hormonal environment of menopause may affect GLP-1 receptor sensitivity
-        and response. Women in menopause may benefit from a combined approach — addressing both the hormonal and
-        metabolic contributors simultaneously — rather than relying on GLP-1 therapy alone. This is exactly the kind
-        of individualized assessment that a physician-led program can provide.
       </p>
     </article>
   );

@@ -123,6 +123,96 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
+  it("keeps the additional auditor-flagged article and homepage claims removed", () => {
+    const menopauseArticle = readFileSync(
+      resolve(
+        sourceRoot,
+        "articles/why-weight-gain-feels-different-in-menopause.tsx",
+      ),
+      "utf8",
+    );
+    const foodNoiseArticle = readFileSync(
+      resolve(sourceRoot, "articles/what-is-food-noise-midlife.tsx"),
+      "utf8",
+    );
+    const homepageSources = [
+      "pages/HomeHrt3.tsx",
+      "components/home1/MedicalTeam.tsx",
+      "components/home1/Navbar.tsx",
+      "components/home1/ConsultationModal.tsx",
+      "components/home1/LpConsultationModal.tsx",
+      "components/home1/LpConsultationModal2.tsx",
+    ]
+      .map(path => readFileSync(resolve(sourceRoot, path), "utf8"))
+      .join("\n");
+
+    for (const phrase of [
+      "addresses the root cause directly",
+      "can reduce visceral fat accumulation, improve insulin sensitivity",
+      "compounded semaglutide and tirzepatide",
+      "biology can be addressed",
+      "directly reduces cortisol, improves insulin",
+    ]) {
+      expect(menopauseArticle).not.toContain(phrase);
+    }
+
+    for (const phrase of [
+      "within days to weeks of starting treatment",
+      "genuinely transformative",
+      "Hormone optimization",
+      "restores estrogen's regulatory effect",
+      "some combination of all three",
+      "benefit from a combined approach",
+    ]) {
+      expect(foodNoiseArticle).not.toContain(phrase);
+    }
+
+    for (const phrase of [
+      "Virtual Urgent Care",
+      "come out of it stronger",
+      "fix what’s actually happening inside",
+      "feel like yourself again",
+    ]) {
+      expect(homepageSources).not.toContain(phrase);
+    }
+  });
+
+  it("keeps the incomplete hormone-therapy article unpublished with a permanent redirect", () => {
+    const removedSlug = "hormone-therapy-weight-sleep-metabolism";
+    const appSource = readFileSync(resolve(sourceRoot, "App.tsx"), "utf8");
+    const blogRegistry = readFileSync(
+      resolve(sourceRoot, "data/blogPosts.ts"),
+      "utf8",
+    );
+    const sitemap = readFileSync(resolve(clientRoot, "public/sitemap.xml"), "utf8");
+    const llms = readFileSync(resolve(clientRoot, "public/llms.txt"), "utf8");
+    const serverSource = readFileSync(
+      resolve(process.cwd(), "server/_core/index.ts"),
+      "utf8",
+    );
+    const locationFiles = readdirSync(resolve(sourceRoot, "pages")).filter(
+      name => /^Location.*\.tsx$/.test(name),
+    );
+
+    expect(
+      existsSync(
+        resolve(sourceRoot, `articles/${removedSlug}.tsx`),
+      ),
+    ).toBe(false);
+    expect(appSource).not.toContain(removedSlug);
+    expect(blogRegistry).not.toContain(removedSlug);
+    expect(sitemap).not.toContain(removedSlug);
+    expect(llms).not.toContain(removedSlug);
+    for (const file of locationFiles) {
+      const source = readFileSync(resolve(sourceRoot, "pages", file), "utf8");
+      expect(source).not.toContain(removedSlug);
+    }
+    expect(serverSource).toContain(
+      `app.get("/blog/${removedSlug}", (_req, res) =>`,
+    );
+    expect(serverSource).toContain('res.redirect(301, "/blog")');
+  });
+
   it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
     const locationsSource = readFileSync(
       resolve(sourceRoot, "pages/Locations.tsx"),

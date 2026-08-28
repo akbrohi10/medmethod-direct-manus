@@ -629,7 +629,7 @@ export default function HomeHrt3() {
         <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="font-['Nunito_Sans',sans-serif] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to feel like yourself again?
+              Ready to Discuss Your Care?
             </h2>
             <p className="text-gray-200 text-xl mb-8 max-w-xl mx-auto leading-relaxed">
               Book your Initial Consultation with Dr. Al-Deek — a 45-minute physician appointment where you'll review your symptoms, health history, and goals, and leave with a personalized treatment plan and, when clinically appropriate, a prescription.

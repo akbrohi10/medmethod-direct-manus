@@ -320,7 +320,6 @@ export default function LocationVeroBeachFL() {
             </span>
             {[
               { label: "Why menopause weight gain feels different", href: "/blog/why-weight-gain-feels-different-in-menopause" },
-              { label: "Can hormone therapy help with weight & sleep?", href: "/blog/hormone-therapy-weight-sleep-metabolism" },
             ].map((link) => (
               <Link
                 key={link.href}

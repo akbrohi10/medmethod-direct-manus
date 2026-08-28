@@ -40,7 +40,6 @@ const FOCUS_AREA_PILLS = [
   "Hormone Optimization",
   "Thyroid Specialist",
   "Metabolism",
-  "Virtual Urgent Care",
 ];
 
 const COACH_PILLS = [
@@ -71,7 +70,7 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
     teaser:
       "Long before medical school, Dr. Al-Deek was a certified personal trainer working exclusively with women struggling through hormonal weight gain. She spent years watching the same story repeat \u2014 women doing everything \u201Cright\u201D but losing the battle against their own biology.",
     rest:
-      "That experience drove her to medicine. Not to manage symptoms, but to fix what\u2019s actually happening inside. Today, as a physician and a mom of four, she brings the same hands-on advocacy to every patient \u2014 combining clinical expertise with a deep, personal understanding of what midlife women are going through.",
+      "That experience drove her to medicine so she could better understand the health concerns women bring to care. Today, as a physician and a mom of four, she combines clinical expertise with a personal understanding of what midlife women are going through.",
   },
   {
     label: "Clinical Background",
@@ -304,11 +303,10 @@ export default function MedicalTeam({
                     className="italic text-[#1a1a1a] text-[15px] md:text-[16px] leading-snug"
                     style={{ fontFamily: "Georgia, serif" }}
                   >
-                    "Midlife isn't a single symptom to manage — it's
-                    hormones, metabolism, muscle, sleep, and stress all
-                    shifting at once. My job is to look at the whole
-                    picture and help you come out of it stronger, not just
-                    medicated."
+                    "Midlife can involve changes in hormones, metabolism,
+                    sleep, and stress. My job is to review the whole picture
+                    with each patient and discuss options that may be
+                    appropriate."
                   </p>
                   <footer
                     className="mt-3 text-xs tracking-[0.2em] uppercase font-bold"

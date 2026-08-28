@@ -598,3 +598,15 @@
 - [x] Inspect fresh browser, network, and server logs for runtime or API errors during representative page loads
 - [x] Classify findings by high, medium, and low priority without changing website code
 - [x] Deliver a concise no-change audit with only clearly justified optimization recommendations
+
+## Additional LegitScript Auditor Remediation
+
+- [x] Remove the flagged visceral-fat, insulin-sensitivity, root-cause, and compounded semaglutide/tirzepatide benefit claims from the menopause weight-gain article
+- [x] Remove the flagged days-to-weeks, transformative, hormone-optimization, and combined hormone/GLP-1 benefit claims from the food-noise article
+- [x] Remove Virtual Urgent Care from every homepage service reference, including hidden metadata or structured content
+- [x] Neutralize the homepage phrases “come out of it stronger,” “fix what’s actually happening inside,” and “feel like yourself again” without redesigning the page
+- [x] Review the supplied homepage title and description; retain them because they identify approved services and do not contain the auditor-flagged outcome claims
+- [x] Unpublish the incomplete hormone-therapy weight/sleep/metabolism article from its route, source, blog registry, links, sitemap, and public discovery while preserving a permanent redirect to `/blog`
+- [x] Add focused regression coverage for all newly prohibited claims, removed service references, metadata, and retired article discovery
+- [x] Validate TypeScript, all 159 tests, production build, source scans, route behavior, and desktop/mobile rendering of affected public pages
+- [x] Save and deliver the auditor-requested compliance update

@@ -669,8 +669,6 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const CALENDAR_STEP = PAYMENT_STEP + 1;                     // 9
   const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 10
 
-  const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
-
   const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
   const isQuestionStep = step >= QUESTIONS_START && step < ATTRIBUTION_STEP;
@@ -706,11 +704,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     if (isServiceStep) {
       if (selectedServices.length === 0) return;
       setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
-      if (isNotSureOnly) {
-        setStep(QUESTIONS_START + 3);
-      } else {
-        setStep((s) => s + 1);
-      }
+      setStep((s) => s + 1);
       return;
     } else if (isQuestionStep) {
       if (isAgeStep) {
@@ -851,11 +845,6 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
 
   const handleBack = () => {
     if (step === 0) return;
-    if (isQuestionStep && questions[questionIndex]?.id === "age" && isNotSureOnly) {
-      setStep(SERVICE_STEP);
-      setSelected(null);
-      return;
-    }
     const prevStep = step - 1;
     setStep(prevStep);
     if (prevStep >= QUESTIONS_START && prevStep < ATTRIBUTION_STEP) {

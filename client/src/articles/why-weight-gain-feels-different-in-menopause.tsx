@@ -33,10 +33,6 @@ function WhyWeightGainFeelsDifferentInMenopause() {
         estrogen levels fall, the metabolic landscape of your body shifts in ways that are real,
         measurable, and well-documented in the medical literature.
       </p>
-      <p>
-        This is not a willpower problem. It is a biology problem — and biology can be addressed.
-      </p>
-
       <h2>The estrogen-fat connection</h2>
       <p>
         Estrogen influences where your body prefers to store fat. During your reproductive years, higher
@@ -129,38 +125,6 @@ function WhyWeightGainFeelsDifferentInMenopause() {
         environment. For some women, this is sufficient. For others, medical support is appropriate and
         effective.
       </p>
-      <p>
-        <strong>Improving sleep quality</strong> directly reduces cortisol, improves insulin
-        sensitivity, and reduces appetite-driving hormones like ghrelin. Treating the sleep disruption
-        caused by hot flashes and night sweats is not just about comfort — it is a metabolic
-        intervention.
-      </p>
-      <p>
-        <strong>Hormone therapy</strong> addresses the root cause directly. Research consistently shows
-        that hormone therapy — when appropriate and initiated at the right time — can reduce visceral
-        fat accumulation, improve insulin sensitivity, and support the metabolic changes associated with
-        menopause.{" "}
-        <a
-          href="https://www.menopause.org/for-women/menopauseflashes/menopause-symptoms-and-treatments/menopause-weight-gain-and-hormone-therapy"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          [2]
-        </a>{" "}
-        It is not a weight loss medication, but it can meaningfully change the metabolic environment in
-        which you're trying to manage your weight.
-      </p>
-      <p>
-        <strong>GLP-1 receptor agonists</strong> (such as compounded semaglutide and tirzepatide,
-        sourced from FDA-registered 503B outsourcing pharmacies) are increasingly being used in
-        menopausal women to address the appetite dysregulation and insulin resistance that accompany
-        hormonal decline. For women who have made lifestyle changes and are still struggling, these
-        medications can provide meaningful support under physician guidance.
-      </p>
-      <aside className="my-6 rounded-xl border border-[#E8D7E5] bg-[#FFF9FC] p-5 text-sm leading-7 text-[#444]">
-        Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.
-      </aside>
-
       <h2>When to seek medical support</h2>
       <p>
         If you are doing everything "right" — eating well, exercising, managing stress — and still
@@ -193,16 +157,6 @@ function WhyWeightGainFeelsDifferentInMenopause() {
           className="underline"
         >
           Toth MJ et al. "Menopause-related changes in body fat distribution." Ann N Y Acad Sci. 2000.
-        </a>
-        <br />
-        [2]{" "}
-        <a
-          href="https://www.menopause.org/for-women/menopauseflashes/menopause-symptoms-and-treatments/menopause-weight-gain-and-hormone-therapy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          The Menopause Society. "Menopause, Weight Gain, and Hormone Therapy."
         </a>
       </p>
     </>

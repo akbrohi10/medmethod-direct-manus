@@ -583,9 +583,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
   const CALENDAR_STEP = BUDGET_STEP + 1;                      // 9
   const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 10
 
-  // "Virtual Urgent Care" skip logic: if only "Virtual Urgent Care" is selected, skip qualifying Qs (goal, duration, tried)
-  const isNotSureOnly = selectedServices.length === 1 && selectedServices[0] === "Virtual Urgent Care";
-
   const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
   const isQuestionStep = step >= QUESTIONS_START && step < ATTRIBUTION_STEP;
@@ -621,12 +618,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     if (isServiceStep) {
       if (selectedServices.length === 0) return;
       setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
-      // If "Virtual Urgent Care" only, skip goal/duration/tried (first 3 Qs) → jump to age (index 3)
-      if (isNotSureOnly) {
-        setStep(QUESTIONS_START + 3); // age step
-      } else {
-        setStep((s) => s + 1);
-      }
+      setStep((s) => s + 1);
       return;
     } else if (isQuestionStep) {
       if (isAgeStep) {
@@ -772,12 +764,6 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
     // If on budget exit screen, go back to plan selection (not previous step)
     if (isBudgetStep && budgetDeclined) {
       setBudgetDeclined(false);
-      return;
-    }
-    // If on age step and "Virtual Urgent Care" only, go back to service selection
-    if (isQuestionStep && questions[questionIndex]?.id === "age" && isNotSureOnly) {
-      setStep(SERVICE_STEP);
-      setSelected(null);
       return;
     }
     const prevStep = step - 1;
