@@ -183,7 +183,7 @@ export default function ThankYou() {
             <div className="flex items-start gap-3 px-5 py-4">
               <span className="text-[#E8339E] mt-0.5 flex-shrink-0">💳</span>
               <p className="text-sm text-[#4a4a5a] leading-relaxed" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                <strong className="text-[#1a1a2e]">The remaining $149 will be charged on the day of your appointment.</strong> No surprises.
+                <strong className="text-[#1a1a2e]">Your remaining balance will be charged on the day of your appointment.</strong> No surprises.
               </p>
             </div>
           </div>

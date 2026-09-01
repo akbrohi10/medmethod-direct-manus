@@ -610,3 +610,11 @@
 - [x] Add focused regression coverage for all newly prohibited claims, removed service references, metadata, and retired article discovery
 - [x] Validate TypeScript, all 159 tests, production build, source scans, route behavior, and desktop/mobile rendering of affected public pages
 - [x] Save and deliver the auditor-requested compliance update
+
+## Thank-You Remaining-Balance Notice
+
+- [x] Change only `/thank-you` to say “Your remaining balance will be charged on the day of your appointment. No surprises.”
+- [x] Remove the displayed dollar amount from that notice because the remaining balance may vary
+- [x] Preserve `/thank-you2`, checkout totals, LECTURE50 credit logic, deferred-charge amounts, payment scheduling, and webhook behavior
+- [x] Add focused regression coverage and validate TypeScript, all 161 tests, production build, and desktop/mobile `/thank-you` rendering
+- [x] Save and deliver the `/thank-you` wording-only checkpoint
