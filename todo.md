@@ -703,4 +703,4 @@
 - [x] Replace the current opaque book asset with the new transparent version while keeping the larger frameless presentation
 - [x] Preserve all other webinar content, hierarchy, video behavior, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 1,967,503-byte PNG delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
-- [ ] Save and deliver the transparent book-cover checkpoint
+- [x] Save and deliver the transparent book-cover checkpoint
