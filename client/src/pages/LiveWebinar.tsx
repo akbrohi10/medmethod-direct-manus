@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useEffect, useRef, useState } from "react";
 import {
   CalendarDays,
   Check,
@@ -14,6 +15,9 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+const WEBINAR_VIDEO_URL = "/manus-storage/dr-aldeek-speaking-event-web_db5bfc0c.mp4";
+const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg";
+
 const symptoms = [
   "Waking at 3 AM",
   "Low Energy",
@@ -27,8 +31,52 @@ const symptoms = [
 ];
 
 export default function LiveWebinar() {
+  const videoShellRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+
+  useEffect(() => {
+    const shell = videoShellRef.current;
+    const video = videoRef.current;
+    if (!shell || !video) return;
+
+    const attemptPlayback = () => {
+      video.muted = false;
+      const playback = video.play();
+      playback?.then(() => setAutoplayBlocked(false)).catch(() => setAutoplayBlocked(true));
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          attemptPlayback();
+          return;
+        }
+
+        video.pause();
+      },
+      { threshold: [0, 0.6] },
+    );
+
+    observer.observe(shell);
+    return () => observer.disconnect();
+  }, []);
+
   const handleReserveSeat = () => {
     toast.info("Registration details are coming soon.");
+  };
+
+  const handlePlayWithSound = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    try {
+      await video.play();
+      setAutoplayBlocked(false);
+    } catch {
+      setAutoplayBlocked(true);
+    }
   };
 
   return (
@@ -111,30 +159,38 @@ export default function LiveWebinar() {
 
           </div>
 
-          <div className="relative min-h-[360px] overflow-hidden rounded-[1.25rem] bg-[#251225] shadow-[0_22px_55px_rgba(48,17,46,0.20)] sm:min-h-[470px] lg:min-h-0">
-            <div
-              className="absolute inset-0"
-              aria-hidden="true"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(35,10,27,0.30), rgba(21,8,24,0.68)), radial-gradient(circle at 72% 24%, rgba(226,67,150,0.38), transparent 30%), radial-gradient(circle at 23% 75%, rgba(105,38,104,0.55), transparent 40%), linear-gradient(135deg, #4a203f 0%, #1e1728 55%, #32152b 100%)",
-              }}
-            />
-            <div className="absolute inset-x-0 bottom-0 h-[45%] bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_100%] opacity-40" aria-hidden="true" />
-            <div className="relative z-10 flex h-full min-h-[360px] flex-col items-center justify-center px-6 py-8 text-center text-white sm:min-h-[470px] lg:min-h-full">
+          <div
+            ref={videoShellRef}
+            data-webinar-video-shell
+            className="relative min-h-[360px] overflow-hidden rounded-[1.25rem] bg-[#100913] shadow-[0_22px_55px_rgba(48,17,46,0.20)] sm:min-h-[470px] lg:min-h-0"
+          >
+            <video
+              ref={videoRef}
+              data-webinar-video
+              className="absolute inset-0 h-full w-full bg-[#100913] object-contain"
+              controls
+              playsInline
+              preload="metadata"
+              poster={WEBINAR_VIDEO_POSTER_URL}
+              aria-label="Dr. Jumana Al-Deek speaking with women at an educational event"
+              onPlaying={() => setAutoplayBlocked(false)}
+            >
+              <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
+              Your browser does not support the video element.
+            </video>
+            {autoplayBlocked && (
               <button
                 type="button"
-                onClick={() => toast.info("The speaking-event video will be added after the hero design is approved.")}
-                className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-white text-[#111827] shadow-[0_14px_34px_rgba(0,0,0,0.28)] transition duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/50 active:scale-[0.97] sm:h-28 sm:w-28"
-                aria-label="Video placeholder"
+                onClick={handlePlayWithSound}
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#100913]/50 px-6 text-center text-white backdrop-blur-[1px] transition hover:bg-[#100913]/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
+                aria-label="Play webinar video with sound"
               >
-                <Play className="ml-1 h-10 w-10 fill-current sm:h-12 sm:w-12" aria-hidden="true" />
+                <span className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-white text-[#111827] shadow-[0_14px_34px_rgba(0,0,0,0.28)] sm:h-24 sm:w-24">
+                  <Play className="ml-1 h-9 w-9 fill-current sm:h-11 sm:w-11" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-black uppercase tracking-[0.08em] sm:text-base">Play Video With Sound</span>
               </button>
-              <p className="mt-6 text-base font-black uppercase tracking-[0.09em] sm:text-xl">Video Placeholder</p>
-              <p className="mt-2 max-w-[410px] text-xs font-semibold leading-5 text-white/70 sm:text-sm">
-                Speaking-event highlight video will be placed here.
-              </p>
-            </div>
+            )}
           </div>
         </div>
 

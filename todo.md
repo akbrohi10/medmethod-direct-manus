@@ -662,3 +662,20 @@
 - [x] Preserve all current draft wording and placeholders, inactive registration, noindex metadata, educational disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests, production build, HTTP 200, and desktop/mobile hierarchy
 - [x] Save and present the balanced hero for conversion review before replacing assets or adding section two
+
+## Live Webinar Video Integration
+
+- [x] Inspect the supplied speaking-event video: 85.8 seconds, 1080×1080 H.264/AAC MOV, 135 MB original; prepare an 8.2 MB 720×720 H.264/AAC MP4 for browser delivery
+- [x] Note that the supplied video contains the embedded phrase “Feel Like Yourself Again”; keep the webinar page noindex and flag this for compliance review before public launch
+- [x] Copy the source video outside the project and upload the web-ready MP4 and poster to permanent project storage
+- [x] Replace only the `/live-webinar` video placeholder with a responsive, accessible player
+- [x] Keep playback user-initiated with native controls, plays-inline behavior, metadata preloading, and no autoplay with sound
+- [x] Supersede the initial user-initiated setting with reliable muted autoplay while retaining inline playback, visible controls, and user-controlled sound; subsequently superseded by the user’s audible-autoplay request
+- [x] Replace muted autoplay with an immediate sound-on autoplay attempt while retaining visible controls and a clear play fallback when the browser blocks audible autoplay; subsequently refined to visibility-based playback
+- [x] Attempt sound-on playback when the video is substantially visible, pause when it leaves view, resume when it returns, and retain the Play Video With Sound fallback when browser policy blocks autoplay
+- [x] Preserve the balanced hero, all current copy, photo/book/date/time placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Verify the square video and controls remain centered, readable, and unclipped in both desktop and 375-pixel mobile layouts
+- [x] Verify the browser-policy Play Video With Sound fallback is prominent, readable, and comfortably tappable on desktop and mobile
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests, production build, byte-range video delivery, HTTP 200, and desktop/mobile playback layout
+- [x] Verify sound-on playback while substantially visible, pause after scrolling out of view, and audible resume after returning to view in a controlled Chromium behavior test
+- [x] Save and deliver the webinar video integration checkpoint

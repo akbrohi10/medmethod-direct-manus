@@ -27,8 +27,24 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).not.toContain("Feel Like Yourself Again");
   });
 
-  it("keeps the page hero-only with a nonfunctional registration and video placeholder", () => {
-    expect(pageSource).toContain("Video Placeholder");
+  it("keeps the page hero-only with a nonfunctional registration and accessible webinar video", () => {
+    expect(pageSource).toContain("data-webinar-video");
+    expect(pageSource).toContain("data-webinar-video-shell");
+    expect(pageSource).toContain("<video");
+    expect(pageSource).toContain("controls");
+    expect(pageSource).not.toContain("autoPlay");
+    expect(pageSource).toContain("video.muted = false");
+    expect(pageSource).toContain("video.play()");
+    expect(pageSource).toContain("IntersectionObserver");
+    expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
+    expect(pageSource).toContain("video.pause()");
+    expect(pageSource).toContain("autoplayBlocked");
+    expect(pageSource).toContain("Play Video With Sound");
+    expect(pageSource).toContain("playsInline");
+    expect(pageSource).toContain('preload="metadata"');
+    expect(pageSource).toContain("/manus-storage/dr-aldeek-speaking-event-web_db5bfc0c.mp4");
+    expect(pageSource).toContain("/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg");
+    expect(pageSource).not.toContain("Video Placeholder");
     expect(pageSource).toContain("Dr. Photo Placeholder");
     expect(pageSource).toContain("Book Image Placeholder");
     expect(pageSource).toContain("[Date]");
