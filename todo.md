@@ -748,3 +748,11 @@
 - [x] Preserve all other webinar copy, media, autoplay behavior, symptom band, authority card, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, reference-inspired 375px mobile rendering, and preserved desktop presentation
 - [x] Save and deliver the mobile Zoom RSVP banner refinement checkpoint
+
+## Live Webinar Desktop Authorship Alignment Repair
+
+- [x] Keep `Author of` and *The Menopause Weight Loss Trap* in one continuous credential text flow and prevent the `Author of` label from splitting on desktop
+- [x] Preserve the exact authorship wording and existing mobile authority-card presentation
+- [x] Preserve all other webinar layout, banner, copy, media, autoplay behavior, symptom band, headshot, book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, corrected desktop text flow, and preserved mobile authority-card rendering
+- [ ] Save and deliver the desktop authorship-alignment repair checkpoint

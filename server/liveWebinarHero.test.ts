@@ -35,6 +35,9 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).toContain("Dr. Jumana Al-Deek");
     expect(pageSource).toContain("DO, MS");
     expect(pageSource).toContain("The Menopause Weight Loss Trap");
+    expect(pageSource).toContain('<span className="whitespace-nowrap">Author of</span>');
+    expect(pageSource).toContain('<em>The Menopause Weight Loss Trap</em>');
+    expect(pageSource).not.toContain('/> Author of <em>');
     expect(pageSource).toContain("Waking at 3 AM");
     expect(pageSource).toContain("Low Energy");
     expect(pageSource).toContain("Low Libido");

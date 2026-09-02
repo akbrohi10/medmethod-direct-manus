@@ -264,7 +264,10 @@ export default function LiveWebinar() {
               <div className="mt-3 space-y-1.5 border-t border-[#d8cdcd] pt-3 text-[11px] font-semibold leading-4.5 text-[#252236] sm:text-xs">
                 <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c4156e]" aria-hidden="true" /> Board-Certified Family Physician</p>
                 <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c4156e]" aria-hidden="true" /> Menopause Society Trained</p>
-                <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c4156e]" aria-hidden="true" /> Author of <em>The Menopause Weight Loss Trap</em></p>
+                <p className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c4156e]" aria-hidden="true" />
+                  <span className="min-w-0"><span className="whitespace-nowrap">Author of</span>{" "}<em>The Menopause Weight Loss Trap</em></span>
+                </p>
               </div>
             </div>
 
