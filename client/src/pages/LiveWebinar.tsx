@@ -14,8 +14,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-const WEBINAR_VIDEO_URL = "/manus-storage/dr-aldeek-speaking-event-web_db5bfc0c.mp4";
-const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg";
+const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
+const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png";
 
 const symptoms = [

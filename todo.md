@@ -712,3 +712,12 @@
 - [x] Preserve CTA visibility, video playback behavior and fallback, authority card, transparent book cover, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, desktop/mobile order, and the unchanged visibility-based video playback behavior and fallback
 - [x] Save and deliver the approved webinar hierarchy checkpoint
+
+## Live Webinar Video-Only Replacement
+
+- [x] Inspect and archive the newly supplied 141,027,877-byte, 85.9-second, 1080×1080 H.264/AAC MOV unchanged outside the project with matching SHA-256 checksum
+- [x] Prepare a 7,483,620-byte 720×720 H.264/AAC web MP4 and 720×720 poster, upload both to permanent project storage, and retain the unchanged original outside the project
+- [x] Replace only the current `/live-webinar` video and poster asset references
+- [x] Preserve the current layout, copy, video controls, sound-on autoplay attempt, 60% visibility pause/resume behavior, sound fallback, placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent media delivery with byte ranges, HTTP 200, clean runtime logs, desktop/mobile rendering, and the unchanged 60%-visibility playback and sound-fallback logic
+- [ ] Save and deliver the webinar video-only replacement checkpoint
