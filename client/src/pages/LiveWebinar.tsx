@@ -11,12 +11,12 @@ import {
   Star,
   Tag,
   UserRound,
-  Video,
 } from "lucide-react";
 import { toast } from "sonner";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/dr-aldeek-speaking-event-web_db5bfc0c.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg";
+const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover_9441a17d.png";
 
 const symptoms = [
   "Waking at 3 AM",
@@ -225,9 +225,14 @@ export default function LiveWebinar() {
               </div>
             </div>
 
-            <div className="mx-auto flex h-32 w-22 shrink-0 flex-col items-center justify-center rounded-md border border-[#dccfd2] bg-white px-2 text-center shadow-[0_10px_24px_rgba(71,30,50,0.12)] sm:mx-0">
-              <Video className="h-6 w-6 text-[#bf176e]" aria-hidden="true" />
-              <span className="mt-2 text-[8px] font-black uppercase leading-3.5 tracking-[0.08em] text-[#6d3150]">Book Image Placeholder</span>
+            <div className="mx-auto flex h-32 w-22 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[#dccfd2] bg-white p-1.5 shadow-[0_10px_24px_rgba(71,30,50,0.12)] sm:mx-0">
+              <img
+                src={BOOK_COVER_URL}
+                alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
+                className="h-full w-full object-contain"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
 

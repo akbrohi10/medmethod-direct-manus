@@ -46,7 +46,11 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).toContain("/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg");
     expect(pageSource).not.toContain("Video Placeholder");
     expect(pageSource).toContain("Dr. Photo Placeholder");
-    expect(pageSource).toContain("Book Image Placeholder");
+    expect(pageSource).not.toContain("Book Image Placeholder");
+    expect(pageSource).toContain("/manus-storage/menopause-weight-loss-trap-book-cover_9441a17d.png");
+    expect(pageSource).toContain("Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek");
+    expect(pageSource).toContain('loading="lazy"');
+    expect(pageSource).toContain('decoding="async"');
     expect(pageSource).toContain("[Date]");
     expect(pageSource).toContain("[Time]");
     expect(pageSource).toContain("Reserve My Free Spot");

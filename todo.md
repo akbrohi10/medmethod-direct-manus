@@ -679,3 +679,12 @@
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests, production build, byte-range video delivery, HTTP 200, and desktop/mobile playback layout
 - [x] Verify sound-on playback while substantially visible, pause after scrolling out of view, and audible resume after returning to view in a controlled Chromium behavior test
 - [x] Save and deliver the webinar video integration checkpoint
+
+## Live Webinar Book-Cover Integration
+
+- [x] Inspect the supplied 550×724 PNG book-cover image without altering or regenerating the artwork
+- [x] Copy the source image outside the project, verify an identical SHA-256 checksum, and upload the unchanged 725,822-byte PNG to permanent project storage
+- [x] Replace only the Book Image Placeholder on `/live-webinar` with the supplied cover, descriptive alt text, lazy loading, and asynchronous decoding
+- [x] Preserve the authority-card layout, video behavior, doctor-photo/date/time placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 725,822-byte PNG delivery with matching checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
+- [ ] Save and deliver the webinar book-cover integration checkpoint
