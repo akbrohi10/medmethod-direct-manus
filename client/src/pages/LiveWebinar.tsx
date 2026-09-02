@@ -1,6 +1,31 @@
 import { Helmet } from "react-helmet-async";
-import { BookOpen, Play, ShieldCheck, Video } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  Clock3,
+  MessageCircle,
+  MonitorPlay,
+  Play,
+  Radio,
+  Star,
+  Tag,
+  UserRound,
+  Video,
+} from "lucide-react";
 import { toast } from "sonner";
+
+const symptoms = [
+  "Waking at 3 AM",
+  "Low Energy",
+  "Night Sweats",
+  "Mood Changes",
+  "Hot Flashes",
+  "Weight Loss Feels Harder",
+  "Stubborn Weight Gain",
+  "Low Libido",
+  "Brain Fog",
+];
 
 export default function LiveWebinar() {
   const handleReserveSeat = () => {
@@ -9,7 +34,7 @@ export default function LiveWebinar() {
 
   return (
     <main
-      className="min-h-screen overflow-hidden bg-[#f7f4f6] px-3 py-4 text-white sm:px-6 sm:py-7 lg:px-10 lg:py-9"
+      className="min-h-screen overflow-hidden bg-[#fbf9f5] text-[#0a1021]"
       style={{ fontFamily: "Montserrat, sans-serif" }}
     >
       <Helmet>
@@ -22,143 +47,178 @@ export default function LiveWebinar() {
         <link rel="canonical" href="https://medmethoddirect.com/live-webinar" />
       </Helmet>
 
-      <section className="mx-auto max-w-[1220px] overflow-hidden rounded-[1.65rem] border border-white/10 bg-[#071f35] shadow-[0_30px_90px_rgba(19,23,42,0.28)] sm:rounded-[2rem]">
-        <div className="bg-gradient-to-r from-[#E8339E] via-[#bd278f] to-[#7A1E7E] px-4 py-2.5 text-center text-[10px] font-black uppercase tracking-[0.16em] text-white sm:text-xs sm:tracking-[0.24em]">
-          Live Educational Webinar · Event Details Coming Soon
-        </div>
-
+      <section className="relative isolate mx-auto w-full max-w-[1536px] overflow-hidden px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-8">
         <div
-          className="relative isolate overflow-hidden"
+          className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+          aria-hidden="true"
           style={{
             background:
-              "radial-gradient(circle at 10% 26%, rgba(232,51,158,0.20), transparent 34%), radial-gradient(circle at 86% 72%, rgba(93,47,163,0.24), transparent 38%), linear-gradient(135deg, #092944 0%, #06192b 58%, #0b2037 100%)",
+              "radial-gradient(circle at 6% 5%, rgba(232,51,158,0.05), transparent 24%), radial-gradient(circle at 90% 82%, rgba(122,30,126,0.05), transparent 25%)",
           }}
-        >
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-25" aria-hidden="true">
-            <div className="absolute -left-32 top-16 h-96 w-96 rounded-full border border-white/20" />
-            <div className="absolute -bottom-40 right-8 h-[28rem] w-[28rem] rounded-full border border-[#E8339E]/35" />
-            <div className="absolute left-[46%] top-0 h-full w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
+        />
+
+        <div className="grid items-start gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 xl:gap-14">
+          <div>
+            <div className="flex items-center gap-3 text-[#b51c68]">
+              <CalendarDays className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" aria-hidden="true" />
+              <p className="text-[0.72rem] font-black uppercase tracking-[0.12em] sm:text-base sm:tracking-[0.09em]">
+                Free Live Women&apos;s Health Webinar
+              </p>
+            </div>
+
+            <div className="mt-5 text-center lg:mt-4">
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
+                <span className="h-0.5 w-12 bg-gradient-to-r from-[#ec227f] to-[#7A1E7E] sm:w-20" aria-hidden="true" />
+                <h1 className="text-[2.35rem] font-black uppercase leading-none tracking-[0.02em] text-[#10172a] sm:text-[3.7rem] lg:text-[4rem] xl:text-[4.35rem]">
+                  Women Are
+                </h1>
+                <span className="h-0.5 w-12 bg-gradient-to-r from-[#ec227f] to-[#7A1E7E] sm:w-20" aria-hidden="true" />
+              </div>
+
+              <p className="mt-2 text-[1.36rem] font-extrabold leading-tight tracking-[-0.025em] text-black sm:text-[2.05rem] lg:text-[2rem] xl:text-[2.2rem]">
+                Taking the Time to Understand
+              </p>
+              <p className="mt-2 bg-gradient-to-r from-[#ed0f78] via-[#c41483] to-[#301070] bg-clip-text text-[2.35rem] font-black uppercase leading-[0.95] tracking-[-0.035em] text-transparent sm:text-[3.75rem] lg:text-[3.55rem] xl:text-[4rem]">
+                Perimenopause &amp;
+                <span className="block">Menopause.</span>
+              </p>
+              <div className="relative mx-auto mt-1 w-fit px-6 pb-4">
+                <p
+                  className="relative z-10 -rotate-2 text-[3.4rem] leading-none text-[#10172a] sm:text-[5.2rem] lg:text-[4.8rem] xl:text-[5.3rem]"
+                  style={{ fontFamily: "Brush Script MT, Segoe Script, cursive" }}
+                >
+                  Are You?
+                </p>
+                <span
+                  className="absolute bottom-1 left-4 h-2 w-[88%] -rotate-3 rounded-full bg-gradient-to-r from-[#ef1378] to-[#d7148a]"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="text-sm font-extrabold text-[#111827] sm:text-base">Do any of these sound familiar?</p>
+              <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                {symptoms.map(symptom => (
+                  <div key={symptom} className="flex min-h-8 items-center gap-3 text-sm font-semibold text-[#131827] sm:text-[0.94rem]">
+                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f8eff1] text-[#c9196f]">
+                      <Check className="h-4 w-4 stroke-[3]" aria-hidden="true" />
+                    </span>
+                    <span>{symptom}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5 flex items-center gap-4 rounded-xl bg-[#f4eeeb] px-4 py-3.5 sm:px-5">
+              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f2e8e3] text-[#aa7742]">
+                <Star className="h-7 w-7 fill-current" aria-hidden="true" />
+              </span>
+              <p className="text-sm font-bold leading-5 text-[#161827] sm:text-base sm:leading-6">
+                Hormones are one of the biggest conversations in women&apos;s health today.
+                <span className="text-[#d51b75]"> Come learn why.</span>
+              </p>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 overflow-hidden rounded-lg border border-[#eadfdd] bg-white/70 sm:grid-cols-4">
+              <div className="flex min-h-16 items-center gap-2 border-b border-r border-[#eadfdd] px-3 py-3 sm:border-b-0">
+                <CalendarDays className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">[Date]</span>
+              </div>
+              <div className="flex min-h-16 items-center gap-2 border-b border-[#eadfdd] px-3 py-3 sm:border-b-0 sm:border-r">
+                <Clock3 className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">[Time]</span>
+              </div>
+              <div className="flex min-h-16 items-center gap-2 border-r border-[#eadfdd] px-3 py-3">
+                <MonitorPlay className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">Live Online</span>
+              </div>
+              <div className="flex min-h-16 items-center gap-2 px-3 py-3">
+                <Tag className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">Free</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleReserveSeat}
+              className="mt-4 inline-flex min-h-16 w-full items-center justify-center gap-3 rounded-lg bg-gradient-to-r from-[#e91678] via-[#cc167f] to-[#501079] px-6 py-4 text-base font-black uppercase tracking-[0.08em] text-white shadow-[0_16px_34px_rgba(164,20,113,0.24)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(164,20,113,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:text-xl"
+            >
+              Reserve My Free Spot
+              <span className="text-2xl leading-none" aria-hidden="true">→</span>
+            </button>
+
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-extrabold uppercase tracking-[0.04em] text-[#252236] sm:text-xs">
+              <span className="inline-flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-[#bf166d]" aria-hidden="true" /> Free to Attend
+              </span>
+              <span className="hidden h-5 w-px bg-[#c9aabb] sm:block" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2">
+                <Radio className="h-4 w-4 text-[#bf166d]" aria-hidden="true" /> Live Online
+              </span>
+              <span className="hidden h-5 w-px bg-[#c9aabb] sm:block" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2">
+                <MessageCircle className="h-4 w-4 text-[#bf166d]" aria-hidden="true" /> Live Q&amp;A
+              </span>
+            </div>
           </div>
 
-          <header className="px-5 pb-5 pt-6 text-center sm:px-8 sm:pb-7 sm:pt-8">
-            <a
-              href="/"
-              className="mx-auto flex w-fit flex-col items-center justify-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff59b7] focus-visible:ring-offset-4 focus-visible:ring-offset-[#071f35]"
-              aria-label="MedMethod Direct home"
-            >
-              <span className="text-[1.25rem] font-black leading-none tracking-[-0.045em] text-white sm:text-[1.55rem]">
-                Med<span className="text-[#ff55b5]">Method</span>
-              </span>
-              <span className="mt-1 text-[0.58rem] font-bold uppercase tracking-[0.37em] text-white/70 sm:text-[0.68rem]">
-                Direct
-              </span>
-            </a>
-            <p className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#9be7ef] sm:text-xs sm:tracking-[0.3em]">
-              A live conversation with Dr. Jumana Al-Deek
-            </p>
-          </header>
-
-          <div className="grid items-stretch gap-7 px-4 pb-6 sm:px-7 sm:pb-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0 lg:px-10 lg:pb-10">
-            <div className="relative min-h-[430px] overflow-hidden rounded-[1.35rem] border border-white/15 bg-[#151226] shadow-[0_24px_60px_rgba(0,0,0,0.30)] sm:min-h-[520px] lg:rounded-r-none lg:border-r-0">
+          <div className="grid gap-5 lg:grid-rows-[minmax(430px,1fr)_auto]">
+            <div className="relative min-h-[360px] overflow-hidden rounded-[1.25rem] bg-[#251225] shadow-[0_22px_55px_rgba(48,17,46,0.20)] sm:min-h-[470px] lg:min-h-0">
               <div
                 className="absolute inset-0"
                 aria-hidden="true"
                 style={{
                   background:
-                    "linear-gradient(180deg, rgba(9,24,43,0.12) 0%, rgba(10,14,28,0.44) 52%, rgba(11,9,23,0.90) 100%), radial-gradient(circle at 30% 18%, rgba(232,51,158,0.50), transparent 30%), radial-gradient(circle at 74% 50%, rgba(82,72,166,0.55), transparent 37%), linear-gradient(145deg, #1a2540 0%, #11162a 48%, #24132d 100%)",
+                    "linear-gradient(180deg, rgba(35,10,27,0.30), rgba(21,8,24,0.68)), radial-gradient(circle at 72% 24%, rgba(226,67,150,0.38), transparent 30%), radial-gradient(circle at 23% 75%, rgba(105,38,104,0.55), transparent 40%), linear-gradient(135deg, #4a203f 0%, #1e1728 55%, #32152b 100%)",
                 }}
               />
-              <div className="absolute inset-0 opacity-25" aria-hidden="true">
-                <div className="absolute -left-24 top-14 h-64 w-64 rounded-full border border-white/40" />
-                <div className="absolute -bottom-24 right-0 h-72 w-72 rounded-full border border-[#ff62bc]/50" />
-              </div>
-
-              <div className="relative z-10 flex h-full min-h-[430px] flex-col items-center justify-between px-6 py-7 text-center sm:min-h-[520px] sm:px-8 sm:py-9">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/15 px-3.5 py-2 text-[9px] font-extrabold uppercase tracking-[0.22em] text-white/80 backdrop-blur-sm sm:text-[10px]">
-                  <Video className="h-3.5 w-3.5" aria-hidden="true" />
-                  Highlight Video Coming Soon
-                </div>
-
-                <p className="max-w-[460px] text-[1.75rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-[2.45rem] lg:text-[2.65rem]">
-                  Women are taking the <span className="font-black text-[#ff59b7]">TIME</span> to learn about
-                  <span className="mt-2 block font-black uppercase leading-[0.98] text-white">
-                    Perimenopause &amp; Menopause.
-                  </span>
-                  <span className="mt-4 block font-black italic text-[#ff69bd]">Are You?</span>
-                </p>
-
+              <div className="absolute inset-x-0 bottom-0 h-[45%] bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_100%] opacity-40" aria-hidden="true" />
+              <div className="relative z-10 flex h-full min-h-[360px] flex-col items-center justify-center px-6 py-8 text-center text-white sm:min-h-[470px]">
                 <button
                   type="button"
                   onClick={() => toast.info("The speaking-event video will be added after the hero design is approved.")}
-                  className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/45 bg-white/12 text-white backdrop-blur-sm transition duration-200 hover:scale-105 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#151226] active:scale-[0.97] sm:h-16 sm:w-16"
-                  aria-label="Speaking-event highlight video coming soon"
+                  className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-white text-[#111827] shadow-[0_14px_34px_rgba(0,0,0,0.28)] transition duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/50 active:scale-[0.97] sm:h-28 sm:w-28"
+                  aria-label="Video placeholder"
                 >
-                  <Play className="ml-1 h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
+                  <Play className="ml-1 h-10 w-10 fill-current sm:h-12 sm:w-12" aria-hidden="true" />
                 </button>
+                <p className="mt-6 text-base font-black uppercase tracking-[0.09em] sm:text-xl">Video Placeholder</p>
+                <p className="mt-2 max-w-[410px] text-xs font-semibold leading-5 text-white/70 sm:text-sm">
+                  Speaking-event highlight video will be placed here.
+                </p>
               </div>
             </div>
 
-            <div className="flex flex-col justify-center rounded-[1.35rem] border border-white/15 bg-[#071a2d]/88 px-6 py-8 shadow-[0_24px_60px_rgba(0,0,0,0.22)] backdrop-blur-sm sm:px-9 sm:py-10 lg:rounded-l-none lg:px-11 lg:py-12">
-              <span className="text-[10px] font-black uppercase tracking-[0.24em] text-[#75d8e6] sm:text-xs">
-                Understand Your Next Chapter
-              </span>
+            <div className="grid items-center gap-5 rounded-[1.1rem] bg-[#f4eeeb] p-5 sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-6">
+              <div className="mx-auto flex h-32 w-32 shrink-0 flex-col items-center justify-center rounded-full border border-[#e6d9da] bg-[#eee7e4] text-center text-[#9e416d] sm:mx-0 sm:h-36 sm:w-36">
+                <UserRound className="h-10 w-10" aria-hidden="true" />
+                <span className="mt-2 px-4 text-[9px] font-black uppercase leading-4 tracking-[0.08em]">Dr. Photo Placeholder</span>
+              </div>
 
-              <h1 className="mt-4 text-[2.05rem] font-black leading-[0.96] tracking-[-0.045em] text-white sm:text-[3.4rem] sm:leading-[0.94] sm:tracking-[-0.05em] lg:text-[4rem]">
-                Making Sense of
-                <span className="mt-2 block bg-gradient-to-r from-[#ff5ab8] via-[#e83ca5] to-[#a862e8] bg-clip-text text-transparent">
-                  Perimenopause
-                </span>
-                <span className="mt-1 block">&amp; Menopause</span>
-              </h1>
-
-              <p className="mt-6 max-w-[590px] text-[0.98rem] font-medium leading-7 text-white/78 sm:text-lg sm:leading-8">
-                Explore common symptoms, hormone therapy, GLP-1 medications, and what informed physician-led care should include.
-              </p>
-
-              <div className="mt-7 border-y border-white/12 py-5">
-                <p className="text-base font-extrabold text-white sm:text-lg">Dr. Jumana Al-Deek, DO</p>
-                <div className="mt-3 flex items-start gap-2.5 text-sm leading-6 text-white/72">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#ff59b7]" aria-hidden="true" />
-                  <span>Board-Certified Physician · Menopause &amp; Medical Weight Loss</span>
-                </div>
-                <div className="mt-2 flex items-start gap-2.5 text-sm leading-6 text-white/72">
-                  <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-[#75d8e6]" aria-hidden="true" />
-                  <span>
-                    Author of <em>The Menopause Weight Loss Trap</em>
-                  </span>
+              <div>
+                <p className="font-serif text-[1.8rem] font-bold leading-tight text-[#1e1730] sm:text-[2.25rem]">
+                  Dr. Jumana Al-Deek <span className="text-lg font-medium">DO, MS</span>
+                </p>
+                <p className="mt-2 text-xs font-black uppercase tracking-[0.06em] text-[#b81768] sm:text-sm">
+                  Menopause &amp; Medical Weight Loss Specialist
+                </p>
+                <div className="mt-4 space-y-2 border-t border-[#d8cdcd] pt-4 text-xs font-semibold leading-5 text-[#252236] sm:text-sm">
+                  <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#c4156e]" aria-hidden="true" /> Board-Certified Family Physician</p>
+                  <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#c4156e]" aria-hidden="true" /> Menopause Society Trained</p>
+                  <p className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#c4156e]" aria-hidden="true" /> Author of <em>The Menopause Weight Loss Trap</em></p>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleReserveSeat}
-                className="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#f041aa] to-[#8a289c] px-7 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_16px_34px_rgba(232,51,158,0.28)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(232,51,158,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff75c7] focus-visible:ring-offset-4 focus-visible:ring-offset-[#071a2d] active:scale-[0.97] sm:max-w-[360px]"
-              >
-                Reserve My Seat
-              </button>
-              <p className="mt-3 text-xs font-semibold text-white/55">
-                Event date and registration details coming soon.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid border-t border-white/10 bg-[#041726]/82 text-center sm:grid-cols-3">
-            <div className="border-b border-white/10 px-5 py-4 sm:border-b-0 sm:border-r">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Physician-Led</p>
-              <p className="mt-1 text-sm font-bold text-white">Live Education</p>
-            </div>
-            <div className="border-b border-white/10 px-5 py-4 sm:border-b-0 sm:border-r">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Focused On</p>
-              <p className="mt-1 text-sm font-bold text-white">Midlife Women&apos;s Health</p>
-            </div>
-            <div className="px-5 py-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Registration</p>
-              <p className="mt-1 text-sm font-bold text-white">Opening Soon</p>
+              <div className="mx-auto flex h-36 w-24 shrink-0 flex-col items-center justify-center rounded-md border border-[#dccfd2] bg-white px-2 text-center shadow-[0_10px_24px_rgba(71,30,50,0.12)] sm:mx-0">
+                <Video className="h-7 w-7 text-[#bf176e]" aria-hidden="true" />
+                <span className="mt-2 text-[9px] font-black uppercase leading-4 tracking-[0.08em] text-[#6d3150]">Book Image Placeholder</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <p className="bg-[#f7f4f6] px-5 py-4 text-center text-[11px] leading-5 text-[#706a73] sm:text-xs">
+        <p className="mx-auto mt-6 max-w-[920px] text-center text-[10px] leading-5 text-[#716b72] sm:text-xs">
           This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
         </p>
       </section>

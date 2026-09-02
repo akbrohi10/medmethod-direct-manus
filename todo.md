@@ -641,3 +641,13 @@
 - [x] Preserve noindex review status, canonical metadata, educational disclaimer, and placeholder-only CTA behavior
 - [x] Update focused regression coverage and validate TypeScript, all 165 tests, production build, HTTP 200, and desktop/mobile rendering
 - [x] Save and present the revised hero for approval before adding any additional page section
+
+## Live Webinar Supplied-Mockup Recreation
+
+- [x] Rebuild `/live-webinar` to closely match the supplied light cream editorial mockup rather than the dark masterclass concept
+- [x] Preserve the mockup’s headline hierarchy, complete symptom list, conversation banner, event-details row, CTA, trust row, video area, and physician authority card
+- [x] Use clearly labeled placeholders for the speaking-event video, Dr. Al-Deek photo, book image, date, and time
+- [x] Keep the supplied draft wording unchanged for visual review, including Low Energy and Low Libido, until the user separately approves compliance copy revisions
+- [x] Keep the page hero-only, registration inactive, and noindex with no database, webhook, payment, countdown, or additional section
+- [x] Update focused regression coverage and validate TypeScript, all 165 tests, production build, HTTP 200, and desktop/mobile visual fidelity
+- [x] Save and present the mockup-matched draft for user review before replacing placeholders or changing copy

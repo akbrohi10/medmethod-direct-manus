@@ -13,20 +13,29 @@ describe("live webinar hero-only landing page", () => {
   });
 
   it("uses the approved headline and physician authority details", () => {
-    expect(pageSource).toContain("Women are taking the");
-    expect(pageSource).toContain(">TIME<");
-    expect(pageSource).toContain("Perimenopause &amp; Menopause.");
+    expect(pageSource).toContain("Women Are");
+    expect(pageSource).toContain("Taking the Time to Understand");
+    expect(pageSource).toContain("Perimenopause &amp;");
+    expect(pageSource).toContain("Menopause.");
     expect(pageSource).toContain("Are You?");
-    expect(pageSource).toContain("Dr. Jumana Al-Deek, DO");
+    expect(pageSource).toContain("Dr. Jumana Al-Deek");
+    expect(pageSource).toContain("DO, MS");
     expect(pageSource).toContain("The Menopause Weight Loss Trap");
+    expect(pageSource).toContain("Waking at 3 AM");
+    expect(pageSource).toContain("Low Energy");
+    expect(pageSource).toContain("Low Libido");
     expect(pageSource).not.toContain("Feel Like Yourself Again");
   });
 
   it("keeps the page hero-only with a nonfunctional registration and video placeholder", () => {
-    expect(pageSource).toContain("Highlight Video Coming Soon");
-    expect(pageSource).toContain("Reserve My Seat");
+    expect(pageSource).toContain("Video Placeholder");
+    expect(pageSource).toContain("Dr. Photo Placeholder");
+    expect(pageSource).toContain("Book Image Placeholder");
+    expect(pageSource).toContain("[Date]");
+    expect(pageSource).toContain("[Time]");
+    expect(pageSource).toContain("Reserve My Free Spot");
     expect(pageSource).toContain("Registration details are coming soon.");
-    expect(pageSource).toContain("lg:grid-cols-[0.9fr_1.1fr]");
+    expect(pageSource).toContain("lg:grid-cols-[0.95fr_1.05fr]");
     expect(pageSource).toContain('content="noindex, nofollow"');
     expect(pageSource).not.toMatch(/<form\b/);
     expect(pageSource).not.toMatch(/trpc\.|webhook|fetch\(/i);
