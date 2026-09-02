@@ -687,4 +687,4 @@
 - [x] Replace only the Book Image Placeholder on `/live-webinar` with the supplied cover, descriptive alt text, lazy loading, and asynchronous decoding
 - [x] Preserve the authority-card layout, video behavior, doctor-photo/date/time placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 725,822-byte PNG delivery with matching checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
-- [ ] Save and deliver the webinar book-cover integration checkpoint
+- [x] Save and deliver the webinar book-cover integration checkpoint
