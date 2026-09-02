@@ -58,6 +58,13 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).toContain("autoplayBlocked");
     expect(pageSource).toContain("Play Video With Sound");
     expect(pageSource).toContain("playsInline");
+    expect(pageSource).toContain('video.setAttribute("playsinline", "")');
+    expect(pageSource).toContain('video.setAttribute("webkit-playsinline", "")');
+    expect(pageSource).toContain('video.addEventListener("webkitbeginfullscreen", keepPlaybackInline)');
+    expect(pageSource).toContain("webkitExitFullscreen?.()");
+    expect(pageSource).toContain('controlsList="nodownload noremoteplayback nofullscreen"');
+    expect(pageSource).toContain("disablePictureInPicture");
+    expect(pageSource).toContain("disableRemotePlayback");
     expect(pageSource).toContain('preload="metadata"');
     expect(pageSource).toContain("/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4");
     expect(pageSource).toContain("/manus-storage/replacement-speaking-event-poster_5353b331.jpg");

@@ -41,6 +41,19 @@ export default function LiveWebinar() {
     const video = videoRef.current;
     if (!shell || !video) return;
 
+    const webkitVideo = video as HTMLVideoElement & {
+      webkitExitFullscreen?: () => void;
+    };
+
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    const keepPlaybackInline = () => {
+      webkitVideo.webkitExitFullscreen?.();
+    };
+
+    video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
+
     const attemptPlayback = () => {
       video.muted = false;
       const playback = video.play();
@@ -60,7 +73,10 @@ export default function LiveWebinar() {
     );
 
     observer.observe(shell);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("webkitbeginfullscreen", keepPlaybackInline);
+    };
   }, []);
 
   const handleReserveSeat = () => {
@@ -184,6 +200,9 @@ export default function LiveWebinar() {
               data-webinar-video
               className="absolute inset-0 h-full w-full bg-[#100913] object-contain"
               controls
+              controlsList="nodownload noremoteplayback nofullscreen"
+              disablePictureInPicture
+              disableRemotePlayback
               playsInline
               preload="metadata"
               poster={WEBINAR_VIDEO_POSTER_URL}

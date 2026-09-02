@@ -756,3 +756,11 @@
 - [x] Preserve all other webinar layout, banner, copy, media, autoplay behavior, symptom band, headshot, book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, corrected desktop text flow, and preserved mobile authority-card rendering
 - [x] Save and deliver the desktop authorship-alignment repair checkpoint
+
+## Live Webinar Mobile Inline-Playback Repair
+
+- [x] Prevent the webinar video from opening the device’s native full-screen player when started on supported mobile browsers
+- [x] Keep playback embedded inside the `/live-webinar` video frame with standard and WebKit inline-playback attributes plus native full-screen, picture-in-picture, and remote-playback suppression
+- [x] Preserve native controls, the sound-on autoplay attempt, 60% visibility pause/resume behavior, blocked-autoplay fallback, video/poster assets, layout, and all page content
+- [x] Add focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, compiled standard/WebKit inline safeguards, HTTP 200, clean runtime logs, embedded 375px rendering, and unchanged desktop layout
+- [ ] Save and deliver the mobile inline-playback repair checkpoint
