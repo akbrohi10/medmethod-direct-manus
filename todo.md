@@ -618,3 +618,15 @@
 - [x] Preserve `/thank-you2`, checkout totals, LECTURE50 credit logic, deferred-charge amounts, payment scheduling, and webhook behavior
 - [x] Add focused regression coverage and validate TypeScript, all 161 tests, production build, and desktop/mobile `/thank-you` rendering
 - [x] Save and deliver the `/thank-you` wording-only checkpoint
+
+## Live Webinar Hero-Only Landing Page
+
+- [x] Create a new public route at `/live-webinar`
+- [x] Build only the hero section; do not add section two, footer expansion, registration workflow, database fields, or webhook behavior
+- [x] Use the approved headline: “Women are taking the TIME to learn about Perimenopause & Menopause. Are You?”
+- [x] Include Dr. Jumana Al-Deek’s physician authority line and authorship of *The Menopause Weight Loss Trap*
+- [x] Add a polished speaking-event video placeholder that can be replaced after the final video is uploaded
+- [x] Include a clear Reserve My Seat CTA placeholder without inventing event date, time, capacity, or registration behavior
+- [x] Add appropriate page title, description, canonical URL, and educational-event disclaimer
+- [x] Add focused route/content regression coverage and validate TypeScript, all 165 tests, production build, and desktop/mobile rendering
+- [x] Save and present the hero-only page for review before building any additional section

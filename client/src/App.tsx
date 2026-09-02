@@ -40,6 +40,7 @@ const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
 const ThanksPaymentWL2 = lazy(() => import("@/pages/ThanksPaymentWL2"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CareTeamBooking = lazy(() => import("@/pages/CareTeamBooking"));
+const LiveWebinar = lazy(() => import("@/pages/LiveWebinar"));
 
 // Location pages - Virginia
 const LocationVirginia = lazy(() => import("@/pages/LocationVirginia"));
@@ -322,6 +323,7 @@ function Router() {
         <Route path="/lp/WL2" component={LpWL2} />
         <Route path="/thank-you2" component={ThankYou2} />
         <Route path="/care-team-booking" component={CareTeamBooking} />
+        <Route path="/live-webinar" component={LiveWebinar} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
@@ -331,6 +333,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
+  if (location === "/live-webinar") return null;
   const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/" || location === "/lp/WL2";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;
