@@ -630,3 +630,14 @@
 - [x] Add appropriate page title, description, canonical URL, and educational-event disclaimer
 - [x] Add focused route/content regression coverage and validate TypeScript, all 165 tests, production build, and desktop/mobile rendering
 - [x] Save and present the hero-only page for review before building any additional section
+
+## Live Webinar Masterclass-Style Hero Revision
+
+- [x] Replace the soft split-page composition with one bold, unified masterclass-style hero panel
+- [x] Position the speaking-event video placeholder on the left where the reference presenter appears
+- [x] Overlay the approved “Women are taking the TIME…” message on the left video placeholder
+- [x] Place the webinar title, concise supporting copy, Dr. Al-Deek authority details, and Reserve My Seat CTA on the right
+- [x] Keep the page hero-only with no form, date, countdown, media logos, false scarcity, footer expansion, or section two
+- [x] Preserve noindex review status, canonical metadata, educational disclaimer, and placeholder-only CTA behavior
+- [x] Update focused regression coverage and validate TypeScript, all 165 tests, production build, HTTP 200, and desktop/mobile rendering
+- [x] Save and present the revised hero for approval before adding any additional page section

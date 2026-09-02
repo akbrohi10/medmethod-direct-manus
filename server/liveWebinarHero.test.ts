@@ -26,9 +26,11 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).toContain("Highlight Video Coming Soon");
     expect(pageSource).toContain("Reserve My Seat");
     expect(pageSource).toContain("Registration details are coming soon.");
+    expect(pageSource).toContain("lg:grid-cols-[0.9fr_1.1fr]");
     expect(pageSource).toContain('content="noindex, nofollow"');
     expect(pageSource).not.toMatch(/<form\b/);
     expect(pageSource).not.toMatch(/trpc\.|webhook|fetch\(/i);
+    expect(pageSource).not.toMatch(/Forbes|Entrepreneur|countdown|spots? (?:are )?limited/i);
     expect(pageSource.match(/<section\b/g)).toHaveLength(1);
   });
 
