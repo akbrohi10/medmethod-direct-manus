@@ -729,4 +729,4 @@
 - [x] Replace only the `Dr. Photo Placeholder` on `/live-webinar` with the supplied headshot and descriptive alternative text
 - [x] Preserve the current layout, copy, video and autoplay behavior, symptom band, transparent book cover, event placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent 1,866,276-byte image delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
-- [ ] Save and deliver the webinar headshot-only replacement checkpoint
+- [x] Save and deliver the webinar headshot-only replacement checkpoint
