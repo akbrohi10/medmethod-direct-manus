@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/dr-aldeek-speaking-event-web_db5bfc0c.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/dr-aldeek-speaking-event-poster_125d9f5e.jpg";
-const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover_9441a17d.png";
+const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png";
 
 const symptoms = [
   "Waking at 3 AM",
@@ -225,11 +225,14 @@ export default function LiveWebinar() {
               </div>
             </div>
 
-            <div className="mx-auto flex h-32 w-22 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[#dccfd2] bg-white p-1.5 shadow-[0_10px_24px_rgba(71,30,50,0.12)] sm:mx-0">
+            <div
+              data-webinar-book-cover
+              className="mx-auto h-48 w-36 shrink-0 sm:mx-0 sm:h-52 sm:w-40"
+            >
               <img
                 src={BOOK_COVER_URL}
                 alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
-                className="h-full w-full object-contain"
+                className="h-full w-full object-contain drop-shadow-[0_14px_18px_rgba(71,30,50,0.2)]"
                 loading="lazy"
                 decoding="async"
               />

@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 const projectRoot = resolve(import.meta.dirname, "..");
 const pageSource = readFileSync(resolve(projectRoot, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const appSource = readFileSync(resolve(projectRoot, "client/src/App.tsx"), "utf8");
+const bookCoverBlock = pageSource.match(/<div\s+data-webinar-book-cover[\s\S]*?<\/div>/)?.[0] ?? "";
 
 describe("live webinar hero-only landing page", () => {
   it("registers the public /live-webinar route", () => {
@@ -47,10 +48,16 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).not.toContain("Video Placeholder");
     expect(pageSource).toContain("Dr. Photo Placeholder");
     expect(pageSource).not.toContain("Book Image Placeholder");
-    expect(pageSource).toContain("/manus-storage/menopause-weight-loss-trap-book-cover_9441a17d.png");
+    expect(pageSource).toContain("/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png");
     expect(pageSource).toContain("Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek");
     expect(pageSource).toContain('loading="lazy"');
     expect(pageSource).toContain('decoding="async"');
+    expect(bookCoverBlock).toContain("h-48 w-36");
+    expect(bookCoverBlock).toContain("sm:h-52 sm:w-40");
+    expect(bookCoverBlock).toContain("object-contain");
+    expect(bookCoverBlock).not.toMatch(/scale-\[|object-cover|overflow-hidden/);
+    expect(bookCoverBlock).not.toMatch(/\bborder\b|\bbg-white\b|\bp-1\.5\b|\brounded\b/);
+    expect(bookCoverBlock).not.toContain(" shadow-");
     expect(pageSource).toContain("[Date]");
     expect(pageSource).toContain("[Time]");
     expect(pageSource).toContain("Reserve My Free Spot");

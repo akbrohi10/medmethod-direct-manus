@@ -688,3 +688,19 @@
 - [x] Preserve the authority-card layout, video behavior, doctor-photo/date/time placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 725,822-byte PNG delivery with matching checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
 - [x] Save and deliver the webinar book-cover integration checkpoint
+
+## Live Webinar Book-Cover Size and Frame Refinement
+
+- [x] Enlarge the existing supplied book cover in the physician authority card
+- [x] Remove the surrounding white card, border, padding, and frame while preserving the cover artwork itself
+- [x] Preserve all other webinar content, hierarchy, video behavior, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Run focused coverage, TypeScript, and desktop/mobile rendering checks; the interim opaque-cover crop was superseded by the user-supplied transparent version before full validation
+- [x] Do not checkpoint the interim opaque-cover crop; replace it with the user-supplied transparent artwork in the next refinement
+
+## Live Webinar Transparent Book-Cover Refinement
+
+- [x] Preserve the newly supplied 1060×1484 transparent 1,967,503-byte RGBA PNG unchanged outside the project, verify its matching SHA-256 checksum, and upload it to permanent project storage
+- [x] Replace the current opaque book asset with the new transparent version while keeping the larger frameless presentation
+- [x] Preserve all other webinar content, hierarchy, video behavior, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 1,967,503-byte PNG delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
+- [ ] Save and deliver the transparent book-cover checkpoint
