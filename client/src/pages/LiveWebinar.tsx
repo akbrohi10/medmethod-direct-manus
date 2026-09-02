@@ -106,18 +106,31 @@ export default function LiveWebinar() {
         />
 
         <div
+          data-webinar-zoom-rsvp-banner
+          className="mb-6 overflow-hidden rounded-[1.2rem] bg-gradient-to-r from-[#e91678] via-[#c51682] to-[#5a147e] px-5 py-4 text-white shadow-[0_18px_42px_rgba(126,20,105,0.22)] sm:px-8 sm:py-5 lg:mb-7"
+        >
+          <div className="mx-auto flex max-w-[1180px] flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-5 lg:gap-7">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30 sm:h-12 sm:w-12">
+                <MonitorPlay className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
+              </span>
+              <p className="text-[1.55rem] font-black uppercase leading-none tracking-[0.035em] sm:text-[1.9rem] lg:text-[2.15rem]">
+                Live on Zoom
+              </p>
+            </div>
+            <span className="hidden h-10 w-px bg-white/35 sm:block" aria-hidden="true" />
+            <p className="text-sm font-extrabold uppercase leading-tight tracking-[0.075em] sm:text-lg lg:text-xl">
+              RSVP Now <span className="px-1 text-white/70" aria-hidden="true">—</span> Save Your Free Spot
+            </p>
+          </div>
+        </div>
+
+        <div
           data-webinar-upper-row
           className="grid items-stretch gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 xl:gap-12"
         >
           <div data-webinar-headline className="flex flex-col">
-            <div className="flex items-center gap-3 text-[#b51c68]">
-              <CalendarDays className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" aria-hidden="true" />
-              <p className="text-[0.72rem] font-black uppercase tracking-[0.12em] sm:text-base sm:tracking-[0.09em]">
-                Free Live Women&apos;s Health Webinar
-              </p>
-            </div>
-
-            <div className="mt-4 text-center">
+            <div className="text-center lg:pt-3">
               <div className="flex items-center justify-center gap-3 sm:gap-5">
                 <span className="h-0.5 w-8 shrink-0 bg-gradient-to-r from-[#ec227f] to-[#7A1E7E] sm:w-14" aria-hidden="true" />
                 <h1 className="whitespace-nowrap text-[2.2rem] font-black uppercase leading-none tracking-[0.02em] text-[#10172a] sm:text-[3.35rem] lg:text-[3.45rem] xl:text-[3.9rem]">

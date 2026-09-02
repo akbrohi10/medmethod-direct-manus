@@ -730,3 +730,12 @@
 - [x] Preserve the current layout, copy, video and autoplay behavior, symptom band, transparent book cover, event placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent 1,866,276-byte image delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
 - [x] Save and deliver the webinar headshot-only replacement checkpoint
+
+## Live Webinar Zoom RSVP Banner
+
+- [x] Add a visually distinct full-width banner above the existing `/live-webinar` hero content
+- [x] Use only the approved banner copy: `LIVE ON ZOOM` and `RSVP NOW — SAVE YOUR FREE SPOT`
+- [x] Make the live Zoom format and RSVP action immediately clear on desktop and mobile without unverified scarcity language
+- [x] Preserve all existing hero copy, replacement video and autoplay behavior, symptom band, headshot, transparent book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, and desktop/mobile banner hierarchy and rendering
+- [ ] Save and deliver the standalone Zoom RSVP banner checkpoint

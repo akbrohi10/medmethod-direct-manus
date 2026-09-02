@@ -14,6 +14,11 @@ describe("live webinar hero-only landing page", () => {
   });
 
   it("uses the approved headline and physician authority details", () => {
+    expect(pageSource).toContain("data-webinar-zoom-rsvp-banner");
+    expect(pageSource).toContain("Live on Zoom");
+    expect(pageSource).toContain("RSVP Now");
+    expect(pageSource).toContain("Save Your Free Spot");
+    expect(pageSource).not.toContain("Free Live Women&apos;s Health Webinar");
     expect(pageSource).toContain("Women Are");
     expect(pageSource).toContain("Taking the Time to Understand");
     expect(pageSource).toContain("Perimenopause &amp;");
@@ -76,6 +81,7 @@ describe("live webinar hero-only landing page", () => {
   });
 
   it("uses the approved headline-video, symptom-band, and lower conversion hierarchy", () => {
+    const zoomBannerPosition = pageSource.indexOf("data-webinar-zoom-rsvp-banner");
     const upperRowPosition = pageSource.indexOf("data-webinar-upper-row");
     const headlinePosition = pageSource.indexOf("data-webinar-headline");
     const videoPosition = pageSource.indexOf("data-webinar-video-shell");
@@ -83,7 +89,8 @@ describe("live webinar hero-only landing page", () => {
     const lowerRowPosition = pageSource.indexOf("data-webinar-lower-row");
 
     expect(pageSource.match(/lg:grid-cols-\[0\.95fr_1\.05fr\]/g)).toHaveLength(2);
-    expect(upperRowPosition).toBeGreaterThan(-1);
+    expect(zoomBannerPosition).toBeGreaterThan(-1);
+    expect(upperRowPosition).toBeGreaterThan(zoomBannerPosition);
     expect(headlinePosition).toBeGreaterThan(upperRowPosition);
     expect(videoPosition).toBeGreaterThan(headlinePosition);
     expect(symptomsPosition).toBeGreaterThan(videoPosition);
