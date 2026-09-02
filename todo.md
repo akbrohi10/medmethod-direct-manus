@@ -755,4 +755,4 @@
 - [x] Preserve the exact authorship wording and existing mobile authority-card presentation
 - [x] Preserve all other webinar layout, banner, copy, media, autoplay behavior, symptom band, headshot, book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, corrected desktop text flow, and preserved mobile authority-card rendering
-- [ ] Save and deliver the desktop authorship-alignment repair checkpoint
+- [x] Save and deliver the desktop authorship-alignment repair checkpoint
