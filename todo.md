@@ -704,3 +704,11 @@
 - [x] Preserve all other webinar content, hierarchy, video behavior, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, permanent 1,967,503-byte PNG delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
 - [x] Save and deliver the transparent book-cover checkpoint
+
+## Live Webinar Video and Symptom Hierarchy Revision
+
+- [x] Raise the webinar video within the upper hero composition so it aligns more closely with the headline
+- [x] Move the complete existing symptom prompt and list beneath the headline-and-video row without changing its wording
+- [x] Preserve CTA visibility, video playback behavior and fallback, authority card, transparent book cover, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, desktop/mobile order, and the unchanged visibility-based video playback behavior and fallback
+- [ ] Save and deliver the approved webinar hierarchy checkpoint

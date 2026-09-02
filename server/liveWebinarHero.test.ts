@@ -70,8 +70,21 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource.match(/<section\b/g)).toHaveLength(1);
   });
 
-  it("uses the approved balanced two-row conversion hierarchy", () => {
+  it("uses the approved headline-video, symptom-band, and lower conversion hierarchy", () => {
+    const upperRowPosition = pageSource.indexOf("data-webinar-upper-row");
+    const headlinePosition = pageSource.indexOf("data-webinar-headline");
+    const videoPosition = pageSource.indexOf("data-webinar-video-shell");
+    const symptomsPosition = pageSource.indexOf("data-webinar-symptoms");
+    const lowerRowPosition = pageSource.indexOf("data-webinar-lower-row");
+
     expect(pageSource.match(/lg:grid-cols-\[0\.95fr_1\.05fr\]/g)).toHaveLength(2);
+    expect(upperRowPosition).toBeGreaterThan(-1);
+    expect(headlinePosition).toBeGreaterThan(upperRowPosition);
+    expect(videoPosition).toBeGreaterThan(headlinePosition);
+    expect(symptomsPosition).toBeGreaterThan(videoPosition);
+    expect(lowerRowPosition).toBeGreaterThan(symptomsPosition);
+    expect(pageSource).toContain("lg:min-h-[430px]");
+    expect(pageSource).toContain("lg:grid-cols-3 xl:grid-cols-5");
     expect(pageSource).toContain("whitespace-nowrap");
     expect(pageSource).toContain("lg:order-1");
     expect(pageSource).toContain("lg:order-2");

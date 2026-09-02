@@ -104,16 +104,19 @@ export default function LiveWebinar() {
           }}
         />
 
-        <div className="flex items-center gap-3 text-[#b51c68]">
-          <CalendarDays className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" aria-hidden="true" />
-          <p className="text-[0.72rem] font-black uppercase tracking-[0.12em] sm:text-base sm:tracking-[0.09em]">
-            Free Live Women&apos;s Health Webinar
-          </p>
-        </div>
+        <div
+          data-webinar-upper-row
+          className="grid items-stretch gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 xl:gap-12"
+        >
+          <div data-webinar-headline className="flex flex-col">
+            <div className="flex items-center gap-3 text-[#b51c68]">
+              <CalendarDays className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" aria-hidden="true" />
+              <p className="text-[0.72rem] font-black uppercase tracking-[0.12em] sm:text-base sm:tracking-[0.09em]">
+                Free Live Women&apos;s Health Webinar
+              </p>
+            </div>
 
-        <div className="mt-4 grid items-stretch gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 xl:gap-12">
-          <div className="flex flex-col">
-            <div className="text-center">
+            <div className="mt-4 text-center">
               <div className="flex items-center justify-center gap-3 sm:gap-5">
                 <span className="h-0.5 w-8 shrink-0 bg-gradient-to-r from-[#ec227f] to-[#7A1E7E] sm:w-14" aria-hidden="true" />
                 <h1 className="whitespace-nowrap text-[2.2rem] font-black uppercase leading-none tracking-[0.02em] text-[#10172a] sm:text-[3.35rem] lg:text-[3.45rem] xl:text-[3.9rem]">
@@ -142,27 +145,12 @@ export default function LiveWebinar() {
                 />
               </div>
             </div>
-
-            <div className="mt-3">
-              <p className="text-sm font-extrabold text-[#111827] sm:text-base">Do any of these sound familiar?</p>
-              <div className="mt-2.5 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
-                {symptoms.map(symptom => (
-                  <div key={symptom} className="flex min-h-7 items-center gap-3 text-sm font-semibold text-[#131827] sm:text-[0.9rem]">
-                    <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f8eff1] text-[#c9196f]">
-                      <Check className="h-3.5 w-3.5 stroke-[3]" aria-hidden="true" />
-                    </span>
-                    <span>{symptom}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </div>
 
           <div
             ref={videoShellRef}
             data-webinar-video-shell
-            className="relative min-h-[360px] overflow-hidden rounded-[1.25rem] bg-[#100913] shadow-[0_22px_55px_rgba(48,17,46,0.20)] sm:min-h-[470px] lg:min-h-0"
+            className="relative min-h-[360px] overflow-hidden rounded-[1.25rem] bg-[#100913] shadow-[0_22px_55px_rgba(48,17,46,0.20)] sm:min-h-[470px] lg:min-h-[430px]"
           >
             <video
               ref={videoRef}
@@ -194,7 +182,27 @@ export default function LiveWebinar() {
           </div>
         </div>
 
-        <div className="mt-6 grid items-stretch gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 xl:gap-12">
+        <div
+          data-webinar-symptoms
+          className="mt-5 rounded-[1.1rem] border border-[#eadfdd] bg-white/65 px-5 py-4 shadow-[0_12px_30px_rgba(88,36,65,0.05)] sm:px-6"
+        >
+          <p className="text-sm font-extrabold text-[#111827] sm:text-base">Do any of these sound familiar?</p>
+          <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2.5 lg:grid-cols-3 xl:grid-cols-5">
+            {symptoms.map(symptom => (
+              <div key={symptom} className="flex min-h-7 items-center gap-2.5 text-xs font-semibold leading-4 text-[#131827] sm:text-[0.9rem]">
+                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f8eff1] text-[#c9196f]">
+                  <Check className="h-3.5 w-3.5 stroke-[3]" aria-hidden="true" />
+                </span>
+                <span>{symptom}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          data-webinar-lower-row
+          className="mt-5 grid items-stretch gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 xl:gap-12"
+        >
           <div className="order-2 grid items-center gap-5 rounded-[1.1rem] bg-[#f4eeeb] p-5 sm:grid-cols-[auto_1fr_auto] sm:gap-5 sm:p-6 lg:order-1">
             <div className="flex items-center gap-3 rounded-xl bg-[#fbf7f4] px-4 py-3 sm:col-span-3">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f2e8e3] text-[#aa7742]">
