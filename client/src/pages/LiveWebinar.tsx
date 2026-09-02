@@ -107,9 +107,22 @@ export default function LiveWebinar() {
 
         <div
           data-webinar-zoom-rsvp-banner
-          className="mb-6 overflow-hidden rounded-[1.2rem] bg-gradient-to-r from-[#e91678] via-[#c51682] to-[#5a147e] px-5 py-4 text-white shadow-[0_18px_42px_rgba(126,20,105,0.22)] sm:px-8 sm:py-5 lg:mb-7"
+          className="mb-6 overflow-hidden rounded-[1.2rem] bg-[#210442] px-4 py-4 text-white shadow-[0_18px_42px_rgba(126,20,105,0.22)] sm:bg-gradient-to-r sm:from-[#e91678] sm:via-[#c51682] sm:to-[#5a147e] sm:px-8 sm:py-5 lg:mb-7"
         >
-          <div className="mx-auto flex max-w-[1180px] flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-5 lg:gap-7">
+          <div data-webinar-mobile-zoom-banner className="text-center sm:hidden">
+            <p className="text-[1.65rem] font-black uppercase leading-none tracking-[-0.025em]">
+              <span className="text-[#ff4f9d]">Live</span> on Zoom
+            </p>
+            <p className="mt-1.5 text-[2.55rem] font-black uppercase leading-[0.92] tracking-[-0.035em]">
+              RSVP Now
+            </p>
+            <span className="mx-auto my-2.5 block h-px w-[88%] bg-[#ff4f9d]" aria-hidden="true" />
+            <p className="text-[1.05rem] font-black uppercase leading-none tracking-[0.055em]">
+              Save Your <span className="text-[#ff4f9d]">Free Spot!</span>
+            </p>
+          </div>
+
+          <div data-webinar-desktop-zoom-banner className="mx-auto hidden max-w-[1180px] items-center justify-center gap-5 text-center sm:flex lg:gap-7">
             <div className="flex items-center gap-3 sm:gap-4">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30 sm:h-12 sm:w-12">
                 <MonitorPlay className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
@@ -118,7 +131,7 @@ export default function LiveWebinar() {
                 Live on Zoom
               </p>
             </div>
-            <span className="hidden h-10 w-px bg-white/35 sm:block" aria-hidden="true" />
+            <span className="h-10 w-px bg-white/35" aria-hidden="true" />
             <p className="text-sm font-extrabold uppercase leading-tight tracking-[0.075em] sm:text-lg lg:text-xl">
               RSVP Now <span className="px-1 text-white/70" aria-hidden="true">—</span> Save Your Free Spot
             </p>

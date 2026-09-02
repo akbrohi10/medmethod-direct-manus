@@ -739,3 +739,12 @@
 - [x] Preserve all existing hero copy, replacement video and autoplay behavior, symptom band, headshot, transparent book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, and desktop/mobile banner hierarchy and rendering
 - [x] Save and deliver the standalone Zoom RSVP banner checkpoint
+
+## Live Webinar Mobile Zoom RSVP Banner Refinement
+
+- [x] Restyle only the mobile banner to use the supplied stacked hierarchy: `LIVE ON ZOOM`, `RSVP NOW`, divider, and `SAVE YOUR FREE SPOT!`
+- [x] Emphasize `LIVE` and `FREE SPOT!` with the brand-pink accent against a deep-purple mobile banner
+- [x] Preserve the current compact horizontal desktop banner at the `sm` breakpoint and above
+- [x] Preserve all other webinar copy, media, autoplay behavior, symptom band, authority card, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, reference-inspired 375px mobile rendering, and preserved desktop presentation
+- [ ] Save and deliver the mobile Zoom RSVP banner refinement checkpoint

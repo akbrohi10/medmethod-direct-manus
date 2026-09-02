@@ -15,6 +15,14 @@ describe("live webinar hero-only landing page", () => {
 
   it("uses the approved headline and physician authority details", () => {
     expect(pageSource).toContain("data-webinar-zoom-rsvp-banner");
+    expect(pageSource).toContain("data-webinar-mobile-zoom-banner");
+    expect(pageSource).toContain("data-webinar-desktop-zoom-banner");
+    expect(pageSource).toContain('data-webinar-mobile-zoom-banner className="text-center sm:hidden"');
+    expect(pageSource).toContain('data-webinar-desktop-zoom-banner className="mx-auto hidden');
+    expect(pageSource).toContain("sm:flex");
+    expect(pageSource).toContain("bg-[#210442]");
+    expect(pageSource).toContain('className="text-[#ff4f9d]">Live</span> on Zoom');
+    expect(pageSource).toContain('className="text-[#ff4f9d]">Free Spot!</span>');
     expect(pageSource).toContain("Live on Zoom");
     expect(pageSource).toContain("RSVP Now");
     expect(pageSource).toContain("Save Your Free Spot");
