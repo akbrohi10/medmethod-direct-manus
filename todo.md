@@ -764,3 +764,14 @@
 - [x] Preserve native controls, the sound-on autoplay attempt, 60% visibility pause/resume behavior, blocked-autoplay fallback, video/poster assets, layout, and all page content
 - [x] Add focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, compiled standard/WebKit inline safeguards, HTTP 200, clean runtime logs, embedded 375px rendering, and unchanged desktop layout
 - [x] Save and deliver the mobile inline-playback repair checkpoint
+
+## Live Webinar Educational Content and RSVP Section
+
+- [x] Add a polished second section beneath the current hero using the supplied “Understand What’s Really Happening to Your Body After 35” introduction
+- [x] Include the supplied six-item `What You’ll Learn` list without omitting or silently rewriting any user-provided point
+- [x] Add the supplied informed-care message, live Q&A invitation, `FREE LIVE WEBINAR • LIMITED TO THE FIRST 100 RSVPs` line, and `Reserve Your Free Spot` CTA
+- [x] Keep the new CTA inactive with the existing coming-soon feedback until registration is separately approved
+- [x] Preserve the hero, Zoom banner, inline video and autoplay behavior, symptom band, headshot, book cover, event placeholders, noindex metadata, and educational disclaimer
+- [x] Update focused regression coverage for exact content, all six learning outcomes, second-section scope, inactive registration, and preserved review safeguards
+- [x] Validate TypeScript, all 167 tests across 33 files, production build, HTTP 200, clean runtime logs, and final desktop/mobile rendering including the required testosterone disclosure
+- [ ] Save and deliver the webinar educational-content section checkpoint

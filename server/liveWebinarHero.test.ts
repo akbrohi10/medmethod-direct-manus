@@ -6,8 +6,9 @@ const projectRoot = resolve(import.meta.dirname, "..");
 const pageSource = readFileSync(resolve(projectRoot, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const appSource = readFileSync(resolve(projectRoot, "client/src/App.tsx"), "utf8");
 const bookCoverBlock = pageSource.match(/<div\s+data-webinar-book-cover[\s\S]*?<\/div>/)?.[0] ?? "";
+const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
 
-describe("live webinar hero-only landing page", () => {
+describe("live webinar landing page", () => {
   it("registers the public /live-webinar route", () => {
     expect(appSource).toContain('const LiveWebinar = lazy(() => import("@/pages/LiveWebinar"))');
     expect(appSource).toContain('<Route path="/live-webinar" component={LiveWebinar} />');
@@ -44,7 +45,7 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).not.toContain("Feel Like Yourself Again");
   });
 
-  it("keeps the page hero-only with a nonfunctional registration and accessible webinar video", () => {
+  it("keeps registration inactive with an accessible webinar video and two approved sections", () => {
     expect(pageSource).toContain("data-webinar-video");
     expect(pageSource).toContain("data-webinar-video-shell");
     expect(pageSource).toContain("<video");
@@ -94,8 +95,35 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
     expect(pageSource).not.toMatch(/<form\b/);
     expect(pageSource).not.toMatch(/trpc\.|webhook|fetch\(/i);
-    expect(pageSource).not.toMatch(/Forbes|Entrepreneur|countdown|spots? (?:are )?limited/i);
-    expect(pageSource.match(/<section\b/g)).toHaveLength(1);
+    expect(pageSource).not.toMatch(/Forbes|Entrepreneur|countdown/i);
+    expect(pageSource.match(/<section\b/g)).toHaveLength(2);
+  });
+
+  it("includes the approved educational overview, six learning outcomes, live Q&A, and final RSVP panel", () => {
+    expect(pageSource).toContain("data-webinar-learning-section");
+    expect(pageSource).toContain("Understand What’s Really Happening to Your Body After 35");
+    expect(pageSource).toContain("If you’re experiencing stubborn weight gain, belly fat, poor sleep, hot flashes, night sweats, brain fog, mood changes");
+    expect(pageSource).toContain("designed to cut through the confusion surrounding perimenopause, menopause, hormone therapy and medical weight loss");
+    expect(pageSource).toContain("What You’ll Learn");
+    expect(learningPointsBlock.match(/^  "/gm)).toHaveLength(6);
+    expect(pageSource).toContain("data-webinar-learning-item");
+    expect(pageSource).toContain("metabolism, muscle and belly fat");
+    expect(pageSource).toContain("potential benefits and risks, and common misconceptions");
+    expect(pageSource).toContain("harder after 40");
+    expect(pageSource).toContain("How GLP-1 medications work");
+    expect(pageSource).toContain("treating the whole picture matters");
+    expect(pageSource).toContain("important questions you should be asking your physician");
+    expect(pageSource).toContain("data-webinar-informed-message");
+    expect(pageSource).toContain("Become Informed.");
+    expect(pageSource).toContain("The goal isn’t to tell you what treatment you should choose");
+    expect(pageSource).toContain("data-webinar-live-qa");
+    expect(pageSource).toContain("PLUS: Live Q&amp;A with Dr. Al-Deek");
+    expect(pageSource).toContain("Bring your questions and get the opportunity to ask Dr. Al-Deek directly.");
+    expect(pageSource).toContain("data-webinar-final-rsvp");
+    expect(pageSource).toContain("Limited to the First 100 RSVPs");
+    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(2);
+    expect(pageSource).toContain("<ComplianceDisclosures testosteroneForWomen />");
+    expect(pageSource).not.toMatch(/<form\b/);
   });
 
   it("uses the approved headline-video, symptom-band, and lower conversion hierarchy", () => {

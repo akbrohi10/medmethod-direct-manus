@@ -10,8 +10,8 @@ import {
   Play,
   Star,
   Tag,
-  UserRound,
 } from "lucide-react";
+import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 import { toast } from "sonner";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -29,6 +29,15 @@ const symptoms = [
   "Stubborn Weight Gain",
   "Low Libido",
   "Brain Fog",
+];
+
+const learningPoints = [
+  "What’s actually happening to your hormones during perimenopause and menopause—and why it can affect everything from sleep and mood to metabolism, muscle and belly fat.",
+  "The truth about hormone therapy (HRT)—including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
+  "Why losing weight can suddenly become harder after 40 even when you’re eating and exercising the same way you always have.",
+  "How GLP-1 medications work and where medical weight loss may fit into your overall health strategy.",
+  "The connection between hormones, menopause and weight management—and why treating the whole picture matters.",
+  "What good menopause care should actually look like and the important questions you should be asking your physician.",
 ];
 
 export default function LiveWebinar() {
@@ -344,6 +353,104 @@ export default function LiveWebinar() {
           This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
         </p>
       </section>
+
+      <section
+        data-webinar-learning-section
+        className="relative isolate border-t border-[#eadfdd] bg-[#fffdf9] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 opacity-80"
+          aria-hidden="true"
+          style={{
+            background:
+              "radial-gradient(circle at 8% 18%, rgba(232,51,158,0.07), transparent 25%), radial-gradient(circle at 92% 72%, rgba(90,20,126,0.08), transparent 28%)",
+          }}
+        />
+
+        <div className="mx-auto w-full max-w-[1360px]">
+          <div data-webinar-learning-intro className="mx-auto max-w-[1040px] text-center">
+            <h2 className="font-serif text-[2.5rem] font-bold leading-[1.02] tracking-[-0.035em] text-[#1e1730] sm:text-[3.6rem] lg:text-[4.25rem]">
+              Understand What’s Really Happening to Your Body After 35
+            </h2>
+            <div className="mx-auto mt-6 h-1.5 w-24 rounded-full bg-gradient-to-r from-[#ed0f78] to-[#5a147e]" aria-hidden="true" />
+            <p className="mx-auto mt-7 max-w-[960px] text-base font-medium leading-8 text-[#41394b] sm:text-lg">
+              If you’re experiencing stubborn weight gain, belly fat, poor sleep, hot flashes, night sweats, brain fog, mood changes—or simply feel like your body isn’t responding the way it used to—there may be more happening than you realize.
+            </p>
+            <p className="mx-auto mt-4 max-w-[960px] text-base font-medium leading-8 text-[#41394b] sm:text-lg">
+              Join Dr. Jumana Al-Deek for a <strong className="font-extrabold text-[#c51673]">FREE live webinar</strong> designed to cut through the confusion surrounding perimenopause, menopause, hormone therapy and medical weight loss—and help you understand what your options really are.
+            </p>
+          </div>
+
+          <div
+            data-webinar-learning-outcomes
+            className="mt-12 overflow-hidden rounded-[1.5rem] bg-[#210442] p-6 text-white shadow-[0_28px_70px_rgba(55,13,78,0.20)] sm:p-9 lg:p-12"
+          >
+            <div className="flex flex-col gap-2 text-center sm:text-left">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#ff63aa]">Live Educational Session</p>
+              <h3 className="text-[2rem] font-black leading-tight tracking-[-0.025em] sm:text-[2.75rem]">What You’ll Learn</h3>
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:gap-5">
+              {learningPoints.map((point, index) => (
+                <div
+                  key={point}
+                  data-webinar-learning-item
+                  className="flex items-start gap-4 rounded-[1.1rem] border border-white/15 bg-white/[0.08] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                >
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ff4f9d] text-sm font-black text-white shadow-[0_8px_18px_rgba(255,79,157,0.25)]">
+                    <Check className="h-4 w-4 stroke-[3]" aria-hidden="true" />
+                    <span className="sr-only">Learning point {index + 1}</span>
+                  </span>
+                  <p className="text-sm font-semibold leading-6 text-white/95 sm:text-[0.96rem]">{point}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+            <div data-webinar-informed-message className="rounded-[1.35rem] border border-[#eadfdd] bg-white p-6 shadow-[0_16px_42px_rgba(88,36,65,0.08)] sm:p-8">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c91972]">Most Importantly</p>
+              <h3 className="mt-2 font-serif text-[2.1rem] font-bold leading-tight text-[#1e1730] sm:text-[2.65rem]">Become Informed.</h3>
+              <p className="mt-4 text-base font-medium leading-7 text-[#41394b]">
+                The goal isn’t to tell you what treatment you should choose. It’s to give you the knowledge to understand your body, know your options, and make more informed decisions about your care.
+              </p>
+            </div>
+
+            <div data-webinar-live-qa className="rounded-[1.35rem] border border-[#eadfdd] bg-[#f7efec] p-6 shadow-[0_16px_42px_rgba(88,36,65,0.07)] sm:p-8">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#c91972] shadow-[0_8px_20px_rgba(88,36,65,0.10)]">
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h3 className="mt-4 text-[1.55rem] font-black leading-tight text-[#1e1730] sm:text-[2rem]">PLUS: Live Q&amp;A with Dr. Al-Deek</h3>
+              <p className="mt-3 text-base font-medium leading-7 text-[#41394b]">
+                Bring your questions and get the opportunity to ask Dr. Al-Deek directly.
+              </p>
+            </div>
+          </div>
+
+          <div
+            data-webinar-final-rsvp
+            className="mt-8 overflow-hidden rounded-[1.5rem] bg-gradient-to-r from-[#e91678] via-[#bd177f] to-[#541078] px-6 py-9 text-center text-white shadow-[0_24px_60px_rgba(164,20,113,0.24)] sm:px-10 sm:py-11"
+          >
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-white/90 sm:text-sm">
+              Free Live Webinar <span className="px-1.5 text-white/55" aria-hidden="true">•</span> Limited to the First 100 RSVPs
+            </p>
+            <h3 className="mx-auto mt-3 max-w-[760px] text-[2rem] font-black uppercase leading-tight tracking-[-0.025em] sm:text-[3.25rem]">
+              Reserve Your Free Spot
+            </h3>
+            <button
+              type="button"
+              onClick={handleReserveSeat}
+              className="mx-auto mt-6 inline-flex min-h-14 w-full max-w-[520px] items-center justify-center gap-3 rounded-lg bg-white px-7 py-4 text-sm font-black uppercase tracking-[0.08em] text-[#7a1e7e] shadow-[0_14px_32px_rgba(37,5,52,0.22)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(37,5,52,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#7a1e7e] active:scale-[0.97] sm:text-lg"
+            >
+              Reserve Your Free Spot
+              <span className="text-xl leading-none" aria-hidden="true">→</span>
+            </button>
+            <p className="mt-3 text-xs font-semibold text-white/80">Registration details are coming soon.</p>
+          </div>
+        </div>
+      </section>
+
+      <ComplianceDisclosures testosteroneForWomen />
     </main>
   );
 }
