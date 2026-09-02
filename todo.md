@@ -651,3 +651,14 @@
 - [x] Keep the page hero-only, registration inactive, and noindex with no database, webhook, payment, countdown, or additional section
 - [x] Update focused regression coverage and validate TypeScript, all 165 tests, production build, HTTP 200, and desktop/mobile visual fidelity
 - [x] Save and present the mockup-matched draft for user review before replacing placeholders or changing copy
+
+## Live Webinar Balanced Conversion Hero
+
+- [x] Keep “WOMEN ARE” on one desktop line and reduce headline scale enough to improve visual balance
+- [x] Arrange the upper row as headline/symptoms beside the speaking-event video placeholder
+- [x] Arrange the lower row as the physician authority card beside the event details, CTA, and one concise trust line
+- [x] Move the primary CTA higher so it appears within the initial desktop viewport on standard laptop screens
+- [x] Remove repeated Free and Live Online trust labels while retaining the event details and Live Q&A message
+- [x] Preserve all current draft wording and placeholders, inactive registration, noindex metadata, educational disclaimer, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests, production build, HTTP 200, and desktop/mobile hierarchy
+- [x] Save and present the balanced hero for conversion review before replacing assets or adding section two

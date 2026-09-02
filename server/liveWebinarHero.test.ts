@@ -43,6 +43,16 @@ describe("live webinar hero-only landing page", () => {
     expect(pageSource.match(/<section\b/g)).toHaveLength(1);
   });
 
+  it("uses the approved balanced two-row conversion hierarchy", () => {
+    expect(pageSource.match(/lg:grid-cols-\[0\.95fr_1\.05fr\]/g)).toHaveLength(2);
+    expect(pageSource).toContain("whitespace-nowrap");
+    expect(pageSource).toContain("lg:order-1");
+    expect(pageSource).toContain("lg:order-2");
+    expect(pageSource).toContain("Live Q&amp;A Included");
+    expect(pageSource).not.toContain("Free to Attend");
+    expect(pageSource.match(/Live Online/g)).toHaveLength(1);
+  });
+
   it("suppresses social-proof popups on the focused webinar landing page", () => {
     expect(appSource).toContain('if (location === "/live-webinar") return null;');
   });
