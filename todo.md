@@ -711,4 +711,4 @@
 - [x] Move the complete existing symptom prompt and list beneath the headline-and-video row without changing its wording
 - [x] Preserve CTA visibility, video playback behavior and fallback, authority card, transparent book cover, remaining placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, desktop/mobile order, and the unchanged visibility-based video playback behavior and fallback
-- [ ] Save and deliver the approved webinar hierarchy checkpoint
+- [x] Save and deliver the approved webinar hierarchy checkpoint
