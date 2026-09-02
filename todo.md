@@ -738,4 +738,4 @@
 - [x] Make the live Zoom format and RSVP action immediately clear on desktop and mobile without unverified scarcity language
 - [x] Preserve all existing hero copy, replacement video and autoplay behavior, symptom band, headshot, transparent book cover, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, and desktop/mobile banner hierarchy and rendering
-- [ ] Save and deliver the standalone Zoom RSVP banner checkpoint
+- [x] Save and deliver the standalone Zoom RSVP banner checkpoint
