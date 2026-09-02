@@ -721,3 +721,12 @@
 - [x] Preserve the current layout, copy, video controls, sound-on autoplay attempt, 60% visibility pause/resume behavior, sound fallback, placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent media delivery with byte ranges, HTTP 200, clean runtime logs, desktop/mobile rendering, and the unchanged 60%-visibility playback and sound-fallback logic
 - [x] Save and deliver the webinar video-only replacement checkpoint
+
+## Live Webinar Headshot-Only Replacement
+
+- [x] Inspect and archive the newly supplied 1254×1254 RGB PNG headshot unchanged outside the project; verify its 1,866,276-byte size and matching SHA-256 checksum
+- [x] Upload the unchanged supplied headshot to permanent project storage
+- [x] Replace only the `Dr. Photo Placeholder` on `/live-webinar` with the supplied headshot and descriptive alternative text
+- [x] Preserve the current layout, copy, video and autoplay behavior, symptom band, transparent book cover, event placeholders, inactive registration, noindex metadata, and hero-only scope
+- [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent 1,866,276-byte image delivery with matching SHA-256 checksum, HTTP 200, clean runtime logs, and desktop/mobile rendering
+- [ ] Save and deliver the webinar headshot-only replacement checkpoint

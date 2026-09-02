@@ -17,6 +17,7 @@ import { toast } from "sonner";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png";
+const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 
 const symptoms = [
   "Waking at 3 AM",
@@ -214,9 +215,17 @@ export default function LiveWebinar() {
               </p>
             </div>
 
-            <div className="mx-auto flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-full border border-[#e6d9da] bg-[#eee7e4] text-center text-[#9e416d] sm:mx-0 sm:h-32 sm:w-32">
-              <UserRound className="h-9 w-9" aria-hidden="true" />
-              <span className="mt-2 px-4 text-[8px] font-black uppercase leading-3.5 tracking-[0.08em]">Dr. Photo Placeholder</span>
+            <div
+              data-webinar-headshot
+              className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full border border-[#d6b9c2] bg-white sm:mx-0 sm:h-32 sm:w-32"
+            >
+              <img
+                src={DOCTOR_HEADSHOT_URL}
+                alt="Dr. Jumana Al-Deek"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
 
             <div>
