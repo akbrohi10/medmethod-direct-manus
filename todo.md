@@ -720,4 +720,4 @@
 - [x] Replace only the current `/live-webinar` video and poster asset references
 - [x] Preserve the current layout, copy, video controls, sound-on autoplay attempt, 60% visibility pause/resume behavior, sound fallback, placeholders, inactive registration, noindex metadata, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, exact permanent media delivery with byte ranges, HTTP 200, clean runtime logs, desktop/mobile rendering, and the unchanged 60%-visibility playback and sound-fallback logic
-- [ ] Save and deliver the webinar video-only replacement checkpoint
+- [x] Save and deliver the webinar video-only replacement checkpoint
