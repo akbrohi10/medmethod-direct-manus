@@ -747,4 +747,4 @@
 - [x] Preserve the current compact horizontal desktop banner at the `sm` breakpoint and above
 - [x] Preserve all other webinar copy, media, autoplay behavior, symptom band, authority card, event placeholders, inactive registration, noindex metadata, disclaimer, and hero-only scope
 - [x] Update focused regression coverage and validate TypeScript, all 166 tests across 33 files, production build, HTTP 200, clean runtime logs, reference-inspired 375px mobile rendering, and preserved desktop presentation
-- [ ] Save and deliver the mobile Zoom RSVP banner refinement checkpoint
+- [x] Save and deliver the mobile Zoom RSVP banner refinement checkpoint
