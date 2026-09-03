@@ -823,3 +823,12 @@
 - [x] Preserve `/live-webinar`, the `/live-webinar2` layout and content, countdown placeholder, inactive RSVP actions, video behavior, logos, noindex metadata, and all other safeguards
 - [x] Update focused regression coverage and validate compliance tests, TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, clean current logs, and desktop/mobile rendering of the compact readable footnote beneath Featured In
 - [x] Save and deliver the compact disclosure-footnote checkpoint
+
+## Live Webinar 2 Disclosure Separation
+
+- [x] Move the exact testosterone disclosure completely outside and below the purple Featured In footer
+- [x] Present the disclosure on a separate neutral background so it cannot be interpreted as part of the media-feature section
+- [x] Preserve the exact mandated wording and compact readable 9px mobile/10px larger-screen typography
+- [x] Preserve `/live-webinar`, every other `/live-webinar2` element and behavior, inactive RSVP actions, noindex metadata, and all review safeguards
+- [x] Update focused regression coverage and validate compliance tests, TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser or first-party network errors, no new server errors, and desktop/mobile rendering of the compact neutral footnote outside Featured In
+- [ ] Save and deliver the separated disclosure-footnote checkpoint

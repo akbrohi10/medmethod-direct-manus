@@ -8,6 +8,8 @@ const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8")
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const testosteroneDisclosure =
   "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
+const featuredInFooter = pageSource.match(/<footer\s+data-webinar2-featured-in[\s\S]*?<\/footer>/)?.[0] ?? "";
+const legalFootnoteBlock = pageSource.match(/<div\s+data-webinar2-legal-footnote[\s\S]*?<\/div>/)?.[0] ?? "";
 
 describe("live webinar 2 lean variation", () => {
   it("registers an isolated public review route without replacing the original webinar", () => {
@@ -68,13 +70,18 @@ describe("live webinar 2 lean variation", () => {
 
   it("places the six existing monochrome outlet logos in Featured In at the bottom", () => {
     expect(pageSource).toContain("data-webinar2-featured-in");
+    expect(pageSource).toContain("data-webinar2-legal-footnote");
     expect(pageSource).toContain("data-webinar2-testosterone-footnote");
     expect(pageSource).toContain("Featured In");
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-content-split"));
-    expect(pageSource.indexOf("data-webinar2-testosterone-footnote")).toBeGreaterThan(pageSource.indexOf("featuredOutlets.map"));
-    expect(pageSource).toContain("text-[9px]");
-    expect(pageSource).toContain("sm:text-[10px]");
-    expect(pageSource).toContain("text-white/80");
+    expect(pageSource.indexOf("data-webinar2-legal-footnote")).toBeGreaterThan(pageSource.indexOf("</footer>"));
+    expect(featuredInFooter).not.toContain(testosteroneDisclosure);
+    expect(featuredInFooter).not.toContain("data-webinar2-testosterone-footnote");
+    expect(legalFootnoteBlock).toContain(testosteroneDisclosure);
+    expect(legalFootnoteBlock).toContain("bg-[#f3f0eb]");
+    expect(legalFootnoteBlock).toContain("text-[9px]");
+    expect(legalFootnoteBlock).toContain("sm:text-[10px]");
+    expect(legalFootnoteBlock).toContain("text-[#5f5760]");
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(pageSource).toContain(`name: "${outlet}"`);

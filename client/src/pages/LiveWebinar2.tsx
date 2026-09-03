@@ -288,15 +288,17 @@ export default function LiveWebinar2() {
                 </div>
               ))}
             </div>
-
-            <p
-              data-webinar2-testosterone-footnote
-              className="mx-auto mt-4 max-w-[860px] border-t border-white/15 pt-3 text-center text-[9px] font-medium leading-4 text-white/80 sm:text-[10px]"
-            >
-              Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.
-            </p>
           </div>
         </footer>
+
+        <div data-webinar2-legal-footnote className="bg-[#f3f0eb] px-5 py-3 sm:px-8 sm:py-4">
+          <p
+            data-webinar2-testosterone-footnote
+            className="mx-auto max-w-[860px] text-center text-[9px] font-medium leading-4 text-[#5f5760] sm:text-[10px]"
+          >
+            Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.
+          </p>
+        </div>
       </article>
     </main>
   );
