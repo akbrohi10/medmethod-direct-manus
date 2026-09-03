@@ -784,4 +784,4 @@
 - [x] Use one balanced desktop logo row and a readable mobile grid with accurate alternative text and no implied endorsement language
 - [x] Preserve every existing webinar section, copy, media, autoplay and inline-playback behavior, inactive registration, noindex metadata, disclosures, and review safeguards
 - [x] Add focused regression coverage and validate all six permanent logo assets, TypeScript, all 168 tests across 33 files, production build, HTTP 200, fresh browser/network logs, and final desktop/mobile rendering
-- [ ] Save and deliver the webinar As Seen In checkpoint
+- [x] Save and deliver the webinar As Seen In checkpoint
