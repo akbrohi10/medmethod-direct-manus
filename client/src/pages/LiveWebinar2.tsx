@@ -215,51 +215,82 @@ export default function LiveWebinar2() {
             </div>
           </div>
 
-          <div
-            ref={videoShellRef}
-            data-webinar2-video-shell
-            className="order-2 relative mx-auto aspect-video w-full max-w-[350px] overflow-hidden rounded-xl bg-[#1b1022] shadow-[0_18px_42px_rgba(48,22,54,0.2)] sm:aspect-[4/5] lg:col-start-2 lg:row-span-3 lg:max-w-none"
-          >
-            <video
-              ref={videoRef}
-              className="h-full w-full bg-black object-cover"
-              controls
-              playsInline
-              preload="metadata"
-              poster={WEBINAR_VIDEO_POSTER_URL}
-              aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
-              controlsList="nodownload noremoteplayback nofullscreen"
-              disablePictureInPicture
-              disableRemotePlayback
-              onPlay={() => setHasVideoStarted(true)}
+          <div className="order-2 mx-auto w-full max-w-[350px] lg:col-start-2 lg:row-span-3 lg:max-w-none">
+            <section
+              data-webinar2-countdown-bar
+              className="mb-3 rounded-xl border border-[#e5d9e1] bg-[#fffafd] px-3 py-3 shadow-[0_10px_24px_rgba(81,30,67,0.06)] sm:px-4"
             >
-              <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
-              Your browser does not support embedded video playback.
-            </video>
+              <div className="flex flex-col items-center justify-center gap-2.5 lg:flex-row lg:justify-between lg:gap-3">
+                <div className="flex items-center gap-2">
+                  <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#7d707b]">
+                    Event Countdown · <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
+                  </p>
+                </div>
+                <div data-webinar2-countdown className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                  {countdownUnits.map(unit => (
+                    <div key={unit.label} className="text-center">
+                      <div className="min-w-[2.6rem] rounded-md bg-[#29252f] px-1.5 py-1.5 text-base font-black tabular-nums text-white sm:min-w-12 sm:px-2 sm:py-2 sm:text-lg">
+                        {unit.value}
+                      </div>
+                      <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.08em] text-[#817781]">{unit.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {!isEventScheduled && (
+                <p data-webinar2-countdown-preview-token className="mt-2 text-center text-[9px] font-black uppercase tracking-[0.08em] text-[#956d88]">
+                  [COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]
+                </p>
+              )}
+            </section>
 
-            {!hasVideoStarted && (
-              <span
-                data-webinar2-video-length-token
-                className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
+            <div
+              ref={videoShellRef}
+              data-webinar2-video-shell
+              className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#1b1022] shadow-[0_18px_42px_rgba(48,22,54,0.2)] sm:aspect-[4/5]"
+            >
+              <video
+                ref={videoRef}
+                className="h-full w-full bg-black object-cover"
+                controls
+                playsInline
+                preload="metadata"
+                poster={WEBINAR_VIDEO_POSTER_URL}
+                aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
+                controlsList="nodownload noremoteplayback nofullscreen"
+                disablePictureInPicture
+                disableRemotePlayback
+                onPlay={() => setHasVideoStarted(true)}
               >
-                Watch: [VIDEO LENGTH]
-              </span>
-            )}
+                <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
+                Your browser does not support embedded video playback.
+              </video>
 
-            {autoplayBlocked && (
-              <button
-                type="button"
-                onClick={handlePlayWithSound}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
-              >
-                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
-                  <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
+              {!hasVideoStarted && (
+                <span
+                  data-webinar2-video-length-token
+                  className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
+                >
+                  Watch: [VIDEO LENGTH]
                 </span>
-                <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
-                  Play Video With Sound
-                </span>
-              </button>
-            )}
+              )}
+
+              {autoplayBlocked && (
+                <button
+                  type="button"
+                  onClick={handlePlayWithSound}
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
+                >
+                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
+                    <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
+                  </span>
+                  <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
+                    Play Video With Sound
+                  </span>
+                </button>
+              )}
+            </div>
           </div>
 
           <div data-webinar2-compact-presenter className="order-3 hidden items-center justify-center gap-3 text-center lg:col-start-2 lg:row-start-4 lg:mt-[-1rem] lg:flex">
@@ -328,35 +359,6 @@ export default function LiveWebinar2() {
               </a>
             </p>
           </div>
-        </section>
-
-        <section
-          data-webinar2-countdown-bar
-          className="border-y border-[#e5d9e1] bg-[#fffafd] px-5 py-4 sm:px-10 lg:px-14"
-        >
-          <div className="mx-auto flex max-w-[920px] flex-col items-center justify-center gap-3 sm:flex-row sm:gap-6">
-            <div className="flex items-center gap-2">
-              <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
-              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#7d707b]">
-                Event Countdown · <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
-              </p>
-            </div>
-            <div data-webinar2-countdown className="grid grid-cols-4 gap-2">
-              {countdownUnits.map(unit => (
-                <div key={unit.label} className="text-center">
-                  <div className="min-w-12 rounded-md bg-[#29252f] px-2 py-2 text-lg font-black tabular-nums text-white sm:min-w-14 sm:text-xl">
-                    {unit.value}
-                  </div>
-                  <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.08em] text-[#817781]">{unit.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          {!isEventScheduled && (
-            <p data-webinar2-countdown-preview-token className="mt-2 text-center text-[9px] font-black uppercase tracking-[0.08em] text-[#956d88]">
-              [COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]
-            </p>
-          )}
         </section>
 
         <section

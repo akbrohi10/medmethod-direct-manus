@@ -880,3 +880,9 @@
 - [x] Document all bracketed tokens and their locations in `docs/Live_Webinar2_Remaining_Tokens.md` and add focused regression coverage for the complete second revision prompt
 - [x] Validate 390px-first rendering, desktop layout, TypeScript, all 177 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form, availability-token, and inline-video safeguards, zero current server/browser/first-party 5xx errors, and preserved current video behavior
 - [x] Save and deliver the second `/live-webinar2` revision checkpoint
+
+## Live Webinar 2 Countdown Placement Refinement
+
+- [x] Move the existing dormant countdown bar above the `/live-webinar2` hero video while preserving the review-only state, responsive layout, inactive form, disclosures, Featured In placement, current video behavior, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate desktop/mobile rendering, route isolation, TypeScript, all 177 tests across 34 files, production build, both webinar HTTP 200 responses, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the countdown-placement refinement checkpoint

@@ -38,10 +38,11 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
-  it("uses the exact requested mobile hierarchy with video before the inactive two-field form", () => {
+  it("uses the exact requested mobile hierarchy with the countdown above video before the inactive two-field form", () => {
     expect(pageSource.indexOf("data-webinar2-brand-logo")).toBeLessThan(pageSource.indexOf("Free Live Webinar · For Women 35+"));
     expect(pageSource.indexOf("Free Live Webinar · For Women 35+")).toBeLessThan(pageSource.indexOf("You’re not imagining it."));
     expect(pageSource.indexOf("You’re not imagining it.")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
     expect(pageSource.indexOf("data-webinar2-registration-preview")).toBeLessThan(pageSource.indexOf("data-webinar2-event-line"));
     expect(pageSource).toContain("aspect-video");
@@ -69,7 +70,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toMatch(/fetch\(|trpc\.|webhook|stripe|paypal/i);
   });
 
-  it("uses one editable date-time configuration for the event line and dormant countdown", () => {
+  it("uses one editable date-time configuration for the dormant countdown above the video", () => {
     expect(pageSource).toContain("const WEBINAR_EVENT = {");
     expect(pageSource).toContain("startsAt: null as string | null");
     expect(pageSource).toContain('dateTimeDisplay: "[DAY], [MONTH] [DATE] · [TIME] [TIMEZONE]"');
@@ -82,11 +83,11 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("data-webinar2-countdown-timezone");
     expect(pageSource).toContain("data-webinar2-countdown-preview-token");
     expect(pageSource).toContain("[COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]");
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
   });
 
-  it("places the thinner Featured In strip below the countdown and preserves all six logos", () => {
-    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeGreaterThan(pageSource.indexOf("data-webinar2-hero"));
-    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-countdown-bar"));
+  it("places Featured In below the hero video and preserves all six logos", () => {
+    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-learning"));
     expect(featuredInBlock).toContain("Featured In");
     expect(featuredInBlock).toContain("py-3");
