@@ -7,6 +7,7 @@ const pageSource = readFileSync(resolve(projectRoot, "client/src/pages/LiveWebin
 const appSource = readFileSync(resolve(projectRoot, "client/src/App.tsx"), "utf8");
 const bookCoverBlock = pageSource.match(/<div\s+data-webinar-book-cover[\s\S]*?<\/div>/)?.[0] ?? "";
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
+const featuredOutletsBlock = pageSource.match(/const featuredOutlets = \[([\s\S]*?)\];/)?.[1] ?? "";
 
 describe("live webinar landing page", () => {
   it("registers the public /live-webinar route", () => {
@@ -45,7 +46,7 @@ describe("live webinar landing page", () => {
     expect(pageSource).not.toContain("Feel Like Yourself Again");
   });
 
-  it("keeps registration inactive with an accessible webinar video and two approved sections", () => {
+  it("keeps registration inactive with an accessible webinar video and three approved sections", () => {
     expect(pageSource).toContain("data-webinar-video");
     expect(pageSource).toContain("data-webinar-video-shell");
     expect(pageSource).toContain("<video");
@@ -96,7 +97,42 @@ describe("live webinar landing page", () => {
     expect(pageSource).not.toMatch(/<form\b/);
     expect(pageSource).not.toMatch(/trpc\.|webhook|fetch\(/i);
     expect(pageSource).not.toMatch(/Forbes|Entrepreneur|countdown/i);
-    expect(pageSource.match(/<section\b/g)).toHaveLength(2);
+    expect(pageSource.match(/<section\b/g)).toHaveLength(3);
+  });
+
+  it("places the six approved static outlet logos between the hero and educational section", () => {
+    const heroPosition = pageSource.indexOf("data-webinar-lower-row");
+    const mediaPosition = pageSource.indexOf("data-webinar-as-seen-in");
+    const learningPosition = pageSource.indexOf("data-webinar-learning-section");
+
+    expect(mediaPosition).toBeGreaterThan(heroPosition);
+    expect(learningPosition).toBeGreaterThan(mediaPosition);
+    expect(pageSource).toContain("As Seen In");
+    expect(featuredOutletsBlock.match(/name: "/g)).toHaveLength(6);
+    expect(pageSource.match(/data-webinar-media-logo\b/g)).toHaveLength(1);
+    expect(pageSource).toContain("grid-cols-2");
+    expect(pageSource).toContain("sm:grid-cols-3");
+    expect(pageSource).toContain("lg:grid-cols-6");
+
+    for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
+      expect(featuredOutletsBlock).toContain(`name: "${outlet}"`);
+    }
+
+    for (const asset of [
+      "/manus-storage/flow-space_12f7eb24.jpg",
+      "/manus-storage/singlecare_b2c19243.png",
+      "/manus-storage/ntd_4d4cd7f7.jpg",
+      "/manus-storage/scary-mommy_420d0902.jpg",
+      "/manus-storage/daily-mail-wordmark_c6ff20de.png",
+      "/manus-storage/yahoo-health_4d6f1cee.webp",
+    ]) {
+      expect(featuredOutletsBlock).toContain(asset);
+    }
+
+    expect(featuredOutletsBlock).not.toContain("/manus-storage/daily-mail_47e28ef2.webp");
+
+    expect(pageSource).toContain('alt={`${outlet.name} logo`}');
+    expect(pageSource).not.toMatch(/Featured as an Expert|endorsed by|trusted by/i);
   });
 
   it("includes the approved educational overview, six learning outcomes, live Q&A, and final RSVP panel", () => {

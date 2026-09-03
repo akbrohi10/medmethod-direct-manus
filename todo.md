@@ -775,3 +775,13 @@
 - [x] Update focused regression coverage for exact content, all six learning outcomes, second-section scope, inactive registration, and preserved review safeguards
 - [x] Validate TypeScript, all 167 tests across 33 files, production build, HTTP 200, clean runtime logs, and final desktop/mobile rendering including the required testosterone disclosure
 - [x] Save and deliver the webinar educational-content section checkpoint
+
+## Live Webinar As Seen In Social Proof
+
+- [x] Preserve and use the supplied NTD and Yahoo Health files; retrieve clean logo assets for Flow Space, SingleCare, Scary Mommy, and Daily Mail because their repeated `imgo.jpg` uploads overwrote one another
+- [x] Prepare and upload deployment-safe permanent logo assets outside the project directory without fabricating, redesigning, recoloring, or adding outlets
+- [x] Add a compact static `As Seen In` section between the current hero and the educational section
+- [x] Use one balanced desktop logo row and a readable mobile grid with accurate alternative text and no implied endorsement language
+- [x] Preserve every existing webinar section, copy, media, autoplay and inline-playback behavior, inactive registration, noindex metadata, disclosures, and review safeguards
+- [x] Add focused regression coverage and validate all six permanent logo assets, TypeScript, all 168 tests across 33 files, production build, HTTP 200, fresh browser/network logs, and final desktop/mobile rendering
+- [ ] Save and deliver the webinar As Seen In checkpoint
