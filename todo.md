@@ -814,3 +814,12 @@
 - [x] Register the new route and add focused regression coverage for route isolation, lean structure, placeholder countdown, inactive registration, reused assets, and review safeguards
 - [x] Validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inline-video safeguards, clean current runtime logs, final desktop/mobile rendering, placeholder countdown, disclosures, and bottom Featured In strip
 - [x] Save and deliver the `/live-webinar2` variation checkpoint
+
+## Live Webinar 2 Compact Disclosure Footnote
+
+- [x] Remove only the large Medication Disclosures card from `/live-webinar2`
+- [x] Place the exact required testosterone disclosure beneath the Featured In logos as a visually minimal but readable legal footnote
+- [x] Preserve the exact mandated wording with 9px mobile and 10px larger-screen text, 80% white contrast, and readable line height
+- [x] Preserve `/live-webinar`, the `/live-webinar2` layout and content, countdown placeholder, inactive RSVP actions, video behavior, logos, noindex metadata, and all other safeguards
+- [x] Update focused regression coverage and validate compliance tests, TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, clean current logs, and desktop/mobile rendering of the compact readable footnote beneath Featured In
+- [ ] Save and deliver the compact disclosure-footnote checkpoint

@@ -6,6 +6,8 @@ const root = path.resolve(import.meta.dirname, "..");
 const pageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar2.tsx"), "utf8");
 const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
+const testosteroneDisclosure =
+  "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
 
 describe("live webinar 2 lean variation", () => {
   it("registers an isolated public review route without replacing the original webinar", () => {
@@ -47,7 +49,9 @@ describe("live webinar 2 lean variation", () => {
     expect(pageSource).toContain('<meta name="robots" content="noindex, nofollow" />');
     expect(pageSource).toContain('href="https://medmethoddirect.com/live-webinar2"');
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation.");
-    expect(pageSource).toContain("<ComplianceDisclosures testosteroneForWomen />");
+    expect(pageSource).toContain(testosteroneDisclosure);
+    expect(pageSource).not.toContain("<ComplianceDisclosures testosteroneForWomen />");
+    expect(pageSource).not.toContain("Medication Disclosures");
   });
 
   it("reuses the current video assets and inline visibility-based playback safeguards", () => {
@@ -64,8 +68,13 @@ describe("live webinar 2 lean variation", () => {
 
   it("places the six existing monochrome outlet logos in Featured In at the bottom", () => {
     expect(pageSource).toContain("data-webinar2-featured-in");
+    expect(pageSource).toContain("data-webinar2-testosterone-footnote");
     expect(pageSource).toContain("Featured In");
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-content-split"));
+    expect(pageSource.indexOf("data-webinar2-testosterone-footnote")).toBeGreaterThan(pageSource.indexOf("featuredOutlets.map"));
+    expect(pageSource).toContain("text-[9px]");
+    expect(pageSource).toContain("sm:text-[10px]");
+    expect(pageSource).toContain("text-white/80");
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(pageSource).toContain(`name: "${outlet}"`);

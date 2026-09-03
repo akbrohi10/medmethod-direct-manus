@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
 import { CalendarDays, CheckCircle2, Clock3, MessageCircle, Play } from "lucide-react";
-import ComplianceDisclosures from "@/components/ComplianceDisclosures";
 import { toast } from "sonner";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -262,9 +261,6 @@ export default function LiveWebinar2() {
             This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
           </p>
 
-          <div className="mx-auto mt-6 max-w-[920px]">
-            <ComplianceDisclosures testosteroneForWomen />
-          </div>
         </div>
 
         <footer
@@ -292,6 +288,13 @@ export default function LiveWebinar2() {
                 </div>
               ))}
             </div>
+
+            <p
+              data-webinar2-testosterone-footnote
+              className="mx-auto mt-4 max-w-[860px] border-t border-white/15 pt-3 text-center text-[9px] font-medium leading-4 text-white/80 sm:text-[10px]"
+            >
+              Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.
+            </p>
           </div>
         </footer>
       </article>
