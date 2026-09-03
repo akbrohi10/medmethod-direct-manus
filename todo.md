@@ -879,4 +879,4 @@
 - [x] Keep `/live-webinar` unchanged and prevent new external links other than the existing Privacy Policy link
 - [x] Document all bracketed tokens and their locations in `docs/Live_Webinar2_Remaining_Tokens.md` and add focused regression coverage for the complete second revision prompt
 - [x] Validate 390px-first rendering, desktop layout, TypeScript, all 177 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form, availability-token, and inline-video safeguards, zero current server/browser/first-party 5xx errors, and preserved current video behavior
-- [ ] Save and deliver the second `/live-webinar2` revision checkpoint
+- [x] Save and deliver the second `/live-webinar2` revision checkpoint
