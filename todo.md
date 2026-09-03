@@ -831,4 +831,4 @@
 - [x] Preserve the exact mandated wording and compact readable 9px mobile/10px larger-screen typography
 - [x] Preserve `/live-webinar`, every other `/live-webinar2` element and behavior, inactive RSVP actions, noindex metadata, and all review safeguards
 - [x] Update focused regression coverage and validate compliance tests, TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser or first-party network errors, no new server errors, and desktop/mobile rendering of the compact neutral footnote outside Featured In
-- [ ] Save and deliver the separated disclosure-footnote checkpoint
+- [x] Save and deliver the separated disclosure-footnote checkpoint
