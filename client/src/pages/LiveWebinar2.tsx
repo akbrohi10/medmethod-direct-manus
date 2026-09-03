@@ -106,21 +106,26 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1180px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <div className="px-5 pt-11 pb-10 sm:px-10 sm:pt-16 sm:pb-14 lg:px-16 lg:pt-[4.5rem] lg:pb-16">
+        <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-14 sm:pb-14 lg:px-16 lg:pt-14 lg:pb-16">
           <section data-webinar2-hero className="mx-auto max-w-[1000px] text-center">
             <p className="text-sm font-bold underline decoration-[#d8a94f] decoration-2 underline-offset-4 sm:text-base">
               Free Live Webinar
             </p>
-            <h1 className="mx-auto mt-6 max-w-[940px] text-[2rem] font-medium leading-[1.12] tracking-[-0.035em] text-[#26242c] sm:text-[3rem] lg:text-[3.65rem]">
-              Understand What’s Really Happening to Your Body <strong className="font-black">After 35.</strong>
+            <h1 className="mx-auto mt-5 max-w-[1040px] text-[2rem] font-medium leading-[1.12] tracking-[-0.035em] text-[#26242c] sm:text-[2.8rem] lg:text-[3.2rem]">
+              <span data-webinar2-headline-line className="lg:block lg:whitespace-nowrap">
+                Understand What’s Really Happening
+              </span>{" "}
+              <span data-webinar2-headline-line className="lg:block lg:whitespace-nowrap">
+                to Your Body <strong className="font-black">After 35.</strong>
+              </span>
             </h1>
-            <p className="mx-auto mt-5 max-w-[880px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-lg sm:leading-8">
+            <p className="mx-auto mt-4 max-w-[880px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-lg sm:leading-8">
               Perimenopause, menopause, hormone therapy and medical weight loss—explained clearly by Dr. Jumana Al-Deek.
             </p>
             <button
               type="button"
               onClick={handleReserveSeat}
-              className="mt-7 inline-flex min-h-14 items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-4 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_14px_28px_rgba(176,24,124,0.25)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:text-lg"
+              className="mt-6 inline-flex min-h-14 items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-4 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_14px_28px_rgba(176,24,124,0.25)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:text-lg"
             >
               Yes — Reserve My Free Spot
             </button>
@@ -128,9 +133,9 @@ export default function LiveWebinar2() {
 
           <section
             data-webinar2-event-row
-            className="mx-auto mt-10 grid max-w-[920px] gap-7 border-y border-dashed border-[#d8a94f]/65 py-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-10"
+            className="mx-auto mt-8 grid max-w-[940px] gap-6 border-y border-dashed border-[#d8a94f]/65 py-6 lg:grid-cols-[auto_minmax(0,520px)] lg:items-center lg:justify-center lg:gap-8"
           >
-            <div className="flex items-center justify-center gap-5 lg:justify-start">
+            <div className="flex items-center justify-center gap-4 lg:justify-end">
               <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#faf3f8] text-[#c61a79]">
                 <CalendarDays className="h-7 w-7" aria-hidden="true" />
               </span>
@@ -140,8 +145,8 @@ export default function LiveWebinar2() {
               </div>
             </div>
 
-            <div data-webinar2-countdown-placeholder>
-              <div className="mb-3 flex items-center justify-center gap-2 text-center lg:justify-end">
+            <div data-webinar2-countdown-placeholder className="lg:border-l lg:border-[#e5d9e1] lg:pl-8">
+              <div className="mb-3 flex items-center justify-center gap-2 text-center">
                 <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
                 <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#7d707b]">
                   Countdown Placeholder · Preview Only
@@ -159,7 +164,7 @@ export default function LiveWebinar2() {
                   </div>
                 ))}
               </div>
-              <p className="mt-2 text-center text-[9px] leading-4 text-[#928994] lg:text-right">
+              <p className="mt-2 text-center text-[9px] leading-4 text-[#928994]">
                 Activates when the webinar date and time are confirmed.
               </p>
             </div>

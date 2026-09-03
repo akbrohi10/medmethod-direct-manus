@@ -840,3 +840,12 @@
 - [x] Preserve `/live-webinar`, all `/live-webinar2` copy, countdown placeholder, inactive RSVP actions, inline video behavior, Featured In section, separated disclosure, noindex metadata, and review safeguards
 - [x] Update focused regression coverage and validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser, first-party network, or new server errors, and desktop/mobile rendering with the hero beginning cleanly after header removal
 - [x] Save and deliver the `/live-webinar2` top-header removal checkpoint
+
+## Live Webinar 2 Upper-Page Balance Refinement
+
+- [x] Recompose the desktop headline into two intentional balanced lines while preserving its exact wording and natural mobile wrapping
+- [x] Tighten only the upper hero’s vertical spacing between the webinar label, headline, supporting copy, CTA, and event row
+- [x] Visually unify the Live on Zoom date block and placeholder countdown as one centered event-details composition
+- [x] Preserve `/live-webinar`, all `/live-webinar2` wording, video and autoplay behavior, countdown placeholder status, inactive RSVP actions, learning content, Featured In section, separated disclosure, noindex metadata, and safeguards
+- [x] Update focused regression coverage and validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser, first-party network, or new server errors, and desktop/mobile rendering with balanced headline wrapping, tighter upper spacing, and a unified event row
+- [ ] Save and deliver the `/live-webinar2` upper-page balance checkpoint
