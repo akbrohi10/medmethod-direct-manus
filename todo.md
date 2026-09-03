@@ -802,3 +802,15 @@
 - [x] Preserve the purple strip, all six monochrome outlet logos, section placement, and every other webinar element and behavior
 - [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, HTTP 200, clean current runtime logs, clear Featured In heading, and preserved desktop/mobile logo strip
 - [x] Save and deliver the Featured In heading refinement checkpoint
+
+## Live Webinar 2 Lean Reference Variation
+
+- [x] Create a new review-only route at `/live-webinar2` without changing `/live-webinar`
+- [x] Match the supplied lean reference structure with a slim brand bar, centered webinar promise, concise supporting line, dominant RSVP action, event row, and compact video/learning-content split
+- [x] Reuse the current approved webinar video, poster, learning content, physician identity, and six monochrome Featured In logos without duplicating media files
+- [x] Add a clearly labeled non-running countdown placeholder that displays neutral placeholder values and does not imply a real deadline until the event date is provided
+- [x] Keep all RSVP actions inactive with coming-soon feedback, and retain `noindex, nofollow`, educational disclaimer, required testosterone disclosure, and review-only status
+- [x] Place the compact Featured In strip at the bottom of `/live-webinar2`
+- [x] Register the new route and add focused regression coverage for route isolation, lean structure, placeholder countdown, inactive registration, reused assets, and review safeguards
+- [x] Validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inline-video safeguards, clean current runtime logs, final desktop/mobile rendering, placeholder countdown, disclosures, and bottom Featured In strip
+- [ ] Save and deliver the `/live-webinar2` variation checkpoint

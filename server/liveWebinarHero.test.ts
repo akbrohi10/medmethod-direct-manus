@@ -204,6 +204,6 @@ describe("live webinar landing page", () => {
   });
 
   it("suppresses social-proof popups on the focused webinar landing page", () => {
-    expect(appSource).toContain('if (location === "/live-webinar") return null;');
+    expect(appSource).toContain('if (location === "/live-webinar" || location === "/live-webinar2") return null;');
   });
 });
