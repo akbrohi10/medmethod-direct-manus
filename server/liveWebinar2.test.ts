@@ -23,6 +23,11 @@ describe("live webinar 2 lean variation", () => {
   it("uses the lean reference-inspired hierarchy and supplied webinar content", () => {
     expect(pageSource).toContain("data-webinar2-card");
     expect(pageSource).toContain("data-webinar2-hero");
+    expect(pageSource).not.toMatch(/<header\b/);
+    expect(pageSource).not.toContain("Live Education");
+    expect(pageSource).not.toContain('bg-[#231f2d]');
+    expect(pageSource).toContain("pt-11 pb-10");
+    expect(pageSource).toContain("sm:pt-16 sm:pb-14");
     expect(pageSource).toContain("Free Live Webinar");
     expect(pageSource).toContain("Understand What’s Really Happening to Your Body");
     expect(pageSource).toContain("After 35.");

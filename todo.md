@@ -832,3 +832,11 @@
 - [x] Preserve `/live-webinar`, every other `/live-webinar2` element and behavior, inactive RSVP actions, noindex metadata, and all review safeguards
 - [x] Update focused regression coverage and validate compliance tests, TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser or first-party network errors, no new server errors, and desktop/mobile rendering of the compact neutral footnote outside Featured In
 - [x] Save and deliver the separated disclosure-footnote checkpoint
+
+## Live Webinar 2 Top-Header Removal
+
+- [x] Remove only the dark MedMethod / Live Education header from the top of `/live-webinar2`
+- [x] Rebalance the opening white-space so the Free Live Webinar hero begins cleanly at the top of the card
+- [x] Preserve `/live-webinar`, all `/live-webinar2` copy, countdown placeholder, inactive RSVP actions, inline video behavior, Featured In section, separated disclosure, noindex metadata, and review safeguards
+- [x] Update focused regression coverage and validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser, first-party network, or new server errors, and desktop/mobile rendering with the hero beginning cleanly after header removal
+- [ ] Save and deliver the `/live-webinar2` top-header removal checkpoint

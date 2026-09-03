@@ -106,21 +106,7 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1180px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <header className="border-b-2 border-[#d8a94f] bg-[#231f2d] px-5 py-4 text-white sm:px-10 sm:py-5">
-          <div className="mx-auto flex max-w-[1020px] items-center justify-between gap-4">
-            <div aria-label="MedMethod Direct" className="leading-none">
-              <p className="text-lg font-black tracking-[-0.04em] sm:text-xl">
-                Med<span className="text-[#e8339e]">Method</span>
-              </p>
-              <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.34em] text-white/75">Direct</p>
-            </div>
-            <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#e8c77e] sm:text-[11px]">
-              Live Education
-            </p>
-          </div>
-        </header>
-
-        <div className="px-5 py-10 sm:px-10 sm:py-14 lg:px-16 lg:py-16">
+        <div className="px-5 pt-11 pb-10 sm:px-10 sm:pt-16 sm:pb-14 lg:px-16 lg:pt-[4.5rem] lg:pb-16">
           <section data-webinar2-hero className="mx-auto max-w-[1000px] text-center">
             <p className="text-sm font-bold underline decoration-[#d8a94f] decoration-2 underline-offset-4 sm:text-base">
               Free Live Webinar
