@@ -886,3 +886,10 @@
 - [x] Move the existing dormant countdown bar above the `/live-webinar2` hero video while preserving the review-only state, responsive layout, inactive form, disclosures, Featured In placement, current video behavior, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate desktop/mobile rendering, route isolation, TypeScript, all 177 tests across 34 files, production build, both webinar HTTP 200 responses, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the countdown-placement refinement checkpoint
+
+## Live Webinar 2 Countdown Visual Refinement
+
+- [x] Restyle the countdown above the `/live-webinar2` video as a simple modern panel matching the supplied reference: light surface, compact clock label, bold four-part dark clock, and restrained inactive-state note
+- [x] Preserve the countdown’s existing inactive event configuration, readable mobile layout, video placement and behavior, inactive form, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate responsive rendering, TypeScript, all 178 tests across 34 files, production build, both webinar routes, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the refined countdown visual checkpoint

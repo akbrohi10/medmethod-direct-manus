@@ -218,28 +218,29 @@ export default function LiveWebinar2() {
           <div className="order-2 mx-auto w-full max-w-[350px] lg:col-start-2 lg:row-span-3 lg:max-w-none">
             <section
               data-webinar2-countdown-bar
-              className="mb-3 rounded-xl border border-[#e5d9e1] bg-[#fffafd] px-3 py-3 shadow-[0_10px_24px_rgba(81,30,67,0.06)] sm:px-4"
+              className="mb-4 rounded-[1.15rem] border border-[#ddd6dc] bg-[#fffdfd] px-4 py-4 sm:px-5 sm:py-5"
             >
-              <div className="flex flex-col items-center justify-center gap-2.5 lg:flex-row lg:justify-between lg:gap-3">
-                <div className="flex items-center gap-2">
-                  <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#7d707b]">
-                    Event Countdown · <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2.5 gap-y-3 sm:gap-x-5">
+                <div data-webinar2-countdown-label className="flex items-start gap-2 text-[#716b75]">
+                  <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-[#c51b79]" aria-hidden="true" />
+                  <p className="text-[9px] font-black uppercase leading-4 tracking-[0.14em] sm:text-[10px] sm:leading-[1.55] sm:tracking-[0.16em]">
+                    <span className="block">Event Countdown ·</span>
+                    <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
                   </p>
                 </div>
-                <div data-webinar2-countdown className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                <div data-webinar2-countdown className="grid grid-cols-4 gap-1 sm:gap-1.5">
                   {countdownUnits.map(unit => (
                     <div key={unit.label} className="text-center">
-                      <div className="min-w-[2.6rem] rounded-md bg-[#29252f] px-1.5 py-1.5 text-base font-black tabular-nums text-white sm:min-w-12 sm:px-2 sm:py-2 sm:text-lg">
+                      <div className="min-w-[2.6rem] rounded-lg bg-[#26222d] px-1 py-2 text-[17px] font-black leading-5 tabular-nums text-white sm:min-w-12 sm:px-2 sm:py-2.5 sm:text-xl sm:leading-6">
                         {unit.value}
                       </div>
-                      <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.08em] text-[#817781]">{unit.label}</p>
+                      <p className="mt-1.5 text-[7px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[8px]">{unit.label}</p>
                     </div>
                   ))}
                 </div>
               </div>
               {!isEventScheduled && (
-                <p data-webinar2-countdown-preview-token className="mt-2 text-center text-[9px] font-black uppercase tracking-[0.08em] text-[#956d88]">
+                <p data-webinar2-countdown-preview-token className="mt-3 border-t border-[#eee8ed] pt-3 text-center text-[8px] font-black uppercase tracking-[0.08em] text-[#956d88] sm:text-[9px] sm:tracking-[0.1em]">
                   [COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]
                 </p>
               )}

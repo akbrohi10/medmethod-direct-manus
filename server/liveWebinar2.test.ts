@@ -86,6 +86,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
   });
 
+  it("uses a simple modern countdown panel with a compact label, four dark time cells, and a restrained inactive note", () => {
+    expect(pageSource).toContain("data-webinar2-countdown-label");
+    expect(pageSource).toContain("grid-cols-[minmax(0,1fr)_auto]");
+    expect(pageSource).toContain("rounded-[1.15rem]");
+    expect(pageSource).toContain("bg-[#26222d]");
+    expect(pageSource).toContain("border-t border-[#eee8ed]");
+  });
+
   it("places Featured In below the hero video and preserves all six logos", () => {
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-learning"));
