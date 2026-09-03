@@ -3,7 +3,6 @@ import { type FormEvent, useEffect, useRef, useState } from "react";
 import { CalendarDays, CheckCircle2, Clock3, MessageCircle, Play } from "lucide-react";
 import { toast } from "sonner";
 
-const BRAND_LOGO_URL = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -174,45 +173,21 @@ export default function LiveWebinar2() {
       >
         <section
           data-webinar2-hero
-          className="mx-auto grid max-w-[1100px] gap-7 px-5 pt-7 pb-8 sm:px-10 sm:pt-10 sm:pb-10 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] lg:items-center lg:gap-12 lg:px-14 lg:py-12"
+          className="mx-auto grid max-w-[1100px] gap-6 px-5 pt-6 pb-8 sm:px-10 sm:pt-8 sm:pb-10 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] lg:items-center lg:gap-10 lg:px-14 lg:py-10"
         >
-          <div className="order-1 lg:col-start-1">
-            <img
-              data-webinar2-brand-logo
-              src={BRAND_LOGO_URL}
-              alt="MedMethod Direct"
-              className="h-10 w-auto object-contain sm:h-11"
-            />
-            <p className="mt-4 text-[10px] font-black uppercase tracking-[0.22em] text-[#b78a3f] sm:text-[11px]">
+          <div data-webinar2-opening-copy className="order-1 lg:col-start-1">
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#b78a3f] sm:text-[11px]">
               Free Live Webinar · For Women 35+
             </p>
-            <h1 className="mt-4 max-w-[590px] text-[2rem] leading-[1.11] tracking-[-0.04em] text-[#26242c] sm:text-[2.5rem] lg:text-[3rem]">
-              <span className="block font-black">You’re not imagining it.</span>
-              <span className="mt-1.5 block font-medium italic text-[#6f3568] sm:mt-2">
+            <h1 className="mt-3 max-w-[590px] tracking-[-0.04em] text-[#26242c]">
+              <span className="block text-[2rem] font-black leading-[1.08] sm:text-[2.5rem] lg:text-[3rem]">You’re not imagining it.</span>
+              <span className="mt-2 block text-[1.75rem] font-medium italic leading-[1.12] text-[#6f3568] sm:mt-2.5 sm:text-[2.15rem] lg:text-[2.55rem]">
                 Here’s what’s actually changing — and what you can do about it.
               </span>
             </h1>
-            <p className="mt-4 max-w-[560px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-[15px] sm:leading-7">
-              Perimenopause, menopause, hormone therapy and medical weight loss, explained clearly by Dr. Jumana Al-Deek, author of <em>The Menopause Weight Loss Trap</em>.
+            <p data-webinar2-short-intro className="mt-3 max-w-[560px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-[15px]">
+              A free educational webinar with Dr. Jumana Al-Deek.
             </p>
-            <div data-webinar2-availability className="mt-4 max-w-[560px] text-sm font-bold text-[#5a4256]">
-              <p>
-                Available nationwide for this free educational webinar.{" "}
-                <button
-                  type="button"
-                  aria-expanded={showStates}
-                  onClick={() => setShowStates(current => !current)}
-                  className="font-black text-[#a91970] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75]"
-                >
-                  See states
-                </button>
-              </p>
-              {showStates && (
-                <p data-webinar2-state-list-token className="mt-2 rounded-md border border-dashed border-[#c892ad] bg-[#fff8fc] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] text-[#8d3b70]">
-                  [STATE LIST]
-                </p>
-              )}
-            </div>
           </div>
 
           <div className="order-2 mx-auto w-full max-w-[350px] lg:col-start-2 lg:row-span-3 lg:max-w-none">
@@ -359,6 +334,24 @@ export default function LiveWebinar2() {
                 Privacy Policy
               </a>
             </p>
+            <div data-webinar2-availability className="mt-4 max-w-[560px] border-t border-[#ece4e9] pt-3 text-[11px] font-semibold leading-5 text-[#655d66] sm:text-xs">
+              <p>
+                Available nationwide for this free educational webinar.{" "}
+                <button
+                  type="button"
+                  aria-expanded={showStates}
+                  onClick={() => setShowStates(current => !current)}
+                  className="font-black text-[#a91970] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75]"
+                >
+                  See states
+                </button>
+              </p>
+              {showStates && (
+                <p data-webinar2-state-list-token className="mt-2 rounded-md border border-dashed border-[#c892ad] bg-[#fff8fc] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] text-[#8d3b70]">
+                  [STATE LIST]
+                </p>
+              )}
+            </div>
           </div>
         </section>
 

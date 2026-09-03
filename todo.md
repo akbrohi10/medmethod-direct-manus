@@ -893,3 +893,13 @@
 - [x] Preserve the countdown’s existing inactive event configuration, readable mobile layout, video placement and behavior, inactive form, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate responsive rendering, TypeScript, all 178 tests across 34 files, production build, both webinar routes, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the refined countdown visual checkpoint
+
+## Live Webinar 2 Opening Simplification
+
+- [x] Remove the MedMethod logo from the `/live-webinar2` opening and tighten the top spacing so the webinar label becomes the first visual element
+- [x] Preserve the primary headline and purple promise while tightening their mobile and desktop spacing and line-height
+- [x] Replace the long opening doctor/book paragraph with `A free educational webinar with Dr. Jumana Al-Deek.` and retain the full author/book identification in the existing presenter section
+- [x] Move the nationwide educational availability line out of the opening copy stack to a quieter position below the video/form area without implying nationwide clinical availability
+- [x] Preserve the countdown above the video, inactive form and event tokens, current video behavior, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate responsive hierarchy, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the simplified opening checkpoint

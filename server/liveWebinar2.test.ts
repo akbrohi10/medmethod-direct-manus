@@ -30,7 +30,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Here’s what’s actually changing — and what you can do about it.");
     expect(pageSource).not.toContain("After 35");
     expect(pageSource).not.toContain("After 40");
-    expect(pageSource).toContain("author of <em>The Menopause Weight Loss Trap</em>");
+    expect(pageSource).toContain("A free educational webinar with Dr. Jumana Al-Deek.");
+    expect(pageSource).toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
     expect(pageSource).toContain("Available nationwide for this free educational webinar.");
     expect(pageSource).toContain("See states");
     expect(pageSource).toContain("data-webinar2-state-list-token");
@@ -38,8 +39,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
-  it("uses the exact requested mobile hierarchy with the countdown above video before the inactive two-field form", () => {
-    expect(pageSource.indexOf("data-webinar2-brand-logo")).toBeLessThan(pageSource.indexOf("Free Live Webinar · For Women 35+"));
+  it("uses the simplified mobile hierarchy with no opening logo and the countdown above video before the inactive two-field form", () => {
+    expect(pageSource).not.toContain("data-webinar2-brand-logo");
+    expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("Free Live Webinar · For Women 35+")).toBeLessThan(pageSource.indexOf("You’re not imagining it."));
     expect(pageSource.indexOf("You’re not imagining it.")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
@@ -49,6 +51,13 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("sm:aspect-[4/5]");
     expect(pageSource).toContain("lg:row-span-3");
     expect(pageSource).toContain("hidden items-center justify-center gap-3 text-center lg:col-start-2");
+  });
+
+  it("keeps secondary nationwide availability below the registration details and full authorship in the presenter section", () => {
+    expect(pageSource).toContain("data-webinar2-short-intro");
+    expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("data-webinar2-registration-preview"));
+    expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("Privacy Policy"));
+    expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
   });
 
   it("adds exactly two visual-only form fields and keeps every RSVP action focused on that inactive form", () => {
