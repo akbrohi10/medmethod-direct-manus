@@ -108,13 +108,18 @@ describe("live webinar landing page", () => {
 
     expect(mediaPosition).toBeGreaterThan(heroPosition);
     expect(learningPosition).toBeGreaterThan(mediaPosition);
-    expect(pageSource).toContain("As Seen In");
+    expect(pageSource).toContain("Featured In");
+    expect(pageSource).not.toContain("As Seen In");
     expect(featuredOutletsBlock.match(/name: "/g)).toHaveLength(6);
     expect(pageSource.match(/data-webinar-media-logo\b/g)).toHaveLength(1);
     expect(asSeenInBlock).toContain("bg-gradient-to-r");
+    expect(asSeenInBlock).toContain('aria-labelledby="webinar-featured-in-heading"');
+    expect(asSeenInBlock).toContain("data-webinar-featured-heading");
+    expect(asSeenInBlock).toContain("text-sm font-black uppercase");
+    expect(asSeenInBlock).toContain("text-white sm:text-base lg:text-lg");
     expect(asSeenInBlock).toContain("grid-cols-3");
     expect(asSeenInBlock).toContain("sm:grid-cols-6");
-    expect(asSeenInBlock).not.toMatch(/rounded-xl|border-\[#e7dada\]|bg-white|shadow-\[0_10px_28px/);
+    expect(asSeenInBlock).not.toMatch(/rounded-xl|border-\[#e7dada\]|bg-white(?:\s|")|shadow-\[0_10px_28px/);
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(featuredOutletsBlock).toContain(`name: "${outlet}"`);

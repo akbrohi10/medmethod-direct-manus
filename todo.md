@@ -794,3 +794,11 @@
 - [x] Preserve the section’s position between the hero and educational content plus every other webinar element and behavior
 - [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, all six permanent monochrome assets, HTTP 200, clean runtime logs, the slim one-row desktop strip, and compact two-row mobile treatment
 - [x] Save and deliver the slim As Seen In strip checkpoint
+
+## Live Webinar Featured In Heading Refinement
+
+- [x] Replace only the social-proof heading copy from `As Seen In` to `Featured In`
+- [x] Make the heading larger, bolder, solid white, and easy to read on desktop and mobile while keeping the strip compact
+- [x] Preserve the purple strip, all six monochrome outlet logos, section placement, and every other webinar element and behavior
+- [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, HTTP 200, clean current runtime logs, clear Featured In heading, and preserved desktop/mobile logo strip
+- [ ] Save and deliver the Featured In heading refinement checkpoint

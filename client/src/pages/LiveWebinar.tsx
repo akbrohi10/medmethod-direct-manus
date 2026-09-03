@@ -383,18 +383,23 @@ export default function LiveWebinar() {
 
       <section
         data-webinar-as-seen-in
-        aria-labelledby="webinar-as-seen-in-heading"
+        aria-labelledby="webinar-featured-in-heading"
         className="bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-5 py-5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(14,4,36,0.3)] sm:px-8 sm:py-6 lg:px-12"
       >
         <div className="mx-auto w-full max-w-[1240px]">
-          <h2
-            id="webinar-as-seen-in-heading"
-            className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/70 sm:text-xs"
-          >
-            As Seen In
-          </h2>
+          <div className="flex items-center justify-center gap-3 sm:gap-5">
+            <span className="h-px w-9 bg-white/55 sm:w-20" aria-hidden="true" />
+            <h2
+              id="webinar-featured-in-heading"
+              data-webinar-featured-heading
+              className="shrink-0 text-center text-sm font-black uppercase tracking-[0.16em] text-white sm:text-base lg:text-lg"
+            >
+              Featured In
+            </h2>
+            <span className="h-px w-9 bg-white/55 sm:w-20" aria-hidden="true" />
+          </div>
 
-          <div data-webinar-media-logos className="mt-4 grid grid-cols-3 items-center gap-x-5 gap-y-4 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
+          <div data-webinar-media-logos className="mt-3 grid grid-cols-3 items-center gap-x-5 gap-y-4 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
             {featuredOutlets.map(outlet => (
               <div
                 key={outlet.name}
