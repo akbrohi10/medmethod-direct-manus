@@ -864,4 +864,4 @@
 - [x] Preserve `noindex, nofollow`, the exact educational and testosterone disclosures, `/live-webinar`, all existing media assets, and the review-only status
 - [x] Document remaining bracketed tokens in source (`[DAY]`, `[MONTH]`, `[DATE]`, `[TIME]`, `[TIMEZONE]`, `[DURATION]`, `[VIDEO LENGTH]`, and `[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]`) and add focused regression coverage for the complete revision prompt
 - [x] Validate 390px-first rendering, 1440px desktop layout, TypeScript, all 176 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form and inline-video safeguards, zero current server or browser errors, only expected status-0 third-party Google tracking entries, and preserved page behavior
-- [ ] Save and deliver the revised `/live-webinar2` checkpoint
+- [x] Save and deliver the revised `/live-webinar2` checkpoint
