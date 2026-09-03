@@ -793,4 +793,4 @@
 - [x] Keep one compact logo row on desktop and a proportionate wrapped mobile treatment without horizontal overflow
 - [x] Preserve the section’s position between the hero and educational content plus every other webinar element and behavior
 - [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, all six permanent monochrome assets, HTTP 200, clean runtime logs, the slim one-row desktop strip, and compact two-row mobile treatment
-- [ ] Save and deliver the slim As Seen In strip checkpoint
+- [x] Save and deliver the slim As Seen In strip checkpoint
