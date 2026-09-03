@@ -89,18 +89,22 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("if (!WEBINAR_EVENT.startsAt) return;");
     expect(pageSource).toContain("window.setInterval(updateCountdown, 1_000)");
     expect(pageSource).toContain("data-webinar2-countdown-bar");
-    expect(pageSource).toContain("data-webinar2-countdown-timezone");
-    expect(pageSource).toContain("data-webinar2-countdown-preview-token");
-    expect(pageSource).toContain("[COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]");
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
   });
 
-  it("uses a simple modern countdown panel with a compact label, four dark time cells, and a restrained inactive note", () => {
-    expect(pageSource).toContain("data-webinar2-countdown-label");
-    expect(pageSource).toContain("grid-cols-[minmax(0,1fr)_auto]");
-    expect(pageSource).toContain("rounded-[1.15rem]");
+  it("shows only four dark countdown boxes and their unit labels", () => {
+    expect(pageSource).not.toContain("data-webinar2-countdown-label");
+    expect(pageSource).not.toContain("data-webinar2-countdown-timezone");
+    expect(pageSource).not.toContain("data-webinar2-countdown-preview-token");
+    expect(pageSource).not.toContain("[COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]");
+    expect(pageSource).not.toContain("Event Countdown ·");
+    expect(pageSource).not.toContain("Clock3");
+    expect(pageSource).toContain('aria-label="Webinar countdown"');
+    expect(pageSource).toContain("grid grid-cols-4 gap-2 sm:gap-2.5");
     expect(pageSource).toContain("bg-[#26222d]");
-    expect(pageSource).toContain("border-t border-[#eee8ed]");
+    for (const unit of ["Days", "Hours", "Minutes", "Seconds"]) {
+      expect(pageSource).toContain(`label: "${unit}"`);
+    }
   });
 
   it("places Featured In below the hero video and preserves all six logos", () => {

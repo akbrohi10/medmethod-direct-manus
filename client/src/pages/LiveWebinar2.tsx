@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { CalendarDays, CheckCircle2, Clock3, MessageCircle, Play } from "lucide-react";
+import { CalendarDays, CheckCircle2, MessageCircle, Play } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -69,7 +69,6 @@ export default function LiveWebinar2() {
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
   const [showStates, setShowStates] = useState(false);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
-  const isEventScheduled = Boolean(WEBINAR_EVENT.startsAt);
 
   useEffect(() => {
     if (!WEBINAR_EVENT.startsAt) return;
@@ -191,35 +190,21 @@ export default function LiveWebinar2() {
           </div>
 
           <div className="order-2 mx-auto w-full max-w-[350px] lg:col-start-2 lg:row-span-3 lg:max-w-none">
-            <section
+            <div
               data-webinar2-countdown-bar
-              className="mb-4 rounded-[1.15rem] border border-[#ddd6dc] bg-[#fffdfd] px-4 py-4 sm:px-5 sm:py-5"
+              className="mb-4 flex justify-center"
             >
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2.5 gap-y-3 sm:gap-x-5">
-                <div data-webinar2-countdown-label className="flex items-start gap-2 text-[#716b75]">
-                  <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-[#c51b79]" aria-hidden="true" />
-                  <p className="text-[9px] font-black uppercase leading-4 tracking-[0.14em] sm:text-[10px] sm:leading-[1.55] sm:tracking-[0.16em]">
-                    <span className="block">Event Countdown ·</span>
-                    <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
-                  </p>
-                </div>
-                <div data-webinar2-countdown className="grid grid-cols-4 gap-1 sm:gap-1.5">
-                  {countdownUnits.map(unit => (
-                    <div key={unit.label} className="text-center">
-                      <div className="min-w-[2.6rem] rounded-lg bg-[#26222d] px-1 py-2 text-[17px] font-black leading-5 tabular-nums text-white sm:min-w-12 sm:px-2 sm:py-2.5 sm:text-xl sm:leading-6">
-                        {unit.value}
-                      </div>
-                      <p className="mt-1.5 text-[7px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[8px]">{unit.label}</p>
+              <div data-webinar2-countdown aria-label="Webinar countdown" className="grid grid-cols-4 gap-2 sm:gap-2.5">
+                {countdownUnits.map(unit => (
+                  <div key={unit.label} className="text-center">
+                    <div className="min-w-[3.25rem] rounded-lg bg-[#26222d] px-2 py-2.5 text-xl font-black leading-6 tabular-nums text-white sm:min-w-14 sm:py-3 sm:text-2xl sm:leading-7">
+                      {unit.value}
                     </div>
-                  ))}
-                </div>
+                    <p className="mt-1.5 text-[8px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[9px]">{unit.label}</p>
+                  </div>
+                ))}
               </div>
-              {!isEventScheduled && (
-                <p data-webinar2-countdown-preview-token className="mt-3 border-t border-[#eee8ed] pt-3 text-center text-[8px] font-black uppercase tracking-[0.08em] text-[#956d88] sm:text-[9px] sm:tracking-[0.1em]">
-                  [COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]
-                </p>
-              )}
-            </section>
+            </div>
 
             <div
               ref={videoShellRef}

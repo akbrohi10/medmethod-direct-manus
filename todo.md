@@ -903,3 +903,11 @@
 - [x] Preserve the countdown above the video, inactive form and event tokens, current video behavior, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate responsive hierarchy, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the simplified opening checkpoint
+
+## Live Webinar 2 Four-Box Countdown Simplification
+
+- [x] Keep only the four dark countdown value boxes and their Days, Hours, Minutes, and Seconds labels above the `/live-webinar2` video
+- [x] Remove the countdown panel background, border, clock icon, Event Countdown label, timezone text, divider, and inactive activation note
+- [x] Preserve the existing dormant timing configuration, countdown values, placement above the video, responsive layout, inactive form, video behavior, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate responsive rendering, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the four-box countdown checkpoint
