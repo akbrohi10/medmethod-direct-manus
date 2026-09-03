@@ -849,3 +849,19 @@
 - [x] Preserve `/live-webinar`, all `/live-webinar2` wording, video and autoplay behavior, countdown placeholder status, inactive RSVP actions, learning content, Featured In section, separated disclosure, noindex metadata, and safeguards
 - [x] Update focused regression coverage and validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser, first-party network, or new server errors, and desktop/mobile rendering with balanced headline wrapping, tighter upper spacing, and a unified event row
 - [x] Save and deliver the `/live-webinar2` upper-page balance checkpoint
+
+## Live Webinar 2 Revision-Prompt Implementation
+
+- [x] Change every visible age reference on `/live-webinar2` from 35 to 40 and add the exact author byline with the book title italicized
+- [x] Add the existing MedMethod Direct logo, a non-underlined uppercase webinar label, and the line `Live and free — for women in Florida.` above the fold
+- [x] Add an inline First Name and Email form as a clearly inactive review element, plus recording and Privacy Policy copy, without any webhook or data submission
+- [x] Create one editable webinar-event configuration for the date display and future countdown, retain visible bracketed event tokens, and keep the timer non-running until real details are provided
+- [x] Move the compact Featured In strip directly below the first CTA/form area and preserve all six existing monochrome logos
+- [x] Add a presenter block using the existing headshot and book cover, a visible `[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]` token, and the exact author identification
+- [x] Reduce What You’ll Learn from six points to the four supplied points in the exact requested order
+- [x] Add a visible `Watch: [VIDEO LENGTH]` label, preserve a minimum 44px play target and the current inline autoplay/pause safeguards
+- [x] Make every CTA read `Reserve My Free Spot`, keep every action consistently focused on the inactive top form, and add a final CTA above the disclaimers
+- [x] Preserve `noindex, nofollow`, the exact educational and testosterone disclosures, `/live-webinar`, all existing media assets, and the review-only status
+- [x] Document remaining bracketed tokens in source (`[DAY]`, `[MONTH]`, `[DATE]`, `[TIME]`, `[TIMEZONE]`, `[DURATION]`, `[VIDEO LENGTH]`, and `[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]`) and add focused regression coverage for the complete revision prompt
+- [x] Validate 390px-first rendering, 1440px desktop layout, TypeScript, all 176 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form and inline-video safeguards, zero current server or browser errors, only expected status-0 third-party Google tracking entries, and preserved page behavior
+- [ ] Save and deliver the revised `/live-webinar2` checkpoint
