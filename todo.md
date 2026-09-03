@@ -801,4 +801,4 @@
 - [x] Make the heading larger, bolder, solid white, and easy to read on desktop and mobile while keeping the strip compact
 - [x] Preserve the purple strip, all six monochrome outlet logos, section placement, and every other webinar element and behavior
 - [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, HTTP 200, clean current runtime logs, clear Featured In heading, and preserved desktop/mobile logo strip
-- [ ] Save and deliver the Featured In heading refinement checkpoint
+- [x] Save and deliver the Featured In heading refinement checkpoint
