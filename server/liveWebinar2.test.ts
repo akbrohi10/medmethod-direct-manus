@@ -10,10 +10,10 @@ const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
 const legalFootnoteBlock = pageSource.match(/<div\s+data-webinar2-legal-footnote[\s\S]*?<\/div>/)?.[0] ?? "";
 const testosteroneDisclosure =
-  "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
+  "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]";
 
-describe("live webinar 2 revision-prompt implementation", () => {
-  it("keeps the variation isolated from the original webinar route", () => {
+describe("live webinar 2 second revision prompt", () => {
+  it("keeps the nationwide educational variation isolated from the original webinar route", () => {
     expect(appSource).toContain('const LiveWebinar2 = lazy(() => import("@/pages/LiveWebinar2"));');
     expect(appSource).toContain('<Route path="/live-webinar2" component={LiveWebinar2} />');
     expect(appSource).toContain('<Route path="/live-webinar" component={LiveWebinar} />');
@@ -21,71 +21,102 @@ describe("live webinar 2 revision-prompt implementation", () => {
     expect(originalPageSource).not.toContain("data-live-webinar2");
   });
 
-  it("uses the revised age-40 hero, author byline, Florida line, logo, and non-link label", () => {
-    expect(pageSource).toContain('src={BRAND_LOGO_URL}');
-    expect(pageSource).toContain('/manus-storage/medmethod-logo-navbar_99a2ea82.png');
-    expect(pageSource).toContain("Free Live Webinar");
-    expect(pageSource).toContain("uppercase tracking-[0.24em]");
-    expect(pageSource).not.toMatch(/Free Live Webinar[\s\S]{0,120}underline/);
-    expect(pageSource).toContain("After 40.");
-    expect(pageSource).not.toContain("After 35.");
-    expect(pageSource).toContain("Perimenopause, menopause, hormone therapy and medical weight loss — explained clearly by Dr. Jumana Al-Deek, author of");
-    expect(pageSource).toContain("<em>The Menopause Weight Loss Trap</em>");
-    expect(pageSource).toContain("Live and free — for women in Florida.");
+  it("uses the specified two-column hero and exact age-35-plus educational framing", () => {
+    expect(pageSource).toContain("data-webinar2-hero");
+    expect(pageSource).toContain("lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)]");
+    expect(pageSource).toContain("lg:items-center");
+    expect(pageSource).toContain("Free Live Webinar · For Women 35+");
+    expect(pageSource).toContain("You’re not imagining it.");
+    expect(pageSource).toContain("Here’s what’s actually changing — and what you can do about it.");
+    expect(pageSource).not.toContain("After 35");
+    expect(pageSource).not.toContain("After 40");
+    expect(pageSource).toContain("author of <em>The Menopause Weight Loss Trap</em>");
+    expect(pageSource).toContain("Available nationwide for this free educational webinar.");
+    expect(pageSource).toContain("See states");
+    expect(pageSource).toContain("data-webinar2-state-list-token");
+    expect(pageSource).toContain("[STATE LIST]");
+    expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
-  it("adds exactly two visual-only form fields and keeps all registration behavior inactive", () => {
+  it("uses the exact requested mobile hierarchy with video before the inactive two-field form", () => {
+    expect(pageSource.indexOf("data-webinar2-brand-logo")).toBeLessThan(pageSource.indexOf("Free Live Webinar · For Women 35+"));
+    expect(pageSource.indexOf("Free Live Webinar · For Women 35+")).toBeLessThan(pageSource.indexOf("You’re not imagining it."));
+    expect(pageSource.indexOf("You’re not imagining it.")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
+    expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
+    expect(pageSource.indexOf("data-webinar2-registration-preview")).toBeLessThan(pageSource.indexOf("data-webinar2-event-line"));
+    expect(pageSource).toContain("aspect-video");
+    expect(pageSource).toContain("sm:aspect-[4/5]");
+    expect(pageSource).toContain("lg:row-span-3");
+    expect(pageSource).toContain("hidden items-center justify-center gap-3 text-center lg:col-start-2");
+  });
+
+  it("adds exactly two visual-only form fields and keeps every RSVP action focused on that inactive form", () => {
     expect(pageSource).toContain("data-webinar2-registration-preview");
     expect(pageSource.match(/<input\b/g)).toHaveLength(2);
     expect(pageSource).toContain('name="firstName"');
+    expect(pageSource).toContain('name="email"');
     expect(pageSource).toContain('type="email"');
     expect(pageSource).toContain("event.preventDefault()");
     expect(pageSource).toContain("Registration is not connected yet. This form is for visual review only.");
-    expect(pageSource).toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
-    expect(pageSource).toContain('href="/privacy-policy"');
+    expect(pageSource).toContain("scrollIntoView");
+    expect(pageSource).toContain("querySelector<HTMLInputElement>('input[name=\"firstName\"]')");
+    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(3);
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
-    expect(pageSource).toContain("scrollIntoView");
+    expect(pageSource).toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
+    expect(pageSource).toContain('href="/privacy-policy"');
+    expect(pageSource.match(/<a\b/g)).toHaveLength(1);
     expect(pageSource).not.toMatch(/fetch\(|trpc\.|webhook|stripe|paypal/i);
   });
 
-  it("uses one editable event configuration and leaves the timer dormant while tokens remain", () => {
+  it("uses one editable date-time configuration for the event line and dormant countdown", () => {
     expect(pageSource).toContain("const WEBINAR_EVENT = {");
     expect(pageSource).toContain("startsAt: null as string | null");
-    for (const token of ["[DAY]", "[MONTH]", "[DATE]", "[TIME]", "[TIMEZONE]", "[DURATION]"]) {
-      expect(pageSource).toContain(token);
-    }
-    expect(pageSource).toContain("const eventDetails =");
+    expect(pageSource).toContain('dateTimeDisplay: "[DAY], [MONTH] [DATE] · [TIME] [TIMEZONE]"');
+    expect(pageSource).toContain('timezone: "[TIMEZONE]"');
+    expect(pageSource).toContain('duration: "[DURATION]"');
+    expect(pageSource).toContain("const eventDateLine =");
     expect(pageSource).toContain("if (!WEBINAR_EVENT.startsAt) return;");
     expect(pageSource).toContain("window.setInterval(updateCountdown, 1_000)");
+    expect(pageSource).toContain("data-webinar2-countdown-bar");
     expect(pageSource).toContain("data-webinar2-countdown-timezone");
-    expect(pageSource).toContain("data-webinar2-countdown-preview-note");
-    expect(pageSource).not.toContain("Countdown Placeholder · Preview Only");
+    expect(pageSource).toContain("data-webinar2-countdown-preview-token");
+    expect(pageSource).toContain("[COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]");
   });
 
-  it("moves Featured In beneath the form and uses the real presenter and book assets", () => {
-    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-registration-preview"));
-    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-event-row"));
+  it("places the thinner Featured In strip below the countdown and preserves all six logos", () => {
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeGreaterThan(pageSource.indexOf("data-webinar2-hero"));
+    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-countdown-bar"));
+    expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-learning"));
     expect(featuredInBlock).toContain("Featured In");
+    expect(featuredInBlock).toContain("py-3");
+    expect(featuredInBlock).toContain("grid-cols-3");
     expect(featuredInBlock).toContain("sm:grid-cols-6");
-    expect(pageSource).toContain("data-webinar2-presenter");
-    expect(pageSource).toContain('/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png');
-    expect(pageSource).toContain('/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png');
-    expect(pageSource).toContain("data-webinar2-credentials-token");
-    expect(pageSource).toContain("[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]");
-    expect(pageSource).toContain("Author of <em className=\"font-bold\">The Menopause Weight Loss Trap</em>");
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(pageSource).toContain(`name: "${outlet}"`);
     }
   });
 
-  it("uses the four supplied learning points in the requested order and removes the other two", () => {
+  it("uses compact and full presenter treatments with real media and visible tokens", () => {
+    expect(pageSource).toContain("data-webinar2-compact-presenter");
+    expect(pageSource).toContain("data-webinar2-compact-credentials-token");
+    expect(pageSource).toContain("[CREDENTIALS]");
+    expect(pageSource).toContain("data-webinar2-presenter");
+    expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
+    expect(pageSource).toContain('/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png');
+    expect(pageSource).toContain('/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png');
+    expect(pageSource).toContain("data-webinar2-credentials-token");
+    expect(pageSource).toContain("[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]");
+    expect(pageSource).toContain("Author of <em className=\"font-bold\">The Menopause Weight Loss Trap</em>");
+  });
+
+  it("uses the four requested learning points in order and preserves the current inline video behavior", () => {
     expect(learningPointsBlock.match(/^\s*"/gm)).toHaveLength(4);
     const expectedPoints = [
       "The truth about hormone therapy (HRT)",
-      "Why losing weight can suddenly become harder after 40",
-      "What’s actually happening to your hormones during perimenopause and menopause",
+      "Why losing weight can suddenly become harder in your late 30s and 40s",
+      "What's actually happening to your hormones during perimenopause and menopause",
       "How GLP-1 medications work",
     ];
     const positions = expectedPoints.map(point => learningPointsBlock.indexOf(point));
@@ -93,10 +124,6 @@ describe("live webinar 2 revision-prompt implementation", () => {
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
     expect(learningPointsBlock).not.toContain("The connection between hormones, menopause and weight management");
     expect(learningPointsBlock).not.toContain("What good menopause care should actually look like");
-  });
-
-  it("adds the video-length token, preserves inline playback, and uses a non-interactive Q&A pill", () => {
-    expect(pageSource).toContain("data-webinar2-video-length-token");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
     expect(pageSource).toContain("h-16 w-16");
     expect(pageSource).toContain('video.setAttribute("playsinline", "")');
@@ -104,17 +131,18 @@ describe("live webinar 2 revision-prompt implementation", () => {
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
     expect(pageSource).toContain("video.pause()");
     expect(pageSource).toContain("Play Video With Sound");
-    expect(pageSource).toContain("rounded-full bg-[#faf4f8]");
-    expect(pageSource).not.toMatch(/<button[\s\S]{0,300}Live Q&amp;A with Dr\. Al-Deek/);
   });
 
-  it("adds the final CTA above the unchanged review-only disclosures", () => {
-    expect(pageSource).toContain("data-webinar2-final-cta");
-    expect(pageSource.indexOf("data-webinar2-final-cta")).toBeLessThan(pageSource.indexOf("This live webinar is for general educational purposes"));
+  it("keeps review safeguards and separates the exact disclosure from media credibility", () => {
     expect(pageSource).toContain('<meta name="robots" content="noindex, nofollow" />');
     expect(pageSource).toContain('href="https://medmethoddirect.com/live-webinar2"');
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.");
     expect(legalFootnoteBlock).toContain(testosteroneDisclosure);
+    expect(pageSource).toContain("[APPROVED AVAILABILITY DISCLAIMER]");
+    expect(pageSource).not.toContain("This treatment is available only to patients in Florida.");
     expect(pageSource.indexOf("data-webinar2-legal-footnote")).toBeGreaterThan(pageSource.indexOf("data-webinar2-final-cta"));
+    expect(pageSource).toContain("data-webinar2-final-cta");
+    expect(pageSource).toContain("rounded-full bg-[#faf4f8]");
+    expect(pageSource).not.toMatch(/<button[\s\S]{0,300}Live Q&amp;A with Dr\. Al-Deek/);
   });
 });

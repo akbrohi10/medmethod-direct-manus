@@ -296,6 +296,8 @@ describe("LegitScript compliance remediation", () => {
       "Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.";
     const testosteroneDisclosure =
       "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
+    const webinarEducationDisclosure =
+      "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]";
 
     for (const file of collectTextFiles(sourceRoot).filter((file) => file.endsWith(".tsx"))) {
       const source = readFileSync(file, "utf8");
@@ -312,6 +314,7 @@ describe("LegitScript compliance remediation", () => {
       if (/\btestosterone\b/i.test(source) && !isDisclosureComponent) {
         expect(
           source.includes(testosteroneDisclosure) ||
+            (file.endsWith("LiveWebinar2.tsx") && source.includes(webinarEducationDisclosure)) ||
             /<ComplianceDisclosures[^>]*\btestosteroneForWomen\b/.test(source),
         ).toBe(true);
       }

@@ -865,3 +865,18 @@
 - [x] Document remaining bracketed tokens in source (`[DAY]`, `[MONTH]`, `[DATE]`, `[TIME]`, `[TIMEZONE]`, `[DURATION]`, `[VIDEO LENGTH]`, and `[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]`) and add focused regression coverage for the complete revision prompt
 - [x] Validate 390px-first rendering, 1440px desktop layout, TypeScript, all 176 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form and inline-video safeguards, zero current server or browser errors, only expected status-0 third-party Google tracking entries, and preserved page behavior
 - [x] Save and deliver the revised `/live-webinar2` checkpoint
+
+## Live Webinar 2 Second Revision Prompt — Nationwide Education
+
+- [x] Rebuild the `/live-webinar2` hero into the requested 55/45 desktop text-and-video split and the specified mobile stacking order, using 16:9 video only on the smallest viewport to fit the logo-through-video sequence
+- [x] Use the exact age-35+ webinar audience eyebrow, revised two-line hero promise, author subheadline, and nationwide educational availability treatment without implying clinical availability
+- [x] Add the inactive two-field form, recording/privacy lines, date/time token line, and primary CTA in the requested hero order
+- [x] Move the countdown into a slim full-width bar below the hero and drive date/time/timezone display from one editable configuration while retaining visible unfilled tokens
+- [x] Move Featured In below the countdown bar, preserve the thin mobile-readable strip, and retain all six existing outlet logos
+- [x] Add the compact presenter strip under the desktop video and the fuller presenter block beneath four revised learning bullets using existing real media plus visible credential tokens
+- [x] Add the requested video-length label and retain the current autoplay and inline-playback behavior until the user revisits it
+- [x] Preserve inactive registration, noindex review status, exact educational disclaimer, separate exact testosterone sentences, and replace only the outdated availability sentence with `[APPROVED AVAILABILITY DISCLAIMER]`
+- [x] Keep `/live-webinar` unchanged and prevent new external links other than the existing Privacy Policy link
+- [x] Document all bracketed tokens and their locations in `docs/Live_Webinar2_Remaining_Tokens.md` and add focused regression coverage for the complete second revision prompt
+- [x] Validate 390px-first rendering, desktop layout, TypeScript, all 177 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inactive-form, availability-token, and inline-video safeguards, zero current server/browser/first-party 5xx errors, and preserved current video behavior
+- [ ] Save and deliver the second `/live-webinar2` revision checkpoint

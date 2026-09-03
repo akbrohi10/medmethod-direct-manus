@@ -9,20 +9,18 @@ const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-tra
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 
+// Set `startsAt` to the confirmed ISO date-time to activate the countdown and replace the display tokens below.
 const WEBINAR_EVENT = {
   startsAt: null as string | null,
-  day: "[DAY]",
-  month: "[MONTH]",
-  date: "[DATE]",
-  time: "[TIME]",
+  dateTimeDisplay: "[DAY], [MONTH] [DATE] · [TIME] [TIMEZONE]",
   timezone: "[TIMEZONE]",
   duration: "[DURATION]",
 };
 
 const learningPoints = [
   "The truth about hormone therapy (HRT) — including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
-  "Why losing weight can suddenly become harder after 40 even when you’re eating and exercising the same way you always have.",
-  "What’s actually happening to your hormones during perimenopause and menopause — and why it can affect everything from sleep and mood to metabolism, muscle and belly fat.",
+  "Why losing weight can suddenly become harder in your late 30s and 40s even when you're eating and exercising the same way you always have.",
+  "What's actually happening to your hormones during perimenopause and menopause — and why it can affect everything from sleep and mood to metabolism, muscle and belly fat.",
   "How GLP-1 medications work and where medical weight loss may fit into your overall health strategy.",
 ];
 
@@ -70,6 +68,7 @@ export default function LiveWebinar2() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
+  const [showStates, setShowStates] = useState(false);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const isEventScheduled = Boolean(WEBINAR_EVENT.startsAt);
 
@@ -151,7 +150,7 @@ export default function LiveWebinar2() {
     }
   };
 
-  const eventDetails = `${WEBINAR_EVENT.day}, ${WEBINAR_EVENT.month} ${WEBINAR_EVENT.date} · ${WEBINAR_EVENT.time} ${WEBINAR_EVENT.timezone} · ${WEBINAR_EVENT.duration} + live Q&A`;
+  const eventDateLine = `${WEBINAR_EVENT.dateTimeDisplay} · ${WEBINAR_EVENT.duration} + live Q&A`;
 
   return (
     <main
@@ -173,64 +172,153 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1180px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <div className="px-5 pt-7 pb-8 sm:px-10 sm:pt-10 sm:pb-10 lg:px-16 lg:pt-11">
-          <section data-webinar2-hero className="mx-auto max-w-[1040px] text-center">
+        <section
+          data-webinar2-hero
+          className="mx-auto grid max-w-[1100px] gap-7 px-5 pt-7 pb-8 sm:px-10 sm:pt-10 sm:pb-10 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] lg:items-center lg:gap-12 lg:px-14 lg:py-12"
+        >
+          <div className="order-1 lg:col-start-1">
             <img
               data-webinar2-brand-logo
               src={BRAND_LOGO_URL}
               alt="MedMethod Direct"
-              className="mx-auto h-11 w-auto object-contain sm:h-13"
+              className="h-10 w-auto object-contain sm:h-11"
             />
-            <p className="mt-4 text-[11px] font-black uppercase tracking-[0.24em] text-[#8c4675] sm:text-xs">
-              Free Live Webinar
+            <p className="mt-4 text-[10px] font-black uppercase tracking-[0.22em] text-[#b78a3f] sm:text-[11px]">
+              Free Live Webinar · For Women 35+
             </p>
-            <h1 className="mx-auto mt-4 max-w-[1040px] text-[2rem] font-medium leading-[1.12] tracking-[-0.035em] text-[#26242c] sm:text-[2.8rem] lg:text-[3.2rem]">
-              <span data-webinar2-headline-line className="lg:block lg:whitespace-nowrap">
-                Understand What’s Really Happening
-              </span>{" "}
-              <span data-webinar2-headline-line className="lg:block lg:whitespace-nowrap">
-                to Your Body <strong className="font-black">After 40.</strong>
+            <h1 className="mt-4 max-w-[590px] text-[2rem] leading-[1.11] tracking-[-0.04em] text-[#26242c] sm:text-[2.5rem] lg:text-[3rem]">
+              <span className="block font-black">You’re not imagining it.</span>
+              <span className="mt-1.5 block font-medium italic text-[#6f3568] sm:mt-2">
+                Here’s what’s actually changing — and what you can do about it.
               </span>
             </h1>
-            <p className="mx-auto mt-4 max-w-[900px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-lg sm:leading-8">
-              Perimenopause, menopause, hormone therapy and medical weight loss — explained clearly by Dr. Jumana Al-Deek, author of <em>The Menopause Weight Loss Trap</em>.
+            <p className="mt-4 max-w-[560px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-[15px] sm:leading-7">
+              Perimenopause, menopause, hormone therapy and medical weight loss, explained clearly by Dr. Jumana Al-Deek, author of <em>The Menopause Weight Loss Trap</em>.
             </p>
-            <p className="mt-3 text-sm font-black text-[#b11970] sm:text-base">Live and free — for women in Florida.</p>
+            <div data-webinar2-availability className="mt-4 max-w-[560px] text-sm font-bold text-[#5a4256]">
+              <p>
+                Available nationwide for this free educational webinar.{" "}
+                <button
+                  type="button"
+                  aria-expanded={showStates}
+                  onClick={() => setShowStates(current => !current)}
+                  className="font-black text-[#a91970] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75]"
+                >
+                  See states
+                </button>
+              </p>
+              {showStates && (
+                <p data-webinar2-state-list-token className="mt-2 rounded-md border border-dashed border-[#c892ad] bg-[#fff8fc] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] text-[#8d3b70]">
+                  [STATE LIST]
+                </p>
+              )}
+            </div>
+          </div>
 
-            <form
-              ref={registrationFormRef}
-              data-webinar2-registration-preview
-              onSubmit={handleRegistrationPreview}
-              className="mx-auto mt-6 grid max-w-[920px] gap-3 rounded-xl border border-[#eadbe4] bg-[#fffafd] p-4 shadow-[0_12px_30px_rgba(81,30,67,0.08)] md:grid-cols-[0.9fr_1.25fr_auto] md:items-center"
+          <div
+            ref={videoShellRef}
+            data-webinar2-video-shell
+            className="order-2 relative mx-auto aspect-video w-full max-w-[350px] overflow-hidden rounded-xl bg-[#1b1022] shadow-[0_18px_42px_rgba(48,22,54,0.2)] sm:aspect-[4/5] lg:col-start-2 lg:row-span-3 lg:max-w-none"
+          >
+            <video
+              ref={videoRef}
+              className="h-full w-full bg-black object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              poster={WEBINAR_VIDEO_POSTER_URL}
+              aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
+              controlsList="nodownload noremoteplayback nofullscreen"
+              disablePictureInPicture
+              disableRemotePlayback
+              onPlay={() => setHasVideoStarted(true)}
             >
-              <label className="text-left">
-                <span className="sr-only">First Name</span>
-                <input
-                  name="firstName"
-                  type="text"
-                  autoComplete="given-name"
-                  placeholder="First Name"
-                  className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
-                />
-              </label>
-              <label className="text-left">
-                <span className="sr-only">Email</span>
-                <input
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Email"
-                  className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
-                />
-              </label>
-              <button
-                type="submit"
-                className="inline-flex min-h-12 items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3 text-sm font-black uppercase tracking-[0.045em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-2 active:scale-[0.97]"
+              <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
+              Your browser does not support embedded video playback.
+            </video>
+
+            {!hasVideoStarted && (
+              <span
+                data-webinar2-video-length-token
+                className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
               >
-                Reserve My Free Spot
+                Watch: [VIDEO LENGTH]
+              </span>
+            )}
+
+            {autoplayBlocked && (
+              <button
+                type="button"
+                onClick={handlePlayWithSound}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
+              >
+                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
+                  <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
+                </span>
+                <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
+                  Play Video With Sound
+                </span>
               </button>
-            </form>
-            <p className="mt-3 text-xs font-semibold text-[#5c555e] sm:text-sm">
+            )}
+          </div>
+
+          <div data-webinar2-compact-presenter className="order-3 hidden items-center justify-center gap-3 text-center lg:col-start-2 lg:row-start-4 lg:mt-[-1rem] lg:flex">
+            <img
+              src={DOCTOR_HEADSHOT_URL}
+              alt="Dr. Jumana Al-Deek"
+              className="h-10 w-10 rounded-full border border-[#dbc4d1] object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <p className="text-xs font-bold leading-5 text-[#4e4750] sm:text-sm">
+              <span className="font-black">Dr. Jumana Al-Deek</span>
+              <span className="mx-1.5 text-[#b58aa5]">•</span>
+              <span data-webinar2-compact-credentials-token className="font-black text-[#8d3b70]">
+                [CREDENTIALS]
+              </span>
+            </p>
+          </div>
+
+          <form
+            ref={registrationFormRef}
+            data-webinar2-registration-preview
+            onSubmit={handleRegistrationPreview}
+            className="order-4 grid w-full max-w-[560px] gap-3 rounded-xl border border-[#eadbe4] bg-[#fffafd] p-4 shadow-[0_12px_30px_rgba(81,30,67,0.08)] sm:grid-cols-2 lg:col-start-1 lg:row-start-2"
+          >
+            <label className="text-left">
+              <span className="sr-only">First Name</span>
+              <input
+                name="firstName"
+                type="text"
+                autoComplete="given-name"
+                placeholder="First Name"
+                className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
+              />
+            </label>
+            <label className="text-left">
+              <span className="sr-only">Email</span>
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="Email"
+                className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
+              />
+            </label>
+          </form>
+
+          <div className="order-5 max-w-[560px] lg:col-start-1 lg:row-start-3">
+            <button
+              type="button"
+              onClick={handleReserveSeat}
+              className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3 text-sm font-black uppercase tracking-[0.045em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-2 active:scale-[0.97] sm:w-auto"
+            >
+              Reserve My Free Spot
+            </button>
+            <p data-webinar2-event-line className="mt-3 text-xs font-black leading-5 text-[#27242d] sm:text-sm">
+              {eventDateLine}
+            </p>
+            <p className="mt-1.5 text-xs font-semibold text-[#5c555e] sm:text-sm">
               Can’t attend live? Register anyway and we’ll send you the recording.
             </p>
             <p className="mt-1.5 text-[11px] text-[#766f77] sm:text-xs">
@@ -239,25 +327,54 @@ export default function LiveWebinar2() {
                 Privacy Policy
               </a>
             </p>
-          </section>
-        </div>
+          </div>
+        </section>
+
+        <section
+          data-webinar2-countdown-bar
+          className="border-y border-[#e5d9e1] bg-[#fffafd] px-5 py-4 sm:px-10 lg:px-14"
+        >
+          <div className="mx-auto flex max-w-[920px] flex-col items-center justify-center gap-3 sm:flex-row sm:gap-6">
+            <div className="flex items-center gap-2">
+              <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#7d707b]">
+                Event Countdown · <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
+              </p>
+            </div>
+            <div data-webinar2-countdown className="grid grid-cols-4 gap-2">
+              {countdownUnits.map(unit => (
+                <div key={unit.label} className="text-center">
+                  <div className="min-w-12 rounded-md bg-[#29252f] px-2 py-2 text-lg font-black tabular-nums text-white sm:min-w-14 sm:text-xl">
+                    {unit.value}
+                  </div>
+                  <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.08em] text-[#817781]">{unit.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {!isEventScheduled && (
+            <p data-webinar2-countdown-preview-token className="mt-2 text-center text-[9px] font-black uppercase tracking-[0.08em] text-[#956d88]">
+              [COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]
+            </p>
+          )}
+        </section>
 
         <section
           data-webinar2-featured-in
           aria-labelledby="webinar2-featured-in-heading"
-          className="bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-5 py-3.5 text-white sm:px-8 sm:py-4"
+          className="bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-5 py-3 text-white sm:px-8 sm:py-3.5"
         >
           <div className="mx-auto max-w-[1020px]">
             <div className="flex items-center justify-center gap-3 sm:gap-5">
-              <span className="h-px w-8 bg-white/45 sm:w-16" aria-hidden="true" />
-              <h2 id="webinar2-featured-in-heading" className="shrink-0 text-xs font-black uppercase tracking-[0.16em] text-white sm:text-sm">
+              <span className="h-px w-7 bg-white/45 sm:w-14" aria-hidden="true" />
+              <h2 id="webinar2-featured-in-heading" className="shrink-0 text-[11px] font-black uppercase tracking-[0.16em] text-white sm:text-xs">
                 Featured In
               </h2>
-              <span className="h-px w-8 bg-white/45 sm:w-16" aria-hidden="true" />
+              <span className="h-px w-7 bg-white/45 sm:w-14" aria-hidden="true" />
             </div>
-            <div className="mt-2.5 grid grid-cols-3 items-center gap-x-5 gap-y-3 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
+            <div className="mt-2 grid grid-cols-3 items-center gap-x-5 gap-y-2.5 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
               {featuredOutlets.map(outlet => (
-                <div key={outlet.name} className="flex h-9 min-w-0 items-center justify-center sm:h-10">
+                <div key={outlet.name} className="flex h-8 min-w-0 items-center justify-center sm:h-9">
                   <img
                     src={outlet.logo}
                     alt={`${outlet.name} logo`}
@@ -271,144 +388,9 @@ export default function LiveWebinar2() {
           </div>
         </section>
 
-        <div className="px-5 pt-8 pb-10 sm:px-10 sm:pt-10 sm:pb-14 lg:px-16 lg:pb-16">
-          <section
-            data-webinar2-event-row
-            className="mx-auto grid max-w-[980px] gap-6 border-b border-dashed border-[#d8a94f]/65 pb-8 lg:grid-cols-[auto_minmax(0,540px)] lg:items-center lg:justify-center lg:gap-8"
-          >
-            <div className="flex items-center justify-center gap-4 lg:justify-end">
-              <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#faf3f8] text-[#c61a79]">
-                <CalendarDays className="h-7 w-7" aria-hidden="true" />
-              </span>
-              <div className="text-left">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a7f88]">Live on Zoom</p>
-                <p data-webinar2-event-line className="mt-2 max-w-[560px] text-xs font-black leading-5 text-[#27242d] sm:text-sm">
-                  {eventDetails}
-                </p>
-              </div>
-            </div>
-
-            <div data-webinar2-countdown-placeholder className="lg:border-l lg:border-[#e5d9e1] lg:pl-8">
-              <div className="mb-3 flex items-center justify-center gap-2 text-center">
-                <Clock3 className="h-4 w-4 text-[#c61a79]" aria-hidden="true" />
-                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#7d707b]">
-                  Event Countdown · <span data-webinar2-countdown-timezone>{WEBINAR_EVENT.timezone}</span>
-                </p>
-              </div>
-              <div className="grid grid-cols-4 gap-2 sm:gap-3">
-                {countdownUnits.map(unit => (
-                  <div key={unit.label} className="text-center">
-                    <div className="rounded-md bg-[#29252f] px-2 py-3 text-xl font-black tabular-nums text-white sm:text-2xl">
-                      {unit.value}
-                    </div>
-                    <p className="mt-1.5 text-[8px] font-bold uppercase tracking-[0.08em] text-[#817781] sm:text-[9px]">
-                      {unit.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              {!isEventScheduled && (
-                <p data-webinar2-countdown-preview-note className="mt-2 text-center text-[9px] leading-4 text-[#928994]">
-                  Event timing will appear here once scheduling is finalized.
-                </p>
-              )}
-            </div>
-          </section>
-
-          <section
-            data-webinar2-presenter
-            className="mx-auto mt-9 grid max-w-[980px] items-center gap-5 rounded-xl border border-[#eadde5] bg-[#fffafd] p-5 text-center shadow-[0_12px_30px_rgba(74,33,65,0.06)] sm:grid-cols-[112px_1fr_86px] sm:text-left"
-          >
-            <img
-              src={DOCTOR_HEADSHOT_URL}
-              alt="Dr. Jumana Al-Deek"
-              className="mx-auto h-28 w-28 rounded-full border border-[#dbc4d1] object-cover sm:mx-0 sm:h-24 sm:w-24"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b11970]">Your Presenter</p>
-              <h2 className="mt-1.5 text-2xl font-black tracking-[-0.025em] text-[#29252f]">Dr. Jumana Al-Deek</h2>
-              <p
-                data-webinar2-credentials-token
-                className="mt-2 inline-block rounded-md border border-dashed border-[#bf8ba9] bg-white px-2.5 py-1.5 text-[10px] font-black uppercase leading-4 tracking-[0.07em] text-[#8d3b70] sm:text-[11px]"
-              >
-                [CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]
-              </p>
-              <div className="mt-3 flex items-center justify-center gap-3 sm:justify-start">
-                <p className="text-sm font-semibold leading-5 text-[#4e4750]">
-                  Author of <em className="font-bold">The Menopause Weight Loss Trap</em>
-                </p>
-                <img
-                  src={BOOK_COVER_URL}
-                  alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
-                  className="h-20 w-14 object-contain drop-shadow-[0_8px_10px_rgba(71,30,50,0.18)] sm:hidden"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-            <img
-              src={BOOK_COVER_URL}
-              alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
-              className="mx-auto hidden h-28 w-20 object-contain drop-shadow-[0_10px_12px_rgba(71,30,50,0.18)] sm:block"
-              loading="lazy"
-              decoding="async"
-            />
-          </section>
-
-          <section
-            data-webinar2-content-split
-            className="mx-auto mt-10 grid max-w-[980px] gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-12"
-          >
-            <div
-              ref={videoShellRef}
-              data-webinar2-video-shell
-              className="relative mx-auto aspect-square w-full max-w-[430px] overflow-hidden rounded-lg bg-[#1b1022] shadow-[0_18px_42px_rgba(48,22,54,0.2)]"
-            >
-              <video
-                ref={videoRef}
-                className="h-full w-full bg-black object-contain"
-                controls
-                playsInline
-                preload="metadata"
-                poster={WEBINAR_VIDEO_POSTER_URL}
-                aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
-                controlsList="nodownload noremoteplayback nofullscreen"
-                disablePictureInPicture
-                disableRemotePlayback
-                onPlay={() => setHasVideoStarted(true)}
-              >
-                <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
-                Your browser does not support embedded video playback.
-              </video>
-
-              {!hasVideoStarted && (
-                <span
-                  data-webinar2-video-length-token
-                  className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
-                >
-                  Watch: [VIDEO LENGTH]
-                </span>
-              )}
-
-              {autoplayBlocked && (
-                <button
-                  type="button"
-                  onClick={handlePlayWithSound}
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
-                >
-                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
-                    <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
-                  </span>
-                  <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
-                    Play Video With Sound
-                  </span>
-                </button>
-              )}
-            </div>
-
-            <div data-webinar2-learning>
+        <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-12 sm:pb-14 lg:px-16 lg:pb-16">
+          <section data-webinar2-learning className="mx-auto max-w-[940px]">
+            <div className="mx-auto max-w-[760px]">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c31b78]">What You’ll Learn</p>
               <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-[#28242d] sm:text-4xl">
                 Clear answers for your next chapter.
@@ -421,7 +403,6 @@ export default function LiveWebinar2() {
                   </li>
                 ))}
               </ul>
-
               <button
                 type="button"
                 onClick={handleReserveSeat}
@@ -430,9 +411,51 @@ export default function LiveWebinar2() {
                 Reserve My Free Spot
               </button>
             </div>
+
+            <section
+              data-webinar2-presenter
+              className="mx-auto mt-10 grid max-w-[940px] items-center gap-5 rounded-xl border border-[#eadde5] bg-[#fffafd] p-5 text-center shadow-[0_12px_30px_rgba(74,33,65,0.06)] sm:grid-cols-[124px_1fr_92px] sm:text-left"
+            >
+              <img
+                src={DOCTOR_HEADSHOT_URL}
+                alt="Dr. Jumana Al-Deek"
+                className="mx-auto h-28 w-28 rounded-full border border-[#dbc4d1] object-cover sm:mx-0 sm:h-28 sm:w-28"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b11970]">Your Presenter</p>
+                <h2 className="mt-1.5 text-2xl font-black tracking-[-0.025em] text-[#29252f]">Dr. Jumana Al-Deek</h2>
+                <p
+                  data-webinar2-credentials-token
+                  className="mt-2 inline-block rounded-md border border-dashed border-[#bf8ba9] bg-white px-2.5 py-1.5 text-[10px] font-black uppercase leading-4 tracking-[0.07em] text-[#8d3b70] sm:text-[11px]"
+                >
+                  [CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]
+                </p>
+                <div className="mt-3 flex items-center justify-center gap-3 sm:justify-start">
+                  <p className="text-sm font-semibold leading-5 text-[#4e4750]">
+                    Author of <em className="font-bold">The Menopause Weight Loss Trap</em>
+                  </p>
+                  <img
+                    src={BOOK_COVER_URL}
+                    alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
+                    className="h-20 w-14 object-contain drop-shadow-[0_8px_10px_rgba(71,30,50,0.18)] sm:hidden"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+              <img
+                src={BOOK_COVER_URL}
+                alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
+                className="mx-auto hidden h-28 w-20 object-contain drop-shadow-[0_10px_12px_rgba(71,30,50,0.18)] sm:block"
+                loading="lazy"
+                decoding="async"
+              />
+            </section>
           </section>
 
-          <div className="mx-auto mt-11 grid max-w-[980px] gap-4 border-t border-[#ece4e9] pt-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
+          <div className="mx-auto mt-11 grid max-w-[940px] gap-4 border-t border-[#ece4e9] pt-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
             <div>
               <p className="text-sm font-black text-[#29252f]">Become informed—not pressured.</p>
               <p className="mt-2 max-w-[720px] text-xs leading-5 text-[#716a73] sm:text-sm sm:leading-6">
@@ -469,7 +492,7 @@ export default function LiveWebinar2() {
             data-webinar2-testosterone-footnote
             className="mx-auto max-w-[860px] text-center text-[9px] font-medium leading-4 text-[#5f5760] sm:text-[10px]"
           >
-            Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.
+            Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]
           </p>
         </div>
       </article>
