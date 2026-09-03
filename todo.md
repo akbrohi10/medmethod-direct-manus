@@ -813,4 +813,4 @@
 - [x] Place the compact Featured In strip at the bottom of `/live-webinar2`
 - [x] Register the new route and add focused regression coverage for route isolation, lean structure, placeholder countdown, inactive registration, reused assets, and review safeguards
 - [x] Validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, compiled inline-video safeguards, clean current runtime logs, final desktop/mobile rendering, placeholder countdown, disclosures, and bottom Featured In strip
-- [ ] Save and deliver the `/live-webinar2` variation checkpoint
+- [x] Save and deliver the `/live-webinar2` variation checkpoint
