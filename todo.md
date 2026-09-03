@@ -848,4 +848,4 @@
 - [x] Visually unify the Live on Zoom date block and placeholder countdown as one centered event-details composition
 - [x] Preserve `/live-webinar`, all `/live-webinar2` wording, video and autoplay behavior, countdown placeholder status, inactive RSVP actions, learning content, Featured In section, separated disclosure, noindex metadata, and safeguards
 - [x] Update focused regression coverage and validate TypeScript, all 174 tests across 34 files, production build, `/live-webinar2` and unchanged `/live-webinar` HTTP 200 responses, zero current browser, first-party network, or new server errors, and desktop/mobile rendering with balanced headline wrapping, tighter upper spacing, and a unified event row
-- [ ] Save and deliver the `/live-webinar2` upper-page balance checkpoint
+- [x] Save and deliver the `/live-webinar2` upper-page balance checkpoint
