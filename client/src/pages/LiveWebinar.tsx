@@ -43,33 +43,27 @@ const learningPoints = [
 const featuredOutlets = [
   {
     name: "Flow Space",
-    logo: "/manus-storage/flow-space_12f7eb24.jpg",
-    imageClassName: "h-full w-full scale-[1.03] object-cover",
+    logo: "/manus-storage/flow-space-white_beb898dc.png",
   },
   {
     name: "SingleCare",
-    logo: "/manus-storage/singlecare_b2c19243.png",
-    imageClassName: "h-full w-full object-contain px-1",
+    logo: "/manus-storage/singlecare-white_500a5691.png",
   },
   {
     name: "NTD",
-    logo: "/manus-storage/ntd_4d4cd7f7.jpg",
-    imageClassName: "h-full w-full scale-[1.04] object-cover",
+    logo: "/manus-storage/ntd-white_dd8e5f55.png",
   },
   {
     name: "Scary Mommy",
-    logo: "/manus-storage/scary-mommy_420d0902.jpg",
-    imageClassName: "h-full w-full object-cover",
+    logo: "/manus-storage/scary-mommy-white_b136c1bf.png",
   },
   {
     name: "Daily Mail",
-    logo: "/manus-storage/daily-mail-wordmark_c6ff20de.png",
-    imageClassName: "h-full w-full scale-[1.8] object-contain",
+    logo: "/manus-storage/daily-mail-white_bc1019ba.png",
   },
   {
     name: "Yahoo Health",
-    logo: "/manus-storage/yahoo-health_4d6f1cee.webp",
-    imageClassName: "h-full w-full object-contain px-1",
+    logo: "/manus-storage/yahoo-health-white_125ff57a.png",
   },
 ];
 
@@ -390,36 +384,30 @@ export default function LiveWebinar() {
       <section
         data-webinar-as-seen-in
         aria-labelledby="webinar-as-seen-in-heading"
-        className="border-y border-[#eadfdd] bg-[#f4eeeb] px-5 py-10 sm:px-8 sm:py-12 lg:px-12"
+        className="bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-5 py-5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(14,4,36,0.3)] sm:px-8 sm:py-6 lg:px-12"
       >
-        <div className="mx-auto w-full max-w-[1360px]">
-          <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#c91972] sm:w-24" aria-hidden="true" />
-            <h2
-              id="webinar-as-seen-in-heading"
-              className="shrink-0 text-center text-sm font-black uppercase tracking-[0.22em] text-[#271631] sm:text-base"
-            >
-              As Seen In
-            </h2>
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#c91972] sm:w-24" aria-hidden="true" />
-          </div>
+        <div className="mx-auto w-full max-w-[1240px]">
+          <h2
+            id="webinar-as-seen-in-heading"
+            className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/70 sm:text-xs"
+          >
+            As Seen In
+          </h2>
 
-          <div data-webinar-media-logos className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+          <div data-webinar-media-logos className="mt-4 grid grid-cols-3 items-center gap-x-5 gap-y-4 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
             {featuredOutlets.map(outlet => (
               <div
                 key={outlet.name}
                 data-webinar-media-logo
-                className="flex min-h-[104px] items-center justify-center overflow-hidden rounded-xl border border-[#e7dada] bg-white p-2.5 shadow-[0_10px_28px_rgba(70,30,52,0.07)] sm:min-h-[112px] sm:p-3"
+                className="flex h-11 min-w-0 items-center justify-center sm:h-12 lg:h-14"
               >
-                <div className="h-[76px] w-full overflow-hidden rounded-lg sm:h-[84px]">
-                  <img
-                    src={outlet.logo}
-                    alt={`${outlet.name} logo`}
-                    className={outlet.imageClassName}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+                <img
+                  src={outlet.logo}
+                  alt={`${outlet.name} logo`}
+                  className="max-h-full max-w-full object-contain opacity-95"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             ))}
           </div>

@@ -785,3 +785,12 @@
 - [x] Preserve every existing webinar section, copy, media, autoplay and inline-playback behavior, inactive registration, noindex metadata, disclosures, and review safeguards
 - [x] Add focused regression coverage and validate all six permanent logo assets, TypeScript, all 168 tests across 33 files, production build, HTTP 200, fresh browser/network logs, and final desktop/mobile rendering
 - [x] Save and deliver the webinar As Seen In checkpoint
+
+## Live Webinar Slim As Seen In Strip Refinement
+
+- [x] Replace the individual white logo cards with one slim full-width purple media strip matching the supplied reference direction
+- [x] Present all six existing outlet logos directly in a consistent monochrome light treatment without changing outlet names or adding new brands
+- [x] Keep one compact logo row on desktop and a proportionate wrapped mobile treatment without horizontal overflow
+- [x] Preserve the section’s position between the hero and educational content plus every other webinar element and behavior
+- [x] Update focused regression coverage and validate TypeScript, all 168 tests across 33 files, production build, all six permanent monochrome assets, HTTP 200, clean runtime logs, the slim one-row desktop strip, and compact two-row mobile treatment
+- [ ] Save and deliver the slim As Seen In strip checkpoint

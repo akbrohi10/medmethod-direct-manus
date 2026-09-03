@@ -8,6 +8,7 @@ const appSource = readFileSync(resolve(projectRoot, "client/src/App.tsx"), "utf8
 const bookCoverBlock = pageSource.match(/<div\s+data-webinar-book-cover[\s\S]*?<\/div>/)?.[0] ?? "";
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredOutletsBlock = pageSource.match(/const featuredOutlets = \[([\s\S]*?)\];/)?.[1] ?? "";
+const asSeenInBlock = pageSource.match(/<section\s+data-webinar-as-seen-in[\s\S]*?<\/section>/)?.[0] ?? "";
 
 describe("live webinar landing page", () => {
   it("registers the public /live-webinar route", () => {
@@ -110,15 +111,27 @@ describe("live webinar landing page", () => {
     expect(pageSource).toContain("As Seen In");
     expect(featuredOutletsBlock.match(/name: "/g)).toHaveLength(6);
     expect(pageSource.match(/data-webinar-media-logo\b/g)).toHaveLength(1);
-    expect(pageSource).toContain("grid-cols-2");
-    expect(pageSource).toContain("sm:grid-cols-3");
-    expect(pageSource).toContain("lg:grid-cols-6");
+    expect(asSeenInBlock).toContain("bg-gradient-to-r");
+    expect(asSeenInBlock).toContain("grid-cols-3");
+    expect(asSeenInBlock).toContain("sm:grid-cols-6");
+    expect(asSeenInBlock).not.toMatch(/rounded-xl|border-\[#e7dada\]|bg-white|shadow-\[0_10px_28px/);
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(featuredOutletsBlock).toContain(`name: "${outlet}"`);
     }
 
     for (const asset of [
+      "/manus-storage/flow-space-white_beb898dc.png",
+      "/manus-storage/singlecare-white_500a5691.png",
+      "/manus-storage/ntd-white_dd8e5f55.png",
+      "/manus-storage/scary-mommy-white_b136c1bf.png",
+      "/manus-storage/daily-mail-white_bc1019ba.png",
+      "/manus-storage/yahoo-health-white_125ff57a.png",
+    ]) {
+      expect(featuredOutletsBlock).toContain(asset);
+    }
+
+    for (const oldAsset of [
       "/manus-storage/flow-space_12f7eb24.jpg",
       "/manus-storage/singlecare_b2c19243.png",
       "/manus-storage/ntd_4d4cd7f7.jpg",
@@ -126,10 +139,8 @@ describe("live webinar landing page", () => {
       "/manus-storage/daily-mail-wordmark_c6ff20de.png",
       "/manus-storage/yahoo-health_4d6f1cee.webp",
     ]) {
-      expect(featuredOutletsBlock).toContain(asset);
+      expect(featuredOutletsBlock).not.toContain(oldAsset);
     }
-
-    expect(featuredOutletsBlock).not.toContain("/manus-storage/daily-mail_47e28ef2.webp");
 
     expect(pageSource).toContain('alt={`${outlet.name} logo`}');
     expect(pageSource).not.toMatch(/Featured as an Expert|endorsed by|trusted by/i);
