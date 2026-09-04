@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { CalendarDays, CheckCircle2, MessageCircle, Play } from "lucide-react";
+import { CheckCircle2, MessageCircle, Play } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -168,114 +168,111 @@ export default function LiveWebinar2() {
 
       <article
         data-webinar2-card
-        className="mx-auto w-full max-w-[1180px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
+        className="mx-auto w-full max-w-[1100px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
+        <header data-webinar2-zoom-banner className="bg-[#211224] px-5 py-3.5 sm:px-8 sm:py-4">
+          <div className="mx-auto flex max-w-[860px] justify-center">
+            <p className="inline-flex w-full max-w-[720px] items-center justify-center rounded-full border border-[#d9a93a]/40 bg-[#302035] px-4 py-2.5 text-center text-[10px] font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(8,3,11,0.22)] sm:px-8 sm:text-xs sm:tracking-[0.18em]">
+              <span className="mr-2 h-2 w-2 shrink-0 rounded-full bg-[#ef2d91] shadow-[0_0_12px_rgba(239,45,145,0.8)]" aria-hidden="true" />
+              Live on Zoom <span className="mx-2 text-[#e1b94f]">·</span> Free Educational Webinar
+            </p>
+          </div>
+        </header>
+
         <section
           data-webinar2-hero
-          className="mx-auto grid max-w-[1100px] gap-6 px-5 pt-6 pb-8 sm:px-10 sm:pt-8 sm:pb-10 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] lg:items-center lg:gap-10 lg:px-14 lg:py-10"
+          data-webinar2-centered-hero
+          className="mx-auto max-w-[920px] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
         >
-          <div data-webinar2-opening-copy className="order-1 lg:col-start-1">
+          <div data-webinar2-opening-copy className="mx-auto max-w-[800px] text-center">
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#b78a3f] sm:text-[11px]">
               Free Live Webinar · For Women 35+
             </p>
-            <h1 className="mt-3 max-w-[590px] tracking-[-0.04em] text-[#26242c]">
-              <span className="block text-[2rem] font-black leading-[1.08] sm:text-[2.5rem] lg:text-[3rem]">You’re not imagining it.</span>
-              <span className="mt-2 block text-[1.75rem] font-medium italic leading-[1.12] text-[#6f3568] sm:mt-2.5 sm:text-[2.15rem] lg:text-[2.55rem]">
+            <h1 className="mt-3 tracking-[-0.045em] text-[#26242c] sm:mt-4">
+              <span className="block text-[2.35rem] font-black leading-[1.02] sm:text-[3.35rem] lg:text-[4rem]">You’re not imagining it.</span>
+              <span className="mx-auto mt-2.5 block max-w-[780px] text-[1.72rem] font-medium italic leading-[1.12] text-[#6f3568] sm:mt-3 sm:text-[2.45rem] lg:text-[2.9rem]">
                 Here’s what’s actually changing — and what you can do about it.
               </span>
             </h1>
-            <p data-webinar2-short-intro className="mt-3 max-w-[560px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-[15px]">
+            <p data-webinar2-short-intro className="mx-auto mt-4 max-w-[620px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-base">
               A free educational webinar with Dr. Jumana Al-Deek.
             </p>
           </div>
 
-          <div className="order-2 mx-auto w-full max-w-[350px] lg:col-start-2 lg:row-span-3 lg:max-w-none">
-            <div
-              data-webinar2-countdown-bar
-              className="mb-4 flex justify-center"
+          <div
+            ref={videoShellRef}
+            data-webinar2-video-shell
+            className="relative mx-auto mt-7 aspect-video w-full max-w-[800px] overflow-hidden rounded-2xl bg-[#1b1022] ring-1 ring-[#d9cad4] shadow-[0_22px_54px_rgba(48,22,54,0.24)] sm:mt-8"
+          >
+            <video
+              ref={videoRef}
+              className="h-full w-full bg-black object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              poster={WEBINAR_VIDEO_POSTER_URL}
+              aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
+              controlsList="nodownload noremoteplayback nofullscreen"
+              disablePictureInPicture
+              disableRemotePlayback
+              onPlay={() => setHasVideoStarted(true)}
             >
-              <div data-webinar2-countdown aria-label="Webinar countdown" className="grid grid-cols-4 gap-2 sm:gap-2.5">
-                {countdownUnits.map(unit => (
-                  <div key={unit.label} className="text-center">
-                    <div className="min-w-[3.25rem] rounded-lg bg-[#26222d] px-2 py-2.5 text-xl font-black leading-6 tabular-nums text-white sm:min-w-14 sm:py-3 sm:text-2xl sm:leading-7">
-                      {unit.value}
-                    </div>
-                    <p className="mt-1.5 text-[8px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[9px]">{unit.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+              <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
+              Your browser does not support embedded video playback.
+            </video>
 
-            <div
-              ref={videoShellRef}
-              data-webinar2-video-shell
-              className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#1b1022] shadow-[0_18px_42px_rgba(48,22,54,0.2)] sm:aspect-[4/5]"
-            >
-              <video
-                ref={videoRef}
-                className="h-full w-full bg-black object-cover"
-                controls
-                playsInline
-                preload="metadata"
-                poster={WEBINAR_VIDEO_POSTER_URL}
-                aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
-                controlsList="nodownload noremoteplayback nofullscreen"
-                disablePictureInPicture
-                disableRemotePlayback
-                onPlay={() => setHasVideoStarted(true)}
+            {!hasVideoStarted && (
+              <span
+                data-webinar2-video-length-token
+                className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
               >
-                <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
-                Your browser does not support embedded video playback.
-              </video>
+                Watch: [VIDEO LENGTH]
+              </span>
+            )}
 
-              {!hasVideoStarted && (
-                <span
-                  data-webinar2-video-length-token
-                  className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
-                >
-                  Watch: [VIDEO LENGTH]
+            {autoplayBlocked && (
+              <button
+                type="button"
+                onClick={handlePlayWithSound}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
+              >
+                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
+                  <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
                 </span>
-              )}
-
-              {autoplayBlocked && (
-                <button
-                  type="button"
-                  onClick={handlePlayWithSound}
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
-                >
-                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
-                    <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
-                  </span>
-                  <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
-                    Play Video With Sound
-                  </span>
-                </button>
-              )}
-            </div>
+                <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
+                  Play Video With Sound
+                </span>
+              </button>
+            )}
           </div>
 
-          <div data-webinar2-compact-presenter className="order-3 hidden items-center justify-center gap-3 text-center lg:col-start-2 lg:row-start-4 lg:mt-[-1rem] lg:flex">
-            <img
-              src={DOCTOR_HEADSHOT_URL}
-              alt="Dr. Jumana Al-Deek"
-              className="h-10 w-10 rounded-full border border-[#dbc4d1] object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-            <p className="text-xs font-bold leading-5 text-[#4e4750] sm:text-sm">
-              <span className="font-black">Dr. Jumana Al-Deek</span>
-              <span className="mx-1.5 text-[#b58aa5]">•</span>
-              <span data-webinar2-compact-credentials-token className="font-black text-[#8d3b70]">
-                [CREDENTIALS]
-              </span>
-            </p>
+          <button
+            data-webinar2-primary-cta
+            type="button"
+            onClick={handleReserveSeat}
+            className="mx-auto mt-5 inline-flex min-h-14 w-full max-w-[720px] items-center justify-center rounded-full bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-4 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_14px_30px_rgba(176,24,124,0.27)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:mt-6 sm:text-base"
+          >
+            Reserve My Free Spot
+          </button>
+
+          <div data-webinar2-countdown-bar className="mt-5 flex justify-center sm:mt-6">
+            <div data-webinar2-countdown aria-label="Webinar countdown" className="grid grid-cols-4 gap-2 sm:gap-3">
+              {countdownUnits.map(unit => (
+                <div key={unit.label} className="text-center">
+                  <div className="min-w-[3.25rem] rounded-lg bg-[#26222d] px-2 py-2.5 text-xl font-black leading-6 tabular-nums text-white sm:min-w-16 sm:py-3 sm:text-2xl sm:leading-7">
+                    {unit.value}
+                  </div>
+                  <p className="mt-1.5 text-[8px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[9px]">{unit.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <form
             ref={registrationFormRef}
             data-webinar2-registration-preview
             onSubmit={handleRegistrationPreview}
-            className="order-4 grid w-full max-w-[560px] gap-3 rounded-xl border border-[#eadbe4] bg-[#fffafd] p-4 shadow-[0_12px_30px_rgba(81,30,67,0.08)] sm:grid-cols-2 lg:col-start-1 lg:row-start-2"
+            className="mx-auto mt-6 grid w-full max-w-[720px] gap-3 rounded-xl border border-[#eadbe4] bg-[#fffafd] p-4 text-left shadow-[0_12px_30px_rgba(81,30,67,0.08)] sm:grid-cols-2"
           >
             <label className="text-left">
               <span className="sr-only">First Name</span>
@@ -299,14 +296,7 @@ export default function LiveWebinar2() {
             </label>
           </form>
 
-          <div className="order-5 max-w-[560px] lg:col-start-1 lg:row-start-3">
-            <button
-              type="button"
-              onClick={handleReserveSeat}
-              className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3 text-sm font-black uppercase tracking-[0.045em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-2 active:scale-[0.97] sm:w-auto"
-            >
-              Reserve My Free Spot
-            </button>
+          <div className="mx-auto max-w-[720px]">
             <p data-webinar2-event-line className="mt-3 text-xs font-black leading-5 text-[#27242d] sm:text-sm">
               {eventDateLine}
             </p>
@@ -337,6 +327,23 @@ export default function LiveWebinar2() {
                 </p>
               )}
             </div>
+          </div>
+
+          <div data-webinar2-compact-presenter className="mt-6 flex items-center justify-center gap-3 text-center">
+            <img
+              src={DOCTOR_HEADSHOT_URL}
+              alt="Dr. Jumana Al-Deek"
+              className="h-10 w-10 rounded-full border border-[#dbc4d1] object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <p className="text-xs font-bold leading-5 text-[#4e4750] sm:text-sm">
+              <span className="font-black">Dr. Jumana Al-Deek</span>
+              <span className="mx-1.5 text-[#b58aa5]">•</span>
+              <span data-webinar2-compact-credentials-token className="font-black text-[#8d3b70]">
+                [CREDENTIALS]
+              </span>
+            </p>
           </div>
         </section>
 

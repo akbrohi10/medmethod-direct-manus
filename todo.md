@@ -911,3 +911,14 @@
 - [x] Preserve the existing dormant timing configuration, countdown values, placement above the video, responsive layout, inactive form, video behavior, Featured In strip, disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate responsive rendering, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the four-box countdown checkpoint
+
+## Live Webinar 2 Centered Reference-Inspired Redesign
+
+- [x] Replace the `/live-webinar2` 55/45 desktop split with a focused single centered conversion column inspired by the supplied reference without copying its black-and-gold commercial style
+- [x] Add a rounded top banner reading `LIVE ON ZOOM · FREE EDUCATIONAL WEBINAR` so the event format is immediately clear on desktop and mobile
+- [x] Center the existing age-35+ label, approved headline, purple promise, and short Dr. Al-Deek educational introduction with a stronger compact hierarchy
+- [x] Place a wider responsive webinar video directly below the centered message and retain the current inline, visibility-based playback safeguards and video-length token
+- [x] Place one prominent `Reserve My Free Spot` CTA immediately below the video, followed by the four-box countdown and the visual-only First Name/Email form with existing event, recording, privacy, and nationwide educational details
+- [x] Retain the presenter treatments, four learning outcomes, Featured In strip, exact disclosures, all unresolved factual tokens, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate mobile/desktop hierarchy, CTA focus behavior, video safeguards, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the centered redesign checkpoint
