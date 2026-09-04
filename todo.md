@@ -1046,3 +1046,12 @@
 - [x] Preserve all other `/live-webinar2` content, layout, playback safeguards, disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate mobile/desktop CTA rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the limited-capacity CTA checkpoint
+
+## Live Webinar 2 Final CTA and Disclosure Removal
+
+- [x] Remove the complete `Ready to save your free spot?` final CTA card from `/live-webinar2`
+- [x] Remove the complete testosterone disclosure footer from `/live-webinar2` following the user’s explicit confirmation after the compliance-risk warning
+- [x] Keep the removal isolated from `/live-webinar`, other treatment pages, and their existing disclosure requirements
+- [x] Remove obsolete CTA-count and page-specific disclosure expectations while preserving the learning section, informed-care content, first video CTA, sliding Featured In strip, educational disclaimer, noindex review status, and all other page behavior
+- [x] Update remaining-token documentation and narrowly scoped focused/compliance regression safeguards, then validate mobile/desktop flow, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the final-CTA/disclosure-removal checkpoint

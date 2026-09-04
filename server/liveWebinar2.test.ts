@@ -10,9 +10,6 @@ const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/Liv
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
 const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
-const legalFootnoteBlock = pageSource.match(/<div\s+data-webinar2-legal-footnote[\s\S]*?<\/div>/)?.[0] ?? "";
-const testosteroneDisclosure =
-  "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]";
 
 describe("live webinar 2 second revision prompt", () => {
   it("keeps the nationwide educational variation isolated from the original webinar route", () => {
@@ -103,9 +100,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("registrationFormRef");
     expect(pageSource).not.toContain("scrollIntoView");
     expect(pageSource).toContain("Registration is not connected yet. This button is for visual review only.");
-    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(3);
+    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(2);
     expect(pageSource).not.toContain("Reserve Your Free Spot");
-    expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
+    expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(2);
     expect(primaryCtaBlock).toContain("Reserve My Free Spot");
     expect(primaryCtaBlock).toContain("data-webinar2-capacity-line");
     expect(primaryCtaBlock).toContain("Limited Zoom Capacity");
@@ -216,11 +213,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain('<meta name="robots" content="noindex, nofollow" />');
     expect(pageSource).toContain('href="https://medmethoddirect.com/live-webinar2"');
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.");
-    expect(legalFootnoteBlock).toContain(testosteroneDisclosure);
-    expect(pageSource).toContain("[APPROVED AVAILABILITY DISCLAIMER]");
+    expect(pageSource).not.toContain("data-webinar2-legal-footnote");
+    expect(pageSource).not.toContain("data-webinar2-testosterone-footnote");
+    expect(pageSource).not.toContain("[APPROVED AVAILABILITY DISCLAIMER]");
+    expect(pageSource).not.toContain("Testosterone is prescribed off-label for hypoactive sexual desire disorder in women.");
     expect(pageSource).not.toContain("This treatment is available only to patients in Florida.");
-    expect(pageSource.indexOf("data-webinar2-legal-footnote")).toBeGreaterThan(pageSource.indexOf("data-webinar2-final-cta"));
-    expect(pageSource).toContain("data-webinar2-final-cta");
+    expect(pageSource).not.toContain("data-webinar2-final-cta");
+    expect(pageSource).not.toContain("Ready to save your free spot?");
+    expect(pageSource).not.toContain("Registration will open here once the event registration link is connected.");
     expect(pageSource).toContain("rounded-full bg-[#faf4f8]");
     expect(pageSource).not.toMatch(/<button[\s\S]{0,300}Live Q&amp;A with Dr\. Al-Deek/);
   });

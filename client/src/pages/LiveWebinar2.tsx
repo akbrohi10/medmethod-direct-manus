@@ -392,31 +392,8 @@ export default function LiveWebinar2() {
             </div>
           </div>
 
-          <section data-webinar2-final-cta className="mx-auto mt-10 max-w-[900px] rounded-xl bg-[#f7eef5] px-5 py-7 text-center sm:px-8">
-            <h2 className="text-2xl font-black tracking-[-0.025em] text-[#302632] sm:text-3xl">Ready to save your free spot?</h2>
-            <p className="mx-auto mt-2 max-w-[650px] text-sm leading-6 text-[#655d66]">
-              Registration will open here once the event registration link is connected.
-            </p>
-            <button
-              type="button"
-              onClick={handleReserveSeat}
-              className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:w-auto sm:text-base"
-            >
-              Reserve My Free Spot
-            </button>
-          </section>
-
           <p className="mx-auto mt-8 max-w-[860px] text-center text-[10px] leading-5 text-[#7a727a] sm:text-xs">
             This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
-          </p>
-        </div>
-
-        <div data-webinar2-legal-footnote className="bg-[#f3f0eb] px-5 py-3 sm:px-8 sm:py-4">
-          <p
-            data-webinar2-testosterone-footnote
-            className="mx-auto max-w-[860px] text-center text-[9px] font-medium leading-4 text-[#5f5760] sm:text-[10px]"
-          >
-            Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]
           </p>
         </div>
       </article>
