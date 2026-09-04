@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Activity, Clock3, FlaskConical, MessageCircle, Play, Scale, Syringe, Volume2 } from "lucide-react";
+import { Activity, Clock3, MessageCircle, Play, Scale, Syringe, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -14,12 +14,36 @@ const WEBINAR_EVENT = {
   timezone: "ET",
 };
 
+function HormoneMoleculeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      data-webinar2-prototype-molecule-icon
+      viewBox="0 0 120 120"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      focusable="false"
+      aria-hidden="true"
+    >
+      <path d="M35 48 57 35l22 13v26L57 87 35 74Z" />
+      <path d="M57 35V20M79 48l15-9M35 74l-14 9" />
+      <path d="M43 53v16M61 42l12 7M61 80l12-7" strokeWidth="4" />
+      <circle cx="57" cy="13" r="7" fill="#fff7f5" />
+      <circle cx="101" cy="35" r="7" fill="#fff7f5" />
+      <circle cx="14" cy="87" r="7" fill="#fff7f5" />
+    </svg>
+  );
+}
+
 const learningCards = [
   {
     number: "1",
     title: "The truth about hormone therapy (HRT)",
     body: "Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
-    icon: FlaskConical,
+    icon: HormoneMoleculeIcon,
   },
   {
     number: "2",
@@ -395,13 +419,17 @@ export default function LiveWebinar2() {
                     key={number}
                     className="grid min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-[#f7eaee] bg-white px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
                   >
-                    <div data-webinar2-learning-icon className="relative flex min-h-28 items-center justify-start sm:min-h-48">
-                      <span className="ml-4 flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:ml-9 sm:h-44 sm:w-44" aria-hidden="true">
+                    <div
+                      data-webinar2-learning-icon
+                      data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}
+                      className={`relative flex min-h-28 justify-start sm:min-h-48 ${number === "1" ? "items-start pt-1 sm:pt-0" : "items-center"}`}
+                    >
+                      <span className={`ml-4 flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:ml-9 sm:h-44 sm:w-44 ${number === "1" ? "mt-1 sm:mt-2" : ""}`} aria-hidden="true">
                         <Icon className="h-11 w-11 stroke-[1.8] sm:h-20 sm:w-20" />
                       </span>
                       <span
                         data-webinar2-learning-number
-                        className="absolute left-0 top-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#db147a] text-base font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:left-1 sm:h-16 sm:w-16 sm:text-2xl"
+                        className={`absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#db147a] text-base font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:left-1 sm:h-16 sm:w-16 sm:text-2xl ${number === "1" ? "top-0" : "top-2"}`}
                         aria-hidden="true"
                       >
                         {number}
