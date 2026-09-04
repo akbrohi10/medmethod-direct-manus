@@ -1175,3 +1175,12 @@
 - [x] Review `https://medmethoddirect.com` as the user-provided brand reference without changing the website
 - [x] Identify the homepage’s strongest reusable color, typography, spacing, card, and physician-authority design cues
 - [x] Recommend a specific brand-consistent direction for the `/live-webinar2` learning cards before any further implementation
+
+## Live Webinar 2 Seven-Item Learning Checklist
+
+- [x] Remove the complete four-card learning presentation, card-specific icon assets, numbered badges, and card-only geometry without affecting other page sections
+- [x] Replace it with the exact approved `What You’ll Learn` and `Because You Deserve to Know.` hierarchy plus all seven supplied checklist items in the supplied order
+- [x] Present one accessible vertical checklist with magenta checkmarks, bold readable titles, dark warm-gray explanations, and light blush dividers on the existing warm background
+- [x] Preserve the existing `Reserve My Free Spot` CTA beneath the checklist, every surrounding `/live-webinar2` section and behavior, safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate exact copy, seven-item order, accessibility, mobile/desktop rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the seven-item checklist checkpoint

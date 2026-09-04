@@ -7,7 +7,7 @@ const pageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar
 const globalStyles = fs.readFileSync(path.join(root, "client/src/index.css"), "utf8");
 const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
-const learningCardsBlock = pageSource.match(/const learningCards = \[([\s\S]*?)\];/)?.[1] ?? "";
+const learningChecklistBlock = pageSource.match(/const learningChecklist = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
 const learningSectionBlock = pageSource.match(/<section\s+data-webinar2-learning[\s\S]*?<\/section>/)?.[0] ?? "";
 const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
@@ -188,77 +188,57 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
   });
 
-  it("uses the four approved numbered learning cards and preserves the current inline video behavior", () => {
-    expect(learningCardsBlock.match(/number: "/g)).toHaveLength(4);
+  it("uses the exact approved seven-item checklist and preserves the current inline video behavior", () => {
     const expectedTitles = [
-      "The truth about hormone therapy (HRT)",
-      "Why losing weight can become harder",
-      "What’s actually happening to your hormones",
-      "How GLP-1 medications work",
+      "Why You Can’t Lose Weight Like You Used To",
+      "Is It Perimenopause or Menopause?",
+      "Hot Flashes, Poor Sleep, Mood Changes & Low Energy",
+      "The Truth About Hormone Therapy",
+      "GLP-1s & Medical Weight Loss",
+      "What to Ask Your Doctor",
+      "LIVE Q&A with Dr. Jumana Al-Deek",
     ];
-    const positions = expectedTitles.map(title => learningCardsBlock.indexOf(title));
+    const expectedBodies = [
+      "What changes in your 30s, 40s & 50s—and why.",
+      "The signs and symptoms your body may be trying to tell you.",
+      "Understand what may actually be happening with your hormones.",
+      "What every woman should know about her options.",
+      "When they may help—and what proper treatment should look like.",
+      "Know your options and become a better advocate for your health.",
+      "Get answers directly from a menopause & medical weight loss specialist.",
+    ];
+    const positions = expectedTitles.map(title => learningChecklistBlock.indexOf(title));
     positions.forEach(position => expect(position).toBeGreaterThanOrEqual(0));
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
+    expectedBodies.forEach(body => expect(learningChecklistBlock).toContain(body));
+    expect(learningChecklistBlock.match(/title: "/g)).toHaveLength(7);
     expect(learningSectionBlock).toContain("What You’ll Learn");
-    expect(learningSectionBlock).toContain("Because You Deserve to Know");
-    expect(learningSectionBlock).toContain("Evidence-based insights you can actually use — so you can feel informed, confident, and in control.");
-    expect(learningSectionBlock).toContain("data-webinar2-learning-grid");
-    expect(learningSectionBlock).toContain("data-webinar2-learning-card");
-    expect(learningSectionBlock).toContain("data-webinar2-learning-icon");
-    expect(learningSectionBlock).toContain("data-webinar2-learning-number");
-    expect(learningSectionBlock).toContain("data-webinar2-first-card-landscape");
+    expect(learningSectionBlock).toContain("Because You Deserve to Know.");
+    expect(learningSectionBlock).not.toContain("Evidence-based insights you can actually use");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-checklist");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-item");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-check");
+    expect(learningSectionBlock).not.toContain("data-webinar2-learning-card");
+    expect(learningSectionBlock).not.toContain("data-webinar2-learning-icon");
+    expect(learningSectionBlock).not.toContain("data-webinar2-learning-number");
     expect(learningSectionBlock).toContain("bg-[#fff7f5]");
     expect(learningSectionBlock).toContain('className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"');
-    expect(learningSectionBlock).not.toContain("shadow-[0_20px_55px");
-    expect(learningSectionBlock).toContain("bg-white");
-    expect(learningSectionBlock).toContain("bg-[#fde8f0]");
-    expect(learningSectionBlock).toContain("bg-[#db147a]");
-    expect(learningSectionBlock).toContain("max-w-[820px]");
-    expect(learningSectionBlock).toContain("grid-cols-[100px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("grid-cols-[116px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("sm:grid-cols-[190px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("sm:grid-cols-[220px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("min-h-0");
-    expect(learningSectionBlock).toContain("ml-2 h-24 w-24");
-    expect(learningSectionBlock).toContain("sm:ml-7 sm:h-36 sm:w-36");
-    expect(learningSectionBlock).toContain("top-1 left-1 h-10 w-10 text-base");
-    expect(learningSectionBlock).toContain("sm:h-[3.25rem] sm:w-[3.25rem] sm:text-xl");
-    expect(learningSectionBlock).toContain("text-lg font-medium leading-7 text-[#514a52] sm:text-xl sm:leading-8");
-    expect(learningSectionBlock).toContain("text-[1.125rem] font-extrabold leading-[1.12] text-[#dd2d84]");
-    expect(learningSectionBlock).not.toContain("text-[#6f2754]");
-    expect(learningSectionBlock).not.toContain("text-[#432943]");
-    expect(learningSectionBlock).toContain("text-base font-medium leading-6 text-[#514a52]");
-    expect(learningSectionBlock).toContain("sm:text-lg sm:leading-[1.55]");
-    expect(learningSectionBlock).toContain('data-webinar2-homepage-inspired-card={number === "1" ? "true" : undefined}');
-    expect(learningSectionBlock).toContain("border-[#f0e2e9]");
-    expect(learningSectionBlock).toContain("shadow-[0_8px_22px_rgba(63,29,57,0.055)]");
-    expect(learningSectionBlock).toContain("border-[#f7eaee]");
-    expect(learningSectionBlock).toContain("shadow-[0_10px_26px_rgba(105,48,79,0.07)]");
-    expect(learningSectionBlock).toContain('font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]');
-    expect(learningSectionBlock).toContain("ml-4 h-[5.5rem] w-[5.5rem] sm:ml-9 sm:h-44 sm:w-44");
-    expect(learningSectionBlock).toContain("absolute z-10");
-    expect(learningSectionBlock).toContain("h-10 w-10");
-    expect(learningSectionBlock).toContain("sm:top-2 sm:left-1 sm:h-16 sm:w-16");
-    expect(learningSectionBlock).not.toContain("justify-center sm:min-h-40");
-    expect(pageSource).toContain("function SuppliedHormoneMoleculeIcon");
-    expect(pageSource).toContain("data-webinar2-supplied-molecule-icon");
-    expect(pageSource).toContain("SUPPLIED_HORMONE_MOLECULE_ICON_URL");
-    expect(pageSource).toContain('/manus-storage/hormone-molecule-supplied_32e248f7.png');
-    expect(pageSource).toContain("icon: SuppliedHormoneMoleculeIcon");
-    expect(pageSource).toContain('scale-[1.3] object-contain');
-    expect(pageSource).not.toContain("data-webinar2-prototype-molecule-icon");
-    expect(pageSource).not.toContain("FlaskConical");
-    expect(learningSectionBlock).toContain('data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}');
-    expect(learningSectionBlock).toContain('number === "1" ? "min-h-24 items-center sm:min-h-40" : "min-h-28 items-center sm:min-h-48"');
-    expect(pageSource).toContain("Scale");
-    expect(pageSource).toContain("Activity");
-    expect(pageSource).toContain("Syringe");
-    expect(learningCardsBlock).toContain("Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.");
-    expect(learningCardsBlock).toContain("In your late 30s and 40s — even when you’re eating and exercising the same way you always have.");
-    expect(learningCardsBlock).toContain("During perimenopause and menopause, how it affects your body, and what you can do about it.");
-    expect(learningCardsBlock).toContain("And where medical weight loss may fit into your overall health strategy.");
-    expect(learningSectionBlock.indexOf("data-webinar2-learning-grid")).toBeLessThan(learningSectionBlock.indexOf("Reserve My Free Spot"));
-    expect(learningCardsBlock).not.toContain("Clear answers for your next chapter.");
+    expect(learningSectionBlock).toContain("max-w-[800px]");
+    expect(learningSectionBlock).toContain("border-b border-[#eadde4]");
+    expect(learningSectionBlock).toContain("rounded-full bg-[#dd2d84]");
+    expect(learningSectionBlock).toContain("<Check");
+    expect(learningSectionBlock).toContain("text-xl font-extrabold");
+    expect(learningSectionBlock).toContain("text-[#432943]");
+    expect(learningSectionBlock).toContain("text-base font-medium leading-[1.55] text-[#514a52]");
+    expect(pageSource).not.toContain("SUPPLIED_HORMONE_MOLECULE_ICON_URL");
+    expect(pageSource).not.toContain("SuppliedHormoneMoleculeIcon");
+    expect(pageSource).not.toContain("Activity");
+    expect(pageSource).not.toContain("Scale");
+    expect(pageSource).not.toContain("Syringe");
+    expect(learningSectionBlock.indexOf("data-webinar2-learning-checklist")).toBeLessThan(learningSectionBlock.indexOf("Reserve My Free Spot"));
+    expect(pageSource.match(/LIVE Q&A with Dr\. Jumana Al-Deek/g) ?? []).toHaveLength(1);
+    expect(pageSource).not.toContain("MessageCircle");
+    expect(pageSource).toContain("data-webinar2-informed-message");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
     expect(pageSource).toContain("h-[4.5rem] w-[4.5rem]");
     expect(pageSource).toContain("sm:h-24 sm:w-24");
@@ -281,7 +261,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-final-cta");
     expect(pageSource).not.toContain("Ready to save your free spot?");
     expect(pageSource).not.toContain("Registration will open here once the event registration link is connected.");
-    expect(pageSource).toContain("rounded-full bg-[#faf4f8]");
-    expect(pageSource).not.toMatch(/<button[\s\S]{0,300}Live Q&amp;A with Dr\. Al-Deek/);
+    expect(pageSource).not.toContain("Live Q&amp;A with Dr. Al-Deek");
+    expect(pageSource).not.toMatch(/<button[\s\S]{0,300}LIVE Q&amp;A with Dr\. Jumana Al-Deek/);
   });
 });

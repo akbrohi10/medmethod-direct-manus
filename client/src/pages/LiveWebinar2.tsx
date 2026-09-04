@@ -1,12 +1,11 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Activity, Clock3, MessageCircle, Play, Scale, Syringe, Volume2 } from "lucide-react";
+import { Check, Clock3, Play, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
-const SUPPLIED_HORMONE_MOLECULE_ICON_URL = "/manus-storage/hormone-molecule-supplied_32e248f7.png";
 
 // Confirmed event time: September 23, 2026 at 7:00 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
@@ -15,44 +14,34 @@ const WEBINAR_EVENT = {
   timezone: "ET",
 };
 
-function SuppliedHormoneMoleculeIcon({ className }: { className?: string }) {
-  return (
-    <img
-      data-webinar2-supplied-molecule-icon
-      src={SUPPLIED_HORMONE_MOLECULE_ICON_URL}
-      alt=""
-      className={`${className ?? ""} scale-[1.3] object-contain`}
-      aria-hidden="true"
-      decoding="async"
-      draggable="false"
-    />
-  );
-}
-
-const learningCards = [
+const learningChecklist = [
   {
-    number: "1",
-    title: "The truth about hormone therapy (HRT)",
-    body: "Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
-    icon: SuppliedHormoneMoleculeIcon,
+    title: "Why You Can’t Lose Weight Like You Used To",
+    body: "What changes in your 30s, 40s & 50s—and why.",
   },
   {
-    number: "2",
-    title: "Why losing weight can become harder",
-    body: "In your late 30s and 40s — even when you’re eating and exercising the same way you always have.",
-    icon: Scale,
+    title: "Is It Perimenopause or Menopause?",
+    body: "The signs and symptoms your body may be trying to tell you.",
   },
   {
-    number: "3",
-    title: "What’s actually happening to your hormones",
-    body: "During perimenopause and menopause, how it affects your body, and what you can do about it.",
-    icon: Activity,
+    title: "Hot Flashes, Poor Sleep, Mood Changes & Low Energy",
+    body: "Understand what may actually be happening with your hormones.",
   },
   {
-    number: "4",
-    title: "How GLP-1 medications work",
-    body: "And where medical weight loss may fit into your overall health strategy.",
-    icon: Syringe,
+    title: "The Truth About Hormone Therapy",
+    body: "What every woman should know about her options.",
+  },
+  {
+    title: "GLP-1s & Medical Weight Loss",
+    body: "When they may help—and what proper treatment should look like.",
+  },
+  {
+    title: "What to Ask Your Doctor",
+    body: "Know your options and become a better advocate for your health.",
+  },
+  {
+    title: "LIVE Q&A with Dr. Jumana Al-Deek",
+    body: "Get answers directly from a menopause & medical weight loss specialist.",
   },
 ];
 
@@ -397,75 +386,34 @@ export default function LiveWebinar2() {
               <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm">
                 What You’ll Learn
               </p>
-              <h2 className="mx-auto mt-5 max-w-[780px] text-[2.7rem] font-black leading-[0.98] tracking-[-0.05em] text-[#231f30] sm:text-6xl lg:text-[4.25rem]">
-                Because You Deserve to Know
+              <h2 className="mx-auto mt-5 max-w-[780px] text-[2.55rem] font-black leading-[1] tracking-[-0.045em] text-[#432943] sm:text-6xl lg:text-[4rem]">
+                Because You Deserve to Know.
               </h2>
-              <p className="mx-auto mt-6 max-w-[760px] px-2 text-lg font-medium leading-7 text-[#514a52] sm:text-xl sm:leading-8">
-                Evidence-based insights you can actually use — so you can feel informed, confident, and in control.
-              </p>
-              <ol data-webinar2-learning-grid className="mx-auto mt-10 max-w-[820px] space-y-6 text-left sm:mt-12 sm:space-y-7">
-                {learningCards.map(({ number, title, body, icon: Icon }) => (
+              <ul data-webinar2-learning-checklist className="mx-auto mt-9 max-w-[800px] text-left sm:mt-11">
+                {learningChecklist.map(({ title, body }) => (
                   <li
-                    data-webinar2-learning-card
-                    data-webinar2-first-card-landscape={number === "1" ? "true" : undefined}
-                    data-webinar2-homepage-inspired-card={number === "1" ? "true" : undefined}
-                    key={number}
-                    className={`grid items-center rounded-[1.75rem] border bg-white ${
-                      number === "1"
-                        ? "min-h-0 grid-cols-[100px_minmax(0,1fr)] gap-4 border-[#f0e2e9] px-4 py-5 shadow-[0_8px_22px_rgba(63,29,57,0.055)] sm:min-h-[14rem] sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-10 sm:px-10 sm:py-8"
-                        : "min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] gap-4 border-[#f7eaee] px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
-                    }`}
+                    data-webinar2-learning-item
+                    key={title}
+                    className="flex gap-4 border-b border-[#eadde4] py-6 first:pt-0 last:border-b-0 last:pb-0 sm:gap-5 sm:py-7"
                   >
-                    <div
-                      data-webinar2-learning-icon
-                      data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}
-                      className={`relative flex justify-start ${number === "1" ? "min-h-24 items-center sm:min-h-40" : "min-h-28 items-center sm:min-h-48"}`}
+                    <span
+                      data-webinar2-learning-check
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dd2d84] text-white shadow-[0_5px_12px_rgba(221,45,132,0.18)] sm:h-10 sm:w-10"
+                      aria-hidden="true"
                     >
-                      <span
-                        className={`flex shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] ${
-                          number === "1"
-                            ? "ml-2 h-24 w-24 sm:ml-7 sm:h-36 sm:w-36"
-                            : "ml-4 h-[5.5rem] w-[5.5rem] sm:ml-9 sm:h-44 sm:w-44"
-                        }`}
-                        aria-hidden="true"
-                      >
-                        <Icon className={number === "1" ? "h-12 w-12 sm:h-[4.5rem] sm:w-[4.5rem]" : "h-11 w-11 stroke-[1.8] sm:h-20 sm:w-20"} />
-                      </span>
-                      <span
-                        data-webinar2-learning-number
-                        className={`absolute z-10 flex items-center justify-center rounded-full bg-[#db147a] font-black text-white shadow-[0_6px_14px_rgba(219,20,122,0.16)] ${
-                          number === "1"
-                            ? "top-1 left-1 h-10 w-10 text-base sm:top-3 sm:left-3 sm:h-[3.25rem] sm:w-[3.25rem] sm:text-xl"
-                            : "top-2 left-0 h-10 w-10 text-base sm:top-2 sm:left-1 sm:h-16 sm:w-16 sm:text-2xl"
-                        }`}
-                        aria-hidden="true"
-                      >
-                        {number}
-                      </span>
-                    </div>
-                    <div className="min-w-0">
-                      <h3
-                        className={`tracking-[-0.03em] ${
-                          number === "1"
-                            ? "text-[1.125rem] font-extrabold leading-[1.12] text-[#dd2d84] sm:text-2xl sm:leading-[1.12]"
-                            : "text-[1.15rem] font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]"
-                        }`}
-                      >
+                      <Check className="h-5 w-5 stroke-[3] sm:h-6 sm:w-6" />
+                    </span>
+                    <div className="min-w-0 pt-0.5">
+                      <h3 className="text-xl font-extrabold leading-[1.22] tracking-[-0.025em] text-[#432943] sm:text-2xl">
                         {title}
                       </h3>
-                      <p
-                        className={`${
-                          number === "1"
-                            ? "mt-2 text-base font-medium leading-6 text-[#514a52] sm:mt-3 sm:text-lg sm:leading-[1.55]"
-                            : "mt-3 text-[0.95rem] leading-[1.55] text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8"
-                        }`}
-                      >
+                      <p className="mt-2 text-base font-medium leading-[1.55] text-[#514a52] sm:text-lg sm:leading-[1.6]">
                         {body}
                       </p>
                     </div>
                   </li>
                 ))}
-              </ol>
+              </ul>
               <div className="mt-7 flex justify-center sm:mt-8">
                 <button
                   type="button"
@@ -478,16 +426,12 @@ export default function LiveWebinar2() {
             </div>
           </section>
 
-          <div className="mx-auto mt-11 grid max-w-[940px] gap-4 border-t border-[#ece4e9] pt-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
+          <div data-webinar2-informed-message className="mx-auto mt-11 max-w-[940px] border-t border-[#ece4e9] pt-7">
             <div>
               <p className="text-sm font-black text-[#29252f]">Become informed—not pressured.</p>
               <p className="mt-2 max-w-[720px] text-xs leading-5 text-[#716a73] sm:text-sm sm:leading-6">
                 The goal is to help you understand your body, know your options, and make more informed decisions about your care.
               </p>
-            </div>
-            <div className="flex items-center justify-center gap-3 rounded-full bg-[#faf4f8] px-4 py-2.5 text-sm font-bold text-[#4b3149]">
-              <MessageCircle className="h-5 w-5 text-[#d51b75]" aria-hidden="true" />
-              Live Q&amp;A with Dr. Al-Deek
             </div>
           </div>
 
