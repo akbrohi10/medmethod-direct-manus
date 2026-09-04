@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { CheckCircle2, MessageCircle, Play } from "lucide-react";
+import { CheckCircle2, Clock3, GraduationCap, MessageCircle, Play, Video, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -170,43 +170,74 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1100px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <header data-webinar2-zoom-banner className="bg-[#211224] px-5 py-3.5 sm:px-8 sm:py-4">
-          <div className="mx-auto flex max-w-[860px] justify-center">
-            <p className="inline-flex w-full max-w-[720px] items-center justify-center rounded-full border border-[#d9a93a]/40 bg-[#302035] px-4 py-2.5 text-center text-[10px] font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(8,3,11,0.22)] sm:px-8 sm:text-xs sm:tracking-[0.18em]">
-              <span className="mr-2 h-2 w-2 shrink-0 rounded-full bg-[#ef2d91] shadow-[0_0_12px_rgba(239,45,145,0.8)]" aria-hidden="true" />
-              Live on Zoom <span className="mx-2 text-[#e1b94f]">·</span> Free Educational Webinar
-            </p>
+        <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 sm:px-8 sm:pt-7">
+          <div className="mx-auto grid w-full max-w-[900px] grid-cols-[1fr_auto_1fr] items-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-3 py-2.5 text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:px-7 sm:py-3.5">
+            <div className="flex min-w-0 items-center justify-center gap-2.5 sm:gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/14 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] sm:h-14 sm:w-14">
+                <Video className="h-5 w-5 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
+              </span>
+              <span className="text-left text-[10px] font-black uppercase leading-[1.25] tracking-[0.045em] sm:text-sm sm:tracking-[0.06em]">
+                Live on
+                <span className="block">Zoom</span>
+              </span>
+            </div>
+
+            <span className="h-10 w-px bg-white/35 sm:h-14" aria-hidden="true" />
+
+            <div className="flex min-w-0 items-center justify-center gap-2.5 sm:gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/14 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] sm:h-14 sm:w-14">
+                <GraduationCap className="h-5 w-5 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
+              </span>
+              <span className="text-left text-[10px] font-black uppercase leading-[1.25] tracking-[0.035em] sm:text-sm sm:tracking-[0.05em]">
+                Free Educational
+                <span className="block">Webinar</span>
+              </span>
+            </div>
           </div>
         </header>
 
         <section
           data-webinar2-hero
           data-webinar2-centered-hero
-          className="mx-auto max-w-[920px] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
+          className="relative isolate mx-auto max-w-[1100px] overflow-hidden bg-[#fff8fb] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
         >
-          <div data-webinar2-opening-copy className="mx-auto max-w-[800px] text-center">
+          <div
+            data-webinar2-decorative-background
+            className="pointer-events-none absolute inset-0 -z-10 opacity-90"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "repeating-radial-gradient(ellipse at -8% 75%, transparent 0 20px, rgba(218,44,132,0.075) 21px 22px, transparent 23px 31px), repeating-radial-gradient(ellipse at 108% 55%, transparent 0 22px, rgba(118,35,121,0.07) 23px 24px, transparent 25px 34px), radial-gradient(circle at 50% 100%, rgba(244,168,205,0.34), transparent 38%)",
+            }}
+          />
+
+          <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
             <h1
               aria-label="Women 35+: Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
-              className="text-[2.05rem] font-black leading-[1.04] tracking-[-0.045em] text-[#26242c] sm:text-[3rem] lg:text-[3.55rem]"
+              className="tracking-[-0.045em]"
             >
-              <span className="text-[#a91970]">Women 35+:</span>{" "}
-              Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
+              <span className="block text-[2.55rem] font-black leading-none text-[#dd2d84] sm:text-[3.65rem] lg:text-[4.25rem]">Women 35+:</span>
+              <span className="mx-auto mt-2 block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:mt-3 sm:text-[3rem] lg:text-[3.55rem]">
+                Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
+              </span>
             </h1>
             <p
               data-webinar2-topic-line
-              className="mx-auto mt-4 max-w-[760px] text-[1.3rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#6f3568] sm:mt-5 sm:text-[1.75rem] lg:text-[2rem]"
+              className="mx-auto mt-5 max-w-[720px] text-[1.28rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#cf2b7f] sm:mt-7 sm:text-[1.8rem] lg:text-[2.05rem]"
             >
               Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
             </p>
-            <p data-webinar2-short-intro className="mx-auto mt-3 max-w-[620px] text-sm font-semibold leading-6 text-[#4b4750] sm:mt-4 sm:text-base">
-              A free educational webinar with Dr. Jumana Al-Deek.
+            <span data-webinar2-doctor-divider className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
+            <p data-webinar2-short-intro className="mx-auto mt-3 max-w-[620px] text-base font-medium leading-6 text-[#3e3340] sm:mt-4 sm:text-lg sm:leading-7">
+              A free educational webinar
+              <span className="block">with <strong className="font-extrabold text-[#27132e]">Dr. Jumana Al-Deek.</strong></span>
             </p>
           </div>
 
           <div
             ref={videoShellRef}
             data-webinar2-video-shell
-            className="relative mx-auto mt-7 aspect-video w-full max-w-[800px] overflow-hidden rounded-2xl bg-[#1b1022] ring-1 ring-[#d9cad4] shadow-[0_22px_54px_rgba(48,22,54,0.24)] sm:mt-8"
+            className="relative z-10 mx-auto mt-6 aspect-video w-full max-w-[800px] overflow-hidden rounded-[1.45rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6] sm:mt-7 sm:rounded-[1.7rem]"
           >
             <video
               ref={videoRef}
@@ -228,8 +259,9 @@ export default function LiveWebinar2() {
             {!hasVideoStarted && (
               <span
                 data-webinar2-video-length-token
-                className="pointer-events-none absolute top-3 left-3 z-10 rounded-full bg-black/75 px-3 py-2 text-xs font-black text-white shadow-lg"
+                className="pointer-events-none absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#e72e91] to-[#75207f] px-3 py-2 text-[10px] font-black text-white shadow-lg sm:top-4 sm:left-4 sm:gap-2 sm:px-4 sm:text-xs"
               >
+                <Clock3 className="h-4 w-4" aria-hidden="true" />
                 Watch: [VIDEO LENGTH]
               </span>
             )}
@@ -238,12 +270,13 @@ export default function LiveWebinar2() {
               <button
                 type="button"
                 onClick={handlePlayWithSound}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 px-6 text-center text-white backdrop-blur-[1px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
+                className="absolute inset-0 bg-black/24 text-center text-white backdrop-blur-[0.5px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
               >
-                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#6f1d78] shadow-xl">
-                  <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
+                <span className="absolute top-[48%] left-1/2 inline-flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-[#e72e91] to-[#6b1f80] text-white shadow-[0_12px_28px_rgba(71,20,80,0.36)] sm:h-24 sm:w-24">
+                  <Play className="ml-1 h-8 w-8 fill-current sm:h-11 sm:w-11" aria-hidden="true" />
                 </span>
-                <span className="rounded-full bg-black/65 px-4 py-2 text-xs font-black uppercase tracking-[0.08em]">
+                <span className="absolute bottom-3 left-1/2 inline-flex min-h-10 -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-[#291232]/92 px-4 py-2 text-[9px] font-black uppercase tracking-[0.07em] shadow-xl sm:bottom-5 sm:min-h-11 sm:px-7 sm:py-2.5 sm:text-xs sm:tracking-[0.08em]">
+                  <Volume2 className="h-4 w-4" aria-hidden="true" />
                   Play Video With Sound
                 </span>
               </button>

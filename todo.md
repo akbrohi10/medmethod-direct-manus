@@ -938,3 +938,14 @@
 - [x] Preserve the Live-on-Zoom banner, video and playback behavior, CTA, countdown, inactive form, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate responsive hierarchy, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the symptom-first headline checkpoint
+
+## Live Webinar 2 Supplied Pink-and-Plum Hero Design
+
+- [x] Restyle only the `/live-webinar2` upper section to closely follow the supplied pink-and-plum reference while retaining the current approved copy
+- [x] Rebuild the top banner as a rounded pink-to-plum gradient capsule with separate camera and education icon circles, a centered divider, and the exact Live on Zoom / Free Educational Webinar labels
+- [x] Match the supplied centered hierarchy with a pink `Women 35+:` lead, dark symptom headline, pink topic line, short magenta divider, and the doctor introduction with Dr. Jumana Al-Deek emphasized
+- [x] Add a restrained soft-pink decorative background treatment around the hero without introducing a new media asset or reducing text contrast
+- [x] Restyle the existing webinar video with the supplied rounded white frame, compact gradient video-length pill, prominent gradient play control, and dark sound fallback while preserving the real video, poster, controls, inline playback, and visibility behavior
+- [x] Preserve the primary CTA, four-box countdown, inactive form, all event and credential tokens, lower sections, Featured In strip, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate desktop/mobile fidelity, accessibility, playback safeguards, CTA behavior, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the supplied-design checkpoint

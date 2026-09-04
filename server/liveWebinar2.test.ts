@@ -25,9 +25,15 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("data-webinar2-hero");
     expect(pageSource).toContain("data-webinar2-centered-hero");
     expect(pageSource).toContain("data-webinar2-zoom-banner");
-    expect(pageSource).toContain("Live on Zoom");
-    expect(pageSource).toContain("Free Educational Webinar");
-    expect(pageSource).toContain("mx-auto max-w-[800px] text-center");
+    expect(pageSource).toContain("Live on");
+    expect(pageSource).toContain('<span className="block">Zoom</span>');
+    expect(pageSource).toContain("Free Educational");
+    expect(pageSource).toContain('<span className="block">Webinar</span>');
+    expect(pageSource).toContain("Video, Volume2");
+    expect(pageSource).toContain("GraduationCap");
+    expect(pageSource).toContain("from-[#e72e91] via-[#a12788] to-[#4b1c6e]");
+    expect(pageSource).toContain("data-webinar2-decorative-background");
+    expect(pageSource).toContain("repeating-radial-gradient");
     expect(pageSource).not.toContain("lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)]");
     expect(pageSource).not.toContain("Free Live Webinar · For Women 35+");
     expect(pageSource).toContain("Women 35+:");
@@ -38,7 +44,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Here’s what’s actually changing — and what you can do about it.");
     expect(pageSource).not.toContain("After 35");
     expect(pageSource).not.toContain("After 40");
-    expect(pageSource).toContain("A free educational webinar with Dr. Jumana Al-Deek.");
+    expect(pageSource).toContain("data-webinar2-doctor-divider");
+    expect(pageSource).toContain("A free educational webinar");
+    expect(pageSource).toContain('with <strong className="font-extrabold text-[#27132e]">Dr. Jumana Al-Deek.</strong>');
     expect(pageSource).toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
     expect(pageSource).toContain("Available nationwide for this free educational webinar.");
     expect(pageSource).toContain("See states");
@@ -105,13 +113,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
   });
 
-  it("shows only four dark countdown boxes and their unit labels", () => {
+  it("shows only four dark countdown boxes and their unit labels while reserving the clock icon for the video-length pill", () => {
     expect(pageSource).not.toContain("data-webinar2-countdown-label");
     expect(pageSource).not.toContain("data-webinar2-countdown-timezone");
     expect(pageSource).not.toContain("data-webinar2-countdown-preview-token");
     expect(pageSource).not.toContain("[COUNTDOWN ACTIVATES WHEN EVENT DATE IS SET]");
     expect(pageSource).not.toContain("Event Countdown ·");
-    expect(pageSource).not.toContain("Clock3");
+    expect(pageSource).toContain("Clock3");
+    expect(pageSource).toContain("bg-gradient-to-r from-[#e72e91] to-[#75207f]");
     expect(pageSource).toContain('aria-label="Webinar countdown"');
     expect(pageSource).toContain("grid grid-cols-4 gap-2 sm:gap-3");
     expect(pageSource).toContain("bg-[#26222d]");
@@ -160,7 +169,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningPointsBlock).not.toContain("The connection between hormones, menopause and weight management");
     expect(learningPointsBlock).not.toContain("What good menopause care should actually look like");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
-    expect(pageSource).toContain("h-16 w-16");
+    expect(pageSource).toContain("h-[4.5rem] w-[4.5rem]");
+    expect(pageSource).toContain("sm:h-24 sm:w-24");
     expect(pageSource).toContain('video.setAttribute("playsinline", "")');
     expect(pageSource).toContain('video.setAttribute("webkit-playsinline", "")');
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
