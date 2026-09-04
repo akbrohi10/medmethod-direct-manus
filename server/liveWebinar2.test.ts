@@ -188,12 +188,13 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
   });
 
-  it("uses the three approved numbered learning cards and preserves the current inline video behavior", () => {
-    expect(learningCardsBlock.match(/number: "/g)).toHaveLength(3);
+  it("uses the four approved numbered learning cards and preserves the current inline video behavior", () => {
+    expect(learningCardsBlock.match(/number: "/g)).toHaveLength(4);
     const expectedTitles = [
       "The truth about hormone therapy (HRT)",
       "Why losing weight can become harder",
       "What’s actually happening to your hormones",
+      "How GLP-1 medications work",
     ];
     const positions = expectedTitles.map(title => learningCardsBlock.indexOf(title));
     positions.forEach(position => expect(position).toBeGreaterThanOrEqual(0));
@@ -218,11 +219,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("FlaskConical");
     expect(pageSource).toContain("Scale");
     expect(pageSource).toContain("Activity");
+    expect(pageSource).toContain("Syringe");
     expect(learningCardsBlock).toContain("Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.");
     expect(learningCardsBlock).toContain("In your late 30s and 40s — even when you’re eating and exercising the same way you always have.");
     expect(learningCardsBlock).toContain("During perimenopause and menopause, how it affects your body, and what you can do about it.");
+    expect(learningCardsBlock).toContain("And where medical weight loss may fit into your overall health strategy.");
     expect(learningSectionBlock.indexOf("data-webinar2-learning-grid")).toBeLessThan(learningSectionBlock.indexOf("Reserve My Free Spot"));
-    expect(learningCardsBlock).not.toContain("How GLP-1 medications work");
     expect(learningCardsBlock).not.toContain("Clear answers for your next chapter.");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
     expect(pageSource).toContain("h-[4.5rem] w-[4.5rem]");

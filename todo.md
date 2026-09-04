@@ -1085,3 +1085,11 @@
 - [x] Preserve every approved heading, subtitle, card title, supporting sentence, card order, CTA copy and behavior, surrounding `/live-webinar2` content, safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate clean reference fidelity, copy preservation, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the cleaner learning-section refinement checkpoint
+
+## Live Webinar 2 GLP-1 Learning-Card Restoration
+
+- [x] Restore a fourth numbered learning card using the previously approved GLP-1 wording removed during the mockup redesign
+- [x] Style card four with the same white card, pink number badge, pale-pink icon circle, typography, spacing, border, and shadow as cards one through three
+- [x] Keep the GLP-1 card fourth in the approved learning order and preserve every word in the other three cards, section heading, subtitle, CTA, surrounding page, safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate four-card order, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the GLP-1 learning-card restoration checkpoint

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Activity, Clock3, FlaskConical, MessageCircle, Play, Scale, Volume2 } from "lucide-react";
+import { Activity, Clock3, FlaskConical, MessageCircle, Play, Scale, Syringe, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -32,6 +32,12 @@ const learningCards = [
     title: "What’s actually happening to your hormones",
     body: "During perimenopause and menopause, how it affects your body, and what you can do about it.",
     icon: Activity,
+  },
+  {
+    number: "4",
+    title: "How GLP-1 medications work",
+    body: "And where medical weight loss may fit into your overall health strategy.",
+    icon: Syringe,
   },
 ];
 
