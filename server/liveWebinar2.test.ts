@@ -213,9 +213,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("bg-[#fde8f0]");
     expect(learningSectionBlock).toContain("bg-[#db147a]");
     expect(learningSectionBlock).toContain("max-w-[820px]");
-    expect(learningSectionBlock).toContain("grid-cols-[104px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("h-24 w-24");
-    expect(learningSectionBlock).toContain("text-xl font-black");
+    expect(learningSectionBlock).toContain("grid-cols-[116px_minmax(0,1fr)]");
+    expect(learningSectionBlock).toContain("sm:grid-cols-[220px_minmax(0,1fr)]");
+    expect(learningSectionBlock).toContain("ml-4 flex h-[5.5rem] w-[5.5rem]");
+    expect(learningSectionBlock).toContain("sm:ml-9 sm:h-44 sm:w-44");
+    expect(learningSectionBlock).toContain("left-0 top-2 z-10");
+    expect(learningSectionBlock).toContain("h-10 w-10");
+    expect(learningSectionBlock).toContain("sm:left-1 sm:h-16 sm:w-16");
+    expect(learningSectionBlock).not.toContain("justify-center sm:min-h-40");
     expect(pageSource).toContain("FlaskConical");
     expect(pageSource).toContain("Scale");
     expect(pageSource).toContain("Activity");

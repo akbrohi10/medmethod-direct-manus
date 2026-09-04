@@ -1093,3 +1093,12 @@
 - [x] Keep the GLP-1 card fourth in the approved learning order and preserve every word in the other three cards, section heading, subtitle, CTA, surrounding page, safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate four-card order, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the GLP-1 learning-card restoration checkpoint
+
+## Live Webinar 2 Learning-Card Geometry Repair
+
+- [x] Rebuild all four learning-card icon areas to match the supplied reference with a larger pale-pink circle and a smaller numbered badge positioned at its upper-left edge
+- [x] Eliminate number/icon overlap by reserving independent badge and icon geometry with consistent offsets across cards one through four
+- [x] Optimize mobile and desktop card width, height, internal spacing, icon size, title width, body-copy width, and line-height to match the clean reference proportions
+- [x] Keep all four cards visually consistent, including the restored GLP-1 card, without changing any heading, subtitle, card title, supporting sentence, order, CTA, or surrounding page content
+- [x] Update focused regression coverage and validate overlap prevention, exact copy preservation, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the learning-card geometry-repair checkpoint

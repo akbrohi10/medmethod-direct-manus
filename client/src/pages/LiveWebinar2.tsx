@@ -393,23 +393,23 @@ export default function LiveWebinar2() {
                   <li
                     data-webinar2-learning-card
                     key={number}
-                    className="grid grid-cols-[104px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-[#f7eaee] bg-white px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:grid-cols-[176px_minmax(0,1fr)] sm:gap-8 sm:px-8 sm:py-9"
+                    className="grid min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-[#f7eaee] bg-white px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
                   >
-                    <div data-webinar2-learning-icon className="relative flex min-h-28 items-center justify-center sm:min-h-40">
-                      <span className="flex h-24 w-24 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:h-40 sm:w-40" aria-hidden="true">
-                        <Icon className="h-12 w-12 stroke-[1.8] sm:h-[4.5rem] sm:w-[4.5rem]" />
+                    <div data-webinar2-learning-icon className="relative flex min-h-28 items-center justify-start sm:min-h-48">
+                      <span className="ml-4 flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:ml-9 sm:h-44 sm:w-44" aria-hidden="true">
+                        <Icon className="h-11 w-11 stroke-[1.8] sm:h-20 sm:w-20" />
                       </span>
                       <span
                         data-webinar2-learning-number
-                        className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full bg-[#db147a] text-xl font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:h-14 sm:w-14 sm:text-2xl"
+                        className="absolute left-0 top-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#db147a] text-base font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:left-1 sm:h-16 sm:w-16 sm:text-2xl"
                         aria-hidden="true"
                       >
                         {number}
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-xl font-black leading-[1.12] tracking-[-0.03em] text-[#252132] sm:text-[1.75rem]">{title}</h3>
-                      <p className="mt-3 text-[0.95rem] leading-6 text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8">{body}</p>
+                      <h3 className="text-[1.15rem] font-black leading-[1.12] tracking-[-0.03em] text-[#252132] sm:text-[1.75rem]">{title}</h3>
+                      <p className="mt-3 text-[0.95rem] leading-[1.55] text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8">{body}</p>
                     </div>
                   </li>
                 ))}
