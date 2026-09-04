@@ -9,6 +9,7 @@ const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8")
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
+const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
 const legalFootnoteBlock = pageSource.match(/<div\s+data-webinar2-legal-footnote[\s\S]*?<\/div>/)?.[0] ?? "";
 const testosteroneDisclosure =
   "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. [APPROVED AVAILABILITY DISCLAIMER]";
@@ -105,6 +106,10 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(3);
     expect(pageSource).not.toContain("Reserve Your Free Spot");
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
+    expect(primaryCtaBlock).toContain("Reserve My Free Spot");
+    expect(primaryCtaBlock).toContain("data-webinar2-capacity-line");
+    expect(primaryCtaBlock).toContain("Limited Zoom Capacity");
+    expect(pageSource.match(/Limited Zoom Capacity/g)).toHaveLength(1);
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
     expect(pageSource).not.toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
     expect(pageSource).not.toContain('href="/privacy-policy"');

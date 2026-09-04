@@ -1038,3 +1038,11 @@
 - [x] Preserve the authority row, confirmed date/countdown, video and playback safeguards, sliding Featured In strip, learning content, final CTA, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate mobile/desktop flow, CTA consistency, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the above-video CTA-removal checkpoint
+
+## Live Webinar 2 CTA Limited-Capacity Line
+
+- [x] Add `LIMITED ZOOM CAPACITY` as smaller secondary text inside the first `Reserve My Free Spot` button directly beneath the video
+- [x] Preserve the first CTA’s inactive review-only behavior and keep the two later `Reserve My Free Spot` buttons unchanged
+- [x] Preserve all other `/live-webinar2` content, layout, playback safeguards, disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate mobile/desktop CTA rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the limited-capacity CTA checkpoint
