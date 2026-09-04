@@ -1154,3 +1154,10 @@
 - [x] Preserve card one’s 800 weight, responsive font size, wording, supporting-text color, icon, geometry, and cards two through four unchanged for comparison
 - [x] Update focused regression coverage and validate mobile/desktop rendering, contrast, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the card-one rich-berry title-color checkpoint
+
+## Live Webinar 2 Card-One Brand-Magenta Title Color
+
+- [x] Change only card one’s title color from `#6F2754` to the approved existing brand magenta `#DD2D84`
+- [x] Preserve card one’s 800 weight, responsive font size, wording, supporting-text color, icon, geometry, and cards two through four unchanged for comparison
+- [x] Update focused regression coverage and validate mobile/desktop rendering, contrast, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the card-one brand-magenta title-color checkpoint

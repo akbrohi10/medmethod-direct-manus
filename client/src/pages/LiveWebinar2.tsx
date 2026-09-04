@@ -446,7 +446,7 @@ export default function LiveWebinar2() {
                       <h3
                         className={`tracking-[-0.03em] ${
                           number === "1"
-                            ? "text-[1.125rem] font-extrabold leading-[1.12] text-[#6f2754] sm:text-2xl sm:leading-[1.12]"
+                            ? "text-[1.125rem] font-extrabold leading-[1.12] text-[#dd2d84] sm:text-2xl sm:leading-[1.12]"
                             : "text-[1.15rem] font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]"
                         }`}
                       >

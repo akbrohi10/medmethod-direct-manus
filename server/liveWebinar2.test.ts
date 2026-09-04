@@ -224,7 +224,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("top-1 left-1 h-10 w-10 text-base");
     expect(learningSectionBlock).toContain("sm:h-[3.25rem] sm:w-[3.25rem] sm:text-xl");
     expect(learningSectionBlock).toContain("text-lg font-medium leading-7 text-[#514a52] sm:text-xl sm:leading-8");
-    expect(learningSectionBlock).toContain("text-[1.125rem] font-extrabold leading-[1.12] text-[#6f2754]");
+    expect(learningSectionBlock).toContain("text-[1.125rem] font-extrabold leading-[1.12] text-[#dd2d84]");
+    expect(learningSectionBlock).not.toContain("text-[#6f2754]");
     expect(learningSectionBlock).not.toContain("text-[#432943]");
     expect(learningSectionBlock).toContain("text-base font-medium leading-6 text-[#514a52]");
     expect(learningSectionBlock).toContain("sm:text-lg sm:leading-[1.55]");
