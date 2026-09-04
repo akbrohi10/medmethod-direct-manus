@@ -929,3 +929,12 @@
 - [x] Remove only the intended paragraph from `/live-webinar2` without changing the centered Live-on-Zoom banner, headline, video, CTA, countdown, form, or lower sections
 - [x] Update focused regression coverage and validate mobile/desktop rendering, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the visual-edit repair checkpoint
+
+## Live Webinar 2 Symptom-First Headline Update
+
+- [x] Replace the current `/live-webinar2` headline with `Women 35+: Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?`
+- [x] Add `Understand Perimenopause, Menopause, Hormone Therapy & Medical Weight Loss.` directly beneath the symptom-first headline
+- [x] Position `A free educational webinar with Dr. Jumana Al-Deek.` after the new topic line and preserve the centered conversion hierarchy
+- [x] Preserve the Live-on-Zoom banner, video and playback behavior, CTA, countdown, inactive form, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate responsive hierarchy, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the symptom-first headline checkpoint

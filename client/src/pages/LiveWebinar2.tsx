@@ -185,13 +185,20 @@ export default function LiveWebinar2() {
           className="mx-auto max-w-[920px] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
         >
           <div data-webinar2-opening-copy className="mx-auto max-w-[800px] text-center">
-            <h1 className="tracking-[-0.045em] text-[#26242c]">
-              <span className="block text-[2.35rem] font-black leading-[1.02] sm:text-[3.35rem] lg:text-[4rem]">You’re not imagining it.</span>
-              <span className="mx-auto mt-2.5 block max-w-[780px] text-[1.72rem] font-medium italic leading-[1.12] text-[#6f3568] sm:mt-3 sm:text-[2.45rem] lg:text-[2.9rem]">
-                Here’s what’s actually changing — and what you can do about it.
-              </span>
+            <h1
+              aria-label="Women 35+: Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
+              className="text-[2.05rem] font-black leading-[1.04] tracking-[-0.045em] text-[#26242c] sm:text-[3rem] lg:text-[3.55rem]"
+            >
+              <span className="text-[#a91970]">Women 35+:</span>{" "}
+              Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
             </h1>
-            <p data-webinar2-short-intro className="mx-auto mt-4 max-w-[620px] text-sm font-semibold leading-6 text-[#4b4750] sm:text-base">
+            <p
+              data-webinar2-topic-line
+              className="mx-auto mt-4 max-w-[760px] text-[1.3rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#6f3568] sm:mt-5 sm:text-[1.75rem] lg:text-[2rem]"
+            >
+              Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
+            </p>
+            <p data-webinar2-short-intro className="mx-auto mt-3 max-w-[620px] text-sm font-semibold leading-6 text-[#4b4750] sm:mt-4 sm:text-base">
               A free educational webinar with Dr. Jumana Al-Deek.
             </p>
           </div>
