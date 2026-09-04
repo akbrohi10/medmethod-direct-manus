@@ -61,10 +61,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
-  it("uses the centered conversion hierarchy with video, primary CTA, countdown, and inactive form in order", () => {
+  it("uses the centered conversion hierarchy with the confirmed date/countdown at the top and the inactive form below the video", () => {
     expect(pageSource).not.toContain("data-webinar2-brand-logo");
     expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
+    expect(pageSource.indexOf("data-webinar2-top-event")).toBeGreaterThan(pageSource.indexOf("A Free Educational Webinar"));
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
     expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf("data-webinar2-audience-label"));
     expect(pageSource.indexOf("data-webinar2-audience-label")).toBeLessThan(pageSource.indexOf("Struggling With Weight Gain"));
     expect(pageSource.indexOf("Struggling With Weight Gain")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
@@ -72,9 +74,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
     expect(pageSource.indexOf("data-webinar2-above-video-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
-    expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-countdown-bar"));
-    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
-    expect(pageSource.indexOf("data-webinar2-registration-preview")).toBeLessThan(pageSource.indexOf("data-webinar2-event-line"));
+    expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
+    expect(pageSource.indexOf("data-webinar2-registration-preview")).toBeLessThan(pageSource.indexOf("data-webinar2-duration-line"));
     expect(pageSource).toContain("aspect-video");
     expect(pageSource).not.toContain("sm:aspect-[4/5]");
     expect(pageSource).toContain("max-w-[800px]");
@@ -110,18 +111,23 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toMatch(/fetch\(|trpc\.|webhook|stripe|paypal/i);
   });
 
-  it("uses one editable date-time configuration for the dormant countdown below the primary CTA and above the form", () => {
+  it("uses the confirmed Eastern event time for one active countdown directly beneath the top banner", () => {
     expect(pageSource).toContain("const WEBINAR_EVENT = {");
-    expect(pageSource).toContain("startsAt: null as string | null");
-    expect(pageSource).toContain('dateTimeDisplay: "[DAY], [MONTH] [DATE] · [TIME] [TIMEZONE]"');
-    expect(pageSource).toContain('timezone: "[TIMEZONE]"');
+    expect(pageSource).toContain('startsAt: "2026-09-23T19:00:00-04:00" as string | null');
+    expect(pageSource).toContain('dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET"');
+    expect(pageSource).toContain('timezone: "ET"');
     expect(pageSource).toContain('duration: "[DURATION]"');
-    expect(pageSource).toContain("const eventDateLine =");
+    expect(pageSource).toContain("const eventSupportLine =");
     expect(pageSource).toContain("if (!WEBINAR_EVENT.startsAt) return;");
     expect(pageSource).toContain("window.setInterval(updateCountdown, 1_000)");
+    expect(pageSource).toContain("data-webinar2-top-event");
+    expect(pageSource).toContain("data-webinar2-event-date");
     expect(pageSource).toContain("data-webinar2-countdown-bar");
-    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeGreaterThan(pageSource.indexOf("data-webinar2-primary-cta"));
-    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
+    expect(pageSource.match(/data-webinar2-countdown-bar/g)).toHaveLength(1);
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeGreaterThan(pageSource.indexOf("A Free Educational Webinar"));
+    expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
+    expect(pageSource).not.toContain("data-webinar2-event-line");
+    expect(pageSource).toContain("data-webinar2-duration-line");
   });
 
   it("shows only four dark countdown boxes and their unit labels while reserving the clock icon for the video-length pill", () => {
@@ -133,7 +139,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Clock3");
     expect(pageSource).toContain("bg-gradient-to-r from-[#e72e91] to-[#75207f]");
     expect(pageSource).toContain('aria-label="Webinar countdown"');
-    expect(pageSource).toContain("grid grid-cols-4 gap-2 sm:gap-3");
+    expect(pageSource).toContain("grid grid-cols-4 gap-1.5 sm:gap-2");
     expect(pageSource).toContain("bg-[#26222d]");
     for (const unit of ["Days", "Hours", "Minutes", "Seconds"]) {
       expect(pageSource).toContain(`label: "${unit}"`);

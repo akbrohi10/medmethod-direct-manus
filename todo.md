@@ -1001,3 +1001,13 @@
 - [x] Preserve Dr. Jumana Al-Deek’s name, physician/author line, headshot, surrounding hero hierarchy, all safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate mobile/desktop rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the authority-intro cleanup checkpoint
+
+## Live Webinar 2 Confirmed Event Date and Top Countdown
+
+- [x] Set the event configuration to Wednesday, September 23, 2026 at 7:00 PM Eastern Time using an explicit daylight-saving-aware ISO timestamp
+- [x] Display `WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET` directly beneath the `A FREE EDUCATIONAL WEBINAR` banner
+- [x] Move and restyle the live four-part Days/Hours/Minutes/Seconds countdown as a compact ticker directly beneath the confirmed date/time
+- [x] Remove the duplicated lower countdown and repeated event-date/time line while retaining duration and Live Q&A information in the form-support area
+- [x] Preserve visual-only inactive registration, recording/privacy/nationwide notes, both CTAs, real video and playback safeguards, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update remaining-token documentation and focused regression coverage, then validate the live countdown, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the confirmed-event top-countdown checkpoint

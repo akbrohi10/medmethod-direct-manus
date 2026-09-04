@@ -8,11 +8,11 @@ const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-tra
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 
-// Set `startsAt` to the confirmed ISO date-time to activate the countdown and replace the display tokens below.
+// Confirmed event time: September 23, 2026 at 7:00 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
-  startsAt: null as string | null,
-  dateTimeDisplay: "[DAY], [MONTH] [DATE] · [TIME] [TIMEZONE]",
-  timezone: "[TIMEZONE]",
+  startsAt: "2026-09-23T19:00:00-04:00" as string | null,
+  dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET",
+  timezone: "ET",
   duration: "[DURATION]",
 };
 
@@ -147,7 +147,7 @@ export default function LiveWebinar2() {
     }
   };
 
-  const eventDateLine = `${WEBINAR_EVENT.dateTimeDisplay} · ${WEBINAR_EVENT.duration} + live Q&A`;
+  const eventSupportLine = `${WEBINAR_EVENT.duration} + live Q&A`;
 
   return (
     <main
@@ -169,11 +169,29 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1100px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 sm:px-8 sm:pt-7">
+        <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 pb-2 sm:px-8 sm:pt-7 sm:pb-3">
           <div className="mx-auto flex min-h-16 w-full max-w-[900px] items-center justify-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-5 py-4 text-center text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:min-h-20 sm:px-8 sm:py-5">
             <p className="text-lg font-black uppercase leading-tight tracking-[0.055em] sm:text-2xl sm:tracking-[0.08em]">
               A Free Educational Webinar
             </p>
+          </div>
+
+          <div data-webinar2-top-event className="mx-auto mt-3 flex max-w-[900px] flex-col items-center sm:mt-4">
+            <p data-webinar2-event-date className="text-center text-[11px] font-black uppercase tracking-[0.075em] text-[#4a2946] sm:text-sm sm:tracking-[0.1em]">
+              {WEBINAR_EVENT.dateTimeDisplay}
+            </p>
+            <div data-webinar2-countdown-bar className="mt-2 flex justify-center sm:mt-2.5">
+              <div data-webinar2-countdown aria-label="Webinar countdown" className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                {countdownUnits.map(unit => (
+                  <div key={unit.label} className="text-center">
+                    <div className="min-w-[2.35rem] rounded-md bg-[#26222d] px-1.5 py-1.5 text-base font-black leading-5 tabular-nums text-white sm:min-w-12 sm:px-2 sm:py-2 sm:text-lg sm:leading-5">
+                      {unit.value}
+                    </div>
+                    <p className="mt-1 text-[6px] font-black uppercase tracking-[0.07em] text-[#817781] sm:text-[7px]">{unit.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </header>
 
@@ -298,19 +316,6 @@ export default function LiveWebinar2() {
             Reserve My Free Spot
           </button>
 
-          <div data-webinar2-countdown-bar className="mt-5 flex justify-center sm:mt-6">
-            <div data-webinar2-countdown aria-label="Webinar countdown" className="grid grid-cols-4 gap-2 sm:gap-3">
-              {countdownUnits.map(unit => (
-                <div key={unit.label} className="text-center">
-                  <div className="min-w-[3.25rem] rounded-lg bg-[#26222d] px-2 py-2.5 text-xl font-black leading-6 tabular-nums text-white sm:min-w-16 sm:py-3 sm:text-2xl sm:leading-7">
-                    {unit.value}
-                  </div>
-                  <p className="mt-1.5 text-[8px] font-black uppercase tracking-[0.08em] text-[#817781] sm:text-[9px]">{unit.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <form
             ref={registrationFormRef}
             data-webinar2-registration-preview
@@ -340,8 +345,8 @@ export default function LiveWebinar2() {
           </form>
 
           <div className="mx-auto mt-5 w-full max-w-[720px] rounded-xl border border-[#ead8e3] bg-white/68 px-4 py-4 shadow-[0_10px_24px_rgba(87,33,72,0.06)] sm:px-6 sm:py-5">
-            <p data-webinar2-event-line className="text-xs font-black leading-5 text-[#34263a] sm:text-sm">
-              {eventDateLine}
+            <p data-webinar2-duration-line className="text-xs font-black leading-5 text-[#34263a] sm:text-sm">
+              {eventSupportLine}
             </p>
             <p data-webinar2-recording-privacy className="mt-2 text-[11px] leading-5 text-[#6e6470] sm:text-xs">
               Can’t attend live? Register anyway and we’ll send you the recording. <span aria-hidden="true">·</span>{" "}
