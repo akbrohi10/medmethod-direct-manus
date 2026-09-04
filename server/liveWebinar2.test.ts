@@ -72,8 +72,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-audience-label")).toBeLessThan(pageSource.indexOf("Struggling With Weight Gain"));
     expect(pageSource.indexOf("Struggling With Weight Gain")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
     expect(pageSource.indexOf("data-webinar2-topic-line")).toBeLessThan(pageSource.indexOf("data-webinar2-authority-intro"));
-    expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
-    expect(pageSource.indexOf("data-webinar2-above-video-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
+    expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
+    expect(pageSource).not.toContain("data-webinar2-above-video-cta");
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
     expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-featured-in"));
     expect(pageSource).not.toContain("data-webinar2-registration-preview");
@@ -102,8 +102,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("registrationFormRef");
     expect(pageSource).not.toContain("scrollIntoView");
     expect(pageSource).toContain("Registration is not connected yet. This button is for visual review only.");
-    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(4);
-    expect(pageSource.match(/Reserve Your Free Spot/g)).toHaveLength(1);
+    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(3);
+    expect(pageSource).not.toContain("Reserve Your Free Spot");
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
     expect(pageSource).not.toContain("Can’t attend live? Register anyway and we’ll send you the recording.");

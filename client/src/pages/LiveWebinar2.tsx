@@ -232,14 +232,6 @@ export default function LiveWebinar2() {
               </div>
             </div>
 
-            <button
-              data-webinar2-above-video-cta
-              type="button"
-              onClick={handleReserveSeat}
-              className="mx-auto mt-5 inline-flex min-h-12 w-full max-w-[480px] items-center justify-center rounded-full bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_14px_30px_rgba(176,24,124,0.25)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:mt-6 sm:text-base"
-            >
-              Reserve Your Free Spot
-            </button>
           </div>
 
           <div

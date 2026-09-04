@@ -1030,3 +1030,11 @@
 - [x] Remove obsolete form-focus logic, refs, imports, and no-longer-visible duration, privacy, credentials, and presenter tokens without introducing a registration integration
 - [x] Update remaining-token documentation and focused regression coverage, then validate responsive flow, CTA behavior, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the section-removal checkpoint
+
+## Live Webinar 2 Above-Video CTA Removal
+
+- [x] Remove the `Reserve Your Free Spot` button positioned above the `/live-webinar2` video
+- [x] Keep all remaining registration buttons as `Reserve My Free Spot` and preserve their inactive review-only feedback
+- [x] Preserve the authority row, confirmed date/countdown, video and playback safeguards, sliding Featured In strip, learning content, final CTA, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate mobile/desktop flow, CTA consistency, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the above-video CTA-removal checkpoint
