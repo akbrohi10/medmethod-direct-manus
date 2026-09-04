@@ -212,10 +212,10 @@ export default function LiveWebinar2() {
 
           <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
             <h1
-              aria-label="Women 35+: Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
+              aria-label="Women 35+ Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
               className="tracking-[-0.045em]"
             >
-              <span className="block text-[2.55rem] font-black leading-none text-[#dd2d84] sm:text-[3.65rem] lg:text-[4.25rem]">Women 35+:</span>
+              <span className="block text-[2.55rem] font-black leading-none text-[#dd2d84] sm:text-[3.65rem] lg:text-[4.25rem]">Women 35+</span>
               <span className="mx-auto mt-2 block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:mt-3 sm:text-[3rem] lg:text-[3.55rem]">
                 Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
               </span>

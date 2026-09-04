@@ -36,7 +36,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("repeating-radial-gradient");
     expect(pageSource).not.toContain("lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)]");
     expect(pageSource).not.toContain("Free Live Webinar · For Women 35+");
-    expect(pageSource).toContain("Women 35+:");
+    expect(pageSource).toContain(">Women 35+</span>");
+    expect(pageSource).not.toContain("Women 35+:");
     expect(pageSource).toContain("Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?");
     expect(pageSource).toContain("data-webinar2-topic-line");
     expect(pageSource).toContain("Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.");
@@ -60,8 +61,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-brand-logo");
     expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
-    expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf("Women 35+:"));
-    expect(pageSource.indexOf("Women 35+:")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
+    expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf(">Women 35+</span>"));
+    expect(pageSource.indexOf(">Women 35+</span>")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
     expect(pageSource.indexOf("data-webinar2-topic-line")).toBeLessThan(pageSource.indexOf("data-webinar2-short-intro"));
     expect(pageSource.indexOf("data-webinar2-short-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));

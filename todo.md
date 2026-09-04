@@ -960,3 +960,11 @@
 - [x] Preserve the supplied pink-and-plum hero design, real video and playback safeguards, CTA, four-box countdown, visual-only inactive form, fuller presenter section, Featured In strip, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update remaining-token documentation and focused regression coverage, then validate desktop/mobile hierarchy, accessibility, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the authority/event cleanup checkpoint
+
+## Live Webinar 2 Women 35+ Punctuation Update
+
+- [x] Verify the visual editor successfully changed the visible hero lead from `Women 35+:` to `Women 35+`
+- [x] Synchronize the hero accessibility label and focused regression safeguards so the removed colon is consistent everywhere
+- [x] Preserve all other `/live-webinar2` content, supplied design, functionality, review safeguards, and unchanged `/live-webinar`
+- [x] Validate desktop/mobile rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the punctuation-update checkpoint
