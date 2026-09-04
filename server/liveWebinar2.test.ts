@@ -206,6 +206,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("data-webinar2-learning-card");
     expect(learningSectionBlock).toContain("data-webinar2-learning-icon");
     expect(learningSectionBlock).toContain("data-webinar2-learning-number");
+    expect(learningSectionBlock).toContain("data-webinar2-first-card-landscape");
     expect(learningSectionBlock).toContain("bg-[#fff7f5]");
     expect(learningSectionBlock).toContain('className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"');
     expect(learningSectionBlock).not.toContain("shadow-[0_20px_55px");
@@ -213,9 +214,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("bg-[#fde8f0]");
     expect(learningSectionBlock).toContain("bg-[#db147a]");
     expect(learningSectionBlock).toContain("max-w-[820px]");
+    expect(learningSectionBlock).toContain("grid-cols-[104px_minmax(0,1fr)]");
     expect(learningSectionBlock).toContain("grid-cols-[116px_minmax(0,1fr)]");
     expect(learningSectionBlock).toContain("sm:grid-cols-[220px_minmax(0,1fr)]");
-    expect(learningSectionBlock).toContain("ml-4 flex h-[5.5rem] w-[5.5rem]");
+    expect(learningSectionBlock).toContain("min-h-0");
+    expect(learningSectionBlock).toContain("ml-2 h-24 w-24");
+    expect(learningSectionBlock).toContain("top-0 h-12 w-12 text-lg");
+    expect(learningSectionBlock).toContain("mt-2 text-[0.82rem] leading-[1.38]");
+    expect(learningSectionBlock).toContain('number === "1" ? "ml-2 h-24 w-24" : "ml-4 h-[5.5rem] w-[5.5rem]"');
     expect(learningSectionBlock).toContain("sm:ml-9 sm:h-44 sm:w-44");
     expect(learningSectionBlock).toContain("absolute left-0 z-10");
     expect(learningSectionBlock).toContain("h-10 w-10");
@@ -230,9 +236,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-prototype-molecule-icon");
     expect(pageSource).not.toContain("FlaskConical");
     expect(learningSectionBlock).toContain('data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}');
-    expect(learningSectionBlock).toContain('number === "1" ? "items-start pt-1 sm:pt-0" : "items-center"');
-    expect(learningSectionBlock).toContain('number === "1" ? "mt-1 sm:mt-2" : ""');
-    expect(learningSectionBlock).toContain('number === "1" ? "top-0" : "top-2"');
+    expect(learningSectionBlock).toContain('number === "1" ? "min-h-24 items-center" : "min-h-28 items-center"');
     expect(pageSource).toContain("Scale");
     expect(pageSource).toContain("Activity");
     expect(pageSource).toContain("Syringe");

@@ -407,28 +407,52 @@ export default function LiveWebinar2() {
                 {learningCards.map(({ number, title, body, icon: Icon }) => (
                   <li
                     data-webinar2-learning-card
+                    data-webinar2-first-card-landscape={number === "1" ? "true" : undefined}
                     key={number}
-                    className="grid min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-[#f7eaee] bg-white px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
+                    className={`grid items-center rounded-[1.75rem] border border-[#f7eaee] bg-white shadow-[0_10px_26px_rgba(105,48,79,0.07)] ${
+                      number === "1"
+                        ? "min-h-0 grid-cols-[104px_minmax(0,1fr)] gap-3 px-3 py-5 sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
+                        : "min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] gap-4 px-4 py-7 sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
+                    }`}
                   >
                     <div
                       data-webinar2-learning-icon
                       data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}
-                      className={`relative flex min-h-28 justify-start sm:min-h-48 ${number === "1" ? "items-start pt-1 sm:pt-0" : "items-center"}`}
+                      className={`relative flex justify-start sm:min-h-48 ${number === "1" ? "min-h-24 items-center" : "min-h-28 items-center"}`}
                     >
-                      <span className={`ml-4 flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:ml-9 sm:h-44 sm:w-44 ${number === "1" ? "mt-1 sm:mt-2" : ""}`} aria-hidden="true">
-                        <Icon className="h-11 w-11 stroke-[1.8] sm:h-20 sm:w-20" />
+                      <span
+                        className={`flex shrink-0 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:ml-9 sm:h-44 sm:w-44 ${
+                          number === "1" ? "ml-2 h-24 w-24" : "ml-4 h-[5.5rem] w-[5.5rem]"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <Icon className={number === "1" ? "h-12 w-12 sm:h-20 sm:w-20" : "h-11 w-11 stroke-[1.8] sm:h-20 sm:w-20"} />
                       </span>
                       <span
                         data-webinar2-learning-number
-                        className={`absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#db147a] text-base font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:left-1 sm:h-16 sm:w-16 sm:text-2xl ${number === "1" ? "top-0" : "top-2"}`}
+                        className={`absolute left-0 z-10 flex items-center justify-center rounded-full bg-[#db147a] font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:left-1 sm:h-16 sm:w-16 sm:text-2xl ${
+                          number === "1" ? "top-0 h-12 w-12 text-lg" : "top-2 h-10 w-10 text-base"
+                        }`}
                         aria-hidden="true"
                       >
                         {number}
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-[1.15rem] font-black leading-[1.12] tracking-[-0.03em] text-[#252132] sm:text-[1.75rem]">{title}</h3>
-                      <p className="mt-3 text-[0.95rem] leading-[1.55] text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8">{body}</p>
+                      <h3
+                        className={`font-black tracking-[-0.03em] text-[#252132] sm:text-[1.75rem] ${
+                          number === "1" ? "text-[1.05rem] leading-[1.08]" : "text-[1.15rem] leading-[1.12]"
+                        }`}
+                      >
+                        {title}
+                      </h3>
+                      <p
+                        className={`text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8 ${
+                          number === "1" ? "mt-2 text-[0.82rem] leading-[1.38]" : "mt-3 text-[0.95rem] leading-[1.55]"
+                        }`}
+                      >
+                        {body}
+                      </p>
                     </div>
                   </li>
                 ))}

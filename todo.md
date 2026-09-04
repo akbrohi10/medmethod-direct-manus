@@ -1119,3 +1119,12 @@
 - [x] Preserve card-one wording and geometry, cards two through four, all surrounding page content, safeguards, and unchanged `/live-webinar` pending user approval
 - [x] Update focused regression coverage and validate exact supplied-asset use, mobile/desktop rendering, accessibility, TypeScript, 22 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session browser, server, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the supplied-artwork card-one prototype checkpoint before updating the remaining icons
+
+## Live Webinar 2 Card-One Landscape Proportion Repair
+
+- [x] Re-proportion only learning card one into a shorter landscape shape that matches the supplied reference on mobile and desktop
+- [x] Enlarge card one’s pale-pink molecule circle and numbered badge while preserving their clean relative placement and the exact supplied molecule asset
+- [x] Widen card one’s text column and tighten its title/body typography and line-height to reduce unnecessary wrapping and vertical height
+- [x] Keep card-one wording exact and leave cards two through four, the section heading/subtitle, CTA, surrounding page content, safeguards, and unchanged `/live-webinar` untouched pending approval
+- [x] Update focused regression coverage and validate card-one aspect, icon scale, text wrapping, mobile/desktop rendering, accessibility, TypeScript, 22 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session browser, server, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the card-one landscape-proportion checkpoint for approval
