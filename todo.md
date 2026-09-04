@@ -1147,3 +1147,10 @@
 - [x] Leave cards two through four unchanged for direct visual comparison and preserve every word, icon, card order, CTA, surrounding page content, safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate readability, contrast, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the 55+-readability card-one prototype checkpoint for comparison
+
+## Live Webinar 2 Card-One Rich-Berry Title Color
+
+- [x] Change only card one’s title color from `#432943` to the approved rich berry `#6F2754`
+- [x] Preserve card one’s 800 weight, responsive font size, wording, supporting-text color, icon, geometry, and cards two through four unchanged for comparison
+- [x] Update focused regression coverage and validate mobile/desktop rendering, contrast, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the card-one rich-berry title-color checkpoint
