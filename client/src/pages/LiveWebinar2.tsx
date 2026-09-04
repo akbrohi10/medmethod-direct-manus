@@ -6,6 +6,7 @@ import { toast } from "sonner";
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
+const SUPPLIED_HORMONE_MOLECULE_ICON_URL = "/manus-storage/hormone-molecule-supplied_32e248f7.png";
 
 // Confirmed event time: September 23, 2026 at 7:00 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
@@ -14,27 +15,17 @@ const WEBINAR_EVENT = {
   timezone: "ET",
 };
 
-function HormoneMoleculeIcon({ className }: { className?: string }) {
+function SuppliedHormoneMoleculeIcon({ className }: { className?: string }) {
   return (
-    <svg
-      data-webinar2-prototype-molecule-icon
-      viewBox="0 0 120 120"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      focusable="false"
+    <img
+      data-webinar2-supplied-molecule-icon
+      src={SUPPLIED_HORMONE_MOLECULE_ICON_URL}
+      alt=""
+      className={`${className ?? ""} scale-[1.3] object-contain`}
       aria-hidden="true"
-    >
-      <path d="M35 48 57 35l22 13v26L57 87 35 74Z" />
-      <path d="M57 35V20M79 48l15-9M35 74l-14 9" />
-      <path d="M43 53v16M61 42l12 7M61 80l12-7" strokeWidth="4" />
-      <circle cx="57" cy="13" r="7" fill="#fff7f5" />
-      <circle cx="101" cy="35" r="7" fill="#fff7f5" />
-      <circle cx="14" cy="87" r="7" fill="#fff7f5" />
-    </svg>
+      decoding="async"
+      draggable="false"
+    />
   );
 }
 
@@ -43,7 +34,7 @@ const learningCards = [
     number: "1",
     title: "The truth about hormone therapy (HRT)",
     body: "Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
-    icon: HormoneMoleculeIcon,
+    icon: SuppliedHormoneMoleculeIcon,
   },
   {
     number: "2",

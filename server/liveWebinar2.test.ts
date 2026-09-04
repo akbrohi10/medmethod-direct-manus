@@ -221,9 +221,13 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("h-10 w-10");
     expect(learningSectionBlock).toContain("sm:left-1 sm:h-16 sm:w-16");
     expect(learningSectionBlock).not.toContain("justify-center sm:min-h-40");
-    expect(pageSource).toContain("function HormoneMoleculeIcon");
-    expect(pageSource).toContain("data-webinar2-prototype-molecule-icon");
-    expect(pageSource).toContain("icon: HormoneMoleculeIcon");
+    expect(pageSource).toContain("function SuppliedHormoneMoleculeIcon");
+    expect(pageSource).toContain("data-webinar2-supplied-molecule-icon");
+    expect(pageSource).toContain("SUPPLIED_HORMONE_MOLECULE_ICON_URL");
+    expect(pageSource).toContain('/manus-storage/hormone-molecule-supplied_32e248f7.png');
+    expect(pageSource).toContain("icon: SuppliedHormoneMoleculeIcon");
+    expect(pageSource).toContain('scale-[1.3] object-contain');
+    expect(pageSource).not.toContain("data-webinar2-prototype-molecule-icon");
     expect(pageSource).not.toContain("FlaskConical");
     expect(learningSectionBlock).toContain('data-webinar2-first-icon-prototype={number === "1" ? "true" : undefined}');
     expect(learningSectionBlock).toContain('number === "1" ? "items-start pt-1 sm:pt-0" : "items-center"');

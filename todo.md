@@ -1110,3 +1110,12 @@
 - [x] Keep cards two through four, every heading and card word, card order, CTA, surrounding page content, safeguards, and unchanged `/live-webinar` untouched pending user approval
 - [x] Add focused regression coverage for the isolated custom icon and card-one spacing, then validate mobile/desktop rendering, accessibility, TypeScript, 22 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current browser/first-party logs without new route or 5xx failures
 - [x] Save and deliver the card-one icon prototype checkpoint for approval before updating the remaining icons
+
+## Live Webinar 2 Supplied Molecule Artwork Prototype
+
+- [x] Preserve the newly supplied combined 1536×1024 PNG outside the project and extract only the top-left hormone/molecule artwork for card one
+- [x] Trim excess canvas and prepare a clean transparent card-one molecule asset without altering the supplied artwork’s pink line style
+- [x] Upload the prepared icon to permanent project storage and replace only the rejected custom SVG on card one
+- [x] Preserve card-one wording and geometry, cards two through four, all surrounding page content, safeguards, and unchanged `/live-webinar` pending user approval
+- [x] Update focused regression coverage and validate exact supplied-asset use, mobile/desktop rendering, accessibility, TypeScript, 22 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session browser, server, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the supplied-artwork card-one prototype checkpoint before updating the remaining icons
