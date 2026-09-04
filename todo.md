@@ -1128,3 +1128,13 @@
 - [x] Keep card-one wording exact and leave cards two through four, the section heading/subtitle, CTA, surrounding page content, safeguards, and unchanged `/live-webinar` untouched pending approval
 - [x] Update focused regression coverage and validate card-one aspect, icon scale, text wrapping, mobile/desktop rendering, accessibility, TypeScript, 22 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session browser, server, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the card-one landscape-proportion checkpoint for approval
+
+## Live Webinar 2 Enhanced Card-One Design Prototype
+
+- [x] Develop a refined visual concept for card one using enhanced design exploration while preserving its exact supplied molecule artwork and wording
+- [x] Reduce the numbered badge to approximately 40px mobile and 52px desktop and reposition it as a supporting label rather than the dominant graphic
+- [x] Change card one’s title from near-black to an inviting warm deep plum and refine title/body font sizes and line-heights for a calmer hierarchy
+- [x] Balance card-one icon scale, text width, internal spacing, and landscape proportions without changing cards two through four
+- [x] Preserve every word, card order, CTA, surrounding `/live-webinar2` content, safeguards, and unchanged `/live-webinar` pending user approval
+- [x] Update focused regression coverage and validate visual balance, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the enhanced card-one prototype checkpoint for approval before updating the remaining cards
