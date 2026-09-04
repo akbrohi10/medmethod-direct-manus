@@ -45,13 +45,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("After 35");
     expect(pageSource).not.toContain("After 40");
     expect(pageSource).toContain("data-webinar2-doctor-divider");
-    expect(pageSource).toContain("A free educational webinar");
-    expect(pageSource).toContain('with <strong className="font-extrabold text-[#27132e]">Dr. Jumana Al-Deek.</strong>');
+    expect(pageSource).toContain("data-webinar2-authority-intro");
+    expect(pageSource).toContain("A free educational webinar with");
+    expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
     expect(pageSource).toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
-    expect(pageSource).toContain("Available nationwide for this free educational webinar.");
-    expect(pageSource).toContain("See states");
-    expect(pageSource).toContain("data-webinar2-state-list-token");
-    expect(pageSource).toContain("[STATE LIST]");
+    expect(pageSource).toContain("This free educational webinar is available nationwide.");
+    expect(pageSource).not.toContain("See states");
+    expect(pageSource).not.toContain("data-webinar2-state-list-token");
+    expect(pageSource).not.toContain("[STATE LIST]");
     expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
@@ -70,11 +71,13 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("aspect-video");
     expect(pageSource).not.toContain("sm:aspect-[4/5]");
     expect(pageSource).toContain("max-w-[800px]");
-    expect(pageSource).toContain("data-webinar2-compact-presenter");
+    expect(pageSource).not.toContain("data-webinar2-compact-presenter");
   });
 
-  it("keeps secondary nationwide availability below the registration details and full authorship in the presenter section", () => {
+  it("keeps the authority introduction above the video, simplified nationwide availability below registration, and full authorship later", () => {
     expect(pageSource).toContain("data-webinar2-short-intro");
+    expect(pageSource).toContain("data-webinar2-authority-intro");
+    expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("data-webinar2-registration-preview"));
     expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("Privacy Policy"));
     expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
@@ -142,10 +145,11 @@ describe("live webinar 2 second revision prompt", () => {
     }
   });
 
-  it("uses compact and full presenter treatments with real media and visible tokens", () => {
-    expect(pageSource).toContain("data-webinar2-compact-presenter");
-    expect(pageSource).toContain("data-webinar2-compact-credentials-token");
-    expect(pageSource).toContain("[CREDENTIALS]");
+  it("uses the headshot authority introduction and full presenter treatment with the detailed credentials token", () => {
+    expect(pageSource).toContain("data-webinar2-authority-intro");
+    expect(pageSource).not.toContain("data-webinar2-compact-presenter");
+    expect(pageSource).not.toContain("data-webinar2-compact-credentials-token");
+    expect(pageSource).not.toContain("[CREDENTIALS]");
     expect(pageSource).toContain("data-webinar2-presenter");
     expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
     expect(pageSource).toContain('/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png');

@@ -67,7 +67,6 @@ export default function LiveWebinar2() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
-  const [showStates, setShowStates] = useState(false);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
 
   useEffect(() => {
@@ -228,10 +227,27 @@ export default function LiveWebinar2() {
               Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
             </p>
             <span data-webinar2-doctor-divider className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
-            <p data-webinar2-short-intro className="mx-auto mt-3 max-w-[620px] text-base font-medium leading-6 text-[#3e3340] sm:mt-4 sm:text-lg sm:leading-7">
-              A free educational webinar
-              <span className="block">with <strong className="font-extrabold text-[#27132e]">Dr. Jumana Al-Deek.</strong></span>
-            </p>
+            <div
+              data-webinar2-authority-intro
+              className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3"
+            >
+              <img
+                src={DOCTOR_HEADSHOT_URL}
+                alt="Dr. Jumana Al-Deek"
+                className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16"
+                loading="eager"
+                decoding="async"
+              />
+              <div className="min-w-0">
+                <p data-webinar2-short-intro className="text-[10px] font-bold uppercase leading-4 tracking-[0.055em] text-[#746873] sm:text-xs">
+                  A free educational webinar with
+                </p>
+                <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
+                <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">
+                  Physician and author of <em>The Menopause Weight Loss Trap</em>
+                </p>
+              </div>
+            </div>
           </div>
 
           <div
@@ -333,53 +349,18 @@ export default function LiveWebinar2() {
             </label>
           </form>
 
-          <div className="mx-auto max-w-[720px]">
-            <p data-webinar2-event-line className="mt-3 text-xs font-black leading-5 text-[#27242d] sm:text-sm">
+          <div className="mx-auto mt-5 w-full max-w-[720px] rounded-xl border border-[#ead8e3] bg-white/68 px-4 py-4 shadow-[0_10px_24px_rgba(87,33,72,0.06)] sm:px-6 sm:py-5">
+            <p data-webinar2-event-line className="text-xs font-black leading-5 text-[#34263a] sm:text-sm">
               {eventDateLine}
             </p>
-            <p className="mt-1.5 text-xs font-semibold text-[#5c555e] sm:text-sm">
-              Can’t attend live? Register anyway and we’ll send you the recording.
-            </p>
-            <p className="mt-1.5 text-[11px] text-[#766f77] sm:text-xs">
-              We respect your privacy.{" "}
+            <p data-webinar2-recording-privacy className="mt-2 text-[11px] leading-5 text-[#6e6470] sm:text-xs">
+              Can’t attend live? Register anyway and we’ll send you the recording. <span aria-hidden="true">·</span>{" "}
               <a href="/privacy-policy" className="font-bold text-[#9b216f] underline underline-offset-2">
                 Privacy Policy
               </a>
             </p>
-            <div data-webinar2-availability className="mt-4 max-w-[560px] border-t border-[#ece4e9] pt-3 text-[11px] font-semibold leading-5 text-[#655d66] sm:text-xs">
-              <p>
-                Available nationwide for this free educational webinar.{" "}
-                <button
-                  type="button"
-                  aria-expanded={showStates}
-                  onClick={() => setShowStates(current => !current)}
-                  className="font-black text-[#a91970] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75]"
-                >
-                  See states
-                </button>
-              </p>
-              {showStates && (
-                <p data-webinar2-state-list-token className="mt-2 rounded-md border border-dashed border-[#c892ad] bg-[#fff8fc] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] text-[#8d3b70]">
-                  [STATE LIST]
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div data-webinar2-compact-presenter className="mt-6 flex items-center justify-center gap-3 text-center">
-            <img
-              src={DOCTOR_HEADSHOT_URL}
-              alt="Dr. Jumana Al-Deek"
-              className="h-10 w-10 rounded-full border border-[#dbc4d1] object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-            <p className="text-xs font-bold leading-5 text-[#4e4750] sm:text-sm">
-              <span className="font-black">Dr. Jumana Al-Deek</span>
-              <span className="mx-1.5 text-[#b58aa5]">•</span>
-              <span data-webinar2-compact-credentials-token className="font-black text-[#8d3b70]">
-                [CREDENTIALS]
-              </span>
+            <p data-webinar2-availability className="mt-3 border-t border-[#eadfe6] pt-3 text-[11px] font-bold leading-5 text-[#8d326c] sm:text-xs">
+              This free educational webinar is available nationwide.
             </p>
           </div>
         </section>

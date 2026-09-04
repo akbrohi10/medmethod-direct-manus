@@ -949,3 +949,14 @@
 - [x] Preserve the primary CTA, four-box countdown, inactive form, all event and credential tokens, lower sections, Featured In strip, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate desktop/mobile fidelity, accessibility, playback safeguards, CTA behavior, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the supplied-design checkpoint
+
+## Live Webinar 2 Authority and Event-Information Cleanup
+
+- [x] Replace the plain hero doctor introduction with a compact authority block using the existing real headshot, Dr. Jumana Al-Deek’s name, and the supported line `Physician and author of The Menopause Weight Loss Trap`
+- [x] Remove the redundant compact presenter row near the form while retaining the fuller presenter section and its unfilled detailed credential token lower on the page
+- [x] Consolidate date, time, timezone, duration, and Live Q&A into one clean centered event-details strip using the existing unresolved factual tokens
+- [x] Combine the recording and Privacy Policy statements into one quiet supporting line beneath the event strip
+- [x] Simplify nationwide wording to `This free educational webinar is available nationwide.` and remove the `See states` toggle and `[STATE LIST]` display because the webinar itself is educational and nationwide
+- [x] Preserve the supplied pink-and-plum hero design, real video and playback safeguards, CTA, four-box countdown, visual-only inactive form, fuller presenter section, Featured In strip, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update remaining-token documentation and focused regression coverage, then validate desktop/mobile hierarchy, accessibility, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the authority/event cleanup checkpoint
