@@ -223,9 +223,11 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("sm:ml-7 sm:h-36 sm:w-36");
     expect(learningSectionBlock).toContain("top-1 left-1 h-10 w-10 text-base");
     expect(learningSectionBlock).toContain("sm:h-[3.25rem] sm:w-[3.25rem] sm:text-xl");
-    expect(learningSectionBlock).toContain("text-[1.125rem] leading-[1.12] text-[#432943]");
-    expect(learningSectionBlock).toContain("text-sm leading-5 text-[#665d66]");
-    expect(learningSectionBlock).toContain("sm:text-[1.0625rem] sm:leading-[1.55]");
+    expect(learningSectionBlock).toContain("text-lg font-medium leading-7 text-[#514a52] sm:text-xl sm:leading-8");
+    expect(learningSectionBlock).toContain("text-[1.125rem] font-extrabold leading-[1.12] text-[#432943]");
+    expect(learningSectionBlock).toContain("text-base font-medium leading-6 text-[#514a52]");
+    expect(learningSectionBlock).toContain("sm:text-lg sm:leading-[1.55]");
+    expect(learningSectionBlock).toContain('font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]');
     expect(learningSectionBlock).toContain("ml-4 h-[5.5rem] w-[5.5rem] sm:ml-9 sm:h-44 sm:w-44");
     expect(learningSectionBlock).toContain("absolute z-10");
     expect(learningSectionBlock).toContain("h-10 w-10");

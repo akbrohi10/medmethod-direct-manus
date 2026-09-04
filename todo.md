@@ -1138,3 +1138,12 @@
 - [x] Preserve every word, card order, CTA, surrounding `/live-webinar2` content, safeguards, and unchanged `/live-webinar` pending user approval
 - [x] Update focused regression coverage and validate visual balance, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the enhanced card-one prototype checkpoint for approval before updating the remaining cards
+
+## Live Webinar 2 55+ Readability Typography Prototype
+
+- [x] Darken the learning-section subtitle to warm gray `#514A52`, increase it to medium weight, and refine its responsive size and line-height for easier reading by women 55+
+- [x] Update only card one’s title to warm deep plum `#432943` at 800 weight with the approved 18–20px mobile and 22–24px desktop scale
+- [x] Update only card one’s supporting text to warm gray `#514A52`, medium weight, and a more readable 16–17px mobile and 18–19px desktop scale with 1.45–1.6 line-height
+- [x] Leave cards two through four unchanged for direct visual comparison and preserve every word, icon, card order, CTA, surrounding page content, safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate readability, contrast, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the 55+-readability card-one prototype checkpoint for comparison

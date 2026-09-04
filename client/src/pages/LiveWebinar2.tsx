@@ -400,7 +400,7 @@ export default function LiveWebinar2() {
               <h2 className="mx-auto mt-5 max-w-[780px] text-[2.7rem] font-black leading-[0.98] tracking-[-0.05em] text-[#231f30] sm:text-6xl lg:text-[4.25rem]">
                 Because You Deserve to Know
               </h2>
-              <p className="mx-auto mt-6 max-w-[760px] px-2 text-lg leading-7 text-[#5d5968] sm:text-xl sm:leading-8">
+              <p className="mx-auto mt-6 max-w-[760px] px-2 text-lg font-medium leading-7 text-[#514a52] sm:text-xl sm:leading-8">
                 Evidence-based insights you can actually use — so you can feel informed, confident, and in control.
               </p>
               <ol data-webinar2-learning-grid className="mx-auto mt-10 max-w-[820px] space-y-6 text-left sm:mt-12 sm:space-y-7">
@@ -444,10 +444,10 @@ export default function LiveWebinar2() {
                     </div>
                     <div className="min-w-0">
                       <h3
-                        className={`font-black tracking-[-0.03em] ${
+                        className={`tracking-[-0.03em] ${
                           number === "1"
-                            ? "text-[1.125rem] leading-[1.12] text-[#432943] sm:text-2xl sm:leading-[1.12]"
-                            : "text-[1.15rem] leading-[1.12] text-[#252132] sm:text-[1.75rem]"
+                            ? "text-[1.125rem] font-extrabold leading-[1.12] text-[#432943] sm:text-2xl sm:leading-[1.12]"
+                            : "text-[1.15rem] font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]"
                         }`}
                       >
                         {title}
@@ -455,7 +455,7 @@ export default function LiveWebinar2() {
                       <p
                         className={`${
                           number === "1"
-                            ? "mt-2 text-sm leading-5 text-[#665d66] sm:mt-3 sm:text-[1.0625rem] sm:leading-[1.55]"
+                            ? "mt-2 text-base font-medium leading-6 text-[#514a52] sm:mt-3 sm:text-lg sm:leading-[1.55]"
                             : "mt-3 text-[0.95rem] leading-[1.55] text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8"
                         }`}
                       >
