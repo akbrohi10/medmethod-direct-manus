@@ -1161,3 +1161,17 @@
 - [x] Preserve card one’s 800 weight, responsive font size, wording, supporting-text color, icon, geometry, and cards two through four unchanged for comparison
 - [x] Update focused regression coverage and validate mobile/desktop rendering, contrast, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the card-one brand-magenta title-color checkpoint
+
+## Live Webinar 2 Homepage-Inspired Card-One Example
+
+- [x] Refine only card one with a cleaner white surface, lighter blush border, and softer restrained shadow inspired by the live MedMethod Direct homepage
+- [x] Keep card one’s approved brand-magenta `#DD2D84` title, dark warm-gray body, restrained number badge, pale-blush icon field, exact supplied molecule artwork, and landscape proportions
+- [x] Leave cards two through four, every word, card order, CTA, surrounding `/live-webinar2` content, safeguards, and unchanged `/live-webinar` untouched for comparison
+- [x] Update focused regression coverage and validate visual contrast, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
+- [x] Save and deliver the homepage-inspired card-one example checkpoint for approval
+
+## Live Homepage Inspiration Review for Webinar Cards
+
+- [x] Review `https://medmethoddirect.com` as the user-provided brand reference without changing the website
+- [x] Identify the homepage’s strongest reusable color, typography, spacing, card, and physician-authority design cues
+- [x] Recommend a specific brand-consistent direction for the `/live-webinar2` learning cards before any further implementation

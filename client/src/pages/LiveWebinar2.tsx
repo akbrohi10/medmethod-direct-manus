@@ -408,11 +408,12 @@ export default function LiveWebinar2() {
                   <li
                     data-webinar2-learning-card
                     data-webinar2-first-card-landscape={number === "1" ? "true" : undefined}
+                    data-webinar2-homepage-inspired-card={number === "1" ? "true" : undefined}
                     key={number}
-                    className={`grid items-center rounded-[1.75rem] border border-[#f7eaee] bg-white shadow-[0_10px_26px_rgba(105,48,79,0.07)] ${
+                    className={`grid items-center rounded-[1.75rem] border bg-white ${
                       number === "1"
-                        ? "min-h-0 grid-cols-[100px_minmax(0,1fr)] gap-4 px-4 py-5 sm:min-h-[14rem] sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-10 sm:px-10 sm:py-8"
-                        : "min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] gap-4 px-4 py-7 sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
+                        ? "min-h-0 grid-cols-[100px_minmax(0,1fr)] gap-4 border-[#f0e2e9] px-4 py-5 shadow-[0_8px_22px_rgba(63,29,57,0.055)] sm:min-h-[14rem] sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-10 sm:px-10 sm:py-8"
+                        : "min-h-[12rem] grid-cols-[116px_minmax(0,1fr)] gap-4 border-[#f7eaee] px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:min-h-[16rem] sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8 sm:px-10 sm:py-10"
                     }`}
                   >
                     <div

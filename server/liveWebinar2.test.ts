@@ -229,6 +229,11 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).not.toContain("text-[#432943]");
     expect(learningSectionBlock).toContain("text-base font-medium leading-6 text-[#514a52]");
     expect(learningSectionBlock).toContain("sm:text-lg sm:leading-[1.55]");
+    expect(learningSectionBlock).toContain('data-webinar2-homepage-inspired-card={number === "1" ? "true" : undefined}');
+    expect(learningSectionBlock).toContain("border-[#f0e2e9]");
+    expect(learningSectionBlock).toContain("shadow-[0_8px_22px_rgba(63,29,57,0.055)]");
+    expect(learningSectionBlock).toContain("border-[#f7eaee]");
+    expect(learningSectionBlock).toContain("shadow-[0_10px_26px_rgba(105,48,79,0.07)]");
     expect(learningSectionBlock).toContain('font-black leading-[1.12] text-[#252132] sm:text-[1.75rem]');
     expect(learningSectionBlock).toContain("ml-4 h-[5.5rem] w-[5.5rem] sm:ml-9 sm:h-44 sm:w-44");
     expect(learningSectionBlock).toContain("absolute z-10");
