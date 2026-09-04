@@ -370,40 +370,40 @@ export default function LiveWebinar2() {
         <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-12 sm:pb-14 lg:px-16 lg:pb-16">
           <section
             data-webinar2-learning
-            className="mx-auto max-w-[980px] rounded-[2rem] border border-[#f0dfe5] bg-[#fff7f5] px-4 py-8 shadow-[0_20px_55px_rgba(85,45,68,0.08)] sm:px-8 sm:py-12 lg:px-12"
+            className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"
           >
-            <div className="mx-auto max-w-[880px] text-center">
+            <div className="mx-auto max-w-[900px] text-center">
               <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm">
                 What You’ll Learn
               </p>
-              <h2 className="mx-auto mt-5 max-w-[760px] text-4xl font-black leading-[1.02] tracking-[-0.045em] text-[#231f30] sm:text-5xl lg:text-6xl">
+              <h2 className="mx-auto mt-5 max-w-[780px] text-[2.7rem] font-black leading-[0.98] tracking-[-0.05em] text-[#231f30] sm:text-6xl lg:text-[4.25rem]">
                 Because You Deserve to Know
               </h2>
-              <p className="mx-auto mt-5 max-w-[760px] text-base leading-7 text-[#5d5968] sm:text-xl sm:leading-8">
+              <p className="mx-auto mt-6 max-w-[760px] px-2 text-lg leading-7 text-[#5d5968] sm:text-xl sm:leading-8">
                 Evidence-based insights you can actually use — so you can feel informed, confident, and in control.
               </p>
-              <ol data-webinar2-learning-grid className="mt-8 space-y-5 text-left sm:mt-10 sm:space-y-6">
+              <ol data-webinar2-learning-grid className="mx-auto mt-10 max-w-[820px] space-y-6 text-left sm:mt-12 sm:space-y-7">
                 {learningCards.map(({ number, title, body, icon: Icon }) => (
                   <li
                     data-webinar2-learning-card
                     key={number}
-                    className="grid grid-cols-[88px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-white bg-white px-4 py-6 shadow-[0_16px_38px_rgba(105,48,79,0.09)] sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-7 sm:px-7 sm:py-8"
+                    className="grid grid-cols-[104px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-[#f7eaee] bg-white px-4 py-7 shadow-[0_10px_26px_rgba(105,48,79,0.07)] sm:grid-cols-[176px_minmax(0,1fr)] sm:gap-8 sm:px-8 sm:py-9"
                   >
-                    <div data-webinar2-learning-icon className="relative flex min-h-24 items-center justify-center sm:min-h-36">
-                      <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:h-36 sm:w-36" aria-hidden="true">
-                        <Icon className="h-10 w-10 stroke-[1.8] sm:h-16 sm:w-16" />
+                    <div data-webinar2-learning-icon className="relative flex min-h-28 items-center justify-center sm:min-h-40">
+                      <span className="flex h-24 w-24 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:h-40 sm:w-40" aria-hidden="true">
+                        <Icon className="h-12 w-12 stroke-[1.8] sm:h-[4.5rem] sm:w-[4.5rem]" />
                       </span>
                       <span
                         data-webinar2-learning-number
-                        className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#db147a] text-xl font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.2)] sm:h-13 sm:w-13 sm:text-2xl"
+                        className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full bg-[#db147a] text-xl font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.18)] sm:h-14 sm:w-14 sm:text-2xl"
                         aria-hidden="true"
                       >
                         {number}
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-lg font-black leading-[1.18] tracking-[-0.025em] text-[#252132] sm:text-2xl">{title}</h3>
-                      <p className="mt-3 text-sm leading-6 text-[#5f5b69] sm:text-lg sm:leading-8">{body}</p>
+                      <h3 className="text-xl font-black leading-[1.12] tracking-[-0.03em] text-[#252132] sm:text-[1.75rem]">{title}</h3>
+                      <p className="mt-3 text-[0.95rem] leading-6 text-[#5f5b69] sm:mt-4 sm:text-xl sm:leading-8">{body}</p>
                     </div>
                   </li>
                 ))}

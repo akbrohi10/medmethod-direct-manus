@@ -1075,3 +1075,13 @@
 - [x] Preserve the existing `Reserve My Free Spot` CTA beneath the cards, its inactive feedback, all surrounding `/live-webinar2` content and safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate exact new copy, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the mockup-based learning-section checkpoint
+
+## Live Webinar 2 Cleaner Learning-Section Refinement
+
+- [x] Remove the bulky outer learning-section border and shadow so the warm blush area feels open and closer to the original reference
+- [x] Keep all three learning cards in one spacious vertical column on mobile and desktop with wider card proportions and more deliberate whitespace
+- [x] Enlarge the heading, subtitle, topic icons, card titles, and supporting copy while improving mobile text width and line breaks
+- [x] Simplify card borders and shadows while retaining the approved pink number badges, pale-pink icon circles, white cards, and warm blush background
+- [x] Preserve every approved heading, subtitle, card title, supporting sentence, card order, CTA copy and behavior, surrounding `/live-webinar2` content, safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate clean reference fidelity, copy preservation, mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the cleaner learning-section refinement checkpoint

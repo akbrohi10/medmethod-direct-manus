@@ -206,9 +206,15 @@ describe("live webinar 2 second revision prompt", () => {
     expect(learningSectionBlock).toContain("data-webinar2-learning-icon");
     expect(learningSectionBlock).toContain("data-webinar2-learning-number");
     expect(learningSectionBlock).toContain("bg-[#fff7f5]");
+    expect(learningSectionBlock).toContain('className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"');
+    expect(learningSectionBlock).not.toContain("shadow-[0_20px_55px");
     expect(learningSectionBlock).toContain("bg-white");
     expect(learningSectionBlock).toContain("bg-[#fde8f0]");
     expect(learningSectionBlock).toContain("bg-[#db147a]");
+    expect(learningSectionBlock).toContain("max-w-[820px]");
+    expect(learningSectionBlock).toContain("grid-cols-[104px_minmax(0,1fr)]");
+    expect(learningSectionBlock).toContain("h-24 w-24");
+    expect(learningSectionBlock).toContain("text-xl font-black");
     expect(pageSource).toContain("FlaskConical");
     expect(pageSource).toContain("Scale");
     expect(pageSource).toContain("Activity");
