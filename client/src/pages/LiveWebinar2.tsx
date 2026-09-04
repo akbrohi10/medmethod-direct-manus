@@ -1,10 +1,9 @@
 import { Helmet } from "react-helmet-async";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, Clock3, MessageCircle, Play, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
-const BOOK_COVER_URL = "/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 
@@ -13,7 +12,6 @@ const WEBINAR_EVENT = {
   startsAt: "2026-09-23T19:00:00-04:00" as string | null,
   dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET",
   timezone: "ET",
-  duration: "[DURATION]",
 };
 
 const learningPoints = [
@@ -62,7 +60,6 @@ function getCountdownUnits(startsAt: string | null): CountdownUnit[] {
 }
 
 export default function LiveWebinar2() {
-  const registrationFormRef = useRef<HTMLFormElement>(null);
   const videoShellRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
@@ -119,19 +116,8 @@ export default function LiveWebinar2() {
     };
   }, []);
 
-  const focusRegistrationForm = () => {
-    registrationFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    window.setTimeout(() => registrationFormRef.current?.querySelector<HTMLInputElement>('input[name="firstName"]')?.focus(), 450);
-  };
-
   const handleReserveSeat = () => {
-    focusRegistrationForm();
-    toast.info("Registration is not connected yet. This form is for visual review only.");
-  };
-
-  const handleRegistrationPreview = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleReserveSeat();
+    toast.info("Registration is not connected yet. This button is for visual review only.");
   };
 
   const handlePlayWithSound = async () => {
@@ -146,8 +132,6 @@ export default function LiveWebinar2() {
       setAutoplayBlocked(true);
     }
   };
-
-  const eventSupportLine = `${WEBINAR_EVENT.duration} + live Q&A`;
 
   return (
     <main
@@ -316,48 +300,6 @@ export default function LiveWebinar2() {
             Reserve My Free Spot
           </button>
 
-          <form
-            ref={registrationFormRef}
-            data-webinar2-registration-preview
-            onSubmit={handleRegistrationPreview}
-            className="mx-auto mt-6 grid w-full max-w-[720px] gap-3 rounded-xl border border-[#eadbe4] bg-[#fffafd] p-4 text-left shadow-[0_12px_30px_rgba(81,30,67,0.08)] sm:grid-cols-2"
-          >
-            <label className="text-left">
-              <span className="sr-only">First Name</span>
-              <input
-                name="firstName"
-                type="text"
-                autoComplete="given-name"
-                placeholder="First Name"
-                className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
-              />
-            </label>
-            <label className="text-left">
-              <span className="sr-only">Email</span>
-              <input
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="Email"
-                className="h-12 w-full rounded-md border border-[#d9ccd5] bg-white px-4 text-base text-[#28242d] outline-none transition focus:border-[#c51b79] focus:ring-2 focus:ring-[#c51b79]/15"
-              />
-            </label>
-          </form>
-
-          <div className="mx-auto mt-5 w-full max-w-[720px] rounded-xl border border-[#ead8e3] bg-white/68 px-4 py-4 shadow-[0_10px_24px_rgba(87,33,72,0.06)] sm:px-6 sm:py-5">
-            <p data-webinar2-duration-line className="text-xs font-black leading-5 text-[#34263a] sm:text-sm">
-              {eventSupportLine}
-            </p>
-            <p data-webinar2-recording-privacy className="mt-2 text-[11px] leading-5 text-[#6e6470] sm:text-xs">
-              Can’t attend live? Register anyway and we’ll send you the recording. <span aria-hidden="true">·</span>{" "}
-              <a href="/privacy-policy" className="font-bold text-[#9b216f] underline underline-offset-2">
-                Privacy Policy
-              </a>
-            </p>
-            <p data-webinar2-availability className="mt-3 border-t border-[#eadfe6] pt-3 text-[11px] font-bold leading-5 text-[#8d326c] sm:text-xs">
-              This free educational webinar is available nationwide.
-            </p>
-          </div>
         </section>
 
         <section
@@ -440,47 +382,6 @@ export default function LiveWebinar2() {
               </button>
             </div>
 
-            <section
-              data-webinar2-presenter
-              className="mx-auto mt-10 grid max-w-[940px] items-center gap-5 rounded-xl border border-[#eadde5] bg-[#fffafd] p-5 text-center shadow-[0_12px_30px_rgba(74,33,65,0.06)] sm:grid-cols-[124px_1fr_92px] sm:text-left"
-            >
-              <img
-                src={DOCTOR_HEADSHOT_URL}
-                alt="Dr. Jumana Al-Deek"
-                className="mx-auto h-28 w-28 rounded-full border border-[#dbc4d1] object-cover sm:mx-0 sm:h-28 sm:w-28"
-                loading="lazy"
-                decoding="async"
-              />
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b11970]">Your Presenter</p>
-                <h2 className="mt-1.5 text-2xl font-black tracking-[-0.025em] text-[#29252f]">Dr. Jumana Al-Deek</h2>
-                <p
-                  data-webinar2-credentials-token
-                  className="mt-2 inline-block rounded-md border border-dashed border-[#bf8ba9] bg-white px-2.5 py-1.5 text-[10px] font-black uppercase leading-4 tracking-[0.07em] text-[#8d3b70] sm:text-[11px]"
-                >
-                  [CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]
-                </p>
-                <div className="mt-3 flex items-center justify-center gap-3 sm:justify-start">
-                  <p className="text-sm font-semibold leading-5 text-[#4e4750]">
-                    Author of <em className="font-bold">The Menopause Weight Loss Trap</em>
-                  </p>
-                  <img
-                    src={BOOK_COVER_URL}
-                    alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
-                    className="h-20 w-14 object-contain drop-shadow-[0_8px_10px_rgba(71,30,50,0.18)] sm:hidden"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </div>
-              <img
-                src={BOOK_COVER_URL}
-                alt="Cover of The Menopause Weight Loss Trap by Dr. Jumana Al-Deek"
-                className="mx-auto hidden h-28 w-20 object-contain drop-shadow-[0_10px_12px_rgba(71,30,50,0.18)] sm:block"
-                loading="lazy"
-                decoding="async"
-              />
-            </section>
           </section>
 
           <div className="mx-auto mt-11 grid max-w-[940px] gap-4 border-t border-[#ece4e9] pt-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
@@ -499,7 +400,7 @@ export default function LiveWebinar2() {
           <section data-webinar2-final-cta className="mx-auto mt-10 max-w-[900px] rounded-xl bg-[#f7eef5] px-5 py-7 text-center sm:px-8">
             <h2 className="text-2xl font-black tracking-[-0.025em] text-[#302632] sm:text-3xl">Ready to save your free spot?</h2>
             <p className="mx-auto mt-2 max-w-[650px] text-sm leading-6 text-[#655d66]">
-              Return to the short form above to reserve your place when registration is connected.
+              Registration will open here once the event registration link is connected.
             </p>
             <button
               type="button"

@@ -1020,3 +1020,13 @@
 - [x] Preserve the Featured In heading, purple strip, logo identities and alt text, section placement, exact disclosures, noindex review status, all other `/live-webinar2` content and behavior, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate responsive single-row motion, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the sliding Featured In checkpoint
+
+## Live Webinar 2 Form, Support Card, and Presenter Removal
+
+- [x] Remove the pictured First Name and Email visual-only form section from `/live-webinar2`
+- [x] Remove the pictured duration/Live Q&A, recording, Privacy Policy, and nationwide educational support card from `/live-webinar2`
+- [x] Remove the pictured large lower presenter card, including its detailed credentials token and book-cover treatment
+- [x] Preserve the compact physician authority row near the top, the confirmed date and live countdown, both CTA buttons and inactive feedback behavior, video and playback safeguards, sliding Featured In strip, learning content, final CTA, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Remove obsolete form-focus logic, refs, imports, and no-longer-visible duration, privacy, credentials, and presenter tokens without introducing a registration integration
+- [x] Update remaining-token documentation and focused regression coverage, then validate responsive flow, CTA behavior, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the section-removal checkpoint

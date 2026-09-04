@@ -54,15 +54,15 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("A free educational webinar with");
     expect(pageSource).not.toContain("data-webinar2-short-intro");
     expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
-    expect(pageSource).toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
-    expect(pageSource).toContain("This free educational webinar is available nationwide.");
+    expect(pageSource).not.toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
+    expect(pageSource).not.toContain("This free educational webinar is available nationwide.");
     expect(pageSource).not.toContain("See states");
     expect(pageSource).not.toContain("data-webinar2-state-list-token");
     expect(pageSource).not.toContain("[STATE LIST]");
     expect(pageSource).not.toContain("Live and free — for women in Florida.");
   });
 
-  it("uses the centered conversion hierarchy with the confirmed date/countdown at the top and the inactive form below the video", () => {
+  it("uses the centered conversion hierarchy with the confirmed date/countdown at the top and no form below the video", () => {
     expect(pageSource).not.toContain("data-webinar2-brand-logo");
     expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
@@ -75,40 +75,40 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
     expect(pageSource.indexOf("data-webinar2-above-video-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
-    expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
-    expect(pageSource.indexOf("data-webinar2-registration-preview")).toBeLessThan(pageSource.indexOf("data-webinar2-duration-line"));
+    expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-featured-in"));
+    expect(pageSource).not.toContain("data-webinar2-registration-preview");
+    expect(pageSource).not.toContain("data-webinar2-duration-line");
     expect(pageSource).toContain("aspect-video");
     expect(pageSource).not.toContain("sm:aspect-[4/5]");
     expect(pageSource).toContain("max-w-[800px]");
     expect(pageSource).not.toContain("data-webinar2-compact-presenter");
   });
 
-  it("keeps the authority introduction above the video, simplified nationwide availability below registration, and full authorship later", () => {
+  it("keeps the compact authority introduction above the video and removes the redundant lower authority and support blocks", () => {
     expect(pageSource).not.toContain("data-webinar2-short-intro");
     expect(pageSource).toContain("data-webinar2-authority-intro");
     expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
-    expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("data-webinar2-registration-preview"));
-    expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("Privacy Policy"));
-    expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
+    expect(pageSource).not.toContain("data-webinar2-availability");
+    expect(pageSource).not.toContain("data-webinar2-recording-privacy");
+    expect(pageSource).not.toContain("data-webinar2-presenter");
   });
 
-  it("adds exactly two visual-only form fields and keeps every RSVP action focused on that inactive form", () => {
-    expect(pageSource).toContain("data-webinar2-registration-preview");
-    expect(pageSource.match(/<input\b/g)).toHaveLength(2);
-    expect(pageSource).toContain('name="firstName"');
-    expect(pageSource).toContain('name="email"');
-    expect(pageSource).toContain('type="email"');
-    expect(pageSource).toContain("event.preventDefault()");
-    expect(pageSource).toContain("Registration is not connected yet. This form is for visual review only.");
-    expect(pageSource).toContain("scrollIntoView");
-    expect(pageSource).toContain("querySelector<HTMLInputElement>('input[name=\"firstName\"]')");
+  it("removes the visual-only form while keeping every RSVP action consistently inactive", () => {
+    expect(pageSource).not.toContain("data-webinar2-registration-preview");
+    expect(pageSource.match(/<input\b/g) ?? []).toHaveLength(0);
+    expect(pageSource).not.toContain('name="firstName"');
+    expect(pageSource).not.toContain('name="email"');
+    expect(pageSource).not.toContain("handleRegistrationPreview");
+    expect(pageSource).not.toContain("registrationFormRef");
+    expect(pageSource).not.toContain("scrollIntoView");
+    expect(pageSource).toContain("Registration is not connected yet. This button is for visual review only.");
     expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(4);
     expect(pageSource.match(/Reserve Your Free Spot/g)).toHaveLength(1);
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
-    expect(pageSource).toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
-    expect(pageSource).toContain('href="/privacy-policy"');
-    expect(pageSource.match(/<a\b/g)).toHaveLength(1);
+    expect(pageSource).not.toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
+    expect(pageSource).not.toContain('href="/privacy-policy"');
+    expect(pageSource.match(/<a\b/g) ?? []).toHaveLength(0);
     expect(pageSource).not.toMatch(/fetch\(|trpc\.|webhook|stripe|paypal/i);
   });
 
@@ -117,8 +117,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain('startsAt: "2026-09-23T19:00:00-04:00" as string | null');
     expect(pageSource).toContain('dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET"');
     expect(pageSource).toContain('timezone: "ET"');
-    expect(pageSource).toContain('duration: "[DURATION]"');
-    expect(pageSource).toContain("const eventSupportLine =");
+    expect(pageSource).not.toContain('duration: "[DURATION]"');
+    expect(pageSource).not.toContain("const eventSupportLine =");
     expect(pageSource).toContain("if (!WEBINAR_EVENT.startsAt) return;");
     expect(pageSource).toContain("window.setInterval(updateCountdown, 1_000)");
     expect(pageSource).toContain("data-webinar2-top-event");
@@ -128,7 +128,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeGreaterThan(pageSource.indexOf("A Free Educational Webinar"));
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
     expect(pageSource).not.toContain("data-webinar2-event-line");
-    expect(pageSource).toContain("data-webinar2-duration-line");
+    expect(pageSource).not.toContain("data-webinar2-duration-line");
   });
 
   it("shows only four dark countdown boxes and their unit labels while reserving the clock icon for the video-length pill", () => {
@@ -170,18 +170,18 @@ describe("live webinar 2 second revision prompt", () => {
     }
   });
 
-  it("uses the headshot authority introduction and full presenter treatment with the detailed credentials token", () => {
+  it("uses only the compact headshot authority introduction and removes the lower presenter treatment", () => {
     expect(pageSource).toContain("data-webinar2-authority-intro");
     expect(pageSource).not.toContain("data-webinar2-compact-presenter");
     expect(pageSource).not.toContain("data-webinar2-compact-credentials-token");
     expect(pageSource).not.toContain("[CREDENTIALS]");
-    expect(pageSource).toContain("data-webinar2-presenter");
-    expect(pageSource.indexOf("data-webinar2-presenter")).toBeGreaterThan(pageSource.indexOf("data-webinar2-learning"));
+    expect(pageSource).not.toContain("data-webinar2-presenter");
     expect(pageSource).toContain('/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png');
-    expect(pageSource).toContain('/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png');
-    expect(pageSource).toContain("data-webinar2-credentials-token");
-    expect(pageSource).toContain("[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]");
-    expect(pageSource).toContain("Author of <em className=\"font-bold\">The Menopause Weight Loss Trap</em>");
+    expect(pageSource).not.toContain('/manus-storage/menopause-weight-loss-trap-book-cover-transparent_02607d91.png');
+    expect(pageSource).not.toContain("BOOK_COVER_URL");
+    expect(pageSource).not.toContain("data-webinar2-credentials-token");
+    expect(pageSource).not.toContain("[CREDENTIALS — BOARD CERTIFICATION, SPECIALTY, YEARS IN PRACTICE]");
+    expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
   });
 
   it("uses the four requested learning points in order and preserves the current inline video behavior", () => {
