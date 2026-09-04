@@ -922,3 +922,10 @@
 - [x] Retain the presenter treatments, four learning outcomes, Featured In strip, exact disclosures, all unresolved factual tokens, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate mobile/desktop hierarchy, CTA focus behavior, video safeguards, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the centered redesign checkpoint
+
+## Live Webinar 2 Failed Visual-Editor Paragraph Deletion Repair
+
+- [x] Identify the current paragraph corresponding to the stale visual-editor target near the former line 188 as `Free Live Webinar · For Women 35+` and confirm it was still present
+- [x] Remove only the intended paragraph from `/live-webinar2` without changing the centered Live-on-Zoom banner, headline, video, CTA, countdown, form, or lower sections
+- [x] Update focused regression coverage and validate mobile/desktop rendering, TypeScript, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the visual-edit repair checkpoint

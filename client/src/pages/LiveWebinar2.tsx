@@ -185,10 +185,7 @@ export default function LiveWebinar2() {
           className="mx-auto max-w-[920px] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
         >
           <div data-webinar2-opening-copy className="mx-auto max-w-[800px] text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#b78a3f] sm:text-[11px]">
-              Free Live Webinar · For Women 35+
-            </p>
-            <h1 className="mt-3 tracking-[-0.045em] text-[#26242c] sm:mt-4">
+            <h1 className="tracking-[-0.045em] text-[#26242c]">
               <span className="block text-[2.35rem] font-black leading-[1.02] sm:text-[3.35rem] lg:text-[4rem]">You’re not imagining it.</span>
               <span className="mx-auto mt-2.5 block max-w-[780px] text-[1.72rem] font-medium italic leading-[1.12] text-[#6f3568] sm:mt-3 sm:text-[2.45rem] lg:text-[2.9rem]">
                 Here’s what’s actually changing — and what you can do about it.

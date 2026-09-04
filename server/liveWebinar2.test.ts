@@ -21,7 +21,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(originalPageSource).not.toContain("data-live-webinar2");
   });
 
-  it("uses the approved centered hero with a clear live Zoom banner and age-35-plus educational framing", () => {
+  it("uses the approved centered hero with a clear live Zoom banner and streamlined educational framing", () => {
     expect(pageSource).toContain("data-webinar2-hero");
     expect(pageSource).toContain("data-webinar2-centered-hero");
     expect(pageSource).toContain("data-webinar2-zoom-banner");
@@ -29,7 +29,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Free Educational Webinar");
     expect(pageSource).toContain("mx-auto max-w-[800px] text-center");
     expect(pageSource).not.toContain("lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)]");
-    expect(pageSource).toContain("Free Live Webinar · For Women 35+");
+    expect(pageSource).not.toContain("Free Live Webinar · For Women 35+");
     expect(pageSource).toContain("You’re not imagining it.");
     expect(pageSource).toContain("Here’s what’s actually changing — and what you can do about it.");
     expect(pageSource).not.toContain("After 35");
@@ -47,7 +47,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-brand-logo");
     expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
-    expect(pageSource.indexOf("Free Live Webinar · For Women 35+")).toBeLessThan(pageSource.indexOf("You’re not imagining it."));
+    expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf("You’re not imagining it."));
     expect(pageSource.indexOf("You’re not imagining it.")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
     expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-countdown-bar"));
