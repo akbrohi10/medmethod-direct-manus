@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, Clock3, MessageCircle, Play, Volume2 } from "lucide-react";
+import { Activity, Clock3, FlaskConical, MessageCircle, Play, Scale, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -14,11 +14,25 @@ const WEBINAR_EVENT = {
   timezone: "ET",
 };
 
-const learningPoints = [
-  "The truth about hormone therapy (HRT) — including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
-  "Why losing weight can suddenly become harder in your late 30s and 40s even when you're eating and exercising the same way you always have.",
-  "What's actually happening to your hormones during perimenopause and menopause — and why it can affect everything from sleep and mood to metabolism, muscle and belly fat.",
-  "How GLP-1 medications work and where medical weight loss may fit into your overall health strategy.",
+const learningCards = [
+  {
+    number: "1",
+    title: "The truth about hormone therapy (HRT)",
+    body: "Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.",
+    icon: FlaskConical,
+  },
+  {
+    number: "2",
+    title: "Why losing weight can become harder",
+    body: "In your late 30s and 40s — even when you’re eating and exercising the same way you always have.",
+    icon: Scale,
+  },
+  {
+    number: "3",
+    title: "What’s actually happening to your hormones",
+    body: "During perimenopause and menopause, how it affects your body, and what you can do about it.",
+    icon: Activity,
+  },
 ];
 
 const featuredOutlets = [
@@ -356,30 +370,44 @@ export default function LiveWebinar2() {
         <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-12 sm:pb-14 lg:px-16 lg:pb-16">
           <section
             data-webinar2-learning
-            className="mx-auto max-w-[980px] rounded-[2rem] border border-[#efd8e2] bg-[#fff8f5] px-4 py-8 shadow-[0_20px_55px_rgba(85,45,68,0.09)] sm:px-8 sm:py-10 lg:px-10"
+            className="mx-auto max-w-[980px] rounded-[2rem] border border-[#f0dfe5] bg-[#fff7f5] px-4 py-8 shadow-[0_20px_55px_rgba(85,45,68,0.08)] sm:px-8 sm:py-12 lg:px-12"
           >
-            <div className="mx-auto max-w-[860px] text-center">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c31b78]">What You’ll Learn</p>
-              <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-[#28242d] sm:text-4xl">
-                Clear answers for your next chapter.
+            <div className="mx-auto max-w-[880px] text-center">
+              <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm">
+                What You’ll Learn
+              </p>
+              <h2 className="mx-auto mt-5 max-w-[760px] text-4xl font-black leading-[1.02] tracking-[-0.045em] text-[#231f30] sm:text-5xl lg:text-6xl">
+                Because You Deserve to Know
               </h2>
-              <ul data-webinar2-learning-grid className="mt-7 grid gap-4 text-left md:grid-cols-2 sm:mt-8">
-                {learningPoints.map(point => (
+              <p className="mx-auto mt-5 max-w-[760px] text-base leading-7 text-[#5d5968] sm:text-xl sm:leading-8">
+                Evidence-based insights you can actually use — so you can feel informed, confident, and in control.
+              </p>
+              <ol data-webinar2-learning-grid className="mt-8 space-y-5 text-left sm:mt-10 sm:space-y-6">
+                {learningCards.map(({ number, title, body, icon: Icon }) => (
                   <li
                     data-webinar2-learning-card
-                    key={point}
-                    className="relative overflow-hidden rounded-2xl border border-[#efd8e2] bg-white p-5 shadow-[0_12px_30px_rgba(89,49,70,0.07)] sm:p-6"
+                    key={number}
+                    className="grid grid-cols-[88px_minmax(0,1fr)] items-center gap-4 rounded-[1.75rem] border border-white bg-white px-4 py-6 shadow-[0_16px_38px_rgba(105,48,79,0.09)] sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-7 sm:px-7 sm:py-8"
                   >
-                    <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f02b91] via-[#d43186] to-[#f4a9c7]" aria-hidden="true" />
-                    <div className="flex items-start gap-4">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#ed2a8f] text-white shadow-[0_8px_18px_rgba(237,42,143,0.2)]">
-                        <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+                    <div data-webinar2-learning-icon className="relative flex min-h-24 items-center justify-center sm:min-h-36">
+                      <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#fde8f0] text-[#d61579] sm:h-36 sm:w-36" aria-hidden="true">
+                        <Icon className="h-10 w-10 stroke-[1.8] sm:h-16 sm:w-16" />
                       </span>
-                      <span className="pt-1 text-sm leading-6 text-[#4c4750] sm:text-base">{point}</span>
+                      <span
+                        data-webinar2-learning-number
+                        className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#db147a] text-xl font-black text-white shadow-[0_8px_18px_rgba(219,20,122,0.2)] sm:h-13 sm:w-13 sm:text-2xl"
+                        aria-hidden="true"
+                      >
+                        {number}
+                      </span>
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-black leading-[1.18] tracking-[-0.025em] text-[#252132] sm:text-2xl">{title}</h3>
+                      <p className="mt-3 text-sm leading-6 text-[#5f5b69] sm:text-lg sm:leading-8">{body}</p>
                     </div>
                   </li>
                 ))}
-              </ul>
+              </ol>
               <div className="mt-7 flex justify-center sm:mt-8">
                 <button
                   type="button"

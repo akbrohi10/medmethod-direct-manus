@@ -1064,3 +1064,14 @@
 - [x] Preserve the exact current What You’ll Learn label, `Clear answers for your next chapter.` heading, every learning-point word and order, CTA copy and inactive behavior, and all surrounding page content
 - [x] Update focused regression coverage and validate exact copy preservation, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the light-card learning-section checkpoint
+
+## Live Webinar 2 Mockup-Based Learning-Section Replacement
+
+- [x] Replace the current `/live-webinar2` learning-section heading with `Because You Deserve to Know`
+- [x] Add the approved subtitle `Evidence-based insights you can actually use — so you can feel informed, confident, and in control.`
+- [x] Replace the current four learning cards with the three approved numbered cards and their exact new title/body wording from the supplied mockup
+- [x] Match the supplied stacked card design with pink number badges, topic-specific line icons, large pale-pink icon circles, white rounded cards, and a warm blush section background
+- [x] Keep the three cards stacked on mobile and use a balanced responsive treatment on desktop without changing the approved wording
+- [x] Preserve the existing `Reserve My Free Spot` CTA beneath the cards, its inactive feedback, all surrounding `/live-webinar2` content and safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate exact new copy, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the mockup-based learning-section checkpoint

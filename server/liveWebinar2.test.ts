@@ -7,7 +7,7 @@ const pageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar
 const globalStyles = fs.readFileSync(path.join(root, "client/src/index.css"), "utf8");
 const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
-const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
+const learningCardsBlock = pageSource.match(/const learningCards = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
 const learningSectionBlock = pageSource.match(/<section\s+data-webinar2-learning[\s\S]*?<\/section>/)?.[0] ?? "";
 const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
@@ -29,7 +29,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Live on");
     expect(pageSource).not.toContain('<span className="block">Zoom</span>');
     expect(pageSource).not.toContain("Masterclass");
-    expect(pageSource).toContain("Play, Volume2");
+    expect(pageSource).toContain("Play");
+    expect(pageSource).toContain("Volume2");
     expect(pageSource).not.toContain("GraduationCap");
     expect(pageSource).not.toContain("<Video");
     expect(pageSource).toContain("from-[#e72e91] via-[#a12788] to-[#4b1c6e]");
@@ -187,28 +188,36 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
   });
 
-  it("uses the four requested learning points in order and preserves the current inline video behavior", () => {
-    expect(learningPointsBlock.match(/^\s*"/gm)).toHaveLength(4);
-    const expectedPoints = [
+  it("uses the three approved numbered learning cards and preserves the current inline video behavior", () => {
+    expect(learningCardsBlock.match(/number: "/g)).toHaveLength(3);
+    const expectedTitles = [
       "The truth about hormone therapy (HRT)",
-      "Why losing weight can suddenly become harder in your late 30s and 40s",
-      "What's actually happening to your hormones during perimenopause and menopause",
-      "How GLP-1 medications work",
+      "Why losing weight can become harder",
+      "What’s actually happening to your hormones",
     ];
-    const positions = expectedPoints.map(point => learningPointsBlock.indexOf(point));
+    const positions = expectedTitles.map(title => learningCardsBlock.indexOf(title));
     positions.forEach(position => expect(position).toBeGreaterThanOrEqual(0));
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
     expect(learningSectionBlock).toContain("What You’ll Learn");
-    expect(learningSectionBlock).toContain("Clear answers for your next chapter.");
+    expect(learningSectionBlock).toContain("Because You Deserve to Know");
+    expect(learningSectionBlock).toContain("Evidence-based insights you can actually use — so you can feel informed, confident, and in control.");
     expect(learningSectionBlock).toContain("data-webinar2-learning-grid");
-    expect(learningSectionBlock).toContain("md:grid-cols-2");
     expect(learningSectionBlock).toContain("data-webinar2-learning-card");
-    expect(learningSectionBlock).toContain("bg-[#fff8f5]");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-icon");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-number");
+    expect(learningSectionBlock).toContain("bg-[#fff7f5]");
     expect(learningSectionBlock).toContain("bg-white");
-    expect(learningSectionBlock).toContain("rounded-full bg-[#ed2a8f]");
+    expect(learningSectionBlock).toContain("bg-[#fde8f0]");
+    expect(learningSectionBlock).toContain("bg-[#db147a]");
+    expect(pageSource).toContain("FlaskConical");
+    expect(pageSource).toContain("Scale");
+    expect(pageSource).toContain("Activity");
+    expect(learningCardsBlock).toContain("Including estrogen, progesterone and testosterone, potential benefits and risks, and common misconceptions.");
+    expect(learningCardsBlock).toContain("In your late 30s and 40s — even when you’re eating and exercising the same way you always have.");
+    expect(learningCardsBlock).toContain("During perimenopause and menopause, how it affects your body, and what you can do about it.");
     expect(learningSectionBlock.indexOf("data-webinar2-learning-grid")).toBeLessThan(learningSectionBlock.indexOf("Reserve My Free Spot"));
-    expect(learningPointsBlock).not.toContain("The connection between hormones, menopause and weight management");
-    expect(learningPointsBlock).not.toContain("What good menopause care should actually look like");
+    expect(learningCardsBlock).not.toContain("How GLP-1 medications work");
+    expect(learningCardsBlock).not.toContain("Clear answers for your next chapter.");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
     expect(pageSource).toContain("h-[4.5rem] w-[4.5rem]");
     expect(pageSource).toContain("sm:h-24 sm:w-24");
