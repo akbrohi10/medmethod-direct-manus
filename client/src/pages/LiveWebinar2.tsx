@@ -188,8 +188,8 @@ export default function LiveWebinar2() {
                 <GraduationCap className="h-5 w-5 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
               </span>
               <span className="text-left text-[10px] font-black uppercase leading-[1.25] tracking-[0.035em] sm:text-sm sm:tracking-[0.05em]">
-                Free Educational
-                <span className="block">Webinar</span>
+                Free Live
+                <span className="block">Masterclass</span>
               </span>
             </div>
           </div>
@@ -211,12 +211,14 @@ export default function LiveWebinar2() {
           />
 
           <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
+            <p data-webinar2-audience-label className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">
+              For Women 35+
+            </p>
             <h1
-              aria-label="Women 35+ Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
-              className="tracking-[-0.045em]"
+              aria-label="Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
+              className="mt-2 tracking-[-0.045em] sm:mt-3"
             >
-              <span className="block text-[2.55rem] font-black leading-none text-[#dd2d84] sm:text-[3.65rem] lg:text-[4.25rem]">Women 35+</span>
-              <span className="mx-auto mt-2 block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:mt-3 sm:text-[3rem] lg:text-[3.55rem]">
+              <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">
                 Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
               </span>
             </h1>
@@ -248,6 +250,15 @@ export default function LiveWebinar2() {
                 </p>
               </div>
             </div>
+
+            <button
+              data-webinar2-above-video-cta
+              type="button"
+              onClick={handleReserveSeat}
+              className="mx-auto mt-5 inline-flex min-h-12 w-full max-w-[480px] items-center justify-center rounded-full bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_14px_30px_rgba(176,24,124,0.25)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:mt-6 sm:text-base"
+            >
+              Reserve Your Free Spot
+            </button>
           </div>
 
           <div

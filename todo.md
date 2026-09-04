@@ -968,3 +968,13 @@
 - [x] Preserve all other `/live-webinar2` content, supplied design, functionality, review safeguards, and unchanged `/live-webinar`
 - [x] Validate desktop/mobile rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the punctuation-update checkpoint
+
+## Live Webinar 2 Immediate Masterclass Clarity
+
+- [x] Change the right side of the top banner from `Free Educational Webinar` to `Free Live Masterclass`
+- [x] Add a separate `For Women 35+` audience label immediately above the symptom headline and remove `Women 35+` from the headline itself
+- [x] Keep the symptom headline and topic line otherwise unchanged, preserving the direct three-second audience/topic hierarchy
+- [x] Add a new `Reserve Your Free Spot` CTA between the physician authority block and the video, wired to the existing inactive visual-only registration form behavior
+- [x] Preserve the existing primary CTA below the video, countdown, form, event information, real video and playback safeguards, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate desktop/mobile hierarchy, CTA behavior, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the immediate-masterclass-clarity checkpoint

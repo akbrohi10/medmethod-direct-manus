@@ -27,8 +27,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("data-webinar2-zoom-banner");
     expect(pageSource).toContain("Live on");
     expect(pageSource).toContain('<span className="block">Zoom</span>');
-    expect(pageSource).toContain("Free Educational");
-    expect(pageSource).toContain('<span className="block">Webinar</span>');
+    expect(pageSource).toContain("Free Live");
+    expect(pageSource).toContain('<span className="block">Masterclass</span>');
+    expect(pageSource).not.toContain("Free Educational");
     expect(pageSource).toContain("Video, Volume2");
     expect(pageSource).toContain("GraduationCap");
     expect(pageSource).toContain("from-[#e72e91] via-[#a12788] to-[#4b1c6e]");
@@ -36,7 +37,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("repeating-radial-gradient");
     expect(pageSource).not.toContain("lg:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)]");
     expect(pageSource).not.toContain("Free Live Webinar · For Women 35+");
-    expect(pageSource).toContain(">Women 35+</span>");
+    expect(pageSource).toContain("data-webinar2-audience-label");
+    expect(pageSource).toContain("For Women 35+");
+    expect(pageSource).not.toContain(">Women 35+</span>");
     expect(pageSource).not.toContain("Women 35+:");
     expect(pageSource).toContain("Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?");
     expect(pageSource).toContain("data-webinar2-topic-line");
@@ -61,10 +64,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-brand-logo");
     expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
-    expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf(">Women 35+</span>"));
-    expect(pageSource.indexOf(">Women 35+</span>")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
+    expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf("data-webinar2-audience-label"));
+    expect(pageSource.indexOf("data-webinar2-audience-label")).toBeLessThan(pageSource.indexOf("Struggling With Weight Gain"));
+    expect(pageSource.indexOf("Struggling With Weight Gain")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
     expect(pageSource.indexOf("data-webinar2-topic-line")).toBeLessThan(pageSource.indexOf("data-webinar2-short-intro"));
-    expect(pageSource.indexOf("data-webinar2-short-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
+    expect(pageSource.indexOf("data-webinar2-short-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
+    expect(pageSource.indexOf("data-webinar2-above-video-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
     expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-countdown-bar"));
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-registration-preview"));
@@ -94,7 +99,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Registration is not connected yet. This form is for visual review only.");
     expect(pageSource).toContain("scrollIntoView");
     expect(pageSource).toContain("querySelector<HTMLInputElement>('input[name=\"firstName\"]')");
-    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(3);
+    expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(4);
+    expect(pageSource.match(/Reserve Your Free Spot/g)).toHaveLength(1);
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(3);
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
     expect(pageSource).toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
