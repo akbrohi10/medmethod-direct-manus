@@ -978,3 +978,18 @@
 - [x] Preserve the existing primary CTA below the video, countdown, form, event information, real video and playback safeguards, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate desktop/mobile hierarchy, CTA behavior, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the immediate-masterclass-clarity checkpoint
+
+## Live Webinar 2 Educational Webinar Banner Copy
+
+- [x] Replace `Free Live Masterclass` in the `/live-webinar2` top banner with `A Free Educational Webinar`; superseded before checkpoint by the user’s single-message banner clarification
+- [x] Preserve `Live on Zoom`, the audience label, symptom headline, above-video CTA, and every other page element and safeguard; preservation of `Live on Zoom` was explicitly superseded before checkpoint
+- [x] Update focused regression coverage and validate mobile rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, and production build for the interim wording; final responsive/route/log validation moves to the superseding task below
+- [x] Do not create an interim educational-webinar banner-copy checkpoint because the user refined the design before checkpointing
+
+## Live Webinar 2 Single-Message Educational Banner
+
+- [x] Replace the entire top banner contents with one large centered `A FREE EDUCATIONAL WEBINAR` message
+- [x] Remove `Live on Zoom`, both banner icons, and the center divider from the top banner only
+- [x] Preserve the audience label, symptom headline, physician authority, both CTAs, video, countdown, inactive form, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the single-message educational-banner checkpoint

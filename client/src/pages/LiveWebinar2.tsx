@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { CheckCircle2, Clock3, GraduationCap, MessageCircle, Play, Video, Volume2 } from "lucide-react";
+import { CheckCircle2, Clock3, MessageCircle, Play, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -170,28 +170,10 @@ export default function LiveWebinar2() {
         className="mx-auto w-full max-w-[1100px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
         <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 sm:px-8 sm:pt-7">
-          <div className="mx-auto grid w-full max-w-[900px] grid-cols-[1fr_auto_1fr] items-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-3 py-2.5 text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:px-7 sm:py-3.5">
-            <div className="flex min-w-0 items-center justify-center gap-2.5 sm:gap-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/14 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] sm:h-14 sm:w-14">
-                <Video className="h-5 w-5 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
-              </span>
-              <span className="text-left text-[10px] font-black uppercase leading-[1.25] tracking-[0.045em] sm:text-sm sm:tracking-[0.06em]">
-                Live on
-                <span className="block">Zoom</span>
-              </span>
-            </div>
-
-            <span className="h-10 w-px bg-white/35 sm:h-14" aria-hidden="true" />
-
-            <div className="flex min-w-0 items-center justify-center gap-2.5 sm:gap-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/14 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] sm:h-14 sm:w-14">
-                <GraduationCap className="h-5 w-5 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
-              </span>
-              <span className="text-left text-[10px] font-black uppercase leading-[1.25] tracking-[0.035em] sm:text-sm sm:tracking-[0.05em]">
-                Free Live
-                <span className="block">Masterclass</span>
-              </span>
-            </div>
+          <div className="mx-auto flex min-h-16 w-full max-w-[900px] items-center justify-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-5 py-4 text-center text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:min-h-20 sm:px-8 sm:py-5">
+            <p className="text-lg font-black uppercase leading-tight tracking-[0.055em] sm:text-2xl sm:tracking-[0.08em]">
+              A Free Educational Webinar
+            </p>
           </div>
         </header>
 

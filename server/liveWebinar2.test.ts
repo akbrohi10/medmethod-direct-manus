@@ -21,17 +21,17 @@ describe("live webinar 2 second revision prompt", () => {
     expect(originalPageSource).not.toContain("data-live-webinar2");
   });
 
-  it("uses the approved centered hero with a clear live Zoom banner and streamlined educational framing", () => {
+  it("uses the approved centered hero with one prominent educational-webinar banner message", () => {
     expect(pageSource).toContain("data-webinar2-hero");
     expect(pageSource).toContain("data-webinar2-centered-hero");
     expect(pageSource).toContain("data-webinar2-zoom-banner");
-    expect(pageSource).toContain("Live on");
-    expect(pageSource).toContain('<span className="block">Zoom</span>');
-    expect(pageSource).toContain("Free Live");
-    expect(pageSource).toContain('<span className="block">Masterclass</span>');
-    expect(pageSource).not.toContain("Free Educational");
-    expect(pageSource).toContain("Video, Volume2");
-    expect(pageSource).toContain("GraduationCap");
+    expect(pageSource).toContain("A Free Educational Webinar");
+    expect(pageSource).not.toContain("Live on");
+    expect(pageSource).not.toContain('<span className="block">Zoom</span>');
+    expect(pageSource).not.toContain("Masterclass");
+    expect(pageSource).toContain("Play, Volume2");
+    expect(pageSource).not.toContain("GraduationCap");
+    expect(pageSource).not.toContain("<Video");
     expect(pageSource).toContain("from-[#e72e91] via-[#a12788] to-[#4b1c6e]");
     expect(pageSource).toContain("data-webinar2-decorative-background");
     expect(pageSource).toContain("repeating-radial-gradient");
