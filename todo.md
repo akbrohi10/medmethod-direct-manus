@@ -993,3 +993,11 @@
 - [x] Preserve the audience label, symptom headline, physician authority, both CTAs, video, countdown, inactive form, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate mobile/desktop rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the single-message educational-banner checkpoint
+
+## Live Webinar 2 Authority Intro Empty-Paragraph Cleanup
+
+- [x] Verify the visual editor successfully removed `A free educational webinar with` from the physician authority block
+- [x] Remove the resulting empty paragraph element so the authority block contains no blank semantic or layout residue
+- [x] Preserve Dr. Jumana Al-Deek’s name, physician/author line, headshot, surrounding hero hierarchy, all safeguards, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate mobile/desktop rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the authority-intro cleanup checkpoint

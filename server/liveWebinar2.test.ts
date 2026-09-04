@@ -50,7 +50,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("After 40");
     expect(pageSource).toContain("data-webinar2-doctor-divider");
     expect(pageSource).toContain("data-webinar2-authority-intro");
-    expect(pageSource).toContain("A free educational webinar with");
+    expect(pageSource).not.toContain("A free educational webinar with");
+    expect(pageSource).not.toContain("data-webinar2-short-intro");
     expect(pageSource).toContain("Physician and author of <em>The Menopause Weight Loss Trap</em>");
     expect(pageSource).toContain('Author of <em className="font-bold">The Menopause Weight Loss Trap</em>');
     expect(pageSource).toContain("This free educational webinar is available nationwide.");
@@ -67,8 +68,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-opening-copy")).toBeLessThan(pageSource.indexOf("data-webinar2-audience-label"));
     expect(pageSource.indexOf("data-webinar2-audience-label")).toBeLessThan(pageSource.indexOf("Struggling With Weight Gain"));
     expect(pageSource.indexOf("Struggling With Weight Gain")).toBeLessThan(pageSource.indexOf("data-webinar2-topic-line"));
-    expect(pageSource.indexOf("data-webinar2-topic-line")).toBeLessThan(pageSource.indexOf("data-webinar2-short-intro"));
-    expect(pageSource.indexOf("data-webinar2-short-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
+    expect(pageSource.indexOf("data-webinar2-topic-line")).toBeLessThan(pageSource.indexOf("data-webinar2-authority-intro"));
+    expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-above-video-cta"));
     expect(pageSource.indexOf("data-webinar2-above-video-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
     expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-countdown-bar"));
@@ -81,7 +82,7 @@ describe("live webinar 2 second revision prompt", () => {
   });
 
   it("keeps the authority introduction above the video, simplified nationwide availability below registration, and full authorship later", () => {
-    expect(pageSource).toContain("data-webinar2-short-intro");
+    expect(pageSource).not.toContain("data-webinar2-short-intro");
     expect(pageSource).toContain("data-webinar2-authority-intro");
     expect(pageSource.indexOf("data-webinar2-authority-intro")).toBeLessThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-availability")).toBeGreaterThan(pageSource.indexOf("data-webinar2-registration-preview"));

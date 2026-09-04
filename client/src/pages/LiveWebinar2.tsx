@@ -223,9 +223,6 @@ export default function LiveWebinar2() {
                 decoding="async"
               />
               <div className="min-w-0">
-                <p data-webinar2-short-intro className="text-[10px] font-bold uppercase leading-4 tracking-[0.055em] text-[#746873] sm:text-xs">
-                  A free educational webinar with
-                </p>
                 <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
                 <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">
                   Physician and author of <em>The Menopause Weight Loss Trap</em>
