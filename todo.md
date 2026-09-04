@@ -1055,3 +1055,12 @@
 - [x] Remove obsolete CTA-count and page-specific disclosure expectations while preserving the learning section, informed-care content, first video CTA, sliding Featured In strip, educational disclaimer, noindex review status, and all other page behavior
 - [x] Update remaining-token documentation and narrowly scoped focused/compliance regression safeguards, then validate mobile/desktop flow, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the final-CTA/disclosure-removal checkpoint
+
+## Live Webinar 2 Light Card Learning-Section Redesign
+
+- [x] Restyle only the `/live-webinar2` What You’ll Learn section using a warm ivory/blush background that remains visually distinct from the purple Featured In strip
+- [x] Present the existing four learning points as white rounded cards with subtle blush borders, soft shadows, pink circular checkmarks, and restrained top accent lines
+- [x] Use a two-by-two card grid on desktop and one stacked column on mobile, with the existing `Reserve My Free Spot` CTA centered beneath all four cards
+- [x] Preserve the exact current What You’ll Learn label, `Clear answers for your next chapter.` heading, every learning-point word and order, CTA copy and inactive behavior, and all surrounding page content
+- [x] Update focused regression coverage and validate exact copy preservation, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the light-card learning-section checkpoint

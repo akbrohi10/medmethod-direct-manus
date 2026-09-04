@@ -354,29 +354,42 @@ export default function LiveWebinar2() {
         </section>
 
         <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-12 sm:pb-14 lg:px-16 lg:pb-16">
-          <section data-webinar2-learning className="mx-auto max-w-[940px]">
-            <div className="mx-auto max-w-[760px]">
+          <section
+            data-webinar2-learning
+            className="mx-auto max-w-[980px] rounded-[2rem] border border-[#efd8e2] bg-[#fff8f5] px-4 py-8 shadow-[0_20px_55px_rgba(85,45,68,0.09)] sm:px-8 sm:py-10 lg:px-10"
+          >
+            <div className="mx-auto max-w-[860px] text-center">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c31b78]">What You’ll Learn</p>
               <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-[#28242d] sm:text-4xl">
                 Clear answers for your next chapter.
               </h2>
-              <ul className="mt-6 space-y-4">
+              <ul data-webinar2-learning-grid className="mt-7 grid gap-4 text-left md:grid-cols-2 sm:mt-8">
                 {learningPoints.map(point => (
-                  <li key={point} className="flex items-start gap-3 text-sm leading-6 text-[#4c4750] sm:text-base">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#d51b75]" aria-hidden="true" />
-                    <span>{point}</span>
+                  <li
+                    data-webinar2-learning-card
+                    key={point}
+                    className="relative overflow-hidden rounded-2xl border border-[#efd8e2] bg-white p-5 shadow-[0_12px_30px_rgba(89,49,70,0.07)] sm:p-6"
+                  >
+                    <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f02b91] via-[#d43186] to-[#f4a9c7]" aria-hidden="true" />
+                    <div className="flex items-start gap-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#ed2a8f] text-white shadow-[0_8px_18px_rgba(237,42,143,0.2)]">
+                        <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <span className="pt-1 text-sm leading-6 text-[#4c4750] sm:text-base">{point}</span>
+                    </div>
                   </li>
                 ))}
               </ul>
-              <button
-                type="button"
-                onClick={handleReserveSeat}
-                className="mt-7 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:w-auto sm:text-base"
-              >
-                Reserve My Free Spot
-              </button>
+              <div className="mt-7 flex justify-center sm:mt-8">
+                <button
+                  type="button"
+                  onClick={handleReserveSeat}
+                  className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:w-auto sm:text-base"
+                >
+                  Reserve My Free Spot
+                </button>
+              </div>
             </div>
-
           </section>
 
           <div className="mx-auto mt-11 grid max-w-[940px] gap-4 border-t border-[#ece4e9] pt-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">

@@ -9,6 +9,7 @@ const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8")
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
+const learningSectionBlock = pageSource.match(/<section\s+data-webinar2-learning[\s\S]*?<\/section>/)?.[0] ?? "";
 const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
 
 describe("live webinar 2 second revision prompt", () => {
@@ -197,6 +198,15 @@ describe("live webinar 2 second revision prompt", () => {
     const positions = expectedPoints.map(point => learningPointsBlock.indexOf(point));
     positions.forEach(position => expect(position).toBeGreaterThanOrEqual(0));
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
+    expect(learningSectionBlock).toContain("What You’ll Learn");
+    expect(learningSectionBlock).toContain("Clear answers for your next chapter.");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-grid");
+    expect(learningSectionBlock).toContain("md:grid-cols-2");
+    expect(learningSectionBlock).toContain("data-webinar2-learning-card");
+    expect(learningSectionBlock).toContain("bg-[#fff8f5]");
+    expect(learningSectionBlock).toContain("bg-white");
+    expect(learningSectionBlock).toContain("rounded-full bg-[#ed2a8f]");
+    expect(learningSectionBlock.indexOf("data-webinar2-learning-grid")).toBeLessThan(learningSectionBlock.indexOf("Reserve My Free Spot"));
     expect(learningPointsBlock).not.toContain("The connection between hormones, menopause and weight management");
     expect(learningPointsBlock).not.toContain("What good menopause care should actually look like");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
