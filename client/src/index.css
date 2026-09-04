@@ -230,6 +230,43 @@
     animation-play-state: paused;
   }
 
+  @keyframes webinar2-logo-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .webinar2-logo-marquee {
+    overflow: hidden;
+  }
+
+  .webinar2-logo-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: webinar2-logo-marquee 24s linear infinite;
+    will-change: transform;
+  }
+
+  .webinar2-logo-marquee:hover .webinar2-logo-marquee__track,
+  .webinar2-logo-marquee:focus-within .webinar2-logo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .webinar2-logo-marquee {
+      overflow-x: auto;
+    }
+
+    .webinar2-logo-marquee__track {
+      animation: none;
+      transform: none;
+      will-change: auto;
+    }
+
+    .webinar2-logo-marquee__duplicate {
+      display: none;
+    }
+  }
+
   /* Fade up animation */
   @keyframes fadeInUp {
     from {

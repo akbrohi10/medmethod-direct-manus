@@ -1011,3 +1011,12 @@
 - [x] Preserve visual-only inactive registration, recording/privacy/nationwide notes, both CTAs, real video and playback safeguards, lower sections, exact disclosures, noindex review status, and unchanged `/live-webinar`
 - [x] Update remaining-token documentation and focused regression coverage, then validate the live countdown, responsive rendering, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
 - [x] Save and deliver the confirmed-event top-countdown checkpoint
+
+## Live Webinar 2 Sliding Featured-In Logo Row
+
+- [x] Replace the Featured In logo grid on `/live-webinar2` with one continuous horizontal row that loops smoothly across desktop and mobile
+- [x] Use only the existing six approved outlet logos and duplicate the same set solely to create a seamless visual loop without adding or implying new media features
+- [x] Pause the sliding row on hover and keyboard focus, hide the duplicate logo set from assistive technology, and disable motion when the visitor prefers reduced motion
+- [x] Preserve the Featured In heading, purple strip, logo identities and alt text, section placement, exact disclosures, noindex review status, all other `/live-webinar2` content and behavior, and unchanged `/live-webinar`
+- [x] Update focused regression coverage and validate responsive single-row motion, accessibility, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current runtime logs with no browser or first-party 5xx errors
+- [x] Save and deliver the sliding Featured In checkpoint

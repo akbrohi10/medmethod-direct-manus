@@ -373,18 +373,45 @@ export default function LiveWebinar2() {
               </h2>
               <span className="h-px w-7 bg-white/45 sm:w-14" aria-hidden="true" />
             </div>
-            <div className="mt-2 grid grid-cols-3 items-center gap-x-5 gap-y-2.5 sm:grid-cols-6 sm:gap-x-7 lg:gap-x-10">
-              {featuredOutlets.map(outlet => (
-                <div key={outlet.name} className="flex h-8 min-w-0 items-center justify-center sm:h-9">
-                  <img
-                    src={outlet.logo}
-                    alt={`${outlet.name} logo`}
-                    className="max-h-full max-w-full object-contain opacity-95"
-                    loading="lazy"
-                    decoding="async"
-                  />
+            <div
+              data-webinar2-logo-marquee
+              className="webinar2-logo-marquee scrollbar-hide mt-2.5"
+              tabIndex={0}
+              aria-label="Featured media outlets"
+              style={{ WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)", maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)" }}
+            >
+              <div data-webinar2-logo-track className="webinar2-logo-marquee__track">
+                <div data-webinar2-logo-set className="flex shrink-0 items-center gap-7 pr-7 sm:gap-10 sm:pr-10 lg:gap-12 lg:pr-12">
+                  {featuredOutlets.map(outlet => (
+                    <div key={`${outlet.name}-primary`} className="flex h-8 w-24 shrink-0 items-center justify-center sm:h-9 sm:w-28 lg:w-32">
+                      <img
+                        src={outlet.logo}
+                        alt={`${outlet.name} logo`}
+                        className="max-h-full max-w-full object-contain opacity-95"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <div
+                  data-webinar2-logo-set-duplicate
+                  className="webinar2-logo-marquee__duplicate flex shrink-0 items-center gap-7 pr-7 sm:gap-10 sm:pr-10 lg:gap-12 lg:pr-12"
+                  aria-hidden="true"
+                >
+                  {featuredOutlets.map(outlet => (
+                    <div key={`${outlet.name}-duplicate`} className="flex h-8 w-24 shrink-0 items-center justify-center sm:h-9 sm:w-28 lg:w-32">
+                      <img
+                        src={outlet.logo}
+                        alt=""
+                        className="max-h-full max-w-full object-contain opacity-95"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>

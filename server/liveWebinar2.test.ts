@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 const root = path.resolve(import.meta.dirname, "..");
 const pageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar2.tsx"), "utf8");
+const globalStyles = fs.readFileSync(path.join(root, "client/src/index.css"), "utf8");
 const appSource = fs.readFileSync(path.join(root, "client/src/App.tsx"), "utf8");
 const originalPageSource = fs.readFileSync(path.join(root, "client/src/pages/LiveWebinar.tsx"), "utf8");
 const learningPointsBlock = pageSource.match(/const learningPoints = \[([\s\S]*?)\];/)?.[1] ?? "";
@@ -146,13 +147,23 @@ describe("live webinar 2 second revision prompt", () => {
     }
   });
 
-  it("places Featured In below the hero video and preserves all six logos", () => {
+  it("places one accessible sliding Featured In row below the hero using only the six approved logos", () => {
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-learning"));
     expect(featuredInBlock).toContain("Featured In");
     expect(featuredInBlock).toContain("py-3");
-    expect(featuredInBlock).toContain("grid-cols-3");
-    expect(featuredInBlock).toContain("sm:grid-cols-6");
+    expect(featuredInBlock).toContain("data-webinar2-logo-marquee");
+    expect(featuredInBlock).toContain("data-webinar2-logo-track");
+    expect(featuredInBlock).toContain("data-webinar2-logo-set");
+    expect(featuredInBlock).toContain("data-webinar2-logo-set-duplicate");
+    expect(featuredInBlock).toContain('tabIndex={0}');
+    expect(featuredInBlock).toContain('aria-hidden="true"');
+    expect(pageSource.match(/featuredOutlets\.map/g)).toHaveLength(2);
+    expect(globalStyles).toContain("@keyframes webinar2-logo-marquee");
+    expect(globalStyles).toContain("animation: webinar2-logo-marquee 24s linear infinite");
+    expect(globalStyles).toContain(".webinar2-logo-marquee:focus-within .webinar2-logo-marquee__track");
+    expect(globalStyles).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(globalStyles).toContain(".webinar2-logo-marquee__duplicate");
 
     for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
       expect(pageSource).toContain(`name: "${outlet}"`);
