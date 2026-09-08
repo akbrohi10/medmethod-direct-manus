@@ -251,10 +251,13 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("sm:h-24 sm:w-24");
     expect(pageSource).toContain('video.setAttribute("playsinline", "")');
     expect(pageSource).toContain('video.setAttribute("webkit-playsinline", "")');
+    expect(pageSource).toContain("video.muted = false");
+    expect(pageSource).toContain("video.defaultMuted = false");
+    expect(pageSource).toContain("Some browsers require a user gesture for audible autoplay");
     expect(pageSource).toContain("video.muted = true");
     expect(pageSource).toContain("video.defaultMuted = true");
     expect(pageSource).toContain("autoPlay");
-    expect(pageSource).toContain("muted");
+    expect(pageSource).not.toContain('\n              muted\n');
     expect(pageSource).toContain('preload="auto"');
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
     expect(pageSource).toContain("video.pause()");

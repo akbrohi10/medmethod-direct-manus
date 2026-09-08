@@ -88,7 +88,7 @@ export default function LiveWebinar2() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
-  const [videoMuted, setVideoMuted] = useState(true);
+  const [videoMuted, setVideoMuted] = useState(false);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
 
@@ -109,22 +109,37 @@ export default function LiveWebinar2() {
     const webkitVideo = video as HTMLVideoElement & { webkitExitFullscreen?: () => void };
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
-    video.muted = true;
-    video.defaultMuted = true;
-    setVideoMuted(true);
+    video.muted = false;
+    video.defaultMuted = false;
+    setVideoMuted(false);
 
     const keepPlaybackInline = () => webkitVideo.webkitExitFullscreen?.();
     video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
 
-    const attemptPlayback = () => {
-      video.muted = true;
-      const playback = video.play();
-      playback
-        ?.then(() => {
+    const attemptPlayback = async () => {
+      video.muted = false;
+      video.defaultMuted = false;
+      setVideoMuted(false);
+
+      try {
+        await video.play();
+        setAutoplayBlocked(false);
+        setHasVideoStarted(true);
+      } catch {
+        // Some browsers require a user gesture for audible autoplay. Keep the
+        // motion available by retrying muted, then expose a clear sound control.
+        video.muted = true;
+        video.defaultMuted = true;
+        setVideoMuted(true);
+
+        try {
+          await video.play();
           setAutoplayBlocked(false);
           setHasVideoStarted(true);
-        })
-        .catch(() => setAutoplayBlocked(true));
+        } catch {
+          setAutoplayBlocked(true);
+        }
+      }
     };
 
     const observer = new IntersectionObserver(
@@ -153,6 +168,7 @@ export default function LiveWebinar2() {
     const video = videoRef.current;
     if (!video) return;
     video.muted = false;
+    video.defaultMuted = false;
     try {
       await video.play();
       setAutoplayBlocked(false);
@@ -167,6 +183,7 @@ export default function LiveWebinar2() {
     const video = videoRef.current;
     if (!video) return;
     video.muted = false;
+    video.defaultMuted = false;
     setVideoMuted(false);
   };
 
@@ -280,7 +297,6 @@ export default function LiveWebinar2() {
               ref={videoRef}
               className="h-full w-full bg-black object-cover"
               autoPlay
-              muted
               controls
               playsInline
               preload="auto"

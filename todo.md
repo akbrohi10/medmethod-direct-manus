@@ -1250,3 +1250,11 @@
 - [x] Preserve view-based pause behavior, inline mobile playback safeguards, fallback controls, event details, registration, tracking, and all unrelated page behavior
 - [x] Update focused regression coverage and validate autoplay/sound behavior, desktop/mobile rendering, 19 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the visible-video autoplay improvement checkpoint
+
+## Live Webinar 2 Audible Autoplay Priority
+
+- [x] Inspect the current muted-autoplay strategy, sound fallback, and focused playback regression coverage on `/live-webinar2`
+- [x] Attempt visible-video playback with sound enabled first while retaining a clear, accessible fallback when a browser blocks audible autoplay
+- [x] Preserve inline playback, native controls, video visibility pause/resume behavior, event details, registration, tracking, and unrelated page behavior
+- [x] Update focused regression coverage and validate audible-autoplay fallback behavior, desktop/mobile rendering, 19 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the audible-autoplay priority checkpoint
