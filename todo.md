@@ -1241,4 +1241,4 @@
 - [x] Update the confirmed live webinar details to Wednesday, September 16 at 7:00 PM ET consistently across the visitor-facing webinar and confirmation experiences
 - [x] Preserve webinar registration, the SendMeAPro form, trusted confirmation redirect behavior, Meta conversion event, payment/intake flows, and unrelated page content
 - [x] Update focused regression coverage and validate the date/time, countdown target, route rendering, 25 focused checks and all 202 tests across 40 files, TypeScript, production build, responsive layouts, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the confirmed webinar-date update checkpoint
+- [x] Save and deliver the confirmed webinar-date update checkpoint
