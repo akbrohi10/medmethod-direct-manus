@@ -13,7 +13,12 @@ describe("webinar registration conversion confirmation", () => {
     expect(appSource).toContain('const WebinarRegistrationConfirmed = lazy(() => import("@/pages/WebinarRegistrationConfirmed"));');
     expect(appSource).toContain('<Route path="/webinar-registration-confirmed" component={WebinarRegistrationConfirmed} />');
     expect(pageSource).toContain('data-webinar-registration-confirmation');
-    expect(pageSource).toContain('href="/live-webinar2"');
+    expect(pageSource).toContain('href="/"');
+    expect(pageSource).not.toContain('href="/live-webinar2"');
+    expect(pageSource).toContain("Read More About Dr. Jumana Al-Deek");
+    expect(pageSource).toContain('href="tel:+18883627011"');
+    expect(pageSource).toContain("(888) 362-7011");
+    expect(pageSource).toContain("Call Us");
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 

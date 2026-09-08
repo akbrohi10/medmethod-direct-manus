@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { CalendarDays, CheckCircle2, Clock3, Mail, MoveLeft } from "lucide-react";
+import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Mail, Phone } from "lucide-react";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
 let webinarConversionTracked = false;
@@ -92,13 +92,35 @@ export default function WebinarRegistrationConfirmed() {
               </p>
             </div>
 
-            <a
-              href="/live-webinar2"
-              className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97]"
-            >
-              <MoveLeft className="h-4 w-4" aria-hidden="true" />
-              Return to Webinar Details
-            </a>
+            <div className="mx-auto mt-8 max-w-xl">
+              <p className="text-sm font-semibold text-[#655461]">
+                Questions? Call us at{" "}
+                <a
+                  href="tel:+18883627011"
+                  className="whitespace-nowrap font-black text-[#7a1e7e] underline decoration-[#d85b9b]/60 underline-offset-4 transition hover:text-[#cf1475] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-2"
+                >
+                  (888) 362-7011
+                </a>
+                .
+              </p>
+
+              <div className="mt-4 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+                <a
+                  href="/"
+                  className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97]"
+                >
+                  Read More About Dr. Jumana Al-Deek
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <a
+                  href="tel:+18883627011"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-[#e5c5d6] bg-white px-5 py-3 text-sm font-black uppercase tracking-[0.055em] text-[#7a1e7e] shadow-sm transition duration-200 hover:border-[#d85b9b] hover:bg-[#fff6fa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97]"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  Call Us
+                </a>
+              </div>
+            </div>
           </div>
 
           <p className="mt-6 max-w-xl text-center text-xs leading-5 text-[#7a727a]">

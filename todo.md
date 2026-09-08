@@ -1274,3 +1274,11 @@
 - [x] Validate the live subtitle experience, CC On / CC Off toggle, video playback safeguards, 12 focused webinar checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
 - [x] Save the public subtitle visibility correction and report the verification result
 - [x] Add a clearly visible timed caption overlay and a visitor-controlled captions toggle because the native track is loaded on the live page but its browser control is easy to miss
+
+## Webinar Confirmation Physician-Focused Actions
+
+- [x] Inspect the webinar confirmation action area, homepage physician-information destination, and focused regression coverage before updating the actions; use the homepage root because its doctor information is part of the initial visitor journey rather than an isolated anchor section
+- [x] Replace the webinar-return action with a primary Read More About Dr. Jumana Al-Deek homepage link and a clear secondary `(888) 362-7011` call option, avoiding any implication of an immediate appointment
+- [x] Preserve the webinar confirmation message, date/time, Zoom reminder, Meta conversion guard, registration redirect, and all unrelated behavior; update focused coverage
+- [x] Validate homepage and telephone action destinations, desktop/mobile layout, 3 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the physician-focused webinar confirmation action checkpoint
