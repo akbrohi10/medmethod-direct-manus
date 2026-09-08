@@ -208,6 +208,28 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </div>
         </div>
 
+        <div
+          data-legitscript-footer-badge
+          className="mt-7 flex justify-center border-t border-white/5 pt-6"
+        >
+          <a
+            href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Verify LegitScript Approval for www.medmethoddirect.com"
+            className="inline-flex rounded-md transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#75c943] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0d] focus-visible:outline-none"
+          >
+            <img
+              src="/manus-storage/legitscript-certified-seal-51795425_51edddb5.png"
+              alt="Verify Approval for www.medmethoddirect.com"
+              width="73"
+              height="79"
+              loading="eager"
+              decoding="async"
+            />
+          </a>
+        </div>
+
         {/* Medical Disclaimer */}
         <p
           className="text-white/40 text-xs mt-6 leading-relaxed"

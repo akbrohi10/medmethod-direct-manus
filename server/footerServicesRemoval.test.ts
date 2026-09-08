@@ -51,4 +51,20 @@ describe("footer Services-column removal", () => {
     expect(homepageFooter).toContain("lg:grid-cols-4");
     expect(secondaryFooter).toContain("lg:grid-cols-5");
   });
+
+  it("shows the supplied accessible LegitScript approval badge in both shared footer variants", () => {
+    for (const source of footerSources) {
+      expect(source).toContain("data-legitscript-footer-badge");
+      expect(source).toContain('href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"');
+      expect(source).toContain('src="/manus-storage/legitscript-certified-seal-51795425_51edddb5.png"');
+      expect(source).toContain('alt="Verify Approval for www.medmethoddirect.com"');
+      expect(source).toContain('title="Verify LegitScript Approval for www.medmethoddirect.com"');
+      expect(source).toContain('target="_blank"');
+      expect(source).toContain('rel="noopener noreferrer"');
+      expect(source).toContain('width="73"');
+      expect(source).toContain('height="79"');
+      expect(source).toContain('loading="eager"');
+      expect(source).toContain("justify-center");
+    }
+  });
 });

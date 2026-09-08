@@ -1209,3 +1209,11 @@
 - [x] Update focused webinar tests for the authorized registration behavior and preserve route-isolation safeguards outside the intended CTA change
 - [x] Validate 20 focused webinar checks and all 196 tests across 39 files, TypeScript, production build, both webinar routes returning HTTP 200, desktop/mobile rendering, form opening on both routes with no submitted test lead, clean post-fix browser/dev-server logs, and zero post-fix first-party 5xx responses
 - [x] Save and deliver the webinar registration-form checkpoint with practical live-form testing guidance
+
+## Shared Footer LegitScript Approval Badge
+
+- [x] Inspect the shared footer, related footer regression coverage, and the supplied LegitScript image/link endpoints
+- [x] Add the supplied LegitScript approval badge to both shared public footer variants with the exact verification URL, accessible image text, secure new-tab behavior, responsive centered placement, and a durable project-hosted copy of the supplied seal
+- [x] Confirm existing footer content and public-page footer reuse remain intact; update focused regression coverage
+- [x] Validate the badge endpoint, responsive footer rendering, 4 focused footer checks and all 197 tests across 39 files, TypeScript, production build, homepage/blog/Virginia HTTP 200 responses, and current runtime logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the LegitScript footer-badge checkpoint
