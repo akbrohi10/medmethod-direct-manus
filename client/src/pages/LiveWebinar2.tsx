@@ -88,6 +88,7 @@ export default function LiveWebinar2() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(true);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
 
@@ -108,12 +109,15 @@ export default function LiveWebinar2() {
     const webkitVideo = video as HTMLVideoElement & { webkitExitFullscreen?: () => void };
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
+    video.muted = true;
+    video.defaultMuted = true;
+    setVideoMuted(true);
 
     const keepPlaybackInline = () => webkitVideo.webkitExitFullscreen?.();
     video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
 
     const attemptPlayback = () => {
-      video.muted = false;
+      video.muted = true;
       const playback = video.play();
       playback
         ?.then(() => {
@@ -153,9 +157,17 @@ export default function LiveWebinar2() {
       await video.play();
       setAutoplayBlocked(false);
       setHasVideoStarted(true);
+      setVideoMuted(false);
     } catch {
       setAutoplayBlocked(true);
     }
+  };
+
+  const handleEnableSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    setVideoMuted(false);
   };
 
   return (
@@ -267,15 +279,18 @@ export default function LiveWebinar2() {
             <video
               ref={videoRef}
               className="h-full w-full bg-black object-cover"
+              autoPlay
+              muted
               controls
               playsInline
-              preload="metadata"
+              preload="auto"
               poster={WEBINAR_VIDEO_POSTER_URL}
               aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
               controlsList="nodownload noremoteplayback nofullscreen"
               disablePictureInPicture
               disableRemotePlayback
               onPlay={() => setHasVideoStarted(true)}
+              onVolumeChange={event => setVideoMuted(event.currentTarget.muted)}
             >
               <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
               Your browser does not support embedded video playback.
@@ -289,6 +304,18 @@ export default function LiveWebinar2() {
                 <Clock3 className="h-4 w-4" aria-hidden="true" />
                 Watch: [VIDEO LENGTH]
               </span>
+            )}
+
+            {hasVideoStarted && videoMuted && !autoplayBlocked && (
+              <button
+                data-webinar2-enable-sound
+                type="button"
+                onClick={handleEnableSound}
+                className="absolute top-3 right-3 z-10 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#291232]/92 px-3 py-2 text-[9px] font-black uppercase tracking-[0.07em] text-white shadow-lg transition hover:bg-[#3a1846] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#291232] active:scale-[0.97] sm:top-4 sm:right-4 sm:px-4 sm:text-[10px]"
+              >
+                <Volume2 className="h-4 w-4" aria-hidden="true" />
+                Turn Sound On
+              </button>
             )}
 
             {autoplayBlocked && (

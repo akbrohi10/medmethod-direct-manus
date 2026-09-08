@@ -1242,3 +1242,11 @@
 - [x] Preserve webinar registration, the SendMeAPro form, trusted confirmation redirect behavior, Meta conversion event, payment/intake flows, and unrelated page content
 - [x] Update focused regression coverage and validate the date/time, countdown target, route rendering, 25 focused checks and all 202 tests across 40 files, TypeScript, production build, responsive layouts, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the confirmed webinar-date update checkpoint
+
+## Live Webinar 2 Visible-Video Autoplay
+
+- [x] Inspect current video autoplay, sound, intersection-observer, and focused regression behavior on `/live-webinar2`
+- [x] Make the webinar video start reliably when it becomes visible using browser-compatible muted autoplay, with an accessible sound-on control and retained native controls
+- [x] Preserve view-based pause behavior, inline mobile playback safeguards, fallback controls, event details, registration, tracking, and all unrelated page behavior
+- [x] Update focused regression coverage and validate autoplay/sound behavior, desktop/mobile rendering, 19 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the visible-video autoplay improvement checkpoint
