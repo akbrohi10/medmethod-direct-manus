@@ -1265,4 +1265,4 @@
 - [x] Create an accurate English WebVTT subtitle track from the webinar video audio and store it using the approved durable asset workflow
 - [x] Add the caption track to `/live-webinar2` with native caption controls while preserving autoplay, sound fallback, inline playback, registration, tracking, and all unrelated page behavior
 - [x] Update focused regression coverage and validate 12 focused webinar checks and all 202 tests across 40 files, loaded default English captions with 12 timed cues, desktop/mobile rendering, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the live-webinar2 subtitle enhancement checkpoint
+- [x] Save and deliver the live-webinar2 subtitle enhancement checkpoint
