@@ -89,8 +89,10 @@ describe("live webinar landing page", () => {
     expect(bookCoverBlock).not.toMatch(/scale-\[|object-cover|overflow-hidden/);
     expect(bookCoverBlock).not.toMatch(/\bborder\b|\bbg-white\b|\bp-1\.5\b|\brounded\b/);
     expect(bookCoverBlock).not.toContain(" shadow-");
-    expect(pageSource).toContain("[Date]");
-    expect(pageSource).toContain("[Time]");
+    expect(pageSource).toContain("Wednesday, September 16");
+    expect(pageSource).toContain("7:00 PM ET");
+    expect(pageSource).not.toContain("[Date]");
+    expect(pageSource).not.toContain("[Time]");
     expect(pageSource).toContain("Reserve My Free Spot");
     expect(pageSource).toContain('import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";');
     expect(pageSource).toContain("const [registrationOpen, setRegistrationOpen] = useState(false);");

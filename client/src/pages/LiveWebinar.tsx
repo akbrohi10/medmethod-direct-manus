@@ -345,11 +345,11 @@ export default function LiveWebinar() {
             <div className="grid grid-cols-2 overflow-hidden rounded-lg border border-[#eadfdd] bg-white sm:grid-cols-4">
               <div className="flex min-h-14 items-center gap-2 border-b border-r border-[#eadfdd] px-3 py-3 sm:border-b-0">
                 <CalendarDays className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
-                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">[Date]</span>
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">Wednesday, September 16</span>
               </div>
               <div className="flex min-h-14 items-center gap-2 border-b border-[#eadfdd] px-3 py-3 sm:border-b-0 sm:border-r">
                 <Clock3 className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />
-                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">[Time]</span>
+                <span className="text-xs font-extrabold uppercase tracking-[0.04em]">7:00 PM ET</span>
               </div>
               <div className="flex min-h-14 items-center gap-2 border-r border-[#eadfdd] px-3 py-3">
                 <MonitorPlay className="h-5 w-5 shrink-0 text-[#c91972]" aria-hidden="true" />

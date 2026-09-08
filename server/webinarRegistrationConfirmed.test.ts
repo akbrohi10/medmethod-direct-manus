@@ -29,7 +29,7 @@ describe("webinar registration conversion confirmation", () => {
   });
 
   it("shows the supplied confirmed event details and inbox reminder without creating a clinical claim", () => {
-    expect(pageSource).toContain("Wednesday, September 23");
+    expect(pageSource).toContain("Wednesday, September 16");
     expect(pageSource).toContain("7:00 PM ET");
     expect(pageSource).toContain("Your Zoom link has been sent to the email address you used to register");
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation.");

@@ -73,7 +73,7 @@ export default function WebinarRegistrationConfirmed() {
                 <CalendarDays className="h-5 w-5 shrink-0 text-[#dd2d84]" aria-hidden="true" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#9b7388]">Date</p>
-                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">Wednesday, September 23</p>
+                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">Wednesday, September 16</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">

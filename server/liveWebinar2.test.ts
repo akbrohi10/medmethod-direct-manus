@@ -125,8 +125,8 @@ describe("live webinar 2 second revision prompt", () => {
 
   it("uses the confirmed Eastern event time for one active countdown directly beneath the top banner", () => {
     expect(pageSource).toContain("const WEBINAR_EVENT = {");
-    expect(pageSource).toContain('startsAt: "2026-09-23T19:00:00-04:00" as string | null');
-    expect(pageSource).toContain('dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:00 PM ET"');
+    expect(pageSource).toContain('startsAt: "2026-09-16T19:00:00-04:00" as string | null');
+    expect(pageSource).toContain('dateTimeDisplay: "WEDNESDAY, SEPTEMBER 16 · 7:00 PM ET"');
     expect(pageSource).toContain('timezone: "ET"');
     expect(pageSource).not.toContain('duration: "[DURATION]"');
     expect(pageSource).not.toContain("const eventSupportLine =");

@@ -24,6 +24,10 @@ https://www.medmethoddirect.com/webinar-registration-confirmed
 
 Use the exact production URL above, not a development-preview address. After saving, submit one controlled test registration in a private browser window. The browser should navigate to the dedicated confirmation route, which emits the guarded `CompleteRegistration` Meta event and `webinar_registration_complete` dataLayer event exactly once per browser session.
 
+## Event Details
+
+The confirmed webinar is **Wednesday, September 16, 2026 at 7:00 PM ET**. Update the GoHighLevel confirmation message for the Webinar Form to the same event details so its provider-hosted confirmation remains consistent with the website confirmation route.
+
 ## Implementation Verification
 
 The dedicated confirmation route loaded successfully in the browser on September 8, 2026. It emitted one `webinar_registration_complete` dataLayer event, confirmed that the Meta Pixel function was available, and wrote the session deduplication marker. No form submission was performed during this verification.

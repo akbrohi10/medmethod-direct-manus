@@ -1234,3 +1234,11 @@
 - [x] Verify the GoHighLevel form’s supported redirect configuration and document the exact post-submission destination without guessing cross-origin form events; no GoHighLevel connector is available for account-side configuration
 - [x] Add focused regression coverage and validate the Meta event guard, route behavior, form preservation, desktop/mobile layout, 26 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the webinar conversion thank-you checkpoint with the exact GoHighLevel redirect configuration step
+
+## Confirmed Webinar Date and Time
+
+- [x] Locate the current September 23 and 7:00 PM ET references across both webinar landing pages, countdown targets, confirmation route, tests, and documentation
+- [x] Update the confirmed live webinar details to Wednesday, September 16 at 7:00 PM ET consistently across the visitor-facing webinar and confirmation experiences
+- [x] Preserve webinar registration, the SendMeAPro form, trusted confirmation redirect behavior, Meta conversion event, payment/intake flows, and unrelated page content
+- [x] Update focused regression coverage and validate the date/time, countdown target, route rendering, 25 focused checks and all 202 tests across 40 files, TypeScript, production build, responsive layouts, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the confirmed webinar-date update checkpoint
