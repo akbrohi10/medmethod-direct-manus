@@ -18,7 +18,9 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain("Read More About Dr. Jumana Al-Deek");
     expect(pageSource).toContain('href="tel:+18883627011"');
     expect(pageSource).toContain("(888) 362-7011");
-    expect(pageSource).toContain("Call Us");
+    expect(pageSource).not.toContain("Call Us");
+    expect(pageSource.match(/href="tel:\+18883627011"/g)).toHaveLength(1);
+    expect(pageSource.indexOf("Read More About Dr. Jumana Al-Deek")).toBeLessThan(pageSource.indexOf("Questions? Call us at"));
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
