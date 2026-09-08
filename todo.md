@@ -1258,3 +1258,11 @@
 - [x] Preserve inline playback, native controls, video visibility pause/resume behavior, event details, registration, tracking, and unrelated page behavior
 - [x] Update focused regression coverage and validate audible-autoplay fallback behavior, desktop/mobile rendering, 19 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the audible-autoplay priority checkpoint
+
+## Live Webinar 2 Subtitle Track
+
+- [x] Inspect the current video source, player markup, caption-asset support, and focused regression coverage before adding subtitles
+- [x] Create an accurate English WebVTT subtitle track from the webinar video audio and store it using the approved durable asset workflow
+- [x] Add the caption track to `/live-webinar2` with native caption controls while preserving autoplay, sound fallback, inline playback, registration, tracking, and all unrelated page behavior
+- [x] Update focused regression coverage and validate 12 focused webinar checks and all 202 tests across 40 files, loaded default English captions with 12 timed cues, desktop/mobile rendering, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar2 subtitle enhancement checkpoint

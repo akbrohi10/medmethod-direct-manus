@@ -6,6 +6,54 @@ import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
+const WEBINAR_VIDEO_CAPTIONS_VTT = [
+  "WEBVTT",
+  "",
+  "00:00:00.300 --> 00:00:01.900",
+  "My name is Dr. Jumana Al-Deek.",
+  "",
+  "00:00:01.900 --> 00:00:10.300",
+  "I'm a board-certified doctor, family medicine physician,",
+  "and I specialize in menopause, medical weight loss, and metabolism.",
+  "",
+  "00:00:22.500 --> 00:00:28.800",
+  "A lot of women—an entire generation of women—",
+  "have been scared off hormone therapy because of this one.",
+  "",
+  "00:00:28.800 --> 00:00:32.700",
+  "A lot of women have thought that hormone therapy causes cancer.",
+  "",
+  "00:00:32.700 --> 00:00:42.800",
+  "So back in 2002, there was a study by the Women's Health Initiative,",
+  "WHI for short, and they looked at women.",
+  "",
+  "00:00:42.800 --> 00:00:45.700",
+  "There were a couple things wrong with the study.",
+  "I'm going to point out the first one.",
+  "",
+  "00:00:45.700 --> 00:00:52.400",
+  "They were looking at women who are much older than the general population",
+  "that we start hormone therapy in.",
+  "",
+  "00:00:52.400 --> 00:01:04.900",
+  "Number two, they also studied these women—the actual hormone they looked at",
+  "was a pill, an estrogen pill, and this pill was from horse urine.",
+  "",
+  "00:01:04.900 --> 00:01:09.400",
+  "You don't have to wait until you're in menopause",
+  "to get on hormone therapy.",
+  "",
+  "00:01:09.400 --> 00:01:14.700",
+  "The idea is to get on it while you're going through perimenopause,",
+  "so the transition is seamless.",
+  "",
+  "00:01:14.700 --> 00:01:19.600",
+  "This was amazing.",
+  "",
+  "00:01:19.600 --> 00:01:20.000",
+  "Wow!",
+].join("\n");
+const WEBINAR_VIDEO_CAPTIONS_SRC = `data:text/vtt;charset=utf-8,${encodeURIComponent(WEBINAR_VIDEO_CAPTIONS_VTT)}`;
 
 // Confirmed event time: September 16, 2026 at 7:00 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
@@ -309,6 +357,14 @@ export default function LiveWebinar2() {
               onVolumeChange={event => setVideoMuted(event.currentTarget.muted)}
             >
               <source src={WEBINAR_VIDEO_URL} type="video/mp4" />
+              <track
+                data-webinar2-video-captions
+                kind="captions"
+                src={WEBINAR_VIDEO_CAPTIONS_SRC}
+                srcLang="en"
+                label="English"
+                default
+              />
               Your browser does not support embedded video playback.
             </video>
 

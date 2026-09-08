@@ -259,6 +259,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("autoPlay");
     expect(pageSource).not.toContain('\n              muted\n');
     expect(pageSource).toContain('preload="auto"');
+    expect(pageSource).toContain("WEBINAR_VIDEO_CAPTIONS_VTT");
+    expect(pageSource).toContain("WEBINAR_VIDEO_CAPTIONS_SRC");
+    expect(pageSource).toContain("data:text/vtt;charset=utf-8");
+    expect(pageSource).toContain('data-webinar2-video-captions');
+    expect(pageSource).toContain('kind="captions"');
+    expect(pageSource).toContain('srcLang="en"');
+    expect(pageSource).toContain('label="English"');
+    expect(pageSource).toContain("default");
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
     expect(pageSource).toContain("video.pause()");
     expect(pageSource).toContain("data-webinar2-enable-sound");
