@@ -1224,4 +1224,4 @@
 - [x] Add the existing durable LegitScript Certified seal to a centered, polished `/live-webinar2` footer treatment with the exact verification link and secure accessible behavior
 - [x] Preserve all existing webinar content, countdown, video, CTA/form, featured logos, learning checklist, and educational-disclosure behavior; update focused coverage
 - [x] Validate desktop/mobile rendering, badge image/link, CTA form behavior, 16 focused checks and all 198 tests across 39 files, TypeScript, production build, live-webinar2 HTTP 200, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the live-webinar2 footer-badge checkpoint
+- [x] Save and deliver the live-webinar2 footer-badge checkpoint
