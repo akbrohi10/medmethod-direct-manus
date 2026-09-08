@@ -24,6 +24,7 @@ import {
   upsertPaypalSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { sendPaymentEmailSafely } from "../emailService";
 import { formatUsdFromCents, STANDARD_CONSULTATION_PRICING } from "../referralCredits";
 import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
@@ -147,6 +148,12 @@ export async function chargePayPalVault(
       paypalRemainingOrderId: order.id,
       scheduledChargePaymentCronTaskUid: `cancelled-by-charge-${Date.now()}`,
     });
+    await sendPaymentEmailSafely({
+      paymentId,
+      templateKey: "balance_paid",
+      chargedAmount: payment.remainingAmount,
+      transactionId: order.id,
+    });
     return { success: true, captureId: order.id };
   }
 
@@ -176,6 +183,13 @@ export async function chargePayPalVault(
     status: "fully_paid",
     paypalRemainingOrderId: order.id,
     scheduledChargePaymentCronTaskUid: `cancelled-by-charge-${Date.now()}`,
+  });
+
+  await sendPaymentEmailSafely({
+    paymentId,
+    templateKey: "balance_paid",
+    chargedAmount: payment.remainingAmount,
+    transactionId: capture.id,
   });
 
   return { success: true, captureId: capture.id };
@@ -414,6 +428,14 @@ export const paypalRouter = router({
         paypalOrderId: input.orderId,
         ...(vaultToken ? { paypalVaultToken: vaultToken } : {}),
         ...(customerId ? { paypalCustomerId: customerId } : {}),
+      });
+
+      const paidPayment = await getPaymentById(input.paymentId);
+      await sendPaymentEmailSafely({
+        paymentId: input.paymentId,
+        templateKey: "deposit_paid",
+        chargedAmount: paidPayment?.depositAmount ?? 5000,
+        transactionId: capture.id,
       });
 
       return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken };

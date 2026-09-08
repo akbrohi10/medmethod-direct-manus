@@ -161,3 +161,64 @@ export const paypalSettings = mysqlTable("paypal_settings", {
 
 export type PaypalSettings = typeof paypalSettings.$inferSelect;
 export type InsertPaypalSettings = typeof paypalSettings.$inferInsert;
+
+/**
+ * Email settings — singleton admin-managed Resend configuration.
+ * The API key is encrypted before persistence and is never returned to clients.
+ */
+export const emailSettings = mysqlTable("email_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  enabled: int("enabled").default(0).notNull(),
+  resendApiKeyEncrypted: text("resendApiKeyEncrypted"),
+  senderName: varchar("senderName", { length: 255 }),
+  senderEmail: varchar("senderEmail", { length: 320 }),
+  replyToEmail: varchar("replyToEmail", { length: 320 }),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EmailSettings = typeof emailSettings.$inferSelect;
+export type InsertEmailSettings = typeof emailSettings.$inferInsert;
+
+/**
+ * Editable transactional email templates.
+ * Two system keys are currently supported: deposit_paid and balance_paid.
+ */
+export const emailTemplates = mysqlTable("email_templates", {
+  id: int("id").autoincrement().primaryKey(),
+  templateKey: varchar("templateKey", { length: 64 }).notNull().unique(),
+  displayName: varchar("displayName", { length: 160 }).notNull(),
+  subject: text("subject").notNull(),
+  htmlBody: text("htmlBody").notNull(),
+  textBody: text("textBody").notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EmailTemplate = typeof emailTemplates.$inferSelect;
+export type InsertEmailTemplate = typeof emailTemplates.$inferInsert;
+
+/**
+ * Permanent transactional email delivery log.
+ * eventKey is unique so payment retries cannot send the same customer email twice.
+ */
+export const emailDeliveryLog = mysqlTable("email_delivery_log", {
+  id: int("id").autoincrement().primaryKey(),
+  eventKey: varchar("eventKey", { length: 191 }).notNull().unique(),
+  paymentId: int("paymentId").notNull(),
+  templateKey: varchar("templateKey", { length: 64 }).notNull(),
+  recipientEmail: varchar("recipientEmail", { length: 320 }).notNull(),
+  subject: text("subject").notNull(),
+  chargedAmount: int("chargedAmount").notNull(),
+  appointmentDate: bigint("appointmentDate", { mode: "number" }),
+  paymentProvider: varchar("paymentProvider", { length: 32 }),
+  transactionId: varchar("transactionId", { length: 191 }),
+  status: mysqlEnum("status", ["pending", "sent", "failed", "skipped"]).default("pending").notNull(),
+  providerMessageId: varchar("providerMessageId", { length: 191 }),
+  errorMessage: text("errorMessage"),
+  attemptNumber: int("attemptNumber").default(1).notNull(),
+  sentAt: timestamp("sentAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EmailDeliveryLog = typeof emailDeliveryLog.$inferSelect;
+export type InsertEmailDeliveryLog = typeof emailDeliveryLog.$inferInsert;

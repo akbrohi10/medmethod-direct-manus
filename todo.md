@@ -1184,3 +1184,18 @@
 - [x] Preserve the existing `Reserve My Free Spot` CTA beneath the checklist, every surrounding `/live-webinar2` section and behavior, safeguards, and unchanged `/live-webinar`
 - [x] Update focused regression coverage and validate exact copy, seven-item order, accessibility, mobile/desktop rendering, TypeScript, 29 focused checks, all 179 tests across 34 files, production build, both webinar routes returning HTTP 200, and current-session server, browser, and first-party logs without errors or 5xx responses
 - [x] Save and deliver the seven-item checklist checkpoint
+
+## Admin Resend Email Settings and Homepage Payment Notifications
+
+- [x] Audit the current `/admin/settings` architecture, homepage $50 payment completion paths, LECTURE50 $99 remaining-balance logic, appointment-date scheduled charge handler, Stripe/PayPal flows, GHL webhooks, and existing notification helpers without changing behavior
+- [x] Present and confirm direct transactional delivery as the selected architecture, including non-blocking payment behavior and permanent delivery idempotency
+- [x] Store the admin-entered Resend API key with AES-256-GCM encryption in the database, never return it in full, support masked replacement/removal, and avoid plaintext persistence or logs
+- [x] Add database-backed email delivery settings, two editable email templates, update timestamps, and permanent unique payment-event delivery logs
+- [x] Add secure server-side Resend delivery with a global enable/disable toggle, verified sender address, test-email action, template-variable validation, HTML/text rendering, provider idempotency, and clear disabled/unconfigured failure states
+- [x] Add an Email Settings tab/section to `/admin/settings` matching the existing dashboard design, with masked API-key management, status, enable toggle, sender configuration, test recipient, test-send action, editable subject/HTML/plain-text templates, and recent delivery history
+- [x] Send the first customer email only after a successful homepage Stripe or PayPal $50 payment and include the correct $149 or referral-adjusted $99 remaining balance without altering payment, affiliate, GHL, booking, or referral behavior
+- [x] Send the second customer email after successful Stripe or PayPal remaining-balance charges, using the actual persisted amount and preventing duplicate delivery during scheduled, manual, or retry paths
+- [x] Preserve email silence when the admin toggle is disabled, when credentials/sender are incomplete, or when a payment/charge is unsuccessful; record delivery outcomes without blocking successful payments
+- [x] Add Vitest coverage for encrypted credentials, admin-only settings, masked key handling, templates, enable gating, HTML escaping, Resend failure isolation, $50 triggers, $149/$99 rendering, permanent idempotency, and unchanged WL2 one-time payment flows
+- [x] Validate the three schema-backed tables, 26 focused checks, all 194 tests across 38 files, TypeScript, production build, payment-flow isolation, both payment providers, `/`, `/admin/settings`, `/api/health` HTTP 200, protected email tRPC HTTP 403 when unauthorized, and clean current-session runtime logs; authenticated visual verification and a live Resend test remain owner activation steps because no admin session or API key was supplied
+- [x] Save and deliver the completed Resend email-notification checkpoint with activation instructions

@@ -1,6 +1,12 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  EmailDeliveryLog,
+  EmailSettings,
+  EmailTemplate,
+  InsertEmailDeliveryLog,
+  InsertEmailSettings,
+  InsertEmailTemplate,
   InsertPayment,
   InsertPaypalSettings,
   InsertStripeSettings,
@@ -9,6 +15,9 @@ import {
   PaypalSettings,
   StripeSettings,
   SuperAdminCredential,
+  emailDeliveryLog,
+  emailSettings,
+  emailTemplates,
   payments,
   paypalSettings,
   stripeSettings,
@@ -253,6 +262,98 @@ export async function upsertPaypalSettings(
       ...data,
     });
   }
+}
+
+// ─── Email Settings, Templates, and Delivery Logs ─────────────────────────────
+
+export async function getEmailSettings(): Promise<EmailSettings | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(emailSettings).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function upsertEmailSettings(
+  data: Partial<InsertEmailSettings>
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const existing = await getEmailSettings();
+  if (existing) {
+    await db
+      .update(emailSettings)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(emailSettings.id, existing.id));
+    return;
+  }
+  await db.insert(emailSettings).values({ enabled: 0, ...data });
+}
+
+export async function getEmailTemplates(): Promise<EmailTemplate[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(emailTemplates).orderBy(emailTemplates.id);
+}
+
+export async function getEmailTemplateByKey(templateKey: string): Promise<EmailTemplate | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db
+    .select()
+    .from(emailTemplates)
+    .where(eq(emailTemplates.templateKey, templateKey))
+    .limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function upsertEmailTemplate(data: InsertEmailTemplate): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const existing = await getEmailTemplateByKey(data.templateKey);
+  if (existing) {
+    await db
+      .update(emailTemplates)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(emailTemplates.id, existing.id));
+    return;
+  }
+  await db.insert(emailTemplates).values(data);
+}
+
+export async function createEmailDeliveryLog(data: InsertEmailDeliveryLog): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(emailDeliveryLog).values(data);
+  return (result[0] as { insertId: number }).insertId;
+}
+
+export async function getEmailDeliveryLogByEventKey(eventKey: string): Promise<EmailDeliveryLog | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db
+    .select()
+    .from(emailDeliveryLog)
+    .where(eq(emailDeliveryLog.eventKey, eventKey))
+    .limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function updateEmailDeliveryLog(
+  id: number,
+  data: Partial<InsertEmailDeliveryLog>
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db
+    .update(emailDeliveryLog)
+    .set({ ...data, updatedAt: new Date() })
+    .where(eq(emailDeliveryLog.id, id));
+}
+
+export async function getRecentEmailDeliveryLogs(limit = 50): Promise<EmailDeliveryLog[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(emailDeliveryLog).orderBy(desc(emailDeliveryLog.createdAt)).limit(limit);
 }
 
 // ─── Super Admin Credentials ─────────────────────────────────────────────────

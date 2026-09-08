@@ -22,6 +22,7 @@ import { sdk } from "./_core/sdk";
 import { getStripeSettings } from "./db";
 import { createHeartbeatJob, listHeartbeatJobs } from "./_core/heartbeat";
 import { chargePayPalVault } from "./routers/paypal";
+import { sendPaymentEmailSafely } from "./emailService";
 
 /**
  * Ensure the global hourly sweep cron job exists.
@@ -222,6 +223,13 @@ export async function runSweep(): Promise<{
               .update(payments)
               .set({ status: "fully_paid", updatedAt: new Date() })
               .where(eq(payments.id, payment.id));
+
+            await sendPaymentEmailSafely({
+              paymentId: payment.id,
+              templateKey: "balance_paid",
+              chargedAmount: payment.remainingAmount,
+              transactionId: confirmedPi.id,
+            });
 
             console.log(`[SweepDueCharges] Stripe payment ${payment.id} → fully_paid`);
             results.push({ paymentId: payment.id, provider: "stripe", status: "fully_paid" });

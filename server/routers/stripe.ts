@@ -26,6 +26,7 @@ import {
   upsertStripeSettings,
 } from "../db";
 import { publicProcedure, router, superAdminOrAdminProcedure } from "../_core/trpc";
+import { sendPaymentEmailSafely } from "../emailService";
 import { formatUsdFromCents, STANDARD_CONSULTATION_PRICING } from "../referralCredits";
 import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTimePayment";
 
@@ -252,6 +253,13 @@ export const stripeRouter = router({
       await updatePayment(input.paymentId, {
         stripePaymentMethodId: paymentMethodId ?? undefined,
         status: "deposit_paid",
+      });
+
+      await sendPaymentEmailSafely({
+        paymentId: input.paymentId,
+        templateKey: "deposit_paid",
+        chargedAmount: pi.amount,
+        transactionId: pi.id,
       });
 
       return { success: true };
@@ -586,6 +594,13 @@ export const stripeRouter = router({
         // Clear the cron task UID so the admin UI shows 'Paid in full'
         // and the scheduled handler skips this payment if it fires.
         scheduledChargePaymentCronTaskUid: `cancelled-by-admin-${Date.now()}`,
+      });
+
+      await sendPaymentEmailSafely({
+        paymentId: input.paymentId,
+        templateKey: "balance_paid",
+        chargedAmount: remainingAmount,
+        transactionId: pi.id,
       });
 
       console.log(`[ChargeNow] Payment #${input.paymentId} charged $${remainingAmountUsd} immediately. PI: ${pi.id}`);
