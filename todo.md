@@ -1216,4 +1216,4 @@
 - [x] Add the supplied LegitScript approval badge to both shared public footer variants with the exact verification URL, accessible image text, secure new-tab behavior, responsive centered placement, and a durable project-hosted copy of the supplied seal
 - [x] Confirm existing footer content and public-page footer reuse remain intact; update focused regression coverage
 - [x] Validate the badge endpoint, responsive footer rendering, 4 focused footer checks and all 197 tests across 39 files, TypeScript, production build, homepage/blog/Virginia HTTP 200 responses, and current runtime logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the LegitScript footer-badge checkpoint
+- [x] Save and deliver the LegitScript footer-badge checkpoint
