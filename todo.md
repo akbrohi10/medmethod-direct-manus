@@ -1217,3 +1217,11 @@
 - [x] Confirm existing footer content and public-page footer reuse remain intact; update focused regression coverage
 - [x] Validate the badge endpoint, responsive footer rendering, 4 focused footer checks and all 197 tests across 39 files, TypeScript, production build, homepage/blog/Virginia HTTP 200 responses, and current runtime logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the LegitScript footer-badge checkpoint
+
+## Live Webinar 2 LegitScript Footer Badge
+
+- [x] Inspect the current `/live-webinar2` bottom section and focused webinar regression coverage before adding the badge
+- [x] Add the existing durable LegitScript Certified seal to a centered, polished `/live-webinar2` footer treatment with the exact verification link and secure accessible behavior
+- [x] Preserve all existing webinar content, countdown, video, CTA/form, featured logos, learning checklist, and educational-disclosure behavior; update focused coverage
+- [x] Validate desktop/mobile rendering, badge image/link, CTA form behavior, 16 focused checks and all 198 tests across 39 files, TypeScript, production build, live-webinar2 HTTP 200, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar2 footer-badge checkpoint

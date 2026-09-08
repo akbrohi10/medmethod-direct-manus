@@ -439,6 +439,29 @@ export default function LiveWebinar2() {
           <p className="mx-auto mt-8 max-w-[860px] text-center text-[10px] leading-5 text-[#7a727a] sm:text-xs">
             This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
           </p>
+
+          <footer
+            data-webinar2-legitscript-footer
+            className="mx-auto mt-8 flex max-w-[940px] justify-center border-t border-[#ece4e9] pt-7 sm:mt-10 sm:pt-8"
+          >
+            <a
+              href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Verify LegitScript Approval for www.medmethoddirect.com"
+              aria-label="Verify LegitScript Approval for www.medmethoddirect.com"
+              className="inline-flex rounded-md transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#75c943] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fff7f5]"
+            >
+              <img
+                src="/manus-storage/legitscript-certified-seal-51795425_51edddb5.png"
+                alt="Verify Approval for www.medmethoddirect.com"
+                width="73"
+                height="79"
+                loading="eager"
+                decoding="async"
+              />
+            </a>
+          </footer>
         </div>
       </article>
       <WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />

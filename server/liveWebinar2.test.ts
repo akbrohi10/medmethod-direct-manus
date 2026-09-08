@@ -11,6 +11,7 @@ const learningChecklistBlock = pageSource.match(/const learningChecklist = \[([\
 const featuredInBlock = pageSource.match(/<section\s+data-webinar2-featured-in[\s\S]*?<\/section>/)?.[0] ?? "";
 const learningSectionBlock = pageSource.match(/<section\s+data-webinar2-learning[\s\S]*?<\/section>/)?.[0] ?? "";
 const primaryCtaBlock = pageSource.match(/<button\s+data-webinar2-primary-cta[\s\S]*?<\/button>/)?.[0] ?? "";
+const legitScriptFooterBlock = pageSource.match(/<footer\s+data-webinar2-legitscript-footer[\s\S]*?<\/footer>/)?.[0] ?? "";
 
 describe("live webinar 2 second revision prompt", () => {
   it("keeps the nationwide educational variation isolated from the original webinar route", () => {
@@ -117,7 +118,8 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Yes — Reserve My Free Spot");
     expect(pageSource).not.toContain("Can’t attend live? Register anyway and we’ll send you the recording.");
     expect(pageSource).not.toContain('href="/privacy-policy"');
-    expect(pageSource.match(/<a\b/g) ?? []).toHaveLength(0);
+    expect(pageSource.match(/<a\b/g) ?? []).toHaveLength(1);
+    expect(legitScriptFooterBlock).toContain("<a");
     expect(pageSource).not.toMatch(/fetch\(|trpc\.|webhook|stripe|paypal/i);
   });
 
@@ -268,5 +270,20 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("Registration will open here once the event registration link is connected.");
     expect(pageSource).not.toContain("Live Q&amp;A with Dr. Al-Deek");
     expect(pageSource).not.toMatch(/<button[\s\S]{0,300}LIVE Q&amp;A with Dr\. Jumana Al-Deek/);
+  });
+
+  it("adds the supplied LegitScript Certified seal in a centered, accessible footer beneath the webinar disclosure", () => {
+    expect(pageSource.indexOf("data-webinar2-informed-message")).toBeLessThan(pageSource.indexOf("data-webinar2-legitscript-footer"));
+    expect(pageSource.indexOf("This live webinar is for general educational purposes")).toBeLessThan(pageSource.indexOf("data-webinar2-legitscript-footer"));
+    expect(legitScriptFooterBlock).toContain("justify-center");
+    expect(legitScriptFooterBlock).toContain('href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"');
+    expect(legitScriptFooterBlock).toContain('src="/manus-storage/legitscript-certified-seal-51795425_51edddb5.png"');
+    expect(legitScriptFooterBlock).toContain('alt="Verify Approval for www.medmethoddirect.com"');
+    expect(legitScriptFooterBlock).toContain('title="Verify LegitScript Approval for www.medmethoddirect.com"');
+    expect(legitScriptFooterBlock).toContain('aria-label="Verify LegitScript Approval for www.medmethoddirect.com"');
+    expect(legitScriptFooterBlock).toContain('target="_blank"');
+    expect(legitScriptFooterBlock).toContain('rel="noopener noreferrer"');
+    expect(legitScriptFooterBlock).toContain('width="73"');
+    expect(legitScriptFooterBlock).toContain('height="79"');
   });
 });
