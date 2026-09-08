@@ -42,6 +42,7 @@ const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CareTeamBooking = lazy(() => import("@/pages/CareTeamBooking"));
 const LiveWebinar = lazy(() => import("@/pages/LiveWebinar"));
 const LiveWebinar2 = lazy(() => import("@/pages/LiveWebinar2"));
+const WebinarRegistrationConfirmed = lazy(() => import("@/pages/WebinarRegistrationConfirmed"));
 
 // Location pages - Virginia
 const LocationVirginia = lazy(() => import("@/pages/LocationVirginia"));
@@ -326,6 +327,7 @@ function Router() {
         <Route path="/care-team-booking" component={CareTeamBooking} />
         <Route path="/live-webinar" component={LiveWebinar} />
         <Route path="/live-webinar2" component={LiveWebinar2} />
+        <Route path="/webinar-registration-confirmed" component={WebinarRegistrationConfirmed} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>

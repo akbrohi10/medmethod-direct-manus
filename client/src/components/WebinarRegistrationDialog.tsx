@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,13 @@ import {
 
 const WEBINAR_FORM_ID = "A3e1g5dCf1hc3tY3xpHi";
 const WEBINAR_FORM_URL = `https://link.sendmeapro.com/widget/form/${WEBINAR_FORM_ID}`;
+const WEBINAR_CONFIRMATION_PATH = "/webinar-registration-confirmed";
+const TRUSTED_GHL_ORIGINS = [
+  "https://link.sendmeapro.com",
+  "https://app.gohighlevel.com",
+  "https://crm.gohighlevel.com",
+  "https://app.leadconnectorhq.com",
+];
 
 type WebinarRegistrationDialogProps = {
   open: boolean;
@@ -30,14 +37,51 @@ export default function WebinarRegistrationDialog({
 }: WebinarRegistrationDialogProps) {
   const [formLoaded, setFormLoaded] = useState(false);
   const [formLoadError, setFormLoadError] = useState(false);
+  const formFrameRef = useRef<HTMLIFrameElement>(null);
+  const completionRedirectedRef = useRef(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (nextOpen) {
       setFormLoaded(false);
       setFormLoadError(false);
+      completionRedirectedRef.current = false;
     }
     onOpenChange(nextOpen);
   };
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleMessage = (event: MessageEvent) => {
+      if (!TRUSTED_GHL_ORIGINS.includes(event.origin)) return;
+      if (event.source !== formFrameRef.current?.contentWindow) return;
+      if (typeof event.data === "string" && !event.data.trim().startsWith("{")) return;
+
+      try {
+        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        if (!data || completionRedirectedRef.current) return;
+
+        const reportedFormId = data.formId ?? data.form_id ?? data.form?.id;
+        if (reportedFormId && reportedFormId !== WEBINAR_FORM_ID) return;
+
+        const isSuccessfulSubmission = [
+          data.type,
+          data.event,
+          data.action,
+        ].some(value => ["formSubmit", "form_submission", "formSubmitted", "FORM_SUBMITTED"].includes(value));
+
+        if (!isSuccessfulSubmission) return;
+
+        completionRedirectedRef.current = true;
+        window.location.assign(WEBINAR_CONFIRMATION_PATH);
+      } catch {
+        // Ignore provider messages that are not valid JSON completion events.
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [open]);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -78,6 +122,7 @@ export default function WebinarRegistrationDialog({
             </div>
           ) : (
             <iframe
+              ref={formFrameRef}
               src={WEBINAR_FORM_URL}
               style={{ width: "100%", height: "100%", minHeight: "450px", border: "none", borderRadius: "8px" }}
               id={`inline-${WEBINAR_FORM_ID}`}
