@@ -1208,4 +1208,4 @@
 - [x] Avoid automatic or duplicate GHL form-script installation; preserve responsive iframe height, close behavior, keyboard escape, focus return, and clear loading/error handling
 - [x] Update focused webinar tests for the authorized registration behavior and preserve route-isolation safeguards outside the intended CTA change
 - [x] Validate 20 focused webinar checks and all 196 tests across 39 files, TypeScript, production build, both webinar routes returning HTTP 200, desktop/mobile rendering, form opening on both routes with no submitted test lead, clean post-fix browser/dev-server logs, and zero post-fix first-party 5xx responses
-- [ ] Save and deliver the webinar registration-form checkpoint with practical live-form testing guidance
+- [x] Save and deliver the webinar registration-form checkpoint with practical live-form testing guidance
