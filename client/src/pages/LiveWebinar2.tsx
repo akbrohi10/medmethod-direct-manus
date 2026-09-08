@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
 import { Check, Clock3, Play, Volume2 } from "lucide-react";
-import { toast } from "sonner";
+import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -89,6 +89,7 @@ export default function LiveWebinar2() {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
+  const [registrationOpen, setRegistrationOpen] = useState(false);
 
   useEffect(() => {
     if (!WEBINAR_EVENT.startsAt) return;
@@ -141,7 +142,7 @@ export default function LiveWebinar2() {
   }, []);
 
   const handleReserveSeat = () => {
-    toast.info("Registration is not connected yet. This button is for visual review only.");
+    setRegistrationOpen(true);
   };
 
   const handlePlayWithSound = async () => {
@@ -440,6 +441,7 @@ export default function LiveWebinar2() {
           </p>
         </div>
       </article>
+      <WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />
     </main>
   );
 }

@@ -47,7 +47,7 @@ describe("live webinar landing page", () => {
     expect(pageSource).not.toContain("Feel Like Yourself Again");
   });
 
-  it("keeps registration inactive with an accessible webinar video and three approved sections", () => {
+  it("keeps the webinar video accessible and routes registration CTAs to the click-triggered form", () => {
     expect(pageSource).toContain("data-webinar-video");
     expect(pageSource).toContain("data-webinar-video-shell");
     expect(pageSource).toContain("<video");
@@ -92,7 +92,11 @@ describe("live webinar landing page", () => {
     expect(pageSource).toContain("[Date]");
     expect(pageSource).toContain("[Time]");
     expect(pageSource).toContain("Reserve My Free Spot");
-    expect(pageSource).toContain("Registration details are coming soon.");
+    expect(pageSource).toContain('import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";');
+    expect(pageSource).toContain("const [registrationOpen, setRegistrationOpen] = useState(false);");
+    expect(pageSource).toContain("setRegistrationOpen(true);");
+    expect(pageSource).toContain("<WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />");
+    expect(pageSource).not.toContain("Registration details are coming soon.");
     expect(pageSource).toContain("lg:grid-cols-[0.95fr_1.05fr]");
     expect(pageSource).toContain('content="noindex, nofollow"');
     expect(pageSource).not.toMatch(/<form\b/);

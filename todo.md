@@ -1199,3 +1199,13 @@
 - [x] Add Vitest coverage for encrypted credentials, admin-only settings, masked key handling, templates, enable gating, HTML escaping, Resend failure isolation, $50 triggers, $149/$99 rendering, permanent idempotency, and unchanged WL2 one-time payment flows
 - [x] Validate the three schema-backed tables, 26 focused checks, all 194 tests across 38 files, TypeScript, production build, payment-flow isolation, both payment providers, `/`, `/admin/settings`, `/api/health` HTTP 200, protected email tRPC HTTP 403 when unauthorized, and clean current-session runtime logs; authenticated visual verification and a live Resend test remain owner activation steps because no admin session or API key was supplied
 - [x] Save and deliver the completed Resend email-notification checkpoint with activation instructions
+
+## Live Webinar Click-Triggered SendMeAPro Registration Form
+
+- [x] Inspect both live webinar CTA implementations, current review-only behavior, reusable dialog patterns, third-party embed conventions, and focused regression coverage
+- [x] Add one reusable accessible webinar-registration dialog that mounts the supplied SendMeAPro Webinar Form iframe only after a webinar CTA is clicked
+- [x] Route the CTA buttons on `/live-webinar` and `/live-webinar2` to the click-triggered form without changing existing video, payment, intake, scheduling, or email behavior
+- [x] Avoid automatic or duplicate GHL form-script installation; preserve responsive iframe height, close behavior, keyboard escape, focus return, and clear loading/error handling
+- [x] Update focused webinar tests for the authorized registration behavior and preserve route-isolation safeguards outside the intended CTA change
+- [x] Validate 20 focused webinar checks and all 196 tests across 39 files, TypeScript, production build, both webinar routes returning HTTP 200, desktop/mobile rendering, form opening on both routes with no submitted test lead, clean post-fix browser/dev-server logs, and zero post-fix first-party 5xx responses
+- [ ] Save and deliver the webinar registration-form checkpoint with practical live-form testing guidance

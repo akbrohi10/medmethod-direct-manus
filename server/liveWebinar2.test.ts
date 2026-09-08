@@ -93,7 +93,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("data-webinar2-presenter");
   });
 
-  it("removes the visual-only form while keeping every RSVP action consistently inactive", () => {
+  it("removes the visual-only form while routing every webinar RSVP action to the click-triggered registration dialog", () => {
     expect(pageSource).not.toContain("data-webinar2-registration-preview");
     expect(pageSource.match(/<input\b/g) ?? []).toHaveLength(0);
     expect(pageSource).not.toContain('name="firstName"');
@@ -101,7 +101,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("handleRegistrationPreview");
     expect(pageSource).not.toContain("registrationFormRef");
     expect(pageSource).not.toContain("scrollIntoView");
-    expect(pageSource).toContain("Registration is not connected yet. This button is for visual review only.");
+    expect(pageSource).toContain('import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";');
+    expect(pageSource).toContain("const [registrationOpen, setRegistrationOpen] = useState(false);");
+    expect(pageSource).toContain("const handleReserveSeat = () => {");
+    expect(pageSource).toContain("setRegistrationOpen(true);");
+    expect(pageSource).toContain("<WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />");
+    expect(pageSource).not.toContain("Registration is not connected yet. This button is for visual review only.");
     expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(2);
     expect(pageSource).not.toContain("Reserve Your Free Spot");
     expect(pageSource.match(/Reserve My Free Spot/g)).toHaveLength(2);

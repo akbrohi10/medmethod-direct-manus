@@ -12,7 +12,7 @@ import {
   Tag,
 } from "lucide-react";
 import ComplianceDisclosures from "@/components/ComplianceDisclosures";
-import { toast } from "sonner";
+import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
@@ -71,6 +71,7 @@ export default function LiveWebinar() {
   const videoShellRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
 
   useEffect(() => {
     const shell = videoShellRef.current;
@@ -116,7 +117,7 @@ export default function LiveWebinar() {
   }, []);
 
   const handleReserveSeat = () => {
-    toast.info("Registration details are coming soon.");
+    setRegistrationOpen(true);
   };
 
   const handlePlayWithSound = async () => {
@@ -510,12 +511,13 @@ export default function LiveWebinar() {
               Reserve Your Free Spot
               <span className="text-xl leading-none" aria-hidden="true">→</span>
             </button>
-            <p className="mt-3 text-xs font-semibold text-white/80">Registration details are coming soon.</p>
+            <p className="mt-3 text-xs font-semibold text-white/80">Complete the short registration form to reserve your spot.</p>
           </div>
         </div>
       </section>
 
       <ComplianceDisclosures testosteroneForWomen />
+      <WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />
     </main>
   );
 }
