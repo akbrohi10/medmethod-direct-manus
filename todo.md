@@ -1289,4 +1289,4 @@
 - [x] Remove the separate Call Us button, retain Read More About Dr. Jumana Al-Deek as the sole action button, and place Questions? Call us at (888) 362-7011 beneath it
 - [x] Preserve confirmation message, event details, Zoom reminder, Meta conversion tracking, registration redirect, and all unrelated behavior; update focused coverage
 - [x] Validate the responsive single-action layout, homepage and telephone destinations, 3 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the webinar confirmation single-action checkpoint
+- [x] Save and deliver the webinar confirmation single-action checkpoint
