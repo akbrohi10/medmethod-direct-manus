@@ -1272,5 +1272,5 @@
 - [x] Inspect the published `/live-webinar2` player for its deployed caption track, active cues, native control state, and release availability; confirmed 12 active English cues on the live domain, with the native captions control too easy to miss
 - [x] Correct the public caption visibility issue with a branded timed overlay and CC control without altering video playback, registration, tracking, or other webinar behavior
 - [x] Validate the live subtitle experience, CC On / CC Off toggle, video playback safeguards, 12 focused webinar checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
-- [ ] Save any correction and report the public subtitle verification result
+- [x] Save the public subtitle visibility correction and report the verification result
 - [x] Add a clearly visible timed caption overlay and a visitor-controlled captions toggle because the native track is loaded on the live page but its browser control is easy to miss
