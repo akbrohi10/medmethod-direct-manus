@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Check, Clock3, Play, Volume2 } from "lucide-react";
+import { Captions, Check, Clock3, Play, Volume2 } from "lucide-react";
 import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
@@ -137,6 +137,8 @@ export default function LiveWebinar2() {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
+  const [captionsEnabled, setCaptionsEnabled] = useState(true);
+  const [activeCaption, setActiveCaption] = useState<string | null>(null);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
 
@@ -160,6 +162,28 @@ export default function LiveWebinar2() {
     video.muted = false;
     video.defaultMuted = false;
     setVideoMuted(false);
+
+    const captionElement = video.querySelector<HTMLTrackElement>("track[kind='captions']");
+    const syncActiveCaption = () => {
+      const captionTrack = video.textTracks[0];
+      const text = Array.from(captionTrack?.activeCues ?? [])
+        .map(cue => (cue as VTTCue).text)
+        .join(" ");
+      setActiveCaption(text || null);
+    };
+    const prepareCaptionTrack = () => {
+      const captionTrack = video.textTracks[0];
+      if (!captionTrack) return;
+      // The branded overlay below makes captions consistently visible across
+      // browsers; retain the native track in hidden mode for timed cue support.
+      captionTrack.mode = "hidden";
+      syncActiveCaption();
+    };
+
+    prepareCaptionTrack();
+    captionElement?.addEventListener("load", prepareCaptionTrack);
+    video.addEventListener("timeupdate", syncActiveCaption);
+    video.addEventListener("seeked", syncActiveCaption);
 
     const keepPlaybackInline = () => webkitVideo.webkitExitFullscreen?.();
     video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
@@ -205,6 +229,9 @@ export default function LiveWebinar2() {
     return () => {
       observer.disconnect();
       video.removeEventListener("webkitbeginfullscreen", keepPlaybackInline);
+      captionElement?.removeEventListener("load", prepareCaptionTrack);
+      video.removeEventListener("timeupdate", syncActiveCaption);
+      video.removeEventListener("seeked", syncActiveCaption);
     };
   }, []);
 
@@ -363,7 +390,6 @@ export default function LiveWebinar2() {
                 src={WEBINAR_VIDEO_CAPTIONS_SRC}
                 srcLang="en"
                 label="English"
-                default
               />
               Your browser does not support embedded video playback.
             </video>
@@ -388,6 +414,32 @@ export default function LiveWebinar2() {
                 <Volume2 className="h-4 w-4" aria-hidden="true" />
                 Turn Sound On
               </button>
+            )}
+
+            {hasVideoStarted && (
+              <button
+                data-webinar2-captions-toggle
+                type="button"
+                aria-pressed={captionsEnabled}
+                onClick={() => setCaptionsEnabled(enabled => !enabled)}
+                className="absolute top-3 left-3 z-10 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#291232]/92 px-3 py-2 text-[9px] font-black uppercase tracking-[0.07em] text-white shadow-lg transition hover:bg-[#3a1846] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#291232] active:scale-[0.97] sm:top-4 sm:left-4 sm:px-4 sm:text-[10px]"
+              >
+                <Captions className="h-4 w-4" aria-hidden="true" />
+                CC {captionsEnabled ? "On" : "Off"}
+              </button>
+            )}
+
+            {captionsEnabled && activeCaption && (
+              <div
+                data-webinar2-caption-overlay
+                aria-live="polite"
+                aria-atomic="true"
+                className="pointer-events-none absolute right-3 bottom-14 left-3 z-10 flex justify-center sm:right-6 sm:bottom-16 sm:left-6"
+              >
+                <span className="max-w-[94%] rounded-lg bg-black/88 px-3 py-2 text-center text-xs font-bold leading-snug text-white shadow-lg sm:px-4 sm:py-2.5 sm:text-sm">
+                  {activeCaption}
+                </span>
+              </div>
             )}
 
             {autoplayBlocked && (

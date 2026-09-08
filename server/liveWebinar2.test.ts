@@ -266,7 +266,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain('kind="captions"');
     expect(pageSource).toContain('srcLang="en"');
     expect(pageSource).toContain('label="English"');
-    expect(pageSource).toContain("default");
+    expect(pageSource).toContain("captionTrack.mode = \"hidden\"");
+    expect(pageSource).toContain("data-webinar2-captions-toggle");
+    expect(pageSource).toContain("data-webinar2-caption-overlay");
+    expect(pageSource).toContain('aria-pressed={captionsEnabled}');
+    expect(pageSource).toContain('CC {captionsEnabled ? "On" : "Off"}');
+    expect(pageSource).toContain("syncActiveCaption");
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
     expect(pageSource).toContain("video.pause()");
     expect(pageSource).toContain("data-webinar2-enable-sound");
