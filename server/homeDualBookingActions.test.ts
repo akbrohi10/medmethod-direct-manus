@@ -22,9 +22,11 @@ describe("homepage dual booking actions", () => {
   it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {
     expect(homeSource).toContain("data-home-sticky-discovery-call-cta");
     expect(homeSource).toContain('href="/care-team-booking"');
-    expect(homeSource).toContain('aria-label="Book Free 15-Minute Discovery Call"');
-    expect(homeSource).toContain("Book Free");
-    expect(homeSource).toContain("15-Minute Discovery Call");
+    expect(homeSource).toContain('aria-label="Need More Info? Book a Free 15-Minute Discovery Call"');
+    expect(homeSource).toContain("Need More Info?");
+    expect(homeSource).toContain("Free 15-Min Call");
+    expect(homeSource).toContain("Ready to Book?");
+    expect(homeSource).toContain("$50 Deposit Today");
     expect(homeSource).not.toContain("Have questions?");
     expect(homeSource).not.toContain("Call Now");
   });

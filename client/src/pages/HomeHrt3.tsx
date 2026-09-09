@@ -670,7 +670,7 @@ export default function HomeHrt3() {
         aria-hidden={!showStickyCTA}
       >
         <div className="flex gap-2">
-          {/* Primary: Book Now */}
+          {/* Primary: physician appointment deposit */}
           <button
             onClick={openConsult}
             className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
@@ -680,17 +680,17 @@ export default function HomeHrt3() {
             }}
           >
             <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Book Now
+              Ready to Book?
             </span>
             <span className="text-[11px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              $50 Today
+              $50 Deposit Today
             </span>
           </button>
           {/* Secondary: care-team discovery call */}
           <a
             href="/care-team-booking"
             data-home-sticky-discovery-call-cta
-            aria-label="Book Free 15-Minute Discovery Call"
+            aria-label="Need More Info? Book a Free 15-Minute Discovery Call"
             className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
@@ -699,10 +699,10 @@ export default function HomeHrt3() {
             }}
           >
             <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.78)" }}>
-              Book Free
+              Need More Info?
             </span>
             <span className="text-[11px] font-extrabold tracking-tight uppercase whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              15-Minute Discovery Call
+              Free 15-Min Call
             </span>
           </a>
         </div>
