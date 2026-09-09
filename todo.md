@@ -1298,3 +1298,11 @@
 - [x] Register `/live-webinar3` without modifying the existing `/live-webinar`, `/live-webinar2`, payment, intake, or confirmation routes; add focused route-isolation coverage and confirm its primary CTA opens the shared form without submitting a lead
 - [x] Validate matching desktop/mobile presentation, video/caption controls, primary registration action, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, all webinar routes returning HTTP 200, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the live-webinar3 duplicate-page checkpoint
+
+## Live Webinar 3 A/B Variation 1
+
+- [x] Inspect the current `/live-webinar3` top-page hierarchy, existing video markup, and focused coverage before applying the approved variation
+- [x] Change only the `/live-webinar3` top banner text to Free Webinar and place the existing video directly beneath the event date/time ticker
+- [x] Preserve all `/live-webinar2` content and behavior, plus the `/live-webinar3` video autoplay, captions, form, tracking, event details, checklist, featured logos, disclosure, and footer treatment
+- [x] Update focused coverage and validate the revised hierarchy, desktop/mobile rendering, video/form behavior, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar3 A/B variation checkpoint

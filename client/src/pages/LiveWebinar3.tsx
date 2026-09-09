@@ -285,7 +285,7 @@ export default function LiveWebinar3() {
         <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 pb-2 sm:px-8 sm:pt-7 sm:pb-3">
           <div className="mx-auto flex min-h-16 w-full max-w-[900px] items-center justify-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-5 py-4 text-center text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:min-h-20 sm:px-8 sm:py-5">
             <p className="text-lg font-black uppercase leading-tight tracking-[0.055em] sm:text-2xl sm:tracking-[0.08em]">
-              A Free Educational Webinar
+              Free Webinar
             </p>
           </div>
 
@@ -308,65 +308,11 @@ export default function LiveWebinar3() {
           </div>
         </header>
 
-        <section
-          data-webinar2-hero
-          data-webinar2-centered-hero
-          className="relative isolate mx-auto max-w-[1100px] overflow-hidden bg-[#fff8fb] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
-        >
-          <div
-            data-webinar2-decorative-background
-            className="pointer-events-none absolute inset-0 -z-10 opacity-90"
-            aria-hidden="true"
-            style={{
-              backgroundImage:
-                "repeating-radial-gradient(ellipse at -8% 75%, transparent 0 20px, rgba(218,44,132,0.075) 21px 22px, transparent 23px 31px), repeating-radial-gradient(ellipse at 108% 55%, transparent 0 22px, rgba(118,35,121,0.07) 23px 24px, transparent 25px 34px), radial-gradient(circle at 50% 100%, rgba(244,168,205,0.34), transparent 38%)",
-            }}
-          />
-
-          <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
-            <p data-webinar2-audience-label className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">
-              For Women 35+
-            </p>
-            <h1
-              aria-label="Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
-              className="mt-2 tracking-[-0.045em] sm:mt-3"
-            >
-              <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">
-                Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
-              </span>
-            </h1>
-            <p
-              data-webinar2-topic-line
-              className="mx-auto mt-5 max-w-[720px] text-[1.28rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#cf2b7f] sm:mt-7 sm:text-[1.8rem] lg:text-[2.05rem]"
-            >
-              Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
-            </p>
-            <span data-webinar2-doctor-divider className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
-            <div
-              data-webinar2-authority-intro
-              className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3"
-            >
-              <img
-                src={DOCTOR_HEADSHOT_URL}
-                alt="Dr. Jumana Al-Deek"
-                className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16"
-                loading="eager"
-                decoding="async"
-              />
-              <div className="min-w-0">
-                <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
-                <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">
-                  Physician and author of <em>The Menopause Weight Loss Trap</em>
-                </p>
-              </div>
-            </div>
-
-          </div>
-
+        <section data-webinar3-top-video className="bg-[#fff8fb] px-5 pt-2 pb-6 sm:px-10 sm:pt-3 sm:pb-8 lg:px-14">
           <div
             ref={videoShellRef}
             data-webinar2-video-shell
-            className="relative z-10 mx-auto mt-6 aspect-video w-full max-w-[800px] overflow-hidden rounded-[1.45rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6] sm:mt-7 sm:rounded-[1.7rem]"
+            className="relative mx-auto aspect-video w-full max-w-[800px] overflow-hidden rounded-[1.45rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6] sm:rounded-[1.7rem]"
           >
             <video
               ref={videoRef}
@@ -457,6 +403,62 @@ export default function LiveWebinar3() {
                 </span>
               </button>
             )}
+          </div>
+        </section>
+
+        <section
+          data-webinar2-hero
+          data-webinar2-centered-hero
+          className="relative isolate mx-auto max-w-[1100px] overflow-hidden bg-[#fff8fb] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
+        >
+          <div
+            data-webinar2-decorative-background
+            className="pointer-events-none absolute inset-0 -z-10 opacity-90"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "repeating-radial-gradient(ellipse at -8% 75%, transparent 0 20px, rgba(218,44,132,0.075) 21px 22px, transparent 23px 31px), repeating-radial-gradient(ellipse at 108% 55%, transparent 0 22px, rgba(118,35,121,0.07) 23px 24px, transparent 25px 34px), radial-gradient(circle at 50% 100%, rgba(244,168,205,0.34), transparent 38%)",
+            }}
+          />
+
+          <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
+            <p data-webinar2-audience-label className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">
+              For Women 35+
+            </p>
+            <h1
+              aria-label="Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
+              className="mt-2 tracking-[-0.045em] sm:mt-3"
+            >
+              <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">
+                Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
+              </span>
+            </h1>
+            <p
+              data-webinar2-topic-line
+              className="mx-auto mt-5 max-w-[720px] text-[1.28rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#cf2b7f] sm:mt-7 sm:text-[1.8rem] lg:text-[2.05rem]"
+            >
+              Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
+            </p>
+            <span data-webinar2-doctor-divider className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
+            <div
+              data-webinar2-authority-intro
+              className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3"
+            >
+              <img
+                src={DOCTOR_HEADSHOT_URL}
+                alt="Dr. Jumana Al-Deek"
+                className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16"
+                loading="eager"
+                decoding="async"
+              />
+              <div className="min-w-0">
+                <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
+                <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">
+                  Physician and author of <em>The Menopause Weight Loss Trap</em>
+                </p>
+              </div>
+            </div>
+
           </div>
 
           <button
