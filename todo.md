@@ -1431,4 +1431,4 @@
 - [x] Inspect the current lower mobile booking-pill labels and focused coverage before updating the approved copy
 - [x] Update the physician pill to Ready to Book? · $50 Deposit Today and the discovery pill to Need More Info? · Free 15-Min Call
 - [x] Preserve both booking destinations and validate compact label readability, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage and care-team booking HTTP 200 responses, and current logs with no new first-party errors
-- [ ] Save and deliver the updated mobile booking-pill wording checkpoint
+- [x] Save and deliver the updated mobile booking-pill wording checkpoint
