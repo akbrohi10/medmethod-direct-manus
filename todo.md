@@ -1322,4 +1322,14 @@
 - [x] Move active subtitle text into a compact caption bar below the video while retaining the existing CC control and timed subtitle track
 - [x] Preserve the unobstructed video frame, autoplay/sound fallback, reservation CTA, Featured In footer, disclaimer, badge, and all `/live-webinar2` behavior
 - [x] Update focused coverage and validate active caption readability below the video, unobstructed footage, CC control visibility toggle, desktop/mobile layout, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the live-webinar3 caption-placement improvement checkpoint
+- [x] Save the live-webinar3 caption-placement improvement checkpoint before beginning the next approved webinar variation
+
+## Live Webinar 3 Companion Confirmation Flow
+
+- [x] Inspect the existing webinar confirmation page, live-webinar3 form completion listener, current routes, removed webinar content, and focused regression coverage
+- [x] Change only the `/live-webinar3` banner label to Free Live Zoom Webinar
+- [x] Create `/live-webinar3-confirmed` as an isolated duplicate of the current webinar confirmation page with the fuller educational information removed from `/live-webinar3`
+- [x] Update the live-webinar3 local trusted form-completion fallback to the new companion destination while preserving the existing webinar-two confirmation flow and conversion safeguards
+- [x] Document the exact separate GoHighLevel form and redirect configuration required to send the live-webinar3 campaign to its companion confirmation page without altering the original campaign
+- [x] Validate route isolation, page hierarchy, confirmation content, Meta tracking guard, form behavior, 11 focused checks and all 207 tests across 42 files, TypeScript, production build, desktop/mobile layouts, routes, and current logs with no new browser-console errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar3 companion confirmation-flow checkpoint

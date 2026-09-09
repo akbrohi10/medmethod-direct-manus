@@ -15,14 +15,17 @@ const liveWebinar3Source = readFileSync(
 describe("live webinar 3 A/B variation", () => {
   it("registers an isolated public route without changing the existing webinar routes", () => {
     expect(appSource).toContain('const LiveWebinar3 = lazy(() => import("@/pages/LiveWebinar3"));');
+    expect(appSource).toContain('const LiveWebinar3Confirmed = lazy(() => import("@/pages/LiveWebinar3Confirmed"));');
     expect(appSource).toContain('<Route path="/live-webinar3" component={LiveWebinar3} />');
+    expect(appSource).toContain('<Route path="/live-webinar3-confirmed" component={LiveWebinar3Confirmed} />');
     expect(appSource).toContain('location === "/live-webinar3"');
+    expect(appSource).toContain('location === "/live-webinar3-confirmed"');
     expect(appSource).toContain('<Route path="/live-webinar2" component={LiveWebinar2} />');
     expect(appSource).toContain('<Route path="/live-webinar" component={LiveWebinar} />');
   });
 
   it("uses the approved short-form conversion path while retaining the event, video, CTA, and footer essentials", () => {
-    expect(liveWebinar3Source).toContain("Free Webinar");
+    expect(liveWebinar3Source).toContain("Free Live Zoom Webinar");
     expect(liveWebinar3Source).not.toContain("A Free Educational Webinar");
     expect(liveWebinar3Source).toContain("data-webinar3-top-video");
     expect(liveWebinar3Source).toContain("data-webinar2-video-shell");
@@ -30,6 +33,7 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("data-webinar3-caption-bar");
     expect(liveWebinar3Source).not.toContain("data-webinar2-caption-overlay");
     expect(liveWebinar3Source).toContain("data-webinar2-primary-cta");
+    expect(liveWebinar3Source).toContain('confirmationPath="/live-webinar3-confirmed"');
     expect(liveWebinar3Source).toContain("data-webinar2-featured-in");
     expect(liveWebinar3Source).toContain("data-webinar3-short-footer");
     expect(liveWebinar3Source).toContain("data-webinar2-legitscript-footer");

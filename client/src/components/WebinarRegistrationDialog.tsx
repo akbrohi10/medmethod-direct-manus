@@ -9,7 +9,7 @@ import {
 
 const WEBINAR_FORM_ID = "A3e1g5dCf1hc3tY3xpHi";
 const WEBINAR_FORM_URL = `https://link.sendmeapro.com/widget/form/${WEBINAR_FORM_ID}`;
-const WEBINAR_CONFIRMATION_PATH = "/webinar-registration-confirmed";
+const DEFAULT_WEBINAR_CONFIRMATION_PATH = "/webinar-registration-confirmed";
 const TRUSTED_GHL_ORIGINS = [
   "https://link.sendmeapro.com",
   "https://app.gohighlevel.com",
@@ -20,6 +20,7 @@ const TRUSTED_GHL_ORIGINS = [
 type WebinarRegistrationDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  confirmationPath?: string;
 };
 
 /**
@@ -34,6 +35,7 @@ type WebinarRegistrationDialogProps = {
 export default function WebinarRegistrationDialog({
   open,
   onOpenChange,
+  confirmationPath = DEFAULT_WEBINAR_CONFIRMATION_PATH,
 }: WebinarRegistrationDialogProps) {
   const [formLoaded, setFormLoaded] = useState(false);
   const [formLoadError, setFormLoadError] = useState(false);
@@ -73,7 +75,7 @@ export default function WebinarRegistrationDialog({
         if (!isSuccessfulSubmission) return;
 
         completionRedirectedRef.current = true;
-        window.location.assign(WEBINAR_CONFIRMATION_PATH);
+        window.location.assign(confirmationPath);
       } catch {
         // Ignore provider messages that are not valid JSON completion events.
       }
@@ -81,7 +83,7 @@ export default function WebinarRegistrationDialog({
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [open]);
+  }, [open, confirmationPath]);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

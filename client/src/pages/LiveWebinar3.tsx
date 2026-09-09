@@ -253,7 +253,7 @@ export default function LiveWebinar3() {
         <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 pb-2 sm:px-8 sm:pt-7 sm:pb-3">
           <div className="mx-auto flex min-h-16 w-full max-w-[900px] items-center justify-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-5 py-4 text-center text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:min-h-20 sm:px-8 sm:py-5">
             <p className="text-lg font-black uppercase leading-tight tracking-[0.055em] sm:text-2xl sm:tracking-[0.08em]">
-              Free Webinar
+              Free Live Zoom Webinar
             </p>
           </div>
 
@@ -472,7 +472,11 @@ export default function LiveWebinar3() {
           </footer>
         </div>
       </article>
-      <WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />
+      <WebinarRegistrationDialog
+        open={registrationOpen}
+        onOpenChange={setRegistrationOpen}
+        confirmationPath="/live-webinar3-confirmed"
+      />
     </main>
   );
 }

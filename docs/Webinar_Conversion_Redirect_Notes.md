@@ -24,6 +24,23 @@ https://www.medmethoddirect.com/webinar-registration-confirmed
 
 Use the exact production URL above, not a development-preview address. After saving, submit one controlled test registration in a private browser window. The browser should navigate to the dedicated confirmation route, which emits the guarded `CompleteRegistration` Meta event and `webinar_registration_complete` dataLayer event exactly once per browser session.
 
+## Live Webinar 3 Campaign-Specific Form
+
+`/live-webinar3` now has the separate companion confirmation route below. Its website-side trusted completion listener is already configured to send recognized successful form messages to this path, while `/live-webinar2` retains the original route.
+
+```text
+https://www.medmethoddirect.com/live-webinar3-confirmed
+```
+
+For a deterministic provider-side redirect that does not change the original campaign, duplicate the existing **Webinar Form** in GoHighLevel first. Preserve its fields, required settings, and existing email/workflow behavior. On the duplicate form, choose **Styles and Options** → **Options** → **On Submit** → **Open URL**, then enter the live-webinar3 destination above and publish the duplicate.[2]
+
+After publishing, provide the duplicate form’s new embed code or form ID. The `/live-webinar3` iframe should then be pointed to that duplicate form only; do not replace the original form used by `/live-webinar2`. This keeps the original campaign on `/webinar-registration-confirmed` and sends the short-form campaign to `/live-webinar3-confirmed`.
+
+| Campaign | Landing page | Provider-side redirect | Website confirmation |
+|---|---|---|---|
+| Original webinar | `/live-webinar2` | `https://www.medmethoddirect.com/webinar-registration-confirmed` | `/webinar-registration-confirmed` |
+| Short-form A/B webinar | `/live-webinar3` | `https://www.medmethoddirect.com/live-webinar3-confirmed` | `/live-webinar3-confirmed` |
+
 ## Event Details
 
 The confirmed webinar is **Wednesday, September 16, 2026 at 7:00 PM ET**. Update the GoHighLevel confirmation message for the Webinar Form to the same event details so its provider-hosted confirmation remains consistent with the website confirmation route.

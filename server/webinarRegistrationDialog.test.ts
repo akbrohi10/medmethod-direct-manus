@@ -37,15 +37,17 @@ describe("click-triggered SendMeAPro webinar registration dialog", () => {
     expect(dialogSource).toContain("The registration form could not load.");
   });
 
-  it("redirects only a trusted successful submission message from this exact webinar iframe to the dedicated confirmation route", () => {
-    expect(dialogSource).toContain('const WEBINAR_CONFIRMATION_PATH = "/webinar-registration-confirmed"');
+  it("redirects only a trusted successful submission message from this exact webinar iframe to the caller-selected confirmation route", () => {
+    expect(dialogSource).toContain('const DEFAULT_WEBINAR_CONFIRMATION_PATH = "/webinar-registration-confirmed"');
+    expect(dialogSource).toContain("confirmationPath?: string;");
+    expect(dialogSource).toContain("confirmationPath = DEFAULT_WEBINAR_CONFIRMATION_PATH");
     expect(dialogSource).toContain("const TRUSTED_GHL_ORIGINS = [");
     expect(dialogSource).toContain("if (!TRUSTED_GHL_ORIGINS.includes(event.origin)) return;");
     expect(dialogSource).toContain("if (event.source !== formFrameRef.current?.contentWindow) return;");
     expect(dialogSource).toContain("const reportedFormId = data.formId ?? data.form_id ?? data.form?.id;");
     expect(dialogSource).toContain("if (reportedFormId && reportedFormId !== WEBINAR_FORM_ID) return;");
     expect(dialogSource).toContain('"formSubmit", "form_submission", "formSubmitted", "FORM_SUBMITTED"');
-    expect(dialogSource).toContain("window.location.assign(WEBINAR_CONFIRMATION_PATH);");
+    expect(dialogSource).toContain("window.location.assign(confirmationPath);");
     expect(dialogSource).toContain("ref={formFrameRef}");
     expect(dialogSource).not.toContain("document.createElement(\"script\")");
   });
