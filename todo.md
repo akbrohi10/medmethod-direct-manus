@@ -1290,3 +1290,11 @@
 - [x] Preserve confirmation message, event details, Zoom reminder, Meta conversion tracking, registration redirect, and all unrelated behavior; update focused coverage
 - [x] Validate the responsive single-action layout, homepage and telephone destinations, 3 focused checks and all 202 tests across 40 files, TypeScript, production build, route health, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the webinar confirmation single-action checkpoint
+
+## Live Webinar 3 Exact Duplicate
+
+- [x] Inspect the current `/live-webinar2` page, route registration, shared dependencies, and focused regression coverage before duplicating it
+- [x] Create an isolated `LiveWebinar3` page that exactly matches the current `/live-webinar2` design, event details, video, captions, registration form, conversion behavior, and footer treatment
+- [x] Register `/live-webinar3` without modifying the existing `/live-webinar`, `/live-webinar2`, payment, intake, or confirmation routes; add focused route-isolation coverage and confirm its primary CTA opens the shared form without submitting a lead
+- [x] Validate matching desktop/mobile presentation, video/caption controls, primary registration action, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, all webinar routes returning HTTP 200, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar3 duplicate-page checkpoint
