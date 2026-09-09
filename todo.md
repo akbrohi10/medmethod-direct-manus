@@ -1417,4 +1417,4 @@
 - [x] Inspect the lower mobile booking-bar layout, fixed-width behavior, text wrapping, and focused coverage
 - [x] Stack the physician and discovery-call actions vertically on mobile and use compact, fully readable discovery-call copy
 - [x] Preserve both booking destinations and validate stacked mobile layout, desktop breakpoints, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage and care-team booking HTTP 200 responses, and current logs with no new first-party errors
-- [ ] Save and deliver the mobile booking-bar readability checkpoint
+- [x] Save and deliver the mobile booking-bar readability checkpoint
