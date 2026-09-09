@@ -41,6 +41,12 @@ After publishing, provide the duplicate form’s new embed code or form ID. The 
 | Original webinar | `/live-webinar2` | `https://www.medmethoddirect.com/webinar-registration-confirmed` | `/webinar-registration-confirmed` |
 | Short-form A/B webinar | `/live-webinar3` | `https://www.medmethoddirect.com/live-webinar3-confirmed` | `/live-webinar3-confirmed` |
 
+## Live Webinar 3 Verification
+
+The website-side flow is already assigned correctly: `/live-webinar3` supplies `/live-webinar3-confirmed` to the shared dialog’s trusted successful-submission listener, while the original campaign keeps its default confirmation path. The page-three confirmation route, form load, focused tests, full test suite, TypeScript check, and production build were reverified on September 9, 2026.
+
+Because the current iframe still uses the original GoHighLevel form ID `A3e1g5dCf1hc3tY3xpHi`, the provider-side redirect must be changed on a **duplicate** form before a real submitted lead can be guaranteed to land at the page-three confirmation URL. Do not alter the original form’s Open URL setting; that would redirect the page-two campaign as well.
+
 ## Event Details
 
 The confirmed webinar is **Wednesday, September 16, 2026 at 7:00 PM ET**. Update the GoHighLevel confirmation message for the Webinar Form to the same event details so its provider-hosted confirmation remains consistent with the website confirmation route.

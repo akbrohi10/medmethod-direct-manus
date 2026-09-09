@@ -1341,3 +1341,10 @@
 - [x] Preserve autoplay/sound behavior, native video controls, caption timing, registration, event details, footer, and unrelated page behavior
 - [x] Update focused coverage and validate automatic captions, unobstructed desktop/mobile video layout, 14 focused checks and all 207 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
 - [x] Save and deliver the cleaner video-control update checkpoint
+
+## Live Webinar 3 Registration Destination Verification
+
+- [x] Inspect the live-webinar3 dialog destination prop, trusted completion listener, companion confirmation route, current form ID, and GoHighLevel redirect boundary
+- [x] Confirm no website-side live-webinar3 confirmation destination mismatch exists: the campaign already supplies `/live-webinar3-confirmed` to the trusted completion listener while the original flow retains its default route
+- [x] Validate the registration form opens, trusted completion destination targets `/live-webinar3-confirmed`, both routes return HTTP 200, 8 focused checks and all 207 tests across 42 files pass, TypeScript and production build pass, and current logs show no new first-party 5xx responses
+- [x] Record the verified destination and provide the exact remaining GoHighLevel redirect configuration step: duplicate the current Webinar Form, set only the duplicate’s On Submit → Open URL to `https://www.medmethoddirect.com/live-webinar3-confirmed`, publish it, and provide its new form ID for the page-three iframe
