@@ -1340,4 +1340,4 @@
 - [x] Remove the visible custom CC On/Off button while retaining automatic subtitle availability and unobstructed video presentation
 - [x] Preserve autoplay/sound behavior, native video controls, caption timing, registration, event details, footer, and unrelated page behavior
 - [x] Update focused coverage and validate automatic captions, unobstructed desktop/mobile video layout, 14 focused checks and all 207 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
-- [ ] Save and deliver the cleaner video-control update checkpoint
+- [x] Save and deliver the cleaner video-control update checkpoint
