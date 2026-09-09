@@ -1386,4 +1386,4 @@
 - [x] Replace the current post-registration status message with the approved reply-YES confirmation instruction in the panel below the event details
 - [x] Preserve the event date/time, live-webinar3 conversion guard, doctor-information action, support line, and all unrelated webinar-two and payment behavior
 - [x] Validate messaging hierarchy, desktop/mobile layout, conversion guard, 3 focused checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
-- [ ] Save and deliver the live-webinar3 reply-YES confirmation-page checkpoint
+- [x] Save and deliver the live-webinar3 reply-YES confirmation-page checkpoint
