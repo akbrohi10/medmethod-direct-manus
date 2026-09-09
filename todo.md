@@ -1363,4 +1363,4 @@
 - [x] Remove the visible live-webinar2 CC On/Off pill and move active subtitle text into a compact caption bar below the video
 - [x] Preserve autoplay/sound behavior, native controls, caption timing, registration, event details, Featured In, footer, and all `/live-webinar3` behavior
 - [x] Update focused coverage and validate active captions below the video, absent CC pill, unobstructed footage, registration form opening, desktop/mobile layout, 22 focused checks and all 208 tests across 42 files, TypeScript, production build, webinar routes, and current logs with no new first-party 5xx responses
-- [ ] Save and deliver the live-webinar2 unobstructed caption treatment checkpoint
+- [x] Save and deliver the live-webinar2 unobstructed caption treatment checkpoint
