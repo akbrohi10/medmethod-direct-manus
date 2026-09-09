@@ -22,16 +22,17 @@ describe("homepage dual booking actions", () => {
   it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {
     expect(homeSource).toContain("data-home-sticky-discovery-call-cta");
     expect(homeSource).toContain('href="/care-team-booking"');
-    expect(homeSource).toContain("Questions About Our Program?");
-    expect(homeSource).toContain("Book a Free 15-Minute Call");
+    expect(homeSource).toContain('aria-label="Book Free 15-Minute Discovery Call"');
+    expect(homeSource).toContain("Book Free");
+    expect(homeSource).toContain("15-Minute Discovery Call");
     expect(homeSource).not.toContain("Have questions?");
     expect(homeSource).not.toContain("Call Now");
   });
 
-  it("stacks the mobile booking actions so the longer discovery-call copy stays readable", () => {
-    expect(homeSource).toContain('className="flex flex-col gap-2"');
-    expect(homeSource).toContain("whitespace-nowrap");
-    expect(homeSource).toContain("showStickyCTA ? 'h-36' : 'h-0'");
+  it("keeps the compact mobile booking actions in the approved side-by-side pill layout", () => {
+    expect(homeSource).toContain('className="flex gap-2"');
+    expect(homeSource).toContain("tracking-tight uppercase whitespace-nowrap");
+    expect(homeSource).toContain("showStickyCTA ? 'h-20' : 'h-0'");
   });
 
   it("keeps the supplied SendMeAPro care-team calendar on its own public route", () => {
