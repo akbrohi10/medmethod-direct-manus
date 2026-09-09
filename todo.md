@@ -1314,4 +1314,4 @@
 - [x] Retain the Free Webinar banner, date/time ticker, video, one clear Reserve My Free Spot CTA, Featured In footer, educational disclaimer, and LegitScript badge
 - [x] Preserve `/live-webinar2` and all video, captions, form, tracking, event, confirmation, payment, intake, and unrelated page behavior
 - [x] Update focused coverage and validate the short-form hierarchy, desktop/mobile rendering, registration action, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the short-form live-webinar3 A/B variation checkpoint
+- [x] Save and deliver the short-form live-webinar3 A/B variation checkpoint
