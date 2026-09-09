@@ -669,20 +669,20 @@ export default function HomeHrt3() {
         style={{ pointerEvents: showStickyCTA ? 'auto' : 'none' }}
         aria-hidden={!showStickyCTA}
       >
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           {/* Primary: Book Now */}
           <button
             onClick={openConsult}
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+            className="w-full flex flex-row items-center justify-center gap-2 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
             }}
           >
-            <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <span className="text-[13px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
               Book Now
             </span>
-            <span className="text-[11px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <span className="text-[12px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
               $50 Today
             </span>
           </button>
@@ -690,17 +690,17 @@ export default function HomeHrt3() {
           <a
             href="/care-team-booking"
             data-home-sticky-discovery-call-cta
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
+            className="w-full flex flex-row items-center justify-center gap-2 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
               color: "#fff",
             }}
           >
-            <span className="text-[11px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.7)" }}>
+            <span className="text-[11px] font-semibold whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.78)" }}>
               Questions About Our Program?
             </span>
-            <span className="text-[13px] font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <span className="text-[13px] font-extrabold tracking-wide whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>
               Book a Free 15-Minute Call
             </span>
           </a>
@@ -708,7 +708,7 @@ export default function HomeHrt3() {
       </div>
 
       {/* Bottom spacer so footer content isn't hidden behind sticky CTA on mobile */}
-      <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-20' : 'h-0'}`} />
+      <div className={`sm:hidden transition-all duration-300 ${showStickyCTA ? 'h-36' : 'h-0'}`} />
     </>
   );
 }

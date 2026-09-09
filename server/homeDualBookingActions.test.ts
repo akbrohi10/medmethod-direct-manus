@@ -28,6 +28,12 @@ describe("homepage dual booking actions", () => {
     expect(homeSource).not.toContain("Call Now");
   });
 
+  it("stacks the mobile booking actions so the longer discovery-call copy stays readable", () => {
+    expect(homeSource).toContain('className="flex flex-col gap-2"');
+    expect(homeSource).toContain("whitespace-nowrap");
+    expect(homeSource).toContain("showStickyCTA ? 'h-36' : 'h-0'");
+  });
+
   it("keeps the supplied SendMeAPro care-team calendar on its own public route", () => {
     expect(appSource).toContain('<Route path="/care-team-booking" component={CareTeamBooking} />');
     expect(careTeamBookingSource).toContain("Book a Free 15-Minute Discovery Call");
