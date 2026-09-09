@@ -1378,4 +1378,4 @@
 - [x] On visitor activation, restart the selected video from 00:00, enable sound, begin playback, and remove the overlay while retaining captions below the frame and native controls
 - [x] Preserve registration, conversion, event, page-specific content, and all unrelated behavior; update focused regression coverage
 - [x] Validate muted autoplay, click-to-unmute restart, sound playback, below-video subtitles, desktop/mobile overlay layout, 15 focused webinar checks and all 209 tests across 42 files, TypeScript, production build, both webinar routes returning HTTP 200, and zero relevant post-change runtime errors
-- [ ] Save and deliver the webinar audio-activation overlay checkpoint
+- [x] Save and deliver the webinar audio-activation overlay checkpoint
