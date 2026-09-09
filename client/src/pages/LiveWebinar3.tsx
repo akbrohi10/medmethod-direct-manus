@@ -343,19 +343,6 @@ export default function LiveWebinar3() {
               </button>
             )}
 
-            {captionsEnabled && activeCaption && (
-              <div
-                data-webinar2-caption-overlay
-                aria-live="polite"
-                aria-atomic="true"
-                className="pointer-events-none absolute right-3 bottom-14 left-3 z-10 flex justify-center sm:right-6 sm:bottom-16 sm:left-6"
-              >
-                <span className="max-w-[94%] rounded-lg bg-black/88 px-3 py-2 text-center text-xs font-bold leading-snug text-white shadow-lg sm:px-4 sm:py-2.5 sm:text-sm">
-                  {activeCaption}
-                </span>
-              </div>
-            )}
-
             {autoplayBlocked && (
               <button
                 type="button"
@@ -372,6 +359,18 @@ export default function LiveWebinar3() {
               </button>
             )}
           </div>
+          {captionsEnabled && activeCaption && (
+            <div
+              data-webinar3-caption-bar
+              aria-live="polite"
+              aria-atomic="true"
+              className="mx-auto mt-3 flex w-full max-w-[800px] justify-center px-1 sm:mt-4"
+            >
+              <span className="inline-flex max-w-full items-center justify-center rounded-lg border border-[#e5cad9] bg-white px-3 py-2 text-center text-xs font-bold leading-snug text-[#321d38] shadow-[0_7px_16px_rgba(89,31,84,0.12)] sm:px-4 sm:text-sm">
+                {activeCaption}
+              </span>
+            </div>
+          )}
         </section>
 
         <section data-webinar3-primary-cta className="bg-[#fff8fb] px-5 pt-0 pb-8 text-center sm:px-10 sm:pb-10 lg:px-14">

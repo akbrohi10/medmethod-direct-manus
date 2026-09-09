@@ -1315,3 +1315,11 @@
 - [x] Preserve `/live-webinar2` and all video, captions, form, tracking, event, confirmation, payment, intake, and unrelated page behavior
 - [x] Update focused coverage and validate the short-form hierarchy, desktop/mobile rendering, registration action, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
 - [x] Save and deliver the short-form live-webinar3 A/B variation checkpoint
+
+## Live Webinar 3 Unobstructed Captions
+
+- [x] Inspect the current `/live-webinar3` active-caption overlay, video-control placement, and focused subtitle coverage
+- [x] Move active subtitle text into a compact caption bar below the video while retaining the existing CC control and timed subtitle track
+- [x] Preserve the unobstructed video frame, autoplay/sound fallback, reservation CTA, Featured In footer, disclaimer, badge, and all `/live-webinar2` behavior
+- [x] Update focused coverage and validate active caption readability below the video, unobstructed footage, CC control visibility toggle, desktop/mobile layout, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
+- [ ] Save and deliver the live-webinar3 caption-placement improvement checkpoint

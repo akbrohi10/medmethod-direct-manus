@@ -27,6 +27,8 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("data-webinar3-top-video");
     expect(liveWebinar3Source).toContain("data-webinar2-video-shell");
     expect(liveWebinar3Source).toContain("data-webinar2-video-captions");
+    expect(liveWebinar3Source).toContain("data-webinar3-caption-bar");
+    expect(liveWebinar3Source).not.toContain("data-webinar2-caption-overlay");
     expect(liveWebinar3Source).toContain("data-webinar2-primary-cta");
     expect(liveWebinar3Source).toContain("data-webinar2-featured-in");
     expect(liveWebinar3Source).toContain("data-webinar3-short-footer");
