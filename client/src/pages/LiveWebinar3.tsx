@@ -1,9 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Captions, Check, Clock3, Play, Volume2 } from "lucide-react";
+import { Captions, Clock3, Play, Volume2 } from "lucide-react";
 import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
-const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const WEBINAR_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 const WEBINAR_VIDEO_CAPTIONS_VTT = [
@@ -61,37 +60,6 @@ const WEBINAR_EVENT = {
   dateTimeDisplay: "WEDNESDAY, SEPTEMBER 16 · 7:00 PM ET",
   timezone: "ET",
 };
-
-const learningChecklist = [
-  {
-    title: "Why You Can’t Lose Weight Like You Used To",
-    body: "What changes in your 30s, 40s & 50s—and why.",
-  },
-  {
-    title: "Is It Perimenopause or Menopause?",
-    body: "The signs and symptoms your body may be trying to tell you.",
-  },
-  {
-    title: "Hot Flashes, Poor Sleep, Mood Changes & Low Energy",
-    body: "Understand what may actually be happening with your hormones.",
-  },
-  {
-    title: "The Truth About Hormone Therapy",
-    body: "What every woman should know about her options.",
-  },
-  {
-    title: "GLP-1s & Medical Weight Loss",
-    body: "When they may help—and what proper treatment should look like.",
-  },
-  {
-    title: "What to Ask Your Doctor",
-    body: "Know your options and become a better advocate for your health.",
-  },
-  {
-    title: "LIVE Q&A with Dr. Jumana Al-Deek",
-    body: "Get answers directly from a menopause & medical weight loss specialist.",
-  },
-];
 
 const featuredOutlets = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
@@ -406,61 +374,7 @@ export default function LiveWebinar3() {
           </div>
         </section>
 
-        <section
-          data-webinar2-hero
-          data-webinar2-centered-hero
-          className="relative isolate mx-auto max-w-[1100px] overflow-hidden bg-[#fff8fb] px-5 pt-7 pb-9 text-center sm:px-10 sm:pt-10 sm:pb-12 lg:px-14 lg:pt-12 lg:pb-14"
-        >
-          <div
-            data-webinar2-decorative-background
-            className="pointer-events-none absolute inset-0 -z-10 opacity-90"
-            aria-hidden="true"
-            style={{
-              backgroundImage:
-                "repeating-radial-gradient(ellipse at -8% 75%, transparent 0 20px, rgba(218,44,132,0.075) 21px 22px, transparent 23px 31px), repeating-radial-gradient(ellipse at 108% 55%, transparent 0 22px, rgba(118,35,121,0.07) 23px 24px, transparent 25px 34px), radial-gradient(circle at 50% 100%, rgba(244,168,205,0.34), transparent 38%)",
-            }}
-          />
-
-          <div data-webinar2-opening-copy className="relative z-10 mx-auto max-w-[800px] text-center">
-            <p data-webinar2-audience-label className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">
-              For Women 35+
-            </p>
-            <h1
-              aria-label="Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?"
-              className="mt-2 tracking-[-0.045em] sm:mt-3"
-            >
-              <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">
-                Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
-              </span>
-            </h1>
-            <p
-              data-webinar2-topic-line
-              className="mx-auto mt-5 max-w-[720px] text-[1.28rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#cf2b7f] sm:mt-7 sm:text-[1.8rem] lg:text-[2.05rem]"
-            >
-              Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
-            </p>
-            <span data-webinar2-doctor-divider className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
-            <div
-              data-webinar2-authority-intro
-              className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3"
-            >
-              <img
-                src={DOCTOR_HEADSHOT_URL}
-                alt="Dr. Jumana Al-Deek"
-                className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16"
-                loading="eager"
-                decoding="async"
-              />
-              <div className="min-w-0">
-                <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
-                <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">
-                  Physician and author of <em>The Menopause Weight Loss Trap</em>
-                </p>
-              </div>
-            </div>
-
-          </div>
-
+        <section data-webinar3-primary-cta className="bg-[#fff8fb] px-5 pt-0 pb-8 text-center sm:px-10 sm:pb-10 lg:px-14">
           <button
             data-webinar2-primary-cta
             type="button"
@@ -472,7 +386,6 @@ export default function LiveWebinar3() {
               Limited Zoom Capacity
             </span>
           </button>
-
         </section>
 
         <section
@@ -531,65 +444,8 @@ export default function LiveWebinar3() {
           </div>
         </section>
 
-        <div className="px-5 pt-10 pb-10 sm:px-10 sm:pt-12 sm:pb-14 lg:px-16 lg:pb-16">
-          <section
-            data-webinar2-learning
-            className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"
-          >
-            <div className="mx-auto max-w-[900px] text-center">
-              <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm">
-                What You’ll Learn
-              </p>
-              <h2 className="mx-auto mt-5 max-w-[780px] text-[2.55rem] font-black leading-[1] tracking-[-0.045em] text-[#432943] sm:text-6xl lg:text-[4rem]">
-                Because You Deserve to Know.
-              </h2>
-              <ul data-webinar2-learning-checklist className="mx-auto mt-9 max-w-[800px] text-left sm:mt-11">
-                {learningChecklist.map(({ title, body }) => (
-                  <li
-                    data-webinar2-learning-item
-                    key={title}
-                    className="flex gap-4 border-b border-[#eadde4] py-6 first:pt-0 last:border-b-0 last:pb-0 sm:gap-5 sm:py-7"
-                  >
-                    <span
-                      data-webinar2-learning-check
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dd2d84] text-white shadow-[0_5px_12px_rgba(221,45,132,0.18)] sm:h-10 sm:w-10"
-                      aria-hidden="true"
-                    >
-                      <Check className="h-5 w-5 stroke-[3] sm:h-6 sm:w-6" />
-                    </span>
-                    <div className="min-w-0 pt-0.5">
-                      <h3 className="text-xl font-extrabold leading-[1.22] tracking-[-0.025em] text-[#432943] sm:text-2xl">
-                        {title}
-                      </h3>
-                      <p className="mt-2 text-base font-medium leading-[1.55] text-[#514a52] sm:text-lg sm:leading-[1.6]">
-                        {body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-7 flex justify-center sm:mt-8">
-                <button
-                  type="button"
-                  onClick={handleReserveSeat}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-6 py-3.5 text-sm font-black uppercase tracking-[0.055em] text-white shadow-[0_12px_24px_rgba(176,24,124,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:w-auto sm:text-base"
-                >
-                  Reserve My Free Spot
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <div data-webinar2-informed-message className="mx-auto mt-11 max-w-[940px] border-t border-[#ece4e9] pt-7">
-            <div>
-              <p className="text-sm font-black text-[#29252f]">Become informed—not pressured.</p>
-              <p className="mt-2 max-w-[720px] text-xs leading-5 text-[#716a73] sm:text-sm sm:leading-6">
-                The goal is to help you understand your body, know your options, and make more informed decisions about your care.
-              </p>
-            </div>
-          </div>
-
-          <p className="mx-auto mt-8 max-w-[860px] text-center text-[10px] leading-5 text-[#7a727a] sm:text-xs">
+        <div data-webinar3-short-footer className="px-5 pt-7 pb-10 sm:px-10 sm:pt-8 sm:pb-12 lg:px-16 lg:pb-14">
+          <p className="mx-auto max-w-[860px] text-center text-[10px] leading-5 text-[#7a727a] sm:text-xs">
             This live webinar is for general educational purposes and is not a medical consultation. Individual treatment recommendations require an appropriate medical evaluation.
           </p>
 

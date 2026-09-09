@@ -21,18 +21,32 @@ describe("live webinar 3 A/B variation", () => {
     expect(appSource).toContain('<Route path="/live-webinar" component={LiveWebinar} />');
   });
 
-  it("uses only the approved simplified banner and top-video hierarchy changes", () => {
+  it("uses the approved short-form conversion path while retaining the event, video, CTA, and footer essentials", () => {
     expect(liveWebinar3Source).toContain("Free Webinar");
     expect(liveWebinar3Source).not.toContain("A Free Educational Webinar");
     expect(liveWebinar3Source).toContain("data-webinar3-top-video");
     expect(liveWebinar3Source).toContain("data-webinar2-video-shell");
     expect(liveWebinar3Source).toContain("data-webinar2-video-captions");
     expect(liveWebinar3Source).toContain("data-webinar2-primary-cta");
+    expect(liveWebinar3Source).toContain("data-webinar2-featured-in");
+    expect(liveWebinar3Source).toContain("data-webinar3-short-footer");
+    expect(liveWebinar3Source).toContain("data-webinar2-legitscript-footer");
+    expect(liveWebinar3Source).toContain("for general educational purposes and is not a medical consultation");
+    expect(liveWebinar3Source).not.toContain("data-webinar2-opening-copy");
+    expect(liveWebinar3Source).not.toContain("data-webinar2-authority-intro");
+    expect(liveWebinar3Source).not.toContain("data-webinar2-learning");
+    expect(liveWebinar3Source).not.toContain("Because You Deserve to Know.");
     expect(liveWebinar3Source.indexOf("data-webinar2-top-event")).toBeLessThan(
       liveWebinar3Source.indexOf("data-webinar3-top-video"),
     );
     expect(liveWebinar3Source.indexOf("data-webinar3-top-video")).toBeLessThan(
-      liveWebinar3Source.indexOf("data-webinar2-opening-copy"),
+      liveWebinar3Source.indexOf("data-webinar3-primary-cta"),
+    );
+    expect(liveWebinar3Source.indexOf("data-webinar3-primary-cta")).toBeLessThan(
+      liveWebinar3Source.indexOf("data-webinar2-featured-in"),
+    );
+    expect(liveWebinar3Source.indexOf("data-webinar2-featured-in")).toBeLessThan(
+      liveWebinar3Source.indexOf("data-webinar3-short-footer"),
     );
     expect(liveWebinar3Source).not.toBe(liveWebinar2Source);
   });
