@@ -1395,3 +1395,12 @@
 - [x] Preserve original webinar conversion tracking, event details, physician-information action, support line, the page-three confirmation flow, and all unrelated behavior
 - [x] Validate messaging, tracking isolation, action destinations, desktop/mobile layout, 7 focused confirmation checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
 - [x] Save and deliver the original webinar reply-YES confirmation-page checkpoint
+
+## Homepage Dual Appointment Actions
+
+- [x] Inspect the homepage primary CTA area, current physician appointment behavior, reusable dialog components, and focused coverage
+- [x] Add a clear 45-minute Dr. Al-Deek appointment pill and a separate free 15-minute care-team discovery-call pill on the homepage
+- [x] Present the supplied SendMeAPro care-team calendar on its existing accessible public booking page with clear program-information/non-medical-advice context
+- [x] Preserve existing physician appointment/payment/intake behavior, homepage content, webinar flows, and unrelated site behavior
+- [x] Update focused coverage and validate distinct booking paths, provider calendar rendering after initialization, desktop/mobile layout, 2 focused checks and all 211 tests across 43 files, TypeScript, production build, homepage and care-team route HTTP 200 responses, and current logs with no new first-party 5xx responses
+- [ ] Save and deliver the homepage dual-action checkpoint

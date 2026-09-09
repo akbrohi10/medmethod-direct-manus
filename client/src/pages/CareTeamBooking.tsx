@@ -64,10 +64,13 @@ export default function CareTeamBooking() {
             className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-3"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
-            Book with Our Care Team
+            Book a Free 15-Minute Discovery Call
           </h1>
           <p className="text-gray-600 text-base sm:text-lg max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
-            Choose a date and time that works for you. Our care team is here to help.
+            Have questions about our program, scheduling, or whether MedMethod Direct may be a good fit? Our care team can provide general program information.
+          </p>
+          <p className="mt-3 text-sm font-semibold text-[#7A1E7E] max-w-xl mx-auto" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            This free call does not provide medical advice or clinical guidance.
           </p>
         </div>
 
@@ -78,7 +81,7 @@ export default function CareTeamBooking() {
             allow="payment"
             style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "700px" }}
             scrolling="no"
-            id="18sbmUpLKjc7pcLE8jdN_178716643455O"
+            id="18sbmUpLKjc7pcLE8jdN_1788980907986"
             title="Care Team Booking Calendar"
           />
         </div>

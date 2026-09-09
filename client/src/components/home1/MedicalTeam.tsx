@@ -100,11 +100,21 @@ export default function MedicalTeam({
   onConsultClick,
   ctaLabel,
   ctaMicrocopy,
+  secondaryAction,
   hideBullets,
   overrideHeadline,
   overrideSubline,
   overrideBody,
-}: { onConsultClick?: () => void; ctaLabel?: ReactNode; ctaMicrocopy?: ReactNode; hideBullets?: boolean; overrideHeadline?: ReactNode; overrideSubline?: ReactNode; overrideBody?: ReactNode } = {}) {
+}: {
+  onConsultClick?: () => void;
+  ctaLabel?: ReactNode;
+  ctaMicrocopy?: ReactNode;
+  secondaryAction?: { href: string; label: ReactNode; description?: ReactNode };
+  hideBullets?: boolean;
+  overrideHeadline?: ReactNode;
+  overrideSubline?: ReactNode;
+  overrideBody?: ReactNode;
+} = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -448,21 +458,53 @@ export default function MedicalTeam({
                   Mobile: button is full-width, microcopy + bullets stack underneath.
                   Desktop: button left, microcopy + bullets right. */}
               <div id="hero-cta-sentinel" className="mt-6 flex flex-col gap-4">
-                <button
-                  type="button"
-                  onClick={onConsultClick}
-                  className="inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 rounded-full text-[14px] font-bold tracking-[0.04em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
-                  style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    background:
-                      "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                    boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
-                  }}
-                >
-                  {ctaLabel ?? "Schedule a Discovery Call"}
-                </button>
-                <div className="flex flex-col gap-1.5">
-                  {ctaMicrocopy ?? (
+                <div className={secondaryAction ? "grid w-full max-w-2xl gap-3 sm:grid-cols-2" : "flex flex-col gap-4"}>
+                  <div className="flex flex-col gap-3">
+                    <button
+                      type="button"
+                      data-home-physician-appointment-cta
+                      onClick={onConsultClick}
+                      className="inline-flex min-h-[54px] items-center justify-center w-full px-6 py-3.5 rounded-full text-[13px] font-bold tracking-[0.035em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
+                      style={{
+                        fontFamily: "Montserrat, sans-serif",
+                        background:
+                          "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                        boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
+                      }}
+                    >
+                      {ctaLabel ?? "Schedule a Discovery Call"}
+                    </button>
+                    {ctaMicrocopy && <div>{ctaMicrocopy}</div>}
+                  </div>
+
+                  {secondaryAction && (
+                    <div className="flex flex-col gap-2">
+                      <a
+                        href={secondaryAction.href}
+                        data-home-discovery-call-cta
+                        className="inline-flex min-h-[54px] items-center justify-center w-full px-6 py-3.5 rounded-full border-2 text-center text-[13px] font-bold tracking-[0.035em] uppercase transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] active:scale-[0.98]"
+                        style={{
+                          fontFamily: "Montserrat, sans-serif",
+                          borderColor: "#B8336A",
+                          color: "#7A1E7E",
+                          background: "#FFFFFF",
+                        }}
+                      >
+                        {secondaryAction.label}
+                      </a>
+                      {secondaryAction.description && (
+                        <p
+                          className="px-2 text-center text-xs leading-5"
+                          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+                        >
+                          {secondaryAction.description}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {!ctaMicrocopy && !secondaryAction && (
                   <p
                     className="text-sm leading-snug"
                     style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
@@ -471,23 +513,22 @@ export default function MedicalTeam({
                     {" \u00b7 "}
                     <span>No cost, no obligation</span>
                   </p>
-                  )}
-                  {!hideBullets && (
-                  <div
-                    className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium"
-                    style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
-                      100% Virtual
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
-                      Same Doctor. Every Visit.
-                    </span>
-                  </div>
-                  )}
+                )}
+                {!hideBullets && (
+                <div
+                  className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium"
+                  style={{ fontFamily: "Montserrat, sans-serif", color: "#C2185B" }}
+                >
+                  <span className="flex items-center gap-1.5">
+                    <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
+                    100% Virtual
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span aria-hidden className="w-1.5 h-1.5 rounded-full" style={{ background: "#E8339E" }} />
+                    Same Doctor. Every Visit.
+                  </span>
                 </div>
+                )}
               </div>
 
               {/* ===== Divider before bio body ===== */}

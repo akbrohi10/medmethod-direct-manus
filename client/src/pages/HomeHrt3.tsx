@@ -280,10 +280,15 @@ export default function HomeHrt3() {
           }
           overrideSubline="100% Virtual"
           overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
-          ctaLabel="Book Your 45-Min Appt."
+          ctaLabel="Book Your 45-Minute Appointment with Dr. Al-Deek"
+          secondaryAction={{
+            href: "/care-team-booking",
+            label: "Book a Free 15-Minute Discovery Call",
+            description: "Questions about our program or whether it may be a good fit? General information only — no medical advice.",
+          }}
           ctaMicrocopy={
             <div style={{ fontFamily: "Montserrat, sans-serif" }}>
-              {/* 3-column pricing strip */}
+              {/* Physician appointment pricing strip */}
               <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
                 <div className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center">
                   <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>YOUR 1<span style={{ textTransform: "lowercase" }}>st</span> VISIT</span>
