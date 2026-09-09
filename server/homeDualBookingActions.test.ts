@@ -19,6 +19,15 @@ describe("homepage dual booking actions", () => {
     expect(medicalTeamSource).toContain("secondaryAction?: { href: string; label: ReactNode; description?: ReactNode }");
   });
 
+  it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {
+    expect(homeSource).toContain("data-home-sticky-discovery-call-cta");
+    expect(homeSource).toContain('href="/care-team-booking"');
+    expect(homeSource).toContain("Questions About Our Program?");
+    expect(homeSource).toContain("Book a Free 15-Minute Call");
+    expect(homeSource).not.toContain("Have questions?");
+    expect(homeSource).not.toContain("Call Now");
+  });
+
   it("keeps the supplied SendMeAPro care-team calendar on its own public route", () => {
     expect(appSource).toContain('<Route path="/care-team-booking" component={CareTeamBooking} />');
     expect(careTeamBookingSource).toContain("Book a Free 15-Minute Discovery Call");

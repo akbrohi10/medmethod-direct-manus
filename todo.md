@@ -1404,3 +1404,10 @@
 - [x] Preserve existing physician appointment/payment/intake behavior, homepage content, webinar flows, and unrelated site behavior
 - [x] Update focused coverage and validate distinct booking paths, provider calendar rendering after initialization, desktop/mobile layout, 2 focused checks and all 211 tests across 43 files, TypeScript, production build, homepage and care-team route HTTP 200 responses, and current logs with no new first-party 5xx responses
 - [x] Save and deliver the homepage dual-action checkpoint
+
+## Homepage lower discovery-call action — 2026-09-09
+
+- [x] Inspect the lower homepage “Have questions? Call Now” action, route, and focused coverage
+- [x] Replace it with the approved “Questions About Our Program? · Book a Free 15-Minute Call” action routed to `/care-team-booking`
+- [x] Preserve the physician booking action and validate responsive layout, lower CTA destination, 3 focused checks and all 212 tests across 43 files, TypeScript, production build, homepage and care-team booking HTTP 200 responses, and current logs with no new first-party errors
+- [ ] Save and deliver the lower discovery-call action checkpoint

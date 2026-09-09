@@ -686,10 +686,11 @@ export default function HomeHrt3() {
               $50 Today
             </span>
           </button>
-          {/* Secondary: Call Now */}
+          {/* Secondary: care-team discovery call */}
           <a
-            href="tel:+18883627011"
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold border active:scale-[0.98] transition-transform duration-150"
+            href="/care-team-booking"
+            data-home-sticky-discovery-call-cta
+            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
@@ -697,10 +698,10 @@ export default function HomeHrt3() {
             }}
           >
             <span className="text-[11px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.7)" }}>
-              Have questions?
+              Questions About Our Program?
             </span>
             <span className="text-[13px] font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Call Now
+              Book a Free 15-Minute Call
             </span>
           </a>
         </div>
