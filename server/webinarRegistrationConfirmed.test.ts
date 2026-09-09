@@ -19,6 +19,14 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('href="tel:+18883627011"');
     expect(pageSource).toContain("(888) 362-7011");
     expect(pageSource).not.toContain("Call Us");
+    expect(pageSource).toContain("Registration Received");
+    expect(pageSource).toContain("You’re almost in.");
+    expect(pageSource).toContain("data-webinar-reply-yes-panel");
+    expect(pageSource).toContain("Check your email or texts and reply");
+    expect(pageSource).toContain("unconfirmed spots will be released to the waitlist");
+    expect(pageSource).toContain("Confirm now so you don’t lose your seat.");
+    expect(pageSource).not.toContain("You’re all set.");
+    expect(pageSource).not.toContain("Webinar Registration Confirmed");
     expect(pageSource.match(/href="tel:\+18883627011"/g)).toHaveLength(1);
     expect(pageSource.indexOf("Read More About Dr. Jumana Al-Deek")).toBeLessThan(pageSource.indexOf("Questions? Call us at"));
     expect(pageSource).toContain('content="noindex, nofollow"');
@@ -46,10 +54,11 @@ describe("webinar registration conversion confirmation", () => {
     );
   });
 
-  it("shows the supplied confirmed event details and inbox reminder without creating a clinical claim", () => {
+  it("shows the supplied event details and reply-YES confirmation instruction without creating a clinical claim", () => {
     expect(pageSource).toContain("Wednesday, September 16");
     expect(pageSource).toContain("7:00 PM ET");
-    expect(pageSource).toContain("Your Zoom link has been sent to the email address you used to register");
+    expect(pageSource).toContain("reply");
+    expect(pageSource).toContain("YES");
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation.");
   });
 });

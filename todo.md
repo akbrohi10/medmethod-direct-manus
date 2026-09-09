@@ -1387,3 +1387,11 @@
 - [x] Preserve the event date/time, live-webinar3 conversion guard, doctor-information action, support line, and all unrelated webinar-two and payment behavior
 - [x] Validate messaging hierarchy, desktop/mobile layout, conversion guard, 3 focused checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
 - [x] Save and deliver the live-webinar3 reply-YES confirmation-page checkpoint
+
+## Original Webinar Reply-YES Confirmation Panel
+
+- [x] Inspect the current `/webinar-registration-confirmed` hierarchy and focused tracking coverage before updating its messaging
+- [x] Replace the original post-registration status and reminder with the approved reply-YES confirmation instruction below the event details
+- [x] Preserve original webinar conversion tracking, event details, physician-information action, support line, the page-three confirmation flow, and all unrelated behavior
+- [x] Validate messaging, tracking isolation, action destinations, desktop/mobile layout, 7 focused confirmation checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
+- [ ] Save and deliver the original webinar reply-YES confirmation-page checkpoint
