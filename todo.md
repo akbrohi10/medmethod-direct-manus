@@ -1333,3 +1333,11 @@
 - [x] Document the exact separate GoHighLevel form and redirect configuration required to send the live-webinar3 campaign to its companion confirmation page without altering the original campaign
 - [x] Validate route isolation, page hierarchy, confirmation content, Meta tracking guard, form behavior, 11 focused checks and all 207 tests across 42 files, TypeScript, production build, desktop/mobile layouts, routes, and current logs with no new browser-console errors or first-party 5xx responses
 - [x] Save and deliver the live-webinar3 companion confirmation-flow checkpoint
+
+## Live Webinar Custom CC Control Removal
+
+- [x] Inspect the current custom CC button, caption presentation, and focused video regression coverage across the live webinar pages
+- [x] Remove the visible custom CC On/Off button while retaining automatic subtitle availability and unobstructed video presentation
+- [x] Preserve autoplay/sound behavior, native video controls, caption timing, registration, event details, footer, and unrelated page behavior
+- [x] Update focused coverage and validate automatic captions, unobstructed desktop/mobile video layout, 14 focused checks and all 207 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
+- [ ] Save and deliver the cleaner video-control update checkpoint

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Captions, Clock3, Play, Volume2 } from "lucide-react";
+import { Clock3, Play, Volume2 } from "lucide-react";
 import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -105,7 +105,6 @@ export default function LiveWebinar3() {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
-  const [captionsEnabled, setCaptionsEnabled] = useState(true);
   const [activeCaption, setActiveCaption] = useState<string | null>(null);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
@@ -330,19 +329,6 @@ export default function LiveWebinar3() {
               </button>
             )}
 
-            {hasVideoStarted && (
-              <button
-                data-webinar2-captions-toggle
-                type="button"
-                aria-pressed={captionsEnabled}
-                onClick={() => setCaptionsEnabled(enabled => !enabled)}
-                className="absolute top-3 left-3 z-10 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#291232]/92 px-3 py-2 text-[9px] font-black uppercase tracking-[0.07em] text-white shadow-lg transition hover:bg-[#3a1846] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#291232] active:scale-[0.97] sm:top-4 sm:left-4 sm:px-4 sm:text-[10px]"
-              >
-                <Captions className="h-4 w-4" aria-hidden="true" />
-                CC {captionsEnabled ? "On" : "Off"}
-              </button>
-            )}
-
             {autoplayBlocked && (
               <button
                 type="button"
@@ -359,7 +345,7 @@ export default function LiveWebinar3() {
               </button>
             )}
           </div>
-          {captionsEnabled && activeCaption && (
+          {activeCaption && (
             <div
               data-webinar3-caption-bar
               aria-live="polite"
