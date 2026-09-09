@@ -1356,3 +1356,11 @@
 - [x] Preserve original webinar registrations, original confirmation behavior, conversion tracking isolation, form behavior, and all unrelated flows
 - [x] Update focused coverage and validate both campaign paths, live redirect behavior, conversion guards, simulated provider redirect handoff, unmarked original confirmation behavior, 12 focused checks and all 208 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
 - [x] Save and deliver the corrected live-webinar3 redirect-flow checkpoint
+
+## Live Webinar 2 Unobstructed Captions
+
+- [x] Inspect the current `/live-webinar2` custom CC pill, active subtitle overlay, video controls, and focused regression coverage
+- [x] Remove the visible live-webinar2 CC On/Off pill and move active subtitle text into a compact caption bar below the video
+- [x] Preserve autoplay/sound behavior, native controls, caption timing, registration, event details, Featured In, footer, and all `/live-webinar3` behavior
+- [x] Update focused coverage and validate active captions below the video, absent CC pill, unobstructed footage, registration form opening, desktop/mobile layout, 22 focused checks and all 208 tests across 42 files, TypeScript, production build, webinar routes, and current logs with no new first-party 5xx responses
+- [ ] Save and deliver the live-webinar2 unobstructed caption treatment checkpoint
