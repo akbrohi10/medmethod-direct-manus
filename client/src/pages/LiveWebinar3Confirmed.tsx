@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, CalendarDays, Check, CheckCircle2, Clock3, Mail } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, Clock3, MailCheck } from "lucide-react";
 
 const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
@@ -55,10 +55,10 @@ export default function LiveWebinar3Confirmed() {
   return (
     <>
       <Helmet>
-        <title>Free Live Zoom Webinar Registration Confirmed | MedMethod Direct</title>
+        <title>Confirm Your Free Live Zoom Webinar Spot | MedMethod Direct</title>
         <meta
           name="description"
-          content="Your Free Live Zoom Webinar registration is confirmed. Check your email for the Zoom link and explore what the webinar will cover."
+          content="We received your Free Live Zoom Webinar registration. Check your email or text messages and reply YES to confirm your spot."
         />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="https://www.medmethoddirect.com/live-webinar3-confirmed" />
@@ -71,17 +71,17 @@ export default function LiveWebinar3Confirmed() {
         <div className="mx-auto max-w-[820px]">
           <div className="w-full rounded-[2rem] border border-[#f0dce5] bg-white px-6 py-10 text-center shadow-[0_24px_70px_rgba(91,38,77,0.13)] sm:px-12 sm:py-14">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#fde8ef] text-[#dd2d84] shadow-[0_10px_24px_rgba(221,45,132,0.16)] sm:h-[4.5rem] sm:w-[4.5rem]">
-              <CheckCircle2 className="h-9 w-9 stroke-[2.4] sm:h-10 sm:w-10" aria-hidden="true" />
+              <MailCheck className="h-9 w-9 stroke-[2.2] sm:h-10 sm:w-10" aria-hidden="true" />
             </div>
 
             <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#cf1475]">
-              Free Live Zoom Webinar Confirmed
+              Registration Received
             </p>
             <h1 className="mt-3 font-serif text-4xl font-bold leading-[1.04] tracking-[-0.035em] text-[#35152f] sm:text-5xl">
-              You’re all set.
+              You’re almost in.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#655461] sm:text-lg sm:leading-8">
-              Thank you for registering for our free live educational webinar.
+              We’ve received your registration for Dr. Al-Deek’s live webinar on Wednesday, September 16 at 7:00 PM ET.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[510px] gap-3 rounded-2xl border border-[#f0dce5] bg-[#fff7fa] p-4 text-left sm:grid-cols-2 sm:p-5">
@@ -101,11 +101,22 @@ export default function LiveWebinar3Confirmed() {
               </div>
             </div>
 
-            <div className="mx-auto mt-7 flex max-w-xl items-start gap-3 rounded-xl border border-[#ece4e9] bg-[#fffdfd] px-4 py-4 text-left sm:px-5">
-              <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#7a1e7e]" aria-hidden="true" />
-              <p className="text-sm leading-6 text-[#655461] sm:text-base">
-                Your Zoom link has been sent to the email address you used to register. Please check your inbox—and your spam or promotions folder, just in case.
-              </p>
+            <div
+              data-live-webinar3-reply-yes-panel
+              className="mx-auto mt-7 max-w-xl rounded-2xl border border-[#ebc8d9] bg-[#fff7fb] px-5 py-5 text-left shadow-[0_12px_28px_rgba(143,42,100,0.08)] sm:px-6 sm:py-6"
+            >
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#fde0ef] text-[#d51b75] sm:h-10 sm:w-10">
+                  <MailCheck className="h-5 w-5 stroke-[2.3]" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-base font-black text-[#432943] sm:text-lg">One last step</p>
+                  <p className="mt-1.5 text-sm leading-6 text-[#655461] sm:text-base sm:leading-7">
+                    Check your email or texts and reply <strong className="font-black text-[#cf1475]">YES</strong> to confirm your spot. Because seats are limited, unconfirmed spots will be released to the waitlist.
+                  </p>
+                  <p className="mt-3 text-sm font-black text-[#cf1475] sm:text-base">Confirm now so you don’t lose your seat.</p>
+                </div>
+              </div>
             </div>
 
             <div className="mx-auto mt-8 max-w-xl">

@@ -1379,3 +1379,11 @@
 - [x] Preserve registration, conversion, event, page-specific content, and all unrelated behavior; update focused regression coverage
 - [x] Validate muted autoplay, click-to-unmute restart, sound playback, below-video subtitles, desktop/mobile overlay layout, 15 focused webinar checks and all 209 tests across 42 files, TypeScript, production build, both webinar routes returning HTTP 200, and zero relevant post-change runtime errors
 - [x] Save and deliver the webinar audio-activation overlay checkpoint
+
+## Live Webinar 3 Reply-YES Confirmation Panel
+
+- [x] Inspect the current `/live-webinar3-confirmed` hierarchy and focused conversion-page coverage before updating its messaging
+- [x] Replace the current post-registration status message with the approved reply-YES confirmation instruction in the panel below the event details
+- [x] Preserve the event date/time, live-webinar3 conversion guard, doctor-information action, support line, and all unrelated webinar-two and payment behavior
+- [x] Validate messaging hierarchy, desktop/mobile layout, conversion guard, 3 focused checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
+- [ ] Save and deliver the live-webinar3 reply-YES confirmation-page checkpoint

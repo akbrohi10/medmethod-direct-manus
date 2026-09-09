@@ -16,6 +16,15 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).toContain('href="/"');
     expect(pageSource).not.toContain('href="/live-webinar3"');
     expect(pageSource).toContain('content="noindex, nofollow"');
+    expect(pageSource).toContain("Registration Received");
+    expect(pageSource).toContain("You’re almost in.");
+    expect(pageSource).toContain("data-live-webinar3-reply-yes-panel");
+    expect(pageSource).toContain("Check your email or texts and reply");
+    expect(pageSource).toContain("YES");
+    expect(pageSource).toContain("unconfirmed spots will be released to the waitlist");
+    expect(pageSource).toContain("Confirm now so you don’t lose your seat.");
+    expect(pageSource).not.toContain("You’re all set.");
+    expect(pageSource).not.toContain("Free Live Zoom Webinar Confirmed");
   });
 
   it("restores the fuller educational context after confirmation without a second registration CTA", () => {
