@@ -1355,4 +1355,4 @@
 - [x] Record a page-three registration handoff before opening the shared form and redirect only that marked completion from `/webinar-registration-confirmed` to `/live-webinar3-confirmed`
 - [x] Preserve original webinar registrations, original confirmation behavior, conversion tracking isolation, form behavior, and all unrelated flows
 - [x] Update focused coverage and validate both campaign paths, live redirect behavior, conversion guards, simulated provider redirect handoff, unmarked original confirmation behavior, 12 focused checks and all 208 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
-- [ ] Save and deliver the corrected live-webinar3 redirect-flow checkpoint
+- [x] Save and deliver the corrected live-webinar3 redirect-flow checkpoint
