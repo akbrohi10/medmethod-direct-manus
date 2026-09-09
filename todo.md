@@ -1364,3 +1364,9 @@
 - [x] Preserve autoplay/sound behavior, native controls, caption timing, registration, event details, Featured In, footer, and all `/live-webinar3` behavior
 - [x] Update focused coverage and validate active captions below the video, absent CC pill, unobstructed footage, registration form opening, desktop/mobile layout, 22 focused checks and all 208 tests across 42 files, TypeScript, production build, webinar routes, and current logs with no new first-party 5xx responses
 - [x] Save and deliver the live-webinar2 unobstructed caption treatment checkpoint
+
+## Webinar Video Meta Ad Copy
+
+- [x] Analyze the attached webinar video for its message, audience hooks, visual tone, and compliant copy constraints
+- [x] Draft compelling Meta ad copy variations with primary text, headline, description, and clear registration CTA
+- [x] Recommend the strongest test-ready version and concise A/B options for the live webinar destinations
