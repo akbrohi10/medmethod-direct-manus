@@ -1305,4 +1305,4 @@
 - [x] Change only the `/live-webinar3` top banner text to Free Webinar and place the existing video directly beneath the event date/time ticker
 - [x] Preserve all `/live-webinar2` content and behavior, plus the `/live-webinar3` video autoplay, captions, form, tracking, event details, checklist, featured logos, disclosure, and footer treatment
 - [x] Update focused coverage and validate the revised hierarchy, desktop/mobile rendering, video/form behavior, 14 focused checks and all 204 tests across 41 files, TypeScript, production build, webinar routes, and current logs with no new errors or first-party 5xx responses
-- [ ] Save and deliver the live-webinar3 A/B variation checkpoint
+- [x] Save and deliver the live-webinar3 A/B variation checkpoint
