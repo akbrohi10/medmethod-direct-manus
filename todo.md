@@ -1403,4 +1403,4 @@
 - [x] Present the supplied SendMeAPro care-team calendar on its existing accessible public booking page with clear program-information/non-medical-advice context
 - [x] Preserve existing physician appointment/payment/intake behavior, homepage content, webinar flows, and unrelated site behavior
 - [x] Update focused coverage and validate distinct booking paths, provider calendar rendering after initialization, desktop/mobile layout, 2 focused checks and all 211 tests across 43 files, TypeScript, production build, homepage and care-team route HTTP 200 responses, and current logs with no new first-party 5xx responses
-- [ ] Save and deliver the homepage dual-action checkpoint
+- [x] Save and deliver the homepage dual-action checkpoint
