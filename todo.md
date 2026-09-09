@@ -1394,4 +1394,4 @@
 - [x] Replace the original post-registration status and reminder with the approved reply-YES confirmation instruction below the event details
 - [x] Preserve original webinar conversion tracking, event details, physician-information action, support line, the page-three confirmation flow, and all unrelated behavior
 - [x] Validate messaging, tracking isolation, action destinations, desktop/mobile layout, 7 focused confirmation checks and all 209 tests across 42 files, TypeScript, production build, route health, and zero relevant post-change runtime errors
-- [ ] Save and deliver the original webinar reply-YES confirmation-page checkpoint
+- [x] Save and deliver the original webinar reply-YES confirmation-page checkpoint
