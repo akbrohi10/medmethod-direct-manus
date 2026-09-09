@@ -1348,3 +1348,11 @@
 - [x] Confirm no website-side live-webinar3 confirmation destination mismatch exists: the campaign already supplies `/live-webinar3-confirmed` to the trusted completion listener while the original flow retains its default route
 - [x] Validate the registration form opens, trusted completion destination targets `/live-webinar3-confirmed`, both routes return HTTP 200, 8 focused checks and all 207 tests across 42 files pass, TypeScript and production build pass, and current logs show no new first-party 5xx responses
 - [x] Record the verified destination and provide the exact remaining GoHighLevel redirect configuration step: duplicate the current Webinar Form, set only the duplicate’s On Submit → Open URL to `https://www.medmethoddirect.com/live-webinar3-confirmed`, publish it, and provide its new form ID for the page-three iframe
+
+## Live Webinar 3 Provider Redirect Override Fix
+
+- [x] Inspect the proven provider-side redirect to `/webinar-registration-confirmed`, the page-three launch context, existing confirmation guards, and focused coverage
+- [x] Record a page-three registration handoff before opening the shared form and redirect only that marked completion from `/webinar-registration-confirmed` to `/live-webinar3-confirmed`
+- [x] Preserve original webinar registrations, original confirmation behavior, conversion tracking isolation, form behavior, and all unrelated flows
+- [x] Update focused coverage and validate both campaign paths, live redirect behavior, conversion guards, simulated provider redirect handoff, unmarked original confirmation behavior, 12 focused checks and all 208 tests across 42 files, TypeScript, production build, route health, and current logs with no new first-party 5xx responses
+- [ ] Save and deliver the corrected live-webinar3 redirect-flow checkpoint

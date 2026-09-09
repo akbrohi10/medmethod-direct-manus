@@ -37,6 +37,10 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("{activeCaption && (");
     expect(liveWebinar3Source).toContain("data-webinar2-primary-cta");
     expect(liveWebinar3Source).toContain('confirmationPath="/live-webinar3-confirmed"');
+    expect(liveWebinar3Source).toContain('const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff"');
+    expect(liveWebinar3Source).toContain('window.sessionStorage.setItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY, String(Date.now()))');
+    expect(liveWebinar3Source).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
+    expect(liveWebinar3Source).toContain('onOpenChange={handleRegistrationOpenChange}');
     expect(liveWebinar3Source).toContain("data-webinar2-featured-in");
     expect(liveWebinar3Source).toContain("data-webinar3-short-footer");
     expect(liveWebinar3Source).toContain("data-webinar2-legitscript-footer");

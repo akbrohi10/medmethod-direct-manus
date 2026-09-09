@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowRight, CalendarDays, Check, CheckCircle2, Clock3, Mail } from "lucide-react";
 
 const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired";
+const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 let liveWebinar3ConversionTracked = false;
 
 const learningChecklist = [
@@ -22,6 +23,11 @@ const learningChecklist = [
  */
 export default function LiveWebinar3Confirmed() {
   useEffect(() => {
+    try {
+      window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY);
+    } catch {
+      // Session storage can be unavailable in privacy-restricted contexts.
+    }
     if (liveWebinar3ConversionTracked) return;
 
     try {

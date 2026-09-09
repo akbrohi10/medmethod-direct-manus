@@ -33,6 +33,7 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Free Live Zoom Webinar"');
+    expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
     expect(pageSource).not.toContain('"Purchase"');
   });
 });

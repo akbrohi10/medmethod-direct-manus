@@ -3,7 +3,28 @@ import { Helmet } from "react-helmet-async";
 import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Mail } from "lucide-react";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
+const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
+const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
+const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
 let webinarConversionTracked = false;
+let liveWebinar3HandoffActive = false;
+
+function consumeLiveWebinar3Handoff() {
+  if (liveWebinar3HandoffActive) return true;
+
+  try {
+    const recordedAt = Number(window.sessionStorage.getItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY));
+    if (!Number.isFinite(recordedAt) || Date.now() - recordedAt > LIVE_WEBINAR3_HANDOFF_WINDOW_MS) {
+      window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY);
+      return false;
+    }
+    window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY);
+    liveWebinar3HandoffActive = true;
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * The SendMeAPro form redirects completed webinar registrations to this route.
@@ -11,7 +32,13 @@ let webinarConversionTracked = false;
  * being emitted twice when a visitor refreshes this confirmation page.
  */
 export default function WebinarRegistrationConfirmed() {
+  const isLiveWebinar3Handoff = consumeLiveWebinar3Handoff();
+
   useEffect(() => {
+    if (isLiveWebinar3Handoff) {
+      window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH);
+      return;
+    }
     if (webinarConversionTracked) return;
 
     try {
@@ -34,7 +61,9 @@ export default function WebinarRegistrationConfirmed() {
       content_name: "Live Educational Webinar",
       content_category: "Webinar Registration",
     });
-  }, []);
+  }, [isLiveWebinar3Handoff]);
+
+  if (isLiveWebinar3Handoff) return null;
 
   return (
     <>

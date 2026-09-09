@@ -47,6 +47,12 @@ The website-side flow is already assigned correctly: `/live-webinar3` supplies `
 
 Because the current iframe still uses the original GoHighLevel form ID `A3e1g5dCf1hc3tY3xpHi`, the provider-side redirect must be changed on a **duplicate** form before a real submitted lead can be guaranteed to land at the page-three confirmation URL. Do not alter the original form’s Open URL setting; that would redirect the page-two campaign as well.
 
+## Shared-Form Redirect Override Safeguard
+
+The live provider test showed that the shared GoHighLevel form redirects successful `/live-webinar3` submissions to the original `/webinar-registration-confirmed` URL. The website now records a short-lived page-three handoff marker immediately before that campaign opens the shared form. If the provider sends the visitor to the original confirmation URL, that page consumes the marker and immediately replaces the location with `/live-webinar3-confirmed` before rendering its original confirmation content or conversion event.
+
+Unmarked visits to `/webinar-registration-confirmed` remain on the original confirmation page. A simulated page-three handoff and an unmarked original-flow check both passed in the browser. The duplicate-form redirect configuration remains the preferred long-term provider-side separation, but the current live page-three flow now has a website-side safeguard.
+
 ## Event Details
 
 The confirmed webinar is **Wednesday, September 16, 2026 at 7:00 PM ET**. Update the GoHighLevel confirmation message for the Webinar Form to the same event details so its provider-hosted confirmation remains consistent with the website confirmation route.

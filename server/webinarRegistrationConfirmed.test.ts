@@ -35,6 +35,17 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).not.toContain('"PageView"');
   });
 
+  it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {
+    expect(pageSource).toContain('const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff"');
+    expect(pageSource).toContain('const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed"');
+    expect(pageSource).toContain('const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000');
+    expect(pageSource).toContain('window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH)');
+    expect(pageSource).toContain('if (isLiveWebinar3Handoff) return null');
+    expect(pageSource.indexOf('window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH)')).toBeLessThan(
+      pageSource.indexOf('w.dataLayer?.push({ event: "webinar_registration_complete" })'),
+    );
+  });
+
   it("shows the supplied confirmed event details and inbox reminder without creating a clinical claim", () => {
     expect(pageSource).toContain("Wednesday, September 16");
     expect(pageSource).toContain("7:00 PM ET");

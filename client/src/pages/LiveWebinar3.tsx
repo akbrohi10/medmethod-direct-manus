@@ -53,6 +53,7 @@ const WEBINAR_VIDEO_CAPTIONS_VTT = [
   "Wow!",
 ].join("\n");
 const WEBINAR_VIDEO_CAPTIONS_SRC = `data:text/vtt;charset=utf-8,${encodeURIComponent(WEBINAR_VIDEO_CAPTIONS_VTT)}`;
+const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 
 // Confirmed event time: September 16, 2026 at 7:00 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
@@ -203,7 +204,23 @@ export default function LiveWebinar3() {
   }, []);
 
   const handleReserveSeat = () => {
+    try {
+      window.sessionStorage.setItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY, String(Date.now()));
+    } catch {
+      // The trusted postMessage path remains available when session storage is unavailable.
+    }
     setRegistrationOpen(true);
+  };
+
+  const handleRegistrationOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) {
+      try {
+        window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY);
+      } catch {
+        // Session storage can be unavailable in privacy-restricted contexts.
+      }
+    }
+    setRegistrationOpen(nextOpen);
   };
 
   const handlePlayWithSound = async () => {
@@ -460,7 +477,7 @@ export default function LiveWebinar3() {
       </article>
       <WebinarRegistrationDialog
         open={registrationOpen}
-        onOpenChange={setRegistrationOpen}
+        onOpenChange={handleRegistrationOpenChange}
         confirmationPath="/live-webinar3-confirmed"
       />
     </main>
