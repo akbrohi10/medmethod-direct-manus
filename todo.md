@@ -1424,4 +1424,4 @@
 - [x] Inspect the current stacked mobile booking bar and focused coverage before restoring the prior pill layout
 - [x] Restore the side-by-side rounded mobile booking pills and simplify the discovery action to Book Free 15-Minute Discovery Call
 - [x] Preserve both booking destinations and validate compact side-by-side mobile labels, focused/full tests with 213 passing across 43 files, TypeScript, production build, homepage and care-team booking HTTP 200 responses, and current logs with no new first-party errors
-- [ ] Save and deliver the restored mobile pill-design checkpoint
+- [x] Save and deliver the restored mobile pill-design checkpoint
