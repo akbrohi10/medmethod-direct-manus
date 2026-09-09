@@ -275,9 +275,12 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("syncActiveCaption");
     expect(pageSource).toContain("entry.intersectionRatio >= 0.6");
     expect(pageSource).toContain("video.pause()");
-    expect(pageSource).toContain("data-webinar2-enable-sound");
-    expect(pageSource).toContain("Turn Sound On");
+    expect(pageSource).toContain("data-webinar2-unmute-overlay");
+    expect(pageSource).toContain('aria-label="Restart video from the beginning with sound"');
+    expect(pageSource).toContain("Your video is playing");
+    expect(pageSource).toContain("Tap to start with sound");
     expect(pageSource).toContain("handleEnableSound");
+    expect(pageSource).toContain("video.currentTime = 0");
     expect(pageSource).toContain("Play Video With Sound");
   });
 

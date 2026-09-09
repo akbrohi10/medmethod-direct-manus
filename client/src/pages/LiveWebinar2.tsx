@@ -241,6 +241,8 @@ export default function LiveWebinar2() {
   const handlePlayWithSound = async () => {
     const video = videoRef.current;
     if (!video) return;
+    video.pause();
+    video.currentTime = 0;
     video.muted = false;
     video.defaultMuted = false;
     try {
@@ -253,12 +255,21 @@ export default function LiveWebinar2() {
     }
   };
 
-  const handleEnableSound = () => {
+  const handleEnableSound = async () => {
     const video = videoRef.current;
     if (!video) return;
+    video.pause();
+    video.currentTime = 0;
     video.muted = false;
     video.defaultMuted = false;
-    setVideoMuted(false);
+    try {
+      await video.play();
+      setAutoplayBlocked(false);
+      setHasVideoStarted(true);
+      setVideoMuted(false);
+    } catch {
+      setAutoplayBlocked(true);
+    }
   };
 
   return (
@@ -405,13 +416,19 @@ export default function LiveWebinar2() {
 
             {hasVideoStarted && videoMuted && !autoplayBlocked && (
               <button
-                data-webinar2-enable-sound
+                data-webinar2-unmute-overlay
                 type="button"
                 onClick={handleEnableSound}
-                className="absolute top-3 right-3 z-10 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#291232]/92 px-3 py-2 text-[9px] font-black uppercase tracking-[0.07em] text-white shadow-lg transition hover:bg-[#3a1846] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#291232] active:scale-[0.97] sm:top-4 sm:right-4 sm:px-4 sm:text-[10px]"
+                aria-label="Restart video from the beginning with sound"
+                className="absolute inset-0 z-10 grid place-items-center bg-[#26183b]/25 p-4 text-center backdrop-blur-[1px] transition hover:bg-[#26183b]/32 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
               >
-                <Volume2 className="h-4 w-4" aria-hidden="true" />
-                Turn Sound On
+                <span className="flex max-w-[17rem] flex-col items-center rounded-[1.4rem] border border-white/20 bg-[#241044]/88 px-5 py-5 text-white shadow-[0_16px_34px_rgba(40,16,74,0.35)] sm:max-w-[23rem] sm:px-8 sm:py-7">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/16 sm:h-14 sm:w-14">
+                    <Volume2 className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
+                  </span>
+                  <span className="mt-3 text-base font-black leading-tight sm:text-xl">Your video is playing</span>
+                  <span className="mt-1 text-sm font-bold text-white/88 sm:text-base">Tap to start with sound</span>
+                </span>
               </button>
             )}
 

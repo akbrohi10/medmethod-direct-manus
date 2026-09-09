@@ -63,4 +63,16 @@ describe("live webinar 3 A/B variation", () => {
     );
     expect(liveWebinar3Source).not.toBe(liveWebinar2Source);
   });
+
+  it("uses a visible muted-autoplay overlay that restarts the webinar from the beginning with sound", () => {
+    expect(liveWebinar3Source).toContain("data-webinar3-unmute-overlay");
+    expect(liveWebinar3Source).toContain('aria-label="Restart video from the beginning with sound"');
+    expect(liveWebinar3Source).toContain("Your video is playing");
+    expect(liveWebinar3Source).toContain("Tap to start with sound");
+    expect(liveWebinar3Source).toContain("const handleEnableSound = async () => {");
+    expect(liveWebinar3Source).toContain("video.pause();");
+    expect(liveWebinar3Source).toContain("video.currentTime = 0");
+    expect(liveWebinar3Source).toContain("await video.play();");
+    expect(liveWebinar3Source).toContain("data-webinar3-caption-bar");
+  });
 });

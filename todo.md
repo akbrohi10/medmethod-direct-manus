@@ -1370,3 +1370,12 @@
 - [x] Analyze the attached webinar video for its message, audience hooks, visual tone, and compliant copy constraints
 - [x] Draft compelling Meta ad copy variations with primary text, headline, description, and clear registration CTA
 - [x] Recommend the strongest test-ready version and concise A/B options for the live webinar destinations
+
+## Webinar Click-to-Unmute Overlay
+
+- [x] Inspect the current muted-autoplay, sound fallback, caption placement, and focused video coverage on `/live-webinar2` and `/live-webinar3`
+- [x] Add a matching visible click-to-unmute overlay to both webinar videos while they are muted and playing automatically
+- [x] On visitor activation, restart the selected video from 00:00, enable sound, begin playback, and remove the overlay while retaining captions below the frame and native controls
+- [x] Preserve registration, conversion, event, page-specific content, and all unrelated behavior; update focused regression coverage
+- [x] Validate muted autoplay, click-to-unmute restart, sound playback, below-video subtitles, desktop/mobile overlay layout, 15 focused webinar checks and all 209 tests across 42 files, TypeScript, production build, both webinar routes returning HTTP 200, and zero relevant post-change runtime errors
+- [ ] Save and deliver the webinar audio-activation overlay checkpoint
