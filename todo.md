@@ -1522,3 +1522,11 @@
 - [x] Preserve the existing care-team calendar URL, discovery-call route, webinar confirmation pages, and all unrelated booking behavior
 - [x] Validate responsive presentation, tracking safeguards, route health, focused coverage, full tests, TypeScript, production build, and logs
 - [x] Save and deliver the care-team discovery-call confirmation checkpoint and GoHighLevel redirect URL
+
+## Thank-You Page Meta Pixel Investigation — 2026-09-10
+
+- [x] Inspect `/thank-you`, the global Meta Pixel installation, route behavior, and existing tracking regression coverage
+- [x] Add a guarded page-level Meta `Lead` event alongside the existing appointment completion event so Facebook ad optimization and Test Events can recognize the conversion explicitly
+- [x] Preserve existing webinar, discovery-call, payment, and all unrelated Meta Pixel event behavior
+- [x] Validate pixel loading and event safeguards, route health, focused coverage, full tests, TypeScript, production build, and logs
+- [x] Save and deliver the thank-you page Meta Pixel tracking investigation checkpoint
