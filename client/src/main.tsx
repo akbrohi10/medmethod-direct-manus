@@ -8,7 +8,10 @@ import superjson from "superjson";
 import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
+import { installMetaPixelForCurrentRoute } from "./lib/metaPixelBootstrap";
 import { readPreviewBearerToken, resolveTrpcEndpoint } from "./lib/trpcTransport";
+
+installMetaPixelForCurrentRoute();
 
 const queryClient = new QueryClient();
 const trpcEndpoint = resolveTrpcEndpoint(
