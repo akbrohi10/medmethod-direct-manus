@@ -26,6 +26,8 @@ describe("live webinar 3 A/B variation", () => {
 
   it("uses the approved short-form conversion path while retaining the event, video, CTA, and footer essentials", () => {
     expect(liveWebinar3Source).toContain("Free Live Zoom Webinar");
+    expect(liveWebinar3Source).toContain('startsAt: "2026-09-23T19:30:00-04:00" as string | null');
+    expect(liveWebinar3Source).toContain('dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:30 PM EST"');
     expect(liveWebinar3Source).not.toContain("A Free Educational Webinar");
     expect(liveWebinar3Source).toContain("data-webinar3-top-video");
     expect(liveWebinar3Source).toContain("data-webinar2-video-shell");

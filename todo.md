@@ -1489,3 +1489,11 @@
 - [x] Preserve existing confirmation content, confirmation flows, redirects, Meta tracking, and unrelated behavior
 - [x] Validate event safeguards, page routes, focused coverage, full tests, TypeScript, production build, and logs
 - [x] Save and deliver the webinar confirmation-event checkpoint
+
+## Live Webinar Schedule Update — 2026-09-10
+
+- [x] Inspect date, time, countdown, and registration details across `/live-webinar2`, `/live-webinar3`, `/webinar-registration-confirmed`, and `/live-webinar3-confirmed`
+- [x] Update visible event details and countdown configuration to Wednesday, September 23 at 7:30 PM EST on both landing pages and both confirmation pages
+- [x] Preserve the existing webinar forms, confirmation routing, Meta Pixel events, and all unrelated content and behavior
+- [x] Validate date consistency, countdown behavior, registration routes, focused coverage, full tests, TypeScript, production build, and logs
+- [x] Save and deliver the webinar schedule-update checkpoint

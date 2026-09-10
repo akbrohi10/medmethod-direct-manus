@@ -18,6 +18,8 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
     expect(pageSource).toContain("Registration Received");
     expect(pageSource).toContain("You’re almost in.");
+    expect(pageSource).toContain("Wednesday, September 23");
+    expect(pageSource).toContain("7:30 PM EST");
     expect(pageSource).toContain("data-live-webinar3-reply-yes-panel");
     expect(pageSource).toContain("Check your email or texts and reply");
     expect(pageSource).toContain("YES");
