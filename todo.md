@@ -1659,3 +1659,11 @@
 - [x] Prevent duplicate initialization or events while preserving existing webinar Lead tracking, confirmation content, route behavior, and dataLayer signals
 - [x] Validate one care-team init, one PageView, one Schedule, no Lead, preserved webinar Lead scope, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the care-team Schedule Pixel checkpoint with concise Meta Test Events steps
+
+## Appointment Thank-You CompleteRegistration Pixel — 2026-09-10
+
+- [x] Inspect the route-aware Meta Pixel configuration and `/thank-you` tracking coverage
+- [x] Install Pixel ID `1589326469554181` on `/thank-you` with exactly one `PageView` and one `CompleteRegistration` event
+- [x] Prevent duplicate initialization or events while preserving care-team Schedule tracking, webinar Lead tracking, page content, route behavior, and dataLayer signals
+- [x] Validate one appointment init, one PageView, one CompleteRegistration, no Lead or Schedule, preserved care-team Schedule and webinar Lead scope, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the appointment CompleteRegistration Pixel checkpoint with concise Meta Test Events steps

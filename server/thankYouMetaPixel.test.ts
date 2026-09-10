@@ -6,13 +6,15 @@ const pageSource = readFileSync(resolve(process.cwd(), "client/src/pages/ThankYo
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
 
-describe("appointment thank-you tracking after Meta removal", () => {
-  it("keeps the appointment thank-you route outside the standalone webinar Pixel", () => {
+describe("appointment thank-you tracking", () => {
+  it("uses the route-aware Pixel with one CompleteRegistration event", () => {
     expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
     expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(documentHeadSource).not.toContain("1589326469554181");
     expect(bootstrapSource).toContain('"/webinar-registration-confirmed"');
     expect(bootstrapSource).toContain('"/live-webinar3-confirmed"');
+    expect(bootstrapSource).toContain('["/thank-you", "CompleteRegistration"]');
+    expect(bootstrapSource).toContain('"fbq(\'track\', \'CompleteRegistration\');"');
   });
 
   it("retains only the guarded non-Facebook booking completion signal", () => {

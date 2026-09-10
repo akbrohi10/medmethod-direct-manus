@@ -1,9 +1,10 @@
-type MetaConversionEvent = "Lead" | "Schedule";
+type MetaConversionEvent = "Lead" | "Schedule" | "CompleteRegistration";
 
 export const CONFIRMATION_PIXEL_EVENTS = new Map<string, MetaConversionEvent>([
   ["/webinar-registration-confirmed", "Lead"],
   ["/live-webinar3-confirmed", "Lead"],
   ["/care-team-booking-confirmed", "Schedule"],
+  ["/thank-you", "CompleteRegistration"],
 ]);
 
 const CONFIRMATION_PIXEL_SCRIPT_ID = "confirmation-meta-pixel";
@@ -68,7 +69,9 @@ export function installMetaPixelForCurrentRoute(): boolean {
   script.id = CONFIRMATION_PIXEL_SCRIPT_ID;
   const conversionCall = eventName === "Lead"
     ? "fbq('track', 'Lead');"
-    : "fbq('track', 'Schedule');";
+    : eventName === "Schedule"
+      ? "fbq('track', 'Schedule');"
+      : "fbq('track', 'CompleteRegistration');";
   script.textContent = `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

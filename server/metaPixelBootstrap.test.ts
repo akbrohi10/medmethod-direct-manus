@@ -15,11 +15,12 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(shouldInstallMetaPixel("/webinar-registration-confirmed")).toBe(true);
     expect(shouldInstallMetaPixel("/live-webinar3-confirmed")).toBe(true);
     expect(shouldInstallMetaPixel("/care-team-booking-confirmed")).toBe(true);
+    expect(shouldInstallMetaPixel("/thank-you")).toBe(true);
     expect(shouldInstallMetaPixel("/")).toBe(false);
-    expect(shouldInstallMetaPixel("/thank-you")).toBe(false);
     expect(getMetaPixelEventForPath("/webinar-registration-confirmed")).toBe("Lead");
     expect(getMetaPixelEventForPath("/live-webinar3-confirmed")).toBe("Lead");
     expect(getMetaPixelEventForPath("/care-team-booking-confirmed")).toBe("Schedule");
+    expect(getMetaPixelEventForPath("/thank-you")).toBe("CompleteRegistration");
   });
 
   it("keeps Pixel code out of the shared HTML shell", () => {
@@ -30,13 +31,13 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(documentSource).not.toContain("GTM-KMBG6HSR");
   });
 
-  it("contains one supplied init and PageView plus explicit Lead and Schedule calls", () => {
+  it("contains one supplied init and PageView plus explicit Lead, Schedule, and CompleteRegistration calls", () => {
     expect(bootstrapSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
     expect(bootstrapSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
     expect(bootstrapSource.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
     expect(bootstrapSource.match(/fbq\('track', 'Schedule'\)/g)).toHaveLength(1);
+    expect(bootstrapSource.match(/fbq\('track', 'CompleteRegistration'\)/g)).toHaveLength(1);
     expect(bootstrapSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
-    expect(bootstrapSource).not.toContain("CompleteRegistration");
     expect(bootstrapSource).not.toContain("Purchase");
   });
 
