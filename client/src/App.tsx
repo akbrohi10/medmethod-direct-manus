@@ -40,6 +40,7 @@ const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
 const ThanksPaymentWL2 = lazy(() => import("@/pages/ThanksPaymentWL2"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CareTeamBooking = lazy(() => import("@/pages/CareTeamBooking"));
+const CareTeamBookingConfirmed = lazy(() => import("@/pages/CareTeamBookingConfirmed"));
 const LiveWebinar = lazy(() => import("@/pages/LiveWebinar"));
 const LiveWebinar2 = lazy(() => import("@/pages/LiveWebinar2"));
 const LiveWebinar3 = lazy(() => import("@/pages/LiveWebinar3"));
@@ -327,6 +328,7 @@ function Router() {
         <Route path="/lp/WL2" component={LpWL2} />
         <Route path="/thank-you2" component={ThankYou2} />
         <Route path="/care-team-booking" component={CareTeamBooking} />
+        <Route path="/care-team-booking-confirmed" component={CareTeamBookingConfirmed} />
         <Route path="/live-webinar" component={LiveWebinar} />
         <Route path="/live-webinar2" component={LiveWebinar2} />
         <Route path="/live-webinar3" component={LiveWebinar3} />

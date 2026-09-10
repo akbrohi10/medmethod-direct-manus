@@ -1513,3 +1513,12 @@
 - [x] Preserve the homepage header logo, Patient Login control, focus treatment, and all navigation behavior
 - [x] Validate desktop/mobile header balance, phone-link destination, focused coverage, full tests, TypeScript, production build, routes, and logs
 - [x] Save and deliver the stacked header Call Now CTA checkpoint
+
+## Care-Team Discovery-Call Confirmation — 2026-09-10
+
+- [x] Inspect the care-team booking page, existing confirmation-page patterns, route registration, and conversion-event safeguards
+- [x] Create and register `/care-team-booking-confirmed` with free discovery-call confirmation copy and a clear general-information-only, non-medical disclaimer
+- [x] Add guarded conversion tracking appropriate to a completed free discovery-call booking without mentioning deposits, payments, or physician visits
+- [x] Preserve the existing care-team calendar URL, discovery-call route, webinar confirmation pages, and all unrelated booking behavior
+- [x] Validate responsive presentation, tracking safeguards, route health, focused coverage, full tests, TypeScript, production build, and logs
+- [x] Save and deliver the care-team discovery-call confirmation checkpoint and GoHighLevel redirect URL
