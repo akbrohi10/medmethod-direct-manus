@@ -280,7 +280,7 @@ export default function HomeHrt3() {
           }
           overrideSubline="100% Virtual"
           overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
-          ctaLabel="Book Your 45-Minute Appointment with Dr. Al-Deek"
+          ctaLabel="Book Your 45-Minute Appt. with Dr. Al-Deek"
           secondaryAction={{
             href: "/care-team-booking",
             label: "Book a Free 15-Minute Discovery Call",

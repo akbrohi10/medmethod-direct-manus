@@ -1432,3 +1432,10 @@
 - [x] Update the physician pill to Ready to Book? · $50 Deposit Today and the discovery pill to Need More Info? · Free 15-Min Call
 - [x] Preserve both booking destinations and validate compact label readability, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage and care-team booking HTTP 200 responses, and current logs with no new first-party errors
 - [x] Save and deliver the updated mobile booking-pill wording checkpoint
+
+## Homepage physician CTA abbreviation — 2026-09-09
+
+- [x] Inspect the current physician booking label and focused coverage
+- [x] Replace “Appointment” with the approved “Appt.” abbreviation without changing the booking destination
+- [x] Validate compact label rendering, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage HTTP 200 response, and current logs with no new first-party errors
+- [ ] Save and deliver the physician CTA abbreviation checkpoint

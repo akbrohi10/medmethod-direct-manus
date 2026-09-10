@@ -9,7 +9,7 @@ const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "ut
 
 describe("homepage dual booking actions", () => {
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
-    expect(homeSource).toContain('ctaLabel="Book Your 45-Minute Appointment with Dr. Al-Deek"');
+    expect(homeSource).toContain('ctaLabel="Book Your 45-Minute Appt. with Dr. Al-Deek"');
     expect(homeSource).toContain("secondaryAction={{");
     expect(homeSource).toContain('href: "/care-team-booking"');
     expect(homeSource).toContain('label: "Book a Free 15-Minute Discovery Call"');
