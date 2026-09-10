@@ -1447,3 +1447,12 @@
 - [x] Preserve the physician booking destination, discovery-call action, full-pricing link, and all unrelated homepage behavior; update focused coverage
 - [x] Validate desktop/mobile readability, booking behavior, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage HTTP 200 response, and current logs with no new first-party errors
 - [x] Save and deliver the unified physician booking-card checkpoint
+
+## Homepage Refined Booking Choices — 2026-09-10
+
+- [x] Inspect the current physician and discovery booking CTA structure, destinations, responsive behavior, and focused coverage
+- [x] Add concise self-selection labels above the two booking paths and smaller supporting lines inside each pill
+- [x] Use balanced pill heights, clear $199 first-visit and $50 deposit explanation beneath the physician path, and concise non-medical discovery-call guidance beneath the care-team path
+- [x] Preserve the existing physician appointment, care-team calendar, pricing-details, payment, intake, webinar, and unrelated site behavior
+- [x] Update focused coverage and validate responsive hierarchy, booking destinations, pricing clarity, full tests, TypeScript, production build, route health, and logs
+- [x] Save and deliver the refined homepage booking-choice checkpoint

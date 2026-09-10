@@ -98,7 +98,10 @@ const DEFAULT_EXPANDED = new Set(["Practice Focus", "Philosophy"]);
 
 export default function MedicalTeam({
   onConsultClick,
+  ctaEyebrow,
   ctaLabel,
+  ctaSupportingLine,
+  ctaDescription,
   ctaMicrocopy,
   secondaryAction,
   hideBullets,
@@ -107,9 +110,18 @@ export default function MedicalTeam({
   overrideBody,
 }: {
   onConsultClick?: () => void;
+  ctaEyebrow?: ReactNode;
   ctaLabel?: ReactNode;
+  ctaSupportingLine?: ReactNode;
+  ctaDescription?: ReactNode;
   ctaMicrocopy?: ReactNode;
-  secondaryAction?: { href: string; label: ReactNode; description?: ReactNode };
+  secondaryAction?: {
+    href: string;
+    eyebrow?: ReactNode;
+    label: ReactNode;
+    supportingLine?: ReactNode;
+    description?: ReactNode;
+  };
   hideBullets?: boolean;
   overrideHeadline?: ReactNode;
   overrideSubline?: ReactNode;
@@ -454,17 +466,24 @@ export default function MedicalTeam({
 
               </div>
 
-              {/* Primary CTA + microcopy + reassurance row.
-                  Mobile: button is full-width, microcopy + bullets stack underneath.
-                  Desktop: button left, microcopy + bullets right. */}
-              <div id="hero-cta-sentinel" className="mt-6 flex flex-col gap-4">
-                <div className={secondaryAction ? "grid w-full max-w-2xl gap-3 sm:grid-cols-2" : "flex flex-col gap-4"}>
-                  <div className="flex flex-col gap-3">
+              {/* Two clear booking paths. Each path keeps its decision label,
+                  action, and explanation together on mobile and desktop. */}
+              <div id="hero-cta-sentinel" className="mt-6 flex w-full max-w-2xl flex-col gap-4">
+                <div className={secondaryAction ? "grid w-full gap-5 sm:grid-cols-2" : "flex flex-col gap-4"}>
+                  <div className="flex min-w-0 flex-col">
+                    {ctaEyebrow && (
+                      <p
+                        className="text-center text-[10px] font-bold uppercase tracking-[0.16em] sm:text-left"
+                        style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
+                      >
+                        {ctaEyebrow}
+                      </p>
+                    )}
                     <button
                       type="button"
                       data-home-physician-appointment-cta
                       onClick={onConsultClick}
-                      className="inline-flex min-h-[54px] items-center justify-center w-full px-6 py-3.5 rounded-full text-[13px] font-bold tracking-[0.035em] uppercase text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] active:scale-[0.98]"
+                      className="mt-2 inline-flex min-h-[94px] w-full items-center justify-center rounded-full px-6 py-3.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
                       style={{
                         fontFamily: "Montserrat, sans-serif",
                         background:
@@ -472,17 +491,39 @@ export default function MedicalTeam({
                         boxShadow: "0 12px 28px rgba(122, 30, 126, 0.3)",
                       }}
                     >
-                      {ctaLabel ?? "Schedule a Discovery Call"}
+                      <span className="flex flex-col items-center leading-tight">
+                        <span>{ctaLabel ?? "Schedule a Discovery Call"}</span>
+                        {ctaSupportingLine && (
+                          <span className="mt-1 text-[13px] font-medium normal-case tracking-normal text-white/90">
+                            {ctaSupportingLine}
+                          </span>
+                        )}
+                      </span>
                     </button>
-                    {ctaMicrocopy && <div>{ctaMicrocopy}</div>}
+                    {ctaDescription && (
+                      <p
+                        className="mt-3 px-1 text-center text-xs leading-5 sm:text-left"
+                        style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+                      >
+                        {ctaDescription}
+                      </p>
+                    )}
                   </div>
 
                   {secondaryAction && (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex min-w-0 flex-col">
+                      {secondaryAction.eyebrow && (
+                        <p
+                          className="text-center text-[10px] font-bold uppercase tracking-[0.16em] sm:text-left"
+                          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+                        >
+                          {secondaryAction.eyebrow}
+                        </p>
+                      )}
                       <a
                         href={secondaryAction.href}
                         data-home-discovery-call-cta
-                        className="inline-flex min-h-[54px] items-center justify-center w-full px-6 py-3.5 rounded-full border-2 text-center text-[13px] font-bold tracking-[0.035em] uppercase transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] active:scale-[0.98]"
+                        className="mt-2 inline-flex min-h-[94px] w-full items-center justify-center rounded-full border-2 px-6 py-3.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
                         style={{
                           fontFamily: "Montserrat, sans-serif",
                           borderColor: "#B8336A",
@@ -490,11 +531,18 @@ export default function MedicalTeam({
                           background: "#FFFFFF",
                         }}
                       >
-                        {secondaryAction.label}
+                        <span className="flex flex-col items-center leading-tight">
+                          <span>{secondaryAction.label}</span>
+                          {secondaryAction.supportingLine && (
+                            <span className="mt-1 text-[13px] font-medium normal-case tracking-normal text-[#5a4452]">
+                              {secondaryAction.supportingLine}
+                            </span>
+                          )}
+                        </span>
                       </a>
                       {secondaryAction.description && (
                         <p
-                          className="px-2 text-center text-xs leading-5"
+                          className="mt-3 px-1 text-center text-xs leading-5 sm:text-left"
                           style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
                         >
                           {secondaryAction.description}
@@ -503,6 +551,8 @@ export default function MedicalTeam({
                     </div>
                   )}
                 </div>
+
+                {ctaMicrocopy && <div className="flex w-full justify-center">{ctaMicrocopy}</div>}
 
                 {!ctaMicrocopy && !secondaryAction && (
                   <p

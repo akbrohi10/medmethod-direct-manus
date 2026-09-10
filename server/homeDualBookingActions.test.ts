@@ -6,20 +6,39 @@ const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/HomeHrt
 const medicalTeamSource = readFileSync(resolve(process.cwd(), "client/src/components/home1/MedicalTeam.tsx"), "utf8");
 const careTeamBookingSource = readFileSync(resolve(process.cwd(), "client/src/pages/CareTeamBooking.tsx"), "utf8");
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
+const heroStart = homeSource.indexOf("<MedicalTeam");
+const heroEnd = homeSource.indexOf("\n        />", heroStart);
+const heroSource = homeSource.slice(heroStart, heroEnd);
 
 describe("homepage dual booking actions", () => {
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
-    expect(homeSource).toContain("Book 45-Min Appt. with Dr. Al-Deek");
-    expect(homeSource).toContain("$199 First Visit");
-    expect(homeSource).toContain("$50 Deposit Today");
-    expect(homeSource).not.toContain("YOUR 1st VISIT");
-    expect(homeSource).toContain("secondaryAction={{");
-    expect(homeSource).toContain('href: "/care-team-booking"');
-    expect(homeSource).toContain('label: "Book a Free 15-Minute Discovery Call"');
-    expect(homeSource).toContain("General information only — no medical advice.");
+    expect(heroSource).toContain('ctaEyebrow="Ready to Book?"');
+    expect(heroSource).toContain('ctaLabel="Book Your 45-Minute Visit"');
+    expect(heroSource).toContain('ctaSupportingLine="with Dr. Al-Deek"');
+    expect(heroSource).toContain("$199 first visit. A $50 deposit holds your appointment and is applied to the visit.");
+    expect(heroSource).toContain("secondaryAction={{");
+    expect(heroSource).toContain('href: "/care-team-booking"');
+    expect(heroSource).toContain('eyebrow: "Need More Info?"');
+    expect(heroSource).toContain('label: "Book a Free 15-Minute Call"');
+    expect(heroSource).toContain('supportingLine: "with our Care Team"');
+    expect(heroSource).toContain("General information only—not medical advice.");
+    expect(heroSource).not.toContain("$199 First Visit");
+    expect(heroSource).not.toContain("$50 Deposit Today");
     expect(medicalTeamSource).toContain("data-home-physician-appointment-cta");
     expect(medicalTeamSource).toContain("data-home-discovery-call-cta");
-    expect(medicalTeamSource).toContain("secondaryAction?: { href: string; label: ReactNode; description?: ReactNode }");
+    expect(medicalTeamSource).toContain("ctaSupportingLine?: ReactNode");
+    expect(medicalTeamSource).toContain("supportingLine?: ReactNode");
+    expect(medicalTeamSource).toContain("min-h-[94px]");
+    expect(medicalTeamSource).toContain("sm:grid-cols-2");
+  });
+
+  it("keeps booking information clear without adding unverified policies", () => {
+    expect(homeSource).toContain("See full pricing details");
+    expect(homeSource).not.toContain("No card required");
+    expect(homeSource).not.toContain("Free reschedule up to 24 hours before");
+    expect(medicalTeamSource.indexOf("ctaMicrocopy &&")).toBeGreaterThan(
+      medicalTeamSource.indexOf("secondaryAction &&"),
+    );
   });
 
   it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {

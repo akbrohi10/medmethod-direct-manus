@@ -280,17 +280,16 @@ export default function HomeHrt3() {
           }
           overrideSubline="100% Virtual"
           overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
-          ctaLabel={
-            <span className="flex flex-col items-center leading-tight">
-              <span>Book 45-Min Appt. with Dr. Al-Deek</span>
-              <span className="mt-1 text-[11px] font-semibold normal-case tracking-normal text-white/90">$199 First Visit</span>
-              <span className="mt-0.5 text-[11px] font-semibold normal-case tracking-normal text-white/80">$50 Deposit Today</span>
-            </span>
-          }
+          ctaEyebrow="Ready to Book?"
+          ctaLabel="Book Your 45-Minute Visit"
+          ctaSupportingLine="with Dr. Al-Deek"
+          ctaDescription="$199 first visit. A $50 deposit holds your appointment and is applied to the visit."
           secondaryAction={{
             href: "/care-team-booking",
-            label: "Book a Free 15-Minute Discovery Call",
-            description: "Questions about our program or whether it may be a good fit? General information only — no medical advice.",
+            eyebrow: "Need More Info?",
+            label: "Book a Free 15-Minute Call",
+            supportingLine: "with our Care Team",
+            description: "Ask about the program and whether it may be a good fit. General information only—not medical advice.",
           }}
           ctaMicrocopy={
             <button
@@ -299,7 +298,7 @@ export default function HomeHrt3() {
                 const el = document.getElementById('pricing-details');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
+              className="flex w-full items-center justify-center gap-1 text-[13px] font-semibold tracking-wide transition-opacity hover:opacity-80"
               style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
             >
               See full pricing details
