@@ -280,37 +280,33 @@ export default function HomeHrt3() {
           }
           overrideSubline="100% Virtual"
           overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
-          ctaLabel="Book Your 45-Minute Appt. with Dr. Al-Deek"
+          ctaLabel={
+            <span className="flex flex-col items-center leading-tight">
+              <span>Book 45-Min Appt. with Dr. Al-Deek</span>
+              <span className="mt-1 text-[11px] font-semibold normal-case tracking-normal text-white/90">$199 First Visit</span>
+              <span className="mt-0.5 text-[11px] font-semibold normal-case tracking-normal text-white/80">$50 Deposit Today</span>
+            </span>
+          }
           secondaryAction={{
             href: "/care-team-booking",
             label: "Book a Free 15-Minute Discovery Call",
             description: "Questions about our program or whether it may be a good fit? General information only — no medical advice.",
           }}
           ctaMicrocopy={
-            <div style={{ fontFamily: "Montserrat, sans-serif" }}>
-              {/* Physician appointment pricing strip */}
-              <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border" style={{ borderColor: "rgba(122,30,126,0.18)", background: "#fdf6fb" }}>
-                <div className="flex-1 flex flex-col items-center justify-center px-3 py-2.5 text-center">
-                  <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "#6B2D6B" }}>YOUR 1<span style={{ textTransform: "lowercase" }}>st</span> VISIT</span>
-                  <span className="text-[22px] font-extrabold leading-tight mt-0.5" style={{ color: "#7A1E7E" }}>$199</span>
-                  <span className="text-[14px] font-semibold mt-0.5 leading-tight" style={{ color: "#5A2060" }}>$50 today</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  const el = document.getElementById('pricing-details');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className="mt-3 text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
-                style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
-              >
-                See full pricing details
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <path d="M6 2.5v7M3 7l3 3 3-3" stroke="#7A1E7E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById('pricing-details');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="text-[13px] font-semibold tracking-wide flex items-center gap-1 transition-opacity hover:opacity-80 self-center sm:self-start"
+              style={{ color: "#7A1E7E", fontFamily: "Montserrat, sans-serif" }}
+            >
+              See full pricing details
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path d="M6 2.5v7M3 7l3 3 3-3" stroke="#7A1E7E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           }
         />
         </div>
