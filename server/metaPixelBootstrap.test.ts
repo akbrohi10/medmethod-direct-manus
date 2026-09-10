@@ -1,17 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { buildMetaLeadFallbackUrl, shouldInstallMetaPixel } from "../client/src/lib/metaPixelBootstrap";
+import {
+  buildMetaEventFallbackUrl,
+  getMetaPixelEventForPath,
+  shouldInstallMetaPixel,
+} from "../client/src/lib/metaPixelBootstrap";
 
 const documentSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
 
 describe("standalone webinar confirmation Meta Pixel", () => {
-  it("installs only on the two requested confirmation routes", () => {
+  it("installs the requested event on each tracked confirmation route only", () => {
     expect(shouldInstallMetaPixel("/webinar-registration-confirmed")).toBe(true);
     expect(shouldInstallMetaPixel("/live-webinar3-confirmed")).toBe(true);
+    expect(shouldInstallMetaPixel("/care-team-booking-confirmed")).toBe(true);
     expect(shouldInstallMetaPixel("/")).toBe(false);
     expect(shouldInstallMetaPixel("/thank-you")).toBe(false);
+    expect(getMetaPixelEventForPath("/webinar-registration-confirmed")).toBe("Lead");
+    expect(getMetaPixelEventForPath("/live-webinar3-confirmed")).toBe("Lead");
+    expect(getMetaPixelEventForPath("/care-team-booking-confirmed")).toBe("Schedule");
   });
 
   it("keeps Pixel code out of the shared HTML shell", () => {
@@ -22,30 +30,30 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(documentSource).not.toContain("GTM-KMBG6HSR");
   });
 
-  it("contains exactly one supplied init, PageView, and Lead sequence", () => {
+  it("contains one supplied init and PageView plus explicit Lead and Schedule calls", () => {
     expect(bootstrapSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
     expect(bootstrapSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
     expect(bootstrapSource.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
+    expect(bootstrapSource.match(/fbq\('track', 'Schedule'\)/g)).toHaveLength(1);
     expect(bootstrapSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(bootstrapSource).not.toContain("CompleteRegistration");
-    expect(bootstrapSource).not.toContain("Schedule");
     expect(bootstrapSource).not.toContain("Purchase");
   });
 
-  it("builds a direct Lead fallback URL for cases where the Meta library never sends the queued event", () => {
-    const fallbackUrl = new URL(buildMetaLeadFallbackUrl("https://medmethoddirect.com/webinar-registration-confirmed", 123456));
+  it("builds direct event fallback URLs for cases where the Meta library never sends the queue", () => {
+    const fallbackUrl = new URL(buildMetaEventFallbackUrl("Schedule", "https://medmethoddirect.com/care-team-booking-confirmed", 123456));
     expect(fallbackUrl.origin + fallbackUrl.pathname).toBe("https://www.facebook.com/tr");
     expect(fallbackUrl.searchParams.get("id")).toBe("1589326469554181");
-    expect(fallbackUrl.searchParams.get("ev")).toBe("Lead");
+    expect(fallbackUrl.searchParams.get("ev")).toBe("Schedule");
     expect(fallbackUrl.searchParams.get("noscript")).toBe("1");
-    expect(fallbackUrl.searchParams.get("dl")).toBe("https://medmethoddirect.com/webinar-registration-confirmed");
+    expect(fallbackUrl.searchParams.get("dl")).toBe("https://medmethoddirect.com/care-team-booking-confirmed");
     expect(fallbackUrl.searchParams.get("ts")).toBe("123456");
   });
 
-  it("guards the fallback with an outbound Lead request check and one DOM marker", () => {
-    expect(bootstrapSource).toContain('url.searchParams.get("ev") === "Lead"');
-    expect(bootstrapSource).toContain("hasLeadCollectionRequest()");
-    expect(bootstrapSource).toContain("WEBINAR_LEAD_FALLBACK_ID");
-    expect(bootstrapSource).toContain("scheduleLeadDeliveryFallback()");
+  it("guards each fallback with an outbound event request check and one event-specific DOM marker", () => {
+    expect(bootstrapSource).toContain('url.searchParams.get("ev") === eventName');
+    expect(bootstrapSource).toContain("hasCollectionRequest(eventName)");
+    expect(bootstrapSource).toContain("confirmation-${eventName.toLowerCase()}-fallback");
+    expect(bootstrapSource).toContain("scheduleConversionDeliveryFallback(eventName)");
   });
 });

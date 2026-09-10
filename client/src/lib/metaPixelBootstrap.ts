@@ -1,59 +1,74 @@
-export const WEBINAR_CONFIRMATION_PIXEL_PATHS = new Set([
-  "/webinar-registration-confirmed",
-  "/live-webinar3-confirmed",
+type MetaConversionEvent = "Lead" | "Schedule";
+
+export const CONFIRMATION_PIXEL_EVENTS = new Map<string, MetaConversionEvent>([
+  ["/webinar-registration-confirmed", "Lead"],
+  ["/live-webinar3-confirmed", "Lead"],
+  ["/care-team-booking-confirmed", "Schedule"],
 ]);
 
-const WEBINAR_PIXEL_SCRIPT_ID = "webinar-confirmation-meta-pixel";
-const WEBINAR_LEAD_FALLBACK_ID = "webinar-confirmation-lead-fallback";
+const CONFIRMATION_PIXEL_SCRIPT_ID = "confirmation-meta-pixel";
 const META_PIXEL_ID = "1589326469554181";
 
-export function buildMetaLeadFallbackUrl(pageUrl: string, timestamp: number): string {
+export function getMetaPixelEventForPath(pathname: string): MetaConversionEvent | undefined {
+  return CONFIRMATION_PIXEL_EVENTS.get(pathname);
+}
+
+export function buildMetaEventFallbackUrl(
+  eventName: MetaConversionEvent,
+  pageUrl: string,
+  timestamp: number,
+): string {
   const url = new URL("https://www.facebook.com/tr");
   url.searchParams.set("id", META_PIXEL_ID);
-  url.searchParams.set("ev", "Lead");
+  url.searchParams.set("ev", eventName);
   url.searchParams.set("noscript", "1");
   url.searchParams.set("dl", pageUrl);
   url.searchParams.set("ts", String(timestamp));
   return url.toString();
 }
 
-function hasLeadCollectionRequest(): boolean {
+function hasCollectionRequest(eventName: MetaConversionEvent): boolean {
   return performance.getEntriesByType("resource").some(entry => {
     try {
       const url = new URL(entry.name);
-      return url.hostname.endsWith("facebook.com") && url.pathname === "/tr" && url.searchParams.get("ev") === "Lead";
+      return url.hostname.endsWith("facebook.com") && url.pathname === "/tr" && url.searchParams.get("ev") === eventName;
     } catch {
       return false;
     }
   });
 }
 
-function scheduleLeadDeliveryFallback(): void {
+function scheduleConversionDeliveryFallback(eventName: MetaConversionEvent): void {
   window.setTimeout(() => {
-    if (hasLeadCollectionRequest() || document.getElementById(WEBINAR_LEAD_FALLBACK_ID)) return;
+    const fallbackId = `confirmation-${eventName.toLowerCase()}-fallback`;
+    if (hasCollectionRequest(eventName) || document.getElementById(fallbackId)) return;
 
     const image = document.createElement("img");
-    image.id = WEBINAR_LEAD_FALLBACK_ID;
+    image.id = fallbackId;
     image.width = 1;
     image.height = 1;
     image.alt = "";
     image.style.display = "none";
-    image.src = buildMetaLeadFallbackUrl(window.location.href, Date.now());
+    image.src = buildMetaEventFallbackUrl(eventName, window.location.href, Date.now());
     document.body.appendChild(image);
   }, 3_000);
 }
 
 export function shouldInstallMetaPixel(pathname: string): boolean {
-  return WEBINAR_CONFIRMATION_PIXEL_PATHS.has(pathname);
+  return CONFIRMATION_PIXEL_EVENTS.has(pathname);
 }
 
 export function installMetaPixelForCurrentRoute(): boolean {
   if (typeof window === "undefined" || typeof document === "undefined") return false;
-  if (!shouldInstallMetaPixel(window.location.pathname)) return false;
-  if (document.getElementById(WEBINAR_PIXEL_SCRIPT_ID)) return false;
+  const eventName = getMetaPixelEventForPath(window.location.pathname);
+  if (!eventName) return false;
+  if (document.getElementById(CONFIRMATION_PIXEL_SCRIPT_ID)) return false;
 
   const script = document.createElement("script");
-  script.id = WEBINAR_PIXEL_SCRIPT_ID;
+  script.id = CONFIRMATION_PIXEL_SCRIPT_ID;
+  const conversionCall = eventName === "Lead"
+    ? "fbq('track', 'Lead');"
+    : "fbq('track', 'Schedule');";
   script.textContent = `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -65,9 +80,9 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1589326469554181');
 fbq('track', 'PageView');
-fbq('track', 'Lead');
+${conversionCall}
 `;
   document.head.appendChild(script);
-  scheduleLeadDeliveryFallback();
+  scheduleConversionDeliveryFallback(eventName);
   return true;
 }

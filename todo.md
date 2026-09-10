@@ -1651,3 +1651,11 @@
 - [x] Preserve both confirmation routes, content, registration handoff, dataLayer signals, and ordinary-page Pixel scope
 - [x] Validate one direct Lead collection fallback request on both routes when the Meta library does not consume its queue, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the published Lead repair checkpoint with concise Meta Test Events retest steps
+
+## Care-Team Confirmation Schedule Pixel — 2026-09-10
+
+- [x] Inspect the current route-aware Meta Pixel configuration and `/care-team-booking-confirmed` tracking coverage
+- [x] Install Pixel ID `1589326469554181` on `/care-team-booking-confirmed` with exactly one `PageView` and one `Schedule` event
+- [x] Prevent duplicate initialization or events while preserving existing webinar Lead tracking, confirmation content, route behavior, and dataLayer signals
+- [x] Validate one care-team init, one PageView, one Schedule, no Lead, preserved webinar Lead scope, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the care-team Schedule Pixel checkpoint with concise Meta Test Events steps
