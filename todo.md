@@ -1602,9 +1602,9 @@
 
 ## Full Meta Pixel Replacement — 2026-09-10
 
-- [ ] Inventory and remove every existing direct Meta/Facebook Pixel event implementation and identify Google Tag Manager overlap
-- [ ] Install the supplied Pixel ID `1589326469554181` base code once in the global document head for every page
-- [ ] Install the supplied `PageView` plus `Lead` event code only on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
-- [ ] Prevent duplicate Meta initialization or event firing while preserving unrelated Google Tag Manager, analytics, dataLayer, page content, and routes
-- [ ] Validate one global base Pixel and correct confirmation-page events, focused coverage, full tests, TypeScript, production build, route health, and current logs
-- [ ] Save and deliver the full Meta Pixel replacement checkpoint with concise live retest instructions
+- [x] Confirm the removal-only baseline contains no Meta Pixel code, event dispatches, helper code, or Google Tag Manager bootstrap
+- [x] Install the supplied Pixel ID `1589326469554181` base code once in the global document head for every page, with its noscript fallback
+- [x] Install one supplied `Lead` event only on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Prevent duplicate Meta initialization or event firing without restoring Google Tag Manager, while preserving analytics, dataLayer, page content, and routes
+- [x] Validate one base initialization, one global PageView, two route-specific Lead statements, zero GTM references, zero other Meta events, browser queues, focused coverage, 221 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the full Meta Pixel replacement checkpoint with concise live retest instructions

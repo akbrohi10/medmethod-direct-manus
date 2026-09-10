@@ -33,14 +33,18 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("retains its dataLayer completion signal without Meta Pixel code", () => {
+  it("fires one supplied Lead event alongside the global PageView", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
-    expect(pageSource).not.toContain("fbq");
+    expect(pageSource.match(/fbq\('track', 'Lead'\);/g)).toHaveLength(1);
+    expect(pageSource).toContain('script.dataset.webinarRegistrationLead = "true"');
+    expect(pageSource).not.toContain("CompleteRegistration");
+    expect(pageSource).not.toContain("Schedule");
     expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
-    expect(documentHeadSource).not.toContain("1589326469554181");
+    expect(documentHeadSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
+    expect(documentHeadSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {
