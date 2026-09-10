@@ -4,13 +4,15 @@ import { describe, expect, it } from "vitest";
 
 const pageSource = readFileSync(resolve(process.cwd(), "client/src/pages/ThankYou.tsx"), "utf8");
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
+const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
 
 describe("appointment thank-you tracking after Meta removal", () => {
-  it("uses the supplied direct Meta Pixel base code without Google Tag Manager", () => {
+  it("keeps the appointment thank-you route outside the standalone webinar Pixel", () => {
     expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
-    expect(documentHeadSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
-    expect(documentHeadSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
-    expect(documentHeadSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
+    expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
+    expect(documentHeadSource).not.toContain("1589326469554181");
+    expect(bootstrapSource).toContain('"/webinar-registration-confirmed"');
+    expect(bootstrapSource).toContain('"/live-webinar3-confirmed"');
   });
 
   it("retains only the guarded non-Facebook booking completion signal", () => {

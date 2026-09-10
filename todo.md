@@ -1617,3 +1617,21 @@
 - [x] Preserve confirmation content, routes, registration handoff, dataLayer signals, and unrelated site behavior
 - [x] Validate one homepage Pixel init and PageView, complete Pixel absence on both confirmation routes, focused coverage, 221 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the route-specific Pixel exclusion checkpoint
+
+## Standalone Webinar Confirmation Pixels — 2026-09-10
+
+- [x] Inspect the current shared HTML and route-aware Pixel state after the interrupted exclusion update
+- [x] Install the supplied standalone Meta Pixel block with Pixel ID `1589326469554181`, `PageView`, and `Lead` on `/webinar-registration-confirmed`
+- [x] Install the same standalone Meta Pixel block with `PageView` and `Lead` on `/live-webinar3-confirmed`
+- [x] Prevent duplicate initialization or events while preserving confirmation content, routes, registration handoff, and non-Facebook dataLayer signals
+- [x] Validate exactly one init, one PageView, and one Lead per confirmation page, zero Pixel runtime on ordinary pages, focused coverage, 224 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the standalone confirmation-page Pixel checkpoint
+
+## Strong Webinar Confirmation Pixel Exclusion — 2026-09-10
+
+- [x] Superseded after the user approved a standalone Pixel on both webinar confirmation routes instead of excluding them
+- [x] Remove the Meta Pixel base code entirely from the shared HTML shell
+- [x] Superseded by the approved runtime installation on confirmation routes only; ordinary pages now have no Pixel
+- [x] Preserve confirmation content, routes, registration handoff, dataLayer signals, and unrelated behavior
+- [x] Validate shared HTML, confirmation-page runtime, ordinary-page absence, focused coverage, full tests, TypeScript, build, route health, and logs under the approved replacement scope
+- [x] Deliver through the standalone confirmation-page Pixel checkpoint below

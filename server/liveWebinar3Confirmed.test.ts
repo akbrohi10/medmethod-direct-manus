@@ -8,6 +8,7 @@ const pageSource = readFileSync(
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
+const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
 
 describe("live webinar 3 companion confirmation", () => {
   it("registers an isolated confirmation route that preserves the original webinar confirmation page", () => {
@@ -40,7 +41,7 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("contains no Meta event code and is excluded from the global Pixel bootstrap", () => {
+  it("uses the standalone webinar Pixel with one PageView and Lead sequence", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
@@ -48,9 +49,9 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("CompleteRegistration");
     expect(pageSource).not.toContain("Schedule");
     expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
-    expect(documentHeadSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
-    expect(documentHeadSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
-    expect(documentHeadSource).toContain("'/webinar-registration-confirmed'");
-    expect(documentHeadSource).toContain("'/live-webinar3-confirmed'");
+    expect(documentHeadSource).not.toContain("1589326469554181");
+    expect(bootstrapSource).toContain('"/live-webinar3-confirmed"');
+    expect(bootstrapSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
+    expect(bootstrapSource.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
   });
 });
