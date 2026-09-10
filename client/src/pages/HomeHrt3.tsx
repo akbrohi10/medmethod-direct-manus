@@ -564,15 +564,10 @@ export default function HomeHrt3() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-[#E8D7E5] bg-[#FFF9FC] p-5 sm:p-6">
-              <p className="text-sm sm:text-base text-[#444] leading-7">
-                Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.
-              </p>
-            </div>
           </div>
         </section>
 
-        <ComplianceDisclosures testosteroneForWomen />
+        <ComplianceDisclosures compact compounded testosteroneForWomen />
 
         {/* ═══════════════ HOW IT WORKS ═══════════════ */}
         <section id="how-it-works" className="bg-[#FDF8F3] py-12 md:py-20">

@@ -6,17 +6,28 @@ const homepageSource = readFileSync(
   resolve(process.cwd(), "client/src/pages/HomeHrt3.tsx"),
   "utf8",
 );
+const disclosureSource = readFileSync(
+  resolve(process.cwd(), "client/src/components/ComplianceDisclosures.tsx"),
+  "utf8",
+);
 
 const exactCompoundedDisclosure =
   "Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.";
+const exactTestosteroneDisclosure =
+  "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
 
 describe("homepage medication options", () => {
-  it("keeps the simplified treatment choices and exact required disclosure", () => {
+  it("keeps the simplified treatment choices and both exact required disclosures in one compact band", () => {
     expect(homepageSource).toContain("Medication Options");
     expect(homepageSource).toContain("Weight-Loss Medication");
     expect(homepageSource).toContain("Hormone Therapy");
-    expect(homepageSource).toContain(exactCompoundedDisclosure);
-    expect(homepageSource).toContain("FDA-approved alternatives");
+    expect(homepageSource).toContain("<ComplianceDisclosures compact compounded testosteroneForWomen />");
+    expect(homepageSource).not.toContain(exactCompoundedDisclosure);
+    expect(disclosureSource).toContain(exactCompoundedDisclosure);
+    expect(disclosureSource).toContain(exactTestosteroneDisclosure);
+    expect(disclosureSource).toContain("bg-white py-4 sm:py-5");
+    expect(disclosureSource).toContain("border-b border-[#E8D7E5] pb-3");
+    expect(disclosureSource).not.toContain("<details");
   });
 
   it("removes the previous dense pricing, shipping, and protocol copy", () => {

@@ -1473,3 +1473,11 @@
 - [x] Restyle the care-team sticky control as a compact secondary action while preserving its free 15-minute information-call cue and calendar route
 - [x] Validate responsive presentation, booking destinations, focused coverage, full tests, TypeScript, production build, routes, and logs
 - [x] Save and deliver the aligned sticky booking-control checkpoint
+
+## Compact Medication Disclosure Band — 2026-09-10
+
+- [x] Inspect the current compounded-medication and testosterone disclosure markup, approved text, and focused coverage
+- [x] Combine the two oversized disclosure cards into one compact always-visible disclosure band with clear internal separation
+- [x] Preserve every approved disclosure statement verbatim while reducing padding, typography scale, border weight, and empty vertical space
+- [x] Validate disclosure content, desktop/mobile presentation, focused coverage, full tests, TypeScript, production build, routes, and logs
+- [x] Save and deliver the compact medication-disclosure checkpoint
