@@ -6,7 +6,6 @@ const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversio
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
 const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
-const WEBINAR_LEAD_SCRIPT_SELECTOR = "script[data-webinar-registration-lead]";
 let webinarConversionTracked = false;
 let liveWebinar3HandoffActive = false;
 
@@ -39,13 +38,6 @@ export default function WebinarRegistrationConfirmed() {
     if (isLiveWebinar3Handoff) {
       window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH);
       return;
-    }
-
-    if (!document.querySelector(WEBINAR_LEAD_SCRIPT_SELECTOR)) {
-      const script = document.createElement("script");
-      script.dataset.webinarRegistrationLead = "true";
-      script.textContent = "fbq('track', 'Lead');";
-      document.head.appendChild(script);
     }
 
     if (webinarConversionTracked) return;

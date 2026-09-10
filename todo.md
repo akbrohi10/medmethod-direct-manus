@@ -1608,3 +1608,12 @@
 - [x] Prevent duplicate Meta initialization or event firing without restoring Google Tag Manager, while preserving analytics, dataLayer, page content, and routes
 - [x] Validate one base initialization, one global PageView, two route-specific Lead statements, zero GTM references, zero other Meta events, browser queues, focused coverage, 221 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the full Meta Pixel replacement checkpoint with concise live retest instructions
+
+## Webinar Confirmation Pixel Exclusion — 2026-09-10
+
+- [x] Inspect the global Meta Pixel bootstrap and both webinar confirmation Lead implementations
+- [x] Keep the direct Meta Pixel active elsewhere but prevent it from loading on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Remove both confirmation-page Lead event scripts and the global noscript fallback that cannot honor route exclusions
+- [x] Preserve confirmation content, routes, registration handoff, dataLayer signals, and unrelated site behavior
+- [x] Validate one homepage Pixel init and PageView, complete Pixel absence on both confirmation routes, focused coverage, 221 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the route-specific Pixel exclusion checkpoint

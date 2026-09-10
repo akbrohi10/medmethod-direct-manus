@@ -4,7 +4,6 @@ import { ArrowRight, CalendarDays, Check, Clock3, MailCheck } from "lucide-react
 
 const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
-const LIVE_WEBINAR3_LEAD_SCRIPT_SELECTOR = "script[data-live-webinar3-registration-lead]";
 let liveWebinar3ConversionTracked = false;
 
 const learningChecklist = [
@@ -28,13 +27,6 @@ export default function LiveWebinar3Confirmed() {
       window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY);
     } catch {
       // Session storage can be unavailable in privacy-restricted contexts.
-    }
-
-    if (!document.querySelector(LIVE_WEBINAR3_LEAD_SCRIPT_SELECTOR)) {
-      const script = document.createElement("script");
-      script.dataset.liveWebinar3RegistrationLead = "true";
-      script.textContent = "fbq('track', 'Lead');";
-      document.head.appendChild(script);
     }
 
     if (liveWebinar3ConversionTracked) return;

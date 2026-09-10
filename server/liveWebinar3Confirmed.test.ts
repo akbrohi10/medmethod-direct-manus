@@ -40,16 +40,17 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("fires one supplied Lead event alongside the global PageView", () => {
+  it("contains no Meta event code and is excluded from the global Pixel bootstrap", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
-    expect(pageSource.match(/fbq\('track', 'Lead'\);/g)).toHaveLength(1);
-    expect(pageSource).toContain('script.dataset.liveWebinar3RegistrationLead = "true"');
+    expect(pageSource).not.toContain("fbq");
     expect(pageSource).not.toContain("CompleteRegistration");
     expect(pageSource).not.toContain("Schedule");
     expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
     expect(documentHeadSource.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
     expect(documentHeadSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
+    expect(documentHeadSource).toContain("'/webinar-registration-confirmed'");
+    expect(documentHeadSource).toContain("'/live-webinar3-confirmed'");
   });
 });
