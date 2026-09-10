@@ -1683,3 +1683,13 @@
 - [x] Preserve appointment content, payment flow, route behavior, dataLayer signals, care-team Schedule, and webinar Lead tracking
 - [x] Confirm the existing published site and critical routes are healthy before any future CompleteRegistration troubleshooting resumes
 - [x] Defer the CompleteRegistration repair checkpoint until the user explicitly resumes Pixel work
+
+## Direct Live Client Error Fix — 2026-09-10
+
+- [x] Restore the current feature-complete project version; do not use the older rollback or remove recent Pixel and confirmation-page work
+- [x] Identify the stale-asset or client-runtime failure path that triggers the global unexpected-error boundary
+- [x] Compare the current deployment with stable checkpoint `8083601e` to identify which later change introduced the failure and document whether direct repair or rollback is safer
+- [x] Add targeted one-time recovery for failed dynamic imports or stale deployment assets without altering current features
+- [x] Preserve all homepage, booking, payment, webinar, confirmation-page, and Meta Pixel work
+- [x] Validate recovery behavior, desktop/mobile rendering, critical routes, 234 tests, TypeScript, production build, and current logs
+- [x] Save and deliver the direct-fix checkpoint with concise publish and refresh instructions

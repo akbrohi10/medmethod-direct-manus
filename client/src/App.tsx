@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import SocialProofNotifications from "./components/SocialProofNotifications";
 import SocialProofNotificationsLP from "./components/SocialProofNotificationsLP";
@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { lazyWithStaleAssetRecovery as lazy } from "./lib/lazyWithStaleAssetRecovery";
 
 const HomeHrt3 = lazy(() => import("./pages/HomeHrt3"));
 
