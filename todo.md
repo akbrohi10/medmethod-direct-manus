@@ -1505,3 +1505,11 @@
 - [x] Preserve the header logo, Patient Login control, responsive spacing, and all unrelated navigation behavior
 - [x] Validate desktop/mobile header presentation, phone-link destination, focused coverage, full tests, TypeScript, production build, routes, and logs
 - [x] Save and deliver the header Call Now CTA checkpoint
+
+## Header Stacked Call Now CTA — 2026-09-10
+
+- [x] Inspect the current centered header phone call-to-action and its responsive coverage
+- [x] Stack and center `CALL NOW` above a larger `(888) 362-7011` within the existing tap-to-call link
+- [x] Preserve the homepage header logo, Patient Login control, focus treatment, and all navigation behavior
+- [x] Validate desktop/mobile header balance, phone-link destination, focused coverage, full tests, TypeScript, production build, routes, and logs
+- [x] Save and deliver the stacked header Call Now CTA checkpoint
