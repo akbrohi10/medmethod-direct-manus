@@ -1582,3 +1582,11 @@
 - [x] Preserve one CompleteRegistration per load, the working PageView, single Pixel installation, confirmation content, routes, and unrelated tracking
 - [x] Validate first-load and repeat-load behavior, focused coverage, 222 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the per-load CompleteRegistration checkpoint with a short Meta Test Events retest procedure
+
+## Explicit Original Webinar CompleteRegistration — 2026-09-10
+
+- [x] Inspect the current `/webinar-registration-confirmed` CompleteRegistration path and duplicate safeguards
+- [x] Add an explicit `fbq('track', 'CompleteRegistration')` event to `/webinar-registration-confirmed` and remove its competing helper dispatch
+- [x] Leave `/live-webinar3-confirmed`, the GTM-managed PageView, page content, routes, and unrelated tracking unchanged
+- [x] Validate one requested event path, focused coverage, 222 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the explicit CompleteRegistration checkpoint
