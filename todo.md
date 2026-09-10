@@ -1438,4 +1438,4 @@
 - [x] Inspect the current physician booking label and focused coverage
 - [x] Replace “Appointment” with the approved “Appt.” abbreviation without changing the booking destination
 - [x] Validate compact label rendering, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage HTTP 200 response, and current logs with no new first-party errors
-- [ ] Save and deliver the physician CTA abbreviation checkpoint
+- [x] Save and deliver the physician CTA abbreviation checkpoint
