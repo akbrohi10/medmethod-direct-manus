@@ -18,8 +18,8 @@ const learningChecklist = [
 
 /**
  * The SendMeAPro form redirects completed webinar registrations to this route.
- * Separate guards keep the Meta conversion and matching dataLayer completion
- * signal from being emitted twice when a visitor refreshes this page.
+ * A guard keeps Meta CompleteRegistration and the matching dataLayer event from
+ * being emitted twice when a visitor refreshes this confirmation page.
  */
 export default function LiveWebinar3Confirmed() {
   useEffect(() => {
@@ -28,7 +28,6 @@ export default function LiveWebinar3Confirmed() {
     } catch {
       // Session storage can be unavailable in privacy-restricted contexts.
     }
-
     if (liveWebinar3ConversionTracked) return;
 
     try {
@@ -43,9 +42,16 @@ export default function LiveWebinar3Confirmed() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
+      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
+    w.fbq?.("track", "PageView");
+    w.fbq?.("track", "Lead");
     w.dataLayer?.push({ event: "live_webinar3_registration_complete" });
+    w.fbq?.("track", "CompleteRegistration", {
+      content_name: "Free Live Zoom Webinar",
+      content_category: "Webinar Registration",
+    });
   }, []);
 
   return (

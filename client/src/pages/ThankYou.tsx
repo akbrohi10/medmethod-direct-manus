@@ -10,8 +10,6 @@ import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOp
 
 const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
-const THANK_YOU_CONVERSION_STORAGE_KEY = "medmethod:appointment-deposit-conversion-fired";
-let thankYouConversionTracked = false;
 
 const STEPS = [
   {
@@ -44,26 +42,18 @@ const STEPS = [
 ];
 
 export default function ThankYou() {
-  // Track the completed appointment-deposit handoff once per browser session.
-  // This route is reached after the $50 payment, before the calendar choice.
+  // Fire GTM conversion event on page load
   useEffect(() => {
-    if (thankYouConversionTracked) return;
-
-    try {
-      if (window.sessionStorage.getItem(THANK_YOU_CONVERSION_STORAGE_KEY) === "1") return;
-      window.sessionStorage.setItem(THANK_YOU_CONVERSION_STORAGE_KEY, "1");
-    } catch {
-      // Session storage may be unavailable in privacy-restricted contexts. The
-      // module guard still prevents duplicate events during the current visit.
+    if (typeof window !== "undefined" && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: "booking_complete" });
     }
 
-    thankYouConversionTracked = true;
-
-    const w = window as typeof window & {
-      dataLayer?: Array<Record<string, unknown>>;
-    };
-
-    w.dataLayer?.push({ event: "booking_complete" });
+    // Meta Pixel: fire PageView + CompleteRegistration on /thank-you
+    const w = window as any;
+    if (w.fbq) {
+      w.fbq("track", "PageView");
+      w.fbq("track", "CompleteRegistration");
+    }
   }, []);
 
   return (

@@ -27,8 +27,15 @@ export default function CareTeamBookingConfirmed() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
+      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
+    w.fbq?.("track", "PageView");
+    w.fbq?.("track", "Lead");
+    w.fbq?.("track", "Schedule", {
+      content_name: "Free 15-Minute Care Team Discovery Call",
+      content_category: "Care Team Discovery Call",
+    });
     w.dataLayer?.push({ event: "care_team_discovery_call_booked" });
   }, []);
 

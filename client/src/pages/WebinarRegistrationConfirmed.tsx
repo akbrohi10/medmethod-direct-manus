@@ -28,8 +28,8 @@ function consumeLiveWebinar3Handoff() {
 
 /**
  * The SendMeAPro form redirects completed webinar registrations to this route.
- * Separate guards keep the Meta conversion and matching dataLayer completion
- * signal from being emitted twice when a visitor refreshes this page.
+ * A guard keeps Meta CompleteRegistration and the matching dataLayer event from
+ * being emitted twice when a visitor refreshes this confirmation page.
  */
 export default function WebinarRegistrationConfirmed() {
   const isLiveWebinar3Handoff = consumeLiveWebinar3Handoff();
@@ -39,7 +39,6 @@ export default function WebinarRegistrationConfirmed() {
       window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH);
       return;
     }
-
     if (webinarConversionTracked) return;
 
     try {
@@ -54,9 +53,16 @@ export default function WebinarRegistrationConfirmed() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
+      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
+    w.fbq?.("track", "PageView");
+    w.fbq?.("track", "Lead");
     w.dataLayer?.push({ event: "webinar_registration_complete" });
+    w.fbq?.("track", "CompleteRegistration", {
+      content_name: "Live Educational Webinar",
+      content_category: "Webinar Registration",
+    });
   }, [isLiveWebinar3Handoff]);
 
   if (isLiveWebinar3Handoff) return null;

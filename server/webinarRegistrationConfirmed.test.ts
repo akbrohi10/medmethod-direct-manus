@@ -7,8 +7,6 @@ const pageSource = readFileSync(
   "utf8",
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
-const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
-const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
 
 describe("webinar registration conversion confirmation", () => {
   it("registers a dedicated public route without reusing appointment or payment thank-you pages", () => {
@@ -34,19 +32,16 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("uses the standalone webinar Pixel with one PageView and Lead sequence", () => {
+  it("fires one guarded webinar PageView, Lead, and CompleteRegistration conversion without purchase semantics", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
+    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
+    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
-    expect(pageSource).not.toContain("fbq");
-    expect(pageSource).not.toContain("CompleteRegistration");
-    expect(pageSource).not.toContain("Schedule");
-    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
-    expect(documentHeadSource).not.toContain("1589326469554181");
-    expect(bootstrapSource).toContain('"/webinar-registration-confirmed"');
-    expect(bootstrapSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
-    expect(bootstrapSource.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
+    expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
+    expect(pageSource).toContain('content_name: "Live Educational Webinar"');
+    expect(pageSource).not.toContain('"Purchase"');
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {

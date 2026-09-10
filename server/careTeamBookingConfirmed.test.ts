@@ -7,10 +7,6 @@ const pageSource = readFileSync(
   "utf8",
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
-const metaPixelBootstrapSource = readFileSync(
-  resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"),
-  "utf8",
-);
 
 describe("care-team discovery-call confirmation", () => {
   it("registers a dedicated public confirmation route separate from the discovery-call calendar", () => {
@@ -28,13 +24,15 @@ describe("care-team discovery-call confirmation", () => {
     expect(pageSource).not.toMatch(/\$50|deposit|payment|physician visit|remaining balance/i);
   });
 
-  it("keeps the guarded dataLayer signal and uses the route-aware Schedule Pixel", () => {
+  it("fires guarded free-call Lead and Schedule conversion events without purchase semantics", () => {
     expect(pageSource).toContain('const CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY =');
     expect(pageSource).toContain('window.sessionStorage.getItem(CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY, "1")');
+    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
+    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
+    expect(pageSource).toContain('w.fbq?.("track", "Schedule"');
+    expect(pageSource).toContain('content_name: "Free 15-Minute Care Team Discovery Call"');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "care_team_discovery_call_booked" })');
-    expect(pageSource).not.toContain("fbq");
-    expect(metaPixelBootstrapSource).toContain('["/care-team-booking-confirmed", "Schedule"]');
-    expect(metaPixelBootstrapSource).toContain('"fbq(\'track\', \'Schedule\');"');
+    expect(pageSource).not.toContain('"Purchase"');
   });
 });
