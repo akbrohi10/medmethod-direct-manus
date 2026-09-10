@@ -3,11 +3,12 @@ type MetaPixelWindow = typeof window & {
 };
 
 const pendingMetaEvents = new Set<string>();
+const deliveredMetaEvents = new Set<string>();
 
 type TrackMetaEventWhenReadyOptions = {
   eventName: string;
   expectedPath: string;
-  storageKey: string;
+  dedupeKey: string;
   parameters?: Record<string, unknown>;
   retryIntervalMs?: number;
   timeoutMs?: number;
@@ -22,38 +23,27 @@ type TrackMetaEventWhenReadyOptions = {
 export function trackMetaEventWhenReadyOnce({
   eventName,
   expectedPath,
-  storageKey,
+  dedupeKey,
   parameters,
   retryIntervalMs = 250,
   timeoutMs = 60_000,
 }: TrackMetaEventWhenReadyOptions) {
   if (typeof window === "undefined" || window.location.pathname !== expectedPath) return;
-
-  try {
-    if (window.sessionStorage.getItem(storageKey) === "1") return;
-  } catch {
-    // Continue with the in-memory guard when session storage is unavailable.
-  }
-
-  if (pendingMetaEvents.has(storageKey)) return;
-  pendingMetaEvents.add(storageKey);
+  if (pendingMetaEvents.has(dedupeKey) || deliveredMetaEvents.has(dedupeKey)) return;
+  pendingMetaEvents.add(dedupeKey);
   const startedAt = Date.now();
 
   const attemptDelivery = () => {
     if (window.location.pathname !== expectedPath) {
-      pendingMetaEvents.delete(storageKey);
+      pendingMetaEvents.delete(dedupeKey);
       return;
     }
 
     const fbq = (window as MetaPixelWindow).fbq;
     if (typeof fbq === "function") {
       fbq("track", eventName, parameters);
-      try {
-        window.sessionStorage.setItem(storageKey, "1");
-      } catch {
-        // The in-memory guard still prevents duplicates during this page visit.
-      }
-      pendingMetaEvents.delete(storageKey);
+      deliveredMetaEvents.add(dedupeKey);
+      pendingMetaEvents.delete(dedupeKey);
       return;
     }
 
@@ -62,7 +52,7 @@ export function trackMetaEventWhenReadyOnce({
       return;
     }
 
-    pendingMetaEvents.delete(storageKey);
+    pendingMetaEvents.delete(dedupeKey);
   };
 
   attemptDelivery();

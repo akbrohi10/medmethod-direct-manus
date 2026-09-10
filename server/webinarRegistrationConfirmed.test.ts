@@ -43,8 +43,11 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).not.toContain('"Purchase"');
     expect(pageSource.match(/eventName: "CompleteRegistration"/g)).toHaveLength(1);
     expect(pageSource).toContain('expectedPath: "/webinar-registration-confirmed"');
-    expect(pageSource).toContain('const WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:webinar-registration-complete-registration-fired"');
+    expect(pageSource).toContain('const WEBINAR_COMPLETE_REGISTRATION_EVENT_KEY = "webinar-registration-complete-registration"');
+    expect(pageSource).toContain('dedupeKey: WEBINAR_COMPLETE_REGISTRATION_EVENT_KEY');
     expect(metaPixelHelperSource).toContain('timeoutMs = 60_000');
+    expect(metaPixelHelperSource).toContain('const deliveredMetaEvents = new Set<string>()');
+    expect(metaPixelHelperSource).not.toContain('window.sessionStorage');
     expect(metaPixelHelperSource).toContain('typeof fbq === "function"');
     expect(metaPixelHelperSource).toContain('fbq("track", eventName, parameters)');
     expect(documentHeadSource).not.toContain("window.fbq('track', 'Schedule')");

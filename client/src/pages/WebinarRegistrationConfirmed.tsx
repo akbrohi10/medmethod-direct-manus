@@ -4,7 +4,7 @@ import { ArrowRight, CalendarDays, Clock3, MailCheck } from "lucide-react";
 import { trackMetaEventWhenReadyOnce } from "@/lib/metaPixel";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
-const WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:webinar-registration-complete-registration-fired";
+const WEBINAR_COMPLETE_REGISTRATION_EVENT_KEY = "webinar-registration-complete-registration";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
 const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
@@ -45,7 +45,7 @@ export default function WebinarRegistrationConfirmed() {
     trackMetaEventWhenReadyOnce({
       eventName: "CompleteRegistration",
       expectedPath: "/webinar-registration-confirmed",
-      storageKey: WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY,
+      dedupeKey: WEBINAR_COMPLETE_REGISTRATION_EVENT_KEY,
     });
 
     if (webinarConversionTracked) return;

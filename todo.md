@@ -1574,3 +1574,11 @@
 - [x] Preserve the working GTM-managed PageView, single Pixel installation, dataLayer completion signals, confirmation content, routes, and unrelated conversion tracking
 - [x] Validate delayed Pixel readiness, exactly one CompleteRegistration dispatch per route, route health, focused coverage, 222 tests, TypeScript, production build, and current logs
 - [x] Save and deliver the CompleteRegistration checkpoint with precise Meta Test Events retest steps
+
+## Webinar CompleteRegistration Per-Load Delivery — 2026-09-10
+
+- [x] Inspect the current session-level CompleteRegistration guard and confirm how it can suppress same-session retests
+- [x] Replace session-level suppression with per-page-load deduplication on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Preserve one CompleteRegistration per load, the working PageView, single Pixel installation, confirmation content, routes, and unrelated tracking
+- [x] Validate first-load and repeat-load behavior, focused coverage, 222 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the per-load CompleteRegistration checkpoint with a short Meta Test Events retest procedure
