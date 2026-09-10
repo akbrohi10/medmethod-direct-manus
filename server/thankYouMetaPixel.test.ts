@@ -5,23 +5,19 @@ import { describe, expect, it } from "vitest";
 const pageSource = readFileSync(resolve(process.cwd(), "client/src/pages/ThankYou.tsx"), "utf8");
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 
-describe("appointment thank-you Meta Pixel conversion", () => {
-  it("uses the existing Google Tag Manager container as the single sitewide Pixel bootstrap", () => {
-    expect(documentHeadSource).toContain("GTM-KMBG6HSR");
+describe("appointment thank-you tracking after Meta removal", () => {
+  it("contains no Meta Pixel or Google Tag Manager bootstrap", () => {
+    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
     expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
-    expect(documentHeadSource).not.toContain("fbq('init', '1589326469554181')");
+    expect(documentHeadSource).not.toContain("1589326469554181");
+    expect(documentHeadSource).not.toContain("facebook.com/tr");
   });
 
-  it("fires one guarded PageView, Lead, and appointment-completion event on the payment thank-you page", () => {
+  it("retains only the guarded non-Facebook booking completion signal", () => {
     expect(pageSource).toContain('const THANK_YOU_CONVERSION_STORAGE_KEY = "medmethod:appointment-deposit-conversion-fired"');
     expect(pageSource).toContain("window.sessionStorage.getItem(THANK_YOU_CONVERSION_STORAGE_KEY)");
     expect(pageSource).toContain('window.sessionStorage.setItem(THANK_YOU_CONVERSION_STORAGE_KEY, "1")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "booking_complete" })');
-    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
-    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
-    expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
-    expect(pageSource).toContain('content_name: "Physician Consultation Deposit"');
-    expect(pageSource).toContain('content_category: "Appointment Deposit"');
-    expect(pageSource).not.toContain('"Purchase"');
+    expect(pageSource).not.toContain("fbq");
   });
 });

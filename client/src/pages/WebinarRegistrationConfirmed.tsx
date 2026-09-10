@@ -6,7 +6,6 @@ const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversio
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
 const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
-const WEBINAR_COMPLETE_REGISTRATION_SCRIPT_SELECTOR = "script[data-webinar-complete-registration]";
 let webinarConversionTracked = false;
 let liveWebinar3HandoffActive = false;
 
@@ -41,29 +40,6 @@ export default function WebinarRegistrationConfirmed() {
       return;
     }
 
-    let retryTimer: number | undefined;
-    const startedAt = Date.now();
-
-    const installCompleteRegistrationEvent = () => {
-      if (window.location.pathname !== "/webinar-registration-confirmed") return;
-      if (document.querySelector(WEBINAR_COMPLETE_REGISTRATION_SCRIPT_SELECTOR)) return;
-
-      const w = window as typeof window & { fbq?: (...args: unknown[]) => void };
-      if (typeof w.fbq === "function") {
-        const script = document.createElement("script");
-        script.dataset.webinarCompleteRegistration = "true";
-        script.textContent = "fbq('track', 'CompleteRegistration');";
-        document.head.appendChild(script);
-        return;
-      }
-
-      if (Date.now() - startedAt < 60_000) {
-        retryTimer = window.setTimeout(installCompleteRegistrationEvent, 250);
-      }
-    };
-
-    installCompleteRegistrationEvent();
-
     if (webinarConversionTracked) return;
 
     try {
@@ -81,9 +57,6 @@ export default function WebinarRegistrationConfirmed() {
     };
 
     w.dataLayer?.push({ event: "webinar_registration_complete" });
-    return () => {
-      if (retryTimer !== undefined) window.clearTimeout(retryTimer);
-    };
   }, [isLiveWebinar3Handoff]);
 
   if (isLiveWebinar3Handoff) return null;

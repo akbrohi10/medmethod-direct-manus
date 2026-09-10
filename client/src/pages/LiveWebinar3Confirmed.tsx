@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CalendarDays, Check, Clock3, MailCheck } from "lucide-react";
-import { trackMetaEventWhenReadyOnce } from "@/lib/metaPixel";
 
 const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired";
-const LIVE_WEBINAR3_COMPLETE_REGISTRATION_EVENT_KEY = "live-webinar3-registration-complete-registration";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 let liveWebinar3ConversionTracked = false;
 
@@ -30,12 +28,6 @@ export default function LiveWebinar3Confirmed() {
     } catch {
       // Session storage can be unavailable in privacy-restricted contexts.
     }
-
-    trackMetaEventWhenReadyOnce({
-      eventName: "CompleteRegistration",
-      expectedPath: "/live-webinar3-confirmed",
-      dedupeKey: LIVE_WEBINAR3_COMPLETE_REGISTRATION_EVENT_KEY,
-    });
 
     if (liveWebinar3ConversionTracked) return;
 

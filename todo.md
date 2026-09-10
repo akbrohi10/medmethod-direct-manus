@@ -1590,3 +1590,21 @@
 - [x] Leave `/live-webinar3-confirmed`, the GTM-managed PageView, page content, routes, and unrelated tracking unchanged
 - [x] Validate one requested event path, focused coverage, 222 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the explicit CompleteRegistration checkpoint
+
+## Meta Pixel Full Removal and Verification — 2026-09-10
+
+- [x] Inventory every direct Meta/Facebook Pixel initialization and event call, plus Pixel delivery through Google Tag Manager
+- [x] Remove all site-owned Meta Pixel code, event dispatches, helpers, and the GTM bootstrap that currently injects the Pixel; do not add replacement code
+- [x] Remove or revise obsolete Pixel tests while preserving page content, routes, forms, payments, and non-tracking behavior
+- [x] Verify client source, production build, and rendered pages contain no Meta Pixel library, Pixel ID, `fbq`, Facebook tracking image, Meta conversion event code, or GTM bootstrap
+- [x] Run focused coverage, 221 tests, TypeScript, production build, six representative route checks, and current-log checks
+- [x] Save a removal-only checkpoint and pause for user verification before installing any new Meta code
+
+## Full Meta Pixel Replacement — 2026-09-10
+
+- [ ] Inventory and remove every existing direct Meta/Facebook Pixel event implementation and identify Google Tag Manager overlap
+- [ ] Install the supplied Pixel ID `1589326469554181` base code once in the global document head for every page
+- [ ] Install the supplied `PageView` plus `Lead` event code only on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [ ] Prevent duplicate Meta initialization or event firing while preserving unrelated Google Tag Manager, analytics, dataLayer, page content, and routes
+- [ ] Validate one global base Pixel and correct confirmation-page events, focused coverage, full tests, TypeScript, production build, route health, and current logs
+- [ ] Save and deliver the full Meta Pixel replacement checkpoint with concise live retest instructions

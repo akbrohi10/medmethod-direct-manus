@@ -61,16 +61,9 @@ export default function ThankYou() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
-      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
     w.dataLayer?.push({ event: "booking_complete" });
-    w.fbq?.("track", "PageView");
-    w.fbq?.("track", "Lead");
-    w.fbq?.("track", "CompleteRegistration", {
-      content_name: "Physician Consultation Deposit",
-      content_category: "Appointment Deposit",
-    });
   }, []);
 
   return (

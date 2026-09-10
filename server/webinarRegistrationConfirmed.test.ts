@@ -8,7 +8,6 @@ const pageSource = readFileSync(
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
-const metaPixelHelperSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixel.ts"), "utf8");
 
 describe("webinar registration conversion confirmation", () => {
   it("registers a dedicated public route without reusing appointment or payment thank-you pages", () => {
@@ -34,22 +33,14 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("installs the supplied CompleteRegistration code once after the existing GTM Pixel becomes available", () => {
+  it("retains its dataLayer completion signal without Meta Pixel code", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
-    expect(pageSource).not.toContain('w.fbq?.("track", "CompleteRegistration"');
-    expect(pageSource).not.toContain('"Purchase"');
-    expect(pageSource.match(/fbq\('track', 'CompleteRegistration'\);/g)).toHaveLength(1);
-    expect(pageSource).toContain('window.location.pathname !== "/webinar-registration-confirmed"');
-    expect(pageSource).toContain('script.dataset.webinarCompleteRegistration = "true"');
-    expect(pageSource).toContain('document.querySelector(WEBINAR_COMPLETE_REGISTRATION_SCRIPT_SELECTOR)');
-    expect(pageSource).toContain('Date.now() - startedAt < 60_000');
-    expect(pageSource).toContain('typeof w.fbq === "function"');
-    expect(documentHeadSource).not.toContain("window.fbq('track', 'Schedule')");
-    expect(documentHeadSource).not.toContain("fbq('track', 'CompleteRegistration')");
-    expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
+    expect(pageSource).not.toContain("fbq");
+    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
+    expect(documentHeadSource).not.toContain("1589326469554181");
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {

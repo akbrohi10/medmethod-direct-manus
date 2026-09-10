@@ -16,13 +16,6 @@ export default function ThankYou2() {
       (window as any).dataLayer.push({ event: "booking_complete" });
     }
 
-    // Meta Pixel: fire PageView + Purchase on /thank-you2
-    const w = window as any;
-    if (w.fbq) {
-      w.fbq("track", "PageView");
-      w.fbq("track", "CompleteRegistration");
-      w.fbq("track", "Purchase");
-    }
   }, []);
 
   return (
