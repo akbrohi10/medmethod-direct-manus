@@ -33,7 +33,7 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("fires the standard Lead event during initial page parsing and retains the guarded webinar completion conversion", () => {
+  it("fires the requested standard Schedule event during initial page parsing and retains the guarded webinar completion conversion", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
@@ -42,7 +42,8 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content_name: "Live Educational Webinar"');
     expect(pageSource).not.toContain('"Purchase"');
     expect(documentHeadSource).toContain("path === '/webinar-registration-confirmed'");
-    expect(documentHeadSource).toContain("fbq('track', 'Lead')");
+    expect(documentHeadSource).toContain("fbq('track', 'Schedule')");
+    expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {

@@ -40,7 +40,7 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("fires the standard Lead event during initial page parsing and retains the guarded webinar completion event", () => {
+  it("fires the requested standard Schedule event during initial page parsing and retains the guarded webinar completion event", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
@@ -48,6 +48,7 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
     expect(pageSource).not.toContain('"Purchase"');
     expect(documentHeadSource).toContain("path === '/live-webinar3-confirmed'");
-    expect(documentHeadSource).toContain("fbq('track', 'Lead')");
+    expect(documentHeadSource).toContain("fbq('track', 'Schedule')");
+    expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
   });
 });

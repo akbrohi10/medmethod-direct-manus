@@ -1544,3 +1544,11 @@
 - [x] Dispatch the approved webinar Lead event during initial page parsing, before React mounts or session-level conversion safeguards can suppress the page-specific event
 - [x] Validate the repaired event path, routes, focused coverage, full tests, TypeScript, production build, and current logs
 - [x] Save and deliver the verified repair with precise Meta Test Events retest steps
+
+## Webinar Meta Schedule Event — 2026-09-10
+
+- [x] Inspect the current initial-load Meta event bootstrap and coverage for `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Replace the webinar-specific standard Meta `Lead` event with the requested `Schedule` event on exactly those two confirmation routes
+- [x] Preserve the global PageView event, guarded CompleteRegistration and dataLayer signals, confirmation content, routing, and all unrelated tracking
+- [x] Validate event targeting, routes, focused coverage, full tests, TypeScript, production build, and current logs
+- [x] Save and deliver the Meta Schedule-event checkpoint and Test Events retest steps
