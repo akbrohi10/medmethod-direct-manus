@@ -4,6 +4,44 @@ export const WEBINAR_CONFIRMATION_PIXEL_PATHS = new Set([
 ]);
 
 const WEBINAR_PIXEL_SCRIPT_ID = "webinar-confirmation-meta-pixel";
+const WEBINAR_LEAD_FALLBACK_ID = "webinar-confirmation-lead-fallback";
+const META_PIXEL_ID = "1589326469554181";
+
+export function buildMetaLeadFallbackUrl(pageUrl: string, timestamp: number): string {
+  const url = new URL("https://www.facebook.com/tr");
+  url.searchParams.set("id", META_PIXEL_ID);
+  url.searchParams.set("ev", "Lead");
+  url.searchParams.set("noscript", "1");
+  url.searchParams.set("dl", pageUrl);
+  url.searchParams.set("ts", String(timestamp));
+  return url.toString();
+}
+
+function hasLeadCollectionRequest(): boolean {
+  return performance.getEntriesByType("resource").some(entry => {
+    try {
+      const url = new URL(entry.name);
+      return url.hostname.endsWith("facebook.com") && url.pathname === "/tr" && url.searchParams.get("ev") === "Lead";
+    } catch {
+      return false;
+    }
+  });
+}
+
+function scheduleLeadDeliveryFallback(): void {
+  window.setTimeout(() => {
+    if (hasLeadCollectionRequest() || document.getElementById(WEBINAR_LEAD_FALLBACK_ID)) return;
+
+    const image = document.createElement("img");
+    image.id = WEBINAR_LEAD_FALLBACK_ID;
+    image.width = 1;
+    image.height = 1;
+    image.alt = "";
+    image.style.display = "none";
+    image.src = buildMetaLeadFallbackUrl(window.location.href, Date.now());
+    document.body.appendChild(image);
+  }, 3_000);
+}
 
 export function shouldInstallMetaPixel(pathname: string): boolean {
   return WEBINAR_CONFIRMATION_PIXEL_PATHS.has(pathname);
@@ -30,5 +68,6 @@ fbq('track', 'PageView');
 fbq('track', 'Lead');
 `;
   document.head.appendChild(script);
+  scheduleLeadDeliveryFallback();
   return true;
 }

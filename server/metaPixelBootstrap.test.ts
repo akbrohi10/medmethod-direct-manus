@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { shouldInstallMetaPixel } from "../client/src/lib/metaPixelBootstrap";
+import { buildMetaLeadFallbackUrl, shouldInstallMetaPixel } from "../client/src/lib/metaPixelBootstrap";
 
 const documentSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixelBootstrap.ts"), "utf8");
@@ -30,5 +30,22 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(bootstrapSource).not.toContain("CompleteRegistration");
     expect(bootstrapSource).not.toContain("Schedule");
     expect(bootstrapSource).not.toContain("Purchase");
+  });
+
+  it("builds a direct Lead fallback URL for cases where the Meta library never sends the queued event", () => {
+    const fallbackUrl = new URL(buildMetaLeadFallbackUrl("https://medmethoddirect.com/webinar-registration-confirmed", 123456));
+    expect(fallbackUrl.origin + fallbackUrl.pathname).toBe("https://www.facebook.com/tr");
+    expect(fallbackUrl.searchParams.get("id")).toBe("1589326469554181");
+    expect(fallbackUrl.searchParams.get("ev")).toBe("Lead");
+    expect(fallbackUrl.searchParams.get("noscript")).toBe("1");
+    expect(fallbackUrl.searchParams.get("dl")).toBe("https://medmethoddirect.com/webinar-registration-confirmed");
+    expect(fallbackUrl.searchParams.get("ts")).toBe("123456");
+  });
+
+  it("guards the fallback with an outbound Lead request check and one DOM marker", () => {
+    expect(bootstrapSource).toContain('url.searchParams.get("ev") === "Lead"');
+    expect(bootstrapSource).toContain("hasLeadCollectionRequest()");
+    expect(bootstrapSource).toContain("WEBINAR_LEAD_FALLBACK_ID");
+    expect(bootstrapSource).toContain("scheduleLeadDeliveryFallback()");
   });
 });

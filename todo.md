@@ -1627,6 +1627,14 @@
 - [x] Validate exactly one init, one PageView, and one Lead per confirmation page, zero Pixel runtime on ordinary pages, focused coverage, 224 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the standalone confirmation-page Pixel checkpoint
 
+## Published Webinar Lead Delivery Repair — 2026-09-10
+
+- [x] Inspect the published original confirmation route; the Meta library request returned zero bytes, `fbq.callMethod` never initialized, the queue remained unconsumed, and no Facebook collection request was sent
+- [x] Add a guarded direct Lead collection fallback after three seconds when no outbound Lead request is observed, without duplicating Pixel initialization or PageView
+- [x] Preserve both confirmation routes, content, registration handoff, dataLayer signals, and ordinary-page Pixel scope
+- [x] Validate one direct Lead collection fallback request on both routes when the Meta library does not consume its queue, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the published Lead repair checkpoint with concise Meta Test Events retest steps
+
 ## Strong Webinar Confirmation Pixel Exclusion — 2026-09-10
 
 - [x] Superseded after the user approved a standalone Pixel on both webinar confirmation routes instead of excluding them
@@ -1635,3 +1643,11 @@
 - [x] Preserve confirmation content, routes, registration handoff, dataLayer signals, and unrelated behavior
 - [x] Validate shared HTML, confirmation-page runtime, ordinary-page absence, focused coverage, full tests, TypeScript, build, route health, and logs under the approved replacement scope
 - [x] Deliver through the standalone confirmation-page Pixel checkpoint below
+
+## Published Webinar Lead Delivery Repair — 2026-09-10
+
+- [x] Inspect the published original confirmation route; the Meta library request returned zero bytes, `fbq.callMethod` never initialized, the queue remained unconsumed, and no Facebook collection request was sent
+- [x] Add a guarded direct Lead collection fallback after three seconds when no outbound Lead request is observed, without duplicating Pixel initialization or PageView
+- [x] Preserve both confirmation routes, content, registration handoff, dataLayer signals, and ordinary-page Pixel scope
+- [x] Validate one direct Lead collection fallback request on both routes when the Meta library does not consume its queue, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
+- [x] Save and deliver the published Lead repair checkpoint with concise Meta Test Events retest steps
