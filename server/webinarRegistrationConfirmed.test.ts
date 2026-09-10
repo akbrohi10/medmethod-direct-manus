@@ -32,15 +32,16 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("fires one guarded webinar CompleteRegistration conversion without purchase semantics", () => {
+  it("fires one guarded webinar PageView, Lead, and CompleteRegistration conversion without purchase semantics", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
+    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
+    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Live Educational Webinar"');
     expect(pageSource).not.toContain('"Purchase"');
-    expect(pageSource).not.toContain('"PageView"');
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {

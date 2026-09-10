@@ -45,6 +45,8 @@ export default function LiveWebinar3Confirmed() {
       fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
+    w.fbq?.("track", "PageView");
+    w.fbq?.("track", "Lead");
     w.dataLayer?.push({ event: "live_webinar3_registration_complete" });
     w.fbq?.("track", "CompleteRegistration", {
       content_name: "Free Live Zoom Webinar",

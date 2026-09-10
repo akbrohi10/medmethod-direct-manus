@@ -37,8 +37,10 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("fires a separately guarded webinar conversion with no purchase semantics", () => {
+  it("fires separately guarded PageView, Lead, and webinar conversion events with no purchase semantics", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
+    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
+    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Free Live Zoom Webinar"');

@@ -1481,3 +1481,11 @@
 - [x] Preserve every approved disclosure statement verbatim while reducing padding, typography scale, border weight, and empty vertical space
 - [x] Validate disclosure content, desktop/mobile presentation, focused coverage, full tests, TypeScript, production build, routes, and logs
 - [x] Save and deliver the compact medication-disclosure checkpoint
+
+## Webinar Confirmation Meta Pixel Events — 2026-09-10
+
+- [x] Inspect the existing event handling and coverage for `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Add one supplied Meta Pixel PageView and one Lead event on each confirmation-page load
+- [x] Preserve existing confirmation content, confirmation flows, redirects, Meta tracking, and unrelated behavior
+- [x] Validate event safeguards, page routes, focused coverage, full tests, TypeScript, production build, and logs
+- [x] Save and deliver the webinar confirmation-event checkpoint
