@@ -1456,3 +1456,12 @@
 - [x] Preserve the existing physician appointment, care-team calendar, pricing-details, payment, intake, webinar, and unrelated site behavior
 - [x] Update focused coverage and validate responsive hierarchy, booking destinations, pricing clarity, full tests, TypeScript, production build, route health, and logs
 - [x] Save and deliver the refined homepage booking-choice checkpoint
+
+## Homepage Compact Booking-Choice Polish — 2026-09-10
+
+- [x] Inspect the current saved booking-choice spacing, typography, and interaction styling before the compact polish pass
+- [x] Strengthen the two self-selection labels and tighten their relationship to the booking pills
+- [x] Reduce both pill heights and internal spacing while preserving two readable text lines and equal visual weight
+- [x] Refine shadows, explanatory-copy rhythm, and pricing-details spacing without changing approved copy or destinations
+- [x] Validate desktop and mobile presentation, focused coverage, full tests, TypeScript, production build, routes, and logs
+- [x] Save and deliver the compact booking-choice polish checkpoint

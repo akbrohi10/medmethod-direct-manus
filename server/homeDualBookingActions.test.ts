@@ -28,8 +28,9 @@ describe("homepage dual booking actions", () => {
     expect(medicalTeamSource).toContain("data-home-discovery-call-cta");
     expect(medicalTeamSource).toContain("ctaSupportingLine?: ReactNode");
     expect(medicalTeamSource).toContain("supportingLine?: ReactNode");
-    expect(medicalTeamSource).toContain("min-h-[94px]");
+    expect(medicalTeamSource).toContain("min-h-[76px]");
     expect(medicalTeamSource).toContain("sm:grid-cols-2");
+    expect(medicalTeamSource).toContain("text-[11px] font-extrabold uppercase tracking-[0.19em]");
   });
 
   it("keeps booking information clear without adding unverified policies", () => {
