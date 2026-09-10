@@ -1667,3 +1667,19 @@
 - [x] Prevent duplicate initialization or events while preserving care-team Schedule tracking, webinar Lead tracking, page content, route behavior, and dataLayer signals
 - [x] Validate one appointment init, one PageView, one CompleteRegistration, no Lead or Schedule, preserved care-team Schedule and webinar Lead scope, focused coverage, 226 tests, TypeScript, production build, route health, and current logs
 - [x] Save and deliver the appointment CompleteRegistration Pixel checkpoint with concise Meta Test Events steps
+
+## Live Website Outage Recovery — 2026-09-10
+
+- [x] Pause all further Meta Pixel work until the live website is restored and verified
+- [x] Inspect the live homepage response, production deployment logs, and browser console; the screenshot coincided with a clean production rollout restart and no persistent application exception was found
+- [x] Confirm no rollback or code recovery is required because the live site recovered after the rollout and no current production errors remain
+- [x] Validate five consecutive live homepage HTTP 200 responses, four critical live routes, a clean live desktop render and console, and a successful 390px mobile render
+- [x] Save and deliver the stable recovery checkpoint with the confirmed transient rollout status
+
+## Published Appointment CompleteRegistration Delivery Repair — 2026-09-10
+
+- [x] Inspect the published `/thank-you` Pixel library state, queue handoff, and outbound CompleteRegistration request; both the Meta library and collection response were zero-byte in the sandbox browser
+- [x] Pause correction work at the user’s request while prioritizing live-site stability; no additional Pixel code change was made
+- [x] Preserve appointment content, payment flow, route behavior, dataLayer signals, care-team Schedule, and webinar Lead tracking
+- [x] Confirm the existing published site and critical routes are healthy before any future CompleteRegistration troubleshooting resumes
+- [x] Defer the CompleteRegistration repair checkpoint until the user explicitly resumes Pixel work
