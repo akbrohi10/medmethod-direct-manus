@@ -1446,4 +1446,4 @@
 - [x] Merge the physician action into one fully clickable booking card with Book 45-Min Appt. with Dr. Al-Deek, $199 First Visit, and $50 Deposit Today
 - [x] Preserve the physician booking destination, discovery-call action, full-pricing link, and all unrelated homepage behavior; update focused coverage
 - [x] Validate desktop/mobile readability, booking behavior, 4 focused checks and all 213 tests across 43 files, TypeScript, production build, homepage HTTP 200 response, and current logs with no new first-party errors
-- [ ] Save and deliver the unified physician booking-card checkpoint
+- [x] Save and deliver the unified physician booking-card checkpoint
