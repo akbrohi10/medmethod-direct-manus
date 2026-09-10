@@ -41,20 +41,20 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("fires the requested Schedule event once after the existing GTM Pixel becomes available", () => {
+  it("fires one requested CompleteRegistration event after the existing GTM Pixel becomes available", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
-    expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
-    expect(pageSource).toContain('content_name: "Free Live Zoom Webinar"');
+    expect(pageSource).not.toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
     expect(pageSource).not.toContain('"Purchase"');
-    expect(pageSource).toContain('eventName: "Schedule"');
+    expect(pageSource.match(/eventName: "CompleteRegistration"/g)).toHaveLength(1);
     expect(pageSource).toContain('expectedPath: "/live-webinar3-confirmed"');
-    expect(pageSource).toContain('const LIVE_WEBINAR3_SCHEDULE_STORAGE_KEY = "medmethod:live-webinar3-registration-schedule-fired"');
+    expect(pageSource).toContain('const LIVE_WEBINAR3_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:live-webinar3-registration-complete-registration-fired"');
     expect(metaPixelHelperSource).toContain('timeoutMs = 60_000');
     expect(metaPixelHelperSource).toContain('typeof fbq === "function"');
     expect(metaPixelHelperSource).toContain('fbq("track", eventName, parameters)');
     expect(documentHeadSource).not.toContain("window.fbq('track', 'Schedule')");
+    expect(documentHeadSource).not.toContain("fbq('track', 'CompleteRegistration')");
     expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
   });
 });

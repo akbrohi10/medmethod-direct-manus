@@ -1566,3 +1566,11 @@
 - [x] Replace the short header retry with a single-fire route-level dispatcher that waits up to 60 seconds for the existing GTM-managed Pixel while preserving PageView, completion tracking, confirmation content, routes, and unrelated conversion paths
 - [x] Validate delayed Pixel readiness and exactly one Schedule dispatch on both confirmation routes, route health, focused coverage, 221 tests, TypeScript, production build, and current logs
 - [x] Save and deliver the Schedule-event repair checkpoint with exact Meta Test Events retest steps
+
+## Webinar Meta CompleteRegistration Event — 2026-09-10
+
+- [x] Inspect the current Schedule and CompleteRegistration dispatch paths on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`
+- [x] Replace Schedule with one durable Meta `CompleteRegistration` event on exactly those two confirmation routes and remove the former duplicate page-level completion call
+- [x] Preserve the working GTM-managed PageView, single Pixel installation, dataLayer completion signals, confirmation content, routes, and unrelated conversion tracking
+- [x] Validate delayed Pixel readiness, exactly one CompleteRegistration dispatch per route, route health, focused coverage, 222 tests, TypeScript, production build, and current logs
+- [x] Save and deliver the CompleteRegistration checkpoint with precise Meta Test Events retest steps

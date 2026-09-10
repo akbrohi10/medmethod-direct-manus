@@ -34,21 +34,21 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("fires the requested Schedule event once after the existing GTM Pixel becomes available", () => {
+  it("fires one requested CompleteRegistration event after the existing GTM Pixel becomes available", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
-    expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
-    expect(pageSource).toContain('content_name: "Live Educational Webinar"');
+    expect(pageSource).not.toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).not.toContain('"Purchase"');
-    expect(pageSource).toContain('eventName: "Schedule"');
+    expect(pageSource.match(/eventName: "CompleteRegistration"/g)).toHaveLength(1);
     expect(pageSource).toContain('expectedPath: "/webinar-registration-confirmed"');
-    expect(pageSource).toContain('const WEBINAR_SCHEDULE_STORAGE_KEY = "medmethod:webinar-registration-schedule-fired"');
+    expect(pageSource).toContain('const WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:webinar-registration-complete-registration-fired"');
     expect(metaPixelHelperSource).toContain('timeoutMs = 60_000');
     expect(metaPixelHelperSource).toContain('typeof fbq === "function"');
     expect(metaPixelHelperSource).toContain('fbq("track", eventName, parameters)');
     expect(documentHeadSource).not.toContain("window.fbq('track', 'Schedule')");
+    expect(documentHeadSource).not.toContain("fbq('track', 'CompleteRegistration')");
     expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
   });
 

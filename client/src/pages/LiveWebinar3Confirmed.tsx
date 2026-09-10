@@ -4,7 +4,7 @@ import { ArrowRight, CalendarDays, Check, Clock3, MailCheck } from "lucide-react
 import { trackMetaEventWhenReadyOnce } from "@/lib/metaPixel";
 
 const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired";
-const LIVE_WEBINAR3_SCHEDULE_STORAGE_KEY = "medmethod:live-webinar3-registration-schedule-fired";
+const LIVE_WEBINAR3_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:live-webinar3-registration-complete-registration-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 let liveWebinar3ConversionTracked = false;
 
@@ -20,8 +20,8 @@ const learningChecklist = [
 
 /**
  * The SendMeAPro form redirects completed webinar registrations to this route.
- * A guard keeps Meta CompleteRegistration and the matching dataLayer event from
- * being emitted twice when a visitor refreshes this confirmation page.
+ * Separate guards keep the Meta conversion and matching dataLayer completion
+ * signal from being emitted twice when a visitor refreshes this page.
  */
 export default function LiveWebinar3Confirmed() {
   useEffect(() => {
@@ -32,9 +32,9 @@ export default function LiveWebinar3Confirmed() {
     }
 
     trackMetaEventWhenReadyOnce({
-      eventName: "Schedule",
+      eventName: "CompleteRegistration",
       expectedPath: "/live-webinar3-confirmed",
-      storageKey: LIVE_WEBINAR3_SCHEDULE_STORAGE_KEY,
+      storageKey: LIVE_WEBINAR3_COMPLETE_REGISTRATION_STORAGE_KEY,
     });
 
     if (liveWebinar3ConversionTracked) return;
@@ -51,14 +51,9 @@ export default function LiveWebinar3Confirmed() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
-      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
     w.dataLayer?.push({ event: "live_webinar3_registration_complete" });
-    w.fbq?.("track", "CompleteRegistration", {
-      content_name: "Free Live Zoom Webinar",
-      content_category: "Webinar Registration",
-    });
   }, []);
 
   return (

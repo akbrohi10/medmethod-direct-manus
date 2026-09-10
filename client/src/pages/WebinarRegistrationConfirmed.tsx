@@ -4,7 +4,7 @@ import { ArrowRight, CalendarDays, Clock3, MailCheck } from "lucide-react";
 import { trackMetaEventWhenReadyOnce } from "@/lib/metaPixel";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
-const WEBINAR_SCHEDULE_STORAGE_KEY = "medmethod:webinar-registration-schedule-fired";
+const WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY = "medmethod:webinar-registration-complete-registration-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
 const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
@@ -30,8 +30,8 @@ function consumeLiveWebinar3Handoff() {
 
 /**
  * The SendMeAPro form redirects completed webinar registrations to this route.
- * A guard keeps Meta CompleteRegistration and the matching dataLayer event from
- * being emitted twice when a visitor refreshes this confirmation page.
+ * Separate guards keep the Meta conversion and matching dataLayer completion
+ * signal from being emitted twice when a visitor refreshes this page.
  */
 export default function WebinarRegistrationConfirmed() {
   const isLiveWebinar3Handoff = consumeLiveWebinar3Handoff();
@@ -43,9 +43,9 @@ export default function WebinarRegistrationConfirmed() {
     }
 
     trackMetaEventWhenReadyOnce({
-      eventName: "Schedule",
+      eventName: "CompleteRegistration",
       expectedPath: "/webinar-registration-confirmed",
-      storageKey: WEBINAR_SCHEDULE_STORAGE_KEY,
+      storageKey: WEBINAR_COMPLETE_REGISTRATION_STORAGE_KEY,
     });
 
     if (webinarConversionTracked) return;
@@ -62,14 +62,9 @@ export default function WebinarRegistrationConfirmed() {
 
     const w = window as typeof window & {
       dataLayer?: Array<Record<string, unknown>>;
-      fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
     w.dataLayer?.push({ event: "webinar_registration_complete" });
-    w.fbq?.("track", "CompleteRegistration", {
-      content_name: "Live Educational Webinar",
-      content_category: "Webinar Registration",
-    });
   }, [isLiveWebinar3Handoff]);
 
   if (isLiveWebinar3Handoff) return null;
