@@ -1552,3 +1552,10 @@
 - [x] Preserve the global PageView event, guarded CompleteRegistration and dataLayer signals, confirmation content, routing, and all unrelated tracking
 - [x] Validate event targeting, routes, focused coverage, full tests, TypeScript, production build, and current logs
 - [x] Save and deliver the Meta Schedule-event checkpoint and Test Events retest steps
+
+## Webinar Meta Pixel Deduplication — 2026-09-10
+
+- [x] Confirm that the duplicate arises from both direct site code and Google Tag Manager installing Pixel ID `1589326469554181` and dispatching its events
+- [x] Remove the redundant direct site Pixel bootstrap while preserving the authoritative Google Tag Manager PageView and Schedule events plus existing guarded completion signals
+- [x] Validate one authoritative Google Tag Manager Pixel bootstrap with one route-specific Schedule dispatch per page, route health, focused coverage, full tests, TypeScript, production build, and current logs
+- [x] Save and deliver the webinar Meta Pixel deduplication checkpoint and retest steps

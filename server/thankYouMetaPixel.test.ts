@@ -6,10 +6,10 @@ const pageSource = readFileSync(resolve(process.cwd(), "client/src/pages/ThankYo
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 
 describe("appointment thank-you Meta Pixel conversion", () => {
-  it("loads the configured sitewide Meta Pixel base snippet", () => {
-    expect(documentHeadSource).toContain("https://connect.facebook.net/en_US/fbevents.js");
-    expect(documentHeadSource).toContain("fbq('init', '1589326469554181')");
-    expect(documentHeadSource).toContain("fbq('track', 'PageView')");
+  it("uses the existing Google Tag Manager container as the single sitewide Pixel bootstrap", () => {
+    expect(documentHeadSource).toContain("GTM-KMBG6HSR");
+    expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
+    expect(documentHeadSource).not.toContain("fbq('init', '1589326469554181')");
   });
 
   it("fires one guarded PageView, Lead, and appointment-completion event on the payment thank-you page", () => {
