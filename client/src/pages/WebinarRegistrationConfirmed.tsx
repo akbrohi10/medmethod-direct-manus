@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CalendarDays, Clock3, MailCheck } from "lucide-react";
+import { trackMetaEventWhenReadyOnce } from "@/lib/metaPixel";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
+const WEBINAR_SCHEDULE_STORAGE_KEY = "medmethod:webinar-registration-schedule-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
 const LIVE_WEBINAR3_CONFIRMATION_PATH = "/live-webinar3-confirmed";
 const LIVE_WEBINAR3_HANDOFF_WINDOW_MS = 30 * 60 * 1000;
@@ -39,6 +41,13 @@ export default function WebinarRegistrationConfirmed() {
       window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH);
       return;
     }
+
+    trackMetaEventWhenReadyOnce({
+      eventName: "Schedule",
+      expectedPath: "/webinar-registration-confirmed",
+      storageKey: WEBINAR_SCHEDULE_STORAGE_KEY,
+    });
+
     if (webinarConversionTracked) return;
 
     try {

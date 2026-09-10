@@ -1559,3 +1559,10 @@
 - [x] Remove the redundant direct site Pixel bootstrap while preserving the authoritative Google Tag Manager PageView and Schedule events plus existing guarded completion signals
 - [x] Validate one authoritative Google Tag Manager Pixel bootstrap with one route-specific Schedule dispatch per page, route health, focused coverage, full tests, TypeScript, production build, and current logs
 - [x] Save and deliver the webinar Meta Pixel deduplication checkpoint and retest steps
+
+## Webinar Meta Schedule Delivery Repair — 2026-09-10
+
+- [x] Inspect the published Schedule-event runtime on `/webinar-registration-confirmed` and `/live-webinar3-confirmed`; the PageView Pixel can initialize after the former two-second Schedule retry window expires
+- [x] Replace the short header retry with a single-fire route-level dispatcher that waits up to 60 seconds for the existing GTM-managed Pixel while preserving PageView, completion tracking, confirmation content, routes, and unrelated conversion paths
+- [x] Validate delayed Pixel readiness and exactly one Schedule dispatch on both confirmation routes, route health, focused coverage, 221 tests, TypeScript, production build, and current logs
+- [x] Save and deliver the Schedule-event repair checkpoint with exact Meta Test Events retest steps

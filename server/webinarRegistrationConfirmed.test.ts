@@ -8,6 +8,7 @@ const pageSource = readFileSync(
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
 const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
+const metaPixelHelperSource = readFileSync(resolve(process.cwd(), "client/src/lib/metaPixel.ts"), "utf8");
 
 describe("webinar registration conversion confirmation", () => {
   it("registers a dedicated public route without reusing appointment or payment thank-you pages", () => {
@@ -33,7 +34,7 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("fires the requested Schedule event once through the existing GTM Pixel after its bootstrap is available", () => {
+  it("fires the requested Schedule event once after the existing GTM Pixel becomes available", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
@@ -41,10 +42,13 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Live Educational Webinar"');
     expect(pageSource).not.toContain('"Purchase"');
-    expect(documentHeadSource).toContain("path === '/webinar-registration-confirmed'");
-    expect(documentHeadSource).toContain("window.fbq('track', 'Schedule')");
-    expect(documentHeadSource).toContain("function trackWebinarSchedule()");
-    expect(documentHeadSource).toContain("typeof window.fbq === 'function'");
+    expect(pageSource).toContain('eventName: "Schedule"');
+    expect(pageSource).toContain('expectedPath: "/webinar-registration-confirmed"');
+    expect(pageSource).toContain('const WEBINAR_SCHEDULE_STORAGE_KEY = "medmethod:webinar-registration-schedule-fired"');
+    expect(metaPixelHelperSource).toContain('timeoutMs = 60_000');
+    expect(metaPixelHelperSource).toContain('typeof fbq === "function"');
+    expect(metaPixelHelperSource).toContain('fbq("track", eventName, parameters)');
+    expect(documentHeadSource).not.toContain("window.fbq('track', 'Schedule')");
     expect(documentHeadSource).not.toContain("fbq('track', 'Lead')");
   });
 

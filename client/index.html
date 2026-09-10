@@ -9,28 +9,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KMBG6HSR');</script>
     <!-- End Google Tag Manager -->
-    <script>
-      (function () {
-        var path = window.location.pathname;
-        var isWebinarConfirmation = path === '/webinar-registration-confirmed' || path === '/live-webinar3-confirmed';
-        var attempts = 0;
-
-        function trackWebinarSchedule() {
-          if (typeof window.fbq === 'function') {
-            window.fbq('track', 'Schedule');
-            return;
-          }
-          if (attempts < 20) {
-            attempts += 1;
-            window.setTimeout(trackWebinarSchedule, 100);
-          }
-        }
-
-        if (isWebinarConfirmation) {
-          trackWebinarSchedule();
-        }
-      })();
-    </script>
     <!-- GHL Affiliate Manager Tracking -->
     <script type="text/javascript">
       (function() {
