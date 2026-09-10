@@ -9,6 +9,9 @@ const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "ut
 const heroStart = homeSource.indexOf("<MedicalTeam");
 const heroEnd = homeSource.indexOf("\n        />", heroStart);
 const heroSource = homeSource.slice(heroStart, heroEnd);
+const stickySecondaryStart = homeSource.indexOf("data-home-sticky-discovery-call-cta");
+const stickySecondaryEnd = homeSource.indexOf("</a>", stickySecondaryStart);
+const stickySecondarySource = homeSource.slice(stickySecondaryStart, stickySecondaryEnd);
 
 describe("homepage dual booking actions", () => {
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
@@ -43,6 +46,7 @@ describe("homepage dual booking actions", () => {
   });
 
   it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {
+    expect(homeSource).toContain("data-home-sticky-physician-appointment-cta");
     expect(homeSource).toContain("data-home-sticky-discovery-call-cta");
     expect(homeSource).toContain('href="/care-team-booking"');
     expect(homeSource).toContain('aria-label="Need More Info? Book a Free 15-Minute Discovery Call"');
@@ -52,6 +56,9 @@ describe("homepage dual booking actions", () => {
     expect(homeSource).toContain("$50 Deposit Today");
     expect(homeSource).not.toContain("Have questions?");
     expect(homeSource).not.toContain("Call Now");
+    expect(stickySecondarySource).toContain('borderColor: "#B8336A"');
+    expect(stickySecondarySource).toContain('color: "#7A1E7E"');
+    expect(stickySecondarySource).not.toContain("linear-gradient");
   });
 
   it("keeps the compact mobile booking actions in the approved side-by-side pill layout", () => {

@@ -668,10 +668,11 @@ export default function HomeHrt3() {
           {/* Primary: physician appointment deposit */}
           <button
             onClick={openConsult}
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full text-white font-bold shadow-lg active:scale-[0.98] transition-transform duration-150"
+            data-home-sticky-physician-appointment-cta
+            className="flex flex-1 flex-col items-center justify-center gap-0 rounded-full py-3 text-white font-bold shadow-lg transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-              boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
+              boxShadow: "0 7px 16px rgba(122, 30, 126, 0.22)",
             }}
           >
             <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -686,14 +687,14 @@ export default function HomeHrt3() {
             href="/care-team-booking"
             data-home-sticky-discovery-call-cta
             aria-label="Need More Info? Book a Free 15-Minute Discovery Call"
-            className="flex-1 flex flex-col items-center justify-center gap-0 py-3 rounded-full font-bold active:scale-[0.98] transition-transform duration-150"
+            className="flex flex-1 flex-col items-center justify-center gap-0 rounded-full border-2 bg-white py-3 font-bold transition-all duration-150 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-              boxShadow: "0 8px 24px rgba(122, 30, 126, 0.35)",
-              color: "#fff",
+              borderColor: "#B8336A",
+              boxShadow: "0 4px 10px rgba(122, 30, 126, 0.05)",
+              color: "#7A1E7E",
             }}
           >
-            <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.78)" }}>
+            <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}>
               Need More Info?
             </span>
             <span className="text-[11px] font-extrabold tracking-tight uppercase whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>

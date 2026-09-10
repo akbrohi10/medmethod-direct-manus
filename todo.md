@@ -1465,3 +1465,11 @@
 - [x] Refine shadows, explanatory-copy rhythm, and pricing-details spacing without changing approved copy or destinations
 - [x] Validate desktop and mobile presentation, focused coverage, full tests, TypeScript, production build, routes, and logs
 - [x] Save and deliver the compact booking-choice polish checkpoint
+
+## Mobile Sticky Booking-Control Alignment — 2026-09-10
+
+- [x] Inspect the current sticky physician and care-team controls, text, destinations, and focused coverage
+- [x] Keep the physician sticky control as the compact filled primary action with its existing $50-deposit cue
+- [x] Restyle the care-team sticky control as a compact secondary action while preserving its free 15-minute information-call cue and calendar route
+- [x] Validate responsive presentation, booking destinations, focused coverage, full tests, TypeScript, production build, routes, and logs
+- [x] Save and deliver the aligned sticky booking-control checkpoint
