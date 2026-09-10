@@ -7,6 +7,7 @@ const pageSource = readFileSync(
   "utf8",
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
+const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 
 describe("live webinar 3 companion confirmation", () => {
   it("registers an isolated confirmation route that preserves the original webinar confirmation page", () => {
@@ -39,14 +40,14 @@ describe("live webinar 3 companion confirmation", () => {
     expect(pageSource).not.toContain("Reserve My Free Spot");
   });
 
-  it("fires separately guarded PageView, Lead, and webinar conversion events with no purchase semantics", () => {
+  it("fires the standard Lead event during initial page parsing and retains the guarded webinar completion event", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
-    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
-    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Free Live Zoom Webinar"');
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
     expect(pageSource).not.toContain('"Purchase"');
+    expect(documentHeadSource).toContain("path === '/live-webinar3-confirmed'");
+    expect(documentHeadSource).toContain("fbq('track', 'Lead')");
   });
 });

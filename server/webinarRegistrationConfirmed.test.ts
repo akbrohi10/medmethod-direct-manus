@@ -7,6 +7,7 @@ const pageSource = readFileSync(
   "utf8",
 );
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
+const documentHeadSource = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
 
 describe("webinar registration conversion confirmation", () => {
   it("registers a dedicated public route without reusing appointment or payment thank-you pages", () => {
@@ -32,16 +33,16 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('content="noindex, nofollow"');
   });
 
-  it("fires one guarded webinar PageView, Lead, and CompleteRegistration conversion without purchase semantics", () => {
+  it("fires the standard Lead event during initial page parsing and retains the guarded webinar completion conversion", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
-    expect(pageSource).toContain('w.fbq?.("track", "PageView")');
-    expect(pageSource).toContain('w.fbq?.("track", "Lead")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
     expect(pageSource).toContain('w.fbq?.("track", "CompleteRegistration"');
     expect(pageSource).toContain('content_name: "Live Educational Webinar"');
     expect(pageSource).not.toContain('"Purchase"');
+    expect(documentHeadSource).toContain("path === '/webinar-registration-confirmed'");
+    expect(documentHeadSource).toContain("fbq('track', 'Lead')");
   });
 
   it("forwards only a recent page-three registration handoff before rendering or tracking the original confirmation", () => {

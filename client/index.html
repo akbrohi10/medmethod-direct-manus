@@ -21,6 +21,12 @@
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1589326469554181');
       fbq('track', 'PageView');
+      (function () {
+        var path = window.location.pathname;
+        if (path === '/webinar-registration-confirmed' || path === '/live-webinar3-confirmed') {
+          fbq('track', 'Lead');
+        }
+      })();
     </script>
     <!-- End Meta Pixel Code -->
     <!-- GHL Affiliate Manager Tracking -->

@@ -1530,3 +1530,17 @@
 - [x] Preserve existing webinar, discovery-call, payment, and all unrelated Meta Pixel event behavior
 - [x] Validate pixel loading and event safeguards, route health, focused coverage, full tests, TypeScript, production build, and logs
 - [x] Save and deliver the thank-you page Meta Pixel tracking investigation checkpoint
+
+## Webinar Confirmation Page Meta Pixel Verification — 2026-09-10
+
+- [x] Inspect the published `/webinar-registration-confirmed` and `/live-webinar3-confirmed` pages, their Meta Pixel event code, and focused conversion coverage
+- [x] Confirm that no code correction is required: both published pages queue the configured Pixel initialization plus page-level `PageView`, `Lead`, and `CompleteRegistration` events
+- [x] Validate the live event queue and rendered routes; the session guard intentionally prevents repeat Lead submissions from the same browser session
+- [x] Deliver the verification outcome without changing the published event implementation
+
+## Webinar Meta Event Delivery Repair — 2026-09-10
+
+- [x] Inspect the live Lead-event delivery path for both webinar confirmation pages after Meta Test Events confirmed the published PageView event is received
+- [x] Dispatch the approved webinar Lead event during initial page parsing, before React mounts or session-level conversion safeguards can suppress the page-specific event
+- [x] Validate the repaired event path, routes, focused coverage, full tests, TypeScript, production build, and current logs
+- [x] Save and deliver the verified repair with precise Meta Test Events retest steps

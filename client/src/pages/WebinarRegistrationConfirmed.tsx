@@ -56,8 +56,6 @@ export default function WebinarRegistrationConfirmed() {
       fbq?: (command: string, eventName: string, parameters?: Record<string, unknown>) => void;
     };
 
-    w.fbq?.("track", "PageView");
-    w.fbq?.("track", "Lead");
     w.dataLayer?.push({ event: "webinar_registration_complete" });
     w.fbq?.("track", "CompleteRegistration", {
       content_name: "Live Educational Webinar",
