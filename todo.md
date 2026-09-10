@@ -1693,3 +1693,12 @@
 - [x] Preserve all homepage, booking, payment, webinar, confirmation-page, and Meta Pixel work
 - [x] Validate recovery behavior, desktop/mobile rendering, critical routes, 234 tests, TypeScript, production build, and current logs
 - [x] Save and deliver the direct-fix checkpoint with concise publish and refresh instructions
+
+## Browser-Specific Production 404 Investigation — 2026-09-10
+
+- [x] Inspect the supplied screenshot and confirm the failing browser received a host-level 404 before React loaded
+- [x] Audit `medmethoddirect.com`, `www.medmethoddirect.com`, and the Manus deployment domain across cache-busted requests, redirects, protocols, user agents, IPv4 edges, and repeated requests
+- [x] Correlate the 7:34 PM screenshot with production server restarts at 7:34:06–7:34:07 PM and identify a transient deployment-edge routing window rather than browser data, DNS, React, Pixel, or application configuration
+- [x] Preserve the direct client-error recovery and all homepage, booking, payment, webinar, confirmation-page, and Pixel work
+- [x] Make no project-code correction because current routing and application evidence show none is necessary
+- [x] Validate 12 repeated successful responses on each public hostname, both active apex IPv4 edges, Safari and Chrome user agents, root/www redirects, a fresh live browser render, and provide exact refresh remediation
