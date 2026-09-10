@@ -12,6 +12,9 @@ const heroSource = homeSource.slice(heroStart, heroEnd);
 const stickySecondaryStart = homeSource.indexOf("data-home-sticky-discovery-call-cta");
 const stickySecondaryEnd = homeSource.indexOf("</a>", stickySecondaryStart);
 const stickySecondarySource = homeSource.slice(stickySecondaryStart, stickySecondaryEnd);
+const stickyActionsStart = homeSource.indexOf("data-home-sticky-physician-appointment-cta");
+const stickyActionsEnd = homeSource.indexOf("{/* Bottom spacer", stickyActionsStart);
+const stickyActionsSource = homeSource.slice(stickyActionsStart, stickyActionsEnd);
 
 describe("homepage dual booking actions", () => {
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
@@ -55,7 +58,7 @@ describe("homepage dual booking actions", () => {
     expect(homeSource).toContain("Ready to Book?");
     expect(homeSource).toContain("$50 Deposit Today");
     expect(homeSource).not.toContain("Have questions?");
-    expect(homeSource).not.toContain("Call Now");
+    expect(stickyActionsSource).not.toContain("Call Now");
     expect(stickySecondarySource).toContain('borderColor: "#B8336A"');
     expect(stickySecondarySource).toContain('color: "#7A1E7E"');
     expect(stickySecondarySource).not.toContain("linear-gradient");

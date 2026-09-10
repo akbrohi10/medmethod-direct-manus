@@ -1497,3 +1497,11 @@
 - [x] Preserve the existing webinar forms, confirmation routing, Meta Pixel events, and all unrelated content and behavior
 - [x] Validate date consistency, countdown behavior, registration routes, focused coverage, full tests, TypeScript, production build, and logs
 - [x] Save and deliver the webinar schedule-update checkpoint
+
+## Header Call Now CTA — 2026-09-10
+
+- [x] Inspect the current header phone link, responsive layout, and focused coverage
+- [x] Add the approved “Call Now:” label before `(888) 362-7011` while retaining the existing tap-to-call destination
+- [x] Preserve the header logo, Patient Login control, responsive spacing, and all unrelated navigation behavior
+- [x] Validate desktop/mobile header presentation, phone-link destination, focused coverage, full tests, TypeScript, production build, routes, and logs
+- [x] Save and deliver the header Call Now CTA checkpoint
