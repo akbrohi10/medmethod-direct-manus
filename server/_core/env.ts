@@ -13,4 +13,6 @@ export const ENV = {
   ghlPaymentWebhookUrl: process.env.GHL_PAYMENT_WEBHOOK_URL ?? "",
   /** GoHighLevel destination for completed /lp/WL2 intake forms */
   ghlWl2IntakeWebhookUrl: process.env.GHL_WL2_INTAKE_WEBHOOK_URL ?? "",
+  /** Shared bearer secret for the inbound care-team booking calendar webhook */
+  ghlCareTeamWebhookSecret: process.env.GHL_CARE_TEAM_WEBHOOK_SECRET ?? "",
 };

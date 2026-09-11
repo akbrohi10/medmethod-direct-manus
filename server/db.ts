@@ -1,9 +1,11 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, gt, lt } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  CareTeamBookingCalendarEvent,
   EmailDeliveryLog,
   EmailSettings,
   EmailTemplate,
+  InsertCareTeamBookingCalendarEvent,
   InsertEmailDeliveryLog,
   InsertEmailSettings,
   InsertEmailTemplate,
@@ -15,6 +17,7 @@ import {
   PaypalSettings,
   StripeSettings,
   SuperAdminCredential,
+  careTeamBookingCalendarEvents,
   emailDeliveryLog,
   emailSettings,
   emailTemplates,
@@ -354,6 +357,49 @@ export async function getRecentEmailDeliveryLogs(limit = 50): Promise<EmailDeliv
   const db = await getDb();
   if (!db) return [];
   return db.select().from(emailDeliveryLog).orderBy(desc(emailDeliveryLog.createdAt)).limit(limit);
+}
+
+// ─── Care-Team Booking Calendar Events ──────────────────────────────────────
+
+export async function upsertCareTeamBookingCalendarEvent(
+  data: InsertCareTeamBookingCalendarEvent,
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(careTeamBookingCalendarEvents).values(data).onDuplicateKeyUpdate({
+    set: {
+      startAt: data.startAt,
+      timezone: data.timezone,
+      location: data.location ?? null,
+      expiresAt: data.expiresAt,
+      updatedAt: new Date(),
+    },
+  });
+
+  await db
+    .delete(careTeamBookingCalendarEvents)
+    .where(lt(careTeamBookingCalendarEvents.expiresAt, Date.now()));
+}
+
+export async function getCareTeamBookingCalendarEventByHash(
+  contactIdHash: string,
+): Promise<CareTeamBookingCalendarEvent | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const rows = await db
+    .select()
+    .from(careTeamBookingCalendarEvents)
+    .where(
+      and(
+        eq(careTeamBookingCalendarEvents.contactIdHash, contactIdHash),
+        gt(careTeamBookingCalendarEvents.expiresAt, Date.now()),
+      ),
+    )
+    .limit(1);
+
+  return rows[0] ?? null;
 }
 
 // ─── Super Admin Credentials ─────────────────────────────────────────────────

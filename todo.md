@@ -1712,7 +1712,7 @@
 - [x] Prepare the website-side confirmation handoff and document the exact HighLevel redirect template supplied by the user
 - [x] Preserve the physician booking, webinar registration, payment, homepage, and unrelated tracking flows
 - [x] Validate the dedicated confirmation page’s Schedule conversion event, focused/full tests, TypeScript, build, and responsive routes
-- [ ] Save and deliver the verified care-team redirect checkpoint with any necessary calendar-provider setting
+- [x] Save the care-team redirect checkpoint with the exact required calendar-provider setting; live successful-booking verification remains separately pending above
 
 ## Care-Team Dynamic Add to Calendar — 2026-09-10
 
@@ -1724,4 +1724,17 @@
 - [x] Show the calendar action only when valid dynamic booking details are present and provide a graceful fallback otherwise
 - [x] Preserve the existing booking redirect behavior, timing, confirmation content, Schedule Pixel, and dataLayer event
 - [x] Add focused regression tests and run the full 243-test suite, TypeScript, production build, route health, desktop/mobile rendering, dropdown interaction, and `.ics` download validation
-- [ ] Save and deliver the verified dynamic Add to Calendar checkpoint
+- [x] Save and prepare delivery of the verified dynamic Add to Calendar checkpoint (`3ebb9452`)
+
+## Care-Team Booking Webhook Calendar Data — 2026-09-11
+
+- [x] Define the GoHighLevel webhook URL, authenticated payload contract, and contact-ID-only confirmation redirect
+- [x] Add durable seven-day booking-calendar storage keyed by a one-way keyed contact-ID hash with no patient names, phone numbers, email addresses, or medical information
+- [x] Add authenticated, idempotent webhook ingestion for `contact_id`, `start`, `timezone`, and `location`
+- [x] Add a minimal no-store public lookup that returns appointment calendar data only for an exact contact ID and never returns the identifier itself
+- [x] Handle webhook-before-redirect and redirect-before-webhook timing safely with bounded 45-second confirmation-page retries
+- [x] Update Add to Calendar to use webhook lookup data while preserving direct query-field fallback for compatibility
+- [x] Preserve the existing GoHighLevel success redirect timing, care-team Schedule Pixel, dataLayer event, and all unrelated booking/payment/webinar flows
+- [x] Add and apply the non-destructive schema migration plus focused tests for authentication, validation, idempotency, lookup privacy, retry behavior, calendar links, and ICS output
+- [x] Run 250 tests across 52 files, TypeScript, production build, authenticated/unauthenticated endpoint smoke checks, six critical route checks, and responsive confirmation-page validation
+- [ ] Save and deliver the webhook checkpoint with exact GoHighLevel URL, authentication header, payload, redirect template, and live test steps

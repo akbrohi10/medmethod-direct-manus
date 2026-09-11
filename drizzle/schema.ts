@@ -222,3 +222,24 @@ export const emailDeliveryLog = mysqlTable("email_delivery_log", {
 
 export type EmailDeliveryLog = typeof emailDeliveryLog.$inferSelect;
 export type InsertEmailDeliveryLog = typeof emailDeliveryLog.$inferInsert;
+
+/**
+ * Short-lived calendar details for a completed care-team discovery call.
+ * The raw GoHighLevel contact ID is never stored; only a keyed SHA-256 hash is
+ * persisted so the confirmation page can perform an exact, temporary lookup.
+ */
+export const careTeamBookingCalendarEvents = mysqlTable("care_team_booking_calendar_events", {
+  id: int("id").autoincrement().primaryKey(),
+  contactIdHash: varchar("contactIdHash", { length: 64 }).notNull().unique(),
+  /** Appointment start as a UTC Unix timestamp in milliseconds. */
+  startAt: bigint("startAt", { mode: "number" }).notNull(),
+  timezone: varchar("timezone", { length: 100 }).notNull(),
+  location: text("location"),
+  /** Records are no longer returned after this UTC Unix timestamp in milliseconds. */
+  expiresAt: bigint("expiresAt", { mode: "number" }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CareTeamBookingCalendarEvent = typeof careTeamBookingCalendarEvents.$inferSelect;
+export type InsertCareTeamBookingCalendarEvent = typeof careTeamBookingCalendarEvents.$inferInsert;

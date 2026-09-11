@@ -39,6 +39,16 @@ describe("care-team Add to Calendar", () => {
 
     expect(wallClockEvent?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
     expect(wallClockEvent?.end.toISOString()).toBe("2026-09-11T15:45:00.000Z");
+
+    const abbreviatedMonthEvent = parseCareTeamCalendarEvent(
+      "?start=Sep%2011%2C%202026%2011%3A30%20AM&timezone=America%2FNew_York",
+    );
+    expect(abbreviatedMonthEvent?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
+
+    const numericEvent = parseCareTeamCalendarEvent(
+      "?start=09%2F11%2F2026%2011%3A30%20AM&timezone=America%2FNew_York",
+    );
+    expect(numericEvent?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
   });
 
   it("builds Google and Outlook links with matching event details and no contact identifier", () => {
@@ -85,6 +95,6 @@ describe("care-team Add to Calendar", () => {
     expect(calendarControlSource).toContain("Outlook / Office 365");
     expect(calendarControlSource).toContain("Apple Calendar (.ics)");
     expect(calendarControlSource).toContain("URL.createObjectURL(blob)");
-    expect(calendarControlSource).not.toContain("contact_id");
+    expect(calendarControlSource).toContain('get("contact_id")');
   });
 });

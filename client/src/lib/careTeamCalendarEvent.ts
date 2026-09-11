@@ -23,17 +23,29 @@ type DateParts = {
 
 const MONTHS: Record<string, number> = {
   january: 1,
+  jan: 1,
   february: 2,
+  feb: 2,
   march: 3,
+  mar: 3,
   april: 4,
+  apr: 4,
   may: 5,
   june: 6,
+  jun: 6,
   july: 7,
+  jul: 7,
   august: 8,
+  aug: 8,
   september: 9,
+  sep: 9,
+  sept: 9,
   october: 10,
+  oct: 10,
   november: 11,
+  nov: 11,
   december: 12,
+  dec: 12,
 };
 
 function cleanDynamicValue(value: string | null): string {
@@ -57,7 +69,7 @@ function isValidTimeZone(timeZone: string): boolean {
 
 function parseWallClockParts(value: string): DateParts | null {
   const isoLike = value.match(
-    /^(\d{4})-(\d{2})-(\d{2})[T\s](\d{1,2}):(\d{2})(?::(\d{2}))?$/,
+    /^(\d{4})-(\d{2})-(\d{2})[T\s](\d{1,2}):(\d{2})(?::(\d{2}))?(?:\.\d{1,3})?$/,
   );
   if (isoLike) {
     return {
@@ -88,6 +100,25 @@ function parseWallClockParts(value: string): DateParts | null {
     hour,
     minute: Number(namedMonth[5]),
     second: Number(namedMonth[6] ?? 0),
+  };
+}
+
+function parseNumericWallClockParts(value: string): DateParts | null {
+  const numeric = value.match(
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/i,
+  );
+  if (!numeric) return null;
+
+  let hour = Number(numeric[4]) % 12;
+  if (numeric[7].toUpperCase() === "PM") hour += 12;
+
+  return {
+    year: Number(numeric[3]),
+    month: Number(numeric[1]),
+    day: Number(numeric[2]),
+    hour,
+    minute: Number(numeric[5]),
+    second: Number(numeric[6] ?? 0),
   };
 }
 
@@ -171,15 +202,27 @@ export function parseCareTeamStart(value: string, timeZone: string): Date | null
     return Number.isNaN(parsed.getTime()) ? null : parsed;
   }
 
-  const parts = parseWallClockParts(value);
+  const parts = parseWallClockParts(value) ?? parseNumericWallClockParts(value);
   return parts ? wallClockToUtc(parts, timeZone) : null;
 }
 
 export function parseCareTeamCalendarEvent(search: string): CareTeamCalendarEvent | null {
   const params = new URLSearchParams(search);
-  const startValue = cleanDynamicValue(params.get("start"));
-  const timeZone = normalizeTimeZone(cleanDynamicValue(params.get("timezone")));
-  const location = cleanDynamicValue(params.get("location"));
+  return createCareTeamCalendarEvent({
+    start: params.get("start"),
+    timezone: params.get("timezone"),
+    location: params.get("location"),
+  });
+}
+
+export function createCareTeamCalendarEvent(input: {
+  start: string | null;
+  timezone: string | null;
+  location?: string | null;
+}): CareTeamCalendarEvent | null {
+  const startValue = cleanDynamicValue(input.start);
+  const timeZone = normalizeTimeZone(cleanDynamicValue(input.timezone));
+  const location = cleanDynamicValue(input.location ?? null);
 
   if (!startValue || !timeZone || !isValidTimeZone(timeZone)) return null;
 

@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { CalendarPlus, ChevronDown, Download, ExternalLink } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { CalendarClock, CalendarPlus, ChevronDown, Download, ExternalLink } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +12,13 @@ import {
   buildAppleCalendarIcs,
   buildGoogleCalendarUrl,
   buildOutlookCalendarUrl,
+  createCareTeamCalendarEvent,
   parseCareTeamCalendarEvent,
 } from "@/lib/careTeamCalendarEvent";
+import { trpc } from "@/lib/trpc";
 
 const APPLE_CALENDAR_FILENAME = "medmethod-care-team-discovery-call.ics";
+const BOOKING_LOOKUP_WINDOW_MS = 45_000;
 
 function downloadAppleCalendar(ics: string) {
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
@@ -30,10 +33,48 @@ function downloadAppleCalendar(ics: string) {
 }
 
 export default function CareTeamAddToCalendar() {
-  const event = useMemo(
+  const directEvent = useMemo(
     () => parseCareTeamCalendarEvent(window.location.search),
     [],
   );
+  const contactId = useMemo(() => {
+    const value = new URLSearchParams(window.location.search).get("contact_id")?.trim() ?? "";
+    return value && !value.includes("{{") && !value.includes("}}") ? value : "";
+  }, []);
+  const [pollDeadline] = useState(() => Date.now() + BOOKING_LOOKUP_WINDOW_MS);
+  const [lookupTimedOut, setLookupTimedOut] = useState(false);
+
+  useEffect(() => {
+    if (!contactId || directEvent) return;
+    const timeout = window.setTimeout(
+      () => setLookupTimedOut(true),
+      BOOKING_LOOKUP_WINDOW_MS,
+    );
+    return () => window.clearTimeout(timeout);
+  }, [contactId, directEvent]);
+
+  const bookingLookup = trpc.careTeamBooking.getCalendarEvent.useQuery(
+    { contactId },
+    {
+      enabled: Boolean(contactId) && !directEvent,
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchInterval: query =>
+        !query.state.data?.event && Date.now() < pollDeadline ? 2_000 : false,
+    },
+  );
+
+  const webhookEvent = useMemo(() => {
+    const lookup = bookingLookup.data?.event;
+    if (!lookup) return null;
+    return createCareTeamCalendarEvent({
+      start: lookup.start,
+      timezone: lookup.timezone,
+      location: lookup.location,
+    });
+  }, [bookingLookup.data]);
+
+  const event = directEvent ?? webhookEvent;
 
   const links = useMemo(() => {
     if (!event) return null;
@@ -44,7 +85,28 @@ export default function CareTeamAddToCalendar() {
     };
   }, [event]);
 
-  if (!event || !links) return null;
+  if (!event || !links) {
+    if (!contactId || directEvent) return null;
+
+    return (
+      <div
+        data-care-team-calendar-pending
+        className="mx-auto mt-7 max-w-xl rounded-2xl border border-[#ebc8d9] bg-white px-5 py-5 text-center shadow-[0_12px_28px_rgba(143,42,100,0.08)] sm:px-6"
+        role="status"
+        aria-live="polite"
+      >
+        <CalendarClock className="mx-auto h-5 w-5 text-[#d51b75]" aria-hidden="true" />
+        <p className="mt-2 text-sm font-black text-[#432943]">
+          {lookupTimedOut ? "Calendar details are still processing" : "Preparing calendar options"}
+        </p>
+        <p className="mt-1 text-sm leading-6 text-[#655461]">
+          {lookupTimedOut
+            ? "Please use the calendar links in your confirmation email or refresh this page shortly."
+            : "Your appointment details may take a few seconds to arrive."}
+        </p>
+      </div>
+    );
+  }
 
   const formattedStart = new Intl.DateTimeFormat("en-US", {
     timeZone: event.timeZone,
