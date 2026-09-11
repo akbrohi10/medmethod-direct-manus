@@ -1,0 +1,90 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  buildAppleCalendarIcs,
+  buildGoogleCalendarUrl,
+  buildOutlookCalendarUrl,
+  formatCalendarUtc,
+  parseCareTeamCalendarEvent,
+} from "../client/src/lib/careTeamCalendarEvent";
+
+const confirmationPageSource = readFileSync(
+  resolve(process.cwd(), "client/src/pages/CareTeamBookingConfirmed.tsx"),
+  "utf8",
+);
+const calendarControlSource = readFileSync(
+  resolve(process.cwd(), "client/src/components/CareTeamAddToCalendar.tsx"),
+  "utf8",
+);
+
+describe("care-team Add to Calendar", () => {
+  const event = parseCareTeamCalendarEvent(
+    "?contact_id=private-contact&start=2026-09-11T11%3A30%3A00-04%3A00&timezone=America%2FNew_York&location=https%3A%2F%2Fmeet.google.com%2Fabc-defg-hij",
+  );
+
+  it("parses the dynamic redirect fields and derives a 15-minute UTC event", () => {
+    expect(event).not.toBeNull();
+    expect(event?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
+    expect(event?.end.toISOString()).toBe("2026-09-11T15:45:00.000Z");
+    expect(event?.timeZone).toBe("America/New_York");
+    expect(event?.location).toBe("https://meet.google.com/abc-defg-hij");
+    expect(formatCalendarUtc(event!.start)).toBe("20260911T153000Z");
+  });
+
+  it("correctly converts a timezone-qualified wall-clock start across daylight saving time", () => {
+    const wallClockEvent = parseCareTeamCalendarEvent(
+      "?start=September%2011%2C%202026%2011%3A30%20AM&timezone=America%2FNew_York%20%28EDT%29&location=Online",
+    );
+
+    expect(wallClockEvent?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
+    expect(wallClockEvent?.end.toISOString()).toBe("2026-09-11T15:45:00.000Z");
+  });
+
+  it("builds Google and Outlook links with matching event details and no contact identifier", () => {
+    const google = new URL(buildGoogleCalendarUrl(event!));
+    expect(google.origin).toBe("https://calendar.google.com");
+    expect(google.searchParams.get("action")).toBe("TEMPLATE");
+    expect(google.searchParams.get("dates")).toBe("20260911T153000Z/20260911T154500Z");
+    expect(google.searchParams.get("location")).toBe("https://meet.google.com/abc-defg-hij");
+
+    const outlook = new URL(buildOutlookCalendarUrl(event!));
+    expect(outlook.origin).toBe("https://outlook.live.com");
+    expect(outlook.searchParams.get("startdt")).toBe("2026-09-11T15:30:00.000Z");
+    expect(outlook.searchParams.get("enddt")).toBe("2026-09-11T15:45:00.000Z");
+    expect(`${google}${outlook}`).not.toContain("private-contact");
+  });
+
+  it("creates a standards-based Apple calendar file with the same UTC event", () => {
+    const ics = buildAppleCalendarIcs(event!, new Date("2026-09-01T12:00:00.000Z"));
+    expect(ics).toContain("BEGIN:VCALENDAR\r\nVERSION:2.0");
+    expect(ics).toContain("BEGIN:VEVENT");
+    expect(ics).toContain("DTSTAMP:20260901T120000Z");
+    expect(ics).toContain("DTSTART:20260911T153000Z");
+    expect(ics).toContain("DTEND:20260911T154500Z");
+    expect(ics).toContain("SUMMARY:MedMethod Direct Care Team Discovery Call");
+    expect(ics).toContain("LOCATION:https://meet.google.com/abc-defg-hij");
+    expect(ics).toContain("END:VEVENT\r\nEND:VCALENDAR\r\n");
+    expect(ics).toMatch(/DESCRIPTION:.{1,73}\r\n .+/);
+    expect(ics).not.toContain("private-contact");
+  });
+
+  it("does not render calendar actions when required merge fields are missing or unresolved", () => {
+    expect(parseCareTeamCalendarEvent("?contact_id=123")).toBeNull();
+    expect(
+      parseCareTeamCalendarEvent(
+        "?start=%7B%7Bappointment.start_time%7D%7D&timezone=%7B%7Bappointment.timezone%7D%7D",
+      ),
+    ).toBeNull();
+  });
+
+  it("adds the branded dropdown without changing the confirmation tracking or redirect implementation", () => {
+    expect(confirmationPageSource).toContain("<CareTeamAddToCalendar />");
+    expect(confirmationPageSource).toContain('w.dataLayer?.push({ event: "care_team_discovery_call_booked" })');
+    expect(calendarControlSource).toContain("Google Calendar");
+    expect(calendarControlSource).toContain("Outlook / Office 365");
+    expect(calendarControlSource).toContain("Apple Calendar (.ics)");
+    expect(calendarControlSource).toContain("URL.createObjectURL(blob)");
+    expect(calendarControlSource).not.toContain("contact_id");
+  });
+});

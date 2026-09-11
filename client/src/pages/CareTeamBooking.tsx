@@ -2,12 +2,30 @@
    Care Team Booking Page — MedMethod Direct
    Simple landing page with embedded SendMeAPro booking calendar
    ============================================================================= */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import {
+  CARE_TEAM_BOOKING_CONFIRMATION_PATH,
+  CARE_TEAM_CALENDAR_ORIGIN,
+  getCareTeamConfirmationRedirectTarget,
+} from "@/lib/careTeamBookingRedirect";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 
 export default function CareTeamBooking() {
+  const calendarRef = useRef<HTMLIFrameElement>(null);
+
   useEffect(() => {
+    const handleCalendarMessage = (event: MessageEvent) => {
+      if (event.origin !== CARE_TEAM_CALENDAR_ORIGIN) return;
+      if (!calendarRef.current?.contentWindow || event.source !== calendarRef.current.contentWindow) return;
+      const confirmationTarget = getCareTeamConfirmationRedirectTarget(event.data);
+      if (!confirmationTarget) return;
+
+      window.location.assign(confirmationTarget);
+    };
+
+    window.addEventListener("message", handleCalendarMessage);
+
     // Load the form embed script
     const existing = document.querySelector('script[src="https://link.sendmeapro.com/js/form_embed.js"]');
     if (!existing) {
@@ -17,6 +35,8 @@ export default function CareTeamBooking() {
       script.async = true;
       document.body.appendChild(script);
     }
+
+    return () => window.removeEventListener("message", handleCalendarMessage);
   }, []);
 
   return (
@@ -77,6 +97,7 @@ export default function CareTeamBooking() {
         {/* Embedded Calendar */}
         <div className="w-full">
           <iframe
+            ref={calendarRef}
             src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN"
             allow="payment"
             style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "700px" }}

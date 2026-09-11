@@ -1702,3 +1702,26 @@
 - [x] Preserve the direct client-error recovery and all homepage, booking, payment, webinar, confirmation-page, and Pixel work
 - [x] Make no project-code correction because current routing and application evidence show none is necessary
 - [x] Validate 12 repeated successful responses on each public hostname, both active apex IPv4 edges, Safari and Chrome user agents, root/www redirects, a fresh live browser render, and provide exact refresh remediation
+
+## Care-Team Booking Confirmation Redirect — 2026-09-10
+
+- [x] Confirm the homepage free 15-minute call action continues to open `/care-team-booking`
+- [x] Inspect the embedded care-team calendar’s successful-booking signals and current redirect behavior
+- [x] Prepare the trusted parent URL handoff for the provider’s successful-booking redirect signal while preserving dynamic parameters
+- [ ] Redirect a verified completed booking from `/care-team-booking` to `/care-team-booking-confirmed`
+- [x] Prepare the website-side confirmation handoff and document the exact HighLevel redirect template supplied by the user
+- [x] Preserve the physician booking, webinar registration, payment, homepage, and unrelated tracking flows
+- [x] Validate the dedicated confirmation page’s Schedule conversion event, focused/full tests, TypeScript, build, and responsive routes
+- [ ] Save and deliver the verified care-team redirect checkpoint with any necessary calendar-provider setting
+
+## Care-Team Dynamic Add to Calendar — 2026-09-10
+
+- [x] Read the GoHighLevel redirect parameters `contact_id`, `start`, `timezone`, and `location` on `/care-team-booking-confirmed`
+- [x] Derive the event end time as 15 minutes after the validated booking start time
+- [x] Add a small branded Add to Calendar dropdown with Google Calendar, Outlook/Office 365, and Apple Calendar options
+- [x] Generate Google UTC dates, Outlook ISO 8601 start/end values, and a standards-compliant downloadable `.ics` event
+- [x] Keep contact ID out of calendar links/files and avoid exposing patient or medical information
+- [x] Show the calendar action only when valid dynamic booking details are present and provide a graceful fallback otherwise
+- [x] Preserve the existing booking redirect behavior, timing, confirmation content, Schedule Pixel, and dataLayer event
+- [x] Add focused regression tests and run the full 243-test suite, TypeScript, production build, route health, desktop/mobile rendering, dropdown interaction, and `.ics` download validation
+- [ ] Save and deliver the verified dynamic Add to Calendar checkpoint
