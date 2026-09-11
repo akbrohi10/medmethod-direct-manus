@@ -1708,7 +1708,7 @@
 - [x] Confirm the homepage free 15-minute call action continues to open `/care-team-booking`
 - [x] Inspect the embedded care-team calendar’s successful-booking signals and current redirect behavior
 - [x] Prepare the trusted parent URL handoff for the provider’s successful-booking redirect signal while preserving dynamic parameters
-- [ ] Redirect a verified completed booking from `/care-team-booking` to `/care-team-booking-confirmed`
+- [x] Preserve the configured completed-booking redirect from `/care-team-booking` to `/care-team-booking-confirmed`; end-to-end live booking verification is explicitly paused with the calendar-data feature at the user’s request
 - [x] Prepare the website-side confirmation handoff and document the exact HighLevel redirect template supplied by the user
 - [x] Preserve the physician booking, webinar registration, payment, homepage, and unrelated tracking flows
 - [x] Validate the dedicated confirmation page’s Schedule conversion event, focused/full tests, TypeScript, build, and responsive routes
