@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CheckCircle2, CircleHelp, Phone } from "lucide-react";
-import CareTeamAddToCalendar from "@/components/CareTeamAddToCalendar";
 
 const CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY =
   "medmethod:care-team-discovery-call-conversion-fired";
@@ -85,8 +84,6 @@ export default function CareTeamBookingConfirmed() {
             <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#655461] sm:text-base">
               Please refer to your appointment confirmation for the scheduled date, time, and call details.
             </p>
-
-            <CareTeamAddToCalendar />
 
             <div className="mx-auto mt-8 max-w-xl">
               <a

@@ -37,4 +37,10 @@ describe("care-team discovery-call confirmation", () => {
     expect(metaPixelBootstrapSource).toContain('["/care-team-booking-confirmed", "Schedule"]');
     expect(metaPixelBootstrapSource).toContain('"fbq(\'track\', \'Schedule\');"');
   });
+
+  it("keeps the paused Add to Calendar feature completely off the confirmation page", () => {
+    expect(pageSource).not.toContain("CareTeamAddToCalendar");
+    expect(pageSource).not.toContain("Preparing calendar options");
+    expect(pageSource).not.toContain("Calendar details are still processing");
+  });
 });

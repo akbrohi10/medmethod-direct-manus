@@ -123,8 +123,8 @@ describe("care-team Add to Calendar", () => {
     ).toBeNull();
   });
 
-  it("adds the branded appointment details and stacked calendar actions without changing confirmation tracking", () => {
-    expect(confirmationPageSource).toContain("<CareTeamAddToCalendar />");
+  it("keeps the paused calendar implementation detached from the confirmation page", () => {
+    expect(confirmationPageSource).not.toContain("CareTeamAddToCalendar");
     expect(confirmationPageSource).toContain('w.dataLayer?.push({ event: "care_team_discovery_call_booked" })');
     expect(calendarControlSource).toContain("data-care-team-appointment-details");
     expect(calendarControlSource).toContain("15 min");

@@ -1770,4 +1770,13 @@
 - [x] Remove both temporary raw start and timezone diagnostic echoes after the confirmed formats are covered
 - [x] Add focused format, privacy, webhook-storage, lookup, redirect, calendar-link, and ICS regression coverage, including all eight supported US timezone abbreviations
 - [x] Run 257 tests across 52 files, TypeScript, production build, six critical route checks, and desktop/mobile confirmation rendering with the confirmed GHL start and `EDT` values
-- [ ] Save and deliver the final parser checkpoint and verify one complete live booking redirect and calendar display
+- [x] Save final parser checkpoint `443e3692`; live calendar-display verification was superseded when the user paused and removed the feature before production use
+
+## Pause Care-Team Add to Calendar — 2026-09-11
+
+- [x] Restore `/care-team-booking-confirmed` to its original pre-calendar presentation with no appointment details, provider buttons, polling state, or processing messages
+- [x] Preserve `/care-team-booking` to `/care-team-booking-confirmed` redirect behavior, confirmation copy, Schedule Pixel, and dataLayer event
+- [x] Detach the paused client calendar lookup from the confirmation page so no unfinished appointment-data handling is exposed to real bookers; retain the authenticated dormant backend for a future approved resumption
+- [x] Preserve all homepage, physician booking, payment, webinar, email, and unrelated tracking behavior
+- [x] Update regression coverage and validate the original desktop/mobile confirmation page, absence of calendar messaging, 258 tests across 52 files, TypeScript, production build, six critical routes, and clean post-restoration runtime logs
+- [x] Save and prepare delivery of the targeted pre-calendar restoration checkpoint with clear publish instructions
