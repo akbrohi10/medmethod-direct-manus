@@ -6,6 +6,7 @@ import {
   buildGoogleCalendarUrl,
   buildOutlookCalendarUrl,
   formatCalendarUtc,
+  getCareTeamFixedTimeZoneOffsetMinutes,
   parseCareTeamCalendarEvent,
 } from "../client/src/lib/careTeamCalendarEvent";
 
@@ -49,6 +50,40 @@ describe("care-team Add to Calendar", () => {
       "?start=09%2F11%2F2026%2011%3A30%20AM&timezone=America%2FNew_York",
     );
     expect(numericEvent?.start.toISOString()).toBe("2026-09-11T15:30:00.000Z");
+  });
+
+  it("parses GoHighLevel weekday-prefixed starts with fixed US timezone abbreviations", () => {
+    const expectedUtcHours: Record<string, string> = {
+      EST: "15:30:00.000Z",
+      EDT: "14:30:00.000Z",
+      CST: "16:30:00.000Z",
+      CDT: "15:30:00.000Z",
+      MST: "17:30:00.000Z",
+      MDT: "16:30:00.000Z",
+      PST: "18:30:00.000Z",
+      PDT: "17:30:00.000Z",
+    };
+
+    for (const [timeZone, utcTime] of Object.entries(expectedUtcHours)) {
+      const fixedOffsetEvent = parseCareTeamCalendarEvent(
+        `?start=Monday%2C%20September%2014%2C%202026%2010%3A30%20AM&timezone=${timeZone}`,
+      );
+      expect(fixedOffsetEvent?.start.toISOString()).toBe(`2026-09-14T${utcTime}`);
+      expect(fixedOffsetEvent?.timeZone).toBe(timeZone);
+    }
+
+    expect(getCareTeamFixedTimeZoneOffsetMinutes("EDT")).toBe(-240);
+    expect(getCareTeamFixedTimeZoneOffsetMinutes("PST")).toBe(-480);
+  });
+
+  it("omits an invalid Google ctz parameter for fixed abbreviations while preserving UTC dates", () => {
+    const fixedOffsetEvent = parseCareTeamCalendarEvent(
+      "?start=Monday%2C%20September%2014%2C%202026%2010%3A30%20AM&timezone=EDT",
+    );
+    const google = new URL(buildGoogleCalendarUrl(fixedOffsetEvent!));
+
+    expect(google.searchParams.get("dates")).toBe("20260914T143000Z/20260914T144500Z");
+    expect(google.searchParams.has("ctz")).toBe(false);
   });
 
   it("builds Google and Outlook links with matching event details and no contact identifier", () => {

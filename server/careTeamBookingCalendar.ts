@@ -4,7 +4,11 @@ import {
   getCareTeamBookingCalendarEventByHash,
   upsertCareTeamBookingCalendarEvent,
 } from "./db";
-import { parseCareTeamStart } from "../client/src/lib/careTeamCalendarEvent";
+import {
+  isValidCareTeamTimeZone,
+  normalizeCareTeamTimeZone as normalizeSharedCareTeamTimeZone,
+  parseCareTeamStart,
+} from "../client/src/lib/careTeamCalendarEvent";
 
 const EVENT_RETENTION_MS = 7 * 24 * 60 * 60 * 1_000;
 
@@ -39,16 +43,11 @@ export function hashCareTeamContactId(
 }
 
 export function normalizeCareTeamTimeZone(timezone: string): string {
-  return timezone.replace(/\s+\([A-Z]{2,6}\)$/, "").trim();
+  return normalizeSharedCareTeamTimeZone(timezone);
 }
 
 export function validateCareTeamTimeZone(timezone: string): boolean {
-  try {
-    new Intl.DateTimeFormat("en-US", { timeZone: timezone }).format(new Date());
-    return true;
-  } catch {
-    return false;
-  }
+  return isValidCareTeamTimeZone(timezone);
 }
 
 export function normalizeCareTeamLocation(location: string): string {

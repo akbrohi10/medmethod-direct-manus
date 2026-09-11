@@ -231,7 +231,7 @@ describe("care-team booking calendar webhook", () => {
     expect(description.join(" ")).not.toContain("secret-contact-value");
   });
 
-  it("temporarily returns only the rejected start value for authenticated calendar-data diagnosis", async () => {
+  it("does not echo rejected calendar values after authenticated diagnosis is complete", async () => {
     const storeBooking = vi.fn(async () => {
       throw new Error("Start time is invalid");
     });
@@ -251,17 +251,7 @@ describe("care-team booking calendar webhook", () => {
     );
 
     expect(state.statusCode).toBe(400);
-    expect(state.body).toEqual({
-      ok: false,
-      error: "invalid_calendar_data",
-      diagnostic: {
-        field: "start",
-        start: sensitivePayload.start,
-        startType: "string",
-        timezone: sensitivePayload.timezone,
-        timezoneType: "string",
-      },
-    });
+    expect(state.body).toEqual({ ok: false, error: "invalid_calendar_data" });
     const responseBody = JSON.stringify(state.body);
     expect(responseBody).not.toContain(sensitivePayload.contact_id);
     expect(responseBody).not.toContain(sensitivePayload.location);

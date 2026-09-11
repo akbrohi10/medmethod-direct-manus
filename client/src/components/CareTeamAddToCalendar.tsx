@@ -14,6 +14,7 @@ import {
   buildGoogleCalendarUrl,
   buildOutlookCalendarUrl,
   createCareTeamCalendarEvent,
+  getCareTeamFixedTimeZoneOffsetMinutes,
   parseCareTeamCalendarEvent,
 } from "@/lib/careTeamCalendarEvent";
 import { trpc } from "@/lib/trpc";
@@ -146,28 +147,44 @@ export default function CareTeamAddToCalendar() {
     );
   }
 
+  const fixedOffsetMinutes = getCareTeamFixedTimeZoneOffsetMinutes(event.timeZone);
+  const displayStart =
+    fixedOffsetMinutes === null
+      ? event.start
+      : new Date(event.start.getTime() + fixedOffsetMinutes * 60_000);
+  const displayEnd =
+    fixedOffsetMinutes === null
+      ? event.end
+      : new Date(event.end.getTime() + fixedOffsetMinutes * 60_000);
+  const displayTimeZone = fixedOffsetMinutes === null ? event.timeZone : "UTC";
   const dateLabel = new Intl.DateTimeFormat("en-US", {
-    timeZone: event.timeZone,
+    timeZone: displayTimeZone,
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
-  }).format(event.start);
+  }).format(displayStart);
   const timeFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: event.timeZone,
+    timeZone: displayTimeZone,
     hour: "numeric",
     minute: "2-digit",
   });
-  const timezoneAbbreviation = new Intl.DateTimeFormat("en-US", {
-    timeZone: event.timeZone,
-    timeZoneName: "short",
-  })
-    .formatToParts(event.start)
-    .find(part => part.type === "timeZoneName")?.value;
-  const dateTimeLabel = `${timeFormatter.format(event.start)} – ${timeFormatter.format(event.end)} · ${dateLabel}`;
-  const timezoneLabel = timezoneAbbreviation
-    ? `${event.timeZone} (${timezoneAbbreviation})`
-    : event.timeZone;
+  const timezoneAbbreviation =
+    fixedOffsetMinutes === null
+      ? new Intl.DateTimeFormat("en-US", {
+          timeZone: event.timeZone,
+          timeZoneName: "short",
+        })
+          .formatToParts(event.start)
+          .find(part => part.type === "timeZoneName")?.value
+      : event.timeZone;
+  const dateTimeLabel = `${timeFormatter.format(displayStart)} – ${timeFormatter.format(displayEnd)} · ${dateLabel}`;
+  const timezoneLabel =
+    fixedOffsetMinutes !== null
+      ? event.timeZone
+      : timezoneAbbreviation
+        ? `${event.timeZone} (${timezoneAbbreviation})`
+        : event.timeZone;
   const meetingHref = /^https?:\/\//i.test(event.location) ? event.location : null;
 
   return (

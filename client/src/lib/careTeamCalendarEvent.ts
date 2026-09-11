@@ -48,17 +48,38 @@ const MONTHS: Record<string, number> = {
   dec: 12,
 };
 
+export const CARE_TEAM_FIXED_TIME_ZONE_OFFSETS_MINUTES: Readonly<Record<string, number>> = {
+  EST: -5 * 60,
+  EDT: -4 * 60,
+  CST: -6 * 60,
+  CDT: -5 * 60,
+  MST: -7 * 60,
+  MDT: -6 * 60,
+  PST: -8 * 60,
+  PDT: -7 * 60,
+};
+
 function cleanDynamicValue(value: string | null): string {
   const cleaned = value?.trim() ?? "";
   if (!cleaned || cleaned.includes("{{") || cleaned.includes("}}")) return "";
   return cleaned.slice(0, 2_000);
 }
 
-function normalizeTimeZone(value: string): string {
-  return value.replace(/\s+\([A-Z]{2,6}\)$/, "").trim();
+export function normalizeCareTeamTimeZone(value: string): string {
+  const trimmed = value.trim();
+  const abbreviation = trimmed.toUpperCase();
+  if (abbreviation in CARE_TEAM_FIXED_TIME_ZONE_OFFSETS_MINUTES) {
+    return abbreviation;
+  }
+  return trimmed.replace(/\s+\([A-Z]{2,6}\)$/, "").trim();
 }
 
-function isValidTimeZone(timeZone: string): boolean {
+export function getCareTeamFixedTimeZoneOffsetMinutes(timeZone: string): number | null {
+  return CARE_TEAM_FIXED_TIME_ZONE_OFFSETS_MINUTES[timeZone.toUpperCase()] ?? null;
+}
+
+export function isValidCareTeamTimeZone(timeZone: string): boolean {
+  if (getCareTeamFixedTimeZoneOffsetMinutes(timeZone) !== null) return true;
   try {
     new Intl.DateTimeFormat("en-US", { timeZone }).format(new Date());
     return true;
@@ -83,7 +104,7 @@ function parseWallClockParts(value: string): DateParts | null {
   }
 
   const namedMonth = value.match(
-    /^([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/i,
+    /^(?:[A-Za-z]+,\s*)?([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/i,
   );
   if (!namedMonth) return null;
 
@@ -196,6 +217,29 @@ function wallClockToUtc(parts: DateParts, timeZone: string): Date | null {
   return roundTrip && sameDateParts(roundTrip, parts) ? result : null;
 }
 
+function fixedOffsetWallClockToUtc(parts: DateParts, offsetMinutes: number): Date | null {
+  const instant = Date.UTC(
+    parts.year,
+    parts.month - 1,
+    parts.day,
+    parts.hour,
+    parts.minute,
+    parts.second,
+  ) - offsetMinutes * 60_000;
+  const result = new Date(instant);
+  const roundTrip = new Date(result.getTime() + offsetMinutes * 60_000);
+  const roundTripParts: DateParts = {
+    year: roundTrip.getUTCFullYear(),
+    month: roundTrip.getUTCMonth() + 1,
+    day: roundTrip.getUTCDate(),
+    hour: roundTrip.getUTCHours(),
+    minute: roundTrip.getUTCMinutes(),
+    second: roundTrip.getUTCSeconds(),
+  };
+
+  return sameDateParts(roundTripParts, parts) ? result : null;
+}
+
 export function parseCareTeamStart(value: string, timeZone: string): Date | null {
   if (/([zZ]|[+-]\d{2}:?\d{2})$/.test(value)) {
     const parsed = new Date(value);
@@ -203,7 +247,13 @@ export function parseCareTeamStart(value: string, timeZone: string): Date | null
   }
 
   const parts = parseWallClockParts(value) ?? parseNumericWallClockParts(value);
-  return parts ? wallClockToUtc(parts, timeZone) : null;
+  if (!parts) return null;
+
+  const normalizedTimeZone = normalizeCareTeamTimeZone(timeZone);
+  const fixedOffsetMinutes = getCareTeamFixedTimeZoneOffsetMinutes(normalizedTimeZone);
+  return fixedOffsetMinutes === null
+    ? wallClockToUtc(parts, normalizedTimeZone)
+    : fixedOffsetWallClockToUtc(parts, fixedOffsetMinutes);
 }
 
 export function parseCareTeamCalendarEvent(search: string): CareTeamCalendarEvent | null {
@@ -221,10 +271,10 @@ export function createCareTeamCalendarEvent(input: {
   location?: string | null;
 }): CareTeamCalendarEvent | null {
   const startValue = cleanDynamicValue(input.start);
-  const timeZone = normalizeTimeZone(cleanDynamicValue(input.timezone));
+  const timeZone = normalizeCareTeamTimeZone(cleanDynamicValue(input.timezone));
   const location = cleanDynamicValue(input.location ?? null);
 
-  if (!startValue || !timeZone || !isValidTimeZone(timeZone)) return null;
+  if (!startValue || !timeZone || !isValidCareTeamTimeZone(timeZone)) return null;
 
   const start = parseCareTeamStart(startValue, timeZone);
   if (!start) return null;
@@ -250,7 +300,9 @@ export function buildGoogleCalendarUrl(event: CareTeamCalendarEvent): string {
   url.searchParams.set("dates", `${formatCalendarUtc(event.start)}/${formatCalendarUtc(event.end)}`);
   url.searchParams.set("details", event.description);
   if (event.location) url.searchParams.set("location", event.location);
-  url.searchParams.set("ctz", event.timeZone);
+  if (getCareTeamFixedTimeZoneOffsetMinutes(event.timeZone) === null) {
+    url.searchParams.set("ctz", event.timeZone);
+  }
   return url.toString();
 }
 

@@ -1764,9 +1764,10 @@
 - [x] Keep contact ID, name, email, phone, location, and the remaining request body out of diagnostics and logs
 - [x] Temporarily return the rejected `timezone` string and its type in the same authenticated date-only diagnostic
 - [x] Capture the exact GoHighLevel start output as `Monday, September 14, 2026 11:15 AM`
-- [ ] Publish the temporary diagnostic and capture the exact GoHighLevel `appointment.start_time` output from one failed workflow retry
-- [ ] Extend the server/client date parser for the confirmed GoHighLevel start format with timezone-safe behavior
-- [ ] Remove the temporary raw start-string echo after the format is covered
-- [ ] Add focused format, privacy, webhook-storage, lookup, redirect, calendar-link, and ICS regression coverage
-- [ ] Run full tests, TypeScript, production build, authenticated endpoint checks, and critical route validation
+- [x] Publish the temporary diagnostic and capture GoHighLevel outputs: weekday-prefixed start strings such as `Monday, September 14, 2026 10:30 AM` and timezone abbreviations such as `EDT`
+- [x] Add deterministic fixed-offset support for `EST` (-05:00), `EDT` (-04:00), `CST` (-06:00), `CDT` (-05:00), `MST` (-07:00), `MDT` (-06:00), `PST` (-08:00), and `PDT` (-07:00)
+- [x] Extend the shared server/client date parser for the confirmed weekday-prefixed GoHighLevel start format while retaining existing ISO, named-month, abbreviated-month, numeric, and IANA-zone support
+- [x] Remove both temporary raw start and timezone diagnostic echoes after the confirmed formats are covered
+- [x] Add focused format, privacy, webhook-storage, lookup, redirect, calendar-link, and ICS regression coverage, including all eight supported US timezone abbreviations
+- [x] Run 257 tests across 52 files, TypeScript, production build, six critical route checks, and desktop/mobile confirmation rendering with the confirmed GHL start and `EDT` values
 - [ ] Save and deliver the final parser checkpoint and verify one complete live booking redirect and calendar display
