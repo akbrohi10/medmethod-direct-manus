@@ -1756,4 +1756,15 @@
 - [x] Keep unknown standard GoHighLevel contact fields ignored and prevent names, phone numbers, email addresses, or other values from logs and responses
 - [x] Add focused tests for flat, nested object, nested array, standard envelopes, malformed, unauthorized, sanitized-diagnostic, privacy, and idempotent storage behavior
 - [x] Run 254 tests across 52 files, TypeScript, production build, authenticated sanitized-diagnostic endpoint checks, and six critical route health validations
-- [ ] Save and deliver the compatibility checkpoint, then inspect one authenticated GoHighLevel retry to confirm the live payload path
+- [x] Save and deliver compatibility checkpoint `a8c4f1e1`; confirm the published live GoHighLevel retry returned HTTP 200 `{"ok":true}` and production logged successful calendar-detail storage without contact data
+
+## GoHighLevel Appointment Start-Time Compatibility — 2026-09-11
+
+- [x] Add a temporary authenticated `invalid_calendar_data` diagnostic that returns only the rejected `start` string and its type
+- [x] Keep contact ID, name, email, phone, location, and the remaining request body out of diagnostics and logs
+- [ ] Publish the temporary diagnostic and capture the exact GoHighLevel `appointment.start_time` output from one failed workflow retry
+- [ ] Extend the server/client date parser for the confirmed GoHighLevel start format with timezone-safe behavior
+- [ ] Remove the temporary raw start-string echo after the format is covered
+- [ ] Add focused format, privacy, webhook-storage, lookup, redirect, calendar-link, and ICS regression coverage
+- [ ] Run full tests, TypeScript, production build, authenticated endpoint checks, and critical route validation
+- [ ] Save and deliver the final parser checkpoint and verify one complete live booking redirect and calendar display

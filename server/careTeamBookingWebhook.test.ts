@@ -231,6 +231,43 @@ describe("care-team booking calendar webhook", () => {
     expect(description.join(" ")).not.toContain("secret-contact-value");
   });
 
+  it("temporarily returns only the rejected start value for authenticated calendar-data diagnosis", async () => {
+    const storeBooking = vi.fn(async () => {
+      throw new Error("Start time is invalid");
+    });
+    const handler = createCareTeamBookingWebhookHandler(storeBooking, TEST_SECRET);
+    const { response, state } = createResponse();
+    const sensitivePayload = {
+      ...validPayload,
+      start: "GHL human-readable start value",
+      email: "private@example.com",
+      phone: "+17035550123",
+      name: "Private Person",
+    };
+
+    await handler(
+      createRequest(sensitivePayload, { authorization: `Bearer ${TEST_SECRET}` }),
+      response,
+    );
+
+    expect(state.statusCode).toBe(400);
+    expect(state.body).toEqual({
+      ok: false,
+      error: "invalid_calendar_data",
+      diagnostic: {
+        field: "start",
+        start: sensitivePayload.start,
+        startType: "string",
+      },
+    });
+    const responseBody = JSON.stringify(state.body);
+    expect(responseBody).not.toContain(sensitivePayload.contact_id);
+    expect(responseBody).not.toContain(sensitivePayload.location);
+    expect(responseBody).not.toContain(sensitivePayload.email);
+    expect(responseBody).not.toContain(sensitivePayload.phone);
+    expect(responseBody).not.toContain(sensitivePayload.name);
+  });
+
   it("hashes contact IDs deterministically without persisting the raw identifier", () => {
     const hash = hashCareTeamContactId(validPayload.contact_id, "hashing-secret");
     expect(hash).toHaveLength(64);

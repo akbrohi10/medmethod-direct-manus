@@ -196,7 +196,19 @@ export function createCareTeamBookingWebhookHandler(
     } catch (error) {
       const message = error instanceof Error ? error.message : "unknown_error";
       if (/required|invalid/i.test(message)) {
-        res.status(400).json({ ok: false, error: "invalid_calendar_data" });
+        res.status(400).json({
+          ok: false,
+          error: "invalid_calendar_data",
+          diagnostic: {
+            field: /timezone/i.test(message)
+              ? "timezone"
+              : /start/i.test(message)
+                ? "start"
+                : "calendar_data",
+            start: parsed.data.start,
+            startType: typeof parsed.data.start,
+          },
+        });
         return;
       }
 
