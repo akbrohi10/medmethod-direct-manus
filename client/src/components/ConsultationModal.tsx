@@ -540,6 +540,7 @@ export default function ConsultationModal({ open, onClose, preselectedService }:
               >
                 Not Today
               </button>
+
             </div>
           </div>
         )}

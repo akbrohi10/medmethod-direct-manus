@@ -5,7 +5,7 @@
    Deposit: $50 now, $149 due day of appointment.
    ============================================================================= */
 import React, { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } from "react";
-import { X, Check, ChevronDown } from "lucide-react";
+import { X, Check, ChevronDown, Phone } from "lucide-react";
 import { toast } from "sonner";
 import PayPalPaymentForm from "./PayPalPaymentForm";
 import StripePaymentForm from "./StripePaymentForm";
@@ -917,31 +917,67 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
         {/* Exit-intent confirmation overlay */}
         {showExitConfirm && (
           <div
-            className="absolute inset-0 z-20 flex flex-col items-center justify-center px-8 text-center"
+            className="absolute inset-0 z-20 overflow-y-auto px-6 text-center sm:px-8"
             style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(4px)" }}
           >
-            <h3
-              className="text-xl font-bold text-gray-900 mb-2"
-              style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-            >
-              Are you sure you want to leave?
-            </h3>
-            <p className="text-sm text-gray-500 mb-6 max-w-xs">
-              Your progress won't be saved. You can always come back later.
-            </p>
-            <button
-              onClick={() => setShowExitConfirm(false)}
-              className="w-full max-w-xs py-3.5 rounded-xl text-white font-semibold text-sm mb-3"
-              style={{ background: BRAND_GRADIENT }}
-            >
-              Continue Where I Left Off
-            </button>
-            <button
-              onClick={handleClose}
-              className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              Not Today
-            </button>
+            <div className="mx-auto flex min-h-full w-full max-w-xs flex-col items-center justify-center py-5">
+              <h3
+                className="text-xl font-bold text-gray-900 mb-2"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                Are you sure you want to leave?
+              </h3>
+              <p className="text-sm text-gray-500 mb-6 max-w-xs">
+                Your progress won't be saved. You can always come back later.
+              </p>
+              <button
+                onClick={() => setShowExitConfirm(false)}
+                className="w-full max-w-xs py-3.5 rounded-xl text-white font-semibold text-sm mb-3"
+                style={{ background: BRAND_GRADIENT }}
+              >
+                Continue Where I Left Off
+              </button>
+              <button
+                onClick={handleClose}
+                className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                Not Today
+              </button>
+
+              {landingPage === "/" && (
+                <div
+                  data-exit-care-team-fallback
+                  className="mt-5 w-full border-t border-[#ead5df] pt-4"
+                >
+                  <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#5c4755]">
+                    Need More Info?
+                  </p>
+                  <a
+                    href="/care-team-booking"
+                    onClick={handleClose}
+                    className="mt-3 flex min-h-14 w-full flex-col items-center justify-center rounded-full border-2 border-[#b72f74] bg-white px-5 py-2.5 text-[#7a1e7e] shadow-[0_8px_18px_rgba(122,30,126,0.08)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#fff8fb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-3 active:scale-[0.98]"
+                  >
+                    <span className="text-[12px] font-black uppercase tracking-[0.045em]">
+                      Book a Free 15-Minute Call
+                    </span>
+                    <span className="mt-0.5 text-xs font-medium text-[#5c4755]">
+                      with our Care Team
+                    </span>
+                  </a>
+                  <p className="mx-auto mt-2.5 max-w-[18rem] text-[11px] leading-4 text-[#756771]">
+                    Ask about the program and whether it may be a good fit. General information only—not medical advice.
+                  </p>
+                  <a
+                    href="tel:+18883627011"
+                    data-exit-call-now
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#7a1e7e] underline decoration-[#d9a2bd] underline-offset-4 transition hover:text-[#d51b75] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-2"
+                  >
+                    <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+                    Prefer to talk now? Call (888) 362-7011
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         )}
 

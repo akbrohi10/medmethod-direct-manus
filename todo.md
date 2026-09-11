@@ -1780,3 +1780,15 @@
 - [x] Preserve all homepage, physician booking, payment, webinar, email, and unrelated tracking behavior
 - [x] Update regression coverage and validate the original desktop/mobile confirmation page, absence of calendar messaging, 258 tests across 52 files, TypeScript, production build, six critical routes, and clean post-restoration runtime logs
 - [x] Save and prepare delivery of the targeted pre-calendar restoration checkpoint with clear publish instructions
+
+## Paid-Booking Exit Care-Team Fallback — 2026-09-11
+
+- [x] Inspect the active homepage 45-minute payment modal’s exit confirmation and existing care-team CTA design
+- [x] Add a compact `NEED MORE INFO?` section below the existing exit choices on the homepage flow only
+- [x] Add `BOOK A FREE 15-MINUTE CALL` with `with our Care Team` and the general-information-only supporting copy
+- [x] Add a secondary text link, `Prefer to talk now? Call (888) 362-7011`, beneath the booking CTA without introducing another large competing button
+- [x] Navigate the fallback CTA directly to `/care-team-booking` while preserving Continue Where I Left Off and Not Today behavior
+- [x] Make the phone option a direct `tel:+18883627011` link and keep the three engagement paths visually distinct and uncluttered
+- [x] Preserve the paid booking, payment, referral, email, webinar, Pixel, landing-page modal, and unrelated homepage flows
+- [x] Add regression coverage and validate the active modal visually, direct care-team navigation, 261 tests across 53 files, TypeScript, production build, six critical routes, and current runtime logs
+- [x] Save and prepare delivery of the verified exit-modal fallback checkpoint with clear publish instructions
