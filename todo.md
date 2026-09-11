@@ -1792,3 +1792,14 @@
 - [x] Preserve the paid booking, payment, referral, email, webinar, Pixel, landing-page modal, and unrelated homepage flows
 - [x] Add regression coverage and validate the active modal visually, direct care-team navigation, 261 tests across 53 files, TypeScript, production build, six critical routes, and current runtime logs
 - [x] Save and prepare delivery of the verified exit-modal fallback checkpoint with clear publish instructions
+
+## Mobile Intake Modal Visibility & Notification Overlap — 2026-09-11
+
+- [x] Inspect the active homepage intake modal and social-proof notification positioning at mobile Safari dimensions
+- [x] Move the homepage intake modal into an upper-centered mobile position while retaining readable form content
+- [x] Reserve protected bottom space so the purple Next button remains visible above mobile browser chrome
+- [x] Ensure social-proof notifications cannot cover the active intake-form action area
+- [x] Add an unobtrusive dismiss control for the social-proof notification as a secondary fallback
+- [x] Preserve the intake questions, step progress, payment, exit fallback, care-team booking, and desktop behavior
+- [x] Add regression coverage and validate mobile/desktop modal layout, booking flow, 264 tests across 54 files, TypeScript, build, six critical routes, and clean post-repair runtime logs
+- [x] Save and prepare delivery of the verified mobile intake usability checkpoint with publish instructions

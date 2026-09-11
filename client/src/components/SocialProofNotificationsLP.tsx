@@ -7,6 +7,7 @@
    ============================================================================= */
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { X } from "lucide-react";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 const CONFIG = {
@@ -243,10 +244,20 @@ export default function SocialProofNotificationsLP() {
     };
   }, [showNotification]);
 
+  const handleDismiss = () => {
+    setVisible(false);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      showNotification();
+    }, CONFIG.dismissCooldown);
+  };
+
   if (stopped) return null;
 
   return (
     <div
+      data-social-proof-notification
       className={`fixed z-[9999] pointer-events-none`}
       style={{
         bottom: isMobile() ? "16px" : "24px",
@@ -267,7 +278,7 @@ export default function SocialProofNotificationsLP() {
         }`}
       >
         <div
-          className="flex items-stretch rounded-xl overflow-hidden"
+          className="relative flex items-stretch rounded-xl overflow-hidden"
           style={{
             background: "rgba(255, 255, 255, 0.97)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(232,51,158,0.08)",
@@ -303,6 +314,15 @@ export default function SocialProofNotificationsLP() {
               MedMethod Direct
             </p>
           </div>
+          <button
+            type="button"
+            onClick={handleDismiss}
+            className="mr-2 self-center rounded-full p-1 text-gray-400 transition hover:bg-pink-50 hover:text-[#7A1E7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8339E]"
+            aria-label="Dismiss notification"
+            title="Dismiss notification"
+          >
+            <X size={15} aria-hidden="true" />
+          </button>
         </div>
       </div>
     </div>

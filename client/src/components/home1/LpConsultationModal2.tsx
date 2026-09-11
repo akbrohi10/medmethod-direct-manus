@@ -644,6 +644,16 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
     }
   }, [open]);
 
+  useEffect(() => {
+    if (!open || landingPage !== "/") return;
+
+    document.body.dataset.mmIntakeModalOpen = "true";
+
+    return () => {
+      delete document.body.dataset.mmIntakeModalOpen;
+    };
+  }, [landingPage, open]);
+
   const computedAge = useMemo(() => {
     const dob = new Date(parseInt(years[yearIdx]), monthIdx, parseInt(days[dayIdx]));
     const today = new Date();
@@ -883,16 +893,15 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center px-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-0 sm:pb-0 sm:pt-0"
       style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(3px)" }}
       onClick={(e) => e.target === e.currentTarget && handleAttemptClose()}
     >
       <div
-        className="relative w-full bg-white flex flex-col overflow-hidden sm:rounded-[20px]"
+        className="relative w-full -translate-y-[2svh] bg-white flex flex-col overflow-hidden rounded-[20px] sm:translate-y-0"
         style={{
           maxWidth: isCalendarStep ? 860 : 480,
-          maxHeight: "95vh",
-          borderRadius: "20px 20px 0 0",
+          maxHeight: "min(86dvh, 720px)",
           transition: "max-width 0.4s ease",
         }}
       >
@@ -1302,7 +1311,13 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
 
         {/* Bottom sticky button — only for non-payment, non-calendar steps */}
         {!isCalendarStep && !isPaymentStep && (
-          <div className="flex-shrink-0 px-6 pt-3 bg-white border-t border-gray-50" style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom, 2rem))" }}>
+          <div
+            className="flex-shrink-0 px-6 pt-3 bg-white border-t border-gray-50"
+            style={{
+              paddingBottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))",
+              boxShadow: "0 -8px 20px rgba(17, 24, 39, 0.04)",
+            }}
+          >
             <button
               onClick={handleNext}
               disabled={isNextDisabled}

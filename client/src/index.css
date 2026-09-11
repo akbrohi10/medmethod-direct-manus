@@ -339,3 +339,11 @@
 .animate-fade-in-down {
   animation: fadeInDown 0.6s ease-out both !important;
 }
+
+/* The homepage intake modal has a protected action area on mobile. Social proof
+   resumes when the modal closes, but never blocks form controls while it is open. */
+@media (max-width: 767px) {
+  body[data-mm-intake-modal-open="true"] [data-social-proof-notification] {
+    display: none !important;
+  }
+}
