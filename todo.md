@@ -1746,4 +1746,14 @@
 - [x] Preserve Google and Outlook external calendar creation plus the existing standards-compliant Apple `.ics` download behavior
 - [x] Keep the webhook pending/timeout state, contact-ID lookup, direct-query fallback, redirect timing, Schedule Pixel, dataLayer event, and all other confirmation-page content unchanged
 - [x] Add focused layout/content regression coverage and validate calendar values, links, download, accessibility, TypeScript, 250 tests across 52 files, production build, six critical routes, and desktop/mobile rendering
-- [ ] Save and deliver the refined care-team calendar-layout checkpoint while retaining the pending real-booking verification
+- [x] Save and prepare delivery of refined care-team calendar-layout checkpoint `04ef42c0` while retaining the pending real-booking verification
+
+## GoHighLevel Webhook Envelope Compatibility — 2026-09-11
+
+- [x] Inspect the current invalid-payload path and production request evidence without recording or exposing raw contact data
+- [x] Add an authenticated sanitized diagnostic that reports only JSON field paths and value types for invalid payloads
+- [x] Accept `contact_id`, `start`, `timezone`, and `location` from GoHighLevel `customData` objects, key-value arrays, `data` wrappers, and standard contact/appointment envelopes while retaining flat top-level compatibility
+- [x] Keep unknown standard GoHighLevel contact fields ignored and prevent names, phone numbers, email addresses, or other values from logs and responses
+- [x] Add focused tests for flat, nested object, nested array, standard envelopes, malformed, unauthorized, sanitized-diagnostic, privacy, and idempotent storage behavior
+- [x] Run 254 tests across 52 files, TypeScript, production build, authenticated sanitized-diagnostic endpoint checks, and six critical route health validations
+- [ ] Save and deliver the compatibility checkpoint, then inspect one authenticated GoHighLevel retry to confirm the live payload path

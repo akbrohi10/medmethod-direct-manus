@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import {
   createCareTeamBookingWebhookHandler,
+  describeJsonShape,
+  extractCareTeamBookingPayload,
   isCareTeamWebhookAuthorized,
 } from "./careTeamBookingWebhook";
 import { hashCareTeamContactId } from "./careTeamBookingCalendar";
@@ -100,6 +102,83 @@ describe("care-team booking calendar webhook", () => {
     expect(storeBooking).toHaveBeenCalledOnce();
   });
 
+  it("accepts GoHighLevel fields nested inside a customData object", async () => {
+    const storeBooking = vi.fn(async () => ({
+      start: "2026-09-11T15:30:00.000Z",
+      timezone: "America/New_York",
+      location: validPayload.location,
+    }));
+    const handler = createCareTeamBookingWebhookHandler(storeBooking, TEST_SECRET);
+    const { response, state } = createResponse();
+
+    await handler(
+      createRequest(
+        {
+          type: "AppointmentStatus",
+          email: "private@example.com",
+          phone: "+17035550123",
+          customData: validPayload,
+        },
+        { authorization: `Bearer ${TEST_SECRET}` },
+      ),
+      response,
+    );
+
+    expect(state.statusCode).toBe(200);
+    expect(state.body).toEqual({ ok: true });
+    expect(storeBooking).toHaveBeenCalledWith({
+      contactId: validPayload.contact_id,
+      start: validPayload.start,
+      timezone: validPayload.timezone,
+      location: validPayload.location,
+    });
+    expect(JSON.stringify(state.body)).not.toContain("private@example.com");
+    expect(JSON.stringify(state.body)).not.toContain("+17035550123");
+  });
+
+  it("accepts GoHighLevel customData key-value arrays and data wrappers", async () => {
+    const storeBooking = vi.fn(async () => ({
+      start: "2026-09-11T15:30:00.000Z",
+      timezone: "America/New_York",
+      location: validPayload.location,
+    }));
+    const handler = createCareTeamBookingWebhookHandler(storeBooking, TEST_SECRET);
+    const { response, state } = createResponse();
+    const customData = Object.entries(validPayload).map(([key, value]) => ({
+      key,
+      fieldValue: value,
+    }));
+
+    await handler(
+      createRequest(
+        { data: { customData } },
+        { authorization: `Bearer ${TEST_SECRET}` },
+      ),
+      response,
+    );
+
+    expect(state.statusCode).toBe(200);
+    expect(storeBooking).toHaveBeenCalledWith({
+      contactId: validPayload.contact_id,
+      start: validPayload.start,
+      timezone: validPayload.timezone,
+      location: validPayload.location,
+    });
+  });
+
+  it("extracts standard contact and appointment envelopes without storing unrelated fields", () => {
+    expect(
+      extractCareTeamBookingPayload({
+        contact: { id: validPayload.contact_id, email: "private@example.com" },
+        appointment: {
+          startTime: validPayload.start,
+          timeZone: validPayload.timezone,
+          meetingLocation: validPayload.location,
+        },
+      }),
+    ).toEqual(validPayload);
+  });
+
   it("rejects unauthorized and invalid payloads before storage", async () => {
     const storeBooking = vi.fn();
     const handler = createCareTeamBookingWebhookHandler(storeBooking, TEST_SECRET);
@@ -111,13 +190,45 @@ describe("care-team booking calendar webhook", () => {
     const invalid = createResponse();
     await handler(
       createRequest(
-        { contact_id: "contact_abc123", start: "", timezone: "" },
+        {
+          contact_id: "contact_abc123",
+          start: "",
+          timezone: "",
+          email: "private@example.com",
+        },
         { authorization: `Bearer ${TEST_SECRET}` },
       ),
       invalid.response,
     );
     expect(invalid.state.statusCode).toBe(400);
+    expect(invalid.state.body).toMatchObject({
+      ok: false,
+      error: "invalid_payload",
+      diagnostic: {
+        invalidFields: expect.arrayContaining(["start", "timezone"]),
+        paths: expect.arrayContaining([
+          "body:object",
+          "body.contact_id:string",
+          "body.start:string",
+          "body.timezone:string",
+          "body.email:string",
+        ]),
+      },
+    });
+    expect(JSON.stringify(invalid.state.body)).not.toContain("private@example.com");
     expect(storeBooking).not.toHaveBeenCalled();
+  });
+
+  it("describes only JSON paths and types, never incoming values", () => {
+    const description = describeJsonShape({
+      contact: { email: "private@example.com" },
+      customData: [{ key: "contact_id", value: "secret-contact-value" }],
+    });
+    expect(description).toContain("body.contact.email:string");
+    expect(description).toContain("body.customData:array");
+    expect(description).toContain("body.customData[0].value:string");
+    expect(description.join(" ")).not.toContain("private@example.com");
+    expect(description.join(" ")).not.toContain("secret-contact-value");
   });
 
   it("hashes contact IDs deterministically without persisting the raw identifier", () => {

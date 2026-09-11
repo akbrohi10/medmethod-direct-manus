@@ -42,9 +42,13 @@ describe("configured care-team webhook secret", () => {
     });
 
     expect(response.status).toBe(400);
-    await expect(response.json()).resolves.toEqual({
+    await expect(response.json()).resolves.toMatchObject({
       ok: false,
       error: "invalid_payload",
+      diagnostic: {
+        invalidFields: ["contact_id", "start", "timezone"],
+        paths: ["body:object"],
+      },
     });
   });
 });
