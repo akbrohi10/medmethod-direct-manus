@@ -258,6 +258,8 @@ describe("care-team booking calendar webhook", () => {
         field: "start",
         start: sensitivePayload.start,
         startType: "string",
+        timezone: sensitivePayload.timezone,
+        timezoneType: "string",
       },
     });
     const responseBody = JSON.stringify(state.body);

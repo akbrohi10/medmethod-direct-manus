@@ -207,6 +207,8 @@ export function createCareTeamBookingWebhookHandler(
                 : "calendar_data",
             start: parsed.data.start,
             startType: typeof parsed.data.start,
+            timezone: parsed.data.timezone,
+            timezoneType: typeof parsed.data.timezone,
           },
         });
         return;

@@ -1762,6 +1762,8 @@
 
 - [x] Add a temporary authenticated `invalid_calendar_data` diagnostic that returns only the rejected `start` string and its type
 - [x] Keep contact ID, name, email, phone, location, and the remaining request body out of diagnostics and logs
+- [x] Temporarily return the rejected `timezone` string and its type in the same authenticated date-only diagnostic
+- [x] Capture the exact GoHighLevel start output as `Monday, September 14, 2026 11:15 AM`
 - [ ] Publish the temporary diagnostic and capture the exact GoHighLevel `appointment.start_time` output from one failed workflow retry
 - [ ] Extend the server/client date parser for the confirmed GoHighLevel start format with timezone-safe behavior
 - [ ] Remove the temporary raw start-string echo after the format is covered
