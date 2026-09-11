@@ -1737,4 +1737,13 @@
 - [x] Preserve the existing GoHighLevel success redirect timing, care-team Schedule Pixel, dataLayer event, and all unrelated booking/payment/webinar flows
 - [x] Add and apply the non-destructive schema migration plus focused tests for authentication, validation, idempotency, lookup privacy, retry behavior, calendar links, and ICS output
 - [x] Run 250 tests across 52 files, TypeScript, production build, authenticated/unauthenticated endpoint smoke checks, six critical route checks, and responsive confirmation-page validation
-- [ ] Save and deliver the webhook checkpoint with exact GoHighLevel URL, authentication header, payload, redirect template, and live test steps
+- [x] Save and prepare delivery of webhook checkpoint `73211484` with exact GoHighLevel URL, authentication header, payload, redirect template, and live test steps
+
+## Care-Team Confirmation Native Calendar Layout — 2026-09-11
+
+- [x] Replace the compact calendar dropdown with a branded details block showing `15 min`, the full start/end range and date, meeting link, and timezone from resolved webhook data
+- [x] Add three stacked full-width actions labeled Google Calendar, Outlook Calendar, and iCloud Calendar with clear calendar/provider icons
+- [x] Preserve Google and Outlook external calendar creation plus the existing standards-compliant Apple `.ics` download behavior
+- [x] Keep the webhook pending/timeout state, contact-ID lookup, direct-query fallback, redirect timing, Schedule Pixel, dataLayer event, and all other confirmation-page content unchanged
+- [x] Add focused layout/content regression coverage and validate calendar values, links, download, accessibility, TypeScript, 250 tests across 52 files, production build, six critical routes, and desktop/mobile rendering
+- [ ] Save and deliver the refined care-team calendar-layout checkpoint while retaining the pending real-booking verification

@@ -88,13 +88,21 @@ describe("care-team Add to Calendar", () => {
     ).toBeNull();
   });
 
-  it("adds the branded dropdown without changing the confirmation tracking or redirect implementation", () => {
+  it("adds the branded appointment details and stacked calendar actions without changing confirmation tracking", () => {
     expect(confirmationPageSource).toContain("<CareTeamAddToCalendar />");
     expect(confirmationPageSource).toContain('w.dataLayer?.push({ event: "care_team_discovery_call_booked" })');
+    expect(calendarControlSource).toContain("data-care-team-appointment-details");
+    expect(calendarControlSource).toContain("15 min");
+    expect(calendarControlSource).toContain("dateTimeLabel");
+    expect(calendarControlSource).toContain("timezoneLabel");
+    expect(calendarControlSource).toContain("meetingHref");
+    expect(calendarControlSource).toContain("data-care-team-calendar-actions");
+    expect(calendarControlSource).toContain("space-y-3");
     expect(calendarControlSource).toContain("Google Calendar");
-    expect(calendarControlSource).toContain("Outlook / Office 365");
-    expect(calendarControlSource).toContain("Apple Calendar (.ics)");
+    expect(calendarControlSource).toContain("Outlook Calendar");
+    expect(calendarControlSource).toContain("iCloud Calendar");
     expect(calendarControlSource).toContain("URL.createObjectURL(blob)");
     expect(calendarControlSource).toContain('get("contact_id")');
+    expect(calendarControlSource).not.toContain("DropdownMenu");
   });
 });
