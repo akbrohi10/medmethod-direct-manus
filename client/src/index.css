@@ -242,8 +242,11 @@
   .webinar2-logo-marquee__track {
     display: flex;
     width: max-content;
-    animation: webinar2-logo-marquee 24s linear infinite;
     will-change: transform;
+  }
+
+  .webinar2-logo-marquee__track.is-ready {
+    animation: webinar2-logo-marquee 24s linear infinite;
   }
 
   .webinar2-logo-marquee:hover .webinar2-logo-marquee__track,

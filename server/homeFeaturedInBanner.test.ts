@@ -28,6 +28,11 @@ describe("homepage Featured In banner", () => {
     expect(source).toContain('aria-hidden="true"');
     expect(source).toContain("webinar2-logo-marquee__track");
     expect(source).toContain("webinar2-logo-marquee__duplicate");
+    expect(source).toContain('loading="eager"');
+    expect(source).toContain("onLoad={handleAssetSettled}");
+    expect(source).toContain("onError={handleAssetSettled}");
+    expect(source).toContain("aria-busy={!isReady}");
+    expect(source).toContain('isReady ? "is-ready" : ""');
   });
 
   it("places the banner immediately after the doctor image and before the booking choices at every responsive layout", () => {

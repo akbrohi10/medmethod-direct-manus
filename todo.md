@@ -1821,3 +1821,10 @@
 - [x] Preserve mobile CTA visibility, notification safety, booking modal, payment, referral, and care-team flows
 - [x] Add regression coverage and validate desktop/mobile hierarchy, marquee motion, 268 tests across 55 files, TypeScript, production build, and homepage route
 - [x] Save and prepare delivery of the verified homepage Featured In banner with publish instructions
+
+## Homepage Featured In Marquee Continuity Repair — 2026-09-13
+
+- [x] Reproduce and identify the initial logo pop or jump when the homepage Featured In rotation first loads
+- [x] Correct image readiness or marquee track geometry without changing the banner’s design, logos, or accessibility
+- [x] Validate first-cycle and sustained-loop continuity on desktop and mobile, 268 tests across 55 files, TypeScript, production build, homepage route, and clean current runtime logs
+- [x] Save and prepare delivery of the verified marquee continuity repair with publish instructions

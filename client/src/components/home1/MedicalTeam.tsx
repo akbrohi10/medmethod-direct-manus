@@ -108,10 +108,18 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
 const DEFAULT_EXPANDED = new Set(["Practice Focus", "Philosophy"]);
 
 function FeaturedInMarquee({ placement }: { placement: "desktop" | "mobile" }) {
+  const [pendingAssets, setPendingAssets] = useState(FEATURED_OUTLETS.length);
+  const isReady = pendingAssets === 0;
+
+  const handleAssetSettled = () => {
+    setPendingAssets((count) => Math.max(0, count - 1));
+  };
+
   return (
     <section
       data-home-featured-in={placement}
       aria-labelledby={`home-featured-in-${placement}-heading`}
+      aria-busy={!isReady}
       className="overflow-hidden bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-4 py-3 text-white"
     >
       <div className="flex items-center justify-center gap-2.5">
@@ -134,7 +142,7 @@ function FeaturedInMarquee({ placement }: { placement: "desktop" | "mobile" }) {
           maskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
         }}
       >
-        <div className="webinar2-logo-marquee__track">
+        <div className={`webinar2-logo-marquee__track ${isReady ? "is-ready" : ""}`}>
           <div className="flex shrink-0 items-center gap-6 pr-6">
             {FEATURED_OUTLETS.map((outlet) => (
               <div key={`${placement}-${outlet.name}-primary`} className="flex h-7 w-24 shrink-0 items-center justify-center">
@@ -142,8 +150,10 @@ function FeaturedInMarquee({ placement }: { placement: "desktop" | "mobile" }) {
                   src={outlet.logo}
                   alt={`${outlet.name} logo`}
                   className="max-h-full max-w-full object-contain opacity-95"
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
+                  onLoad={handleAssetSettled}
+                  onError={handleAssetSettled}
                 />
               </div>
             ))}
@@ -155,7 +165,7 @@ function FeaturedInMarquee({ placement }: { placement: "desktop" | "mobile" }) {
                   src={outlet.logo}
                   alt=""
                   className="max-h-full max-w-full object-contain opacity-95"
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                 />
               </div>
