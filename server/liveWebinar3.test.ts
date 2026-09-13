@@ -66,7 +66,7 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).not.toBe(liveWebinar2Source);
   });
 
-  it("uses a visible muted-autoplay overlay that restarts the webinar from the beginning with sound", () => {
+  it("uses the visible muted-autoplay overlay that restarts the webinar from the beginning with sound", () => {
     expect(liveWebinar3Source).toContain("data-webinar3-unmute-overlay");
     expect(liveWebinar3Source).toContain('aria-label="Restart video from the beginning with sound"');
     expect(liveWebinar3Source).toContain("Your video is playing");
@@ -76,5 +76,13 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("video.currentTime = 0");
     expect(liveWebinar3Source).toContain("await video.play();");
     expect(liveWebinar3Source).toContain("data-webinar3-caption-bar");
+  });
+
+  it("keeps the Featured In rotation synchronized with webinar 2, including the two added publication logos", () => {
+    for (const outlet of ["This Is Menopause", "Woman’s World"]) {
+      expect(liveWebinar3Source).toContain(`name: "${outlet}"`);
+    }
+    expect(liveWebinar3Source).toContain('/manus-storage/this-is-menopause-white_a9dd5679.png');
+    expect(liveWebinar3Source).toContain('/manus-storage/womans-world-white_ef5f9e69.png');
   });
 });

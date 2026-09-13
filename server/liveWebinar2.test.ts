@@ -158,7 +158,7 @@ describe("live webinar 2 second revision prompt", () => {
     }
   });
 
-  it("places one accessible sliding Featured In row below the hero using only the six approved logos", () => {
+  it("places one accessible sliding Featured In row below the hero using the eight approved logos", () => {
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeGreaterThan(pageSource.indexOf("data-webinar2-video-shell"));
     expect(pageSource.indexOf("data-webinar2-featured-in")).toBeLessThan(pageSource.indexOf("data-webinar2-learning"));
     expect(featuredInBlock).toContain("Featured In");
@@ -176,9 +176,20 @@ describe("live webinar 2 second revision prompt", () => {
     expect(globalStyles).toContain("@media (prefers-reduced-motion: reduce)");
     expect(globalStyles).toContain(".webinar2-logo-marquee__duplicate");
 
-    for (const outlet of ["Flow Space", "SingleCare", "NTD", "Scary Mommy", "Daily Mail", "Yahoo Health"]) {
+    for (const outlet of [
+      "Flow Space",
+      "SingleCare",
+      "NTD",
+      "Scary Mommy",
+      "Daily Mail",
+      "Yahoo Health",
+      "This Is Menopause",
+      "Woman’s World",
+    ]) {
       expect(pageSource).toContain(`name: "${outlet}"`);
     }
+    expect(pageSource).toContain('/manus-storage/this-is-menopause-white_a9dd5679.png');
+    expect(pageSource).toContain('/manus-storage/womans-world-white_ef5f9e69.png');
   });
 
   it("uses only the compact headshot authority introduction and removes the lower presenter treatment", () => {

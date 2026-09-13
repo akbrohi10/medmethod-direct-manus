@@ -100,6 +100,8 @@ const featuredOutlets = [
   { name: "Scary Mommy", logo: "/manus-storage/scary-mommy-white_b136c1bf.png" },
   { name: "Daily Mail", logo: "/manus-storage/daily-mail-white_bc1019ba.png" },
   { name: "Yahoo Health", logo: "/manus-storage/yahoo-health-white_125ff57a.png" },
+  { name: "This Is Menopause", logo: "/manus-storage/this-is-menopause-white_a9dd5679.png" },
+  { name: "Woman’s World", logo: "/manus-storage/womans-world-white_ef5f9e69.png" },
 ];
 
 type CountdownUnit = { value: string; label: string };

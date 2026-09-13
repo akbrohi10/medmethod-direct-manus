@@ -1803,3 +1803,12 @@
 - [x] Preserve the intake questions, step progress, payment, exit fallback, care-team booking, and desktop behavior
 - [x] Add regression coverage and validate mobile/desktop modal layout, booking flow, 264 tests across 54 files, TypeScript, build, six critical routes, and clean post-repair runtime logs
 - [x] Save and prepare delivery of the verified mobile intake usability checkpoint with publish instructions
+
+## Webinar Featured In Logo Additions — 2026-09-11
+
+- [x] Inspect the existing Featured In rotating logo implementation on `/live-webinar2` and `/live-webinar3`
+- [x] Prepare the supplied This Is Menopause and Woman’s World logo assets for the web asset store
+- [x] Add both logos with matching scale, spacing, and rotation behavior on both webinar landing pages
+- [x] Add or update regression coverage for the two additional Featured In brands
+- [x] Validate desktop and mobile banner legibility, rotation, 265 tests across 54 files, TypeScript, production build, web-asset redirects, and both webinar routes
+- [x] Save and prepare delivery of the verified Featured In update with publish instructions
