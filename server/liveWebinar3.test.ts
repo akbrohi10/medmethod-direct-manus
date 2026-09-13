@@ -84,5 +84,11 @@ describe("live webinar 3 A/B variation", () => {
     }
     expect(liveWebinar3Source).toContain('/manus-storage/this-is-menopause-white_a9dd5679.png');
     expect(liveWebinar3Source).toContain('/manus-storage/womans-world-white_ef5f9e69.png');
+    expect(liveWebinar3Source).toContain("pendingFeaturedLogoAssets");
+    expect(liveWebinar3Source).toContain("handleFeaturedLogoAssetSettled");
+    expect(liveWebinar3Source).toContain("aria-busy={!featuredLogosReady}");
+    expect(liveWebinar3Source).toContain('featuredLogosReady ? "is-ready" : ""');
+    expect(liveWebinar3Source).toContain('onLoad={handleFeaturedLogoAssetSettled}');
+    expect(liveWebinar3Source).toContain('onError={handleFeaturedLogoAssetSettled}');
   });
 });

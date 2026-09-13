@@ -111,6 +111,12 @@ export default function LiveWebinar3() {
   const [activeCaption, setActiveCaption] = useState<string | null>(null);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [pendingFeaturedLogoAssets, setPendingFeaturedLogoAssets] = useState(featuredOutlets.length);
+  const featuredLogosReady = pendingFeaturedLogoAssets === 0;
+
+  const handleFeaturedLogoAssetSettled = () => {
+    setPendingFeaturedLogoAssets((count) => Math.max(0, count - 1));
+  };
 
   useEffect(() => {
     if (!WEBINAR_EVENT.startsAt) return;
@@ -412,6 +418,7 @@ export default function LiveWebinar3() {
         <section
           data-webinar2-featured-in
           aria-labelledby="webinar2-featured-in-heading"
+          aria-busy={!featuredLogosReady}
           className="bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-5 py-3 text-white sm:px-8 sm:py-3.5"
         >
           <div className="mx-auto max-w-[1020px]">
@@ -429,7 +436,7 @@ export default function LiveWebinar3() {
               aria-label="Featured media outlets"
               style={{ WebkitMaskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)", maskImage: "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)" }}
             >
-              <div data-webinar2-logo-track className="webinar2-logo-marquee__track">
+              <div data-webinar2-logo-track className={`webinar2-logo-marquee__track ${featuredLogosReady ? "is-ready" : ""}`}>
                 <div data-webinar2-logo-set className="flex shrink-0 items-center gap-7 pr-7 sm:gap-10 sm:pr-10 lg:gap-12 lg:pr-12">
                   {featuredOutlets.map(outlet => (
                     <div key={`${outlet.name}-primary`} className="flex h-8 w-24 shrink-0 items-center justify-center sm:h-9 sm:w-28 lg:w-32">
@@ -437,8 +444,10 @@ export default function LiveWebinar3() {
                         src={outlet.logo}
                         alt={`${outlet.name} logo`}
                         className="max-h-full max-w-full object-contain opacity-95"
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
+                        onLoad={handleFeaturedLogoAssetSettled}
+                        onError={handleFeaturedLogoAssetSettled}
                       />
                     </div>
                   ))}
@@ -454,7 +463,7 @@ export default function LiveWebinar3() {
                         src={outlet.logo}
                         alt=""
                         className="max-h-full max-w-full object-contain opacity-95"
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
                       />
                     </div>

@@ -1828,3 +1828,10 @@
 - [x] Correct image readiness or marquee track geometry without changing the banner’s design, logos, or accessibility
 - [x] Validate first-cycle and sustained-loop continuity on desktop and mobile, 268 tests across 55 files, TypeScript, production build, homepage route, and clean current runtime logs
 - [x] Save and prepare delivery of the verified marquee continuity repair with publish instructions
+
+## Webinar Featured In Marquee Continuity Repair — 2026-09-13
+
+- [x] Inspect the `/live-webinar2` and `/live-webinar3` Featured In marquee implementations and tests
+- [x] Add the homepage-proven asset-readiness gate to both webinar marquees without changing banner design or content
+- [x] Validate first-load and sustained marquee continuity, webinar page layouts, 268 tests across 55 files, TypeScript, production build, both routes, and clean current runtime logs
+- [x] Save and prepare delivery of the synchronized webinar marquee repair with publish instructions

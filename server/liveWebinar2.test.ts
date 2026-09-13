@@ -190,6 +190,12 @@ describe("live webinar 2 second revision prompt", () => {
     }
     expect(pageSource).toContain('/manus-storage/this-is-menopause-white_a9dd5679.png');
     expect(pageSource).toContain('/manus-storage/womans-world-white_ef5f9e69.png');
+    expect(pageSource).toContain("pendingFeaturedLogoAssets");
+    expect(pageSource).toContain("handleFeaturedLogoAssetSettled");
+    expect(pageSource).toContain("aria-busy={!featuredLogosReady}");
+    expect(pageSource).toContain('featuredLogosReady ? "is-ready" : ""');
+    expect(pageSource).toContain('onLoad={handleFeaturedLogoAssetSettled}');
+    expect(pageSource).toContain('onError={handleFeaturedLogoAssetSettled}');
   });
 
   it("uses only the compact headshot authority introduction and removes the lower presenter treatment", () => {
