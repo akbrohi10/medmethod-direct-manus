@@ -1812,3 +1812,12 @@
 - [x] Add or update regression coverage for the two additional Featured In brands
 - [x] Validate desktop and mobile banner legibility, rotation, 265 tests across 54 files, TypeScript, production build, web-asset redirects, and both webinar routes
 - [x] Save and prepare delivery of the verified Featured In update with publish instructions
+
+## Homepage Featured In Banner — 2026-09-13
+
+- [x] Inspect the active homepage hero layout around the doctor image and booking CTA choices
+- [x] Reuse the eight approved publication assets and existing accessible marquee behavior
+- [x] Add a compact rotating Featured In banner below the doctor image and above the paid/free booking choices
+- [x] Preserve mobile CTA visibility, notification safety, booking modal, payment, referral, and care-team flows
+- [x] Add regression coverage and validate desktop/mobile hierarchy, marquee motion, 268 tests across 55 files, TypeScript, production build, and homepage route
+- [x] Save and prepare delivery of the verified homepage Featured In banner with publish instructions

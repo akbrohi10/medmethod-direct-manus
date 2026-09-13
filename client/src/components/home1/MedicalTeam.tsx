@@ -42,6 +42,17 @@ const FOCUS_AREA_PILLS = [
   "Metabolism",
 ];
 
+const FEATURED_OUTLETS = [
+  { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
+  { name: "SingleCare", logo: "/manus-storage/singlecare-white_500a5691.png" },
+  { name: "NTD", logo: "/manus-storage/ntd-white_dd8e5f55.png" },
+  { name: "Scary Mommy", logo: "/manus-storage/scary-mommy-white_b136c1bf.png" },
+  { name: "Daily Mail", logo: "/manus-storage/daily-mail-white_bc1019ba.png" },
+  { name: "Yahoo Health", logo: "/manus-storage/yahoo-health-white_125ff57a.png" },
+  { name: "This Is Menopause", logo: "/manus-storage/this-is-menopause-white_a9dd5679.png" },
+  { name: "Woman’s World", logo: "/manus-storage/womans-world-white_ef5f9e69.png" },
+];
+
 const COACH_PILLS = [
   "Certified Personal Trainers",
   "Vetted by Dr. Al-Deek",
@@ -95,6 +106,66 @@ const BIO_SECTIONS: { label: string; teaser: ReactNode; rest: ReactNode }[] = [
 
 /** Sections expanded by default — most narrative two. */
 const DEFAULT_EXPANDED = new Set(["Practice Focus", "Philosophy"]);
+
+function FeaturedInMarquee({ placement }: { placement: "desktop" | "mobile" }) {
+  return (
+    <section
+      data-home-featured-in={placement}
+      aria-labelledby={`home-featured-in-${placement}-heading`}
+      className="overflow-hidden bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-4 py-3 text-white"
+    >
+      <div className="flex items-center justify-center gap-2.5">
+        <span className="h-px w-6 bg-white/45" aria-hidden="true" />
+        <h2
+          id={`home-featured-in-${placement}-heading`}
+          className="shrink-0 text-[10px] font-black uppercase tracking-[0.16em] text-white"
+          style={{ fontFamily: "Montserrat, sans-serif" }}
+        >
+          Featured In
+        </h2>
+        <span className="h-px w-6 bg-white/45" aria-hidden="true" />
+      </div>
+      <div
+        className="webinar2-logo-marquee scrollbar-hide mt-2"
+        tabIndex={0}
+        aria-label="Featured media outlets"
+        style={{
+          WebkitMaskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+          maskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+        }}
+      >
+        <div className="webinar2-logo-marquee__track">
+          <div className="flex shrink-0 items-center gap-6 pr-6">
+            {FEATURED_OUTLETS.map((outlet) => (
+              <div key={`${placement}-${outlet.name}-primary`} className="flex h-7 w-24 shrink-0 items-center justify-center">
+                <img
+                  src={outlet.logo}
+                  alt={`${outlet.name} logo`}
+                  className="max-h-full max-w-full object-contain opacity-95"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="webinar2-logo-marquee__duplicate flex shrink-0 items-center gap-6 pr-6" aria-hidden="true">
+            {FEATURED_OUTLETS.map((outlet) => (
+              <div key={`${placement}-${outlet.name}-duplicate`} className="flex h-7 w-24 shrink-0 items-center justify-center">
+                <img
+                  src={outlet.logo}
+                  alt=""
+                  className="max-h-full max-w-full object-contain opacity-95"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function MedicalTeam({
   onConsultClick,
@@ -185,6 +256,10 @@ export default function MedicalTeam({
                   loading="lazy"
                   decoding="async"
                 />
+              </div>
+
+              <div className="hidden lg:block">
+                <FeaturedInMarquee placement="desktop" />
               </div>
 
               {/* Below-photo content — Education timeline + Pull-quote.
@@ -464,6 +539,10 @@ export default function MedicalTeam({
                   decoding="async"
                 />
 
+              </div>
+
+              <div className="lg:hidden -mx-6 md:-mx-10">
+                <FeaturedInMarquee placement="mobile" />
               </div>
 
               {/* Two clear booking paths. Each path keeps its decision label,
