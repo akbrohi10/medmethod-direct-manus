@@ -86,10 +86,13 @@ describe("referral-credit payment integration", () => {
     expect(ghlHandler).toContain("amount: remainingAmount");
   });
 
-  it("shows the field only on the homepage and forwards referral details to GHL", () => {
+  it("shows the field only on the homepage, directly below card information, and forwards referral details to GHL", () => {
     expect(modal).toContain('const referralCodeEnabled = landingPage === "/"');
     expect(modal).toContain("Have a referral code?");
+    expect(modal).toContain("(Optional)");
     expect(modal).toContain("Apply Code");
+    expect(modal).toContain('data-homepage-referral-control');
+    expect(modal).toContain('data-referral-adjusted-pricing');
     expect(modal).toContain('if (normalizedCode !== "LECTURE50")');
     expect(modal).toContain("onApplied(LECTURE50_PRICING)");
     expect(modal).toContain("persistedPaymentIdRef.current = paymentId");
@@ -105,6 +108,9 @@ describe("referral-credit payment integration", () => {
       expect(source).toContain("remainingAmountCents");
       expect(source).toContain("referralCreditAmountCents");
       expect(source).toContain("Referral credit applied");
+      expect(source).toContain("referralControl?: ReactNode");
+      expect(source).toContain("data-card-information");
+      expect(source.indexOf("data-card-information")).toBeLessThan(source.indexOf("{referralControl}"));
     }
   });
 });

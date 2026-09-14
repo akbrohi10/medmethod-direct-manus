@@ -400,10 +400,13 @@ function ReferralCodeControl({
   }, [paymentId, applied, code, redeemReferralCredit]);
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 mb-5">
+    <div data-homepage-referral-control className="rounded-xl border border-gray-200 bg-gray-50 p-4">
       <label htmlFor="homepage-referral-code" className="block text-sm font-semibold text-gray-800 mb-2">
-        Have a referral code?
+        Have a referral code? <span className="font-normal text-gray-500">(Optional)</span>
       </label>
+      <p className="mb-3 text-xs leading-5 text-gray-500">
+        Enter it before reserving your consultation to update your remaining appointment balance.
+      </p>
       <div className="flex gap-2">
         <input
           id="homepage-referral-code"
@@ -441,6 +444,11 @@ function ReferralCodeControl({
       )}
       {applied && !paymentId && (
         <p className="mt-2 text-xs text-gray-500">Your credit will be secured with the checkout record automatically.</p>
+      )}
+      {applied && (
+        <p data-referral-adjusted-pricing className="mt-2 text-xs font-semibold text-green-700">
+          Code applied — {dollarsFromCents(LECTURE50_PRICING.depositAmount)} due today and {dollarsFromCents(LECTURE50_PRICING.remainingAmount)} remaining at your appointment.
+        </p>
       )}
     </div>
   );
@@ -1236,9 +1244,6 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
               <p className="text-sm text-gray-500 mb-6">
                 We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining {remainingBalanceLabel} is due the day of your appointment — <strong>{consultationTotalLabel} total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
-              {referralCodeEnabled && (
-                <ReferralCodeControl paymentId={currentPaymentId} onApplied={setReferralPricing} />
-              )}
               {activeProvider === "paypal" ? (
                 <PayPalPaymentForm
                   patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
@@ -1248,6 +1253,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
                   consultationTotalAmountCents={referralPricing.consultationTotalAmount}
                   remainingAmountCents={referralPricing.remainingAmount}
                   referralCreditAmountCents={referralPricing.referralCreditAmount}
+                  referralControl={referralCodeEnabled ? <ReferralCodeControl paymentId={currentPaymentId} onApplied={setReferralPricing} /> : undefined}
                   onComplete={() => handlePaymentComplete(undefined)}
                   onPaymentId={(id) => setPaypalPaymentId(id)}
                   onError={(msg) => toast.error(msg)}
@@ -1261,6 +1267,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
                   consultationTotalAmountCents={referralPricing.consultationTotalAmount}
                   remainingAmountCents={referralPricing.remainingAmount}
                   referralCreditAmountCents={referralPricing.referralCreditAmount}
+                  referralControl={referralCodeEnabled ? <ReferralCodeControl paymentId={currentPaymentId} onApplied={setReferralPricing} /> : undefined}
                   onComplete={() => handlePaymentComplete(stripePaymentIntentId ?? undefined)}
                   onPaymentId={(id) => setStripePaymentId(id)}
                   onPaymentIntentId={(piId) => {

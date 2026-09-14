@@ -22,7 +22,7 @@ import {
   usePayPalCardFields,
 } from "@paypal/react-paypal-js";
 import { CreditCard, Lock } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
@@ -36,6 +36,7 @@ interface PayPalPaymentFormProps {
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
+  referralControl?: ReactNode;
   onComplete: () => void;
   onError: (msg: string) => void;
   onPaymentId?: (id: number) => void;
@@ -128,12 +129,14 @@ function CardFormInner({
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
+  referralControl,
   onSubmit,
 }: {
   submitting: boolean;
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
+  referralControl?: ReactNode;
   onSubmit: () => void;
 }) {
   const { cardFieldsForm } = usePayPalCardFields();
@@ -185,7 +188,7 @@ function CardFormInner({
       </div>
 
       {/* Card fields label */}
-      <div>
+      <div data-card-information>
         <label
           style={{
             display: "block",
@@ -202,6 +205,8 @@ function CardFormInner({
           <PayPalCardFieldsForm />
         </div>
       </div>
+
+      {referralControl}
 
       {/* Consent text */}
       <p className="text-xs text-gray-500 leading-relaxed">
@@ -246,6 +251,7 @@ function PayPalCardFormWithProvider({
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
+  referralControl,
   onComplete,
   onError,
 }: {
@@ -254,6 +260,7 @@ function PayPalCardFormWithProvider({
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
+  referralControl?: ReactNode;
   onComplete: () => void;
   onError: (msg: string) => void;
 }) {
@@ -286,6 +293,7 @@ function PayPalCardFormWithProvider({
         consultationTotalAmountCents={consultationTotalAmountCents}
         remainingAmountCents={remainingAmountCents}
         referralCreditAmountCents={referralCreditAmountCents}
+        referralControl={referralControl}
         onSubmit={() => setSubmitting(true)}
       />
     </PayPalCardFieldsProvider>
@@ -302,6 +310,7 @@ export default function PayPalPaymentForm({
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
+  referralControl,
   onComplete,
   onError,
   onPaymentId,
@@ -403,6 +412,7 @@ export default function PayPalPaymentForm({
         consultationTotalAmountCents={consultationTotalAmountCents}
         remainingAmountCents={remainingAmountCents}
         referralCreditAmountCents={referralCreditAmountCents}
+        referralControl={referralControl}
         onComplete={onComplete}
         onError={onError}
       />

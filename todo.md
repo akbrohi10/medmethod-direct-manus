@@ -1835,3 +1835,11 @@
 - [x] Add the homepage-proven asset-readiness gate to both webinar marquees without changing banner design or content
 - [x] Validate first-load and sustained marquee continuity, webinar page layouts, 268 tests across 55 files, TypeScript, production build, both routes, and clean current runtime logs
 - [x] Save and prepare delivery of the synchronized webinar marquee repair with publish instructions
+
+## Payment-Step Referral Placement — 2026-09-13
+
+- [x] Inspect the active homepage payment step, card fields, referral application state, pricing copy, and tests
+- [x] Move the optional referral control directly below card details for both Stripe and PayPal without changing payment or referral validation logic
+- [x] Show clear adjusted deposit and remaining-balance feedback only after a valid referral code is applied
+- [x] Validate source-level card-to-referral order, referral application, existing booking/payment paths, 268 tests across 55 files, TypeScript, production build, homepage route, and clean current client logs
+- [x] Save and prepare delivery of the verified payment-step referral placement with publish instructions

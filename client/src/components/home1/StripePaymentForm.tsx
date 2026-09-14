@@ -21,7 +21,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe, Stripe as StripeType } from "@stripe/stripe-js";
 import { Lock, CreditCard } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
@@ -34,6 +34,7 @@ function CheckoutForm({
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
+  referralControl,
   onComplete,
   onError,
   onPaymentIntentId,
@@ -42,6 +43,7 @@ function CheckoutForm({
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
+  referralControl?: ReactNode;
   onComplete: () => void;
   onError: (msg: string) => void;
   onPaymentIntentId?: (piId: string) => void;
@@ -150,7 +152,7 @@ function CheckoutForm({
       </div>
 
       {/* Stripe Elements */}
-      <div>
+      <div data-card-information>
         <label
           style={{
             display: "block",
@@ -192,6 +194,8 @@ function CheckoutForm({
           />
         </div>
       </div>
+
+      {referralControl}
 
       {/* Consent text */}
       <p className="text-xs text-gray-500 leading-relaxed">
@@ -259,6 +263,7 @@ interface StripePaymentFormProps {
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
+  referralControl?: ReactNode;
   onComplete: () => void;
   onPaymentId: (id: number) => void;
   /** Called with the Stripe PaymentIntent ID once payment succeeds */
@@ -273,6 +278,7 @@ export default function StripePaymentForm({
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
+  referralControl,
   onComplete,
   onPaymentId,
   onPaymentIntentId,
@@ -389,6 +395,7 @@ export default function StripePaymentForm({
           consultationTotalAmountCents={consultationTotalAmountCents}
           remainingAmountCents={remainingAmountCents}
           referralCreditAmountCents={referralCreditAmountCents}
+          referralControl={referralControl}
           onComplete={onComplete}
           onError={(msg) => setErrorMsg(msg)}
           onPaymentIntentId={onPaymentIntentId}
