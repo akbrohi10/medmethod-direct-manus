@@ -23,14 +23,16 @@ describe("free evergreen masterclass landing page", () => {
     expect(pageSource).not.toContain('Limited Zoom Capacity');
   });
 
-  it("keeps the established featured outlets, booking choices, transparent pricing, and care-team embed", () => {
+  it("keeps the established featured outlets, booking choices, and transparent pricing without a lower calendar embed", () => {
     expect(pageSource).toContain('This Is Menopause');
     expect(pageSource).toContain('Woman’s World');
     expect(pageSource).toContain('data-free-masterclass-physician-cta');
     expect(pageSource).toContain('data-free-masterclass-care-team-cta');
+    expect(pageSource).toContain('href="/care-team-booking"');
     expect(pageSource).toContain('data-free-masterclass-pricing');
     expect(pageSource).toContain('See Full Pricing Details');
-    expect(pageSource).toContain('18sbmUpLKjc7pcLE8jdN_free_masterclass');
-    expect(pageSource).toContain('CARE_TEAM_BOOKING_CONFIRMATION_PATH');
+    expect(pageSource).not.toContain('data-free-masterclass-care-team-calendar');
+    expect(pageSource).not.toContain('18sbmUpLKjc7pcLE8jdN_free_masterclass');
+    expect(pageSource).not.toContain('CARE_TEAM_CALENDAR_ORIGIN');
   });
 });

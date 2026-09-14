@@ -1856,3 +1856,12 @@
 - [x] Preserve physician intake/payment, care-team confirmation redirect, pricing/referral behavior, webinars, tracking, and unrelated routes
 - [x] Add regression coverage and validate the video, CTA destinations, pricing accordion, calendar embed, mobile/desktop layout, 271 tests across 56 files, TypeScript, production build, and critical routes
 - [x] Save and prepare delivery of the verified evergreen masterclass checkpoint with clear placeholder-video and publish instructions
+
+## Streamline Free Masterclass Care-Team Section — 2026-09-14
+
+- [x] Inspect the lower embedded care-team calendar section and its masterclass regression coverage
+- [x] Remove the lower calendar heading, general-information disclaimer, and GoHighLevel embed from `/free-masterclass`
+- [x] Remove only now-unused calendar handoff code and imports while retaining the compact free care-team booking CTA
+- [x] Preserve the masterclass video, Featured In strip, physician intake CTA, pricing accordion, footer, and all unrelated booking flows
+- [x] Validate the streamlined desktop/mobile page, retained care-team booking destination, 271 tests across 56 files, TypeScript, production build, and masterclass route
+- [x] Save and prepare delivery of the verified streamlined masterclass checkpoint with publish instructions

@@ -1,18 +1,12 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
-import {
-  CARE_TEAM_BOOKING_CONFIRMATION_PATH,
-  CARE_TEAM_CALENDAR_ORIGIN,
-  getCareTeamConfirmationRedirectTarget,
-} from "@/lib/careTeamBookingRedirect";
 import { Helmet } from "react-helmet-async";
-import { CalendarDays, CheckCircle2, PlayCircle, ShieldCheck, Stethoscope, Video } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { CheckCircle2, PlayCircle, ShieldCheck, Stethoscope, Video } from "lucide-react";
+import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const MASTERCLASS_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
-const CARE_TEAM_CALENDAR_URL = "https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN";
 
 const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
@@ -134,19 +128,6 @@ function PricingDetails() {
 
 export default function FreeMasterclass() {
   const [consultationOpen, setConsultationOpen] = useState(false);
-  const calendarRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const handleCalendarMessage = (event: MessageEvent) => {
-      if (event.origin !== CARE_TEAM_CALENDAR_ORIGIN) return;
-      if (!calendarRef.current?.contentWindow || event.source !== calendarRef.current.contentWindow) return;
-      const confirmationTarget = getCareTeamConfirmationRedirectTarget(event.data);
-      if (confirmationTarget) window.location.assign(confirmationTarget);
-    };
-
-    window.addEventListener("message", handleCalendarMessage);
-    return () => window.removeEventListener("message", handleCalendarMessage);
-  }, []);
 
   return (
     <main className="min-h-screen bg-[#f3f0eb] text-[#25212a]" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -203,26 +184,13 @@ export default function FreeMasterclass() {
             </div>
             <div className="flex flex-col">
               <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#5a4452] sm:text-left">Need more info?</p>
-              <a href="#care-team-calendar" data-free-masterclass-care-team-cta className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
+              <a href="/care-team-booking" data-free-masterclass-care-team-cta className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
                 <span className="flex flex-col items-center leading-tight"><span>Book a Free 15-Minute Call</span><span className="mt-1 text-[13px] font-medium normal-case tracking-normal text-[#5a4452]">with our Care Team</span></span>
               </a>
               <p className="mt-3 px-1 text-center text-xs leading-relaxed text-[#5a4452] sm:text-left">Ask about the program and whether it may be a good fit. General information only—not medical advice.</p>
             </div>
           </div>
           <div className="mt-7"><PricingDetails /></div>
-        </section>
-
-        <section id="care-team-calendar" data-free-masterclass-care-team-calendar className="border-t border-[#eee4e9] bg-[#fff8fb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
-          <div className="mx-auto max-w-3xl text-center">
-            <CalendarDays className="mx-auto h-8 w-8 text-[#c32e78]" aria-hidden="true" />
-            <p className="mt-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#c32e78]">Need a little guidance first?</p>
-            <h2 className="mt-2 text-2xl font-black text-[#281c30] sm:text-3xl">Book a Free 15-Minute Discovery Call</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[#655d63] sm:text-base">Our Care Team can answer general questions about the program, scheduling, and whether MedMethod Direct may be a good fit.</p>
-            <p className="mt-3 text-sm font-bold text-[#7a1e7e]">This free call does not provide medical advice or clinical guidance.</p>
-          </div>
-          <div className="mx-auto mt-7 max-w-3xl overflow-hidden rounded-2xl border border-[#eadfe5] bg-white shadow-[0_10px_28px_rgba(89,31,84,0.08)]">
-            <iframe ref={calendarRef} src={CARE_TEAM_CALENDAR_URL} allow="payment" style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "700px" }} scrolling="no" id="18sbmUpLKjc7pcLE8jdN_free_masterclass" title="Care Team Discovery Call Calendar" />
-          </div>
         </section>
 
         <footer className="px-5 py-8 text-center sm:px-10">
