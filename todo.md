@@ -1843,3 +1843,16 @@
 - [x] Show clear adjusted deposit and remaining-balance feedback only after a valid referral code is applied
 - [x] Validate source-level card-to-referral order, referral application, existing booking/payment paths, 268 tests across 55 files, TypeScript, production build, homepage route, and clean current client logs
 - [x] Save and prepare delivery of the verified payment-step referral placement with publish instructions
+
+## Evergreen Free Masterclass Landing Page — 2026-09-14
+
+- [x] Inspect reusable Live Webinar 3, Featured In marquee, placeholder video, physician booking, care-team booking, transparent pricing, and calendar embed implementations
+- [x] Create and register the evergreen `/free-masterclass` route without modifying the live webinar routes
+- [x] Use the existing saved webinar video as a clearly replaceable placeholder with immediate, ungated playback
+- [x] Add a compact rotating Featured In strip near the top and remove all live-event, countdown, RSVP, Zoom, and date-specific language
+- [x] Add a concise post-video paid physician booking CTA and secondary free 15-minute care-team CTA using existing destinations
+- [x] Add a compact accessible See Full Pricing Details accordion with the approved transparent initial-consultation and follow-up information
+- [x] Embed the existing free care-team calendar lower on the page with a general-information-only disclaimer
+- [x] Preserve physician intake/payment, care-team confirmation redirect, pricing/referral behavior, webinars, tracking, and unrelated routes
+- [x] Add regression coverage and validate the video, CTA destinations, pricing accordion, calendar embed, mobile/desktop layout, 271 tests across 56 files, TypeScript, production build, and critical routes
+- [x] Save and prepare delivery of the verified evergreen masterclass checkpoint with clear placeholder-video and publish instructions
