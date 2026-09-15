@@ -12,11 +12,17 @@ describe("free evergreen masterclass landing page", () => {
     expect(appSource).toContain('<Route path="/free-masterclass" component={FreeMasterclass} />');
   });
 
-  it("provides immediate placeholder-video access and does not reuse live-event language", () => {
+  it("uses the approved symptom-first introduction while retaining immediate on-demand placeholder-video access", () => {
+    expect(pageSource).toContain('data-free-masterclass-symptom-intro');
+    expect(pageSource).toContain('For Women 35+');
+    expect(pageSource).toContain('Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?');
+    expect(pageSource).toContain('Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.');
+    expect(pageSource).toContain('Physician and author of <em>The Menopause Weight Loss Trap</em>');
+    expect(pageSource).toContain('dr-jumana-al-deek-headshot_75912bc8.png');
     expect(pageSource).toContain('data-free-masterclass-video');
     expect(pageSource).toContain('replacement-speaking-event-web_3c5c62ae.mp4');
     expect(pageSource).toContain('controls playsInline preload="metadata"');
-    expect(pageSource).toContain('Free On-Demand Masterclass');
+    expect(pageSource).toContain('Free On-Demand Masterclass · Watch Now');
     expect(pageSource).toContain('MASTERCLASS PREVIEW');
     expect(pageSource).toContain('Preview video shown while the full 45-minute masterclass is finalized.');
     expect(pageSource).not.toContain('Reserve My Free Spot');

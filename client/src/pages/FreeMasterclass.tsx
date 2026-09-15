@@ -5,6 +5,7 @@ import { CheckCircle2, PlayCircle, ShieldCheck, Stethoscope, Video } from "lucid
 import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
+const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
 const MASTERCLASS_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
 const MASTERCLASS_VIDEO_POSTER_URL = "/manus-storage/replacement-speaking-event-poster_5353b331.jpg";
 
@@ -150,15 +151,38 @@ export default function FreeMasterclass() {
       <article className="mx-auto w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">
         <FeaturedInStrip />
 
-        <section className="bg-[#fff8fb] px-5 pt-8 pb-7 text-center sm:px-10 sm:pt-11 sm:pb-9 lg:px-16">
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#c32e78] sm:text-xs">Free On-Demand Masterclass</p>
-          <h1 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-[1.06] text-[#281c30] sm:text-5xl">
-            <span className="bg-gradient-to-r from-[#e72e91] to-[#7a1e7e] bg-clip-text text-transparent">Menopause, Hormones &amp; Weight Loss.</span><br />Done Right for You.
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#5c535c] sm:text-lg">A free 45-minute educational masterclass with Dr. Jumana Al-Deek, DO. Watch at your own pace and learn more about menopause, metabolic health, hormones, and medically supervised weight management.</p>
+        <section data-free-masterclass-symptom-intro className="relative isolate overflow-hidden bg-[#fff8fb] px-5 pt-8 pb-8 text-center sm:px-10 sm:pt-11 sm:pb-10 lg:px-16">
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 opacity-90"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "repeating-radial-gradient(ellipse at -8% 75%, transparent 0 20px, rgba(218,44,132,0.075) 21px 22px, transparent 23px 31px), repeating-radial-gradient(ellipse at 108% 55%, transparent 0 22px, rgba(118,35,121,0.07) 23px 24px, transparent 25px 34px), radial-gradient(circle at 50% 100%, rgba(244,168,205,0.34), transparent 38%)",
+            }}
+          />
+          <div className="relative z-10 mx-auto max-w-[820px]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">For Women 35+</p>
+            <h1 className="mt-2 tracking-[-0.045em] sm:mt-3">
+              <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">
+                Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?
+              </span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-[720px] text-[1.28rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#cf2b7f] sm:mt-7 sm:text-[1.8rem] lg:text-[2.05rem]">
+              Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
+            </p>
+            <span className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
+            <div className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3">
+              <img src={DOCTOR_HEADSHOT_URL} alt="Dr. Jumana Al-Deek" className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16" loading="eager" decoding="async" />
+              <div className="min-w-0">
+                <p className="text-sm font-black leading-5 text-[#27132e] sm:text-base">Dr. Jumana Al-Deek</p>
+                <p className="text-[10px] font-semibold leading-4 text-[#8b326c] sm:text-xs">Physician and author of <em>The Menopause Weight Loss Trap</em></p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section data-free-masterclass-video className="bg-[#fff8fb] px-5 pb-9 sm:px-10 lg:px-16">
+          <p className="mb-4 text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#c32e78] sm:text-xs">Free On-Demand Masterclass · Watch Now</p>
           <div className="relative mx-auto aspect-video w-full max-w-[860px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6]">
             <video className="h-full w-full bg-black object-cover" controls playsInline preload="metadata" poster={MASTERCLASS_VIDEO_POSTER_URL} aria-label="Free educational masterclass with Dr. Jumana Al-Deek">
               <source src={MASTERCLASS_VIDEO_URL} type="video/mp4" />

@@ -1882,3 +1882,13 @@
 - [x] Add focused regression coverage for the approved outcome-focused copy
 - [x] Validate the updated copy, focused regression test, TypeScript, production build, and homepage route
 - [x] Save and prepare delivery of the homepage copy checkpoint with publish instructions
+
+## Free Masterclass Symptom-First Introduction — 2026-09-15
+
+- [x] Inspect the existing approved symptom-first landing-page treatment, masterclass introduction, shared headshot, and focused regression coverage
+- [x] Replace the masterclass pre-video introduction with the approved `For Women 35+` symptom-first hierarchy and physician authority card
+- [x] Retain clear on-demand masterclass context immediately near the video without reintroducing live-event language
+- [x] Preserve the existing preview video, Featured In strip, physician booking CTA, care-team CTA, pricing accordion, footer, routes, and tracking
+- [x] Add focused regression coverage for the approved symptom-first introduction
+- [x] Validate desktop/mobile hierarchy, video visibility, booking behavior, 273 tests across 58 files, TypeScript, production build, and masterclass/home/care-team route health
+- [x] Save and prepare delivery of the refined masterclass-introduction checkpoint with publish instructions
