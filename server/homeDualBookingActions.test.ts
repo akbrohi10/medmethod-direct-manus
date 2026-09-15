@@ -23,8 +23,10 @@ describe("homepage dual booking actions", () => {
 
     expect(patientProof).toBeGreaterThan(-1);
     expect(ctaGroup).toBeGreaterThan(patientProof);
-    expect(medicalTeamSource).toContain("10,000+ Patients Seen");
-    expect(medicalTeamSource).toContain("With Dr. Jumana Al-Deek");
+    expect(medicalTeamSource).toContain("Dr. Al-Deek has seen");
+    expect(medicalTeamSource).toContain("10,000+ patients.");
+    expect(medicalTeamSource).not.toContain("With Dr. Jumana Al-Deek");
+    expect(medicalTeamSource).not.toContain("rounded-full border px-4 py-2.5");
   });
 
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {

@@ -1934,3 +1934,11 @@
 - [x] Add focused regression coverage for patient-proof copy and placement before booking actions
 - [x] Validate live Facebook tag on apex and www crawler responses, homepage desktop/mobile hierarchy, booking visibility, 275 tests across 58 files, TypeScript, production build, and route health
 - [x] Save and prepare delivery of the verified homepage credibility update with Facebook retry guidance and publish instructions
+
+## Homepage Patient-Volume Proof Simplification — 2026-09-15
+
+- [x] Inspect the current homepage patient-volume badge and focused test coverage
+- [x] Replace the icon, border, capsule, and supporting subtext with one centered proof line: `Dr. Al-Deek has seen 10,000+ patients.`
+- [x] Preserve Featured In, booking actions, payment flow, care-team flow, and responsive spacing
+- [x] Validate mobile and desktop clarity, booking visibility, 275 tests across 58 files, TypeScript, production build, and homepage route
+- [x] Save and prepare delivery of the verified simplified patient-volume proof with publish instructions
