@@ -149,6 +149,7 @@ describe("crawlerMiddleware", () => {
       expect(html).toContain('<meta name="twitter:description"');
       expect(html).toContain('<meta name="twitter:image"');
       expect(html).toContain('<link rel="canonical"');
+      expect(html).toContain('<meta name="facebook-domain-verification" content="6gvdlzh2z653n5ezbhv5386mr0uqlu">');
     });
 
     it("HTML-escapes special characters in meta content", () => {

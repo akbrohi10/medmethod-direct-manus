@@ -49,6 +49,7 @@ interface RouteMeta {
 
 const SITE_NAME = "MedMethod Direct";
 const BASE_URL = "https://medmethoddirect.com";
+const FACEBOOK_DOMAIN_VERIFICATION = "6gvdlzh2z653n5ezbhv5386mr0uqlu";
 
 // Default OG image (used for homepage and fallback)
 // files.manuscdn.com serves as image/jpeg — correct content-type for all social crawlers
@@ -260,6 +261,7 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
 <meta charset="UTF-8">
 <title>${t}</title>
 <meta name="description" content="${d}">
+<meta name="facebook-domain-verification" content="${FACEBOOK_DOMAIN_VERIFICATION}">
 <!-- Open Graph -->
 <meta property="og:title" content="${t}">
 <meta property="og:description" content="${d}">

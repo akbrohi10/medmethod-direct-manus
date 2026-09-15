@@ -1913,3 +1913,14 @@
 - [x] Add focused regression coverage for the approved banner and subtitle
 - [x] Validate desktop/mobile first-screen hierarchy, video visibility, booking preservation, 274 tests across 58 files, TypeScript, production build, and masterclass route health
 - [x] Save and prepare delivery of the on-demand masterclass banner checkpoint with publish instructions
+
+## Live Facebook Domain Verification Detection — 2026-09-15
+
+- [x] Inspect the published apex, www, and Manus deployment-domain HTML for the exact `facebook-domain-verification` meta tag
+- [x] Compare the live HTML with `client/index.html` and the latest published checkpoint state
+- [x] Identify that Facebook receives crawler-specific Express HTML, which lacked the verification tag even though the React document head includes it
+- [x] Add the same exact verification tag to crawler-specific HTML without changing social preview, Pixel, or conversion code
+- [x] Add regression coverage that protects the verification tag in Facebook’s crawler response
+- [x] Validate the exact tag in local regular and Facebook-crawler HTML, focused tests, 274 full tests, TypeScript, production build, and home route health without changing Meta Pixel events or conversion tracking
+- [ ] Publish the crawler-response correction and recheck the exact tag in Facebook-user-agent production HTML across the canonical domain
+- [x] Save and prepare delivery of the crawler-response correction checkpoint with clear Facebook retry guidance
