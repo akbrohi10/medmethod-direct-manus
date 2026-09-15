@@ -149,6 +149,10 @@ export default function FreeMasterclass() {
             }}
           />
           <div className="relative z-10 mx-auto max-w-[820px]">
+            <div data-free-masterclass-context-banner className="mx-auto mb-6 max-w-[680px] rounded-full bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-white shadow-[0_12px_30px_rgba(168,38,129,0.22)] sm:mb-8 sm:px-8 sm:py-5">
+              <p className="text-base font-black uppercase tracking-[0.13em] sm:text-xl sm:tracking-[0.16em]">Free 45-Minute On-Demand Masterclass</p>
+              <p className="mt-1 text-[10px] font-semibold tracking-[0.09em] text-white/90 sm:text-xs">Because You Deserve to Know.</p>
+            </div>
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#dd2d84] sm:text-base sm:tracking-[0.2em]">For Women 35+</p>
             <h1 className="mt-2 tracking-[-0.045em] sm:mt-3">
               <span className="mx-auto block max-w-[790px] text-[2.05rem] font-black leading-[1.06] text-[#24102d] sm:text-[3rem] lg:text-[3.55rem]">

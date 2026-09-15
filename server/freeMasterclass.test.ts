@@ -14,6 +14,9 @@ describe("free evergreen masterclass landing page", () => {
 
   it("uses the approved symptom-first introduction while retaining immediate on-demand placeholder-video access", () => {
     expect(pageSource).toContain('data-free-masterclass-symptom-intro');
+    expect(pageSource).toContain('data-free-masterclass-context-banner');
+    expect(pageSource).toContain('Free 45-Minute On-Demand Masterclass');
+    expect(pageSource).toContain('Because You Deserve to Know.');
     expect(pageSource).toContain('For Women 35+');
     expect(pageSource).toContain('Struggling With Weight Gain, Poor Sleep, Hot Flashes or Mood Swings?');
     expect(pageSource).toContain('Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.');

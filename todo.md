@@ -1903,3 +1903,13 @@
 - [x] Add focused regression coverage for the requested visual ordering and retained footer contact access
 - [x] Validate desktop/mobile hierarchy, logo and phone accessibility, video and booking visibility, 274 tests across 58 files, TypeScript, production build, and masterclass/home route health
 - [x] Save and prepare delivery of the reorganized masterclass hierarchy checkpoint with publish instructions
+
+## Free Masterclass Top Context Banner — 2026-09-15
+
+- [x] Inspect the current masterclass introduction and focused regression coverage for the top-banner insertion point
+- [x] Add the compact rounded pink-to-purple `Free 45-Minute On-Demand Masterclass` banner above the symptom hook
+- [x] Add the supporting `Because You Deserve to Know.` subtitle without introducing live-webinar language
+- [x] Preserve the symptom-first hierarchy, Featured In strip, authority card, video, booking paths, pricing accordion, footer, routes, and tracking
+- [x] Add focused regression coverage for the approved banner and subtitle
+- [x] Validate desktop/mobile first-screen hierarchy, video visibility, booking preservation, 274 tests across 58 files, TypeScript, production build, and masterclass route health
+- [x] Save and prepare delivery of the on-demand masterclass banner checkpoint with publish instructions
