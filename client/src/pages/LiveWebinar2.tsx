@@ -470,11 +470,18 @@ export default function LiveWebinar2() {
             </div>
           )}
 
+          <p
+            data-webinar2-patient-volume-proof
+            className="mx-auto mt-4 max-w-[720px] text-center text-sm font-semibold text-[#5a4452] sm:text-base"
+          >
+            Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">10,000+ patients.</span>
+          </p>
+
           <button
             data-webinar2-primary-cta
             type="button"
             onClick={handleReserveSeat}
-            className="mx-auto mt-5 inline-flex min-h-16 w-full max-w-[720px] flex-col items-center justify-center gap-0.5 rounded-full bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-3 text-white shadow-[0_14px_30px_rgba(176,24,124,0.27)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:mt-6"
+            className="mx-auto mt-4 inline-flex min-h-16 w-full max-w-[720px] flex-col items-center justify-center gap-0.5 rounded-full bg-gradient-to-r from-[#ee2b91] to-[#7a1e7e] px-7 py-3 text-white shadow-[0_14px_30px_rgba(176,24,124,0.27)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d51b75] focus-visible:ring-offset-4 active:scale-[0.97] sm:mt-5"
           >
             <span className="text-sm font-black uppercase leading-5 tracking-[0.055em] sm:text-base">Reserve My Free Spot</span>
             <span data-webinar2-capacity-line className="text-[9px] font-bold uppercase leading-3 tracking-[0.14em] text-white/82 sm:text-[10px]">

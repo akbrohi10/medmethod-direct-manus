@@ -1942,3 +1942,12 @@
 - [x] Preserve Featured In, booking actions, payment flow, care-team flow, and responsive spacing
 - [x] Validate mobile and desktop clarity, booking visibility, 275 tests across 58 files, TypeScript, production build, and homepage route
 - [x] Save and prepare delivery of the verified simplified patient-volume proof with publish instructions
+
+## Landing-Page Patient-Volume Proof — 2026-09-15
+
+- [x] Inspect `/live-webinar2`, `/live-webinar3`, and `/free-masterclass` for compact proof-line placement and focused coverage
+- [x] Add the exact single line `Dr. Al-Deek has seen 10,000+ patients.` to all three pages with no icon, badge, card, or supporting subtext
+- [x] Preserve page-specific on-demand/live context, video access, Featured In, booking actions, pricing, calendar, tracking, and responsive layouts
+- [x] Add focused regression coverage for copy and proof placement before the primary CTA on all three pages
+- [x] Validate desktop/mobile clarity, video and booking visibility, 275 tests across 58 files, TypeScript, production build, all three routes, and current runtime logs
+- [x] Save and prepare delivery of the verified three-page proof update with publish instructions

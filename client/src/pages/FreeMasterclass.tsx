@@ -193,6 +193,12 @@ export default function FreeMasterclass() {
             <p className="text-[11px] font-black uppercase tracking-[0.17em] text-[#7a1e7e]">Ready to talk about your options?</p>
             <h2 className="mt-2 text-2xl font-black text-[#281c30] sm:text-3xl">Choose the next step that feels right for you.</h2>
           </div>
+          <p
+            data-free-masterclass-patient-volume-proof
+            className="mx-auto mt-4 max-w-[720px] text-center text-sm font-semibold text-[#5a4452] sm:text-base"
+          >
+            Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">10,000+ patients.</span>
+          </p>
           <div className="mx-auto mt-7 grid max-w-[900px] gap-5 sm:grid-cols-2">
             <div className="flex flex-col">
               <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#7a1e7e] sm:text-left">Ready to book?</p>
