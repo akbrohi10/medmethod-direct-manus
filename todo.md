@@ -1865,3 +1865,11 @@
 - [x] Preserve the masterclass video, Featured In strip, physician intake CTA, pricing accordion, footer, and all unrelated booking flows
 - [x] Validate the streamlined desktop/mobile page, retained care-team booking destination, 271 tests across 56 files, TypeScript, production build, and masterclass route
 - [x] Save and prepare delivery of the verified streamlined masterclass checkpoint with publish instructions
+
+## Facebook Domain Verification Meta Tag — 2026-09-14
+
+- [x] Inspect the shared document head and existing verification metadata
+- [x] Add the supplied `facebook-domain-verification` meta tag without changing other head or tracking code
+- [x] Add regression coverage for the exact supplied verification tag
+- [x] Validate source, focused regression test, TypeScript, production build output, and homepage route
+- [x] Save and prepare delivery of the publishable verification-tag checkpoint
