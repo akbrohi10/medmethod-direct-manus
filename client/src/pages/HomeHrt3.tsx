@@ -279,7 +279,7 @@ export default function HomeHrt3() {
             </span>
           }
           overrideSubline="100% Virtual"
-          overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan for you."
+          overrideBody="A 45-minute visit with Dr. Al-Deek to review your health, medications, and goals—and create or optimize a personalized treatment plan designed to help you feel more like yourself again."
           ctaEyebrow="Ready to Book?"
           ctaLabel="Book Your 45-Minute Visit"
           ctaSupportingLine="with Dr. Al-Deek"

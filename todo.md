@@ -1873,3 +1873,12 @@
 - [x] Add regression coverage for the exact supplied verification tag
 - [x] Validate source, focused regression test, TypeScript, production build output, and homepage route
 - [x] Save and prepare delivery of the publishable verification-tag checkpoint
+
+## Homepage Outcome-Focused Appointment Copy — 2026-09-15
+
+- [x] Inspect the active homepage appointment description and focused regression coverage
+- [x] Replace the opening description with the approved outcome-focused wording about helping visitors feel more like themselves again
+- [x] Preserve the appointment length, physician attribution, CTA labels, pricing, booking paths, and surrounding layout
+- [x] Add focused regression coverage for the approved outcome-focused copy
+- [x] Validate the updated copy, focused regression test, TypeScript, production build, and homepage route
+- [x] Save and prepare delivery of the homepage copy checkpoint with publish instructions
