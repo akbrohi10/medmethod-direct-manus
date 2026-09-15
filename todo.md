@@ -1892,3 +1892,14 @@
 - [x] Add focused regression coverage for the approved symptom-first introduction
 - [x] Validate desktop/mobile hierarchy, video visibility, booking behavior, 273 tests across 58 files, TypeScript, production build, and masterclass/home/care-team route health
 - [x] Save and prepare delivery of the refined masterclass-introduction checkpoint with publish instructions
+
+## Free Masterclass Header and Featured In Hierarchy — 2026-09-15
+
+- [x] Inspect the current masterclass header, Featured In strip, physician authority-card order, footer, and focused regression coverage
+- [x] Remove the top logo and call-now header without changing its homepage or other-route usage
+- [x] Place the rotating purple Featured In strip directly above Dr. Al-Deek’s authority card in the symptom-first introduction
+- [x] Add the MedMethod Direct logo and accessible Call Now number to the masterclass footer
+- [x] Preserve the symptom-first opening, on-demand video, booking actions, pricing accordion, marquee motion, routes, and tracking
+- [x] Add focused regression coverage for the requested visual ordering and retained footer contact access
+- [x] Validate desktop/mobile hierarchy, logo and phone accessibility, video and booking visibility, 274 tests across 58 files, TypeScript, production build, and masterclass/home route health
+- [x] Save and prepare delivery of the reorganized masterclass hierarchy checkpoint with publish instructions

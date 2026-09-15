@@ -29,6 +29,18 @@ describe("free evergreen masterclass landing page", () => {
     expect(pageSource).not.toContain('Limited Zoom Capacity');
   });
 
+  it("places Featured In above the physician authority card and keeps brand contact access in the footer", () => {
+    const featuredInIndex = pageSource.indexOf('<FeaturedInStrip />');
+    const authorityCardIndex = pageSource.indexOf('Physician and author of <em>The Menopause Weight Loss Trap</em>');
+    const footerIndex = pageSource.indexOf('<footer');
+
+    expect(pageSource).not.toContain('<header className="border-b border-[#e7e0e4]');
+    expect(featuredInIndex).toBeGreaterThan(pageSource.indexOf('Understand Perimenopause, Menopause, Hormone Therapy'));
+    expect(featuredInIndex).toBeLessThan(authorityCardIndex);
+    expect(pageSource.indexOf('href="tel:+18883627011"', footerIndex)).toBeGreaterThan(footerIndex);
+    expect(pageSource.indexOf('src={LOGO}', footerIndex)).toBeGreaterThan(footerIndex);
+  });
+
   it("keeps the established featured outlets, booking choices, and transparent pricing without a lower calendar embed", () => {
     expect(pageSource).toContain('This Is Menopause');
     expect(pageSource).toContain('Woman’s World');

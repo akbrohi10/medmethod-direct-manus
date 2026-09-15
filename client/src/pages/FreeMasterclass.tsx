@@ -1,7 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle2, PlayCircle, ShieldCheck, Stethoscope, Video } from "lucide-react";
+import { CheckCircle2, PlayCircle, ShieldCheck, Video } from "lucide-react";
 import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
@@ -138,19 +138,7 @@ export default function FreeMasterclass() {
         <link rel="canonical" href="https://medmethoddirect.com/free-masterclass" />
       </Helmet>
 
-      <header className="border-b border-[#e7e0e4] bg-white/95 px-4 py-3 backdrop-blur sm:px-7 sm:py-4">
-        <div className="mx-auto flex max-w-[1100px] items-center justify-between gap-4">
-          <a href="/" aria-label="MedMethod Direct home"><img src={LOGO} alt="MedMethod Direct" className="h-8 w-auto sm:h-10" loading="eager" /></a>
-          <a href="tel:+18883627011" className="text-right leading-tight text-[#df2f91] transition-colors hover:text-[#7a1e7e]">
-            <span className="block text-[9px] font-black tracking-[0.18em]">CALL NOW</span>
-            <span className="block text-sm font-black sm:text-base">(888) 362-7011</span>
-          </a>
-        </div>
-      </header>
-
       <article className="mx-auto w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">
-        <FeaturedInStrip />
-
         <section data-free-masterclass-symptom-intro className="relative isolate overflow-hidden bg-[#fff8fb] px-5 pt-8 pb-8 text-center sm:px-10 sm:pt-11 sm:pb-10 lg:px-16">
           <div
             className="pointer-events-none absolute inset-0 -z-10 opacity-90"
@@ -171,6 +159,9 @@ export default function FreeMasterclass() {
               Understand Perimenopause, Menopause, Hormone Therapy &amp; Medical Weight Loss.
             </p>
             <span className="mx-auto mt-5 block h-0.5 w-28 rounded-full bg-[#d92780] sm:mt-6 sm:w-36" aria-hidden="true" />
+            <div className="mt-5 -mx-5 sm:mt-6 sm:-mx-10 lg:-mx-16">
+              <FeaturedInStrip />
+            </div>
             <div className="mx-auto mt-4 flex w-fit max-w-full items-center justify-center gap-3 rounded-full border border-[#e5cad9] bg-white/78 py-2.5 pr-5 pl-2.5 text-left shadow-[0_9px_24px_rgba(122,30,126,0.09)] sm:mt-5 sm:gap-4 sm:py-3 sm:pr-7 sm:pl-3">
               <img src={DOCTOR_HEADSHOT_URL} alt="Dr. Jumana Al-Deek" className="h-14 w-14 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_4px_12px_rgba(70,28,57,0.2)] sm:h-16 sm:w-16" loading="eager" decoding="async" />
               <div className="min-w-0">
@@ -217,9 +208,15 @@ export default function FreeMasterclass() {
           <div className="mt-7"><PricingDetails /></div>
         </section>
 
-        <footer className="px-5 py-8 text-center sm:px-10">
-          <div className="mx-auto flex max-w-3xl items-center justify-center gap-2 text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
-          <a href="tel:+18883627011" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#7a1e7e] hover:text-[#e8339e]"><Stethoscope className="h-4 w-4" aria-hidden="true" />Questions? Call (888) 362-7011</a>
+        <footer className="border-t border-[#eee4e9] px-5 py-8 sm:px-10">
+          <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-5 sm:flex-row">
+            <a href="/" aria-label="MedMethod Direct home"><img src={LOGO} alt="MedMethod Direct" className="h-9 w-auto" loading="eager" /></a>
+            <a href="tel:+18883627011" className="text-center leading-tight text-[#df2f91] transition-colors hover:text-[#7a1e7e] sm:text-right">
+              <span className="block text-[9px] font-black tracking-[0.18em]">CALL NOW</span>
+              <span className="block text-base font-black">(888) 362-7011</span>
+            </a>
+          </div>
+          <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
         </footer>
       </article>
       <LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/free-masterclass" />
