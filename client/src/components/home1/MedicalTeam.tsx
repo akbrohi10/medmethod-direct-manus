@@ -555,6 +555,40 @@ export default function MedicalTeam({
                 <FeaturedInMarquee placement="mobile" />
               </div>
 
+              <div
+                data-home-patient-volume-proof
+                className="mt-5 inline-flex w-fit items-center gap-3 rounded-full border px-4 py-2.5"
+                style={{
+                  borderColor: "rgba(184, 51, 106, 0.24)",
+                  background: "linear-gradient(135deg, #FFF8FC 0%, #F9F0F7 100%)",
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-black text-white"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+                  }}
+                >
+                  10K+
+                </span>
+                <span className="flex flex-col leading-tight">
+                  <span
+                    className="text-[13px] font-black uppercase tracking-[0.07em]"
+                    style={{ fontFamily: "Montserrat, sans-serif", color: "#3A173E" }}
+                  >
+                    10,000+ Patients Seen
+                  </span>
+                  <span
+                    className="mt-0.5 text-[11px] font-medium"
+                    style={{ fontFamily: "Montserrat, sans-serif", color: "#765568" }}
+                  >
+                    With Dr. Jumana Al-Deek
+                  </span>
+                </span>
+              </div>
+
               {/* Two clear booking paths. Each path keeps its decision label,
                   action, and explanation together on mobile and desktop. */}
               <div id="hero-cta-sentinel" className="mt-5 flex w-full max-w-2xl flex-col gap-3">

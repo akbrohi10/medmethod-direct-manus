@@ -1922,5 +1922,15 @@
 - [x] Add the same exact verification tag to crawler-specific HTML without changing social preview, Pixel, or conversion code
 - [x] Add regression coverage that protects the verification tag in Facebook’s crawler response
 - [x] Validate the exact tag in local regular and Facebook-crawler HTML, focused tests, 274 full tests, TypeScript, production build, and home route health without changing Meta Pixel events or conversion tracking
-- [ ] Publish the crawler-response correction and recheck the exact tag in Facebook-user-agent production HTML across the canonical domain
+- [x] Publish the crawler-response correction and recheck the exact tag in Facebook-user-agent production HTML across the canonical apex and www domains
 - [x] Save and prepare delivery of the crawler-response correction checkpoint with clear Facebook retry guidance
+
+## Homepage Patient-Volume Credibility Line — 2026-09-15
+
+- [x] Confirm the published Facebook crawler response now includes the exact verification tag after deployment on both apex and www canonical requests
+- [x] Inspect the active homepage hero and focused regression coverage for a compact credibility-line insertion point
+- [x] Add `10,000+ Patients Seen` immediately above the paid and free booking choices with restrained supporting text
+- [x] Preserve the doctor image, Featured In strip, booking CTAs, payment flow, care-team flow, notification behavior, and responsive layout
+- [x] Add focused regression coverage for patient-proof copy and placement before booking actions
+- [x] Validate live Facebook tag on apex and www crawler responses, homepage desktop/mobile hierarchy, booking visibility, 275 tests across 58 files, TypeScript, production build, and route health
+- [x] Save and prepare delivery of the verified homepage credibility update with Facebook retry guidance and publish instructions

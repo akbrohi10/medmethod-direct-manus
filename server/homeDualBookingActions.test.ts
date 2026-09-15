@@ -17,6 +17,16 @@ const stickyActionsEnd = homeSource.indexOf("{/* Bottom spacer", stickyActionsSt
 const stickyActionsSource = homeSource.slice(stickyActionsStart, stickyActionsEnd);
 
 describe("homepage dual booking actions", () => {
+  it("places the approved patient-volume credibility line before the booking action group", () => {
+    const patientProof = medicalTeamSource.indexOf("data-home-patient-volume-proof");
+    const ctaGroup = medicalTeamSource.indexOf('id="hero-cta-sentinel"');
+
+    expect(patientProof).toBeGreaterThan(-1);
+    expect(ctaGroup).toBeGreaterThan(patientProof);
+    expect(medicalTeamSource).toContain("10,000+ Patients Seen");
+    expect(medicalTeamSource).toContain("With Dr. Jumana Al-Deek");
+  });
+
   it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
     expect(heroSource).toContain('ctaEyebrow="Ready to Book?"');
     expect(heroSource).toContain('ctaLabel="Book Your 45-Minute Visit"');
