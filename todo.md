@@ -1951,3 +1951,11 @@
 - [x] Add focused regression coverage for copy and proof placement before the primary CTA on all three pages
 - [x] Validate desktop/mobile clarity, video and booking visibility, 275 tests across 58 files, TypeScript, production build, all three routes, and current runtime logs
 - [x] Save and prepare delivery of the verified three-page proof update with publish instructions
+
+## Google Tag Manager Container Installation — 2026-09-17
+
+- [x] Inspect the shared visitor-facing document template and confirm no existing Google Tag Manager container is installed
+- [x] Add the supplied `GTM-KMBG6HSR` bootstrap script directly after the required document character-set declaration, ahead of existing third-party scripts
+- [x] Add the supplied `GTM-KMBG6HSR` noscript iframe immediately after the opening visitor-facing body tag
+- [x] Add focused regression coverage for the unique container ID and required head/body placements
+- [x] Run focused and full validation, build, route checks, and save a publishable checkpoint

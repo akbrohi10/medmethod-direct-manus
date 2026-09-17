@@ -28,7 +28,7 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(documentSource).not.toContain("fbevents.js");
     expect(documentSource).not.toContain("fbq");
     expect(documentSource).not.toContain("facebook.com/tr");
-    expect(documentSource).not.toContain("GTM-KMBG6HSR");
+    expect(documentSource).toContain("GTM-KMBG6HSR");
   });
 
   it("contains one supplied init and PageView plus explicit Lead, Schedule, and CompleteRegistration calls", () => {

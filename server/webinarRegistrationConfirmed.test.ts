@@ -42,7 +42,7 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).not.toContain("fbq");
     expect(pageSource).not.toContain("CompleteRegistration");
     expect(pageSource).not.toContain("Schedule");
-    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
+    expect(documentHeadSource).toContain("GTM-KMBG6HSR");
     expect(documentHeadSource).not.toContain("1589326469554181");
     expect(bootstrapSource).toContain('"/webinar-registration-confirmed"');
     expect(bootstrapSource.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);

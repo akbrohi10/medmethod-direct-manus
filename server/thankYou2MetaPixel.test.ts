@@ -16,7 +16,7 @@ const bootstrapSource = readFileSync(
 
 describe("Meta Pixel installation", () => {
   it("keeps ordinary thank-you pages and the shared HTML free of the webinar-only Pixel", () => {
-    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
+    expect(documentHeadSource).toContain("GTM-KMBG6HSR");
     expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(documentHeadSource).not.toContain("1589326469554181");
     expect(documentHeadSource).not.toContain("facebook.com/tr?id=1589326469554181");

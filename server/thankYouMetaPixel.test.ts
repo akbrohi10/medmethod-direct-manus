@@ -8,7 +8,7 @@ const bootstrapSource = readFileSync(resolve(process.cwd(), "client/src/lib/meta
 
 describe("appointment thank-you tracking", () => {
   it("uses the route-aware Pixel with one CompleteRegistration event", () => {
-    expect(documentHeadSource).not.toContain("GTM-KMBG6HSR");
+    expect(documentHeadSource).toContain("GTM-KMBG6HSR");
     expect(documentHeadSource).not.toContain("https://connect.facebook.net/en_US/fbevents.js");
     expect(documentHeadSource).not.toContain("1589326469554181");
     expect(bootstrapSource).toContain('"/webinar-registration-confirmed"');
