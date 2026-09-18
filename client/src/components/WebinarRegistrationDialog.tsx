@@ -6,6 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  buildWebinarRegistrationUrl,
+  type WebinarLandingPage,
+} from "@/lib/webinarLeadAttribution";
 
 const WEBINAR_FORM_ID = "A3e1g5dCf1hc3tY3xpHi";
 const WEBINAR_FORM_URL = `https://link.sendmeapro.com/widget/form/${WEBINAR_FORM_ID}`;
@@ -21,6 +25,7 @@ type WebinarRegistrationDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   confirmationPath?: string;
+  landingPage?: WebinarLandingPage;
 };
 
 /**
@@ -36,11 +41,13 @@ export default function WebinarRegistrationDialog({
   open,
   onOpenChange,
   confirmationPath = DEFAULT_WEBINAR_CONFIRMATION_PATH,
+  landingPage = "live-webinar2",
 }: WebinarRegistrationDialogProps) {
   const [formLoaded, setFormLoaded] = useState(false);
   const [formLoadError, setFormLoadError] = useState(false);
   const formFrameRef = useRef<HTMLIFrameElement>(null);
   const completionRedirectedRef = useRef(false);
+  const registrationFormUrl = buildWebinarRegistrationUrl(WEBINAR_FORM_URL, landingPage);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (nextOpen) {
@@ -125,7 +132,7 @@ export default function WebinarRegistrationDialog({
           ) : (
             <iframe
               ref={formFrameRef}
-              src={WEBINAR_FORM_URL}
+              src={registrationFormUrl}
               style={{ width: "100%", height: "100%", minHeight: "450px", border: "none", borderRadius: "8px" }}
               id={`inline-${WEBINAR_FORM_ID}`}
               data-layout={'{"id":"INLINE"}'}

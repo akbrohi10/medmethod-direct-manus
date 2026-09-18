@@ -12,6 +12,11 @@ describe("click-triggered SendMeAPro webinar registration dialog", () => {
   it("uses the supplied Webinar Form iframe source and provider metadata", () => {
     expect(dialogSource).toContain('const WEBINAR_FORM_ID = "A3e1g5dCf1hc3tY3xpHi"');
     expect(dialogSource).toContain("https://link.sendmeapro.com/widget/form/${WEBINAR_FORM_ID}");
+    expect(dialogSource).toContain("buildWebinarRegistrationUrl");
+    expect(dialogSource).toContain("landingPage?: WebinarLandingPage;");
+    expect(dialogSource).toContain('landingPage = "live-webinar2"');
+    expect(dialogSource).toContain("const registrationFormUrl = buildWebinarRegistrationUrl(WEBINAR_FORM_URL, landingPage);");
+    expect(dialogSource).toContain("src={registrationFormUrl}");
     expect(dialogSource).toContain("iframe loads the form directly");
     expect(dialogSource).toContain('id={`inline-${WEBINAR_FORM_ID}`}');
     expect(dialogSource).toContain('data-layout={\'{"id":"INLINE"}\'}');

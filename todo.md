@@ -1994,3 +1994,11 @@
 - [x] Preserve the large purple sound-start panel and its restart-from-0:00-with-sound behavior
 - [x] Add regression coverage that prohibits native controls and preserves inline playback safeguards
 - [x] Run focused and full validation, browser interaction checks, and production build; then save a publishable checkpoint
+
+## Webinar Lead Ad Attribution — 2026-09-18
+
+- [x] Confirm the webinar registration form is a GoHighLevel iframe, so DOM-based External Tracking cannot inspect its submitted fields
+- [x] Forward paid-ad UTM fields and click identifiers from the webinar landing URL into the hosted GoHighLevel form URL on both live webinar pages
+- [x] Label each submission with a separate GoHighLevel Source value for `/live-webinar2` or `/live-webinar3`, without replacing the ad attribution fields
+- [x] Add focused source-level regression coverage and an operating guide with the exact Meta Ads Manager tracking template
+- [x] Validate the website, verify forwarded iframe URLs in the browser, save a checkpoint, and provide the one required GoHighLevel Source-field step

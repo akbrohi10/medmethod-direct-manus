@@ -110,7 +110,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("const [registrationOpen, setRegistrationOpen] = useState(false);");
     expect(pageSource).toContain("const handleReserveSeat = () => {");
     expect(pageSource).toContain("setRegistrationOpen(true);");
-    expect(pageSource).toContain("<WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />");
+    expect(pageSource).toContain("<WebinarRegistrationDialog");
+    expect(pageSource).toContain("onOpenChange={setRegistrationOpen}");
+    expect(pageSource).toContain('landingPage="live-webinar2"');
     expect(pageSource).not.toContain("Registration is not connected yet. This button is for visual review only.");
     expect(pageSource.match(/onClick=\{handleReserveSeat\}/g)).toHaveLength(2);
     expect(pageSource).not.toContain("Reserve Your Free Spot");

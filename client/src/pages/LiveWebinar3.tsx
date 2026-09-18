@@ -488,6 +488,7 @@ export default function LiveWebinar3() {
         open={registrationOpen}
         onOpenChange={handleRegistrationOpenChange}
         confirmationPath="/live-webinar3-confirmed"
+        landingPage="live-webinar3"
       />
     </main>
   );

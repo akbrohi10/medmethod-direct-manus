@@ -611,7 +611,11 @@ export default function LiveWebinar2() {
           </footer>
         </div>
       </article>
-      <WebinarRegistrationDialog open={registrationOpen} onOpenChange={setRegistrationOpen} />
+      <WebinarRegistrationDialog
+        open={registrationOpen}
+        onOpenChange={setRegistrationOpen}
+        landingPage="live-webinar2"
+      />
     </main>
   );
 }
