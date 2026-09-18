@@ -272,6 +272,14 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("sm:h-24 sm:w-24");
     expect(pageSource).toContain('video.setAttribute("playsinline", "")');
     expect(pageSource).toContain('video.setAttribute("webkit-playsinline", "")');
+    expect(pageSource).toContain("function enforceInlinePlayback");
+    expect(pageSource).toContain("video.playsInline = true");
+    expect(pageSource).toContain("video.webkitExitFullscreen?.()");
+    expect(pageSource).toContain("video.controls = false");
+    expect(pageSource).toContain("pointer-events-none h-full w-full bg-black object-cover");
+    expect(pageSource).toContain("tabIndex={-1}");
+    expect(pageSource).not.toContain('\n              controls\n');
+    expect(pageSource).not.toContain("controlsList=");
     expect(pageSource).toContain("video.muted = true");
     expect(pageSource).toContain("video.defaultMuted = true");
     expect(pageSource).toContain("autoPlay");

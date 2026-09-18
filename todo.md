@@ -1985,3 +1985,12 @@
 - [x] Replace the generic smaller fallback with the same prominent sound-start overlay, preserving a consistent next step if autoplay is blocked
 - [x] Preserve the click action that restarts the video from the beginning and enables sound
 - [x] Validate focused and full tests, type checks, production build, browser autoplay and restart behavior, then save a publishable checkpoint
+
+## Webinar Inline Playback Lock — 2026-09-18
+
+- [x] Confirm native video controls can provide a browser path into a full-screen player despite existing inline attributes
+- [x] Keep both webinar videos frame-only by removing native controls and disabling direct video pointer interaction
+- [x] Reinforce inline playback before the user-triggered sound restart and immediately exit a legacy WebKit fullscreen transition if one occurs
+- [x] Preserve the large purple sound-start panel and its restart-from-0:00-with-sound behavior
+- [x] Add regression coverage that prohibits native controls and preserves inline playback safeguards
+- [x] Run focused and full validation, browser interaction checks, and production build; then save a publishable checkpoint

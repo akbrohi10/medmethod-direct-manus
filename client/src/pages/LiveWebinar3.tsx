@@ -74,6 +74,7 @@ const featuredOutlets = [
 ];
 
 type CountdownUnit = { value: string; label: string };
+type InlineVideoElement = HTMLVideoElement & { webkitExitFullscreen?: () => void };
 
 const EMPTY_COUNTDOWN: CountdownUnit[] = [
   { value: "00", label: "Days" },
@@ -100,6 +101,13 @@ function getCountdownUnits(startsAt: string | null): CountdownUnit[] {
     { value: String(minutes).padStart(2, "0"), label: "Minutes" },
     { value: String(seconds).padStart(2, "0"), label: "Seconds" },
   ];
+}
+
+function enforceInlinePlayback(video: InlineVideoElement) {
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  video.webkitExitFullscreen?.();
 }
 
 export default function LiveWebinar3() {
@@ -132,9 +140,12 @@ export default function LiveWebinar3() {
     const video = videoRef.current;
     if (!shell || !video) return;
 
-    const webkitVideo = video as HTMLVideoElement & { webkitExitFullscreen?: () => void };
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
+    const webkitVideo = video as InlineVideoElement;
+    enforceInlinePlayback(webkitVideo);
+    // Native controls can let mobile browsers take over with a full-screen
+    // player. Keep this landing-page video frame-only; the sound panel is the
+    // single intentional video action.
+    video.controls = false;
     // Start muted from the browser's first video paint. This is the only
     // autoplay mode consistently permitted across mobile browsers and lets the
     // prominent sound-start overlay be the reliable next step.
@@ -164,7 +175,7 @@ export default function LiveWebinar3() {
     video.addEventListener("timeupdate", syncActiveCaption);
     video.addEventListener("seeked", syncActiveCaption);
 
-    const keepPlaybackInline = () => webkitVideo.webkitExitFullscreen?.();
+    const keepPlaybackInline = () => enforceInlinePlayback(webkitVideo);
     video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
 
     const attemptPlayback = async () => {
@@ -228,6 +239,7 @@ export default function LiveWebinar3() {
   const handleEnableSound = async () => {
     const video = videoRef.current;
     if (!video) return;
+    enforceInlinePlayback(video);
     video.pause();
     video.currentTime = 0;
     video.muted = false;
@@ -296,15 +308,14 @@ export default function LiveWebinar3() {
           >
             <video
               ref={videoRef}
-              className="h-full w-full bg-black object-cover"
+              className="pointer-events-none h-full w-full bg-black object-cover"
               autoPlay
               muted={videoMuted}
-              controls
               playsInline
+              tabIndex={-1}
               preload="auto"
               poster={WEBINAR_VIDEO_POSTER_URL}
               aria-label="Dr. Jumana Al-Deek speaking at a women’s health educational event"
-              controlsList="nodownload noremoteplayback nofullscreen"
               disablePictureInPicture
               disableRemotePlayback
               onPlay={() => setHasVideoStarted(true)}

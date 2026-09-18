@@ -84,6 +84,14 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("Start muted from the browser's first video paint");
     expect(liveWebinar3Source).toContain("const [videoMuted, setVideoMuted] = useState(true)");
     expect(liveWebinar3Source).toContain("muted={videoMuted}");
+    expect(liveWebinar3Source).toContain("function enforceInlinePlayback");
+    expect(liveWebinar3Source).toContain("video.playsInline = true");
+    expect(liveWebinar3Source).toContain("video.webkitExitFullscreen?.()");
+    expect(liveWebinar3Source).toContain("video.controls = false");
+    expect(liveWebinar3Source).toContain("pointer-events-none h-full w-full bg-black object-cover");
+    expect(liveWebinar3Source).toContain("tabIndex={-1}");
+    expect(liveWebinar3Source).not.toContain('\n              controls\n');
+    expect(liveWebinar3Source).not.toContain("controlsList=");
     expect(liveWebinar3Source).not.toContain("Play Video With Sound");
     expect(liveWebinar3Source).not.toContain("handlePlayWithSound");
     expect(liveWebinar3Source).not.toContain("h-[4.5rem] w-[4.5rem]");
