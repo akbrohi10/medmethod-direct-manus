@@ -1967,3 +1967,12 @@
 - [x] Update focused regression coverage for all three requested landing pages
 - [x] Run focused and full validation, route checks, and production build; then save a publishable checkpoint
 - [x] Confirm in the preview browser that all three requested landing pages render one visible `Dr. Al-Deek has seen 50,000+ patients.` line before their primary next-step action
+
+## Homepage Patient-Volume Proof Update — 2026-09-17
+
+- [x] Update the homepage proof line to `Dr. Al-Deek has seen 50,000+ patients.`
+- [x] Preserve the existing simple one-line styling and placement immediately before the booking choices
+- [x] Update focused homepage proof regression coverage
+- [x] Run focused and full validation, homepage route and visual checks, and production build; then save a publishable checkpoint
+- [x] Pass focused coverage, 277 full tests, TypeScript, production build, and HTTP 200 checks confirming exactly one `50,000+` proof line on the homepage and all three landing pages
+- [x] Confirm in the preview browser that the homepage renders the updated proof line clearly above the unchanged paid and free booking choices

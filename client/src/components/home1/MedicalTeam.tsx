@@ -563,7 +563,7 @@ export default function MedicalTeam({
                   className="text-sm font-semibold"
                   style={{ fontFamily: "Montserrat, sans-serif", color: "#5A4452" }}
                 >
-                  Dr. Al-Deek has seen <span className="font-black text-[#7A1E7E]">10,000+ patients.</span>
+                  Dr. Al-Deek has seen <span className="font-black text-[#7A1E7E]">50,000+ patients.</span>
                 </p>
               </div>
 
