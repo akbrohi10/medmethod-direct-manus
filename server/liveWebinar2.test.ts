@@ -268,17 +268,17 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).not.toContain("MessageCircle");
     expect(pageSource).toContain("data-webinar2-informed-message");
     expect(pageSource).toContain("Watch: [VIDEO LENGTH]");
-    expect(pageSource).toContain("h-[4.5rem] w-[4.5rem]");
-    expect(pageSource).toContain("sm:h-24 sm:w-24");
+    expect(pageSource).not.toContain("h-[4.5rem] w-[4.5rem]");
+    expect(pageSource).not.toContain("sm:h-24 sm:w-24");
     expect(pageSource).toContain('video.setAttribute("playsinline", "")');
     expect(pageSource).toContain('video.setAttribute("webkit-playsinline", "")');
-    expect(pageSource).toContain("video.muted = false");
-    expect(pageSource).toContain("video.defaultMuted = false");
-    expect(pageSource).toContain("Some browsers require a user gesture for audible autoplay");
     expect(pageSource).toContain("video.muted = true");
     expect(pageSource).toContain("video.defaultMuted = true");
     expect(pageSource).toContain("autoPlay");
-    expect(pageSource).not.toContain('\n              muted\n');
+    expect(pageSource).toContain("const [videoMuted, setVideoMuted] = useState(true)");
+    expect(pageSource).toContain("muted={videoMuted}");
+    expect(pageSource).toContain("Start muted from the browser's first video paint");
+    expect(pageSource).toContain("generic play affordance");
     expect(pageSource).toContain('preload="auto"');
     expect(pageSource).toContain("WEBINAR_VIDEO_CAPTIONS_VTT");
     expect(pageSource).toContain("WEBINAR_VIDEO_CAPTIONS_SRC");
@@ -302,7 +302,9 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource).toContain("Tap to start with sound");
     expect(pageSource).toContain("handleEnableSound");
     expect(pageSource).toContain("video.currentTime = 0");
-    expect(pageSource).toContain("Play Video With Sound");
+    expect(pageSource).toContain("Ready to watch?");
+    expect(pageSource).not.toContain("Play Video With Sound");
+    expect(pageSource).not.toContain("handlePlayWithSound");
   });
 
   it("keeps review safeguards and separates the exact disclosure from media credibility", () => {

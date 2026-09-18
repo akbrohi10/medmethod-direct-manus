@@ -79,7 +79,15 @@ describe("live webinar 3 A/B variation", () => {
     expect(liveWebinar3Source).toContain("data-webinar3-unmute-overlay");
     expect(liveWebinar3Source).toContain('aria-label="Restart video from the beginning with sound"');
     expect(liveWebinar3Source).toContain("Your video is playing");
+    expect(liveWebinar3Source).toContain("Ready to watch?");
     expect(liveWebinar3Source).toContain("Tap to start with sound");
+    expect(liveWebinar3Source).toContain("Start muted from the browser's first video paint");
+    expect(liveWebinar3Source).toContain("const [videoMuted, setVideoMuted] = useState(true)");
+    expect(liveWebinar3Source).toContain("muted={videoMuted}");
+    expect(liveWebinar3Source).not.toContain("Play Video With Sound");
+    expect(liveWebinar3Source).not.toContain("handlePlayWithSound");
+    expect(liveWebinar3Source).not.toContain("h-[4.5rem] w-[4.5rem]");
+    expect(liveWebinar3Source).not.toContain("sm:h-24 sm:w-24");
     expect(liveWebinar3Source).toContain("const handleEnableSound = async () => {");
     expect(liveWebinar3Source).toContain("video.pause();");
     expect(liveWebinar3Source).toContain("video.currentTime = 0");

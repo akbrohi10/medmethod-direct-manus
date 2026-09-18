@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useRef, useState } from "react";
-import { Clock3, Play, Volume2 } from "lucide-react";
+import { Clock3, Volume2 } from "lucide-react";
 import WebinarRegistrationDialog from "@/components/WebinarRegistrationDialog";
 
 const WEBINAR_VIDEO_URL = "/manus-storage/replacement-speaking-event-web_3c5c62ae.mp4";
@@ -107,7 +107,7 @@ export default function LiveWebinar3() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [hasVideoStarted, setHasVideoStarted] = useState(false);
-  const [videoMuted, setVideoMuted] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(true);
   const [activeCaption, setActiveCaption] = useState<string | null>(null);
   const [countdownUnits, setCountdownUnits] = useState(() => getCountdownUnits(WEBINAR_EVENT.startsAt));
   const [registrationOpen, setRegistrationOpen] = useState(false);
@@ -135,9 +135,12 @@ export default function LiveWebinar3() {
     const webkitVideo = video as HTMLVideoElement & { webkitExitFullscreen?: () => void };
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
-    video.muted = false;
-    video.defaultMuted = false;
-    setVideoMuted(false);
+    // Start muted from the browser's first video paint. This is the only
+    // autoplay mode consistently permitted across mobile browsers and lets the
+    // prominent sound-start overlay be the reliable next step.
+    video.muted = true;
+    video.defaultMuted = true;
+    setVideoMuted(true);
 
     const captionElement = video.querySelector<HTMLTrackElement>("track[kind='captions']");
     const syncActiveCaption = () => {
@@ -165,28 +168,19 @@ export default function LiveWebinar3() {
     video.addEventListener("webkitbeginfullscreen", keepPlaybackInline);
 
     const attemptPlayback = async () => {
-      video.muted = false;
-      video.defaultMuted = false;
-      setVideoMuted(false);
+      video.muted = true;
+      video.defaultMuted = true;
+      setVideoMuted(true);
 
       try {
         await video.play();
         setAutoplayBlocked(false);
         setHasVideoStarted(true);
       } catch {
-        // Some browsers require a user gesture for audible autoplay. Keep the
-        // motion available by retrying muted, then expose a clear sound control.
-        video.muted = true;
-        video.defaultMuted = true;
-        setVideoMuted(true);
-
-        try {
-          await video.play();
-          setAutoplayBlocked(false);
-          setHasVideoStarted(true);
-        } catch {
-          setAutoplayBlocked(true);
-        }
+        // If a privacy setting still blocks muted autoplay, retain the same
+        // prominent click-to-start-with-sound control instead of a smaller
+        // generic play affordance.
+        setAutoplayBlocked(true);
       }
     };
 
@@ -229,23 +223,6 @@ export default function LiveWebinar3() {
       }
     }
     setRegistrationOpen(nextOpen);
-  };
-
-  const handlePlayWithSound = async () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-    video.muted = false;
-    video.defaultMuted = false;
-    try {
-      await video.play();
-      setAutoplayBlocked(false);
-      setHasVideoStarted(true);
-      setVideoMuted(false);
-    } catch {
-      setAutoplayBlocked(true);
-    }
   };
 
   const handleEnableSound = async () => {
@@ -321,6 +298,7 @@ export default function LiveWebinar3() {
               ref={videoRef}
               className="h-full w-full bg-black object-cover"
               autoPlay
+              muted={videoMuted}
               controls
               playsInline
               preload="auto"
@@ -353,7 +331,7 @@ export default function LiveWebinar3() {
               </span>
             )}
 
-            {hasVideoStarted && videoMuted && !autoplayBlocked && (
+            {videoMuted && (hasVideoStarted || autoplayBlocked) && (
               <button
                 data-webinar3-unmute-overlay
                 type="button"
@@ -365,24 +343,10 @@ export default function LiveWebinar3() {
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/16 sm:h-14 sm:w-14">
                     <Volume2 className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
                   </span>
-                  <span className="mt-3 text-base font-black leading-tight sm:text-xl">Your video is playing</span>
+                  <span className="mt-3 text-base font-black leading-tight sm:text-xl">
+                    {hasVideoStarted ? "Your video is playing" : "Ready to watch?"}
+                  </span>
                   <span className="mt-1 text-sm font-bold text-white/88 sm:text-base">Tap to start with sound</span>
-                </span>
-              </button>
-            )}
-
-            {autoplayBlocked && (
-              <button
-                type="button"
-                onClick={handlePlayWithSound}
-                className="absolute inset-0 bg-black/24 text-center text-white backdrop-blur-[0.5px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/90"
-              >
-                <span className="absolute top-[48%] left-1/2 inline-flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-[#e72e91] to-[#6b1f80] text-white shadow-[0_12px_28px_rgba(71,20,80,0.36)] sm:h-24 sm:w-24">
-                  <Play className="ml-1 h-8 w-8 fill-current sm:h-11 sm:w-11" aria-hidden="true" />
-                </span>
-                <span className="absolute bottom-3 left-1/2 inline-flex min-h-10 -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-[#291232]/92 px-4 py-2 text-[9px] font-black uppercase tracking-[0.07em] shadow-xl sm:bottom-5 sm:min-h-11 sm:px-7 sm:py-2.5 sm:text-xs sm:tracking-[0.08em]">
-                  <Volume2 className="h-4 w-4" aria-hidden="true" />
-                  Play Video With Sound
                 </span>
               </button>
             )}

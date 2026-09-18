@@ -1976,3 +1976,12 @@
 - [x] Run focused and full validation, homepage route and visual checks, and production build; then save a publishable checkpoint
 - [x] Pass focused coverage, 277 full tests, TypeScript, production build, and HTTP 200 checks confirming exactly one `50,000+` proof line on the homepage and all three landing pages
 - [x] Confirm in the preview browser that the homepage renders the updated proof line clearly above the unchanged paid and free booking choices
+
+## Webinar Autoplay Overlay Reliability — 2026-09-18
+
+- [x] Confirm that `/live-webinar2` and `/live-webinar3` currently autoplay muted and restart from 0:00 with sound after clicking the large overlay
+- [x] Identify the smaller purple play control as the generic fallback displayed when autoplay is blocked by a browser or privacy setting
+- [x] Initialize both videos muted in the rendered HTML and playback logic to maximize browser-approved autoplay reliability
+- [x] Replace the generic smaller fallback with the same prominent sound-start overlay, preserving a consistent next step if autoplay is blocked
+- [x] Preserve the click action that restarts the video from the beginning and enables sound
+- [x] Validate focused and full tests, type checks, production build, browser autoplay and restart behavior, then save a publishable checkpoint
