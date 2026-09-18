@@ -474,7 +474,7 @@ export default function LiveWebinar2() {
             data-webinar2-patient-volume-proof
             className="mx-auto mt-4 max-w-[720px] text-center text-sm font-semibold text-[#5a4452] sm:text-base"
           >
-            Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">10,000+ patients.</span>
+            Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">50,000+ patients.</span>
           </p>
 
           <button

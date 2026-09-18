@@ -1959,3 +1959,11 @@
 - [x] Add the supplied `GTM-KMBG6HSR` noscript iframe immediately after the opening visitor-facing body tag
 - [x] Add focused regression coverage for the unique container ID and required head/body placements
 - [x] Run focused and full validation, build, route checks, and save a publishable checkpoint
+
+## Landing-Page Patient-Volume Proof Update — 2026-09-17
+
+- [x] Update the exact proof line to `Dr. Al-Deek has seen 50,000+ patients.` on `/live-webinar2`, `/live-webinar3`, and `/free-masterclass`
+- [x] Preserve the homepage proof line and all layouts, CTA placement, video, booking, payment, calendar, and tracking behavior
+- [x] Update focused regression coverage for all three requested landing pages
+- [x] Run focused and full validation, route checks, and production build; then save a publishable checkpoint
+- [x] Confirm in the preview browser that all three requested landing pages render one visible `Dr. Al-Deek has seen 50,000+ patients.` line before their primary next-step action

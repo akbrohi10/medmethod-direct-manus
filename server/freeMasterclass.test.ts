@@ -51,7 +51,7 @@ describe("free evergreen masterclass landing page", () => {
     expect(pageSource).toContain('data-free-masterclass-care-team-cta');
     expect(pageSource).toContain('data-free-masterclass-patient-volume-proof');
     expect(pageSource).toContain('Dr. Al-Deek has seen');
-    expect(pageSource).toContain('10,000+ patients.');
+    expect(pageSource).toContain('50,000+ patients.');
     expect(pageSource.indexOf('data-free-masterclass-patient-volume-proof')).toBeLessThan(
       pageSource.indexOf('data-free-masterclass-physician-cta'),
     );

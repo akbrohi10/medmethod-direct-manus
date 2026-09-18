@@ -79,7 +79,7 @@ describe("live webinar 2 second revision prompt", () => {
     expect(pageSource.indexOf("data-webinar2-video-shell")).toBeLessThan(pageSource.indexOf("data-webinar2-patient-volume-proof"));
     expect(pageSource.indexOf("data-webinar2-patient-volume-proof")).toBeLessThan(pageSource.indexOf("data-webinar2-primary-cta"));
     expect(pageSource).toContain("Dr. Al-Deek has seen");
-    expect(pageSource).toContain("10,000+ patients.");
+    expect(pageSource).toContain("50,000+ patients.");
     expect(pageSource.indexOf("data-webinar2-primary-cta")).toBeLessThan(pageSource.indexOf("data-webinar2-featured-in"));
     expect(pageSource).not.toContain("data-webinar2-registration-preview");
     expect(pageSource).not.toContain("data-webinar2-duration-line");
