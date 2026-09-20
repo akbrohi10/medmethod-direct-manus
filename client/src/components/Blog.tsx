@@ -4,6 +4,7 @@
    ============================================================================= */
 import { ArrowRight } from "lucide-react";
 import { blogPosts, PILLAR_COLORS } from "@/data/blogPosts";
+import { DR_JUMANA_AL_DEEK_BLOG_URL } from "@/lib/externalLinks";
 
 // Pick the 3 best articles: featured first, then by pillar diversity
 const FEATURED_SLUGS = [
@@ -42,7 +43,7 @@ export default function Blog() {
             </h2>
           </div>
           <a
-            href="/blog"
+            href={DR_JUMANA_AL_DEEK_BLOG_URL}
             className="text-sm font-bold tracking-wider flex items-center gap-2 self-start lg:self-auto"
             style={{ fontFamily: "Montserrat, sans-serif", color: "#E8339E" }}
           >
@@ -56,7 +57,7 @@ export default function Blog() {
           {featuredArticles.map((article) => (
             <a
               key={article.slug}
-              href={`/blog/${article.slug}`}
+              href={DR_JUMANA_AL_DEEK_BLOG_URL}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               {/* Image */}

@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
+import { DR_JUMANA_AL_DEEK_BLOG_URL } from "@/lib/externalLinks";
 
 // scrollTo: smooth-scrolls to a section id, compensating for fixed navbar height
 function scrollTo(id: string) {
@@ -22,7 +23,7 @@ const navLinks = [
   { label: "Services",    anchor: "services" },
   { label: "How It Works", anchor: "how-it-works" },
   { label: "About",       anchor: "about" },
-  { label: "Blog",        href: "/blog" },
+  { label: "Blog",        href: DR_JUMANA_AL_DEEK_BLOG_URL },
   { label: "Our Book",    anchor: "book" },
   { label: "FAQ",         anchor: "faq" },
 ];

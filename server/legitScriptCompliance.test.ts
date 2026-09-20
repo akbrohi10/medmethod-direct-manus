@@ -177,7 +177,7 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
-  it("keeps the incomplete hormone-therapy article unpublished with a permanent redirect", () => {
+  it("keeps the incomplete hormone-therapy article unpublished with the shared external-blog redirect", () => {
     const removedSlug = "hormone-therapy-weight-sleep-metabolism";
     const appSource = readFileSync(resolve(sourceRoot, "App.tsx"), "utf8");
     const blogRegistry = readFileSync(
@@ -207,10 +207,9 @@ describe("LegitScript compliance remediation", () => {
       const source = readFileSync(resolve(sourceRoot, "pages", file), "utf8");
       expect(source).not.toContain(removedSlug);
     }
-    expect(serverSource).toContain(
-      `app.get("/blog/${removedSlug}", (_req, res) =>`,
-    );
-    expect(serverSource).toContain('res.redirect(301, "/blog")');
+    expect(serverSource).toContain('app.get("/blog", (_req, res) =>');
+    expect(serverSource).toContain('app.get("/blog/*", (_req, res) =>');
+    expect(serverSource).toContain('res.redirect(301, "https://drjumanaaldeek.com/blog")');
   });
 
   it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
@@ -342,7 +341,8 @@ describe("LegitScript compliance remediation", () => {
       "/the-menopause-weight-loss-trap",
       "/guide/how-it-works",
       "/pricing-guide",
-      "/blog/semaglutide-vs-tirzepatide-women-midlife",
+      "/blog",
+      "/blog/*",
       "/lp/glp1",
     ]) {
       expect(serverSource).toContain(`"${route}"`);

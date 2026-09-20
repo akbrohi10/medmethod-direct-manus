@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Toaster } from "sonner";
 import SocialProofNotifications from "./components/SocialProofNotifications";
 import SocialProofNotificationsLP from "./components/SocialProofNotificationsLP";
@@ -8,12 +8,11 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazyWithStaleAssetRecovery as lazy } from "./lib/lazyWithStaleAssetRecovery";
+import { DR_JUMANA_AL_DEEK_BLOG_URL } from "./lib/externalLinks";
 
 const HomeHrt3 = lazy(() => import("./pages/HomeHrt3"));
 
 // Lazy load everything else
-const BlogIndex = lazy(() => import("./pages/BlogIndex"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const StartWomen = lazy(() => import("@/pages/StartWomen"));
 const DiscoveryCall = lazy(() => import("@/pages/DiscoveryCall"));
@@ -191,14 +190,30 @@ function PageLoader() {
     </div>
   );
 }
+
+/** Keeps saved links to MedMethod's former on-site blog useful after the move. */
+function ExternalBlogRedirect() {
+  useEffect(() => {
+    window.location.replace(DR_JUMANA_AL_DEEK_BLOG_URL);
+  }, []);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center px-6 text-center">
+      <p className="text-sm text-[#514a52]" role="status">
+        Opening Dr. Al-Deek&apos;s blog…
+      </p>
+    </div>
+  );
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path={"/"} component={HomeHrt3} />
-        <Route path={"/blog"} component={BlogIndex} />
-        <Route path={"/blog/:slug"} component={BlogPost} />
+        <Route path={"/blog"} component={ExternalBlogRedirect} />
+        <Route path={"/blog/:slug"} component={ExternalBlogRedirect} />
         <Route path={"/virginia"} component={LocationVirginia} />
         <Route path="/virginia/mclean" component={LocationMcLean} />
         <Route path="/virginia/great-falls" component={LocationGreatFalls} />

@@ -40,7 +40,8 @@ describe("footer Services-column removal", () => {
     expect(secondaryFooter).toContain("Get Started");
 
     for (const source of footerSources) {
-      expect(source).toContain('href: "/blog"');
+      expect(source).toContain('import { DR_JUMANA_AL_DEEK_BLOG_URL } from "@/lib/externalLinks";');
+      expect(source).toContain('href: DR_JUMANA_AL_DEEK_BLOG_URL');
       expect(source).toContain('href: "/locations"');
       expect(source).toContain('href: "/shipping-policy"');
       expect(source).toContain('href: "/accessibility"');

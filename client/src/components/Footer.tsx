@@ -4,6 +4,7 @@
    ============================================================================= */
 import { useState } from "react";
 import MetabolicQuiz from "./MetabolicQuiz";
+import { DR_JUMANA_AL_DEEK_BLOG_URL } from "@/lib/externalLinks";
 
 export default function Footer({ onConsultClick }: { onConsultClick: () => void }) {
   const [quizOpen, setQuizOpen] = useState(false);
@@ -60,7 +61,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { label: "Blog", href: "/blog" },
+                { label: "Blog", href: DR_JUMANA_AL_DEEK_BLOG_URL },
                 { label: "Locations", href: "/locations" },
                 { label: "Care Team Booking", href: "/care-team-booking" },
               ].map(({ label, href }) => (

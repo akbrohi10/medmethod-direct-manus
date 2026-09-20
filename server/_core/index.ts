@@ -99,11 +99,11 @@ async function startServer() {
   app.get("/guide/how-it-works", (_req, res) => res.redirect(301, "/"));
   app.get("/start/women", (_req, res) => res.redirect(301, "/"));
   app.get("/pricing-guide", (_req, res) => res.redirect(301, "/"));
-  app.get("/blog/semaglutide-vs-tirzepatide-women-midlife", (_req, res) =>
-    res.redirect(301, "/blog")
+  app.get("/blog", (_req, res) =>
+    res.redirect(301, "https://drjumanaaldeek.com/blog")
   );
-  app.get("/blog/hormone-therapy-weight-sleep-metabolism", (_req, res) =>
-    res.redirect(301, "/blog")
+  app.get("/blog/*", (_req, res) =>
+    res.redirect(301, "https://drjumanaaldeek.com/blog")
   );
   app.get("/lp/glp1", (_req, res) => res.redirect(301, "/lp/WL"));
   app.get(["/home-1", "/home-v1", "/home-2", "/home-3"], (_req, res) =>

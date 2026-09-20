@@ -2002,3 +2002,11 @@
 - [x] Label each submission with a separate GoHighLevel Source value for `/live-webinar2` or `/live-webinar3`, without replacing the ad attribution fields
 - [x] Add focused source-level regression coverage and an operating guide with the exact Meta Ads Manager tracking template
 - [x] Validate the website, verify forwarded iframe URLs in the browser, save a checkpoint, and provide the one required GoHighLevel Source-field step
+
+## External Blog Destination — 2026-09-20
+
+- [x] Set `https://drjumanaaldeek.com/blog` as the single canonical destination for site-owned Blog calls to action
+- [x] Route the prior `/blog` index and individual `/blog/:slug` article URLs to the external blog so older internal links remain functional
+- [x] Update the shared homepage and secondary footers, legacy navigation, and blog-section calls to action to point directly to the new destination
+- [x] Add regression coverage for the direct links and legacy route redirect
+- [x] Run focused and full validation, HTTP redirect checks, save a checkpoint, and confirm publishing status
