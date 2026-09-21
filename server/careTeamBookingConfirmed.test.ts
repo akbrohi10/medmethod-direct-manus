@@ -19,9 +19,11 @@ describe("care-team discovery-call confirmation", () => {
     expect(appSource).toContain('<Route path="/care-team-booking" component={CareTeamBooking} />');
   });
 
-  it("confirms the free discovery call without payment or physician-visit language", () => {
-    expect(pageSource).toContain("Your Free Call Is Confirmed.");
+  it("uses the scheduled care-team call sentence as the sole confirmation headline", () => {
+    expect(pageSource).not.toContain("Your Free Call Is Confirmed.");
+    expect(pageSource).toContain('<h1 className="mt-3 font-serif text-4xl font-bold leading-[1.04] tracking-[-0.035em] text-[#35152f] sm:text-5xl">');
     expect(pageSource).toContain("Your free 15-minute call with the MedMethod Direct Care Team has been scheduled.");
+    expect(pageSource).not.toContain('className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#655461] sm:text-lg sm:leading-8"');
     expect(pageSource).toContain("This free call provides general information only.");
     expect(pageSource).toContain("It does not provide medical advice, diagnosis, or treatment recommendations.");
     expect(pageSource).toContain("Please refer to your appointment confirmation for the scheduled date, time, and call details.");

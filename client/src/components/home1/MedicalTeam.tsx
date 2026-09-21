@@ -185,6 +185,7 @@ export default function MedicalTeam({
   ctaDescription,
   ctaMicrocopy,
   secondaryAction,
+  swapBookingActions,
   hideBullets,
   overrideHeadline,
   overrideSubline,
@@ -203,6 +204,8 @@ export default function MedicalTeam({
     supportingLine?: ReactNode;
     description?: ReactNode;
   };
+  /** Places the supplied secondary action in the primary visual and reading position. */
+  swapBookingActions?: boolean;
   hideBullets?: boolean;
   overrideHeadline?: ReactNode;
   overrideSubline?: ReactNode;
@@ -222,6 +225,108 @@ export default function MedicalTeam({
   // Static coach count — small hand-vetted team
   const coachCount = 7;
   const numberRef = useRef<HTMLDivElement | null>(null);
+  const careTeamIsPrimary = Boolean(swapBookingActions && secondaryAction);
+
+  const physicianBookingAction = (
+    <div key="physician-booking-action" className="flex min-w-0 flex-col">
+      {ctaEyebrow && (
+        <p
+          className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] sm:text-left"
+          style={{ fontFamily: "Montserrat, sans-serif", color: careTeamIsPrimary ? "#5a4452" : "#7A1E7E" }}
+        >
+          {ctaEyebrow}
+        </p>
+      )}
+      <button
+        type="button"
+        data-home-physician-appointment-cta
+        onClick={onConsultClick}
+        className={careTeamIsPrimary
+          ? "mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full border-2 bg-white px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
+          : "mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"}
+        style={careTeamIsPrimary
+          ? {
+              fontFamily: "Montserrat, sans-serif",
+              borderColor: "#B8336A",
+              color: "#7A1E7E",
+              background: "#FFFFFF",
+              boxShadow: "0 5px 12px rgba(122, 30, 126, 0.05)",
+            }
+          : {
+              fontFamily: "Montserrat, sans-serif",
+              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              boxShadow: "0 8px 18px rgba(122, 30, 126, 0.2)",
+            }}
+      >
+        <span className="flex flex-col items-center leading-tight">
+          <span>{ctaLabel ?? "Schedule a Discovery Call"}</span>
+          {ctaSupportingLine && (
+            <span className={`mt-0.5 text-[13px] font-medium normal-case tracking-normal ${careTeamIsPrimary ? "text-[#5a4452]" : "text-white/90"}`}>
+              {ctaSupportingLine}
+            </span>
+          )}
+        </span>
+      </button>
+      {ctaDescription && (
+        <p
+          className="mt-2.5 max-w-[25rem] px-1 text-center text-[12px] leading-[1.45] sm:text-left"
+          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+        >
+          {ctaDescription}
+        </p>
+      )}
+    </div>
+  );
+
+  const careTeamBookingAction = secondaryAction && (
+    <div key="care-team-booking-action" className="flex min-w-0 flex-col">
+      {secondaryAction.eyebrow && (
+        <p
+          className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] sm:text-left"
+          style={{ fontFamily: "Montserrat, sans-serif", color: careTeamIsPrimary ? "#7A1E7E" : "#5a4452" }}
+        >
+          {secondaryAction.eyebrow}
+        </p>
+      )}
+      <a
+        href={secondaryAction.href}
+        data-home-discovery-call-cta
+        className={careTeamIsPrimary
+          ? "mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
+          : "mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full border-2 px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"}
+        style={careTeamIsPrimary
+          ? {
+              fontFamily: "Montserrat, sans-serif",
+              background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
+              boxShadow: "0 8px 18px rgba(122, 30, 126, 0.2)",
+            }
+          : {
+              fontFamily: "Montserrat, sans-serif",
+              borderColor: "#B8336A",
+              color: "#7A1E7E",
+              background: "#FFFFFF",
+              boxShadow: "0 5px 12px rgba(122, 30, 126, 0.05)",
+            }}
+      >
+        <span className="flex flex-col items-center leading-tight">
+          <span>{secondaryAction.label}</span>
+          {secondaryAction.supportingLine && (
+            <span className={`mt-0.5 text-[13px] font-medium normal-case tracking-normal ${careTeamIsPrimary ? "text-white/90" : "text-[#5a4452]"}`}>
+              {secondaryAction.supportingLine}
+            </span>
+          )}
+        </span>
+      </a>
+      {secondaryAction.description && (
+        <p
+          className="mt-2.5 max-w-[25rem] px-1 text-center text-[12px] leading-[1.45] sm:text-left"
+          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
+        >
+          {secondaryAction.description}
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <section
@@ -571,87 +676,9 @@ export default function MedicalTeam({
                   action, and explanation together on mobile and desktop. */}
               <div id="hero-cta-sentinel" className="mt-5 flex w-full max-w-2xl flex-col gap-3">
                 <div className={secondaryAction ? "grid w-full gap-4 sm:gap-5 sm:grid-cols-2" : "flex flex-col gap-4"}>
-                  <div className="flex min-w-0 flex-col">
-                    {ctaEyebrow && (
-                      <p
-                        className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] sm:text-left"
-                        style={{ fontFamily: "Montserrat, sans-serif", color: "#7A1E7E" }}
-                      >
-                        {ctaEyebrow}
-                      </p>
-                    )}
-                    <button
-                      type="button"
-                      data-home-physician-appointment-cta
-                      onClick={onConsultClick}
-                      className="mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] text-white transition-transform duration-200 ease-out hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
-                      style={{
-                        fontFamily: "Montserrat, sans-serif",
-                        background:
-                          "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
-                        boxShadow: "0 8px 18px rgba(122, 30, 126, 0.2)",
-                      }}
-                    >
-                      <span className="flex flex-col items-center leading-tight">
-                        <span>{ctaLabel ?? "Schedule a Discovery Call"}</span>
-                        {ctaSupportingLine && (
-                          <span className="mt-0.5 text-[13px] font-medium normal-case tracking-normal text-white/90">
-                            {ctaSupportingLine}
-                          </span>
-                        )}
-                      </span>
-                    </button>
-                    {ctaDescription && (
-                      <p
-                        className="mt-2.5 max-w-[25rem] px-1 text-center text-[12px] leading-[1.45] sm:text-left"
-                        style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
-                      >
-                        {ctaDescription}
-                      </p>
-                    )}
-                  </div>
-
-                  {secondaryAction && (
-                    <div className="flex min-w-0 flex-col">
-                      {secondaryAction.eyebrow && (
-                        <p
-                          className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] sm:text-left"
-                          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
-                        >
-                          {secondaryAction.eyebrow}
-                        </p>
-                      )}
-                      <a
-                        href={secondaryAction.href}
-                        data-home-discovery-call-cta
-                        className="mt-1.5 inline-flex min-h-[76px] w-full items-center justify-center rounded-full border-2 px-5 py-2.5 text-center text-[13px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
-                        style={{
-                          fontFamily: "Montserrat, sans-serif",
-                          borderColor: "#B8336A",
-                          color: "#7A1E7E",
-                          background: "#FFFFFF",
-                          boxShadow: "0 5px 12px rgba(122, 30, 126, 0.05)",
-                        }}
-                      >
-                        <span className="flex flex-col items-center leading-tight">
-                          <span>{secondaryAction.label}</span>
-                          {secondaryAction.supportingLine && (
-                            <span className="mt-0.5 text-[13px] font-medium normal-case tracking-normal text-[#5a4452]">
-                              {secondaryAction.supportingLine}
-                            </span>
-                          )}
-                        </span>
-                      </a>
-                      {secondaryAction.description && (
-                        <p
-                          className="mt-2.5 max-w-[25rem] px-1 text-center text-[12px] leading-[1.45] sm:text-left"
-                          style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}
-                        >
-                          {secondaryAction.description}
-                        </p>
-                      )}
-                    </div>
-                  )}
+                  {careTeamIsPrimary
+                    ? <>{careTeamBookingAction}{physicianBookingAction}</>
+                    : <>{physicianBookingAction}{careTeamBookingAction}</>}
                 </div>
 
                 {ctaMicrocopy && <div className="flex w-full justify-center pt-0.5">{ctaMicrocopy}</div>}

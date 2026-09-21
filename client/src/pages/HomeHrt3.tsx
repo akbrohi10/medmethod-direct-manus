@@ -284,6 +284,7 @@ export default function HomeHrt3() {
           ctaLabel="Book Your 45-Minute Visit"
           ctaSupportingLine="with Dr. Al-Deek"
           ctaDescription="$199 first visit. A $50 deposit holds your appointment and is applied to the visit."
+          swapBookingActions
           secondaryAction={{
             href: "/care-team-booking",
             eyebrow: "Need More Info?",
@@ -650,6 +651,7 @@ export default function HomeHrt3() {
         open={consultOpen}
         onClose={() => setConsultOpen(false)}
         landingPage="/"
+        startAtPayment
       />
 
       {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
@@ -660,28 +662,28 @@ export default function HomeHrt3() {
         aria-hidden={!showStickyCTA}
       >
         <div className="flex gap-2">
-          {/* Primary: physician appointment deposit */}
-          <button
-            onClick={openConsult}
-            data-home-sticky-physician-appointment-cta
+          {/* Primary: care-team discovery call */}
+          <a
+            href="/care-team-booking"
+            data-home-sticky-discovery-call-cta
+            aria-label="Need More Info? Book a Free 15-Minute Discovery Call"
             className="flex flex-1 flex-col items-center justify-center gap-0 rounded-full py-3 text-white font-bold shadow-lg transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)",
               boxShadow: "0 7px 16px rgba(122, 30, 126, 0.22)",
             }}
           >
-            <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Ready to Book?
+            <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ fontFamily: "Montserrat, sans-serif", color: "rgba(255,255,255,0.88)" }}>
+              Need More Info?
             </span>
-            <span className="text-[11px] font-semibold opacity-90" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              $50 Deposit Today
+            <span className="text-[11px] font-extrabold tracking-tight uppercase whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              Free 15-Min Call
             </span>
-          </button>
-          {/* Secondary: care-team discovery call */}
-          <a
-            href="/care-team-booking"
-            data-home-sticky-discovery-call-cta
-            aria-label="Need More Info? Book a Free 15-Minute Discovery Call"
+          </a>
+          {/* Secondary: physician appointment deposit */}
+          <button
+            onClick={openConsult}
+            data-home-sticky-physician-appointment-cta
             className="flex flex-1 flex-col items-center justify-center gap-0 rounded-full border-2 bg-white py-3 font-bold transition-all duration-150 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A1E7E] active:scale-[0.98]"
             style={{
               borderColor: "#B8336A",
@@ -689,13 +691,13 @@ export default function HomeHrt3() {
               color: "#7A1E7E",
             }}
           >
-            <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}>
-              Need More Info?
+            <span className="text-[14px] font-extrabold tracking-wide uppercase" style={{ fontFamily: "Montserrat, sans-serif", color: "#5a4452" }}>
+              Ready to Book?
             </span>
-            <span className="text-[11px] font-extrabold tracking-tight uppercase whitespace-nowrap" style={{ fontFamily: "Montserrat, sans-serif" }}>
-              Free 15-Min Call
+            <span className="text-[11px] font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              $50 Deposit Today
             </span>
-          </a>
+          </button>
         </div>
       </div>
 

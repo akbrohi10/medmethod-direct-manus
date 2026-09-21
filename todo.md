@@ -2010,3 +2010,11 @@
 - [x] Update the shared homepage and secondary footers, legacy navigation, and blog-section calls to action to point directly to the new destination
 - [x] Add regression coverage for the direct links and legacy route redirect
 - [x] Run focused and full validation, HTTP redirect checks, save a checkpoint, and confirm publishing status
+
+## Homepage Booking Flow Revision — 2026-09-21
+
+- [x] Put the free 15-minute care-team call in the primary/first booking position on the desktop hero and mobile sticky action row; move the 45-minute physician visit to the secondary position without changing either action’s copy, subtext, destination, or calendar behavior.
+- [x] Route only the homepage physician action directly to the secure $50 checkout step, retaining the complete reusable intake flow for all other entry points. The checkout-first path safely collects the minimal existing payment-record identity details before secure card fields initialize.
+- [x] Add the approved checkout sentence directly above payment fields: `Make your $50 deposit now to lock in your appointment.`
+- [x] Replace the care-team confirmation’s former `Your Free Call Is Confirmed.` headline with the existing scheduled-call sentence, promoted into the same bold serif headline treatment; preserve the confirmation icon, label, expectations box, disclaimer, CTA, tracking, and absence of paused calendar UI.
+- [x] Validate with focused coverage (29 tests), full suite (289 tests across 63 files), TypeScript, production build, HTTP 200 route checks for homepage, care-team, confirmation, webinar, and masterclass routes, desktop interaction checks, and 375 px mobile screenshots.

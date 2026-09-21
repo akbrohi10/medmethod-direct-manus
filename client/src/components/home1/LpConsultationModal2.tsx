@@ -23,6 +23,8 @@ interface Props {
   onClose: () => void;
   /** The originating landing page path, e.g. "/lp/WL" or "/lp/hrt3" */
   landingPage?: string;
+  /** Opens directly at checkout without removing the full reusable intake flow. */
+  startAtPayment?: boolean;
 }
 
 const SERVICE_OPTIONS = [
@@ -86,6 +88,7 @@ const BRAND_PINK = "#E8339E";
 const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
 const ITEM_H = 44;
+const PAYMENT_STEP_VALUE = 8;
 const STANDARD_CONSULTATION_PRICING = {
   consultationTotalAmount: 19_900,
   depositAmount: 5_000,
@@ -455,10 +458,15 @@ function ReferralCodeControl({
 }
 
 // ── Main modal ───────────────────────────────────────────────────────────────
-export default function LpConsultationModal2({ open, onClose, landingPage = "/lp/hrt2" }: Props) {
+export default function LpConsultationModal2({
+  open,
+  onClose,
+  landingPage = "/lp/hrt2",
+  startAtPayment = false,
+}: Props) {
   const [, navigate] = useLocation();
   const [showExitConfirm, setShowExitConfirm] = useState(false);
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(() => startAtPayment ? PAYMENT_STEP_VALUE : 0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
   const [goalsText, setGoalsText] = useState("");
@@ -485,6 +493,16 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const remainingBalanceLabel = dollarsFromCents(referralPricing.remainingAmount);
   const consultationTotalLabel = dollarsFromCents(referralPricing.consultationTotalAmount);
   const scrollBodyRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(open);
+
+  // The homepage can begin at checkout without changing the shared intake path
+  // that remains available to other landing pages and entry points.
+  useLayoutEffect(() => {
+    if (open && !wasOpenRef.current) {
+      setStep(startAtPayment ? PAYMENT_STEP_VALUE : 0);
+    }
+    wasOpenRef.current = open;
+  }, [open, startAtPayment]);
 
   // ── Option B: postMessage listener for GHL calendar iframe ──────────────────
   // GHL fires a window.postMessage when the patient completes booking.
@@ -683,11 +701,11 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const QUESTIONS_START = 1;
   const ATTRIBUTION_STEP = QUESTIONS_START + questions.length; // 6
   const LEAD_STEP = ATTRIBUTION_STEP + 1;                     // 7
-  const PAYMENT_STEP = LEAD_STEP + 1;                         // 8
+  const PAYMENT_STEP = PAYMENT_STEP_VALUE;                    // 8
   const CALENDAR_STEP = PAYMENT_STEP + 1;                     // 9
   const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 10
 
-  const progressPct = Math.round(((step + 1) / TOTAL_STEPS) * 100);
+  const progressPct = startAtPayment ? 100 : Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
   const isQuestionStep = step >= QUESTIONS_START && step < ATTRIBUTION_STEP;
   const questionIndex = step - QUESTIONS_START;
@@ -697,6 +715,9 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
   const isAttributionStep = step === ATTRIBUTION_STEP;
   const isPaymentStep = step === PAYMENT_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
+
+  const directPaymentContactIsValid =
+    leadData.firstName.trim().length >= 2 && isValidEmail(leadData.email);
 
   const isLeadValid =
     leadData.firstName.trim().length >= 2 &&
@@ -1241,10 +1262,48 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
               >
                 Secure your appointment with a small deposit
               </h2>
+              {startAtPayment && (
+                <p
+                  data-direct-payment-deposit-prompt
+                  className="mt-2 text-sm font-semibold text-[#7a1e7e]"
+                >
+                  Make your $50 deposit now to lock in your appointment.
+                </p>
+              )}
               <p className="text-sm text-gray-500 mb-6">
                 We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining {remainingBalanceLabel} is due the day of your appointment — <strong>{consultationTotalLabel} total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
-              {activeProvider === "paypal" ? (
+              {startAtPayment && (
+                <div data-direct-payment-contact-fields className="mb-5 grid gap-3 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="mb-1.5 block text-sm font-semibold text-gray-700">First name</span>
+                    <input
+                      type="text"
+                      value={leadData.firstName}
+                      onChange={(event) => setLeadData((current) => ({ ...current, firstName: event.target.value }))}
+                      autoComplete="given-name"
+                      placeholder="Jane"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="mb-1.5 block text-sm font-semibold text-gray-700">Email address</span>
+                    <input
+                      type="email"
+                      value={leadData.email}
+                      onChange={(event) => setLeadData((current) => ({ ...current, email: event.target.value }))}
+                      autoComplete="email"
+                      placeholder="jane@example.com"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+                    />
+                  </label>
+                </div>
+              )}
+              {startAtPayment && !directPaymentContactIsValid ? (
+                <p className="rounded-xl border border-[#f0dce5] bg-[#fff7fb] px-4 py-3 text-sm text-[#655461]">
+                  Enter your first name and email to continue to secure payment.
+                </p>
+              ) : activeProvider === "paypal" ? (
                 <PayPalPaymentForm
                   patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
                   patientEmail={leadData.email.trim() || answers.email || ""}
@@ -1349,7 +1408,7 @@ export default function LpConsultationModal2({ open, onClose, landingPage = "/lp
         )}
 
         {/* Back button for payment step (no Next — PaymentForm has its own submit) */}
-        {isPaymentStep && (
+        {isPaymentStep && !startAtPayment && (
           <div className="flex-shrink-0 px-6 pt-2 pb-4 bg-white border-t border-gray-50">
             <button
               onClick={handleBack}

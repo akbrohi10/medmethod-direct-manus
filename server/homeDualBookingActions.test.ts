@@ -15,6 +15,8 @@ const stickySecondarySource = homeSource.slice(stickySecondaryStart, stickySecon
 const stickyActionsStart = homeSource.indexOf("data-home-sticky-physician-appointment-cta");
 const stickyActionsEnd = homeSource.indexOf("{/* Bottom spacer", stickyActionsStart);
 const stickyActionsSource = homeSource.slice(stickyActionsStart, stickyActionsEnd);
+const stickyDiscoveryIndex = homeSource.indexOf("data-home-sticky-discovery-call-cta");
+const stickyPhysicianIndex = homeSource.indexOf("data-home-sticky-physician-appointment-cta");
 
 describe("homepage dual booking actions", () => {
   it("places the approved patient-volume credibility line before the booking action group", () => {
@@ -29,11 +31,12 @@ describe("homepage dual booking actions", () => {
     expect(medicalTeamSource).not.toContain("rounded-full border px-4 py-2.5");
   });
 
-  it("offers distinct physician appointment and care-team discovery actions in the homepage hero", () => {
+  it("offers distinct care-team-first and physician-second actions in the homepage hero", () => {
     expect(heroSource).toContain('ctaEyebrow="Ready to Book?"');
     expect(heroSource).toContain('ctaLabel="Book Your 45-Minute Visit"');
     expect(heroSource).toContain('ctaSupportingLine="with Dr. Al-Deek"');
     expect(heroSource).toContain("$199 first visit. A $50 deposit holds your appointment and is applied to the visit.");
+    expect(heroSource).toContain("swapBookingActions");
     expect(heroSource).toContain("secondaryAction={{");
     expect(heroSource).toContain('href: "/care-team-booking"');
     expect(heroSource).toContain('eyebrow: "Need More Info?"');
@@ -44,6 +47,8 @@ describe("homepage dual booking actions", () => {
     expect(heroSource).not.toContain("$50 Deposit Today");
     expect(medicalTeamSource).toContain("data-home-physician-appointment-cta");
     expect(medicalTeamSource).toContain("data-home-discovery-call-cta");
+    expect(medicalTeamSource).toContain("careTeamIsPrimary");
+    expect(medicalTeamSource).toContain("? <>{careTeamBookingAction}{physicianBookingAction}</>");
     expect(medicalTeamSource).toContain("ctaSupportingLine?: ReactNode");
     expect(medicalTeamSource).toContain("supportingLine?: ReactNode");
     expect(medicalTeamSource).toContain("min-h-[76px]");
@@ -60,7 +65,7 @@ describe("homepage dual booking actions", () => {
     );
   });
 
-  it("routes the mobile lower questions action to the discovery-call calendar instead of a telephone link", () => {
+  it("puts the mobile discovery-call action before the physician-payment action", () => {
     expect(homeSource).toContain("data-home-sticky-physician-appointment-cta");
     expect(homeSource).toContain("data-home-sticky-discovery-call-cta");
     expect(homeSource).toContain('href="/care-team-booking"');
@@ -71,9 +76,12 @@ describe("homepage dual booking actions", () => {
     expect(homeSource).toContain("$50 Deposit Today");
     expect(homeSource).not.toContain("Have questions?");
     expect(stickyActionsSource).not.toContain("Call Now");
-    expect(stickySecondarySource).toContain('borderColor: "#B8336A"');
-    expect(stickySecondarySource).toContain('color: "#7A1E7E"');
-    expect(stickySecondarySource).not.toContain("linear-gradient");
+    expect(stickyDiscoveryIndex).toBeGreaterThan(-1);
+    expect(stickyPhysicianIndex).toBeGreaterThan(stickyDiscoveryIndex);
+    expect(stickyActionsSource).toContain('borderColor: "#B8336A"');
+    expect(stickyActionsSource).toContain('color: "#7A1E7E"');
+    expect(stickyActionsSource).not.toContain("linear-gradient");
+    expect(stickySecondarySource).toContain("linear-gradient");
   });
 
   it("keeps the compact mobile booking actions in the approved side-by-side pill layout", () => {
@@ -88,5 +96,10 @@ describe("homepage dual booking actions", () => {
     expect(careTeamBookingSource).toContain("This free call does not provide medical advice or clinical guidance.");
     expect(careTeamBookingSource).toContain('src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN"');
     expect(careTeamBookingSource).toContain('id="18sbmUpLKjc7pcLE8jdN_1788980907986"');
+  });
+
+  it("opens the homepage physician action directly at payment while retaining the full intake implementation for other flows", () => {
+    expect(homeSource).toContain("startAtPayment");
+    expect(medicalTeamSource).toContain("onClick={onConsultClick}");
   });
 });

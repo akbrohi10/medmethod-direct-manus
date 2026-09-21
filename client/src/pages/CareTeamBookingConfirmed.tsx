@@ -58,11 +58,8 @@ export default function CareTeamBookingConfirmed() {
               Discovery Call Booked
             </p>
             <h1 className="mt-3 font-serif text-4xl font-bold leading-[1.04] tracking-[-0.035em] text-[#35152f] sm:text-5xl">
-              Your Free Call Is Confirmed.
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#655461] sm:text-lg sm:leading-8">
               Your free 15-minute call with the MedMethod Direct Care Team has been scheduled.
-            </p>
+            </h1>
 
             <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-[#ebc8d9] bg-[#fff7fb] px-5 py-5 text-left shadow-[0_12px_28px_rgba(143,42,100,0.08)] sm:px-6 sm:py-6">
               <div className="flex items-start gap-3">
