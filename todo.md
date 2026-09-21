@@ -2027,3 +2027,11 @@
 - [x] Match both new progress labels to the existing uppercase step-indicator treatment: `STEP 1 OF 2` and `STEP 2 OF 2`.
 - [x] Preserve homepage layout, desktop/mobile booking-action order, payment/referral flow, calendar behavior, webhooks, tracking, and all non-homepage intake paths.
 - [x] Validate focused coverage (28 tests), full suite (291 tests across 63 files), TypeScript, production build, route HTTP 200 checks, desktop contact-to-payment browser flow, back navigation, and 375 px mobile homepage review without initiating a real payment.
+
+## Payment Screen Clarity Refinement — 2026-09-21
+
+- [x] Replace repetitive deposit language with a concise scheduling-focused payment headline: `Reserve Your Appointment & Choose Your Time`.
+- [x] State clearly that the $50 deposit is paid today and that the next screen presents Dr. Al-Deek’s calendar to choose the preferred date and time.
+- [x] Retain the total first-visit price, remaining-balance timing, and 24-hour full-refund policy while removing duplicate deposit/hold-your-spot language.
+- [x] Preserve the two-step booking flow, payment fields, Stripe/PayPal behavior, referral logic, calendar transition, payment webhooks, tracking, and all existing page styling.
+- [x] Validate focused coverage (21 tests), full suite (291 tests across 63 files), TypeScript, production build, critical route HTTP 200 checks, and desktop/mobile visual review without submitting a payment.

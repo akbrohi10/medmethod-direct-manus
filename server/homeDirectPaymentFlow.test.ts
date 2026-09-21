@@ -44,13 +44,19 @@ describe("homepage two-step physician booking", () => {
     expect(modalSource).toContain("setStep(PAYMENT_STEP)");
   });
 
-  it("shows step 2 of 2 and the approved deposit sentence above secure payment fields", () => {
+  it("shows step 2 of 2 with concise scheduling and deposit reassurance above secure payment fields", () => {
     expect(modalSource).toContain("data-direct-booking-step-2-indicator");
     expect(modalSource).toContain("STEP 2 OF 2");
     expect(modalSource).toContain("data-direct-payment-deposit-prompt");
-    expect(modalSource).toContain(
-      "Make your $50 deposit now to lock in your appointment.",
-    );
+    expect(modalSource).toContain("Reserve Your Appointment &amp; Choose Your Time");
+    expect(modalSource).toContain("Make your <strong>$50 deposit today</strong>.");
+    expect(modalSource).toContain("On the next screen, you’ll choose the date and time that works best for you directly from");
+    expect(modalSource).toContain("Dr. Al-Deek&apos;s calendar.");
+    expect(modalSource).toContain("Your first visit is <strong>{consultationTotalLabel} total</strong>.");
+    expect(modalSource).toContain("The remaining <strong>{remainingBalanceLabel}</strong> is due on the day of your appointment.");
+    expect(modalSource).toContain("Cancel with 24 hours&apos; notice for a full refund.");
+    expect(modalSource).not.toContain("Secure your appointment with a small deposit");
+    expect(modalSource).not.toContain("We only charge a <strong>$50 deposit</strong> today to hold your spot.");
     expect(modalSource.indexOf("data-direct-booking-contact-fields")).toBeLessThan(
       modalSource.indexOf("data-direct-booking-step-2-indicator"),
     );

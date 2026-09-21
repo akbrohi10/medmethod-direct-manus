@@ -1347,18 +1347,18 @@ export default function LpConsultationModal2({
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Secure your appointment with a small deposit
+                Reserve Your Appointment &amp; Choose Your Time
               </h2>
               {startAtPayment && (
                 <p
                   data-direct-payment-deposit-prompt
-                  className="mt-2 text-sm font-semibold text-[#7a1e7e]"
+                  className="mt-2 text-sm font-medium text-gray-600"
                 >
-                  Make your $50 deposit now to lock in your appointment.
+                  Make your <strong>$50 deposit today</strong>. On the next screen, you’ll choose the date and time that works best for you directly from <strong>Dr. Al-Deek&apos;s calendar.</strong>
                 </p>
               )}
               <p className="text-sm text-gray-500 mb-6">
-                We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining {remainingBalanceLabel} is due the day of your appointment — <strong>{consultationTotalLabel} total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
+                Your first visit is <strong>{consultationTotalLabel} total</strong>. The remaining <strong>{remainingBalanceLabel}</strong> is due on the day of your appointment. Cancel with 24 hours&apos; notice for a full refund.
               </p>
               {activeProvider === "paypal" ? (
                 <PayPalPaymentForm
