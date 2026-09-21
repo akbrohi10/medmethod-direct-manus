@@ -19,11 +19,15 @@ describe("care-team discovery-call confirmation", () => {
     expect(appSource).toContain('<Route path="/care-team-booking" component={CareTeamBooking} />');
   });
 
-  it("uses the scheduled care-team call sentence as the sole confirmation headline", () => {
+  it("uses the shortened scheduled-call headline and keeps both plain-text reminders", () => {
     expect(pageSource).not.toContain("Your Free Call Is Confirmed.");
     expect(pageSource).toContain('<h1 className="mt-3 font-serif text-4xl font-bold leading-[1.04] tracking-[-0.035em] text-[#35152f] sm:text-5xl">');
-    expect(pageSource).toContain("Your free 15-minute call with the MedMethod Direct Care Team has been scheduled.");
-    expect(pageSource).not.toContain('className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#655461] sm:text-lg sm:leading-8"');
+    expect(pageSource).toContain("Your Free 15-Minute Call Is Scheduled.");
+    expect(pageSource).not.toContain("Your free 15-minute call with the MedMethod Direct Care Team has been scheduled.");
+    expect(pageSource).toContain("data-care-team-text-confirmation-reminder");
+    expect(pageSource).toContain("Please reply to the text message you&apos;ll receive to confirm your spot.");
+    expect(pageSource).toContain("data-care-team-calendar-reminder");
+    expect(pageSource).toContain("Don&apos;t forget to add this appointment to your calendar.");
     expect(pageSource).toContain("This free call provides general information only.");
     expect(pageSource).toContain("It does not provide medical advice, diagnosis, or treatment recommendations.");
     expect(pageSource).toContain("Please refer to your appointment confirmation for the scheduled date, time, and call details.");

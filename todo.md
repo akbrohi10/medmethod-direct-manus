@@ -2035,3 +2035,11 @@
 - [x] Retain the total first-visit price, remaining-balance timing, and 24-hour full-refund policy while removing duplicate deposit/hold-your-spot language.
 - [x] Preserve the two-step booking flow, payment fields, Stripe/PayPal behavior, referral logic, calendar transition, payment webhooks, tracking, and all existing page styling.
 - [x] Validate focused coverage (21 tests), full suite (291 tests across 63 files), TypeScript, production build, critical route HTTP 200 checks, and desktop/mobile visual review without submitting a payment.
+
+## Care-Team Confirmation Copy Refinement — 2026-09-21
+
+- [x] Shorten the confirmation headline to `Your Free 15-Minute Call Is Scheduled.` while retaining the existing serif font, size, weight, and responsive two-line treatment.
+- [x] Add a clear text-message confirmation reminder directly below the headline: `Please reply to the text message you'll receive to confirm your spot.`
+- [x] Add a plain-text calendar reminder beside the existing appointment-detail reminder: `Don't forget to add this appointment to your calendar.`
+- [x] Preserve the icon, discovery-call label, expectations card, general-information-only disclaimer, CTA, Schedule tracking, redirect destination, and the explicitly paused/absent Add-to-Calendar UI.
+- [x] Validate focused coverage (4 tests), full suite (291 tests across 63 files), TypeScript, production build, critical route HTTP 200 checks, and desktop/375 px mobile visual review.

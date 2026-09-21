@@ -58,8 +58,14 @@ export default function CareTeamBookingConfirmed() {
               Discovery Call Booked
             </p>
             <h1 className="mt-3 font-serif text-4xl font-bold leading-[1.04] tracking-[-0.035em] text-[#35152f] sm:text-5xl">
-              Your free 15-minute call with the MedMethod Direct Care Team has been scheduled.
+              Your Free 15-Minute Call Is Scheduled.
             </h1>
+            <p
+              data-care-team-text-confirmation-reminder
+              className="mx-auto mt-4 max-w-xl text-sm font-semibold leading-6 text-[#7a1e7e] sm:text-base"
+            >
+              Please reply to the text message you&apos;ll receive to confirm your spot.
+            </p>
 
             <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-[#ebc8d9] bg-[#fff7fb] px-5 py-5 text-left shadow-[0_12px_28px_rgba(143,42,100,0.08)] sm:px-6 sm:py-6">
               <div className="flex items-start gap-3">
@@ -80,6 +86,12 @@ export default function CareTeamBookingConfirmed() {
             </p>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#655461] sm:text-base">
               Please refer to your appointment confirmation for the scheduled date, time, and call details.
+            </p>
+            <p
+              data-care-team-calendar-reminder
+              className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#655461] sm:text-base"
+            >
+              Don&apos;t forget to add this appointment to your calendar.
             </p>
 
             <div className="mx-auto mt-8 max-w-xl">
