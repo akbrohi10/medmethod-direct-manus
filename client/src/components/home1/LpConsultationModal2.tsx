@@ -89,6 +89,8 @@ const BRAND_PLUM = "#7A1E7E";
 const BRAND_DISABLED = "#f0abcf";
 const ITEM_H = 44;
 const PAYMENT_STEP_VALUE = 8;
+/** Homepage-only short booking flow: contact details before the shared payment step. */
+const DIRECT_CONTACT_STEP_VALUE = -1;
 const STANDARD_CONSULTATION_PRICING = {
   consultationTotalAmount: 19_900,
   depositAmount: 5_000,
@@ -466,7 +468,7 @@ export default function LpConsultationModal2({
 }: Props) {
   const [, navigate] = useLocation();
   const [showExitConfirm, setShowExitConfirm] = useState(false);
-  const [step, setStep] = useState(() => startAtPayment ? PAYMENT_STEP_VALUE : 0);
+  const [step, setStep] = useState(() => startAtPayment ? DIRECT_CONTACT_STEP_VALUE : 0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
   const [goalsText, setGoalsText] = useState("");
@@ -495,11 +497,11 @@ export default function LpConsultationModal2({
   const scrollBodyRef = useRef<HTMLDivElement>(null);
   const wasOpenRef = useRef(open);
 
-  // The homepage can begin at checkout without changing the shared intake path
-  // that remains available to other landing pages and entry points.
+  // The homepage can use a short contact-details → checkout path without
+  // changing the shared full intake path used by other landing pages.
   useLayoutEffect(() => {
     if (open && !wasOpenRef.current) {
-      setStep(startAtPayment ? PAYMENT_STEP_VALUE : 0);
+      setStep(startAtPayment ? DIRECT_CONTACT_STEP_VALUE : 0);
     }
     wasOpenRef.current = open;
   }, [open, startAtPayment]);
@@ -705,7 +707,10 @@ export default function LpConsultationModal2({
   const CALENDAR_STEP = PAYMENT_STEP + 1;                     // 9
   const TOTAL_STEPS = CALENDAR_STEP + 1;                      // 10
 
-  const progressPct = startAtPayment ? 100 : Math.round(((step + 1) / TOTAL_STEPS) * 100);
+  const isDirectContactStep = startAtPayment && step === DIRECT_CONTACT_STEP_VALUE;
+  const progressPct = startAtPayment
+    ? isDirectContactStep ? 50 : 100
+    : Math.round(((step + 1) / TOTAL_STEPS) * 100);
   const isServiceStep = step === SERVICE_STEP;
   const isQuestionStep = step >= QUESTIONS_START && step < ATTRIBUTION_STEP;
   const questionIndex = step - QUESTIONS_START;
@@ -716,8 +721,10 @@ export default function LpConsultationModal2({
   const isPaymentStep = step === PAYMENT_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
 
-  const directPaymentContactIsValid =
-    leadData.firstName.trim().length >= 2 && isValidEmail(leadData.email);
+  const directBookingContactIsValid =
+    leadData.firstName.trim().length >= 2 &&
+    isValidEmail(leadData.email) &&
+    isValidPhone(leadData.phone);
 
   const isLeadValid =
     leadData.firstName.trim().length >= 2 &&
@@ -725,7 +732,9 @@ export default function LpConsultationModal2({
     isValidPhone(leadData.phone) &&
     leadData.transactionalConsent;
 
-  const isNextDisabled = webhookSubmitting || (isServiceStep
+  const isNextDisabled = webhookSubmitting || (isDirectContactStep
+    ? !directBookingContactIsValid
+    : isServiceStep
     ? selectedServices.length === 0
     : isQuestionStep
       ? isAgeStep ? !dobTouched || computedAge < 18 : isGoalsStep ? false : !selected
@@ -740,7 +749,11 @@ export default function LpConsultationModal2({
   };
 
   const handleNext = async () => {
-    if (isServiceStep) {
+    if (isDirectContactStep) {
+      if (!directBookingContactIsValid) return;
+      setStep(PAYMENT_STEP);
+      return;
+    } else if (isServiceStep) {
       if (selectedServices.length === 0) return;
       setAnswers((prev) => ({ ...prev, services: selectedServices.join(", ") }));
       setStep((s) => s + 1);
@@ -883,6 +896,10 @@ export default function LpConsultationModal2({
   };
 
   const handleBack = () => {
+    if (startAtPayment && isPaymentStep) {
+      setStep(DIRECT_CONTACT_STEP_VALUE);
+      return;
+    }
     if (step === 0) return;
     const prevStep = step - 1;
     setStep(prevStep);
@@ -1021,6 +1038,66 @@ export default function LpConsultationModal2({
 
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto" ref={scrollBodyRef}>
+
+          {/* ── Homepage-only Step 1 of 2: minimal payment contact details ── */}
+          {isDirectContactStep && (
+            <div data-direct-booking-contact-step className="px-6 pt-8 pb-6">
+              <p
+                data-direct-booking-step-1-indicator
+                className="text-xs font-bold tracking-widest uppercase mb-2"
+                style={{ color: BRAND_PINK }}
+              >
+                STEP 1 OF 2
+              </p>
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+              >
+                Let's get your details
+              </h2>
+              <p className="text-sm text-gray-400 mb-5">
+                We’ll use these details to prepare your secure payment.
+              </p>
+              <div data-direct-booking-contact-fields className="grid gap-4">
+                <label className="block">
+                  <span className="mb-1.5 block text-sm font-semibold text-gray-700">Name</span>
+                  <input
+                    type="text"
+                    value={leadData.firstName}
+                    onChange={(event) => setLeadData((current) => ({ ...current, firstName: event.target.value }))}
+                    autoComplete="name"
+                    placeholder="Jane Smith"
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-sm font-semibold text-gray-700">Email address</span>
+                  <input
+                    type="email"
+                    value={leadData.email}
+                    onChange={(event) => setLeadData((current) => ({ ...current, email: event.target.value }))}
+                    autoComplete="email"
+                    placeholder="jane@example.com"
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-sm font-semibold text-gray-700">Phone number</span>
+                  <input
+                    type="tel"
+                    value={leadData.phone}
+                    onChange={(event) => setLeadData((current) => ({ ...current, phone: formatPhone(event.target.value) }))}
+                    autoComplete="tel"
+                    placeholder="(555) 000-0000"
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+                  />
+                </label>
+              </div>
+              <p className="mt-4 text-xs text-gray-500">
+                All fields are required to continue to secure payment.
+              </p>
+            </div>
+          )}
 
           {/* ── Step 0: Service selection ── */}
           {isServiceStep && (
@@ -1253,9 +1330,19 @@ export default function LpConsultationModal2({
           {/* ── Step 8: Payment (deposit) ── */}
           {isPaymentStep && (
             <div className="px-6 pt-8 pb-6">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
-                RESERVE YOUR CONSULTATION
-              </p>
+              {startAtPayment ? (
+                <p
+                  data-direct-booking-step-2-indicator
+                  className="text-xs font-bold tracking-widest uppercase mb-2"
+                  style={{ color: BRAND_PINK }}
+                >
+                  STEP 2 OF 2
+                </p>
+              ) : (
+                <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: BRAND_PINK }}>
+                  RESERVE YOUR CONSULTATION
+                </p>
+              )}
               <h2
                 className="text-2xl font-bold text-gray-900 mb-1 pr-10 leading-snug"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
@@ -1273,37 +1360,7 @@ export default function LpConsultationModal2({
               <p className="text-sm text-gray-500 mb-6">
                 We only charge a <strong>$50 deposit</strong> today to hold your spot. The remaining {remainingBalanceLabel} is due the day of your appointment — <strong>{consultationTotalLabel} total for your 1st visit</strong>. Cancel anytime with 24-hour notice for a full refund.
               </p>
-              {startAtPayment && (
-                <div data-direct-payment-contact-fields className="mb-5 grid gap-3 sm:grid-cols-2">
-                  <label className="block">
-                    <span className="mb-1.5 block text-sm font-semibold text-gray-700">First name</span>
-                    <input
-                      type="text"
-                      value={leadData.firstName}
-                      onChange={(event) => setLeadData((current) => ({ ...current, firstName: event.target.value }))}
-                      autoComplete="given-name"
-                      placeholder="Jane"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
-                    />
-                  </label>
-                  <label className="block">
-                    <span className="mb-1.5 block text-sm font-semibold text-gray-700">Email address</span>
-                    <input
-                      type="email"
-                      value={leadData.email}
-                      onChange={(event) => setLeadData((current) => ({ ...current, email: event.target.value }))}
-                      autoComplete="email"
-                      placeholder="jane@example.com"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
-                    />
-                  </label>
-                </div>
-              )}
-              {startAtPayment && !directPaymentContactIsValid ? (
-                <p className="rounded-xl border border-[#f0dce5] bg-[#fff7fb] px-4 py-3 text-sm text-[#655461]">
-                  Enter your first name and email to continue to secure payment.
-                </p>
-              ) : activeProvider === "paypal" ? (
+              {activeProvider === "paypal" ? (
                 <PayPalPaymentForm
                   patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
                   patientEmail={leadData.email.trim() || answers.email || ""}
@@ -1394,7 +1451,13 @@ export default function LpConsultationModal2({
                 boxShadow: isNextDisabled ? "none" : "0 8px 24px rgba(232,51,158,0.3)",
               }}
             >
-              {webhookSubmitting ? "Submitting..." : isAttributionStep ? (attribution ? "Next →" : "Skip →") : "Next →"}
+              {webhookSubmitting
+                ? "Submitting..."
+                : isDirectContactStep
+                  ? "Continue to Secure Payment"
+                  : isAttributionStep
+                    ? (attribution ? "Next →" : "Skip →")
+                    : "Next →"}
             </button>
             {step > 0 && (
               <button
@@ -1408,7 +1471,7 @@ export default function LpConsultationModal2({
         )}
 
         {/* Back button for payment step (no Next — PaymentForm has its own submit) */}
-        {isPaymentStep && !startAtPayment && (
+        {isPaymentStep && (
           <div className="flex-shrink-0 px-6 pt-2 pb-4 bg-white border-t border-gray-50">
             <button
               onClick={handleBack}

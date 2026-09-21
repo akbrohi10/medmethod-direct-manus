@@ -2018,3 +2018,12 @@
 - [x] Add the approved checkout sentence directly above payment fields: `Make your $50 deposit now to lock in your appointment.`
 - [x] Replace the care-team confirmation’s former `Your Free Call Is Confirmed.` headline with the existing scheduled-call sentence, promoted into the same bold serif headline treatment; preserve the confirmation icon, label, expectations box, disclaimer, CTA, tracking, and absence of paused calendar UI.
 - [x] Validate with focused coverage (29 tests), full suite (289 tests across 63 files), TypeScript, production build, HTTP 200 route checks for homepage, care-team, confirmation, webinar, and masterclass routes, desktop interaction checks, and 375 px mobile screenshots.
+
+## Homepage Two-Step Physician Booking — 2026-09-21
+
+- [x] Replace the homepage-only checkout-first physician action with a two-step path while retaining the complete reusable nine-step intake flow for all other entry points.
+- [x] Add Step 1 of 2 with only Name, Email address, and Phone number; validate all three values before payment initialization so the payment forms always receive the required patient identity data.
+- [x] Add Step 2 of 2 to the existing $50 secure deposit screen, retain the exact approved deposit sentence above the payment fields, and provide Back navigation that preserves entered contact details.
+- [x] Match both new progress labels to the existing uppercase step-indicator treatment: `STEP 1 OF 2` and `STEP 2 OF 2`.
+- [x] Preserve homepage layout, desktop/mobile booking-action order, payment/referral flow, calendar behavior, webhooks, tracking, and all non-homepage intake paths.
+- [x] Validate focused coverage (28 tests), full suite (291 tests across 63 files), TypeScript, production build, route HTTP 200 checks, desktop contact-to-payment browser flow, back navigation, and 375 px mobile homepage review without initiating a real payment.
