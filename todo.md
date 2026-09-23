@@ -2043,3 +2043,10 @@
 - [x] Add a plain-text calendar reminder beside the existing appointment-detail reminder: `Don't forget to add this appointment to your calendar.`
 - [x] Preserve the icon, discovery-call label, expectations card, general-information-only disclaimer, CTA, Schedule tracking, redirect destination, and the explicitly paused/absent Add-to-Calendar UI.
 - [x] Validate focused coverage (4 tests), full suite (291 tests across 63 files), TypeScript, production build, critical route HTTP 200 checks, and desktop/375 px mobile visual review.
+
+## Appointment Thank-You Calendar Reload Repair — 2026-09-23
+
+- [x] Change the completed $50 deposit handoff to a full document navigation to `/thank-you` after the established GHL payment webhook, matching the reliable state reached by a manual refresh.
+- [x] Prioritize the existing Dr. Al-Deek GHL calendar iframe with eager loading so calendar initialization begins immediately on the thank-you page.
+- [x] Preserve the payment confirmation content, existing GHL calendar URL, payment/referral behavior, scheduled-charge behavior, tracking, and all unrelated booking flows.
+- [x] Add regression coverage for the fresh payment handoff and eager appointment-calendar embed; validate focused tests, 293 full tests across 63 files, TypeScript, production build, critical route HTTP 200 checks, and mobile/desktop thank-you review.

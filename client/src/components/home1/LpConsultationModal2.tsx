@@ -807,8 +807,10 @@ export default function LpConsultationModal2({
   const handlePaymentComplete = async (piId?: string) => {
     // Fire GHL payment webhook with all 14 required fields
     await submitPaymentWebhook(piId);
-    // Navigate to thank-you page immediately after payment — calendar is embedded there
-    navigate("/thank-you");
+    // The confirmation screen contains a third-party GHL calendar. Use a full
+    // document handoff after a successful payment so the embedded calendar gets
+    // the same reliable fresh initialization as a direct page load.
+    window.location.assign("/thank-you");
   };
 
   // First webhook: fires after lead capture

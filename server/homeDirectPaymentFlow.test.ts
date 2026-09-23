@@ -11,6 +11,12 @@ const modalSource = readFileSync(
   resolve(root, "client/src/components/home1/LpConsultationModal2.tsx"),
   "utf8",
 );
+const paymentCompletionStart = modalSource.indexOf("const handlePaymentComplete");
+const paymentCompletionEnd = modalSource.indexOf("// First webhook", paymentCompletionStart);
+const paymentCompletionSource = modalSource.slice(
+  paymentCompletionStart,
+  paymentCompletionEnd,
+);
 
 describe("homepage two-step physician booking", () => {
   it("opens the homepage physician flow at its minimal contact-details step", () => {
@@ -75,6 +81,14 @@ describe("homepage two-step physician booking", () => {
     );
     expect(modalSource).toContain("if (startAtPayment && isPaymentStep)");
     expect(modalSource).toContain("setStep(DIRECT_CONTACT_STEP_VALUE)");
+  });
+
+  it("uses a fresh document load for the post-payment calendar handoff", () => {
+    expect(paymentCompletionStart).toBeGreaterThan(-1);
+    expect(paymentCompletionEnd).toBeGreaterThan(paymentCompletionStart);
+    expect(paymentCompletionSource).toContain("await submitPaymentWebhook(piId);");
+    expect(paymentCompletionSource).toContain('window.location.assign("/thank-you");');
+    expect(paymentCompletionSource).not.toContain('navigate("/thank-you");');
   });
 
   it("keeps the complete intake and lead-capture implementation intact for other entry points", () => {

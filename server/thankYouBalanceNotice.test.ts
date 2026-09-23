@@ -13,6 +13,13 @@ const thankYou2Source = fs.readFileSync(
 );
 
 describe("/thank-you remaining-balance notice", () => {
+  it("initializes the third-party appointment calendar immediately after the payment handoff", () => {
+    expect(thankYouSource).toContain("data-appointment-calendar-embed");
+    expect(thankYouSource).toContain('src="https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826"');
+    expect(thankYouSource).toContain('loading="eager"');
+    expect(thankYouSource).not.toContain('loading="lazy"');
+  });
+
   it("uses amount-neutral wording because the deferred balance can vary", () => {
     expect(thankYouSource).toContain(
       "Your remaining balance will be charged on the day of your appointment.",

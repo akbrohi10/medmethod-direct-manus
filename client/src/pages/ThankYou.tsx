@@ -173,10 +173,11 @@ export default function ThankYou() {
               </p>
             </div>
             <iframe
+              data-appointment-calendar-embed
               src="https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826"
               style={{ width: "100%", height: "clamp(700px, 90vw, 900px)", border: "none" }}
               title="Book your appointment with Dr. Al-Deek"
-              loading="lazy"
+              loading="eager"
             />
           </div>
         </div>
