@@ -2050,3 +2050,10 @@
 - [x] Prioritize the existing Dr. Al-Deek GHL calendar iframe with eager loading so calendar initialization begins immediately on the thank-you page.
 - [x] Preserve the payment confirmation content, existing GHL calendar URL, payment/referral behavior, scheduled-charge behavior, tracking, and all unrelated booking flows.
 - [x] Add regression coverage for the fresh payment handoff and eager appointment-calendar embed; validate focused tests, 293 full tests across 63 files, TypeScript, production build, critical route HTTP 200 checks, and mobile/desktop thank-you review.
+
+## Tracking Payload Cleanup — 2026-09-24
+
+- [x] Audit source-owned GTM, dataLayer, and Meta confirmation tracking, plus the published GTM container runtime; no condition-specific `content_name` or `content_category` values were present in the published container.
+- [x] Standardize both webinar Lead dataLayer payloads to the neutral metadata `content_name: "Webinar Registration"` and `content_category: "Lead"`, while preserving their existing event names, confirmation routes, visible content, and Meta standard Lead event.
+- [x] Keep direct Meta confirmation calls parameter-free and preserve all URL paths, booking/payment flows, GTM installation, and public page copy.
+- [x] Validate focused tracking tests, 296 full tests across 64 files, TypeScript, production build, critical route HTTP 200 checks, and a production-source scan showing no condition-specific tracking payload values.

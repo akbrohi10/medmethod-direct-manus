@@ -38,7 +38,8 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired"');
     expect(pageSource).toContain('window.sessionStorage.getItem(WEBINAR_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(WEBINAR_CONVERSION_STORAGE_KEY, "1")');
-    expect(pageSource).toContain('w.dataLayer?.push({ event: "webinar_registration_complete" })');
+    expect(pageSource).toContain('import { buildNeutralWebinarRegistrationPayload } from "@/lib/neutralTrackingPayloads";');
+    expect(pageSource).toContain('buildNeutralWebinarRegistrationPayload("webinar_registration_complete")');
     expect(pageSource).not.toContain("fbq");
     expect(pageSource).not.toContain("CompleteRegistration");
     expect(pageSource).not.toContain("Schedule");
@@ -56,7 +57,7 @@ describe("webinar registration conversion confirmation", () => {
     expect(pageSource).toContain('window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH)');
     expect(pageSource).toContain('if (isLiveWebinar3Handoff) return null');
     expect(pageSource.indexOf('window.location.replace(LIVE_WEBINAR3_CONFIRMATION_PATH)')).toBeLessThan(
-      pageSource.indexOf('w.dataLayer?.push({ event: "webinar_registration_complete" })'),
+      pageSource.indexOf('buildNeutralWebinarRegistrationPayload("webinar_registration_complete")'),
     );
   });
 

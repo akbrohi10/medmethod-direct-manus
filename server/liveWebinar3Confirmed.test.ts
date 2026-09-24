@@ -43,7 +43,8 @@ describe("live webinar 3 companion confirmation", () => {
 
   it("uses the standalone webinar Pixel with one PageView and Lead sequence", () => {
     expect(pageSource).toContain('const LIVE_WEBINAR3_CONVERSION_STORAGE_KEY = "medmethod:live-webinar3-registration-conversion-fired"');
-    expect(pageSource).toContain('w.dataLayer?.push({ event: "live_webinar3_registration_complete" })');
+    expect(pageSource).toContain('import { buildNeutralWebinarRegistrationPayload } from "@/lib/neutralTrackingPayloads";');
+    expect(pageSource).toContain('buildNeutralWebinarRegistrationPayload("live_webinar3_registration_complete")');
     expect(pageSource).toContain('window.sessionStorage.removeItem(LIVE_WEBINAR3_HANDOFF_STORAGE_KEY)');
     expect(pageSource).not.toContain("fbq");
     expect(pageSource).not.toContain("CompleteRegistration");

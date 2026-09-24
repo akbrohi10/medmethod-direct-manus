@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CalendarDays, Clock3, MailCheck } from "lucide-react";
+import { buildNeutralWebinarRegistrationPayload } from "@/lib/neutralTrackingPayloads";
 
 const WEBINAR_CONVERSION_STORAGE_KEY = "medmethod:webinar-registration-conversion-fired";
 const LIVE_WEBINAR3_HANDOFF_STORAGE_KEY = "medmethod:live-webinar3-confirmation-handoff";
@@ -56,7 +57,9 @@ export default function WebinarRegistrationConfirmed() {
       dataLayer?: Array<Record<string, unknown>>;
     };
 
-    w.dataLayer?.push({ event: "webinar_registration_complete" });
+    w.dataLayer?.push(
+      buildNeutralWebinarRegistrationPayload("webinar_registration_complete"),
+    );
   }, [isLiveWebinar3Handoff]);
 
   if (isLiveWebinar3Handoff) return null;
