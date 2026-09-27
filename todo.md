@@ -2099,3 +2099,12 @@
 - [x] Reuse the proven two-step payment entry: Name, Email, and Phone (required by payment processing), followed by the existing secure $50 deposit screen and calendar handoff.
 - [x] Preserve the complete intake for all other entry points, plus the care-team action, payment providers, referral rules, tracking, original `/free-masterclass` page, and unrelated routes.
 - [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and browser walkthrough through contact details and initialized secure payment fields.
+
+## Video-First Masterclass Complete Pricing — 2026-09-27
+
+- [x] Keep the `/masterclass` page video-first by placing all additional pricing information inside the existing collapsed `See Full Pricing Details` accordion.
+- [x] Add the $199 first visit, $50 deposit/$149 remaining split, $150 pay-as-you-go follow-up, and $50/month ongoing-care option with included services.
+- [x] Add estimated monthly weight-loss medication and hormone-therapy ranges plus shipping/local-pharmacy fulfillment information.
+- [x] Preserve compliance by using neutral FDA-approved medication labels rather than prescription brand names and include the required compounded-medication and testosterone disclosures.
+- [x] Preserve the streamlined masterclass booking flow, rotating Featured In strip, original `/free-masterclass`, payment/referral/tracking behavior, and unrelated routes.
+- [x] Validate focused and compliance coverage, 300 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and collapsed/expanded desktop plus mobile page review.

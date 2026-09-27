@@ -82,29 +82,68 @@ function PricingDetails() {
         </AccordionTrigger>
         <AccordionContent className="pb-7 text-left">
           <div className="border-t border-[#eadfe5] pt-6">
-            <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#e8339e]">Transparent Pricing</p>
-            <h2 className="mt-2 text-center text-2xl font-black text-[#251d29] sm:text-3xl">Your Care Plan</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-[#655d63] sm:text-base">
-              Pricing covers physician care, monitoring, and prescribing. Medication is billed separately and varies by medication, dosage, pharmacy, and insurance coverage.
-            </p>
-            <div className="mt-6 rounded-2xl border border-[#efcade] bg-gradient-to-br from-[#fff8fc] to-white p-5 sm:p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-xs font-black uppercase tracking-[0.13em] text-[#c32e78]">Initial Consultation</p>
-                <p className="text-3xl font-black text-[#251d29]">$199</p>
+            <div data-masterclass-video-first-pricing-details>
+              <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#e8339e]">Care Designed Around You</p>
+              <h2 className="mt-2 text-center text-2xl font-black text-[#251d29] sm:text-3xl">More Than a Prescription</h2>
+              <p className="mx-auto mt-2 max-w-2xl text-center text-sm font-medium leading-relaxed text-[#655d63] sm:text-base">A doctor who gets to know you—plus clear care and medication options.</p>
+
+              <div className="mt-6 rounded-2xl border border-[#d79ab8] bg-gradient-to-r from-[#fff4fa] via-[#fffafd] to-[#f9f2ff] p-5 sm:p-6">
+                <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+                  <div><p className="text-xs font-black uppercase tracking-[0.13em] text-[#c32e78]">First Visit</p><p className="mt-1 text-sm font-bold text-[#443b43]">45-minute physician consultation</p></div>
+                  <p className="text-5xl font-black tracking-[-0.06em] text-[#e8339e]">$199</p>
+                </div>
+                <div className="mt-5 grid gap-2 text-sm sm:grid-cols-2 sm:text-base">
+                  <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Reserve today:</strong> $50 deposit</p>
+                  <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Day of visit:</strong> remaining $149</p>
+                </div>
               </div>
-              <div className="mt-4 grid gap-2 text-sm sm:grid-cols-2 sm:text-base">
-                <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Reserve today:</strong> $50 deposit</p>
-                <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Day of visit:</strong> remaining $149</p>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                <section className="rounded-2xl border border-[#d8c5dc] bg-[#fcfaff] p-5" data-masterclass-video-first-pay-as-you-go>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#5b3aa4]">Option 1 · Pay as you go</p>
+                  <p className="mt-3 text-4xl font-black tracking-[-0.05em] text-[#251d29]">$150</p>
+                  <p className="mt-1 text-sm font-black uppercase tracking-[0.06em] text-[#443b43]">Follow-up visit</p>
+                  <p className="mt-4 border-t border-[#dbcddd] pt-4 text-sm leading-relaxed text-[#5f5560]">No monthly commitment. Schedule a physician visit when you need one.</p>
+                </section>
+                <section className="rounded-2xl border border-[#ecb4d1] bg-gradient-to-br from-[#fff7fb] to-[#f9f0fb] p-5" data-masterclass-video-first-ongoing-care>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#e8339e]">Option 2 · Ongoing care</p>
+                  <p className="mt-3 text-4xl font-black tracking-[-0.05em] text-[#e8339e]">$50<span className="text-xl tracking-normal">/month</span></p>
+                  <ul className="mt-4 space-y-2 text-sm text-[#443b43]">
+                    {["Direct secure messaging with Dr. Al-Deek", "Medication and dosing management", "Prescription refills and lab review"].map((item) => (
+                      <li key={item} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#e8339e]" aria-hidden="true" />{item}</li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 border-t border-[#e7bad2] pt-4 text-sm leading-relaxed text-[#5f5560]">Video visits available for $50. Cancel anytime with 30 days&apos; notice.</p>
+                </section>
               </div>
-              <div className="mt-5 flex gap-3 rounded-xl border border-[#f0c3da] bg-white/80 p-4">
-                <Video className="mt-0.5 h-5 w-5 shrink-0 text-[#c32e78]" aria-hidden="true" />
-                <p className="text-sm leading-relaxed text-[#443b43]"><strong className="text-[#251d29]">45-minute physician consultation.</strong> Meet one-on-one with Dr. Jumana Al-Deek to review your health, symptoms, current medications, and goals.</p>
+
+              <div className="mt-7">
+                <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#251d29]">Medication Options</p>
+                <p className="mx-auto mt-2 max-w-2xl text-center text-sm leading-relaxed text-[#655d63]">Medication is separate from physician care. Estimates vary based on medication, dose, pharmacy, and your individual protocol.</p>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <section className="overflow-hidden rounded-2xl border border-[#e5a9c9] bg-white" data-masterclass-video-first-weight-loss-pricing>
+                    <div className="bg-gradient-to-r from-[#ec3b96] to-[#b32283] px-5 py-4 text-white"><p className="text-lg font-black">Weight-Loss Medication</p><p className="mt-1 text-xs font-medium text-white/90">Semaglutide &amp; tirzepatide, priced monthly</p></div>
+                    <div className="divide-y divide-[#f0d5e2] px-5">
+                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Compounded</p><p className="mt-1 text-xs text-[#655d63]">Semaglutide or tirzepatide</p></div><p className="whitespace-nowrap text-lg font-black text-[#e8339e]">~$100–$300<span className="text-xs text-[#655d63]">/mo</span></p></div>
+                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">FDA-approved options</p><p className="mt-1 text-xs text-[#655d63]">Medication choices vary by pharmacy and coverage</p></div><p className="whitespace-nowrap text-lg font-black text-[#e8339e]">~$150–$450<span className="text-xs text-[#655d63]">/mo</span></p></div>
+                    </div>
+                  </section>
+                  <section className="overflow-hidden rounded-2xl border border-[#bca5d6] bg-white" data-masterclass-video-first-hormone-pricing>
+                    <div className="bg-gradient-to-r from-[#6d3a9e] to-[#49246f] px-5 py-4 text-white"><p className="text-lg font-black">Hormone Therapy</p><p className="mt-1 text-xs font-medium text-white/90">Priced per hormone, based on your protocol</p></div>
+                    <div className="divide-y divide-[#e2d7ec] px-5">
+                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Individual hormones</p><p className="mt-1 text-xs leading-relaxed text-[#655d63]">Estrogen · Progesterone · Testosterone · DHEA · Vaginal estrogen</p></div><p className="whitespace-nowrap text-lg font-black text-[#6d3a9e]">~$30–$100<span className="text-xs text-[#655d63]">/mo</span></p></div>
+                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Most patients (2–3 hormones)</p><p className="mt-1 text-xs text-[#655d63]">Typical combined protocol</p></div><p className="whitespace-nowrap text-lg font-black text-[#6d3a9e]">~$150–$250<span className="text-xs text-[#655d63]">/mo</span></p></div>
+                    </div>
+                  </section>
+                </div>
               </div>
-              <ul className="mt-5 grid gap-2 text-sm text-[#443b43] sm:grid-cols-2">
-                {["Comprehensive medical review", "Personalized treatment plan", "Prescription at your visit — if clinically appropriate", "30 days of direct text access", "Patient dashboard & progress tracking", "Medication options based on your needs"].map((item) => (
-                  <li key={item} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />{item}</li>
-                ))}
-              </ul>
+
+              <div className="mt-5 flex gap-3 rounded-xl border border-[#f0c3da] bg-[#fff9fc] p-4"><Video className="mt-0.5 h-5 w-5 shrink-0 text-[#c32e78]" aria-hidden="true" /><p className="text-sm leading-relaxed text-[#443b43]"><strong className="text-[#251d29]">Convenient fulfillment.</strong> Medication can be shipped to your door or called into your local pharmacy, when clinically appropriate.</p></div>
+              <p className="mt-4 text-center text-xs leading-relaxed text-[#766d75]">Medication options and prescriptions are determined only after an appropriate medical evaluation. Individual recommendations and costs vary.</p>
+              <div className="mt-4 space-y-2 rounded-xl bg-[#f8f6f8] px-4 py-3 text-[11px] leading-relaxed text-[#766d75]">
+                <p>Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.</p>
+                <p>Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.</p>
+              </div>
             </div>
           </div>
         </AccordionContent>

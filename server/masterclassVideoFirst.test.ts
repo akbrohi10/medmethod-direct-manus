@@ -45,4 +45,28 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('50,000+ patients.');
     expect(pageSource).toContain('data-masterclass-video-first-pricing');
   });
+
+  it("keeps complete pricing transparent inside the expandable details section", () => {
+    expect(pageSource).toContain('data-masterclass-video-first-pricing-details');
+    expect(pageSource).toContain('45-minute physician consultation');
+    expect(pageSource).toContain('Reserve today:</strong> $50 deposit');
+    expect(pageSource).toContain('Day of visit:</strong> remaining $149');
+    expect(pageSource).toContain('data-masterclass-video-first-pay-as-you-go');
+    expect(pageSource).toContain('Follow-up visit');
+    expect(pageSource).toContain('$150');
+    expect(pageSource).toContain('data-masterclass-video-first-ongoing-care');
+    expect(pageSource).toContain('$50<span className="text-xl tracking-normal">/month</span>');
+    expect(pageSource).toContain('data-masterclass-video-first-weight-loss-pricing');
+    expect(pageSource).toContain('~$100–$300');
+    expect(pageSource).toContain('~$150–$450');
+    expect(pageSource).toContain('data-masterclass-video-first-hormone-pricing');
+    expect(pageSource).toContain('~$30–$100');
+    expect(pageSource).toContain('~$150–$250');
+    expect(pageSource).toContain('Medication is separate from physician care.');
+    expect(pageSource).toContain('Medication can be shipped to your door or called into your local pharmacy');
+    expect(pageSource).toContain('FDA-approved options');
+    expect(pageSource).not.toMatch(/\b(?:Wegovy|Zepbound)\b/i);
+    expect(pageSource).toContain('Compounded medications are not FDA-approved.');
+    expect(pageSource).toContain('Testosterone is prescribed off-label for hypoactive sexual desire disorder in women.');
+  });
 });
