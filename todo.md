@@ -2086,3 +2086,9 @@
 - [x] Restore the full eight approved white publication marks and the asset-readiness gate before continuous rotation begins.
 - [x] Preserve the video-first page hierarchy, original `/free-masterclass` page, booking/payment/tracking flows, and all unrelated routes.
 - [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, desktop/mobile review, and verified marquee readiness/movement.
+
+## Video-First Masterclass Perimenopause Messaging — 2026-09-27
+
+- [x] Add `Perimenopause` to the main `/masterclass` video-first headline so women 35+ can immediately recognize the page as relevant before menopause begins.
+- [x] Add perimenopause to the page’s search description while retaining the minimal video-first hierarchy, booking paths, original `/free-masterclass` page, and all unrelated flows.
+- [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and desktop/mobile visual review.

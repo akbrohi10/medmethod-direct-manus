@@ -120,7 +120,7 @@ export default function MasterclassVideoFirst() {
     <main className="min-h-screen bg-[#f7f3f5] text-[#25212a]" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>Free Masterclass | Dr. Jumana Al-Deek</title>
-        <meta name="description" content="A free on-demand educational masterclass with Dr. Jumana Al-Deek about menopause, hormones, metabolism, and medical weight loss." />
+        <meta name="description" content="A free on-demand educational masterclass with Dr. Jumana Al-Deek about perimenopause, menopause, hormones, metabolism, and medical weight loss." />
         <link rel="canonical" href="https://medmethoddirect.com/masterclass" />
       </Helmet>
 
@@ -139,7 +139,7 @@ export default function MasterclassVideoFirst() {
               Free On-Demand Masterclass
             </p>
             <h1 className="mx-auto mt-5 max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:mt-7 sm:text-[3.35rem] lg:text-[4.05rem]">
-              Menopause, Hormones &amp; Weight Loss: What Every Woman 35+ Should Know
+              Perimenopause, Menopause &amp; Weight Loss: What Every Woman 35+ Should Know
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-[1.03rem] font-semibold leading-relaxed text-[#6e5364] sm:mt-5 sm:text-lg">
               Watch Dr. Jumana Al-Deek explain the options women are asking about—plus a recorded live Q&amp;A.
