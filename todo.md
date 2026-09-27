@@ -2065,3 +2065,10 @@
 - [x] Replace the temporary preview source and preview label with the full recording, accurately label the page as an on-demand masterclass, and state that it includes the recorded live Q&A with Dr. Al-Deek.
 - [x] Add accessible, visible playback-speed choices—0.75x, 1x, 1.25x, and 1.5x—while retaining native video controls and inline playback.
 - [x] Validate focused coverage, 297 full tests across 64 files, TypeScript, production build, storage asset availability, desktop/mobile visual review, live player metadata, speed switching to 1.5x, and HTTP 200 checks for the masterclass plus unaffected critical routes.
+
+## Masterclass Static Video Placeholder — 2026-09-27
+
+- [x] Remove the full recording player and all playback-speed controls from `/free-masterclass` while keeping its dedicated URL and the rest of its page structure intact.
+- [x] Retain a static visual frame from the supplied recording as the placeholder, with clear non-interactive `Masterclass Recording Coming Soon` language and accurate recorded-Q&A context.
+- [x] Preserve the homepage, webinar landing pages, booking paths, pricing, payment flows, care-team flows, tracking, Featured In section, and page design.
+- [x] Validate focused coverage, 297 full tests across 64 files, TypeScript, production build, route HTTP 200 checks, and desktop/mobile visual review.

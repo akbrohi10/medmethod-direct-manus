@@ -12,7 +12,7 @@ describe("free evergreen masterclass landing page", () => {
     expect(appSource).toContain('<Route path="/free-masterclass" component={FreeMasterclass} />');
   });
 
-  it("uses the approved symptom-first introduction with immediate access to the full recorded masterclass", () => {
+  it("uses the approved symptom-first introduction with a static recording placeholder", () => {
     expect(pageSource).toContain('<title>Free On-Demand Masterclass | MedMethod Direct</title>');
     expect(pageSource).toContain('data-free-masterclass-symptom-intro');
     expect(pageSource).toContain('data-free-masterclass-context-banner');
@@ -24,27 +24,16 @@ describe("free evergreen masterclass landing page", () => {
     expect(pageSource).toContain('Physician and author of <em>The Menopause Weight Loss Trap</em>');
     expect(pageSource).toContain('dr-jumana-al-deek-headshot_75912bc8.png');
     expect(pageSource).toContain('data-free-masterclass-video');
-    expect(pageSource).toContain('medmethod-on-demand-masterclass_2c3c01d5.mp4');
     expect(pageSource).toContain('medmethod-on-demand-masterclass-poster_52bb13b2.jpg');
-    expect(pageSource).toContain('controls');
-    expect(pageSource).toContain('playsInline');
-    expect(pageSource).toContain('preload="metadata"');
-    expect(pageSource).toContain('Full Recorded Masterclass · Watch Now');
-    expect(pageSource).toContain('FULL RECORDING');
-    expect(pageSource).toContain('Watch the full recorded masterclass, including the live Q&amp;A with Dr. Al-Deek.');
-    expect(pageSource).not.toContain('MASTERCLASS PREVIEW');
-    expect(pageSource).not.toContain('Preview video shown while the full 45-minute masterclass is finalized.');
+    expect(pageSource).toContain('data-free-masterclass-video-placeholder');
+    expect(pageSource).toContain('Masterclass Recording Coming Soon');
+    expect(pageSource).toContain('The full on-demand masterclass, including the recorded live Q&amp;A with Dr. Al-Deek, will be available here soon.');
+    expect(pageSource).not.toContain('medmethod-on-demand-masterclass_2c3c01d5.mp4');
+    expect(pageSource).not.toContain('<video');
+    expect(pageSource).not.toContain('Playback speed');
+    expect(pageSource).not.toContain('FULL RECORDING');
     expect(pageSource).not.toContain('Reserve My Free Spot');
     expect(pageSource).not.toContain('Limited Zoom Capacity');
-  });
-
-  it("provides visible playback-speed controls without removing native video controls", () => {
-    expect(pageSource).toContain('data-free-masterclass-playback-speed');
-    expect(pageSource).toContain('const PLAYBACK_SPEEDS = [0.75, 1, 1.25, 1.5] as const;');
-    expect(pageSource).toContain('Playback speed');
-    expect(pageSource).toContain('setMasterclassPlaybackSpeed(speed)');
-    expect(pageSource).toContain('videoRef.current.playbackRate = speed');
-    expect(pageSource).toContain('aria-pressed={playbackSpeed === speed}');
   });
 
   it("places Featured In above the physician authority card and keeps brand contact access in the footer", () => {

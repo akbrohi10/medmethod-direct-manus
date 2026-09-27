@@ -2,13 +2,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import { Helmet } from "react-helmet-async";
 import { CheckCircle2, PlayCircle, ShieldCheck, Video } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const DOCTOR_HEADSHOT_URL = "/manus-storage/dr-jumana-al-deek-headshot_75912bc8.png";
-const MASTERCLASS_VIDEO_URL = "/manus-storage/medmethod-on-demand-masterclass_2c3c01d5.mp4";
-const MASTERCLASS_VIDEO_POSTER_URL = "/manus-storage/medmethod-on-demand-masterclass-poster_52bb13b2.jpg";
-const PLAYBACK_SPEEDS = [0.75, 1, 1.25, 1.5] as const;
+const MASTERCLASS_PLACEHOLDER_IMAGE_URL = "/manus-storage/medmethod-on-demand-masterclass-poster_52bb13b2.jpg";
 
 const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
@@ -130,21 +128,12 @@ function PricingDetails() {
 
 export default function FreeMasterclass() {
   const [consultationOpen, setConsultationOpen] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState<(typeof PLAYBACK_SPEEDS)[number]>(1);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const setMasterclassPlaybackSpeed = (speed: (typeof PLAYBACK_SPEEDS)[number]) => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = speed;
-    }
-    setPlaybackSpeed(speed);
-  };
 
   return (
     <main className="min-h-screen bg-[#f3f0eb] text-[#25212a]" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>Free On-Demand Masterclass | MedMethod Direct</title>
-        <meta name="description" content="Watch a free on-demand educational masterclass with Dr. Jumana Al-Deek about menopause, hormones, metabolism, and medical weight loss." />
+        <meta name="description" content="A free on-demand educational masterclass with Dr. Jumana Al-Deek about menopause, hormones, metabolism, and medical weight loss." />
         <link rel="canonical" href="https://medmethoddirect.com/free-masterclass" />
       </Helmet>
 
@@ -187,40 +176,18 @@ export default function FreeMasterclass() {
         </section>
 
         <section data-free-masterclass-video className="bg-[#fff8fb] px-5 pb-9 sm:px-10 lg:px-16">
-          <p className="mb-4 text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#c32e78] sm:text-xs">Full Recorded Masterclass · Watch Now</p>
-          <div className="relative mx-auto aspect-video w-full max-w-[860px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6]">
-            <video
-              ref={videoRef}
-              className="h-full w-full bg-black object-cover"
-              controls
-              playsInline
-              preload="metadata"
-              poster={MASTERCLASS_VIDEO_POSTER_URL}
-              aria-label="Full recorded educational masterclass, including a live audience Q&A with Dr. Jumana Al-Deek"
-              onLoadedMetadata={() => {
-                if (videoRef.current) videoRef.current.playbackRate = playbackSpeed;
-              }}
-            >
-              <source src={MASTERCLASS_VIDEO_URL} type="video/mp4" />
-              Your browser does not support embedded video playback.
-            </video>
-            <span className="pointer-events-none absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#e72e91] to-[#75207f] px-3 py-2 text-[10px] font-black text-white shadow-lg sm:top-4 sm:left-4 sm:text-xs"><PlayCircle className="h-4 w-4" aria-hidden="true" />FULL RECORDING</span>
+          <p className="mb-4 text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#c32e78] sm:text-xs">Free On-Demand Masterclass</p>
+          <div data-free-masterclass-video-placeholder className="relative mx-auto aspect-video w-full max-w-[860px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.25)] ring-1 ring-[#e1c7d6]">
+            <img src={MASTERCLASS_PLACEHOLDER_IMAGE_URL} alt="Masterclass recording preview" className="h-full w-full object-cover" loading="eager" decoding="async" />
+            <div className="absolute inset-0 flex items-center justify-center bg-[#211028]/58 px-5 text-center">
+              <div className="max-w-md rounded-2xl border border-white/25 bg-[#341753]/88 px-6 py-6 text-white shadow-[0_18px_45px_rgba(27,11,36,0.38)] sm:px-9 sm:py-8">
+                <PlayCircle className="mx-auto h-11 w-11 text-white/95 sm:h-14 sm:w-14" aria-hidden="true" />
+                <p className="mt-3 text-base font-black uppercase tracking-[0.1em] sm:text-xl">Masterclass Recording Coming Soon</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/88 sm:text-sm">The full on-demand masterclass, including the recorded live Q&amp;A with Dr. Al-Deek, will be available here soon.</p>
+              </div>
+            </div>
           </div>
-          <div data-free-masterclass-playback-speed className="mx-auto mt-4 flex max-w-[860px] flex-wrap items-center justify-center gap-2 text-center">
-            <span className="mr-1 text-[10px] font-black uppercase tracking-[0.13em] text-[#7a1e7e] sm:text-xs">Playback speed</span>
-            {PLAYBACK_SPEEDS.map((speed) => (
-              <button
-                key={speed}
-                type="button"
-                onClick={() => setMasterclassPlaybackSpeed(speed)}
-                aria-pressed={playbackSpeed === speed}
-                className={`min-w-12 rounded-full border px-3 py-1.5 text-xs font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] ${playbackSpeed === speed ? "border-[#7a1e7e] bg-[#7a1e7e] text-white" : "border-[#dbc9d5] bg-white text-[#6e5967] hover:border-[#b86b9e] hover:bg-[#fff5fb]"}`}
-              >
-                {speed}x
-              </button>
-            ))}
-          </div>
-          <p className="mx-auto mt-3 max-w-[860px] text-center text-xs leading-relaxed text-[#6e666d] sm:text-sm">Watch the full recorded masterclass, including the live Q&amp;A with Dr. Al-Deek. Educational content only. Individual treatment recommendations require an appropriate medical evaluation.</p>
+          <p className="mx-auto mt-3 max-w-[860px] text-center text-xs leading-relaxed text-[#6e666d] sm:text-sm">Educational content only. Individual treatment recommendations require an appropriate medical evaluation.</p>
         </section>
 
         <section data-free-masterclass-booking className="px-5 py-9 sm:px-10 sm:py-11 lg:px-16">
