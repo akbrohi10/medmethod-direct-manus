@@ -47,6 +47,7 @@ const LiveWebinar3 = lazy(() => import("@/pages/LiveWebinar3"));
 const WebinarRegistrationConfirmed = lazy(() => import("@/pages/WebinarRegistrationConfirmed"));
 const LiveWebinar3Confirmed = lazy(() => import("@/pages/LiveWebinar3Confirmed"));
 const FreeMasterclass = lazy(() => import("@/pages/FreeMasterclass"));
+const MasterclassVideoFirst = lazy(() => import("@/pages/MasterclassVideoFirst"));
 
 // Location pages - Virginia
 const LocationVirginia = lazy(() => import("@/pages/LocationVirginia"));
@@ -352,6 +353,7 @@ function Router() {
         <Route path="/webinar-registration-confirmed" component={WebinarRegistrationConfirmed} />
         <Route path="/live-webinar3-confirmed" component={LiveWebinar3Confirmed} />
         <Route path="/free-masterclass" component={FreeMasterclass} />
+        <Route path="/masterclass" component={MasterclassVideoFirst} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
@@ -361,7 +363,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
-  if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed") return null;
+  if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
   const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/" || location === "/lp/WL2";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;

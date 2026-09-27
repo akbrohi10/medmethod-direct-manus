@@ -2072,3 +2072,10 @@
 - [x] Retain a static visual frame from the supplied recording as the placeholder, with clear non-interactive `Masterclass Recording Coming Soon` language and accurate recorded-Q&A context.
 - [x] Preserve the homepage, webinar landing pages, booking paths, pricing, payment flows, care-team flows, tracking, Featured In section, and page design.
 - [x] Validate focused coverage, 297 full tests across 64 files, TypeScript, production build, route HTTP 200 checks, and desktop/mobile visual review.
+
+## Video-First Masterclass Variant — 2026-09-27
+
+- [x] Create a separate, concise `/masterclass` page without changing the original `/free-masterclass` page.
+- [x] Place only the on-demand label, concise video promise, and full-width static recording placeholder above the fold; move booking choices, pricing, and Featured In below it.
+- [x] Preserve the established physician intake action, care-team booking link, pricing, legal framing, and patient-volume proof; suppress the floating social-proof notification so the video area remains distraction-free.
+- [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, HTTP 200 checks for the alternate/original masterclass and critical routes, and desktop/mobile visual review.
