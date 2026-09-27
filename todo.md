@@ -2057,3 +2057,11 @@
 - [x] Standardize both webinar Lead dataLayer payloads to the neutral metadata `content_name: "Webinar Registration"` and `content_category: "Lead"`, while preserving their existing event names, confirmation routes, visible content, and Meta standard Lead event.
 - [x] Keep direct Meta confirmation calls parameter-free and preserve all URL paths, booking/payment flows, GTM installation, and public page copy.
 - [x] Validate focused tracking tests, 296 full tests across 64 files, TypeScript, production build, critical route HTTP 200 checks, and a production-source scan showing no condition-specific tracking payload values.
+
+## Full On-Demand Masterclass Recording — 2026-09-27
+
+- [x] Upload the supplied 65-minute H.264/AAC masterclass recording and a frame from the session as its web poster to secure project storage.
+- [x] Update only `/free-masterclass`; the homepage, `/live-webinar2`, and `/live-webinar3` remain unchanged.
+- [x] Replace the temporary preview source and preview label with the full recording, accurately label the page as an on-demand masterclass, and state that it includes the recorded live Q&A with Dr. Al-Deek.
+- [x] Add accessible, visible playback-speed choices—0.75x, 1x, 1.25x, and 1.5x—while retaining native video controls and inline playback.
+- [x] Validate focused coverage, 297 full tests across 64 files, TypeScript, production build, storage asset availability, desktop/mobile visual review, live player metadata, speed switching to 1.5x, and HTTP 200 checks for the masterclass plus unaffected critical routes.
