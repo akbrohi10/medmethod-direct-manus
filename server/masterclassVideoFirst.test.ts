@@ -24,8 +24,14 @@ describe("video-first masterclass variant", () => {
       pageSource.indexOf('data-masterclass-video-first-booking'),
     );
     expect(pageSource.indexOf('data-masterclass-video-first-booking')).toBeLessThan(
-      pageSource.indexOf('data-masterclass-video-first-featured-in'),
+      pageSource.indexOf('<FeaturedInStrip />'),
     );
+    expect(pageSource).toContain('bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d]');
+    expect(pageSource).toContain('webinar2-logo-marquee__track');
+    expect(pageSource).toContain('webinar2-logo-marquee__duplicate');
+    expect(pageSource).toContain('const isReady = pendingAssets === 0;');
+    expect(pageSource).toContain('This Is Menopause');
+    expect(pageSource).toContain('Woman’s World');
   });
 
   it("keeps the established physician and care-team actions after the video", () => {

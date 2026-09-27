@@ -11,9 +11,67 @@ const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
   { name: "SingleCare", logo: "/manus-storage/singlecare-white_500a5691.png" },
   { name: "NTD", logo: "/manus-storage/ntd-white_dd8e5f55.png" },
+  { name: "Scary Mommy", logo: "/manus-storage/scary-mommy-white_b136c1bf.png" },
   { name: "Daily Mail", logo: "/manus-storage/daily-mail-white_bc1019ba.png" },
   { name: "Yahoo Health", logo: "/manus-storage/yahoo-health-white_125ff57a.png" },
+  { name: "This Is Menopause", logo: "/manus-storage/this-is-menopause-white_a9dd5679.png" },
+  { name: "Woman’s World", logo: "/manus-storage/womans-world-white_ef5f9e69.png" },
 ];
+
+function FeaturedInStrip() {
+  const [pendingAssets, setPendingAssets] = useState(FEATURED_OUTLETS.length);
+  const isReady = pendingAssets === 0;
+
+  return (
+    <section
+      data-masterclass-video-first-featured-in
+      aria-labelledby="masterclass-video-first-featured-heading"
+      aria-busy={!isReady}
+      className="overflow-hidden bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d] px-4 py-3 text-white"
+    >
+      <div className="mx-auto max-w-[1000px]">
+        <div className="flex items-center justify-center gap-3">
+          <span className="h-px w-8 bg-white/45 sm:w-14" aria-hidden="true" />
+          <h2 id="masterclass-video-first-featured-heading" className="text-[10px] font-black uppercase tracking-[0.16em] sm:text-xs">
+            Featured In
+          </h2>
+          <span className="h-px w-8 bg-white/45 sm:w-14" aria-hidden="true" />
+        </div>
+        <div
+          className="webinar2-logo-marquee scrollbar-hide mt-2.5"
+          tabIndex={0}
+          aria-label="Featured media outlets"
+          style={{ WebkitMaskImage: "linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent)", maskImage: "linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent)" }}
+        >
+          <div className={`webinar2-logo-marquee__track ${isReady ? "is-ready" : ""}`}>
+            <div className="flex shrink-0 items-center gap-7 pr-7 sm:gap-10 sm:pr-10">
+              {FEATURED_OUTLETS.map((outlet) => (
+                <div key={`${outlet.name}-primary`} className="flex h-8 w-24 shrink-0 items-center justify-center sm:h-9 sm:w-28">
+                  <img
+                    src={outlet.logo}
+                    alt={`${outlet.name} logo`}
+                    className="max-h-full max-w-full object-contain opacity-95"
+                    loading="eager"
+                    decoding="async"
+                    onLoad={() => setPendingAssets((count) => Math.max(0, count - 1))}
+                    onError={() => setPendingAssets((count) => Math.max(0, count - 1))}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="webinar2-logo-marquee__duplicate flex shrink-0 items-center gap-7 pr-7 sm:gap-10 sm:pr-10" aria-hidden="true">
+              {FEATURED_OUTLETS.map((outlet) => (
+                <div key={`${outlet.name}-duplicate`} className="flex h-8 w-24 shrink-0 items-center justify-center sm:h-9 sm:w-28">
+                  <img src={outlet.logo} alt="" className="max-h-full max-w-full object-contain opacity-95" loading="eager" decoding="async" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function PricingDetails() {
   return (
@@ -133,16 +191,7 @@ export default function MasterclassVideoFirst() {
           <div className="mt-7"><PricingDetails /></div>
         </section>
 
-        <section data-masterclass-video-first-featured-in className="border-t border-[#f0e5eb] bg-[#fbf8fa] px-5 py-8 sm:px-10 sm:py-9 lg:px-16">
-          <p className="text-center text-[10px] font-black uppercase tracking-[0.16em] text-[#7a1e7e] sm:text-xs">Featured In</p>
-          <div className="mx-auto mt-4 flex max-w-[740px] flex-wrap items-center justify-center gap-x-7 gap-y-4 sm:gap-x-11">
-            {FEATURED_OUTLETS.map((outlet) => (
-              <div key={outlet.name} className="flex h-7 w-20 items-center justify-center sm:h-8 sm:w-24">
-                <img src={outlet.logo} alt={`${outlet.name} logo`} className="max-h-full max-w-full object-contain brightness-0 opacity-55" loading="lazy" decoding="async" />
-              </div>
-            ))}
-          </div>
-        </section>
+        <FeaturedInStrip />
 
         <footer className="border-t border-[#eee4e9] px-5 py-8 sm:px-10">
           <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-5 sm:flex-row">
