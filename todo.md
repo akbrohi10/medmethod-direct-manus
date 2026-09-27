@@ -2092,3 +2092,10 @@
 - [x] Add `Perimenopause` to the main `/masterclass` video-first headline so women 35+ can immediately recognize the page as relevant before menopause begins.
 - [x] Add perimenopause to the page’s search description while retaining the minimal video-first hierarchy, booking paths, original `/free-masterclass` page, and all unrelated flows.
 - [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and desktop/mobile visual review.
+
+## Video-First Masterclass Streamlined Booking — 2026-09-27
+
+- [x] Update only the `/masterclass` physician appointment action to bypass the reusable long intake.
+- [x] Reuse the proven two-step payment entry: Name, Email, and Phone (required by payment processing), followed by the existing secure $50 deposit screen and calendar handoff.
+- [x] Preserve the complete intake for all other entry points, plus the care-team action, payment providers, referral rules, tracking, original `/free-masterclass` page, and unrelated routes.
+- [x] Validate focused coverage, 299 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and browser walkthrough through contact details and initialized secure payment fields.

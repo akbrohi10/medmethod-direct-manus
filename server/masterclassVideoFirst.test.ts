@@ -40,6 +40,7 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('data-masterclass-video-first-care-team-cta');
     expect(pageSource).toContain('href="/care-team-booking"');
     expect(pageSource).toContain('landingPage="/masterclass"');
+    expect(pageSource).toContain('landingPage="/masterclass" startAtPayment');
     expect(pageSource).toContain('Dr. Al-Deek has seen');
     expect(pageSource).toContain('50,000+ patients.');
     expect(pageSource).toContain('data-masterclass-video-first-pricing');
