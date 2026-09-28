@@ -98,6 +98,19 @@ describe("crawlerMiddleware", () => {
       expect(meta.description).toContain("weight loss");
     });
 
+    it("returns dedicated social metadata for /masterclass", () => {
+      const meta = getMetaForPath("/masterclass?utm_source=facebook");
+      expect(meta.title).toBe("Free Masterclass: Menopause, Metabolism & Weight Loss");
+      expect(meta.description).toBe(
+        "Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.",
+      );
+      expect(meta.image).toBe(
+        "https://medmethoddirect.com/manus-storage/masterclass-social-share-1200x630_5f4c1cf1.png",
+      );
+      expect(meta.imageAlt).toContain("masterclass with Dr. Jumana Al-Deek");
+      expect(meta.url).toBe("https://medmethoddirect.com/masterclass");
+    });
+
     it("returns Texas meta for /texas", () => {
       const meta = getMetaForPath("/texas");
       expect(meta.title).toContain("Texas");
@@ -172,6 +185,13 @@ describe("crawlerMiddleware", () => {
 
       expect(html).toContain('<meta property="og:image:width" content="1200"');
       expect(html).toContain('<meta property="og:image:height" content="630"');
+    });
+
+    it("includes accessible image labels for the masterclass social card", () => {
+      const html = generateCrawlerHtml(getMetaForPath("/masterclass"));
+
+      expect(html).toContain('<meta property="og:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek">');
+      expect(html).toContain('<meta name="twitter:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek">');
     });
   });
 });

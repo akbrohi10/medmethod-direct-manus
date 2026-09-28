@@ -44,6 +44,7 @@ interface RouteMeta {
   title: string;
   description: string;
   image: string;
+  imageAlt?: string;
   url: string;
 }
 
@@ -116,6 +117,15 @@ const ROUTE_META: Record<string, RouteMeta> = {
       "Book a 45-minute virtual consultation with Dr. Al-Deek — personalized hormone therapy or GLP-1 weight loss, if it's right for you. 100% virtual. $50 deposit today.",
     image: HERO_IMAGE,
     url: `${BASE_URL}/lp/hrt3`,
+  },
+  "/masterclass": {
+    title: "Free Masterclass: Menopause, Metabolism & Weight Loss",
+    description:
+      "Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.",
+    image: `${BASE_URL}/manus-storage/masterclass-social-share-1200x630_5f4c1cf1.png`,
+    imageAlt:
+      "Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek",
+    url: `${BASE_URL}/masterclass`,
   },
   // ─── State Pages ────────────────────────────────────────────────────────
   "/virginia": {
@@ -252,6 +262,7 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
   const t = escapeHtml(meta.title);
   const d = escapeHtml(meta.description);
   const img = escapeHtml(meta.image);
+  const imgAlt = escapeHtml(meta.imageAlt || `${meta.title} preview`);
   const url = escapeHtml(meta.url);
   const siteName = escapeHtml(SITE_NAME);
 
@@ -268,6 +279,7 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
 <meta property="og:image" content="${img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${imgAlt}">
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${siteName}">
@@ -276,6 +288,7 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
 <meta name="twitter:title" content="${t}">
 <meta name="twitter:description" content="${d}">
 <meta name="twitter:image" content="${img}">
+<meta name="twitter:image:alt" content="${imgAlt}">
 <link rel="canonical" href="${url}">
 <link rel="icon" type="image/x-icon" href="https://medmethoddirect.com/favicon.ico">
 <link rel="shortcut icon" href="https://medmethoddirect.com/favicon.ico">

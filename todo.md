@@ -2147,3 +2147,12 @@
 - [x] Add the approved supporting line connecting perimenopause, hormones, metabolism, medical weight loss, and real questions from women 35+
 - [x] Preserve the Free On-Demand Masterclass banner, YouTube player, booking actions, pricing, Featured In strip, and all unrelated routes and flows
 - [x] Validate focused coverage, 309 full tests across 66 files, TypeScript, production build, `/masterclass` HTTP 200, and desktop/mobile visual review
+
+## Masterclass Social Share Preview — 2026-09-28
+
+- [x] Create a dedicated 1200×630 branded social image with the Free On-Demand Masterclass label, menopause/metabolism/weight-loss headline, Dr. Al-Deek portrait, and Watch Free play treatment
+- [x] Upload the share image to project storage and confirm public PNG delivery at exactly 1200×630
+- [x] Add page-specific title, description, canonical URL, Open Graph, and Twitter Card metadata to `/masterclass`
+- [x] Add the same route-specific metadata to the crawler middleware so Facebook, Messenger, iMessage, WhatsApp, LinkedIn, X, Slack, and other preview crawlers no longer receive homepage metadata
+- [x] Preserve the Facebook domain-verification tag and all visible page content, paths, booking flows, tracking, and unrelated route metadata
+- [x] Validate 312 tests across 66 files, TypeScript, production build, crawler HTML, public image delivery, and critical route HTTP checks

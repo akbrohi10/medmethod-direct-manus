@@ -16,7 +16,6 @@ describe("video-first masterclass variant", () => {
 
   it("puts concise context and the YouTube recording before all booking content", () => {
     expect(pageSource).toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
-    expect(pageSource).toContain('about perimenopause, menopause, hormones, metabolism, and medical weight loss.');
     expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how perimenopause, hormones, metabolism, and medical weight loss connect—plus answer real questions from women 35+.');
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";');
     expect(pageSource).toContain('data-masterclass-video-first-youtube');
@@ -39,6 +38,16 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('const isReady = pendingAssets === 0;');
     expect(pageSource).toContain('This Is Menopause');
     expect(pageSource).toContain('Woman’s World');
+  });
+
+  it("uses a dedicated social preview for the masterclass route", () => {
+    expect(pageSource).toContain('Free Masterclass: Menopause, Metabolism &amp; Weight Loss');
+    expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.');
+    expect(pageSource).toContain('https://medmethoddirect.com/masterclass');
+    expect(pageSource).toContain('masterclass-social-share-1200x630_5f4c1cf1.png');
+    expect(pageSource).toContain('<meta property="og:image:width" content="1200" />');
+    expect(pageSource).toContain('<meta property="og:image:height" content="630" />');
+    expect(pageSource).toContain('<meta name="twitter:card" content="summary_large_image" />');
   });
 
   it("keeps the established physician and care-team actions after the video", () => {
