@@ -2140,3 +2140,10 @@
 - [x] Delete the supplied 1.08 GB MOV and the 1.08 GB local web conversion, freeing 2.01 GiB; retain only the small poster still used by `/free-masterclass`
 - [x] Remove every site reference to the obsolete uploaded video object so it is no longer loaded or served by the website
 - [x] Validate the public YouTube metadata and embed endpoint, 309 tests across 66 files, TypeScript, production build, five critical route checks, and desktop/mobile player rendering
+
+## Masterclass Video-First Headline — 2026-09-28
+
+- [x] Replace the `/masterclass` headline with `Finally. A Doctor Who Understands Menopause & Weight Loss.`
+- [x] Add the approved supporting line connecting perimenopause, hormones, metabolism, medical weight loss, and real questions from women 35+
+- [x] Preserve the Free On-Demand Masterclass banner, YouTube player, booking actions, pricing, Featured In strip, and all unrelated routes and flows
+- [x] Validate focused coverage, 309 full tests across 66 files, TypeScript, production build, `/masterclass` HTTP 200, and desktop/mobile visual review

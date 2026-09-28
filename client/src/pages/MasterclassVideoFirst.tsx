@@ -178,10 +178,10 @@ export default function MasterclassVideoFirst() {
               Free On-Demand Masterclass
             </p>
             <h1 className="mx-auto mt-5 max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:mt-7 sm:text-[3.35rem] lg:text-[4.05rem]">
-              Perimenopause, Menopause &amp; Weight Loss: What Every Woman 35+ Should Know
+              Finally. A Doctor Who Understands Menopause &amp; Weight Loss.
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-[1.03rem] font-semibold leading-relaxed text-[#6e5364] sm:mt-5 sm:text-lg">
-              Watch Dr. Jumana Al-Deek explain the options women are asking about—plus a recorded live Q&amp;A.
+              Watch Dr. Jumana Al-Deek explain how perimenopause, hormones, metabolism, and medical weight loss connect—plus answer real questions from women 35+.
             </p>
           </div>
         </section>

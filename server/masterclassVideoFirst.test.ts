@@ -15,9 +15,9 @@ describe("video-first masterclass variant", () => {
   });
 
   it("puts concise context and the YouTube recording before all booking content", () => {
-    expect(pageSource).toContain('Perimenopause, Menopause &amp; Weight Loss: What Every Woman 35+ Should Know');
+    expect(pageSource).toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
     expect(pageSource).toContain('about perimenopause, menopause, hormones, metabolism, and medical weight loss.');
-    expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain the options women are asking about—plus a recorded live Q&amp;A.');
+    expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how perimenopause, hormones, metabolism, and medical weight loss connect—plus answer real questions from women 35+.');
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";');
     expect(pageSource).toContain('data-masterclass-video-first-youtube');
     expect(pageSource).toContain('https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1');
