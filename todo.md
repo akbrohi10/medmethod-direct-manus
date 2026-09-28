@@ -2119,3 +2119,15 @@
 - [x] Upload and use the supplied logo and physician portrait through project storage
 - [x] Add compliant compounded-medication disclosures and neutral FDA-approved medication labels while preserving the intended prototype pricing flow
 - [x] Validate 305 tests across 66 files, TypeScript, production build, HTTP 200 on `/asynchronous` and five critical routes, desktop/mobile full-page screenshots, and the full 11-screen assessment through its completion state
+
+## Asynchronous Prototype Review Refinements — 2026-09-27
+
+- [x] Clarify that the $49 occurs once at the checkout step; remove the second-charge impression from the results-step button
+- [x] Show member ($50) and non-member ($150) follow-up video-visit prices side by side
+- [x] Put medical weight care first in both the page cards and assessment choices to match the weight-led headline
+- [x] Add verified trust signals: Board-Certified DO, licensed in 12 states, and LegitScript certification
+- [x] Replace the vaginal cream vial illustration with a tube illustration
+- [x] Move keyboard focus into each dialog, trap focus while open, close with Escape, and restore focus to the opening control
+- [x] Confirm the React implementation already uses stored image assets and contains no embedded `data:image` payloads or MyAlloy links
+- [x] Keep placeholder pharmacy-rate labels and compounded-treatment copy visibly marked for pharmacy/legal approval before launch
+- [x] Validate 309 tests across 66 files, TypeScript, production build, critical route HTTP checks, desktop/mobile visual review, and browser focus entry/restoration

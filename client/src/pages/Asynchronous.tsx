@@ -3,14 +3,17 @@ import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ArrowRight,
+  BadgeCheck,
   Check,
   CheckCircle2,
   Clock3,
   DollarSign,
   ExternalLink,
   LockKeyhole,
+  MapPinned,
   MessageCircle,
   RotateCcw,
+  ShieldCheck,
   X,
 } from "lucide-react";
 import ComplianceDisclosures from "@/components/ComplianceDisclosures";
@@ -45,7 +48,7 @@ type Treatment = {
   label: string;
   meta: string;
   price: string;
-  visual: "vial" | "pill" | "patch" | "spray";
+  visual: "vial" | "pill" | "patch" | "spray" | "tube";
 };
 
 type Details = {
@@ -279,7 +282,7 @@ const HORMONE_TREATMENTS: Treatment[] = [
     label: "Estradiol vaginal cream",
     meta: "FDA-approved · 3-month tube",
     price: "$39.99/month · billed quarterly",
-    visual: "vial",
+    visual: "tube",
   },
 ];
 
@@ -475,6 +478,11 @@ export default function Asynchronous() {
   const [baseline, setBaseline] = useState<Baseline>(INITIAL_BASELINE);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const assessmentPanelRef = useRef<HTMLDivElement>(null);
+  const chatPanelRef = useRef<HTMLDivElement>(null);
+  const assessmentCloseRef = useRef<HTMLButtonElement>(null);
+  const chatCloseRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
 
   const profile = PROFILES[path || "both"];
 
@@ -482,10 +490,32 @@ export default function Asynchronous() {
     if (!assessmentOpen && !chatOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const activePanel = assessmentOpen ? assessmentPanelRef.current : chatPanelRef.current;
+    const initialFocus = assessmentOpen ? assessmentCloseRef.current : chatCloseRef.current;
+    requestAnimationFrame(() => initialFocus?.focus());
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setAssessmentOpen(false);
-      setChatOpen(false);
+      if (event.key === "Escape") {
+        setAssessmentOpen(false);
+        setChatOpen(false);
+        requestAnimationFrame(() => restoreFocusRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab" || !activePanel) return;
+      const focusable = Array.from(
+        activePanel.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.offsetParent !== null);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -509,9 +539,30 @@ export default function Asynchronous() {
   };
 
   const openAssessment = (initialPath: CarePath | "" = "") => {
+    if (!assessmentOpen && !chatOpen && document.activeElement instanceof HTMLElement) {
+      restoreFocusRef.current = document.activeElement;
+    }
     resetFlow(initialPath);
     setChatOpen(false);
     setAssessmentOpen(true);
+  };
+
+  const openChat = () => {
+    if (!assessmentOpen && !chatOpen && document.activeElement instanceof HTMLElement) {
+      restoreFocusRef.current = document.activeElement;
+    }
+    setAssessmentOpen(false);
+    setChatOpen(true);
+  };
+
+  const closeAssessment = () => {
+    setAssessmentOpen(false);
+    requestAnimationFrame(() => restoreFocusRef.current?.focus());
+  };
+
+  const closeChat = () => {
+    setChatOpen(false);
+    requestAnimationFrame(() => restoreFocusRef.current?.focus());
   };
 
   const selectPath = (nextPath: CarePath) => {
@@ -639,8 +690,8 @@ export default function Asynchronous() {
           <h2 className="async-flow-title">What kind of care are you looking for?</h2>
           <p className="async-flow-sub">Choose one. You can still tell us about every symptom on the next step.</p>
           <div className="async-choices">
-            <ChoiceButton icon="◯" label="Hormone care" description="Perimenopause, menopause, sleep, mood, energy, and vaginal symptoms" selected={path === "hormone"} onClick={() => selectPath("hormone")} />
             <ChoiceButton icon="⌁" label="Medical weight care" description="Metabolic support and GLP-1 options when clinically appropriate" selected={path === "weight"} onClick={() => selectPath("weight")} />
+            <ChoiceButton icon="◯" label="Hormone care" description="Perimenopause, menopause, sleep, mood, energy, and vaginal symptoms" selected={path === "hormone"} onClick={() => selectPath("hormone")} />
             <ChoiceButton icon="∞" label="Both hormones + weight" description="One integrated review of symptoms, metabolism, and goals" selected={path === "both"} onClick={() => selectPath("both")} />
           </div>
         </section>
@@ -720,8 +771,8 @@ export default function Asynchronous() {
       return (
         <section className="async-step-screen" data-asynchronous-step="5">
           <div className="async-flow-kicker">CHECKOUT PREVIEW</div>
-          <h2 className="async-flow-title">One clear charge today.</h2>
-          <p className="async-flow-sub">Review Dr. Al-Deek’s assessment fee and your medication interest before continuing to the clinical intake.</p>
+          <h2 className="async-flow-title">Review your $49 assessment fee.</h2>
+          <p className="async-flow-sub">In the live flow, this is the single payment step. After the $49 payment, you continue to the clinical intake—there is no second $49 charge.</p>
           <div className="async-summary-box">
             <div className="async-summary-row"><div><strong>Assessment with Dr. Al-Deek</strong><small>Her review, direct chat, and first 30 days of care</small></div><strong>$49 today</strong></div>
             <div className="async-summary-row"><div><strong>Care after 30 days</strong><small>Choose a $49/month membership or $150 visits as needed</small></div><strong>Your choice</strong></div>
@@ -790,7 +841,7 @@ export default function Asynchronous() {
           <h2 className="async-flow-title">Your review with Dr. Al-Deek would begin here.</h2>
           <p>After payment and intake, Dr. Al-Deek reads your answers herself and starts a private message thread for follow-up questions, your recommendation, and the exact medication price before anything moves forward.</p>
           <div className="async-done-actions">
-            <button className="async-btn async-btn-primary" type="button" onClick={() => { setAssessmentOpen(false); setChatOpen(true); }}><MessageCircle aria-hidden="true" /> See a sample doctor chat</button>
+            <button className="async-btn async-btn-primary" type="button" onClick={openChat}><MessageCircle aria-hidden="true" /> See a sample doctor chat</button>
             <button className="async-btn async-btn-secondary" type="button" onClick={() => resetFlow()}><RotateCcw aria-hidden="true" /> Start over</button>
           </div>
         </div>
@@ -849,24 +900,30 @@ export default function Asynchronous() {
         <div className="async-proofstrip">
           <div className="async-wrap async-proofgrid">
             <div className="async-proofitem"><CheckCircle2 aria-hidden="true" /> Direct care with Dr. Al-Deek</div>
-            <button className="async-proofitem async-proof-link" type="button" onClick={() => setChatOpen(true)}><ExternalLink aria-hidden="true" /> See a sample doctor chat</button>
+            <button className="async-proofitem async-proof-link" type="button" onClick={openChat}><ExternalLink aria-hidden="true" /> See a sample doctor chat</button>
             <div className="async-proofitem"><Clock3 aria-hidden="true" /> Review within 24 hours</div>
             <div className="async-proofitem"><DollarSign aria-hidden="true" /> Prices before you pay</div>
           </div>
         </div>
 
+        <section className="async-wrap async-credentials" aria-label="Physician and platform credentials">
+          <div><BadgeCheck aria-hidden="true" /><span><strong>Board-Certified DO</strong>Dr. Jumana Al-Deek</span></div>
+          <div><MapPinned aria-hidden="true" /><span><strong>Licensed in 12 states</strong>100% virtual care where available</span></div>
+          <a href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com" target="_blank" rel="noreferrer"><ShieldCheck aria-hidden="true" /><span><strong>LegitScript Certified</strong>Verify MedMethod Direct approval</span></a>
+        </section>
+
         <section className="async-wrap async-section">
           <div className="async-section-head"><h2>One front door.<br />Two connected paths.</h2><p>Start with the concern that feels most urgent. Your assessment still considers the full picture, because midlife symptoms rarely stay in one lane.</p></div>
           <div className="async-path-grid">
-            <article className="async-path-card">
-              <div className="async-path-art" aria-hidden="true">◯</div>
-              <div className="async-path-content"><div className="async-flow-kicker">HORMONE CARE</div><h3>Relief that starts with understanding your symptoms.</h3><p>Hot flashes, sleep, mood, brain fog, cycles, vaginal symptoms, and more.</p></div>
-              <button className="async-text-link" type="button" onClick={() => openAssessment("hormone")}>Explore hormone care <ArrowRight aria-hidden="true" /></button>
-            </article>
             <article className="async-path-card weight">
               <div className="async-path-art" aria-hidden="true">⌁</div>
               <div className="async-path-content"><div className="async-flow-kicker">WEIGHT CARE</div><h3>Medical weight support that accounts for hormones, too.</h3><p>Personalized options, including compounded GLP-1 medication when clinically appropriate.</p></div>
               <button className="async-text-link" type="button" onClick={() => openAssessment("weight")}>Explore weight care <ArrowRight aria-hidden="true" /></button>
+            </article>
+            <article className="async-path-card">
+              <div className="async-path-art" aria-hidden="true">◯</div>
+              <div className="async-path-content"><div className="async-flow-kicker">HORMONE CARE</div><h3>Relief that starts with understanding your symptoms.</h3><p>Hot flashes, sleep, mood, brain fog, cycles, vaginal symptoms, and more.</p></div>
+              <button className="async-text-link" type="button" onClick={() => openAssessment("hormone")}>Explore hormone care <ArrowRight aria-hidden="true" /></button>
             </article>
           </div>
         </section>
@@ -879,7 +936,8 @@ export default function Asynchronous() {
               <article className="async-price-card"><div className="async-price-label">ONGOING CARE</div><div className="async-price">$49 <small>/ month</small></div><h3>One doctor. One plan.</h3><p>Continue directly with Dr. Al-Deek as your hormone, weight, and metabolic-health plan evolves. Cancel anytime.</p><ul className="async-ticklist"><li>Direct messaging &amp; refills</li><li>Lab and dose review</li><li>$50 video visits if wanted</li></ul></article>
               <article className="async-price-card"><div className="async-price-label">NO MEMBERSHIP</div><div className="async-price">$150 <small>/ visit</small></div><h3>Pay as you go</h3><p>Prefer not to join? Schedule a stand-alone follow-up with Dr. Al-Deek whenever you need one.</p><ul className="async-ticklist"><li>No monthly commitment</li><li>Medication billed separately</li></ul></article>
             </div>
-            <p className="async-price-note">Medication prices shown inside the assessment are prototype placeholders based on a public catalog checked September 27, 2026. Replace with contracted pharmacy rates before launch.</p>
+            <div className="async-visit-comparison"><strong>Follow-up video visits</strong><span>Members: <b>$50 per visit</b></span><span>Without membership: <b>$150 per visit</b></span></div>
+            <p className="async-price-note">Medication prices shown inside the assessment are prototype placeholders. Replace them with MedMethod Direct’s contracted pharmacy rates before launch.</p>
           </div>
         </section>
 
@@ -933,29 +991,29 @@ export default function Asynchronous() {
       <footer className="async-site-footer"><div className="async-wrap"><div><p><strong>Prototype treatment journey.</strong> This interactive demo does not collect, save, transmit, or charge anything. Do not enter real medical or payment information.</p><p>Treatment requires clinician review. Availability varies by state.</p></div><div className="async-source-links"><a href="/">Current site</a></div></div></footer>
 
       {chatOpen && (
-        <div className="async-overlay" role="dialog" aria-modal="true" aria-labelledby="async-chat-title" onMouseDown={(event) => { if (event.target === event.currentTarget) setChatOpen(false); }}>
-          <div className="async-flow-panel async-chat-panel">
-            <div className="async-flow-top"><span /><strong id="async-chat-title">A sample physician chat</strong><button className="async-icon-btn" type="button" aria-label="Close sample chat" onClick={() => setChatOpen(false)}><X /></button></div>
+        <div className="async-overlay" role="dialog" aria-modal="true" aria-labelledby="async-chat-title" onMouseDown={(event) => { if (event.target === event.currentTarget) closeChat(); }}>
+          <div className="async-flow-panel async-chat-panel" ref={chatPanelRef}>
+            <div className="async-flow-top"><span /><strong id="async-chat-title">A sample physician chat</strong><button ref={chatCloseRef} className="async-icon-btn" type="button" aria-label="Close sample chat" onClick={closeChat}><X /></button></div>
             <div className="async-flow-scroll"><div className="async-flow-inner"><SampleChat /></div></div>
           </div>
         </div>
       )}
 
       {assessmentOpen && (
-        <div className="async-overlay" role="dialog" aria-modal="true" aria-labelledby="async-assessment-title" onMouseDown={(event) => { if (event.target === event.currentTarget) setAssessmentOpen(false); }}>
-          <div className="async-flow-panel" data-asynchronous-assessment>
+        <div className="async-overlay" role="dialog" aria-modal="true" aria-labelledby="async-assessment-title" onMouseDown={(event) => { if (event.target === event.currentTarget) closeAssessment(); }}>
+          <div className="async-flow-panel" data-asynchronous-assessment ref={assessmentPanelRef}>
             <div className="async-demo-ribbon">Interactive prototype · no data or payment is submitted</div>
             <div className="async-flow-top">
               <button className="async-icon-btn" type="button" aria-label="Go back" style={{ visibility: step === 0 ? "hidden" : "visible" }} onClick={() => moveToStep(step - 1)}><ArrowLeft /></button>
               <strong id="async-assessment-title">Your assessment</strong>
-              <button className="async-icon-btn" type="button" aria-label="Close assessment" onClick={() => setAssessmentOpen(false)}><X /></button>
+              <button ref={assessmentCloseRef} className="async-icon-btn" type="button" aria-label="Close assessment" onClick={closeAssessment}><X /></button>
             </div>
             <div className="async-progress" aria-label={`Step ${step + 1} of 11`}><span style={{ width: `${((step + 1) / 11) * 100}%` }} /></div>
             <div className="async-flow-scroll" ref={scrollRef}><div className="async-flow-inner">{renderAssessmentStep()}</div></div>
             {step < 10 && (
               <div className="async-flow-footer">
                 <button className="async-btn async-btn-secondary" type="button" style={{ visibility: step === 0 ? "hidden" : "visible" }} onClick={() => moveToStep(step - 1)}>Back</button>
-                <button className="async-btn async-btn-primary" type="button" disabled={nextDisabled} onClick={() => moveToStep(step + 1)}>{step === 5 ? "Preview post-payment intake" : step === 9 ? "Doctor review — $49" : "Continue"}</button>
+                <button className="async-btn async-btn-primary" type="button" disabled={nextDisabled} onClick={() => moveToStep(step + 1)}>{step === 5 ? "Continue to clinical intake" : step === 9 ? "Finish assessment" : "Continue"}</button>
               </div>
             )}
           </div>
