@@ -2108,3 +2108,14 @@
 - [x] Preserve compliance by using neutral FDA-approved medication labels rather than prescription brand names and include the required compounded-medication and testosterone disclosures.
 - [x] Preserve the streamlined masterclass booking flow, rotating Featured In strip, original `/free-masterclass`, payment/referral/tracking behavior, and unrelated routes.
 - [x] Validate focused and compliance coverage, 300 full tests across 65 files, TypeScript, production build, critical route HTTP 200 checks, and collapsed/expanded desktop plus mobile page review.
+
+## Asynchronous Care Landing Page — 2026-09-27
+
+- [x] Adapt the supplied standalone `LandingPage.html` into the existing React/Vite application without changing existing public pages or flows
+- [x] Register the isolated `/asynchronous` route and suppress unrelated social-proof popups on that route
+- [x] Preserve the supplied physician-led landing-page hierarchy, care paths, pricing, process, sample chat, FAQ, and responsive visual system
+- [x] Rebuild the supplied assessment as an 11-screen client-side prototype with path-specific hormone, weight, and combined-care questions
+- [x] Keep the prototype non-submitting: no payment, network request, database write, or persistence; display explicit prototype notices and prevent collection of real medical/payment information
+- [x] Upload and use the supplied logo and physician portrait through project storage
+- [x] Add compliant compounded-medication disclosures and neutral FDA-approved medication labels while preserving the intended prototype pricing flow
+- [x] Validate 305 tests across 66 files, TypeScript, production build, HTTP 200 on `/asynchronous` and five critical routes, desktop/mobile full-page screenshots, and the full 11-screen assessment through its completion state
