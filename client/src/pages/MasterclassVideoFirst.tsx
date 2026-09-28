@@ -1,11 +1,11 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle2, PlayCircle, ShieldCheck, Video } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Video } from "lucide-react";
 import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
-const MASTERCLASS_PLACEHOLDER_IMAGE_URL = "/manus-storage/medmethod-on-demand-masterclass-poster_52bb13b2.jpg";
+const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";
 
 const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
@@ -187,18 +187,21 @@ export default function MasterclassVideoFirst() {
         </section>
 
         <section data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-9 sm:px-10 sm:pb-12 lg:px-16">
-          <div data-masterclass-video-first-placeholder className="relative mx-auto aspect-video w-full max-w-[940px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.26)] ring-1 ring-[#e1c7d6]">
-            <img src={MASTERCLASS_PLACEHOLDER_IMAGE_URL} alt="Masterclass recording preview" className="h-full w-full object-cover" loading="eager" decoding="async" />
-            <div className="absolute inset-0 flex items-center justify-center bg-[#211028]/58 px-5 text-center">
-              <div className="max-w-md rounded-2xl border border-white/25 bg-[#341753]/90 px-6 py-6 text-white shadow-[0_18px_45px_rgba(27,11,36,0.38)] sm:px-9 sm:py-8">
-                <PlayCircle className="mx-auto h-11 w-11 text-white/95 sm:h-14 sm:w-14" aria-hidden="true" />
-                <p className="mt-3 text-base font-black uppercase tracking-[0.1em] sm:text-xl">Masterclass Recording Coming Soon</p>
-                <p className="mt-2 text-xs leading-relaxed text-white/88 sm:text-sm">The full on-demand masterclass, including the recorded live Q&amp;A with Dr. Al-Deek, will be available here soon.</p>
-              </div>
-            </div>
+          <div data-masterclass-video-first-youtube className="relative mx-auto aspect-video w-full max-w-[940px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.26)] ring-1 ring-[#e1c7d6]">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1`}
+              title="Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+"
+              className="absolute inset-0 h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
           </div>
           <p className="mx-auto mt-4 max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
             Presented by Dr. Jumana Al-Deek, board-certified family medicine physician.
+          </p>
+          <p className="mx-auto mt-2 max-w-[780px] text-center text-xs leading-relaxed text-[#766d75] sm:text-sm">
+            Use the YouTube player settings to adjust playback speed, captions, or video quality.
           </p>
           <p className="mx-auto mt-2 max-w-[780px] text-center text-xs leading-relaxed text-[#766d75] sm:text-sm">
             Educational content only. Individual treatment recommendations require an appropriate medical evaluation.

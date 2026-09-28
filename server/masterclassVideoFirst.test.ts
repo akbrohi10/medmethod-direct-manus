@@ -14,12 +14,18 @@ describe("video-first masterclass variant", () => {
     expect(appSource).toContain('location === "/masterclass") return null;');
   });
 
-  it("puts concise context and the recording placeholder before all booking content", () => {
+  it("puts concise context and the YouTube recording before all booking content", () => {
     expect(pageSource).toContain('Perimenopause, Menopause &amp; Weight Loss: What Every Woman 35+ Should Know');
     expect(pageSource).toContain('about perimenopause, menopause, hormones, metabolism, and medical weight loss.');
     expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain the options women are asking about—plus a recorded live Q&amp;A.');
-    expect(pageSource).toContain('data-masterclass-video-first-placeholder');
-    expect(pageSource).toContain('Masterclass Recording Coming Soon');
+    expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";');
+    expect(pageSource).toContain('data-masterclass-video-first-youtube');
+    expect(pageSource).toContain('https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1');
+    expect(pageSource).toContain('allowFullScreen');
+    expect(pageSource).toContain('Use the YouTube player settings to adjust playback speed, captions, or video quality.');
+    expect(pageSource).not.toContain('data-masterclass-video-first-placeholder');
+    expect(pageSource).not.toContain('Masterclass Recording Coming Soon');
+    expect(pageSource).not.toContain('medmethod-on-demand-masterclass-poster_52bb13b2.jpg');
     expect(pageSource).not.toContain('<video');
     expect(pageSource.indexOf('data-masterclass-video-first-player')).toBeLessThan(
       pageSource.indexOf('data-masterclass-video-first-booking'),

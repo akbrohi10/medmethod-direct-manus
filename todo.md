@@ -2131,3 +2131,12 @@
 - [x] Confirm the React implementation already uses stored image assets and contains no embedded `data:image` payloads or MyAlloy links
 - [x] Keep placeholder pharmacy-rate labels and compounded-treatment copy visibly marked for pharmacy/legal approval before launch
 - [x] Validate 309 tests across 66 files, TypeScript, production build, critical route HTTP checks, desktop/mobile visual review, and browser focus entry/restoration
+
+## Masterclass YouTube Recording — 2026-09-28
+
+- [x] Replace the `/masterclass` coming-soon placeholder with the supplied YouTube recording `n-jYhuCP5Vg`
+- [x] Use YouTube’s privacy-enhanced embed, keep playback in the existing responsive frame, and retain native fullscreen, captions, quality, and playback-speed controls
+- [x] Preserve the concise page hierarchy, booking actions, pricing accordion, rotating Featured In strip, and original `/free-masterclass` page
+- [x] Delete the supplied 1.08 GB MOV and the 1.08 GB local web conversion, freeing 2.01 GiB; retain only the small poster still used by `/free-masterclass`
+- [x] Remove every site reference to the obsolete uploaded video object so it is no longer loaded or served by the website
+- [x] Validate the public YouTube metadata and embed endpoint, 309 tests across 66 files, TypeScript, production build, five critical route checks, and desktop/mobile player rendering
