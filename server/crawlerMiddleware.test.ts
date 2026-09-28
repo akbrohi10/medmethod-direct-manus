@@ -3,6 +3,7 @@ import {
   isCrawlerBot,
   getMetaForPath,
   generateCrawlerHtml,
+  injectRouteMetaIntoHtml,
 } from "./crawlerMiddleware";
 
 describe("crawlerMiddleware", () => {
@@ -192,6 +193,37 @@ describe("crawlerMiddleware", () => {
 
       expect(html).toContain('<meta property="og:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek">');
       expect(html).toContain('<meta name="twitter:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek">');
+    });
+  });
+
+  describe("injectRouteMetaIntoHtml", () => {
+    it("replaces homepage metadata with exactly one masterclass image", () => {
+      const shell = `<!doctype html><html><head>
+        <title>Homepage</title>
+        <meta name="description" content="Homepage description" />
+        <meta property="og:title" content="Homepage" />
+        <meta property="og:description" content="Homepage description" />
+        <meta property="og:image" content="https://example.com/home.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://example.com" />
+        <meta property="og:site_name" content="Example" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Homepage" />
+        <meta name="twitter:description" content="Homepage description" />
+        <meta name="twitter:image" content="https://example.com/home.jpg" />
+        <link rel="canonical" href="https://example.com" />
+      </head><body></body></html>`;
+
+      const html = injectRouteMetaIntoHtml(shell, getMetaForPath("/masterclass"));
+
+      expect(html.match(/property="og:image"/g)).toHaveLength(1);
+      expect(html.match(/name="twitter:image"/g)).toHaveLength(1);
+      expect(html).not.toContain("home.jpg");
+      expect(html).toContain("masterclass-social-share-1200x630_5f4c1cf1.png");
+      expect(html).toContain('<meta property="og:url" content="https://medmethoddirect.com/masterclass" />');
+      expect(html).toContain('<link rel="canonical" href="https://medmethoddirect.com/masterclass" />');
     });
   });
 });

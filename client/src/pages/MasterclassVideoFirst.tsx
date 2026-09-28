@@ -5,8 +5,6 @@ import { CheckCircle2, ShieldCheck, Video } from "lucide-react";
 import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
-const MASTERCLASS_SOCIAL_IMAGE =
-  "https://medmethoddirect.com/manus-storage/masterclass-social-share-1200x630_5f4c1cf1.png";
 const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";
 
 const FEATURED_OUTLETS = [
@@ -163,20 +161,6 @@ export default function MasterclassVideoFirst() {
         <title>Free Masterclass: Menopause, Metabolism &amp; Weight Loss</title>
         <meta name="description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
         <link rel="canonical" href="https://medmethoddirect.com/masterclass" />
-        <meta property="og:title" content="Free Masterclass: Menopause, Metabolism &amp; Weight Loss" />
-        <meta property="og:description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
-        <meta property="og:image" content={MASTERCLASS_SOCIAL_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://medmethoddirect.com/masterclass" />
-        <meta property="og:site_name" content="MedMethod Direct" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Free Masterclass: Menopause, Metabolism &amp; Weight Loss" />
-        <meta name="twitter:description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
-        <meta name="twitter:image" content={MASTERCLASS_SOCIAL_IMAGE} />
-        <meta name="twitter:image:alt" content="Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek" />
       </Helmet>
 
       <article className="mx-auto min-h-screen w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">

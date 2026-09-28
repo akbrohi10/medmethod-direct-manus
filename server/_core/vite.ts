@@ -5,6 +5,13 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
+import { getMetaForPath, injectRouteMetaIntoHtml } from "../crawlerMiddleware";
+
+function injectMasterclassRouteMeta(template: string, url: string): string {
+  const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
+  if (cleanPath !== "/masterclass") return template;
+  return injectRouteMetaIntoHtml(template, getMetaForPath(url));
+}
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -34,6 +41,7 @@ export async function setupVite(app: Express, server: Server) {
 
       // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = injectMasterclassRouteMeta(template, url);
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -61,7 +69,13 @@ export function serveStatic(app: Express) {
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  app.use("*", (req, res, next) => {
+    try {
+      const template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
+      const page = injectMasterclassRouteMeta(template, req.originalUrl);
+      res.status(200).type("html").send(page);
+    } catch (error) {
+      next(error);
+    }
   });
 }

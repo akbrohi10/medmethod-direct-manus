@@ -5,6 +5,7 @@ import path from "node:path";
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const pageSource = fs.readFileSync(path.join(projectRoot, "client/src/pages/MasterclassVideoFirst.tsx"), "utf8");
 const appSource = fs.readFileSync(path.join(projectRoot, "client/src/App.tsx"), "utf8");
+const viteSource = fs.readFileSync(path.join(projectRoot, "server/_core/vite.ts"), "utf8");
 
 describe("video-first masterclass variant", () => {
   it("registers an isolated /masterclass route without replacing the original page", () => {
@@ -44,10 +45,11 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('Free Masterclass: Menopause, Metabolism &amp; Weight Loss');
     expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.');
     expect(pageSource).toContain('https://medmethoddirect.com/masterclass');
-    expect(pageSource).toContain('masterclass-social-share-1200x630_5f4c1cf1.png');
-    expect(pageSource).toContain('<meta property="og:image:width" content="1200" />');
-    expect(pageSource).toContain('<meta property="og:image:height" content="630" />');
-    expect(pageSource).toContain('<meta name="twitter:card" content="summary_large_image" />');
+    expect(pageSource).not.toContain('<meta property="og:image"');
+    expect(pageSource).not.toContain('<meta name="twitter:image"');
+    expect(viteSource).toContain('if (cleanPath !== "/masterclass") return template;');
+    expect(viteSource).toContain('return injectRouteMetaIntoHtml(template, getMetaForPath(url));');
+    expect(viteSource).toContain('injectMasterclassRouteMeta(template, req.originalUrl)');
   });
 
   it("keeps the established physician and care-team actions after the video", () => {

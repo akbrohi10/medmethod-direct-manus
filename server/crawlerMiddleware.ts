@@ -255,6 +255,45 @@ function escapeHtml(str: string): string {
     .replace(/>/g, "&gt;");
 }
 
+function upsertHeadTag(html: string, matcher: RegExp, tag: string): string {
+  if (matcher.test(html)) return html.replace(matcher, tag);
+  return html.replace(/<\/head>/i, `  ${tag}\n</head>`);
+}
+
+/**
+ * Replace the SPA shell's default social metadata with route-specific values.
+ * This keeps a single authoritative Open Graph image even for sharing clients
+ * that use a normal browser user agent and execute the React application.
+ */
+export function injectRouteMetaIntoHtml(html: string, meta: RouteMeta): string {
+  const t = escapeHtml(meta.title);
+  const d = escapeHtml(meta.description);
+  const img = escapeHtml(meta.image);
+  const imgAlt = escapeHtml(meta.imageAlt || `${meta.title} preview`);
+  const url = escapeHtml(meta.url);
+  const siteName = escapeHtml(SITE_NAME);
+
+  let page = upsertHeadTag(html, /<title[^>]*>[\s\S]*?<\/title>/i, `<title>${t}</title>`);
+  page = upsertHeadTag(page, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${d}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${t}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${img}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:image:width["'][^>]*>/i, '<meta property="og:image:width" content="1200" />');
+  page = upsertHeadTag(page, /<meta\s+property=["']og:image:height["'][^>]*>/i, '<meta property="og:image:height" content="630" />');
+  page = upsertHeadTag(page, /<meta\s+property=["']og:image:alt["'][^>]*>/i, `<meta property="og:image:alt" content="${imgAlt}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:type["'][^>]*>/i, '<meta property="og:type" content="website" />');
+  page = upsertHeadTag(page, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${url}" />`);
+  page = upsertHeadTag(page, /<meta\s+property=["']og:site_name["'][^>]*>/i, `<meta property="og:site_name" content="${siteName}" />`);
+  page = upsertHeadTag(page, /<meta\s+name=["']twitter:card["'][^>]*>/i, '<meta name="twitter:card" content="summary_large_image" />');
+  page = upsertHeadTag(page, /<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}" />`);
+  page = upsertHeadTag(page, /<meta\s+name=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}" />`);
+  page = upsertHeadTag(page, /<meta\s+name=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${img}" />`);
+  page = upsertHeadTag(page, /<meta\s+name=["']twitter:image:alt["'][^>]*>/i, `<meta name="twitter:image:alt" content="${imgAlt}" />`);
+  page = upsertHeadTag(page, /<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${url}" />`);
+
+  return page;
+}
+
 /**
  * Generate minimal HTML page with OG/Twitter meta tags for crawlers.
  */

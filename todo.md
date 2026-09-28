@@ -2156,3 +2156,12 @@
 - [x] Add the same route-specific metadata to the crawler middleware so Facebook, Messenger, iMessage, WhatsApp, LinkedIn, X, Slack, and other preview crawlers no longer receive homepage metadata
 - [x] Preserve the Facebook domain-verification tag and all visible page content, paths, booking flows, tracking, and unrelated route metadata
 - [x] Validate 312 tests across 66 files, TypeScript, production build, crawler HTML, public image delivery, and critical route HTTP checks
+
+## Masterclass Social Preview Deduplication — 2026-09-28
+
+- [x] Confirm the duplicate was caused by Apple/iMessage-style clients receiving the homepage Open Graph image in the initial SPA HTML and then seeing the masterclass image added during React hydration
+- [x] Keep one masterclass social image in the initial `/masterclass` HTML for both crawler and normal browser user agents
+- [x] Remove client-side Open Graph/Twitter image insertion from the masterclass React page so hydration cannot create a second preview image
+- [x] Limit the full-HTML metadata replacement to `/masterclass`; preserve the homepage and all unrelated route metadata
+- [x] Verify raw homepage HTML still has its original image while raw and hydrated `/masterclass` HTML each have exactly one `og:title`, `og:image`, `og:url`, and `twitter:image`
+- [x] Validate 313 tests across 66 files, TypeScript, production build, Facebook verification coverage, and critical route HTTP checks
