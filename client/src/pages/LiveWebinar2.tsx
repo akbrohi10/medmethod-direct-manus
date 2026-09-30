@@ -55,10 +55,10 @@ const WEBINAR_VIDEO_CAPTIONS_VTT = [
 ].join("\n");
 const WEBINAR_VIDEO_CAPTIONS_SRC = `data:text/vtt;charset=utf-8,${encodeURIComponent(WEBINAR_VIDEO_CAPTIONS_VTT)}`;
 
-// Confirmed event time: September 23, 2026 at 7:30 PM Eastern Time.
+// Confirmed event time: October 28, 2026 at 7:30 PM Eastern Daylight Time.
 const WEBINAR_EVENT = {
-  startsAt: "2026-09-23T19:30:00-04:00" as string | null,
-  dateTimeDisplay: "WEDNESDAY, SEPTEMBER 23 · 7:30 PM EST",
+  startsAt: "2026-10-28T19:30:00-04:00" as string | null,
+  dateTimeDisplay: "WEDNESDAY, OCTOBER 28 · 7:30 PM EDT",
   timezone: "ET",
 };
 

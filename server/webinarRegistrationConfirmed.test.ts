@@ -62,8 +62,8 @@ describe("webinar registration conversion confirmation", () => {
   });
 
   it("shows the supplied event details and reply-YES confirmation instruction without creating a clinical claim", () => {
-    expect(pageSource).toContain("Wednesday, September 23");
-    expect(pageSource).toContain("7:30 PM EST");
+    expect(pageSource).toContain("Wednesday, October 28");
+    expect(pageSource).toContain("7:30 PM EDT");
     expect(pageSource).toContain("reply");
     expect(pageSource).toContain("YES");
     expect(pageSource).toContain("This live webinar is for general educational purposes and is not a medical consultation.");

@@ -93,7 +93,7 @@ export default function WebinarRegistrationConfirmed() {
               You’re almost in.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#655461] sm:text-lg sm:leading-8">
-              We’ve received your registration for Dr. Al-Deek’s live webinar on Wednesday, September 23 at 7:30 PM EST.
+              We’ve received your registration for Dr. Al-Deek’s live webinar on Wednesday, October 28 at 7:30 PM EDT.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[510px] gap-3 rounded-2xl border border-[#f0dce5] bg-[#fff7fa] p-4 text-left sm:grid-cols-2 sm:p-5">
@@ -101,14 +101,14 @@ export default function WebinarRegistrationConfirmed() {
                 <CalendarDays className="h-5 w-5 shrink-0 text-[#dd2d84]" aria-hidden="true" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#9b7388]">Date</p>
-                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">Wednesday, September 23</p>
+                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">Wednesday, October 28</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">
                 <Clock3 className="h-5 w-5 shrink-0 text-[#dd2d84]" aria-hidden="true" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#9b7388]">Time</p>
-                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">7:30 PM EST</p>
+                  <p className="mt-0.5 text-sm font-extrabold text-[#432943]">7:30 PM EDT</p>
                 </div>
               </div>
             </div>

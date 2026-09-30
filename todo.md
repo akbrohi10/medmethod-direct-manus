@@ -2165,3 +2165,11 @@
 - [x] Limit the full-HTML metadata replacement to `/masterclass`; preserve the homepage and all unrelated route metadata
 - [x] Verify raw homepage HTML still has its original image while raw and hydrated `/masterclass` HTML each have exactly one `og:title`, `og:image`, `og:url`, and `twitter:image`
 - [x] Validate 313 tests across 66 files, TypeScript, production build, Facebook verification coverage, and critical route HTTP checks
+
+## Webinar 2 October 28 Schedule — 2026-09-30
+
+- [x] Set `/live-webinar2` to Wednesday, October 28, 2026 at 7:30 PM Eastern Daylight Time (`2026-10-28T19:30:00-04:00`), including the visible date and countdown target.
+- [x] Update its companion `/webinar-registration-confirmed` page to Wednesday, October 28 at 7:30 PM EDT.
+- [x] Leave `/live-webinar3`, `/live-webinar3-confirmed`, form routing, playback, tracking, and other pages unchanged.
+- [x] Verify 23 focused tests, 313 total tests, TypeScript, production build, HTTP 200 on the two affected routes and their companion variants, and mobile/desktop preview layouts.
+- [ ] Coordinate the October 28 schedule with the separate GoHighLevel registration form, reminder workflows, and webinar meeting. The HighLevel connector is currently disabled; no provider-side changes were made.
