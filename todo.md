@@ -2173,3 +2173,9 @@
 - [x] Leave `/live-webinar3`, `/live-webinar3-confirmed`, form routing, playback, tracking, and other pages unchanged.
 - [x] Verify 23 focused tests, 313 total tests, TypeScript, production build, HTTP 200 on the two affected routes and their companion variants, and mobile/desktop preview layouts.
 - [x] Document the external handoff: the GoHighLevel registration form, reminder workflows, and webinar meeting still need an October 28 at 7:30 PM EDT update by their owner. The HighLevel connector is currently disabled; no provider-side changes were made or implied.
+
+## Webinar 2 Compact Brand Mark — 2026-09-30
+
+- [x] Add the existing approved MedMethod Direct logo centered directly above the gradient webinar banner on `/live-webinar2`, without creating a full navigation header or changing booking actions.
+- [x] Keep the logo small and the spacing compact on mobile and desktop, preserving the event date, countdown, video, and registration form.
+- [x] Update source regression coverage and validate 16 focused tests, 313 full tests across 66 files, TypeScript, production build, four route checks, and mobile/desktop preview layouts.

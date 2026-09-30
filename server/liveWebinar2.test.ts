@@ -64,8 +64,11 @@ describe("live webinar 2 second revision prompt", () => {
   });
 
   it("uses the centered conversion hierarchy with the confirmed date/countdown at the top and no form below the video", () => {
-    expect(pageSource).not.toContain("data-webinar2-brand-logo");
-    expect(pageSource).not.toContain("medmethod-logo-navbar_99a2ea82.png");
+    expect(pageSource).toContain("data-webinar2-brand-logo");
+    expect(pageSource).toContain('src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"');
+    expect(pageSource).toContain('className="h-7 w-auto object-contain sm:h-8"');
+    expect(pageSource.match(/data-webinar2-brand-logo/g)).toHaveLength(1);
+    expect(pageSource.indexOf("data-webinar2-brand-logo")).toBeLessThan(pageSource.indexOf("A Free Educational Webinar"));
     expect(pageSource.indexOf("data-webinar2-zoom-banner")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));
     expect(pageSource.indexOf("data-webinar2-top-event")).toBeGreaterThan(pageSource.indexOf("A Free Educational Webinar"));
     expect(pageSource.indexOf("data-webinar2-countdown-bar")).toBeLessThan(pageSource.indexOf("data-webinar2-opening-copy"));

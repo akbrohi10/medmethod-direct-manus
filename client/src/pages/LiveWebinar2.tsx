@@ -289,7 +289,17 @@ export default function LiveWebinar2() {
         data-webinar2-card
         className="mx-auto w-full max-w-[1100px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:rounded-[1.4rem]"
       >
-        <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-4 pb-2 sm:px-8 sm:pt-7 sm:pb-3">
+        <header data-webinar2-zoom-banner className="bg-[#fff8fb] px-4 pt-3 pb-2 sm:px-8 sm:pt-5 sm:pb-3">
+          <div className="mb-2 flex justify-center sm:mb-3">
+            <img
+              data-webinar2-brand-logo
+              src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
+              alt="MedMethod Direct"
+              className="h-7 w-auto object-contain sm:h-8"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
           <div className="mx-auto flex min-h-16 w-full max-w-[900px] items-center justify-center rounded-full bg-gradient-to-r from-[#e72e91] via-[#a12788] to-[#4b1c6e] px-5 py-4 text-center text-white shadow-[0_12px_28px_rgba(165,32,126,0.24)] sm:min-h-20 sm:px-8 sm:py-5">
             <p className="text-lg font-black uppercase leading-tight tracking-[0.055em] sm:text-2xl sm:tracking-[0.08em]">
               A Free Educational Webinar
