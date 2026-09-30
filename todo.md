@@ -2172,4 +2172,4 @@
 - [x] Update its companion `/webinar-registration-confirmed` page to Wednesday, October 28 at 7:30 PM EDT.
 - [x] Leave `/live-webinar3`, `/live-webinar3-confirmed`, form routing, playback, tracking, and other pages unchanged.
 - [x] Verify 23 focused tests, 313 total tests, TypeScript, production build, HTTP 200 on the two affected routes and their companion variants, and mobile/desktop preview layouts.
-- [ ] Coordinate the October 28 schedule with the separate GoHighLevel registration form, reminder workflows, and webinar meeting. The HighLevel connector is currently disabled; no provider-side changes were made.
+- [x] Document the external handoff: the GoHighLevel registration form, reminder workflows, and webinar meeting still need an October 28 at 7:30 PM EDT update by their owner. The HighLevel connector is currently disabled; no provider-side changes were made or implied.
