@@ -2279,3 +2279,9 @@
 - [x] Keep the video in the same responsive frame and preserve inline/mobile fullscreen preferences (`playsinline=1`, `fs=0` on touch/narrow screens); leave booking, pricing, copy, tracking and other pages unchanged.
 - [x] Verify that the first visible play control belongs to YouTube, and one click enters YouTube playback/loading without a second site-owned button; native title/channel/watch controls are expected to reappear.
 - [x] Review 375px mobile initial screen and validate 315 tests across 66 files, TypeScript, production build and five critical route HTTP 200 checks.
+
+## Live-Webinar Centered Brand Logo — 2026-10-01
+
+- [x] Reuse the exact homepage MedMethod Direct logo asset, centered above the existing Live on Zoom / RSVP banner on `/live-webinar` only.
+- [x] Keep its footprint compact (`h-8` mobile, `h-9` larger screens) without adding a navigation bar or changing the video, webinar copy, registration, or other routes.
+- [x] Validate 20 focused tests, 316 full tests across 66 files, TypeScript, production build, four critical route HTTP 200 checks, and first-screen mobile/desktop previews.

@@ -16,6 +16,20 @@ describe("live webinar landing page", () => {
     expect(appSource).toContain('<Route path="/live-webinar" component={LiveWebinar} />');
   });
 
+  it("centers the homepage brand mark above the webinar banner without adding a navigation header", () => {
+    const logoPosition = pageSource.indexOf("data-webinar-brand-logo");
+    const bannerPosition = pageSource.indexOf("data-webinar-zoom-rsvp-banner");
+
+    expect(logoPosition).toBeGreaterThan(-1);
+    expect(logoPosition).toBeLessThan(bannerPosition);
+    expect(pageSource).toContain('className="mb-3 flex justify-center sm:mb-4"');
+    expect(pageSource).toContain('src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"');
+    expect(pageSource).toContain('alt="MedMethod Direct"');
+    expect(pageSource).toContain('className="h-8 w-auto object-contain sm:h-9"');
+    expect(pageSource.match(/data-webinar-brand-logo/g)).toHaveLength(1);
+    expect(pageSource).not.toContain('className="fixed top-0 left-0 right-0');
+  });
+
   it("uses the approved headline and physician authority details", () => {
     expect(pageSource).toContain("data-webinar-zoom-rsvp-banner");
     expect(pageSource).toContain("data-webinar-mobile-zoom-banner");

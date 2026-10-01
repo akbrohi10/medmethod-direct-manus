@@ -158,6 +158,17 @@ export default function LiveWebinar() {
           }}
         />
 
+        <div className="mb-3 flex justify-center sm:mb-4">
+          <img
+            data-webinar-brand-logo
+            src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
+            alt="MedMethod Direct"
+            className="h-8 w-auto object-contain sm:h-9"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
         <div
           data-webinar-zoom-rsvp-banner
           className="mb-6 overflow-hidden rounded-[1.2rem] bg-[#210442] px-4 py-4 text-white shadow-[0_18px_42px_rgba(126,20,105,0.22)] sm:bg-gradient-to-r sm:from-[#e91678] sm:via-[#c51682] sm:to-[#5a147e] sm:px-8 sm:py-5 lg:mb-7"
