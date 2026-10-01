@@ -5,7 +5,7 @@ import { CheckCircle2, ShieldCheck, Video } from "lucide-react";
 import { useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
-const MASTERCLASS_YOUTUBE_ID = "n-jYhuCP5Vg";
+const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
 
 const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },

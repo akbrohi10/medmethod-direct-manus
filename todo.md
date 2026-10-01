@@ -2179,3 +2179,10 @@
 - [x] Add the existing approved MedMethod Direct logo centered directly above the gradient webinar banner on `/live-webinar2`, without creating a full navigation header or changing booking actions.
 - [x] Keep the logo small and the spacing compact on mobile and desktop, preserving the event date, countdown, video, and registration form.
 - [x] Update source regression coverage and validate 16 focused tests, 313 full tests across 66 files, TypeScript, production build, four route checks, and mobile/desktop preview layouts.
+
+## Masterclass Video Replacement — 2026-09-30
+
+- [x] Replace the YouTube ID on `/masterclass` with the user-provided `UNYMLkd61z8` only; keep the privacy-enhanced in-page player and its speed, caption, and quality controls.
+- [x] Verify YouTube oEmbed identifies the replacement as Dr. Jumana Al-Deek's “Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+”.
+- [x] Confirm the rendered masterclass contains exactly one iframe with the new ID and none with the retired ID; mobile layout remains intact.
+- [x] Validate 35 focused tests, 313 full tests across 66 files, TypeScript, production build, and HTTP 200 on the masterclass and adjacent critical routes.
