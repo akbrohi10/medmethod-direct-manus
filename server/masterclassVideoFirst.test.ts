@@ -32,7 +32,9 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('data-masterclass-video-first-youtube');
     expect(pageSource).toContain('https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1');
     expect(pageSource).toContain('allowFullScreen');
-    expect(pageSource).toContain('Use the YouTube player settings to adjust playback speed, captions, or video quality.');
+    expect(pageSource).not.toContain('Use the YouTube player settings to adjust playback speed, captions, or video quality.');
+    expect(pageSource).not.toContain('Educational content only. Individual treatment recommendations require an appropriate medical evaluation.');
+    expect(pageSource).toContain('Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.');
     expect(pageSource).not.toContain('data-masterclass-video-first-placeholder');
     expect(pageSource).not.toContain('Masterclass Recording Coming Soon');
     expect(pageSource).not.toContain('medmethod-on-demand-masterclass-poster_52bb13b2.jpg');

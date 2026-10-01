@@ -202,12 +202,6 @@ export default function MasterclassVideoFirst() {
           <p className="mx-auto mt-4 max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
             Presented by Dr. Jumana Al-Deek, board-certified family medicine physician.
           </p>
-          <p className="mx-auto mt-2 max-w-[780px] text-center text-xs leading-relaxed text-[#766d75] sm:text-sm">
-            Use the YouTube player settings to adjust playback speed, captions, or video quality.
-          </p>
-          <p className="mx-auto mt-2 max-w-[780px] text-center text-xs leading-relaxed text-[#766d75] sm:text-sm">
-            Educational content only. Individual treatment recommendations require an appropriate medical evaluation.
-          </p>
         </section>
 
         <section data-masterclass-video-first-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">

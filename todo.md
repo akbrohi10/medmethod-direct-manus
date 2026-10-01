@@ -2215,3 +2215,9 @@
 - [x] Explain that the full recording also contains a recorded live Q&A; the last transcript timestamp is about 57 minutes, so 45 minutes is a rounded learning hook rather than an exact full-player runtime.
 - [x] Add a restrained “Press play to watch free” cue immediately above the existing YouTube embed; leave its video ID, native controls, booking CTAs, pricing, tracking, and unrelated pages unchanged.
 - [x] Validate 47 focused tests, 314 full tests, TypeScript, production build, four route HTTP checks, and mobile/desktop visuals with the player visible in the first screen.
+
+## Masterclass Under-Video Copy Cleanup — 2026-09-30
+
+- [x] Remove the YouTube player-settings instruction and the separate “Educational content only” paragraph directly beneath the `/masterclass` video.
+- [x] Keep the Dr. Al-Deek presenter line, the footer medical-evaluation qualifier, the video/player, physician and care-team booking actions, pricing, and unrelated routes intact.
+- [x] Validate 17 focused tests, 314 full tests, TypeScript, production build, four route 200 checks, and mobile layout.
