@@ -2253,3 +2253,9 @@
 - [x] Keep video inside the original responsive frame; verify the URL remains `/masterclass`, the poster disappears, and the iframe uses `UNYMLkd61z8` after click.
 - [x] Adjust poster positioning so its title is not cropped on mobile; review 375px preview and desktop rendering.
 - [x] Validate 315 tests across 66 files, TypeScript, production build, five routes returning HTTP 200, and public poster delivery at HTTP 200.
+
+## Masterclass Patient-Proof Color — 2026-09-30
+
+- [x] Restore the existing brand-purple `#7a1e7e` and bold emphasis to “50,000+ patients” in the concise hero proof line on `/masterclass`.
+- [x] Keep all other proof-line words, mobile layout, poster and video behavior, learning section, booking flow and other pages unchanged.
+- [x] Verify mobile visual treatment, 315 tests across 66 files, TypeScript, production build, and `/masterclass` HTTP 200.

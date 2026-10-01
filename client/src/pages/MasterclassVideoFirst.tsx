@@ -223,7 +223,7 @@ export default function MasterclassVideoFirst() {
               Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones — Finally Explained.
             </h1>
             <p className="mx-auto mt-3 max-w-[700px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-5 sm:text-lg">
-              From Dr. Jumana Al-Deek, DO · Board-certified physician · 50,000+ patients seen
+              From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
             </p>
           </div>
         </section>

@@ -25,7 +25,7 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('Watch the 45-minute masterclass');
     expect(pageSource).toContain('Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones — Finally Explained.');
     expect(pageSource).toContain('text-[clamp(1.4rem,7.5vw,2rem)] font-black');
-    expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · 50,000+ patients seen');
+    expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen');
     expect(pageSource).toContain('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.');
     expect(pageSource).not.toContain('Press play to watch free');
     expect(pageSource).not.toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
