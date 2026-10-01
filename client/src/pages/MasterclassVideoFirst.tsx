@@ -212,8 +212,7 @@ export default function MasterclassVideoFirst() {
           <div className="mx-auto max-w-[860px] text-center">
             <p className="text-[11px] font-black uppercase tracking-[0.17em] text-[#7a1e7e]">Ready when you are</p>
             <h2 className="mt-2 text-2xl font-black text-[#281c30] sm:text-3xl">Want to Become a Patient?</h2>
-            <p className="mx-auto mt-3 max-w-[650px] text-sm leading-relaxed text-[#5a4452] sm:text-base">Start with a 45-minute visit with Dr. Al-Deek to discuss your health and goals.</p>
-            <p className="mt-2 text-xs font-black uppercase tracking-[0.06em] text-[#7a1e7e] sm:text-sm">100% virtual care · Available in 17 states</p>
+            <p className="mt-3 text-xs font-black uppercase tracking-[0.06em] text-[#7a1e7e] sm:text-sm">100% virtual care · Available in 17 states</p>
             <p data-masterclass-video-first-patient-proof className="mt-3 text-sm font-semibold text-[#5a4452] sm:text-base">Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">50,000+ patients.</span></p>
           </div>
           <div className="mx-auto mt-7 grid max-w-[900px] gap-5 sm:grid-cols-2">

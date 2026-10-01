@@ -2202,3 +2202,9 @@
 - [x] Narrowly scope compliance regression coverage to this explicit page exception; the shared navigation and locations still say 12 states and have not been changed here.
 - [x] Verify 17 focused tests, 314 full tests, TypeScript, production build, HTTP 200 on four critical routes, and desktop/mobile booking-section layout.
 - [x] Document the separate follow-up: obtain the approved list of 17 covered states (and whether DC is counted separately) before reconciling older sitewide 12-state claims and intake eligibility rules; this page-copy task does not change those systems.
+
+## Masterclass Booking Copy Simplification — 2026-09-30
+
+- [x] Remove the specific supporting sentence beginning “Start with a 45-minute visit” from the `/masterclass` patient-booking section.
+- [x] Retain “Want to Become a Patient?”, 100% virtual/17-state wording, patient proof, both booking options, payment/referral paths, and all other page content.
+- [x] Validate 5 focused tests, 314 full tests, TypeScript, production build, four critical route checks, and mobile visual spacing.
