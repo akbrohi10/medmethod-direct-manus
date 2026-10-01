@@ -32,7 +32,15 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
     expect(pageSource).not.toContain('n-jYhuCP5Vg');
     expect(pageSource).toContain('data-masterclass-video-first-youtube');
-    expect(pageSource).toContain('https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1');
+    expect(pageSource).toContain('const [videoStarted, setVideoStarted] = useState(false);');
+    expect(pageSource).toContain('data-masterclass-video-first-play');
+    expect(pageSource).toContain('onClick={() => setVideoStarted(true)}');
+    expect(pageSource).toContain('aria-label="Play the free masterclass video"');
+    expect(pageSource).toContain('masterclass-youtube-poster-UNYMLkd61z8_797de672.jpg');
+    expect(pageSource).toContain('{videoStarted ? (');
+    expect(pageSource).toContain('data-masterclass-video-first-iframe');
+    expect(pageSource).toContain('https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1');
+    expect(pageSource).toContain('allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"');
     expect(pageSource).toContain('allowFullScreen');
     expect(pageSource).not.toContain('Use the YouTube player settings to adjust playback speed, captions, or video quality.');
     expect(pageSource).not.toContain('Educational content only. Individual treatment recommendations require an appropriate medical evaluation.');

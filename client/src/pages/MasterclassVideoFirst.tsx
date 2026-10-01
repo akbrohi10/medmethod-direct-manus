@@ -1,11 +1,12 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import { Helmet } from "react-helmet-async";
-import { Check, CheckCircle2, ShieldCheck, Video } from "lucide-react";
+import { Check, CheckCircle2, Play, ShieldCheck, Video } from "lucide-react";
 import { useRef, useState } from "react";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
+const MASTERCLASS_POSTER = "/manus-storage/masterclass-youtube-poster-UNYMLkd61z8_797de672.jpg";
 
 // Keep this in sync with the original What You’ll Learn checklist on /live-webinar2.
 const learningChecklist = [
@@ -186,6 +187,7 @@ function PricingDetails() {
 
 export default function MasterclassVideoFirst() {
   const [consultationOpen, setConsultationOpen] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
   const videoRef = useRef<HTMLElement>(null);
 
   const scrollToVideo = () => {
@@ -228,14 +230,36 @@ export default function MasterclassVideoFirst() {
 
         <section ref={videoRef} data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-4 sm:px-10 sm:pb-6 lg:px-16">
           <div data-masterclass-video-first-youtube className="relative mx-auto aspect-video w-full max-w-[940px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.26)] ring-1 ring-[#e1c7d6]">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1`}
-              title="Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+"
-              className="absolute inset-0 h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+            {videoStarted ? (
+              <iframe
+                data-masterclass-video-first-iframe
+                src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1`}
+                title="Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+"
+                className="absolute inset-0 h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            ) : (
+              <button
+                type="button"
+                data-masterclass-video-first-play
+                onClick={() => setVideoStarted(true)}
+                aria-label="Play the free masterclass video"
+                className="group absolute inset-0 flex h-full w-full items-center justify-center focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-[-4px] focus-visible:outline-[#e8339e]"
+              >
+                <img
+                  src={MASTERCLASS_POSTER}
+                  alt=""
+                  loading="eager"
+                  fetchPriority="high"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
+                />
+                <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#a32378] text-white shadow-[0_8px_28px_rgba(36,16,45,0.35)] transition-transform duration-200 group-hover:scale-105 group-active:scale-95 sm:h-20 sm:w-20" aria-hidden="true">
+                  <Play className="ml-1 h-8 w-8 fill-current sm:h-10 sm:w-10" />
+                </span>
+              </button>
+            )}
           </div>
         </section>
 

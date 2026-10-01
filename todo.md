@@ -2245,3 +2245,11 @@
 - [x] Add the requested bridge line above “Want to Become a Patient?” while retaining the physician and care-team buttons, price disclosure, virtual/17-state copy, patient proof, pricing details and footer.
 - [x] Verify real browser watch-button scroll from below the list to the player (top at 0, URL unchanged), mobile and desktop visual review, 315 tests across 66 files, TypeScript, production build, and HTTP 200 on five critical routes.
 - [x] Note that the copied webinar checklist intentionally retains its exact “LIVE Q&A” wording on this on-demand recording, per the explicit verbatim-copy request.
+
+## Clean Masterclass Video Poster — 2026-09-30
+
+- [x] Replace the initial YouTube iframe thumbnail with the current video’s uploaded poster and one large brand-colored, keyboard-accessible play button.
+- [x] Load the same privacy-enhanced YouTube embed only after clicking play, with autoplay permitted; preserve native playback speed, captions, quality, and full-screen controls once playing.
+- [x] Keep video inside the original responsive frame; verify the URL remains `/masterclass`, the poster disappears, and the iframe uses `UNYMLkd61z8` after click.
+- [x] Adjust poster positioning so its title is not cropped on mobile; review 375px preview and desktop rendering.
+- [x] Validate 315 tests across 66 files, TypeScript, production build, five routes returning HTTP 200, and public poster delivery at HTTP 200.
