@@ -2259,3 +2259,11 @@
 - [x] Restore the existing brand-purple `#7a1e7e` and bold emphasis to “50,000+ patients” in the concise hero proof line on `/masterclass`.
 - [x] Keep all other proof-line words, mobile layout, poster and video behavior, learning section, booking flow and other pages unchanged.
 - [x] Verify mobile visual treatment, 315 tests across 66 files, TypeScript, production build, and `/masterclass` HTTP 200.
+
+## Masterclass Mobile Inline YouTube Playback — 2026-09-30
+
+- [x] Preserve YouTube's `playsinline=1` setting and keep the click-to-load video inside the existing responsive frame.
+- [x] On touch/mobile activations, pass `fs=0` to hide YouTube's fullscreen control, remove iframe fullscreen permission and omit picture-in-picture; keep those options on desktop.
+- [x] Verify a simulated mobile activation retains the `/masterclass` URL and loads the iframe inside its existing frame with `fs=0`, no `allowfullscreen`, and no picture-in-picture; desktop activation retains `fs=1` and fullscreen permission.
+- [x] Validate 315 tests across 66 files, TypeScript, production build, and five critical routes at HTTP 200.
+- [x] Document the limitation: on iPhone, an external app's embedded browser can force the native fullscreen controller when its own WKWebView does not allow inline media playback; site code cannot override that host-app setting. Check on the actual affected browser after publish.

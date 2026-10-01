@@ -188,6 +188,7 @@ function PricingDetails() {
 export default function MasterclassVideoFirst() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [videoStarted, setVideoStarted] = useState(false);
+  const [disableFullScreen, setDisableFullScreen] = useState(false);
   const videoRef = useRef<HTMLElement>(null);
 
   const scrollToVideo = () => {
@@ -233,18 +234,21 @@ export default function MasterclassVideoFirst() {
             {videoStarted ? (
               <iframe
                 data-masterclass-video-first-iframe
-                src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1`}
+                src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1&fs=${disableFullScreen ? 0 : 1}`}
                 title="Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+"
                 className="absolute inset-0 h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow={`accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share${disableFullScreen ? "" : "; picture-in-picture"}`}
                 referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
+                allowFullScreen={!disableFullScreen}
               />
             ) : (
               <button
                 type="button"
                 data-masterclass-video-first-play
-                onClick={() => setVideoStarted(true)}
+                onClick={() => {
+                  setDisableFullScreen(window.matchMedia("(pointer: coarse), (max-width: 767px)").matches);
+                  setVideoStarted(true);
+                }}
                 aria-label="Play the free masterclass video"
                 className="group absolute inset-0 flex h-full w-full items-center justify-center focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-[-4px] focus-visible:outline-[#e8339e]"
               >
