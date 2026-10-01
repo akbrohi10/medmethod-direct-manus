@@ -2291,3 +2291,9 @@
 - [x] Match the homepage treatment by clipping the same approved centered MedMethod Direct logo asset to hide only the “Feel Like Yourself Again” tagline below the wordmark on `/live-webinar`.
 - [x] Preserve the logo position and webinar layout, video, CTA, form, tracking and other routes.
 - [x] Verify the wordmark alone on mobile and desktop, 8 focused tests, 316 full tests, TypeScript, production build and four route HTTP 200 checks.
+
+## Live-Webinar Logo Size Refinement — 2026-10-01
+
+- [x] Increase the centered MedMethod Direct wordmark one size step (`h-9` mobile; `h-10` desktop), preserving the homepage-style tagline clip.
+- [x] Review first-screen mobile and desktop proportions and retain the banner, headline, video and registration hierarchy.
+- [x] Validate 8 focused tests, 316 full tests, TypeScript, production build and four critical routes at HTTP 200.
