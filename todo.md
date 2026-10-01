@@ -2272,3 +2272,10 @@
 
 - [x] Increase only the `/masterclass` “What You’ll Learn” label one responsive type step (12→14px mobile, 14→16px larger screens); keep the copied webinar checklist content, order and remaining styling intact.
 - [x] Verify 18 focused tests, 315 full tests, TypeScript, production build, four HTTP 200 routes, and a full 375px mobile layout review.
+
+## Masterclass Native YouTube Player Restoration — 2026-09-30
+
+- [x] Remove the site-owned poster and purple play overlay that caused a second YouTube tap; render the current `UNYMLkd61z8` privacy-enhanced YouTube embed immediately on `/masterclass`.
+- [x] Keep the video in the same responsive frame and preserve inline/mobile fullscreen preferences (`playsinline=1`, `fs=0` on touch/narrow screens); leave booking, pricing, copy, tracking and other pages unchanged.
+- [x] Verify that the first visible play control belongs to YouTube, and one click enters YouTube playback/loading without a second site-owned button; native title/channel/watch controls are expected to reappear.
+- [x] Review 375px mobile initial screen and validate 315 tests across 66 files, TypeScript, production build and five critical route HTTP 200 checks.
