@@ -178,15 +178,17 @@ export default function MasterclassVideoFirst() {
           />
           <div className="mx-auto max-w-[850px]">
             <h1 className="mx-auto max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:text-[3.35rem] lg:text-[4.05rem]">
-              Finally. A Doctor Who Understands Menopause &amp; Weight Loss.
+              <span className="mb-3 block text-sm font-black uppercase tracking-[0.1em] text-[#7a1e7e] sm:mb-4 sm:text-lg">Watch the 45-minute masterclass</span>
+              <span className="block">Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones—Finally Explained.</span>
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-[1.03rem] font-semibold leading-relaxed text-[#6e5364] sm:mt-5 sm:text-lg">
-              Watch Dr. Jumana Al-Deek explain how perimenopause, hormones, metabolism, and medical weight loss connect—plus answer real questions from women 35+.
+              Dr. Al-Deek explains your options, then answers real questions from women 35+ in a recorded live Q&amp;A.
             </p>
           </div>
         </section>
 
         <section data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-9 sm:px-10 sm:pb-12 lg:px-16">
+          <p className="pb-3 text-center text-xs font-black uppercase tracking-[0.12em] text-[#7a1e7e] sm:text-sm">Press play to watch free</p>
           <div data-masterclass-video-first-youtube className="relative mx-auto aspect-video w-full max-w-[940px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.26)] ring-1 ring-[#e1c7d6]">
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${MASTERCLASS_YOUTUBE_ID}?rel=0&modestbranding=1&playsinline=1`}

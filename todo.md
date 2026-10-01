@@ -2208,3 +2208,10 @@
 - [x] Remove the specific supporting sentence beginning “Start with a 45-minute visit” from the `/masterclass` patient-booking section.
 - [x] Retain “Want to Become a Patient?”, 100% virtual/17-state wording, patient proof, both booking options, payment/referral paths, and all other page content.
 - [x] Validate 5 focused tests, 314 full tests, TypeScript, production build, four critical route checks, and mobile visual spacing.
+
+## Masterclass Watch-First Hook — 2026-09-30
+
+- [x] Replace the doctor-first hero headline with a visible two-line video-first hook: “Watch the 45-minute masterclass” followed by “Weight Loss, GLP-1s & Hormones—Finally Explained.”
+- [x] Explain that the full recording also contains a recorded live Q&A; the last transcript timestamp is about 57 minutes, so 45 minutes is a rounded learning hook rather than an exact full-player runtime.
+- [x] Add a restrained “Press play to watch free” cue immediately above the existing YouTube embed; leave its video ID, native controls, booking CTAs, pricing, tracking, and unrelated pages unchanged.
+- [x] Validate 47 focused tests, 314 full tests, TypeScript, production build, four route HTTP checks, and mobile/desktop visuals with the player visible in the first screen.
