@@ -2186,3 +2186,10 @@
 - [x] Verify YouTube oEmbed identifies the replacement as Dr. Jumana Al-Deek's “Menopause, Metabolism & Medical Weight Loss: A New Approach to Health After 35+”.
 - [x] Confirm the rendered masterclass contains exactly one iframe with the new ID and none with the retired ID; mobile layout remains intact.
 - [x] Validate 35 focused tests, 313 full tests across 66 files, TypeScript, production build, and HTTP 200 on the masterclass and adjacent critical routes.
+
+## Masterclass Full-Width Banner — 2026-09-30
+
+- [x] Replace the compact rounded Free On-Demand Masterclass pill with a full-width pink-to-purple row at the top of `/masterclass`, matching the user-approved reference direction.
+- [x] Keep the same white banner wording, hero headline, subtext, new YouTube recording, booking actions, pricing and all other pages unchanged.
+- [x] Review desktop and 375px mobile layout; keep the video prominent on the first mobile screen.
+- [x] Validate 5 focused tests, 313 full tests, TypeScript, production build and four critical routes.

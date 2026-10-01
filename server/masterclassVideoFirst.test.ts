@@ -16,6 +16,11 @@ describe("video-first masterclass variant", () => {
   });
 
   it("puts concise context and the YouTube recording before all booking content", () => {
+    expect(pageSource).toContain('data-masterclass-video-first-banner');
+    expect(pageSource).toContain('bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-center');
+    expect(pageSource.match(/Free On-Demand Masterclass/g)).toHaveLength(1);
+    expect(pageSource).not.toContain('data-masterclass-video-first-eyebrow');
+    expect(pageSource.indexOf('data-masterclass-video-first-banner')).toBeLessThan(pageSource.indexOf('data-masterclass-video-first-hero'));
     expect(pageSource).toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
     expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how perimenopause, hormones, metabolism, and medical weight loss connect—plus answer real questions from women 35+.');
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');

@@ -164,7 +164,10 @@ export default function MasterclassVideoFirst() {
       </Helmet>
 
       <article className="mx-auto min-h-screen w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">
-        <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-8 pb-7 text-center sm:px-10 sm:pt-12 sm:pb-10 lg:px-16">
+        <div data-masterclass-video-first-banner className="bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white sm:px-10 sm:py-5 sm:text-sm">
+          Free On-Demand Masterclass
+        </div>
+        <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-7 pb-7 text-center sm:px-10 sm:pt-10 sm:pb-10 lg:px-16">
           <div
             className="pointer-events-none absolute inset-0 -z-10 opacity-85"
             aria-hidden="true"
@@ -174,10 +177,7 @@ export default function MasterclassVideoFirst() {
             }}
           />
           <div className="mx-auto max-w-[850px]">
-            <p data-masterclass-video-first-eyebrow className="inline-flex rounded-full bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-[0_12px_30px_rgba(168,38,129,0.22)] sm:px-7 sm:py-3.5 sm:text-xs">
-              Free On-Demand Masterclass
-            </p>
-            <h1 className="mx-auto mt-5 max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:mt-7 sm:text-[3.35rem] lg:text-[4.05rem]">
+            <h1 className="mx-auto max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:text-[3.35rem] lg:text-[4.05rem]">
               Finally. A Doctor Who Understands Menopause &amp; Weight Loss.
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-[1.03rem] font-semibold leading-relaxed text-[#6e5364] sm:mt-5 sm:text-lg">
