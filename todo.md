@@ -2221,3 +2221,11 @@
 - [x] Remove the YouTube player-settings instruction and the separate “Educational content only” paragraph directly beneath the `/masterclass` video.
 - [x] Keep the Dr. Al-Deek presenter line, the footer medical-evaluation qualifier, the video/player, physician and care-team booking actions, pricing, and unrelated routes intact.
 - [x] Validate 17 focused tests, 314 full tests, TypeScript, production build, four route 200 checks, and mobile layout.
+
+## Masterclass Lean Hero and Authority Line — 2026-09-30
+
+- [x] Remove the redundant “Watch the 45-minute masterclass” line beneath the existing Free On-Demand Masterclass banner; make “Weight Loss, GLP-1s & Hormones—Finally Explained.” the sole, larger main headline.
+- [x] Remove Dr. Al-Deek’s repeated name from the hero support text while retaining the recorded live Q&A context.
+- [x] Consolidate physician identification and credentials under the player: Dr. Jumana Al-Deek, DO, board-certified family physician focused on perimenopause, menopause, metabolic health and medical weight loss. Avoid suggesting separate specialty board certification.
+- [x] Keep the exact patient proof and physician booking-button attribution intact for clarity; leave the video, payment, care-team, pricing, tracking and other pages unchanged.
+- [x] Validate 17 focused tests, 314 full tests, TypeScript, production build, four route 200 checks, and desktop/mobile first-screen player visibility.

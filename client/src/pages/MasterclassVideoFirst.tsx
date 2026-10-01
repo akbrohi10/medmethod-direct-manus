@@ -177,12 +177,11 @@ export default function MasterclassVideoFirst() {
             }}
           />
           <div className="mx-auto max-w-[850px]">
-            <h1 className="mx-auto max-w-[790px] text-[2.25rem] font-black leading-[1.05] tracking-[-0.045em] text-[#24102d] sm:text-[3.35rem] lg:text-[4.05rem]">
-              <span className="mb-3 block text-sm font-black uppercase tracking-[0.1em] text-[#7a1e7e] sm:mb-4 sm:text-lg">Watch the 45-minute masterclass</span>
-              <span className="block">Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones—Finally Explained.</span>
+            <h1 className="mx-auto max-w-[810px] text-[2.5rem] font-black leading-[1.04] tracking-[-0.045em] text-[#24102d] sm:text-[3.65rem] lg:text-[4.3rem]">
+              Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones—Finally Explained.
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-[1.03rem] font-semibold leading-relaxed text-[#6e5364] sm:mt-5 sm:text-lg">
-              Dr. Al-Deek explains your options, then answers real questions from women 35+ in a recorded live Q&amp;A.
+              Clear answers about your options, plus real questions from women 35+ in a recorded live Q&amp;A.
             </p>
           </div>
         </section>
@@ -200,7 +199,7 @@ export default function MasterclassVideoFirst() {
             />
           </div>
           <p className="mx-auto mt-4 max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
-            Presented by Dr. Jumana Al-Deek, board-certified family medicine physician.
+            Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.
           </p>
         </section>
 
