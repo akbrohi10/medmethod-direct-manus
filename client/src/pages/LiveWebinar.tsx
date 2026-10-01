@@ -164,6 +164,7 @@ export default function LiveWebinar() {
             src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"
             alt="MedMethod Direct"
             className="h-8 w-auto object-contain sm:h-9"
+            style={{ clipPath: "inset(0 0 30% 0)", marginBottom: "-6px" }}
             loading="eager"
             decoding="async"
           />

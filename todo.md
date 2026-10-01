@@ -2285,3 +2285,9 @@
 - [x] Reuse the exact homepage MedMethod Direct logo asset, centered above the existing Live on Zoom / RSVP banner on `/live-webinar` only.
 - [x] Keep its footprint compact (`h-8` mobile, `h-9` larger screens) without adding a navigation bar or changing the video, webinar copy, registration, or other routes.
 - [x] Validate 20 focused tests, 316 full tests across 66 files, TypeScript, production build, four critical route HTTP 200 checks, and first-screen mobile/desktop previews.
+
+## Live-Webinar Tagline-Free Logo — 2026-10-01
+
+- [x] Match the homepage treatment by clipping the same approved centered MedMethod Direct logo asset to hide only the “Feel Like Yourself Again” tagline below the wordmark on `/live-webinar`.
+- [x] Preserve the logo position and webinar layout, video, CTA, form, tracking and other routes.
+- [x] Verify the wordmark alone on mobile and desktop, 8 focused tests, 316 full tests, TypeScript, production build and four route HTTP 200 checks.

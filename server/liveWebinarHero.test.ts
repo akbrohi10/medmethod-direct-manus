@@ -26,6 +26,7 @@ describe("live webinar landing page", () => {
     expect(pageSource).toContain('src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"');
     expect(pageSource).toContain('alt="MedMethod Direct"');
     expect(pageSource).toContain('className="h-8 w-auto object-contain sm:h-9"');
+    expect(pageSource).toContain('style={{ clipPath: "inset(0 0 30% 0)", marginBottom: "-6px" }}');
     expect(pageSource.match(/data-webinar-brand-logo/g)).toHaveLength(1);
     expect(pageSource).not.toContain('className="fixed top-0 left-0 right-0');
   });
