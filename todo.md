@@ -2235,3 +2235,13 @@
 - [x] Remove “Ready when you are” above “Want to Become a Patient?” on `/masterclass` and the now-unused heading top margin.
 - [x] Preserve the heading, proof, virtual-care line, both booking actions, pricing and the rest of the page.
 - [x] Validate 5 focused tests, 314 full tests, TypeScript, production build, four routes and mobile layout.
+
+## Masterclass Watch-First Content Order — 2026-09-30
+
+- [x] Make the main headline fit three lines on 375px and 320px screens and replace the support paragraph with the approved physician/proof line; remove “Press play to watch free.”
+- [x] Keep the existing YouTube player immediately below the hero; it is entirely visible in the initial 375×812 and 320×700 viewports without scrolling.
+- [x] Copy the `/live-webinar2` What You’ll Learn headings, seven-item checklist, order, and section markup/style unchanged; replace its registration action with a separate “Watch the Free Masterclass” button that scrolls to the player and respects reduced-motion preference.
+- [x] Move the existing Dr. Al-Deek bio beneath the learning action, then put the existing rotating Featured In strip immediately beneath the bio and above the booking section.
+- [x] Add the requested bridge line above “Want to Become a Patient?” while retaining the physician and care-team buttons, price disclosure, virtual/17-state copy, patient proof, pricing details and footer.
+- [x] Verify real browser watch-button scroll from below the list to the player (top at 0, URL unchanged), mobile and desktop visual review, 315 tests across 66 files, TypeScript, production build, and HTTP 200 on five critical routes.
+- [x] Note that the copied webinar checklist intentionally retains its exact “LIVE Q&A” wording on this on-demand recording, per the explicit verbatim-copy request.

@@ -4,6 +4,7 @@ import path from "node:path";
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const pageSource = fs.readFileSync(path.join(projectRoot, "client/src/pages/MasterclassVideoFirst.tsx"), "utf8");
+const webinarSource = fs.readFileSync(path.join(projectRoot, "client/src/pages/LiveWebinar2.tsx"), "utf8");
 const appSource = fs.readFileSync(path.join(projectRoot, "client/src/App.tsx"), "utf8");
 const viteSource = fs.readFileSync(path.join(projectRoot, "server/_core/vite.ts"), "utf8");
 
@@ -22,12 +23,12 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('data-masterclass-video-first-eyebrow');
     expect(pageSource.indexOf('data-masterclass-video-first-banner')).toBeLessThan(pageSource.indexOf('data-masterclass-video-first-hero'));
     expect(pageSource).not.toContain('Watch the 45-minute masterclass');
-    expect(pageSource).toContain('Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones—Finally Explained.');
-    expect(pageSource).toContain('Clear answers about your options, plus real questions from women 35+ in a recorded live Q&amp;A.');
+    expect(pageSource).toContain('Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones — Finally Explained.');
+    expect(pageSource).toContain('text-[clamp(1.4rem,7.5vw,2rem)] font-black');
+    expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · 50,000+ patients seen');
     expect(pageSource).toContain('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.');
-    expect(pageSource).toContain('Press play to watch free');
+    expect(pageSource).not.toContain('Press play to watch free');
     expect(pageSource).not.toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
-    expect(pageSource.indexOf('Press play to watch free')).toBeLessThan(pageSource.indexOf('data-masterclass-video-first-youtube'));
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
     expect(pageSource).not.toContain('n-jYhuCP5Vg');
     expect(pageSource).toContain('data-masterclass-video-first-youtube');
@@ -40,18 +41,36 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('Masterclass Recording Coming Soon');
     expect(pageSource).not.toContain('medmethod-on-demand-masterclass-poster_52bb13b2.jpg');
     expect(pageSource).not.toContain('<video');
-    expect(pageSource.indexOf('data-masterclass-video-first-player')).toBeLessThan(
-      pageSource.indexOf('data-masterclass-video-first-booking'),
-    );
-    expect(pageSource.indexOf('data-masterclass-video-first-booking')).toBeLessThan(
-      pageSource.indexOf('<FeaturedInStrip />'),
-    );
+    const order = [
+      'data-masterclass-video-first-hero',
+      'data-masterclass-video-first-player',
+      '<section\n            data-webinar2-learning',
+      'data-masterclass-watch-button',
+      'data-masterclass-video-first-bio',
+      '<FeaturedInStrip />',
+      'data-masterclass-video-first-booking',
+      '<footer',
+    ].map((marker) => pageSource.indexOf(marker));
+    expect(order.every((position) => position >= 0)).toBe(true);
+    expect(order).toEqual([...order].sort((a, b) => a - b));
+    expect(pageSource).toContain('Ready to talk about your own hormones and weight?');
+    expect(pageSource).toContain('videoRef.current?.scrollIntoView({');
+    expect(pageSource).toContain('window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"');
+    expect(pageSource).toContain('Watch the Free Masterclass');
     expect(pageSource).toContain('bg-gradient-to-r from-[#25134f] via-[#5b3aa4] to-[#2d185d]');
     expect(pageSource).toContain('webinar2-logo-marquee__track');
     expect(pageSource).toContain('webinar2-logo-marquee__duplicate');
     expect(pageSource).toContain('const isReady = pendingAssets === 0;');
     expect(pageSource).toContain('This Is Menopause');
     expect(pageSource).toContain('Woman’s World');
+  });
+
+  it("copies the seven webinar learning topics, order, and checklist markup unchanged", () => {
+    const list = (source: string) => source.match(/const learningChecklist = \[([\s\S]*?)\];/)?.[1]?.trim();
+    const checklistMarkup = (source: string) => source.match(/<section\s+data-webinar2-learning[\s\S]*?<\/ul>/)?.[0]?.replace(/^\s+/gm, "").trim();
+    expect(list(pageSource)).toBe(list(webinarSource));
+    expect(checklistMarkup(pageSource)).toBe(checklistMarkup(webinarSource));
+    expect(pageSource).not.toContain('Reserve My Free Spot');
   });
 
   it("uses a dedicated social preview for the masterclass route", () => {
