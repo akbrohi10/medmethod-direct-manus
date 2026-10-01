@@ -60,7 +60,7 @@ describe("LegitScript compliance remediation", () => {
       /\b(?:Wegovy|Zepbound|Ozempic|Mounjaro)\b/i,
       /\b(?:Tennessee|New Jersey|Alabama|Ohio)\b/i,
       /Washington State/i,
-      /(?:17 states|licensed in 17|seventeen states|9 states|licensed in 9)/i,
+      /(?:9 states|licensed in 9)/i,
       /(?:build muscle|gain muscle|develop lean muscle|tone your body|change body composition|body composition|feel stronger|perform better|muscle gain|sports recovery)/i,
       /(?:clinically proven|studies show|before[- ]and[- ]after|effortless transformation|results speak for themselves|patients see results|minimal results|guaranteed results)/i,
       /(?:same active ingredient|lower cost|affordable alternative|works just like|equivalent|essentially the same|replaces the brand|brand[- ]name)/i,
@@ -70,6 +70,19 @@ describe("LegitScript compliance remediation", () => {
 
     for (const pattern of prohibitedPatterns) {
       expect(clientText).not.toMatch(pattern);
+    }
+  });
+
+  it("limits the owner-approved 17-state virtual-care claim to the masterclass page", () => {
+    const masterclassPath = resolve(sourceRoot, "pages/MasterclassVideoFirst.tsx");
+    expect(readFileSync(masterclassPath, "utf8")).toContain(
+      "100% virtual care · Available in 17 states",
+    );
+    for (const file of collectTextFiles(clientRoot)) {
+      if (file === masterclassPath) continue;
+      expect(readFileSync(file, "utf8"), file).not.toMatch(
+        /(?:17 states|licensed in 17|seventeen states)/i,
+      );
     }
   });
 
@@ -241,7 +254,7 @@ describe("LegitScript compliance remediation", () => {
     expect(locationsSource).not.toContain('"West Virginia"');
   });
 
-  it("uses the approved customer-facing 12 states wording sitewide", () => {
+  it("keeps the existing shared navigation and locations at 12 states until separately updated", () => {
     const clientText = readClientText();
     const navbarSource = readFileSync(
       resolve(sourceRoot, "components/Navbar.tsx"),

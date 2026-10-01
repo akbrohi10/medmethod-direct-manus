@@ -2193,3 +2193,12 @@
 - [x] Keep the same white banner wording, hero headline, subtext, new YouTube recording, booking actions, pricing and all other pages unchanged.
 - [x] Review desktop and 375px mobile layout; keep the video prominent on the first mobile screen.
 - [x] Validate 5 focused tests, 313 full tests, TypeScript, production build and four critical routes.
+
+## Masterclass Patient Booking Call to Action — 2026-09-30
+
+- [x] Replace the soft booking-section headline with the owner-approved “Want to Become a Patient?” and add the 45-minute Dr. Al-Deek visit explanation.
+- [x] Add the explicitly owner-confirmed “100% virtual care · Available in 17 states” line on `/masterclass` only, without implying a guaranteed treatment outcome.
+- [x] Preserve the original physician deposit and free care-team CTAs, pricing, player, social proof, and tracking.
+- [x] Narrowly scope compliance regression coverage to this explicit page exception; the shared navigation and locations still say 12 states and have not been changed here.
+- [x] Verify 17 focused tests, 314 full tests, TypeScript, production build, HTTP 200 on four critical routes, and desktop/mobile booking-section layout.
+- [x] Document the separate follow-up: obtain the approved list of 17 covered states (and whether DC is counted separately) before reconciling older sitewide 12-state claims and intake eligibility rules; this page-copy task does not change those systems.
