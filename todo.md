@@ -2267,3 +2267,8 @@
 - [x] Verify a simulated mobile activation retains the `/masterclass` URL and loads the iframe inside its existing frame with `fs=0`, no `allowfullscreen`, and no picture-in-picture; desktop activation retains `fs=1` and fullscreen permission.
 - [x] Validate 315 tests across 66 files, TypeScript, production build, and five critical routes at HTTP 200.
 - [x] Document the limitation: on iPhone, an external app's embedded browser can force the native fullscreen controller when its own WKWebView does not allow inline media playback; site code cannot override that host-app setting. Check on the actual affected browser after publish.
+
+## Masterclass Learning Label Size — 2026-09-30
+
+- [x] Increase only the `/masterclass` “What You’ll Learn” label one responsive type step (12→14px mobile, 14→16px larger screens); keep the copied webinar checklist content, order and remaining styling intact.
+- [x] Verify 18 focused tests, 315 full tests, TypeScript, production build, four HTTP 200 routes, and a full 375px mobile layout review.

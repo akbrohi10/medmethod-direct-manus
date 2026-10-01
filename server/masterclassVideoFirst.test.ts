@@ -75,11 +75,12 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('Woman’s World');
   });
 
-  it("copies the seven webinar learning topics, order, and checklist markup unchanged", () => {
+  it("copies the webinar checklist unchanged apart from the larger masterclass label", () => {
     const list = (source: string) => source.match(/const learningChecklist = \[([\s\S]*?)\];/)?.[1]?.trim();
     const checklistMarkup = (source: string) => source.match(/<section\s+data-webinar2-learning[\s\S]*?<\/ul>/)?.[0]?.replace(/^\s+/gm, "").trim();
     expect(list(pageSource)).toBe(list(webinarSource));
-    expect(checklistMarkup(pageSource)).toBe(checklistMarkup(webinarSource));
+    expect(checklistMarkup(pageSource)?.replace('text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base', 'text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm')).toBe(checklistMarkup(webinarSource));
+    expect(pageSource).toContain('text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base');
     expect(pageSource).not.toContain('Reserve My Free Spot');
   });
 
