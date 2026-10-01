@@ -205,8 +205,7 @@ export default function MasterclassVideoFirst() {
 
         <section data-masterclass-video-first-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
           <div className="mx-auto max-w-[860px] text-center">
-            <p className="text-[11px] font-black uppercase tracking-[0.17em] text-[#7a1e7e]">Ready when you are</p>
-            <h2 className="mt-2 text-2xl font-black text-[#281c30] sm:text-3xl">Want to Become a Patient?</h2>
+            <h2 className="text-2xl font-black text-[#281c30] sm:text-3xl">Want to Become a Patient?</h2>
             <p className="mt-3 text-xs font-black uppercase tracking-[0.06em] text-[#7a1e7e] sm:text-sm">100% virtual care · Available in 17 states</p>
             <p data-masterclass-video-first-patient-proof className="mt-3 text-sm font-semibold text-[#5a4452] sm:text-base">Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">50,000+ patients.</span></p>
           </div>

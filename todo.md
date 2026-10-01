@@ -2229,3 +2229,9 @@
 - [x] Consolidate physician identification and credentials under the player: Dr. Jumana Al-Deek, DO, board-certified family physician focused on perimenopause, menopause, metabolic health and medical weight loss. Avoid suggesting separate specialty board certification.
 - [x] Keep the exact patient proof and physician booking-button attribution intact for clarity; leave the video, payment, care-team, pricing, tracking and other pages unchanged.
 - [x] Validate 17 focused tests, 314 full tests, TypeScript, production build, four route 200 checks, and desktop/mobile first-screen player visibility.
+
+## Masterclass Booking Eyebrow Removal — 2026-09-30
+
+- [x] Remove “Ready when you are” above “Want to Become a Patient?” on `/masterclass` and the now-unused heading top margin.
+- [x] Preserve the heading, proof, virtual-care line, both booking actions, pricing and the rest of the page.
+- [x] Validate 5 focused tests, 314 full tests, TypeScript, production build, four routes and mobile layout.

@@ -67,6 +67,7 @@ describe("video-first masterclass variant", () => {
 
   it("keeps the established physician and care-team actions after the video", () => {
     expect(pageSource).toContain('Want to Become a Patient?');
+    expect(pageSource).not.toContain('Ready when you are');
     expect(pageSource).not.toContain('Start with a 45-minute visit with Dr. Al-Deek to discuss your health and goals.');
     expect(pageSource).toContain('100% virtual care · Available in 17 states');
     expect(pageSource).not.toContain('Choose the next step that feels right for you.');
