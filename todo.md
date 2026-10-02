@@ -2305,4 +2305,9 @@
 - [x] Keep the page `noindex,follow` with explicit sample-product/pricing, draft-policy, and demo-only disclaimers. There is no real order, payment/card field, shipping, or API submission; demo cart is local browser storage.
 - [x] Align one research heading phrase with the existing sitewide compliance guard (`featured reference products` rather than `brand-name products`), with no design or interaction change.
 - [x] Validate 320 tests across 67 files, TypeScript, production build, desktop/mobile (1280px/375px) visual and interaction QA, all six product images, no horizontal overflow, no browser JS errors or `/api/` requests from demo checkout, and development/production route HTTP 200 plus crawler metadata.
-- [ ] Publish only after owner review. A real sales launch would require confirmed products and image rights, supplier inventory, shipping/tax rules, approved claims and final policies, and a separately scoped payment/fulfillment integration. Do not connect this demo to existing medical payment or booking flows.
+- [x] Store preview published after owner review; a real sales launch would separately require confirmed products and image rights, supplier inventory, shipping/tax rules, approved claims and final policies, and payment/fulfillment integration. Do not connect this demo to existing medical payment or booking flows.
+
+## Supplements Preview Dropdown Alias — 2026-10-02
+- [x] Register `/supplements` alongside the existing React routes solely for preview route discovery; redirect any in-app navigation to the original standalone document. Do not rebuild the supplied store or change its payment/demo behavior.
+- [x] Add a regression check for the route alias and direct Express serving.
+- [x] Validate 321 tests across 67 files, TypeScript and production build; browser navigation from the SPA opens the original store document, route HTTP 200 remains intact, and the supplied HTML/server route are unchanged from the published checkpoint.

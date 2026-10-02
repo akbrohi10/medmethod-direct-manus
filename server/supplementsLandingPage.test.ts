@@ -7,6 +7,7 @@ const page = readFileSync(resolve(root, "client/supplements.html"), "utf8");
 const server = readFileSync(resolve(root, "server/_core/index.ts"), "utf8");
 const crawler = readFileSync(resolve(root, "server/crawlerMiddleware.ts"), "utf8");
 const vite = readFileSync(resolve(root, "vite.config.ts"), "utf8");
+const app = readFileSync(resolve(root, "client/src/App.tsx"), "utf8");
 
 describe("standalone /supplements preview", () => {
   it("serves the supplied store document through its own route and build entry", () => {
@@ -16,6 +17,12 @@ describe("standalone /supplements preview", () => {
     expect(crawler).toContain('path === "/supplements" || path === "/supplements/"');
     expect(page).toContain('href="https://medmethoddirect.com/supplements"');
     expect(page).toContain('name="facebook-domain-verification" content="6gvdlzh2z653n5ezbhv5386mr0uqlu"');
+  });
+
+  it("registers a dropdown-visible React route that reloads the original standalone page", () => {
+    expect(app).toContain('<Route path="/supplements" component={SupplementsStandaloneRedirect} />');
+    expect(app).toContain('window.location.replace("/supplements")');
+    expect(server.indexOf('app.get(["/supplements", "/supplements/"],')).toBeLessThan(server.indexOf('app.use(crawlerMiddleware)'));
   });
 
   it("retains the supplied product, category, cart and demo checkout interactions", () => {

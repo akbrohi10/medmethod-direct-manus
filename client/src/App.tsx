@@ -208,6 +208,15 @@ function ExternalBlogRedirect() {
   );
 }
 
+/** Expose the supplied standalone store in the route list without rebuilding it. */
+function SupplementsStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/supplements");
+  }, []);
+
+  return <a href="/supplements">Opening supplements…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -356,6 +365,7 @@ function Router() {
         <Route path="/free-masterclass" component={FreeMasterclass} />
         <Route path="/masterclass" component={MasterclassVideoFirst} />
         <Route path="/asynchronous" component={Asynchronous} />
+        <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
