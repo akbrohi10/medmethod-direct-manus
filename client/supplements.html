@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Med Method Direct — store preview of everyday vitamins and supplements. Sample products and pricing." />
+<meta name="robots" content="noindex,follow" />
+<meta name="facebook-domain-verification" content="6gvdlzh2z653n5ezbhv5386mr0uqlu" />
+<link rel="canonical" href="https://medmethoddirect.com/supplements" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MedMethod Direct" />
+<meta property="og:url" content="https://medmethoddirect.com/supplements" />
+<meta property="og:title" content="Vitamins &amp; Supplements Preview | MedMethod Direct" />
+<meta property="og:description" content="Explore a preview of everyday vitamins and supplements. Sample products and provisional pricing; checkout is a demo only." />
+<meta property="og:image" content="https://medmethoddirect.com/manus-storage/supplement-01-bb61b74d7404_9298815b.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="/favicon.ico" />
+<title>Med Method Direct — Vitamins &amp; Supplements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* Med Method Direct Store — design tokens. Brand: pink-to-purple gradient, Montserrat. */
+:root{
+  color-scheme: light dark;
+  --pk:#FB28A3; --pk-deep:#B9139B; --dp:#6B0090; --dp-deep:#49005F; --dp-ink:#49005F;
+  --grad:linear-gradient(135deg,#FB28A3,#6B0090);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --radius:18px; --radius-sm:12px;
+  --shadow:0 18px 44px -22px rgba(107,0,144,.30);
+  --shadow-sm:0 6px 18px -8px rgba(107,0,144,.18);
+  --bg:#FCFAFD;
+  --surface:#ffffff;
+  --surface-2:#F6EEFC;
+  --text:#2B2133;
+  --muted:#655A6E;
+  --border:#E5D3F2;
+  --field-bg:#ffffff;
+  --chip-active-bg:var(--dp);
+  --chip-active-fg:#ffffff;
+  --focus:var(--pk-deep);
+  /* tinted studio backdrop + lift for product cut-outs;
+     deep enough that white packaging reads clearly against it */
+  --media-bg:radial-gradient(118% 118% at 50% 28%,#FBF1FE 0%,#EFD9FB 46%,#E0C2F6 100%);
+  --prod-filter:drop-shadow(0 12px 18px rgba(73,0,95,.24));
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#161016;
+    --surface:#1F1721;
+    --surface-2:#251C2A;
+    --text:#F3EDF7;
+    --muted:#B9AEC4;
+    --border:#3A2E40;
+    --field-bg:#251C2A;
+    --shadow:0 18px 44px -22px rgba(0,0,0,.6);
+    --shadow-sm:0 6px 18px -8px rgba(0,0,0,.5);
+    --media-bg:radial-gradient(118% 118% at 50% 30%,#2A2233 0%,#241C2D 46%,#1E1627 100%);
+    --prod-filter:drop-shadow(0 12px 18px rgba(0,0,0,.55));
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--dp-ink)}
+@media (prefers-color-scheme:dark){a{color:#E79BE8}}
+a:hover{color:var(--pk-deep)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:6px}
+h1,h2,h3,h4{line-height:1.18;letter-spacing:-.01em}
+.skip{position:fixed;left:16px;top:-140px;background:var(--dp);color:#fff;padding:.7rem 1.2rem;border-radius:10px;z-index:400;font-weight:700}
+.skip:focus,.skip:active{top:8px}
+.container{width:100%;max-width:1160px;margin:0 auto;padding-left:20px;padding-right:20px}
+.section{padding:clamp(2.75rem,6vw,4.5rem) 0}
+.band{background:var(--surface-2)}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pk-deep);margin:0 0 .9rem}
+@media (prefers-color-scheme:dark){.eyebrow{color:#E79BE8}}
+.section-title{font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 0 .6rem;font-weight:800}
+.section-sub{color:var(--muted);max-width:64ch;margin:.2rem 0 1.8rem;font-size:1.02rem}
+.preview-bar{background:var(--grad);color:#fff;text-align:center;font-size:.85rem;font-weight:600;padding:.6rem 1rem;letter-spacing:.01em}
+.preview-bar a{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.preview-bar a:hover{opacity:.92}
+.site-header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;gap:1.1rem;min-height:74px}
+.brand{display:inline-flex;align-items:center;text-decoration:none;margin-right:auto}
+.brand-logo{height:50px;width:auto;display:block}
+@media (prefers-color-scheme:dark){.site-header .brand-logo{background:#fff;padding:.45rem .75rem;border-radius:12px}}
+.site-footer .brand-logo{background:#fff;padding:.55rem .85rem;border-radius:14px;height:56px}
+@media(max-width:560px){.brand-logo{height:44px}.site-footer .brand-logo{height:50px}}
+.main-nav{display:flex;gap:.25rem}
+.main-nav a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--text);padding:.6rem .9rem;border-radius:10px}
+.main-nav a:hover{background:var(--surface-2)}
+.cart-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-width:50px;min-height:50px;padding:.55rem .8rem;border-radius:12px;border:1px solid var(--border);background:var(--field-bg);cursor:pointer;color:var(--text);font-weight:700;font-family:inherit;font-size:.9rem}
+.cart-btn:hover{border-color:var(--dp);background:var(--surface-2)}
+.cart-btn svg{width:22px;height:22px}
+.cart-count{position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--grad);color:#fff;font-size:.74rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm)}
+.cart-count.bump{animation:bump .35s ease}
+@keyframes bump{40%{transform:scale(1.35)}}
+.menu-btn{display:none;min-width:50px;min-height:50px;border:1px solid var(--border);background:var(--field-bg);border-radius:12px;cursor:pointer;color:var(--text)}
+.menu-btn svg{width:22px;height:22px}
+.mobile-menu{display:none;flex-direction:column;gap:.15rem;padding:.8rem 20px 1.2rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;font-weight:600;color:var(--text);padding:.85rem .6rem;border-radius:10px;font-size:1.02rem}
+.mobile-menu a:hover,.mobile-menu a:active,.mobile-menu a:focus-visible{background:var(--surface-2)}
+@media(max-width:880px){.main-nav{display:none}.menu-btn{display:inline-flex;align-items:center;justify-content:center}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:inherit;font-weight:700;font-size:1rem;line-height:1.2;padding:.95rem 1.6rem;min-height:50px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease,transform .08s ease,box-shadow .15s ease;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--dp);color:#fff;box-shadow:0 10px 22px -10px rgba(107,0,144,.55)}
+.btn-primary:hover{background:var(--dp-deep);color:#fff}
+.btn-outline{background:transparent;border:2px solid var(--dp);color:var(--dp-ink)}
+.btn-outline:hover{border-color:var(--pk-deep);color:var(--pk-deep)}
+@media (prefers-color-scheme:dark){.btn-outline{color:#E79BE8;border-color:#9A4A9E}.btn-outline:hover{color:#fff;border-color:#E79BE8}}
+.btn-sm{padding:.62rem 1.15rem;min-height:44px;font-size:.88rem}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn-text{background:none;border:0;color:var(--dp-ink);font-weight:700;font-family:inherit;font-size:.94rem;cursor:pointer;padding:.7rem;border-radius:8px;text-decoration:underline;text-underline-offset:3px}
+@media (prefers-color-scheme:dark){.btn-text{color:#E79BE8}}
+.chip-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.6rem}
+.chip{font-family:inherit;font-size:.9rem;font-weight:600;padding:.6rem 1.15rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;min-height:44px}
+.chip:hover{border-color:var(--dp)}
+.chip[aria-pressed="true"]{background:var(--chip-active-bg);color:var(--chip-active-fg);border-color:var(--chip-active-bg)}
+.badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.32rem .7rem;border-radius:999px}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.badge-ref{background:var(--surface-2);border:1px solid var(--border);color:var(--muted)}
+.badge-demo{background:var(--grad);color:#fff}
+.badge-draft{background:transparent;border:1.5px dashed var(--pk-deep);color:var(--pk-deep)}
+@media (prefers-color-scheme:dark){.badge-draft{color:#E79BE8;border-color:#9A4A9E}}
+.tag-row{display:flex;flex-wrap:wrap;gap:.45rem}
+.hero{padding:clamp(2.2rem,5vw,4rem) 0 clamp(2.5rem,6vw,4rem);position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center;position:relative}
+.hero h1{font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800;margin:.4rem 0 1rem}
+.hero-copy p{font-size:1.08rem;color:var(--muted);max-width:52ch;margin:0 0 1.8rem}
+.hero-copy p strong{color:var(--text)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem}
+.hero-note{font-size:.82rem;color:var(--muted);margin-top:1.2rem}
+.hero-art{position:relative;z-index:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:clamp(.9rem,2.8vw,1.5rem);padding:clamp(1.6rem,4vw,2.5rem) clamp(1rem,3vw,1.5rem)}
+.hero-card{position:relative;z-index:1;flex:1 1 0;min-width:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);background:var(--media-bg)}
+.hero-card img{aspect-ratio:1;object-fit:contain;width:100%;height:auto;display:block;padding:.8rem}
+/* Product cut-outs — transparent renders floating on the tile backdrop */
+.hero-card img,.p-media img,.detail-media img,.cart-item img,.sum-item img{filter:var(--prod-filter)}
+.hero-wash{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92%,500px);aspect-ratio:1;background:var(--grad);opacity:.12;border-radius:50%;z-index:-1}
+@media(max-width:920px){.hero-grid{grid-template-columns:1fr}}
+@media(max-width:430px){.hero-art{gap:.7rem;padding:1.25rem .75rem}}
+.goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+@media(max-width:980px){.goal-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.goal-grid{grid-template-columns:1fr}}
+.goal-card{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:230px;padding:1.3rem;border-radius:var(--radius);text-decoration:none;color:#fff;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .15s ease,box-shadow .15s ease}
+.goal-card::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,rgba(232,63,232,.92),rgba(122,30,126,.94));z-index:1}
+.goal-card.alt::after{background:linear-gradient(150deg,rgba(122,30,126,.94),rgba(60,16,62,.96))}
+.goal-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.38}
+.goal-card .gc-inner{position:relative;z-index:2}
+.goal-card h3{margin:.45rem 0 .3rem;font-size:1.1rem}
+.goal-card p{margin:0;font-size:.86rem;color:rgba(255,255,255,.9)}
+.goal-card .gc-count{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.22);border-radius:999px;padding:.25rem .65rem}
+.goal-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.goal-disclaimer{font-size:.84rem;color:var(--muted);margin-top:1.3rem;max-width:78ch}
+.shop-toolbar{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.shop-count{font-size:.92rem;color:var(--muted);font-weight:600}
+.sort-wrap{display:flex;align-items:center;gap:.6rem}
+.sort-wrap label{font-size:.88rem;font-weight:600;color:var(--muted)}
+.sort-wrap select{font-family:inherit;font-size:.92rem;font-weight:600;padding:.6rem 2.2rem .6rem .9rem;border-radius:12px;border:1px solid var(--border);background:var(--field-bg);color:var(--text);min-height:44px}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem}
+@media(max-width:1020px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.product-grid{grid-template-columns:1fr}.product-grid .p-card{max-width:460px;margin:0 auto;width:100%}}
+.p-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s ease,transform .15s ease}
+.p-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.img-plate{position:absolute;left:0;right:0;bottom:0;padding:2.6rem .95rem .7rem;background:linear-gradient(transparent,rgba(28,11,34,.8));color:#fff;pointer-events:none}
+.img-plate .ip-name{font-weight:800;font-size:clamp(.85rem,2.4vw,.98rem);line-height:1.25;margin:0}
+.img-plate .ip-con{display:block;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#F2CFF8;margin-top:.18rem}
+.p-media .img-plate{border-radius:0 0 var(--radius) var(--radius)}
+.hero-card .img-plate{border-radius:0 0 var(--radius) var(--radius)}
+.detail-media .img-plate{border-radius:0 0 var(--radius) var(--radius)}
+.p-media{position:relative;background:var(--media-bg);padding:1.05rem 1.0rem 5.75rem;display:flex;align-items:center;justify-content:center}
+.p-media a{display:block;width:100%}
+.p-media img{aspect-ratio:1;object-fit:contain;width:100%;height:auto;display:block}
+.p-body{display:flex;flex-direction:column;gap:.45rem;padding:1.15rem 1.2rem 1.25rem;flex:1}
+.p-name{font-size:1.06rem;font-weight:700;margin:0}
+.p-name a{text-decoration:none;color:inherit}
+.p-name a:hover{color:var(--pk-deep)}
+.p-desc{font-size:.9rem;color:var(--muted);margin:0;flex:1}
+.p-unit{font-size:.8rem;color:var(--muted);font-weight:600;margin:0}
+.p-price-row{display:flex;align-items:baseline;gap:.5rem;margin:.25rem 0 .4rem}
+.p-price{font-size:1.35rem;font-weight:800;color:var(--dp-ink)}
+@media (prefers-color-scheme:dark){.p-price{color:#F0A9F0}}
+.p-per{font-size:.78rem;color:var(--muted)}
+.p-actions{display:grid;gap:.6rem;margin-top:.3rem}
+.p-actions .btn{width:100%}
+.breadcrumb{font-size:.85rem;color:var(--muted);margin:1.4rem 0 1.6rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.breadcrumb a{color:inherit;text-decoration:none}
+.breadcrumb a:hover{color:var(--pk-deep)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.8rem,4vw,3.4rem);align-items:start}
+@media(max-width:880px){.detail-grid{grid-template-columns:1fr}}
+.detail-media{position:sticky;top:96px;background:var(--media-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.4rem,3.5vw,2.25rem) clamp(1.4rem,3.5vw,2.25rem) 6rem}
+.detail-media img{aspect-ratio:1;object-fit:contain;width:100%;height:auto;display:block}
+.detail-media .media-note{font-size:.82rem;color:var(--muted);margin-top:.7rem;text-align:center}
+@media(max-width:880px){.detail-media{position:static}}
+.detail-head h1{font-size:clamp(1.7rem,3.4vw,2.4rem);margin:.6rem 0 .4rem}
+.detail-sub{color:var(--muted);margin:0 0 1rem;font-size:1rem}
+.detail-price{font-size:2rem;font-weight:800;color:var(--dp-ink);margin:0}
+@media (prefers-color-scheme:dark){.detail-price{color:#F0A9F0}}
+.detail-price-note{font-size:.86rem;color:var(--muted);margin:.15rem 0 1.4rem}
+.qty-row{display:flex;gap:.8rem;align-items:stretch;margin-bottom:.9rem}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--border);border-radius:999px;overflow:hidden;background:var(--surface)}
+.qty button{width:48px;min-height:50px;border:0;background:transparent;font-size:1.3rem;font-weight:700;color:var(--dp-ink);cursor:pointer;font-family:inherit}
+.qty button:hover{background:var(--surface-2)}
+.qty output{min-width:44px;text-align:center;font-weight:700;font-size:1.05rem}
+.detail-add{flex:1}
+.detail-meta{font-size:.85rem;color:var(--muted);margin:.9rem 0 1.8rem;display:flex;flex-direction:column;gap:.35rem}
+.detail-meta .m-row{display:flex;gap:.55rem;align-items:center}
+.acc{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);margin-bottom:.8rem;overflow:hidden}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.05rem 1.25rem;font-weight:700;font-size:1rem;-webkit-tap-highlight-color:transparent}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .chev{flex:none;width:34px;height:34px;border-radius:50%;background:var(--surface-2);display:inline-flex;align-items:center;justify-content:center;transition:transform .2s ease}
+.acc summary .chev::before{content:"";width:9px;height:9px;border-right:2.5px solid var(--dp-ink);border-bottom:2.5px solid var(--dp-ink);transform:rotate(45deg) translate(-1px,-1px)}
+.acc[open] summary .chev{transform:rotate(180deg)}
+.acc summary:hover{background:var(--surface-2)}
+.acc .acc-body{padding:0 1.25rem 1.25rem;color:var(--text);font-size:.95rem}
+.acc .acc-body p{margin:.1rem 0 .7rem}
+.acc .acc-body p:last-child{margin-bottom:0}
+.def-list{margin:.3rem 0 0;border-top:1px solid var(--border)}
+.def-row{display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid var(--border);font-size:.92rem}
+.def-row dt{color:var(--muted);font-weight:600;margin:0}
+.def-row dd{margin:0;text-align:right}
+.pending{font-style:italic;color:var(--muted)}
+.related{margin-top:3rem}
+.related h2{font-size:1.4rem;margin:0 0 1.2rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.8rem,4vw,3.4rem);align-items:center}
+@media(max-width:880px){.about-grid{grid-template-columns:1fr}}
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:var(--shadow-sm)}
+.about-card h3{margin:.2rem 0 .6rem}
+.about-card p{color:var(--muted)}
+.about-card p strong{color:var(--text)}
+.start-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(max-width:700px){.start-grid{grid-template-columns:1fr}}
+.start-card{display:flex;gap:1rem;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.3rem;text-decoration:none;color:var(--text);transition:box-shadow .15s ease,transform .15s ease}
+.start-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.start-card .s-ico{flex:none;width:52px;height:52px;border-radius:16px;background:var(--grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem}
+.start-card h3{margin:.1rem 0 .3rem;font-size:1.02rem}
+.start-card p{margin:0;font-size:.88rem;color:var(--muted)}
+.start-card .s-go{margin-left:auto;align-self:center;color:var(--dp-ink);font-weight:800;font-size:1.2rem}
+@media (prefers-color-scheme:dark){.start-card .s-go{color:#E79BE8}}
+.faq-list{max-width:820px}
+.drawer-overlay{position:fixed;inset:0;background:rgba(34,16,38,.5);z-index:90;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.drawer-overlay.show{opacity:1;pointer-events:auto}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--surface);z-index:95;display:flex;flex-direction:column;box-shadow:var(--shadow);transform:translateX(102%);transition:transform .28s cubic-bezier(.32,.72,.28,1),visibility .28s;border-left:1px solid var(--border);visibility:hidden}
+.cart-drawer.show{transform:translateX(0);visibility:visible}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--border)}
+.drawer-head h2{margin:0;font-size:1.2rem}
+.drawer-close{min-width:44px;min-height:44px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;cursor:pointer;font-size:1.2rem;font-family:inherit}
+.drawer-close:hover{border-color:var(--dp)}
+.drawer-body{flex:1;overflow-y:auto;padding:1.1rem 1.25rem;display:flex;flex-direction:column;gap:1rem}
+.drawer-empty{text-align:center;padding:2.5rem 1rem;color:var(--muted)}
+.drawer-empty p{margin:.4rem 0 1.4rem}
+.cart-item{display:grid;grid-template-columns:76px 1fr;gap:.9rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.cart-item:last-child{border-bottom:0}
+.cart-item img{width:76px;height:76px;object-fit:contain;background:var(--media-bg);padding:4px;border-radius:10px;border:1px solid var(--border)}
+.cart-item .ci-name{font-weight:700;font-size:.93rem;margin:0 0 .15rem}
+.cart-item .ci-name a{text-decoration:none;color:inherit}
+.cart-item .ci-unit{font-size:.78rem;color:var(--muted);margin:0 0 .5rem}
+.ci-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.qty-mini{display:inline-flex;align-items:center;border:1.5px solid var(--border);border-radius:999px;background:var(--surface)}
+.qty-mini button{width:36px;height:36px;border:0;background:transparent;font-size:1.05rem;font-weight:700;color:var(--dp-ink);cursor:pointer;font-family:inherit;border-radius:50%}
+.qty-mini button:hover{background:var(--surface-2)}
+.qty-mini output{min-width:30px;text-align:center;font-weight:700;font-size:.92rem}
+.ci-price{font-weight:800;color:var(--dp-ink)}
+@media (prefers-color-scheme:dark){.ci-price{color:#F0A9F0}}
+.ci-remove{background:none;border:0;color:var(--muted);cursor:pointer;font-family:inherit;font-size:.82rem;text-decoration:underline;text-underline-offset:3px;padding:.3rem}
+.drawer-foot{border-top:1px solid var(--border);padding:1.1rem 1.25rem 1.25rem;background:var(--surface-2)}
+.tot-row{display:flex;justify-content:space-between;font-size:.94rem;color:var(--muted);margin-bottom:.4rem}
+.tot-row.grand{font-weight:800;color:var(--text);font-size:1.12rem;margin:.6rem 0 1rem;padding-top:.6rem;border-top:1px solid var(--border)}
+.tot-note{font-size:.8rem;color:var(--muted);margin:.7rem 0 0}
+.checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:clamp(1.5rem,3vw,2.5rem);align-items:start;margin-bottom:3rem}
+@media(max-width:920px){.checkout-grid{grid-template-columns:1fr}}
+.demo-banner{border:2px solid var(--dp);background:var(--surface);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1.2rem 0 1.8rem;display:flex;gap:1rem;align-items:flex-start}
+.demo-banner .db-ico{flex:none;width:46px;height:46px;border-radius:14px;background:var(--grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem}
+.demo-banner h2{margin:0 0 .3rem;font-size:1.12rem}
+.demo-banner p{margin:0;font-size:.92rem;color:var(--muted)}
+.demo-banner p strong{color:var(--text)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.3rem,2.6vw,1.8rem);margin-bottom:1.2rem}
+.panel h2{margin:0 0 .2rem;font-size:1.25rem;display:flex;align-items:center;gap:.7rem}
+.step-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--dp);color:#fff;font-size:.95rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.panel .panel-sub{color:var(--muted);font-size:.9rem;margin:.2rem 0 1.2rem}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:560px){.field-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field.full{grid-column:1/-1}
+.field label{font-size:.88rem;font-weight:600}
+.field input,.field select{font-family:inherit;font-size:1rem;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:12px;background:var(--field-bg);color:var(--text);min-height:50px;width:100%}
+.field input:focus,.field select:focus{border-color:var(--dp);outline:none;box-shadow:0 0 0 3px rgba(232,63,232,.15)}
+.field .f-err{font-size:.8rem;color:#C22}
+@media (prefers-color-scheme:dark){.field .f-err{color:#F28B8B}}
+.field.invalid input{border-color:#C22}
+.pay-demo{border:1.5px dashed var(--dp);border-radius:var(--radius-sm);padding:1.2rem;background:var(--surface-2)}
+.pay-demo h3{margin:0 0 .5rem;font-size:1rem}
+.pay-demo p{margin:.3rem 0;font-size:.9rem;color:var(--muted)}
+.pay-demo ul{margin:.5rem 0 0;padding-left:1.2rem;font-size:.9rem;color:var(--muted)}
+.pay-demo li{margin:.25rem 0}
+.summary-card{position:sticky;top:96px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm)}
+@media(max-width:920px){.summary-card{position:static}}
+.summary-card h2{margin:0 0 1rem;font-size:1.2rem}
+.sum-item{display:flex;gap:.8rem;align-items:center;margin-bottom:.9rem}
+.sum-item img{width:56px;height:56px;object-fit:contain;background:var(--media-bg);padding:3px;border-radius:10px;border:1px solid var(--border)}
+.sum-item .si-name{font-size:.87rem;font-weight:600;margin:0;flex:1}
+.sum-item .si-qty{color:var(--muted);font-size:.82rem}
+.sum-item .si-price{font-weight:700;font-size:.92rem}
+.place-order-note{font-size:.82rem;color:var(--muted);margin-top:.9rem}
+.place-order-note strong{color:var(--text)}
+.confirm-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.8rem,4vw,2.8rem);text-align:center;margin:1.4rem 0 2rem;box-shadow:var(--shadow-sm)}
+.confirm-hero .ok-ring{width:76px;height:76px;border-radius:50%;background:var(--grad);color:#fff;font-size:2rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.confirm-hero h1{margin:.4rem 0 .6rem;font-size:clamp(1.6rem,3.4vw,2.2rem)}
+.confirm-hero p{color:var(--muted);max-width:58ch;margin:0 auto 1rem}
+.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:3rem}
+@media(max-width:700px){.receipt-grid{grid-template-columns:1fr}}
+.prose{max-width:780px;margin:0 auto;padding-bottom:3rem}
+.prose h1{font-size:clamp(1.7rem,3.4vw,2.3rem);margin:1.2rem 0 .5rem}
+.prose h2{font-size:1.2rem;margin:1.8rem 0 .5rem}
+.prose p,.prose li{font-size:.98rem}
+.prose .muted,.muted{color:var(--muted)}
+.draft-banner{border:1.5px dashed var(--pk-deep);border-radius:var(--radius-sm);padding:1rem 1.2rem;margin:1.2rem 0;background:var(--surface);display:flex;gap:.9rem;align-items:flex-start}
+@media (prefers-color-scheme:dark){.draft-banner{border-color:#9A4A9E}}
+.draft-banner .db-inner p{margin:.1rem 0 0;font-size:.9rem;color:var(--muted)}
+.research-intro{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.4rem 0 2rem}
+@media(max-width:800px){.research-intro{grid-template-columns:1fr}}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.4rem}
+.info-card h2{margin:0 0 .6rem;font-size:1.08rem}
+.info-card p,.info-card li{font-size:.9rem;color:var(--muted)}
+.info-card p strong,.info-card li strong{color:var(--text)}
+.info-card ul{margin:.4rem 0 0;padding-left:1.15rem}
+.research-summary{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.4rem;margin-bottom:2rem;overflow-x:auto}
+.research-summary table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px}
+.research-summary th{text-align:left;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.6rem .7rem;border-bottom:2px solid var(--border)}
+.research-summary td{padding:.7rem;border-bottom:1px solid var(--border)}
+.research-summary tr:last-child td{border-bottom:0}
+.research-summary td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.r-prod{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.2rem,2.6vw,1.7rem);margin-bottom:1.4rem}
+.r-prod .r-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.4rem}
+.r-prod h2{margin:0;font-size:1.25rem}
+.r-rec{font-size:.86rem;color:var(--muted);margin:.3rem 0 0}
+.r-rec strong{color:var(--text)}
+.r-price{font-size:1.6rem;font-weight:800;color:var(--dp-ink);white-space:nowrap}
+@media (prefers-color-scheme:dark){.r-price{color:#F0A9F0}}
+.cmp{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0}
+.cmp-row{border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem 1.1rem;background:var(--surface-2)}
+.cmp-row .c-name{font-weight:700;font-size:.94rem;margin:0 0 .25rem}
+.cmp-row .c-pkg{font-size:.85rem;color:var(--muted);margin:0 0 .25rem}
+.cmp-prices{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.85rem;margin:.3rem 0}
+.cmp-row .c-note{font-size:.82rem;color:var(--muted);margin:.3rem 0 0}
+.cmp-row .c-note .flag{color:var(--pk-deep);font-weight:700}
+.cmp-row a{font-size:.82rem;word-break:break-all}
+.r-foot{font-size:.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:.9rem;margin-top:.6rem}
+.r-foot strong{color:var(--text)}
+.r-foot p{margin:.3rem 0}
+.page-hero{text-align:center;padding:2.6rem 0 1rem;max-width:760px;margin:0 auto}
+.page-hero h1{margin:.5rem 0 .6rem;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800}
+.page-hero p{color:var(--muted);margin:0 0} 
+.notfound{text-align:center;padding:4rem 0}
+.notfound h1{font-size:3rem;margin:0}
+footer.site-footer{background:#2B1331;color:#EFE6F4;margin-top:3rem}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem;padding:3rem 0 2rem}
+@media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand p{font-size:.88rem;color:#C4ABC9;max-width:36ch}
+.footer-col h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#C4ABC9;margin:0 0 .9rem}
+.footer-col ul{list-style:none;margin:0;padding:0}
+.footer-col li{margin:.45rem 0}
+.footer-col a{color:#EFE6F4;text-decoration:none;font-size:.92rem}
+.footer-col a:hover{color:#F279F2}
+.draft-pill{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;border:1px dashed #B98AC0;color:#D9A6E0;border-radius:999px;padding:.1rem .5rem;margin-left:.4rem;vertical-align:middle}
+.footer-disclaimer{border-top:1px solid rgba(255,255,255,.14);padding:1.4rem 0;font-size:.78rem;color:#B79FC0}
+.footer-disclaimer p{margin:.35rem 0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.14);padding:1.1rem 0 1.6rem;display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;justify-content:space-between;font-size:.8rem;color:#B79FC0}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#2B1331;color:#fff;padding:.8rem 1.1rem;border-radius:999px;font-size:.92rem;font-weight:600;z-index:120;opacity:0;transition:opacity .25s ease,transform .25s ease,visibility .25s;pointer-events:none;display:flex;gap:.9rem;align-items:center;box-shadow:var(--shadow);max-width:calc(100vw - 40px);visibility:hidden}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto;visibility:visible}
+.toast button{background:var(--grad);border:0;color:#fff;font-family:inherit;font-weight:700;font-size:.88rem;border-radius:999px;padding:.5rem 1rem;cursor:pointer;white-space:nowrap}
+body.locked{overflow:hidden}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+
+<div class="preview-bar">Store preview — sample products and pricing. <a href="#/research">See the pricing research</a></div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#/" aria-label="Med Method Direct home">
+      <img class="brand-logo" src="/manus-storage/supplement-01-bb61b74d7404_9298815b.png" alt="Med Method Direct" width="2172" height="724" fetchpriority="high">
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#/shop">Shop</a>
+      <a href="#/goals">Shop by Goal</a>
+      <a href="#/" data-scrollto="about">About</a>
+      <a href="#/" data-scrollto="faq">FAQ</a>
+    </nav>
+    <button class="cart-btn" id="cartBtn" aria-label="Open shopping cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
+    </button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu container" id="mobileMenu" aria-label="Mobile">
+    <a href="#/shop">Shop</a>
+    <a href="#/goals">Shop by Goal</a>
+    <a href="#/" data-scrollto="about">About</a>
+    <a href="#/" data-scrollto="faq">FAQ</a>
+    <a href="#/research">Pricing Research</a>
+    <a href="#/page/contact">Contact</a>
+  </nav>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#/" aria-label="Med Method Direct home">
+          <img class="brand-logo" src="/manus-storage/supplement-01-bb61b74d7404_9298815b.png" alt="Med Method Direct" width="2172" height="724" loading="lazy">
+        </a>
+        <p>A store preview of everyday vitamins and supplements. Sample products, sample pricing — curated around everyday nutrition, midlife wellness, and healthy aging.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="#/shop">All supplements</a></li>
+          <li><a href="#/goal/everyday">Everyday Wellness</a></li>
+          <li><a href="#/goal/weight">Weight Management Support</a></li>
+          <li><a href="#/goal/menopause">Menopause &amp; Perimenopause</a></li>
+          <li><a href="#/goal/aging">Healthy Aging &amp; Longevity</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#/" data-scrollto="about">About</a></li>
+          <li><a href="#/" data-scrollto="faq">FAQ</a></li>
+          <li><a href="#/research">Pricing Research</a></li>
+          <li><a href="#/page/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Policies</h3>
+        <ul>
+          <li><a href="#/page/shipping">Shipping<span class="draft-pill">DRAFT</span></a></li>
+          <li><a href="#/page/returns">Returns<span class="draft-pill">DRAFT</span></a></li>
+          <li><a href="#/page/privacy">Privacy<span class="draft-pill">DRAFT</span></a></li>
+          <li><a href="#/page/terms">Terms<span class="draft-pill">DRAFT</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <p><strong>Supplement disclaimer:</strong> The products shown are reference products for a store preview. These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Nothing here is medical advice — talk to your healthcare professional about supplements.</p>
+      <p>Browsing categories such as “Weight Management Support” are simple shopping filters; they do not mean a product causes any specific outcome.</p>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Med Method Direct. Store preview — sample products and pricing.</span>
+      <span>Reference products in our research are not confirmed inventory; no manufacturer partnerships are implied.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>Your Cart</h2>
+    <button class="drawer-close" id="drawerClose" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" hidden></div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" aria-hidden="true"><span id="toastText"></span><button id="toastAction" type="button">View Cart</button></div>
+
+<script>
+/* ============================================================================
+   Med Method Direct Store — central data
+   Everything editable lives here: products, prices, categories, status, config.
+   ============================================================================ */
+var STORE_CONFIG = {
+  currency: 'USD',
+  demoCheckout: true,
+  shipping: {
+    configured: false,
+    flatRateCents: 0,
+    freeOverCents: null,
+    note: 'Shipping rates, carriers, and delivery times are not set yet — pending policy until supplied.'
+  },
+  tax: {
+    configured: false,
+    rate: 0,
+    note: 'Tax collection rules are not set yet — pending configuration.'
+  },
+  discounts: {
+    codes: [],
+    note: 'No discount or coupon codes are configured yet.'
+  },
+  payment: {
+    provider: null,
+    note: 'Checkout stays in demo mode until inventory and a payment provider (e.g., Stripe) are configured. No real payments are collected.'
+  }
+};
+
+var GOALS = {
+  everyday:  { id:'everyday',  name:'Everyday Wellness',        card:'Multivitamins, minerals, and daily staples for everyday nutrition.', art:'/manus-storage/supplement-02-1652dc16a3b1_230721e8.jpg' },
+  weight:    { id:'weight',    name:'Weight Management Support',card:'Products shoppers often include in a weight-management routine.',    art:'/manus-storage/supplement-03-78f8b27aae80_18824ca0.jpg' },
+  menopause: { id:'menopause', name:'Menopause & Perimenopause',card:'Browsing picks for midlife wellness.',                                art:'/manus-storage/supplement-04-f65c07b2bda4_0a4f2125.jpg' },
+  aging:     { id:'aging',     name:'Healthy Aging & Longevity',card:'Aligned with healthy-aging routines.',                                art:'/manus-storage/supplement-05-b61d233121b1_db2c3736.jpg' }
+};
+var GOAL_FILTER_NOTE = 'Browsing categories only — not promises that products treat conditions or produce specific outcomes.';
+
+var PRODUCTS = [
+  {
+    id:'multivitamin', name:'Garden of Life Vitamin Code Women',
+    sub:'Women’s raw whole food multivitamin reference. Priced at the pictured 240-ct bottle’s observed regular price.',
+    image:'/manus-storage/supplement-06-19e9e4ae8166_3d7e887e.jpg',
+    alt:'Product photo of the Garden of Life Vitamin Code Women Raw Whole Food Multivitamin front label (240-capsule packaging of the women’s line pictured).',
+    priceCents:6089, perServingNote:'about $1.01 per serving', unit:'240 vegetarian capsules · 60 servings (4 capsules daily)',
+    goals:['everyday','menopause','aging'], status:'reference',
+    short:'A whole-food women’s multivitamin reference at $60.89 — the observed regular price of the pictured 240-capsule bottle.',
+    overview:'Garden of Life Vitamin Code Women — Raw Whole Food Multivitamin, in the pictured 240 vegetarian-capsule bottle — is shown as a big-name reference product priced at $60.89, the observed regular price of this exact SKU (vitacost.com, observed 2026-10-01). The label serving is 4 capsules daily, so the bottle holds 60 servings (per the product listing for this 240-ct SKU on iherb.com, opened 2026-10-01). Pricing is provisional pending supplier finalization, and this listing implies no partnership with Garden of Life.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'',
+    packageRows:[
+      ['Pictured SKU','Garden of Life Vitamin Code Women — Raw Whole Food Multivitamin, 240 vegetarian capsules'],
+      ['Strength','pending verification'],
+      ['Serving size','4 capsules daily (per the iherb.com listing for this 240-ct SKU, opened 2026-10-01)'],
+      ['Servings per container','60'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','pending verification'],
+      ['Price basis','Provisional — Vitamin Code Women 240 ct at $60.89 (vitacost.com, observed 2026-10-01); 60 servings verified on iherb.com (2026-10-01)']
+    ]
+  },
+  {
+    id:'vitamin-d3', name:'NOW Foods Vitamin D-3 2000 IU',
+    sub:'Big-name vitamin D reference. Priced at the pictured 120-softgel bottle’s observed regular price.',
+    image:'/manus-storage/supplement-07-1bdef5dc1370_4f1d1953.jpg',
+    alt:'Now Foods Vitamin D-3 2000 IU bottle, 120 softgels.',
+    priceCents:1147, perServingNote:'about $0.10 per softgel', unit:'120 softgels, 2000 IU each',
+    goals:['everyday','menopause','aging'], status:'reference',
+    short:'Big-name vitamin D3 2000 IU reference at $11.47, the observed regular price of the pictured 120-softgel bottle.',
+    overview:'NOW Foods High Potency Vitamin D-3 2000 IU, 120 softgels — the pictured bottle — is shown as a big-name reference product priced at $11.47, the observed regular price of this exact SKU (Macy’s marketplace, HerbsPro seller; observed 2026-10-01). One 2,000 IU softgel is the label serving, so the bottle holds 120 servings. Pricing is provisional and shipping minimums may apply; this listing implies no partnership with NOW Foods.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'',
+    packageRows:[
+      ['Pictured SKU','NOW Foods High Potency Vitamin D-3, 2000 IU — 120 softgels'],
+      ['Strength','2,000 IU per softgel (per the label)'],
+      ['Serving size','1 softgel (2,000 IU)'],
+      ['Servings per container','120'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','pending verification'],
+      ['Price basis','Provisional — Vitamin D-3 2000 IU, 120 softgels at $11.47 (Macy’s marketplace, HerbsPro, observed 2026-10-01)']
+    ]
+  },
+  {
+    id:'fiber', name:'Metamucil 4-in-1 Psyllium Fiber (Sugar Free Powder)',
+    sub:'Sugar-free psyllium reference — Orange Smooth 180-teaspoon canister, priced at the pictured SKU’s regular market price.',
+    image:'/manus-storage/supplement-08-2734d1f5c101_a3e6f928.jpg',
+    alt:'Metamucil 4-in-1 MultiHealth Fiber, sugar-free powder — Orange Smooth 180-teaspoon canister pictured.',
+    priceCents:3499, perServingNote:'about $0.19 per teaspoon', unit:'180 teaspoons · 38.8 oz sugar-free powder',
+    goals:['everyday','weight'], status:'reference',
+    short:'Big-name sugar-free psyllium reference at $34.99 — the regular market price of the pictured 180-teaspoon Orange Smooth canister.',
+    overview:'Metamucil 4-in-1 MultiHealth Fiber, Sugar-Free, Orange Smooth — the pictured 180-teaspoon canister — is shown as a big-name reference product priced at $34.99, the regular market price of this exact SKU (Amazon one-time offer $34.97 recorded 2026-04-11; list price $34.99 at camelcamelcamel 2026-10-01 — re-verify before launch). The canister holds 180 teaspoons; package directions vary here by goal (1–2 rounded teaspoons up to a few times daily), so no single per-serving count is shown — only per-teaspoon math (about $0.19 per teaspoon). Pricing is provisional pending supplier finalization, and this listing implies no partnership with Metamucil.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'Take fiber with plenty of water, and talk to your healthcare professional before starting, especially if you take medication or manage a digestive condition. The final label will carry exact directions.',
+    packageRows:[
+      ['Pictured SKU','Metamucil 4-in-1 MultiHealth Fiber, Sugar-Free Powder — Orange Smooth, 180 teaspoons (38.8 oz)'],
+      ['Strength','pending verification'],
+      ['Serving size','1–2 rounded teaspoons (varies by goal; per package directions)'],
+      ['Servings per container','pending verification (no single serving count — label doses by teaspoon: 180 included)'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','pending verification'],
+      ['Price basis','Provisional — 180-tsp Orange Smooth SKU at $34.99 (Amazon one-time offer $34.97 recorded 2026-04-11; list $34.99, camelcamelcamel 2026-10-01 — re-verify before launch; about $0.19 per teaspoon)']
+    ]
+  },
+  {
+    id:'protein', name:'Optimum Nutrition Gold Standard 100% Whey (French Vanilla Crème)',
+    sub:'Whey protein reference. Priced at the pictured 2 lb tub’s observed market price.',
+    image:'/manus-storage/supplement-09-b98a8f036f2b_aae569c9.jpg',
+    alt:'Optimum Nutrition Gold Standard 100% Whey, French Vanilla Crème, 2 lb tub (29 servings).',
+    priceCents:5489, perServingNote:'about $1.89 per serving', unit:'2 lb (907 g) · 29 servings · 24 g protein per serving',
+    goals:['weight','everyday','aging'], status:'reference',
+    short:'Big-name vanilla whey reference at $54.89, the observed market price of the pictured 2 lb French Vanilla Crème tub.',
+    overview:'Optimum Nutrition Gold Standard 100% Whey, French Vanilla Crème — the pictured 2 lb (907 g), 29-serving tub — is shown as a big-name reference product priced at $54.89, the observed market price for this exact SKU (goodsandnaturals.com, retailer listing crawl 2026-09-26). Pricing is provisional pending supplier finalization, and this listing implies no partnership with Optimum Nutrition.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'',
+    packageRows:[
+      ['Pictured SKU','Optimum Nutrition Gold Standard 100% Whey (French Vanilla Crème) — 2 lb (907 g), 29 servings'],
+      ['Strength','24 g protein per serving (per the front label)'],
+      ['Serving size','pending verification'],
+      ['Servings per container','29 (per front-of-pack label)'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','pending verification'],
+      ['Price basis','Provisional — Gold Standard 100% Whey 2 lb (French Vanilla Crème) at $54.89 (goodsandnaturals.com, listing crawl 2026-09-26)']
+    ]
+  },
+  {
+    id:'creatine', name:'Thorne Creatine (Unflavored)',
+    sub:'Micronized creatine reference. Priced at the pictured 16 oz jar’s observed regular price.',
+    image:'/manus-storage/supplement-10-68eb61378fd3_5ac4e3a4.jpg',
+    alt:'Thorne Creatine unflavored powder in a 16 oz jar.',
+    priceCents:4400, perServingNote:'about $0.49 per serving', unit:'16 oz (450 g) · 90 servings',
+    goals:['aging','weight'], status:'reference',
+    short:'Big-name micronized creatine reference at $44.00, the observed regular price of the pictured 16 oz Thorne jar.',
+    overview:'Thorne Creatine (unflavored), micronized powder in the pictured 16 oz (450 g) jar — is shown as a big-name reference product priced at $44.00, the observed regular price of this exact SKU on the manufacturer’s own site (thorne.com, crawl 2026-09-28; NSF Certified for Sport; subscribe option up to 20% off). Pricing is provisional pending supplier finalization, and this listing implies no partnership with Thorne.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'Talk to your healthcare professional before starting creatine, especially if you manage kidney concerns or take medication.',
+    packageRows:[
+      ['Pictured SKU','Thorne Creatine (unflavored, micronized powder) — 16 oz (450 g)'],
+      ['Strength','5 g creatine monohydrate per serving (thorne.com, opened 2026-10-01)'],
+      ['Serving size','1 scoop (per thorne.com, opened 2026-10-01)'],
+      ['Servings per container','90'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','NSF Certified for Sport (per brand listing)'],
+      ['Price basis','Provisional — Thorne Creatine 16 oz at $44.00 (thorne.com, opened 2026-10-01)']
+    ]
+  },
+  {
+    id:'collagen', name:'Vital Proteins Collagen Peptides (Unflavored)',
+    sub:'Unflavored collagen reference. Priced at the pictured 20 oz canister’s observed regular price.',
+    image:'/manus-storage/supplement-11-20d81ccfdb18_c09b705b.jpg',
+    alt:'Vital Proteins Collagen Peptides, unflavored, 20 oz canister.',
+    priceCents:4799, perServingNote:'about $1.71 per serving', unit:'20 oz (567 g) · 28 servings · 20 g collagen per serving',
+    goals:['aging','menopause'], status:'reference',
+    short:'Big-name unflavored collagen reference at $47.99, the observed regular price of the pictured 20 oz canister.',
+    overview:'Vital Proteins Collagen Peptides, unflavored — the pictured 20 oz (567 g) canister, 20 g collagen per serving — is shown as a big-name reference product priced at $47.99, the observed regular price of this exact SKU (qfc.com, UPC 0085023200508, $2.40/oz, observed 2026-10-01). 28 servings per canister per the retailer product listing for this SKU. Pricing is provisional pending supplier finalization, and this listing implies no partnership with Vital Proteins.',
+    ingredients:'pending verification — the full ingredient list and Supplement Facts panel will appear here once the formula and supplier are finalized.',
+    directions:'pending verification — usage directions will follow the final package label once it is finalized.',
+    considerations:'',
+    packageRows:[
+      ['Pictured SKU','Vital Proteins Collagen Peptides (unflavored) — 20 oz (567 g)'],
+      ['Strength','20 g collagen per serving (per the front label)'],
+      ['Serving size','1 scoop (front-of-pack: 20 g collagen per serving)'],
+      ['Servings per container','28 (per retailer listing for this SKU)'],
+      ['Other ingredients','pending verification'],
+      ['Certifications','pending verification'],
+      ['Price basis','Provisional — Collagen Peptides 20 oz at $47.99 (qfc.com, UPC 0085023200508, observed 2026-10-01)']
+    ]
+  }
+];
+
+var CONSIDERATIONS_STD = 'Supplements aren\u2019t suitable for everyone. Talk to your healthcare professional before starting any supplement — especially if you are pregnant, nursing, taking medication, or managing a health condition. These products are not intended to diagnose, treat, cure, or prevent any disease.';
+
+var FAQS = [
+  { q:'Where do I find ingredients and directions?', a:'Each product page has Overview, Ingredients, Directions, and Considerations sections. Because this is a store preview, the ingredients and directions are marked pending — the full Supplement Facts panel and usage directions will appear here and on the product packaging once products and suppliers are confirmed.' },
+  { q:'How is supplement shopping different from medical care?', a:'Buying vitamins is not medical care. This store does not provide clinical assessments, prescriptions, or physician supervision. Insurance-free clinic services at Med Method Direct are separate — starting a supplement here does not create a doctor\u2013patient relationship. When in doubt about a supplement, talk to your own healthcare professional.' },
+  { q:'What are the shipping arrangements?', a:'Shipping options, rates, and delivery times have not been set yet and are marked pending until supplied. The checkout shows no shipping charges while it is in demo mode. Before launch, the final shipping policy will be published on the Shipping page.' },
+  { q:'What is the returns policy?', a:'The returns policy is a draft pending review. Final terms — including the return window, condition of goods accepted, and how refunds are issued — will be published on the Returns page before the store accepts real orders.' },
+  { q:'How can I ask a product question?', a:'The Contact page is where we\u2019ll list product-support details; they\u2019re pending while the store is in preview. If you have questions about the preview itself, use the Contact page\u2019s listed company contact once it\u2019s published — we\u2019ll keep it updated.' }
+];
+
+/* ---------------- Pricing research (2026-10-01) — provisional ---------------- */
+var RESEARCH = {
+  date:'2026-10-01',
+  market:'US',
+  method:'Quick fair-price check per product — 2–4 comparable products observed on manufacturer websites and reputable retailers via browser search and live page opens on 2026-10-01. All prices and URLs are actually observed; nothing is invented. Amazon prices are flagged where they come from search snippets rather than live page fetches (Amazon pages rendered "No featured offers available" to the research browser on 2026-10-01). Unverified items are labeled. A 2026-10-01 exact-SKU audit re-verified every featured price against the exact branded SKU pictured for each product — each price basis now names the pictured SKU, its source, and the observation date.',
+  note:'Profitability still needs to be checked once supplier costs, fulfillment, shipping, and payment fees are known. Snippet-based prices (notably Amazon) should be re-verified on live product pages before prices go live.',
+  imageStatus:'All products show real branded product photos found via public image search. Each has been trimmed, set on the same studio-style backdrop, and given a soft shadow; no product pixels were altered or generated. Reuse permission is unconfirmed for every photo — written permission (or a licensed replacement) is required before launch. Each photo\u2019s source is recorded per product below.',
+  summary:[
+    {'n':'Garden of Life — Vitamin Code Women Raw Whole Food Multivitamin (240 ct)', 'p':'$60.89', 'pkg':'240 vegetarian capsules, 60 servings', 's':'~$1.01'},
+    {'n':'NOW Foods — Vitamin D-3 2000 IU (120 ct)', 'p':'$11.47', 'pkg':'120 softgels', 's':'~$0.10'},
+    {'n':'Metamucil — 4-in-1 Psyllium Fiber, Sugar-Free Orange Smooth', 'p':'$34.99', 'pkg':'180 teaspoons · ~$0.19 per teaspoon', 's':'pending verification'},
+    {'n':'Optimum Nutrition — Gold Standard 100% Whey, French Vanilla Crème', 'p':'$54.89', 'pkg':'2 lb, 29 servings', 's':'~$1.89'},
+    {'n':'Thorne — Creatine, unflavored', 'p':'$44.00', 'pkg':'16 oz (450 g), 90 servings', 's':'~$0.49'},
+    {'n':'Vital Proteins — Collagen Peptides, unflavored', 'p':'$47.99', 'pkg':'20 oz, 28 servings', 's':'~$1.71'}
+  ],
+  items:[
+    { key:'multivitamin', title:'Garden of Life — Vitamin Code Women Raw Whole Food Multivitamin (women’s multi)', price:'$60.89', assumed:'Garden of Life Vitamin Code Women — Raw Whole Food Multivitamin, 240 vegetarian capsules (60 servings)', range:'Exact-SKU regular price: $60.89 (vitacost.com, observed 2026-10-01)',
+      image:'Garden of Life Vitamin Code Women Raw Whole Food Multivitamin, 240 vegetarian capsules — front label shown — source: vitaliving.com image search (replaced amateur photo 2026-10-01); reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $60.89 is the 240-count variant price on vitacost.com (page opened live 2026-10-01); the 60-serving count (4 capsules daily) is verified on the product listing for this 240-ct SKU on iherb.com (page opened live 2026-10-01). The earlier researched 120-ct SKU ($34.29, Amazon snippet) does not match the pictured bottle and is superseded.',
+      comps:[
+        {name:"Thorne — Women\u2019s Multi 50+", pkg:'Capsules, 180 ct · serving = 6 caps', servings:'30', price:'$56.00', per:'$1.87', url:"https://www.thorne.com/products/by-health-need/women's-health", note:'Premium clinical tier; subscription/promo terms not observed.'},
+        {name:'Garden of Life — Vitamin Code Whole Food Multivitamin for Women', pkg:'Capsules, 120 ct · serving = 4 caps', servings:'30', price:'$34.29', per:'$1.14', url:'https://www.amazon.com/dp/B00280M13Y/ref=cm_sw_r_apin_dp_F2D3MRTQTHN1DZ76CS0K_1', note:'Search-snippet price (not live-verified); 15% Subscribe & Save → $29.15.'},
+        {name:'NOW Foods — Eve Women\u2019s Multiple Vitamin Tablets', pkg:'Tablets, 90 ct · serving = 3 tabs', servings:'30', price:'$26.24 sale (reg $34.99)', per:'$0.87 sale / $1.17 reg', url:'https://www.nowfoods.com/products/supplements/eve-womens-multiple-vitamin-tablets?bvstate=pg%3A2%2Fct%3Ar', note:'Value brand; sale price observed on manufacturer site.'}
+      ]},
+    { key:'vitamin-d3', title:'NOW Foods — Vitamin D-3 2000 IU', price:'$11.47', assumed:'NOW Foods High Potency Vitamin D-3, 2000 IU — 120 softgels', range:'Exact-SKU regular price: $11.47 (Macy’s marketplace, HerbsPro, observed 2026-10-01)',
+      image:'NOW Foods Vitamin D-3 2000 IU, 120 softgels — source: nutricity.id image search; reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $11.47 for the 120-softgel 2000 IU bottle (Macy’s marketplace, HerbsPro seller; page opened live 2026-10-01). Shipping minimums apply.',
+      comps:[
+        {name:'NOW Foods — Vitamin D-3 2000 IU', pkg:'Softgels, 120 ct', servings:'120', price:'$11.47', per:'$0.10', url:'https://www.macys.com/shop/product/now-foods-vitamin-d-3-2000-iu-120-softgels?id=24323452', note:'Macy\u2019s marketplace listing (HerbsPro seller); shipping minimums apply.'},
+        {name:'Nature Made — Vitamin D3 2000 IU (50 mcg)', pkg:'Softgels, 90 ct', servings:'90', price:'$10.99', per:'$0.12', url:'https://www.amazon.com/dp/B002QO00YO/ref=sr_1_10', note:'Search-snippet price, corroborated by naturemade.com variant listing.'},
+        {name:'Nature Made — Vitamin D3 2000 IU (50 mcg)', pkg:'Softgels, 90 ct', servings:'90', price:'$11.19', per:'$0.12', url:'https://www.vitacost.com/nature-made-d3-1000-iu-300-softgels', note:'Vitacost variant table price.'}
+      ]},
+    { key:'fiber', title:'Metamucil — 4-in-1 Psyllium Fiber, Sugar Free Powder', price:'$34.99', assumed:'Metamucil 4-in-1 MultiHealth Fiber, Sugar-Free Powder — Orange Smooth, 180 teaspoons (38.8 oz)', range:'Exact-SKU regular market price: $34.99 (Amazon one-time offer $34.97 recorded 2026-04-11; list $34.99, camelcamelcamel, scan 2026-10-01)',
+      image:'Metamucil 4-in-1 MultiHealth Fiber, Sugar-Free Powder — Orange Smooth 180-teaspoon canister shown; source: bigcommerce retail image search; reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $34.99 regular market price for the 180-teaspoon Orange Smooth SKU (Amazon one-time featured offer $34.97, crawl recorded 2026-04-11; list price $34.99 at camelcamelcamel, UPC 767674178465 / model 037000741367, scan 2026-10-01 — observed/list data, re-verify on the live page before launch). The label doses 1–2 rounded teaspoons by goal, so no single serving count is shown; the rate shown is per-teaspoon (about $0.19 each across 180 teaspoons).',
+      comps:[
+        {name:'Metamucil — 4-in-1 Psyllium Fiber, Sugar Free Powder (Unflavored)', pkg:'Powder, 23.3 oz', servings:'114', price:'$40.80', per:'$0.358', url:'https://www.amazon.com/dp/B001G7QSWK/ref=cm_sw_r_fa_ud_dp_E3RHJ9WKJGNMRA98ACBE', note:'Page opened live 2026-10-01; branded premium.'},
+        {name:'Benefiber — Daily Prebiotic Fiber Powder (Unflavored)', pkg:'Powder, 8.7 oz', servings:'62', price:'$13.48', per:'$0.217', url:'https://www.amazon.com/dp/B01978FIZC/ref=sr_1_5_s_it', note:'Amazon search-snippet price; fresher King Soopers observation $16.29 (9-day-old crawl) — regular price unverified.'},
+        {name:'NOW Foods — Psyllium Husk Powder', pkg:'Powder, 12 oz (340 g)', servings:'~38', price:'$15.49', per:'$0.408', url:'https://locatelonline.com/products/now-psyllium-husk-powder-12-oz', note:'Page opened live 2026-10-01.'}
+      ]},
+    { key:'protein', title:'Optimum Nutrition — Gold Standard 100% Whey (French Vanilla Cr\u00e8me)', price:'$54.89', assumed:'Optimum Nutrition Gold Standard 100% Whey (French Vanilla Crème) — 2 lb (907 g), 29 servings', range:'Exact-SKU market price: $54.89 (goodsandnaturals.com, listing crawl 2026-09-26)',
+      image:'Optimum Nutrition Gold Standard 100% Whey, French Vanilla Cr\u00e8me, 2 lb — source: shopee.sg image search; reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $54.89 for the 2 lb French Vanilla Crème tub (goodsandnaturals.com, retailer listing crawl 2026-09-26); cross-reference: Vitamin Shoppe 2 lb Gold Standard 100% Whey $69.99 (crawl 2026-09-23), Amazon manufacturer list price $49.99 (crawl ~5 months old). The researched $44.99 was a below-market interpolation that is superseded.',
+      comps:[
+        {name:'Optimum Nutrition — Gold Standard 100% Whey (French Vanilla Cr\u00e8me)', pkg:'Powder, 2 lb (907 g)', servings:'29', price:'$54.89', per:'$1.893', url:'https://goodsandnaturals.com/optimum-nutrition-gold-standard-100-whey-french-vanilla-creme-2-lb-907-g/', note:'Retailer crawl 5 days old — not live-verified on the research date.'},
+        {name:'Orgain — Organic Plant-Based Protein (Sweet Vanilla Bean)', pkg:'Powder, 2.03 lb (920 g)', servings:'20', price:'$49.95 (MSRP $57.39)', per:'$2.498', url:'https://www.intohealth.com/orgain-organic-protein-powder-plant-based-sweet-vanilla-bean-2-03-lb/', note:'Page opened live 2026-10-01, in stock.'},
+        {name:'Garden of Life — Raw Organic Protein & Greens (Vanilla)', pkg:'Powder, 19.4 oz (548 g)', servings:'20', price:'$36.99', per:'$1.850', url:'https://www.swansonvitamins.com/p/garden-of-life-raw-protein-greens-vanilla-19-3-oz-548-grams-pwdr?DFA=1&utm_source=bing&utm_medium=shoppingads&utm_campaign=shopping+smart+protein+fitness&SourceCode=INTL41CWB&gclid=c1c8b2d9eb131ba76455d48719ae4742&gclsrc=3p.ds&msclkid=c1c8b2d9eb131ba76455d48719ae4742', note:'Page opened live 2026-10-01.'}
+      ]},
+    { key:'creatine', title:'Thorne — Creatine (unflavored)', price:'$44.00', assumed:'Thorne Creatine (unflavored) — 16 oz (450 g), 90 servings', range:'Exact-SKU regular price: $44.00 (thorne.com, crawl 2026-09-28; subscribe up to 20% off)',
+      image:'Thorne Creatine (unflavored), 16 oz — source: re-sourced 2026-10-01 to a front-label studio render via image search (anewearth.net); reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $44.00 for the 16 oz jar on the manufacturer’s own site (thorne.com, page opened live 2026-10-01 — serving size 1 scoop, 90 servings per jar, 5 g creatine monohydrate per serving). NSF Certified for Sport; subscribe up to 20% off.',
+      comps:[
+        {name:'Thorne — Creatine (unflavored)', pkg:'Micronized powder, 16 oz (462 g)', servings:'90', price:'$44.00', per:'$0.49', url:'https://thorne.com/products/dp/creatine', note:'Crawl ~3 days old; subscribe up to 20% off; NSF Certified for Sport.'},
+        {name:'Momentous — Creatine Monohydrate Powder', pkg:'Ultrafine micronized powder, 450 g', servings:'90', price:'$42.99', per:'$0.48', url:'https://livemomentous.com/products/creatine-monohydrate', note:'Page opened live 2026-10-01; subscribe 25% off → $32.24; NSF Certified for Sport; free US shipping $99+.'},
+        {name:'Optimum Nutrition — Micronized Creatine Monohydrate', flag:'UNVERIFIED', pkg:'Powder, 300 g', servings:'60', price:'$17.95', per:'$0.30', url:'https://www.amazon.com/dp/B002DYIZEE/ref=cm_sw_r_cso_fm_apin_dp_D61D0PXRF19PAH5D4TPA', note:'Amazon featured-offer snapshot, crawl ~213–295 days old — not live-verified on the research date.'}
+      ]},
+    { key:'collagen', title:'Vital Proteins — Collagen Peptides (Unflavored)', price:'$47.99', assumed:'Vital Proteins Collagen Peptides (unflavored) — 20 oz (567 g), 28 servings', range:'Exact-SKU regular price: $47.99 (qfc.com, UPC 0085023200508, observed 2026-10-01)',
+      image:'Vital Proteins Collagen Peptides, unflavored, 20 oz — source: momsoftweensandteens.com image search; reuse permission unconfirmed.',
+      rationale:'Exact-SKU price basis: $47.99 for the 20 oz canister (qfc.com, UPC 0085023200508, $2.40/oz, page opened live 2026-10-01); 28 servings per canister per the retailer product listing for this SKU. The researched $44.99 assumed the 19.3 oz SKU ($45.00, vitalproteins.com) and is superseded.',
+      comps:[
+        {name:'Vital Proteins — Collagen Peptides (unflavored)', pkg:'Powder, 19.3 oz', servings:'28', price:'$45.00', per:'$1.61', url:'https://www.vitalproteins.com/products/vp-collagen-peptides', note:'Page opened live 2026-10-01; Subscribe & Save 15% off; free shipping $50+.'},
+        {name:'Momentous — Grass-Fed Collagen Peptides (+FORTIGEL + Vitamin C)', pkg:'Powder, 30-serving jar', servings:'30', price:'$54.99', per:'$1.83', url:'https://livemomentous.com/products/collagen-peptides', note:'Search snapshot ~3-day crawl; subscribe 25% off → $41.24; NSF Certified for Sport.'},
+        {name:'Thorne — Collagen Plus (unflavored; adds nicotinamide riboside)', pkg:'Powder, 17.8 oz', servings:'30', price:'$56.00', per:'$1.87', url:'https://www.thorne.com/products/set/collagen', note:'Premium-featured comparable; NSF Certified for Sport.'}
+      ]}
+  ],
+  beforeRealOrders:[
+    '<strong>Inventory & suppliers:</strong> no inventory, suppliers, or packaging are finalized. Reference products above are for pricing context only — they are not confirmed inventory and no manufacturer partnerships are implied.',
+    '<strong>Approved images:</strong> all products use real branded product photos sourced from public image search; reuse permission is unconfirmed and must be cleared in writing (or the photos replaced with licensed ones) before launch.',
+    '<strong>Supplier costs:</strong> these are fair-market <em>retail</em> prices. Profitability needs to be checked once supplier costs, fulfillment, shipping, and payment fees are known.',
+    '<strong>Policies:</strong> shipping, returns, privacy, and terms pages are drafts — marked pending until supplied.',
+    '<strong>Payment configuration:</strong> checkout must stay in clearly labeled demo mode until inventory and a payment provider are configured. No real payments may be collected.',
+    '<strong>Price re-verification:</strong> snippet-based prices (notably Amazon) should be re-verified on live product pages before prices go live.'
+  ]
+};
+
+/* ---------------- Policy / info pages (drafts — pending review) ---------------- */
+var POLICIES = {
+  shipping:{ title:'Shipping', draft:true, body:
+    '<p class="muted">This page is a draft for review — the shipping policy is <strong>pending until supplied</strong>. Before the store can accept real orders, the following need to be decided and published here:</p>'+
+    '<ul><li>Shipping methods offered (standard, expedited, etc.) and the carriers used</li><li>Rates per method, order-weight or value thresholds, and any free-shipping qualifying amount</li><li>Delivery time estimates and the territories served</li><li>Order processing time and cut-off times</li><li>How shipping issues (delays, lost packages, damaged goods) are handled</li></ul>'+
+    '<p class="muted">While the store is in preview and checkout is in demo mode, no shipping charges are collected and nothing is shipped.</p>' },
+  returns:{ title:'Returns', draft:true, body:
+    '<p class="muted">This page is a draft for review — the returns policy is <strong>pending until supplied</strong>. Before the store can accept real orders, the following need to be decided and published here:</p>'+
+    '<ul><li>The return window and eligibility (opened vs. unopened items)</li><li>Who pays for return shipping and whether restocking fees apply</li><li>How and when refunds are issued</li><li>Cancellations, substitutions, and damaged-on-arrival claims</li><li>The returns support contact</li></ul>'+
+    '<p class="muted">While the store is in preview and checkout is in demo mode, no real orders are placed, so no returns need to be processed.</p>' },
+  privacy:{ title:'Privacy', draft:true, body:
+    '<p class="muted">This page is a draft for review — a final privacy policy is <strong>pending until supplied</strong> and should be reviewed by counsel before launch.</p>'+
+    '<p class="muted">Before accepting real orders, this page needs to explain what shopper information is collected (contact, shipping, payment, and browsing data), how it is used, how long it is kept, who it is shared with (fulfillment, payment processing, analytics), cookies and tracking, and how shoppers can request access, correction, or deletion of their information.</p>'+
+    '<p class="muted">During this preview: the demo checkout does not transmit any personal or payment information anywhere. Your cart is kept in your own browser on this device only.</p>' },
+  terms:{ title:'Terms', draft:true, body:
+    '<p class="muted">This page is a draft for review — final terms of service are <strong>pending until supplied</strong> and should be reviewed by counsel before launch.</p>'+
+    '<p class="muted">Before accepting real orders, these terms need to cover: who can purchase (age and territory limits), order acceptance and pricing, payment terms, shipping and returns by reference, acceptable use, product disclaimers (these vitamins and supplements are not intended to diagnose, treat, cure, or prevent any disease), limitation of liability, dispute resolution, and how terms changes are communicated.</p>'+
+    '<p class="muted">While the store is in preview, nothing on this site constitutes an offer of sale — products and prices are samples only.</p>' },
+  contact:{ title:'Contact', draft:false, body:
+    '<p>Have a question about the store or its products? We\u2019ll publish our product-support email, phone, and mailing address here before launch.</p>'+
+    '<div class="def-list">'+
+    '<div class="def-row"><dt>Product support email</dt><dd><em class="pending">Pending — to be supplied</em></dd></div>'+
+    '<div class="def-row"><dt>Phone</dt><dd><em class="pending">Pending — to be supplied</em></dd></div>'+
+    '<div class="def-row"><dt>Mailing address</dt><dd><em class="pending">Pending — to be supplied</em></dd></div>'+
+    '<div class="def-row"><dt>Company site</dt><dd><a href="https://medmethoddirect.com" target="_blank" rel="noopener">medmethoddirect.com</a></dd></div>'+
+    '</div>'+
+    '<p class="muted" style="margin-top:1.2rem">For medical questions, please contact your own healthcare professional or the Med Method Direct clinic through our main site — supplement shopping is separate from medical care.</p>' }
+};
+/* ============================================================================
+   Engine — cart, routing, views
+   ============================================================================ */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function money(cents){return '$'+(cents/100).toFixed(2);}
+function productById(id){for(var i=0;i<PRODUCTS.length;i++)if(PRODUCTS[i].id===id)return PRODUCTS[i];return null;}
+function productsForGoal(g){return PRODUCTS.filter(function(p){return p.goals.indexOf(g)>-1;});}
+function goalName(id){return GOALS[id]?GOALS[id].name:id;}
+function $(sel){return document.querySelector(sel);}
+var app=$('#app');
+
+/* ---------------- Cart ---------------- */
+var cart={};
+function loadCart(){try{var raw=localStorage.getItem('mmd_cart_v1');if(!raw)return;var d=JSON.parse(raw);for(var k in d){var p=productById(k);var q=parseInt(d[k],10);if(p&&q>0)cart[k]=Math.min(99,q);}}catch(e){}}
+function saveCart(){try{localStorage.setItem('mmd_cart_v1',JSON.stringify(cart));}catch(e){}}
+function cartCount(){var n=0;for(var k in cart)n+=cart[k];return n;}
+function cartSubtotal(){var s=0;for(var k in cart){var p=productById(k);if(p)s+=p.priceCents*cart[k];}return s;}
+function setQty(id,qty){qty=Math.max(0,Math.min(99,qty|0));if(qty===0)delete cart[id];else cart[id]=qty;saveCart();renderCart();}
+function addToCart(id,qty){qty=Math.max(1,Math.min(99,qty||1));cart[id]=Math.min(99,(cart[id]||0)+qty);saveCart();renderCart(true);
+  var p=productById(id);showToast(p?('Added to cart — '+p.name):'Added to cart');}
+
+function renderCart(bump){
+  var body=$('#drawerBody'),foot=$('#drawerFoot'),count=cartCount();
+  var badge=$('#cartCount');badge.textContent=count;badge.style.display=count?'':'none';
+  $('#cartBtn').setAttribute('aria-label','Open shopping cart, '+count+' item'+(count===1?'':'s'));
+  if(bump){badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');}
+  var ids=Object.keys(cart);
+  if(!ids.length){
+    body.innerHTML='<div class="drawer-empty"><h3 style="margin:0 0 .3rem">Your cart is empty</h3><p>Explore our curated supplement range.</p><a href="#/shop" class="btn btn-primary" data-close-drawer>Shop Supplements</a></div>';
+    foot.hidden=true;return;
+  }
+  body.innerHTML=ids.map(function(id){
+    var p=productById(id),q=cart[id];
+    return '<div class="cart-item">'+
+      '<a href="#/product/'+id+'" data-close-drawer><img src="'+esc(p.image)+'" alt="'+esc(p.alt)+'" width="152" height="152" loading="lazy"></a>'+
+      '<div><p class="ci-name"><a href="#/product/'+id+'" data-close-drawer>'+esc(p.name)+'</a></p>'+
+      '<p class="ci-unit">'+esc(p.unit)+'</p>'+
+      '<div class="ci-row"><span class="qty-mini" role="group" aria-label="Quantity for '+esc(p.name)+'">'+
+      '<button type="button" data-dec="'+id+'" aria-label="Decrease quantity">−</button><output>'+q+'</output><button type="button" data-inc="'+id+'" aria-label="Increase quantity">+</button></span>'+
+      '<span class="ci-price">'+money(p.priceCents*q)+'</span></div>'+
+      '<button type="button" class="ci-remove" data-rem="'+id+'">Remove</button></div></div>';
+  }).join('');
+  foot.hidden=false;
+  foot.innerHTML='<div class="tot-row"><span>Subtotal</span><span>'+money(cartSubtotal())+'</span></div>'+
+    '<div class="tot-row"><span>Shipping</span><span>Pending policy</span></div>'+
+    '<div class="tot-row"><span>Taxes</span><span>Pending policy</span></div>'+
+    '<div class="tot-row grand"><span>Total</span><span>'+money(cartSubtotal())+'</span></div>'+
+    '<a href="#/checkout" class="btn btn-primary btn-block" data-close-drawer>Checkout</a>'+
+    '<p class="tot-note">Demo checkout — no real payment will be collected.</p>';
+}
+/* Drawer */
+var lastFocus=null;
+function openDrawer(){lastFocus=document.activeElement;var d=$('#cartDrawer');d.setAttribute('aria-hidden','false');d.classList.add('show');$('#drawerOverlay').classList.add('show');document.body.classList.add('locked');$('#drawerClose').focus();}
+function closeDrawer(){var d=$('#cartDrawer');if(!d.classList.contains('show'))return;d.classList.remove('show');$('#drawerOverlay').classList.remove('show');document.body.classList.remove('locked');d.setAttribute('aria-hidden','true');if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+/* Toast */
+var toastT=null;
+function showToast(text){$('#toastText').textContent=text;var t=$('#toast');t.setAttribute('aria-hidden','false');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(hideToast,3600);}
+function hideToast(){var t=$('#toast');t.classList.remove('show');t.setAttribute('aria-hidden','true');}
+
+/* ---------------- Shared renderers ---------------- */
+function badgeRef(intro){return '<span class="badge badge-ref"><span class="dot"></span>'+(intro||'Reference')+'</span>';}
+function imgPlate(name){return '<div class="img-plate" aria-hidden="true"><p class="ip-name">'+esc(name)+'</p><span class="ip-con">Reference photo &middot; provisional price</span></div>';}
+function productCard(p){
+  return '<article class="p-card">'+
+    '<div class="p-media"><a href="#/product/'+p.id+'" aria-label="View '+esc(p.name)+'">'+
+    '<img src="'+esc(p.image)+'" alt="'+esc(p.alt)+'" width="800" height="800"></a>'+imgPlate(p.name)+'</div>'+
+    '<div class="p-body"><h3 class="p-name"><a href="#/product/'+p.id+'">'+esc(p.name)+'</a></h3>'+
+    '<p class="p-desc">'+esc(p.short)+'</p>'+
+    '<p class="p-unit">'+esc(p.unit)+'</p>'+
+    '<div class="p-price-row"><span class="p-price">'+money(p.priceCents)+'</span><span class="p-per">'+esc(p.perServingNote)+'</span></div>'+
+    '<div class="p-actions"><button type="button" class="btn btn-primary" data-add="'+p.id+'">Add to Cart</button>'+
+    '<a href="#/product/'+p.id+'" class="btn btn-outline">View Product</a></div></div></article>';
+}
+function gridFor(list){return '<div class="product-grid">'+list.map(productCard).join('')+'</div>';}
+function sortProducts(list,sort){
+  var l=list.slice();
+  if(sort==='price-asc')l.sort(function(a,b){return a.priceCents-b.priceCents;});
+  else if(sort==='price-desc')l.sort(function(a,b){return b.priceCents-a.priceCents;});
+  else if(sort==='name')l.sort(function(a,b){return a.name<b.name?-1:1;});
+  return l;
+}
+function chipsRow(active,ctx){
+  var chips=[{id:'all',name:'All products'}].concat(Object.keys(GOALS).map(function(k){return{id:k,name:GOALS[k].name};}));
+  return chips.map(function(c){return '<button type="button" class="chip" data-filter="'+ctx+':'+c.id+'" aria-pressed="'+(active===c.id)+'">'+esc(c.name)+'</button>';}).join('');
+}
+function goalCard(g,count,alt){
+  return '<a class="goal-card'+(alt?' alt':'')+'" href="#/goal/'+g.id+'">'+
+    '<img src="'+esc(g.art)+'" alt="" aria-hidden="true" loading="lazy" width="800" height="800">'+
+    '<span class="gc-inner"><span class="gc-count">'+count+' products</span><h3>'+esc(g.name)+'</h3><p>'+esc(g.card)+'</p></span></a>';
+}
+
+/* ---------------- Views ---------------- */
+function viewHome(){
+  var alt=0;
+  return ''+
+  '<section class="hero"><div class="container hero-grid">'+
+    '<div class="hero-copy"><p class="eyebrow">Med Method Direct · Supplement Store</p>'+
+    '<h1>Everyday Wellness.<br>Thoughtfully Supported.</h1>'+
+    '<p>Explore <strong>six big-name supplements</strong> for everyday nutrition, midlife wellness, and healthy aging — each priced at its pictured SKU’s observed regular market price, with nothing rushed and nothing exaggerated.</p>'+
+    '<div class="hero-actions"><a href="#/shop" class="btn btn-primary">Shop Supplements</a><a href="#/goals" class="btn btn-outline">Shop by Goal</a></div>'+
+    '<p class="hero-note">Store preview — sample products and pricing. <a href="#/research">See the pricing research</a>.</p></div>'+
+    '<div class="hero-art" aria-label="Product photos of three featured supplements">'+
+      '<div class="hero-wash"></div>'+
+      '<div class="hero-card main"><img src="/manus-storage/supplement-06-19e9e4ae8166_3d7e887e.jpg" alt="Garden of Life Vitamin Code Women front label" width="680" height="680"></div>'+
+      '<div class="hero-card b"><img src="/manus-storage/supplement-07-1bdef5dc1370_4f1d1953.jpg" alt="NOW Foods Vitamin D-3 2000 IU bottle" width="480" height="480" loading="lazy"></div>'+
+      '<div class="hero-card c"><img src="/manus-storage/supplement-09-b98a8f036f2b_aae569c9.jpg" alt="Optimum Nutrition Gold Standard 100% Whey, French Vanilla Cr\u00e8me" width="400" height="400" loading="lazy"></div>'+
+    '</div></div></section>'+
+
+  '<section class="section band" id="goals" aria-labelledby="goalsT"><div class="container">'+
+    '<p class="eyebrow">Shop by Goal</p><h2 class="section-title" id="goalsT">Browse by what you\'re shopping for</h2>'+
+    '<p class="section-sub">Four simple browsing categories across our six featured brands. These are shopping filters — not promises that products treat conditions or produce specific outcomes.</p>'+
+    '<div class="goal-grid">'+Object.keys(GOALS).map(function(k){var c=productsForGoal(k).length;var s=goalCard(GOALS[k],c,alt++%2===1);return s;}).join('')+'</div>'+
+    '<p class="goal-disclaimer">'+esc(GOAL_FILTER_NOTE)+'</p>'+
+  '</div></section>'+
+
+  '<section class="section" id="featured" aria-labelledby="featT"><div class="container">'+
+    '<p class="eyebrow">Featured Products</p><h2 class="section-title" id="featT">Our six featured brands</h2>'+
+    '<p class="section-sub">Each one carries a provisional price set on 2026-10-01 to its pictured SKU’s observed regular price — never a different package size or an assumed one. Full pricing context lives in our <a href="#/research">pricing research</a> review table.</p>'+
+    '<div class="chip-row" role="group" aria-label="Filter featured products">'+chipsRow(homeFilter,'home')+'</div>'+
+    '<div id="homeGrid">'+gridFor(filteredHomeList())+'</div>'+
+  '</div></section>'+
+
+  '<section class="section band" id="about" aria-labelledby="aboutT"><div class="container about-grid">'+
+    '<div><p class="eyebrow">About Med Method Direct</p><h2 class="section-title" id="aboutT">A small store with a clear purpose</h2>'+
+    '<p class="section-sub" style="margin-bottom:0">Med Method Direct is building an online store for everyday vitamins and supplements — a curated range aligned with the brand&rsquo;s focus on everyday nutrition, midlife wellness, and healthy aging.</p></div>'+
+    '<div class="about-card"><h3>Why it says &ldquo;preview&rdquo;</h3>'+
+    '<p>Our inventory, suppliers, and packaging are <strong>not finalized</strong>. The six products shown here are <strong>big-name reference products</strong> at provisional prices tied to each pictured SKU’s observed regular market price, so you can see exactly where we&rsquo;re headed.</p>'+
+    '<p>Supplement shopping here is <strong>separate from medical appointments and prescription treatment</strong> — buying a vitamin is not medical care, and these products don&rsquo;t include physician supervision.</p>'+
+    '<p><a href="#/research" class="btn btn-outline btn-sm">Review the pricing research</a></p></div>'+
+  '</div></section>'+
+
+  '<section class="section" id="start" aria-labelledby="startT"><div class="container">'+
+    '<p class="eyebrow">Find Your Starting Point</p><h2 class="section-title" id="startT">Start where it feels right</h2>'+
+    '<p class="section-sub">Pick a browsing lane — no quiz, no health questions, no diagnosis. Just a shortcut to the categories you&rsquo;re interested in.</p>'+
+    '<div class="start-grid">'+Object.keys(GOALS).map(function(k){var g=GOALS[k];var n=productsForGoal(k).length;
+      return '<a class="start-card" href="#/goal/'+g.id+'"><span class="s-ico" aria-hidden="true">'+esc(g.name.charAt(0))+'</span>'+
+      '<span><h3>'+esc(g.name)+'</h3><p>'+n+' products · '+esc(g.card)+'</p></span><span class="s-go" aria-hidden="true">→</span></a>';}).join('')+'</div>'+
+  '</div></section>'+
+
+  '<section class="section band" id="faq" aria-labelledby="faqT"><div class="container">'+
+    '<p class="eyebrow">FAQs</p><h2 class="section-title" id="faqT">Good to know</h2>'+
+    '<div class="faq-list">'+FAQS.map(function(f){return '<details class="acc"><summary>'+esc(f.q)+'<span class="chev" aria-hidden="true"></span></summary><div class="acc-body"><p>'+esc(f.a)+'</p></div></details>';}).join('')+'</div>'+
+  '</div></section>';
+}
+function filteredHomeList(){return homeFilter==='all'?PRODUCTS.slice():productsForGoal(homeFilter);}
+function viewGoals(){
+  var alt=0;
+  return '<section class="section"><div class="container"><div class="page-hero"><p class="eyebrow">Shop by Goal</p>'+
+    '<h1>Four browsing lanes</h1><p>'+esc(GOAL_FILTER_NOTE)+'</p></div>'+
+    '<div class="goal-grid">'+Object.keys(GOALS).map(function(k){return goalCard(GOALS[k],productsForGoal(k).length,alt++%2===1);}).join('')+'</div></div></section>';
+}
+function viewShop(){
+  return '<section class="section"><div class="container"><p class="eyebrow">Shop</p>'+
+    '<h1 class="section-title">All supplements</h1>'+
+    '<p class="section-sub">Six big-name reference products with provisional prices tied to each pictured SKU’s observed regular price. Product details are provisional; final inventory and supply arrangements are not yet finalized.</p>'+
+    '<div class="chip-row" role="group" aria-label="Filter products">'+chipsRow(shopState.filter,'shop')+'</div>'+
+    '<div class="shop-toolbar"><span class="shop-count" id="shopCount"></span>'+
+    '<span class="sort-wrap"><label for="sortSel">Sort by</label><select id="sortSel">'+
+    '<option value="featured"'+(shopState.sort==='featured'?' selected':'')+'>Featured</option>'+
+    '<option value="name"'+(shopState.sort==='name'?' selected':'')+'>Name A–Z</option>'+
+    '<option value="price-asc"'+(shopState.sort==='price-asc'?' selected':'')+'>Price: low to high</option>'+
+    '<option value="price-desc"'+(shopState.sort==='price-desc'?' selected':'')+'>Price: high to low</option></select></span></div>'+
+    '<div id="shopGrid"></div></div></section>';
+}
+function refreshShopGrid(){
+  var list=shopState.filter==='all'?PRODUCTS.slice():productsForGoal(shopState.filter);
+  list=sortProducts(list,shopState.sort);
+  var g=$('#shopGrid');if(g)g.innerHTML=gridFor(list);
+  var c=$('#shopCount');if(c)c.textContent=list.length+' product'+(list.length===1?'':'s');
+}
+function viewGoal(id){
+  var g=GOALS[id];var list=productsForGoal(id);
+  return '<section class="section"><div class="container"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">›</span><a href="#/goals">Shop by Goal</a><span aria-hidden="true">›</span><span>'+esc(g.name)+'</span></nav>'+
+    '<p class="eyebrow">Shop by Goal</p><h1 class="section-title">'+esc(g.name)+'</h1>'+
+    '<p class="section-sub">'+esc(g.card)+'</p>'+
+    '<p class="goal-disclaimer" style="margin:0 0 1.6rem">'+esc(GOAL_FILTER_NOTE)+'</p>'+
+    '<div class="shop-count" style="margin-bottom:1rem">'+list.length+' products</div>'+
+    gridFor(sortProducts(list,'featured'))+'</div></section>';
+}
+function viewProduct(p){
+  detailQty=1;detailId=p.id;
+  var cons=p.considerations?'<p>'+esc(p.considerations)+'</p>':'';
+  var pkgRows=p.packageRows.map(function(r){
+    var v=r[1]==='Pending'?'<em class="pending">Pending — not finalized</em>':esc(r[1]);
+    return '<div class="def-row"><dt>'+esc(r[0])+'</dt><dd>'+v+'</dd></div>';}).join('');
+  var cats=p.goals.map(function(g){return '<a class="chip" href="#/goal/'+g+'" style="text-decoration:none">'+esc(goalName(g))+'</a>';}).join('');
+  var related=PRODUCTS.filter(function(x){return x.id!==p.id&&x.goals.some(function(g){return p.goals.indexOf(g)>-1;});}).slice(0,4);
+  return '<section class="section" style="padding-top:1rem"><div class="container">'+
+    '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">›</span><a href="#/shop">Shop</a><span aria-hidden="true">›</span><span>'+esc(p.name)+'</span></nav>'+
+    '<div class="detail-grid"><div class="detail-media"><img src="'+esc(p.image)+'" alt="'+esc(p.alt)+'" width="1000" height="1000">'+imgPlate(p.name)+
+    '<p class="media-note">Brand product photo — reuse permission pending clearance before launch.</p></div>'+
+    '<div class="detail-main"><div class="detail-head"><span class="tag-row">'+badgeRef('Reference product')+'</span>'+
+    '<h1>'+esc(p.name)+'</h1><p class="detail-sub">'+esc(p.sub)+'</p></div>'+
+    '<p class="detail-price">'+money(p.priceCents)+'</p><p class="detail-price-note">'+esc(p.perServingNote)+' · provisional price at the pictured SKU’s observed regular price (pricing research 2026-10-01)</p>'+
+    '<div class="qty-row"><span class="qty" role="group" aria-label="Choose quantity"><button type="button" data-dminus aria-label="Decrease quantity">−</button><output id="qtyOut" aria-live="polite">1</output><button type="button" data-dplus aria-label="Increase quantity">+</button></span>'+
+    '<button type="button" class="btn btn-primary detail-add" data-add-detail>Add to Cart</button></div>'+
+    '<div class="detail-meta"><span class="m-row"><span>'+esc(p.unit)+'</span></span>'+
+    '<span class="m-row"><span>Shipping &amp; taxes appear at checkout (policies pending).</span></span>'+
+    '<span class="m-row"><span>Also browsed under: </span></span><span class="tag-row">'+cats+'</span></div>'+
+    '<details class="acc" open><summary>Overview<span class="chev" aria-hidden="true"></span></summary><div class="acc-body"><p>'+esc(p.overview)+'</p></div></details>'+
+    '<details class="acc"><summary>Ingredients<span class="chev" aria-hidden="true"></span></summary><div class="acc-body"><p>'+esc(p.ingredients)+'</p></div></details>'+
+    '<details class="acc"><summary>Directions<span class="chev" aria-hidden="true"></span></summary><div class="acc-body"><p>'+esc(p.directions)+'</p></div></details>'+
+    '<details class="acc"><summary>Considerations<span class="chev" aria-hidden="true"></span></summary><div class="acc-body">'+cons+'<p>'+esc(CONSIDERATIONS_STD)+'</p></div></details>'+
+    '<details class="acc"><summary>Package &amp; servings<span class="chev" aria-hidden="true"></span></summary><div class="acc-body"><div class="def-list">'+pkgRows+'</div></div></details>'+
+    '</div></div>'+
+    (related.length?'<div class="related"><h2>You may also browse</h2>'+gridFor(related)+'</div>':'')+
+  '</div></section>';
+}
+function viewCheckout(){
+  var ids=Object.keys(cart);
+  if(!ids.length){
+    return '<section class="section"><div class="container"><div class="page-hero"><p class="eyebrow">Checkout</p><h1>Your cart is empty</h1>'+
+      '<p>Add a product before checking out.</p><p style="margin-top:1.4rem"><a href="#/shop" class="btn btn-primary">Shop Supplements</a></p></div></div></section>';
+  }
+  var items=ids.map(function(id){var p=productById(id);return '<div class="sum-item"><img src="'+esc(p.image)+'" alt="" width="112" height="112" loading="lazy"><p class="si-name">'+esc(p.name)+'<br><span class="si-qty">Qty '+cart[id]+'</span></p><span class="si-price">'+money(p.priceCents*cart[id])+'</span></div>';}).join('');
+  return '<section class="section" style="padding-top:1rem"><div class="container">'+
+    '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">›</span><span>Checkout</span></nav>'+
+    '<p class="eyebrow">Checkout</p><h1 class="section-title" style="margin-bottom:0">Demo checkout</h1>'+
+    '<div class="demo-banner" role="note"><span class="db-ico">D</span><div>'+
+    '<h2>Demo mode — no real payment <span class="badge badge-demo" style="margin-left:.4rem">Demo</span></h2>'+
+    '<p>This store preview runs a <strong>demo checkout only</strong>. No payment provider is connected, no card details are requested, and <strong>no real order will be placed or paid</strong>.</p></div></div>'+
+    '<div class="checkout-grid"><div>'+
+    '<form id="coForm" novalidate>'+
+    '<div class="panel"><h2><span class="step-num">1</span> Delivery details</h2><p class="panel-sub">For the demo this information isn\u2019t sent anywhere — it stays in your browser this session only.</p>'+
+    '<div class="field-grid">'+
+    '<div class="field"><label for="coName">Full name</label><input id="coName" name="name" type="text" autocomplete="name" required></div>'+
+    '<div class="field"><label for="coEmail">Email</label><input id="coEmail" name="email" type="email" autocomplete="email" required></div>'+
+    '<div class="field full"><label for="coAddr">Street address</label><input id="coAddr" name="address" type="text" autocomplete="street-address" required></div>'+
+    '<div class="field"><label for="coCity">City</label><input id="coCity" name="city" type="text" autocomplete="address-level2" required></div>'+
+    '<div class="field"><label for="coState">State (US)</label><input id="coState" name="state" type="text" autocomplete="address-level1" required></div>'+
+    '<div class="field full"><label for="coZip">ZIP code</label><input id="coZip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required></div>'+
+    '</div></div>'+
+    '<div class="panel"><h2><span class="step-num">2</span> Payment</h2><p class="panel-sub">Payments are intentionally disabled in this preview.</p>'+
+    '<div class="pay-demo"><h3>Payments not configured</h3>'+
+    '<p>Before this store can accept real orders, a payment provider must be connected and verified (for example, Stripe). Until then:</p>'+
+    '<ul><li>No card fields are shown and no payment details are collected.</li><li>Successful payment can only be confirmed after the provider verifies it — this demo never does.</li><li>Demo orders produce a clearly labeled demo confirmation, nothing more.</li></ul></div></div>'+
+    '<button type="submit" class="btn btn-primary btn-block">Place Demo Order — '+money(cartSubtotal())+'</button>'+
+    '<p class="place-order-note">Clicking <strong>Place Demo Order</strong> simulates placing an order for preview purposes <strong>only</strong>. <strong>No real order is placed, nothing is shipped, and no payment is processed.</strong></p>'+
+    '</form></div>'+
+    '<aside class="summary-card" aria-label="Order summary"><h2>Order summary</h2>'+items+
+    '<div class="tot-row" style="margin-top:1rem"><span>Subtotal</span><span>'+money(cartSubtotal())+'</span></div>'+
+    '<div class="tot-row"><span>Shipping</span><span>Pending</span></div>'+
+    '<div class="tot-row"><span>Taxes</span><span>Pending</span></div>'+
+    '<div class="tot-row grand"><span>Total</span><span>'+money(cartSubtotal())+'</span></div>'+
+    '<div class="pay-demo" style="margin-top:1rem"><h3>Still to configure</h3><ul>'+
+    '<li>Shipping rates &amp; carriers (currently pending)</li><li>Tax rules (currently pending)</li><li>Payment provider integration</li><li>Final suppliers, packaging &amp; policies</li></ul></div></aside>'+
+    '</div></div></section>';
+}
+var lastDemoOrder=null;
+function placeDemoOrder(f){
+  var num='DEMO-'+orderDatePart()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+  var items=Object.keys(cart).map(function(id){var p=productById(id);return {id:id,name:p.name,unit:p.unit,qty:cart[id],priceCents:p.priceCents,image:p.image};});
+  lastDemoOrder={num:num,date:new Date(),items:items,subtotal:cartSubtotal(),email:f.coEmail.value.trim(),name:f.coName.value.trim()};
+  cart={};saveCart();renderCart();location.hash='#/order';
+}
+function orderDatePart(){var d=new Date();function p(n){return (n<10?'0':'')+n;}return d.getFullYear()+''+p(d.getMonth()+1)+''+p(d.getDate());}
+function viewConfirmation(){
+  if(!lastDemoOrder){
+    return '<section class="section"><div class="container"><div class="page-hero"><p class="eyebrow">Order confirmation</p><h1>No recent demo order</h1>'+
+      '<p>Demo confirmations only appear right after you place a demo order in this session.</p><p style="margin-top:1.4rem"><a href="#/shop" class="btn btn-primary">Shop Supplements</a></p></div></div></section>';
+  }
+  var o=lastDemoOrder;
+  var items=o.items.map(function(i){return '<div class="sum-item"><img src="'+esc(i.image)+'" alt="" width="112" height="112" loading="lazy"><p class="si-name">'+esc(i.name)+'<br><span class="si-qty">Qty '+i.qty+'</span></p><span class="si-price">'+money(i.priceCents*i.qty)+'</span></div>';}).join('');
+  return '<section class="section" style="padding-top:1rem"><div class="container">'+
+    '<div class="confirm-hero"><div class="ok-ring">✓</div>'+
+    '<p class="eyebrow">Demo order confirmation</p><h1>Demo order received</h1>'+
+    '<p>This is a <strong>demo confirmation</strong> for the store preview. <strong>No real order was placed, no payment was processed, and nothing will be shipped.</strong></p>'+
+    '<p style="font-weight:700;color:var(--text)">Confirmation number: '+esc(o.num)+'</p></div>'+
+    '<div class="receipt-grid"><div class="panel"><h2>Order details</h2>'+items+
+    '<div class="tot-row grand" style="border-top:0;margin-top:1rem"><span>Total</span><span>'+money(o.subtotal)+'</span></div></div>'+
+    '<div class="panel"><h2>What was (not) charged</h2><p class="panel-sub">Payment demo mode — for illustration only.</p>'+
+    '<div class="def-list"><div class="def-row"><dt>Card charges</dt><dd><strong>None — no payment provider configured</strong></dd></div>'+
+    '<div class="def-row"><dt>Shipping</dt><dd><em class="pending">Pending — $0 in demo</em></dd></div>'+
+    '<div class="def-row"><dt>Taxes</dt><dd><em class="pending">Pending — $0 in demo</em></dd></div></div>'+
+    '<p class="muted" style="margin-top:1.2rem;font-size:.88rem">For a live launch: connect and verify a payment provider, finalize supplier inventory and approved packaging imagery, confirm shipping rates and tax rules, and publish the final policies. See <a href="#/research">the pricing research</a> for what still needs confirmation.</p></div></div>'+
+    '<div style="text-align:center"><a href="#/shop" class="btn btn-outline">Keep Shopping</a></div></div></section>';
+}
+function viewPolicy(slug){
+  var p=POLICIES[slug];
+  return '<section class="section" style="padding-top:1rem"><div class="container"><div class="prose">'+
+    '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">›</span><span>'+esc(p.title)+'</span></nav>'+
+    (p.draft?'<div class="draft-banner" role="note"><span class="badge badge-draft">Draft</span><div class="db-inner"><p><strong>'+esc(p.title)+' — draft for review.</strong> Final wording is pending until supplied. Do not publish live without review.</p></div></div>':'')+
+    '<h1>'+esc(p.title)+'</h1>'+p.body+'</div></div></section>';
+}
+function viewResearch(){
+  var prods=RESEARCH.items.map(function(r){
+    var comps=r.comps.map(function(c){
+      return '<div class="cmp-row"><p class="c-name">'+esc(c.name)+(c.flag?' <span class="badge badge-demo">'+esc(c.flag)+'</span>':'')+'</p>'+
+      '<p class="c-pkg">'+esc(c.pkg)+' · '+esc(c.servings)+' servings</p>'+
+      '<div class="cmp-prices"><span>Regular: <b>'+esc(c.price)+'</b></span><span>Per serving: <b>'+esc(c.per)+'</b></span></div>'+
+      (c.url?'<p><a href="'+esc(c.url)+'" target="_blank" rel="noopener">Source link ↗</a></p>':'')+
+      '<p class="c-note">'+(c.flag?'<span class="flag">'+esc(c.flag)+': </span>':'')+esc(c.note)+'</p></div>';
+    }).join('');
+    return '<div class="r-prod"><div class="r-head"><div><h2>'+esc(r.title)+'</h2><p class="r-rec"><strong>Recommended:</strong> '+esc(r.price)+' · Exact pictured SKU: '+esc(r.assumed)+'<br>SKU price basis: '+esc(r.range)+'</p>'+
+    (r.preNote?'<p class="r-rec">'+esc(r.preNote)+'</p>':'')+'</div><span class="r-price">'+esc(r.price)+'</span></div>'+
+    '<div class="cmp">'+comps+'</div>'+
+    '<div class="r-foot"><p><strong>Rationale:</strong> '+esc(r.rationale)+'</p><p><strong>Product photo:</strong> '+esc(r.image)+'</p><p><strong>Research date:</strong> '+esc(RESEARCH.date)+'</p></div></div>';
+  }).join('');
+  var sum=RESEARCH.summary.map(function(s){return '<tr><td>'+esc(s.n)+'</td><td>'+esc(s.pkg)+'</td><td class="num">'+esc(s.s)+' / serving</td><td class="num"><strong>'+esc(s.p)+'</strong></td></tr>';}).join('');
+  var bl=RESEARCH.beforeRealOrders.map(function(i){return '<li>'+i+'</li>';}).join('');
+  return '<section class="section" style="padding-top:1rem"><div class="container">'+
+    '<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">›</span><span>Pricing Research</span></nav>'+
+    '<p class="eyebrow">Review table · Research date: '+esc(RESEARCH.date)+'</p>'+
+    '<h1 class="section-title">Supplement pricing research</h1>'+
+    '<p class="section-sub">Provisional price checks for our six featured reference products — each set at its pictured SKU’s observed regular market price as seen on US manufacturer sites and reputable retailers. Reference products are for pricing context only — they are not confirmed inventory, and no manufacturer partnerships are implied.</p>'+
+    '<div class="research-intro"><div class="info-card"><h2>Method</h2><p>'+esc(RESEARCH.method)+'</p></div>'+
+    '<div class="info-card"><h2>Caveats</h2><ul><li>'+esc(RESEARCH.note).split('. ').join('.</li><li>')+'</li><li>'+esc(RESEARCH.imageStatus)+'</li></ul></div></div>'+
+    '<div class="research-summary" role="region" aria-label="Recommended prices summary" tabindex="0"><table><thead><tr><th>Featured product</th><th>Pictured SKU</th><th style="text-align:right">Implied price / serving</th><th style="text-align:right">Recommended price</th></tr></thead><tbody>'+sum+'</tbody></table></div>'+
+    prods+
+    '<div class="info-card" style="margin-top:2rem"><h2>Before real orders: what still needs confirmation</h2><ul>'+bl+'</ul></div>'+
+  '</div></section>';
+}
+function viewNotFound(){
+  return '<section class="section"><div class="container notfound"><h1>404</h1><p class="muted">That page isn\u2019t part of the store.</p><p><a href="#/" class="btn btn-primary">Back to Home</a></p></div></section>';
+}
+
+/* ---------------- Router ---------------- */
+var homeFilter='all';
+var shopState={filter:'all',sort:'featured'};
+var detailQty=1,detailId=null;
+var pendingScroll=null;
+function parseHash(){
+  var h=(location.hash||'#/').replace(/^#\/?/,'');
+  if(h.slice(-1)==='/')h=h.slice(0,-1);
+  return h?h.split('/'):[''];
+}
+function route(){
+  var parts=parseHash(),page=parts[0]||'',param=decodeURIComponent(parts[1]||'');
+  var html='';
+  if(page==='')html=viewHome();
+  else if(page==='shop')html=viewShop();
+  else if(page==='goals')html=viewGoals();
+  else if(page==='goal')html=GOALS[param]?viewGoal(param):viewNotFound();
+  else if(page==='product'){var p=productById(param);html=p?viewProduct(p):viewNotFound();}
+  else if(page==='checkout')html=viewCheckout();
+  else if(page==='order')html=viewConfirmation();
+  else if(page==='page')html=POLICIES[param]?viewPolicy(param):viewNotFound();
+  else if(page==='research')html=viewResearch();
+  else html=viewNotFound();
+  app.innerHTML=html;
+  closeMenu();
+  if(page==='shop'){refreshShopGrid();var s=$('#sortSel');if(s)s.addEventListener('change',function(){shopState.sort=s.value;refreshShopGrid();});}
+  if(page==='checkout')bindCheckout();
+  if(pendingScroll){var t='#'+pendingScroll;pendingScroll=null;requestAnimationFrame(function(){var el=document.querySelector(t);if(el)el.scrollIntoView({behavior:'smooth'});});}
+  else window.scrollTo(0,0);
+  app.focus({preventScroll:true});
+}
+function goScroll(id){
+  var parts=parseHash();closeMenu();
+  if(parts[0]===''||location.hash==='#'||location.hash===''){var el=document.querySelector('#'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+  else{pendingScroll=id;location.hash='#/';}
+}
+/* Mobile menu */
+function closeMenu(){var m=$('#mobileMenu');m.classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false');}
+function toggleMenu(){var m=$('#mobileMenu');var open=m.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',open?'true':'false');}
+/* Checkout form */
+function bindCheckout(){
+  var f=$('#coForm');if(!f)return;
+  function mark(input,ok){input.closest('.field').classList.toggle('invalid',!ok);}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    var emailOK=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.coEmail.value.trim());
+    mark(f.coEmail,emailOK);if(!emailOK)ok=false;
+    ['coName','coAddr','coCity','coState','coZip'].forEach(function(id){
+      var inp=f[id];var good=inp.value.trim().length>1;mark(inp,good);if(!good)ok=false;
+    });
+    if(!ok){showToast('Please complete the highlighted fields');var first=f.querySelector('.field.invalid input');if(first)first.focus();return;}
+    placeDemoOrder(f);
+  });
+  f.addEventListener('input',function(e){if(e.target.closest('.field'))e.target.closest('.field').classList.remove('invalid');});
+}
+/* Global click delegation */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var sc=t.closest('[data-scrollto]');
+  if(sc){e.preventDefault();goScroll(sc.getAttribute('data-scrollto'));return;}
+  var add=t.closest('[data-add]');
+  if(add){e.preventDefault();addToCart(add.getAttribute('data-add'),1);return;}
+  if(t.closest('[data-add-detail]')){addToCart(detailId,detailQty);return;}
+  if(t.closest('[data-dplus]')){detailQty=Math.min(99,detailQty+1);$('#qtyOut').textContent=detailQty;return;}
+  if(t.closest('[data-dminus]')){detailQty=Math.max(1,detailQty-1);$('#qtyOut').textContent=detailQty;return;}
+  var inc=t.closest('[data-inc]'),dec=t.closest('[data-dec]'),rem=t.closest('[data-rem]');
+  if(inc){setQty(inc.getAttribute('data-inc'),(cart[inc.getAttribute('data-inc')]||1)+1);return;}
+  if(dec){var id=dec.getAttribute('data-dec');setQty(id,(cart[id]||1)-1);return;}
+  if(rem){setQty(rem.getAttribute('data-rem'),0);showToast('Removed from cart');return;}
+  var cd=t.closest('[data-close-drawer]');
+  if(cd){closeDrawer();return;}
+  var flt=t.closest('[data-filter]');
+  if(flt){var parts=flt.getAttribute('data-filter').split(':');applyFilter(parts[0],parts[1]);return;}
+});
+function applyFilter(ctx,id){
+  if(ctx==='home'){homeFilter=id;$('#homeGrid').innerHTML=gridFor(filteredHomeList());rerenderChipRow(ctx);}
+  else if(ctx==='shop'){shopState.filter=id;refreshShopGrid();rerenderChipRow(ctx);}
+}
+function rerenderChipRow(ctx){
+  var rows=document.querySelectorAll('.chip-row');
+  rows.forEach(function(row){
+    var chips=row.querySelectorAll('[data-filter]');
+    if(!chips.length)return;
+    var first=chips[0].getAttribute('data-filter').split(':')[0];
+    if(first===ctx){
+      var active=ctx==='home'?homeFilter:shopState.filter;
+      row.innerHTML=chipsRow(active,ctx);
+    }
+  });
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeDrawer();closeMenu();hideToast();}});
+
+/* ---------------- Init ---------------- */
+$('#cartBtn').addEventListener('click',openDrawer);
+$('#drawerClose').addEventListener('click',closeDrawer);
+$('#drawerOverlay').addEventListener('click',closeDrawer);
+$('#menuBtn').addEventListener('click',toggleMenu);
+$('#toastAction').addEventListener('click',function(){hideToast();openDrawer();});
+window.addEventListener('hashchange',route);
+loadCart();renderCart();route();
+</script>
+</body>
+</html>

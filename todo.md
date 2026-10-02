@@ -2297,3 +2297,12 @@
 - [x] Increase the centered MedMethod Direct wordmark one size step (`h-9` mobile; `h-10` desktop), preserving the homepage-style tagline clip.
 - [x] Review first-screen mobile and desktop proportions and retain the banner, headline, video and registration hierarchy.
 - [x] Validate 8 focused tests, 316 full tests, TypeScript, production build and four critical routes at HTTP 200.
+
+## Supplements Standalone Store Preview — 2026-10-01
+- [x] Import the supplied coded store as `/supplements` on the existing MedMethod Direct project, preserving its visual design, six-product catalog, hash navigation, filters, cart, and demo checkout rather than recreating them as React components.
+- [x] Move 11 unique embedded images to project storage; the standalone HTML now references `/manus-storage/` assets instead of base64 images. Retain the supplied pink-to-purple styling and responsive layout.
+- [x] Serve the standalone document at `/supplements` and `/supplements/` in development and production; preserve existing SPA, booking, payment, webinar, pixel, and GTM flows. Allow crawlers to read the page's own metadata, including Facebook verification.
+- [x] Keep the page `noindex,follow` with explicit sample-product/pricing, draft-policy, and demo-only disclaimers. There is no real order, payment/card field, shipping, or API submission; demo cart is local browser storage.
+- [x] Align one research heading phrase with the existing sitewide compliance guard (`featured reference products` rather than `brand-name products`), with no design or interaction change.
+- [x] Validate 320 tests across 67 files, TypeScript, production build, desktop/mobile (1280px/375px) visual and interaction QA, all six product images, no horizontal overflow, no browser JS errors or `/api/` requests from demo checkout, and development/production route HTTP 200 plus crawler metadata.
+- [ ] Publish only after owner review. A real sales launch would require confirmed products and image rights, supplier inventory, shipping/tax rules, approved claims and final policies, and a separately scoped payment/fulfillment integration. Do not connect this demo to existing medical payment or booking flows.

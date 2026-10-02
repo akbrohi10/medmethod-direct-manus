@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
@@ -110,6 +111,15 @@ async function startServer() {
     res.redirect(301, "/")
   );
   app.get("/lp/hrt", (_req, res) => res.redirect(301, "/lp/hrt3"));
+
+  // The supplied supplements store is a self-contained demo; keep its original
+  // hash-based catalog/cart UI isolated from the site's payment and intake flows.
+  const supplementsHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/supplements.html")
+    : path.resolve(import.meta.dirname, "public/supplements.html");
+  app.get(["/supplements", "/supplements/"], (_req, res) => {
+    res.sendFile(supplementsHtml);
+  });
 
   // tRPC API
   app.use(

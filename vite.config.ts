@@ -214,6 +214,10 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     rollupOptions: {
+      input: {
+        main: path.resolve(import.meta.dirname, "client/index.html"),
+        supplements: path.resolve(import.meta.dirname, "client/supplements.html"),
+      },
       output: {
         manualChunks: {
           // Core React runtime — tiny, cached forever

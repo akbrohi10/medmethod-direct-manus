@@ -358,6 +358,7 @@ export function crawlerMiddleware(
   // Skip API routes, static assets, and storage proxy
   const path = req.path;
   if (
+    path === "/supplements" || path === "/supplements/" ||
     path.startsWith("/api/") ||
     path.startsWith("/manus-storage/") ||
     path.startsWith("/src/") ||
