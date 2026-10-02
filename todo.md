@@ -2316,3 +2316,7 @@
 - [x] Place the user-supplied family photo directly below the unchanged Dr. Al-Deek presenter line on `/masterclass`, before the existing Featured In strip; preserve video-first order, copy, booking, tracking, pricing and other pages.
 - [x] Optimize a centered 1100×1100 WebP crop (158 KB, no EXIF), keep the original upload untouched, and serve the photo from `/manus-storage/` rather than storing media in the repo.
 - [x] Confirm faces and full family remain visible at 375px and 1280px; verify no overflow, asset HTTP 200, 322 tests across 67 files, TypeScript, build, and critical route responses.
+
+## Masterclass Q&A Replay Copy — 2026-10-02
+- [x] Change only the final `/masterclass` learning item to “LIVE Q&A Replay with Dr. Jumana Al-Deek” and “Watch people like you get answers from a menopause & medical weight loss specialist.” Keep `/live-webinar2` wording unchanged.
+- [x] Confirm mobile and desktop text wrapping with no overflow, focused and full Vitest suites, TypeScript, production build, and masterclass HTTP 200.

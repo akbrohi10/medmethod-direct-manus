@@ -34,8 +34,8 @@ const learningChecklist = [
     body: "Know your options and become a better advocate for your health.",
   },
   {
-    title: "LIVE Q&A with Dr. Jumana Al-Deek",
-    body: "Get answers directly from a menopause & medical weight loss specialist.",
+    title: "LIVE Q&A Replay with Dr. Jumana Al-Deek",
+    body: "Watch people like you get answers from a menopause & medical weight loss specialist.",
   },
 ];
 

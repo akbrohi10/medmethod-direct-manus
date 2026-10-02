@@ -84,10 +84,13 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('loading="lazy"');
   });
 
-  it("copies the webinar checklist unchanged apart from the larger masterclass label", () => {
+  it("keeps the webinar checklist except for the masterclass replay copy and larger label", () => {
     const list = (source: string) => source.match(/const learningChecklist = \[([\s\S]*?)\];/)?.[1]?.trim();
     const checklistMarkup = (source: string) => source.match(/<section\s+data-webinar2-learning[\s\S]*?<\/ul>/)?.[0]?.replace(/^\s+/gm, "").trim();
-    expect(list(pageSource)).toBe(list(webinarSource));
+    const masterclassReplayList = list(webinarSource)
+      ?.replace('title: "LIVE Q&A with Dr. Jumana Al-Deek"', 'title: "LIVE Q&A Replay with Dr. Jumana Al-Deek"')
+      .replace('body: "Get answers directly from a menopause & medical weight loss specialist."', 'body: "Watch people like you get answers from a menopause & medical weight loss specialist."');
+    expect(list(pageSource)).toBe(masterclassReplayList);
     expect(checklistMarkup(pageSource)?.replace('text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base', 'text-xs font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-sm')).toBe(checklistMarkup(webinarSource));
     expect(pageSource).toContain('text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base');
     expect(pageSource).not.toContain('Reserve My Free Spot');
