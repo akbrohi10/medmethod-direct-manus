@@ -297,6 +297,16 @@ export default function MasterclassVideoFirst() {
           <p className="mx-auto max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
             Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.
           </p>
+          <img
+            data-masterclass-presenter-photo
+            src="/manus-storage/jumana-family-masterclass_238b56a3.webp"
+            alt="Dr. Jumana Al-Deek with her family outdoors"
+            width={1100}
+            height={1100}
+            loading="lazy"
+            decoding="async"
+            className="mx-auto mt-5 aspect-square w-full max-w-[340px] rounded-2xl border border-[#f0e5eb] object-cover shadow-[0_10px_28px_rgba(54,29,55,0.12)] sm:mt-6 sm:max-w-[390px]"
+          />
         </section>
         <FeaturedInStrip />
 

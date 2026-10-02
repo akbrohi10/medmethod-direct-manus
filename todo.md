@@ -2311,3 +2311,8 @@
 - [x] Register `/supplements` alongside the existing React routes solely for preview route discovery; redirect any in-app navigation to the original standalone document. Do not rebuild the supplied store or change its payment/demo behavior.
 - [x] Add a regression check for the route alias and direct Express serving.
 - [x] Validate 321 tests across 67 files, TypeScript and production build; browser navigation from the SPA opens the original store document, route HTTP 200 remains intact, and the supplied HTML/server route are unchanged from the published checkpoint.
+
+## Masterclass Presenter Photo — 2026-10-02
+- [x] Place the user-supplied family photo directly below the unchanged Dr. Al-Deek presenter line on `/masterclass`, before the existing Featured In strip; preserve video-first order, copy, booking, tracking, pricing and other pages.
+- [x] Optimize a centered 1100×1100 WebP crop (158 KB, no EXIF), keep the original upload untouched, and serve the photo from `/manus-storage/` rather than storing media in the repo.
+- [x] Confirm faces and full family remain visible at 375px and 1280px; verify no overflow, asset HTTP 200, 322 tests across 67 files, TypeScript, build, and critical route responses.

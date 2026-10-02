@@ -72,6 +72,18 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('Woman’s World');
   });
 
+  it("places the supplied family image under the presenter credit without changing the page order", () => {
+    const bio = pageSource.indexOf('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician');
+    const image = pageSource.indexOf('data-masterclass-presenter-photo');
+    const featured = pageSource.indexOf('<FeaturedInStrip />');
+    expect(bio).toBeGreaterThan(-1);
+    expect(image).toBeGreaterThan(bio);
+    expect(featured).toBeGreaterThan(image);
+    expect(pageSource).toContain('src="/manus-storage/jumana-family-masterclass_238b56a3.webp"');
+    expect(pageSource).toContain('alt="Dr. Jumana Al-Deek with her family outdoors"');
+    expect(pageSource).toContain('loading="lazy"');
+  });
+
   it("copies the webinar checklist unchanged apart from the larger masterclass label", () => {
     const list = (source: string) => source.match(/const learningChecklist = \[([\s\S]*?)\];/)?.[1]?.trim();
     const checklistMarkup = (source: string) => source.match(/<section\s+data-webinar2-learning[\s\S]*?<\/ul>/)?.[0]?.replace(/^\s+/gm, "").trim();
