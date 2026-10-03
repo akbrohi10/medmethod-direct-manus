@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const DR_ALDEEK_SQUARE =
-  "/manus-storage/dr-aldeek-hero-2026_628d7e54_ddae4722.png";
+  "/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp";
 
 /** 7 unified-style coach portraits — same studio backdrop, key light,
  *  wardrobe family. AI-generated stand-ins; replace with real headshots
@@ -368,7 +368,8 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                 />
               </div>
@@ -650,7 +651,8 @@ export default function MedicalTeam({
                   src={DR_ALDEEK_SQUARE}
                   alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
                   className="absolute inset-0 w-full h-full object-cover object-center"
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                 />
 

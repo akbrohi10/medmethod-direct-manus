@@ -2320,3 +2320,9 @@
 ## Masterclass Q&A Replay Copy — 2026-10-02
 - [x] Change only the final `/masterclass` learning item to “LIVE Q&A Replay with Dr. Jumana Al-Deek” and “Watch people like you get answers from a menopause & medical weight loss specialist.” Keep `/live-webinar2` wording unchanged.
 - [x] Confirm mobile and desktop text wrapping with no overflow, focused and full Vitest suites, TypeScript, production build, and masterclass HTTP 200.
+
+## Homepage Hero Photo Reliability — 2026-10-03
+- [x] Confirm homepage responds HTTP 200. Reproduce the live portrait successfully in current mobile Chromium; visitor’s screenshot shows a genuine broken-image state, but the intermittent cause cannot be proven from one browser session.
+- [x] Replace the shared hero portrait’s 2 MB PNG (delivered as `application/octet-stream`) with the exact same full-frame photo optimized to a 94 KB WebP delivered as `image/webp`. Prioritize loading for mobile and desktop; preserve layout, copy, tracking, booking and payment flows.
+- [x] Confirm image decoding and mobile/desktop screenshots with no overflow, new asset HTTP 200 with image MIME, 323 tests across 67 files, TypeScript, production build, and critical route HTTP 200 checks.
+- [ ] Publish the checkpoint to put this reliability fix on the live site; the previous PNG remains in the live page until publication.

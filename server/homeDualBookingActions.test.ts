@@ -19,6 +19,17 @@ const stickyDiscoveryIndex = homeSource.indexOf("data-home-sticky-discovery-call
 const stickyPhysicianIndex = homeSource.indexOf("data-home-sticky-physician-appointment-cta");
 
 describe("homepage dual booking actions", () => {
+  it("loads the same optimized doctor portrait promptly in mobile and desktop hero layouts", () => {
+    expect(medicalTeamSource).toContain('/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp');
+    expect(medicalTeamSource).not.toContain('dr-aldeek-hero-2026_628d7e54_ddae4722.png');
+    const portraits = [...medicalTeamSource.matchAll(/<img\s+src=\{DR_ALDEEK_SQUARE\}[\s\S]*?\/>/g)];
+    expect(portraits).toHaveLength(2);
+    for (const [markup] of portraits) {
+      expect(markup).toContain('loading="eager"');
+      expect(markup).toContain('fetchPriority="high"');
+    }
+  });
+
   it("places the approved patient-volume credibility line before the booking action group", () => {
     const patientProof = medicalTeamSource.indexOf("data-home-patient-volume-proof");
     const ctaGroup = medicalTeamSource.indexOf('id="hero-cta-sentinel"');
