@@ -45,10 +45,17 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(interaction).toContain("cancelAnimationFrame(stickyFrame)");
     expect(interaction).toContain("clearChatTimers()");
   });
-  it("reuses one shared header/footer and preserves the external intake destination", () => {
-    expect(page).toContain("<Navbar"); expect(page).toContain("<Footer");
-    expect(page).not.toMatch(/<header|<footer className=/);
-    expect(page).toContain("showQuiz={false} showStates={false}");
+  it("keeps the shared header, original page-only ZIP footer and external intake destination", () => {
+    expect(page).toContain("<Navbar");
+    expect(page).not.toMatch(/<header|<Footer|import Footer/);
+    const footer = page.match(/<footer className="wave-top wave-footer">[\s\S]*?<\/footer>/)?.[0] ?? "";
+    expect(footer).toContain('className="footer-wordmark">MMD Weight Loss');
+    expect(footer).toContain("Physician-guided GLP-1 care with fitness, nutrition, and ongoing support in one program.");
+    expect(footer).toContain("© 2026 MMD Weight Loss. Working title and prototype content.");
+    expect((footer.match(/<a href=/g) ?? []).length).toBe(4);
+    for (const anchor of ["how-it-works", "app", "pricing", "faq"]) expect(footer).toContain(`href="#${anchor}"`);
+    expect(footer).not.toMatch(/Book Appointment|Explore|Legal & Compliance|MetabolicQuiz/);
+    expect(css).toContain(".wlm-content footer{padding:54px 0 30px;background:#7a1e7e;color:#fff}");
     expect(page).toContain("showVirtualBanner={false} stickyOnPage");
     expect(read("client/src/components/home1/Footer.tsx")).toContain('{ label: "Weight-Loss & Menopause", href: "/weight-loss-menopause" }');
     expect(page).toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");

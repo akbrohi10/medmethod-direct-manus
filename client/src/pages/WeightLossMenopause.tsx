@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/home1/Navbar";
-import Footer from "@/components/home1/Footer";
 import { initializeWeightLossMenopause } from "./weightLossMenopauseInteractions";
 import "./WeightLossMenopause.css";
 
@@ -76,14 +75,30 @@ export default function WeightLossMenopause() {
 <section className="section wave-top wave-surface" id="faq"><div className="container faq-layout"><div className="section-heading"><span className="section-kicker">Questions, answered</span><h2>What to know before you begin.</h2><p>Final clinical, pharmacy, pricing, and state-availability language should be reviewed before launch.</p></div><div className="faq-list"><details><summary>Who may be eligible for GLP-1 treatment?</summary><p>Eligibility depends on factors such as health history, current medications, weight-related goals, and the clinician’s judgment. Completing an assessment does not guarantee a prescription.</p></details><details><summary>How do GLP-1 medications support weight loss?</summary><p>GLP-1 medicines act on pathways involved in appetite, fullness, and blood-sugar regulation. The physician will explain whether a particular option may be appropriate for you.</p></details><details><summary>What side effects should I know about?</summary><p>Side effects vary by medication and person. Gastrointestinal symptoms can occur. Your clinician will review risks, warning signs, and what to do if you have a concern before treatment begins.</p></details><details><summary>How much does medication cost?</summary><p>Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. The clinical membership fee does not include medication.</p></details><details><summary>What is included in the fitness + nutrition app?</summary><p>Membership includes MMD’s fitness and nutrition app with a library of 2,500+ exercise videos, custom workout plans, personalized meal plans and recipe-building tools, macro and food-journal tracking, plus progress metrics and photos. The final app name and store links are still TBD.</p></details><details><summary>Do I need a video appointment?</summary><p>Your visit begins asynchronously. After you submit the intake, you log in to your secure patient portal and we send a secure text message straight to your phone. That text thread is your care chat—there’s no separate messaging app to download. Dr. Al-Deek typically responds within 4 hours, always within 24 hours, and may request a visit or additional information when clinically needed.</p></details><details><summary>Which states are available?</summary><p>State availability is TBD. A verified list must be added before launch.</p></details><details><summary>When is the $49 consultation refunded?</summary><p>The proposed policy is to refund the consultation when the clinician determines no prescription is appropriate after review. Final terms, timing, and exclusions are TBD.</p></details><details><summary>Are compounded medications FDA-approved?</summary><p>No. Compounded medications are not FDA-approved. If a compounded option is considered, your clinician should explain why and discuss relevant risks and alternatives.</p></details></div></div></section>
 <section className="privacy-band wave-top wave-soft wave-flip"><div className="container privacy-row"><div className="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><rect x="9" y="10" width="6" height="5" rx="1"></rect><path d="M10.5 10V8.7a1.5 1.5 0 0 1 3 0V10"></path></svg></div><div><h3>Private by design. Secure by standard.</h3><p>Health information and care-team messaging are handled through a secure care experience.</p></div><a className="btn" href="https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp">Start your visit</a></div></section>
 </main>
+        <footer className="wave-top wave-footer">
+          <div className="container">
+            <div className="footer-top">
+              <div>
+                <div className="footer-wordmark">MMD Weight Loss</div>
+                <p>Physician-guided GLP-1 care with fitness, nutrition, and ongoing support in one program.</p>
+              </div>
+              <div className="footer-links">
+                <a href="#how-it-works">How it works</a>
+                <a href="#app">The app</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+              </div>
+            </div>
+            <div className="disclosures">
+              <p><strong>Prototype disclosure:</strong> state availability, app details, refund terms, and other operational details marked TBD must be confirmed before launch.</p>
+              <p>Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.</p>
+              <p>For adults age 18 and older. Services are available only in states where the treating clinician is licensed; final state availability list is TBD. This website does not provide emergency care.</p>
+            </div>
+            <div className="footer-bottom">© 2026 MMD Weight Loss. Working title and prototype content.</div>
+          </div>
+        </footer>
         <div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">$49<small>/mo</small></span><a className="btn" href="https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp" aria-label="Start your visit — $49 per month membership">Start your visit <span className="arrow">→</span></a></div>
       </div>
-      <Footer onConsultClick={() => {}} startHref={WEIGHT_MENOPAUSE_INTAKE_URL} startLabel="Start your visit" showQuiz={false} showStates={false} additionalDisclosures={<>
-        <p><strong>Prototype disclosure:</strong> state availability, app details, refund terms, and other operational details marked TBD must be confirmed before launch.</p>
-<p>Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.</p>
-<p>For adults age 18 and older. Services are available only in states where the treating clinician is licensed; final state availability list is TBD. This website does not provide emergency care.</p>
-        <div className="footer-bottom">© 2026 MMD Weight Loss. Working title and prototype content.</div>
-      </>} />
     </div>
   );
 }
