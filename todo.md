@@ -2345,3 +2345,8 @@
 - [x] Compare rendered footer text and four link destinations exactly with ZIP; check purple styling, no overflow, 44px link targets, sticky CTA absence near footer, treatment toggle and navigation to homepage at 375/768/1440px. Visual review passed.
 - [x] Validate 48 focused tests, TypeScript, production build and Preview HTTP 200. Full suite remains 328 pass/2 known compliance failures; no new regressions and no compliance guards changed.
 - [x] Save as a new unpublished checkpoint; do not publish this footer update automatically.
+
+## Weight-Loss & Menopause Start Your Visit Intake URL — 2026-10-12
+- [x] With explicit owner confirmation, update every Start Your Visit CTA on `/weight-loss-menopause` only—header, hero, estimator, pricing, privacy and mobile sticky—to `https://intake.medmethoddirect.com/`.
+- [x] Verify 7 rendered mobile-menu/page links and 6 desktop/page links target the approved URL, with no remaining Muse destination on this page; `/masterclass` did not receive the new URL.
+- [x] Validate 37 focused tests, TypeScript and production build. Full suite remains 328 pass/2 previously documented compliance conflicts, no new failures; save as unpublished checkpoint.

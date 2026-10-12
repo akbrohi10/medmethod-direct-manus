@@ -58,7 +58,11 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(css).toContain(".wlm-content footer{padding:54px 0 30px;background:#7a1e7e;color:#fff}");
     expect(page).toContain("showVirtualBanner={false} stickyOnPage");
     expect(read("client/src/components/home1/Footer.tsx")).toContain('{ label: "Weight-Loss & Menopause", href: "/weight-loss-menopause" }');
-    expect(page).toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");
+    const intakeUrl = "https://intake.medmethoddirect.com/";
+    expect(page).toContain(`WEIGHT_MENOPAUSE_INTAKE_URL = "${intakeUrl}"`);
+    expect(page).not.toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");
+    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(5);
+    expect(page).toContain("primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL}");
     expect(page).toContain("Prototype disclosure:");
   });
   it("keeps prototype SEO noindex and out of the active sitemap", () => {
