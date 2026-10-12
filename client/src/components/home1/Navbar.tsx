@@ -4,7 +4,7 @@
    Services dropdown removed — single link scrolls to #services section.
    All anchor links use smooth-scroll with navbar offset compensation.
    ============================================================================= */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
@@ -27,11 +27,22 @@ const navLinks: { label: string; anchor?: string; href?: string }[] = [
   { label: "The Book",     href: "/the-menopause-weight-loss-trap" },
 ];
 
-export default function Navbar({ onConsultClick }: { onConsultClick: () => void }) {
+type NavbarProps = {
+  onConsultClick: () => void;
+  navigationLinks?: typeof navLinks;
+  localSections?: boolean;
+  showVirtualBanner?: boolean;
+  stickyOnPage?: boolean;
+  primaryHref?: string;
+  primaryLabel?: string;
+};
+
+export default function Navbar({ onConsultClick, navigationLinks = navLinks, localSections = false, showVirtualBanner = true, stickyOnPage = false, primaryHref, primaryLabel = "Start your visit" }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location] = useLocation();
   const isHomePage = location === "/";
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -43,7 +54,10 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
     if (link.anchor) {
       e.preventDefault();
       setMobileOpen(false);
-      if (isHomePage) {
+      if (localSections) {
+        const el = document.getElementById(link.anchor);
+        if (el) requestAnimationFrame(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (headerRef.current?.offsetHeight ?? 72), behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
+      } else if (isHomePage) {
         // Already on homepage — smooth scroll directly
         scrollTo(link.anchor);
       } else {
@@ -57,12 +71,13 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      ref={headerRef}
+      className={`${stickyOnPage ? "sticky" : "fixed"} top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-white/98 shadow-lg border-b border-gray-100" : "bg-white border-b border-gray-100"
       }`}
     >
       {/* ── 100% VIRTUAL TOP BANNER ─────────────────────────────── */}
-      <div
+      {showVirtualBanner && <div
         className="w-full text-center py-2 px-4"
         style={{
           background: "linear-gradient(90deg, #7A1E7E 0%, #E8339E 100%)",
@@ -76,7 +91,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
           </span>
           100% Virtual Care — See Your Doctor From Home, Across 12 states
         </p>
-      </div>
+      </div>}
 
       <div className="max-w-[1280px] mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
@@ -95,10 +110,10 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navigationLinks.map((link) => (
               <a
                 key={link.label}
-        href={link.href ?? (isHomePage ? `#${link.anchor}` : `/#${link.anchor}`)}
+        href={link.href ?? (isHomePage || localSections ? `#${link.anchor}` : `/#${link.anchor}`)}
         onClick={(e) => handleNavClick(link, e)}
         className="px-3 py-2 text-gray-600 hover:text-[#E8339E] font-medium text-[13px] tracking-wide transition-colors duration-200 whitespace-nowrap"
                 style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.05em" }}
@@ -110,6 +125,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
+            {primaryHref && <a href={primaryHref} className="min-h-11 inline-flex items-center rounded-xl px-4 text-sm font-bold text-white whitespace-nowrap" style={{ background: "linear-gradient(135deg,#E8339E,#7A1E7E)" }}>{primaryLabel} →</a>}
             <a
               href="tel:+18883627011"
               className="flex items-center gap-1.5 text-[13px] font-semibold text-[#7A1E7E] hover:text-[#E8339E] transition-colors whitespace-nowrap"
@@ -134,6 +150,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
             className="lg:hidden text-[#111111] p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -144,10 +161,10 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100">
           <div className="px-4 py-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {navigationLinks.map((link) => (
               <a
                 key={link.label}
-              href={link.href ?? (isHomePage ? `#${link.anchor}` : `/#${link.anchor}`)}
+              href={link.href ?? (isHomePage || localSections ? `#${link.anchor}` : `/#${link.anchor}`)}
               onClick={(e) => handleNavClick(link, e)}
               className="py-3 text-gray-600 hover:text-[#E8339E] font-semibold text-sm tracking-wide border-b border-gray-100 transition-colors"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -155,6 +172,7 @@ export default function Navbar({ onConsultClick }: { onConsultClick: () => void 
                 {link.label}
               </a>
             ))}
+            {primaryHref && <a href={primaryHref} className="min-h-11 flex items-center justify-center rounded-xl py-3 font-bold text-white" style={{ background: "linear-gradient(135deg,#E8339E,#7A1E7E)" }}>{primaryLabel} →</a>}
             <a
               href="https://medmethoddirect.md-hq.com/"
               target="_blank"

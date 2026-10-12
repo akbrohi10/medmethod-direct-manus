@@ -46,6 +46,7 @@ interface RouteMeta {
   image: string;
   imageAlt?: string;
   url: string;
+  robots?: string;
 }
 
 const SITE_NAME = "MedMethod Direct";
@@ -126,6 +127,13 @@ const ROUTE_META: Record<string, RouteMeta> = {
     imageAlt:
       "Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek",
     url: `${BASE_URL}/masterclass`,
+  },
+  "/weight-loss-menopause": {
+    title: "Weight-Loss & Menopause | MedMethod Direct",
+    description: "Explore physician-guided GLP-1 weight management and menopause care with Dr. Jumana Al-Deek, including medication pricing and ongoing support.",
+    image: `${BASE_URL}/manus-storage/wlm-embedded-3f0ba6b015e6_ac0b276d.jpg`,
+    url: `${BASE_URL}/weight-loss-menopause`,
+    robots: "noindex,follow",
   },
   // ─── State Pages ────────────────────────────────────────────────────────
   "/virginia": {
@@ -290,6 +298,11 @@ export function injectRouteMetaIntoHtml(html: string, meta: RouteMeta): string {
   page = upsertHeadTag(page, /<meta\s+name=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${img}" />`);
   page = upsertHeadTag(page, /<meta\s+name=["']twitter:image:alt["'][^>]*>/i, `<meta name="twitter:image:alt" content="${imgAlt}" />`);
   page = upsertHeadTag(page, /<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${url}" />`);
+  if (meta.robots) page = upsertHeadTag(page, /<meta\s+name=["']robots["'][^>]*>/i, `<meta name="robots" content="${escapeHtml(meta.robots)}" />`);
+
+  // React 19 owns the mounted route's head tags. Identify only our server copies
+  // for removal on mount so prototype noindex cannot persist on other SPA routes.
+  if (meta.robots) page = page.replace(/<(meta\s+(?:name=["'](?:description|robots|twitter:[^"']+)["']|property=["']og:[^"']+["'])[^>]*|link\s+rel=["']canonical["'][^>]*)>/gi, (tag) => tag.replace(/\s*\/?>$/, ' data-wlm-server-meta="true" />'));
 
   return page;
 }
@@ -312,6 +325,7 @@ export function generateCrawlerHtml(meta: RouteMeta): string {
 <title>${t}</title>
 <meta name="description" content="${d}">
 <meta name="facebook-domain-verification" content="${FACEBOOK_DOMAIN_VERIFICATION}">
+${meta.robots ? `<meta name="robots" content="${escapeHtml(meta.robots)}">` : ""}
 <!-- Open Graph -->
 <meta property="og:title" content="${t}">
 <meta property="og:description" content="${d}">

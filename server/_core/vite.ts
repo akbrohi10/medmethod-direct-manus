@@ -9,6 +9,7 @@ import { getMetaForPath, injectRouteMetaIntoHtml } from "../crawlerMiddleware";
 
 function injectMasterclassRouteMeta(template: string, url: string): string {
   const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
+  if (cleanPath === "/weight-loss-menopause") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath !== "/masterclass") return template;
   return injectRouteMetaIntoHtml(template, getMetaForPath(url));
 }

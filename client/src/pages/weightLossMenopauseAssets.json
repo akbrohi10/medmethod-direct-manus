@@ -1,0 +1,138 @@
+{
+  "source_commit": "702ee3a7eb15ed3ed3394d13672c1851ff2f0a34",
+  "source_index_sha256": "5f25e7bab0e866416ff5e8aa5d77d926c8649931067d2051cd205ab241eb09ab",
+  "assets": [
+    {
+      "source_name": "estradiol-gel-transparent-candidate.png",
+      "storage_path": "/manus-storage/estradiol-gel-transparent-candidate_9fcff251.png"
+    },
+    {
+      "source_name": "estradiol-patch-transparent-candidate.png",
+      "storage_path": "/manus-storage/estradiol-patch-transparent-candidate_f219d287.png"
+    },
+    {
+      "source_name": "estradiol-tablets-transparent-candidate.png",
+      "storage_path": "/manus-storage/estradiol-tablets-transparent-candidate_4982a883.png"
+    },
+    {
+      "source_name": "estriol-cream-tube-only-candidate.png",
+      "storage_path": "/manus-storage/estriol-cream-tube-only-candidate_afee9ce4.png"
+    },
+    {
+      "source_name": "micronized-progesterone-dark-amber-candidate.png",
+      "storage_path": "/manus-storage/micronized-progesterone-dark-amber-candidate_3571043a.png"
+    },
+    {
+      "source_name": "wlm-embedded-83ae62555e53.png",
+      "storage_path": "/manus-storage/wlm-embedded-83ae62555e53_0c74bd61.png"
+    },
+    {
+      "source_name": "wlm-embedded-23f382110e31.png",
+      "storage_path": "/manus-storage/wlm-embedded-23f382110e31_32711544.png"
+    },
+    {
+      "source_name": "wlm-embedded-12565d12c863.png",
+      "storage_path": "/manus-storage/wlm-embedded-12565d12c863_6e38e292.png"
+    },
+    {
+      "source_name": "wlm-embedded-5358c6c40f83.png",
+      "storage_path": "/manus-storage/wlm-embedded-5358c6c40f83_5daa438f.png"
+    },
+    {
+      "source_name": "wlm-embedded-012f44dc2cde.png",
+      "storage_path": "/manus-storage/wlm-embedded-012f44dc2cde_10378029.png"
+    },
+    {
+      "source_name": "wlm-embedded-08fb73a8f1d9.png",
+      "storage_path": "/manus-storage/wlm-embedded-08fb73a8f1d9_b8ef319d.png"
+    },
+    {
+      "source_name": "wlm-embedded-003978802679.png",
+      "storage_path": "/manus-storage/wlm-embedded-003978802679_7273ba1a.png"
+    },
+    {
+      "source_name": "wlm-embedded-9dbf04b103e4.png",
+      "storage_path": "/manus-storage/wlm-embedded-9dbf04b103e4_d30ff97e.png"
+    },
+    {
+      "source_name": "wlm-embedded-bfde38427412.jpg",
+      "storage_path": "/manus-storage/wlm-embedded-bfde38427412_0754b2a5.jpg"
+    },
+    {
+      "source_name": "wlm-embedded-77e0f4d3193a.png",
+      "storage_path": "/manus-storage/wlm-embedded-77e0f4d3193a_4f877f5f.png"
+    },
+    {
+      "source_name": "wlm-embedded-b82633dbf5fa.png",
+      "storage_path": "/manus-storage/wlm-embedded-b82633dbf5fa_5d0ef3f5.png"
+    },
+    {
+      "source_name": "wlm-embedded-3deafb1e1cc6.png",
+      "storage_path": "/manus-storage/wlm-embedded-3deafb1e1cc6_d7aaa78e.png"
+    },
+    {
+      "source_name": "wlm-embedded-0e0c25881689.png",
+      "storage_path": "/manus-storage/wlm-embedded-0e0c25881689_ce16de23.png"
+    },
+    {
+      "source_name": "wlm-embedded-f1f33b29d818.png",
+      "storage_path": "/manus-storage/wlm-embedded-f1f33b29d818_e65fc595.png"
+    },
+    {
+      "source_name": "wlm-embedded-6a687e858bf7.png",
+      "storage_path": "/manus-storage/wlm-embedded-6a687e858bf7_c10f5d2c.png"
+    },
+    {
+      "source_name": "wlm-embedded-5576595df64a.png",
+      "storage_path": "/manus-storage/wlm-embedded-5576595df64a_f54c6198.png"
+    },
+    {
+      "source_name": "wlm-embedded-3f0ba6b015e6.jpg",
+      "storage_path": "/manus-storage/wlm-embedded-3f0ba6b015e6_ac0b276d.jpg"
+    },
+    {
+      "source_name": "wlm-embedded-fbd2b168c8ca.webp",
+      "storage_path": "/manus-storage/wlm-embedded-fbd2b168c8ca_a89fd235.webp"
+    },
+    {
+      "source_name": "wlm-embedded-1f48e4523dc3.webp",
+      "storage_path": "/manus-storage/wlm-embedded-1f48e4523dc3_1680e6c5.webp"
+    },
+    {
+      "source_name": "wlm-embedded-ea3f297d5b2e.webp",
+      "storage_path": "/manus-storage/wlm-embedded-ea3f297d5b2e_7f5cf331.webp"
+    },
+    {
+      "source_name": "wlm-embedded-59e2999226cb.webp",
+      "storage_path": "/manus-storage/wlm-embedded-59e2999226cb_779a3328.webp"
+    },
+    {
+      "source_name": "wlm-embedded-52a0cc7ed038.webp",
+      "storage_path": "/manus-storage/wlm-embedded-52a0cc7ed038_46fd0e8e.webp"
+    },
+    {
+      "source_name": "wlm-embedded-4ad8a436ed55.webp",
+      "storage_path": "/manus-storage/wlm-embedded-4ad8a436ed55_71c03368.webp"
+    },
+    {
+      "source_name": "wlm-embedded-6949a0cd0213.webp",
+      "storage_path": "/manus-storage/wlm-embedded-6949a0cd0213_7d18c665.webp"
+    },
+    {
+      "source_name": "wlm-embedded-2f042902b7bb.webp",
+      "storage_path": "/manus-storage/wlm-embedded-2f042902b7bb_0a4b80c0.webp"
+    },
+    {
+      "source_name": "wlm-embedded-aaff648e80c2.webp",
+      "storage_path": "/manus-storage/wlm-embedded-aaff648e80c2_168d8738.webp"
+    },
+    {
+      "source_name": "wlm-embedded-490b711e0687.webp",
+      "storage_path": "/manus-storage/wlm-embedded-490b711e0687_5fca23a6.webp"
+    },
+    {
+      "source_name": "wlm-embedded-5bfa212f950a.webp",
+      "storage_path": "/manus-storage/wlm-embedded-5bfa212f950a_26cb9761.webp"
+    }
+  ]
+}

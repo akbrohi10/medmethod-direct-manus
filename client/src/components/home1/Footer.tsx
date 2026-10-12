@@ -2,11 +2,20 @@
    Footer — Clinical Noir Design
    Dark background, logo, nav columns, social links, legal
    ============================================================================= */
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import MetabolicQuiz from "./MetabolicQuiz";
 import { DR_JUMANA_AL_DEEK_BLOG_URL } from "@/lib/externalLinks";
 
-export default function Footer({ onConsultClick }: { onConsultClick: () => void }) {
+type FooterProps = {
+  onConsultClick: () => void;
+  startHref?: string;
+  startLabel?: string;
+  showQuiz?: boolean;
+  showStates?: boolean;
+  additionalDisclosures?: ReactNode;
+};
+
+export default function Footer({ onConsultClick, startHref, startLabel = "Book Appointment", showQuiz = true, showStates = true, additionalDisclosures }: FooterProps) {
   const [quizOpen, setQuizOpen] = useState(false);
   return (<>
     <footer className="bg-[#0d0d0d] border-t border-white/5">
@@ -83,6 +92,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 { label: "Blog", href: DR_JUMANA_AL_DEEK_BLOG_URL },
                 { label: "Locations", href: "/locations" },
                 { label: "Care Team Booking", href: "/care-team-booking" },
+                { label: "Weight-Loss & Menopause", href: "/weight-loss-menopause" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -107,15 +117,16 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
             <ul className="flex flex-col gap-2.5">
               <li>
                 <a
-                  onClick={onConsultClick}
+                  href={startHref}
+                  onClick={startHref ? undefined : onConsultClick}
                   className="text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  Book Appointment
+                  {startLabel}
                 </a>
               </li>
 
-              <li>
+              {showQuiz && <li>
                 <button
                   onClick={() => setQuizOpen(true)}
                   className="text-white/50 hover:text-white text-sm transition-colors text-left"
@@ -123,7 +134,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
                 >
                   Take the Free Health Quiz
                 </button>
-              </li>
+              </li>}
               <li className="mt-3 pt-3 border-t border-white/5">
                 <h5
                   className="text-white/40 font-semibold text-[10px] tracking-[0.18em] uppercase mb-2"
@@ -155,7 +166,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
         </div>
 
         {/* States Served */}
-        <div className="border-t border-white/5 pt-8 mb-8">
+        {showStates && <div className="border-t border-white/5 pt-8 mb-8">
           <p
             className="text-white/40 text-xs font-semibold tracking-[0.12em] uppercase mb-2"
             style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -168,7 +179,7 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           >
             Florida · Arizona · Colorado · District of Columbia · Georgia · Illinois · Maryland · Michigan · North Carolina · Pennsylvania · Texas · Virginia
           </p>
-        </div>
+        </div>}
 
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -230,6 +241,8 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
           </a>
         </div>
 
+        {additionalDisclosures && <div data-page-prototype-disclosures className="mt-6 space-y-3 text-xs leading-relaxed text-white/60">{additionalDisclosures}</div>}
+
         {/* Medical Disclaimer */}
         <p
           className="text-white/40 text-xs mt-6 leading-relaxed"
@@ -239,6 +252,6 @@ export default function Footer({ onConsultClick }: { onConsultClick: () => void 
         </p>
       </div>
     </footer>
-    <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+    {showQuiz && <MetabolicQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />}
   </>);
 }
