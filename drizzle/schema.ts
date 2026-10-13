@@ -180,6 +180,19 @@ export type EmailSettings = typeof emailSettings.$inferSelect;
 export type InsertEmailSettings = typeof emailSettings.$inferInsert;
 
 /**
+ * Intake delivery settings — singleton encrypted destination for the approved
+ * pre-payment Keragon handoff. The plaintext URL is never returned to a browser.
+ */
+export const intakeDeliverySettings = mysqlTable("intake_delivery_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  keragonWebhookUrlEncrypted: text("keragonWebhookUrlEncrypted"),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type IntakeDeliverySettings = typeof intakeDeliverySettings.$inferSelect;
+export type InsertIntakeDeliverySettings = typeof intakeDeliverySettings.$inferInsert;
+
+/**
  * Editable transactional email templates.
  * Two system keys are currently supported: deposit_paid and balance_paid.
  */

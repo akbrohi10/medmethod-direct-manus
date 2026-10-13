@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
+import { Script } from "node:vm";
 
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
@@ -49,7 +50,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(read("client/src/index.css")).not.toContain("Weight-Loss Intake Static Prototype");
   });
 
-  it("preserves the supplied media outside the documents and does not introduce a real payment or patient-data route", () => {
+  it("preserves supplied media while keeping payment credentials and patient delivery off the browser", () => {
     expect(statSync(resolve(root, "client/weight-loss-intake.html")).size).toBeLessThan(120_000);
     expect(statSync(resolve(root, "client/intake/index.html")).size).toBeLessThan(400_000);
     expect(landing).toContain("/manus-storage/wli-");
@@ -59,6 +60,10 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain("/api/webhooks");
     expect(intake).not.toContain("www.paypal.com/sdk");
     expect(intake).not.toContain("api-m.paypal.com");
+    expect(intake).toContain("/api/paypal/client-token");
+    expect(intake).toContain("/api/paypal/orders");
+    expect(intake).toContain("approval_token");
+    expect(intake).not.toContain("KERAGON_WEBHOOK_URL");
     expect(server).not.toContain('"/api/weight-loss-intake"');
     expect(server).not.toContain('"/api/intake"');
   });
@@ -84,5 +89,11 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain(
       "We're unable to continue your Weight Care intake without your consent to discuss GLP-1 treatment.",
     );
+  });
+
+  it("keeps the imported static intake JavaScript syntactically valid after secure-payment wiring", () => {
+    const inlineScript = intake.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+    expect(inlineScript).toBeTruthy();
+    expect(() => new Script(inlineScript!)).not.toThrow();
   });
 });

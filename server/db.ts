@@ -5,10 +5,12 @@ import {
   EmailDeliveryLog,
   EmailSettings,
   EmailTemplate,
+  IntakeDeliverySettings,
   InsertCareTeamBookingCalendarEvent,
   InsertEmailDeliveryLog,
   InsertEmailSettings,
   InsertEmailTemplate,
+  InsertIntakeDeliverySettings,
   InsertPayment,
   InsertPaypalSettings,
   InsertStripeSettings,
@@ -21,6 +23,7 @@ import {
   emailDeliveryLog,
   emailSettings,
   emailTemplates,
+  intakeDeliverySettings,
   payments,
   paypalSettings,
   stripeSettings,
@@ -290,6 +293,33 @@ export async function upsertEmailSettings(
     return;
   }
   await db.insert(emailSettings).values({ enabled: 0, ...data });
+}
+
+// ─── Intake Delivery Settings ──────────────────────────────────────────────
+
+export async function getIntakeDeliverySettings(): Promise<IntakeDeliverySettings | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(intakeDeliverySettings).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function upsertIntakeDeliverySettings(
+  data: Partial<InsertIntakeDeliverySettings>,
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const existing = await getIntakeDeliverySettings();
+  if (existing) {
+    await db
+      .update(intakeDeliverySettings)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(intakeDeliverySettings.id, existing.id));
+    return;
+  }
+
+  await db.insert(intakeDeliverySettings).values(data);
 }
 
 export async function getEmailTemplates(): Promise<EmailTemplate[]> {

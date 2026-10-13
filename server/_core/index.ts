@@ -15,6 +15,7 @@ import { crawlerMiddleware } from "../crawlerMiddleware";
 import { paypalPaymentWebhookHandler } from "../paypalPaymentWebhook";
 import { stripePaymentWebhookHandler } from "../stripePaymentWebhook";
 import { careTeamBookingWebhookHandler } from "../careTeamBookingWebhook";
+import { registerIntakePaymentRoutes } from "../intakePaymentRoutes";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -90,6 +91,9 @@ async function startServer() {
   // Care-team calendar details — authenticated GHL workflow webhook.
   // URL: https://medmethoddirect.com/api/webhooks/care-team-booking
   app.post("/api/webhooks/care-team-booking", careTeamBookingWebhookHandler);
+  // Weight-loss intake: pre-payment Keragon handoff plus one-time $49 PayPal card checkout.
+  // The endpoints read the currently selected PayPal sandbox/live configuration.
+  registerIntakePaymentRoutes(app);
 
   // Permanent compliance and legacy-route redirects — registered before tRPC,
   // crawler metadata, Vite, and static fallthrough so the HTTP response is a

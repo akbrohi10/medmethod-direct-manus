@@ -122,6 +122,10 @@ export default function AdminSettings() {
     enabled: hasAccess,
   });
 
+  const intakeDeliverySettingsQuery = trpc.intakeDeliverySettings.getSettings.useQuery(undefined, {
+    enabled: hasAccess,
+  });
+
   // Payments query
   const paymentsQuery = trpc.stripe.listPayments.useQuery(undefined, {
     enabled: hasAccess,
@@ -227,13 +231,24 @@ export default function AdminSettings() {
     },
   });
 
+  const updateIntakeDeliveryMutation = trpc.intakeDeliverySettings.updateSettings.useMutation({
+    onSuccess: () => {
+      toast.success("Keragon intake delivery setting saved successfully!");
+      setKeragonWebhookUrl("");
+      intakeDeliverySettingsQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(`Failed to save Keragon setting: ${err.message}`);
+    },
+  });
+
   // Local form state
   const [mode, setMode] = useState<Mode>("test");
   const [testPubKey, setTestPubKey] = useState("");
   const [testSecKey, setTestSecKey] = useState("");
   const [livePubKey, setLivePubKey] = useState("");
   const [liveSecKey, setLiveSecKey] = useState("");
-  const [activeTab, setActiveTab] = useState<"settings" | "paypal" | "email" | "payments">("settings");
+  const [activeTab, setActiveTab] = useState<"settings" | "paypal" | "intake" | "email" | "payments">("settings");
 
   // PayPal local form state
   const [ppMode, setPpMode] = useState<PayPalMode>("sandbox");
@@ -242,6 +257,7 @@ export default function AdminSettings() {
   const [ppSandboxClientSecret, setPpSandboxClientSecret] = useState("");
   const [ppLiveClientId, setPpLiveClientId] = useState("");
   const [ppLiveClientSecret, setPpLiveClientSecret] = useState("");
+  const [keragonWebhookUrl, setKeragonWebhookUrl] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "deposit_paid" | "fully_paid" | "failed">("all");
 
@@ -276,6 +292,12 @@ export default function AdminSettings() {
       sandboxClientSecret: ppSandboxClientSecret.includes("...") ? undefined : ppSandboxClientSecret || undefined,
       liveClientId: ppLiveClientId.includes("...") ? undefined : ppLiveClientId || undefined,
       liveClientSecret: ppLiveClientSecret.includes("...") ? undefined : ppLiveClientSecret || undefined,
+    });
+  };
+
+  const handleIntakeDeliverySave = () => {
+    updateIntakeDeliveryMutation.mutate({
+      keragonWebhookUrl: keragonWebhookUrl.trim() || undefined,
     });
   };
 
@@ -469,6 +491,16 @@ export default function AdminSettings() {
             Email Settings
           </button>
           <button
+            onClick={() => setActiveTab("intake")}
+            className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
+              activeTab === "intake"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Intake Delivery
+          </button>
+          <button
             onClick={() => setActiveTab("payments")}
             className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
               activeTab === "payments"
@@ -659,6 +691,66 @@ export default function AdminSettings() {
               <p className="text-xs text-gray-400">
                 Credentials are encrypted at rest.
               </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "intake" && (
+          <div className="bg-white rounded-xl border border-gray-200 p-6 max-w-3xl">
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-base font-bold text-gray-900">Keragon Intake Delivery</h2>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  Configure the secure destination used by the completed <code>/intake/</code> form before its $49 PayPal payment is created.
+                </p>
+              </div>
+              <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
+                intakeDeliverySettingsQuery.data?.keragonWebhookConfigured
+                  ? "bg-green-100 text-green-700"
+                  : "bg-amber-100 text-amber-700"
+              }`}>
+                {intakeDeliverySettingsQuery.data?.keragonWebhookConfigured ? "Configured" : "Not configured"}
+              </span>
+            </div>
+
+            <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 mb-5">
+              <p className="text-sm font-semibold text-amber-900">Sensitive intake data is sent before payment.</p>
+              <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                When a patient reaches payment, the completed intake is delivered to Keragon first. If delivery fails, PayPal payment is not started. If delivery succeeds but payment is declined or abandoned, Keragon still receives the unpaid intake.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-semibold text-gray-700">KERAGON_WEBHOOK_URL</label>
+              <input
+                type="password"
+                value={keragonWebhookUrl}
+                onChange={(event) => setKeragonWebhookUrl(event.target.value)}
+                placeholder={intakeDeliverySettingsQuery.data?.keragonWebhookConfigured ? "A secure URL is already saved — enter a new one to replace it" : "https://hooks.keragon.com/..."}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition"
+              />
+              <p className="text-xs text-gray-500">
+                Stored encrypted at rest and never returned to the browser. Use the full HTTPS URL supplied by Keragon.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-5 mt-5 border-t border-gray-100">
+              <button
+                onClick={handleIntakeDeliverySave}
+                disabled={!keragonWebhookUrl.trim() || updateIntakeDeliveryMutation.isPending}
+                className="px-6 py-2.5 bg-teal-700 hover:bg-teal-800 disabled:bg-teal-300 text-white text-sm font-bold rounded-lg transition flex items-center gap-2"
+              >
+                {updateIntakeDeliveryMutation.isPending ? <><RefreshCw size={14} className="animate-spin" /> Saving...</> : <><CheckCircle size={14} /> Save Keragon URL</>}
+              </button>
+              {intakeDeliverySettingsQuery.data?.keragonWebhookConfigured && (
+                <button
+                  onClick={() => updateIntakeDeliveryMutation.mutate({ removeKeragonWebhookUrl: true })}
+                  disabled={updateIntakeDeliveryMutation.isPending}
+                  className="px-4 py-2.5 text-sm font-bold text-red-700 bg-red-50 hover:bg-red-100 disabled:opacity-50 rounded-lg transition"
+                >
+                  Remove saved URL
+                </button>
+              )}
             </div>
           </div>
         )}

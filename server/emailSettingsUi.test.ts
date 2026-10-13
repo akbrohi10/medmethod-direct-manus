@@ -6,8 +6,8 @@ const emailSettings = readFileSync(new URL("../client/src/components/AdminEmailS
 const emailSettingsRouter = readFileSync(new URL("./routers/emailSettings.ts", import.meta.url), "utf8");
 
 describe("admin Email Settings interface", () => {
-  it("adds a dedicated Email Settings tab without changing the existing payment tabs", () => {
-    expect(adminSettings).toContain('"settings" | "paypal" | "email" | "payments"');
+  it("keeps the dedicated Email Settings and payment tabs when additional admin settings are added", () => {
+    expect(adminSettings).toContain('"settings" | "paypal" | "intake" | "email" | "payments"');
     expect(adminSettings).toContain("Email Settings");
     expect(adminSettings).toContain('<AdminEmailSettings />');
     expect(adminSettings).toContain("Stripe Settings");
