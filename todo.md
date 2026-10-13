@@ -2405,3 +2405,9 @@
 - [x] With explicit owner approval, change only caught safe application failures on `/api/paypal/orders` from HTTP 502 to HTTP 422. Production proxies now preserve the JSON error rather than replacing it with a generic Cloudflare gateway page.
 - [x] No Keragon payload, credentials, order/capture sequence, payment amount, or card-field handling changed. A synthetic local request returned HTTP 422 with the exact missing-`KERAGON_WEBHOOK_URL` configuration message and no order/delivery/card data.
 - [x] Validate 13 focused tests, TypeScript and production build. Full suite remains 341 passing / 2 separately documented imported-content compliance failures; no new failure. Save as an unpublished checkpoint only.
+
+## Intake Keragon App-Secret Delivery Source — 2026-10-13
+- [x] With explicit owner approval, use the verified project `KERAGON_WEBHOOK_URL` secret as the primary pre-payment delivery destination; retain the encrypted Admin Settings Intake Delivery URL only as a server-side fallback.
+- [x] Keep both values server-only. Neither destination is embedded in the static intake, returned from an API, logged, or exposed in browser output.
+- [x] Run one clearly marked synthetic Sandbox validation: Keragon accepted the test payload and PayPal prepared an order; no capture occurred and no charge was made.
+- [x] Validate 13 focused tests, TypeScript, production build, and fresh-production client-config/preflight checks. Full suite remains 341 passing / 2 separately documented imported-content compliance failures; no new failure. Save as an unpublished checkpoint only.

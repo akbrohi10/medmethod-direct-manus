@@ -126,12 +126,19 @@ function cleanForDelivery(intake: Record<string, unknown>, submissionId: string,
 }
 
 async function deliverIntake(payload: Record<string, unknown>) {
-  const settings = await getIntakeDeliverySettings();
-  if (!settings?.keragonWebhookUrlEncrypted) {
-    throw new Error("KERAGON_WEBHOOK_URL is not configured. An administrator must add it in Admin Settings before this intake can be submitted.");
+  // The verified app secret is the intended primary destination. The admin
+  // value remains available as a write-only encrypted fallback for future
+  // rotation without ever exposing either URL to the browser.
+  let endpoint = ENV.keragonWebhookUrl.trim();
+  if (!endpoint) {
+    const settings = await getIntakeDeliverySettings();
+    if (settings?.keragonWebhookUrlEncrypted) {
+      endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);
+    }
   }
-
-  const endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);
+  if (!endpoint) {
+    throw new Error("KERAGON_WEBHOOK_URL is not configured. An administrator must set the project secret or Intake Delivery setting before this intake can be submitted.");
+  }
   const body = JSON.stringify(payload);
   if (Buffer.byteLength(body, "utf8") > MAX_INTAKE_BYTES) {
     throw new Error("This intake is too large to send securely. Please shorten any free-text answers and try again.");

@@ -9,11 +9,12 @@ const crypto = read("server/intakeCredentialCrypto.ts");
 const admin = read("client/src/pages/AdminSettings.tsx");
 const intake = read("client/intake/index.html");
 const serverEntry = read("server/_core/index.ts");
+const env = read("server/_core/env.ts");
 
 // These source-level checks deliberately avoid calling a real Keragon endpoint or
 // PayPal environment. Browser validation uses only the configuration-error path.
 describe("intake Keragon delivery and PayPal payment boundary", () => {
-  it("keeps the Keragon URL write-only, encrypted and admin-only", () => {
+  it("keeps the Keragon URL server-only, secret-first and encrypted when using the admin fallback", () => {
     expect(crypto).toContain('"aes-256-gcm"');
     expect(crypto).toContain("encryptIntakeCredential");
     expect(crypto).toContain("decryptIntakeCredential");
@@ -24,6 +25,10 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(admin).toContain('type="password"');
     expect(intake).not.toContain("KERAGON_WEBHOOK_URL");
     expect(intake).not.toContain("hooks.keragon.com");
+    expect(env).toContain('keragonWebhookUrl: process.env.KERAGON_WEBHOOK_URL ?? ""');
+    expect(routes).toContain("let endpoint = ENV.keragonWebhookUrl.trim();");
+    expect(routes).toContain("if (settings?.keragonWebhookUrlEncrypted)");
+    expect(routes).toContain("endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);");
   });
 
   it("delivers intake before creating the one-time $49.00 PayPal order and never stores the intake on this server", () => {
