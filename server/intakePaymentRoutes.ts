@@ -179,6 +179,15 @@ export function registerIntakePaymentRoutes(app: Express) {
     }
   });
 
+  // Intentionally does not read settings, deliver an intake, create a PayPal
+  // order, or expose request contents. It allows safe verification that a
+  // deployment accepts JSON POST bodies before a real checkout is attempted.
+  app.post("/api/paypal/orders/preflight", (req: Request, res: Response) => {
+    const receivedBytes = Buffer.byteLength(JSON.stringify(req.body ?? {}), "utf8");
+    res.setHeader("Cache-Control", "no-store");
+    res.status(200).json({ ok: true, received_bytes: receivedBytes, max_intake_bytes: MAX_INTAKE_BYTES });
+  });
+
   app.post("/api/paypal/orders", async (req: Request, res: Response) => {
     try {
       const parsed = submissionSchema.safeParse(req.body);

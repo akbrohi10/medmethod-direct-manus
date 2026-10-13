@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 import { createServer } from "http";
 import net from "net";
 import path from "path";
@@ -64,6 +64,19 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Keep malformed or oversized checkout submissions from being surfaced as a
+  // gateway reset. This runs immediately after body parsing, before payment
+  // and static route registration; other errors continue to Express handlers.
+  app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
+    const parserError = error as { type?: string; status?: number; statusCode?: number } | undefined;
+    if (parserError?.type === "entity.too.large") {
+      return res.status(413).json({ error: "Intake payload is too large. Please shorten any free-text answers and try again." });
+    }
+    if (parserError?.type === "entity.parse.failed" || parserError?.status === 400 || parserError?.statusCode === 400) {
+      return res.status(400).json({ error: "The intake request body is invalid. Please reload the form and try again." });
+    }
+    next(error);
+  });
   // Replit migration mode can serve backed-up assets from
   // client/public/manus-storage instead of the Manus Forge signing proxy.
   if (process.env.LOCAL_ASSET_MODE !== "true") {

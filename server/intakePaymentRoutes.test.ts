@@ -8,6 +8,7 @@ const routes = read("server/intakePaymentRoutes.ts");
 const crypto = read("server/intakeCredentialCrypto.ts");
 const admin = read("client/src/pages/AdminSettings.tsx");
 const intake = read("client/intake/index.html");
+const serverEntry = read("server/_core/index.ts");
 
 // These source-level checks deliberately avoid calling a real Keragon endpoint or
 // PayPal environment. Browser validation uses only the configuration-error path.
@@ -55,5 +56,14 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(intake).toContain("body:JSON.stringify({approval_token:t})");
     expect(intake).not.toContain("card_number");
     expect(intake).not.toContain("card_cvv");
+  });
+
+  it("provides a non-delivering POST preflight and returns JSON for parser failures", () => {
+    expect(routes).toContain('app.post("/api/paypal/orders/preflight"');
+    expect(routes).toContain("received_bytes: receivedBytes");
+    expect(routes).not.toContain('deliverIntake(deliveryPayload);\n    });\n\n  app.post("/api/paypal/orders/preflight"');
+    expect(serverEntry).toContain('app.use(express.json({ limit: "50mb" }));');
+    expect(serverEntry).toContain('parserError?.type === "entity.too.large"');
+    expect(serverEntry).toContain('parserError?.type === "entity.parse.failed"');
   });
 });
