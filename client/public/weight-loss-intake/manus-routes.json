@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "path": "/weight-loss-intake",
+      "title": "MMD Weight Loss"
+    },
+    {
+      "path": "/intake/",
+      "title": "MMD Intake Form"
+    }
+  ]
+}

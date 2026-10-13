@@ -218,6 +218,23 @@ function SupplementsStandaloneRedirect() {
   return <a href="/supplements">Opening supplements…</a>;
 }
 
+/** Expose the supplied standalone intake prototypes in the route list without rebuilding them. */
+function WeightLossIntakeStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/weight-loss-intake");
+  }, []);
+
+  return <a href="/weight-loss-intake">Opening weight-loss intake…</a>;
+}
+
+function IntakeStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/intake/");
+  }, []);
+
+  return <a href="/intake/">Opening intake…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -367,6 +384,8 @@ function Router() {
         <Route path="/masterclass" component={MasterclassVideoFirst} />
         <Route path="/asynchronous" component={Asynchronous} />
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
+        <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />
+        <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
@@ -378,7 +397,7 @@ function Router() {
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
   if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
-  if (location === "/asynchronous" || location === "/weight-loss-menopause") return null;
+  if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/") return null;
   const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/" || location === "/lp/WL2";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;

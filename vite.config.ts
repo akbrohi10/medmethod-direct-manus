@@ -217,6 +217,8 @@ export default defineConfig({
       input: {
         main: path.resolve(import.meta.dirname, "client/index.html"),
         supplements: path.resolve(import.meta.dirname, "client/supplements.html"),
+        "weight-loss-intake": path.resolve(import.meta.dirname, "client/weight-loss-intake.html"),
+        "intake/index": path.resolve(import.meta.dirname, "client/intake/index.html"),
       },
       output: {
         manualChunks: {

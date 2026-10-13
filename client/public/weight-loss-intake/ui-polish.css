@@ -1,0 +1,44 @@
+/* Technical polish: preserve the approved design and contain decorative overflow. */
+:root { --site-header-height: 77px; }
+.hero { overflow-x: clip; overflow-y: visible; overflow-clip-margin: 0; }
+.wave-top::before { left: 0; right: 0; }
+#how-it-works, #doctor, #app, #pricing, #testimonials, #faq {
+  scroll-margin-top: calc(var(--site-header-height) + 12px);
+}
+.doctor-grid > * { min-width: 0; }
+.doctor-photo-wrap { width: 100%; }
+.doctor-reply { width: fit-content; max-width: 100%; white-space: normal; }
+.site-header .btn, .privacy-band .btn { background: var(--green-dark); }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible {
+  outline: 3px solid var(--teal-dark);
+  outline-offset: 4px;
+}
+.sticky-cta a:focus-visible { outline-color: #fff; outline-offset: -4px; }
+@media (max-width: 900px) {
+  :root { --site-header-height: 69px; }
+  .doctor-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Let the doctor-relationship headline lead; keep pricing and details secondary. */
+.hero h1 { margin-bottom: 24px; }
+.hero-copy > .hero-eyebrow { padding: 8px 18px; font-size: 1.1rem; }
+.hero-offer { margin-top: 24px; }
+.hero-offer strong { font-size: clamp(3.75rem, 5vw, 4.5rem); }
+.hero-offer .hero-refund { margin-top: 12px; }
+.hero-offer span:not(.hero-refund) { margin-top: 10px; font-weight: 400; }
+.hero-actions { margin-top: 26px; }
+.hero-copy > .hero-text-note { margin-top: 18px; font-size: 1rem; font-weight: 600; }
+@media (max-width: 960px) {
+  .hero-copy > .hero-eyebrow {
+    font-size: clamp(.9rem, 4.2vw, 1.08rem);
+    padding: 9px 16px;
+  }
+  .hero-offer { margin-top: 22px; }
+  .hero-offer strong { font-size: clamp(2.875rem, 12vw, 3.75rem); }
+  .hero-actions { margin-top: 24px; }
+  .hero-copy > .hero-text-note { font-size: .96875rem; }
+}
+@media (max-width: 700px) {
+  .hero-offer strong { font-size: clamp(2.875rem, 12vw, 3rem); }
+}

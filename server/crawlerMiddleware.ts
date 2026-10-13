@@ -373,6 +373,8 @@ export function crawlerMiddleware(
   const path = req.path;
   if (
     path === "/supplements" || path === "/supplements/" ||
+    path === "/weight-loss-intake" || path === "/weight-loss-intake/" ||
+    path === "/intake" || path === "/intake/" ||
     path.startsWith("/api/") ||
     path.startsWith("/manus-storage/") ||
     path.startsWith("/src/") ||

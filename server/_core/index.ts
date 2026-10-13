@@ -121,6 +121,22 @@ async function startServer() {
     res.sendFile(supplementsHtml);
   });
 
+  // The supplied weight-loss landing and its intake questionnaire are static UX
+  // prototypes. Serve their original documents directly so their bundled CSS and
+  // script behavior remain isolated from the existing React application.
+  const weightLossIntakeHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/weight-loss-intake.html")
+    : path.resolve(import.meta.dirname, "public/weight-loss-intake.html");
+  const intakePrototypeHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/intake/index.html")
+    : path.resolve(import.meta.dirname, "public/intake/index.html");
+  app.get(["/weight-loss-intake", "/weight-loss-intake/"], (_req, res) => {
+    res.sendFile(weightLossIntakeHtml);
+  });
+  app.get(["/intake", "/intake/"], (_req, res) => {
+    res.sendFile(intakePrototypeHtml);
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",
