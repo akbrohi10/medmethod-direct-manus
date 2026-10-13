@@ -66,4 +66,12 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(serverEntry).toContain('parserError?.type === "entity.too.large"');
     expect(serverEntry).toContain('parserError?.type === "entity.parse.failed"');
   });
+
+  it("uses a non-gateway status for safe order validation and delivery failures", () => {
+    const orderStart = routes.indexOf('app.post("/api/paypal/orders",');
+    const captureStart = routes.indexOf('app.post("/api/paypal/orders/:orderId/capture",');
+    const orderRoute = routes.slice(orderStart, captureStart);
+    expect(orderRoute).toContain('res.status(422).json({ error: errorMessage(error) });');
+    expect(orderRoute).not.toContain('res.status(502).json');
+  });
 });

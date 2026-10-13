@@ -230,7 +230,10 @@ export function registerIntakePaymentRoutes(app: Express) {
       const approvalToken = encodeApprovalToken({ version: 1, submissionId, orderId: order.id, mode, expiresAt: Date.now() + TOKEN_TTL_MS });
       res.status(201).json({ order_id: order.id, approval_url: approvalUrl, approval_token: approvalToken, environment: mode });
     } catch (error) {
-      res.status(502).json({ error: errorMessage(error) });
+      // A 5xx response from this route is replaced by the production proxy's
+      // generic gateway page. These are handled checkout validation/delivery
+      // failures, so return a non-gateway status and preserve the safe message.
+      res.status(422).json({ error: errorMessage(error) });
     }
   });
 

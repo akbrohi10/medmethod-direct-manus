@@ -2400,3 +2400,8 @@
 - [x] Add a JSON parser error boundary immediately after the 50 MB parsers. Malformed JSON now returns structured HTTP 400, oversized bodies return HTTP 413, and unrelated errors continue through Express.
 - [x] Diagnosis: a clearly synthetic tiny live order POST returned a Cloudflare origin 502 in about 2.5 seconds—before any Sandbox order was created—while the local preview reached the expected Keragon configuration guard. This points to the production origin/proxy POST path, not the entered test card or PayPal SDK credentials.
 - [x] Validate 12 focused tests, TypeScript, production build, local and fresh-production synthetic preflight (HTTP 200), plus malformed JSON (HTTP 400). Full suite remains 340 passing / 2 separately documented imported-content compliance failures; no new failure. Save as an unpublished checkpoint only.
+
+## Intake Specific Checkout Error Response — 2026-10-13
+- [x] With explicit owner approval, change only caught safe application failures on `/api/paypal/orders` from HTTP 502 to HTTP 422. Production proxies now preserve the JSON error rather than replacing it with a generic Cloudflare gateway page.
+- [x] No Keragon payload, credentials, order/capture sequence, payment amount, or card-field handling changed. A synthetic local request returned HTTP 422 with the exact missing-`KERAGON_WEBHOOK_URL` configuration message and no order/delivery/card data.
+- [x] Validate 13 focused tests, TypeScript and production build. Full suite remains 341 passing / 2 separately documented imported-content compliance failures; no new failure. Save as an unpublished checkpoint only.
