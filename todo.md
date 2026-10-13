@@ -2380,4 +2380,4 @@
 - [x] Validation: migration applied successfully; 12 focused tests plus static-JS parsing and TypeScript passed; mobile synthetic QA reached the payment screen with fake/demo data and initiated only client-token loading (no order/capture); direct order guard returned the missing-`KERAGON_WEBHOOK_URL` error without charging; fresh production build served `/intake/`, `/weight-loss-intake`, `/masterclass`, and `/` with HTTP 200 and retained the payment guard.
 - [ ] Before a real submission can proceed, an authorized admin must enter the exact Keragon endpoint in **Admin Settings → Intake Delivery**. Do not add the URL to source code or browser config. Current `noindex,follow` status remains unchanged.
 - [ ] Full suite: 339 passing / 2 failing across 70 files. Both failures are the pre-existing, separately documented `legitScriptCompliance` conflicts from imported weight-loss content; the new payment setting introduced no additional full-suite failure. No compliance guard was weakened.
-- [ ] Save as an unpublished checkpoint only; public publishing remains unapproved.
+- [x] Save as unpublished checkpoint `085f9d12` only; public publishing remains unapproved.
