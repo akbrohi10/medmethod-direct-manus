@@ -74,4 +74,15 @@ describe("Weight-loss intake static prototype import", () => {
       { path: "/intake/", title: "MMD Intake Form" },
     ]);
   });
+
+  it("keeps final consent choices usable after required disclosures are read and makes the choices mutually exclusive", () => {
+    expect(intake).toContain(
+      "Object.fromEntries(Ce.consent.filter(e=>e.defaultOpen).map(e=>[e.title,!0]))",
+    );
+    expect(intake).toContain("n&&t(`wDecline`,!1)");
+    expect(intake).toContain("n&&t(`wConsent`,!1)");
+    expect(intake).toContain(
+      "We're unable to continue your Weight Care intake without your consent to discuss GLP-1 treatment.",
+    );
+  });
 });
