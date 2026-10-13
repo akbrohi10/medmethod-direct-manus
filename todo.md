@@ -2381,3 +2381,9 @@
 - [ ] Before a real submission can proceed, an authorized admin must enter the exact Keragon endpoint in **Admin Settings → Intake Delivery**. Do not add the URL to source code or browser config. Current `noindex,follow` status remains unchanged.
 - [ ] Full suite: 339 passing / 2 failing across 70 files. Both failures are the pre-existing, separately documented `legitScriptCompliance` conflicts from imported weight-loss content; the new payment setting introduced no additional full-suite failure. No compliance guard was weakened.
 - [x] Save as unpublished checkpoint `085f9d12` only; public publishing remains unapproved.
+
+## Intake Immediate Final Consent Choices — 2026-10-13
+- [x] With explicit owner approval, remove only the `/intake/` final-step prerequisite that required opening “Possible side effects” and “Serious risks” before either checkbox could be selected.
+- [x] Keep all disclosure accordions unchanged and available to read. Keep mutually exclusive choices: consent enables Continue; decline clears consent, shows the existing cannot-continue notice, and leaves Continue disabled.
+- [x] Validate 7 focused tests, TypeScript, static-JavaScript parsing, mobile and desktop browser flows, production build, and fresh-production HTTP 200 smoke checks. On both viewports, controls are enabled before disclosures are opened.
+- [x] Full suite remains 339 passing / 2 known imported-content compliance failures; no new failures. Save an unpublished checkpoint only; do not publish automatically.

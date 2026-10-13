@@ -80,10 +80,12 @@ describe("Weight-loss intake static prototype import", () => {
     ]);
   });
 
-  it("keeps final consent choices usable after required disclosures are read and makes the choices mutually exclusive", () => {
+  it("keeps final consent choices immediately usable and makes the choices mutually exclusive", () => {
     expect(intake).toContain(
-      "Object.fromEntries(Ce.consent.filter(e=>e.defaultOpen).map(e=>[e.title,!0]))",
+      "case`consent`:return t.wConsent===!0&&t.wDecline!==!0;",
     );
+    expect(intake).toContain("),o=!0;let s=e=>{r(t=>({...t,[e]:!t[e]}))}");
+    expect(intake).not.toContain("wConsentSectionsRead===!0");
     expect(intake).toContain("n&&t(`wDecline`,!1)");
     expect(intake).toContain("n&&t(`wConsent`,!1)");
     expect(intake).toContain(
