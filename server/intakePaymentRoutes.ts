@@ -166,17 +166,14 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const settings = await getPaypalSettings();
       requireActivePayPal(settings);
+      if (!settings) throw new Error("PayPal is not configured.");
       const mode = paymentMode(settings);
-      const client = await getPayPalClient(mode);
-      const tokenResponse = await fetch(`${client.baseUrl}/v1/identity/generate-token`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${client.token}`, "Content-Type": "application/json" },
-        body: "{}",
-      });
-      if (!tokenResponse.ok) throw new Error("PayPal secure card fields are unavailable in the currently selected environment.");
-      const data = await tokenResponse.json() as { client_token?: string };
-      if (!data.client_token) throw new Error("PayPal did not return a secure card token.");
-      res.json({ client_token: data.client_token, environment: mode });
+      // PayPal Web SDK v6 accepts a browser-safe public Client ID directly. The
+      // opaque value from /v1/identity/generate-token is not a JWT and is rejected
+      // by createInstance() for Advanced Card Fields.
+      const clientId = mode === "live" ? settings.liveClientId : settings.sandboxClientId;
+      if (!clientId) throw new Error(`PayPal ${mode} Client ID is not configured.`);
+      res.json({ client_id: clientId, environment: mode });
     } catch (error) {
       res.status(503).json({ error: errorMessage(error) });
     }

@@ -2387,3 +2387,10 @@
 - [x] Keep all disclosure accordions unchanged and available to read. Keep mutually exclusive choices: consent enables Continue; decline clears consent, shows the existing cannot-continue notice, and leaves Continue disabled.
 - [x] Validate 7 focused tests, TypeScript, static-JavaScript parsing, mobile and desktop browser flows, production build, and fresh-production HTTP 200 smoke checks. On both viewports, controls are enabled before disclosures are opened.
 - [x] Full suite remains 339 passing / 2 known imported-content compliance failures; no new failures. Save an unpublished checkpoint only; do not publish automatically.
+
+## Intake PayPal Card-Field Initialization — 2026-10-13
+- [x] With explicit owner approval, fix `/intake/` Sandbox card fields that displayed `clientToken must be a valid JSON Web Token`.
+- [x] Root cause: the PayPal identity endpoint supplied an opaque value while the loaded Web SDK v6 `createInstance` requires a JWT when using `clientToken`.
+- [x] Keep Admin Settings as the source of truth for enabled provider, mode and saved credentials. The browser now receives only the selected public `client_id` and invokes Web SDK v6 with `clientId`; the selected Client Secret remains server-only for order creation and capture.
+- [x] Verify the Sandbox endpoint returns only `client_id` and `environment` with no secret; browser QA rendered all four PayPal-hosted secure fields, no initialization errors, and issued no order/capture POST. Focused tests (11), TypeScript, production build, and fresh production route/config smoke tests passed.
+- [x] Full suite remains 339 passing / 2 separately documented imported-content compliance failures; no new failure. Save an unpublished checkpoint only; do not publish automatically.

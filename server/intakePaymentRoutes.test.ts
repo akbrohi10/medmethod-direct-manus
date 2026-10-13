@@ -37,6 +37,8 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
   it("uses the admin-selected PayPal sandbox or live mode and binds capture to a short-lived signed approval token", () => {
     expect(routes).toContain('settings?.mode === "live" ? "live" : "sandbox"');
     expect(routes).toContain('settings.activeProvider !== "paypal"');
+    expect(routes).toContain('res.json({ client_id: clientId, environment: mode });');
+    expect(routes).toContain('mode === "live" ? settings.liveClientId : settings.sandboxClientId');
     expect(routes).toContain("TOKEN_TTL_MS = 30 * 60 * 1000");
     expect(routes).toContain("createHmac(\"sha256\"");
     expect(routes).toContain("timingSafeEqual");
@@ -46,6 +48,9 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
 
   it("keeps card data inside PayPal-hosted fields and posts only the approval token for capture", () => {
     expect(intake).toContain("PayPal-hosted secure fields");
+    expect(intake).toContain("return{clientId:e.client_id,environment:e.environment}");
+    expect(intake).toContain("r.createInstance({clientId:t,components:[`card-fields`],pageType:`checkout`})");
+    expect(intake).not.toContain("clientToken:t");
     expect(intake).toContain("approvalToken:r.approval_token");
     expect(intake).toContain("body:JSON.stringify({approval_token:t})");
     expect(intake).not.toContain("card_number");
