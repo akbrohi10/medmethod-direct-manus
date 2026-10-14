@@ -120,6 +120,19 @@ describe("Weight-loss intake static prototype import", () => {
     );
   });
 
+  it("shows the temporary three-step account-onboarding guidance above Start over after a completed intake", () => {
+    const confirmationStart = intake.indexOf("confirmation-next-steps");
+    const restartStart = intake.indexOf("children:`Start over`");
+
+    expect(confirmationStart).toBeGreaterThan(-1);
+    expect(restartStart).toBeGreaterThan(confirmationStart);
+    expect(intake).toContain("What happens next");
+    expect(intake).toContain("Check your inbox and spam folder");
+    expect(intake).toContain("Open the link in the email");
+    expect(intake).toContain("Create your account and set your password");
+    expect(intake).toContain("confirmation-next-step-number");
+  });
+
   it("keeps the imported static intake JavaScript syntactically valid after secure-payment wiring", () => {
     const inlineScript = intake.match(/<script>([\s\S]*?)<\/script>/)?.[1];
     expect(inlineScript).toBeTruthy();

@@ -2440,3 +2440,11 @@
 - [x] Validate: 16 focused tests, TypeScript, static-bundle parsing, production build, and no-charge browser QA. With Admin Settings currently Live, normal configuration returned `environment: live`, while demo configuration returned `environment: sandbox`; actual demo browser progression rendered four Sandbox-hosted card frames, loaded only `www.sandbox.paypal.com` SDK resources, made no Live SDK request, and made zero payment POSTs.
 - [x] Full suite: 348 passing / 1 failing across 71 files. The sole failure is the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this update introduced no additional failure.
 - [x] Saved as unpublished checkpoint `87ac0dfb`; not published.
+
+## Intake Confirmation Next Steps — 2026-10-15
+- [x] Add a temporary page-local `What happens next` panel to the paid `/intake/` confirmation state, positioned after the existing $49 safety-net notice and immediately above the unchanged `Start over` button.
+- [x] Use the approved interim onboarding copy: `1. Check your inbox and spam folder`; `2. Open the link in the email`; `3. Create your account and set your password`. The final copy can be replaced later without changing payment, Keragon delivery, confirmation, or account behavior.
+- [x] Match the supplied visual reference with three numbered mint/lime circles, a connecting vertical line, strong readable copy, responsive wrapping, and page-scoped styles. The panel is semantic (`section`, labelled heading, ordered list) and does not affect any other site route.
+- [x] Validate: 9 focused static-intake tests, TypeScript, production build, static-bundle parsing, and phone (375px) plus desktop (1440px) confirmation-screen browser QA through the existing non-payment success-state rendering. All three steps render above Start over with no horizontal overflow. No data delivery, payment order, capture, or external request was triggered by visual QA.
+- [x] Full suite: 349 passing / 1 failing across 71 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported brand medication prototype content; this confirmation-only update introduced no additional failure.
+- [ ] Save as an unpublished checkpoint only; do not publish.
