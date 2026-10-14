@@ -154,6 +154,18 @@ async function startServer() {
     res.sendFile(intakePrototypeHtml);
   });
 
+  // Apple Pay / PayPal Live domain validation requires this exact dot-directory
+  // URL. Serve the supplied association file explicitly because Express static
+  // middleware ignores dot-directories by default.
+  const applePayDomainAssociationFile = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/public/.well-known/apple-developer-merchantid-domain-association")
+    : path.resolve(import.meta.dirname, "public/.well-known/apple-developer-merchantid-domain-association");
+  app.get("/.well-known/apple-developer-merchantid-domain-association", (_req, res) => {
+    res.type("text/plain");
+    res.setHeader("Cache-Control", "no-store");
+    res.sendFile(applePayDomainAssociationFile);
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",

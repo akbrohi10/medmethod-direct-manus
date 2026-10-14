@@ -2447,4 +2447,11 @@
 - [x] Match the supplied visual reference with three numbered mint/lime circles, a connecting vertical line, strong readable copy, responsive wrapping, and page-scoped styles. The panel is semantic (`section`, labelled heading, ordered list) and does not affect any other site route.
 - [x] Validate: 9 focused static-intake tests, TypeScript, production build, static-bundle parsing, and phone (375px) plus desktop (1440px) confirmation-screen browser QA through the existing non-payment success-state rendering. All three steps render above Start over with no horizontal overflow. No data delivery, payment order, capture, or external request was triggered by visual QA.
 - [x] Full suite: 349 passing / 1 failing across 71 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported brand medication prototype content; this confirmation-only update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as unpublished checkpoint `d8c43e13`; not published.
+
+## Apple Pay Live Domain Verification File — 2026-10-15
+- [x] Stage the exact user-provided Apple/PayPal association file as `client/public/.well-known/apple-developer-merchantid-domain-association` without modifying its signed contents (9,094 bytes; SHA-256 `cdb19c18ab558f50994fb98413eaad9d495b552a2fdf07505e4fb4f5777e4969`).
+- [x] Add an explicit Express `GET /.well-known/apple-developer-merchantid-domain-association` route before crawler/static fallback. It returns the supplied file as `text/plain`, `Cache-Control: no-store`, rather than an HTML page; this is necessary because standard Express static handling ignores dot-directories.
+- [x] Validate the exact route in development and a freshly built production server: HTTP 200, `Content-Type: text/plain; charset=utf-8`, 9,094 bytes, and exact byte-for-byte SHA-256 match to the supplied file. The production build contains `dist/public/.well-known/apple-developer-merchantid-domain-association`.
+- [x] Validate 10 focused tests, TypeScript, and production build. Full suite: 351 passing / 1 failing across 72 files; the only failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content.
+- [ ] Save as an unpublished checkpoint only. Publication remains required before `https://medmethoddirect.com/.well-known/apple-developer-merchantid-domain-association` can change from the current website fallback response and PayPal can register the Live domain.
