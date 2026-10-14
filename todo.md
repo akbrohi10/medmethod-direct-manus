@@ -2462,4 +2462,12 @@
 - [x] Keep each title visually distinct from its supporting line while preserving responsive wrapping, the dark-theme color treatment, numbered markers, and no horizontal overflow.
 - [x] Validate: 9 focused tests, TypeScript, production build, static-bundle parsing, and non-payment success-state browser QA at 375px and 1440px. All three approved instructions render before `Start over` at both widths.
 - [x] Full suite: 351 passing / 1 failing across 72 files. The sole failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this copy-only update introduced no additional failure.
+- [x] Saved as unpublished checkpoint `0f144e7a`; not published.
+
+## Intake Apple Pay Black Button Across Themes — 2026-10-15
+- [x] Keep `/intake/` Apple Pay visibility eligibility-only, as approved: unsupported devices or unavailable PayPal Apple Pay methods do not receive a misleading payment control.
+- [x] Make the eligible native `Buy with Pay` control explicitly solid black in both light and dark checkout themes, with the native `buy` type, black style, full available width, a 52px touch target, and pill radius. The card form, $49 amount, eligibility gate, merchant validation, Keragon delivery, and payment capture behavior remain unchanged.
+- [x] Correct light-theme divider/status colors separately from the black native button; restore the existing light-on-dark treatment under the dark theme media query.
+- [x] Validate: 18 focused static-intake/payment tests, TypeScript, production build, and a no-charge mocked Apple Pay browser check. In both 390px light and dark contexts, an eligible control is visible at 52px height with `background: rgb(0, 0, 0)`, native `buttonstyle="black"`, and `type="buy"`. No order/capture/delivery request was made.
+- [x] Full suite: 352 passing / 1 failing across 72 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this styling-only change introduced no additional failure.
 - [ ] Save as an unpublished checkpoint only; do not publish.

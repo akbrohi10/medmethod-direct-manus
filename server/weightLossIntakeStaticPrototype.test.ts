@@ -136,6 +136,17 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("confirmation-next-step-number");
   });
 
+  it("renders Apple Pay only when eligible, with an explicit native black button in both checkout themes", () => {
+    expect(intake).toContain("methods.isEligible(`applepay`)");
+    expect(intake).toContain("!available?null");
+    expect(intake).toContain("buttonstyle:`black`");
+    expect(intake).toContain("background:#000");
+    expect(intake).toContain("-apple-pay-button-type:buy");
+    expect(intake).toContain("-apple-pay-button-style:black");
+    expect(intake).toContain("height:52px");
+    expect(intake).toContain("@media (prefers-color-scheme:dark){.apple-pay-option");
+  });
+
   it("keeps the imported static intake JavaScript syntactically valid after secure-payment wiring", () => {
     const inlineScript = intake.match(/<script>([\s\S]*?)<\/script>/)?.[1];
     expect(inlineScript).toBeTruthy();
