@@ -57,10 +57,26 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(intake).toContain("return{clientId:e.client_id,environment:e.environment}");
     expect(intake).toContain("r.createInstance({clientId:t,components:[`card-fields`],pageType:`checkout`})");
     expect(intake).not.toContain("clientToken:t");
-    expect(intake).toContain("approvalToken:r.approval_token");
+    expect(intake).toContain("approvalToken:i.approval_token");
     expect(intake).toContain("body:JSON.stringify({approval_token:t})");
     expect(intake).not.toContain("card_number");
     expect(intake).not.toContain("card_cvv");
+  });
+
+  it("offers Apple Pay only through the same secure PayPal order and capture boundary", () => {
+    expect(intake).toContain("applepay-payments");
+    expect(intake).toContain("ApplePaySession.canMakePayments()");
+    expect(intake).toContain("findEligibleMethods({currencyCode:`USD`})");
+    expect(intake).toContain("createApplePayOneTimePaymentSession()");
+    expect(intake).toContain("validateMerchant({validationUrl:event.validationURL})");
+    expect(intake).toContain("confirmOrder({orderId:created.orderId,token:event.payment.token");
+    expect(intake).toContain("payment_method:r");
+    expect(intake).toContain("`apple_pay`");
+    expect(routes).toContain('payment_method: z.enum(["card", "apple_pay"]).optional()');
+    expect(routes).toContain('const paymentMethod = parsed.data.payment_method === "apple_pay" ? "apple_pay" : "card";');
+    expect(routes).toContain("method: paymentMethod");
+    expect(routes).toContain('...(paymentMethod === "card"');
+    expect(routes).not.toContain("APPLE_PAY_MERCHANT");
   });
 
   it("provides a non-delivering POST preflight and returns JSON for parser failures", () => {

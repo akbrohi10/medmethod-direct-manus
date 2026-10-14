@@ -23,6 +23,7 @@ type ApprovalToken = {
 const submissionSchema = z.object({
   intake: z.record(z.string(), z.unknown()),
   phone_verification_token: z.string().max(2048).nullable().optional(),
+  payment_method: z.enum(["card", "apple_pay"]).optional(),
 });
 
 function getPayPalBaseUrl(mode: PayPalMode): string {
@@ -105,7 +106,12 @@ function decodeApprovalToken(value: unknown): ApprovalToken {
   return parsed.data;
 }
 
-function cleanForDelivery(intake: Record<string, unknown>, submissionId: string, mode: PayPalMode) {
+function cleanForDelivery(
+  intake: Record<string, unknown>,
+  submissionId: string,
+  mode: PayPalMode,
+  paymentMethod: "card" | "apple_pay",
+) {
   const { checkout_preview: _checkoutPreview, ...submitted } = intake;
   const isTest = mode === "sandbox" || submitted.is_test === true;
   return {
@@ -117,6 +123,7 @@ function cleanForDelivery(intake: Record<string, unknown>, submissionId: string,
     is_test: isTest,
     payment: {
       provider: "paypal",
+      method: paymentMethod,
       mode,
       amount: INTAKE_AMOUNT,
       currency: "USD",
@@ -203,8 +210,9 @@ export function registerIntakePaymentRoutes(app: Express) {
       const settings = await getPaypalSettings();
       requireActivePayPal(settings);
       const mode = paymentMode(settings);
+      const paymentMethod = parsed.data.payment_method === "apple_pay" ? "apple_pay" : "card";
       const submissionId = randomUUID();
-      const deliveryPayload = cleanForDelivery(parsed.data.intake, submissionId, mode);
+      const deliveryPayload = cleanForDelivery(parsed.data.intake, submissionId, mode, paymentMethod);
 
       // Explicit owner-approved sequence: deliver the completed intake before payment.
       // No intake payload is persisted by this server.
@@ -226,7 +234,19 @@ export function registerIntakePaymentRoutes(app: Express) {
             description: "MedMethod Direct — $49 intake consultation",
             custom_id: submissionId,
           }],
-          payment_source: { card: { attributes: { verification: { method: "SCA_WHEN_REQUIRED" } } } },
+          // Apple Pay supplies its encrypted payment token through PayPal v6's
+          // confirmOrder call. Card Fields still need the card source declaration.
+          ...(paymentMethod === "card"
+            ? {
+              payment_source: {
+                card: {
+                  attributes: {
+                    verification: { method: "SCA_WHEN_REQUIRED" },
+                  },
+                },
+              },
+            }
+            : {}),
         }),
       });
       if (!orderResponse.ok) throw new Error("PayPal could not prepare the $49.00 card payment. Your intake was delivered but your card was not charged.");
@@ -235,7 +255,13 @@ export function registerIntakePaymentRoutes(app: Express) {
       if (!order.id) throw new Error("PayPal did not return a payment order. Your card was not charged.");
       const approvalUrl = order.links?.find((link) => link.rel === "approve")?.href ?? "";
       const approvalToken = encodeApprovalToken({ version: 1, submissionId, orderId: order.id, mode, expiresAt: Date.now() + TOKEN_TTL_MS });
-      res.status(201).json({ order_id: order.id, approval_url: approvalUrl, approval_token: approvalToken, environment: mode });
+      res.status(201).json({
+        order_id: order.id,
+        approval_url: approvalUrl,
+        approval_token: approvalToken,
+        environment: mode,
+        payment_method: paymentMethod,
+      });
     } catch (error) {
       // A 5xx response from this route is replaced by the production proxy's
       // generic gateway page. These are handled checkout validation/delivery
