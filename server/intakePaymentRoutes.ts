@@ -34,6 +34,16 @@ function paymentMode(settings: Awaited<ReturnType<typeof getPaypalSettings>>): P
   return settings?.mode === "live" ? "live" : "sandbox";
 }
 
+// The public demo URL is deliberately the only way to override the protected
+// Admin Settings mode. Every normal intake request continues to use the mode
+// selected by the administrator; demo requests are always non-live.
+function paymentModeForRequest(
+  settings: Awaited<ReturnType<typeof getPaypalSettings>>,
+  request: Request,
+): PayPalMode {
+  return request.query.prefill === "demo" ? "sandbox" : paymentMode(settings);
+}
+
 function requireActivePayPal(settings: Awaited<ReturnType<typeof getPaypalSettings>>) {
   if (!settings || settings.activeProvider !== "paypal") {
     throw new Error("PayPal is not the enabled payment provider. An administrator must enable PayPal in Admin Settings before the intake can collect the $49.00 consultation fee.");
@@ -181,7 +191,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       const settings = await getPaypalSettings();
       requireActivePayPal(settings);
       if (!settings) throw new Error("PayPal is not configured.");
-      const mode = paymentMode(settings);
+      const mode = paymentModeForRequest(settings, _req);
       // PayPal Web SDK v6 accepts a browser-safe public Client ID directly. The
       // opaque value from /v1/identity/generate-token is not a JWT and is rejected
       // by createInstance() for Advanced Card Fields.
@@ -209,7 +219,7 @@ export function registerIntakePaymentRoutes(app: Express) {
 
       const settings = await getPaypalSettings();
       requireActivePayPal(settings);
-      const mode = paymentMode(settings);
+      const mode = paymentModeForRequest(settings, req);
       const paymentMethod = parsed.data.payment_method === "apple_pay" ? "apple_pay" : "card";
       const submissionId = randomUUID();
       const deliveryPayload = cleanForDelivery(parsed.data.intake, submissionId, mode, paymentMethod);
