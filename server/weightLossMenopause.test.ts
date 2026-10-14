@@ -6,6 +6,8 @@ const read = (file: string) => readFileSync(resolve(import.meta.dirname, "..", f
 const page = read("client/src/pages/WeightLossMenopause.tsx");
 const css = read("client/src/pages/WeightLossMenopause.css");
 const interaction = read("client/src/pages/weightLossMenopauseInteractions.ts");
+const treatmentCatalogSource = read("shared/treatmentCatalog.json");
+const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json"));
 
 describe("Weight-Loss & Menopause supplied page integration", () => {
   it("registers a real React page rather than a standalone document or iframe", () => {
@@ -13,19 +15,28 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(page).toContain("export default function WeightLossMenopause()");
     expect(page).not.toMatch(/<iframe|dangerouslySetInnerHTML|window\.location/);
   });
-  it("preserves the default GLP-1 choice, complete catalog and HRT supplies", () => {
+  it("preserves the default GLP-1 choice and renders shared GLP-1 and HRT catalogs", () => {
     expect(page).toContain('aria-pressed="true" aria-controls="glp1-medication-panel"');
     expect(page).toContain('data-medication-panel="hrt" role="region" aria-label="HRT medication options" hidden={true}');
-    expect((page.match(/className="medication-card"/g) ?? []).length).toBe(12);
-    for (const price of ["$299", "$149", "$199", "$70", "$100", "$115", "$29", "$99", "$69", "$79"]) expect(page).toContain(price);
-    for (const supply of ["1-month supply", "3-month supply", "2-month supply"]) expect(page).toContain(supply);
+    expect(page).toContain('import treatmentCatalogJson from "@shared/treatmentCatalog.json"');
+    expect(page).toContain('treatmentCatalog.glp1.options.map');
+    expect(page).toContain('treatmentCatalog.hrt.options.map');
+    expect(page).toContain('className="medication-supply"');
+    expect(treatmentCatalog.glp1.notSure).toEqual({ value: "not_sure", name: "I'm not sure", helper: "I would like a recommendation" });
+    expect(treatmentCatalog.glp1.options).toHaveLength(7);
+    expect(treatmentCatalog.hrt.options).toHaveLength(12);
+    expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Estradiol Gel (Divigel)");
+    expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Spironolactone + Biotin + Minoxidil Combination Pill");
     expect(page).toContain('className="hero-cta-timing">5-10 min');
   });
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);
     expect(manifest.source_commit).toBe("702ee3a7eb15ed3ed3394d13672c1851ff2f0a34");
-    for (const asset of manifest.assets) expect(page).toContain(asset.storage_path);
+    for (const asset of manifest.assets.filter((asset: { source_name: string }) => asset.source_name !== "estradiol-gel-transparent-candidate.png")) {
+      expect(`${page}\n${treatmentCatalogSource}`).toContain(asset.storage_path);
+    }
+    expect(`${page}\n${treatmentCatalogSource}`).not.toContain("estradiol-gel-transparent-candidate_9fcff251.png");
     for (const retired of ["7543c31c", "afb3ff87", "cab52469", "bd4c65f6", "b3ee02dc"]) expect(page).not.toContain(retired);
     expect(page).not.toContain("data:image");
   });

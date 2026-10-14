@@ -11,6 +11,7 @@ const server = read("server/_core/index.ts");
 const crawler = read("server/crawlerMiddleware.ts");
 const vite = read("vite.config.ts");
 const app = read("client/src/App.tsx");
+const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json"));
 
 describe("Weight-loss intake static prototype import", () => {
   it("builds and serves the supplied pages at their approved direct routes, not at the homepage", () => {
@@ -36,6 +37,32 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain('href="/intake/ui-polish.css"');
     expect(intake).toContain('src="/intake/ui-polish.js"');
     expect(intake).toContain("var __mmdSession");
+  });
+
+  it("uses one shared GLP-1 catalog for landing, intake choice cards and intake review cards", () => {
+    const browserCatalog = read("client/public/treatment-catalog.js");
+    const generator = read("scripts/generate-treatment-catalog.mjs");
+    expect(generator).toContain("shared/treatmentCatalog.json");
+    expect(browserCatalog).toContain("MMD_TREATMENT_CATALOG");
+    expect(landing).toContain('src="/treatment-catalog.js"');
+    expect(landing).toContain('data-shared-glp1-catalog');
+    expect(intake).toContain('src="/treatment-catalog.js"');
+    expect(intake).toContain("window.MMD_TREATMENT_CATALOG.glp1.options.map");
+    expect(landing).not.toContain("Zepbound Vial");
+    expect(landing).not.toContain("$70");
+    expect(intake).not.toContain("f={options:[{value:`compounded_semaglutide`");
+
+    const expected = [
+      ["Compounded Semaglutide", "$129", "1-month supply"],
+      ["Compounded Tirzepatide", "$149", "1-month supply"],
+      ["Compounded Liraglutide", "$115", "1-month supply"],
+      ["Wegovy® – Direct from NovoCare®", "$349/month", undefined],
+      ["Wegovy Pill® – Direct from NovoCare®", "$199/month", undefined],
+      ["Zepbound® KwikPen – Direct from LillyDirect®", "$299/month", undefined],
+      ["Foundayo® Pill – Direct from LillyDirect®", "$149/month", undefined],
+    ];
+    expect(treatmentCatalog.glp1.options.map((option: { name: string; price: string; supply?: string }) => [option.name, option.price, option.supply])).toEqual(expected);
+    expect(treatmentCatalog.glp1.notSure).toEqual({ value: "not_sure", name: "I'm not sure", helper: "I would like a recommendation" });
   });
 
   it("keeps both documents self-contained, noindex, and outside the existing site stylesheet", () => {
