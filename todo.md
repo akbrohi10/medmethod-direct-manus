@@ -2439,4 +2439,4 @@
 - [x] Preserve test labeling: demo delivery is `is_test: true`, the issued approval token is Sandbox-bound, and the existing demo banner/confirmation behavior remains unchanged. No real or synthetic capture was submitted during validation.
 - [x] Validate: 16 focused tests, TypeScript, static-bundle parsing, production build, and no-charge browser QA. With Admin Settings currently Live, normal configuration returned `environment: live`, while demo configuration returned `environment: sandbox`; actual demo browser progression rendered four Sandbox-hosted card frames, loaded only `www.sandbox.paypal.com` SDK resources, made no Live SDK request, and made zero payment POSTs.
 - [x] Full suite: 348 passing / 1 failing across 71 files. The sole failure is the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as unpublished checkpoint `87ac0dfb`; not published.
