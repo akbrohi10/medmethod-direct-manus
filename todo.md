@@ -2454,4 +2454,12 @@
 - [x] Add an explicit Express `GET /.well-known/apple-developer-merchantid-domain-association` route before crawler/static fallback. It returns the supplied file as `text/plain`, `Cache-Control: no-store`, rather than an HTML page; this is necessary because standard Express static handling ignores dot-directories.
 - [x] Validate the exact route in development and a freshly built production server: HTTP 200, `Content-Type: text/plain; charset=utf-8`, 9,094 bytes, and exact byte-for-byte SHA-256 match to the supplied file. The production build contains `dist/public/.well-known/apple-developer-merchantid-domain-association`.
 - [x] Validate 10 focused tests, TypeScript, and production build. Full suite: 351 passing / 1 failing across 72 files; the only failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content.
-- [ ] Save as an unpublished checkpoint only. Publication remains required before `https://medmethoddirect.com/.well-known/apple-developer-merchantid-domain-association` can change from the current website fallback response and PayPal can register the Live domain.
+- [x] Saved as unpublished checkpoint `90efd559`; not published. Publication remains required before `https://medmethoddirect.com/.well-known/apple-developer-merchantid-domain-association` can change from the current website fallback response and PayPal can register the Live domain.
+
+## Intake Confirmation Portal-Onboarding Copy — 2026-10-15
+- [x] Replace only the temporary three-step paid-confirmation wording on `/intake/`, preserving the existing numbered timeline, position above `Start over`, and all payment, Keragon, account, and delivery behavior.
+- [x] Use the approved copy exactly: **Check your email** — `for our welcome message and Patient Portal link.`; **Create your account** — `by setting your username and password, then log in.`; **Go to Forms & Questionnaires in the portal** — `Sign and complete the remaining required forms.`
+- [x] Keep each title visually distinct from its supporting line while preserving responsive wrapping, the dark-theme color treatment, numbered markers, and no horizontal overflow.
+- [x] Validate: 9 focused tests, TypeScript, production build, static-bundle parsing, and non-payment success-state browser QA at 375px and 1440px. All three approved instructions render before `Start over` at both widths.
+- [x] Full suite: 351 passing / 1 failing across 72 files. The sole failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this copy-only update introduced no additional failure.
+- [ ] Save as an unpublished checkpoint only; do not publish.

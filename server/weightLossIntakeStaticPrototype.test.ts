@@ -127,9 +127,12 @@ describe("Weight-loss intake static prototype import", () => {
     expect(confirmationStart).toBeGreaterThan(-1);
     expect(restartStart).toBeGreaterThan(confirmationStart);
     expect(intake).toContain("What happens next");
-    expect(intake).toContain("Check your inbox and spam folder");
-    expect(intake).toContain("Open the link in the email");
-    expect(intake).toContain("Create your account and set your password");
+    expect(intake).toContain("Check your email");
+    expect(intake).toContain("for our welcome message and Patient Portal link.");
+    expect(intake).toContain("Create your account");
+    expect(intake).toContain("by setting your username and password, then log in.");
+    expect(intake).toContain("Forms & Questionnaires");
+    expect(intake).toContain("Sign and complete the remaining required forms.");
     expect(intake).toContain("confirmation-next-step-number");
   });
 
