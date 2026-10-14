@@ -137,13 +137,23 @@ describe("Weight-loss intake static prototype import", () => {
   });
 
   it("renders Apple Pay only when eligible, with an explicit native black button in both checkout themes", () => {
+    const applePayLoader = intake.slice(
+      intake.indexOf("function MmdLoadApplePaySdk()"),
+      intake.indexOf("function MmdApplePayCheckout"),
+    );
+
+    expect(applePayLoader).toContain("window.customElements&&window.customElements.get(`apple-pay-button`)");
+    expect(applePayLoader).not.toContain("if(window.ApplePaySession){resolve(!0);return}");
     expect(intake).toContain("methods.isEligible(`applepay`)");
     expect(intake).toContain("!available?null");
     expect(intake).toContain("buttonstyle:`black`");
     expect(intake).toContain("background:#000");
+    expect(intake).toContain("-webkit-appearance:-apple-pay-button");
     expect(intake).toContain("-apple-pay-button-type:buy");
     expect(intake).toContain("-apple-pay-button-style:black");
-    expect(intake).toContain("height:52px");
+    expect(intake).toContain("--apple-pay-button-height:52px");
+    expect(intake).toContain("--apple-pay-button-width:100%");
+    expect(intake).toContain("--apple-pay-button-border-radius:999px");
     expect(intake).toContain("@media (prefers-color-scheme:dark){.apple-pay-option");
   });
 

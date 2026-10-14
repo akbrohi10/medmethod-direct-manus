@@ -2470,4 +2470,12 @@
 - [x] Correct light-theme divider/status colors separately from the black native button; restore the existing light-on-dark treatment under the dark theme media query.
 - [x] Validate: 18 focused static-intake/payment tests, TypeScript, production build, and a no-charge mocked Apple Pay browser check. In both 390px light and dark contexts, an eligible control is visible at 52px height with `background: rgb(0, 0, 0)`, native `buttonstyle="black"`, and `type="buy"`. No order/capture/delivery request was made.
 - [x] Full suite: 352 passing / 1 failing across 72 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this styling-only change introduced no additional failure.
+- [x] Saved as unpublished checkpoint `6e1b6227`; not published.
+
+## Intake Native Apple Pay White Label Repair — 2026-10-15
+- [x] Fix the root cause of the light-theme black rectangle: Safari exposes `ApplePaySession` natively before the Apple JavaScript SDK has registered the `apple-pay-button` custom element. The prior loader incorrectly treated the native session as proof that the visible button element was ready.
+- [x] Load/verify the Apple JavaScript SDK until `customElements.get('apple-pay-button')` confirms the native component is registered. The eligible button now uses Apple’s actual `buttonstyle="black"`, `type="buy"`, localized native control, which supplies the required white `Buy with Pay` label.
+- [x] Apply Apple-supported JavaScript button sizing properties plus the Safari CSS fallback: `-webkit-appearance: -apple-pay-button`, `-apple-pay-button-type: buy`, `-apple-pay-button-style: black`, full width, 52px height, and the existing pill radius. Eligibility-only visibility, the $49 amount, card flow, merchant validation, Keragon delivery, and capture boundary are unchanged.
+- [x] Validate: 18 focused static-intake/payment tests, TypeScript, production build, static parsing, a no-charge merchant-validation click path, and eligible light/dark checkout QA. Both theme contexts now verify a visible 52px black native button with `buttonstyle="black"` and `type="buy"`; no payment order or capture was created.
+- [x] Full suite: 352 passing / 1 failing across 72 files. The lone failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this native-button repair introduced no additional failure.
 - [ ] Save as an unpublished checkpoint only; do not publish.
