@@ -63,7 +63,7 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(footer).toContain('className="footer-wordmark">MMD Weight Loss');
     expect(footer).toContain("Physician-guided GLP-1 care with fitness, nutrition, and ongoing support in one program.");
     expect(footer).toContain("© 2026 MMD Weight Loss. Working title and prototype content.");
-    expect((footer.match(/<a[\s\S]*?href=/g) ?? []).length).toBe(5);
+    expect((footer.match(/<a[\s\S]*?href=/g) ?? []).length).toBe(12);
     for (const anchor of ["how-it-works", "app", "pricing", "faq"]) expect(footer).toContain(`href="#${anchor}"`);
     expect(footer).toContain('className="footer-legitscript-seal"');
     expect(footer).toContain('href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"');
@@ -73,10 +73,21 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(footer).toContain('width="73"');
     expect(footer).toContain('height="79"');
     expect(footer).toContain('rel="noopener noreferrer"');
+    expect(footer).toContain('className="footer-legal-nav" aria-label="MedMethod Direct legal links"');
+    expect(footer).toContain('className="footer-legal-login" href="https://medmethoddirect.md-hq.com/"');
+    for (const [label, href] of [
+      ["Terms", "/terms"],
+      ["Privacy", "/privacy-policy"],
+      ["HIPAA Notice", "/hipaa-notice"],
+      ["Subscription &amp; Refunds", "/subscription-policy"],
+      ["Shipping", "/shipping-policy"],
+      ["Accessibility", "/accessibility"],
+    ]) expect(footer).toContain(`href="${href}">${label}</a>`);
     expect(footer).not.toMatch(/Book Appointment|Explore|Legal & Compliance|MetabolicQuiz/);
     expect(css).toContain(".wlm-content footer{padding:54px 0 30px;background:#7a1e7e;color:#fff}");
     expect(css).toContain(".wlm-content .footer-bottom{display:flex;align-items:center;justify-content:space-between");
     expect(css).toContain(".wlm-content .footer-legitscript-seal img{display:block;width:73px;height:79px");
+    expect(css).toContain(".wlm-content .footer-legal-nav{display:flex;flex-wrap:wrap;align-items:center");
     expect(page).toContain("showVirtualBanner={false} stickyOnPage");
     expect(read("client/src/components/home1/Footer.tsx")).toContain('{ label: "Weight-Loss & Menopause", href: "/weight-loss-menopause" }');
     const intakeUrl = "https://intake.medmethoddirect.com/";

@@ -232,3 +232,10 @@
 .wlm-content .footer-legitscript-seal{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;line-height:0}
 .wlm-content .footer-legitscript-seal img{display:block;width:73px;height:79px;max-width:100%;object-fit:contain}
 @media(max-width:620px){.wlm-content .footer-bottom{align-items:flex-end;gap:14px}.wlm-content .footer-legitscript-seal img{width:61px;height:auto}}
+
+/* Homepage legal menu copied only into this imported page's original footer. */
+.wlm-content .footer-legal-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px 20px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16)}
+.wlm-content .footer-legal-nav a{display:inline-flex;align-items:center;min-height:38px;color:#f4e6f0;font-size:.72rem;font-weight:600;text-decoration:none}
+.wlm-content .footer-legal-nav a:hover{color:#fff}
+.wlm-content .footer-legal-nav .footer-legal-login{padding:0 12px;border:1px solid rgba(255,255,255,.42);border-radius:999px;color:#fff}
+@media(max-width:620px){.wlm-content .footer-legal-nav{justify-content:flex-start;gap:6px 18px;margin-top:20px;padding-top:16px}.wlm-content .footer-legal-nav a{min-height:42px;font-size:.71rem}.wlm-content .footer-legal-nav .footer-legal-login{padding:0 11px}}

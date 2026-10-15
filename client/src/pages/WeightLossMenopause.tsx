@@ -144,6 +144,15 @@ export default function WeightLossMenopause() {
                 />
               </a>
             </div>
+            <nav className="footer-legal-nav" aria-label="MedMethod Direct legal links">
+              <a className="footer-legal-login" href="https://medmethoddirect.md-hq.com/" target="_blank" rel="noopener noreferrer">Patient Login</a>
+              <a href="/terms">Terms</a>
+              <a href="/privacy-policy">Privacy</a>
+              <a href="/hipaa-notice">HIPAA Notice</a>
+              <a href="/subscription-policy">Subscription &amp; Refunds</a>
+              <a href="/shipping-policy">Shipping</a>
+              <a href="/accessibility">Accessibility</a>
+            </nav>
           </div>
         </footer>
         <div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">$49<small>/mo</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your visit — $49 per month membership">Start your visit <span className="arrow">→</span></a></div>

@@ -122,6 +122,22 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain(seal);
   });
 
+  it("copies the homepage legal-navigation menu into the weight-loss landing footer only", () => {
+    const footer = landing.match(/<footer class="wave-top wave-footer">[\s\S]*?<\/footer>/)?.[0] ?? "";
+    expect(footer).toContain('class="footer-legal-nav" aria-label="MedMethod Direct legal links"');
+    expect(footer).toContain('class="footer-legal-login" href="https://medmethoddirect.md-hq.com/"');
+    for (const [label, href] of [
+      ["Terms", "/terms"],
+      ["Privacy", "/privacy-policy"],
+      ["HIPAA Notice", "/hipaa-notice"],
+      ["Subscription &amp; Refunds", "/subscription-policy"],
+      ["Shipping", "/shipping-policy"],
+      ["Accessibility", "/accessibility"],
+    ]) expect(footer).toContain(`href="${href}">${label}</a>`);
+    expect(landing).toContain(".footer-legal-nav{display:flex;flex-wrap:wrap;align-items:center");
+    expect(intake).not.toContain('class="footer-legal-nav"');
+  });
+
   it("keeps final consent choices immediately usable and makes the choices mutually exclusive", () => {
     expect(intake).toContain(
       "case`consent`:return t.wConsent===!0&&t.wDecline!==!0;",

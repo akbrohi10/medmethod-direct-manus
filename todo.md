@@ -2492,4 +2492,11 @@
 - [x] Preserve the checker URL, external seal source, accessible title/alt text, 73×79 desktop dimensions, and safe new-tab attributes. Page-scoped CSS scales the image to 61px wide on narrow phones without clipping or altering other page styles.
 - [x] Validate: 18 focused tests, TypeScript, production build, external seal response (HTTP 200 `image/png`), desktop/mobile preview review, and fresh production-browser rendering at 1440px and 375px. The rendered checker link and loaded dimensions are correct in both layouts.
 - [x] Full suite: 353 passing / 1 failing across 72 files. The lone failure remains the previously documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-only update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as unpublished checkpoint `32144c0f`; not published.
+
+## Landing-Page Footer Legal Menus — 2026-10-15
+- [x] Copy the homepage footer’s Patient Login, Terms, Privacy, HIPAA Notice, Subscription & Refunds, Shipping, and Accessibility links to the end of the original footers on `/weight-loss-intake` and `/weight-loss-menopause` only.
+- [x] Reuse the exact homepage destinations, retain the external Patient Login link’s safe new-tab attributes, preserve both page-specific LegitScript seals and their existing footer copy, and use page-scoped responsive styling so all links remain readable and usable on phones.
+- [x] Validate: 19 focused tests passed; TypeScript passed; production build passed; direct production routes `/weight-loss-intake`, `/weight-loss-menopause`, `/`, and `/masterclass` all returned HTTP 200; four desktop/mobile browser checks confirmed all seven destinations, correct row order after the seal/copyright area, no horizontal overflow, and readable wrapping.
+- [x] Full suite: 354 passing / 1 failing across 72 files. The sole failure remains the pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-navigation update introduced no additional failure.
+- [x] Saved as an unpublished checkpoint only; do not publish.
