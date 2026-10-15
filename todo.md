@@ -2499,4 +2499,11 @@
 - [x] Reuse the exact homepage destinations, retain the external Patient Login link’s safe new-tab attributes, preserve both page-specific LegitScript seals and their existing footer copy, and use page-scoped responsive styling so all links remain readable and usable on phones.
 - [x] Validate: 19 focused tests passed; TypeScript passed; production build passed; direct production routes `/weight-loss-intake`, `/weight-loss-menopause`, `/`, and `/masterclass` all returned HTTP 200; four desktop/mobile browser checks confirmed all seven destinations, correct row order after the seal/copyright area, no horizontal overflow, and readable wrapping.
 - [x] Full suite: 354 passing / 1 failing across 72 files. The sole failure remains the pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-navigation update introduced no additional failure.
-- [x] Saved as an unpublished checkpoint only; do not publish.
+- [x] Saved as unpublished checkpoint `54a8ae6a`; not published.
+
+## Intake Confirmation Step 2 Portal Wording — 2026-10-15
+- [x] Update only Step 2 on the completed `/intake/` confirmation timeline: title remains `Create your account`; supporting text is now `Set your username and password, then log in to the patient portal.`
+- [x] Preserve Steps 1 and 3, the surrounding completion content, the $49 safety-net copy, payment/Keragon behavior, timeline layout, and the `Start over` action.
+- [x] Validate: 12 focused static-intake tests, TypeScript, production build, and non-payment confirmation-screen browser QA. The new Step 2 copy is visible above `Start over` with no horizontal overflow at 343px mobile and 760px desktop widths.
+- [x] Full suite: 354 passing / 1 failing across 72 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this text-only update introduced no additional failure.
+- [ ] Save as an unpublished checkpoint only; do not publish.
