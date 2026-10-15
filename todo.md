@@ -2485,4 +2485,11 @@
 - [x] Preserve the supplied checker URL, image source, accessible title/alt text, and 73×79 desktop display size. The new-tab link includes `noopener noreferrer`; the page-scoped responsive footer layout reduces the seal proportionally to 61px wide on narrow phones to prevent clipping.
 - [x] Validate: 11 focused route/footer tests, TypeScript, production build, fresh production `/weight-loss-intake` smoke test (HTTP 200 with seal present), and desktop/mobile browser review. The external seal image returned HTTP 200 `image/png`; it is right-aligned beside the copyright copy and fully visible in both responsive layouts.
 - [x] Full suite: 353 passing / 1 failing across 72 files. The lone failure remains the previously documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-only update introduced no additional failure.
+- [x] Saved as unpublished checkpoint `f4f53d80`; not published.
+
+## Weight-Loss & Menopause LegitScript Footer Seal — 2026-10-15
+- [x] Add the supplied LegitScript Certified seal only to the lower-right of the original purple footer on `/weight-loss-menopause`, alongside its existing copyright/prototype copy. The shared footer, `/weight-loss-intake`, `/intake/`, homepage, pricing, checkout, and payment behavior remain unchanged.
+- [x] Preserve the checker URL, external seal source, accessible title/alt text, 73×79 desktop dimensions, and safe new-tab attributes. Page-scoped CSS scales the image to 61px wide on narrow phones without clipping or altering other page styles.
+- [x] Validate: 18 focused tests, TypeScript, production build, external seal response (HTTP 200 `image/png`), desktop/mobile preview review, and fresh production-browser rendering at 1440px and 375px. The rendered checker link and loaded dimensions are correct in both layouts.
+- [x] Full suite: 353 passing / 1 failing across 72 files. The lone failure remains the previously documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-only update introduced no additional failure.
 - [ ] Save as an unpublished checkpoint only; do not publish.

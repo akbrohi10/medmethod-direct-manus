@@ -127,7 +127,23 @@ export default function WeightLossMenopause() {
               <p>Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.</p>
               <p>For adults age 18 and older. Services are available only in states where the treating clinician is licensed; final state availability list is TBD. This website does not provide emergency care.</p>
             </div>
-            <div className="footer-bottom">© 2026 MMD Weight Loss. Working title and prototype content.</div>
+            <div className="footer-bottom">
+              <span className="footer-legal-copy">© 2026 MMD Weight Loss. Working title and prototype content.</span>
+              <a
+                className="footer-legitscript-seal"
+                href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Verify LegitScript Approval for www.medmethoddirect.com"
+              >
+                <img
+                  src="https://static.legitscript.com/seals/51795425.png"
+                  alt="Verify Approval for www.medmethoddirect.com"
+                  width="73"
+                  height="79"
+                />
+              </a>
+            </div>
           </div>
         </footer>
         <div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">$49<small>/mo</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your visit — $49 per month membership">Start your visit <span className="arrow">→</span></a></div>

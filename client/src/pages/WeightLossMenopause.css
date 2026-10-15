@@ -225,3 +225,10 @@
   .wlm-content .medication-pricing .medication-specs dd{font-size:13px}
   .wlm-content .price-footnote,.wlm-content .app-source-note{font-size:12px}
 }
+
+/* Page-only LegitScript verification seal: aligns with the imported footer on wide screens and remains clear on phones. */
+.wlm-content .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.wlm-content .footer-legal-copy{display:block}
+.wlm-content .footer-legitscript-seal{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;line-height:0}
+.wlm-content .footer-legitscript-seal img{display:block;width:73px;height:79px;max-width:100%;object-fit:contain}
+@media(max-width:620px){.wlm-content .footer-bottom{align-items:flex-end;gap:14px}.wlm-content .footer-legitscript-seal img{width:61px;height:auto}}
