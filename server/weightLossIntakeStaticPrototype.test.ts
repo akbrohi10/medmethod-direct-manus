@@ -107,6 +107,21 @@ describe("Weight-loss intake static prototype import", () => {
     ]);
   });
 
+  it("shows the supplied LegitScript verification seal only in the weight-loss landing footer", () => {
+    const seal = "https://static.legitscript.com/seals/51795425.png";
+    const checker = "https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com";
+
+    expect(landing).toContain(checker);
+    expect(landing).toContain(seal);
+    expect(landing).toContain('class="footer-legitscript-seal"');
+    expect(landing).toContain('title="Verify LegitScript Approval for www.medmethoddirect.com"');
+    expect(landing).toContain('alt="Verify Approval for www.medmethoddirect.com"');
+    expect(landing).toContain('width="73" height="79"');
+    expect(landing).toContain('rel="noopener noreferrer"');
+    expect(landing).toContain(".footer-bottom{display:flex;align-items:center;justify-content:space-between");
+    expect(intake).not.toContain(seal);
+  });
+
   it("keeps final consent choices immediately usable and makes the choices mutually exclusive", () => {
     expect(intake).toContain(
       "case`consent`:return t.wConsent===!0&&t.wDecline!==!0;",
