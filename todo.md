@@ -2506,4 +2506,4 @@
 - [x] Preserve Steps 1 and 3, the surrounding completion content, the $49 safety-net copy, payment/Keragon behavior, timeline layout, and the `Start over` action.
 - [x] Validate: 12 focused static-intake tests, TypeScript, production build, and non-payment confirmation-screen browser QA. The new Step 2 copy is visible above `Start over` with no horizontal overflow at 343px mobile and 760px desktop widths.
 - [x] Full suite: 354 passing / 1 failing across 72 files. The only failure remains the documented `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this text-only update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as an unpublished checkpoint; not published.
