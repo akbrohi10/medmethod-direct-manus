@@ -2530,4 +2530,4 @@
 - [x] Use page-scoped responsive treatments consistent with each imported footer: high-contrast bordered call pills, `44px` desktop and `48px` phone touch targets, keyboard focus visibility, and the phone number emphasized within the link. The controls appear under the local footer navigation on desktop and mobile, before disclosures/seals/legal links.
 - [x] Validate: 20 focused footer tests, TypeScript, production build, clean `git diff --check`, and responsive browser QA at 1440px and 375px. Both page links are visible, have the correct `tel:` target and label, remain at least 44px tall, and introduce no horizontal overflow. Fresh production browser smoke checks at 390px confirm the same behavior.
 - [x] Full suite: 355 passing / 1 failing across 72 files. The sole failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-only update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as an unpublished checkpoint; not published.
