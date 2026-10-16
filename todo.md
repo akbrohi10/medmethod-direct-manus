@@ -2523,4 +2523,4 @@
 - [x] Add the approved follow-up: `Once completed, Dr. Al-Deek will review your information and get in touch with you for the next steps.` Add the Care Team callout with an accessible telephone link to `888-362-7011`.
 - [x] Preserve the thank-you title/canonical/noindex metadata, demo-only banner, payment-success redirect, safety-net, doctor block, Start over action, other site pages, and no-data/no-payment behavior. This page still makes no API, Keragon, PayPal, or tracking request.
 - [x] Validate: 43 focused route/crawler/static-intake tests, TypeScript, production build, responsive browser QA at 375px mobile, 390px dark mobile, and 1440px desktop, visual review, storage image decode/delivery, fresh production route HTTP 200, and crawler metadata. No horizontal overflow or API requests occurred. Full suite: 355 passing / 1 pre-existing `legitScriptCompliance` failure; the page-only content update introduced no new failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as an unpublished checkpoint; not published.
