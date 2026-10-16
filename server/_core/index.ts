@@ -147,8 +147,14 @@ async function startServer() {
   const intakePrototypeHtml = process.env.NODE_ENV === "development"
     ? path.resolve(import.meta.dirname, "../../client/intake/index.html")
     : path.resolve(import.meta.dirname, "public/intake/index.html");
+  const intakeThankYouHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/intake/thank-you/index.html")
+    : path.resolve(import.meta.dirname, "public/intake/thank-you/index.html");
   app.get(["/weight-loss-intake", "/weight-loss-intake/"], (_req, res) => {
     res.sendFile(weightLossIntakeHtml);
+  });
+  app.get(["/intake/thank-you", "/intake/thank-you/"], (_req, res) => {
+    res.sendFile(intakeThankYouHtml);
   });
   app.get(["/intake", "/intake/"], (_req, res) => {
     res.sendFile(intakePrototypeHtml);

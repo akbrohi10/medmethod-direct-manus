@@ -374,6 +374,7 @@ export function crawlerMiddleware(
   if (
     path === "/supplements" || path === "/supplements/" ||
     path === "/weight-loss-intake" || path === "/weight-loss-intake/" ||
+    path === "/intake/thank-you" || path === "/intake/thank-you/" ||
     path === "/intake" || path === "/intake/" ||
     path.startsWith("/api/") ||
     path.startsWith("/manus-storage/") ||

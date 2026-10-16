@@ -235,6 +235,14 @@ function IntakeStandaloneRedirect() {
   return <a href="/intake/">Opening intake…</a>;
 }
 
+function IntakeThankYouStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/intake/thank-you/");
+  }, []);
+
+  return <a href="/intake/thank-you/">Opening intake confirmation…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -385,6 +393,7 @@ function Router() {
         <Route path="/asynchronous" component={Asynchronous} />
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />
+        <Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
         <Route path={"/404"} component={NotFound} />
@@ -397,7 +406,7 @@ function Router() {
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
   if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
-  if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/") return null;
+  if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/" || location === "/intake/thank-you") return null;
   const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/" || location === "/lp/WL2";
   if (isLpPage) return <SocialProofNotificationsLP />;
   return <SocialProofNotifications />;

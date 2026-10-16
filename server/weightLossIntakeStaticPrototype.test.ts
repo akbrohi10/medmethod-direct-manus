@@ -7,6 +7,7 @@ const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const landing = read("client/weight-loss-intake.html");
 const intake = read("client/intake/index.html");
+const intakeThankYou = read("client/intake/thank-you/index.html");
 const server = read("server/_core/index.ts");
 const crawler = read("server/crawlerMiddleware.ts");
 const vite = read("vite.config.ts");
@@ -17,13 +18,17 @@ describe("Weight-loss intake static prototype import", () => {
   it("builds and serves the supplied pages at their approved direct routes, not at the homepage", () => {
     expect(vite).toContain('"weight-loss-intake": path.resolve(import.meta.dirname, "client/weight-loss-intake.html")');
     expect(vite).toContain('"intake/index": path.resolve(import.meta.dirname, "client/intake/index.html")');
+    expect(vite).toContain('"intake/thank-you/index": path.resolve(import.meta.dirname, "client/intake/thank-you/index.html")');
     expect(server).toContain('app.get(["/weight-loss-intake", "/weight-loss-intake/"],');
     expect(server).toContain('app.get(["/intake", "/intake/"],');
+    expect(server).toContain('app.get(["/intake/thank-you", "/intake/thank-you/"],');
     expect(server).toContain("res.sendFile(weightLossIntakeHtml)");
     expect(server).toContain("res.sendFile(intakePrototypeHtml)");
+    expect(server).toContain("res.sendFile(intakeThankYouHtml)");
     expect(server).not.toContain('app.get(["/", "/weight-loss-intake"');
     expect(app).toContain('<Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />');
     expect(app).toContain('<Route path="/intake/" component={IntakeStandaloneRedirect} />');
+    expect(app).toContain('<Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />');
   });
 
   it("preserves the supplied landing and intake documents while moving all landing Start Your Visit CTAs to intake", () => {
@@ -104,6 +109,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(routes.routes).toEqual([
       { path: "/weight-loss-intake", title: "MMD Weight Loss" },
       { path: "/intake/", title: "MMD Intake Form" },
+      { path: "/intake/thank-you/", title: "Intake Complete" },
     ]);
   });
 
@@ -165,6 +171,21 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("Forms & Questionnaires");
     expect(intake).toContain("Sign and complete the remaining required forms.");
     expect(intake).toContain("confirmation-next-step-number");
+  });
+
+  it("uses a separate noindex thank-you URL after a completed intake payment without putting patient data in the URL", () => {
+    expect(intake).toContain("window.location.replace(`/intake/thank-you/${y?`?prefill=demo`:``}`)");
+    expect(intake).toContain("if(n===`success`){__mmdSession.removeItem(i),window.location.replace(`/intake/thank-you/`);return}");
+    expect(intake).not.toContain("thank-you/?submission");
+    expect(intakeThankYou).toContain('name="robots" content="noindex,follow"');
+    expect(intakeThankYou).toContain('href="https://medmethoddirect.com/intake/thank-you"');
+    expect(intakeThankYou).toContain("You're in");
+    expect(intakeThankYou).toContain("What happens next");
+    expect(intakeThankYou).toContain("Set your username and password, then log in to the patient portal.");
+    expect(intakeThankYou).toContain('href="/intake/"');
+    expect(intakeThankYou).not.toContain("/api/paypal/");
+    expect(intakeThankYou).not.toContain("KERAGON_WEBHOOK_URL");
+    expect(crawler).toContain('path === "/intake/thank-you" || path === "/intake/thank-you/"');
   });
 
   it("renders Apple Pay only when eligible, with an explicit native black button in both checkout themes", () => {

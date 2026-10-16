@@ -7,6 +7,10 @@
     {
       "path": "/intake/",
       "title": "MMD Intake Form"
+    },
+    {
+      "path": "/intake/thank-you/",
+      "title": "Intake Complete"
     }
   ]
 }
