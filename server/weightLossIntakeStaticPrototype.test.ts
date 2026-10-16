@@ -181,7 +181,16 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).toContain('href="https://medmethoddirect.com/intake/thank-you"');
     expect(intakeThankYou).toContain("You're in");
     expect(intakeThankYou).toContain("What happens next");
-    expect(intakeThankYou).toContain("Set your username and password, then log in to the patient portal.");
+    expect(intakeThankYou).toContain("Check your text messages");
+    expect(intakeThankYou).toContain("Please reply to our message so we can stay connected!");
+    expect(intakeThankYou).toContain("Check your email &amp; create your account");
+    expect(intakeThankYou).toContain("Look for our welcome email with your Patient Portal link.");
+    expect(intakeThankYou).toContain("Complete your required forms");
+    expect(intakeThankYou).toContain("Review, sign, and submit all required forms.");
+    expect(intakeThankYou).toContain("/manus-storage/patient-portal-forms-questionnaires-v2_eb7ffe2e.webp");
+    expect(intakeThankYou).toContain('alt="Patient Portal menu with Forms and Questionnaires highlighted"');
+    expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information and get in touch with you for the next steps.");
+    expect(intakeThankYou).toContain('href="tel:+18883627011"');
     expect(intakeThankYou).toContain('href="/intake/"');
     expect(intakeThankYou).not.toContain("/api/paypal/");
     expect(intakeThankYou).not.toContain("KERAGON_WEBHOOK_URL");

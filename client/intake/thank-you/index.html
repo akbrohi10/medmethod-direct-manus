@@ -45,6 +45,12 @@
     .step-copy { display: grid; gap: 2px; min-width: 0; }
     .step-copy strong { color: #1f2937; font-size: 1rem; }
     .step-copy span { color: #59656f; font-size: .91rem; font-weight: 500; }
+    .portal-guide { margin: 28px auto 22px; }
+    .portal-guide img { display: block; width: min(100%, 620px); margin: 0 auto; border: 1px solid #d7e1dd; border-radius: 14px; box-shadow: 0 14px 30px rgba(17, 58, 58, .1); }
+    .next-steps-followup { margin: 0 auto 28px; color: #59656f; font-size: .96rem; text-align: center; }
+    .next-steps-followup p { margin: 10px 0; }
+    .next-steps-followup strong { color: #1f2937; }
+    .next-steps-followup a { color: #075c5c; font-weight: 800; }
     .secondary { display: inline-block; min-width: auto; padding: 15px 28px; border: 1.5px solid #d7e1dd; border-radius: 999px; background: #fff; color: #1f2937; font: inherit; font-weight: 700; text-decoration: none; }
     @media (width <= 720px) {
       .top { padding-inline: 16px; }
@@ -64,9 +70,12 @@
       .demo-banner { color: #e9f5d7; border-color: #84cbc7; background: #113a3a; }
       .checkmark { color: #d6ff9e; background: #113a3a; }
       h1 { color: #d8f0ed; }
-      h2, .doctor-connect strong, .step-copy strong { color: #f7fbfa; }
+      h2, .doctor-connect strong, .step-copy strong, .next-steps-followup strong { color: #f7fbfa; }
       .doctor-connect { border-color: #31514e; }
       .confirmation-policy { color: #f7fbfa; background: #113a3a; }
+      .portal-guide img { border-color: #31514e; box-shadow: 0 14px 30px rgba(0, 0, 0, .26); }
+      .next-steps-followup { color: #c9e4e1; }
+      .next-steps-followup a { color: #b6e46e; }
       .secondary { color: #f7fbfa; border-color: #31514e; background: #102526; }
     }
   </style>
@@ -100,11 +109,20 @@
         <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
           <h2 id="next-steps-title">What happens next</h2>
           <ol>
-            <li><span class="step-number">1</span><span class="step-copy"><strong>Check your email</strong><span>for our welcome message and Patient Portal link.</span></span></li>
-            <li><span class="step-number">2</span><span class="step-copy"><strong>Create your account</strong><span>Set your username and password, then log in to the patient portal.</span></span></li>
-            <li><span class="step-number">3</span><span class="step-copy"><strong>Go to Forms &amp; Questionnaires in the portal</strong><span>Sign and complete the remaining required forms.</span></span></li>
+            <li><span class="step-number">1</span><span class="step-copy"><strong>Check your text messages</strong><span>You should have received a text from Med Method Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!</span></span></li>
+            <li><span class="step-number">2</span><span class="step-copy"><strong>Check your email &amp; create your account</strong><span>Look for our welcome email with your Patient Portal link. Click the link, create your username and password, and log in.</span></span></li>
+            <li><span class="step-number">3</span><span class="step-copy"><strong>Complete your required forms</strong><span>In your Patient Portal, click Forms &amp; Questionnaires on the right-side menu. Review, sign, and submit all required forms.</span></span></li>
           </ol>
         </section>
+
+        <figure class="portal-guide">
+          <img src="/manus-storage/patient-portal-forms-questionnaires-v2_eb7ffe2e.webp" alt="Patient Portal menu with Forms and Questionnaires highlighted" />
+        </figure>
+
+        <div class="next-steps-followup">
+          <p>Once completed, Dr. Al-Deek will review your information and get in touch with you for the next steps.</p>
+          <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">888-362-7011</a>.</p>
+        </div>
 
         <a class="secondary" href="/intake/">Start over</a>
       </section>
