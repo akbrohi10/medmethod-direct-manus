@@ -40,6 +40,12 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(routes).not.toContain("db.insert(");
   });
 
+  it("derives the Keragon-bound treatment summary from the shared catalog name and price", () => {
+    expect(intake).toContain("let t=p.find(t=>t.value===e);return t?[t.name,t.price].filter(Boolean).join(` — `):``");
+    expect(intake).toContain("intake_summary:he(e,t,i)");
+    expect(intake).toContain("intake_summary_html:ge(e,t,i)");
+  });
+
   it("uses the admin-selected PayPal sandbox or live mode and binds capture to a short-lived signed approval token", () => {
     expect(routes).toContain('settings?.mode === "live" ? "live" : "sandbox"');
     expect(routes).toContain('return request.query.prefill === "demo" ? "sandbox" : paymentMode(settings);');

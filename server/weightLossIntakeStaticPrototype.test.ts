@@ -62,7 +62,7 @@ describe("Weight-loss intake static prototype import", () => {
       ["Compounded Tirzepatide", "$149", "1-month supply"],
       ["Compounded Liraglutide", "$115", "1-month supply"],
       ["Wegovy® – Direct from NovoCare®", "$349/month", undefined],
-      ["Wegovy Pill® – Direct from NovoCare®", "$199/month", undefined],
+      ["Wegovy Pill® – Direct from NovoCare®", "$149/month", undefined],
       ["Zepbound® KwikPen – Direct from LillyDirect®", "$299/month", undefined],
       ["Foundayo® Pill – Direct from LillyDirect®", "$149/month", undefined],
     ];
