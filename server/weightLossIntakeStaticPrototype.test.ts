@@ -130,6 +130,8 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("copies the homepage legal-navigation menu into the weight-loss landing footer only", () => {
     const footer = landing.match(/<footer class="wave-top wave-footer">[\s\S]*?<\/footer>/)?.[0] ?? "";
+    expect(footer).toContain('class="footer-phone" href="tel:+18883627011"');
+    expect(footer).toContain('Call us: <span>+1 888-362-7011</span>');
     expect(footer).toContain('class="footer-legal-nav" aria-label="MedMethod Direct legal links"');
     expect(footer).toContain('class="footer-legal-login" href="https://medmethoddirect.md-hq.com/"');
     for (const [label, href] of [
@@ -140,6 +142,7 @@ describe("Weight-loss intake static prototype import", () => {
       ["Shipping", "/shipping-policy"],
       ["Accessibility", "/accessibility"],
     ]) expect(footer).toContain(`href="${href}">${label}</a>`);
+    expect(landing).toContain(".footer-phone{display:inline-flex;align-items:center;justify-content:center;min-height:44px");
     expect(landing).toContain(".footer-legal-nav{display:flex;flex-wrap:wrap;align-items:center");
     expect(intake).not.toContain('class="footer-legal-nav"');
   });

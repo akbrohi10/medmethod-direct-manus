@@ -239,3 +239,11 @@
 .wlm-content .footer-legal-nav a:hover{color:#fff}
 .wlm-content .footer-legal-nav .footer-legal-login{padding:0 12px;border:1px solid rgba(255,255,255,.42);border-radius:999px;color:#fff}
 @media(max-width:620px){.wlm-content .footer-legal-nav{justify-content:flex-start;gap:6px 18px;margin-top:20px;padding-top:16px}.wlm-content .footer-legal-nav a{min-height:42px;font-size:.71rem}.wlm-content .footer-legal-nav .footer-legal-login{padding:0 11px}}
+
+/* Page-only footer contact link: intentionally prominent and easy to tap. */
+.wlm-content .footer-navigation{display:grid;justify-items:end;gap:12px}
+.wlm-content .footer-phone{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 14px;border:1px solid rgba(255,255,255,.5);border-radius:999px;background:rgba(255,255,255,.1);color:#fff;font-size:.78rem;font-weight:700;line-height:1.2;text-decoration:none;white-space:nowrap}
+.wlm-content .footer-phone span{margin-left:5px;color:#f8d5ec;font-weight:800}
+.wlm-content .footer-phone:hover{background:rgba(255,255,255,.18);color:#fff}
+.wlm-content .footer-phone:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:620px){.wlm-content .footer-navigation{justify-items:start;gap:14px}.wlm-content .footer-phone{min-height:48px;padding-inline:16px;font-size:.82rem}}

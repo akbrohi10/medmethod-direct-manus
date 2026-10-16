@@ -2524,3 +2524,10 @@
 - [x] Preserve the thank-you title/canonical/noindex metadata, demo-only banner, payment-success redirect, safety-net, doctor block, Start over action, other site pages, and no-data/no-payment behavior. This page still makes no API, Keragon, PayPal, or tracking request.
 - [x] Validate: 43 focused route/crawler/static-intake tests, TypeScript, production build, responsive browser QA at 375px mobile, 390px dark mobile, and 1440px desktop, visual review, storage image decode/delivery, fresh production route HTTP 200, and crawler metadata. No horizontal overflow or API requests occurred. Full suite: 355 passing / 1 pre-existing `legitScriptCompliance` failure; the page-only content update introduced no new failure.
 - [x] Saved as an unpublished checkpoint; not published.
+
+## Weight-Loss Landing Footer Phone Links — 2026-10-16
+- [x] Add a clear `Call us: +1 888-362-7011` tap-to-call link (`tel:+18883627011`) to the original footer navigation area on `/weight-loss-intake` and `/weight-loss-menopause` only. The shared site footer and all unrelated routes remain unchanged.
+- [x] Use page-scoped responsive treatments consistent with each imported footer: high-contrast bordered call pills, `44px` desktop and `48px` phone touch targets, keyboard focus visibility, and the phone number emphasized within the link. The controls appear under the local footer navigation on desktop and mobile, before disclosures/seals/legal links.
+- [x] Validate: 20 focused footer tests, TypeScript, production build, clean `git diff --check`, and responsive browser QA at 1440px and 375px. Both page links are visible, have the correct `tel:` target and label, remain at least 44px tall, and introduce no horizontal overflow. Fresh production browser smoke checks at 390px confirm the same behavior.
+- [x] Full suite: 355 passing / 1 failing across 72 files. The sole failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this footer-only update introduced no additional failure.
+- [ ] Save as an unpublished checkpoint only; do not publish.

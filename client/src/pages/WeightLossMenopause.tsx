@@ -115,11 +115,14 @@ export default function WeightLossMenopause() {
                 <div className="footer-wordmark">MMD Weight Loss</div>
                 <p>Physician-guided GLP-1 care with fitness, nutrition, and ongoing support in one program.</p>
               </div>
-              <div className="footer-links">
-                <a href="#how-it-works">How it works</a>
-                <a href="#app">The app</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
+              <div className="footer-navigation">
+                <div className="footer-links">
+                  <a href="#how-it-works">How it works</a>
+                  <a href="#app">The app</a>
+                  <a href="#pricing">Pricing</a>
+                  <a href="#faq">FAQ</a>
+                </div>
+                <a className="footer-phone" href="tel:+18883627011" aria-label="Call MedMethod Direct at +1 888-362-7011">Call us: <span>+1 888-362-7011</span></a>
               </div>
             </div>
             <div className="disclosures">
