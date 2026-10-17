@@ -2548,4 +2548,4 @@
 - [x] Update only the `How much does medication cost?` FAQ answer to: `Medication is priced separately, and your exact medication and price are confirmed during your assessment before you're charged.`
 - [x] Validate: 8 focused menopause-page tests, TypeScript, production build, clean diff check, desktop (1440px) and phone (375px) browser QA, no horizontal overflow, visible card copy/CTA, exact FAQ text, and zero visible medication cards or old pricing heading. Fresh production HTTP 200 checks passed for `/`, `/weight-loss-menopause`, `/intake/`, and `/masterclass`; crawler metadata and the built React asset contain the correct route title/noindex and new page copy.
 - [x] Full suite: 357 passing / 1 failing across 72 files. The only failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content; this page-only update introduced no additional failure.
-- [ ] Save as an unpublished checkpoint only; do not publish.
+- [x] Saved as an unpublished checkpoint; not published.
