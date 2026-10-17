@@ -27,8 +27,32 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(treatmentCatalog.hrt.options).toHaveLength(12);
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Estradiol Gel (Divigel)");
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Spironolactone + Biotin + Minoxidil Combination Pill");
-    expect(page).toContain('className="hero-cta-timing">5-10 min');
+    expect(page).toContain('className="hero-cta-timing">A few quick questions');
+    expect(page).toContain('data-medication-pricing-archive="" hidden={true}');
+    expect(page).toContain('treatmentCatalog.glp1.options.map');
+    expect(page).toContain('treatmentCatalog.hrt.options.map');
   });
+  it("archives the visitor-facing medication grid and renders the approved program-price card", () => {
+    expect(page).toContain('className="medication-pricing" aria-labelledby="medication-pricing-title" data-medication-pricing-archive="" hidden={true}');
+    expect(page).toContain('className="program-price-section"');
+    expect(page).toContain('One program price. No surprises.');
+    expect(page).toContain('$49 today, then $49/month. Medication is priced separately');
+    expect(page).toContain('First month due today · then $49/month');
+    expect(page).toContain('100% refunded if you&apos;re not approved · Cancel anytime');
+    for (const item of [
+      'Physician-led care with Dr. Al-Deek',
+      'Direct texting with your doctor',
+      'Fitness + nutrition app, included free',
+      'Medication from $115/month for GLP-1 · HRT from $29.',
+    ]) expect(page).toContain(item);
+    expect((page.match(/See your options/g) ?? []).length).toBe(1);
+    expect((page.match(/A few quick questions/g) ?? []).length).toBe(1);
+    expect(page).toContain('Medication is priced separately, and your exact medication and price are confirmed during your assessment before you&apos;re charged.');
+    expect(css).toContain('.medication-pricing[data-medication-pricing-archive][hidden]{display:none!important}');
+    expect(css).toContain('.wlm-content .program-price-section');
+    expect(css).toContain('.wlm-content .program-price-checklist');
+  });
+
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);
@@ -96,7 +120,7 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     const intakeUrl = "https://intake.medmethoddirect.com/";
     expect(page).toContain(`WEIGHT_MENOPAUSE_INTAKE_URL = "${intakeUrl}"`);
     expect(page).not.toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");
-    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(5);
+    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(6);
     expect(page).toContain("primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL}");
     expect(page).toContain("Prototype disclosure:");
   });

@@ -247,3 +247,20 @@
 .wlm-content .footer-phone:hover{background:rgba(255,255,255,.18);color:#fff}
 .wlm-content .footer-phone:focus-visible{outline:3px solid #fff;outline-offset:3px}
 @media(max-width:620px){.wlm-content .footer-navigation{justify-items:start;gap:14px}.wlm-content .footer-phone{min-height:48px;padding-inline:16px;font-size:.82rem}}
+
+/* Confirmed replacement for the visitor-facing medication catalog. The original grid remains in source with [hidden]. */
+.wlm-content .medication-pricing[data-medication-pricing-archive][hidden]{display:none!important}
+.wlm-content .program-price-section{padding:60px 0;background:var(--bg)}
+.wlm-content .program-price-card{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(245px,.84fr);gap:28px;padding:clamp(26px,4vw,46px);border:1px solid color-mix(in srgb,var(--teal) 26%,var(--line));border-radius:24px;background:linear-gradient(135deg,var(--surface) 0%,var(--soft) 100%);box-shadow:var(--shadow)}
+.wlm-content .program-price-intro h2{max-width:660px;margin-bottom:14px;color:var(--navy);font-size:clamp(2rem,4vw,3.25rem)}
+.wlm-content .program-price-intro p{max-width:680px;margin:0;color:var(--muted);font-size:clamp(.98rem,1.5vw,1.1rem);line-height:1.62}
+.wlm-content .program-price-summary{display:grid;align-content:center;gap:8px;padding:24px;border:1px solid color-mix(in srgb,var(--teal) 24%,var(--line));border-radius:18px;background:var(--surface);box-shadow:0 12px 30px rgba(122,30,126,.1)}
+.wlm-content .program-price-summary strong{color:var(--teal-dark);font-size:clamp(3rem,6vw,4.4rem);line-height:.9;letter-spacing:-.065em}
+.wlm-content .program-price-summary span{color:var(--navy);font-size:.93rem;font-weight:800;line-height:1.35}
+.wlm-content .program-price-summary small{color:var(--teal-dark);font-size:.76rem;font-weight:700;line-height:1.45}
+.wlm-content .program-price-checklist{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.wlm-content .program-price-checklist li{display:flex;align-items:flex-start;gap:10px;padding:14px 0;color:var(--ink);font-size:.9rem;font-weight:700;line-height:1.42}
+.wlm-content .program-price-checklist li:before{content:"✓";display:grid;flex:0 0 auto;width:22px;height:22px;place-items:center;border-radius:50%;background:var(--teal);color:#fff;font-size:.78rem;font-weight:900;line-height:1}
+.wlm-content .program-price-medication-note{grid-column:1/-1;margin:0;padding:16px 18px;border-radius:12px;background:color-mix(in srgb,var(--teal) 9%,var(--surface));color:var(--teal-dark);font-size:.86rem;font-weight:700;line-height:1.55}
+.wlm-content .program-price-actions{grid-column:1/-1;display:flex;justify-content:flex-start}
+@media(max-width:760px){.wlm-content .program-price-section{padding:42px 0}.wlm-content .program-price-card{grid-template-columns:1fr;gap:20px;padding:24px 20px;border-radius:18px}.wlm-content .program-price-checklist{grid-template-columns:1fr;gap:0}.wlm-content .program-price-checklist li{padding:9px 0}.wlm-content .program-price-actions .btn{width:100%}}
