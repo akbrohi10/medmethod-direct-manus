@@ -63,6 +63,17 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(css).toContain('.wlm-content .program-price-checklist');
   });
 
+  it("keeps the approved warmer pricing-card treatment scoped to this page", () => {
+    expect(css).toContain('background:linear-gradient(180deg,#fff5fa 0%,#fff 42%)');
+    expect(css).toContain('border:1px solid rgba(122,30,126,.12);border-radius:28px');
+    expect(css).toContain('box-shadow:0 14px 40px rgba(122,30,126,.07)');
+    expect(css).toContain('.wlm-content .program-price-summary strong{color:var(--teal-dark);font-size:clamp(4rem,9.5vw,6.2rem)');
+    expect(css).toContain('.wlm-content .program-price-summary strong{font-size:4.5rem}');
+    expect(css).toContain('.program-price-divider{height:1px;margin:clamp(20px,3vw,28px)');
+    expect(css).toContain('margin:clamp(22px,3.3vw,28px) auto 0');
+    expect(css).toContain('.program-price-actions{display:flex;justify-content:center;margin-top:clamp(22px,3.3vw,28px)}');
+  });
+
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);

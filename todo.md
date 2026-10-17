@@ -2563,3 +2563,10 @@
 - [x] Validate 8 focused tests, TypeScript, build, and no-submission browser QA at 375/768/1440px: all intake CTA labels match, arrow/CTA fit, sticky appears normally, no page overflow or JS errors. A normalized baseline comparison confirms only the approved labels/arrow changed. Fresh production HTTP 200 on new page and four existing routes. Full suite: 357 pass/1 known pre-existing compliance failure, no new failures.
 
 This update is for an unpublished checkpoint only. No public deployment is authorized.
+
+## Weight-Loss & Menopause Warmer Pricing Card — 2026-10-17
+- [x] Apply approved styling-only refinements: soft blush fading into white behind the summary, slightly smaller brand-purple $49, lighter border/gentler shadow, and modestly tighter divider/medication-note/button spacing. Preserve centered heading, pink checks, left-aligned benefits and gradient CTA.
+- [x] Keep TSX markup, every price/word/link, hero, archived grid, payment/booking behavior and all other pages unchanged. All edits scoped to the existing program-price CSS block; regression coverage added.
+- [x] Validate 9 focused tests, TypeScript/build, fresh production HTTP 200 on five routes, and browser checks at 320/375/768/1440px. Screenshots reviewed; no overflow or JS errors, price color/size confirmed, 52px CTA unchanged. Full suite: 358 pass/1 known prior compliance failure; no new failures.
+
+Save this completed styling update as a checkpoint only. Do not publish automatically.
