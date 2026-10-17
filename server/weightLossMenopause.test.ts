@@ -47,7 +47,11 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
       'Fitness + nutrition app, included free',
       'Medication from $115/month for GLP-1 · HRT from $29.',
     ]) expect(page).toContain(item);
-    expect((page.match(/See your options/g) ?? []).length).toBe(1);
+    expect((page.match(/See your options/g) ?? []).length).toBe(8);
+    expect(page).not.toContain('Start your visit');
+    expect(page).toContain('primaryLabel="See your options"');
+    expect(page).toContain('aria-label="See your options — $49 per month membership"');
+    expect(read('client/src/components/home1/Navbar.tsx')).toContain('primaryLabel = "Start your visit"');
     expect((page.match(/A few quick questions/g) ?? []).length).toBe(1);
     expect(page).toContain('Medication is priced separately, and your exact medication and price are confirmed during your assessment before you&apos;re charged.');
     expect(css).toContain('.medication-pricing[data-medication-pricing-archive][hidden]{display:none!important}');

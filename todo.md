@@ -2556,3 +2556,10 @@
 - [x] Use scoped responsive styles only. The section is centered within an 860px layout; the card is capped at 820px; phone layout uses a 347px-wide card on a 375px viewport, 24px radius, a full-width CTA, readable centered summary/note, and no horizontal overflow. The page’s existing sticky header/mobile CTA were hidden only during a clean visual capture and were not changed.
 - [x] Validate: 8 focused menopause-page tests, TypeScript, production build, clean diff check, development browser QA at 375px and 1440px, and a fresh production browser session at 375px. Both builds show the correct heading, `$49`, divider, three checklist items, archived grid hidden, unchanged external CTA destination, and no horizontal overflow. Full suite: 357 passing / 1 failing across 72 files; the only failure remains the documented pre-existing `legitScriptCompliance` assertion against owner-approved imported prototype medication brand content.
 - [x] Saved as an unpublished checkpoint; not published.
+
+## Weight-Loss & Menopause CTA Label Consistency — 2026-10-17
+- [x] Apply confirmed copy-only update to all remaining visit CTAs on `/weight-loss-menopause`: page-specific header (desktop/mobile), program card, estimator, lower pricing section, privacy section, and mobile sticky CTA now say `See your options →`. Update the sticky accessible label to match. Hero wording and `A few quick questions` remain unchanged.
+- [x] Preserve every link destination, pricing/medication copy, archived grid, layouts, and other pages. Shared Navbar source/default remains unchanged; this page passes its existing `primaryLabel` override.
+- [x] Validate 8 focused tests, TypeScript, build, and no-submission browser QA at 375/768/1440px: all intake CTA labels match, arrow/CTA fit, sticky appears normally, no page overflow or JS errors. A normalized baseline comparison confirms only the approved labels/arrow changed. Fresh production HTTP 200 on new page and four existing routes. Full suite: 357 pass/1 known pre-existing compliance failure, no new failures.
+
+This update is for an unpublished checkpoint only. No public deployment is authorized.
