@@ -35,6 +35,8 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
   it("archives the visitor-facing medication grid and renders the approved program-price card", () => {
     expect(page).toContain('className="medication-pricing" aria-labelledby="medication-pricing-title" data-medication-pricing-archive="" hidden={true}');
     expect(page).toContain('className="program-price-section"');
+    expect(page).toContain('className="container program-price-layout"');
+    expect(page).toContain('className="program-price-divider" aria-hidden="true"');
     expect(page).toContain('One program price. No surprises.');
     expect(page).toContain('$49 today, then $49/month. Medication is priced separately');
     expect(page).toContain('First month due today · then $49/month');
@@ -49,6 +51,10 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect((page.match(/A few quick questions/g) ?? []).length).toBe(1);
     expect(page).toContain('Medication is priced separately, and your exact medication and price are confirmed during your assessment before you&apos;re charged.');
     expect(css).toContain('.medication-pricing[data-medication-pricing-archive][hidden]{display:none!important}');
+    expect(css).toContain('.wlm-content .program-price-layout{max-width:860px;margin:0 auto}');
+    expect(css).toContain('.wlm-content .program-price-intro{max-width:700px;margin:0 auto');
+    expect(css).toContain('.wlm-content .program-price-divider{height:1px');
+    expect(css).toContain('.wlm-content .program-price-actions{display:flex;justify-content:center');
     expect(css).toContain('.wlm-content .program-price-section');
     expect(css).toContain('.wlm-content .program-price-checklist');
   });
