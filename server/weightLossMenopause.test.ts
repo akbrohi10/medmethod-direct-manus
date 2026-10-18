@@ -27,53 +27,8 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(treatmentCatalog.hrt.options).toHaveLength(12);
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Estradiol Gel (Divigel)");
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Spironolactone + Biotin + Minoxidil Combination Pill");
-    expect(page).toContain('className="hero-cta-timing">A few quick questions');
-    expect(page).toContain('data-medication-pricing-archive="" hidden={true}');
-    expect(page).toContain('treatmentCatalog.glp1.options.map');
-    expect(page).toContain('treatmentCatalog.hrt.options.map');
+    expect(page).toContain('className="hero-cta-timing">5-10 min');
   });
-  it("archives the visitor-facing medication grid and renders the approved program-price card", () => {
-    expect(page).toContain('className="medication-pricing" aria-labelledby="medication-pricing-title" data-medication-pricing-archive="" hidden={true}');
-    expect(page).toContain('className="program-price-section"');
-    expect(page).toContain('className="container program-price-layout"');
-    expect(page).toContain('className="program-price-divider" aria-hidden="true"');
-    expect(page).toContain('One program price. No surprises.');
-    expect(page).toContain('$49 today, then $49/month. Medication is priced separately');
-    expect(page).toContain('First month due today · then $49/month');
-    expect(page).toContain('100% refunded if you&apos;re not approved · Cancel anytime');
-    for (const item of [
-      'Physician-led care with Dr. Al-Deek',
-      'Direct texting with your doctor',
-      'Fitness + nutrition app, included free',
-      'Medication from $115/month for GLP-1 · HRT from $29.',
-    ]) expect(page).toContain(item);
-    expect((page.match(/See your options/g) ?? []).length).toBe(8);
-    expect(page).not.toContain('Start your visit');
-    expect(page).toContain('primaryLabel="See your options"');
-    expect(page).toContain('aria-label="See your options — $49 per month membership"');
-    expect(read('client/src/components/home1/Navbar.tsx')).toContain('primaryLabel = "Start your visit"');
-    expect((page.match(/A few quick questions/g) ?? []).length).toBe(1);
-    expect(page).toContain('Medication is priced separately, and your exact medication and price are confirmed during your assessment before you&apos;re charged.');
-    expect(css).toContain('.medication-pricing[data-medication-pricing-archive][hidden]{display:none!important}');
-    expect(css).toContain('.wlm-content .program-price-layout{max-width:860px;margin:0 auto}');
-    expect(css).toContain('.wlm-content .program-price-intro{max-width:700px;margin:0 auto');
-    expect(css).toContain('.wlm-content .program-price-divider{height:1px');
-    expect(css).toContain('.wlm-content .program-price-actions{display:flex;justify-content:center');
-    expect(css).toContain('.wlm-content .program-price-section');
-    expect(css).toContain('.wlm-content .program-price-checklist');
-  });
-
-  it("keeps the approved warmer pricing-card treatment scoped to this page", () => {
-    expect(css).toContain('background:linear-gradient(180deg,#fff5fa 0%,#fff 42%)');
-    expect(css).toContain('border:1px solid rgba(122,30,126,.12);border-radius:28px');
-    expect(css).toContain('box-shadow:0 14px 40px rgba(122,30,126,.07)');
-    expect(css).toContain('.wlm-content .program-price-summary strong{color:var(--teal-dark);font-size:clamp(4rem,9.5vw,6.2rem)');
-    expect(css).toContain('.wlm-content .program-price-summary strong{font-size:4.5rem}');
-    expect(css).toContain('.program-price-divider{height:1px;margin:clamp(20px,3vw,28px)');
-    expect(css).toContain('margin:clamp(22px,3.3vw,28px) auto 0');
-    expect(css).toContain('.program-price-actions{display:flex;justify-content:center;margin-top:clamp(22px,3.3vw,28px)}');
-  });
-
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);
@@ -141,7 +96,7 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     const intakeUrl = "https://intake.medmethoddirect.com/";
     expect(page).toContain(`WEIGHT_MENOPAUSE_INTAKE_URL = "${intakeUrl}"`);
     expect(page).not.toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");
-    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(6);
+    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(5);
     expect(page).toContain("primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL}");
     expect(page).toContain("Prototype disclosure:");
   });

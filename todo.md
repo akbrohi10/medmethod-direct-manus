@@ -2570,3 +2570,10 @@ This update is for an unpublished checkpoint only. No public deployment is autho
 - [x] Validate 9 focused tests, TypeScript/build, fresh production HTTP 200 on five routes, and browser checks at 320/375/768/1440px. Screenshots reviewed; no overflow or JS errors, price color/size confirmed, 52px CTA unchanged. Full suite: 358 pass/1 known prior compliance failure; no new failures.
 
 Save this completed styling update as a checkpoint only. Do not publish automatically.
+
+## Weight-Loss & Menopause Exact Pre-Card Restoration — 2026-10-18
+- [x] Obtain explicit approval to restore the entire page exactly to 2fc9d1e4, immediately before the medication grid was archived and the new program card was added. Restore TSX, scoped CSS and matching page regression test directly from Git, byte-for-byte; do not mix later page edits into the old layout.
+- [x] Confirm page dependencies, assets, interactions, shared Navbar and treatment catalog are unchanged since the approved source checkpoint. Original drug grid, GLP-1/HRT switch, original Start your visit labels/5-10 min hero and FAQ restored; newer program-price card/refinements removed from the current page. No other page, booking, payment, secret, tracking or Git-connection changes.
+- [x] Verify 10 focused tests, TypeScript/build and five fresh production route HTTP 200 checks. Browser checks at 375/1440px pass for seven GLP-1 cards, twelve HRT cards, restored estimator switching, image decode, original CTA and no overflow/errors. Full suite 356 pass/1 known previous compliance failure, no new failures.
+
+Save the restored page as a new checkpoint only. Public publishing is not authorized.
