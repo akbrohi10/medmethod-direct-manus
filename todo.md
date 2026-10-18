@@ -2577,3 +2577,9 @@ Save this completed styling update as a checkpoint only. Do not publish automati
 - [x] Verify 10 focused tests, TypeScript/build and five fresh production route HTTP 200 checks. Browser checks at 375/1440px pass for seven GLP-1 cards, twelve HRT cards, restored estimator switching, image decode, original CTA and no overflow/errors. Full suite 356 pass/1 known previous compliance failure, no new failures.
 
 Save the restored page as a new checkpoint only. Public publishing is not authorized.
+
+## Weight-Loss & Menopause Drug-Card Get Started Buttons — 2026-10-18
+- [x] Owner confirmed buttons-only scope. Add one full-width “Get started” gradient CTA to the reusable medication card, producing buttons on all 7 GLP-1 and 12 HRT cards. Use the existing https://intake.medmethoddirect.com/ destination with no medication auto-selection.
+- [x] Preserve all pre-existing TSX markup byte-for-byte, CSS rules, card order, prices/supplies, images, GLP-1/HRT toggle, estimator, other CTAs, other pages and payment/tracking behavior. Only add the card CTA and three scoped CSS lines plus regression coverage.
+- [x] Validate 8 focused tests, TypeScript, production build, 5 fresh production route HTTP 200 checks, and all 19 buttons at 375/768/1440px. Confirm exact link destination via intercepted navigation (no intake submission), white text/gradient, 44px+ touch targets, unchanged prices/supplies/order, no overflow or browser JS errors; mobile/desktop visual review passed.
+- [x] Full suite: 357 pass/1 previously documented LegitScript content-policy failure, with no new regressions. Save checkpoint only; publishing is not authorized.

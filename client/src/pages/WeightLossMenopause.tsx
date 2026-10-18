@@ -46,6 +46,7 @@ function MedicationCard({ treatment, category }: { treatment: TreatmentCatalogOp
       <div className="medication-price"><small>Price</small><strong>{treatment.price}</strong>{treatment.supply ? <span className="medication-supply">{treatment.supply}</span> : null}</div>
       {treatment.frequency || treatment.form ? <dl className="medication-specs">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}
       <p className="medication-note">{treatment.note}</p>
+      <a className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label={`Get started with an intake for ${treatment.name}`}>Get started</a>
     </article>
   );
 }

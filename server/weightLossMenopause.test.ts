@@ -29,6 +29,14 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Spironolactone + Biotin + Minoxidil Combination Pill");
     expect(page).toContain('className="hero-cta-timing">5-10 min');
   });
+  it("adds an intake CTA to every shared medication card without auto-selecting a drug", () => {
+    const card = page.slice(page.indexOf("function MedicationCard("), page.indexOf("/** Imported"));
+    expect(card).toContain('className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL}');
+    expect(card).toContain('aria-label={`Get started with an intake for ${treatment.name}`}>Get started</a>');
+    expect(card.indexOf('className="medication-note"')).toBeLessThan(card.indexOf('className="btn medication-card-cta"'));
+    expect(card).not.toMatch(/onClick|searchParams|\?treatment/);
+    expect(css).toContain('.wlm-content .medication-card .medication-card-cta{width:100%;margin-top:14px;font-size:.875rem;}');
+  });
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);
@@ -96,7 +104,7 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     const intakeUrl = "https://intake.medmethoddirect.com/";
     expect(page).toContain(`WEIGHT_MENOPAUSE_INTAKE_URL = "${intakeUrl}"`);
     expect(page).not.toContain("https://muse.ai/s/mmd-weight-care-intake-xtv6fxmhn89rxp");
-    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(5);
+    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? []).length).toBe(6);
     expect(page).toContain("primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL}");
     expect(page).toContain("Prototype disclosure:");
   });
