@@ -2583,3 +2583,10 @@ Save the restored page as a new checkpoint only. Public publishing is not author
 - [x] Preserve all pre-existing TSX markup byte-for-byte, CSS rules, card order, prices/supplies, images, GLP-1/HRT toggle, estimator, other CTAs, other pages and payment/tracking behavior. Only add the card CTA and three scoped CSS lines plus regression coverage.
 - [x] Validate 8 focused tests, TypeScript, production build, 5 fresh production route HTTP 200 checks, and all 19 buttons at 375/768/1440px. Confirm exact link destination via intercepted navigation (no intake submission), white text/gradient, 44px+ touch targets, unchanged prices/supplies/order, no overflow or browser JS errors; mobile/desktop visual review passed.
 - [x] Full suite: 357 pass/1 previously documented LegitScript content-policy failure, with no new regressions. Save checkpoint only; publishing is not authorized.
+
+## Weight-Loss & Menopause Four Pictured HRT Cards — 2026-10-18
+- [x] Apply the explicitly approved page-only display filter for Estradiol Tablets, Estradiol Patch, Micronized Progesterone Pill, and Vaginal Estrogen Cream. Keep their existing images, order, prices/supplies, styling and Get started buttons; Divigel remains removed.
+- [x] Preserve the 12-item shared HRT catalog and intake options, seven GLP-1 cards, estimator/toggle behavior, external intake destination with no medication auto-selection, CSS/interactions, other pages, payments/tracking and Git connection. Source comparison confirms only the HRT allowlist and render source changed.
+- [x] Validate 9 focused tests, TypeScript, production build, five fresh production HTTP 200 routes, and development/production browser checks at 375/768/1440px: four HRT cards/images/buttons, no placeholders, unchanged prices, correct intercepted intake navigation with no submission, working estimator, no overflow or JS errors. Desktop/mobile screenshots reviewed. Full suite: 358 pass/1 documented pre-existing LegitScript imported-prototype content failure; no new regressions.
+
+Save this completed correction as a checkpoint only. Public publishing is not authorized.

@@ -20,7 +20,7 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(page).toContain('data-medication-panel="hrt" role="region" aria-label="HRT medication options" hidden={true}');
     expect(page).toContain('import treatmentCatalogJson from "@shared/treatmentCatalog.json"');
     expect(page).toContain('treatmentCatalog.glp1.options.map');
-    expect(page).toContain('treatmentCatalog.hrt.options.map');
+    expect(page).toContain('pageHrtOptions.map');
     expect(page).toContain('className="medication-supply"');
     expect(treatmentCatalog.glp1.notSure).toEqual({ value: "not_sure", name: "I'm not sure", helper: "I would like a recommendation" });
     expect(treatmentCatalog.glp1.options).toHaveLength(7);
@@ -28,6 +28,17 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Estradiol Gel (Divigel)");
     expect(treatmentCatalog.hrt.options.map((option: { name: string }) => option.name)).not.toContain("Spironolactone + Biotin + Minoxidil Combination Pill");
     expect(page).toContain('className="hero-cta-timing">5-10 min');
+  });
+  it("shows only the four pictured HRT cards here and retains all twelve options in the shared catalog", () => {
+    const idsBlock = page.match(/const PAGE_HRT_TREATMENT_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? "";
+    const ids = Array.from(idsBlock.matchAll(/"([^"]+)"/g), match => match[1]);
+    expect(ids).toEqual(["estradiol_tablets", "estradiol_patch", "micronized_progesterone_pill", "vaginal_estrogen_cream"]);
+    expect(page).toContain("const pageHrtOptions = treatmentCatalog.hrt.options.filter(treatment => PAGE_HRT_TREATMENT_IDS.has(treatment.value));");
+    expect(treatmentCatalog.hrt.options).toHaveLength(12);
+    const visible = treatmentCatalog.hrt.options.filter((option: { value: string }) => ids.includes(option.value));
+    expect(visible).toHaveLength(4);
+    for (const option of visible) expect(option.images.weightLossMenopause).toMatch(/^\/manus-storage\//);
+    expect(page).not.toContain("treatmentCatalog.hrt.options.map");
   });
   it("adds an intake CTA to every shared medication card without auto-selecting a drug", () => {
     const card = page.slice(page.indexOf("function MedicationCard("), page.indexOf("/** Imported"));
