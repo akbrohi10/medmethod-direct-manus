@@ -250,3 +250,9 @@
 
 /* Medication-card intake links: page-only, matching existing CTA styling. */
 .wlm-content .medication-card .medication-card-cta{width:100%;margin-top:14px;font-size:.875rem;}
+
+/* Wegovy injection only: align media and details with its neighboring cards. */
+@media(min-width:621px){
+  .wlm-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-media{height:196px}
+  .wlm-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-price{min-height:3.5rem;align-content:flex-start}
+}

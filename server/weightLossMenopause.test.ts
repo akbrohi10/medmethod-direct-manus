@@ -48,6 +48,14 @@ describe("Weight-Loss & Menopause supplied page integration", () => {
     expect(card).not.toMatch(/onClick|searchParams|\?treatment/);
     expect(css).toContain('.wlm-content .medication-card .medication-card-cta{width:100%;margin-top:14px;font-size:.875rem;}');
   });
+  it("aligns only the Wegovy injection media and price block on multi-column layouts", () => {
+    const alignment = css.slice(css.indexOf("/* Wegovy injection only:"));
+    expect(alignment).toContain("@media(min-width:621px)");
+    expect(alignment).toContain('.wlm-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-media{height:196px}');
+    expect(alignment).toContain('.wlm-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-price{min-height:3.5rem;align-content:flex-start}');
+    expect((alignment.match(/data-treatment-id=/g) ?? []).length).toBe(2);
+    expect(alignment).not.toMatch(/medication-card-cta|medication-supply|object-fit:cover|transform:/);
+  });
   it("uses this project’s exact imported assets, not old task storage or substitutions", () => {
     const manifest = JSON.parse(read("client/src/pages/weightLossMenopauseAssets.json"));
     expect(manifest.assets).toHaveLength(33);

@@ -2590,3 +2590,10 @@ Save the restored page as a new checkpoint only. Public publishing is not author
 - [x] Validate 9 focused tests, TypeScript, production build, five fresh production HTTP 200 routes, and development/production browser checks at 375/768/1440px: four HRT cards/images/buttons, no placeholders, unchanged prices, correct intercepted intake navigation with no submission, working estimator, no overflow or JS errors. Desktop/mobile screenshots reviewed. Full suite: 358 pass/1 documented pre-existing LegitScript imported-prototype content failure; no new regressions.
 
 Save this completed correction as a checkpoint only. Public publishing is not authorized.
+
+## Weight-Loss & Menopause Wegovy Injection Card Alignment — 2026-10-18
+- [x] Apply approved Wegovy-injection-only spacing correction on `/weight-loss-menopause` for multi-column layouts (621px+): match the neighboring 196px image box and reserve the neighboring price-block height so Frequency/Form, disclaimer and Get started align. Keep the image contained without cropping and keep the existing button position.
+- [x] Preserve mobile layout and every other card's geometry; TSX, images, $349/month injection price, absence of a supply line, wording, CTA styling/destination, shared catalog, four-card HRT subset and all other page/payment/tracking behavior remain unchanged. Only six scoped CSS lines and one regression test were added.
+- [x] Validate 10 focused tests, TypeScript/build, five fresh production HTTP 200 routes, clean diff, and development/production browser QA at 375/768/1440px. Wegovy image/price/details/note/button align within 1px of neighboring cards at tablet/desktop; original CTA position and outer card height retained. Other GLP-1 cards and mobile Wegovy geometry match the measured baseline exactly, with no overflow or JS errors. Desktop/mobile screenshots reviewed. Full suite: 359 pass/1 documented pre-existing imported-prototype compliance failure; no new regressions.
+
+Save this completed alignment fix as a checkpoint only. Do not publish.
