@@ -1,3 +1,5 @@
+import { CARE_TEAM_CONFIRMATION_LEAD_CODE } from "./careTeamConfirmationLead";
+
 type MetaConversionEvent = "Lead" | "Schedule" | "CompleteRegistration";
 
 export const CONFIRMATION_PIXEL_EVENTS = new Map<string, MetaConversionEvent>([
@@ -65,9 +67,21 @@ export function installMetaPixelForCurrentRoute(): boolean {
   if (!eventName) return false;
   if (document.getElementById(CONFIRMATION_PIXEL_SCRIPT_ID)) return false;
 
+  if (window.location.pathname === "/care-team-booking-confirmed" &&
+      (window.location.search || window.location.hash)) {
+    try {
+      window.history.replaceState(window.history.state, "", window.location.pathname);
+    } catch (_) {
+      return false; // Never load this Pixel with a URL we could not sanitize.
+    }
+  }
+
   const script = document.createElement("script");
   script.id = CONFIRMATION_PIXEL_SCRIPT_ID;
-  const conversionCall = eventName === "Lead"
+  const isCareTeamConfirmation = window.location.pathname === "/care-team-booking-confirmed";
+  const conversionCall = isCareTeamConfirmation
+    ? CARE_TEAM_CONFIRMATION_LEAD_CODE
+    : eventName === "Lead"
     ? "fbq('track', 'Lead');"
     : eventName === "Schedule"
       ? "fbq('track', 'Schedule');"
@@ -81,6 +95,7 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+${isCareTeamConfirmation ? "fbq('set', 'autoConfig', false, '1589326469554181');" : ""}
 fbq('init', '1589326469554181');
 fbq('track', 'PageView');
 ${conversionCall}

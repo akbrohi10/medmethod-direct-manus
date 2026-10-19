@@ -63,7 +63,8 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     const scripts: Array<{ id: string; textContent: string }> = [];
     const fbq = vi.fn();
     const setTimeout = vi.fn();
-    vi.stubGlobal("window", { location: { pathname: "/care-team-booking-confirmed" }, fbq, setTimeout });
+    const sessionStorage = { getItem: vi.fn(() => null), setItem: vi.fn() };
+    vi.stubGlobal("window", { location: { pathname: "/care-team-booking-confirmed" }, fbq, setTimeout, sessionStorage });
     vi.stubGlobal("fbq", fbq);
     vi.stubGlobal("document", {
       getElementById: (id: string) => scripts.find(script => script.id === id),
@@ -75,7 +76,8 @@ describe("standalone webinar confirmation Meta Pixel", () => {
       expect(installMetaPixelForCurrentRoute()).toBe(false);
       expect(scripts).toHaveLength(1);
       new Function(scripts[0].textContent)();
-      expect(fbq.mock.calls).toEqual([["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
+      expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
+      expect(sessionStorage.setItem).toHaveBeenCalledWith("mmd_lead_fired", "true");
       expect(setTimeout).not.toHaveBeenCalled();
     } finally {
       vi.unstubAllGlobals();

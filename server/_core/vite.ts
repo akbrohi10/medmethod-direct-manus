@@ -6,8 +6,10 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { getMetaForPath, injectRouteMetaIntoHtml } from "../crawlerMiddleware";
+import { injectCareTeamConfirmationPrivacyIntoHtml } from "../careTeamConfirmationPrivacy";
 
 function injectMasterclassRouteMeta(template: string, url: string): string {
+  template = injectCareTeamConfirmationPrivacyIntoHtml(template, url);
   const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
   if (cleanPath === "/weight-loss-menopause") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath !== "/masterclass") return template;

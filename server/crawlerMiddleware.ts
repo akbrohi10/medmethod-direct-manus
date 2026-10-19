@@ -375,6 +375,18 @@ export function crawlerMiddleware(
     return;
   }
 
+  // Strip all URL query data and incoming referrers before this confirmation's
+  // HTML/Pixel is loaded. Redirect policy makes the next request referrer-free;
+  // the clean request then proceeds normally, with no extra Pixel/PageView.
+  if (req.path === "/care-team-booking-confirmed") {
+    res.set("Referrer-Policy", "no-referrer");
+    if ((req.originalUrl || req.url || "").includes("?") || req.headers.referer) {
+      res.set("Cache-Control", "no-store");
+      res.redirect(302, "/care-team-booking-confirmed");
+      return;
+    }
+  }
+
   // Skip API routes, static assets, and storage proxy
   const path = req.path;
   if (
