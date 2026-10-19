@@ -1,9 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   buildMetaEventFallbackUrl,
   getMetaPixelEventForPath,
+  installMetaPixelForCurrentRoute,
   shouldInstallMetaPixel,
 } from "../client/src/lib/metaPixelBootstrap";
 
@@ -19,7 +20,7 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(shouldInstallMetaPixel("/")).toBe(false);
     expect(getMetaPixelEventForPath("/webinar-registration-confirmed")).toBe("Lead");
     expect(getMetaPixelEventForPath("/live-webinar3-confirmed")).toBe("Lead");
-    expect(getMetaPixelEventForPath("/care-team-booking-confirmed")).toBe("Schedule");
+    expect(getMetaPixelEventForPath("/care-team-booking-confirmed")).toBe("Lead");
     expect(getMetaPixelEventForPath("/thank-you")).toBe("CompleteRegistration");
   });
 
@@ -42,10 +43,10 @@ describe("standalone webinar confirmation Meta Pixel", () => {
   });
 
   it("builds direct event fallback URLs for cases where the Meta library never sends the queue", () => {
-    const fallbackUrl = new URL(buildMetaEventFallbackUrl("Schedule", "https://medmethoddirect.com/care-team-booking-confirmed", 123456));
+    const fallbackUrl = new URL(buildMetaEventFallbackUrl("Lead", "https://medmethoddirect.com/care-team-booking-confirmed", 123456));
     expect(fallbackUrl.origin + fallbackUrl.pathname).toBe("https://www.facebook.com/tr");
     expect(fallbackUrl.searchParams.get("id")).toBe("1589326469554181");
-    expect(fallbackUrl.searchParams.get("ev")).toBe("Schedule");
+    expect(fallbackUrl.searchParams.get("ev")).toBe("Lead");
     expect(fallbackUrl.searchParams.get("noscript")).toBe("1");
     expect(fallbackUrl.searchParams.get("dl")).toBe("https://medmethoddirect.com/care-team-booking-confirmed");
     expect(fallbackUrl.searchParams.get("ts")).toBe("123456");
@@ -56,5 +57,44 @@ describe("standalone webinar confirmation Meta Pixel", () => {
     expect(bootstrapSource).toContain("hasCollectionRequest(eventName)");
     expect(bootstrapSource).toContain("confirmation-${eventName.toLowerCase()}-fallback");
     expect(bootstrapSource).toContain("scheduleConversionDeliveryFallback(eventName)");
+  });
+
+  it("runs exactly the supplied care-team events once without a racing Lead fallback", () => {
+    const scripts: Array<{ id: string; textContent: string }> = [];
+    const fbq = vi.fn();
+    const setTimeout = vi.fn();
+    vi.stubGlobal("window", { location: { pathname: "/care-team-booking-confirmed" }, fbq, setTimeout });
+    vi.stubGlobal("fbq", fbq);
+    vi.stubGlobal("document", {
+      getElementById: (id: string) => scripts.find(script => script.id === id),
+      createElement: () => ({ id: "", textContent: "" }),
+      head: { appendChild: (script: { id: string; textContent: string }) => scripts.push(script) },
+    });
+    try {
+      expect(installMetaPixelForCurrentRoute()).toBe(true);
+      expect(installMetaPixelForCurrentRoute()).toBe(false);
+      expect(scripts).toHaveLength(1);
+      new Function(scripts[0].textContent)();
+      expect(fbq.mock.calls).toEqual([["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
+      expect(setTimeout).not.toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("retains the existing timed conversion fallback on the other confirmation routes", () => {
+    const setTimeout = vi.fn();
+    vi.stubGlobal("window", { location: { pathname: "/webinar-registration-confirmed" }, setTimeout });
+    vi.stubGlobal("document", {
+      getElementById: () => null,
+      createElement: () => ({ id: "", textContent: "" }),
+      head: { appendChild: vi.fn() },
+    });
+    try {
+      expect(installMetaPixelForCurrentRoute()).toBe(true);
+      expect(setTimeout).toHaveBeenCalledOnce();
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });

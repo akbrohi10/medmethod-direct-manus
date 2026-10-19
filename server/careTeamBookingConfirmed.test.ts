@@ -34,14 +34,15 @@ describe("care-team discovery-call confirmation", () => {
     expect(pageSource).not.toMatch(/\$50|deposit|payment|physician visit|remaining balance/i);
   });
 
-  it("keeps the guarded dataLayer signal and uses the route-aware Schedule Pixel", () => {
+  it("keeps the guarded dataLayer signal and uses the route-aware Lead Pixel", () => {
     expect(pageSource).toContain('const CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY =');
     expect(pageSource).toContain('window.sessionStorage.getItem(CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY)');
     expect(pageSource).toContain('window.sessionStorage.setItem(CARE_TEAM_DISCOVERY_CALL_CONVERSION_STORAGE_KEY, "1")');
     expect(pageSource).toContain('w.dataLayer?.push({ event: "care_team_discovery_call_booked" })');
     expect(pageSource).not.toContain("fbq");
-    expect(metaPixelBootstrapSource).toContain('["/care-team-booking-confirmed", "Schedule"]');
-    expect(metaPixelBootstrapSource).toContain('"fbq(\'track\', \'Schedule\');"');
+    expect(metaPixelBootstrapSource).toContain('["/care-team-booking-confirmed", "Lead"]');
+    expect(metaPixelBootstrapSource).not.toContain('["/care-team-booking-confirmed", "Schedule"]');
+    expect(metaPixelBootstrapSource).toContain('"fbq(\'track\', \'Lead\');"');
   });
 
   it("keeps the paused Add to Calendar feature completely off the confirmation page", () => {

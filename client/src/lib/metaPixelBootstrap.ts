@@ -3,7 +3,7 @@ type MetaConversionEvent = "Lead" | "Schedule" | "CompleteRegistration";
 export const CONFIRMATION_PIXEL_EVENTS = new Map<string, MetaConversionEvent>([
   ["/webinar-registration-confirmed", "Lead"],
   ["/live-webinar3-confirmed", "Lead"],
-  ["/care-team-booking-confirmed", "Schedule"],
+  ["/care-team-booking-confirmed", "Lead"],
   ["/thank-you", "CompleteRegistration"],
 ]);
 
@@ -86,6 +86,10 @@ fbq('track', 'PageView');
 ${conversionCall}
 `;
   document.head.appendChild(script);
-  scheduleConversionDeliveryFallback(eventName);
+  // The supplied care-team snippet should send Lead once. A timed image
+  // fallback can race the queued SDK event and count the same lead twice.
+  if (window.location.pathname !== "/care-team-booking-confirmed") {
+    scheduleConversionDeliveryFallback(eventName);
+  }
   return true;
 }
