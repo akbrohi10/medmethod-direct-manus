@@ -77,8 +77,9 @@ describe("standalone webinar confirmation Meta Pixel", () => {
       expect(scripts).toHaveLength(1);
       new Function(scripts[0].textContent)();
       expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
-      expect(sessionStorage.setItem).toHaveBeenCalledWith("mmd_lead_fired", "true");
-      expect(sessionStorage.setItem).toHaveBeenCalledTimes(1);
+      expect(sessionStorage.getItem).not.toHaveBeenCalled();
+      expect(sessionStorage.setItem).not.toHaveBeenCalled();
+      expect(scripts[0].textContent).toContain("fbq('track', 'PageView');\nfbq('track', 'Lead');");
       expect(scripts[0].textContent).not.toContain("fbq('track', 'Schedule')");
       expect(setTimeout).not.toHaveBeenCalled();
     } finally {

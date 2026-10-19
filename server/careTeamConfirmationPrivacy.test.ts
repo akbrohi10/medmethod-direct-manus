@@ -57,7 +57,9 @@ describe("confirmation-only tracking URL privacy", () => {
     expect(html.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
     expect(html.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
     expect(html.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
-    expect(html).toContain("mmd_lead_fired");
+    expect(html).not.toContain("mmd_lead_fired");
+    expect(html).not.toContain("sessionStorage");
+    expect(html).toContain("fbq('track', 'PageView');\nfbq('track', 'Lead');");
     expect(html).not.toContain("fbq('track', 'Schedule')");
     expect(html).not.toContain("fbq('track', 'Purchase')");
     expect(html.match(/id="care-team-confirmation-meta-pixel-noscript"/g)).toHaveLength(1);
