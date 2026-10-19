@@ -76,9 +76,10 @@ describe("standalone webinar confirmation Meta Pixel", () => {
       expect(installMetaPixelForCurrentRoute()).toBe(false);
       expect(scripts).toHaveLength(1);
       new Function(scripts[0].textContent)();
-      expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"], ["track", "Schedule"]]);
+      expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["init", "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
       expect(sessionStorage.setItem).toHaveBeenCalledWith("mmd_lead_fired", "true");
-      expect(sessionStorage.setItem).toHaveBeenCalledWith("mmd_schedule_fired", "true");
+      expect(sessionStorage.setItem).toHaveBeenCalledTimes(1);
+      expect(scripts[0].textContent).not.toContain("fbq('track', 'Schedule')");
       expect(setTimeout).not.toHaveBeenCalled();
     } finally {
       vi.unstubAllGlobals();
