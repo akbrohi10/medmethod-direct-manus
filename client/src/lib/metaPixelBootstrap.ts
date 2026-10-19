@@ -1,4 +1,5 @@
 import { CARE_TEAM_CONFIRMATION_LEAD_CODE } from "./careTeamConfirmationLead";
+import { CARE_TEAM_CONFIRMATION_PIXEL_CODE } from "./careTeamConfirmationPixel";
 
 type MetaConversionEvent = "Lead" | "Schedule" | "CompleteRegistration";
 
@@ -86,7 +87,7 @@ export function installMetaPixelForCurrentRoute(): boolean {
     : eventName === "Schedule"
       ? "fbq('track', 'Schedule');"
       : "fbq('track', 'CompleteRegistration');";
-  script.textContent = `
+  script.textContent = isCareTeamConfirmation ? CARE_TEAM_CONFIRMATION_PIXEL_CODE : `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
