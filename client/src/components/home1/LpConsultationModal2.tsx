@@ -720,6 +720,7 @@ export default function LpConsultationModal2({
   const isAttributionStep = step === ATTRIBUTION_STEP;
   const isPaymentStep = step === PAYMENT_STEP;
   const isCalendarStep = step === CALENDAR_STEP;
+  const isExpandedMasterclassPayment = landingPage === "/masterclass" && isPaymentStep;
 
   const directBookingContactIsValid =
     leadData.firstName.trim().length >= 2 &&
@@ -946,11 +947,16 @@ export default function LpConsultationModal2({
       onClick={(e) => e.target === e.currentTarget && handleAttemptClose()}
     >
       <div
-        className="relative w-full -translate-y-[2svh] bg-white flex flex-col overflow-hidden rounded-[20px] sm:translate-y-0"
+        data-masterclass-payment-expanded={isExpandedMasterclassPayment || undefined}
+        className={`relative w-full ${isExpandedMasterclassPayment ? "translate-y-0" : "-translate-y-[2svh]"} bg-white flex flex-col overflow-hidden rounded-[20px] sm:translate-y-0`}
         style={{
           maxWidth: isCalendarStep ? 860 : 480,
           maxHeight: "min(86dvh, 720px)",
           transition: "max-width 0.4s ease",
+          ...(isExpandedMasterclassPayment ? {
+            maxWidth: 680,
+            maxHeight: "min(94dvh, 960px, calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom))))",
+          } : {}),
         }}
       >
         {/* Progress bar */}
