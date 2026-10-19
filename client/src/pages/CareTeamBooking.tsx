@@ -3,6 +3,7 @@
    Simple landing page with embedded SendMeAPro booking calendar
    ============================================================================= */
 import { useEffect, useRef } from "react";
+import { installCareTeamBookingMetaPixel } from "@/lib/careTeamBookingMetaPixel";
 import {
   CARE_TEAM_BOOKING_CONFIRMATION_PATH,
   CARE_TEAM_CALENDAR_ORIGIN,
@@ -13,6 +14,10 @@ const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 
 export default function CareTeamBooking() {
   const calendarRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    installCareTeamBookingMetaPixel();
+  }, []);
 
   useEffect(() => {
     const handleCalendarMessage = (event: MessageEvent) => {
