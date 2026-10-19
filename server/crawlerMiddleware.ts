@@ -304,6 +304,12 @@ export function injectRouteMetaIntoHtml(html: string, meta: RouteMeta): string {
   // for removal on mount so prototype noindex cannot persist on other SPA routes.
   if (meta.robots) page = page.replace(/<(meta\s+(?:name=["'](?:description|robots|twitter:[^"']+)["']|property=["']og:[^"']+["'])[^>]*|link\s+rel=["']canonical["'][^>]*)>/gi, (tag) => tag.replace(/\s*\/?>$/, ' data-wlm-server-meta="true" />'));
 
+  // A React-rendered noscript cannot work when JavaScript is disabled. Add the
+  // supplied fallback to this route's initial HTML only, never the shared shell.
+  if (meta.url === `${BASE_URL}/masterclass` && !page.includes('id="masterclass-meta-pixel-noscript"')) {
+    page = page.replace(/<body([^>]*)>/i, '<body$1>\n    <noscript id="masterclass-meta-pixel-noscript"><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1589326469554181&amp;ev=PageView&amp;noscript=1" /></noscript>');
+  }
+
   return page;
 }
 

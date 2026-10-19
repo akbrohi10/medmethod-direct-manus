@@ -2,7 +2,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import { Helmet } from "react-helmet-async";
 import { Check, CheckCircle2, ShieldCheck, Video } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
@@ -188,6 +189,10 @@ export default function MasterclassVideoFirst() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [disableFullScreen] = useState(() => typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (max-width: 767px)").matches);
   const videoRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    installMasterclassMetaPixel();
+  }, []);
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
