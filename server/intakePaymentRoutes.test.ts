@@ -40,6 +40,23 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(routes).not.toContain("db.insert(");
   });
 
+  it("keeps the family coupon value server-only and routes a valid waiver through Keragon without creating or capturing PayPal orders", () => {
+    expect(env).toContain('intakeFamilyCouponCode: process.env.MMD_INTAKE_FAMILY_COUPON_CODE ?? "family"');
+    expect(intake).not.toContain("MMD_INTAKE_FAMILY_COUPON_CODE");
+    expect(routes).toContain('app.post("/api/intake/coupon/validate"');
+    expect(routes).toContain('app.post("/api/intake/coupon/submit"');
+    expect(routes).toContain("isFamilyIntakeCoupon");
+    expect(routes).toContain('cleanForDelivery(parsed.data.intake, submissionId, "sandbox", "waived_family")');
+    expect(routes).toContain('payment_status: "WAIVED", amount: "0.00"');
+    const waivedStart = routes.indexOf('app.post("/api/intake/coupon/submit"');
+    const clientTokenStart = routes.indexOf('app.get("/api/paypal/client-token"');
+    const waivedRoute = routes.slice(waivedStart, clientTokenStart);
+    expect(waivedRoute).toContain("await deliverIntake(deliveryPayload);");
+    expect(waivedRoute).not.toContain("getPayPalClient(");
+    expect(waivedRoute).not.toContain("getPaypalSettings(");
+    expect(waivedRoute).not.toContain("/v2/checkout/orders");
+  });
+
   it("derives the Keragon-bound treatment summary from the shared catalog name and price", () => {
     expect(intake).toContain("let t=p.find(t=>t.value===e);return t?[t.name,t.price].filter(Boolean).join(` — `):``");
     expect(intake).toContain("intake_summary:he(e,t,i)");

@@ -17,4 +17,6 @@ export const ENV = {
   ghlCareTeamWebhookSecret: process.env.GHL_CARE_TEAM_WEBHOOK_SECRET ?? "",
   /** Primary server-only delivery destination for the completed intake */
   keragonWebhookUrl: process.env.KERAGON_WEBHOOK_URL ?? "",
+  /** Server-only unlimited 100%-off code for the standalone intake checkout. */
+  intakeFamilyCouponCode: process.env.MMD_INTAKE_FAMILY_COUPON_CODE ?? "family",
 };

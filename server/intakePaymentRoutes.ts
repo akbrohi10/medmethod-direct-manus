@@ -26,6 +26,23 @@ const submissionSchema = z.object({
   payment_method: z.enum(["card", "apple_pay"]).optional(),
 });
 
+const couponCodeSchema = z.object({
+  coupon_code: z.string().trim().min(1).max(64),
+});
+
+const waivedSubmissionSchema = submissionSchema.extend({
+  coupon_code: z.string().trim().min(1).max(64),
+});
+
+/** Never expose or compare the private coupon value in browser code. */
+export function isFamilyIntakeCoupon(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+  const expected = ENV.intakeFamilyCouponCode.trim().toLocaleLowerCase("en-US");
+  const received = value.trim().toLocaleLowerCase("en-US");
+  if (!expected || expected.length !== received.length) return false;
+  return timingSafeEqual(Buffer.from(expected, "utf8"), Buffer.from(received, "utf8"));
+}
+
 function getPayPalBaseUrl(mode: PayPalMode): string {
   return mode === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
 }
@@ -120,10 +137,11 @@ function cleanForDelivery(
   intake: Record<string, unknown>,
   submissionId: string,
   mode: PayPalMode,
-  paymentMethod: "card" | "apple_pay",
+  paymentMethod: "card" | "apple_pay" | "waived_family",
 ) {
   const { checkout_preview: _checkoutPreview, ...submitted } = intake;
-  const isTest = mode === "sandbox" || submitted.is_test === true;
+  const isWaived = paymentMethod === "waived_family";
+  const isTest = isWaived ? submitted.is_test === true : mode === "sandbox" || submitted.is_test === true;
   return {
     ...submitted,
     event: "mmd_intake.submitted",
@@ -132,12 +150,13 @@ function cleanForDelivery(
     submitted_at: new Date().toISOString(),
     is_test: isTest,
     payment: {
-      provider: "paypal",
-      method: paymentMethod,
-      mode,
-      amount: INTAKE_AMOUNT,
+      provider: isWaived ? "none" : "paypal",
+      method: isWaived ? "coupon" : paymentMethod,
+      mode: isWaived ? "waived" : mode,
+      amount: isWaived ? "0.00" : INTAKE_AMOUNT,
       currency: "USD",
-      status: "pending",
+      status: isWaived ? "waived" : "pending",
+      ...(isWaived ? { original_amount: INTAKE_AMOUNT, coupon_type: "family" } : {}),
     },
   };
 }
@@ -186,6 +205,36 @@ function errorMessage(error: unknown) {
 }
 
 export function registerIntakePaymentRoutes(app: Express) {
+  // Coupon validation returns only eligibility. The code itself remains server-only
+  // and is revalidated before the waived intake is delivered.
+  app.post("/api/intake/coupon/validate", (req: Request, res: Response) => {
+    const parsed = couponCodeSchema.safeParse(req.body);
+    if (!parsed.success || !isFamilyIntakeCoupon(parsed.data.coupon_code)) {
+      return res.status(422).json({ valid: false, error: "That coupon code is not valid." });
+    }
+    res.setHeader("Cache-Control", "no-store");
+    return res.json({ valid: true, amount: "0.00", status: "waived" });
+  });
+
+  // The free path is intentionally independent of PayPal. It preserves the
+  // no-database-storage boundary and delivers the normal sanitized payload once.
+  app.post("/api/intake/coupon/submit", async (req: Request, res: Response) => {
+    try {
+      const parsed = waivedSubmissionSchema.safeParse(req.body);
+      if (!parsed.success || !isFamilyIntakeCoupon(parsed.success ? parsed.data.coupon_code : undefined)) {
+        return res.status(422).json({ error: "That coupon code is not valid." });
+      }
+      const submissionId = randomUUID();
+      // A waived submission must remain usable even if PayPal is disabled or not
+      // configured. The waived payload does not retain this placeholder mode.
+      const deliveryPayload = cleanForDelivery(parsed.data.intake, submissionId, "sandbox", "waived_family");
+      await deliverIntake(deliveryPayload);
+      return res.status(201).json({ submission_id: submissionId, payment_status: "WAIVED", amount: "0.00" });
+    } catch (error) {
+      return res.status(422).json({ error: errorMessage(error).replace("Your card has not been charged.", "No payment was processed.") });
+    }
+  });
+
   app.get("/api/paypal/client-token", async (_req: Request, res: Response) => {
     try {
       const settings = await getPaypalSettings();

@@ -221,6 +221,19 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("@media (prefers-color-scheme:dark){.apple-pay-option");
   });
 
+  it("adds the server-validated family coupon above payment fields and hides every payment method only after it is applied", () => {
+    expect(intake).toContain("Coupon code");
+    expect(intake).toContain("Have a coupon code? Apply it before entering payment details.");
+    expect(intake).toContain("/api/intake/coupon/validate");
+    expect(intake).toContain("/api/intake/coupon/submit");
+    expect(intake).toContain("Family discount applied — $49 waived");
+    expect(intake).toContain("Submit intake for clinical review");
+    expect(intake).toContain("payment_status!==`WAIVED`");
+    expect(intake).toContain("!o&&(0,M.jsxs)(M.Fragment");
+    expect(intake).not.toContain("MMD_INTAKE_FAMILY_COUPON_CODE");
+    expect(intake).not.toContain("coupon_code:`family`");
+  });
+
   it("keeps the imported static intake JavaScript syntactically valid after secure-payment wiring", () => {
     const inlineScript = intake.match(/<script>([\s\S]*?)<\/script>/)?.[1];
     expect(inlineScript).toBeTruthy();
