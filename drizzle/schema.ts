@@ -87,6 +87,12 @@ export const payments = mysqlTable("payments", {
   paypalVaultToken: varchar("paypalVaultToken", { length: 128 }),
   /** PayPal customer ID associated with the vault token */
   paypalCustomerId: varchar("paypalCustomerId", { length: 128 }),
+  /** Source type for the saved PayPal vault token; absent legacy records are card vaults. */
+  paypalVaultPaymentSource: mysqlEnum("paypalVaultPaymentSource", ["card", "apple_pay"]),
+  /** Timestamp when the payer affirmatively approved saving Apple Pay for the disclosed later balance. */
+  paypalApplePayConsentAt: timestamp("paypalApplePayConsentAt"),
+  /** Apple Pay vault readiness; a later balance must never charge until PayPal confirms VAULTED. */
+  paypalApplePayVaultStatus: mysqlEnum("paypalApplePayVaultStatus", ["pending", "vaulted"]),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -156,6 +162,10 @@ export const paypalSettings = mysqlTable("paypal_settings", {
   sandboxClientSecret: text("sandboxClientSecret"),
   liveClientId: text("liveClientId"),
   liveClientSecret: text("liveClientSecret"),
+  /** PayPal Developer Dashboard webhook ID for verified sandbox Apple Pay vault events. */
+  sandboxWebhookId: text("sandboxWebhookId"),
+  /** PayPal Developer Dashboard webhook ID for verified live Apple Pay vault events. */
+  liveWebhookId: text("liveWebhookId"),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 

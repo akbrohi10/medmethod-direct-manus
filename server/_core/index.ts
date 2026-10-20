@@ -51,10 +51,11 @@ async function startServer() {
     express.raw({ type: "application/json" }),
     stripePaymentWebhookHandler
   );
-  // PayPal payment webhook — fires when a PayPal capture completes
+  // PayPal payment webhook — fires when a PayPal capture completes and when a
+  // consented masterclass Apple Pay vault token finishes saving.
   // Setup: PayPal Developer Dashboard → your app → Webhooks → Add Webhook
   //   URL: https://medmethoddirect.com/api/webhooks/paypal-payment
-  //   Events: PAYMENT.CAPTURE.COMPLETED
+  //   Events: PAYMENT.CAPTURE.COMPLETED, VAULT.PAYMENT-TOKEN.CREATED
   app.post(
     "/api/webhooks/paypal-payment",
     express.json(),

@@ -1374,6 +1374,7 @@ export default function LpConsultationModal2({
                   patientEmail={leadData.email.trim() || answers.email || ""}
                   patientPhone={leadData.phone || answers.phone}
                   landingPage={landingPage}
+                  enableApplePay={landingPage === "/masterclass"}
                   consultationTotalAmountCents={referralPricing.consultationTotalAmount}
                   remainingAmountCents={referralPricing.remainingAmount}
                   referralCreditAmountCents={referralPricing.referralCreditAmount}

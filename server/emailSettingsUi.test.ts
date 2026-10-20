@@ -12,6 +12,9 @@ describe("admin Email Settings interface", () => {
     expect(adminSettings).toContain('<AdminEmailSettings />');
     expect(adminSettings).toContain("Stripe Settings");
     expect(adminSettings).toContain("PayPal Settings");
+    expect(adminSettings).toContain("Sandbox Webhook ID");
+    expect(adminSettings).toContain("Live Webhook ID");
+    expect(adminSettings).toContain("VAULT.PAYMENT-TOKEN.CREATED");
     expect(adminSettings).toContain("Payments (");
   });
 

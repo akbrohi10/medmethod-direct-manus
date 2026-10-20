@@ -23,6 +23,7 @@ import {
 } from "@paypal/react-paypal-js";
 import { CreditCard, Lock } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
+import PayPalApplePayOption from "./PayPalApplePayOption";
 
 const BRAND_GRADIENT = "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)";
 const BRAND_PINK = "#E8339E";
@@ -33,6 +34,8 @@ interface PayPalPaymentFormProps {
   patientEmail: string;
   patientPhone: string;
   landingPage?: string;
+  /** Only the masterclass appointment deposit offers the Apple Pay saved-method flow. */
+  enableApplePay?: boolean;
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
@@ -307,6 +310,7 @@ export default function PayPalPaymentForm({
   patientEmail,
   patientPhone,
   landingPage,
+  enableApplePay = false,
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
@@ -319,11 +323,16 @@ export default function PayPalPaymentForm({
   const [orderId, setOrderId] = useState<string | null>(null);
   const [paymentId, setPaymentId] = useState<number | null>(null);
   const [initError, setInitError] = useState<string | null>(null);
+  const [applePayAvailable, setApplePayAvailable] = useState<boolean | null>(enableApplePay ? null : false);
+  const [selectedMethod, setSelectedMethod] = useState<"apple_pay" | "card">(enableApplePay ? "apple_pay" : "card");
   const createdRef = useRef(false);
+  const applePayConfigured = enableApplePay && clientIdQuery.data?.applePayVaultWebhookConfigured === true;
+  const useCard = !applePayConfigured || selectedMethod === "card";
 
   const createOrderMutation = trpc.paypal.createOrder.useMutation();
 
   useEffect(() => {
+    if (!useCard) return;
     if (createdRef.current) return;
     if (!clientIdQuery.data?.clientId) return;
     createdRef.current = true;
@@ -342,10 +351,10 @@ export default function PayPalPaymentForm({
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clientIdQuery.data?.clientId]);
+  }, [clientIdQuery.data?.clientId, useCard]);
 
   // Loading
-  if (clientIdQuery.isLoading || createOrderMutation.isPending) {
+  if (clientIdQuery.isLoading || (useCard && createOrderMutation.isPending)) {
     return (
       <div className="flex flex-col items-center justify-center py-12 gap-3">
         <div
@@ -358,7 +367,7 @@ export default function PayPalPaymentForm({
   }
 
   // Init error
-  if (initError) {
+  if (initError && useCard) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-center">
         <p className="text-sm font-semibold text-red-700 mb-1">Payment unavailable</p>
@@ -382,7 +391,7 @@ export default function PayPalPaymentForm({
     );
   }
 
-  if (!orderId || paymentId === null) {
+  if (useCard && (!orderId || paymentId === null)) {
     return (
       <div className="flex flex-col items-center justify-center py-12 gap-3">
         <div
@@ -400,22 +409,50 @@ export default function PayPalPaymentForm({
     <PayPalScriptProvider
       options={{
         clientId: clientIdQuery.data.clientId,
-        components: "card-fields",
+        components: applePayConfigured ? "card-fields,applepay" : "card-fields",
         intent: "capture",
         vault: true,
         ...(mode === "sandbox" ? { currency: "USD", "buyer-country": "US" } : {}),
       }}
     >
-      <PayPalCardFormWithProvider
-        orderId={orderId}
-        paymentId={paymentId}
-        consultationTotalAmountCents={consultationTotalAmountCents}
-        remainingAmountCents={remainingAmountCents}
-        referralCreditAmountCents={referralCreditAmountCents}
-        referralControl={referralControl}
-        onComplete={onComplete}
-        onError={onError}
-      />
+      {applePayConfigured && !useCard && (
+        <PayPalApplePayOption
+          patientName={patientName}
+          patientEmail={patientEmail}
+          patientPhone={patientPhone}
+          landingPage="/masterclass"
+          onAvailableChange={setApplePayAvailable}
+          onUseCard={() => setSelectedMethod("card")}
+          onPaymentId={onPaymentId ?? (() => undefined)}
+          onComplete={onComplete}
+          onError={onError}
+        />
+      )}
+      {(!enableApplePay || useCard) && orderId && paymentId !== null && (
+        <PayPalCardFormWithProvider
+          orderId={orderId}
+          paymentId={paymentId}
+          consultationTotalAmountCents={consultationTotalAmountCents}
+          remainingAmountCents={remainingAmountCents}
+          referralCreditAmountCents={referralCreditAmountCents}
+          referralControl={referralControl}
+          onComplete={onComplete}
+          onError={onError}
+        />
+      )}
+      {applePayConfigured && !useCard && applePayAvailable === false && (
+        <section data-masterclass-card-choice className="rounded-xl border border-gray-200 bg-white p-4 text-center">
+          <p className="mb-3 text-sm text-gray-600">Apple Pay is not available on this device. You can still reserve your appointment securely with a card.</p>
+          <button
+            data-masterclass-select-card
+            type="button"
+            onClick={() => setSelectedMethod("card")}
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-400 hover:bg-gray-50"
+          >
+            Pay with card
+          </button>
+        </section>
+      )}
     </PayPalScriptProvider>
   );
 }

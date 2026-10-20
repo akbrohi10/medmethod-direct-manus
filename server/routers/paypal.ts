@@ -30,7 +30,8 @@ import { createWl2OneTimePaymentRecord, WL2_ONE_TIME_PAYMENT } from "../wl2OneTi
 
 // ─── PayPal REST API helpers ──────────────────────────────────────────────────
 
-type PayPalMode = "sandbox" | "live";
+export type PayPalMode = "sandbox" | "live";
+type PayPalVaultPaymentSource = "card" | "apple_pay";
 
 function getPayPalBaseUrl(mode: PayPalMode): string {
   return mode === "live"
@@ -61,7 +62,7 @@ async function getPayPalAccessToken(
   return data.access_token;
 }
 
-async function getPayPalClient(mode: PayPalMode): Promise<{
+export async function getPayPalClient(mode: PayPalMode): Promise<{
   baseUrl: string;
   token: string;
   clientId: string;
@@ -91,7 +92,8 @@ async function getPayPalClient(mode: PayPalMode): Promise<{
 export async function chargePayPalVault(
   paymentId: number,
   vaultToken: string,
-  mode: PayPalMode
+  mode: PayPalMode,
+  vaultPaymentSource: PayPalVaultPaymentSource = "card",
 ): Promise<{ success: boolean; captureId?: string; error?: string }> {
   const client = await getPayPalClient(mode);
   if (!client) return { success: false, error: `PayPal ${mode} credentials not configured` };
@@ -106,7 +108,9 @@ export async function chargePayPalVault(
     headers: {
       Authorization: `Bearer ${client.token}`,
       "Content-Type": "application/json",
-      "PayPal-Request-Id": `charge-${paymentId}-${Date.now()}`,
+        // Stable per payment/balance charge. A timeout or concurrent sweep/admin
+        // attempt reuses the same PayPal order rather than creating another $149 order.
+        "PayPal-Request-Id": `remaining-balance-${paymentId}`,
     },
     body: JSON.stringify({
       intent: "CAPTURE",
@@ -117,18 +121,30 @@ export async function chargePayPalVault(
           custom_id: String(paymentId),
         },
       ],
-      payment_source: {
-        // Advanced Card Fields vault — card saved during inline checkout
-        // stored_credentials marks this as a subsequent merchant-initiated transaction
-        card: {
-          vault_id: vaultToken,
-          stored_credentials: {
-            payment_initiator: "MERCHANT",
-            payment_type: "UNSCHEDULED",
-            usage: "SUBSEQUENT",
+      payment_source: vaultPaymentSource === "apple_pay"
+        ? {
+          // Saved Apple Pay methods are not card vaults. PayPal documents this
+          // separate source and recurring stored-credential shape for the later charge.
+          apple_pay: {
+            vault_id: vaultToken,
+            stored_credentials: {
+              payment_initiator: "MERCHANT",
+              payment_type: "RECURRING",
+              usage: "SUBSEQUENT",
+            },
+          },
+        }
+        : {
+          // Advanced Card Fields vault — card saved during inline checkout.
+          card: {
+            vault_id: vaultToken,
+            stored_credentials: {
+              payment_initiator: "MERCHANT",
+              payment_type: "UNSCHEDULED",
+              usage: "SUBSEQUENT",
+            },
           },
         },
-      },
     }),
   });
 
@@ -214,6 +230,8 @@ export const paypalRouter = router({
       liveClientId: settings?.liveClientId ?? null,
       liveClientIdMasked: mask(settings?.liveClientId),
       liveClientSecretMasked: mask(settings?.liveClientSecret),
+      sandboxWebhookIdMasked: mask(settings?.sandboxWebhookId),
+      liveWebhookIdMasked: mask(settings?.liveWebhookId),
       hasSandboxKeys: !!(settings?.sandboxClientId && settings?.sandboxClientSecret),
       hasLiveKeys: !!(settings?.liveClientId && settings?.liveClientSecret),
     };
@@ -231,6 +249,8 @@ export const paypalRouter = router({
         sandboxClientSecret: z.string().optional(),
         liveClientId: z.string().optional(),
         liveClientSecret: z.string().optional(),
+        sandboxWebhookId: z.string().optional(),
+        liveWebhookId: z.string().optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -252,6 +272,9 @@ export const paypalRouter = router({
       clientId: clientId ?? null,
       mode,
       activeProvider: settings.activeProvider ?? "stripe",
+      applePayVaultWebhookConfigured: mode === "live"
+        ? !!settings.liveWebhookId
+        : !!settings.sandboxWebhookId,
     };
   }),
 
@@ -427,6 +450,7 @@ export const paypalRouter = router({
         status: "deposit_paid",
         paypalOrderId: input.orderId,
         ...(vaultToken ? { paypalVaultToken: vaultToken } : {}),
+        ...(vaultToken ? { paypalVaultPaymentSource: "card" as const } : {}),
         ...(customerId ? { paypalCustomerId: customerId } : {}),
       });
 
@@ -439,6 +463,125 @@ export const paypalRouter = router({
       });
 
       return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken };
+    }),
+
+  /**
+   * Masterclass only: create the $50 Apple Pay order with explicit saved-method
+   * consent for the separately disclosed $149 appointment-day balance.
+   */
+  createApplePayOrder: publicProcedure
+    .input(z.object({
+      patientName: z.string(),
+      patientEmail: z.string().email(),
+      patientPhone: z.string(),
+      landingPage: z.literal("/masterclass"),
+      saveForFuture: z.literal(true),
+    }))
+    .mutation(async ({ input }) => {
+      const settings = await getPaypalSettings();
+      if (!settings || settings.activeProvider !== "paypal") {
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: "PayPal is not the active payment method." });
+      }
+      const mode = settings.mode ?? "sandbox";
+      const client = await getPayPalClient(mode);
+      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: `PayPal ${mode} credentials not configured` });
+
+      const paymentId = await createPayment({
+        patientName: input.patientName,
+        patientEmail: input.patientEmail,
+        patientPhone: input.patientPhone,
+        landingPage: input.landingPage,
+        status: "pending",
+        consultationTotalAmount: STANDARD_CONSULTATION_PRICING.consultationTotalAmount,
+        depositAmount: STANDARD_CONSULTATION_PRICING.depositAmount,
+        remainingAmount: STANDARD_CONSULTATION_PRICING.remainingAmount,
+        referralCreditAmount: STANDARD_CONSULTATION_PRICING.referralCreditAmount,
+        paymentProvider: "paypal",
+        paypalMode: mode,
+        stripeMode: "test",
+      });
+
+      const res = await fetch(`${client.baseUrl}/v2/checkout/orders`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${client.token}`,
+          "Content-Type": "application/json",
+          "PayPal-Request-Id": `masterclass-apple-pay-${paymentId}-${Date.now()}`,
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify({
+          intent: "CAPTURE",
+          purchase_units: [{
+            amount: { currency_code: "USD", value: formatUsdFromCents(STANDARD_CONSULTATION_PRICING.depositAmount) },
+            description: "MedMethod Direct — $50 consultation deposit",
+            custom_id: String(paymentId),
+          }],
+          payment_source: {
+            apple_pay: {
+              stored_credentials: {
+                payment_initiator: "CUSTOMER",
+                payment_type: "RECURRING",
+              },
+              attributes: { vault: { store_in_vault: "ON_SUCCESS" } },
+            },
+          },
+        }),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal Apple Pay order creation failed: ${text}` });
+      }
+      const order = (await res.json()) as { id?: string };
+      if (!order.id) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "PayPal did not return an Apple Pay order ID." });
+      await updatePayment(paymentId, { paypalOrderId: order.id });
+      return { orderId: order.id, paymentId };
+    }),
+
+  /** Captures the buyer-present Apple Pay deposit and records its distinct vault source. */
+  captureApplePayOrder: publicProcedure
+    .input(z.object({ orderId: z.string(), paymentId: z.number() }))
+    .mutation(async ({ input }) => {
+      const payment = await getPaymentById(input.paymentId);
+      if (!payment || payment.paymentProvider !== "paypal" || payment.landingPage !== "/masterclass" || payment.paypalOrderId !== input.orderId) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Apple Pay appointment payment was not found." });
+      }
+      const mode = (payment.paypalMode ?? "sandbox") as PayPalMode;
+      const client = await getPayPalClient(mode);
+      if (!client) throw new TRPCError({ code: "PRECONDITION_FAILED", message: `PayPal ${mode} credentials not configured` });
+      const res = await fetch(`${client.baseUrl}/v2/checkout/orders/${input.orderId}/capture`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${client.token}`, "Content-Type": "application/json" },
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal Apple Pay capture failed: ${text}` });
+      }
+      const capture = (await res.json()) as {
+        status: string;
+        id: string;
+        payment_source?: { apple_pay?: { attributes?: { vault?: { id?: string; status?: string; customer?: { id?: string } } } } };
+      };
+      if (capture.status !== "COMPLETED") throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `PayPal Apple Pay capture status: ${capture.status}` });
+
+      const vault = capture.payment_source?.apple_pay?.attributes?.vault;
+      const vaultIsReady = vault?.status === "VAULTED" && !!vault.id;
+      await updatePayment(input.paymentId, {
+        status: "deposit_paid",
+        paypalOrderId: input.orderId,
+        paypalVaultPaymentSource: "apple_pay",
+        paypalApplePayConsentAt: new Date(),
+        paypalApplePayVaultStatus: vaultIsReady ? "vaulted" : "pending",
+        ...(vaultIsReady ? { paypalVaultToken: vault.id! } : {}),
+        ...(vault?.customer?.id ? { paypalCustomerId: vault.customer.id } : {}),
+      });
+      const paidPayment = await getPaymentById(input.paymentId);
+      await sendPaymentEmailSafely({
+        paymentId: input.paymentId,
+        templateKey: "deposit_paid",
+        chargedAmount: paidPayment?.depositAmount ?? 5000,
+        transactionId: capture.id,
+      });
+      return { success: true, captureId: capture.id, hasVaultToken: vaultIsReady, vaultStatus: vault?.status ?? null };
     }),
 
   /** Creates a one-time $15 WL2 PayPal order with no vault or later balance. */
@@ -605,7 +748,7 @@ export const paypalRouter = router({
         await updatePayment(input.paymentId, { appointmentDate: input.appointmentDate });
       }
 
-      const result = await chargePayPalVault(input.paymentId, payment.paypalVaultToken, mode);
+      const result = await chargePayPalVault(input.paymentId, payment.paypalVaultToken, mode, payment.paypalVaultPaymentSource ?? "card");
       if (!result.success) {
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.error ?? "PayPal charge failed" });
       }
@@ -629,7 +772,7 @@ export const paypalRouter = router({
       const mode = (payment.paypalMode ?? "sandbox") as PayPalMode;
       // Reset to deposit_paid so chargePayPalVault won't reject it as already paid
       await updatePayment(payment.id, { status: "deposit_paid" });
-      const result = await chargePayPalVault(payment.id, payment.paypalVaultToken!, mode);
+      const result = await chargePayPalVault(payment.id, payment.paypalVaultToken!, mode, payment.paypalVaultPaymentSource ?? "card");
       if (result.success) {
         results.push({ paymentId: payment.id, status: "fully_paid" });
       } else {

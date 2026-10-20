@@ -11,10 +11,11 @@
  *
  * The same GHL_PAYMENT_WEBHOOK_URL used by Stripe is reused here.
  */
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { Request, Response } from "express";
 import { paymentWebhookLog, payments } from "../drizzle/schema";
-import { getDb } from "./db";
+import { getDb, getPaypalSettings } from "./db";
+import { getPayPalClient, type PayPalMode } from "./routers/paypal";
 import { WEBHOOK_CONFIG } from "./stripePaymentWebhook";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -42,6 +43,55 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+type PayPalWebhookEvent = {
+  event_type?: string;
+  resource?: Record<string, unknown>;
+};
+
+/** The delayed Apple Pay vault event is verified with PayPal before it can mutate a payment. */
+async function verifyApplePayVaultWebhook(req: Request, event: PayPalWebhookEvent): Promise<boolean> {
+  const headerNames = [
+    "paypal-auth-algo",
+    "paypal-cert-url",
+    "paypal-transmission-id",
+    "paypal-transmission-sig",
+    "paypal-transmission-time",
+  ];
+  if (headerNames.some((header) => !req.header(header))) return false;
+
+  const settings = await getPaypalSettings();
+  const configurations: Array<{ mode: PayPalMode; webhookId: string | null | undefined }> = [
+    { mode: "sandbox", webhookId: settings?.sandboxWebhookId },
+    { mode: "live", webhookId: settings?.liveWebhookId },
+  ];
+  for (const configuration of configurations) {
+    if (!configuration.webhookId) continue;
+    const client = await getPayPalClient(configuration.mode);
+    if (!client) continue;
+    try {
+      const verify = await fetch(`${client.baseUrl}/v1/notifications/verify-webhook-signature`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${client.token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          auth_algo: req.header("paypal-auth-algo"),
+          cert_url: req.header("paypal-cert-url"),
+          transmission_id: req.header("paypal-transmission-id"),
+          transmission_sig: req.header("paypal-transmission-sig"),
+          transmission_time: req.header("paypal-transmission-time"),
+          webhook_id: configuration.webhookId,
+          webhook_event: event,
+        }),
+      });
+      if (!verify.ok) continue;
+      const result = (await verify.json()) as { verification_status?: string };
+      if (result.verification_status === "SUCCESS") return true;
+    } catch {
+      // Never trust a notification whose verification itself failed.
+    }
+  }
+  return false;
+}
+
 async function sendToGhl(
   payload: GhlPaymentPayload,
   attempt: number
@@ -66,8 +116,8 @@ async function sendToGhl(
 /**
  * Express route handler for POST /api/webhooks/paypal-payment
  *
- * PayPal sends JSON directly (no raw-body signature verification needed for
- * basic setups; add PayPal webhook signature verification here if required).
+ * Legacy capture forwarding is retained. The Apple Pay vault-token event is
+ * security-sensitive and is verified against PayPal before it can update a record.
  */
 export async function paypalPaymentWebhookHandler(
   req: Request,
@@ -79,16 +129,57 @@ export async function paypalPaymentWebhookHandler(
   }
 
   try {
-    const event = req.body as {
-      event_type?: string;
+    const event = req.body as PayPalWebhookEvent & {
       resource?: {
         id?: string;
         custom_id?: string;
+        customer?: { id?: string };
         amount?: { value?: string; currency_code?: string };
         create_time?: string;
         status?: string;
       };
     };
+
+    // Saved Apple Pay methods can finish vaulting after capture. PayPal then
+    // sends this event with the vault token and PayPal customer ID. Keep the
+    // token tied only to the matching masterclass Apple Pay deposit so the
+    // appointment-day sweep can use payment_source.apple_pay later.
+    if (event.event_type === "VAULT.PAYMENT-TOKEN.CREATED") {
+      const paypalSettings = await getPaypalSettings();
+      if (!paypalSettings?.sandboxWebhookId && !paypalSettings?.liveWebhookId) {
+        return res.status(503).json({ error: "Apple Pay vault webhook verification is not configured" });
+      }
+      if (!(await verifyApplePayVaultWebhook(req, event))) {
+        return res.status(401).json({ error: "Invalid PayPal Apple Pay vault webhook signature" });
+      }
+      const vaultId = event.resource?.id;
+      const customerId = event.resource?.customer?.id;
+      if (!vaultId || !customerId) {
+        return res.status(200).json({ ignored: true, reason: "missing_vault_identity" });
+      }
+
+      const matches = await db
+        .select({ id: payments.id })
+        .from(payments)
+        .where(and(
+          eq(payments.paymentProvider, "paypal"),
+          eq(payments.landingPage, "/masterclass"),
+          eq(payments.status, "deposit_paid"),
+          eq(payments.paypalVaultPaymentSource, "apple_pay"),
+          eq(payments.paypalApplePayVaultStatus, "pending"),
+          eq(payments.paypalCustomerId, customerId),
+          isNull(payments.paypalVaultToken),
+        ));
+
+      if (matches.length !== 1) {
+        return res.status(200).json({ ignored: true, reason: "unmatched_or_ambiguous_apple_pay_vault" });
+      }
+
+      await db.update(payments)
+        .set({ paypalVaultToken: vaultId, paypalApplePayVaultStatus: "vaulted", updatedAt: new Date() })
+        .where(eq(payments.id, matches[0].id));
+      return res.status(200).json({ received: true, vaulted: true });
+    }
 
     // Only handle capture completions
     if (event.event_type !== "PAYMENT.CAPTURE.COMPLETED") {

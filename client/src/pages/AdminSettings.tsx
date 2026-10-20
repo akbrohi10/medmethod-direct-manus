@@ -255,8 +255,10 @@ export default function AdminSettings() {
   const [ppActiveProvider, setPpActiveProvider] = useState<ActiveProvider>("stripe");
   const [ppSandboxClientId, setPpSandboxClientId] = useState("");
   const [ppSandboxClientSecret, setPpSandboxClientSecret] = useState("");
+  const [ppSandboxWebhookId, setPpSandboxWebhookId] = useState("");
   const [ppLiveClientId, setPpLiveClientId] = useState("");
   const [ppLiveClientSecret, setPpLiveClientSecret] = useState("");
+  const [ppLiveWebhookId, setPpLiveWebhookId] = useState("");
   const [keragonWebhookUrl, setKeragonWebhookUrl] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "deposit_paid" | "fully_paid" | "failed">("all");
@@ -279,8 +281,10 @@ export default function AdminSettings() {
       setPpActiveProvider((paypalSettingsQuery.data.activeProvider ?? "stripe") as ActiveProvider);
       setPpSandboxClientId(paypalSettingsQuery.data.sandboxClientIdMasked ?? "");
       setPpSandboxClientSecret(paypalSettingsQuery.data.sandboxClientSecretMasked ?? "");
+      setPpSandboxWebhookId(paypalSettingsQuery.data.sandboxWebhookIdMasked ?? "");
       setPpLiveClientId(paypalSettingsQuery.data.liveClientIdMasked ?? "");
       setPpLiveClientSecret(paypalSettingsQuery.data.liveClientSecretMasked ?? "");
+      setPpLiveWebhookId(paypalSettingsQuery.data.liveWebhookIdMasked ?? "");
     }
   }, [paypalSettingsQuery.data]);
 
@@ -290,8 +294,10 @@ export default function AdminSettings() {
       activeProvider: ppActiveProvider,
       sandboxClientId: ppSandboxClientId.includes("...") ? undefined : ppSandboxClientId || undefined,
       sandboxClientSecret: ppSandboxClientSecret.includes("...") ? undefined : ppSandboxClientSecret || undefined,
+      sandboxWebhookId: ppSandboxWebhookId.includes("...") ? undefined : ppSandboxWebhookId || undefined,
       liveClientId: ppLiveClientId.includes("...") ? undefined : ppLiveClientId || undefined,
       liveClientSecret: ppLiveClientSecret.includes("...") ? undefined : ppLiveClientSecret || undefined,
+      liveWebhookId: ppLiveWebhookId.includes("...") ? undefined : ppLiveWebhookId || undefined,
     });
   };
 
@@ -617,6 +623,13 @@ export default function AdminSettings() {
                   placeholder="EYour_Sandbox_Secret..."
                   hint="Never share this — keep it server-side only"
                 />
+                <SecretInput
+                  label="Sandbox Webhook ID"
+                  value={ppSandboxWebhookId}
+                  onChange={setPpSandboxWebhookId}
+                  placeholder="From your Sandbox app's webhook entry"
+                  hint="Required for verified Apple Pay saved-method vault notifications"
+                />
               </div>
             </div>
 
@@ -643,6 +656,13 @@ export default function AdminSettings() {
                   placeholder="EYour_Live_Secret..."
                   hint="Never share this — keep it server-side only"
                 />
+                <SecretInput
+                  label="Live Webhook ID"
+                  value={ppLiveWebhookId}
+                  onChange={setPpLiveWebhookId}
+                  placeholder="From your Live app's webhook entry"
+                  hint="Required for verified Apple Pay saved-method vault notifications"
+                />
               </div>
             </div>
 
@@ -651,7 +671,7 @@ export default function AdminSettings() {
               <h3 className="text-sm font-bold text-gray-700 mb-2">PayPal Webhook URL</h3>
               <p className="text-xs text-gray-500 mb-3">
                 Add this URL in your PayPal Developer Dashboard → your app → Webhooks.
-                Select event: <strong>PAYMENT.CAPTURE.COMPLETED</strong>
+                Select events: <strong>PAYMENT.CAPTURE.COMPLETED</strong> and <strong>VAULT.PAYMENT-TOKEN.CREATED</strong>. Copy that webhook&apos;s ID into the matching environment field above so a saved Apple Pay method can be verified before the later $149 balance is collected.
               </p>
               <div className="flex items-center gap-2">
                 <code className="flex-1 text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 font-mono text-gray-800 break-all">

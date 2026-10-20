@@ -154,7 +154,12 @@ export async function runSweep(): Promise<{
         try {
           const mode = (payment.paypalMode ?? "sandbox") as "sandbox" | "live";
           console.log(`[SweepDueCharges] Charging PayPal payment ${payment.id} via chargePayPalVault (mode=${mode})`);
-          const result = await chargePayPalVault(payment.id, payment.paypalVaultToken, mode);
+          const result = await chargePayPalVault(
+            payment.id,
+            payment.paypalVaultToken,
+            mode,
+            payment.paypalVaultPaymentSource ?? "card",
+          );
 
           if (result.success) {
             console.log(`[SweepDueCharges] PayPal payment ${payment.id} → fully_paid (captureId=${result.captureId})`);

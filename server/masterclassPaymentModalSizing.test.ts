@@ -28,6 +28,7 @@ describe("masterclass payment popup sizing", () => {
 
   it("preserves hosted payment components, identity, deposit guidance, and return navigation", () => {
     expect(modal).toContain("<PayPalPaymentForm");
+    expect(modal).toContain('enableApplePay={landingPage === "/masterclass"}');
     expect(modal).toContain("<StripePaymentForm");
     expect(modal).toContain('patientEmail={leadData.email.trim() || answers.email || ""}');
     expect(modal).toContain("patientPhone={leadData.phone || answers.phone}");
