@@ -2675,3 +2675,9 @@ Checkpoint only; do not publish. Explain exact Lead code and Meta Pixel Helper v
 - [x] Updated only Step 3 on `/intake/thank-you/` to **Complete your Account Details & Required Forms** with the approved instructions: use **My Account Details** first, then **Forms & Questionnaires** to review, sign, and submit required forms.
 - [x] Replaced the prior portal screenshot with the supplied highlighted-menu image, stored at the project storage path and given descriptive alt text covering both highlighted menu items.
 - [x] No intake, payment, redirect, tracking, routing, or other thank-you-page content changed. Focused regression tests (14), TypeScript, and production build passed. Desktop and mobile browser QA plus rebuilt-production checks verified the exact copy, loaded image, no horizontal overflow, no browser errors, and HTTP 200 for the thank-you, intake, landing, masterclass, and home routes. Full suite: 433 passed, with the one documented pre-existing `legitScriptCompliance` failure.
+
+## Weight-Loss Intake Social Preview — completed 2026-10-20
+
+- [x] Replaced the social-sharing thumbnail only for `/weight-loss-intake` with the supplied original 1734×907 (1.91:1) image. The image is stored in project storage without crop, resize, or generated replacement.
+- [x] Added that page’s direct canonical, Open Graph, and `summary_large_image` Twitter tags, including matching original dimensions and descriptive image alt text. No visible landing-page content, other route metadata, payment flow, or routing changed.
+- [x] Verified the preview and rebuilt production responses for normal, Facebook-style, and Teams-style user agents: each receives the same route-only image tags. The storage redirect resolves to HTTP 200 `image/jpeg`; relevant production routes return 200. Focused social metadata tests (15), TypeScript, and build passed. Full suite: 434 passed, with the one documented pre-existing `legitScriptCompliance` failure.
