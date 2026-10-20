@@ -82,8 +82,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(read("client/src/index.css")).not.toContain("Weight-Loss Intake Static Prototype");
   });
 
-  it("uses the supplied full-frame typography social preview only for the weight-loss intake link", () => {
-    const image = "https://medmethoddirect.com/manus-storage/weight-loss-intake-social-typography-banner_97d12a60.png";
+  it("uses the supplied full-frame app social preview only for the weight-loss intake link", () => {
+    const image = "https://medmethoddirect.com/manus-storage/weight-loss-intake-social-app-preview_7c150823.jpeg";
     expect(landing).toContain('<link rel="canonical" href="https://medmethoddirect.com/weight-loss-intake" />');
     expect(landing).toContain(`<meta property="og:image" content="${image}" />`);
     expect(landing).toContain('<meta property="og:image:width" content="1734" />');
@@ -91,8 +91,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('<meta property="og:image:alt" content="MMD Weight Loss: Your weight-loss doctor, one text away" />');
     expect(landing).toContain(`<meta name="twitter:image" content="${image}" />`);
     expect(landing).toContain('<meta name="twitter:card" content="summary_large_image" />');
-    expect(intake).not.toContain("weight-loss-intake-social-typography-banner_97d12a60.png");
-    expect(intakeThankYou).not.toContain("weight-loss-intake-social-typography-banner_97d12a60.png");
+    expect(intake).not.toContain("weight-loss-intake-social-app-preview_7c150823.jpeg");
+    expect(intakeThankYou).not.toContain("weight-loss-intake-social-app-preview_7c150823.jpeg");
   });
 
   it("preserves supplied media while keeping payment credentials and patient delivery off the browser", () => {
