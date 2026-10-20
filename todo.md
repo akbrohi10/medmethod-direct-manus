@@ -2681,3 +2681,9 @@ Checkpoint only; do not publish. Explain exact Lead code and Meta Pixel Helper v
 - [x] Replaced the social-sharing thumbnail only for `/weight-loss-intake` with the supplied original 1734×907 (1.91:1) image. The image is stored in project storage without crop, resize, or generated replacement.
 - [x] Added that page’s direct canonical, Open Graph, and `summary_large_image` Twitter tags, including matching original dimensions and descriptive image alt text. No visible landing-page content, other route metadata, payment flow, or routing changed.
 - [x] Verified the preview and rebuilt production responses for normal, Facebook-style, and Teams-style user agents: each receives the same route-only image tags. The storage redirect resolves to HTTP 200 `image/jpeg`; relevant production routes return 200. Focused social metadata tests (15), TypeScript, and build passed. Full suite: 434 passed, with the one documented pre-existing `legitScriptCompliance` failure.
+
+## Weight-Loss Intake Typography Social Banner — completed 2026-10-20
+
+- [x] Replaced only the `/weight-loss-intake` Open Graph and Twitter social-preview asset with the newly supplied `MMDWeightLossTypographyBanner.png` in project storage. The original 1734×907 (1.91:1) PNG remains uncropped and unmodified.
+- [x] Preserved the route’s canonical URL, preview title/description, native image dimensions, image alt text, and `summary_large_image` card format. No visible landing-page content, other route metadata, intake/payment behavior, tracking, or routing changed.
+- [x] Verified normal, Facebook-style, and Teams-style preview responses in both preview and rebuilt production; each exposes the new route-only image metadata. The storage redirect resolves to HTTP 200 `image/png`; relevant production routes return 200. Focused tests (15), TypeScript, and build passed. Full suite: 434 passed, with the one documented pre-existing `legitScriptCompliance` failure.
