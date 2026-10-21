@@ -48,7 +48,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain("Text your");
     expect(landing).toContain("weight-loss doctor");
     expect(landing).toContain("for FREE.");
-    expect(landing).toContain("Get answers about your GLP-1 options.");
+    expect(landing).toContain("Connect with a licensed doctor focused on medical weight loss.");
     expect(landing).toContain("Complete your intake. Then text your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
     expect(landing).toContain("Medication costs extra.");
@@ -61,6 +61,41 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain("Membership pricing");
     expect(landing).not.toContain("Member perspectives");
     expect(intake).toContain("Pay $49.00 securely");
+  });
+
+  it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
+    const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
+    expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
+    expect(active).toContain("A real doctor. Care built around you.");
+    expect(active).toContain("<h3>Connect with your doctor</h3>");
+    expect(active).toContain("<h3>Discuss your options</h3>");
+    expect(active).toContain("Clinical decisions remain with your treating physician.");
+    expect(active).not.toMatch(/Al-Deek|Jumana|50,000|Certified Personal Trainer|The Menopause Weight Loss Trap|same doctor, every time|always within 24/);
+    expect(active).not.toContain("board-certified");
+  });
+
+  it("replaces personal portraits with neutral doctor icons and explains treating-physician transparency", () => {
+    expect(landing).toContain('class="chat-avatar doctor-icon"');
+    expect(landing).toContain('class="care-doctor-icon"');
+    expect(landing).toContain('class="care-connection"');
+    expect(landing).toContain("your treating physician’s name and credentials are shared when care begins.");
+    expect(landing).not.toContain("wli-bfde38427412ca12_83dcac15.jpg");
+    expect(landing).not.toContain("wli-3f0ba6b015e68ccd_f0119801.jpg");
+    expect(landing).toContain('<span class="bubble-label">Your doctor</span>');
+    expect(landing).toContain("Hi Sarah, your doctor here.");
+    expect(landing).toContain('data-chat-at="3300"');
+    expect(landing).toContain('data-live-chat');
+  });
+
+  it("temporarily hides original named testimonials rather than rewriting or fabricating brand reviews", () => {
+    const archived = landing.match(/<section[^>]*id="testimonials" hidden data-archived-physician-testimonials>[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(archived).not.toBe("");
+    expect(archived.match(/<blockquote>/g)).toHaveLength(6);
+    expect(archived).toContain("Dr. Al-Deek is incredibly easy to chat with.");
+    expect(archived).toContain("Having the same doctor throughout my care is a big reason I continue working with Dr. Al-Deek.");
+    expect(landing).toContain("[data-archived-physician-testimonials]{display:none!important}");
+    expect(intake).not.toContain("care-connection");
+    expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information");
   });
 
   it("applies the approved brand-guideline palette only to the weight-loss landing hero", () => {
