@@ -31,14 +31,14 @@ describe("Weight-loss intake static prototype import", () => {
     expect(app).toContain('<Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />');
   });
 
-  it("preserves the landing and local intake documents while pointing all landing CTAs at the original intake", () => {
+  it("preserves the landing and local intake documents while restoring all landing CTAs to local intake", () => {
     expect(landing).toContain("Text a");
     expect(landing).toContain('class="phone-stage"');
     expect(landing).toContain('class="sticky-cta"');
     expect(landing).toContain('href="/weight-loss-intake/ui-polish.css"');
     expect(landing).toContain('src="/weight-loss-intake/ui-polish.js"');
-    expect(landing.split('href="https://intake.medmethoddirect.com/"').length - 1).toBe(5);
-    expect(landing).not.toContain('href="/intake/"');
+    expect(landing.split('href="/intake/"').length - 1).toBe(5);
+    expect(landing).not.toContain('href="https://intake.medmethoddirect.com/"');
     expect(landing).not.toMatch(/href="https:\/\/intake\.medmethoddirect\.com\/[^" ]+/);
     expect(intake).toContain('id="root"');
     expect(intake).toContain('href="/intake/ui-polish.css"');
@@ -114,7 +114,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(polish).toContain('background:transparent;box-shadow:none');
     expect(landing).toContain('<span class="hero-cta-label">Start My Free Doctor Visit <span class="arrow">→</span></span><span class="hero-duration">5–10 min</span>');
     expect(landing).toContain('<span class="sticky-cta-label">Start My Free Doctor Visit <span class="arrow">→</span></span><span class="sticky-cta-duration">5–10 min</span>');
-    expect(landing.split('href="https://intake.medmethoddirect.com/"').length - 1).toBe(5);
+    expect(landing.split('href="/intake/"').length - 1).toBe(5);
     expect(intake).not.toContain('Mobile visit CTA polish');
   });
 
@@ -134,7 +134,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('/* Keep the reference\'s three-line headline on narrow phones without overflow. */');
     expect(landing).toContain('.hero .hero-copy>h1{font-size:37px;letter-spacing:-.045em}');
     expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
-    expect(landing).toContain('<a class="btn" href="https://intake.medmethoddirect.com/">');
+    expect(landing).toContain('<a class="btn" href="/intake/">');
     expect(intake).not.toContain('Approved mobile hero formatting');
   });
 

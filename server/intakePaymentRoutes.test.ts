@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const routes = read("server/intakePaymentRoutes.ts");
+const contract = read("server/intakeSubmissionContract.ts");
 const crypto = read("server/intakeCredentialCrypto.ts");
 const admin = read("client/src/pages/AdminSettings.tsx");
 const intake = read("client/intake/index.html");
@@ -31,10 +32,13 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(routes).toContain("endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);");
   });
 
-  it("delivers intake before creating the one-time $49.00 PayPal order and never stores the intake on this server", () => {
+  it("delivers intake only after verified capture and never writes clinical data to the database", () => {
     expect(routes).toContain('const INTAKE_AMOUNT = "49.00"');
-    expect(routes).toContain("await deliverIntake(deliveryPayload);");
-    expect(routes.indexOf("await deliverIntake(deliveryPayload);")).toBeLessThan(routes.indexOf("const client = await getPayPalClient(mode);", routes.indexOf("await deliverIntake(deliveryPayload);")));
+    expect(routes).toContain("record.payment = verifyCapture(raw, approval);");
+    expect(routes).toContain("finalizePaidIntake(record.draft, record.phone, record.payment)");
+    expect(routes).toContain("await deliverIntake(record.deliveryPayload)");
+    expect(routes.indexOf("record.payment = verifyCapture(raw, approval);")).toBeLessThan(routes.indexOf("await deliverIntake(record.deliveryPayload)"));
+    expect(contract).toContain('event: "mmd_intake.paid_submitted"');
     expect(routes).toContain("Your card has not been charged.");
     expect(routes).not.toContain("createPayment(");
     expect(routes).not.toContain("db.insert(");
@@ -46,12 +50,13 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(routes).toContain('app.post("/api/intake/coupon/validate"');
     expect(routes).toContain('app.post("/api/intake/coupon/submit"');
     expect(routes).toContain("isFamilyIntakeCoupon");
-    expect(routes).toContain('cleanForDelivery(parsed.data.intake, submissionId, "sandbox", "waived_family")');
+    expect(routes).toContain("finalizeWaivedIntake({ ...draft, is_test: draft.is_test || demo }, phone)");
+    expect(contract).toContain('event: "mmd_intake.waived_submitted"');
     expect(routes).toContain('payment_status: "WAIVED", amount: "0.00"');
     const waivedStart = routes.indexOf('app.post("/api/intake/coupon/submit"');
     const clientTokenStart = routes.indexOf('app.get("/api/paypal/client-token"');
     const waivedRoute = routes.slice(waivedStart, clientTokenStart);
-    expect(waivedRoute).toContain("await deliverIntake(deliveryPayload);");
+    expect(waivedRoute).toContain("await deliverIntake(pending.payload!)");
     expect(waivedRoute).not.toContain("getPayPalClient(");
     expect(waivedRoute).not.toContain("getPaypalSettings(");
     expect(waivedRoute).not.toContain("/v2/checkout/orders");
@@ -65,7 +70,7 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
 
   it("uses the admin-selected PayPal sandbox or live mode and binds capture to a short-lived signed approval token", () => {
     expect(routes).toContain('settings?.mode === "live" ? "live" : "sandbox"');
-    expect(routes).toContain('return request.query.prefill === "demo" ? "sandbox" : paymentMode(settings);');
+    expect(routes).toContain('return request.query.prefill === "demo" || request.body?.demo_mode === true ? "sandbox" : paymentMode(settings);');
     expect(routes).toContain('const mode = paymentModeForRequest(settings, _req);');
     expect(routes).toContain('const mode = paymentModeForRequest(settings, req);');
     expect(routes).toContain('settings.activeProvider !== "paypal"');
@@ -109,7 +114,7 @@ describe("intake Keragon delivery and PayPal payment boundary", () => {
     expect(intake).toContain("`apple_pay`");
     expect(routes).toContain('payment_method: z.enum(["card", "apple_pay"]).optional()');
     expect(routes).toContain('const paymentMethod = parsed.data.payment_method === "apple_pay" ? "apple_pay" : "card";');
-    expect(routes).toContain("method: paymentMethod");
+    expect(routes).toContain("payment_method: paymentMethod");
     expect(routes).toContain('...(paymentMethod === "card"');
     expect(routes).not.toContain("APPLE_PAY_MERCHANT");
   });

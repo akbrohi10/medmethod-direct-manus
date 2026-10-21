@@ -17,6 +17,12 @@ export const ENV = {
   ghlCareTeamWebhookSecret: process.env.GHL_CARE_TEAM_WEBHOOK_SECRET ?? "",
   /** Primary server-only delivery destination for the completed intake */
   keragonWebhookUrl: process.env.KERAGON_WEBHOOK_URL ?? "",
+  /** Server-only Spruce phone verification credentials; never use VITE_ names. */
+  spruceApiToken: process.env.SPRUCE_API_TOKEN ?? "",
+  spruceInternalEndpointId: process.env.SPRUCE_INTERNAL_ENDPOINT_ID ?? "",
+  /** Production defaults to live; Development uses the handoff's sandbox flow. */
+  phoneVerificationMode: process.env.NODE_ENV === "production" ? (process.env.PHONE_VERIFICATION_MODE ?? "live") : "sandbox",
+  phoneVerificationRequired: process.env.PHONE_VERIFICATION_REQUIRED !== "false",
   /** Server-only unlimited 100%-off code for the standalone intake checkout. */
   intakeFamilyCouponCode: process.env.MMD_INTAKE_FAMILY_COUPON_CODE ?? "family",
 };

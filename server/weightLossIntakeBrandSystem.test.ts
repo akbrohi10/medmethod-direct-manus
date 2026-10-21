@@ -42,7 +42,7 @@ describe("Latest MMD brand on the weight-loss intake landing document", () => {
 
   it("retains route isolation, existing images, original-intake destinations and paid local intake", () => {
     expect(landing).toContain('href="/weight-loss-intake/ui-polish.css"');
-    expect(landing.split('href="https://intake.medmethoddirect.com/"').length - 1).toBe(5);
+    expect(landing.split('href="/intake/"').length - 1).toBe(5);
     expect(landing).toContain('data-shared-glp1-catalog data-catalog-image-loading="lazy"');
     expect(landing).toContain('src="/weight-loss-intake/ui-polish.js"');
     expect(landing).toContain('[data-archived-physician-testimonials]{display:none!important}');
