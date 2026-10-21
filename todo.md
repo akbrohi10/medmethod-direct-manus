@@ -2710,3 +2710,9 @@ Checkpoint only; do not publish. Explain exact Lead code and Meta Pixel Helper v
 
 - [x] Applied the supplied MMD Weight Loss palette only to the `/weight-loss-intake` hero: Warm Cream `#FAF9F5`, Deep Navy `#06264A`, Ocean Ink `#063B47`, Signature Teal `#008C95`, Soft Mint `#EAF7F1`, and Slate `#59656F`. Kept current typography, hero wording, layout, phone mockup, CTA destinations, intake/payment behavior, and all non-hero sections unchanged.
 - [x] Validated all six computed colors in-browser, 1440px/768px/375px hero layouts, CTA behavior, no overflow or browser errors, focused tests (17), TypeScript, and production build. Preview only; no publication.
+
+## Weight-Loss Intake Alternate Hero Brand System — completed 2026-10-20
+
+- [x] Replaced the previous hero-only color preview on `/weight-loss-intake` with the newly approved guideline: Deep Navy `#061A46`, Signature Teal `#008A96`, Warm Ivory `#FFFCF5`, Soft Lavender `#E9ECF8`, and White `#FFFFFF`.
+- [x] Loaded Montserrat 900 and applied the approved hierarchy only inside the hero: 900 headline, 800 CTA/eyebrow, 600 supporting copy, and 400 note/disclosure. The lavender reply surface is confined to the hero phone mockup.
+- [x] Preserved hero content, layout, images, CTA destinations, intake/payment behavior, social metadata, all non-hero sections, and all other pages. Validated exact computed colors/weights, desktop/tablet/mobile no-submission browser QA, 17 focused tests, TypeScript, and production build. Checkpoint only; not published.

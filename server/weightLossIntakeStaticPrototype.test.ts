@@ -65,15 +65,16 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("applies the approved brand-guideline palette only to the weight-loss landing hero", () => {
     expect(landing).toContain("/* MMD brand-guideline palette — hero only. */");
-    expect(landing).toContain("--hero-navy:#06264A");
-    expect(landing).toContain("--hero-ocean:#063B47");
-    expect(landing).toContain("--hero-teal:#008C95");
-    expect(landing).toContain("--hero-cream:#FAF9F5");
-    expect(landing).toContain("--hero-mint:#EAF7F1");
-    expect(landing).toContain("--hero-slate:#59656F");
+    expect(landing).toContain("Montserrat:wght@400;500;600;700;800;900");
+    expect(landing).toContain("--hero-navy:#061A46");
+    expect(landing).toContain("--hero-teal:#008A96");
+    expect(landing).toContain("--hero-ivory:#FFFCF5");
+    expect(landing).toContain("--hero-lavender:#E9ECF8");
+    expect(landing).toContain("--hero-white:#FFFFFF");
     expect(landing).toContain(".hero .hero-actions .btn{background:var(--hero-teal)");
-    expect(landing).toContain(".hero .phone{background:var(--hero-ocean)");
-    expect(intake).not.toContain("--hero-teal:#008C95");
+    expect(landing).toContain(".hero .phone{background:var(--hero-navy)");
+    expect(landing).toContain(".hero h1,.hero h1 em,.hero .hero-headline-main,.hero .hero-headline-middle{color:var(--hero-navy);background:none;font-weight:900");
+    expect(intake).not.toContain("--hero-teal:#008A96");
   });
 
   it("uses one shared GLP-1 catalog for landing, intake choice cards and intake review cards", () => {
