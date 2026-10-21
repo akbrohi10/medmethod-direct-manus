@@ -67,7 +67,7 @@ describe("Weight-loss intake static prototype import", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
     expect(active).toContain("A real doctor. Care built around you.");
-    expect(active).toContain("<h3>Connect with your doctor</h3>");
+    expect(active).toContain("<h3>Connect with your doctor by text</h3><p>Your welcome text arrives instantly. Ask questions through HIPAA-compliant messaging.</p>");
     expect(active).toContain("<h3>Discuss your options</h3>");
     expect(active).toContain("Clinical decisions remain with your treating physician.");
     expect(active).not.toMatch(/Al-Deek|Jumana|50,000|Certified Personal Trainer|The Menopause Weight Loss Trap|same doctor, every time|always within 24/);
