@@ -171,6 +171,16 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain("--hero-brand-teal:#008F83");
   });
 
+  it("uses white only for the hero phone screen and chat header while retaining the ivory hero and message colors", () => {
+    expect(landing).toContain(".hero .phone-screen{background:var(--hero-white);color:var(--hero-navy)}");
+    expect(landing).toContain(".hero .chat-head{background:var(--hero-white);border-bottom-color:var(--hero-mint)}");
+    expect(landing).toContain("--hero-white:#FFFFFF;background:var(--hero-ivory)");
+    expect(landing).toContain(".hero .phone{background:var(--hero-deep-teal);box-shadow:0 32px 70px rgba(0,59,62,.24)}");
+    expect(landing).toContain(".hero .bubble.me{background:var(--hero-brand-teal)}");
+    expect(landing).toContain(".hero .bubble:not(.me):not(.auto){background:var(--hero-mint);color:var(--hero-navy)}");
+    expect(intake).not.toContain(".hero .phone-screen{background:var(--hero-white)");
+  });
+
   it("extends the approved brand system through the remaining landing sections without touching intake", () => {
     expect(landing).toContain("/* Approved MMD brand system — standalone landing page only. */");
     expect(landing).toContain('name="theme-color" content="#FFFCF5"');
