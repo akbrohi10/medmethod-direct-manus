@@ -2,13 +2,16 @@
 :root { --site-header-height: 77px; }
 .hero { overflow-x: clip; overflow-y: visible; overflow-clip-margin: 0; }
 .wave-top::before { left: 0; right: 0; }
-#how-it-works, #doctor, #app, #pricing, #testimonials, #faq {
+#how-it-works, #doctor, #app, #pricing, #expect, #testimonials, #faq {
   scroll-margin-top: calc(var(--site-header-height) + 12px);
 }
 .doctor-grid > * { min-width: 0; }
 .doctor-photo-wrap { width: 100%; }
 .doctor-reply { width: fit-content; max-width: 100%; white-space: normal; }
-.site-header .btn, .privacy-band .btn { background: var(--teal); }
+/* Accessible CTA surfaces; retain signature teal for other brand accents. */
+:root { --cta-teal: #007E88; }
+.site-header .btn, .privacy-band .btn, .hero .hero-actions .btn, .sticky-cta .btn { background: var(--cta-teal); color: #fff; }
+.site-header .btn:hover, .privacy-band .btn:hover, .hero .hero-actions .btn:hover, .sticky-cta .btn:hover { background: var(--navy); filter: none; }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible {
   outline: 3px solid var(--teal-dark);
@@ -41,4 +44,25 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 }
 @media (max-width: 700px) {
   .hero-offer strong { font-size: clamp(2.875rem, 12vw, 3rem); }
+}
+
+/* Approved mobile audit polish — typography and secondary tap targets only. */
+@media (max-width: 900px) {
+  .medication-note, .medication-price small, .medication-price .medication-supply,
+  .medication-specs dt, .medication-specs dd,
+  .estimator-result p, #app .feature-tab small, #app .tab-index,
+  #app .exercise-card strong, #app .app-source-note,
+  .price-footnote, #doctor .compact-trust-copy > .compact-trust-disclosure,
+  footer .disclosures p, footer .footer-legal-copy, footer .footer-legal-nav a {
+    font-size: .8125rem;
+    line-height: 1.5;
+  }
+  #app .app-viewport figcaption span { font-size: .8125rem; line-height: 1.5; }
+  #app .app-viewport figcaption { min-height: 112px; padding: 14px 16px; }
+  #app .app-viewport .app-screen > img { padding-bottom: 122px; }
+  #app .app-viewport .app-screen-library { padding-bottom: 122px; }
+  #app .exercise-card strong { height: 44px; line-height: 1.35; }
+  #app .exercise-card img { height: calc(100% - 44px) !important; }
+  .estimator-result a { min-height: 44px; max-width: 100%; padding: 10px 12px; font-size: .875rem; line-height: 1.4; text-align: center; }
+  footer .footer-legal-nav a { min-height: 44px; min-width: 44px; }
 }

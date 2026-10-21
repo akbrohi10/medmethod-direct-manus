@@ -180,7 +180,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain(".wave-footer{--wave-color:var(--navy)}");
     expect(landing).toContain(".app-feature-list li:before{color:var(--soft)}");
     expect(landing).toContain(".sticky-cta .btn{min-height:60px;min-width:0;flex:1;flex-direction:column;gap:3px;padding:10px 12px;border-radius:14px;background:var(--teal)");
-    expect(read("client/public/weight-loss-intake/ui-polish.css")).toContain(".site-header .btn, .privacy-band .btn { background: var(--teal); }");
+    expect(read("client/public/weight-loss-intake/ui-polish.css")).toContain("background: var(--cta-teal); color: #fff;");
     expect(intake).not.toContain("/* Approved MMD brand system — standalone landing page only. */");
   });
 

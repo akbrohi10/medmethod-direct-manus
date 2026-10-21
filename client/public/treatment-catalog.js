@@ -13,12 +13,13 @@
   function renderWeightLossIntakeCatalog() {
     var target = document.querySelector("[data-shared-glp1-catalog]");
     if (!target) return;
+    var lazyImages = target.getAttribute("data-catalog-image-loading") === "lazy";
     target.innerHTML = catalog.glp1.options.map(function (item) {
       var image = item.images.weightLossIntake;
       var supply = item.supply ? '<span class="medication-supply">' + escapeHtml(item.supply) + '</span>' : '';
       return '<article class="medication-card" data-treatment-id="' + escapeHtml(item.value) + '">' +
         '<div class="medication-card-name"><h3>' + escapeHtml(item.name) + '</h3></div>' +
-        '<div class="medication-media ' + escapeHtml(item.value.replaceAll("_", "-")) + '"><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(item.imageAlt || item.name) + '"></div>' +
+        '<div class="medication-media ' + escapeHtml(item.value.replaceAll("_", "-")) + '"><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(item.imageAlt || item.name) + '"' + (lazyImages ? ' loading="lazy" decoding="async"' : '') + '></div>' +
         '<div class="medication-price"><small>Price</small><strong>' + escapeHtml(item.price) + '</strong>' + supply + '</div>' +
         '<dl class="medication-specs"><dt>Frequency</dt><dd>' + escapeHtml(item.frequency) + '</dd><dt>Form</dt><dd>' + escapeHtml(item.form) + '</dd></dl>' +
         '<p class="medication-note">' + escapeHtml(item.note) + '</p>' +
