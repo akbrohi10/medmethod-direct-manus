@@ -77,6 +77,23 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain("--hero-teal:#008A96");
   });
 
+  it("extends the approved brand system through the remaining landing sections without touching intake", () => {
+    expect(landing).toContain("/* Approved MMD brand system — standalone landing page only. */");
+    expect(landing).toContain('name="theme-color" content="#FFFCF5"');
+    expect(landing).toContain("--bg:#FFFCF5");
+    expect(landing).toContain("--surface:#FFFFFF");
+    expect(landing).toContain("--soft:#E9ECF8");
+    expect(landing).toContain("--navy:#061A46");
+    expect(landing).toContain("--teal:#008A96");
+    expect(landing).toContain(".price-card.featured{background:var(--soft)}");
+    expect(landing).toContain("footer{background:var(--navy)}");
+    expect(landing).toContain(".wave-footer{--wave-color:var(--navy)}");
+    expect(landing).toContain(".app-feature-list li:before{color:var(--soft)}");
+    expect(landing).toContain(".sticky-cta .btn{min-height:60px;min-width:0;flex:1;flex-direction:column;gap:3px;padding:10px 12px;border-radius:14px;background:var(--teal)");
+    expect(read("client/public/weight-loss-intake/ui-polish.css")).toContain(".site-header .btn, .privacy-band .btn { background: var(--teal); }");
+    expect(intake).not.toContain("/* Approved MMD brand system — standalone landing page only. */");
+  });
+
   it("uses one shared GLP-1 catalog for landing, intake choice cards and intake review cards", () => {
     const browserCatalog = read("client/public/treatment-catalog.js");
     const generator = read("scripts/generate-treatment-catalog.mjs");

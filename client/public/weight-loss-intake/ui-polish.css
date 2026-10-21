@@ -8,7 +8,7 @@
 .doctor-grid > * { min-width: 0; }
 .doctor-photo-wrap { width: 100%; }
 .doctor-reply { width: fit-content; max-width: 100%; white-space: normal; }
-.site-header .btn, .privacy-band .btn { background: var(--green-dark); }
+.site-header .btn, .privacy-band .btn { background: var(--teal); }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible {
   outline: 3px solid var(--teal-dark);
