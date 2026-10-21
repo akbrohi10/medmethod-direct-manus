@@ -121,6 +121,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('.hero .hero-copy>h1{text-align:center;line-height:1.03}');
     expect(landing).toContain('.hero .hero-start-steps li{align-items:start}');
     expect(landing).toContain('.hero .hero-start-number{margin-top:3px}');
+    expect(landing).toContain('.hero .hero-start-steps li:first-child>span:last-child{align-self:center;transform:translateY(1.5px)}');
     expect(landing).toContain('.hero .hero-cta-label{position:static;display:inline-flex;width:auto;align-items:center;justify-content:center;gap:9px');
     expect(landing).toContain('.hero .hero-cta-label .arrow{position:static;flex:0 0 auto;transform:none');
     expect(landing).toContain('.hero .phone-screen{height:600px}');
