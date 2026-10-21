@@ -25,7 +25,7 @@
   <link rel="icon" href="data:," />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <title>MMD Weight Loss</title>
   <style>
     :root{color-scheme:light;--bg:#faf9f7;--surface:#fff;--soft:#eef6f3;--ink:#1f2937;--muted:#59656f;--line:#d7e1dd;--teal:#0e7c7b;--teal-dark:#075c5c;--wash:#dff0eb;--green:#65a30d;--green-dark:#4b7b0b;--navy:#113a3a;--paper:#f4f0e9;--band:#075c5c;--band-muted:#d7ece9;--shadow:0 18px 45px rgba(17,58,58,.12);--phone-shadow:0 32px 70px rgba(6,47,47,.22);--max:1180px}
@@ -173,33 +173,6 @@
     .free-start-panel article:first-child span{color:#d8f0ed}
     @media(max-width:700px){.hero-copy>.hero-eyebrow{margin-bottom:14px;font-size:1rem}.hero-subheadline{font-size:1.14rem}.hero-path{margin-top:14px;font-size:1.05rem}.free-start-panel{grid-template-columns:1fr;gap:12px;margin-top:22px}.free-start-panel article{padding:21px 20px}.free-start-panel span{font-size:.91rem}}
 
-    /* MMD brand-guideline palette — hero only. */
-    .hero{--hero-navy:#061A46;--hero-teal:#008A96;--hero-ivory:#FFFCF5;--hero-lavender:#E9ECF8;--hero-white:#FFFFFF;background:var(--hero-ivory)}
-    .hero:after{border-color:var(--hero-lavender)}
-    .hero .hero-copy>.hero-eyebrow{color:var(--hero-navy);font-weight:800}
-    .hero .hero-copy>.hero-eyebrow:before{background:var(--hero-teal)}
-    .hero h1,.hero h1 em,.hero .hero-headline-main,.hero .hero-headline-middle{color:var(--hero-navy);background:none;font-weight:900;-webkit-text-fill-color:currentColor}
-    .hero .hero-headline-last{color:var(--hero-teal);background:none;font-weight:900;-webkit-text-fill-color:currentColor}
-    .hero .hero-subheadline{color:var(--hero-navy);font-weight:600}
-    .hero .hero-path{color:var(--hero-navy);font-weight:600}
-    .hero .hero-text-note{color:var(--hero-navy);font-weight:400!important}
-    .hero .hero-actions .btn{background:var(--hero-teal);color:var(--hero-white);font-weight:800;box-shadow:0 14px 32px rgba(0,138,150,.24)}
-    .hero .hero-actions .btn:hover{background:var(--hero-navy)}
-    .hero .phone{background:var(--hero-navy);box-shadow:0 32px 70px rgba(6,26,70,.26)}
-    .hero .phone-screen{background:var(--hero-ivory);color:var(--hero-navy)}
-    .hero .notch{background:var(--hero-navy)}
-    .hero .chat-head{border-bottom-color:var(--hero-lavender)}
-    .hero .chat-head strong{color:var(--hero-navy)}
-    .hero .chat-head small,.hero .bubble-label,.hero .chat-date,.hero .chat-divider{color:var(--hero-navy);font-weight:400}
-    .hero .bubble.me{background:var(--hero-teal)}
-    .hero .bubble:not(.me):not(.auto){background:var(--hero-lavender);color:var(--hero-navy)}
-    .hero .bubble.auto{border-color:var(--hero-lavender);background:var(--hero-white);color:var(--hero-navy)}
-    .hero .online,.hero .live-dot{background:var(--hero-teal)}
-    .hero .live-dot{animation:none;box-shadow:none}
-    .hero .chat-divider:before,.hero .chat-divider:after{background:var(--hero-lavender)}
-    .hero .hipaa-badge{background:var(--hero-white);border-color:var(--hero-lavender);color:var(--hero-navy);box-shadow:0 10px 28px rgba(6,26,70,.12)}
-    .hero .hipaa-badge svg{color:var(--hero-teal)}
-
     /* Approved MMD brand system — standalone landing page only. */
     :root{--bg:#FFFCF5;--surface:#FFFFFF;--soft:#E9ECF8;--ink:#061A46;--muted:rgba(6,26,70,.72);--line:#D7DDEA;--teal:#008A96;--teal-dark:#061A46;--wash:#E9ECF8;--green:#008A96;--green-dark:#061A46;--navy:#061A46;--paper:#FFFCF5;--band:#061A46;--band-muted:#E9ECF8;--shadow:0 18px 45px rgba(6,26,70,.12);--phone-shadow:0 32px 70px rgba(6,26,70,.22)}
     body{background:var(--bg);color:var(--ink)}
@@ -281,7 +254,35 @@
     #doctor .compact-trust-copy>.compact-trust-disclosure{margin-top:12px;color:var(--muted);font-size:.75rem;line-height:1.5}
     @media(max-width:620px){#doctor .compact-trust{grid-template-columns:1fr;gap:14px;padding:22px;text-align:center}#doctor .compact-trust-icon{margin-inline:auto}}
 
-  </style>
+
+    /* MMD Weight Loss typography and palette — hero only. */
+    .hero{--hero-deep-teal:#003B3E;--hero-brand-teal:#008F83;--hero-navy:#06263B;--hero-ivory:#F7F3EB;--hero-mint:#E8F3EC;--hero-sage:#91B7AB;--hero-white:#FFFFFF;background:var(--hero-ivory);font-family:"DM Sans",sans-serif}
+    .hero:after{border-color:var(--hero-mint)}
+    .hero h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:-.042em;line-height:1.01}
+    .hero .hero-copy>.hero-eyebrow{color:var(--hero-navy);font-family:"DM Sans",sans-serif;font-weight:700}
+    .hero .hero-copy>.hero-eyebrow:before{background:var(--hero-brand-teal)}
+    .hero h1,.hero h1 em,.hero .hero-headline-main,.hero .hero-headline-middle{color:var(--hero-navy);background:none;font-weight:400;-webkit-text-fill-color:currentColor}
+    .hero .hero-headline-last{color:var(--hero-brand-teal);background:none;font-weight:400;-webkit-text-fill-color:currentColor}
+    .hero .hero-subheadline{color:var(--hero-navy);font-weight:500}
+    .hero .hero-path{color:var(--hero-navy);font-weight:600}
+    .hero .hero-text-note{color:var(--hero-navy);font-weight:400!important}
+    .hero .hero-actions .btn{background:var(--hero-deep-teal);color:var(--hero-white);font-family:"DM Sans",sans-serif;font-weight:700;box-shadow:0 14px 32px rgba(0,59,62,.22)}
+    .hero .hero-actions .btn:hover{background:var(--hero-navy)}
+    .hero .phone{background:var(--hero-deep-teal);box-shadow:0 32px 70px rgba(0,59,62,.24)}
+    .hero .phone-screen{background:var(--hero-ivory);color:var(--hero-navy)}
+    .hero .notch{background:var(--hero-deep-teal)}
+    .hero .chat-head{border-bottom-color:var(--hero-mint)}
+    .hero .chat-head strong{color:var(--hero-navy)}
+    .hero .chat-head small,.hero .bubble-label,.hero .chat-date,.hero .chat-divider{color:var(--hero-navy);font-weight:400}
+    .hero .bubble.me{background:var(--hero-brand-teal)}
+    .hero .bubble:not(.me):not(.auto){background:var(--hero-mint);color:var(--hero-navy)}
+    .hero .bubble.auto{border-color:var(--hero-mint);background:var(--hero-white);color:var(--hero-navy)}
+    .hero .online,.hero .live-dot{background:var(--hero-brand-teal)}
+    .hero .live-dot{animation:none;box-shadow:none}
+    .hero .chat-divider:before,.hero .chat-divider:after{background:var(--hero-mint)}
+    .hero .hipaa-badge{background:var(--hero-white);border-color:var(--hero-sage);color:var(--hero-navy);box-shadow:0 10px 28px rgba(0,59,62,.12)}
+    .hero .hipaa-badge svg{color:var(--hero-brand-teal)}
+</style>
 <link rel="stylesheet" href="/weight-loss-intake/ui-polish.css">
   <meta name="robots" content="noindex,follow" />
   <link rel="canonical" href="https://medmethoddirect.com/weight-loss-intake" />

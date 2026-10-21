@@ -153,18 +153,24 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information");
   });
 
-  it("applies the approved brand-guideline palette only to the weight-loss landing hero", () => {
-    expect(landing).toContain("/* MMD brand-guideline palette — hero only. */");
-    expect(landing).toContain("Montserrat:wght@400;500;600;700;800;900");
-    expect(landing).toContain("--hero-navy:#061A46");
-    expect(landing).toContain("--hero-teal:#008A96");
-    expect(landing).toContain("--hero-ivory:#FFFCF5");
-    expect(landing).toContain("--hero-lavender:#E9ECF8");
+  it("applies the approved DM Serif Display and DM Sans brand system only to the landing hero", () => {
+    expect(landing).toContain("/* MMD Weight Loss typography and palette — hero only. */");
+    expect(landing).toContain("DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800");
+    expect(landing).toContain("DM+Serif+Display:ital@0;1");
+    expect(landing).toContain("--hero-deep-teal:#003B3E");
+    expect(landing).toContain("--hero-brand-teal:#008F83");
+    expect(landing).toContain("--hero-navy:#06263B");
+    expect(landing).toContain("--hero-ivory:#F7F3EB");
+    expect(landing).toContain("--hero-mint:#E8F3EC");
+    expect(landing).toContain("--hero-sage:#91B7AB");
     expect(landing).toContain("--hero-white:#FFFFFF");
-    expect(landing).toContain(".hero .hero-actions .btn{background:var(--hero-teal)");
-    expect(landing).toContain(".hero .phone{background:var(--hero-navy)");
-    expect(landing).toContain(".hero h1,.hero h1 em,.hero .hero-headline-main,.hero .hero-headline-middle{color:var(--hero-navy);background:none;font-weight:900");
-    expect(intake).not.toContain("--hero-teal:#008A96");
+    expect(landing).toContain('.hero h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400');
+    expect(landing).toContain('.hero .hero-actions .btn{background:var(--hero-deep-teal);color:var(--hero-white);font-family:"DM Sans",sans-serif;font-weight:700');
+    expect(landing).toContain(".hero .phone{background:var(--hero-deep-teal)");
+    expect(landing).toContain(".hero .hero-headline-last{color:var(--hero-brand-teal);background:none;font-weight:400");
+    expect(read("client/public/weight-loss-intake/ui-polish.css")).toContain(".hero .hero-actions .btn { background: var(--hero-deep-teal); color: #fff; }");
+    expect(intake).not.toContain("DM Serif Display");
+    expect(intake).not.toContain("--hero-brand-teal:#008F83");
   });
 
   it("extends the approved brand system through the remaining landing sections without touching intake", () => {

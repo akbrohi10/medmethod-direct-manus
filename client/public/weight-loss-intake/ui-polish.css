@@ -12,6 +12,8 @@
 :root { --cta-teal: #007E88; }
 .site-header .btn, .privacy-band .btn, .hero .hero-actions .btn, .sticky-cta .btn { background: var(--cta-teal); color: #fff; }
 .site-header .btn:hover, .privacy-band .btn:hover, .hero .hero-actions .btn:hover, .sticky-cta .btn:hover { background: var(--navy); filter: none; }
+.hero .hero-actions .btn { background: var(--hero-deep-teal); color: #fff; }
+.hero .hero-actions .btn:hover { background: var(--hero-navy); }
 .footer-links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible {
   outline: 3px solid var(--teal-dark);
