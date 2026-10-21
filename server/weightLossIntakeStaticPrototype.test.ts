@@ -85,7 +85,7 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {
     expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
-    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss</span> <span class="hero-headline-middle">doctor now.</span> <span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
     const hero = landing.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(hero).toContain('<ol class="hero-start-steps" aria-label="Start your free doctor visit">');
     expect(hero.match(/class="hero-start-number"/g)).toHaveLength(2);
@@ -127,8 +127,10 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('.hero .chat-body{height:486px;padding:14px 14px 20px}');
     expect(landing).toContain('.hero .bubble{margin-bottom:6px;padding:8px 10px;font-size:.7rem;line-height:1.38}');
     expect(landing).toContain('@media(min-width:361px) and (max-width:620px){');
-    expect(landing).toContain('.hero .hero-headline-main,.hero .hero-headline-middle:nth-child(2){display:inline;white-space:nowrap}');
-    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss</span> <span class="hero-headline-middle">doctor now.</span> <span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('.hero .hero-headline-main,.hero .hero-headline-middle{display:block;white-space:nowrap}');
+    expect(landing).toContain('/* Keep the reference\'s three-line headline on narrow phones without overflow. */');
+    expect(landing).toContain('.hero .hero-copy>h1{font-size:37px;letter-spacing:-.045em}');
+    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
     expect(landing).toContain('<a class="btn" href="/intake/">');
     expect(intake).not.toContain('Approved mobile hero formatting');
   });

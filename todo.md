@@ -2788,3 +2788,8 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - [x] Kept the exact hero wording, sage underline, DM Serif Display/DM Sans system, CTA destination (`/intake/`), white animated phone, chat content/animation, desktop presentation, and all non-hero sections unchanged.
 - [x] Made the mobile phone more compact and legible only: 600px white screen, 486px chat area, modestly larger chat type, and a correctly placed HIPAA badge; verified the full existing animated conversation remains visible.
 - [x] Validated browser behavior at 320, 375, 390, 430, 768, and 1440px with no horizontal overflow or page errors, retained estimator/app interactions, focused regression coverage (34 tests), TypeScript, and production build. Full test suite remains 456 passing / 1 pre-existing imported-client compliance scan failure. Checkpoint only; not published.
+
+## Weight-Loss Intake Three-Line Hero Headline — completed 2026-10-21
+- [x] On `/weight-loss-intake` only, regrouped the existing headline into the reference’s intentional three-line hierarchy: “Text a weight-loss” / “doctor now.” / “For FREE!” The exact approved wording, colors, sage underline, steps, CTA, phone animation, and every non-hero section remain unchanged.
+- [x] Applied a 37px narrow-phone treatment at 320px and retained the standard 42px mobile treatment above that width, so all tested devices preserve the three-line grouping without horizontal overflow. Verified the headline, CTA destination, and estimator at 320, 375, 430, 768, and 1440px with no page errors.
+- [x] Focused tests: 34 passed; TypeScript and production build passed. Checkpoint only; not published.
