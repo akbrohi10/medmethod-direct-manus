@@ -31,8 +31,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(app).toContain('<Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />');
   });
 
-  it("preserves the supplied landing and intake documents while moving all landing Start Your Visit CTAs to intake", () => {
-    expect(landing).toContain("Your weight-loss");
+  it("preserves the landing and intake documents while keeping all landing CTAs pointed at intake", () => {
+    expect(landing).toContain("Text a");
     expect(landing).toContain('class="phone-stage"');
     expect(landing).toContain('class="sticky-cta"');
     expect(landing).toContain('href="/weight-loss-intake/ui-polish.css"');
@@ -42,6 +42,25 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain('href="/intake/ui-polish.css"');
     expect(intake).toContain('src="/intake/ui-polish.js"');
     expect(intake).toContain("var __mmdSession");
+  });
+
+  it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
+    expect(landing).toContain("Text a");
+    expect(landing).toContain("weight-loss doctor");
+    expect(landing).toContain("for FREE.");
+    expect(landing).toContain("Get answers about your GLP-1 options.");
+    expect(landing).toContain("Complete your intake. Then text your doctor.");
+    expect(landing).toContain("Start My Free Doctor Visit");
+    expect(landing).toContain("Medication costs extra.");
+    expect(landing).toContain("Your first doctor conversation is free.");
+    expect(landing).toContain("Patient perspectives");
+    expect(landing).not.toContain("$49/month");
+    expect(landing).not.toContain("$49 today");
+    expect(landing).not.toContain("100% refunded");
+    expect(landing).not.toContain("FREE BONUS");
+    expect(landing).not.toContain("Membership pricing");
+    expect(landing).not.toContain("Member perspectives");
+    expect(intake).toContain("Pay $49.00 securely");
   });
 
   it("uses one shared GLP-1 catalog for landing, intake choice cards and intake review cards", () => {
