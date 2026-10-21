@@ -93,6 +93,20 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('<div class="care-brand">MMD <span>Weight Loss</span></div>');
   });
 
+  it("polishes only mobile hero and sticky visit buttons while preserving their labels and links", () => {
+    const polish = landing.match(/\/\* Mobile visit CTA polish[\s\S]*?\n    \}/)?.[0];
+    expect(polish).toContain('@media(max-width:900px){');
+    expect(polish).toContain('.hero .hero-actions .btn,.sticky-cta .btn{min-height:88px');
+    expect(polish).toContain('white-space:normal;text-wrap:balance;text-align:center');
+    expect(polish).toContain('right:-26px;top:50%;transform:translateY(-50%)');
+    expect(polish).toContain('.sticky-cta-price{display:none}');
+    expect(polish).toContain('background:transparent;box-shadow:none');
+    expect(landing).toContain('<span class="hero-cta-label">Start My Free Doctor Visit <span class="arrow">→</span></span><span class="hero-duration">5–10 min</span>');
+    expect(landing).toContain('<span class="sticky-cta-label">Start My Free Doctor Visit <span class="arrow">→</span></span><span class="sticky-cta-duration">5–10 min</span>');
+    expect((landing.match(/href="\/intake\/"/g) ?? []).length).toBe(5);
+    expect(intake).not.toContain('Mobile visit CTA polish');
+  });
+
   it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
