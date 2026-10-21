@@ -63,6 +63,16 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("Pay $49.00 securely");
   });
 
+  it("removes only the hero brand-label line and centers the remaining hero text", () => {
+    expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
+    expect(landing).toContain('.hero .hero-copy>h1,.hero .hero-copy>p{text-align:center;margin-inline:auto}');
+    expect(landing).toContain('<span class="hero-headline-main">Text your</span>');
+    expect(landing).toContain('<span class="hero-headline-middle">weight-loss doctor</span>');
+    expect(landing).toContain('<span class="hero-headline-last">for FREE.</span>');
+    expect(landing).toContain('<a class="wordmark" href="#top">MMD <span>Weight Loss</span></a>');
+    expect(landing).toContain('<div class="care-brand">MMD <span>Weight Loss</span></div>');
+  });
+
   it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
