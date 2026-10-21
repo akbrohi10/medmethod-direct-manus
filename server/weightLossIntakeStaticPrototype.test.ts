@@ -116,6 +116,23 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain('Mobile visit CTA polish');
   });
 
+  it("applies the approved mobile hero formatting without changing its copy, desktop design, or intake flow", () => {
+    expect(landing).toContain('/* Approved mobile hero formatting — wording, desktop layout, and animation preserved. */');
+    expect(landing).toContain('.hero .hero-copy>h1{text-align:center;line-height:1.03}');
+    expect(landing).toContain('.hero .hero-start-steps li{align-items:start}');
+    expect(landing).toContain('.hero .hero-start-number{margin-top:3px}');
+    expect(landing).toContain('.hero .hero-cta-label{position:static;display:inline-flex;width:auto;align-items:center;justify-content:center;gap:9px');
+    expect(landing).toContain('.hero .hero-cta-label .arrow{position:static;flex:0 0 auto;transform:none');
+    expect(landing).toContain('.hero .phone-screen{height:600px}');
+    expect(landing).toContain('.hero .chat-body{height:486px;padding:14px 14px 20px}');
+    expect(landing).toContain('.hero .bubble{margin-bottom:6px;padding:8px 10px;font-size:.7rem;line-height:1.38}');
+    expect(landing).toContain('@media(min-width:361px) and (max-width:620px){');
+    expect(landing).toContain('.hero .hero-headline-main,.hero .hero-headline-middle:nth-child(2){display:inline;white-space:nowrap}');
+    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss</span> <span class="hero-headline-middle">doctor now.</span> <span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('<a class="btn" href="/intake/">');
+    expect(intake).not.toContain('Approved mobile hero formatting');
+  });
+
   it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Connect with a licensed doctor focused on medical weight loss for personalized guidance and follow-up.");
