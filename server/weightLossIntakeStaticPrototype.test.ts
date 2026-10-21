@@ -67,9 +67,9 @@ describe("Weight-loss intake static prototype import", () => {
   it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
     expect(landing).toContain("Text a");
     expect(landing).toContain("weight-loss doctor");
-    expect(landing).toContain("now — for free.");
-    expect(landing).toContain("Connect with a licensed doctor focused on medical weight loss.");
-    expect(landing).toContain("Complete your intake. Then text your doctor.");
+    expect(landing).toContain("For FREE!");
+    expect(landing).toContain("Complete your medical intake form.");
+    expect(landing).toContain("Instantly receive a text and connect with your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
     expect(landing).toContain("Medication costs extra.");
     expect(landing).toContain("Your first doctor conversation is free.");
@@ -83,10 +83,21 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("Pay $49.00 securely");
   });
 
-  it("removes only the hero brand-label line and centers the remaining hero text", () => {
+  it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {
     expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
-    expect(landing).toContain('.hero .hero-copy>h1,.hero .hero-copy>p{text-align:center;margin-inline:auto}');
-    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss doctor</span> <span class="hero-headline-last">now — for free.</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss</span> <span class="hero-headline-middle">doctor now.</span> <span class="hero-headline-last">For FREE!</span>');
+    const hero = landing.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(hero).toContain('<ol class="hero-start-steps" aria-label="Start your free doctor visit">');
+    expect(hero.match(/class="hero-start-number"/g)).toHaveLength(2);
+    expect(hero.indexOf('class="hero-start-steps"')).toBeLessThan(hero.indexOf('class="hero-actions"'));
+    expect(hero.indexOf('class="hero-actions"')).toBeLessThan(hero.indexOf('class="phone-stage"'));
+    expect(hero).not.toContain('class="hero-subheadline"');
+    expect(hero).not.toContain('class="hero-path"');
+    expect(hero).toContain('Doctor typically responds within a few hours. Medication costs extra.');
+    expect(landing).toContain('.hero .hero-headline-last::after{content:"";position:absolute');
+    expect(landing).toContain('border-top:7px solid var(--hero-sage)');
+    expect(landing).toContain('/* Approved flyer-inspired hero — existing animated phone preserved. */');
+    expect(intake).not.toContain('hero-start-steps');
     expect(landing).toContain('<a class="wordmark" href="#top">MMD <span>Weight Loss</span></a>');
     expect(landing).toContain('<div class="compact-trust">');
   });
@@ -107,7 +118,7 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
-    expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
+    expect(active).toContain("Connect with a licensed doctor focused on medical weight loss for personalized guidance and follow-up.");
     expect(active).toContain("A real doctor. Not a chatbot.");
     expect(active).toContain("<h3>Connect with your doctor by text</h3><p>Your welcome text arrives instantly. Ask questions through HIPAA-compliant messaging.</p>");
     expect(active).toContain("<h3>Discuss your options</h3>");
