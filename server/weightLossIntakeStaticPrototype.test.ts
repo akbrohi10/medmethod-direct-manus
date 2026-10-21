@@ -63,6 +63,19 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("Pay $49.00 securely");
   });
 
+  it("applies the approved brand-guideline palette only to the weight-loss landing hero", () => {
+    expect(landing).toContain("/* MMD brand-guideline palette — hero only. */");
+    expect(landing).toContain("--hero-navy:#06264A");
+    expect(landing).toContain("--hero-ocean:#063B47");
+    expect(landing).toContain("--hero-teal:#008C95");
+    expect(landing).toContain("--hero-cream:#FAF9F5");
+    expect(landing).toContain("--hero-mint:#EAF7F1");
+    expect(landing).toContain("--hero-slate:#59656F");
+    expect(landing).toContain(".hero .hero-actions .btn{background:var(--hero-teal)");
+    expect(landing).toContain(".hero .phone{background:var(--hero-ocean)");
+    expect(intake).not.toContain("--hero-teal:#008C95");
+  });
+
   it("uses one shared GLP-1 catalog for landing, intake choice cards and intake review cards", () => {
     const browserCatalog = read("client/public/treatment-catalog.js");
     const generator = read("scripts/generate-treatment-catalog.mjs");

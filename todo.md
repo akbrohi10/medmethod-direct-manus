@@ -2705,3 +2705,8 @@ Checkpoint only; do not publish. Explain exact Lead code and Meta Pixel Helper v
 
 - [x] Updated only the `/weight-loss-intake` headline from “Text a weight-loss doctor for FREE.” to “Text your weight-loss doctor for FREE.” Preserved the layout, all CTA destinations, separate medication-cost language, intake/payment behavior, and every other page.
 - [x] Updated matching regression assertions. Validated focused tests (16), TypeScript, production build, whitespace, and browser QA at 1440px, 768px, and 375px with no overflow, page errors, or intake submission.
+
+## Weight-Loss Intake Hero Brand-Palette Preview — completed 2026-10-20
+
+- [x] Applied the supplied MMD Weight Loss palette only to the `/weight-loss-intake` hero: Warm Cream `#FAF9F5`, Deep Navy `#06264A`, Ocean Ink `#063B47`, Signature Teal `#008C95`, Soft Mint `#EAF7F1`, and Slate `#59656F`. Kept current typography, hero wording, layout, phone mockup, CTA destinations, intake/payment behavior, and all non-hero sections unchanged.
+- [x] Validated all six computed colors in-browser, 1440px/768px/375px hero layouts, CTA behavior, no overflow or browser errors, focused tests (17), TypeScript, and production build. Preview only; no publication.
