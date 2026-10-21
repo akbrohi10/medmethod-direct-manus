@@ -2700,3 +2700,8 @@ Checkpoint only; do not publish. Explain exact Lead code and Meta Pixel Helper v
 - [x] Removed visible $49/month, $49-today, paid-membership, refund-offer, paid video-visit, and free-bonus-app messaging from the landing page. Reframed medication options, the three-step process, supportive-tool copy, testimonials, FAQ, what-to-expect panel, footer description, navigation, and mobile sticky CTA. Retained clinical-safety language and the shared GLP-1 catalog/prices.
 - [x] Deliberately left `/intake/`, its existing payment checkout, payment/server code, routes, and the current social-share image unchanged until the separately planned intake redesign. All five page CTAs still route to `/intake/`.
 - [x] Validated 1440px/768px/375px browser layouts, CTA destinations, no horizontal overflow, mobile sticky CTA, no browser errors, focused tests (16), TypeScript, production build, and built-production route/copy boundary checks. Full suite: 435 passed; the sole failure remains the documented pre-existing `legitScriptCompliance` assertion.
+
+## Weight-Loss Intake Personal Hero Wording — completed 2026-10-20
+
+- [x] Updated only the `/weight-loss-intake` headline from “Text a weight-loss doctor for FREE.” to “Text your weight-loss doctor for FREE.” Preserved the layout, all CTA destinations, separate medication-cost language, intake/payment behavior, and every other page.
+- [x] Updated matching regression assertions. Validated focused tests (16), TypeScript, production build, whitespace, and browser QA at 1440px, 768px, and 375px with no overflow, page errors, or intake submission.
