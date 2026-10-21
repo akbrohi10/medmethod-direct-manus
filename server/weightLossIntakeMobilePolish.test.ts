@@ -76,7 +76,7 @@ describe("Weight-loss landing mobile audit polish", () => {
   });
 
   it("preserves all five intake destinations and separate paid intake behavior", () => {
-    expect(landing.match(/href="\/intake\/"/g)).toHaveLength(5);
+    expect(landing.split('href="https://intake.medmethoddirect.com/"').length - 1).toBe(5);
     expect(read("client/intake/index.html")).toContain("Pay $49.00 securely");
     expect(landing).toContain("<h2>A real doctor. Not a chatbot.</h2>");
     expect(landing).toContain("#how-it-works.wave-top::before{display:none}");
