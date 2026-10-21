@@ -26,12 +26,12 @@ function contrast(hex: string) {
 }
 
 describe("Weight-loss landing mobile audit polish", () => {
-  it("uses accessible CTA teal without replacing the signature brand accent", () => {
-    expect(css).toContain("--cta-teal: #007E88");
-    expect(contrast("007E88")).toBeGreaterThanOrEqual(4.5);
+  it("uses accessible deep-teal CTAs while retaining the latest brand-teal accent", () => {
+    expect(css).toContain("--cta-teal: #003B3E");
+    expect(contrast("003B3E")).toBeGreaterThanOrEqual(4.5);
     expect(css).toContain(".hero .hero-actions .btn, .sticky-cta .btn { background: var(--cta-teal); color: #fff; }");
     expect(css).toContain("background: var(--navy); filter: none;");
-    expect(landing).toContain("--teal:#008A96");
+    expect(landing).toContain("--teal:#008F83");
   });
 
   it("keeps readability and tap refinements within the mobile media query", () => {

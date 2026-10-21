@@ -184,7 +184,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information");
   });
 
-  it("applies the approved DM Serif Display and DM Sans brand system only to the landing hero", () => {
+  it("preserves the approved DM Serif Display and DM Sans hero system during the landing-wide rollout", () => {
     expect(landing).toContain("/* MMD Weight Loss typography and palette — hero only. */");
     expect(landing).toContain("DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800");
     expect(landing).toContain("DM+Serif+Display:ital@0;1");
@@ -216,12 +216,12 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("extends the approved brand system through the remaining landing sections without touching intake", () => {
     expect(landing).toContain("/* Approved MMD brand system — standalone landing page only. */");
-    expect(landing).toContain('name="theme-color" content="#FFFCF5"');
-    expect(landing).toContain("--bg:#FFFCF5");
+    expect(landing).toContain('name="theme-color" content="#F7F3EB"');
+    expect(landing).toContain("--bg:#F7F3EB");
     expect(landing).toContain("--surface:#FFFFFF");
-    expect(landing).toContain("--soft:#E9ECF8");
-    expect(landing).toContain("--navy:#061A46");
-    expect(landing).toContain("--teal:#008A96");
+    expect(landing).toContain("--soft:#E8F3EC");
+    expect(landing).toContain("--navy:#06263B");
+    expect(landing).toContain("--teal:#008F83");
     expect(landing).toContain(".price-card.featured{background:var(--soft)}");
     expect(landing).toContain("footer{background:var(--navy)}");
     expect(landing).toContain(".wave-footer{--wave-color:var(--navy)}");

@@ -9,7 +9,7 @@
 .doctor-photo-wrap { width: 100%; }
 .doctor-reply { width: fit-content; max-width: 100%; white-space: normal; }
 /* Accessible CTA surfaces; retain signature teal for other brand accents. */
-:root { --cta-teal: #007E88; }
+:root { --cta-teal: #003B3E; }
 .site-header .btn, .privacy-band .btn, .hero .hero-actions .btn, .sticky-cta .btn { background: var(--cta-teal); color: #fff; }
 .site-header .btn:hover, .privacy-band .btn:hover, .hero .hero-actions .btn:hover, .sticky-cta .btn:hover { background: var(--navy); filter: none; }
 .hero .hero-actions .btn { background: var(--hero-deep-teal); color: #fff; }
@@ -68,3 +68,26 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
   .estimator-result a { min-height: 44px; max-width: 100%; padding: 10px 12px; font-size: .875rem; line-height: 1.4; text-align: center; }
   footer .footer-legal-nav a { min-height: 44px; min-width: 44px; }
 }
+
+/* Approved latest brand guideline — remaining sections of this landing document only. */
+h2, h3 { font-family: var(--font-heading); font-weight: 400; }
+#doctor .compact-trust-copy h2 { font-weight: 400; }
+body > footer, .featured-in, .featured-label { font-family: var(--font-body); }
+.step-num, .shield { background: var(--deep-teal); }
+.price-card { color: var(--ink); }
+.price-card p { color: var(--muted); }
+.free-start-panel article:first-child { background: var(--deep-teal); border-color: var(--deep-teal); }
+.free-start-panel article:first-child span { color: var(--soft); }
+.app-tabs .feature-tab, .app-tabs .feature-tab:hover { color: var(--soft); }
+.app-tabs .tab-index { color: var(--sage); }
+.app-tabs .feature-tab[aria-selected="true"] { color: var(--navy); }
+.exercise-card { border-color: var(--line); }
+.exercise-card strong { color: var(--navy); }
+.app-visual figcaption { background: var(--deep-teal); }
+.app-visual figcaption span { color: var(--soft); }
+.workout, .library-count { background: var(--deep-teal); }
+.preview-tag { border-color: var(--sage); color: var(--navy); }
+.preview-lines i { background: var(--soft); }
+.app-legal-note { color: var(--soft) !important; }
+.footer-legal-nav a { color: var(--soft); }
+.footer-phone:focus-visible { outline-color: var(--sage); }
