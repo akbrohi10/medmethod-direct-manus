@@ -32,7 +32,7 @@ describe("Weight-loss intake static prototype import", () => {
   });
 
   it("preserves the landing and intake documents while keeping all landing CTAs pointed at intake", () => {
-    expect(landing).toContain("Text your");
+    expect(landing).toContain("Text a");
     expect(landing).toContain('class="phone-stage"');
     expect(landing).toContain('class="sticky-cta"');
     expect(landing).toContain('href="/weight-loss-intake/ui-polish.css"');
@@ -65,9 +65,9 @@ describe("Weight-loss intake static prototype import", () => {
   });
 
   it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
-    expect(landing).toContain("Text your");
+    expect(landing).toContain("Text a");
     expect(landing).toContain("weight-loss doctor");
-    expect(landing).toContain("for FREE.");
+    expect(landing).toContain("now — for free.");
     expect(landing).toContain("Connect with a licensed doctor focused on medical weight loss.");
     expect(landing).toContain("Complete your intake. Then text your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
@@ -86,9 +86,7 @@ describe("Weight-loss intake static prototype import", () => {
   it("removes only the hero brand-label line and centers the remaining hero text", () => {
     expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
     expect(landing).toContain('.hero .hero-copy>h1,.hero .hero-copy>p{text-align:center;margin-inline:auto}');
-    expect(landing).toContain('<span class="hero-headline-main">Text your</span>');
-    expect(landing).toContain('<span class="hero-headline-middle">weight-loss doctor</span>');
-    expect(landing).toContain('<span class="hero-headline-last">for FREE.</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a</span> <span class="hero-headline-middle">weight-loss doctor</span> <span class="hero-headline-last">now — for free.</span>');
     expect(landing).toContain('<a class="wordmark" href="#top">MMD <span>Weight Loss</span></a>');
     expect(landing).toContain('<div class="compact-trust">');
   });
