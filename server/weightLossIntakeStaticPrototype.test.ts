@@ -56,6 +56,14 @@ describe("Weight-loss intake static prototype import", () => {
     expect(sectionTags.filter(tag => tag.includes('id="how-it-works"'))).toHaveLength(1);
   });
 
+  it("keeps a straight edge below Featured In without disabling other section curves", () => {
+    expect(landing).toContain('#how-it-works.wave-top::before{display:none}');
+    expect(landing).toContain('.wave-top::before{content:"";position:absolute');
+    expect(landing).toContain('border-radius:58% 42% 0 0 / 100% 100% 0 0');
+    expect(landing).not.toMatch(/(?:^|[\s}])\.wave-top::before\{display:none\}/);
+    expect(intake).not.toContain('#how-it-works.wave-top::before{display:none}');
+  });
+
   it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
     expect(landing).toContain("Text your");
     expect(landing).toContain("weight-loss doctor");

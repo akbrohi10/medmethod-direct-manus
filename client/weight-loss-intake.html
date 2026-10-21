@@ -246,6 +246,9 @@
     /* Hero label removed; keep remaining text centered within its existing column. */
     .hero .hero-copy>h1,.hero .hero-copy>p{text-align:center;margin-inline:auto}
 
+    /* Preserve a straight edge directly beneath Featured In. */
+    #how-it-works.wave-top::before{display:none}
+
     /* Brand-led physician presentation — this landing page only. */
     [data-archived-physician-testimonials]{display:none!important}
     .hero .doctor-icon{display:grid;flex:0 0 42px;place-items:center;background:var(--hero-lavender);color:var(--hero-teal);border:1px solid var(--hero-lavender)}
