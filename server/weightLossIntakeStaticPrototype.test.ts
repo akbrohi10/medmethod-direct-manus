@@ -44,6 +44,18 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).toContain("var __mmdSession");
   });
 
+  it("places How it works directly after Featured In while retaining medication options and the estimator", () => {
+    const sectionTags = Array.from(landing.matchAll(/<section\b[^>]*>/g), match => match[0]);
+    expect(sectionTags.slice(0, 5)).toEqual([
+      '<section class="hero">',
+      '<section class="featured-in" aria-labelledby="featured-in-title">',
+      '<section class="section wave-top wave-soft" id="how-it-works">',
+      '<section class="medication-pricing" aria-labelledby="medication-pricing-title">',
+      '<section class="estimator-band" aria-label="Weight-loss estimate">',
+    ]);
+    expect(sectionTags.filter(tag => tag.includes('id="how-it-works"'))).toHaveLength(1);
+  });
+
   it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
     expect(landing).toContain("Text your");
     expect(landing).toContain("weight-loss doctor");
