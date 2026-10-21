@@ -90,7 +90,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('<span class="hero-headline-middle">weight-loss doctor</span>');
     expect(landing).toContain('<span class="hero-headline-last">for FREE.</span>');
     expect(landing).toContain('<a class="wordmark" href="#top">MMD <span>Weight Loss</span></a>');
-    expect(landing).toContain('<div class="care-brand">MMD <span>Weight Loss</span></div>');
+    expect(landing).toContain('<div class="compact-trust">');
   });
 
   it("polishes only mobile hero and sticky visit buttons while preserving their labels and links", () => {
@@ -110,7 +110,7 @@ describe("Weight-loss intake static prototype import", () => {
   it("uses brand-led medical weight-loss copy without naming a physician or generalizing individual credentials", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Discuss your GLP-1 options, health history, and long-term goals.");
-    expect(active).toContain("A real doctor. Care built around you.");
+    expect(active).toContain("A real doctor. Not a chatbot.");
     expect(active).toContain("<h3>Connect with your doctor by text</h3><p>Your welcome text arrives instantly. Ask questions through HIPAA-compliant messaging.</p>");
     expect(active).toContain("<h3>Discuss your options</h3>");
     expect(active).toContain("Clinical decisions remain with your treating physician.");
@@ -120,8 +120,8 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("replaces personal portraits with neutral doctor icons and explains treating-physician transparency", () => {
     expect(landing).toContain('class="chat-avatar doctor-icon"');
-    expect(landing).toContain('class="care-doctor-icon"');
-    expect(landing).toContain('class="care-connection"');
+    expect(landing).toContain('class="compact-trust-icon" aria-hidden="true"');
+    expect(landing).toContain('class="compact-trust-disclosure"');
     expect(landing).toContain("your treating physician’s name and credentials are shared when care begins.");
     expect(landing).not.toContain("wli-bfde38427412ca12_83dcac15.jpg");
     expect(landing).not.toContain("wli-3f0ba6b015e68ccd_f0119801.jpg");
@@ -129,6 +129,17 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain("Hi Sarah, your doctor here.");
     expect(landing).toContain('data-chat-at="3300"');
     expect(landing).toContain('data-live-chat');
+  });
+
+  it("uses the approved compact trust message in place of the large repetitive physician section", () => {
+    const section = landing.match(/<section[^>]*id="doctor">[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(section).toContain('<h2>A real doctor. Not a chatbot.</h2>');
+    expect(section).toContain('Connect with a licensed doctor focused on medical weight loss for personalized guidance and follow-up.');
+    expect(section).toContain('Know who is caring for you: your treating physician’s name and credentials are shared when care begins.');
+    expect(section).not.toMatch(/care-connection|care-review|care-brand|doctor-points|Clinical oversight|Thoughtful follow-up/);
+    expect(landing).toContain('#doctor .compact-trust{display:grid;grid-template-columns:56px minmax(0,1fr)');
+    expect(landing).toContain('@media(max-width:620px){#doctor .compact-trust{grid-template-columns:1fr');
+    expect(intake).not.toContain('compact-trust');
   });
 
   it("temporarily hides original named testimonials rather than rewriting or fabricating brand reviews", () => {
