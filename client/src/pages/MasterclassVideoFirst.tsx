@@ -208,6 +208,18 @@ export default function MasterclassVideoFirst() {
         <meta name="description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
         <link rel="canonical" href="https://medmethoddirect.com/masterclass" />
       </Helmet>
+      <style>{`
+        @keyframes mmdMasterclassWatchPulse {
+          0%, 100% { opacity: 1; transform: translateY(0); }
+          50% { opacity: .6; transform: translateY(8px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          [data-masterclass-video-first-watch-arrow] { animation: mmdMasterclassWatchPulse 2.2s ease-in-out infinite; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-masterclass-video-first-watch-arrow] { animation: none; opacity: 1; transform: none; }
+        }
+      `}</style>
 
       <article className="mx-auto min-h-screen w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">
         <div data-masterclass-video-first-banner className="bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white sm:px-10 sm:py-5 sm:text-sm">
@@ -224,8 +236,11 @@ export default function MasterclassVideoFirst() {
           />
           <div className="mx-auto max-w-[850px]">
             <h1 className="mx-auto max-w-[810px] text-[clamp(1.4rem,7.5vw,2rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[3.65rem] lg:text-[4.3rem]">
-              Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones — Finally Explained.
+              Why does weight loss feel so hard?
             </h1>
+            <p data-masterclass-video-first-hook-summary className="mx-auto mt-4 max-w-[740px] text-base font-medium leading-relaxed text-[#5a4452] sm:text-lg">
+              Watch Dr. Al-Deek explain weight loss, GLP-1s and hormones—so you can better understand your options and make informed choices for your long-term health.
+            </p>
             <p className="mx-auto mt-3 max-w-[700px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-5 sm:text-lg">
               From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
             </p>
@@ -233,6 +248,18 @@ export default function MasterclassVideoFirst() {
         </section>
 
         <section ref={videoRef} data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-4 sm:px-10 sm:pb-6 lg:px-16">
+          <div data-masterclass-video-first-watch-cue className="mb-4 flex flex-col items-center gap-2 text-center">
+            <p className="m-0 text-sm font-extrabold text-[#7a1e7e] sm:text-base">Press play to understand your options.</p>
+            <svg data-masterclass-video-first-watch-arrow viewBox="0 0 100 110" className="pointer-events-none h-[88px] w-[80px] shrink-0 drop-shadow-[0_6px_10px_rgba(122,30,126,0.18)] sm:h-[110px] sm:w-[100px]" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="masterclass-watch-arrow-gradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#e8339e" />
+                  <stop offset="100%" stopColor="#7a1e7e" />
+                </linearGradient>
+              </defs>
+              <path d="M36 4H64V56H90L50 102L10 56H36Z" fill="url(#masterclass-watch-arrow-gradient)" />
+            </svg>
+          </div>
           <div data-masterclass-video-first-youtube className="relative mx-auto aspect-video w-full max-w-[940px] overflow-hidden rounded-[1.35rem] border-[3px] border-white bg-[#1b1022] shadow-[0_20px_50px_rgba(123,28,104,0.26)] ring-1 ring-[#e1c7d6]">
             <iframe
               data-masterclass-video-first-iframe

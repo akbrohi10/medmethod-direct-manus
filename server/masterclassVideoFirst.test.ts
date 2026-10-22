@@ -23,7 +23,7 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('data-masterclass-video-first-eyebrow');
     expect(pageSource.indexOf('data-masterclass-video-first-banner')).toBeLessThan(pageSource.indexOf('data-masterclass-video-first-hero'));
     expect(pageSource).not.toContain('Watch the 45-minute masterclass');
-    expect(pageSource).toContain('Weight Loss, <span className="whitespace-nowrap">GLP-1s</span> &amp; Hormones — Finally Explained.');
+    expect(pageSource).toContain('Why does weight loss feel so hard?');
     expect(pageSource).toContain('text-[clamp(1.4rem,7.5vw,2rem)] font-black');
     expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen');
     expect(pageSource).toContain('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.');
@@ -70,6 +70,34 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('const isReady = pendingAssets === 0;');
     expect(pageSource).toContain('This Is Menopause');
     expect(pageSource).toContain('Woman’s World');
+  });
+
+  it("uses the approved viewer-benefit copy and direct play prompt without changing the video", () => {
+    expect(pageSource).toContain('Watch Dr. Al-Deek explain weight loss, GLP-1s and hormones—so you can better understand your options and make informed choices for your long-term health.');
+    expect(pageSource).toContain('Press play to understand your options.');
+    expect(pageSource.match(/data-masterclass-video-first-hook-summary/g)).toHaveLength(1);
+    const prompt = pageSource.indexOf('Press play to understand your options.');
+    expect(prompt).toBeLessThan(pageSource.indexOf('<iframe'));
+    expect(pageSource).not.toContain('autoplay=1');
+    expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
+  });
+
+  it("keeps the large pulsing arrow decorative, in flow, slow and reduced-motion safe", () => {
+    const arrow = pageSource.match(/<svg data-masterclass-video-first-watch-arrow[\s\S]*?<\/svg>/)?.[0];
+    expect(arrow).toBeDefined();
+    expect(arrow).toContain('aria-hidden="true" focusable="false"');
+    expect(arrow).toContain('pointer-events-none');
+    expect(arrow).toContain('h-[88px] w-[80px]');
+    expect(arrow).toContain('sm:h-[110px] sm:w-[100px]');
+    expect(arrow).toContain('stopColor="#e8339e"');
+    expect(arrow).toContain('stopColor="#7a1e7e"');
+    expect(arrow).not.toContain('absolute');
+    expect(arrow).not.toContain('onClick');
+    expect(pageSource).toContain('@media (prefers-reduced-motion: no-preference)');
+    expect(pageSource).toContain('mmdMasterclassWatchPulse 2.2s ease-in-out infinite');
+    expect(pageSource).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(pageSource).toContain('animation: none; opacity: 1; transform: none;');
+    expect(pageSource).toContain('50% { opacity: .6; transform: translateY(8px); }');
   });
 
   it("places the supplied family image under the presenter credit without changing the page order", () => {
