@@ -2849,3 +2849,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Validation: responsive intercepted flows at 375/768/1440px, verification/SMS consent, stable retry, optional interest, free completion, safe receipt/refresh, hosted checkout, payment failure, waiver and anonymous confirmation passed. Eight production routes HTTP 200; live+required production verification/no demo bypass; production mobile flow passed. TypeScript/build and whitespace/scope checks passed. Full suite: 509 passed, 2 opt-in integrations skipped, 1 documented pre-existing LegitScript imported-content compliance failure.
 - Before publication, the external Keragon workflow must route free submissions to onboarding independently of payment and handle minimal linked video paid/waived events separately to avoid duplicate patient/onboarding actions. External Keragon workflow was not modified; a real calendar link can be added later.
 - Checkpoint only; not published.
+
+## Local Intake Introductory Text-Care Phone Icon — 2026-10-22
+
+- Replaced only the plus in the introductory FREE text-care card on `/intake/` with an inline miniature phone inspired by the owner reference: dark frame, white screen, teal/lavender conversation bubbles, no unreadable tiny chat text. Kept existing 80px pale circle, positioning, all text, prices, layout, optional-interest state and functionality unchanged. Later plan-card plus remains unchanged. No external asset, new dependency, network action or other route change.
+- Exact inverse restores the complete intake HTML to checkpoint d229e177. Responsive intercepted baseline parity at 375/768/1440px: all non-icon DOM, circle/card dimensions, controls and placement identical; no overflow or JS errors. Mobile visual reviewed. 14 focused tests passed; TypeScript and production build passed; independent scope review and whitespace check passed.
+- Checkpoint only; not published.
