@@ -17,11 +17,20 @@ describe("Approved GLP-1 qualification headline on weight-loss-intake only", () 
 
   it("lets only the additional headline phrase wrap while keeping GLP-1s together", () => {
     expect(landing).toContain('.hero h1 .hero-headline-qualifier{display:block;white-space:normal;text-wrap:balance;font-size:.52em;line-height:1.18;letter-spacing:-.02em;margin:12px 0 10px}');
-    expect(landing).toContain('.hero h1 .hero-glp1-term{white-space:nowrap}');
+    expect(landing).toContain('.hero h1 .hero-glp1-term{white-space:nowrap;color:var(--hero-brand-teal);-webkit-text-fill-color:currentColor}');
     expect(headline).toContain('<span class="hero-headline-qualifier">to see if <span class="hero-glp1-term">GLP-1s</span> are right for you.</span>');
     expect(landing).toContain('.hero h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400');
     expect(landing).toContain('.hero .hero-headline-last{color:var(--hero-brand-teal)');
     expect(landing).toContain('border-top:7px solid var(--hero-sage)');
+  });
+
+  it("accents only GLP-1s in the existing brand teal without adding other decoration", () => {
+    const rule = landing.match(/\.hero h1 \.hero-glp1-term\{([^}]*)\}/)?.[1];
+    expect(rule).toBe('white-space:nowrap;color:var(--hero-brand-teal);-webkit-text-fill-color:currentColor');
+    expect(landing).toContain('--hero-brand-teal:#008F83');
+    expect(headline.match(/class="hero-glp1-term"/g)).toHaveLength(1);
+    expect(headline).toContain('<span class="hero-glp1-term">GLP-1s</span>');
+    expect(rule).not.toMatch(/background|font-size|font-weight|border|shadow/);
   });
 
   it("does not put the new wording or rules into other pages or shared styles", () => {
