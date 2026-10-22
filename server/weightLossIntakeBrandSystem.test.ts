@@ -40,14 +40,14 @@ describe("Latest MMD brand on the weight-loss intake landing document", () => {
     expect(whiteContrast("06263B")).toBeGreaterThanOrEqual(4.5);
   });
 
-  it("retains route isolation, existing images, original-intake destinations and paid local intake", () => {
+  it("retains route isolation, existing images, local intake destinations and free care", () => {
     expect(landing).toContain('href="/weight-loss-intake/ui-polish.css"');
     expect(landing.split('href="/intake/"').length - 1).toBe(5);
     expect(landing).toContain('data-shared-glp1-catalog data-catalog-image-loading="lazy"');
     expect(landing).toContain('src="/weight-loss-intake/ui-polish.js"');
     expect(landing).toContain('[data-archived-physician-testimonials]{display:none!important}');
     expect(read("client/intake/index.html")).not.toContain('--font-heading:"DM Serif Display"');
-    expect(read("client/intake/index.html")).toContain('Pay $49.00 securely');
+    expect(read("client/intake/index.html")).toContain('Complete My Free Intake');
     expect(read("client/src/pages/WeightLossMenopause.tsx")).not.toContain('weight-loss-intake/ui-polish.css');
   });
 });

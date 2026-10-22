@@ -51,7 +51,7 @@ describe("local intake handoff client", () => {
     expect(intake).toContain("_submissionId:ve(),_submittedAt:new Date().toISOString()");
     expect(intake).toContain("submission_id:t._submissionId??ve(),submitted_at:i");
     expect(intake).toContain("let i=typeof t._submittedAt==`string`?t._submittedAt:new Date().toISOString()");
-    expect(intake).toContain("t({_submissionId:ve(),_submittedAt:new Date().toISOString()})");
+    expect(intake).toContain("setAnswers({_submissionId:ve(),_submittedAt:new Date().toISOString()})");
   });
 
   it("keeps presentation pricing separate from delivery treatment interest and sends the exact optional SMS consent", () => {
@@ -65,17 +65,21 @@ describe("local intake handoff client", () => {
     expect(intake).toContain("SMS text-message consent");
   });
 
-  it("passes only a current token plus demo_mode to card and coupon submissions", () => {
-    expect((intake.match(/phone_verification_token:MmdLivePhoneVerificationToken\(t\),demo_mode:n/g) ?? [])).toHaveLength(2);
-    expect(intake).toContain("/api/paypal/orders?prefill=demo");
-    expect(intake).toContain("/api/intake/coupon/submit");
+  it("passes the current verification token and demo flag only to the free intake submission", () => {
+    expect(intake).toContain("phone_verification_token:MmdLivePhoneVerificationToken(answers),demo_mode:demoMode");
+    expect(intake).toContain("/api/intake/submit");
+    expect(intake).toContain("video_visit_interest:answers.videoVisitInterest===true");
+    expect(intake).not.toContain("/api/paypal/orders");
+    expect(intake).not.toContain("/api/intake/coupon/submit");
   });
   it("keeps stable-ID and JSX runtime names unshadowed and validates Continue with the same demo flag", () => {
-    expect(intake).not.toContain("ve=D?je.has(D.type)");
-    expect(intake).toContain("Be=D?je.has(D.type)");
+    const rootComponent = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));
+    expect(rootComponent).not.toMatch(/(?:const|let|var)\s+(?:M|ve)\b/);
+    expect(rootComponent).toContain("_submissionId:ve()");
     const component = intake.slice(intake.indexOf("function MmdPhoneVerification({"), intake.indexOf("function N(", intake.indexOf("function MmdPhoneVerification({")));
     expect(component).toContain("mmdSettingsRef=(0,l.useRef)(o)");
     expect(component).not.toContain("M=(0,l.useRef)(o)");
-    expect(intake).toContain("if(!D||!se(D,e,y)||d||_)return");
+    expect(rootComponent).toContain("if(!screen||!se(screen,answers,demo)||submittingRef.current)return");
+    expect(rootComponent).toContain("MmdPhoneVerificationSatisfied(answers.phoneVerificationSettings");
   });
 });

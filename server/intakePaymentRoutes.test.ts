@@ -2,137 +2,113 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
+it("prepares a usable signed receipt before any free clinical handoff is delivered", () => {
+  const routes = readFileSync(resolve(import.meta.dirname, "intakePaymentRoutes.ts"), "utf8");
+  const freeStart = routes.indexOf("async function submitFreeIntake");
+  const freeEnd = routes.indexOf("function modeForVideoReceipt", freeStart);
+  const free = routes.slice(freeStart, freeEnd);
+  expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeGreaterThan(0);
+  expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeLessThan(free.indexOf("await deliverIntake(pending.deliveryPayload)"));
+  expect(free).toContain("pending.token = preparedReceiptToken");
+});
+
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const routes = read("server/intakePaymentRoutes.ts");
 const contract = read("server/intakeSubmissionContract.ts");
 const crypto = read("server/intakeCredentialCrypto.ts");
-const admin = read("client/src/pages/AdminSettings.tsx");
-const intake = read("client/intake/index.html");
-const serverEntry = read("server/_core/index.ts");
 const env = read("server/_core/env.ts");
 
-// These source-level checks deliberately avoid calling a real Keragon endpoint or
-// PayPal environment. Browser validation uses only the configuration-error path.
-describe("intake Keragon delivery and PayPal payment boundary", () => {
-  it("keeps the Keragon URL server-only, secret-first and encrypted when using the admin fallback", () => {
+// Source assertions complement mocked route tests in intakePaidFinalization.test.ts.
+// No Keragon, PayPal, Spruce, or patient-data traffic is performed here.
+describe("intake free-first delivery and optional video payment boundary", () => {
+  it("keeps the Keragon endpoint server-only, secret-first and encrypted when using its admin fallback", () => {
     expect(crypto).toContain('"aes-256-gcm"');
-    expect(crypto).toContain("encryptIntakeCredential");
     expect(crypto).toContain("decryptIntakeCredential");
-    expect(admin).toContain("KERAGON_WEBHOOK_URL");
-    expect(admin).toContain("Stored encrypted at rest and never returned to the browser");
-    expect(admin).toContain("intakeDeliverySettings.updateSettings");
-    expect(admin).toContain('setActiveTab("intake")');
-    expect(admin).toContain('type="password"');
-    expect(intake).not.toContain("KERAGON_WEBHOOK_URL");
-    expect(intake).not.toContain("hooks.keragon.com");
     expect(env).toContain('keragonWebhookUrl: process.env.KERAGON_WEBHOOK_URL ?? ""');
     expect(routes).toContain("let endpoint = ENV.keragonWebhookUrl.trim();");
     expect(routes).toContain("if (settings?.keragonWebhookUrlEncrypted)");
     expect(routes).toContain("endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);");
+    expect(routes).toContain('headers: { "Content-Type": "application/json", Accept: "application/json" }');
   });
 
-  it("delivers intake only after verified capture and never writes clinical data to the database", () => {
-    expect(routes).toContain('const INTAKE_AMOUNT = "49.00"');
-    expect(routes).toContain("record.payment = verifyCapture(raw, approval);");
-    expect(routes).toContain("finalizePaidIntake(record.draft, record.phone, record.payment)");
-    expect(routes).toContain("await deliverIntake(record.deliveryPayload)");
-    expect(routes.indexOf("record.payment = verifyCapture(raw, approval);")).toBeLessThan(routes.indexOf("await deliverIntake(record.deliveryPayload)"));
-    expect(contract).toContain('event: "mmd_intake.paid_submitted"');
-    expect(routes).toContain("Your card has not been charged.");
-    expect(routes).not.toContain("createPayment(");
-    expect(routes).not.toContain("db.insert(");
+  it("has an explicit free completed-intake endpoint and releases its limited signed receipt only after clinical delivery accepts", () => {
+    expect(routes).toContain('app.post("/api/intake/submit"');
+    expect(routes).toContain("finalizeFreeIntake(draft, phone");
+    expect(routes).toContain("await deliverIntake(pending.deliveryPayload);");
+    expect(routes.indexOf("await deliverIntake(pending.deliveryPayload);")).toBeLessThan(routes.indexOf("pending.token = preparedReceiptToken;"));
+    expect(routes).toContain('purpose: "completed_free_intake"');
+    expect(routes).toContain("sms_opt_in: boolean");
+    expect(routes).toContain("video_visit_interest: boolean");
+    expect(routes).toContain("delete pending.deliveryPayload;");
+    expect(contract).toContain('event: "mmd_intake.free_submitted"');
+    expect(contract).toContain('provider: "none", status: "not_required", amount: "0.00"');
+    expect(contract).not.toContain("paid_submitted");
   });
 
-  it("keeps the family coupon value server-only and routes a valid waiver through Keragon without creating or capturing PayPal orders", () => {
-    expect(env).toContain('intakeFamilyCouponCode: process.env.MMD_INTAKE_FAMILY_COUPON_CODE ?? "family"');
-    expect(intake).not.toContain("MMD_INTAKE_FAMILY_COUPON_CODE");
-    expect(routes).toContain('app.post("/api/intake/coupon/validate"');
-    expect(routes).toContain('app.post("/api/intake/coupon/submit"');
-    expect(routes).toContain("isFamilyIntakeCoupon");
-    expect(routes).toContain("finalizeWaivedIntake({ ...draft, is_test: draft.is_test || demo }, phone)");
-    expect(contract).toContain('event: "mmd_intake.waived_submitted"');
-    expect(routes).toContain('payment_status: "WAIVED", amount: "0.00"');
-    const waivedStart = routes.indexOf('app.post("/api/intake/coupon/submit"');
-    const clientTokenStart = routes.indexOf('app.get("/api/paypal/client-token"');
-    const waivedRoute = routes.slice(waivedStart, clientTokenStart);
-    expect(waivedRoute).toContain("await deliverIntake(pending.payload!)");
-    expect(waivedRoute).not.toContain("getPayPalClient(");
-    expect(waivedRoute).not.toContain("getPaypalSettings(");
-    expect(waivedRoute).not.toContain("/v2/checkout/orders");
+  it("enforces a server-attested phone verification and retires its local one-way key only after accepted free delivery", () => {
+    expect(routes).toContain("validPhoneVerificationToken(token, draft.patient.phone)");
+    expect(routes).toContain("const pendingPhoneTokens = new Map");
+    expect(routes).toContain("const consumedPhoneTokens = new Map");
+    expect(routes.indexOf("await deliverIntake(pending.deliveryPayload);")).toBeLessThan(routes.indexOf("consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt)"));
+    expect(routes).toContain("fingerprint({ token: input.phone_verification_token })");
+    expect(routes).toContain("settings.mode === \"sandbox\" && settings.demo_available === true");
   });
 
-  it("derives the Keragon-bound treatment summary from the shared catalog name and price", () => {
-    expect(intake).toContain("let t=p.find(t=>t.value===e);return t?[t.name,t.price].filter(Boolean).join(` — `):``");
-    expect(intake).toContain("intake_summary:he(e,t,i)");
-    expect(intake).toContain("intake_summary_html:ge(e,t,i)");
+  it("requires a delivered signed receipt for the optional video checkout and uses fixed server-side $39 identity", () => {
+    expect(routes).toContain('app.post("/api/paypal/orders"');
+    expect(routes).toContain("submission_token: z.string()");
+    expect(routes).toContain("const receipt = receiptFor(parsed.data.submission_token);");
+    expect(routes).toContain("VIDEO_VISIT_AMOUNT");
+    expect(contract).toContain('VIDEO_VISIT_AMOUNT = "39.00"');
+    expect(contract).toContain('VIDEO_VISIT_DESCRIPTION = "optional one-time medical-weight-loss Zoom video visit"');
+    expect(routes).toContain("description: VIDEO_VISIT_DESCRIPTION");
+    expect(routes).toContain('amount: { currency_code: "USD", value: VIDEO_VISIT_AMOUNT }');
+    expect(routes).toContain("unit?.custom_id !== approval.submission_id");
+    expect(routes).toContain("capture.amount?.value !== VIDEO_VISIT_AMOUNT");
+    expect(routes).toContain('capture.amount.currency_code !== "USD"');
   });
 
-  it("uses the admin-selected PayPal sandbox or live mode and binds capture to a short-lived signed approval token", () => {
+  it("keeps client-token's existing public response shape and payment configuration source", () => {
+    expect(routes).toContain('app.get("/api/paypal/client-token"');
+    expect(routes).toContain("const settings = await getPaypalSettings();");
+    expect(routes).toContain("res.json({ client_id: clientId, environment: mode })");
     expect(routes).toContain('settings?.mode === "live" ? "live" : "sandbox"');
-    expect(routes).toContain('return request.query.prefill === "demo" || request.body?.demo_mode === true ? "sandbox" : paymentMode(settings);');
-    expect(routes).toContain('const mode = paymentModeForRequest(settings, _req);');
-    expect(routes).toContain('const mode = paymentModeForRequest(settings, req);');
-    expect(routes).toContain('settings.activeProvider !== "paypal"');
-    expect(routes).toContain('res.json({ client_id: clientId, environment: mode });');
-    expect(routes).toContain('mode === "live" ? settings.liveClientId : settings.sandboxClientId');
-    expect(routes).toContain("TOKEN_TTL_MS = 30 * 60 * 1000");
-    expect(routes).toContain("createHmac(\"sha256\"");
-    expect(routes).toContain("timingSafeEqual");
-    expect(routes).toContain("approval_token");
-    expect(routes).toContain('payment_status: "COMPLETED"');
   });
 
-  it("forces only the prefill demo checkout through PayPal Sandbox", () => {
-    expect(intake).toContain('async function Ee(e=!1)');
-    expect(intake).toContain('`/api/paypal/client-token?prefill=demo`');
-    expect(intake).toContain('`/api/paypal/orders?prefill=demo`');
-    expect(intake).toContain('await Ee(i)');
-    expect(intake).toContain('await Ee(demoMode)');
-    expect(intake).toContain('intake:be(e,t,`mmd-intake-web`,n)');
+  it("creates a separately identifiable video event with no questionnaire or patient payload", () => {
+    expect(contract).toContain('event: "mmd_intake.video_visit_paid"');
+    expect(contract).toContain('event: "mmd_intake.video_visit_waived"');
+    expect(contract).toContain("related_submission_id: receipt.submission_id");
+    expect(contract).toContain("event_id: eventId");
+    const paidStart = contract.indexOf("export function finalizeVideoVisitPaid");
+    const waivedStart = contract.indexOf("export function finalizeVideoVisitWaived");
+    const videoEvents = contract.slice(paidStart, waivedStart + 1200);
+    expect(videoEvents).not.toContain("...draft");
+    expect(videoEvents).not.toContain("patient:");
+    expect(videoEvents).not.toContain("answers:");
+    expect(videoEvents).not.toContain("consents:");
   });
 
-  it("keeps card data inside PayPal-hosted fields and posts only the approval token for capture", () => {
-    expect(intake).toContain("PayPal-hosted secure fields");
-    expect(intake).toContain("return{clientId:t.client_id,environment:t.environment}");
-    expect(intake).toContain("r.createInstance({clientId:t,components:[`card-fields`],pageType:`checkout`})");
-    expect(intake).not.toContain("clientToken:t");
-    expect(intake).toContain("approvalToken:i.approval_token");
-    expect(intake).toContain("body:JSON.stringify({approval_token:t})");
-    expect(intake).not.toContain("card_number");
-    expect(intake).not.toContain("card_cvv");
+  it("exposes safe video refresh status and uses the existing family code only for a distinct video waiver", () => {
+    expect(routes).toContain('app.post("/api/intake/video/status"');
+    expect(routes).toContain('return res.json({ status: "available" })');
+    expect(routes).toContain('return res.json({ status: "pending"');
+    expect(routes).toContain('return res.json({ status: "paid", completion: record.completion })');
+    expect(routes).toContain('return res.json({ status: "waived", completion: record.waiver })');
+    expect(routes).toContain('app.post("/api/intake/coupon/submit"');
+    expect(routes).toContain("finalizeVideoVisitWaived(receipt, pending.eventId)");
+    expect(contract).toContain('original_amount: VIDEO_VISIT_AMOUNT');
+    expect(contract).toContain('coupon_type: "family"');
   });
 
-  it("offers Apple Pay only through the same secure PayPal order and capture boundary", () => {
-    expect(intake).toContain("applepay-payments");
-    expect(intake).toContain("ApplePaySession.canMakePayments()");
-    expect(intake).toContain("findEligibleMethods({currencyCode:`USD`})");
-    expect(intake).toContain("createApplePayOneTimePaymentSession()");
-    expect(intake).toContain("validateMerchant({validationUrl:event.validationURL})");
-    expect(intake).toContain("confirmOrder({orderId:created.orderId,token:event.payment.token");
-    expect(intake).toContain("payment_method:r");
-    expect(intake).toContain("`apple_pay`");
-    expect(routes).toContain('payment_method: z.enum(["card", "apple_pay"]).optional()');
-    expect(routes).toContain('const paymentMethod = parsed.data.payment_method === "apple_pay" ? "apple_pay" : "card";');
-    expect(routes).toContain("payment_method: paymentMethod");
-    expect(routes).toContain('...(paymentMethod === "card"');
-    expect(routes).not.toContain("APPLE_PAY_MERCHANT");
-  });
-
-  it("provides a non-delivering POST preflight and returns JSON for parser failures", () => {
-    expect(routes).toContain('app.post("/api/paypal/orders/preflight"');
-    expect(routes).toContain("received_bytes: receivedBytes");
-    expect(routes).not.toContain('deliverIntake(deliveryPayload);\n    });\n\n  app.post("/api/paypal/orders/preflight"');
-    expect(serverEntry).toContain('app.use(express.json({ limit: "50mb" }));');
-    expect(serverEntry).toContain('parserError?.type === "entity.too.large"');
-    expect(serverEntry).toContain('parserError?.type === "entity.parse.failed"');
-  });
-
-  it("uses a non-gateway status for safe order validation and delivery failures", () => {
-    const orderStart = routes.indexOf('app.post("/api/paypal/orders",');
-    const captureStart = routes.indexOf('app.post("/api/paypal/orders/:orderId/capture",');
-    const orderRoute = routes.slice(orderStart, captureStart);
-    expect(orderRoute).toContain('res.status(422).json({ error: errorMessage(error) });');
-    expect(orderRoute).not.toContain('res.status(502).json');
+  it("documents local bounded retry dedupe and does not persist intake data through the database", () => {
+    expect(routes).toContain("Process-local, bounded handoff state");
+    expect(routes).toContain("a restart loses receipts");
+    expect(routes).toContain("const freeSubmissions = new Map");
+    expect(routes).toContain("const videoVisits = new Map");
+    expect(routes).toContain("PayPal-Request-Id");
+    expect(routes).not.toContain("db.insert(");
+    expect(routes).not.toContain("createPayment(");
   });
 });

@@ -75,9 +75,9 @@ describe("Weight-loss landing mobile audit polish", () => {
     expect(read("client/src/pages/WeightLossMenopause.tsx")).not.toContain("data-catalog-image-loading");
   });
 
-  it("preserves all five intake destinations and separate paid intake behavior", () => {
+  it("preserves all five local intake destinations with free submission", () => {
     expect(landing.split('href="/intake/"').length - 1).toBe(5);
-    expect(read("client/intake/index.html")).toContain("Pay $49.00 securely");
+    expect(read("client/intake/index.html")).toContain("Complete My Free Intake");
     expect(landing).toContain("<h2>A real doctor. Not a chatbot.</h2>");
     expect(landing).toContain("#how-it-works.wave-top::before{display:none}");
   });

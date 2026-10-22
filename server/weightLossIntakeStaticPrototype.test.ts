@@ -66,7 +66,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain('#how-it-works.wave-top::before{display:none}');
   });
 
-  it("uses the approved free text-doctor model only on the landing page without changing the separate intake checkout", () => {
+  it("uses free ongoing doctor care on the landing and local intake with optional post-intake video", () => {
     expect(landing).toContain("Text a");
     expect(landing).toContain("weight-loss doctor");
     expect(landing).toContain("For FREE!");
@@ -74,7 +74,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain("Instantly receive a text and connect with your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
     expect(landing).toContain("Medication costs extra.");
-    expect(landing).toContain("Your first doctor conversation is free.");
+    expect(landing).toContain("Ongoing doctor care by secure text is free.");
     expect(landing).toContain("Patient perspectives");
     expect(landing).not.toContain("$49/month");
     expect(landing).not.toContain("$49 today");
@@ -82,7 +82,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain("FREE BONUS");
     expect(landing).not.toContain("Membership pricing");
     expect(landing).not.toContain("Member perspectives");
-    expect(intake).toContain("Pay $49.00 securely");
+    expect(intake).toContain("Complete My Free Intake");
   });
 
   it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {
@@ -95,7 +95,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(hero.indexOf('class="hero-actions"')).toBeLessThan(hero.indexOf('class="phone-stage"'));
     expect(hero).not.toContain('class="hero-subheadline"');
     expect(hero).not.toContain('class="hero-path"');
-    expect(hero).toContain('Doctor typically responds within a few hours. Medication costs extra.');
+    expect(hero).toContain('Ongoing care by secure text is free. Optional Zoom video visits: $39 each. Medication costs extra.');
     expect(landing).toContain('.hero .hero-headline-last::after{content:"";position:absolute');
     expect(landing).toContain('border-top:7px solid var(--hero-sage)');
     expect(landing).toContain('/* Approved flyer-inspired hero — existing animated phone preserved. */');
@@ -142,7 +142,7 @@ describe("Weight-loss intake static prototype import", () => {
     const active = landing.replace(/<section[^>]*data-archived-physician-testimonials>[\s\S]*?<\/section>/, "");
     expect(active).toContain("Connect with a licensed doctor focused on medical weight loss for personalized guidance and follow-up.");
     expect(active).toContain("A real doctor. Not a chatbot.");
-    expect(active).toContain("<h3>Connect with your doctor by text</h3><p>Your welcome text arrives instantly. Ask questions through HIPAA-compliant messaging.</p>");
+    expect(active).toContain("text arrives instantly. Continue asking questions through HIPAA-compliant messaging; your doctor typically responds within a few hours.");
     expect(active).toContain("<h3>Discuss your options</h3>");
     expect(active).toContain("Clinical decisions remain with your treating physician.");
     expect(active).not.toMatch(/Al-Deek|Jumana|50,000|Certified Personal Trainer|The Menopause Weight Loss Trap|same doctor, every time|always within 24/);
@@ -181,7 +181,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(archived).toContain("Having the same doctor throughout my care is a big reason I continue working with Dr. Al-Deek.");
     expect(landing).toContain("[data-archived-physician-testimonials]{display:none!important}");
     expect(intake).not.toContain("care-connection");
-    expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information");
+    expect(intakeThankYou).toContain("A doctor specializing in medical weight loss will review your intake");
   });
 
   it("preserves the approved DM Serif Display and DM Sans hero system during the landing-wide rollout", () => {
@@ -286,15 +286,15 @@ describe("Weight-loss intake static prototype import", () => {
     expect(statSync(resolve(root, "client/weight-loss-intake.html")).size).toBeLessThan(120_000);
     expect(statSync(resolve(root, "client/intake/index.html")).size).toBeLessThan(400_000);
     expect(landing).toContain("/manus-storage/wli-");
-    expect(intake).toContain("/manus-storage/wli-");
+    expect(intake).not.toContain("/manus-storage/wli-");
     expect(landing).not.toContain("/api/trpc");
     expect(intake).not.toContain("/api/trpc");
     expect(intake).not.toContain("/api/webhooks");
     expect(intake).not.toContain("www.paypal.com/sdk");
     expect(intake).not.toContain("api-m.paypal.com");
-    expect(intake).toContain("/api/paypal/client-token");
-    expect(intake).toContain("/api/paypal/orders");
-    expect(intake).toContain("approval_token");
+    expect(read("client/public/intake/video-visit.js")).toContain("/api/paypal/client-token");
+    expect(read("client/public/intake/video-visit.js")).toContain("/api/paypal/orders");
+    expect(read("client/public/intake/video-visit.js")).toContain("approval_token");
     expect(intake).not.toContain("KERAGON_WEBHOOK_URL");
     expect(server).not.toContain('"/api/weight-loss-intake"');
     expect(server).not.toContain('"/api/intake"');
@@ -360,39 +360,37 @@ describe("Weight-loss intake static prototype import", () => {
     );
   });
 
-  it("shows the temporary three-step account-onboarding guidance above Start over after a completed intake", () => {
-    const confirmationStart = intake.indexOf("confirmation-next-steps");
-    const restartStart = intake.indexOf("children:`Start over`");
-
+  it("keeps confirmation onboarding on the thank-you page rather than dead code in the intake", () => {
+    const confirmationStart = intakeThankYou.indexOf("confirmation-next-steps");
+    const restartStart = intakeThankYou.indexOf('href="/intake/">Start over');
     expect(confirmationStart).toBeGreaterThan(-1);
     expect(restartStart).toBeGreaterThan(confirmationStart);
-    expect(intake).toContain("What happens next");
-    expect(intake).toContain("Check your email");
-    expect(intake).toContain("for our welcome message and Patient Portal link.");
-    expect(intake).toContain("Create your account");
-    expect(intake).toContain("Set your username and password, then log in to the patient portal.");
-    expect(intake).toContain("Forms & Questionnaires");
-    expect(intake).toContain("Sign and complete the remaining required forms.");
-    expect(intake).toContain("confirmation-next-step-number");
+    expect(intake).toContain("Complete your free intake");
+    expect(intake).toContain("Your secure text-based doctor care and ongoing asynchronous follow-up are free.");
+    expect(intake).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
+    expect(intakeThankYou).toContain("What happens next");
+    expect(intakeThankYou).toContain("Check your email &amp; create your account");
+    expect(intakeThankYou).toContain("Complete your Account Details &amp; Required Forms");
+    expect(intakeThankYou).toContain("confirmation-next-steps");
   });
 
-  it("uses a separate noindex thank-you URL after a completed intake payment without putting patient data in the URL", () => {
-    expect(intake).toContain("window.location.replace(`/intake/thank-you/${y?`?prefill=demo`:``}`)");
-    expect(intake).toContain("if(n===`success`){__mmdSession.removeItem(i),window.location.replace(`/intake/thank-you/`);return}");
+  it("uses a separate noindex thank-you URL after free intake submission without putting patient data in the URL", () => {
+    expect(intake).toContain('window.location.replace("/intake/thank-you/"+(demo?"?prefill=demo":""))');
+    expect(intake).toContain('window.sessionStorage.setItem("mmd_free_intake_receipt"');
+    expect(intake).toContain('payment_status:"NOT_REQUIRED"');
     expect(intake).not.toContain("thank-you/?submission");
     expect(intakeThankYou).toContain('name="robots" content="noindex,follow"');
     expect(intakeThankYou).toContain('href="https://medmethoddirect.com/intake/thank-you"');
-    expect(intakeThankYou).toContain("You're in");
     expect(intakeThankYou).toContain("What happens next");
-    expect(intakeThankYou).toContain("Check your text messages");
-    expect(intakeThankYou).toContain("Please reply to our message so we can stay connected!");
+    expect(intakeThankYou).toContain("Free intake complete");
+    expect(intakeThankYou).toContain("Doctor-led weight-care review");
     expect(intakeThankYou).toContain("Check your email &amp; create your account");
     expect(intakeThankYou).toContain("Look for our welcome email with your Patient Portal link.");
     expect(intakeThankYou).toContain("Complete your Account Details &amp; Required Forms");
     expect(intakeThankYou).toContain("On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.");
     expect(intakeThankYou).toContain("/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(intakeThankYou).toContain('alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted"');
-    expect(intakeThankYou).toContain("Once completed, Dr. Al-Deek will review your information and get in touch with you for the next steps.");
+    expect(intakeThankYou).toContain("Complete the portal steps above so the Care Team can help with the next steps in your care.");
     expect(intakeThankYou).toContain('href="tel:+18883627011"');
     expect(intakeThankYou).toContain('href="/intake/"');
     expect(intakeThankYou).not.toContain("/api/paypal/");
@@ -400,38 +398,24 @@ describe("Weight-loss intake static prototype import", () => {
     expect(crawler).toContain('path === "/intake/thank-you" || path === "/intake/thank-you/"');
   });
 
-  it("renders Apple Pay only when eligible, with an explicit native black button in both checkout themes", () => {
-    const applePayLoader = intake.slice(
-      intake.indexOf("function MmdLoadApplePaySdk()"),
-      intake.indexOf("function MmdApplePayCheckout"),
-    );
-
-    expect(applePayLoader).toContain("window.customElements&&window.customElements.get(`apple-pay-button`)");
-    expect(applePayLoader).not.toContain("if(window.ApplePaySession){resolve(!0);return}");
-    expect(intake).toContain("methods.isEligible(`applepay`)");
-    expect(intake).toContain("!available?null");
-    expect(intake).toContain("buttonstyle:`black`");
-    expect(intake).toContain("background:#000");
-    expect(intake).toContain("-webkit-appearance:-apple-pay-button");
-    expect(intake).toContain("-apple-pay-button-type:buy");
-    expect(intake).toContain("-apple-pay-button-style:black");
-    expect(intake).toContain("--apple-pay-button-height:52px");
-    expect(intake).toContain("--apple-pay-button-width:100%");
-    expect(intake).toContain("--apple-pay-button-border-radius:999px");
-    expect(intake).toContain("@media (prefers-color-scheme:dark){.apple-pay-option");
+  it("keeps optional Apple Pay hosted checkout out of intake and in the video-visit module", () => {
+    const videoVisit = read("client/public/intake/video-visit.js");
+    expect(intake).not.toContain("/api/paypal/orders");
+    expect(intake).not.toContain("ApplePaySession");
+    expect(videoVisit).toContain('customElements.get("apple-pay-button")');
+    expect(videoVisit).toContain('isEligible("applepay")');
+    expect(videoVisit).toContain('buttonstyle=\\"black\\"');
+    expect(intakeThankYou).toContain('src="/intake/video-visit.js"');
   });
 
-  it("adds the server-validated family coupon above payment fields and hides every payment method only after it is applied", () => {
-    expect(intake).toContain("Coupon code");
-    expect(intake).toContain("Have a coupon code? Apply it before entering payment details.");
-    expect(intake).toContain("/api/intake/coupon/validate");
-    expect(intake).toContain("/api/intake/coupon/submit");
-    expect(intake).toContain("Family discount applied — $49 waived");
-    expect(intake).toContain("Submit intake for clinical review");
-    expect(intake).toContain("payment_status!==`WAIVED`");
-    expect(intake).toContain("!o&&(0,M.jsxs)(M.Fragment");
-    expect(intake).not.toContain("MMD_INTAKE_FAMILY_COUPON_CODE");
-    expect(intake).not.toContain("coupon_code:`family`");
+  it("keeps optional video coupons server-validated and out of the free intake", () => {
+    const videoVisit = read("client/public/intake/video-visit.js");
+    expect(intake).not.toContain("/api/intake/coupon/validate");
+    expect(intake).not.toContain("/api/intake/coupon/submit");
+    expect(videoVisit).toContain('requestJson("/api/intake/coupon/validate"');
+    expect(videoVisit).toContain('requestJson("/api/intake/coupon/submit"');
+    expect(videoVisit).toContain('payment_status !== "WAIVED"');
+    expect(intakeThankYou).toContain("optional video visit");
   });
 
   it("keeps the imported static intake JavaScript syntactically valid after secure-payment wiring", () => {
