@@ -23,8 +23,10 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('data-masterclass-video-first-eyebrow');
     expect(pageSource.indexOf('data-masterclass-video-first-banner')).toBeLessThan(pageSource.indexOf('data-masterclass-video-first-hero'));
     expect(pageSource).not.toContain('Watch the 45-minute masterclass');
-    expect(pageSource).toContain('Why does weight loss feel so hard?');
-    expect(pageSource).toContain('text-[clamp(1.4rem,7.5vw,2rem)] font-black');
+    expect(pageSource).toContain('<span className="block">Weight won’t budge?</span>{" "}');
+    expect(pageSource).toContain('<span className="block">Hormones feel off?</span>{" "}');
+    expect(pageSource).toContain('<span className="block">What’s really going on?</span>');
+    expect(pageSource).toContain('text-[clamp(1.25rem,6.5vw,1.75rem)] font-black');
     expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen');
     expect(pageSource).toContain('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.');
     expect(pageSource).not.toContain('Press play to watch free');
@@ -72,12 +74,22 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('Woman’s World');
   });
 
-  it("uses the approved viewer-benefit copy and direct play prompt without changing the video", () => {
-    expect(pageSource).toContain('Watch Dr. Al-Deek explain weight loss, GLP-1s and hormones—so you can better understand your options and make informed choices for your long-term health.');
-    expect(pageSource).toContain('Press play to understand your options.');
-    expect(pageSource.match(/data-masterclass-video-first-hook-summary/g)).toHaveLength(1);
-    const prompt = pageSource.indexOf('Press play to understand your options.');
+  it("uses one curiosity headline, preserved credibility and the approved short watch CTA", () => {
+    const headline = pageSource.match(/<h1[\s\S]*?<\/h1>/)?.[0]
+      ?.replace(/\{" "\}/g, ' ').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    expect(headline).toBe('Weight won’t budge? Hormones feel off? What’s really going on?');
+    expect(pageSource.match(/<h1\b/g)).toHaveLength(1);
+    expect(pageSource).not.toContain('data-masterclass-video-first-hook-summary');
+    expect(pageSource).not.toContain('Watch Dr. Al-Deek explain weight loss, GLP-1s and hormones—so you can better understand your options and make informed choices for your long-term health.');
+    expect(pageSource).not.toContain('Press play to understand your options.');
+    expect(pageSource).not.toContain('Why does weight loss feel so hard?');
+    expect(pageSource.match(/Watch Now—Get Answers\./g)).toHaveLength(1);
+    const prompt = pageSource.indexOf('Watch Now—Get Answers.');
+    const credits = pageSource.indexOf('From Dr. Jumana Al-Deek, DO · Board-certified physician');
+    expect(credits).toBeGreaterThan(pageSource.indexOf('<h1'));
+    expect(credits).toBeLessThan(prompt);
     expect(prompt).toBeLessThan(pageSource.indexOf('<iframe'));
+    expect(pageSource).toContain('sm:pt-8 sm:pb-4');
     expect(pageSource).not.toContain('autoplay=1');
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
   });

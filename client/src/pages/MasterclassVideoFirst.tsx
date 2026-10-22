@@ -225,7 +225,7 @@ export default function MasterclassVideoFirst() {
         <div data-masterclass-video-first-banner className="bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white sm:px-10 sm:py-5 sm:text-sm">
           Free On-Demand Masterclass
         </div>
-        <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-4 pb-4 text-center sm:px-10 sm:pt-10 sm:pb-10 lg:px-16">
+        <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-4 pb-3 text-center sm:px-10 sm:pt-8 sm:pb-4 lg:px-16">
           <div
             className="pointer-events-none absolute inset-0 -z-10 opacity-85"
             aria-hidden="true"
@@ -235,13 +235,12 @@ export default function MasterclassVideoFirst() {
             }}
           />
           <div className="mx-auto max-w-[850px]">
-            <h1 className="mx-auto max-w-[810px] text-[clamp(1.4rem,7.5vw,2rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[3.65rem] lg:text-[4.3rem]">
-              Why does weight loss feel so hard?
+            <h1 className="mx-auto max-w-[810px] text-[clamp(1.25rem,6.5vw,1.75rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
+              <span className="block">Weight won’t budge?</span>{" "}
+              <span className="block">Hormones feel off?</span>{" "}
+              <span className="block">What’s really going on?</span>
             </h1>
-            <p data-masterclass-video-first-hook-summary className="mx-auto mt-4 max-w-[740px] text-base font-medium leading-relaxed text-[#5a4452] sm:text-lg">
-              Watch Dr. Al-Deek explain weight loss, GLP-1s and hormones—so you can better understand your options and make informed choices for your long-term health.
-            </p>
-            <p className="mx-auto mt-3 max-w-[700px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-5 sm:text-lg">
+            <p className="mx-auto mt-3 max-w-[700px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-lg">
               From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
             </p>
           </div>
@@ -249,7 +248,7 @@ export default function MasterclassVideoFirst() {
 
         <section ref={videoRef} data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-4 sm:px-10 sm:pb-6 lg:px-16">
           <div data-masterclass-video-first-watch-cue className="mb-4 flex flex-col items-center gap-2 text-center">
-            <p className="m-0 text-sm font-extrabold text-[#7a1e7e] sm:text-base">Press play to understand your options.</p>
+            <p className="m-0 text-base font-extrabold text-[#7a1e7e] sm:text-lg">Watch Now—Get Answers.</p>
             <svg data-masterclass-video-first-watch-arrow viewBox="0 0 100 110" className="pointer-events-none h-[88px] w-[80px] shrink-0 drop-shadow-[0_6px_10px_rgba(122,30,126,0.18)] sm:h-[110px] sm:w-[100px]" aria-hidden="true" focusable="false">
               <defs>
                 <linearGradient id="masterclass-watch-arrow-gradient" x1="0" y1="0" x2="1" y2="1">
