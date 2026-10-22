@@ -27,7 +27,8 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('<span className="block">Hormones feel off?</span>{" "}');
     expect(pageSource).toContain('<span className="block">What’s really going on?</span>');
     expect(pageSource).toContain('text-[clamp(1.25rem,6.5vw,1.75rem)] font-black');
-    expect(pageSource).toContain('From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen');
+    expect(pageSource).toContain('<span className="block">From Dr. Jumana Al-Deek, DO · Board-certified physician</span>{" "}');
+    expect(pageSource).toContain('Menopause, Hormone, Metabolism &amp; Medical Weight-Loss Specialist · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen');
     expect(pageSource).toContain('Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.');
     expect(pageSource).not.toContain('Press play to watch free');
     expect(pageSource).not.toContain('Finally. A Doctor Who Understands Menopause &amp; Weight Loss.');
@@ -92,6 +93,19 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).toContain('sm:pt-8 sm:pb-4');
     expect(pageSource).not.toContain('autoplay=1');
     expect(pageSource).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
+  });
+
+  it("adds only the approved specialty title to the top credential block", () => {
+    const block = pageSource.match(/<p data-masterclass-video-first-credentials[\s\S]*?<\/p>/)?.[0];
+    expect(block).toBeDefined();
+    const text = block?.replace(/\{" "\}/g, ' ').replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    expect(text).toBe('From Dr. Jumana Al-Deek, DO · Board-certified physician Menopause, Hormone, Metabolism & Medical Weight-Loss Specialist · 50,000+ patients seen');
+    expect(block).toContain('max-w-[810px]');
+    expect(block).toContain('text-[0.82rem]');
+    expect(block).toContain('sm:text-base');
+    expect(pageSource.match(/Medical Weight-Loss Specialist/g)).toHaveLength(1);
+    expect(pageSource.indexOf('data-masterclass-video-first-credentials')).toBeGreaterThan(pageSource.indexOf('</h1>'));
+    expect(pageSource.indexOf('data-masterclass-video-first-credentials')).toBeLessThan(pageSource.indexOf('Watch Now—Get Answers.'));
   });
 
   it("keeps the large pulsing arrow decorative, in flow, slow and reduced-motion safe", () => {

@@ -240,8 +240,9 @@ export default function MasterclassVideoFirst() {
               <span className="block">Hormones feel off?</span>{" "}
               <span className="block">What’s really going on?</span>
             </h1>
-            <p className="mx-auto mt-3 max-w-[700px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-lg">
-              From Dr. Jumana Al-Deek, DO · Board-certified physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
+            <p data-masterclass-video-first-credentials className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
+              <span className="block">From Dr. Jumana Al-Deek, DO · Board-certified physician</span>{" "}
+              <span className="mt-1 block">Menopause, Hormone, Metabolism &amp; Medical Weight-Loss Specialist · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen</span>
             </p>
           </div>
         </section>
