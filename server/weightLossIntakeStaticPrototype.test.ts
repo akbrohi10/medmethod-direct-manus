@@ -87,7 +87,7 @@ describe("Weight-loss intake static prototype import", () => {
 
   it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {
     expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
-    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span> <span class="hero-headline-middle">Doctor now</span> <span class="hero-headline-qualifier">to see if <span class="hero-glp1-term">GLP-1s</span> are right for you.</span> <span class="hero-headline-last">For FREE!</span>');
     const hero = landing.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(hero).toContain('<ol class="hero-start-steps" aria-label="Start your free doctor visit">');
     expect(hero.match(/class="hero-start-number"/g)).toHaveLength(2);
@@ -133,7 +133,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain('.hero .hero-headline-main,.hero .hero-headline-middle{display:block;white-space:nowrap}');
     expect(landing).toContain('/* Keep the reference\'s three-line headline on narrow phones without overflow. */');
     expect(landing).toContain('.hero .hero-copy>h1{font-size:37px;letter-spacing:-.045em}');
-    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span> <span class="hero-headline-middle">Doctor now</span> <span class="hero-headline-qualifier">to see if <span class="hero-glp1-term">GLP-1s</span> are right for you.</span> <span class="hero-headline-last">For FREE!</span>');
     expect(landing).toContain('<a class="btn" href="/intake/">');
     expect(intake).not.toContain('Approved mobile hero formatting');
   });

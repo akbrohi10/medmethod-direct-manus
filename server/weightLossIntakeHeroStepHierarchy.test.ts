@@ -20,7 +20,7 @@ describe('Subdued hero steps on weight-loss-intake only', () => {
     expect(heroCss).toContain('color:var(--hero-navy)');
   });
   it('preserves the exact step wording, headline, CTA, destination and phone', () => {
-    for (const wording of ['Complete your medical intake form.', 'Instantly receive a text and connect with your doctor.', 'Text a weight-loss', 'doctor now.', 'For FREE!', 'Start My Free Doctor Visit', '5–10 min']) expect(heroMarkup).toContain(wording);
+    for (const wording of ['Complete your medical intake form.', 'Instantly receive a text and connect with your doctor.', 'Text a weight-loss', 'Doctor now', 'to see if', 'GLP-1s', 'are right for you.', 'For FREE!', 'Start My Free Doctor Visit', '5–10 min']) expect(heroMarkup).toContain(wording);
     expect(heroMarkup.match(/class="hero-start-number"/g)).toHaveLength(2);
     expect(heroMarkup).toContain('href="/intake/"');
     expect(heroMarkup).toContain('class="phone-screen"');

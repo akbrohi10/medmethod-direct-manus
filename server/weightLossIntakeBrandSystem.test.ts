@@ -29,7 +29,7 @@ describe("Latest MMD brand on the weight-loss intake landing document", () => {
     expect(brand).toContain('body{background:var(--bg);color:var(--ink);font-family:var(--font-body)}');
     expect(css).toContain('h2, h3 { font-family: var(--font-heading); font-weight: 400; }');
     expect(css).toContain('#doctor .compact-trust-copy h2 { font-weight: 400; }');
-    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span><span class="hero-headline-middle">doctor now.</span><span class="hero-headline-last">For FREE!</span>');
+    expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span> <span class="hero-headline-middle">Doctor now</span> <span class="hero-headline-qualifier">to see if <span class="hero-glp1-term">GLP-1s</span> are right for you.</span> <span class="hero-headline-last">For FREE!</span>');
     expect(landing).toContain('.hero .phone-screen{background:var(--hero-white);color:var(--hero-navy)}');
   });
 
