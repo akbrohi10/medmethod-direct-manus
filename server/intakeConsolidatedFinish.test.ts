@@ -11,6 +11,7 @@ describe("consolidated local intake finish", () => {
   const screens = [
     { id: "w38", type: "text" }, { id: "w39", type: "consent" },
     { id: "w40", type: "wReview" }, { id: "w40a", type: "planReview" }, { id: "w41", type: "checkout" },
+    { id: "w03a", type: "wPrice" }, { id: "other-information", type: "wPrice" },
   ];
   function helpers() {
     return new Function("w", "x", "se", "MmdPhoneVerificationSatisfied", `${intake.slice(start, end)};return { MmdIntakeFlowScreens, MmdIntakeFinishReady };`)(
@@ -21,12 +22,21 @@ describe("consolidated local intake finish", () => {
   }
 
   it("removes both mandatory review screens and separate checkout only from visible navigation", () => {
-    expect(helpers().MmdIntakeFlowScreens({})).toEqual(screens.slice(0, 2));
+    expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[0], screens[1], screens[6]]);
     expect(app).toContain('()=>MmdIntakeFlowScreens(answers)');
     for (const type of ['"type":"wReview"', '"type":"planReview"', '"type":"checkout"']) expect(intake).toContain(type);
     expect(intake).toContain('function w(e,t){return x(e).filter(e=>re(e,t))}');
     expect(intake).toContain('screen?.type==="consent"?"Finish your intake"');
     expect(app).toContain('screen.type==="consent"?"Submit My Free Intake":"Continue"');
+  });
+
+  it("skips only the approved redundant w03a information screen, not its definition or any other question", () => {
+    const flow = helpers().MmdIntakeFlowScreens({}) as Array<{ id: string; type: string }>;
+    expect(flow.map(screen => screen.id)).not.toContain("w03a");
+    expect(flow.map(screen => screen.id)).toContain("other-information");
+    expect(intake).toContain('screen.id!=="w03a"');
+    expect(intake).toContain('"id":"w03a","route":"w"');
+    expect(intake).toContain("A doctor’s visit, without the waiting room");
   });
 
   it("requires treatment consent, final acknowledgement, valid contact and verified phone together", () => {
