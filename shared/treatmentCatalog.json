@@ -108,7 +108,66 @@
         },
         "imageAlt": "Foundayo pill bottle"
       }
-    ]
+    ],
+    "pageDisplays": {
+      "weightLossIntake": {
+        "compounded_semaglutide": {
+          "name": "Compounded Semaglutide",
+          "price": "$129/month — fixed price",
+          "specs": [
+            { "label": "Vial size", "value": "2.5–12.5 mg vial" },
+            { "label": "Form", "value": "Injection (multidose vial)" }
+          ]
+        },
+        "compounded_tirzepatide": {
+          "name": "Compounded Tirzepatide",
+          "price": "$149 to $299/month",
+          "specs": [
+            { "label": "Vial size", "value": "10–60 mg vial" },
+            { "label": "Form", "value": "Injection (multidose vial)" }
+          ]
+        },
+        "compounded_liraglutide": {
+          "name": "Compounded Liraglutide",
+          "price": "$115",
+          "supply": "28-day supply",
+          "specs": [
+            { "label": "Strength", "value": "6mg/mL" },
+            { "label": "Form", "value": "Injection (multidose vial)" }
+          ]
+        },
+        "wegovy_direct_novocare": {
+          "name": "Wegovy® Pen — Direct from NovoCare®",
+          "price": "$349/month — fixed price",
+          "supply": "Four single-dose, prefilled pens",
+          "specs": [
+            { "label": "Dose per Pen", "value": "0.25–2.4 mg" }
+          ]
+        },
+        "wegovy_pill_direct_novocare": {
+          "name": "Wegovy® Pill — Direct from NovoCare®",
+          "price": "$149 to $299/month",
+          "specs": [
+            { "label": "Strength", "value": "1.5–25 mg" }
+          ]
+        },
+        "zepbound_kwikpen_direct_lillydirect": {
+          "name": "Zepbound® KwikPen — Direct from LillyDirect®",
+          "price": "$299 to $449/month",
+          "supply": "Four prefilled pens",
+          "specs": [
+            { "label": "Dose per Pen", "value": "2.5–15 mg" }
+          ]
+        },
+        "foundayo_pill_direct_lillydirect": {
+          "name": "Foundayo® Pill — Direct from LillyDirect®",
+          "price": "$149 to $299/month",
+          "specs": [
+            { "label": "Strength", "value": "0.8–17.2 mg" }
+          ]
+        }
+      }
+    }
   },
   "hrt": {
     "options": [
