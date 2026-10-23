@@ -30,7 +30,7 @@ function loadClient(fetchMock = vi.fn()) {
     head: { appendChild: vi.fn() },
   };
   const windowObject: Record<string, unknown> = {
-    location: { search: "" },
+    location: { search: "", pathname: "/intake/thank-you/", replace: vi.fn() },
     sessionStorage: {
       getItem: (key: string) => values.get(key) ?? null,
       setItem: (key: string, value: string) => values.set(key, value),
@@ -149,6 +149,25 @@ describe("optional video visit confirmation client", () => {
     expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({ approval_token: "approval-token" });
     await expect(api.captureVideoOrder("VIDEO-ORDER-1", "approval-token")).resolves.toMatchObject({ payment_status: "COMPLETED" });
     expect(values.get("mmd_video_visit_checkout")).toBeUndefined();
+  });
+
+  it("moves to the fixed booking confirmation only after exact server-confirmed paid or waived outcomes", () => {
+    const { api, windowObject } = loadClient();
+    const replace = (windowObject.location as { replace: ReturnType<typeof vi.fn> }).replace;
+    expect(api.finishConfirmedVideoVisit("paid", { payment_status: "COMPLETED" })).toBe(true);
+    expect(replace).toHaveBeenCalledTimes(1);
+    expect(replace).toHaveBeenLastCalledWith("/thank-you-video");
+    expect(api.finishConfirmedVideoVisit("waived", { payment_status: "WAIVED" })).toBe(true);
+    expect(replace).toHaveBeenCalledTimes(2);
+    for (const [kind, result] of [["paid", { payment_status: "APPROVED" }], ["paid", {}], ["waived", { payment_status: "COMPLETED" }], ["waived", {}]] as const) {
+      expect(api.finishConfirmedVideoVisit(kind, result)).toBe(false);
+    }
+    expect(replace).toHaveBeenCalledTimes(2);
+    expect(source).toContain('if (status === "paid" && finishConfirmedVideoVisit("paid", result.completion)) return;');
+    expect(source).toContain('if (status === "waived" && finishConfirmedVideoVisit("waived", result.completion)) return;');
+    expect(source).toContain('const waiver = await submitCoupon(receipt, couponCode);\n        if (!finishConfirmedVideoVisit("waived", waiver))');
+    expect(source).not.toContain('window.location.replace("/thank-you-video?');
+    expect(source).not.toContain('submission_token=/thank-you-video');
   });
 
   it("uses token-only coupon API contracts and treats a waiver as no-card checkout", async () => {

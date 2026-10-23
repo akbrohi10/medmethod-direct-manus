@@ -123,6 +123,20 @@
     return demoMode(receipt) ? "?prefill=demo" : "";
   }
 
+  // This fixed destination intentionally carries no receipt, patient, or payment data.
+  // It is called only after the server has confirmed a completed $39 capture or waiver.
+  function continueToVideoBooking() {
+    window.location.replace("/thank-you-video");
+  }
+
+  function finishConfirmedVideoVisit(kind, confirmation) {
+    const paid = kind === "paid" && confirmation && confirmation.payment_status === "COMPLETED";
+    const waived = kind === "waived" && confirmation && confirmation.payment_status === "WAIVED";
+    if (!paid && !waived) return false;
+    continueToVideoBooking();
+    return true;
+  }
+
   async function getPayPalConfig(receipt) {
     const config = await requestJson(`/api/paypal/client-token${demoSuffix(receipt)}`, null, "PayPal checkout is temporarily unavailable. Please try again.");
     if (!config.client_id || !config.environment) throw new Error("PayPal checkout is temporarily unavailable. Please try again.");
@@ -199,8 +213,8 @@
         body: JSON.stringify({ submission_token: receipt.submission_token }),
       }, "");
       const status = normalizeVideoStatus(result);
-      if (status === "paid") showComplete("paid");
-      if (status === "waived") showComplete("waived");
+      if (status === "paid" && finishConfirmedVideoVisit("paid", result.completion)) return;
+      if (status === "waived" && finishConfirmedVideoVisit("waived", result.completion)) return;
       if (status === "pending" && result.order && typeof result.order.order_id === "string" && typeof result.order.approval_token === "string") {
         const pending = byId("video-payment-pending");
         const button = byId("recover-video-payment");
@@ -209,8 +223,8 @@
         if (button) button.onclick = async () => {
           setBusy(button, true, "Checking existing payment…");
           try {
-            await captureVideoOrder(result.order.order_id, result.order.approval_token);
-            showComplete("paid");
+            const captured = await captureVideoOrder(result.order.order_id, result.order.approval_token);
+            if (!finishConfirmedVideoVisit("paid", captured)) throw new Error("Your video-visit payment has not been confirmed. Please try again.");
           } catch (_) {
             if (statusCopy) statusCopy.textContent = "The existing video payment is not yet confirmed. You may resume the same secure checkout below, or contact the Care Team if you were charged. Your free intake is complete; do not start a second payment.";
           } finally {
@@ -316,8 +330,8 @@
         if (authorized.state !== "succeeded") {
           throw new Error((authorized.data && authorized.data.message) || "PayPal could not authorize this card. Please check the details and try again.");
         }
-        await captureVideoOrder(created.order_id, created.approval_token);
-        showComplete("paid");
+        const captured = await captureVideoOrder(created.order_id, created.approval_token);
+        if (!finishConfirmedVideoVisit("paid", captured)) throw new Error("Your video-visit payment has not been confirmed. Please try again.");
       } catch (error) {
         setError(error instanceof Error ? error.message : "Unable to complete the optional video-visit payment. Please try again.");
       } finally {
@@ -382,9 +396,9 @@
             token: event.payment.token,
             billingContact: event.payment.billingContact,
           });
-          await captureVideoOrder(created.order_id, created.approval_token);
+          const captured = await captureVideoOrder(created.order_id, created.approval_token);
+          if (!finishConfirmedVideoVisit("paid", captured)) throw new Error("Your video-visit payment has not been confirmed. Please try again.");
           nativeSession.completePayment({ status: window.ApplePaySession.STATUS_SUCCESS });
-          showComplete("paid");
         } catch (error) {
           setError(error instanceof Error ? error.message : "Apple Pay could not complete the optional video-visit payment. Please try again.");
           nativeSession.completePayment({ status: window.ApplePaySession.STATUS_FAILURE });
@@ -480,8 +494,8 @@
       setError("");
       setBusy(submitButton, true, "Confirming…");
       try {
-        await submitCoupon(receipt, couponCode);
-        showComplete("waived");
+        const waiver = await submitCoupon(receipt, couponCode);
+        if (!finishConfirmedVideoVisit("waived", waiver)) throw new Error("The video-visit referral code was not confirmed. Please try again.");
       } catch (error) {
         setError(error instanceof Error ? error.message : "Unable to confirm the video-visit coupon. Please try again.");
       } finally {
@@ -524,6 +538,7 @@
     validateCoupon,
     submitCoupon,
     normalizeVideoStatus,
+    finishConfirmedVideoVisit,
   };
 
   if (document.readyState === "loading") {
