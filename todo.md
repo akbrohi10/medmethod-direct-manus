@@ -2953,3 +2953,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Preserved the approved headline, CTA, five local `/intake/` links, free-care note, phone illustration, hero palette, and all other pages; tightened the former list gap so the CTA follows the headline cleanly.
 - Passed focused hero/static regressions, TypeScript, production build, and no-submission browser QA at 375px, 768px, and 1440px. Full suite: 572 passed, 2 skipped, with the one documented unrelated `legitScriptCompliance` imported-content scan failure.
 - Checkpoint only; not published.
+
+## Weight-Loss Intake Hero Headline Order — 2026-10-23
+- On `/weight-loss-intake` only, reordered the hero to: “Text a weight-loss” / “Doctor now For FREE!” / “to see if GLP-1s are right for you.”
+- Kept the existing teal underlined `For FREE!` accent inline with the second line, retained the teal GLP-1s treatment, CTA, phone illustration, five local `/intake/` links, and all other routes.
+- Applied only a compact 86% responsive treatment to the combined second line so it remains intact without overflow. Passed focused regressions, TypeScript, build, and no-submission browser QA at 375px, 768px, and 1440px. Full suite: 572 passed, 2 skipped, with the one documented unrelated `legitScriptCompliance` scan failure.
+- Checkpoint only; not published.
