@@ -88,8 +88,9 @@
     .paypal-inputs { display: grid; gap: 14px; margin-top: 16px; }
     .paypal-field { display: grid; gap: 7px; }
     .paypal-field span { color: #59656f; font-size: .78rem; font-weight: 700; }
-    .paypal-field > div { min-height: 50px; overflow: hidden; border: 1.5px solid #d7e1dd; border-radius: 9px; background: #fff; padding: 0 14px; }
-    .paypal-field > div > iframe { display: block; width: 100%; height: 50px !important; min-height: 50px !important; border: 0; }
+    .paypal-field > div { height: 56px; min-height: 56px; max-height: 56px; overflow: hidden; border: 1.5px solid #d7e1dd; border-radius: 9px; background: #fff; padding: 0 14px; }
+    .paypal-field > div > *, .paypal-field > div iframe { display: block; width: 100%; height: 100% !important; min-height: 0 !important; max-height: 100% !important; }
+    .paypal-field > div iframe { border: 0; }
     .paypal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .paypal-pay { margin-top: 18px; }
     .apple-pay-option { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d7e1ddb3; text-align: center; }

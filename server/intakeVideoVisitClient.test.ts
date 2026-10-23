@@ -169,6 +169,15 @@ describe("optional video visit confirmation client", () => {
     expect(page).not.toContain("submission_token=");
   });
 
+  it("caps all four confirmation-page card containers at 56px and sizes nested hosted frames to fit", () => {
+    expect(page).toContain('.paypal-field > div { height: 56px; min-height: 56px; max-height: 56px;');
+    expect(page).toContain('.paypal-field > div > *, .paypal-field > div iframe { display: block; width: 100%; height: 100% !important; min-height: 0 !important; max-height: 100% !important; }');
+    expect(page).toContain('.paypal-field > div iframe { border: 0; }');
+    expect(page.match(/<label class="paypal-field">/g)).toHaveLength(4);
+    for (const id of ["video-card-name", "video-card-number", "video-card-expiry", "video-card-cvv"]) expect(page).toContain(`id="${id}"`);
+    expect(source).toContain('const component = (type, placeholder) => secureFields.createCardFieldsComponent({ type, placeholder, style });');
+  });
+
   it("never converts a successful capture into failure if temporary browser storage is blocked", async () => {
     const fetchMock = vi.fn().mockResolvedValue(response({ payment_status: "COMPLETED" }));
     const { api, windowObject } = loadClient(fetchMock);
