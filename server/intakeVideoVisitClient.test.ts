@@ -65,6 +65,15 @@ const receipt = {
 } as const;
 
 describe("optional video visit confirmation client", () => {
+  it("uses the approved referral label and placeholder without the removed helper text", () => {
+    expect(page).toContain('<label id="coupon-title" for="video-coupon-code">Enter referral code</label>');
+    expect(page).toContain('placeholder="Enter referral code"');
+    expect(page).not.toContain("Optional video-visit coupon");
+    expect(page).not.toContain("A coupon can waive only the optional video visit. Your intake is already free.");
+    expect(page).not.toContain('aria-describedby="video-coupon-note"');
+    expect(page).toContain('<button class="secondary" id="validate-video-coupon" type="button">Apply</button>');
+  });
+
   it("is valid browser JavaScript and keeps the confirmation receipt strictly minimal", () => {
     const { api } = loadClient();
     expect(api.parseReceipt(JSON.stringify(receipt))).toEqual(receipt);
