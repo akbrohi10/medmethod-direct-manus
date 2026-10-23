@@ -70,8 +70,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).toContain("Text a");
     expect(landing).toContain("weight-loss doctor");
     expect(landing).toContain("For FREE!");
-    expect(landing).toContain("Complete your medical intake form.");
-    expect(landing).toContain("Instantly receive a text and connect with your doctor.");
+    expect(landing).not.toContain("Complete your medical intake form.");
+    expect(landing).not.toContain("Instantly receive a text and connect with your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
     expect(landing).toContain("Medication costs extra.");
     expect(landing).toContain("Ongoing doctor care by secure text is free.");
@@ -89,9 +89,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain('<span class="hero-eyebrow">MMD Weight Loss</span>');
     expect(landing).toContain('<span class="hero-headline-main">Text a weight-loss</span> <span class="hero-headline-middle">Doctor now</span> <span class="hero-headline-qualifier">to see if <span class="hero-glp1-term">GLP-1s</span> are right for you.</span> <span class="hero-headline-last">For FREE!</span>');
     const hero = landing.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0] ?? "";
-    expect(hero).toContain('<ol class="hero-start-steps" aria-label="Start your free doctor visit">');
-    expect(hero.match(/class="hero-start-number"/g)).toHaveLength(2);
-    expect(hero.indexOf('class="hero-start-steps"')).toBeLessThan(hero.indexOf('class="hero-actions"'));
+    expect(hero).not.toContain('hero-start-steps');
+    expect(hero).not.toContain('hero-start-number');
     expect(hero.indexOf('class="hero-actions"')).toBeLessThan(hero.indexOf('class="phone-stage"'));
     expect(hero).not.toContain('class="hero-subheadline"');
     expect(hero).not.toContain('class="hero-path"');
@@ -121,9 +120,8 @@ describe("Weight-loss intake static prototype import", () => {
   it("applies the approved mobile hero formatting without changing its copy, desktop design, or intake flow", () => {
     expect(landing).toContain('/* Approved mobile hero formatting — wording, desktop layout, and animation preserved. */');
     expect(landing).toContain('.hero .hero-copy>h1{text-align:center;line-height:1.03}');
-    expect(landing).toContain('.hero .hero-start-steps li{align-items:start}');
-    expect(landing).toContain('.hero .hero-start-number{margin-top:3px}');
-    expect(landing).toContain('.hero .hero-start-steps li:first-child>span:last-child{align-self:center;transform:translateY(1.5px)}');
+    expect(landing).not.toContain('hero-start-steps');
+    expect(landing).not.toContain('hero-start-number');
     expect(landing).toContain('.hero .hero-cta-label{position:static;display:inline-flex;width:auto;align-items:center;justify-content:center;gap:9px');
     expect(landing).toContain('.hero .hero-cta-label .arrow{position:static;flex:0 0 auto;transform:none');
     expect(landing).toContain('.hero .phone-screen{height:600px}');

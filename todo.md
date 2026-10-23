@@ -2947,3 +2947,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - PayPal capture responses may omit echoed purchase-unit metadata after that order check. The server now accepts that documented representation only when the completed order, exactly one capture ID, and exactly $39.00 USD remain verified; any supplied mismatch is rejected.
 - Added regressions for accepted omitted purchase-unit echoes and rejected mismatched approved-order binding. Passed 44 focused payment/client tests, TypeScript, and build. Full suite: 572 passed, 2 skipped, with the one documented pre-existing `legitScriptCompliance` imported-content scan failure.
 - No new payment, retry, refund, webhook, SMS, or provider call was made. Checkpoint only; not published.
+
+## Weight-Loss Intake Hero Step Removal — 2026-10-23
+- Removed only the redundant two-item hero step list and its numbered markers from `/weight-loss-intake`.
+- Preserved the approved headline, CTA, five local `/intake/` links, free-care note, phone illustration, hero palette, and all other pages; tightened the former list gap so the CTA follows the headline cleanly.
+- Passed focused hero/static regressions, TypeScript, production build, and no-submission browser QA at 375px, 768px, and 1440px. Full suite: 572 passed, 2 skipped, with the one documented unrelated `legitScriptCompliance` imported-content scan failure.
+- Checkpoint only; not published.
