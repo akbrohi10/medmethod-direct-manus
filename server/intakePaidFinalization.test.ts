@@ -85,7 +85,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     const draft = syntheticDraft(), network = provider(draft), request = harness();
     const result = await submitFree(request, draft);
     expect(result.code).toBe(201);
-    expect(result.body).toMatchObject({ submission_id: draft.submission_id, sms_opt_in: false, video_visit_interest: true, is_test: false, payment_status: "NOT_REQUIRED" });
+    expect(result.body).toMatchObject({ submission_id: draft.submission_id, sms_opt_in: false, video_visit_interest: true, is_test: false, payment_status: "NOT_REQUIRED", redirect_url: "/thank-you-video" });
     expect(result.body.submission_token).toBeTypeOf("string");
     expect(network.events).toEqual(["relay"]);
     expect(mocks.settings).not.toHaveBeenCalled();
@@ -97,6 +97,42 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(payload.care).toEqual({ intake: "free", payment_required: false, amount: "0.00", currency: "USD" });
     expect(JSON.stringify(result.body.submission_token)).not.toContain("integration-test@example.com");
     expect(mocks.attestation).toHaveBeenCalledWith("valid-phone-token", draft.patient.phone);
+  });
+
+  it("selects only the two receipt-derived destinations and ignores body or query redirect injection", async () => {
+    const videoDraft = syntheticDraft(), videoNetwork = provider(videoDraft), videoRequest = harness();
+    const video = await videoRequest(
+      "POST", "/api/intake/submit",
+      { intake: videoDraft, phone_verification_token: "valid-phone-token", video_visit_interest: true, redirect_url: "https://attacker.example.test" },
+      {}, { redirect_url: "javascript:alert(1)" },
+    );
+    expect(video.code).toBe(201); expect(video.body.redirect_url).toBe("/thank-you-video");
+    expect(videoNetwork.events).toEqual(["relay"]);
+
+    const freeDraft = syntheticDraft("73cb857e-d80d-453c-8106-420cbe2b3b45"), freeNetwork = provider(freeDraft), freeRequest = harness();
+    const free = await freeRequest(
+      "POST", "/api/intake/submit",
+      { intake: freeDraft, phone_verification_token: "valid-phone-token", video_visit_interest: false, redirect_url: "//attacker.example.test" },
+      {}, { redirect_url: "/thank-you-video" },
+    );
+    expect(free.code).toBe(201); expect(free.body.redirect_url).toBe("/intake/thank-you/");
+    expect(freeNetwork.events).toEqual(["relay"]);
+  });
+
+  it("keeps the delivered receipt destination for same-intake retries and rejects opposite interest", async () => {
+    const draft = syntheticDraft(), network = provider(draft), request = harness();
+    const accepted = await submitFree(request, draft);
+    const retry = await request(
+      "POST", "/api/intake/submit",
+      { intake: draft, phone_verification_token: "valid-phone-token", video_visit_interest: true, redirect_url: "/intake/thank-you/" },
+      {}, { redirect_url: "https://attacker.example.test" },
+    );
+    expect(retry.code).toBe(201); expect(retry.body).toEqual(accepted.body);
+    expect(retry.body.redirect_url).toBe("/thank-you-video");
+
+    const opposite = await request("POST", "/api/intake/submit", { intake: draft, phone_verification_token: "valid-phone-token", video_visit_interest: false });
+    expect(opposite.code).toBe(422); expect(opposite.body.error).toMatch(/already used with different intake information/i);
+    expect(network.events).toEqual(["relay"]);
   });
 
   it("does not consume verification on a rejected delivery and only mints a receipt once delivery accepts", async () => {
@@ -170,6 +206,20 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(network.events).toContain("capture");
   });
 
+  it.each([
+    { value: "49.00", currency_code: "USD" },
+    { value: "39.99", currency_code: "USD" },
+    { value: "39.00", currency_code: "CAD" },
+  ])("rejects a video capture that is not exactly 39.00 USD: %j", async (amount) => {
+    const draft = syntheticDraft(), network = provider(draft, { captureOverrides: { amount } }), request = harness();
+    const free = await submitFree(request, draft);
+    expect(free.body.redirect_url).toBe("/thank-you-video");
+    const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
+    const finished = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token: created.body.approval_token }, { orderId });
+    expect(finished.code).toBe(400);
+    expect(network.payloads.filter(payload => payload.event === "mmd_intake.video_visit_paid")).toHaveLength(0);
+  });
+
   it("does not undo free completion when optional PayPal order creation fails, and exposes only safe refresh status", async () => {
     const draft = syntheticDraft(), network = provider(draft, { orderFail: true }), request = harness();
     const free = await submitFree(request, draft);
@@ -184,6 +234,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     const draft = syntheticDraft(), network = provider(draft, { relayFailOnce: false }), request = harness();
     const [first, second] = await Promise.all([submitFree(request, draft), submitFree(request, draft)]);
     expect(first.body).toEqual(second.body); expect(network.events.filter(e => e === "relay")).toHaveLength(1);
+    expect(first.body.redirect_url).toBe("/thank-you-video");
     const body = { submission_token: first.body.submission_token, payment_method: "card" as const };
     const [one, two] = await Promise.all([request("POST", "/api/paypal/orders", body), request("POST", "/api/paypal/orders", body)]);
     expect(one.body).toEqual(two.body); expect(network.events.filter(e => e === "create")).toHaveLength(1);

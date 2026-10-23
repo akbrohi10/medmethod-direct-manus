@@ -374,8 +374,8 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).toContain("confirmation-next-steps");
   });
 
-  it("uses a separate noindex thank-you URL after free intake submission without putting patient data in the URL", () => {
-    expect(intake).toContain('window.location.replace("/intake/thank-you/"+(demo?"?prefill=demo":""))');
+  it("uses a server-directed noindex thank-you URL after free intake submission without putting patient data in the URL", () => {
+    expect(intake).toContain('window.location.replace(receipt.redirect_url)');
     expect(intake).toContain('window.sessionStorage.setItem("mmd_free_intake_receipt"');
     expect(intake).toContain('payment_status:"NOT_REQUIRED"');
     expect(intake).not.toContain("thank-you/?submission");

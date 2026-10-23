@@ -37,6 +37,7 @@ const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 const TestPayment = lazy(() => import("@/pages/TestPayment"));
 const LpWL2 = lazy(() => import("@/pages/LpWL2"));
 const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
+const ThankYouVideo = lazy(() => import("@/pages/ThankYouVideo"));
 const ThanksPaymentWL2 = lazy(() => import("@/pages/ThanksPaymentWL2"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CareTeamBooking = lazy(() => import("@/pages/CareTeamBooking"));
@@ -381,6 +382,8 @@ function Router() {
         <Route path="/test-payment" component={TestPayment} />
         <Route path="/lp/WL2" component={LpWL2} />
         <Route path="/thank-you2" component={ThankYou2} />
+        <Route path="/thank-you-video" component={ThankYouVideo} />
+        <Route path="/thank-you-video/" component={ThankYouVideo} />
         <Route path="/care-team-booking" component={CareTeamBooking} />
         <Route path="/care-team-booking-confirmed" component={CareTeamBookingConfirmed} />
         <Route path="/live-webinar" component={LiveWebinar} />

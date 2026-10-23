@@ -1,0 +1,298 @@
+#thank-you-video-root {
+  --tyv-page: #faf9f7;
+  --tyv-ink: #1f2937;
+  --tyv-heading: #113a3a;
+  --tyv-muted: #59656f;
+  --tyv-border: #d7e1dd;
+  --tyv-soft: #eef6f3;
+  --tyv-teal: #0e7c7b;
+  --tyv-deep-teal: #075c5c;
+  --tyv-dark: #0d2021;
+  --tyv-dark-panel: #102526;
+  --tyv-dark-border: #31514e;
+  --tyv-dark-copy: #c9e4e1;
+  --tyv-dark-heading: #d8f0ed;
+  --tyv-dark-button-start: #b6e46e;
+  --tyv-dark-button-end: #84cbc7;
+  min-height: 100vh;
+  color: var(--tyv-ink);
+  background: var(--tyv-page);
+  font-family: Montserrat, Arial, sans-serif;
+  font-synthesis: none;
+}
+
+#thank-you-video-root *,
+#thank-you-video-root *::before,
+#thank-you-video-root *::after { box-sizing: border-box; }
+
+#thank-you-video-root [hidden] { display: none !important; }
+
+#thank-you-video-root button,
+#thank-you-video-root input { font: inherit; }
+
+#thank-you-video-root a { color: inherit; }
+
+#thank-you-video-root .tyv-top {
+  display: flex;
+  width: min(860px, calc(100% - 56px));
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 16px 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#thank-you-video-root .tyv-brand { display: inline-flex; flex-direction: column; align-items: center; color: var(--tyv-heading); line-height: 1; text-decoration: none; }
+#thank-you-video-root .tyv-brand-name { display: inline-flex; align-items: baseline; font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+#thank-you-video-root .tyv-brand-method { color: var(--tyv-deep-teal); }
+#thank-you-video-root .tyv-brand-direct { display: flex; width: 100%; align-items: center; gap: 4px; margin-top: 3px; color: var(--tyv-heading); font-size: .5rem; font-weight: 600; letter-spacing: .25em; }
+#thank-you-video-root .tyv-brand-direct i { display: block; height: 1px; flex: 1; background: linear-gradient(90deg, var(--tyv-teal), var(--tyv-deep-teal)); }
+
+#thank-you-video-root .tyv-help { display: inline-flex; align-items: center; gap: 9px; color: var(--tyv-deep-teal); font-size: .83rem; text-decoration: none; }
+#thank-you-video-root .tyv-help svg { width: 17px; height: 17px; }
+#thank-you-video-root .tyv-help span { display: grid; gap: 1px; }
+#thank-you-video-root .tyv-help strong { font-size: .88rem; font-weight: 700; }
+#thank-you-video-root .tyv-help small { color: var(--tyv-muted); font-size: .65rem; font-weight: 600; }
+
+#thank-you-video-root .tyv-stage { width: min(760px, calc(100% - 56px)); margin: 0 auto; padding: 34px 0 40px; }
+#thank-you-video-root .tyv-confirmation { max-width: 760px; margin: 0 auto; padding: 18px 0; text-align: center; }
+#thank-you-video-root .tyv-checkmark { display: grid; width: 68px; height: 68px; margin: 0 auto 19px; place-items: center; border-radius: 50%; color: #4b7b0b; background: #e9f5d7; }
+#thank-you-video-root .tyv-checkmark svg { width: 36px; height: 36px; stroke-width: 1.8; }
+#thank-you-video-root .tyv-confirmation h1 { max-width: 880px; margin: 0 0 13px; color: var(--tyv-heading); font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 600; letter-spacing: -.045em; line-height: 1.13; }
+#thank-you-video-root .tyv-confirmation h2 { margin: 0 0 8px; color: var(--tyv-heading); font-size: 1.3rem; font-weight: 600; line-height: 1.35; }
+#thank-you-video-root .tyv-confirmation h3 { margin: 0 0 7px; color: var(--tyv-ink); font-size: 1rem; font-weight: 700; line-height: 1.42; }
+#thank-you-video-root .tyv-confirmation p { line-height: 1.65; }
+#thank-you-video-root .tyv-lede { max-width: 610px; margin: 0 auto; color: var(--tyv-muted); font-size: 1rem; }
+#thank-you-video-root .tyv-eyebrow { margin: 0 0 8px; color: var(--tyv-deep-teal); font-size: .76rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+#thank-you-video-root .tyv-virtual-badge { display: inline-flex; margin-top: 12px; padding: 6px 12px; border: 1px solid var(--tyv-border); border-radius: 999px; color: var(--tyv-heading); background: var(--tyv-soft); font-size: .75rem; font-weight: 500; }
+#thank-you-video-root .tyv-create-account { gap: 8px; margin-top: 12px; }
+#thank-you-video-root .tyv-create-account svg { width: 16px; height: 16px; }
+
+#thank-you-video-root .tyv-demo-banner { margin: 0 0 24px; padding: 12px 16px; border: 1px solid var(--tyv-teal); border-radius: 9px; color: var(--tyv-deep-teal); background: var(--tyv-soft); font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-align: center; }
+
+#thank-you-video-root .tyv-video-visit-card {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 18px;
+  margin: 29px 0 24px;
+  padding: 25px;
+  border: 1.5px solid var(--tyv-teal);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 30px rgb(17 58 58 / 8%);
+  text-align: left;
+}
+
+#thank-you-video-root .tyv-video-icon { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 50%; color: var(--tyv-deep-teal); background: var(--tyv-soft); }
+#thank-you-video-root .tyv-video-icon svg { width: 24px; height: 24px; stroke-width: 1.8; }
+#thank-you-video-root .tyv-offer-label { margin: 0 0 6px !important; color: var(--tyv-deep-teal); font-size: .82rem; font-weight: 800; letter-spacing: .04em; }
+#thank-you-video-root .tyv-video-visit-card > div:last-child > p:not(.tyv-offer-label) { margin: 8px 0 0; color: var(--tyv-muted); font-size: .92rem; }
+#thank-you-video-root .tyv-video-visit-card .tyv-video-reassurance { font-size: .8rem !important; }
+
+#thank-you-video-root .tyv-primary,
+#thank-you-video-root .tyv-secondary {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 15px 28px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  transition: box-shadow .15s, transform .15s;
+}
+
+#thank-you-video-root .tyv-primary { min-width: 170px; max-width: 100%; border: 0; color: #fff; background: linear-gradient(90deg, var(--tyv-teal), var(--tyv-deep-teal)); cursor: pointer; }
+#thank-you-video-root .tyv-secondary { border: 1.5px solid var(--tyv-border); color: var(--tyv-ink); background: #fff; cursor: pointer; }
+#thank-you-video-root .tyv-primary:not(:disabled):hover,
+#thank-you-video-root .tyv-secondary:not(:disabled):hover { box-shadow: 0 8px 18px rgb(17 58 58 / 13%); transform: translateY(-1px); }
+#thank-you-video-root .tyv-primary:disabled,
+#thank-you-video-root .tyv-secondary:disabled { cursor: not-allowed; opacity: .55; }
+#thank-you-video-root .tyv-primary:focus-visible,
+#thank-you-video-root .tyv-secondary:focus-visible,
+#thank-you-video-root .tyv-support-cta:focus-visible,
+#thank-you-video-root .tyv-footer a:focus-visible,
+#thank-you-video-root .tyv-help:focus-visible,
+#thank-you-video-root .tyv-brand:focus-visible { outline: 3px solid var(--tyv-teal); outline-offset: 4px; }
+#thank-you-video-root .tyv-video-visit-card .tyv-primary { margin-top: 18px; }
+
+#thank-you-video-root .tyv-calendar-card { margin: 0 0 32px; overflow: hidden; border: 1.5px solid var(--tyv-border); border-radius: 16px; background: #fff; text-align: left; }
+#thank-you-video-root .tyv-calendar-head { padding: 21px 25px 17px; border-bottom: 1px solid rgb(215 225 221 / 72%); }
+#thank-you-video-root .tyv-calendar-head h2 { font-size: 1.08rem; }
+#thank-you-video-root .tyv-calendar-head p { margin: 4px 0 0; color: var(--tyv-muted); font-size: .89rem; }
+#thank-you-video-root #video-calendar { min-height: 174px; }
+#thank-you-video-root .tyv-calendar-locked { display: grid; min-height: 174px; place-items: center; align-content: center; gap: 11px; padding: 26px; color: var(--tyv-deep-teal); background: var(--tyv-soft); text-align: center; }
+#thank-you-video-root .tyv-calendar-locked svg { width: 27px; height: 27px; }
+#thank-you-video-root .tyv-calendar-locked p { max-width: 380px; margin: 0; color: var(--tyv-muted); font-size: .92rem; font-weight: 600; line-height: 1.55; }
+#thank-you-video-root #video-calendar iframe { display: block; width: 100%; min-height: clamp(700px, 90vw, 900px); border: 0; }
+
+#thank-you-video-root .tyv-checkout { margin: 0; padding: 25px; border-top: 1.5px solid var(--tyv-border); background: #fff; }
+#thank-you-video-root .tyv-checkout[hidden],
+#thank-you-video-root .tyv-checkout-card-fields[hidden],
+#thank-you-video-root .tyv-coupon-confirmed[hidden],
+#thank-you-video-root .tyv-checkout-payment-area[hidden],
+#thank-you-video-root .tyv-checkout-complete[hidden],
+#thank-you-video-root .tyv-apple-pay-option[hidden],
+#thank-you-video-root .tyv-checkout-error:empty { display: none; }
+#thank-you-video-root .tyv-checkout > p { margin: 0 0 18px; color: var(--tyv-muted); font-size: .9rem; }
+#thank-you-video-root .tyv-checkout-status { min-height: 1.45em; margin-bottom: 16px !important; font-size: .86rem !important; }
+#thank-you-video-root .tyv-checkout-status[data-kind="success"] { color: #4b7b0b; font-weight: 700; }
+#thank-you-video-root .tyv-checkout-status[data-kind="error"],
+#thank-you-video-root .tyv-checkout-error { color: #b42318; font-weight: 700; }
+#thank-you-video-root .tyv-checkout-error { margin: 15px 0 0; font-size: .86rem; line-height: 1.5; }
+
+#thank-you-video-root .tyv-coupon { margin: 0 0 22px; padding: 0 0 21px; border-bottom: 1px solid rgb(215 225 221 / 72%); }
+#thank-you-video-root .tyv-coupon label { display: block; margin: 0 0 8px; color: var(--tyv-ink); font-size: .88rem; font-weight: 700; }
+#thank-you-video-root .tyv-coupon-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+#thank-you-video-root .tyv-coupon input { width: 100%; min-width: 0; padding: 13px; border: 1.5px solid var(--tyv-border); border-radius: 9px; outline: none; color: var(--tyv-ink); background: #fff; }
+#thank-you-video-root .tyv-coupon input:focus { border-color: var(--tyv-teal); box-shadow: 0 0 0 3px rgb(14 124 123 / 15%); }
+#thank-you-video-root .tyv-coupon .tyv-secondary { margin: 0; padding: 12px 18px; }
+#thank-you-video-root .tyv-checkout-note { margin: 8px 0 0; color: var(--tyv-muted); font-size: .8rem; line-height: 1.5; }
+#thank-you-video-root .tyv-coupon-confirmed { margin-top: 12px; padding: 15px; border: 1.5px solid var(--tyv-teal); border-radius: 10px; background: var(--tyv-soft); }
+#thank-you-video-root .tyv-coupon-confirmed strong { color: var(--tyv-deep-teal); }
+#thank-you-video-root .tyv-coupon-confirmed p { margin: 5px 0 12px; color: var(--tyv-muted); font-size: .83rem; }
+#thank-you-video-root .tyv-coupon-confirmed .tyv-primary { width: 100%; }
+
+#thank-you-video-root .tyv-checkout-card-fields { margin-top: 19px; padding-top: 20px; border-top: 1px solid rgb(215 225 221 / 72%); }
+#thank-you-video-root .tyv-checkout-card-fields h3 { color: var(--tyv-heading); }
+#thank-you-video-root .tyv-paypal-inputs { display: grid; gap: 14px; margin-top: 16px; }
+#thank-you-video-root .tyv-paypal-field { display: grid; gap: 7px; }
+#thank-you-video-root .tyv-paypal-field > span { color: var(--tyv-muted); font-size: .78rem; font-weight: 700; }
+#thank-you-video-root .tyv-paypal-field > div { height: 56px; min-height: 56px; max-height: 56px; overflow: hidden; border: 1.5px solid var(--tyv-border); border-radius: 9px; background: #fff; padding: 0 14px; }
+#thank-you-video-root .tyv-paypal-field > div > *,
+#thank-you-video-root .tyv-paypal-field > div iframe { display: block; width: 100%; height: 100% !important; min-height: 0 !important; max-height: 100% !important; }
+#thank-you-video-root .tyv-paypal-field > div iframe { border: 0; }
+#thank-you-video-root .tyv-paypal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+#thank-you-video-root .tyv-paypal-pay { margin-top: 18px; }
+#thank-you-video-root .tyv-paypal-inputs[aria-busy="true"] .tyv-paypal-field > div { pointer-events: none; opacity: .55; }
+#thank-you-video-root .tyv-apple-pay-option { margin-top: 18px; padding-top: 18px; border-top: 1px solid rgb(215 225 221 / 72%); text-align: center; }
+
+#thank-you-video-root .tyv-checkout-complete { margin: 18px 25px 25px; padding: 20px; border: 1.5px solid var(--tyv-teal); border-radius: 11px; background: var(--tyv-soft); }
+#thank-you-video-root .tyv-checkout-complete h2 { margin-bottom: 7px; font-size: 1.06rem; }
+#thank-you-video-root .tyv-checkout-complete p { margin: 0; color: var(--tyv-muted); font-size: .9rem; }
+#thank-you-video-root .tyv-checkout-complete .tyv-secondary { margin-top: 15px; }
+#thank-you-video-root .tyv-checkout-complete #video-recovery-status { margin-top: 12px; font-size: .82rem; }
+
+#thank-you-video-root .tyv-follow-up-heading { margin: 0 auto 18px; text-align: center; }
+#thank-you-video-root .tyv-follow-up-heading > p { margin: 0 0 4px; color: var(--tyv-deep-teal); font-size: .74rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+#thank-you-video-root .tyv-follow-up-heading h2 { margin: 0; color: var(--tyv-heading); font-size: 1.13rem; }
+#thank-you-video-root .tyv-follow-ups { max-width: 620px; margin: 0 auto 26px; }
+#thank-you-video-root .tyv-follow-up-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1.5px solid var(--tyv-border); border-radius: 12px; background: #fff; box-shadow: 0 4px 11px rgb(17 58 58 / 4%); text-align: left; }
+#thank-you-video-root .tyv-follow-up-icon { display: grid; width: 43px; height: 43px; flex: 0 0 43px; place-items: center; border-radius: 12px; color: var(--tyv-deep-teal); background: var(--tyv-soft); }
+#thank-you-video-root .tyv-follow-up-icon svg { width: 21px; height: 21px; }
+#thank-you-video-root .tyv-step-label { display: block; margin: 0 0 5px; color: var(--tyv-deep-teal); font-size: .69rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+#thank-you-video-root .tyv-follow-up-card p { margin: 0; color: var(--tyv-muted); font-size: .88rem; line-height: 1.58; }
+#thank-you-video-root .tyv-step-connector { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 9px 0; }
+#thank-you-video-root .tyv-step-connector i { display: block; width: 4px; height: 4px; border-radius: 50%; background: rgb(14 124 123 / 35%); }
+
+#thank-you-video-root .tyv-support-cta { display: inline-flex; min-width: min(100%, 390px); align-items: center; justify-content: center; gap: 12px; padding: 15px 28px; border-radius: 999px; color: #fff; background: linear-gradient(90deg, var(--tyv-teal), var(--tyv-deep-teal)); box-shadow: 0 10px 20px rgb(17 58 58 / 14%); text-decoration: none; }
+#thank-you-video-root .tyv-support-cta svg { width: 20px; height: 20px; }
+#thank-you-video-root .tyv-support-cta span { display: grid; text-align: left; }
+#thank-you-video-root .tyv-support-cta strong { font-size: 1rem; line-height: 1.2; }
+#thank-you-video-root .tyv-support-cta small { margin-top: 2px; color: rgb(255 255 255 / 80%); font-size: .7rem; font-weight: 600; }
+
+#thank-you-video-root .tyv-no-intake { max-width: 590px; margin: 0 auto; padding: 28px; border: 1.5px solid var(--tyv-border); border-radius: 16px; background: #fff; text-align: center; }
+#thank-you-video-root .tyv-no-intake h2 { margin: 0 0 10px; }
+#thank-you-video-root .tyv-no-intake > p:not(.tyv-eyebrow) { margin: 0; color: var(--tyv-muted); font-size: .92rem; line-height: 1.6; }
+#thank-you-video-root .tyv-no-intake .tyv-secondary { margin-top: 19px; }
+
+#thank-you-video-root .tyv-footer { display: flex; width: min(760px, calc(100% - 56px)); margin: 0 auto; padding: 24px 0 44px; justify-content: center; border-top: 1px solid rgb(215 225 221 / 72%); }
+#thank-you-video-root .tyv-footer a { display: inline-flex; align-items: center; gap: 8px; color: var(--tyv-muted); font-size: .84rem; font-weight: 600; text-decoration: none; }
+#thank-you-video-root .tyv-footer a:hover { color: var(--tyv-deep-teal); }
+#thank-you-video-root .tyv-footer svg { width: 16px; height: 16px; }
+
+@media (width <= 720px) {
+  #thank-you-video-root .tyv-top,
+  #thank-you-video-root .tyv-stage,
+  #thank-you-video-root .tyv-footer { width: calc(100% - 32px); }
+  #thank-you-video-root .tyv-top { min-height: 70px; }
+  #thank-you-video-root .tyv-stage { padding-top: 22px; }
+  #thank-you-video-root .tyv-help small { display: none; }
+  #thank-you-video-root .tyv-confirmation { padding-top: 10px; }
+  #thank-you-video-root .tyv-video-visit-card { grid-template-columns: 1fr; gap: 12px; padding: 21px 17px; }
+  #thank-you-video-root .tyv-video-icon { width: 40px; height: 40px; }
+  #thank-you-video-root .tyv-calendar-head,
+  #thank-you-video-root .tyv-checkout { padding: 19px 17px; }
+  #thank-you-video-root .tyv-checkout-complete { margin: 17px; }
+  #thank-you-video-root .tyv-coupon-row,
+  #thank-you-video-root .tyv-paypal-grid { grid-template-columns: 1fr; }
+  #thank-you-video-root .tyv-coupon .tyv-secondary { width: 100%; }
+  #thank-you-video-root .tyv-primary { min-width: 145px; padding: 14px 20px; }
+  #thank-you-video-root .tyv-follow-up-card { gap: 13px; padding: 18px 16px; }
+  #thank-you-video-root .tyv-support-cta { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #thank-you-video-root *,
+  #thank-you-video-root *::before,
+  #thank-you-video-root *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+
+@media (prefers-color-scheme: dark) {
+  #thank-you-video-root { color: #f7fbfa; background: var(--tyv-dark); color-scheme: dark; }
+  #thank-you-video-root .tyv-brand,
+  #thank-you-video-root .tyv-brand-direct { color: #f7fbfa; }
+  #thank-you-video-root .tyv-brand-method,
+  #thank-you-video-root .tyv-help,
+  #thank-you-video-root .tyv-offer-label,
+  #thank-you-video-root .tyv-step-label { color: var(--tyv-dark-button-end); }
+  #thank-you-video-root .tyv-help small,
+  #thank-you-video-root .tyv-lede,
+  #thank-you-video-root .tyv-calendar-head p,
+  #thank-you-video-root .tyv-calendar-locked p,
+  #thank-you-video-root .tyv-video-visit-card > div:last-child > p:not(.tyv-offer-label),
+  #thank-you-video-root .tyv-checkout > p,
+  #thank-you-video-root .tyv-checkout-note,
+  #thank-you-video-root .tyv-follow-up-card p,
+  #thank-you-video-root .tyv-no-intake > p:not(.tyv-eyebrow),
+  #thank-you-video-root .tyv-footer a,
+  #thank-you-video-root .tyv-checkout-complete p { color: var(--tyv-dark-copy); }
+  #thank-you-video-root .tyv-confirmation h1,
+  #thank-you-video-root .tyv-virtual-badge,
+  #thank-you-video-root .tyv-confirmation h2,
+  #thank-you-video-root .tyv-confirmation h3,
+  #thank-you-video-root .tyv-calendar-head h2,
+  #thank-you-video-root .tyv-follow-up-heading h2,
+  #thank-you-video-root .tyv-no-intake h2 { color: var(--tyv-dark-heading); }
+  #thank-you-video-root .tyv-demo-banner { border-color: var(--tyv-dark-button-end); color: #e9f5d7; background: var(--tyv-heading); }
+  #thank-you-video-root .tyv-checkmark,
+  #thank-you-video-root .tyv-video-icon,
+  #thank-you-video-root .tyv-follow-up-icon { color: #d6ff9e; background: var(--tyv-heading); }
+  #thank-you-video-root .tyv-video-visit-card,
+  #thank-you-video-root .tyv-calendar-card,
+  #thank-you-video-root .tyv-checkout,
+  #thank-you-video-root .tyv-no-intake,
+  #thank-you-video-root .tyv-secondary,
+  #thank-you-video-root .tyv-coupon input,
+  #thank-you-video-root .tyv-paypal-field > div { color: #f7fbfa; border-color: var(--tyv-dark-border); background: var(--tyv-dark-panel); }
+  #thank-you-video-root .tyv-video-visit-card { border-color: var(--tyv-dark-button-end); }
+  #thank-you-video-root .tyv-calendar-head,
+  #thank-you-video-root .tyv-checkout,
+  #thank-you-video-root .tyv-coupon,
+  #thank-you-video-root .tyv-checkout-card-fields,
+  #thank-you-video-root .tyv-apple-pay-option { border-color: var(--tyv-dark-border); }
+  #thank-you-video-root .tyv-calendar-locked,
+  #thank-you-video-root .tyv-coupon-confirmed,
+  #thank-you-video-root .tyv-virtual-badge,
+  #thank-you-video-root .tyv-checkout-complete { color: #f7fbfa; background: var(--tyv-heading); }
+  #thank-you-video-root .tyv-calendar-locked svg,
+  #thank-you-video-root .tyv-coupon-confirmed strong { color: #d6ff9e; }
+  #thank-you-video-root .tyv-primary,
+  #thank-you-video-root .tyv-support-cta { color: #fff; background: linear-gradient(90deg, var(--tyv-teal), var(--tyv-deep-teal)); }
+  #thank-you-video-root .tyv-primary:focus-visible,
+  #thank-you-video-root .tyv-secondary:focus-visible,
+  #thank-you-video-root .tyv-support-cta:focus-visible,
+  #thank-you-video-root .tyv-footer a:focus-visible,
+  #thank-you-video-root .tyv-help:focus-visible,
+  #thank-you-video-root .tyv-brand:focus-visible { outline-color: var(--tyv-dark-button-start); }
+  #thank-you-video-root .tyv-coupon label { color: #f7fbfa; }
+  #thank-you-video-root .tyv-coupon input:focus { border-color: var(--tyv-dark-button-start); box-shadow: 0 0 0 3px rgb(182 228 110 / 18%); }
+  #thank-you-video-root .tyv-checkout-status[data-kind="success"] { color: #d6ff9e; }
+  #thank-you-video-root .tyv-checkout-status[data-kind="error"],
+  #thank-you-video-root .tyv-checkout-error { color: #ffb4ab; }
+  #thank-you-video-root .tyv-paypal-field > span { color: var(--tyv-dark-copy); }
+  #thank-you-video-root .tyv-footer { border-color: var(--tyv-dark-border); }
+}

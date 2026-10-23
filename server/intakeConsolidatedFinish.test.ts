@@ -59,6 +59,6 @@ describe("consolidated local intake finish", () => {
     expect(intake).toContain('sms_opt_in:t.smsOptIn===!0');
     expect(intake).toContain('glp1_consent:t.wConsent===!0');
     expect(app).toContain('const receipt=await MmdSubmitFreeIntake("w",answers,demo)');
-    expect(app).toContain('window.location.replace("/intake/thank-you/"');
+    expect(app).toContain('window.location.replace(receipt.redirect_url)');
   });
 });

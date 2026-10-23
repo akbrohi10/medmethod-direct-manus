@@ -177,6 +177,7 @@ function errorMessage(error: unknown) {
   return error instanceof Error && !/fetch failed|network|ECONN|UND_ERR/i.test(error.message) ? error.message : "Unable to complete the request. Please try again.";
 }
 
+type IntakeRedirectUrl = "/thank-you-video" | "/intake/thank-you/";
 type FreeResult = {
   submission_id: string;
   submission_token: string;
@@ -184,6 +185,7 @@ type FreeResult = {
   video_visit_interest: boolean;
   is_test: boolean;
   payment_status: "NOT_REQUIRED";
+  redirect_url: IntakeRedirectUrl;
 };
 type OrderResult = { order_id: string; approval_url: string; approval_token: string; environment: PayPalMode; payment_method: PaymentMethod };
 type Completion = { submission_id: string; payment_status: "COMPLETED"; capture_id: string; environment: PayPalMode };
@@ -264,6 +266,10 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (!record.result) throw new Error("The intake receipt is not ready.");
     return record.result;
   }
+  function redirectUrlFor(receipt: CompletedFreeIntakeReceipt): IntakeRedirectUrl {
+    // The destination is derived from the accepted receipt, never a client redirect value.
+    return receipt.video_visit_interest ? "/thank-you-video" : "/intake/thank-you/";
+  }
   async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>): Promise<FreeResult> {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
@@ -331,9 +337,9 @@ export function registerIntakePaymentRoutes(app: Express) {
         consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt);
       }
       pending.delivered = true;
-      pending.receipt = receipt;
+      const storedReceipt = pending.receipt = receipt;
       pending.token = preparedReceiptToken;
-      pending.result = { submission_id: receipt.submission_id, submission_token: pending.token, sms_opt_in: receipt.sms_opt_in, video_visit_interest: receipt.video_visit_interest, is_test: receipt.is_test, payment_status: "NOT_REQUIRED" };
+      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(storedReceipt) };
       // Remove all patient, clinical, consent, and contact contents immediately after acceptance.
       delete pending.deliveryPayload;
       return pending.result;
