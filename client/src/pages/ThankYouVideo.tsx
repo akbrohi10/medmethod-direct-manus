@@ -1,306 +1,193 @@
-import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  ArrowRight,
-  CheckCircle,
-  LockKeyhole,
-  Mail,
-  MessageSquare,
-  Phone,
-  UserPlus,
-  Video,
-} from "lucide-react";
+import { ArrowRight, CheckCircle, Mail, MessageSquare, UserPlus } from "lucide-react";
 import "./thank-you-video.css";
 
-const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
-
-const followUpSteps = [
-  {
-    Icon: UserPlus,
-    label: "Step 1",
-    title: "Create Your Patient Account",
-    description:
-      "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate with Dr. Al-Deek and our care team before your appointment.",
-  },
-  {
-    Icon: Mail,
-    label: "Step 2",
-    title: "Accept Your Calendar Invite",
-    description:
-      "Check your email for a calendar invitation and accept it now. This confirms your time slot with Dr. Al-Deek.",
-  },
-  {
-    Icon: MessageSquare,
-    label: "Step 3",
-    title: "Reply to Our Text to Secure Your Spot",
-    description:
-      "You'll receive a confirmation text shortly. Reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.",
-  },
-];
-
-/**
- * The optional-video confirmation surface. Payment and paid-calendar behavior are
- * intentionally owned by /intake/thank-you-video.js after it verifies a receipt.
- */
 export default function ThankYouVideo() {
-  useEffect(() => {
-    // Effects run after this page's DOM has committed. Do not manipulate SDK globals
-    // during cleanup; another mounted payment surface may still use them.
-    const selector = 'script[data-thank-you-video-script="true"]';
-    if (document.querySelector(selector)) return;
-
-    const script = document.createElement("script");
-    script.src = "/intake/thank-you-video.js";
-    script.async = true;
-    script.dataset.thankYouVideoScript = "true";
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
   return (
     <>
       <Helmet>
-        <title>Zoom Video Visit — $39 | MedMethod Direct</title>
-        <meta
-          name="description"
-          content="Review your intake next steps and, if desired, add an optional $39 Zoom video visit."
-        />
+        <title>You're Confirmed | MedMethod Direct</title>
+        <meta name="description" content="Your $39 Zoom video visit payment is confirmed. Choose a time with Dr. Al-Deek, then follow the next steps." />
         <meta name="robots" content="noindex, nofollow" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-        />
       </Helmet>
 
-      <div className="thank-you-video" id="thank-you-video-root">
-        <header className="tyv-top">
-          <a className="tyv-brand" href="/" aria-label="MedMethod Direct home">
-            <span className="tyv-brand-name">
-              <span className="tyv-brand-med">Med</span>
-              <span className="tyv-brand-method">Method</span>
-            </span>
-            <span className="tyv-brand-direct">
-              <i />
-              DIRECT
-              <i />
-            </span>
-          </a>
-          <a className="tyv-help" href="tel:+18883627011">
-            <Phone aria-hidden="true" />
-            <span>
-              <strong>(888) 362-7011</strong>
-              <small>Need help?</small>
-            </span>
-          </a>
-        </header>
-
-        <main className="tyv-stage" id="confirmed-intake" aria-labelledby="video-page-title">
-          <div className="tyv-demo-banner" id="demo-banner" hidden role="status">
-            DEMO DATA — SANDBOX VIDEO-VISIT PAYMENT TEST
-          </div>
-
-          <section className="tyv-confirmation">
-            <div className="tyv-checkmark" aria-hidden="true">
-              <CheckCircle />
-            </div>
-            <h1 id="video-page-title">Zoom video visit — $39</h1>
-            <p className="tyv-lede" id="video-page-copy">
-              Complete your intake, then pick a time to meet with Dr. Al-Deek.
-            </p>
-            <div className="tyv-virtual-badge">100% Virtual — No Office Visit Needed</div>
-
-            <section className="tyv-video-visit-card" id="video-visit-card" aria-labelledby="video-visit-title">
-              <div className="tyv-video-icon" aria-hidden="true">
-                <Video />
-              </div>
-              <div>
-                <p className="tyv-offer-label">Zoom video visit — $39</p>
-                <h2 id="video-visit-title">Prefer a face-to-face conversation?</h2>
-                <p>
-                  Add an optional Zoom video visit with a doctor specializing in medical weight loss.
-                </p>
-                <p className="tyv-video-reassurance">
-                  No monthly charge and no commitment. This is optional; declining, cancelling, or a payment issue never affects your intake.
-                </p>
-                <button className="tyv-primary" id="open-video-checkout" type="button" disabled>
-                  Add Zoom Video Visit — $39
-                </button>
-              </div>
-            </section>
-
-            <section className="tyv-calendar-card" aria-labelledby="video-calendar-heading">
-              <div className="tyv-calendar-head">
-                <h2 id="video-calendar-heading">Choose a time for your Zoom video visit</h2>
-                <p>Complete your optional video visit payment below to choose a time.</p>
-              </div>
-
-              <div id="video-calendar" data-src={BOOKING_URL} aria-live="polite">
-                <div className="tyv-calendar-locked">
-                  <LockKeyhole aria-hidden="true" />
-                  <p>Complete your $39 Zoom video visit payment to choose a time.</p>
-                </div>
-              </div>
-
-              <section className="tyv-checkout" id="video-checkout" aria-labelledby="checkout-title" hidden>
-                <h2 id="checkout-title">Zoom video visit — $39</h2>
-                <p>Payment is only for the optional Zoom video visit — $39. Your intake remains complete either way.</p>
-                <p className="tyv-checkout-status" id="checkout-status" aria-live="polite">
-                  Payment is available after your intake receipt is verified.
-                </p>
-
-                <section className="tyv-coupon" aria-labelledby="coupon-title">
-                  <label id="coupon-title" htmlFor="video-coupon-code">
-                    Optional Zoom video visit coupon
-                  </label>
-                  <div className="tyv-coupon-row">
-                    <input
-                      id="video-coupon-code"
-                      type="text"
-                      inputMode="text"
-                      autoComplete="off"
-                      maxLength={64}
-                      placeholder="Enter coupon code"
-                      aria-describedby="video-coupon-note"
-                      disabled
-                    />
-                    <button className="tyv-secondary" id="validate-video-coupon" type="button" disabled>
-                      Apply
-                    </button>
-                  </div>
-                  <p className="tyv-checkout-note" id="video-coupon-note">
-                    A coupon can waive only the optional video visit. Your intake remains complete.
-                  </p>
-                  <div className="tyv-coupon-confirmed" id="coupon-confirmed" hidden>
-                    <strong>Video-visit coupon confirmed</strong>
-                    <p>No payment will be collected for the video visit.</p>
-                    <button className="tyv-primary" id="submit-video-coupon" type="button" disabled>
-                      Continue without payment
-                    </button>
-                  </div>
-                </section>
-
-                <div className="tyv-checkout-payment-area" id="checkout-payment-area">
-                  <p className="tyv-checkout-note">
-                    Enter card details only in PayPal-hosted secure fields. MedMethod Direct does not receive or store card numbers or security codes.
-                  </p>
-                  <div className="tyv-checkout-card-fields" id="checkout-card-fields" hidden>
-                    <h3>Pay $39 for your Zoom video visit</h3>
-                    <p className="tyv-checkout-note">Your card details stay inside PayPal-hosted secure fields.</p>
-                    <div className="tyv-paypal-inputs" aria-busy="true">
-                      <label className="tyv-paypal-field">
-                        <span>Cardholder name</span>
-                        <div id="video-card-name" />
-                      </label>
-                      <label className="tyv-paypal-field">
-                        <span>Card number</span>
-                        <div id="video-card-number" />
-                      </label>
-                      <div className="tyv-paypal-grid">
-                        <label className="tyv-paypal-field">
-                          <span>Expiration date</span>
-                          <div id="video-card-expiry" />
-                        </label>
-                        <label className="tyv-paypal-field">
-                          <span>Security code</span>
-                          <div id="video-card-cvv" />
-                        </label>
-                      </div>
-                    </div>
-                    <button className="tyv-primary tyv-paypal-pay" id="pay-video-card" type="button" disabled>
-                      Pay $39 for your Zoom video visit
-                    </button>
-                  </div>
-                  <div className="tyv-apple-pay-option" id="video-apple-pay" hidden />
-                </div>
-                <p className="tyv-checkout-error" id="checkout-error" role="alert" aria-live="assertive" />
-              </section>
-
-              <section className="tyv-checkout-complete" id="video-payment-pending" aria-live="polite" hidden>
-                <h2>Check your existing video payment</h2>
-                <p>
-                  Your optional video checkout is pending confirmation. Check that payment before trying again. Your intake remains complete.
-                </p>
-                <button className="tyv-secondary" id="recover-video-payment" type="button">
-                  Check payment confirmation
-                </button>
-                <p id="video-recovery-status" role="status" />
-              </section>
-
-              <section className="tyv-checkout-complete" id="video-visit-complete" aria-live="polite" hidden>
-                <h2 id="video-complete-title">Zoom video visit payment confirmed</h2>
-                <p id="video-complete-copy">
-                  Thank you. You can now choose a time for your optional Zoom video visit.
-                </p>
-              </section>
-            </section>
-
-            <section className="tyv-follow-up-heading" aria-labelledby="next-steps-title">
-              <p>What Happens Next</p>
-              <h2 id="next-steps-title">Complete these 3 steps to prepare for your visit</h2>
-            </section>
-
-            <section className="tyv-follow-ups" aria-label="Appointment preparation steps">
-              {followUpSteps.map((step, index) => {
-                const { Icon } = step;
-                const isCareMessageStep = index === 2;
-
-                return (
-                  <div className="tyv-follow-up-wrap" key={step.label}>
-                    <article className="tyv-follow-up-card">
-                      <div className="tyv-follow-up-icon" aria-hidden="true">
-                        <Icon />
-                      </div>
-                      <div>
-                        <span className="tyv-step-label">{step.label}</span>
-                        {isCareMessageStep ? (
-                          <>
-                            <h3 id="care-message-title">{step.title}</h3>
-                            <p id="care-message-copy">{step.description}</p>
-                          </>
-                        ) : (
-                          <>
-                            <h3>{step.title}</h3>
-                            <p>{step.description}</p>
-                          </>
-                        )}
-                        {index === 0 && <a className="tyv-primary tyv-create-account" href="https://medmethoddirect.md-hq.com/registration" target="_blank" rel="noopener noreferrer">Create Account<ArrowRight aria-hidden="true" /></a>}
-                      </div>
-                    </article>
-                    {index < followUpSteps.length - 1 && <div className="tyv-step-connector" aria-hidden="true"><i /><i /><i /></div>}
-                  </div>
-                );
-              })}
-            </section>
-
-            <a className="tyv-support-cta" href="tel:+18883627011">
-              <Phone aria-hidden="true" />
-              <span>
-                <strong>(888) 362-7011</strong>
-                <small>Questions? Call us anytime</small>
+      <div id="thank-you-video-root" className="min-h-screen bg-[#faf9f7] flex flex-col items-center justify-start px-4 pt-0 pb-12 md:pb-20">
+        {/* Minimal Logo Header */}
+        <div className="w-full max-w-2xl py-5 mb-6 flex items-center justify-between">
+          <a href="/" className="inline-flex flex-col items-center leading-none" style={{ width: "fit-content" }}>
+            <div className="flex items-baseline gap-0">
+              <span
+                className="font-black text-[#113a3a]"
+                style={{ fontFamily: "Montserrat, Arial, sans-serif", fontSize: "1.3rem", letterSpacing: "-0.02em" }}
+              >
+                Med
               </span>
-            </a>
-          </section>
-
-          <aside className="tyv-no-intake" id="no-intake" aria-labelledby="no-intake-title" hidden>
-            <p className="tyv-eyebrow">Need to start over?</p>
-            <h2 id="no-intake-title">Complete your intake to get started</h2>
-            <p>Your intake receipt is needed before an optional Zoom video visit can be paid for or scheduled.</p>
-            <a className="tyv-secondary" href="/intake/">Complete your intake</a>
-          </aside>
-        </main>
-
-        <footer className="tyv-footer">
-          <a href="/">
-            Continue exploring MedMethod Direct
-            <ArrowRight aria-hidden="true" />
+              <span
+                className="font-black"
+                style={{
+                  fontFamily: "Montserrat, Arial, sans-serif",
+                  fontSize: "1.3rem",
+                  letterSpacing: "-0.02em",
+                  backgroundImage: "linear-gradient(135deg, #0e7c7b 0%, #075c5c 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Method
+              </span>
+            </div>
+            <div className="flex items-center gap-1 mt-0.5 w-full">
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #0e7c7b, #075c5c)" }} />
+              <span
+                className="text-[#113a3a] font-semibold tracking-[0.25em]"
+                style={{ fontFamily: "Montserrat, Arial, sans-serif", fontSize: "0.5rem" }}
+              >
+                DIRECT
+              </span>
+              <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #075c5c, #0e7c7b)" }} />
+            </div>
           </a>
-        </footer>
+          <a
+            href="tel:+18883627011"
+            className="inline-flex items-center gap-2 text-[#075c5c] hover:text-[#0e7c7b] transition-colors"
+            style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm font-bold">(888) 362-7011</span>
+              <span className="text-[10px] font-medium text-[#59656f] hidden sm:block">Need help?</span>
+            </div>
+          </a>
+        </div>
+
+        <VideoBookingFollowup />
+
+        {/* Continue Exploring Link */}
+        <div className="w-full max-w-lg text-center pt-6 border-t border-[#d7e1dd]">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 text-[#59656f] hover:text-[#0e7c7b] text-sm font-medium transition-colors"
+            style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
+          >
+            Continue exploring MedMethod Direct
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
       </div>
     </>
+  );
+}
+
+const BRAND_ACCENT = "#0e7c7b";
+const BRAND_DEEP = "#075c5c";
+const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9Y826";
+
+const steps = [
+  {
+    icon: UserPlus,
+    label: "Step 1",
+    title: "Create Your Patient Account",
+    description: "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate with Dr. Al-Deek and our care team before your appointment.",
+    color: BRAND_ACCENT,
+    link: { href: "https://medmethoddirect.md-hq.com/registration", text: "Create Account" },
+  },
+  {
+    icon: Mail,
+    label: "Step 2",
+    title: "Accept Your Calendar Invite",
+    description: "Check your email for a calendar invitation and accept it now. This confirms your time slot with Dr. Al-Deek.",
+    color: BRAND_DEEP,
+  },
+  {
+    icon: MessageSquare,
+    label: "Step 3",
+    title: "Reply to Our Text to Secure Your Spot",
+    description: "You'll receive a confirmation text shortly. Reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.",
+    color: BRAND_ACCENT,
+  },
+];
+
+interface VideoBookingFollowupProps {
+  firstName?: string;
+  email?: string;
+  compact?: boolean;
+}
+
+/** Shared booking and follow-up material used on /thank-you-video only; original booking page is unchanged. */
+function VideoBookingFollowup({ firstName, email, compact = false }: VideoBookingFollowupProps) {
+  const calendarParams = new URLSearchParams();
+  if (firstName) calendarParams.set("name", firstName);
+  if (email) calendarParams.set("email", email);
+  const calendarSrc = `${BOOKING_URL}${calendarParams.size ? `?${calendarParams.toString()}` : ""}`;
+  const spacing = compact ? "mb-6" : "mb-10";
+
+  return (
+    <div className={compact ? "pb-6" : ""}>
+      <div className={`text-center ${spacing}`}>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[#0e7c7b]/10 to-[#075c5c]/10 mb-4">
+          <CheckCircle className="w-8 h-8 text-[#0e7c7b]" strokeWidth={1.8} />
+        </div>
+        <h2 className="text-2xl font-bold text-[#113a3a] mb-2" style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>You're Booked!</h2>
+        <p className="text-[#59656f] text-sm max-w-md mx-auto">
+          Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek.
+        </p>
+        <div className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-[#0e7c7b]/5 border border-[#0e7c7b]/20">
+          <span className="w-2 h-2 rounded-full bg-[#72a40b] animate-pulse" />
+          <span className="text-xs font-medium text-[#113a3a]">100% Virtual - No Office Visit Needed</span>
+        </div>
+      </div>
+
+      <div className={`w-full max-w-2xl mx-auto ${spacing}`}>
+        <div className="bg-white rounded-2xl border border-[#d7e1dd] shadow-sm overflow-hidden">
+          <div className="px-5 pt-4 pb-3 border-b border-[#d7e1dd]">
+            <h3 className="text-base font-bold text-[#113a3a]">Book Your Zoom Video Visit with Dr. Al-Deek</h3>
+            <p className="text-sm text-[#59656f] mt-0.5">Choose a date and time that works for you</p>
+          </div>
+          <iframe
+            src={calendarSrc}
+            className="w-full border-0"
+            style={{ height: compact ? "min(760px, calc(95vh - 200px))" : "clamp(700px, 90vw, 900px)" }}
+            title="Book your Zoom video visit with Dr. Al-Deek"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div className="w-full max-w-lg mx-auto mb-5 text-center">
+        <span className="text-xs font-extrabold tracking-[0.2em] uppercase" style={{ color: BRAND_ACCENT }}>What Happens Next</span>
+        <h3 className="text-lg font-bold text-[#113a3a] mt-1">Complete these 3 steps to prepare for your visit</h3>
+      </div>
+
+      <div className={`w-full max-w-lg mx-auto ${spacing}`}>
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={step.label}>
+              <div className="bg-white rounded-2xl border border-[#d7e1dd] p-5 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${step.color}12, ${step.color}22)` }}><Icon className="w-5 h-5" style={{ color: step.color }} /></div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-xs font-bold tracking-[0.1em] uppercase mb-1 block" style={{ color: step.color }}>{step.label}</span>
+                    <h4 className="text-base font-bold text-[#113a3a] mb-1">{step.title}</h4>
+                    <p className="text-[#59656f] text-sm leading-relaxed">{step.description}</p>
+                    {step.link && <a href={step.link.href} target="_blank" rel="noopener noreferrer" className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-gradient-to-r from-[#0e7c7b] to-[#075c5c] text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all">{step.link.text}<ArrowRight className="w-4 h-4" /></a>}
+                  </div>
+                </div>
+              </div>
+              {index < steps.length - 1 && <div className="flex flex-col items-center py-2"><div className="w-1 h-1 rounded-full bg-[#0e7c7b]/30" /><div className="w-1 h-1 rounded-full bg-[#0e7c7b]/30 mt-1.5" /><div className="w-1 h-1 rounded-full bg-[#0e7c7b]/30 mt-1.5" /></div>}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="w-full max-w-lg mx-auto">
+        <a href="tel:8883627011" className="tyv-intake-primary flex items-center justify-center gap-3 w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0e7c7b] to-[#075c5c] text-white shadow-lg hover:shadow-xl transition-all">
+          <div className="text-center"><span className="block text-lg font-bold">(888) 362-7011</span><span className="block text-xs text-white/80 font-medium">Questions? Call us anytime</span></div>
+        </a>
+      </div>
+    </div>
   );
 }
