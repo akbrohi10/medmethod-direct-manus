@@ -55,7 +55,7 @@ describe("local intake handoff client", () => {
   });
 
   it("keeps presentation pricing separate from delivery treatment interest and sends the exact optional SMS consent", () => {
-    expect(intake).toContain("return t?[t.name,t.price].filter(Boolean).join(` — `):``");
+    expect(intake).toContain("return t?[t.name,t.price,t.pricingNote,t.note,...t.specs.map(e=>e.value)].filter(Boolean).join(` — `):``");
     expect(intake).toContain("let e=p.find(e=>e.value===t.w04);e&&(a.treatment_interest=e.name)");
     expect(intake).toContain(smsText);
     expect(intake).toContain("sms_opt_in:t.smsOptIn===!0");

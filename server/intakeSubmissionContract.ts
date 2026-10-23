@@ -65,7 +65,12 @@ export function validateIntakeDraft(value: unknown): IntakeDraft {
   if (typeof selected !== "string") throw new Error("The treatment selection is missing.");
   const option = treatmentCatalog.glp1.options.find(o => o.value === selected);
   // Only the catalog's human-readable name is delivered; pricing is not a clinical answer.
-  if (option) draft.answers.w.treatment_interest = option.name;
+  if (option) {
+    const display = treatmentCatalog.glp1.pageDisplays.weightLossIntake[
+      selected as keyof typeof treatmentCatalog.glp1.pageDisplays.weightLossIntake
+    ];
+    draft.answers.w.treatment_interest = display?.name ?? option.name;
+  }
   else if (!/not.?sure|recommend|unsure/i.test(selected)) throw new Error("The treatment selection is invalid.");
   for (const key of Object.keys(draft.answers.w)) {
     if (!/^w\d+[A-Za-z]*$/.test(key) && !["ft", "inch", "lb", "wConsent", "wDecline", "treatment_interest"].includes(key)) {
