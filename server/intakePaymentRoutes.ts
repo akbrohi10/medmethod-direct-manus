@@ -267,8 +267,8 @@ export function registerIntakePaymentRoutes(app: Express) {
     return record.result;
   }
   function redirectUrlFor(receipt: CompletedFreeIntakeReceipt): IntakeRedirectUrl {
-    // The destination is derived from the accepted receipt, never a client redirect value.
-    return receipt.video_visit_interest ? "/thank-you-video" : "/intake/thank-you/";
+    // Every accepted intake finishes here, regardless of video interest or client redirect values.
+    return "/intake/thank-you/";
   }
   async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>): Promise<FreeResult> {
     cleanup();
