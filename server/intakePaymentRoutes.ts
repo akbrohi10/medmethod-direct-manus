@@ -182,7 +182,7 @@ function errorMessage(error: unknown) {
   return error instanceof Error && !/fetch failed|network|ECONN|UND_ERR/i.test(error.message) ? error.message : "Unable to complete the request. Please try again.";
 }
 
-type IntakeRedirectUrl = "/thank-you-video" | "/intake/thank-you/";
+type IntakeRedirectUrl = "/thank-you-video" | "/intake/thank-you/" | "/intake/thank-you/?prefill=demo";
 type FreeResult = {
   submission_id: string;
   submission_token: string;
@@ -271,9 +271,11 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (!record.result) throw new Error("The intake receipt is not ready.");
     return record.result;
   }
-  function redirectUrlFor(receipt: CompletedFreeIntakeReceipt): IntakeRedirectUrl {
-    // Every accepted intake finishes here, regardless of video interest or client redirect values.
-    return "/intake/thank-you/";
+  function redirectUrlFor(explicitDemoPrefill: boolean, demo: boolean): IntakeRedirectUrl {
+    // The exact approved demo path is the only completion flow that retains its
+    // test-mode marker. Normal intake and the advertised sandbox demo continue
+    // to use the clean fixed thank-you URL regardless of client redirect values.
+    return explicitDemoPrefill && demo ? "/intake/thank-you/?prefill=demo" : "/intake/thank-you/";
   }
   async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, explicitDemoPrefill = false): Promise<FreeResult> {
     cleanup();
@@ -283,9 +285,9 @@ export function registerIntakePaymentRoutes(app: Express) {
     const hash = fingerprint({ draft, video_visit_interest: input.video_visit_interest, is_test: isTest });
     let record = freeSubmissions.get(draft.submission_id);
     if (record && record.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
-    if (record?.delivered) return freeResult(record);
+    if (record?.delivered) return { ...freeResult(record), redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
     const inFlight = deliveringFree.get(draft.submission_id);
-    if (inFlight) return inFlight;
+    if (inFlight) return { ...(await inFlight), redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
     // An unapproved demo flag is not a bypass; the normal phone requirement remains in force.
     const phone = phoneAttestation(draft, input.phone_verification_token, demo);
     const phoneTokenKey = phone.phone_verified && typeof input.phone_verification_token === "string"
@@ -344,7 +346,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       pending.delivered = true;
       const storedReceipt = pending.receipt = receipt;
       pending.token = preparedReceiptToken;
-      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(storedReceipt) };
+      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
       // Remove all patient, clinical, consent, and contact contents immediately after acceptance.
       delete pending.deliveryPayload;
       return pending.result;

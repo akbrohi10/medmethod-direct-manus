@@ -2923,3 +2923,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - On `/intake/thank-you/` only, successful optional-video completion now replaces the current page with `/thank-you-video` after the server confirms either an exact PayPal `COMPLETED` capture or an exact referral `WAIVED` outcome. The path contains no patient, receipt, or payment data.
 - Free intake, pending/failed payment, malformed status, and invalid-referral states remain on the existing intake thank-you page; server payment validation, the intake form, the original thank-you pages, and the booking page were not changed.
 - Validated 54 focused tests; full suite 568 passed / 2 skipped with the single documented pre-existing LegitScript compliance failure; TypeScript/build passed. Intercepted development and production browser QA at 375px and 1440px verified confirmed paid/waived redirects and non-redirect free/invalid paths without real payments, waivers, bookings, or deliveries.
+
+## Demo Thank-You Redirect Retention — 2026-10-23
+- On local `/intake/` only, an exact `?prefill=demo` test submission now receives the server-owned completion URL `/intake/thank-you/?prefill=demo`; normal submissions continue to receive the clean `/intake/thank-you/` URL.
+- The intake client accepts the demo query only when it used the exact approved demo submission path. All other returned URLs and normal submissions remain limited to the existing safe destinations.
+- Validated 45 focused server/client regressions, TypeScript, production build, and mocked complete browser flows at 375px and 1440px (demo query retained; normal verified flow remains clean; retry stable; no SMS, payment, waiver, webhook, or other external action). Full suite: 569 passed, 2 skipped, plus the single documented pre-existing `legitScriptCompliance` imported-content scan failure.
+- Checkpoint only; not published.

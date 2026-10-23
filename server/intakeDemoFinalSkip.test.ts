@@ -13,7 +13,7 @@ const consent = { type: "consent" };
 const valid = { wConsent: true, wDecline: false, checkoutAck: true, contactValid: true, phoneVerificationSettings: { mode: "live", required: true, demo_available: false } };
 
 function helpers(search: string) {
-  const request = vi.fn().mockResolvedValue({ submission_id: "synthetic-only", submission_token: "synthetic-only-token", is_test: true, payment_status: "NOT_REQUIRED", redirect_url: "/intake/thank-you/" });
+  const request = vi.fn().mockResolvedValue({ submission_id: "synthetic-only", submission_token: "synthetic-only-token", is_test: true, payment_status: "NOT_REQUIRED", redirect_url: search === "?prefill=demo" ? "/intake/thank-you/?prefill=demo" : "/intake/thank-you/" });
   const build = vi.fn((_route, _answers, _source, demo) => ({ is_test: demo }));
   const source = `${intake.slice(phoneStart, phoneEnd)};${intake.slice(finishStart, finishEnd)};${intake.slice(submitStart, submitEnd)};return { MmdIntakePhoneReady, MmdIntakeFinishReady, MmdLivePhoneVerificationToken, MmdSubmitFreeIntake };`;
   const api = new Function("window", "URLSearchParams", "x", "se", "Te", "be", source)(
@@ -60,7 +60,13 @@ describe("explicit demo final-step mobile verification skip", () => {
     expect(JSON.parse(request.mock.calls[0][1].body)).toMatchObject({ intake: { is_test: true }, demo_mode: true, phone_verification_token: null });
     expect(build).toHaveBeenCalledWith("w", valid, "mmd-intake-web", true);
     expect(result.is_test).toBe(true);
-    expect(result.redirect_url).toBe("/intake/thank-you/");
+    expect(result.redirect_url).toBe("/intake/thank-you/?prefill=demo");
+  });
+
+  it("accepts the demo thank-you query only for the exact approved demo request", async () => {
+    const { api } = helpers("?prefill=demo");
+    await expect(api.MmdSubmitFreeIntake("w", valid, false)).rejects.toThrow("could not be confirmed");
+    expect(intake).toContain('const allowedRedirects=demoSubmission?["/intake/thank-you/?prefill=demo"]:["/thank-you-video","/intake/thank-you/"]');
   });
 
   it.each(["", "?prefill=Demo", "?prefill=demo&prefill=other"])("never sends the explicit test route for %s", async search => {

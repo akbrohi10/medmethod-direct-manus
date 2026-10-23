@@ -99,7 +99,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(mocks.attestation).toHaveBeenCalledWith("valid-phone-token", draft.patient.phone);
   });
 
-  it("returns the existing intake thank-you destination for both choices and ignores body or query redirect injection", async () => {
+  it("returns the clean thank-you destination for normal requests and ignores body or query redirect injection", async () => {
     const videoDraft = syntheticDraft(), videoNetwork = provider(videoDraft), videoRequest = harness();
     const video = await videoRequest(
       "POST", "/api/intake/submit",
@@ -161,7 +161,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     );
 
     expect(demo.code).toBe(201);
-    expect(demo.body).toMatchObject({ is_test: true, redirect_url: "/intake/thank-you/" });
+    expect(demo.body).toMatchObject({ is_test: true, redirect_url: "/intake/thank-you/?prefill=demo" });
     expect(network.events).toEqual(["relay"]);
     expect(network.payloads[0]).toMatchObject({ is_test: true, patient: { phone_verified: false, phone_verified_at: null } });
     expect(mocks.attestation).not.toHaveBeenCalled();
@@ -226,7 +226,7 @@ describe("free intake receipt and optional video visit handoff", () => {
   it("allows demo bypass only for an advertised sandbox demo and marks that free receipt synthetic", async () => {
     const draft = syntheticDraft(), network = provider(draft), request = harness();
     const demo = await request("POST", "/api/intake/submit", { intake: draft, demo_mode: true, video_visit_interest: true });
-    expect(demo.code).toBe(201); expect(demo.body.is_test).toBe(true);
+    expect(demo.code).toBe(201); expect(demo.body).toMatchObject({ is_test: true, redirect_url: "/intake/thank-you/" });
     expect(network.payloads[0].is_test).toBe(true); expect(network.payloads[0].patient.phone_verified).toBe(false);
     mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
     const forged = await request("POST", "/api/paypal/orders", { submission_token: demo.body.submission_token, payment_method: "card", demo_mode: true });
