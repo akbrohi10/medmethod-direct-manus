@@ -26,7 +26,7 @@ describe("local intake free ongoing care and optional video interest", () => {
   });
 
   it("submits for free without initializing payment or requiring a coupon", () => {
-    expect(intake).toContain("Complete My Free Intake");
+    expect(intake).toContain("Submit My Free Intake");
     expect(intake).toContain("No card, payment or video purchase is needed to submit your intake.");
     expect(intake).toContain("/api/intake/submit");
     expect(intake).not.toContain("/api/paypal/");
@@ -54,7 +54,7 @@ describe("local intake free ongoing care and optional video interest", () => {
     expect(intake).toContain("/api/phone-verification/confirm");
     expect(intake).toContain("Please verify your mobile number before submitting your free intake.");
     expect(intake).toContain("I confirm that my information is accurate and consent to securely submit this intake for clinical review. No payment is required.");
-    expect(app).toContain('setReturnScreen("w41")');
+    expect(app).toContain('setReturnScreen("w39")');
     expect(intake).toContain("I have read this information and consent to discuss GLP-1 treatment with my clinician.");
   });
 

@@ -82,7 +82,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain("FREE BONUS");
     expect(landing).not.toContain("Membership pricing");
     expect(landing).not.toContain("Member perspectives");
-    expect(intake).toContain("Complete My Free Intake");
+    expect(intake).toContain("Submit My Free Intake");
   });
 
   it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {
@@ -181,7 +181,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(archived).toContain("Having the same doctor throughout my care is a big reason I continue working with Dr. Al-Deek.");
     expect(landing).toContain("[data-archived-physician-testimonials]{display:none!important}");
     expect(intake).not.toContain("care-connection");
-    expect(intakeThankYou).toContain("A doctor specializing in medical weight loss will review your intake");
+    expect(intakeThankYou).toContain("Your free intake has been received. Follow the steps below to get started.");
   });
 
   it("preserves the approved DM Serif Display and DM Sans hero system during the landing-wide rollout", () => {
@@ -382,8 +382,9 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).toContain('name="robots" content="noindex,follow"');
     expect(intakeThankYou).toContain('href="https://medmethoddirect.com/intake/thank-you"');
     expect(intakeThankYou).toContain("What happens next");
-    expect(intakeThankYou).toContain("Free intake complete");
-    expect(intakeThankYou).toContain("Doctor-led weight-care review");
+    expect(intakeThankYou).toContain("Your intake is complete.");
+    expect(intakeThankYou).toContain("Check your text messages");
+    expect(intakeThankYou).not.toContain("Doctor-led weight-care review");
     expect(intakeThankYou).toContain("Check your email &amp; create your account");
     expect(intakeThankYou).toContain("Look for our welcome email with your Patient Portal link.");
     expect(intakeThankYou).toContain("Complete your Account Details &amp; Required Forms");

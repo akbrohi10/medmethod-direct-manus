@@ -80,6 +80,15 @@ describe("optional video visit confirmation client", () => {
     expect(page).toContain("Prefer a face-to-face conversation?");
     expect(page).toContain("Add a Video Visit — $39");
     expect(page).toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
+    expect(page).toContain('<strong id="care-message-title">Check your text messages</strong>');
+    expect(page).toContain("Look for a text from MedMethod Direct. Open it and reply to start chatting with our Care Team or a doctor.");
+    expect(page).not.toContain("Doctor-led weight-care review");
+    expect(page).not.toContain("Your intake is free.");
+    expect(page.indexOf('PatientPortalMenuHighlights_5e7b0fd0.png')).toBeLessThan(page.indexOf('id="video-visit-card"'));
+    expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
+    expect(page).toContain('class="start-over" href="/intake/">Start over</a>');
+    expect(source).toContain('title.textContent = "Use your secure Patient Portal"');
+    expect(source).toContain('copy.textContent = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms."');
   });
 
   it("posts only the submission token and approved payment method to the optional PayPal order API", async () => {

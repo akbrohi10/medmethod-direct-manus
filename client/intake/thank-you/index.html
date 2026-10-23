@@ -50,6 +50,8 @@
     .primary { border: 0; color: #fff; background: linear-gradient(90deg, #0e7c7b, #075c5c); }
     .primary:disabled, .secondary:disabled { cursor: not-allowed; opacity: .55; }
     .secondary { border: 1.5px solid #d7e1dd; background: #fff; color: #1f2937; }
+    .start-over { display: inline-block; margin-top: 8px; color: #59656f; font-size: .85rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .start-over:focus-visible { outline: 3px solid #0e7c7b; outline-offset: 4px; border-radius: 3px; }
     .confirmation-next-steps { margin: 30px 0 26px; text-align: left; }
     .confirmation-next-steps ol { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
     .confirmation-next-steps li { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 14px; min-height: 42px; font-size: 1rem; font-weight: 750; line-height: 1.35; }
@@ -130,7 +132,8 @@
       .video-visit-icon { border: 1px solid #31514e; }
       .primary { color: #0d2021; background: linear-gradient(90deg, #b6e46e, #84cbc7); }
       .portal-guide img { border-color: #31514e; box-shadow: 0 14px 30px rgba(0, 0, 0, .26); }
-      .next-steps-followup a { color: #b6e46e; }
+      .next-steps-followup a, .start-over { color: #b6e46e; }
+      .start-over:focus-visible { outline-color: #b6e46e; }
       .paypal-field span, .apple-pay-divider { color: #c9e4e1; }
       .coupon input:focus { border-color: #b6e46e; box-shadow: 0 0 0 3px #b6e46e2e; }
       .checkout-status[data-kind="success"] { color: #d6ff9e; }
@@ -152,19 +155,26 @@
 
       <section class="confirmation" id="confirmed-intake" aria-labelledby="confirmation-title" hidden>
         <div class="checkmark" aria-hidden="true">✓</div>
-        <p class="eyebrow">Free intake complete</p>
         <h1 id="confirmation-title">Your intake is complete.</h1>
-        <p class="lede">Your free intake has been received for ongoing asynchronous medical-weight-loss doctor care and follow-up. There is no commitment, and medication—if prescribed—is separate.</p>
+        <p class="lede">Your free intake has been received. Follow the steps below to get started.</p>
 
-        <div class="care-connect">
-          <div class="care-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7-4.2-7-10a4 4 0 0 1 7-2.6 4 4 0 0 1 7 2.6c0 5.8-7 10-7 10Z"/><path d="M8.5 12h7M12 8.5v7"/></svg></div>
-          <div>
-            <strong>Doctor-led weight-care review</strong>
-            <p>A doctor specializing in medical weight loss will review your intake and determine appropriate next steps. Care decisions are individualized and require appropriate consent.</p>
-          </div>
+        <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
+          <h2 id="next-steps-title">What happens next</h2>
+          <ol>
+            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your text messages</strong><span id="care-message-copy">Look for a text from MedMethod Direct. Open it and reply to start chatting with our Care Team or a doctor.</span></span></li>
+            <li><span class="step-number">2</span><span class="step-copy"><strong>Check your email &amp; create your account</strong><span>Look for our welcome email with your Patient Portal link. Click the link, create your username and password, and log in.</span></span></li>
+            <li><span class="step-number">3</span><span class="step-copy"><strong>Complete your Account Details &amp; Required Forms</strong><span>On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.</span></span></li>
+          </ol>
+        </section>
+
+        <figure class="portal-guide">
+          <img src="/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png" alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted" />
+        </figure>
+
+        <div class="next-steps-followup">
+          <p>Complete the portal steps above so the Care Team can help with the next steps in your care.</p>
+          <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">888-362-7011</a>.</p>
         </div>
-
-        <div class="confirmation-policy"><strong>Your intake is free.</strong> There is no ongoing charge or commitment from submitting it. Medication, if medically appropriate, is prescribed and billed separately.</div>
 
         <section class="video-visit-card" id="video-visit-card" aria-labelledby="video-visit-title">
           <div class="video-visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 5-3v10l-5-3"/></svg></div>
@@ -225,25 +235,7 @@
           <p id="video-complete-copy">Thank you. To coordinate your optional video visit, contact the Care Team at <a href="mailto:info@medmethoddirect.com">info@medmethoddirect.com</a> or <a href="tel:+18883627011">888-362-7011</a>.</p>
         </section>
 
-        <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
-          <h2 id="next-steps-title">What happens next</h2>
-          <ol>
-            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your care messages</strong><span id="care-message-copy">If you opted in to SMS, watch for care messages from MedMethod Direct. Standard text messages are not encrypted and may be seen by others with access to your phone.</span></span></li>
-            <li><span class="step-number">2</span><span class="step-copy"><strong>Check your email &amp; create your account</strong><span>Look for our welcome email with your Patient Portal link. Click the link, create your username and password, and log in.</span></span></li>
-            <li><span class="step-number">3</span><span class="step-copy"><strong>Complete your Account Details &amp; Required Forms</strong><span>On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.</span></span></li>
-          </ol>
-        </section>
-
-        <figure class="portal-guide">
-          <img src="/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png" alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted" />
-        </figure>
-
-        <div class="next-steps-followup">
-          <p>Complete the portal steps above so the Care Team can help with the next steps in your care.</p>
-          <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">888-362-7011</a>.</p>
-        </div>
-
-        <a class="secondary" href="/intake/">Start over</a>
+        <a class="start-over" href="/intake/">Start over</a>
       </section>
 
       <section class="anonymous-panel" id="no-intake" aria-labelledby="start-title" hidden>

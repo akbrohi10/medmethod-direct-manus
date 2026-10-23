@@ -77,7 +77,7 @@ describe("Weight-loss landing mobile audit polish", () => {
 
   it("preserves all five local intake destinations with free submission", () => {
     expect(landing.split('href="/intake/"').length - 1).toBe(5);
-    expect(read("client/intake/index.html")).toContain("Complete My Free Intake");
+    expect(read("client/intake/index.html")).toContain("Submit My Free Intake");
     expect(landing).toContain("<h2>A real doctor. Not a chatbot.</h2>");
     expect(landing).toContain("#how-it-works.wave-top::before{display:none}");
   });
