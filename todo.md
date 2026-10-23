@@ -2941,3 +2941,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - `/intake/thank-you/` now loads the same verified checkout script through a versioned, non-patient-data URL (`?v=video-booking-redirect-20261023`), forcing the current script to load immediately. A completed $39 payment or confirmed referral waiver then redirects to `/thank-you-video`; pending, failed, and invalid outcomes remain on the page.
 - Validated 61 focused checkout/payment/static tests, TypeScript, build, and intercepted development plus built-production browser flows for both paid and waived confirmation redirects. No additional charge, payment attempt, referral application, webhook, SMS, or other provider request occurred. Full suite: 570 passed, 2 skipped, with the one documented pre-existing `legitScriptCompliance` imported-content scan failure.
 - Checkpoint only; not published.
+
+## PayPal Capture-Response Compatibility — 2026-10-23
+- Preserved strict signed-order verification before capture: matching order ID, submission binding/custom ID, exact description, and exactly $39.00 USD remain required.
+- PayPal capture responses may omit echoed purchase-unit metadata after that order check. The server now accepts that documented representation only when the completed order, exactly one capture ID, and exactly $39.00 USD remain verified; any supplied mismatch is rejected.
+- Added regressions for accepted omitted purchase-unit echoes and rejected mismatched approved-order binding. Passed 44 focused payment/client tests, TypeScript, and build. Full suite: 572 passed, 2 skipped, with the one documented pre-existing `legitScriptCompliance` imported-content scan failure.
+- No new payment, retry, refund, webhook, SMS, or provider call was made. Checkpoint only; not published.

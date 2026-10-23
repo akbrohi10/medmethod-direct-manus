@@ -40,7 +40,7 @@ const orderId = "MOCK-NO-CHARGE-ORDER";
 function completed(id: string, overrides: any = {}) {
   return { id: orderId, status: "COMPLETED", purchase_units: [{ custom_id: id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" }, payments: { captures: [{ id: "MOCK-NO-CHARGE-CAPTURE", status: "COMPLETED", custom_id: id, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" }, create_time: "2026-10-21T19:01:00.000Z", ...overrides }] } }] };
 }
-function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFailOnce?: boolean; orderFail?: boolean; completedAlready?: boolean; captureOverrides?: any } = {}) {
+function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFailOnce?: boolean; orderFail?: boolean; completedAlready?: boolean; captureOverrides?: any; captureResponse?: unknown; approvedOrder?: unknown } = {}) {
   const events: string[] = [], payloads: any[] = [], bodies: any[] = [];
   let relayAttempts = 0;
   vi.stubGlobal("fetch", vi.fn(async (url: string, init: RequestInit = {}) => {
@@ -53,10 +53,10 @@ function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFail
       events.push("create"); bodies.push(JSON.parse(String(init.body)));
       return options.orderFail ? Response.json({}, { status: 500 }) : Response.json({ id: orderId, links: [{ rel: "approve", href: "https://paypal.example.test/approve" }] });
     }
-    if (url.endsWith("/capture")) { events.push("capture"); return Response.json(completed(draft.submission_id, options.captureOverrides)); }
+    if (url.endsWith("/capture")) { events.push("capture"); return Response.json(options.captureResponse ?? completed(draft.submission_id, options.captureOverrides)); }
     if (url.endsWith(orderId)) {
       events.push("get");
-      return Response.json(options.completedAlready ? completed(draft.submission_id, options.captureOverrides) : { id: orderId, status: "APPROVED", purchase_units: [{ custom_id: draft.submission_id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" } }] });
+      return Response.json(options.completedAlready ? completed(draft.submission_id, options.captureOverrides) : options.approvedOrder ?? { id: orderId, status: "APPROVED", purchase_units: [{ custom_id: draft.submission_id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" } }] });
     }
     throw new Error(`Unexpected network request in isolated test: ${url}`);
   }));
@@ -277,6 +277,36 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(paid.related_submission_id).toBe(draft.submission_id); expect(paid.submission_id).not.toBe(draft.submission_id);
     expect(paid.payment).toMatchObject({ amount: VIDEO_VISIT_AMOUNT, currency: "USD", order_id: orderId });
     expect(JSON.stringify(paid)).not.toMatch(/patient|answers|consents|integration-test@example\.com|TEST ONLY/i);
+  });
+
+  it("accepts a completed capture that omits optional purchase-unit metadata after the approved order binding is verified", async () => {
+    const draft = syntheticDraft(), network = provider(draft, {
+      captureResponse: {
+        id: orderId,
+        status: "COMPLETED",
+        purchase_units: [{ payments: { captures: [{ id: "MOCK-NO-CHARGE-CAPTURE", status: "COMPLETED", amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" }, create_time: "2026-10-21T19:01:00.000Z" }] } }],
+      },
+    }), request = harness();
+    const free = await submitFree(request, draft);
+    const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
+    const finished = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token: created.body.approval_token }, { orderId });
+
+    expect(finished.code).toBe(200);
+    expect(finished.body).toMatchObject({ payment_status: "COMPLETED", environment: "sandbox" });
+    expect(network.events).toEqual(["relay", "auth", "create", "auth", "get", "capture", "relay"]);
+  });
+
+  it("rejects a mismatched approved order before accepting any capture response", async () => {
+    const draft = syntheticDraft(), network = provider(draft, {
+      approvedOrder: { id: orderId, status: "APPROVED", purchase_units: [{ custom_id: "different-submission", description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" } }] },
+    }), request = harness();
+    const free = await submitFree(request, draft);
+    const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
+    const finished = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token: created.body.approval_token }, { orderId });
+
+    expect(finished.code).toBe(400);
+    expect(network.events).toEqual(["relay", "auth", "create", "auth", "get"]);
+    expect(network.payloads).toHaveLength(1);
   });
 
   it("checks provider amount, currency, custom identity, status and capture identity before emitting a paid event", async () => {

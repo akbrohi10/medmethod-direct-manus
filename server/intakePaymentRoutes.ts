@@ -432,16 +432,29 @@ export function registerIntakePaymentRoutes(app: Express) {
     const unit = units?.[0], captures = unit?.payments?.captures, capture = captures?.[0];
     if (
       order.id !== approval.order_id || order.status !== "COMPLETED" || units?.length !== 1 ||
-      unit?.custom_id !== approval.submission_id || unit?.description !== VIDEO_VISIT_DESCRIPTION || unit.amount?.value !== VIDEO_VISIT_AMOUNT || unit.amount.currency_code !== "USD" ||
       captures?.length !== 1 || !capture?.id || capture.status !== "COMPLETED" || capture.amount?.value !== VIDEO_VISIT_AMOUNT || capture.amount.currency_code !== "USD" ||
+      // PayPal's capture representation can omit purchase-unit metadata. The
+      // full signed order is verified before capture; supplied metadata must
+      // still match and cannot weaken the exact capture amount/currency checks.
+      (unit?.custom_id !== undefined && unit.custom_id !== approval.submission_id) ||
+      (unit?.description !== undefined && unit.description !== VIDEO_VISIT_DESCRIPTION) ||
+      (unit?.amount?.value !== undefined && unit.amount.value !== VIDEO_VISIT_AMOUNT) ||
+      (unit?.amount?.currency_code !== undefined && unit.amount.currency_code !== "USD") ||
       (capture.custom_id !== undefined && capture.custom_id !== approval.submission_id) || !capture.create_time || !Number.isFinite(Date.parse(capture.create_time))
     ) throw new Error("PayPal payment confirmation did not match this $39.00 USD optional video visit. Please contact the Care Team; do not make another payment.");
     return { provider: "paypal", environment: approval.mode, status: "COMPLETED", order_id: approval.order_id, capture_id: capture.id, amount: VIDEO_VISIT_AMOUNT, currency: "USD", captured_at: capture.create_time };
   }
-  function verifyApprovedOrder(raw: unknown, approval: ApprovalToken) {
+  function verifyVideoOrderBinding(raw: unknown, approval: ApprovalToken): { status?: string } {
     const order = raw as { id?: string; status?: string; purchase_units?: Array<{ custom_id?: string; description?: string; amount?: { value?: string; currency_code?: string } }> };
     const unit = order.purchase_units?.[0];
-    if (order.id !== approval.order_id || order.status !== "APPROVED" || order.purchase_units?.length !== 1 || unit?.custom_id !== approval.submission_id || unit?.description !== VIDEO_VISIT_DESCRIPTION || unit.amount?.value !== VIDEO_VISIT_AMOUNT || unit.amount.currency_code !== "USD") {
+    if (order.id !== approval.order_id || order.purchase_units?.length !== 1 || unit?.custom_id !== approval.submission_id || unit?.description !== VIDEO_VISIT_DESCRIPTION || unit.amount?.value !== VIDEO_VISIT_AMOUNT || unit.amount.currency_code !== "USD") {
+      throw new Error("PayPal has not approved the matching $39.00 USD optional video visit order. Please complete payment approval first.");
+    }
+    return order;
+  }
+  function verifyApprovedOrder(raw: unknown, approval: ApprovalToken) {
+    const order = verifyVideoOrderBinding(raw, approval);
+    if (order.status !== "APPROVED") {
       throw new Error("PayPal has not approved the matching $39.00 USD optional video visit order. Please complete payment approval first.");
     }
   }
@@ -461,7 +474,9 @@ export function registerIntakePaymentRoutes(app: Express) {
         const details = await fetch(url, { headers: { Authorization: `Bearer ${client.token}`, Accept: "application/json" }, signal: AbortSignal.timeout(15_000) });
         if (!details.ok) throw new Error("PayPal could not check the payment status. Please retry completion; do not pay again.");
         let raw = await details.json() as { id?: string; status?: string };
-        if (raw.status !== "COMPLETED") {
+        if (raw.status === "COMPLETED") {
+          verifyVideoOrderBinding(raw, approval);
+        } else {
           verifyApprovedOrder(raw, approval);
           const captured = await fetch(`${url}/capture`, {
             method: "POST",
