@@ -2935,3 +2935,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - The clean thank-you URL, malformed/duplicate demo parameters, and normal receipts continue to use the selected Admin Settings environment. Server order creation requires both the exact query and an eligible synthetic demo receipt before it can create a Sandbox order.
 - Validated 56 focused payment/demo/client regressions, TypeScript, production build, intercepted browser checks in development and built production (Sandbox only for exact demo; Live only for normal), and no payment, order, referral, SMS, webhook, or external provider action was performed. Full suite: 570 passed, 2 skipped, plus the single documented pre-existing `legitScriptCompliance` imported-content scan failure.
 - Checkpoint only; not published.
+
+## Video Booking Redirect Cache Refresh — 2026-10-23
+- The public `/intake/video-visit.js` asset was cached by browsers for up to four hours at its fixed URL, which could leave a completed $39 checkout on the legacy “Video visit paid — $39” fallback instead of using the current server-confirmed redirect.
+- `/intake/thank-you/` now loads the same verified checkout script through a versioned, non-patient-data URL (`?v=video-booking-redirect-20261023`), forcing the current script to load immediately. A completed $39 payment or confirmed referral waiver then redirects to `/thank-you-video`; pending, failed, and invalid outcomes remain on the page.
+- Validated 61 focused checkout/payment/static tests, TypeScript, build, and intercepted development plus built-production browser flows for both paid and waived confirmation redirects. No additional charge, payment attempt, referral application, webhook, SMS, or other provider request occurred. Full suite: 570 passed, 2 skipped, with the one documented pre-existing `legitScriptCompliance` imported-content scan failure.
+- Checkpoint only; not published.

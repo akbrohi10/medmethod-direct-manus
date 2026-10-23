@@ -406,7 +406,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(videoVisit).toContain('customElements.get("apple-pay-button")');
     expect(videoVisit).toContain('isEligible("applepay")');
     expect(videoVisit).toContain('buttonstyle=\\"black\\"');
-    expect(intakeThankYou).toContain('src="/intake/video-visit.js"');
+    expect(intakeThankYou).toContain('src="/intake/video-visit.js?v=video-booking-redirect-20261023"');
   });
 
   it("keeps optional video coupons server-validated and out of the free intake", () => {
