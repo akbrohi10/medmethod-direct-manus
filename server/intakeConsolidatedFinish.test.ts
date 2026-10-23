@@ -14,10 +14,11 @@ describe("consolidated local intake finish", () => {
     { id: "w03a", type: "wPrice" }, { id: "other-information", type: "wPrice" },
   ];
   function helpers() {
-    return new Function("w", "x", "se", "MmdPhoneVerificationSatisfied", `${intake.slice(start, end)};return { MmdIntakeFlowScreens, MmdIntakeFinishReady };`)(
+    return new Function("w", "x", "se", "MmdPhoneVerificationSatisfied", "MmdDemoIdentityVerificationSkipped", `${intake.slice(start, end)};return { MmdIntakeFlowScreens, MmdIntakeFinishReady };`)(
       () => screens, () => screens,
       (screen: { type: string }, answers: Record<string, unknown>) => screen.type === "consent" ? answers.wConsent === true && answers.wDecline !== true : answers.checkoutAck === true && answers.contactValid === true,
       (_settings: unknown, answers: Record<string, unknown>) => answers.validPhone === true,
+      () => false,
     ) as { MmdIntakeFlowScreens: (answers: unknown) => unknown; MmdIntakeFinishReady: (screen: unknown, answers: Record<string, unknown>, demo: boolean) => boolean };
   }
 
@@ -46,7 +47,7 @@ describe("consolidated local intake finish", () => {
     for (const key of ["wConsent", "checkoutAck", "contactValid", "validPhone"]) expect(MmdIntakeFinishReady(screens[1], { ...valid, [key]: false }, false)).toBe(false);
     expect(MmdIntakeFinishReady(screens[1], { ...valid, wDecline: true }, false)).toBe(false);
     expect(app).toContain('if(answers.checkoutAck!==true)');
-    expect(app).toContain('MmdPhoneVerificationSatisfied(answers.phoneVerificationSettings');
+    expect(app).toContain('if(!MmdIntakePhoneReady(answers,demo))');
     expect(app).toContain('setReturnScreen("w39")');
     expect(app).not.toContain('setReturnScreen("w41")');
   });

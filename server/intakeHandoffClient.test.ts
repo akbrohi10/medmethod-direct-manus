@@ -66,7 +66,7 @@ describe("local intake handoff client", () => {
   });
 
   it("passes the current verification token and demo flag only to the free intake submission", () => {
-    expect(intake).toContain("phone_verification_token:MmdLivePhoneVerificationToken(answers),demo_mode:demoMode");
+    expect(intake).toContain("phone_verification_token:MmdLivePhoneVerificationToken(answers),demo_mode:demoSubmission");
     expect(intake).toContain("/api/intake/submit");
     expect(intake).toContain("video_visit_interest:answers.videoVisitInterest===true");
     expect(intake).not.toContain("/api/paypal/orders");
@@ -80,6 +80,6 @@ describe("local intake handoff client", () => {
     expect(component).toContain("mmdSettingsRef=(0,l.useRef)(o)");
     expect(component).not.toContain("M=(0,l.useRef)(o)");
     expect(rootComponent).toContain("if(!screen||!se(screen,answers,demo)||submittingRef.current)return");
-    expect(rootComponent).toContain("MmdPhoneVerificationSatisfied(answers.phoneVerificationSettings");
+    expect(rootComponent).toContain("if(!MmdIntakePhoneReady(answers,demo))");
   });
 });

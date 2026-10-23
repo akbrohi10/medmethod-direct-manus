@@ -151,15 +151,76 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(reused.code).toBe(422); expect(network.events).toEqual(["relay"]);
   });
 
-  it("rejects unverified or forged demo free submissions and never treats client is_test as a production demo", async () => {
-    const draft = syntheticDraft(), network = provider(draft), request = harness();
-    expect((await request("POST", "/api/intake/submit", { intake: draft, phone_verification_token: "forged", video_visit_interest: false })).code).toBe(422);
+  it("allows an explicitly approved demo prefill in live required mode with an unverified synthetic phone", async () => {
+    const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
     mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
-    expect((await request("POST", "/api/intake/submit", { intake: { ...draft, is_test: true }, demo_mode: true, video_visit_interest: false })).code).toBe(422);
-    mocks.getPhoneSettings.mockReturnValue({ mode: "sandbox", required: true, demo_available: true });
-    const real = await submitFree(request, { ...draft, is_test: true });
-    expect(real.code).toBe(201); expect(real.body.is_test).toBe(false);
+    const demo = await request(
+      "POST", "/api/intake/submit",
+      { intake: draft, demo_mode: true, video_visit_interest: false },
+      {}, { prefill: "demo" },
+    );
+
+    expect(demo.code).toBe(201);
+    expect(demo.body).toMatchObject({ is_test: true, redirect_url: "/intake/thank-you/" });
     expect(network.events).toEqual(["relay"]);
+    expect(network.payloads[0]).toMatchObject({ is_test: true, patient: { phone_verified: false, phone_verified_at: null } });
+    expect(mocks.attestation).not.toHaveBeenCalled();
+  });
+
+  it("rejects a forged demo flag without the explicit prefill query in live required mode", async () => {
+    const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+
+    const forged = await request("POST", "/api/intake/submit", { intake: draft, demo_mode: true, video_visit_interest: false });
+    expect(forged.code).toBe(422);
+    expect(network.events).toEqual([]);
+  });
+
+  it("requires both demo_mode and a validated synthetic draft for the explicit prefill bypass", async () => {
+    const missingModeDraft = { ...syntheticDraft(), is_test: true };
+    const falseTestDraft = { ...syntheticDraft("73cb857e-d80d-453c-8106-420cbe2b3b45"), is_test: false };
+    const network = provider(missingModeDraft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+
+    const missingMode = await request(
+      "POST", "/api/intake/submit",
+      { intake: missingModeDraft, video_visit_interest: false },
+      {}, { prefill: "demo" },
+    );
+    const falseTest = await request(
+      "POST", "/api/intake/submit",
+      { intake: falseTestDraft, demo_mode: true, video_visit_interest: false },
+      {}, { prefill: "demo" },
+    );
+    expect(missingMode.code).toBe(422);
+    expect(falseTest.code).toBe(422);
+    expect(network.events).toEqual([]);
+  });
+
+  it("rejects an array prefill query in live required mode", async () => {
+    const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+
+    const result = await request(
+      "POST", "/api/intake/submit",
+      { intake: draft, demo_mode: true, video_visit_interest: false },
+      {}, { prefill: ["demo"] },
+    );
+    expect(result.code).toBe(422);
+    expect(network.events).toEqual([]);
+  });
+
+  it("keeps normal phone token verification and verification-mode matching unchanged", async () => {
+    const draft = syntheticDraft(), network = provider(draft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+    mocks.attestation.mockReturnValue({ verifiedAt: "2026-10-21T18:59:00.000Z", mode: "sandbox" });
+    expect((await submitFree(request, draft)).code).toBe(422);
+
+    mocks.attestation.mockReturnValue({ verifiedAt: "2026-10-21T18:59:00.000Z", mode: "live" });
+    const accepted = await submitFree(request, draft);
+    expect(accepted.code).toBe(201);
+    expect(accepted.body).toMatchObject({ is_test: false, redirect_url: "/intake/thank-you/" });
+    expect(network.payloads[0].patient).toMatchObject({ phone_verified: true, phone_verified_at: "2026-10-21T18:59:00.000Z" });
   });
 
   it("allows demo bypass only for an advertised sandbox demo and marks that free receipt synthetic", async () => {

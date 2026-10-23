@@ -10,7 +10,7 @@ const receipt = { submission_id: "synthetic-test-id", submission_token: "synthet
 function intakeHelpers(result: Record<string, unknown>) {
   const values = new Map<string, string>();
   const request = vi.fn().mockResolvedValue(result);
-  const context = vm.createContext({ Te: request, be: () => ({ synthetic: true }), MmdLivePhoneVerificationToken: () => "synthetic-phone-token", window: { sessionStorage: { setItem: (k: string, v: string) => values.set(k, v), removeItem: (k: string) => values.delete(k) } } });
+  const context = vm.createContext({ Te: request, be: () => ({ synthetic: true }), MmdDemoIdentityVerificationSkipped: () => false, MmdLivePhoneVerificationToken: () => "synthetic-phone-token", window: { sessionStorage: { setItem: (k: string, v: string) => values.set(k, v), removeItem: (k: string) => values.delete(k) } } });
   const start = intake.indexOf("async function MmdSubmitFreeIntake"), end = intake.indexOf("var Ae=", start);
   new vm.Script(intake.slice(start, end) + ";globalThis.api={submit:MmdSubmitFreeIntake,store:MmdStoreFreeIntakeReceipt}").runInContext(context);
   return { api: context.api, values, request };

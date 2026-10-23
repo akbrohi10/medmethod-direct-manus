@@ -148,9 +148,14 @@ function phoneAttestation(draft: IntakeDraft, token: unknown, demoBypass: boolea
   if (settings.required) throw new Error("Please verify your mobile number before continuing. If your code expired, request a new code.");
   return { phone_verified: false, phone_verified_at: null };
 }
-function eligibleDemo(demoRequested: boolean): boolean {
+function eligibleDemo(demoRequested: boolean, explicitDemoPrefill: boolean, draftIsTest: boolean): boolean {
   const settings = getPhoneVerificationSettings();
-  return demoRequested && settings.mode === "sandbox" && settings.demo_available === true;
+  // The advertised sandbox demo remains available for compatibility. The explicit
+  // prefill is a separately approved final-step test path, including with live
+  // verification settings; all three client-provided signals must agree.
+  const advertisedSandboxDemo = demoRequested && settings.mode === "sandbox" && settings.demo_available === true;
+  const explicitApprovedDemo = explicitDemoPrefill && demoRequested && draftIsTest;
+  return advertisedSandboxDemo || explicitApprovedDemo;
 }
 async function deliverIntake(payload: Record<string, unknown>) {
   // Existing secret-first URL, encrypted admin fallback, and request headers are retained.
@@ -270,10 +275,10 @@ export function registerIntakePaymentRoutes(app: Express) {
     // Every accepted intake finishes here, regardless of video interest or client redirect values.
     return "/intake/thank-you/";
   }
-  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>): Promise<FreeResult> {
+  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, explicitDemoPrefill = false): Promise<FreeResult> {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
-    const demo = eligibleDemo(input.demo_mode === true);
+    const demo = eligibleDemo(input.demo_mode === true, explicitDemoPrefill, draft.is_test === true);
     const isTest = demo;
     const hash = fingerprint({ draft, video_visit_interest: input.video_visit_interest, is_test: isTest });
     let record = freeSubmissions.get(draft.submission_id);
@@ -508,7 +513,10 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = freeSubmissionSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "The completed intake payload is invalid." });
-      const result = await submitFreeIntake(parsed.data);
+      // Duplicate query keys parse as an array and must not activate the approved
+      // prefill path. Only one exact string value is accepted.
+      const explicitDemoPrefill = typeof req.query.prefill === "string" && req.query.prefill === "demo";
+      const result = await submitFreeIntake(parsed.data, explicitDemoPrefill);
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(result);
     } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }

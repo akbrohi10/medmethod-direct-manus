@@ -67,10 +67,10 @@ describe("demo-only identity mobile verification skip", () => {
     expect(h.se(identity, { ...verified, phoneVerificationExpiresAt: Date.now() - 1 }, false)).toBe(false);
   });
 
-  it("retains final verification and submission guards and hides only demo-step verification controls", () => {
+  it("retains real attestation guards and uses explicit demo readiness for final submission", () => {
     const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));
     expect(app).not.toContain("MmdDemoIdentityVerificationSkipped");
-    expect(app).toContain("if(!MmdPhoneVerificationSatisfied(answers.phoneVerificationSettings");
+    expect(app).toContain("if(!MmdIntakePhoneReady(answers,demo))");
     expect(intake).toContain("function MmdIntakeFinishReady(screen,answers,demoMode){return se(screen,answers,demoMode)&&answers.checkoutAck===true");
     expect(intake).toContain("phone_verification_token:MmdLivePhoneVerificationToken(answers)");
     expect(intake).toContain("Demo mode: mobile verification skipped on this step.");
