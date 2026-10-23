@@ -72,8 +72,12 @@ function paymentMode(settings: Awaited<ReturnType<typeof getPaypalSettings>>): P
   return settings?.mode === "live" ? "live" : "sandbox";
 }
 /** Kept for the existing browser-safe client-token response convention. */
+function hasExactDemoPrefill(request: Request): boolean {
+  // Duplicate query keys parse as an array and must never activate Sandbox.
+  return typeof request.query.prefill === "string" && request.query.prefill === "demo";
+}
 function paymentModeForClientToken(settings: Awaited<ReturnType<typeof getPaypalSettings>>, request: Request): PayPalMode {
-  return request.query.prefill === "demo" || request.body?.demo_mode === true ? "sandbox" : paymentMode(settings);
+  return hasExactDemoPrefill(request) ? "sandbox" : paymentMode(settings);
 }
 function requireActivePayPal(settings: Awaited<ReturnType<typeof getPaypalSettings>>) {
   if (!settings || settings.activeProvider !== "paypal") {
@@ -358,21 +362,20 @@ export function registerIntakePaymentRoutes(app: Express) {
       if (!pending.delivered && pending.phoneTokenKey) pendingPhoneTokens.delete(pending.phoneTokenKey);
     }
   }
-  function modeForVideoReceipt(receipt: CompletedFreeIntakeReceipt, demoRequested: boolean, settings: Awaited<ReturnType<typeof getPaypalSettings>>): PayPalMode {
+  function modeForVideoReceipt(receipt: CompletedFreeIntakeReceipt, demoRequested: boolean, explicitDemoPrefill: boolean, settings: Awaited<ReturnType<typeof getPaypalSettings>>): PayPalMode {
     if (receipt.is_test) {
-      const phoneSettings = getPhoneVerificationSettings();
-      if (!demoRequested || phoneSettings.mode !== "sandbox" || phoneSettings.demo_available !== true) {
+      if (!demoRequested || !explicitDemoPrefill) {
         throw new Error("A sandbox demo video visit requires an eligible sandbox demo intake.");
       }
       return "sandbox";
     }
-    if (demoRequested) throw new Error("Demo mode is available only for an eligible sandbox demo intake.");
+    if (demoRequested || explicitDemoPrefill) throw new Error("Demo mode is available only for an eligible sandbox demo intake.");
     return paymentMode(settings);
   }
-  async function createVideoOrder(receipt: CompletedFreeIntakeReceipt, paymentMethod: PaymentMethod, demoRequested: boolean): Promise<OrderResult> {
+  async function createVideoOrder(receipt: CompletedFreeIntakeReceipt, paymentMethod: PaymentMethod, demoRequested: boolean, explicitDemoPrefill: boolean): Promise<OrderResult> {
     const settings = await getPaypalSettings();
     requireActivePayPal(settings);
-    const mode = modeForVideoReceipt(receipt, demoRequested, settings);
+    const mode = modeForVideoReceipt(receipt, demoRequested, explicitDemoPrefill, settings);
     let record = videoVisits.get(receipt.submission_id);
     if (record?.waiver) throw new Error("This optional video visit was already waived.");
     if (record?.completion) throw new Error("This optional video visit was already completed.");
@@ -573,7 +576,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       const parsed = videoOrderSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "A completed intake receipt and payment method are required." });
       const receipt = receiptFor(parsed.data.submission_token);
-      const order = await createVideoOrder(receipt, parsed.data.payment_method, parsed.data.demo_mode === true);
+      const order = await createVideoOrder(receipt, parsed.data.payment_method, parsed.data.demo_mode === true, hasExactDemoPrefill(req));
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(order);
     } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }

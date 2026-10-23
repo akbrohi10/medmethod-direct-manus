@@ -167,6 +167,27 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(mocks.attestation).not.toHaveBeenCalled();
   });
 
+  it("forces Sandbox only for the exact demo thank-you query and otherwise uses the selected Live payment mode", async () => {
+    const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+    mocks.settings.mockResolvedValue({ activeProvider: "paypal", mode: "live", sandboxClientId: "sandbox-id", sandboxClientSecret: "sandbox-secret", liveClientId: "live-id", liveClientSecret: "live-secret" });
+
+    const demoIntake = await request("POST", "/api/intake/submit", { intake: draft, demo_mode: true, video_visit_interest: true }, {}, { prefill: "demo" });
+    expect(demoIntake.code).toBe(201);
+    const sandboxConfig = await request("GET", "/api/paypal/client-token", {}, {}, { prefill: "demo" });
+    const liveConfig = await request("GET", "/api/paypal/client-token");
+    const duplicateConfig = await request("GET", "/api/paypal/client-token", {}, {}, { prefill: ["demo", "demo"] });
+    expect(sandboxConfig.body).toMatchObject({ client_id: "sandbox-id", environment: "sandbox" });
+    expect(liveConfig.body).toMatchObject({ client_id: "live-id", environment: "live" });
+    expect(duplicateConfig.body).toMatchObject({ client_id: "live-id", environment: "live" });
+
+    const sandboxOrder = await request("POST", "/api/paypal/orders", { submission_token: demoIntake.body.submission_token, payment_method: "card", demo_mode: true }, {}, { prefill: "demo" });
+    expect(sandboxOrder.code).toBe(201); expect(sandboxOrder.body).toMatchObject({ environment: "sandbox", payment_method: "card" });
+    const missingQuery = await request("POST", "/api/paypal/orders", { submission_token: demoIntake.body.submission_token, payment_method: "card", demo_mode: true });
+    expect(missingQuery.code).toBe(422); expect(missingQuery.body.error).toMatch(/sandbox demo video visit/i);
+    expect(network.events).toEqual(["relay", "auth", "create"]);
+  });
+
   it("rejects a forged demo flag without the explicit prefill query in live required mode", async () => {
     const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
     mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });

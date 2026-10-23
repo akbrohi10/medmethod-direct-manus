@@ -6,7 +6,8 @@
   const VIDEO_VISIT_AMOUNT = "39.00";
   const CARE_EMAIL = "info@medmethoddirect.com";
   const CARE_PHONE = "888-362-7011";
-  const DEMO_MODE = new URLSearchParams(window.location.search).get("prefill") === "demo";
+  const demoParams = new URLSearchParams(window.location.search);
+  const DEMO_MODE = demoParams.getAll("prefill").length === 1 && demoParams.get("prefill") === "demo";
   let state = { receipt: null, config: null, cardSession: null, apple: null, initializing: false };
 
   function byId(id) {
@@ -115,8 +116,10 @@
     }
   }
 
-  function demoMode(receipt) {
-    return DEMO_MODE || receipt.is_test === true;
+  function demoMode(_receipt) {
+    // An is_test receipt is not enough to change a future checkout environment.
+    // Sandbox is selected only by the one exact thank-you URL requested for demos.
+    return DEMO_MODE;
   }
 
   function demoSuffix(receipt) {
@@ -153,7 +156,7 @@
       body: JSON.stringify({
         submission_token: receipt.submission_token,
         payment_method: paymentMethod === "apple_pay" ? "apple_pay" : "card",
-        demo_mode: receipt.is_test,
+        demo_mode: demoMode(receipt),
       }),
     }, "Unable to start the optional video-visit checkout. Please try again.");
     if (!order.order_id || !order.approval_token) throw new Error("Unable to start the optional video-visit checkout. Please try again.");

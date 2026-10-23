@@ -19,7 +19,7 @@ function response(body: ResponseBody, status = 200) {
   };
 }
 
-function loadClient(fetchMock = vi.fn()) {
+function loadClient(fetchMock = vi.fn(), search = "") {
   const values = new Map<string, string>();
   const document = {
     readyState: "loading",
@@ -30,7 +30,7 @@ function loadClient(fetchMock = vi.fn()) {
     head: { appendChild: vi.fn() },
   };
   const windowObject: Record<string, unknown> = {
-    location: { search: "", pathname: "/intake/thank-you/", replace: vi.fn() },
+    location: { search, pathname: "/intake/thank-you/", replace: vi.fn() },
     sessionStorage: {
       getItem: (key: string) => values.get(key) ?? null,
       setItem: (key: string, value: string) => values.set(key, value),
@@ -115,22 +115,26 @@ describe("optional video visit confirmation client", () => {
     expect(JSON.parse(values.get("mmd_video_visit_checkout")!)).toEqual({ order_id: "VIDEO-ORDER-1", payment_method: "card", state: "pending" });
   });
 
-  it("uses a demo query only in demo mode and forces the explicit test flag through the boundary", async () => {
+  it("uses Sandbox order requests only for one exact demo query and keeps normal requests clean", async () => {
     const fetchMock = vi.fn().mockResolvedValue(response({
       order_id: "VIDEO-DEMO-ORDER", approval_token: "demo-approval", payment_method: "apple_pay", environment: "sandbox",
     }));
-    const { api, windowObject } = loadClient(fetchMock);
-    (windowObject.location as { search: string }).search = "?prefill=demo";
-
-    // Re-evaluate so the demo-only mode is established at page load like a real browser.
-    const demo = loadClient(fetchMock);
-    (demo.windowObject.location as { search: string }).search = "?prefill=demo";
+    const demo = loadClient(fetchMock, "?prefill=demo");
     const testReceipt = { ...receipt, is_test: true };
-    await api.createVideoOrder(testReceipt, "apple_pay");
+    await demo.api.createVideoOrder(testReceipt, "apple_pay");
+    expect(fetchMock.mock.calls[0][0]).toBe("/api/paypal/orders?prefill=demo");
     const sent = JSON.parse(fetchMock.mock.calls[0][1].body);
     expect(sent).toMatchObject({ payment_method: "apple_pay", demo_mode: true });
 
+    const cleanFetch = vi.fn().mockResolvedValue(response({ order_id: "VIDEO-CLEAN-ORDER", approval_token: "clean-approval", payment_method: "card", environment: "live" }));
+    const clean = loadClient(cleanFetch, "?prefill=demo&prefill=other");
+    await clean.api.createVideoOrder(testReceipt, "card");
+    expect(cleanFetch.mock.calls[0][0]).toBe("/api/paypal/orders");
+    expect(JSON.parse(cleanFetch.mock.calls[0][1].body)).toMatchObject({ payment_method: "card", demo_mode: false });
+
     expect(source).toContain("?prefill=demo");
+    expect(source).toContain('demoParams.getAll("prefill").length === 1');
+    expect(source).toContain("demo_mode: demoMode(receipt)");
     expect(source).toContain('components: ["card-fields"]');
     expect(source).toContain('components: ["applepay-payments"]');
     expect(source).toContain("ApplePaySession.canMakePayments()");

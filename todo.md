@@ -2929,3 +2929,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - The intake client accepts the demo query only when it used the exact approved demo submission path. All other returned URLs and normal submissions remain limited to the existing safe destinations.
 - Validated 45 focused server/client regressions, TypeScript, production build, and mocked complete browser flows at 375px and 1440px (demo query retained; normal verified flow remains clean; retry stable; no SMS, payment, waiver, webhook, or other external action). Full suite: 569 passed, 2 skipped, plus the single documented pre-existing `legitScriptCompliance` imported-content scan failure.
 - Checkpoint only; not published.
+
+## Demo Thank-You Sandbox Override — 2026-10-23
+- On `/intake/thank-you/` only, the single exact URL query `?prefill=demo` now requests PayPal Sandbox credentials and the Sandbox SDK for the optional $39 video checkout, even if Admin Settings currently selects Live.
+- The clean thank-you URL, malformed/duplicate demo parameters, and normal receipts continue to use the selected Admin Settings environment. Server order creation requires both the exact query and an eligible synthetic demo receipt before it can create a Sandbox order.
+- Validated 56 focused payment/demo/client regressions, TypeScript, production build, intercepted browser checks in development and built production (Sandbox only for exact demo; Live only for normal), and no payment, order, referral, SMS, webhook, or external provider action was performed. Full suite: 570 passed, 2 skipped, plus the single documented pre-existing `legitScriptCompliance` imported-content scan failure.
+- Checkpoint only; not published.
