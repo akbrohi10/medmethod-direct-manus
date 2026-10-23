@@ -9,7 +9,7 @@ const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf
 describe("local intake free ongoing care and optional video interest", () => {
   it("makes the introduction doctor-neutral without changing the treatment catalog", () => {
     expect(intake).toContain("Connect with a doctor specializing in medical weight loss");
-    expect(intake).toContain("Personalized guidance and ongoing follow-up through secure messaging.");
+    expect(intake).toContain("Assessment and ongoing follow-up included. No monthly fee or commitment. Medication costs extra.");
     expect(intake).not.toMatch(/Dr\. Al-Deek|Jumana|50,000\+|intro-doctor`,src/);
     expect(intake).toContain('src="/treatment-catalog.js"');
     expect(intake).toContain("window.MMD_TREATMENT_CATALOG.glp1.options.map");
@@ -19,7 +19,7 @@ describe("local intake free ongoing care and optional video interest", () => {
   it("records unchecked interest only and never treats it as payment authorization", () => {
     expect(intake).toContain("I’m interested in adding a video visit — $39 per visit");
     expect(intake).toContain('checked:answers.videoVisitInterest===true');
-    expect(intake).toContain("This records interest only—it does not charge you.");
+    expect(intake).toContain("Interest only. No charge now.");
     expect(intake).toContain("video_visit_interest:answers.videoVisitInterest===true");
     expect(intake).not.toContain("videoVisitInterest:true");
     expect(intake).toContain("No charge has been authorized.");
