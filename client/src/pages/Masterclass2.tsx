@@ -226,7 +226,7 @@ export default function Masterclass2() {
           className="fixed z-40 mx-auto flex min-h-[56px] max-w-[440px] items-center justify-center rounded-full border border-white/70 bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-5 py-3 text-center text-base font-bold text-white shadow-[0_8px_28px_rgba(122,30,126,0.32)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] md:hidden"
           style={{ display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
-          Book Now — $39 per visit
+          Book a Virtual Visit — $39
         </button>
       <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </main>
