@@ -209,26 +209,21 @@ export default function Masterclass2() {
 
         <PhysicianProfile />
 
-        <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-[#fff9fb] px-5 py-8 sm:px-10 sm:py-10 lg:px-16">
-          <div className="mx-auto max-w-[800px] text-center">
-            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#b8336a]">Work With Me</p>
-            <h2 id="masterclass2-work-heading" className="mt-2 text-2xl font-bold leading-tight text-[#281c30] sm:text-3xl">Thoughtful care. A plan built around you.</h2>
-            <p className="mx-auto mt-3 max-w-[740px] text-sm leading-relaxed text-[#5a4452] sm:text-base">Together, we’ll look at your symptoms, health history, and goals—not just the number on the scale. We’ll discuss a personalized approach to hormones, metabolism, and weight that supports your long-term health.</p>
-            <p className="mt-4 text-xs font-semibold text-[#7a1e7e]">100% virtual care · Available in 17 states</p>
+        <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-[#fff9fb] px-5 py-6 sm:px-10 sm:py-8 lg:px-16">
+          <div className="mx-auto max-w-[560px] text-center">
+            <h2 id="masterclass2-work-heading" className="text-2xl font-bold leading-tight text-[#281c30] sm:text-3xl">Work With Me</h2>
+            <p className="mt-2 text-xs font-semibold text-[#7a1e7e]">100% virtual care · Available in 17 states</p>
           </div>
-          <div className="mx-auto mt-6 grid max-w-[900px] gap-4 sm:grid-cols-2">
-            <div data-masterclass2-free-call className="flex flex-col rounded-2xl border border-[#e7d6df] bg-white p-5 sm:p-6">
-              <h3 className="text-lg font-bold text-[#281c30]">Have questions? Let’s start here.</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#5a4452]">Talk with our Care Team about getting started.</p>
-              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">Book a Free 15-Minute Call</a>
-              <p className="mt-3 text-xs leading-relaxed text-[#766d75]">With our Care Team. General information—not medical advice.</p>
+          <div data-masterclass2-stacked-booking-pills className="mx-auto mt-5 flex max-w-[560px] flex-col gap-5 text-center">
+            <div data-masterclass2-free-call>
+              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Free 15-Minute Call</a>
+              <p className="mt-2 text-xs leading-relaxed text-[#766d75]">Care Team · General information, not medical advice.</p>
             </div>
-            <div data-masterclass2-video-offer className="flex flex-col rounded-2xl border border-[#e8bdd4] bg-white p-5 sm:p-6">
-              <h3 className="text-lg font-bold text-[#281c30]">Personalized care. $39 per video visit.</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#5a4452]">About the cost of a copay—with a visit focused on you.</p>
-              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">Book Now — $39 per visit</button>
-              <p className="mt-3 text-xs leading-relaxed text-[#766d75]">Video visit with Dr. Al-Deek. Self-pay visit. Insurance copays vary by plan. Medication is priced separately.</p>
+            <div data-masterclass2-video-offer>
+              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Virtual Visit — $39</button>
+              <p className="mt-2 text-sm leading-relaxed text-[#5a4452]">About the cost of a copay—with care focused on you.</p>
             </div>
+            <p data-masterclass2-self-pay-disclosure className="text-xs leading-relaxed text-[#766d75]">Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.</p>
           </div>
         </section>
 
