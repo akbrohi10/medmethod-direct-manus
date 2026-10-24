@@ -3085,3 +3085,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Preserved free-call copy/action, insurance disclosure, all styles/typography/spacing, existing $39 checkout, mobile behavior, biography/video and all other pages. Independent reversal of exactly three literal text replacements restores the previous page byte-for-byte.
 - Validated 32 focused tests, TypeScript/build, six responsive widths and three production widths with no overflow/errors and unchanged free-call navigation, paid-modal opening and sticky behavior. Six production routes HTTP 200; mobile/desktop visuals reviewed. Full suite 633 passing, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance assertion failing; no new failures. No real booking, payment or submission.
 - Checkpoint only; not published.
+
+## Masterclass2 Disclosure-Line Removal — 2026-10-24
+- Removed only the requested `Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.` paragraph from `/masterclass2`. Preserved the copay comparison, both booking pills, mobile sticky pill, all styling/handlers, $39 payment behavior and every other page.
+- Independent byte-level inverse confirms reinserting the sole deleted paragraph restores the complete previous page. Related section tests now guard absence of this paragraph and the unchanged three remaining readable supporting paragraphs.
+- Validated 32 focused tests, TypeScript/build, six responsive widths and three built-production widths with unchanged free-call/paid-modal actions; six production routes HTTP 200. Mobile screenshot reviewed; no overflow/errors or external submissions/payments. Full suite: 633 passing, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance failure; no new regressions. Whitespace/protected-file checks passed.
+- Checkpoint only; not published.

@@ -223,7 +223,6 @@ export default function Masterclass2() {
               <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book My Visit — $39</button>
               <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Meet with Dr. Al-Deek by video · About the cost of a copay.</p>
             </div>
-            <p data-masterclass2-self-pay-disclosure className="text-[15px] font-medium leading-6 text-[#5a4452]">Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.</p>
           </div>
         </section>
 

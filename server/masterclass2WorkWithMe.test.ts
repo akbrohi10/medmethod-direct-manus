@@ -6,7 +6,7 @@ const section = page.slice(page.indexOf("        <section data-masterclass-video
 
 describe("masterclass2 compact stacked Work With Me booking pills", () => {
   it("uses the approved concise copy and qualified copay comparison", () => {
-    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book My Visit — $39", "Meet with Dr. Al-Deek by video · About the cost of a copay.", "Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately."]) expect(section).toContain(phrase);
+    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book My Visit — $39", "Meet with Dr. Al-Deek by video · About the cost of a copay."]) expect(section).toContain(phrase);
     expect(section).not.toContain("the same as your copay");
     expect(section).toContain("100% virtual care · Available in 17 states");
     expect(section).not.toMatch(/Thoughtful care|Together, we’ll|Have questions\?|Personalized care\.|<h3/);
@@ -23,14 +23,15 @@ describe("masterclass2 compact stacked Work With Me booking pills", () => {
     expect(section.match(/focus-visible:outline-offset-3/g)).toHaveLength(2);
   });
 
-  it("groups helpers closer to their buttons and makes the unchanged insurance disclosure easier to read", () => {
+  it("groups helpers closer to their buttons and removes only the requested disclosure", () => {
     expect(section.match(/className="mt-1\.5 /g)).toHaveLength(2);
-    expect(section).toContain('data-masterclass2-self-pay-disclosure className="text-[15px] font-medium leading-6 text-[#5a4452]"');
+    expect(page).not.toContain("data-masterclass2-self-pay-disclosure");
+    expect(page).not.toContain("Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.");
     expect(section).not.toContain("with care focused on you");
   });
 
-  it("uses 15px medium-weight charcoal text with 24px line height for all four supporting paragraphs", () => {
-    expect(section.match(/text-\[15px\] font-medium leading-6 text-\[#5a4452\]/g)).toHaveLength(4);
+  it("uses 15px medium-weight charcoal text with 24px line height for all three remaining supporting paragraphs", () => {
+    expect(section.match(/text-\[15px\] font-medium leading-6 text-\[#5a4452\]/g)).toHaveLength(3);
     expect(section).not.toMatch(/<p[^>]+(?:text-xs|text-sm|leading-relaxed|font-semibold)/);
   });
 
