@@ -39,7 +39,17 @@ const originalFamilyBio = sliceBetween(
   "        <section data-masterclass-video-first-bio",
   "\n        <FeaturedInStrip />",
 );
+const originalPricing = sliceBetween(original, "function PricingDetails()", "export default function");
+const originalBooking = sliceBetween(original, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
+const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
 const normalizedDuplicate = duplicate
+  .replace('import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";\n', "")
+  .replace('    const pendingCheckout = getVideoVisitPendingCheckout();\n    if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);\n', "")
+  .replace(currentBooking, originalBooking)
+  .replace("export default function Masterclass2()", `${originalPricing}export default function Masterclass2()`)
+  .replace('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";', 'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";\nimport LpConsultationModal2 from "@/components/home1/LpConsultationModal2";')
+  .replace('import { ShieldCheck } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
+  .replace('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />', '<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />')
   .replace("        <FeaturedInStrip />\n", "")
   .replace("\n\n\n        <PhysicianProfile />", `\n\n${originalLearningAndWatchSection}\n\n        <PhysicianProfile />`)
   .replace('import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";\n', "")
@@ -71,7 +81,7 @@ const manuscriptAssets = (source: string) =>
   [...source.matchAll(/\/manus-storage\/[^"']+/g)].map(([asset]) => asset);
 
 describe("approved /masterclass2 duplicate checkpoint", () => {
-  it("differs from the original only by approved learning/watch removal, physician-profile substitution and banner relocation", () => {
+  it("differs from the original only by approved profile, banner, removals and Work With Me checkout replacement", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
       '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
@@ -87,7 +97,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(normalizedDuplicate).toBe(original);
   });
 
-  it("preserves the exact video, headline, watch cue, featured strip, booking, pricing, and payment content", () => {
+  it("preserves the video and banner while replacing only approved booking and pricing", () => {
     expect(duplicate).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
     expect(duplicate).toContain("Weight won’t budge?");
     expect(duplicate).toContain("Watch Now—Get Answers.");
@@ -97,11 +107,11 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).not.toContain('className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16"');
     expect(original).toContain("Watch the Free Masterclass");
     expect(duplicate).toContain("Featured In");
-    expect(duplicate).toContain("$199 first visit. A $50 deposit holds your appointment and is applied to the visit.");
-    expect(duplicate).toContain('$50<span className="text-xl tracking-normal">/month</span>');
+    expect(duplicate).not.toContain("$199");
+    expect(duplicate).not.toContain("PricingDetails");
     expect(duplicate).toContain('href="/care-team-booking"');
     expect(duplicate).toContain(
-      '<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />',
+      '<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />',
     );
   });
 

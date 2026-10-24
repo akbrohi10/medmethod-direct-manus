@@ -1,10 +1,10 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import { Helmet } from "react-helmet-async";
-import { CheckCircle2, ShieldCheck, Video } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
+import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
@@ -75,85 +75,6 @@ function FeaturedInStrip() {
   );
 }
 
-function PricingDetails() {
-  return (
-    <Accordion type="single" collapsible className="mx-auto w-full max-w-3xl" data-masterclass-video-first-pricing>
-      <AccordionItem value="pricing" className="rounded-2xl border border-[#e7d6df] bg-white px-5 shadow-[0_10px_28px_rgba(89,31,84,0.08)] sm:px-8">
-        <AccordionTrigger className="justify-center gap-2 py-5 text-center text-sm font-black uppercase tracking-[0.08em] text-[#7a1e7e] hover:no-underline sm:text-base">
-          See Full Pricing Details
-        </AccordionTrigger>
-        <AccordionContent className="pb-7 text-left">
-          <div className="border-t border-[#eadfe5] pt-6">
-            <div data-masterclass-video-first-pricing-details>
-              <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#e8339e]">Care Designed Around You</p>
-              <h2 className="mt-2 text-center text-2xl font-black text-[#251d29] sm:text-3xl">More Than a Prescription</h2>
-              <p className="mx-auto mt-2 max-w-2xl text-center text-sm font-medium leading-relaxed text-[#655d63] sm:text-base">A doctor who gets to know you—plus clear care and medication options.</p>
-
-              <div className="mt-6 rounded-2xl border border-[#d79ab8] bg-gradient-to-r from-[#fff4fa] via-[#fffafd] to-[#f9f2ff] p-5 sm:p-6">
-                <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
-                  <div><p className="text-xs font-black uppercase tracking-[0.13em] text-[#c32e78]">First Visit</p><p className="mt-1 text-sm font-bold text-[#443b43]">45-minute physician consultation</p></div>
-                  <p className="text-5xl font-black tracking-[-0.06em] text-[#e8339e]">$199</p>
-                </div>
-                <div className="mt-5 grid gap-2 text-sm sm:grid-cols-2 sm:text-base">
-                  <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Reserve today:</strong> $50 deposit</p>
-                  <p className="rounded-xl bg-white px-4 py-3 text-[#443b43]"><strong className="text-[#251d29]">Day of visit:</strong> remaining $149</p>
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <section className="rounded-2xl border border-[#d8c5dc] bg-[#fcfaff] p-5" data-masterclass-video-first-pay-as-you-go>
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#5b3aa4]">Option 1 · Pay as you go</p>
-                  <p className="mt-3 text-4xl font-black tracking-[-0.05em] text-[#251d29]">$150</p>
-                  <p className="mt-1 text-sm font-black uppercase tracking-[0.06em] text-[#443b43]">Follow-up visit</p>
-                  <p className="mt-4 border-t border-[#dbcddd] pt-4 text-sm leading-relaxed text-[#5f5560]">No monthly commitment. Schedule a physician visit when you need one.</p>
-                </section>
-                <section className="rounded-2xl border border-[#ecb4d1] bg-gradient-to-br from-[#fff7fb] to-[#f9f0fb] p-5" data-masterclass-video-first-ongoing-care>
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#e8339e]">Option 2 · Ongoing care</p>
-                  <p className="mt-3 text-4xl font-black tracking-[-0.05em] text-[#e8339e]">$50<span className="text-xl tracking-normal">/month</span></p>
-                  <ul className="mt-4 space-y-2 text-sm text-[#443b43]">
-                    {["Direct secure messaging with Dr. Al-Deek", "Medication and dosing management", "Prescription refills and lab review"].map((item) => (
-                      <li key={item} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#e8339e]" aria-hidden="true" />{item}</li>
-                    ))}
-                  </ul>
-                  <p className="mt-4 border-t border-[#e7bad2] pt-4 text-sm leading-relaxed text-[#5f5560]">Video visits available for $50. Cancel anytime with 30 days&apos; notice.</p>
-                </section>
-              </div>
-
-              <div className="mt-7">
-                <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#251d29]">Medication Options</p>
-                <p className="mx-auto mt-2 max-w-2xl text-center text-sm leading-relaxed text-[#655d63]">Medication is separate from physician care. Estimates vary based on medication, dose, pharmacy, and your individual protocol.</p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <section className="overflow-hidden rounded-2xl border border-[#e5a9c9] bg-white" data-masterclass-video-first-weight-loss-pricing>
-                    <div className="bg-gradient-to-r from-[#ec3b96] to-[#b32283] px-5 py-4 text-white"><p className="text-lg font-black">Weight-Loss Medication</p><p className="mt-1 text-xs font-medium text-white/90">Semaglutide &amp; tirzepatide, priced monthly</p></div>
-                    <div className="divide-y divide-[#f0d5e2] px-5">
-                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Compounded</p><p className="mt-1 text-xs text-[#655d63]">Semaglutide or tirzepatide</p></div><p className="whitespace-nowrap text-lg font-black text-[#e8339e]">~$100–$300<span className="text-xs text-[#655d63]">/mo</span></p></div>
-                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">FDA-approved options</p><p className="mt-1 text-xs text-[#655d63]">Medication choices vary by pharmacy and coverage</p></div><p className="whitespace-nowrap text-lg font-black text-[#e8339e]">~$150–$450<span className="text-xs text-[#655d63]">/mo</span></p></div>
-                    </div>
-                  </section>
-                  <section className="overflow-hidden rounded-2xl border border-[#bca5d6] bg-white" data-masterclass-video-first-hormone-pricing>
-                    <div className="bg-gradient-to-r from-[#6d3a9e] to-[#49246f] px-5 py-4 text-white"><p className="text-lg font-black">Hormone Therapy</p><p className="mt-1 text-xs font-medium text-white/90">Priced per hormone, based on your protocol</p></div>
-                    <div className="divide-y divide-[#e2d7ec] px-5">
-                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Individual hormones</p><p className="mt-1 text-xs leading-relaxed text-[#655d63]">Estrogen · Progesterone · Testosterone · DHEA · Vaginal estrogen</p></div><p className="whitespace-nowrap text-lg font-black text-[#6d3a9e]">~$30–$100<span className="text-xs text-[#655d63]">/mo</span></p></div>
-                      <div className="flex items-start justify-between gap-4 py-4"><div><p className="text-sm font-black text-[#251d29]">Most patients (2–3 hormones)</p><p className="mt-1 text-xs text-[#655d63]">Typical combined protocol</p></div><p className="whitespace-nowrap text-lg font-black text-[#6d3a9e]">~$150–$250<span className="text-xs text-[#655d63]">/mo</span></p></div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-
-              <div className="mt-5 flex gap-3 rounded-xl border border-[#f0c3da] bg-[#fff9fc] p-4"><Video className="mt-0.5 h-5 w-5 shrink-0 text-[#c32e78]" aria-hidden="true" /><p className="text-sm leading-relaxed text-[#443b43]"><strong className="text-[#251d29]">Convenient fulfillment.</strong> Medication can be shipped to your door or called into your local pharmacy, when clinically appropriate.</p></div>
-              <p className="mt-4 text-center text-xs leading-relaxed text-[#766d75]">Medication options and prescriptions are determined only after an appropriate medical evaluation. Individual recommendations and costs vary.</p>
-              <div className="mt-4 space-y-2 rounded-xl bg-[#f8f6f8] px-4 py-3 text-[11px] leading-relaxed text-[#766d75]">
-                <p>Compounded medications are not FDA-approved. They are prepared by licensed compounding pharmacies for an individual patient based on a prescription. FDA-approved alternatives are available and will be discussed with you by your physician. Results vary. Treatment requires ongoing medical monitoring.</p>
-                <p>Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.</p>
-              </div>
-            </div>
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
-
 export default function Masterclass2() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [disableFullScreen] = useState(() => typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (max-width: 767px)").matches);
@@ -161,6 +82,8 @@ export default function Masterclass2() {
 
   useEffect(() => {
     installMasterclassMetaPixel();
+    const pendingCheckout = getVideoVisitPendingCheckout();
+    if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);
   }, []);
 
   const scrollToVideo = () => {
@@ -247,30 +170,27 @@ export default function Masterclass2() {
 
         <PhysicianProfile />
 
-        <section data-masterclass-video-first-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
-          <div className="mx-auto max-w-[860px] text-center">
-            <p className="mb-2 text-sm font-semibold text-[#7a1e7e]">Ready to talk about your own hormones and weight?</p>
-            <h2 className="text-2xl font-black text-[#281c30] sm:text-3xl">Want to Become a Patient?</h2>
-            <p className="mt-3 text-xs font-black uppercase tracking-[0.06em] text-[#7a1e7e] sm:text-sm">100% virtual care · Available in 17 states</p>
-            <p data-masterclass-video-first-patient-proof className="mt-3 text-sm font-semibold text-[#5a4452] sm:text-base">Dr. Al-Deek has seen <span className="font-black text-[#7a1e7e]">50,000+ patients.</span></p>
+        <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-[#fff9fb] px-5 py-8 sm:px-10 sm:py-10 lg:px-16">
+          <div className="mx-auto max-w-[800px] text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#b8336a]">Work With Me</p>
+            <h2 id="masterclass2-work-heading" className="mt-2 text-2xl font-bold leading-tight text-[#281c30] sm:text-3xl">Thoughtful care. A plan built around you.</h2>
+            <p className="mx-auto mt-3 max-w-[740px] text-sm leading-relaxed text-[#5a4452] sm:text-base">Together, we’ll look at your symptoms, health history, and goals—not just the number on the scale. We’ll discuss a personalized approach to hormones, metabolism, and weight that supports your long-term health.</p>
+            <p className="mt-4 text-xs font-semibold text-[#7a1e7e]">100% virtual care · Available in 17 states</p>
           </div>
-          <div className="mx-auto mt-7 grid max-w-[900px] gap-5 sm:grid-cols-2">
-            <div className="flex flex-col">
-              <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#7a1e7e] sm:text-left">Ready to book?</p>
-              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-white shadow-[0_10px_22px_rgba(122,30,126,0.22)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
-                <span className="flex flex-col items-center leading-tight"><span>Book Your 45-Minute Visit</span><span className="mt-1 text-[13px] font-medium normal-case tracking-normal text-white/90">with Dr. Al-Deek</span></span>
-              </button>
-              <p className="mt-3 px-1 text-center text-xs leading-relaxed text-[#5a4452] sm:text-left">$199 first visit. A $50 deposit holds your appointment and is applied to the visit.</p>
+          <div className="mx-auto mt-6 grid max-w-[900px] gap-4 sm:grid-cols-2">
+            <div data-masterclass2-free-call className="flex flex-col rounded-2xl border border-[#e7d6df] bg-white p-5 sm:p-6">
+              <h3 className="text-lg font-bold text-[#281c30]">Have questions? Let’s start here.</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5a4452]">Talk with our Care Team about getting started.</p>
+              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">Book a Free 15-Minute Call</a>
+              <p className="mt-3 text-xs leading-relaxed text-[#766d75]">With our Care Team. General information—not medical advice.</p>
             </div>
-            <div className="flex flex-col">
-              <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#5a4452] sm:text-left">Need more info?</p>
-              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
-                <span className="flex flex-col items-center leading-tight"><span>Book a Free 15-Minute Call</span><span className="mt-1 text-[13px] font-medium normal-case tracking-normal text-[#5a4452]">with our Care Team</span></span>
-              </a>
-              <p className="mt-3 px-1 text-center text-xs leading-relaxed text-[#5a4452] sm:text-left">Ask about the program and whether it may be a good fit. General information only—not medical advice.</p>
+            <div data-masterclass2-video-offer className="flex flex-col rounded-2xl border border-[#e8bdd4] bg-white p-5 sm:p-6">
+              <h3 className="text-lg font-bold text-[#281c30]">Personalized care. $39 per video visit.</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5a4452]">About the cost of a copay—with a visit focused on you.</p>
+              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">Book Now — $39 per visit</button>
+              <p className="mt-3 text-xs leading-relaxed text-[#766d75]">Video visit with Dr. Al-Deek. Self-pay visit. Insurance copays vary by plan. Medication is priced separately.</p>
             </div>
           </div>
-          <div className="mt-7"><PricingDetails /></div>
         </section>
 
         <footer className="border-t border-[#eee4e9] px-5 py-8 sm:px-10">
@@ -284,7 +204,7 @@ export default function Masterclass2() {
           <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
         </footer>
       </article>
-      <LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />
+      <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </main>
   );
 }
