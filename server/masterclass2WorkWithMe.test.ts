@@ -25,8 +25,13 @@ describe("masterclass2 compact stacked Work With Me booking pills", () => {
 
   it("groups helpers closer to their buttons and makes the unchanged insurance disclosure easier to read", () => {
     expect(section.match(/className="mt-1\.5 /g)).toHaveLength(2);
-    expect(section).toContain('data-masterclass2-self-pay-disclosure className="text-xs leading-relaxed text-[#5a4452]"');
+    expect(section).toContain('data-masterclass2-self-pay-disclosure className="text-[15px] font-medium leading-6 text-[#5a4452]"');
     expect(section).not.toContain("with care focused on you");
+  });
+
+  it("uses 15px medium-weight charcoal text with 24px line height for all four supporting paragraphs", () => {
+    expect(section.match(/text-\[15px\] font-medium leading-6 text-\[#5a4452\]/g)).toHaveLength(4);
+    expect(section).not.toMatch(/<p[^>]+(?:text-xs|text-sm|leading-relaxed|font-semibold)/);
   });
 
   it("preserves both existing booking actions and places the free call first beneath the full bio", () => {

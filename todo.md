@@ -3073,3 +3073,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Independent review proves the page is byte-identical outside the booking section. No checkout/backend, intake, homepage, original masterclass, biography, family photo, video, banner, footer or other route changes.
 - Validated 37 focused tests, TypeScript/build, six responsive widths (320/375/430/768/1024/1440) and three production widths. Both booking actions passed intercepted browser checks; six production routes HTTP 200. Mobile/desktop screenshots reviewed. Full suite: 632 passed, 2 opt-in integration tests skipped, 1 documented pre-existing imported-content compliance failure; no new regressions. Clean git diff whitespace. No real payment, booking or submission.
 - Checkpoint only; not published.
+
+## Masterclass2 Supporting Text Readability — 2026-10-24
+- On `/masterclass2` only, increased the four supporting paragraphs in Choose How to Connect (availability, free-call helper, video-visit helper, self-pay disclosure) to 15px, medium weight 500, 24px line height and existing darker charcoal #5a4452.
+- All wording, heading, buttons, pill dimensions/styles, spacing, booking actions and sticky button remain unchanged; no other section, checkout, backend, intake or page changes. Independent exact inverse comparison restores the full source to the previous checkpoint by reversing only four paragraph class strings.
+- Validated 38 focused tests, TypeScript/build, six responsive widths and three production widths: all four text styles computed correctly with no overflow; both booking actions and sticky behavior preserved. Six production routes HTTP 200; mobile/desktop screenshots reviewed. Full suite: 633 passed, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance failure, no new regressions. Clean diff whitespace; no real booking, payment or submission.
+- Checkpoint only; not published.
