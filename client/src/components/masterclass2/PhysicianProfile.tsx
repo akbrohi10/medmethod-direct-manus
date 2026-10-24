@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 
 // Source-copied from the existing homepage MedicalTeam biography.
 // Kept local to masterclass2 so neither homepage nor original masterclass changes.
-const PORTRAIT = "/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp";
 
 const CREDENTIAL_PILLS = [
   "Board-Certified DO",
@@ -97,21 +96,6 @@ export default function PhysicianProfile() {
       >
         <div className="grid grid-cols-1 items-stretch lg:grid-cols-12">
           <div className="contents lg:col-span-5 lg:flex lg:flex-col">
-            <div
-              className="relative order-1 aspect-[3/4] w-full overflow-hidden lg:order-none"
-              style={{
-                background: "linear-gradient(135deg, #E8D5DC 0%, #C9A8B6 100%)",
-              }}
-            >
-              <img
-                data-masterclass2-presenter-photo
-                src={PORTRAIT}
-                alt="Dr. Jumana Al-Deek, DO — Co-Founder & Medical Director"
-                className="absolute inset-0 h-full w-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
             <div
               className="order-3 lg:order-none flex-1 p-6 md:p-8 lg:p-10 space-y-7"
               style={{

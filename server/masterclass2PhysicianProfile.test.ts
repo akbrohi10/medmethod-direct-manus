@@ -40,8 +40,10 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(profile.replace(/\s+/g, " ")).toContain("with each patient and discuss options that may be appropriate.");
   });
 
-  it("uses the original homepage portrait and keeps the homepage pink/purple typography", () => {
-    expect(profile).toContain('/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp');
+  it("removes only the new portrait and its reserved space while keeping the homepage pink/purple typography", () => {
+    expect(profile).not.toContain('/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp');
+    expect(profile).not.toMatch(/<img|const PORTRAIT|data-masterclass2-presenter-photo|aspect-\[3\/4\]/);
+    expect(homepage).toContain('/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp');
     for (const color of ["#B8336A", "#7A1E7E", "#E8339E", "#F4E8EE", "#E8D5DC"]) {
       expect(profile).toContain(color);
       expect(homepage).toContain(color);

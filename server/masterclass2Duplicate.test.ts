@@ -107,17 +107,17 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     );
   });
 
-  it("replaces only the approved family presenter asset with the homepage portrait in the local profile", () => {
+  it("keeps all other assets unchanged and removes the approved local profile portrait without restoring the family image", () => {
     const originalAssets = manuscriptAssets(original);
     const preservedAssets = originalAssets.filter(
       asset => asset !== FAMILY_PRESENTER_ASSET,
     );
 
     expect(manuscriptAssets(duplicate)).toEqual(preservedAssets);
-    expect(manuscriptAssets(physicianProfile)).toEqual([HOMEPAGE_PORTRAIT_ASSET]);
+    expect(manuscriptAssets(physicianProfile)).toEqual([]);
     expect(duplicate).not.toContain(FAMILY_PRESENTER_ASSET);
     expect(physicianProfile).not.toContain(FAMILY_PRESENTER_ASSET);
-    expect(physicianProfile).toContain(HOMEPAGE_PORTRAIT_ASSET);
+    expect(physicianProfile).not.toContain(HOMEPAGE_PORTRAIT_ASSET);
     expect(physicianProfile).toContain("Training & Credentials");
     expect(physicianProfile).toContain("Credentials");
   });
