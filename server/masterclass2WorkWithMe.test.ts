@@ -6,7 +6,7 @@ const section = page.slice(page.indexOf("        <section data-masterclass-video
 
 describe("masterclass2 compact stacked Work With Me booking pills", () => {
   it("uses the approved concise copy and qualified copay comparison", () => {
-    for (const phrase of ["Work With Me", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book a Virtual Visit — $39", "About the cost of a copay—with care focused on you.", "Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately."]) expect(section).toContain(phrase);
+    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book a Video Visit — $39", "With Dr. Al-Deek · About the cost of a copay.", "Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately."]) expect(section).toContain(phrase);
     expect(section).not.toContain("the same as your copay");
     expect(section).toContain("100% virtual care · Available in 17 states");
     expect(section).not.toMatch(/Thoughtful care|Together, we’ll|Have questions\?|Personalized care\.|<h3/);
@@ -14,13 +14,19 @@ describe("masterclass2 compact stacked Work With Me booking pills", () => {
 
   it("stacks two full-width pills without large cards or desktop columns", () => {
     expect(section).toContain("data-masterclass2-stacked-booking-pills");
-    expect(section).toContain("flex max-w-[560px] flex-col gap-5 text-center");
+    expect(section).toContain("flex max-w-[560px] flex-col gap-4 text-center");
     expect(section).not.toMatch(/sm:grid-cols-2|rounded-2xl|bg-white p-5/);
     expect(section.match(/min-h-\[56px\] w-full/g)).toHaveLength(2);
     expect(section.match(/rounded-full/g)).toHaveLength(2);
     expect(section).toContain("border-2 border-[#b8336a] bg-white");
     expect(section).toContain("bg-gradient-to-r from-[#e8339e] to-[#7a1e7e]");
     expect(section.match(/focus-visible:outline-offset-3/g)).toHaveLength(2);
+  });
+
+  it("groups helpers closer to their buttons and makes the unchanged insurance disclosure easier to read", () => {
+    expect(section.match(/className="mt-1\.5 /g)).toHaveLength(2);
+    expect(section).toContain('data-masterclass2-self-pay-disclosure className="text-xs leading-relaxed text-[#5a4452]"');
+    expect(section).not.toContain("with care focused on you");
   });
 
   it("preserves both existing booking actions and places the free call first beneath the full bio", () => {
