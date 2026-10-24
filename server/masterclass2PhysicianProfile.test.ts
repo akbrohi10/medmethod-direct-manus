@@ -88,9 +88,10 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(page).not.toContain('className="px-5 pt-8 pb-8 sm:px-10 sm:pt-12 sm:pb-12 lg:px-16"');
   });
 
-  it("preserves original video and arrow while using the approved patient-focused headline and Work With Me section", () => {
+  it("preserves original video and arrow while using the approved homepage-style headline and Work With Me section", () => {
     expect(section(page, "data-masterclass-video-first-player")).toBe(section(original, "data-masterclass-video-first-player"));
-    expect(section(page, "data-masterclass-video-first-hero")).toContain("Thinking about becoming a patient?");
+    expect(section(page, "data-masterclass-video-first-hero")).toContain("Done Right for You.");
+    expect(section(page, "data-masterclass-video-first-hero")).toContain("100% Virtual");
     expect(section(page, "data-masterclass-video-first-hero")).not.toContain("data-masterclass-video-first-credentials");
     expect(page).not.toContain("function PricingDetails()");
     expect(original).toContain("function PricingDetails()");

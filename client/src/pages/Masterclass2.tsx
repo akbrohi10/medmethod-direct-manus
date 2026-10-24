@@ -140,10 +140,28 @@ export default function Masterclass2() {
             }}
           />
           <div className="mx-auto max-w-[850px]">
-            <h1 className="mx-auto max-w-[810px] text-[clamp(1.25rem,6.5vw,1.75rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
-              <span className="block">Thinking about becoming a patient?</span>{" "}
-              <span className="block">Meet Dr. Jumana Al-Deek, DO.</span>
+            <h1
+              className="mx-auto max-w-[810px] font-black text-[#111111] leading-[1.05]"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.55rem, 4.5vw, 3.5rem)", letterSpacing: "-0.02em" }}
+            >
+              <span
+                data-masterclass2-home-headline
+                className="block"
+                style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+              >
+                <span className="block">Menopause,</span>{" "}
+                <span className="block">Hormones</span>{" "}
+                <span className="block">&amp; Weight Loss.</span>{" "}
+                <span className="block">Done Right for You.</span>
+              </span>
             </h1>
+            <p
+              data-masterclass2-virtual-subheading
+              className="mt-2 font-extrabold text-[#111111]"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2.4rem)", letterSpacing: "-0.01em" }}
+            >
+              100% Virtual
+            </p>
           </div>
         </section>
 

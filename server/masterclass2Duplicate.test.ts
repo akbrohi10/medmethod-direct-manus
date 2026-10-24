@@ -27,11 +27,10 @@ function sliceBetween(source: string, start: string, end: string) {
 const originalHero = sliceBetween(original, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
 const currentHero = sliceBetween(duplicate, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
 const approvedHero = originalHero
-  .replace(
-    '              <span className="block">Weight won’t budge?</span>{" "}\n              <span className="block">Hormones feel off?</span>{" "}\n              <span className="block">What’s really going on?</span>',
-    '              <span className="block">Thinking about becoming a patient?</span>{" "}\n              <span className="block">Meet Dr. Jumana Al-Deek, DO.</span>',
-  )
   .replace(/\n            <p data-masterclass-video-first-credentials[\s\S]*?<\/p>/, "");
+const normalizedHero = currentHero
+  .replace(/<h1[\s\S]*?<\/h1>/, originalHero.match(/<h1[\s\S]*?<\/h1>/)![0])
+  .replace(/\n            <p\n              data-masterclass2-virtual-subheading[\s\S]*?<\/p>/, "");
 
 const originalLearningChecklist = sliceBetween(
   original,
@@ -114,8 +113,8 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(normalizedDuplicate).toBe(original);
   });
 
-  it("changes only the approved hero wording and removes its redundant credential block", () => {
-    expect(currentHero).toBe(approvedHero);
+  it("changes only the approved homepage-style headline and virtual subheading, without restoring redundant credentials", () => {
+    expect(normalizedHero).toBe(approvedHero);
     expect(currentHero).not.toContain("data-masterclass-video-first-credentials");
     expect(currentHero).not.toContain("50,000");
     expect(originalHero).toContain("Weight won’t budge?");
@@ -124,8 +123,8 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
 
   it("preserves the video and banner while replacing only approved booking and pricing", () => {
     expect(duplicate).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
-    expect(duplicate).toContain("Thinking about becoming a patient?");
-    expect(duplicate).toContain("Meet Dr. Jumana Al-Deek, DO.");
+    expect(duplicate).toContain("data-masterclass2-home-headline");
+    expect(duplicate).toContain("Done Right for You.");
     expect(duplicate).toContain("Watch Now—Get Answers.");
     expect(duplicate).toContain('data-masterclass-video-first-watch-arrow');
     expect(duplicate).not.toContain("Watch the Free Masterclass");
