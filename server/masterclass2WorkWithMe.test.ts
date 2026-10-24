@@ -6,7 +6,7 @@ const section = page.slice(page.indexOf("        <section data-masterclass-video
 
 describe("masterclass2 compact stacked Work With Me booking pills", () => {
   it("uses the approved concise copy and qualified copay comparison", () => {
-    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book a Video Visit — $39", "With Dr. Al-Deek · About the cost of a copay.", "Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately."]) expect(section).toContain(phrase);
+    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book My Visit — $39", "Meet with Dr. Al-Deek by video · About the cost of a copay.", "Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately."]) expect(section).toContain(phrase);
     expect(section).not.toContain("the same as your copay");
     expect(section).toContain("100% virtual care · Available in 17 states");
     expect(section).not.toMatch(/Thoughtful care|Together, we’ll|Have questions\?|Personalized care\.|<h3/);

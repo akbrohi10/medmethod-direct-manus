@@ -3079,3 +3079,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - All wording, heading, buttons, pill dimensions/styles, spacing, booking actions and sticky button remain unchanged; no other section, checkout, backend, intake or page changes. Independent exact inverse comparison restores the full source to the previous checkpoint by reversing only four paragraph class strings.
 - Validated 38 focused tests, TypeScript/build, six responsive widths and three production widths: all four text styles computed correctly with no overflow; both booking actions and sticky behavior preserved. Six production routes HTTP 200; mobile/desktop screenshots reviewed. Full suite: 633 passed, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance failure, no new regressions. Clean diff whitespace; no real booking, payment or submission.
 - Checkpoint only; not published.
+
+## Masterclass2 Book My Visit CTA — 2026-10-24
+- On `/masterclass2` only, changed the main paid booking button and mobile sticky pill to `Book My Visit — $39`. Changed the main paid helper to `Meet with Dr. Al-Deek by video · About the cost of a copay.`
+- Preserved free-call copy/action, insurance disclosure, all styles/typography/spacing, existing $39 checkout, mobile behavior, biography/video and all other pages. Independent reversal of exactly three literal text replacements restores the previous page byte-for-byte.
+- Validated 32 focused tests, TypeScript/build, six responsive widths and three production widths with no overflow/errors and unchanged free-call navigation, paid-modal opening and sticky behavior. Six production routes HTTP 200; mobile/desktop visuals reviewed. Full suite 633 passing, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance assertion failing; no new failures. No real booking, payment or submission.
+- Checkpoint only; not published.

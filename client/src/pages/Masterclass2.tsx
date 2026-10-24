@@ -220,8 +220,8 @@ export default function Masterclass2() {
               <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Care Team · General information, not medical advice.</p>
             </div>
             <div data-masterclass2-video-offer>
-              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Video Visit — $39</button>
-              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">With Dr. Al-Deek · About the cost of a copay.</p>
+              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book My Visit — $39</button>
+              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Meet with Dr. Al-Deek by video · About the cost of a copay.</p>
             </div>
             <p data-masterclass2-self-pay-disclosure className="text-[15px] font-medium leading-6 text-[#5a4452]">Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.</p>
           </div>
@@ -247,7 +247,7 @@ export default function Masterclass2() {
           className="fixed z-40 mx-auto flex min-h-[56px] max-w-[440px] items-center justify-center rounded-full border border-white/70 bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-5 py-3 text-center text-base font-bold text-white shadow-[0_8px_28px_rgba(122,30,126,0.32)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] md:hidden"
           style={{ display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
-          Book a Virtual Visit — $39
+          Book My Visit — $39
         </button>
       <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </main>

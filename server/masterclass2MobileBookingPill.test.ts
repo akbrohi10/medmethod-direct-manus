@@ -10,7 +10,7 @@ describe("masterclass2 mobile sticky booking pill", () => {
     expect([...page.matchAll(/data-masterclass2-mobile-booking/g)]).toHaveLength(1);
     expect(pill).toContain('type="button"');
     expect(pill).toContain('aria-haspopup="dialog"');
-    expect(pill).toContain("Book a Virtual Visit — $39");
+    expect(pill).toContain("Book My Visit — $39");
     expect(pill).toContain("fixed z-40");
     expect(pill).toContain("md:hidden");
     expect(pill).toContain("rounded-full");
