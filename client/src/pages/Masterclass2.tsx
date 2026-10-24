@@ -141,14 +141,9 @@ export default function Masterclass2() {
           />
           <div className="mx-auto max-w-[850px]">
             <h1 className="mx-auto max-w-[810px] text-[clamp(1.25rem,6.5vw,1.75rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
-              <span className="block">Weight won’t budge?</span>{" "}
-              <span className="block">Hormones feel off?</span>{" "}
-              <span className="block">What’s really going on?</span>
+              <span className="block">Thinking about becoming a patient?</span>{" "}
+              <span className="block">Meet Dr. Jumana Al-Deek, DO.</span>
             </h1>
-            <p data-masterclass-video-first-credentials className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
-              <span className="block">From Dr. Jumana Al-Deek, DO · Board-certified physician</span>{" "}
-              <span className="mt-1 block">Menopause, Hormone, Metabolism &amp; Medical Weight-Loss Specialist · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen</span>
-            </p>
           </div>
         </section>
 

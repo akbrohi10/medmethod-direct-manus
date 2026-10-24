@@ -24,6 +24,15 @@ function sliceBetween(source: string, start: string, end: string) {
   return source.slice(startIndex, endIndex);
 }
 
+const originalHero = sliceBetween(original, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
+const currentHero = sliceBetween(duplicate, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
+const approvedHero = originalHero
+  .replace(
+    '              <span className="block">Weight won’t budge?</span>{" "}\n              <span className="block">Hormones feel off?</span>{" "}\n              <span className="block">What’s really going on?</span>',
+    '              <span className="block">Thinking about becoming a patient?</span>{" "}\n              <span className="block">Meet Dr. Jumana Al-Deek, DO.</span>',
+  )
+  .replace(/\n            <p data-masterclass-video-first-credentials[\s\S]*?<\/p>/, "");
+
 const originalLearningChecklist = sliceBetween(
   original,
   "// Keep this in sync with the original What You’ll Learn checklist on /live-webinar2.",
@@ -45,6 +54,7 @@ const currentBooking = sliceBetween(duplicate, "        <section data-masterclas
 const mobileBookingPill = sliceBetween(duplicate, '\n        <button\n          type="button"\n          data-masterclass2-mobile-booking', '\n      <VideoVisitCheckout');
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = duplicate
+  .replace(currentHero, originalHero)
   .replace(mobileFocusRecovery, "")
   .replace('  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
   .replace(mobileBookingPill, "")
@@ -88,7 +98,7 @@ const manuscriptAssets = (source: string) =>
   [...source.matchAll(/\/manus-storage\/[^"']+/g)].map(([asset]) => asset);
 
 describe("approved /masterclass2 duplicate checkpoint", () => {
-  it("differs from the original only by approved profile, banner, removals and Work With Me checkout replacement", () => {
+  it("differs from the original only by approved hero, profile, banner, removals and Work With Me checkout replacement", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
       '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
@@ -104,9 +114,18 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(normalizedDuplicate).toBe(original);
   });
 
+  it("changes only the approved hero wording and removes its redundant credential block", () => {
+    expect(currentHero).toBe(approvedHero);
+    expect(currentHero).not.toContain("data-masterclass-video-first-credentials");
+    expect(currentHero).not.toContain("50,000");
+    expect(originalHero).toContain("Weight won’t budge?");
+    expect(originalHero).toContain("data-masterclass-video-first-credentials");
+  });
+
   it("preserves the video and banner while replacing only approved booking and pricing", () => {
     expect(duplicate).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
-    expect(duplicate).toContain("Weight won’t budge?");
+    expect(duplicate).toContain("Thinking about becoming a patient?");
+    expect(duplicate).toContain("Meet Dr. Jumana Al-Deek, DO.");
     expect(duplicate).toContain("Watch Now—Get Answers.");
     expect(duplicate).toContain('data-masterclass-video-first-watch-arrow');
     expect(duplicate).not.toContain("Watch the Free Masterclass");
