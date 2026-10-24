@@ -97,6 +97,21 @@ export default function PhysicianProfile() {
         >
           Meet Dr. Jumana Al-Deek, DO
         </h2>
+        <a
+          data-masterclass2-physician-recognition
+          href="https://www.orlandofamilymagazine.com/current-issue/2026-top-physicians/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-auto mt-3 inline-flex max-w-full flex-col items-center rounded-xl border border-[#E8D5DC] bg-[#F4E8EE] px-4 py-2 text-center text-[#7A1E7E] transition-colors hover:bg-[#E8D5DC] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7A1E7E]"
+        >
+          <span className="text-sm font-semibold leading-snug sm:text-[15px]">
+            Recognized as a 2026 Top Physician
+          </span>
+          <span className="mt-0.5 text-sm font-medium leading-snug">
+            Orlando Family Magazine
+          </span>
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
         <p className="mt-2 text-sm font-medium leading-relaxed text-[#6e5364] sm:text-base">
           Her background, qualifications &amp; approach to care.
         </p>

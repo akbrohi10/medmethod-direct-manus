@@ -39,6 +39,21 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(profile).toContain("text-[26px] font-bold leading-tight text-[#7A1E7E] sm:text-[32px]");
   });
 
+  it("adds only the approved 2026 recognition with a safe link to the magazine's official listing", () => {
+    expect(profile).toContain("Recognized as a 2026 Top Physician");
+    expect(profile).toContain("Orlando Family Magazine");
+    expect(profile).toContain('href="https://www.orlandofamilymagazine.com/current-issue/2026-top-physicians/"');
+    expect(profile).toContain('target="_blank"');
+    expect(profile).toContain('rel="noopener noreferrer"');
+    expect(profile).toContain("(opens in a new tab)");
+    expect(profile.match(/data-masterclass2-physician-recognition/g)).toHaveLength(1);
+    expect(profile.indexOf("data-masterclass2-physician-recognition")).toBeGreaterThan(profile.indexOf("Meet Dr. Jumana Al-Deek, DO"));
+    expect(profile.indexOf("data-masterclass2-physician-recognition")).toBeLessThan(profile.indexOf("Her background, qualifications"));
+    expect(profile).not.toMatch(/#1 doctor|top-ranked doctor/i);
+    expect(homepage).not.toContain("data-masterclass2-physician-recognition");
+    expect(original).not.toContain("data-masterclass2-physician-recognition");
+  });
+
   it("copies all existing credential, specialty and full narrative data without new claims", () => {
     for (const name of ["CREDENTIAL_PILLS", "FOCUS_AREA_PILLS", "BIO_SECTIONS"]) {
       expect(initializer(profile, name)).toBe(initializer(homepage, name));
