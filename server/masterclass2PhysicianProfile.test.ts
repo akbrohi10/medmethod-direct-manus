@@ -90,10 +90,7 @@ describe("masterclass2 full homepage-style physician profile", () => {
   });
 
   it("preserves original video and arrow while using the approved homepage-style headline and Work With Me section", () => {
-    const originalPlayer = section(original, "data-masterclass-video-first-player");
-    const currentPlayer = section(page, "data-masterclass-video-first-player");
-    const cuePattern = /<div data-masterclass-video-first-watch-cue[\s\S]*?(?=<svg)/;
-    expect(currentPlayer.replace(cuePattern, originalPlayer.match(cuePattern)![0])).toBe(originalPlayer);
+    expect(section(page, "data-masterclass-video-first-player")).toBe(section(original, "data-masterclass-video-first-player"));
     expect(section(page, "data-masterclass-video-first-hero")).toContain("Done Right for You.");
     expect(section(page, "data-masterclass-video-first-hero")).toContain("100% Virtual");
     expect(section(page, "data-masterclass-video-first-hero")).not.toContain("data-masterclass-video-first-credentials");

@@ -52,10 +52,7 @@ const originalBooking = sliceBetween(original, "        <section data-masterclas
 const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
 const mobileBookingPill = sliceBetween(duplicate, '\n        <button\n          type="button"\n          data-masterclass2-mobile-booking', '\n      <VideoVisitCheckout');
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
-const originalWatchCue = sliceBetween(original, "          <div data-masterclass-video-first-watch-cue", "            <svg");
-const currentWatchCue = sliceBetween(duplicate, "          <div data-masterclass-video-first-watch-cue", "            <svg");
 const normalizedDuplicate = duplicate
-  .replace(currentWatchCue, originalWatchCue)
   .replace(/\n        <div data-masterclass2-family-photo-section[\s\S]*?<\/div>\n/, "")
   .replace(currentHero, originalHero)
   .replace(mobileFocusRecovery, "")
@@ -68,7 +65,7 @@ const normalizedDuplicate = duplicate
   .replace(currentBooking, originalBooking)
   .replace("export default function Masterclass2()", `${originalPricing}export default function Masterclass2()`)
   .replace('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";', 'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";\nimport LpConsultationModal2 from "@/components/home1/LpConsultationModal2";')
-  .replace('import { CirclePlay, ShieldCheck } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
+  .replace('import { ShieldCheck } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
   .replace('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />', '<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />')
   .replace("        <FeaturedInStrip />\n", "")
   .replace("\n\n\n        <PhysicianProfile />", `\n\n${originalLearningAndWatchSection}\n\n        <PhysicianProfile />`)

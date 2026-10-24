@@ -1,7 +1,7 @@
 import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import { Helmet } from "react-helmet-async";
-import { CirclePlay, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
 import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";
@@ -141,8 +141,8 @@ export default function Masterclass2() {
           />
           <div className="mx-auto max-w-[850px]">
             <h1
-              className="mx-auto max-w-[810px] font-black text-[#111111] leading-[1.12]"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.5rem, 4.5vw, 3.25rem)", letterSpacing: "-0.02em" }}
+              className="mx-auto max-w-[810px] font-black text-[#111111] leading-[1.05]"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.55rem, 4.5vw, 3.5rem)", letterSpacing: "-0.02em" }}
             >
               <span
                 data-masterclass2-home-headline
@@ -157,8 +157,8 @@ export default function Masterclass2() {
             </h1>
             <p
               data-masterclass2-virtual-subheading
-              className="mx-auto mt-2.5 inline-flex items-center rounded-full border border-[#e8d5dc] bg-white/80 px-3 py-1 text-xs font-semibold leading-4 text-[#7a1e7e]"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
+              className="mt-2 font-extrabold text-[#111111]"
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2.4rem)", letterSpacing: "-0.01em" }}
             >
               100% Virtual
             </p>
@@ -166,11 +166,8 @@ export default function Masterclass2() {
         </section>
 
         <section ref={videoRef} data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-4 sm:px-10 sm:pb-6 lg:px-16">
-          <div data-masterclass-video-first-watch-cue className="mb-3 flex flex-col items-center gap-1.5 text-center">
-            <p className="m-0 inline-flex items-center justify-center gap-2 text-sm font-semibold leading-5 text-[#7a1e7e] sm:text-base">
-              <CirclePlay className="h-4 w-4 shrink-0" aria-hidden="true" />
-              Watch Now—Get Answers.
-            </p>
+          <div data-masterclass-video-first-watch-cue className="mb-4 flex flex-col items-center gap-2 text-center">
+            <p className="m-0 text-base font-extrabold text-[#7a1e7e] sm:text-lg">Watch Now—Get Answers.</p>
             <svg data-masterclass-video-first-watch-arrow viewBox="0 0 100 110" className="pointer-events-none h-[88px] w-[80px] shrink-0 drop-shadow-[0_6px_10px_rgba(122,30,126,0.18)] sm:h-[110px] sm:w-[100px]" aria-hidden="true" focusable="false">
               <defs>
                 <linearGradient id="masterclass-watch-arrow-gradient" x1="0" y1="0" x2="1" y2="1">
