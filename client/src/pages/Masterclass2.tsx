@@ -142,17 +142,16 @@ export default function Masterclass2() {
           <div className="mx-auto max-w-[850px]">
             <h1
               className="mx-auto max-w-[810px] font-black text-[#111111] leading-[1.05]"
-              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.55rem, 4.5vw, 3.5rem)", letterSpacing: "-0.02em" }}
+              style={{ fontFamily: "Montserrat, sans-serif", fontSize: "clamp(1.375rem, 7vw, 3.5rem)", letterSpacing: "-0.02em" }}
             >
               <span
                 data-masterclass2-home-headline
                 className="block"
                 style={{ backgroundImage: "linear-gradient(135deg, #E8339E 0%, #7A1E7E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
               >
-                <span className="block">Menopause,</span>{" "}
-                <span className="block">Hormones</span>{" "}
+                <span className="block">Menopause, Hormones</span>{" "}
                 <span className="block">&amp; Weight Loss.</span>{" "}
-                <span className="block">Done Right for You.</span>
+                <span data-masterclass2-headline-promise className="mt-2 block text-[0.8em] leading-[1.1] sm:mt-3">Done Right for You.</span>
               </span>
             </h1>
             <p
