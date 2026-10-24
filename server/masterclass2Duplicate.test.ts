@@ -39,16 +39,9 @@ const originalFamilyBio = sliceBetween(
   "        <section data-masterclass-video-first-bio",
   "\n        <FeaturedInStrip />",
 );
-const duplicateBeforeBannerMove = duplicate
+const normalizedDuplicate = duplicate
   .replace("        <FeaturedInStrip />\n", "")
-  .replace("        <PhysicianProfile />", "        <PhysicianProfile />\n        <FeaturedInStrip />");
-const duplicateWatchSection = sliceBetween(
-  duplicateBeforeBannerMove,
-  '        <div className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16">',
-  "\n\n        <PhysicianProfile />",
-);
-
-const normalizedDuplicate = duplicateBeforeBannerMove
+  .replace("\n\n\n        <PhysicianProfile />", `\n\n${originalLearningAndWatchSection}\n\n        <PhysicianProfile />`)
   .replace('import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";\n', "")
   .replace(
     'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";',
@@ -58,8 +51,7 @@ const normalizedDuplicate = duplicateBeforeBannerMove
     "\n\nconst FEATURED_OUTLETS",
     `\n\n${originalLearningChecklist}\nconst FEATURED_OUTLETS`,
   )
-  .replace(duplicateWatchSection, originalLearningAndWatchSection)
-  .replace("        <PhysicianProfile />", originalFamilyBio)
+  .replace("        <PhysicianProfile />", `${originalFamilyBio}\n        <FeaturedInStrip />`)
   .replaceAll("Masterclass2", "MasterclassVideoFirst")
   .replaceAll(
     "https://medmethoddirect.com/masterclass2",
@@ -79,7 +71,7 @@ const manuscriptAssets = (source: string) =>
   [...source.matchAll(/\/manus-storage\/[^"']+/g)].map(([asset]) => asset);
 
 describe("approved /masterclass2 duplicate checkpoint", () => {
-  it("differs from the original only by approved learning removal, physician-profile substitution and banner relocation", () => {
+  it("differs from the original only by approved learning/watch removal, physician-profile substitution and banner relocation", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
       '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
@@ -95,12 +87,15 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(normalizedDuplicate).toBe(original);
   });
 
-  it("preserves the exact video, headline, watch control, featured strip, booking, pricing, and payment content", () => {
+  it("preserves the exact video, headline, watch cue, featured strip, booking, pricing, and payment content", () => {
     expect(duplicate).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
     expect(duplicate).toContain("Weight won’t budge?");
     expect(duplicate).toContain("Watch Now—Get Answers.");
     expect(duplicate).toContain('data-masterclass-video-first-watch-arrow');
-    expect(duplicate).toContain("Watch the Free Masterclass");
+    expect(duplicate).not.toContain("Watch the Free Masterclass");
+    expect(duplicate).not.toContain("data-masterclass-watch-button");
+    expect(duplicate).not.toContain('className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16"');
+    expect(original).toContain("Watch the Free Masterclass");
     expect(duplicate).toContain("Featured In");
     expect(duplicate).toContain("$199 first visit. A $50 deposit holds your appointment and is applied to the visit.");
     expect(duplicate).toContain('$50<span className="text-xl tracking-normal">/month</span>');

@@ -244,18 +244,6 @@ export default function Masterclass2() {
         </section>
 
         <FeaturedInStrip />
-        <div className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16">
-          <div className="flex justify-center">
-            <button
-              type="button"
-              data-masterclass-watch-button
-              onClick={scrollToVideo}
-              className="inline-flex min-h-14 w-full max-w-[720px] items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-7 py-3 text-center text-sm font-black uppercase tracking-[0.035em] text-white shadow-[0_10px_22px_rgba(122,30,126,0.22)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:w-auto sm:px-10"
-            >
-              Watch the Free Masterclass
-            </button>
-          </div>
-        </div>
 
         <PhysicianProfile />
 
