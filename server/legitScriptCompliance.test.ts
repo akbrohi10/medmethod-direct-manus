@@ -73,13 +73,18 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
-  it("limits the owner-approved 17-state virtual-care claim to the masterclass page", () => {
+  it("limits the owner-approved 17-state virtual-care claim to the masterclass page and its approved exact duplicate", () => {
     const masterclassPath = resolve(sourceRoot, "pages/MasterclassVideoFirst.tsx");
+    const masterclass2Path = resolve(sourceRoot, "pages/Masterclass2.tsx");
     expect(readFileSync(masterclassPath, "utf8")).toContain(
       "100% virtual care · Available in 17 states",
     );
+    expect(readFileSync(masterclass2Path, "utf8")
+      .replace("export default function Masterclass2()", "export default function MasterclassVideoFirst()")
+      .replace('href="https://medmethoddirect.com/masterclass2"', 'href="https://medmethoddirect.com/masterclass"')
+    ).toBe(readFileSync(masterclassPath, "utf8"));
     for (const file of collectTextFiles(clientRoot)) {
-      if (file === masterclassPath) continue;
+      if (file === masterclassPath || file === masterclass2Path) continue;
       expect(readFileSync(file, "utf8"), file).not.toMatch(
         /(?:17 states|licensed in 17|seventeen states)/i,
       );

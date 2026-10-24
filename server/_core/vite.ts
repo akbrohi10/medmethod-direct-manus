@@ -12,6 +12,7 @@ function injectMasterclassRouteMeta(template: string, url: string): string {
   template = injectCareTeamConfirmationPrivacyIntoHtml(template, url);
   const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
   if (cleanPath === "/weight-loss-menopause") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
+  if (cleanPath === "/masterclass2") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath !== "/masterclass") return template;
   return injectRouteMetaIntoHtml(template, getMetaForPath(url));
 }

@@ -128,6 +128,15 @@ const ROUTE_META: Record<string, RouteMeta> = {
       "Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek",
     url: `${BASE_URL}/masterclass`,
   },
+  "/masterclass2": {
+    title: "Free Masterclass: Menopause, Metabolism & Weight Loss",
+    description:
+      "Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.",
+    image: `${BASE_URL}/manus-storage/masterclass-social-share-1200x630_5f4c1cf1.png`,
+    imageAlt:
+      "Free on-demand menopause, metabolism, and weight loss masterclass with Dr. Jumana Al-Deek",
+    url: `${BASE_URL}/masterclass2`,
+  },
   "/weight-loss-menopause": {
     title: "Weight-Loss & Menopause | MedMethod Direct",
     description: "Explore physician-guided GLP-1 weight management and menopause care with Dr. Jumana Al-Deek, including medication pricing and ongoing support.",
