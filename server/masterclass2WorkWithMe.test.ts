@@ -24,6 +24,6 @@ describe("masterclass2 approved Work With Me offer", () => {
     expect(original).toContain("See Full Pricing Details");
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
-    expect([...page.matchAll(/\$\d+/g)].map(m => m[0])).toEqual(["$39", "$39"]);
+    expect([...page.matchAll(/\$\d+/g)].map(m => m[0])).toEqual(["$39", "$39", "$39"]);
   });
 });

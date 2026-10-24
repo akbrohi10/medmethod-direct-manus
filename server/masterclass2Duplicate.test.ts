@@ -42,7 +42,14 @@ const originalFamilyBio = sliceBetween(
 const originalPricing = sliceBetween(original, "function PricingDetails()", "export default function");
 const originalBooking = sliceBetween(original, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
 const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
+const mobileBookingPill = sliceBetween(duplicate, '\n        <button\n          type="button"\n          data-masterclass2-mobile-booking', '\n      <VideoVisitCheckout');
+const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = duplicate
+  .replace(mobileFocusRecovery, "")
+  .replace('  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
+  .replace(mobileBookingPill, "")
+  .replace("<main data-masterclass2-page ", "<main ")
+  .replace('        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }\n        }\n', "")
   .replace('import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";\n', "")
   .replace('    const pendingCheckout = getVideoVisitPendingCheckout();\n    if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);\n', "")
   .replace(currentBooking, originalBooking)

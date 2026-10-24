@@ -79,12 +79,22 @@ export default function Masterclass2() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [disableFullScreen] = useState(() => typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (max-width: 767px)").matches);
   const videoRef = useRef<HTMLElement>(null);
+  const mobileBookingRef = useRef<HTMLButtonElement>(null);
+  const mobileBookingOpened = useRef(false);
 
   useEffect(() => {
     installMasterclassMetaPixel();
     const pendingCheckout = getVideoVisitPendingCheckout();
     if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);
   }, []);
+
+  useEffect(() => {
+    if (!consultationOpen && mobileBookingOpened.current) {
+      mobileBookingOpened.current = false;
+      const timer = window.setTimeout(() => mobileBookingRef.current?.focus({ preventScroll: true }), 250);
+      return () => window.clearTimeout(timer);
+    }
+  }, [consultationOpen]);
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
@@ -94,7 +104,7 @@ export default function Masterclass2() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f7f3f5] text-[#25212a]" style={{ fontFamily: "Montserrat, sans-serif" }}>
+    <main data-masterclass2-page className="min-h-screen bg-[#f7f3f5] text-[#25212a]" style={{ fontFamily: "Montserrat, sans-serif" }}>
       <Helmet>
         <title>Free Masterclass: Menopause, Metabolism &amp; Weight Loss</title>
         <meta name="description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
@@ -110,6 +120,9 @@ export default function Masterclass2() {
         }
         @media (prefers-reduced-motion: reduce) {
           [data-masterclass-video-first-watch-arrow] { animation: none; opacity: 1; transform: none; }
+        }
+        @media (max-width: 767px) {
+          [data-masterclass2-page] { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
         }
       `}</style>
 
@@ -204,6 +217,17 @@ export default function Masterclass2() {
           <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
         </footer>
       </article>
+        <button
+          type="button"
+          data-masterclass2-mobile-booking
+          aria-haspopup="dialog"
+          ref={mobileBookingRef}
+          onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
+          className="fixed z-40 mx-auto flex min-h-[56px] max-w-[440px] items-center justify-center rounded-full border border-white/70 bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-5 py-3 text-center text-base font-bold text-white shadow-[0_8px_28px_rgba(122,30,126,0.32)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] md:hidden"
+          style={{ display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
+        >
+          Book Now — $39 per visit
+        </button>
       <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </main>
   );
