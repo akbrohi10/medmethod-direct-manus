@@ -87,9 +87,20 @@ export default function PhysicianProfile() {
       className="bg-[#fff9fb] px-5 py-7 sm:px-10 sm:py-8 lg:px-10"
       style={{ fontFamily: "Montserrat, sans-serif" }}
     >
-      <h2 id="masterclass2-profile-heading" className="sr-only">
-        About Dr. Jumana Al-Deek
-      </h2>
+      <header
+        data-masterclass2-profile-introduction
+        className="mx-auto mb-5 max-w-[980px] text-center sm:mb-6"
+      >
+        <h2
+          id="masterclass2-profile-heading"
+          className="text-[26px] font-bold leading-tight text-[#7A1E7E] sm:text-[32px]"
+        >
+          Meet Dr. Jumana Al-Deek, DO
+        </h2>
+        <p className="mt-2 text-sm font-medium leading-relaxed text-[#6e5364] sm:text-base">
+          Her background, qualifications &amp; approach to care.
+        </p>
+      </header>
       <article
         className="mx-auto max-w-[980px] overflow-hidden rounded-3xl bg-white shadow-[0_12px_40px_rgba(17,17,17,0.08)]"
         style={{ border: "1px solid rgba(17,17,17,0.04)" }}

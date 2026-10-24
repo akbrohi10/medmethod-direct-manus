@@ -28,6 +28,17 @@ function section(source: string, marker: string) {
 }
 
 describe("masterclass2 full homepage-style physician profile", () => {
+  it("introduces the unchanged biography with the exact approved visible heading and supporting line", () => {
+    expect(profile).toContain("data-masterclass2-profile-introduction");
+    expect(profile).toContain("Meet Dr. Jumana Al-Deek, DO");
+    expect(profile).toContain("Her background, qualifications &amp; approach to care.");
+    expect(profile).toContain('aria-labelledby="masterclass2-profile-heading"');
+    expect(profile).toContain('id="masterclass2-profile-heading"');
+    expect(profile).not.toContain('id="masterclass2-profile-heading" className="sr-only"');
+    expect(profile.indexOf("data-masterclass2-profile-introduction")).toBeLessThan(profile.indexOf("<article"));
+    expect(profile).toContain("text-[26px] font-bold leading-tight text-[#7A1E7E] sm:text-[32px]");
+  });
+
   it("copies all existing credential, specialty and full narrative data without new claims", () => {
     for (const name of ["CREDENTIAL_PILLS", "FOCUS_AREA_PILLS", "BIO_SECTIONS"]) {
       expect(initializer(profile, name)).toBe(initializer(homepage, name));
