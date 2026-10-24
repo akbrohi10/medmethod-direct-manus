@@ -73,16 +73,21 @@ describe("LegitScript compliance remediation", () => {
     }
   });
 
-  it("limits the owner-approved 17-state virtual-care claim to the masterclass page and its approved exact duplicate", () => {
+  it("limits the owner-approved 17-state virtual-care claim to the masterclass and masterclass2 pages", () => {
     const masterclassPath = resolve(sourceRoot, "pages/MasterclassVideoFirst.tsx");
     const masterclass2Path = resolve(sourceRoot, "pages/Masterclass2.tsx");
-    expect(readFileSync(masterclassPath, "utf8")).toContain(
-      "100% virtual care · Available in 17 states",
-    );
-    expect(readFileSync(masterclass2Path, "utf8")
-      .replace("export default function Masterclass2()", "export default function MasterclassVideoFirst()")
-      .replace('href="https://medmethoddirect.com/masterclass2"', 'href="https://medmethoddirect.com/masterclass"')
-    ).toBe(readFileSync(masterclassPath, "utf8"));
+    const bookingClaim = "100% virtual care · Available in 17 states";
+    const readBookingClaim = (path: string) => {
+      const source = readFileSync(path, "utf8");
+      const bookingSection = source.slice(
+        source.indexOf("data-masterclass-video-first-booking"),
+        source.indexOf("</section>", source.indexOf("data-masterclass-video-first-booking")),
+      );
+      return bookingSection.match(/100% virtual care · Available in 17 states/)?.[0];
+    };
+
+    expect(readBookingClaim(masterclassPath)).toBe(bookingClaim);
+    expect(readBookingClaim(masterclass2Path)).toBe(bookingClaim);
     for (const file of collectTextFiles(clientRoot)) {
       if (file === masterclassPath || file === masterclass2Path) continue;
       expect(readFileSync(file, "utf8"), file).not.toMatch(

@@ -1,44 +1,13 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import { Helmet } from "react-helmet-async";
-import { Check, CheckCircle2, ShieldCheck, Video } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
-
-// Keep this in sync with the original What You’ll Learn checklist on /live-webinar2.
-const learningChecklist = [
-  {
-    title: "Why You Can’t Lose Weight Like You Used To",
-    body: "What changes in your 30s, 40s & 50s—and why.",
-  },
-  {
-    title: "Is It Perimenopause or Menopause?",
-    body: "The signs and symptoms your body may be trying to tell you.",
-  },
-  {
-    title: "Hot Flashes, Poor Sleep, Mood Changes & Low Energy",
-    body: "Understand what may actually be happening with your hormones.",
-  },
-  {
-    title: "The Truth About Hormone Therapy",
-    body: "What every woman should know about her options.",
-  },
-  {
-    title: "GLP-1s & Medical Weight Loss",
-    body: "When they may help—and what proper treatment should look like.",
-  },
-  {
-    title: "What to Ask Your Doctor",
-    body: "Know your options and become a better advocate for your health.",
-  },
-  {
-    title: "LIVE Q&A Replay with Dr. Jumana Al-Deek",
-    body: "Watch people like you get answers from a menopause & medical weight loss specialist.",
-  },
-];
 
 const FEATURED_OUTLETS = [
   { name: "Flow Space", logo: "/manus-storage/flow-space-white_beb898dc.png" },
@@ -274,46 +243,8 @@ export default function Masterclass2() {
           </div>
         </section>
 
-        <div className="px-5 pt-8 pb-8 sm:px-10 sm:pt-12 sm:pb-12 lg:px-16">
-          <section
-            data-webinar2-learning
-            className="mx-auto max-w-[980px] bg-[#fff7f5] px-0 py-6 sm:py-10"
-          >
-            <div className="mx-auto max-w-[900px] text-center">
-              <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base">
-                What You’ll Learn
-              </p>
-              <h2 className="mx-auto mt-5 max-w-[780px] text-[2.55rem] font-black leading-[1] tracking-[-0.045em] text-[#432943] sm:text-6xl lg:text-[4rem]">
-                Because You Deserve to Know.
-              </h2>
-              <ul data-webinar2-learning-checklist className="mx-auto mt-9 max-w-[800px] text-left sm:mt-11">
-                {learningChecklist.map(({ title, body }) => (
-                  <li
-                    data-webinar2-learning-item
-                    key={title}
-                    className="flex gap-4 border-b border-[#eadde4] py-6 first:pt-0 last:border-b-0 last:pb-0 sm:gap-5 sm:py-7"
-                  >
-                    <span
-                      data-webinar2-learning-check
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dd2d84] text-white shadow-[0_5px_12px_rgba(221,45,132,0.18)] sm:h-10 sm:w-10"
-                      aria-hidden="true"
-                    >
-                      <Check className="h-5 w-5 stroke-[3] sm:h-6 sm:w-6" />
-                    </span>
-                    <div className="min-w-0 pt-0.5">
-                      <h3 className="text-xl font-extrabold leading-[1.22] tracking-[-0.025em] text-[#432943] sm:text-2xl">
-                        {title}
-                      </h3>
-                      <p className="mt-2 text-base font-medium leading-[1.55] text-[#514a52] sm:text-lg sm:leading-[1.6]">
-                        {body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-          <div className="mt-7 flex justify-center sm:mt-8">
+        <div className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16">
+          <div className="flex justify-center">
             <button
               type="button"
               data-masterclass-watch-button
@@ -325,21 +256,7 @@ export default function Masterclass2() {
           </div>
         </div>
 
-        <section data-masterclass-video-first-bio className="bg-[#fff9fb] px-5 py-7 sm:px-10 sm:py-8 lg:px-16">
-          <p className="mx-auto max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
-            Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.
-          </p>
-          <img
-            data-masterclass-presenter-photo
-            src="/manus-storage/jumana-family-masterclass_238b56a3.webp"
-            alt="Dr. Jumana Al-Deek with her family outdoors"
-            width={1100}
-            height={1100}
-            loading="lazy"
-            decoding="async"
-            className="mx-auto mt-5 aspect-square w-full max-w-[340px] rounded-2xl border border-[#f0e5eb] object-cover shadow-[0_10px_28px_rgba(54,29,55,0.12)] sm:mt-6 sm:max-w-[390px]"
-          />
-        </section>
+        <PhysicianProfile />
         <FeaturedInStrip />
 
         <section data-masterclass-video-first-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
