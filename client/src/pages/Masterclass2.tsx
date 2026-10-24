@@ -214,13 +214,13 @@ export default function Masterclass2() {
             <p className="mt-2 text-[15px] font-medium leading-6 text-[#5a4452]">100% virtual care · Available in 17 states</p>
           </div>
           <div data-masterclass2-stacked-booking-pills className="mx-auto mt-5 flex max-w-[560px] flex-col gap-4 text-center">
-            <div data-masterclass2-free-call>
-              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Free 15-Minute Call</a>
-              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Care Team · General information, not medical advice.</p>
-            </div>
             <div data-masterclass2-video-offer>
               <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book My Video Visit — Only $39!</button>
               <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Meet with Dr. Al-Deek by video · About the cost of a copay.</p>
+            </div>
+            <div data-masterclass2-free-call>
+              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Free 15-Minute Call</a>
+              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Care Team · General information, not medical advice.</p>
             </div>
           </div>
         </section>

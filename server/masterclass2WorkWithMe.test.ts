@@ -35,9 +35,9 @@ describe("masterclass2 compact stacked Work With Me booking pills", () => {
     expect(section).not.toMatch(/<p[^>]+(?:text-xs|text-sm|leading-relaxed|font-semibold)/);
   });
 
-  it("preserves both existing booking actions and places the free call first beneath the full bio", () => {
+  it("preserves both existing booking actions and places the paid video visit first beneath the full bio", () => {
     expect(page.indexOf("data-masterclass2-work-with-me")).toBeGreaterThan(page.indexOf("<PhysicianProfile />"));
-    expect(section.indexOf("data-masterclass2-free-call")).toBeLessThan(section.indexOf("data-masterclass2-video-offer"));
+    expect(section.indexOf("data-masterclass2-video-offer")).toBeLessThan(section.indexOf("data-masterclass2-free-call"));
     expect(section).toContain('href="/care-team-booking"');
     expect(section).toContain('data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)}');
     expect(page).toContain('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />');
