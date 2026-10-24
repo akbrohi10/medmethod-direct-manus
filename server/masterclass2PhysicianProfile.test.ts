@@ -69,7 +69,11 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(original).toContain("What You’ll Learn");
     expect(page).toContain("<PhysicianProfile />");
     expect(page.indexOf("<PhysicianProfile />")).toBeGreaterThan(page.indexOf("data-masterclass-video-first-player"));
-    expect(page.indexOf("<PhysicianProfile />")).toBeLessThan(page.indexOf("<FeaturedInStrip />"));
+    expect(page.indexOf("<FeaturedInStrip />")).toBeGreaterThan(page.indexOf("data-masterclass-video-first-player"));
+    expect(page.indexOf("<FeaturedInStrip />")).toBeLessThan(page.indexOf("data-masterclass-watch-button"));
+    expect(page.indexOf("<PhysicianProfile />")).toBeGreaterThan(page.indexOf("<FeaturedInStrip />"));
+    expect([...page.matchAll(/<FeaturedInStrip \/>/g)]).toHaveLength(1);
+    expect(page).toContain('</section>\n\n        <FeaturedInStrip />\n        <div className="px-5 py-5');
     expect(page).not.toContain('className="px-5 pt-8 pb-8 sm:px-10 sm:pt-12 sm:pb-12 lg:px-16"');
   });
 

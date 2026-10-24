@@ -39,13 +39,16 @@ const originalFamilyBio = sliceBetween(
   "        <section data-masterclass-video-first-bio",
   "\n        <FeaturedInStrip />",
 );
+const duplicateBeforeBannerMove = duplicate
+  .replace("        <FeaturedInStrip />\n", "")
+  .replace("        <PhysicianProfile />", "        <PhysicianProfile />\n        <FeaturedInStrip />");
 const duplicateWatchSection = sliceBetween(
-  duplicate,
+  duplicateBeforeBannerMove,
   '        <div className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16">',
   "\n\n        <PhysicianProfile />",
 );
 
-const normalizedDuplicate = duplicate
+const normalizedDuplicate = duplicateBeforeBannerMove
   .replace('import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";\n', "")
   .replace(
     'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";',
@@ -76,7 +79,7 @@ const manuscriptAssets = (source: string) =>
   [...source.matchAll(/\/manus-storage\/[^"']+/g)].map(([asset]) => asset);
 
 describe("approved /masterclass2 duplicate checkpoint", () => {
-  it("differs from the original only by the approved learning removal and physician-profile substitution", () => {
+  it("differs from the original only by approved learning removal, physician-profile substitution and banner relocation", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
       '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',

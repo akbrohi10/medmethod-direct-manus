@@ -243,6 +243,7 @@ export default function Masterclass2() {
           </div>
         </section>
 
+        <FeaturedInStrip />
         <div className="px-5 py-5 sm:px-10 sm:py-6 lg:px-16">
           <div className="flex justify-center">
             <button
@@ -257,7 +258,6 @@ export default function Masterclass2() {
         </div>
 
         <PhysicianProfile />
-        <FeaturedInStrip />
 
         <section data-masterclass-video-first-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
           <div className="mx-auto max-w-[860px] text-center">
