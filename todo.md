@@ -3091,3 +3091,9 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Independent byte-level inverse confirms reinserting the sole deleted paragraph restores the complete previous page. Related section tests now guard absence of this paragraph and the unchanged three remaining readable supporting paragraphs.
 - Validated 32 focused tests, TypeScript/build, six responsive widths and three built-production widths with unchanged free-call/paid-modal actions; six production routes HTTP 200. Mobile screenshot reviewed; no overflow/errors or external submissions/payments. Full suite: 633 passing, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance failure; no new regressions. Whitespace/protected-file checks passed.
 - Checkpoint only; not published.
+
+## Masterclass2 Only $39 Booking CTA — 2026-10-24
+- On `/masterclass2` only, changed both the main paid booking button and mobile sticky pill to `Book My Video Visit — Only $39!`.
+- Exactly two literal label replacements; independent inverse restores the entire previous page byte-for-byte. All supporting copy, copay comparison, styles, spacing, booking handlers, $39-per-visit charge, free-call action and other pages unchanged.
+- Validated 32 focused tests, TypeScript/build, six responsive widths and three built-production widths with exact labels fully contained in both pills, unchanged free-call navigation/modal opening and sticky behavior; six production routes HTTP 200. Mobile visual reviewed. Full suite: 633 passing, 2 opt-in integrations skipped, 1 documented pre-existing imported-content compliance failure; no new failures. Whitespace/protected-file checks passed. No actual payment, booking or submission.
+- Checkpoint only; not published.
