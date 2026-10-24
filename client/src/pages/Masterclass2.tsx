@@ -194,6 +194,19 @@ export default function Masterclass2() {
 
         <FeaturedInStrip />
 
+        <div data-masterclass2-family-photo-section className="bg-[#fff9fb] px-5 pt-6 sm:px-10 sm:pt-8 lg:px-16">
+          <img
+            data-masterclass2-family-photo
+            src="/manus-storage/jumana-family-masterclass_238b56a3.webp"
+            alt="Dr. Jumana Al-Deek with her family outdoors"
+            width={1100}
+            height={1100}
+            loading="lazy"
+            decoding="async"
+            className="mx-auto block h-auto w-full max-w-[340px] rounded-2xl border border-[#f0e5eb] object-contain shadow-[0_10px_28px_rgba(54,29,55,0.12)] sm:max-w-[390px]"
+          />
+        </div>
+
         <PhysicianProfile />
 
         <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-[#fff9fb] px-5 py-8 sm:px-10 sm:py-10 lg:px-16">

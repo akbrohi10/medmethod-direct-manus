@@ -53,6 +53,7 @@ const currentBooking = sliceBetween(duplicate, "        <section data-masterclas
 const mobileBookingPill = sliceBetween(duplicate, '\n        <button\n          type="button"\n          data-masterclass2-mobile-booking', '\n      <VideoVisitCheckout');
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = duplicate
+  .replace(/\n        <div data-masterclass2-family-photo-section[\s\S]*?<\/div>\n/, "")
   .replace(currentHero, originalHero)
   .replace(mobileFocusRecovery, "")
   .replace('  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
@@ -140,15 +141,12 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     );
   });
 
-  it("keeps all other assets unchanged and removes the approved local profile portrait without restoring the family image", () => {
+  it("restores the original family image while keeping other assets and the portrait-free local profile unchanged", () => {
     const originalAssets = manuscriptAssets(original);
-    const preservedAssets = originalAssets.filter(
-      asset => asset !== FAMILY_PRESENTER_ASSET,
-    );
 
-    expect(manuscriptAssets(duplicate)).toEqual(preservedAssets);
+    expect(manuscriptAssets(duplicate)).toEqual(originalAssets);
     expect(manuscriptAssets(physicianProfile)).toEqual([]);
-    expect(duplicate).not.toContain(FAMILY_PRESENTER_ASSET);
+    expect(duplicate).toContain(FAMILY_PRESENTER_ASSET);
     expect(physicianProfile).not.toContain(FAMILY_PRESENTER_ASSET);
     expect(physicianProfile).not.toContain(HOMEPAGE_PORTRAIT_ASSET);
     expect(physicianProfile).toContain("Training & Credentials");

@@ -61,7 +61,7 @@ describe("masterclass2 full homepage-style physician profile", () => {
     }
     expect(profile).toContain('fontFamily: "Montserrat, sans-serif"');
     expect(profile).toContain('fontFamily: "Georgia, serif"');
-    expect(page).not.toContain("jumana-family-masterclass");
+    expect(profile).not.toContain("jumana-family-masterclass");
   });
 
   it("keeps both narrative sections visible and all three deeper sections expandable with local accessible controls", () => {
@@ -84,7 +84,8 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(page).not.toContain("data-masterclass-watch-button");
     expect(page.indexOf("<PhysicianProfile />")).toBeGreaterThan(page.indexOf("<FeaturedInStrip />"));
     expect([...page.matchAll(/<FeaturedInStrip \/>/g)]).toHaveLength(1);
-    expect(page).toContain('</section>\n\n        <FeaturedInStrip />\n\n        <PhysicianProfile />');
+    expect(page).toContain('</section>\n\n        <FeaturedInStrip />\n\n        <div data-masterclass2-family-photo-section');
+    expect(page).toContain('</div>\n\n        <PhysicianProfile />');
     expect(page).not.toContain('className="px-5 pt-8 pb-8 sm:px-10 sm:pt-12 sm:pb-12 lg:px-16"');
   });
 
