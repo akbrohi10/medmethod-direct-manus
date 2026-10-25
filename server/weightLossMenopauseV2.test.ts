@@ -78,7 +78,7 @@ const approvedGlp1DisplayMap: Record<string, Glp1PageDisplay> = {
   },
 };
 
-const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss &amp;<br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>For FREE!</em></span></h1>';
+const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>For FREE!</em></span></h1>';
 const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
 const approvedPatientMessage = '<div className="chat-message" data-chat-at="400"><div className="bubble me">Hi Dr. Al-Deek,<br />I\'d like to learn about my options for weight loss and hormones.</div><div className="chat-time patient-time">9:41 AM</div></div>';
 const approvedDoctorMessage = '<div className="chat-message" data-chat-at="2400"><div className="bubble">Of course! I\'m happy to help. Let\'s discuss your goals and see what options may be right for you.</div><div className="chat-time">9:42 AM</div></div>';
@@ -181,6 +181,16 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page).toContain("$49/month plus the cost of medication.");
     expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
     expect(interaction).toContain('root.querySelector<HTMLElement>(".hero-actions .btn")');
+  });
+
+  it("uses the simpler DM Sans font for only the headline ampersand", () => {
+    expect(page.match(/className="hero-ampersand"/g)).toHaveLength(1);
+    expect(approvedHeroHeadline).toContain('<span className="hero-ampersand">&amp;</span>');
+    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1 .hero-ampersand{font-family:"DM Sans",Arial,sans-serif;line-height:0}');
+    expect(css.match(/\.hero-ampersand\{/g)).toHaveLength(1);
+    expect(css).toContain('font-family:"Playfair Display",Georgia,serif');
+    expect(originalPage).not.toContain("hero-ampersand");
+    expect(originalCss).not.toContain("hero-ampersand");
   });
 
   it("uses exactly two large, illustrative chat messages inside the original phone frame", () => {

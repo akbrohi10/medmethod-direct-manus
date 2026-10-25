@@ -110,7 +110,7 @@ export default function WeightLossMenopauseV2() {
       <div className="wlm-v2-content" ref={contentRef}>
         <main id="top">
 <section className="hero" data-medmethod-scope=""><div className="container hero-grid"><div className="hero-copy">
-<h1><span className="hero-headline-line">Text a Weight Loss &amp;<br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>For FREE!</em></span></h1>
+<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>For FREE!</em></span></h1>
 <p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>
 <div className="hero-actions"><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}><span className="hero-cta-label">Start your visit <span className="arrow" aria-hidden="true">→</span></span><span className="hero-cta-timing">5–10 min</span></a></div>
 <p className="hero-text-note">100% by text message — no video needed.</p>

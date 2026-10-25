@@ -308,6 +308,7 @@
 .wlm-v2-content .hero[data-medmethod-scope] .hero-grid{width:min(100%,1600px);max-width:none;min-height:660px;padding:0 clamp(24px,6.5vw,108px);grid-template-columns:minmax(0,1.13fr) minmax(0,.87fr);gap:4vw;align-items:center}
 .wlm-v2-content .hero[data-medmethod-scope] .hero-copy{position:relative;z-index:2;text-align:left;min-width:0}
 .wlm-v2-content .hero[data-medmethod-scope] h1{max-width:none;margin:0 0 28px;font-family:"Playfair Display",Georgia,serif;font-size:clamp(42px,4.65vw,78px);font-weight:700;line-height:1.16;letter-spacing:-.045em;color:#101523;-webkit-text-fill-color:#101523}
+.wlm-v2-content .hero[data-medmethod-scope] h1 .hero-ampersand{font-family:"DM Sans",Arial,sans-serif;line-height:0}
 .wlm-v2-content .hero[data-medmethod-scope] .hero-headline-line{display:block;white-space:normal;text-wrap:pretty}
 .wlm-v2-content .hero[data-medmethod-scope] .hero-free{display:table;position:relative;padding-bottom:12px;font-size:1.22em;line-height:1.25}
 .wlm-v2-content .hero[data-medmethod-scope] .hero-free em{font-style:normal;background-image:linear-gradient(105deg,#fa2c99,#91238f);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
