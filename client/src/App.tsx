@@ -52,7 +52,7 @@ const MasterclassVideoFirst = lazy(() => import("@/pages/MasterclassVideoFirst")
 const Masterclass2 = lazy(() => import("@/pages/Masterclass2"));
 const Asynchronous = lazy(() => import("@/pages/Asynchronous"));
 const WeightLossMenopause = lazy(() => import("@/pages/WeightLossMenopause"));
-
+const WeightLossMenopauseV2 = lazy(() => import("@/pages/WeightLossMenopauseV2"));
 // Location pages - Virginia
 const LocationVirginia = lazy(() => import("@/pages/LocationVirginia"));
 const LocationMcLean = lazy(() => import("@/pages/LocationMcLean"));
@@ -401,6 +401,8 @@ function Router() {
         <Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
+        <Route path="/weight-loss-menopauseV2" component={WeightLossMenopauseV2} />
+        <Route path="/weight-loss-menopauseV2/" component={WeightLossMenopauseV2} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
@@ -410,6 +412,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
+  if (location === "/weight-loss-menopauseV2" || location === "/weight-loss-menopauseV2/") return null;
   if (location === "/masterclass2") return null;
   if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
   if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/" || location === "/intake/thank-you") return null;

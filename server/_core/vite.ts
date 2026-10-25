@@ -11,6 +11,7 @@ import { injectCareTeamConfirmationPrivacyIntoHtml } from "../careTeamConfirmati
 function injectMasterclassRouteMeta(template: string, url: string): string {
   template = injectCareTeamConfirmationPrivacyIntoHtml(template, url);
   const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
+  if (cleanPath === "/weight-loss-menopauseV2") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath === "/weight-loss-menopause") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath === "/masterclass2") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
   if (cleanPath !== "/masterclass") return template;

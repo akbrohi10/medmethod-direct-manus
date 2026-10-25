@@ -144,6 +144,13 @@ const ROUTE_META: Record<string, RouteMeta> = {
     url: `${BASE_URL}/weight-loss-menopause`,
     robots: "noindex,follow",
   },
+  "/weight-loss-menopauseV2": {
+    title: "Weight-Loss & Menopause | MedMethod Direct",
+    description: "Explore physician-guided GLP-1 weight management and menopause care with Dr. Jumana Al-Deek, including medication pricing and ongoing support.",
+    image: `${BASE_URL}/manus-storage/wlm-embedded-3f0ba6b015e6_ac0b276d.jpg`,
+    url: `${BASE_URL}/weight-loss-menopauseV2`,
+    robots: "noindex,follow",
+  },
   // ─── State Pages ────────────────────────────────────────────────────────
   "/virginia": {
     title:
