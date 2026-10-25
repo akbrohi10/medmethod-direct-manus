@@ -247,7 +247,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(hero).toContain(approvedHeroSupportingLine);
     expect(hero).toContain('<div className="hero-actions"><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>');
     expect(hero).toContain('<span className="hero-cta-timing">5–10 min</span>');
-    expect(hero).toContain('<p className="hero-text-note">100% by text message — no video needed.</p>');
+    expect(hero).toContain('<p className="hero-text-note">100% by text message or add a video visit for only $39.</p>');
     expect(hero).not.toContain('className="hero-offer"');
     expect(hero).not.toContain('className="hero-eyebrow"');
     expect(hero).not.toContain("$49/month");
@@ -632,7 +632,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(faq).toContain(approvedZoomFaq);
     expect(page.split(approvedZoomOffer)).toHaveLength(2);
     expect(page.split(approvedZoomFaq)).toHaveLength(2);
-    expect(page.match(/\$39/g)).toHaveLength(2);
+    expect(page.match(/\$39/g)).toHaveLength(3);
     expect(page).not.toContain("$39/month");
     expect(carePricing).toContain('<p className="price-footnote">Medication priced separately</p>');
     expect(carePricing).toContain('href={WEIGHT_MENOPAUSE_INTAKE_URL}');
