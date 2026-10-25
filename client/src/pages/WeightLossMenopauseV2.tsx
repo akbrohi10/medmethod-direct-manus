@@ -54,7 +54,7 @@ function MedicationCard({ treatment, category }: { treatment: TreatmentCatalogOp
   const image = treatment.images.weightLossMenopause;
   const display = category === "glp1" ? treatmentCatalog.glp1.pageDisplays.weightLossIntake[treatment.value] : undefined;
   const name = display?.name ?? treatment.name;
-  const price = display?.price ?? treatment.price;
+  const price = display?.price.replace(" — fixed price", " — same price at every dose") ?? treatment.price;
   const supply = display ? display.supply : treatment.supply;
   const mediaClass = image ? `product-photo ${category === "hrt" ? "hrt-product-photo" : treatment.value.replaceAll("_", "-")}` : "hrt-placeholder";
   return (

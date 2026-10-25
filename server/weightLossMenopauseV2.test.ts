@@ -107,7 +107,8 @@ const approvedMedicationCard = originalMedicationCard
   .replace("<div className=\"medication-card-name\"><h3>{treatment.name}</h3></div>", "<div className=\"medication-card-name\"><h3>{name}</h3></div>")
   .replace("<div className=\"medication-price\"><small>Price</small><strong>{treatment.price}</strong>{treatment.supply ? <span className=\"medication-supply\">{treatment.supply}</span> : null}</div>", "<div className=\"medication-price\"><small>Price</small><strong>{price}</strong>{supply ? <span className=\"medication-supply\">{supply}</span> : null}</div>")
   .replace("{treatment.frequency || treatment.form ? <dl className=\"medication-specs\">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}", "{display ? <dl className=\"medication-specs\">{display.specs.map(spec => <div key={spec.label} style={{ display: \"contents\" }}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl> : treatment.frequency || treatment.form ? <dl className=\"medication-specs\">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}")
-  .replace("aria-label={`Get started with an intake for ${treatment.name}`}", "aria-label={`Get started with an intake for ${name}`}");
+  .replace("aria-label={`Get started with an intake for ${treatment.name}`}", "aria-label={`Get started with an intake for ${name}`}")
+  .replace('const price = display?.price ?? treatment.price;', 'const price = display?.price.replace(" — fixed price", " — same price at every dose") ?? treatment.price;');
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
 const supportingLineMarker = "\n/* Approved V2 supporting-line readability: supporting text only. */";
@@ -368,11 +369,29 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     expect(pageMedicationCard).toContain('const display = category === "glp1" ? treatmentCatalog.glp1.pageDisplays.weightLossIntake[treatment.value] : undefined;');
     expect(pageMedicationCard).toContain("const name = display?.name ?? treatment.name;");
-    expect(pageMedicationCard).toContain("const price = display?.price ?? treatment.price;");
+    expect(pageMedicationCard).toContain('const price = display?.price.replace(" — fixed price", " — same price at every dose") ?? treatment.price;');
     expect(pageMedicationCard).toContain("const supply = display ? display.supply : treatment.supply;");
     expect(pageMedicationCard).toContain('<dl className="medication-specs">{display.specs.map(spec => <div key={spec.label} style={{ display: "contents" }}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>');
     expect(pageMedicationCard).toContain('<dl className="medication-specs">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl>');
     expect(pageMedicationCard).toContain('<p className="medication-note">{treatment.note}</p>');
+  });
+
+  it("changes only the two V2 fixed-price labels, without altering shared prices or dose-based ranges", () => {
+    const displays = treatmentCatalog.glp1.pageDisplays.weightLossIntake;
+    const renderedPrices = Object.fromEntries(Object.entries(displays).map(([id, display]) => [id, display.price.replace(" — fixed price", " — same price at every dose")]));
+    expect(renderedPrices).toEqual({
+      compounded_semaglutide: "$129/month — same price at every dose",
+      compounded_tirzepatide: "$149 to $299/month",
+      compounded_liraglutide: "$115",
+      wegovy_direct_novocare: "$349/month — same price at every dose",
+      wegovy_pill_direct_novocare: "$149 to $299/month",
+      zepbound_kwikpen_direct_lillydirect: "$299 to $449/month",
+      foundayo_pill_direct_lillydirect: "$149 to $299/month",
+    });
+    expect(Object.keys(renderedPrices).filter(id => renderedPrices[id] !== displays[id].price)).toEqual(["compounded_semaglutide", "wegovy_direct_novocare"]);
+    expect(displays).toEqual(approvedGlp1DisplayMap);
+    expect(page.match(/same price at every dose/g)).toHaveLength(1);
+    expect(originalPage).not.toContain("same price at every dose");
   });
 
   it("has V2-owned crawler metadata with original content, its own canonical URL, and no sitemap entry", () => {
