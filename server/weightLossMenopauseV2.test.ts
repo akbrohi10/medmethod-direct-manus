@@ -18,12 +18,13 @@ const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
   hrt: { options: Array<{ value: string; images: { weightLossMenopause?: string | null } }> };
 };
 
-const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss &amp; Hormone Specialist NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>';
-const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for <strong>GLP-1s, Menopause &amp; Hormone Therapy.</strong></p>';
+const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor now</span><span className="hero-headline-line"><em>For FREE!</em></span></h1>';
+const approvedHeroSupportingLine = '<p className="hero-description">to explore <strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
 const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
+const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
@@ -72,27 +73,58 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
   });
 
-  it("limits added styling to hero typography and breathing room, without phone or other section changes", () => {
-    const addedCss = css.split(refinementMarker)[1];
-    expect(addedCss).toContain("margin-bottom:32px");
-    expect(addedCss).toContain("white-space:normal");
-    expect(addedCss).toContain("margin:0 auto 36px");
-    expect(addedCss).toContain("padding:0;border:0;background:none");
-    expect(addedCss).toContain("font-size:1.0625rem;line-height:1.6");
-    expect(addedCss).toContain(".hero-description strong{color:var(--teal-dark);font-weight:700}");
-    expect(addedCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
+  it("limits the previous refinement to its original hero typography and breathing-room contract", () => {
+    const previousHeroCss = css.slice(css.indexOf(refinementMarker), css.indexOf(conciseHeroMarker));
+    expect(previousHeroCss).toContain("margin-bottom:32px");
+    expect(previousHeroCss).toContain("white-space:normal");
+    expect(previousHeroCss).toContain("margin:0 auto 36px");
+    expect(previousHeroCss).toContain("padding:0;border:0;background:none");
+    expect(previousHeroCss).toContain("font-size:1.0625rem;line-height:1.6");
+    expect(previousHeroCss).toContain(".hero-description strong{color:var(--teal-dark);font-weight:700}");
+    expect(previousHeroCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
   });
 
-  it("uses only the reference headline font, preserving all V2 palette and layout rules", () => {
+  it("uses DM Serif Display for the approved V2 hero headline and supporting line, preserving all V2 palette and layout rules", () => {
     const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
     expect(head).toContain(heroFontLink.trim());
     expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400}');
-    expect(css.match(/font-family:"DM Serif Display"/g)).toHaveLength(1);
+    expect(css.match(/font-family:"DM Serif Display"/g)).toHaveLength(2);
     expect(originalPage).not.toContain("DM Serif Display");
     expect(originalCss).not.toContain("DM Serif Display");
     expect(read("client/src/index.css")).not.toContain('.wlm-v2-content .hero[data-medmethod-scope] h1');
     expect(page).not.toMatch(/Bodoni|Playfair|DM\+Sans/);
     expect(css).not.toMatch(/Bodoni|Playfair|--hero-deep-teal|Approved reference match/);
+  });
+
+  it("appends only the approved concise hero typography hierarchy", () => {
+    expect(css).toContain(conciseHeroMarker);
+    const conciseHeroCss = css.split(conciseHeroMarker)[1] ?? "";
+    const normalizedCss = conciseHeroCss.replace(/\s+/g, "");
+    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope]h1{font-size:clamp(2.5rem,5.1vw,4.25rem);line-height:1.05;margin-bottom:24px}');
+    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-headline-line{display:block;white-space:normal;text-wrap:balance}');
+    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-family:"DMSerifDisplay",Georgia,serif;font-size:clamp(1.125rem,2.3vw,1.55rem);font-weight:400;line-height:1.35;max-width:32ch;margin-bottom:32px}');
+    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-descriptionstrong{font-weight:400}');
+    expect(normalizedCss).toContain('@media(max-width:700px){.wlm-v2-content.hero[data-medmethod-scope]h1{font-size:clamp(2rem,10.5vw,3rem)}.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-size:clamp(1.1rem,4.8vw,1.25rem);max-width:30ch}}');
+
+    const selectors = Array.from(conciseHeroCss.matchAll(/(?:^|[{}])\s*([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+    const declarations = Array.from(conciseHeroCss.matchAll(/(?:^|[;{])\s*([a-z-]+)\s*:/g), match => match[1]);
+    expect(selectors).toEqual([
+      ".wlm-v2-content .hero[data-medmethod-scope] h1",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-headline-line",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description strong",
+      ".wlm-v2-content .hero[data-medmethod-scope] h1",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
+    ]);
+    expect(declarations).toEqual([
+      "font-size", "line-height", "margin-bottom",
+      "display", "white-space", "text-wrap",
+      "font-family", "font-size", "font-weight", "line-height", "max-width", "margin-bottom",
+      "font-weight",
+      "font-size",
+      "font-size", "max-width",
+    ]);
+    expect(conciseHeroCss).not.toMatch(/\b(?:color|background)\s*:|phone|\.btn\b|\bbutton\b|\.hero-actions\b|\.(?:featured-in|medication-|estimator-|pricing-section|everything|support-section|testimonials|privacy-band|footer|section)\b|(?:^|[}\n])\s*(?:body|html|:root)\b/i);
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
