@@ -126,8 +126,8 @@ describe("masterclass2 mobile connection bar", () => {
 
   it("keeps the free text link and native phone link exact, visibly two-line, and decorative-icon-only", () => {
     expect(mobileTextVisit).toContain('href="https://intake.medmethoddirect.com/"');
-    expect(mobileTextVisit).toContain('aria-label="Text a doctor — free"');
-    expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Text a Doctor\s*<\/span>/);
+    expect(mobileTextVisit).toContain('aria-label="Text visit — free"');
+    expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Text Visit\s*<\/span>/);
     expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Free\s*<\/span>/);
     expect(mobileTextVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
 
