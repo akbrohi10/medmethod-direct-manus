@@ -9,6 +9,8 @@ const originalCss = read("client/src/pages/WeightLossMenopause.css");
 const originalInteraction = read("client/src/pages/weightLossMenopauseInteractions.ts");
 const page = read("client/src/pages/WeightLossMenopauseV2.tsx");
 const css = read("client/src/pages/WeightLossMenopauseV2.css");
+const doctorBio = read("client/src/pages/WeightLossMenopauseV2DoctorBio.tsx");
+const homepageMedicalTeam = read("client/src/components/home1/MedicalTeam.tsx");
 const interaction = read("client/src/pages/weightLossMenopauseV2Interactions.ts");
 const app = read("client/src/App.tsx");
 const vite = read("server/_core/vite.ts");
@@ -85,6 +87,7 @@ const approvedDoctorMessage = '<div className="chat-message" data-chat-at="2400"
 const approvedHowItWorksSection = '<section className="section wave-top wave-soft" id="how-it-works"><div className="container"><div className="section-heading"><h2>How it works</h2></div><div className="steps"><article className="step"><div className="step-num">1</div><h3>Complete your intake (5–10 min)</h3></article><article className="step"><div className="step-num">2</div><h3>Text with your doctor</h3></article><article className="step"><div className="step-num">3</div><h3>Discuss your options with your doctor, based on your evaluation.</h3></article></div></div></section>';
 const originalHero = originalPage.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
 const originalHowItWorksSection = originalPage.match(/<section className="section wave-top wave-soft" id="how-it-works">[\s\S]*?<\/section>/)?.[0] ?? "";
+const originalDoctorSection = originalPage.match(/<section className="section wave-top wave-surface wave-flip" id="doctor">[\s\S]*?<\/section>/)?.[0] ?? "";
 const originalGlp1CatalogTypeCast = originalPage.match(/const treatmentCatalog = treatmentCatalogJson as \{[\s\S]*?\n\};/)?.[0] ?? "";
 const originalMedicationCard = originalPage.match(/function MedicationCard\([\s\S]*?\n}\n/)?.[0] ?? "";
 const approvedGlp1PageDisplayType = `type Glp1PageDisplay = {
@@ -112,8 +115,35 @@ const approvedMedicationCard = originalMedicationCard
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this section only. */";
 const uploadedHeroMarker = "\n/* Approved uploaded V2 hero: supplied design with original phone only. */";
+const doctorBioMarker = "\n/* Approved V2 homepage-style doctor biography: doctor section only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
+const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
+const approvedDoctorFocusAreas = [
+  "Medical Weight Loss",
+  "Menopause & Perimenopause",
+  "GLP-1 & Metabolic Therapy",
+  "Hormone Optimization",
+  "Thyroid Specialist",
+  "Metabolism",
+];
+const approvedDoctorTraining = [
+  ["West Virginia School of Osteopathic Medicine", "Doctor of Osteopathic Medicine"],
+  ["AdventHealth Winter Park", "Family Medicine Residency"],
+  ["Georgetown University", "Graduate Training, Physiology & Biophysics"],
+  ["The Menopause Society", "Advanced Menopause Training"],
+  ["Obesity Medicine Association", "Obesity & Metabolic Health Certification"],
+] as const;
+const approvedDoctorBioCopy = [
+  "The prescription is only the beginning. Hormone and weight-loss treatments aren’t one-size-fits-all. Whether you’re considering treatment or already taking medication, Dr. Al-Deek reviews your symptoms, health history, current medications, response to treatment, and goals to create—or optimize—a plan built around you.",
+  "Dr. Al-Deek is a board-certified physician, menopause specialist, and author of",
+  "Long before medical school, Dr. Al-Deek was a certified personal trainer working exclusively with women struggling through hormonal weight gain. She spent years watching the same story repeat — women doing everything “right” but losing the battle against their own biology.",
+  "That experience drove her to medicine so she could better understand the health concerns women bring to care. Today, as a physician and a mom of four, she combines clinical expertise with a personal understanding of what midlife women are going through.",
+  "Her clinical background includes outpatient family medicine, obesity medicine, preventive care, chronic disease management, and women's health.",
+  "She completed her Family Medicine residency at AdventHealth Winter Park after earning her Doctor of Osteopathic Medicine degree from West Virginia School of Osteopathic Medicine.",
+  "She also holds graduate training in physiology and biophysics from Georgetown University.",
+  "Dr. Al-Deek has completed advanced menopause training through The Menopause Society as well as additional training in obesity medicine and metabolic health.",
+];
 const freeCareCopyReplacements: ReadonlyArray<readonly [v2Copy: string, originalCopy: string]> = [
   ["Free doctor evaluation by text. Medication priced separately.", "$49/month plus the cost of medication."],
   ["<h2>Free doctor evaluation by text.</h2>", "<h2>$49 today. $49 monthly.</h2>"],
@@ -155,6 +185,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page).toContain('className="wlm-v2-content"');
     expect(originalHero).not.toBe("");
     expect(originalHowItWorksSection).not.toBe("");
+    expect(originalDoctorSection).not.toBe("");
     expect(originalGlp1CatalogTypeCast).not.toBe("");
     expect(originalMedicationCard).not.toBe("");
     expect(approvedGlp1CatalogTypeCast).not.toBe(originalGlp1CatalogTypeCast);
@@ -163,6 +194,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(completeNewHero).not.toBe("");
     const restoredApprovedCopy = restoreFreeCareCopy(page)
+      .replace('import WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";\n', "")
+      .replace("<WeightLossMenopauseV2DoctorBio />", originalDoctorSection)
       .replace(approvedGlp1PageDisplayType, "")
       .replace(approvedGlp1CatalogTypeCast, originalGlp1CatalogTypeCast)
       .replace(approvedMedicationCard, originalMedicationCard)
@@ -170,7 +203,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       .replace(uploadedHeroFontLink, "")
       .replace(completeNewHero, originalHero)
       .replace(approvedHowItWorksSection + "\n", "")
-      .replace('<section className="section wave-top wave-surface wave-flip" id="doctor">', originalHowItWorksSection + '\n<section className="section wave-top wave-surface wave-flip" id="doctor">');
+      .replace(originalDoctorSection, originalHowItWorksSection + "\n" + originalDoctorSection);
     expect(restoreOriginalNames(restoredApprovedCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
@@ -179,8 +212,10 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(css).toContain(refinementMarker);
     expect(css).toContain(compactHowItWorksMarker);
     expect(css).toContain(uploadedHeroMarker);
+    expect(css).toContain(doctorBioMarker);
     expect(css.indexOf(refinementMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
     expect(css.indexOf(compactHowItWorksMarker)).toBeLessThan(css.indexOf(uploadedHeroMarker));
+    expect(css.indexOf(uploadedHeroMarker)).toBeLessThan(css.indexOf(doctorBioMarker));
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
@@ -250,9 +285,9 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalCss).not.toContain("DM Serif Display");
   });
 
-  it("appends only the supplied design's scoped hero styles after the historical How it works CSS", () => {
+  it("appends only the supplied design's scoped hero styles before the doctor-biography CSS", () => {
     expect(css.match(/\/\* Approved uploaded V2 hero: supplied design with original phone only\. \*\//g)).toHaveLength(1);
-    const appendedHeroCss = css.slice(css.indexOf(uploadedHeroMarker) + uploadedHeroMarker.length).trim();
+    const appendedHeroCss = css.slice(css.indexOf(uploadedHeroMarker) + uploadedHeroMarker.length, css.indexOf(doctorBioMarker)).trim();
     const normalizedCss = appendedHeroCss.replace(/\s+/g, "");
     const selectors = Array.from(appendedHeroCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
 
@@ -282,6 +317,119 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(compactHowItWorksCss).toContain('font-family:"DM Serif Display",Georgia,serif');
     expect(compactHowItWorksCss).not.toContain(uploadedHeroMarker.trim());
     expect(restoreOriginalNames(historicCss.split(refinementMarker)[0])).toBe(originalCss);
+  });
+
+  it("replaces only the original V2 doctor section with the independent approved homepage-style biography", () => {
+    expect(page).toContain('import "./WeightLossMenopauseV2.css";\nimport WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";');
+    expect(page).toContain("<WeightLossMenopauseV2DoctorBio />");
+    expect(page).not.toContain('id="doctor"><div className="container doctor-grid">');
+    expect(page.match(/<WeightLossMenopauseV2DoctorBio \/>/g)).toHaveLength(1);
+    expect(page.match(/id="doctor"/g) ?? []).toHaveLength(0);
+
+    expect(doctorBio).toContain("export default function WeightLossMenopauseV2DoctorBio()");
+    expect(doctorBio).toContain('<section className="section wave-top wave-surface wave-flip" id="doctor" aria-labelledby="v2-doctor-heading">');
+    expect(doctorBio).not.toContain("MedicalTeam");
+    expect(doctorBio).not.toMatch(/^\s*import\s/m);
+    expect(doctorBio).not.toMatch(/\b(?:fetch|axios|useEffect|useState|XMLHttpRequest)\b/);
+  });
+
+  it("copies the approved homepage physician facts and full biography source without adding claims", () => {
+    for (const credential of approvedDoctorCredentials) {
+      expect(homepageMedicalTeam).toContain(`"${credential}"`);
+      expect(doctorBio).toContain(`"${credential}"`);
+    }
+    expect(doctorBio).toContain('const CREDENTIALS = ["Board-Certified DO", "Menopause Specialist", "Author"];');
+    expect(doctorBio).not.toContain("Licensed in 12 states");
+
+    for (const focusArea of approvedDoctorFocusAreas) {
+      expect(homepageMedicalTeam).toContain(`"${focusArea}"`);
+      expect(doctorBio).toContain(`"${focusArea}"`);
+    }
+
+    for (const [organization, detail] of approvedDoctorTraining) {
+      expect(homepageMedicalTeam).toContain(`org: "${organization}"`);
+      expect(homepageMedicalTeam).toContain(`detail: "${detail}"`);
+      expect(doctorBio).toContain(`org: "${organization}"`);
+      expect(doctorBio).toContain(`detail: "${detail}"`);
+    }
+    expect(doctorBio).toContain("Background in Fitness &amp; Exercise Science");
+    expect(doctorBio).toContain("Former NASM-Certified Personal Trainer");
+    expect(homepageMedicalTeam).toContain("Former NASM-Certified Personal Trainer");
+
+    const normalizedHomepageMedicalTeam = homepageMedicalTeam
+      .replaceAll("\\u2014", "—")
+      .replaceAll("\\u201C", "“")
+      .replaceAll("\\u201D", "”")
+      .replace(/\s+/g, " ");
+    for (const copy of approvedDoctorBioCopy) {
+      expect(normalizedHomepageMedicalTeam).toContain(copy.replace(/\s+/g, " "));
+      expect(doctorBio).toContain(copy);
+    }
+    expect(doctorBio).toContain("The Menopause Weight Loss Trap");
+    expect(homepageMedicalTeam).toContain("The Menopause Weight Loss Trap");
+    expect(doctorBio).toContain("50,000+</strong> patients seen");
+    expect(doctorBio).toContain("Connect directly with your doctor by text — for free.");
+  });
+
+  it("uses the approved portrait and responsive card hooks without cropping either viewport rendering", () => {
+    const portrait = "/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp";
+    expect(homepageMedicalTeam).toContain(portrait);
+    expect(doctorBio).toContain(`const DOCTOR_PORTRAIT = "${portrait}";`);
+    expect(doctorBio.match(/src=\{DOCTOR_PORTRAIT\}/g)).toHaveLength(2);
+    expect(doctorBio.match(/alt="Dr\. Jumana Al-Deek, DO, MS"/g)).toHaveLength(2);
+    expect(doctorBio).toContain('className="doctor-bio-portrait doctor-bio-desktop-portrait"');
+    expect(doctorBio).toContain('className="doctor-bio-portrait doctor-bio-mobile-portrait"');
+
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-portrait{position:relative;aspect-ratio:3/4');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-portrait img{display:block;width:100%;height:100%;object-fit:contain}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-mobile-portrait{display:none}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-desktop-portrait{display:none}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-mobile-portrait{display:block');
+  });
+
+  it("keeps all three supporting biography sections as native accessible details with decorative plus/minus state", () => {
+    expect(doctorBio).toContain("const BIO_DETAILS = [");
+    expect(doctorBio).toContain("{BIO_DETAILS.map(item => (");
+    expect(doctorBio).toContain('<details key={item.label}>');
+    expect(doctorBio).toContain('<summary>{item.label}<span className="doctor-bio-toggle" aria-hidden="true"><span className="doctor-bio-plus">+</span><span className="doctor-bio-minus">−</span></span></summary>');
+    expect(doctorBio).not.toMatch(/<button\b|onClick=|aria-expanded=/);
+
+    for (const label of ["Clinical Background", "Medical Training", "Advanced Training & Approach"]) {
+      expect(homepageMedicalTeam).toContain(`label: "${label}"`);
+      expect(doctorBio).toContain(`label: "${label}"`);
+    }
+
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-minus{display:none}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-details details[open] .doctor-bio-plus{display:none}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-details details[open] .doctor-bio-minus{display:block}');
+    expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-details summary:focus-visible{outline:2px solid #7A1E7E');
+  });
+
+  it("adds no booking, paid, coach, or Featured In content and confines new CSS to the V2 doctor section", () => {
+    for (const forbiddenContent of [
+      "Featured In",
+      "Coach",
+      "COACH",
+      "Schedule",
+      "Discovery Call",
+      "Licensed in",
+      "$",
+      "href=",
+      "<button",
+    ]) {
+      expect(doctorBio).not.toContain(forbiddenContent);
+    }
+    expect(doctorBio).not.toMatch(/<a(?:\s|>)/);
+
+    expect(css.match(/\/\* Approved V2 homepage-style doctor biography: doctor section only\. \*\//g)).toHaveLength(1);
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    const selectors = Array.from(doctorBioCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+    expect(selectors.length).toBeGreaterThan(30);
+    for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-content #doctor(?:\b|\s|[.:#])/);
+    expect(doctorBioCss).not.toMatch(/(^|[}\n])\s*(?:body|html|:root)\b/);
+    expect(doctorBioCss).not.toMatch(/(?:^|[}\n])\s*\.wlm-v2-content(?! #doctor)/);
   });
 
   it("uses exactly the approved compact How it works copy with no extra text or markup", () => {
