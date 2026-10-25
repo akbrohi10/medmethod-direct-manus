@@ -288,6 +288,7 @@
 
 /* Approved V2 compact How it works: this section only. */
 .wlm-v2-content #how-it-works{padding:36px 0}
+.wlm-v2-content #how-it-works.wave-top::before{display:none}
 .wlm-v2-content #how-it-works .section-heading h2{margin:0;font-family:"DM Serif Display",Georgia,serif;font-size:clamp(1.875rem,4vw,3rem);font-weight:400;color:var(--navy)}
 .wlm-v2-content #how-it-works .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:20px}
 .wlm-v2-content #how-it-works .step{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:12px;min-height:0;padding:18px;border-radius:16px}

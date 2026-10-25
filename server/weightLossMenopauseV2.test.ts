@@ -287,6 +287,16 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page.match(/id="how-it-works"/g)).toHaveLength(1);
   });
 
+  it("makes the Featured In bottom edge straight by hiding only the adjacent V2 wave", () => {
+    const override = '.wlm-v2-content #how-it-works.wave-top::before{display:none}';
+    expect(css).toContain(override);
+    expect(css.match(/#how-it-works\.wave-top::before\{display:none\}/g)).toHaveLength(1);
+    expect(css.indexOf(override)).toBeGreaterThan(css.indexOf(compactHowItWorksMarker));
+    expect(css.indexOf(override)).toBeLessThan(css.indexOf(uploadedHeroMarker));
+    expect(originalCss).not.toContain('#how-it-works.wave-top::before{display:none}');
+    expect(page).toContain(approvedHowItWorksSection);
+  });
+
   it("appends scoped compact How it works typography, geometry, and token-only colors", () => {
     expect(css.match(/\/\* Approved V2 compact How it works: this section only\. \*\//g)).toHaveLength(1);
     const compactHowItWorksCss = css.slice(css.indexOf(compactHowItWorksMarker) + compactHowItWorksMarker.length, css.indexOf(uploadedHeroMarker));
