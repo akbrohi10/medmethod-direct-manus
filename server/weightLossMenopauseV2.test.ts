@@ -158,10 +158,13 @@ const freeCareCopyReplacements: ReadonlyArray<readonly [v2Copy: string, original
   ['aria-label="Start your free doctor evaluation by text"', 'aria-label="Start your visit — $49 per month membership"'],
 ];
 
+const approvedZoomOffer = '<p className="video-addon">Prefer face-to-face care?<br />Add a virtual Zoom visit — <b>only $39 per visit.</b></p>';
+const approvedZoomFaq = '<details><summary>Can I add a virtual Zoom visit?</summary><p>Yes. You can add an optional virtual Zoom visit for $39 per visit. Doctor evaluation and text care remain free. Medication is priced separately.</p></details>';
+
 function restoreFreeCareCopy(source: string): string {
   return freeCareCopyReplacements.reduce(
     (restored, [v2Copy, originalCopy]) => restored.replace(v2Copy, originalCopy),
-    source,
+    source.replace(approvedZoomOffer, "").replace(approvedZoomFaq, ""),
   );
 }
 
@@ -598,12 +601,28 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(carePricing).not.toBe("");
     expect(carePricing).toContain("<h2>Free doctor evaluation by text.</h2>");
     expect(carePricing).toContain("<p>Connect with your doctor by text for free. Medication priced separately.</p>");
-    expect(carePricing).toContain('<div className="membership-price" aria-label="Free text-care pricing"><strong>FREE</strong><span>Doctor evaluation and care by text.</span></div>');
+    expect(carePricing).toContain('<div className="membership-price" aria-label="Free text-care pricing"><strong>FREE</strong><span>Doctor evaluation and care by text.</span>' + approvedZoomOffer + '</div>');
     expect(carePricing).toContain('className="membership-price"');
     expect(carePricing).not.toContain("$49 today. $49 monthly.");
     expect(carePricing).not.toContain("One membership: physician-led care");
     expect(carePricing).not.toContain("First month due today");
     expect(carePricing).not.toContain("Want face time");
+  });
+
+  it("adds only the optional $39-per-visit Zoom wording and FAQ while text care remains free", () => {
+    const carePricing = page.match(/<section className="section pricing-section wave-top wave-soft" id="pricing">[\s\S]*?<\/section>/)?.[0] ?? "";
+    const faq = page.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(carePricing).toContain(approvedZoomOffer);
+    expect(faq).toContain(approvedZoomFaq);
+    expect(page.split(approvedZoomOffer)).toHaveLength(2);
+    expect(page.split(approvedZoomFaq)).toHaveLength(2);
+    expect(page.match(/\$39/g)).toHaveLength(2);
+    expect(page).not.toContain("$39/month");
+    expect(carePricing).toContain('<p className="price-footnote">Medication priced separately</p>');
+    expect(carePricing).toContain('href={WEIGHT_MENOPAUSE_INTAKE_URL}');
+    expect(carePricing).not.toMatch(/<form\b|<input\b|<button\b|paypal|stripe|createOrder|captureOrder/i);
+    expect(originalPage).not.toContain(approvedZoomOffer);
+    expect(originalPage).not.toContain(approvedZoomFaq);
   });
 
   it("uses the approved free-care FAQ, app and patient labels, and sticky CTA without legacy fee or refund copy", () => {
