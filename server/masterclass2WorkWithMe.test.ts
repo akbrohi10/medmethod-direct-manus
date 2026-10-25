@@ -104,9 +104,9 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     expect(original).toContain("See Full Pricing Details");
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
-    expect([...page.replace('aria-label="Video visit — $39"', "").matchAll(/\$\d+/g)].map(match => match[0])).toEqual(["$39", "$39"]);
+    expect([...page.replace('aria-label="Video visit — $39 per visit"', "").matchAll(/\$\d+/g)].map(match => match[0])).toEqual(["$39", "$39"]);
     expect(page).toContain("data-masterclass2-mobile-booking");
-    expect(page).toContain('aria-label="Video visit — $39"');
+    expect(page).toContain('aria-label="Video visit — $39 per visit"');
     expect(page).toContain("<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />");
   });
 });

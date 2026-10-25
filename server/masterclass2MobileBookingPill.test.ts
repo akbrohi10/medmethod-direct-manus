@@ -87,7 +87,8 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileNav).toContain("border-[#e9c8f3]");
     expect(mobileNav).toContain("bg-white");
     expect(mobileNav).toContain("p-1.5");
-    expect(mobileNav).not.toContain("shadow");
+    expect(mobileNav).toContain("shadow-[0_6px_20px_rgba(61,22,64,0.12)]");
+    expect([...mobileNav.matchAll(/\bshadow(?:-\[[^\]]+\])?/g)]).toHaveLength(1);
     expect(mobileNav).not.toContain("backdrop-blur");
     expect(mobileNav).toContain('left: "max(12px, env(safe-area-inset-left, 0px))"');
     expect(mobileNav).toContain('right: "max(12px, env(safe-area-inset-right, 0px))"');
@@ -99,7 +100,7 @@ describe("masterclass2 mobile connection bar", () => {
   it("keeps the paid Video Visit button connected only to the existing checkout and focus recovery", () => {
     expect(mobileBooking).toContain('type="button"');
     expect(mobileBooking).toContain('aria-haspopup="dialog"');
-    expect(mobileBooking).toContain('aria-label="Video visit — $39"');
+    expect(mobileBooking).toContain('aria-label="Video visit — $39 per visit"');
     expect(mobileBooking).toContain("ref={mobileBookingRef}");
     expect(mobileBooking).toContain(
       "onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}",
@@ -110,7 +111,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileBooking).toContain("to-[#680686]");
     expect(mobileBooking).toContain("text-white");
     expect(mobileBooking).toMatch(/<span[^>]*>\s*Video Visit\s*<\/span>/);
-    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$39\s*<\/span>/);
+    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$39 per visit\s*<\/span>/);
     expect(mobileBooking).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(mobileBooking).not.toMatch(/(?:fetch\(|trpc\.|location\.|paypal|stripe|localStorage|sessionStorage)/i);
 
@@ -125,15 +126,15 @@ describe("masterclass2 mobile connection bar", () => {
 
   it("keeps the free text link and native phone link exact, visibly two-line, and decorative-icon-only", () => {
     expect(mobileTextVisit).toContain('href="https://intake.medmethoddirect.com/"');
-    expect(mobileTextVisit).toContain('aria-label="Text visit — free"');
-    expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Text Visit\s*<\/span>/);
+    expect(mobileTextVisit).toContain('aria-label="Text a doctor — free"');
+    expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Text a Doctor\s*<\/span>/);
     expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Free\s*<\/span>/);
     expect(mobileTextVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
 
     expect(mobileCareCall).toContain('href="tel:+18883627011"');
     expect(mobileCareCall).toContain('aria-label="Call now for more information: (888) 362-7011"');
     expect(mobileCareCall).toMatch(/<span[^>]*>\s*Call Now\s*<\/span>/);
-    expect(mobileCareCall).toMatch(/<span[^>]*>\s*For more info\s*<\/span>/);
+    expect(mobileCareCall).toMatch(/<span[^>]*>\s*Clinic info\s*<\/span>/);
     expect(mobileCareCall).toMatch(/<PhoneCall\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(mobileCareCall).not.toMatch(/\bonClick\s*=/);
     expect(mobileCareCall).not.toMatch(/\btarget\s*=/);
@@ -146,6 +147,7 @@ describe("masterclass2 mobile connection bar", () => {
     }
 
     for (const control of mobileControls) {
+      expect(control).not.toContain("shadow");
       expect(control).not.toMatch(/<(?:Video|MessageCircleMore|PhoneCall)\b[^>]*aria-label=/);
       expect(control).not.toMatch(/(?:fetch\(|trpc\.|location\.|paypal|stripe|localStorage|sessionStorage)/i);
     }
