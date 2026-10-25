@@ -60,7 +60,7 @@ const expectedV2Nav = masterclassNav
   .replaceAll("data-masterclass2-mobile-", "data-wlm-v2-mobile-")
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
-    'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen ? "none" : undefined, left:',
+    'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left:',
   );
 const textVisit = controlSlice(v2Nav, "data-wlm-v2-mobile-text-visit");
 const booking = controlSlice(v2Nav, "data-wlm-v2-mobile-booking");
@@ -84,7 +84,7 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
     expect(v2Nav).toContain("bg-white");
     expect(v2Nav).toContain("p-1.5");
     expect(v2Nav).toContain("shadow-[0_6px_20px_rgba(61,22,64,0.12)]");
-    expect(v2Nav).toContain('style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}');
+    expect(v2Nav).toContain('style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}');
   });
 
   it("keeps exactly three native, 68px mobile controls in the approved text, video, call order with their labels, icons, colors, and literal URLs", () => {
@@ -143,13 +143,47 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
     expect(careCall).toMatch(/<span[^>]*>Clinic info<\/span>/);
   });
 
+  it("starts hidden and reveals only after the mobile hero CTA is geometrically past the actual header, with coalesced lifecycle cleanup", () => {
+    expect(mobileBar).toContain("  const [pastHeroCta, setPastHeroCta] = useState(false);");
+    expect(mobileBar).toContain('const heroCta = document.querySelector<HTMLElement>(".wlm-v2-content .hero-actions .btn");');
+    expect(mobileBar).toContain('const header = document.querySelector<HTMLElement>(".wlm-v2-page > header");');
+    expect(mobileBar).toContain('const desktop = window.matchMedia("(min-width: 768px)");');
+    expect(mobileBar).toContain("const headerBottom = Math.max(0, header?.getBoundingClientRect().bottom ?? 0);");
+    expect(mobileBar).toContain("setPastHeroCta(!desktop.matches && !!heroCta && heroCta.getBoundingClientRect().bottom <= headerBottom);");
+    expect(mobileBar).not.toContain("IntersectionObserver");
+
+    expect(mobileBar).toContain("let frame: number | null = null;");
+    expect(mobileBar).toContain("if (!disposed && frame === null) frame = window.requestAnimationFrame(updateVisibility);");
+    expect(mobileBar).toContain('window.addEventListener("scroll", queueVisibilityUpdate, { passive: true });');
+    expect(mobileBar).toContain('window.addEventListener("resize", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('window.addEventListener("orientationchange", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('window.addEventListener("pageshow", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('desktop.addEventListener("change", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('viewport?.addEventListener("resize", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('viewport?.addEventListener("scroll", queueVisibilityUpdate, { passive: true });');
+    expect(mobileBar).toContain('const observer = "ResizeObserver" in window ? new ResizeObserver(queueVisibilityUpdate) : null;');
+    expect(mobileBar).toContain("if (heroCta) observer?.observe(heroCta);");
+    expect(mobileBar).toContain("if (header) observer?.observe(header);");
+    expect(mobileBar).toContain("updateVisibility();");
+
+    expect(mobileBar).toContain('window.removeEventListener("scroll", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('window.removeEventListener("resize", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('window.removeEventListener("orientationchange", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('window.removeEventListener("pageshow", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('desktop.removeEventListener("change", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('viewport?.removeEventListener("resize", queueVisibilityUpdate);');
+    expect(mobileBar).toContain('viewport?.removeEventListener("scroll", queueVisibilityUpdate);');
+    expect(mobileBar).toContain("observer?.disconnect();");
+    expect(mobileBar).toContain("if (frame !== null) window.cancelAnimationFrame(frame);");
+  });
+
   it("uses only the existing Video Visit checkout state, identical click behavior, and delayed focus recovery without pending-checkout reopening or tracking", () => {
     expect(mobileBar).toContain('import { useEffect, useRef, useState } from "react";');
     expect(mobileBar).toContain('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";');
     expect(mobileBar).toContain("export default function WeightLossMenopauseV2MobileBar()");
     expect(mobileBar).toContain("  const [consultationOpen, setConsultationOpen] = useState(false);");
     expect(mobileBar).toContain("  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);");
-    expect(mobileBar).toContain("  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current) {\n      mobileBookingOpened.current = false;\n      const timer = window.setTimeout(() => mobileBookingRef.current?.focus({ preventScroll: true }), 250);\n      return () => window.clearTimeout(timer);\n    }\n  }, [consultationOpen]);");
+    expect(mobileBar).toContain("  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current) {\n      mobileBookingOpened.current = false;\n      const timer = window.setTimeout(() => {\n        if (mobileBookingRef.current?.getClientRects().length) {\n          mobileBookingRef.current.focus({ preventScroll: true });\n        }\n      }, 250);\n      return () => window.clearTimeout(timer);\n    }\n  }, [consultationOpen]);");
     expect(booking).toContain('type="button"');
     expect(booking).toContain('aria-haspopup="dialog"');
     expect(booking).toContain("ref={mobileBookingRef}");

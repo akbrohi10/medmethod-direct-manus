@@ -5,13 +5,62 @@ import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
 /** V2-only mobile connection bar; reuses the existing $39 checkout unchanged. */
 export default function WeightLossMenopauseV2MobileBar() {
   const [consultationOpen, setConsultationOpen] = useState(false);
+  const [pastHeroCta, setPastHeroCta] = useState(false);
   const mobileBookingRef = useRef<HTMLButtonElement>(null);
   const mobileBookingOpened = useRef(false);
 
   useEffect(() => {
+    const heroCta = document.querySelector<HTMLElement>(".wlm-v2-content .hero-actions .btn");
+    const header = document.querySelector<HTMLElement>(".wlm-v2-page > header");
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const viewport = window.visualViewport;
+    let frame: number | null = null;
+    let disposed = false;
+
+    function updateVisibility() {
+      frame = null;
+      if (disposed) return;
+      const headerBottom = Math.max(0, header?.getBoundingClientRect().bottom ?? 0);
+      setPastHeroCta(!desktop.matches && !!heroCta && heroCta.getBoundingClientRect().bottom <= headerBottom);
+    }
+    function queueVisibilityUpdate() {
+      if (!disposed && frame === null) frame = window.requestAnimationFrame(updateVisibility);
+    }
+
+    window.addEventListener("scroll", queueVisibilityUpdate, { passive: true });
+    window.addEventListener("resize", queueVisibilityUpdate);
+    window.addEventListener("orientationchange", queueVisibilityUpdate);
+    window.addEventListener("pageshow", queueVisibilityUpdate);
+    desktop.addEventListener("change", queueVisibilityUpdate);
+    viewport?.addEventListener("resize", queueVisibilityUpdate);
+    viewport?.addEventListener("scroll", queueVisibilityUpdate, { passive: true });
+    const observer = "ResizeObserver" in window ? new ResizeObserver(queueVisibilityUpdate) : null;
+    if (heroCta) observer?.observe(heroCta);
+    if (header) observer?.observe(header);
+    updateVisibility();
+
+    return () => {
+      disposed = true;
+      window.removeEventListener("scroll", queueVisibilityUpdate);
+      window.removeEventListener("resize", queueVisibilityUpdate);
+      window.removeEventListener("orientationchange", queueVisibilityUpdate);
+      window.removeEventListener("pageshow", queueVisibilityUpdate);
+      desktop.removeEventListener("change", queueVisibilityUpdate);
+      viewport?.removeEventListener("resize", queueVisibilityUpdate);
+      viewport?.removeEventListener("scroll", queueVisibilityUpdate);
+      observer?.disconnect();
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!consultationOpen && mobileBookingOpened.current) {
       mobileBookingOpened.current = false;
-      const timer = window.setTimeout(() => mobileBookingRef.current?.focus({ preventScroll: true }), 250);
+      const timer = window.setTimeout(() => {
+        if (mobileBookingRef.current?.getClientRects().length) {
+          mobileBookingRef.current.focus({ preventScroll: true });
+        }
+      }, 250);
       return () => window.clearTimeout(timer);
     }
   }, [consultationOpen]);
@@ -22,7 +71,7 @@ export default function WeightLossMenopauseV2MobileBar() {
           data-wlm-v2-mobile-connection-bar
           aria-label="Choose how to connect"
           className="fixed z-40 mx-auto max-w-[440px] rounded-[12px] border border-[#e9c8f3] bg-white p-1.5 shadow-[0_6px_20px_rgba(61,22,64,0.12)] md:hidden"
-          style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
+          style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
           <div className="grid grid-cols-3 gap-1">
             <a
