@@ -246,7 +246,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(hero).toContain(approvedHeroHeadline);
     expect(hero).toContain(approvedHeroSupportingLine);
     expect(hero).toContain('<div className="hero-actions"><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>');
-    expect(hero).toContain('<span className="hero-cta-timing">5–10 min</span>');
+    expect(hero).toContain('<span className="hero-cta-timing">Complete intake · 5–10 min</span>');
     expect(hero).not.toContain('className="hero-text-note"');
     expect(hero).not.toContain('className="hero-offer"');
     expect(hero).not.toContain('className="hero-eyebrow"');
