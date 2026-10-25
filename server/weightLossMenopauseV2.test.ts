@@ -18,8 +18,8 @@ const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
   hrt: { options: Array<{ value: string; images: { weightLossMenopause?: string | null } }> };
 };
 
-const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>';
-const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for <strong>Weight Loss, GLP-1s, Menopause &amp; Hormone Therapy.</strong></p>';
+const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss &amp; Hormone Specialist NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>';
+const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for <strong>GLP-1s, Menopause &amp; Hormone Therapy.</strong></p>';
 const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
