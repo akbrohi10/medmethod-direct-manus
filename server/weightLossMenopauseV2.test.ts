@@ -24,7 +24,7 @@ const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
-const playfairFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" />\n';
+const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
   return source
@@ -47,7 +47,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalHeroHeadline).not.toBe("");
     expect(originalHeroSupportingLine).not.toBe("");
     expect(originalHeroPricingBlock).not.toBe("");
-    const restoredHeroCopy = page.replace(playfairFontLink, "").replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
+    const restoredHeroCopy = page.replace(heroFontLink, "").replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
     expect(restoreOriginalNames(restoredHeroCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
@@ -83,17 +83,16 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(addedCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
   });
 
-  it("loads Playfair Display on V2 only and applies it exclusively to the hero h1", () => {
+  it("uses only the reference headline font, preserving all V2 palette and layout rules", () => {
     const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
-    expect(head).toContain(playfairFontLink.trim());
-    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"Playfair Display",serif;font-optical-sizing:auto}');
-    expect(css.match(/font-family:"Playfair Display"/g)).toHaveLength(1);
-    expect(originalPage).not.toContain("Playfair");
-    expect(originalCss).not.toContain("Playfair");
-    // Shared font assets may already serve unrelated pages; only the V2 h1 rule applies it here.
+    expect(head).toContain(heroFontLink.trim());
+    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400}');
+    expect(css.match(/font-family:"DM Serif Display"/g)).toHaveLength(1);
+    expect(originalPage).not.toContain("DM Serif Display");
+    expect(originalCss).not.toContain("DM Serif Display");
     expect(read("client/src/index.css")).not.toContain('.wlm-v2-content .hero[data-medmethod-scope] h1');
-    expect(page).not.toContain("Bodoni");
-    expect(css).not.toContain("Bodoni");
+    expect(page).not.toMatch(/Bodoni|Playfair|DM\+Sans/);
+    expect(css).not.toMatch(/Bodoni|Playfair|--hero-deep-teal|Approved reference match/);
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
