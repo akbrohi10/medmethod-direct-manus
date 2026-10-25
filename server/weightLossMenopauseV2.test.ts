@@ -11,6 +11,7 @@ const page = read("client/src/pages/WeightLossMenopauseV2.tsx");
 const css = read("client/src/pages/WeightLossMenopauseV2.css");
 const doctorBio = read("client/src/pages/WeightLossMenopauseV2DoctorBio.tsx");
 const homepageMedicalTeam = read("client/src/components/home1/MedicalTeam.tsx");
+const home1Navbar = read("client/src/components/home1/Navbar.tsx");
 const interaction = read("client/src/pages/weightLossMenopauseV2Interactions.ts");
 const app = read("client/src/App.tsx");
 const vite = read("server/_core/vite.ts");
@@ -117,6 +118,7 @@ const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this sec
 const uploadedHeroMarker = "\n/* Approved uploaded V2 hero: supplied design with original phone only. */";
 const doctorBioMarker = "\n/* Approved V2 homepage-style doctor biography: doctor section only. */";
 const mobileBarMarker = "\n/* Approved V2 three-option mobile bar: content clearance only. */";
+const mobileHeaderMarker = "\n/* Approved V2 mobile header: centered original wordmark without tagline only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
@@ -231,11 +233,45 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(css).toContain(uploadedHeroMarker);
     expect(css).toContain(doctorBioMarker);
     expect(css).toContain(mobileBarMarker);
+    expect(css).toContain(mobileHeaderMarker);
     expect(css.indexOf(refinementMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
     expect(css.indexOf(compactHowItWorksMarker)).toBeLessThan(css.indexOf(uploadedHeroMarker));
     expect(css.indexOf(uploadedHeroMarker)).toBeLessThan(css.indexOf(doctorBioMarker));
     expect(css.indexOf(doctorBioMarker)).toBeLessThan(css.indexOf(mobileBarMarker));
+    expect(css.indexOf(mobileBarMarker)).toBeLessThan(css.indexOf(mobileHeaderMarker));
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
+  });
+
+  it("adds only a page-scoped mobile crop and centered original wordmark without changing the shared Navbar or desktop header", () => {
+    const pageNavbar = '<Navbar onConsultClick={() => {}} navigationLinks={PAGE_NAVIGATION} localSections showVirtualBanner={false} stickyOnPage primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+    const headerStart = css.indexOf(mobileHeaderMarker);
+    const mobileHeaderCss = css.slice(headerStart + mobileHeaderMarker.length).trim();
+    const root = ".wlm-v2-page > header > div:first-of-type > div:first-child";
+    const logoLink = `${root} > a[href="/"]`;
+    const logoImage = `${logoLink} > img`;
+    const menu = `${root} > button[aria-label="Toggle menu"]`;
+    const selectors = Array.from(mobileHeaderCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+
+    expect(css.match(/\/\* Approved V2 mobile header: centered original wordmark without tagline only\. \*\//g)).toHaveLength(1);
+    expect(headerStart).toBeGreaterThan(css.indexOf(mobileBarMarker));
+    expect(mobileHeaderCss).toMatch(/^@media\s*\(\s*max-width\s*:\s*767px\s*\)\s*\{[\s\S]*\}\s*$/);
+    expect(mobileHeaderCss).not.toMatch(/min-width|@media\s*\([^)]*(?:768|desktop)/i);
+    expect(selectors).toEqual([root, logoLink, logoImage, menu]);
+    for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-page > header > div:first-of-type > div:first-child(?:$| > (?:a\[href="\/"\](?: > img)?|button\[aria-label="Toggle menu"\]))$/);
+
+    expect(mobileHeaderCss).toContain(`${root} { position: relative; }`);
+    expect(mobileHeaderCss).toContain(`${logoLink} { position: absolute; left: 50%; transform: translateX(-50%); height: 48px; overflow: hidden; }`);
+    expect(mobileHeaderCss).toContain(`${logoImage} { height: 48px; width: auto; max-width: none; clip-path: inset(0 0 14px 0); transform: translateY(7px); }`);
+    expect(mobileHeaderCss).toContain(`${menu} { margin-left: auto; }`);
+    expect(mobileHeaderCss).not.toMatch(/(?:^|[;}])\s*(?:body|html|:root)\b|\*\s*\{/);
+    expect(mobileHeaderCss).not.toMatch(/\b(?:filter|opacity|color|background(?:-color)?)\s*:/);
+
+    expect(page.match(/<Navbar\s/g)).toHaveLength(1);
+    expect(page).toContain(pageNavbar);
+    expect(home1Navbar).toContain('src="/manus-storage/medmethod-logo-navbar_99a2ea82.png"');
+    expect(home1Navbar).toContain('alt="MedMethod Direct"');
+    expect(home1Navbar).toContain('className="h-12 lg:h-14 w-auto object-contain"');
+    expect(home1Navbar).toContain('className="lg:hidden text-[#111111] p-2"');
   });
 
   it("uses the complete approved uploaded hero while preserving legacy hero hooks and the external intake CTA", () => {

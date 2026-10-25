@@ -11,6 +11,7 @@ const originalInteraction = read("client/src/pages/weightLossMenopauseInteractio
 const interaction = read("client/src/pages/weightLossMenopauseV2Interactions.ts");
 
 const mobileBarMarker = "\n/* Approved V2 three-option mobile bar: content clearance only. */";
+const mobileHeaderMarker = "\n/* Approved V2 mobile header: centered original wordmark without tagline only. */";
 const legacyStickyCta = '<div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>';
 const approvedMobileBarCss = `
 /* Approved V2 three-option mobile bar: content clearance only. */
@@ -225,7 +226,9 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
 
     expect(css).toContain(mobileBarMarker);
     expect(css.match(/\/\* Approved V2 three-option mobile bar: content clearance only\. \*\//g)).toHaveLength(1);
-    expect(css.slice(css.indexOf(mobileBarMarker))).toBe(approvedMobileBarCss);
+    expect(css).toContain(mobileHeaderMarker);
+    expect(css.indexOf(mobileBarMarker)).toBeLessThan(css.indexOf(mobileHeaderMarker));
+    expect(css.slice(css.indexOf(mobileBarMarker), css.indexOf(mobileHeaderMarker))).toBe(approvedMobileBarCss);
 
     expect(interaction).toContain('const sticky = root.querySelector<HTMLElement>(".sticky-cta");');
     expect(interaction).toContain("if (disposed || !sticky || !stickyStart || !stickyStop) return;");

@@ -434,3 +434,11 @@
 @media (max-width: 767px) {
   .wlm-v2-page { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* Approved V2 mobile header: centered original wordmark without tagline only. */
+@media (max-width: 767px) {
+  .wlm-v2-page > header > div:first-of-type > div:first-child { position: relative; }
+  .wlm-v2-page > header > div:first-of-type > div:first-child > a[href="/"] { position: absolute; left: 50%; transform: translateX(-50%); height: 48px; overflow: hidden; }
+  .wlm-v2-page > header > div:first-of-type > div:first-child > a[href="/"] > img { height: 48px; width: auto; max-width: none; clip-path: inset(0 0 14px 0); transform: translateY(7px); }
+  .wlm-v2-page > header > div:first-of-type > div:first-child > button[aria-label="Toggle menu"] { margin-left: auto; }
+}
