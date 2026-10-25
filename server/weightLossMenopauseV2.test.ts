@@ -25,6 +25,7 @@ const originalHeroSupportingLine = originalPage.match(/<span className="hero-eye
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
+const supportingLineMarker = "\n/* Approved V2 supporting-line readability: supporting text only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
@@ -84,7 +85,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(previousHeroCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
   });
 
-  it("uses DM Serif Display for the approved V2 hero headline and supporting line, preserving all V2 palette and layout rules", () => {
+  it("uses DM Serif Display for the approved V2 hero headline and Montserrat for its supporting line, preserving all V2 palette and layout rules", () => {
     const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
     expect(head).toContain(heroFontLink.trim());
     expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400}');
@@ -98,7 +99,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("appends only the approved concise hero typography hierarchy", () => {
     expect(css).toContain(conciseHeroMarker);
-    const conciseHeroCss = css.split(conciseHeroMarker)[1] ?? "";
+    expect(css).toContain(supportingLineMarker);
+    const conciseHeroCss = css.slice(css.indexOf(conciseHeroMarker) + conciseHeroMarker.length, css.indexOf(supportingLineMarker));
     const normalizedCss = conciseHeroCss.replace(/\s+/g, "");
     expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope]h1{font-size:clamp(2.5rem,5.1vw,4.25rem);line-height:1.05;margin-bottom:24px}');
     expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-headline-line{display:block;white-space:normal;text-wrap:balance}');
@@ -125,6 +127,26 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       "font-size", "max-width",
     ]);
     expect(conciseHeroCss).not.toMatch(/\b(?:color|background)\s*:|phone|\.btn\b|\bbutton\b|\.hero-actions\b|\.(?:featured-in|medication-|estimator-|pricing-section|everything|support-section|testimonials|privacy-band|footer|section)\b|(?:^|[}\n])\s*(?:body|html|:root)\b/i);
+  });
+
+  it("appends exactly the approved supporting-line readability rules", () => {
+    expect(css).toContain(supportingLineMarker);
+    const supportingLineCss = css.split(supportingLineMarker)[1] ?? "";
+    const normalizedCss = supportingLineCss.replace(/\s+/g, "");
+    expect(normalizedCss).toBe('.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-family:"Montserrat",sans-serif;font-size:clamp(1.25rem,2.55vw,1.7rem);font-weight:500;line-height:1.5;color:var(--navy)}.wlm-v2-content.hero[data-medmethod-scope].hero-descriptionstrong{font-weight:500;color:var(--teal-dark)}@media(max-width:700px){.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-size:clamp(1.175rem,5.2vw,1.375rem)}}');
+
+    const selectors = Array.from(supportingLineCss.matchAll(/(?:^|[{}])\s*([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+    const declarations = Array.from(supportingLineCss.matchAll(/(?:^|[;{])\s*([a-z-]+)\s*:/g), match => match[1]);
+    expect(selectors).toEqual([
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description strong",
+      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
+    ]);
+    expect(declarations).toEqual([
+      "font-family", "font-size", "font-weight", "line-height", "color",
+      "font-weight", "color",
+      "font-size",
+    ]);
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {

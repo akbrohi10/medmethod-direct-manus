@@ -280,3 +280,8 @@
   .wlm-v2-content .hero[data-medmethod-scope] h1{font-size:clamp(2rem,10.5vw,3rem)}
   .wlm-v2-content .hero[data-medmethod-scope] .hero-description{font-size:clamp(1.1rem,4.8vw,1.25rem);max-width:30ch}
 }
+
+/* Approved V2 supporting-line readability: supporting text only. */
+.wlm-v2-content .hero[data-medmethod-scope] .hero-description{font-family:"Montserrat",sans-serif;font-size:clamp(1.25rem,2.55vw,1.7rem);font-weight:500;line-height:1.5;color:var(--navy)}
+.wlm-v2-content .hero[data-medmethod-scope] .hero-description strong{font-weight:500;color:var(--teal-dark)}
+@media(max-width:700px){.wlm-v2-content .hero[data-medmethod-scope] .hero-description{font-size:clamp(1.175rem,5.2vw,1.375rem)}}
