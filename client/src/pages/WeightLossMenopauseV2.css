@@ -429,3 +429,8 @@
   .wlm-v2-content #doctor .doctor-bio-training{padding:24px}
   .wlm-v2-content #doctor .doctor-bio-story,.wlm-v2-content #doctor .doctor-bio-intro{font-size:16px}
 }
+
+/* Approved V2 three-option mobile bar: content clearance only. */
+@media (max-width: 767px) {
+  .wlm-v2-page { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+}

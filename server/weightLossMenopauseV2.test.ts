@@ -116,6 +116,7 @@ const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and c
 const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this section only. */";
 const uploadedHeroMarker = "\n/* Approved uploaded V2 hero: supplied design with original phone only. */";
 const doctorBioMarker = "\n/* Approved V2 homepage-style doctor biography: doctor section only. */";
+const mobileBarMarker = "\n/* Approved V2 three-option mobile bar: content clearance only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
@@ -160,6 +161,19 @@ const freeCareCopyReplacements: ReadonlyArray<readonly [v2Copy: string, original
 
 const approvedZoomOffer = '<p className="video-addon">Prefer face-to-face care?<br />Add a virtual Zoom visit — <b>only $39 per visit.</b></p>';
 const approvedZoomFaq = '<details><summary>Can I add a virtual Zoom visit?</summary><p>Yes. You can add an optional virtual Zoom visit for $39 per visit. Doctor evaluation and text care remain free. Medication is priced separately.</p></details>';
+const legacyStickyCta = '<div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>';
+
+function normalizeApprovedMobileBar(source: string): string {
+  return source
+    .replace(
+      'import WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";\nimport WeightLossMenopauseV2MobileBar from "./WeightLossMenopauseV2MobileBar";\n',
+      'import WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";\n',
+    )
+    .replace(
+      '      </div>\n      <WeightLossMenopauseV2MobileBar />\n    </div>',
+      `        ${legacyStickyCta}\n      </div>\n    </div>`,
+    );
+}
 
 function restoreFreeCareCopy(source: string): string {
   return freeCareCopyReplacements.reduce(
@@ -196,7 +210,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(completeNewHero).not.toBe("");
-    const restoredApprovedCopy = restoreFreeCareCopy(page)
+    const restoredApprovedCopy = restoreFreeCareCopy(normalizeApprovedMobileBar(page))
       .replace('import WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";\n', "")
       .replace("<WeightLossMenopauseV2DoctorBio />", originalDoctorSection)
       .replace(approvedGlp1PageDisplayType, "")
@@ -216,9 +230,11 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(css).toContain(compactHowItWorksMarker);
     expect(css).toContain(uploadedHeroMarker);
     expect(css).toContain(doctorBioMarker);
+    expect(css).toContain(mobileBarMarker);
     expect(css.indexOf(refinementMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
     expect(css.indexOf(compactHowItWorksMarker)).toBeLessThan(css.indexOf(uploadedHeroMarker));
     expect(css.indexOf(uploadedHeroMarker)).toBeLessThan(css.indexOf(doctorBioMarker));
+    expect(css.indexOf(doctorBioMarker)).toBeLessThan(css.indexOf(mobileBarMarker));
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
@@ -387,7 +403,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(doctorBio).toContain('className="doctor-bio-portrait doctor-bio-desktop-portrait"');
     expect(doctorBio).toContain('className="doctor-bio-portrait doctor-bio-mobile-portrait"');
 
-    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length, css.indexOf(mobileBarMarker));
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-portrait{position:relative;aspect-ratio:3/4');
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-portrait img{display:block;width:100%;height:100%;object-fit:contain}');
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-mobile-portrait{display:none}');
@@ -407,7 +423,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       expect(doctorBio).toContain(`label: "${label}"`);
     }
 
-    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length, css.indexOf(mobileBarMarker));
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-minus{display:none}');
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-details details[open] .doctor-bio-plus{display:none}');
     expect(doctorBioCss).toContain('.wlm-v2-content #doctor .doctor-bio-details details[open] .doctor-bio-minus{display:block}');
@@ -430,7 +446,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(doctorBio).not.toMatch(/<a(?:\s|>)/);
 
     expect(css.match(/\/\* Approved V2 homepage-style doctor biography: doctor section only\. \*\//g)).toHaveLength(1);
-    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length);
+    const doctorBioCss = css.slice(css.indexOf(doctorBioMarker) + doctorBioMarker.length, css.indexOf(mobileBarMarker));
     const selectors = Array.from(doctorBioCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
     expect(selectors.length).toBeGreaterThan(30);
     for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-content #doctor(?:\b|\s|[.:#])/);
@@ -546,7 +562,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     const intakeUrl = "https://intake.medmethoddirect.com/";
     expect(page).toContain(`WEIGHT_MENOPAUSE_INTAKE_URL = "${intakeUrl}"`);
     expect(page).toContain('className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL}');
-    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? [])).toHaveLength(6);
+    expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? [])).toHaveLength(5);
     expect(page).not.toContain("?treatment");
   });
 
@@ -625,9 +641,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalPage).not.toContain(approvedZoomFaq);
   });
 
-  it("uses the approved free-care FAQ, app and patient labels, and sticky CTA without legacy fee or refund copy", () => {
+  it("uses the approved free-care FAQ, app and patient labels without legacy fee or refund copy", () => {
     const faq = page.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
-    const stickyCta = page.match(/<div className="sticky-cta" aria-hidden="true">[\s\S]*?<\/div>/)?.[0] ?? "";
 
     expect(faq).not.toBe("");
     expect(faq).toContain("Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. Your doctor evaluation and text care are free.");
@@ -640,7 +655,6 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     expect(page).toContain("Patient perspectives");
     expect(page).not.toContain("Member perspectives");
-    expect(stickyCta).toBe('<div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>');
 
     for (const legacyCopy of [
       "$49/month plus the cost of medication.",

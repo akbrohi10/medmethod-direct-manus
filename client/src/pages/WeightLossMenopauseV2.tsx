@@ -5,6 +5,7 @@ import Navbar from "@/components/home1/Navbar";
 import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions";
 import "./WeightLossMenopauseV2.css";
 import WeightLossMenopauseV2DoctorBio from "./WeightLossMenopauseV2DoctorBio";
+import WeightLossMenopauseV2MobileBar from "./WeightLossMenopauseV2MobileBar";
 
 export const WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/";
 const PAGE_URL = "https://medmethoddirect.com/weight-loss-menopauseV2";
@@ -177,8 +178,8 @@ export default function WeightLossMenopauseV2() {
             </nav>
           </div>
         </footer>
-        <div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>
       </div>
+      <WeightLossMenopauseV2MobileBar />
     </div>
   );
 }
