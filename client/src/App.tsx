@@ -402,7 +402,6 @@ function Router() {
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
         <Route path="/weight-loss-menopauseV2" component={WeightLossMenopauseV2} />
-        <Route path="/weight-loss-menopauseV2/" component={WeightLossMenopauseV2} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>

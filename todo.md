@@ -3133,3 +3133,8 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Registered exact user-cased and trailing-slash routes, matched social-proof suppression, and copied route metadata with the V2 canonical URL and `noindex,follow`. V2 remains outside the sitemap. Added six inverse-parity, routing, namespace, catalog/link and metadata regressions.
 - Validation: 16 original/V2 targeted tests passed; TypeScript and build passed. Responsive text, image, link and computed-style parity passed at 320/375/768/1440px, including medication toggles, estimator, app tabs, FAQ, sticky CTA, SPA navigation and intercepted intake navigation. Mobile/desktop screenshots reviewed; six built-production routes HTTP 200 and production parity passed at 375/1440px. Scope and whitespace checks passed. Full suite: 641 passed, 2 opt-in integrations skipped, 1 documented pre-existing LegitScript imported-content scan failure in `client/index.html`, left unchanged and out of scope.
 - No real patient submissions, SMS, payments or external provider actions. Checkpoint only; not published.
+
+## Menopause V2 Preview Entry Cleanup — 2026-10-24
+- Removed only the redundant `/weight-loss-menopauseV2/` Route declaration so the preview lists one original page and one V2 page. All original/V2 page, style, interaction, pricing, link and metadata files remain unchanged. The existing router still accepts a trailing slash without a separate declaration.
+- Updated the regression to require exactly one V2 Route entry. Passed all 16 original/V2 tests, TypeScript, whitespace and protected-file scope checks. Safely intercepted browser checks confirmed original, V2 and trailing-slash V2 each render exactly one correct page.
+- Checkpoint only; not published.

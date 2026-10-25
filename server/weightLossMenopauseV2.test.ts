@@ -44,10 +44,12 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(restoreOriginalNames(css)).toBe(originalCss);
   });
 
-  it("registers the exact user-cased V2 URL, its trailing-slash variant, and no social-proof overlay", () => {
+  it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
     expect(app).toContain('const WeightLossMenopauseV2 = lazy(() => import("@/pages/WeightLossMenopauseV2"));');
     expect(app).toContain('<Route path="/weight-loss-menopauseV2" component={WeightLossMenopauseV2} />');
-    expect(app).toContain('<Route path="/weight-loss-menopauseV2/" component={WeightLossMenopauseV2} />');
+    expect(app).not.toContain('<Route path="/weight-loss-menopauseV2/"');
+    expect(app.match(/<Route path="\/weight-loss-menopauseV2\/?"/g)).toHaveLength(1);
+    expect(app).toContain('<Route path="/weight-loss-menopause" component={WeightLossMenopause} />');
 
     const socialProofRouter = app.slice(app.indexOf("function SocialProofNotificationsRouter"), app.indexOf("function App()"));
     expect(socialProofRouter).toContain('"/weight-loss-menopauseV2"');
