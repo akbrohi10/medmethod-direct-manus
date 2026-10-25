@@ -338,8 +338,12 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       expect(homepageMedicalTeam).toContain(`"${credential}"`);
       expect(doctorBio).toContain(`"${credential}"`);
     }
-    expect(doctorBio).toContain('const CREDENTIALS = ["Board-Certified DO", "Menopause Specialist", "Author"];');
-    expect(doctorBio).not.toContain("Licensed in 12 states");
+    expect(doctorBio).toContain('const CREDENTIALS = ["Board-Certified DO", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];');
+    const credentials = Array.from((doctorBio.match(/const CREDENTIALS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
+    const homepageCredentials = Array.from((homepageMedicalTeam.match(/const CREDENTIAL_PILLS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
+    expect(credentials).toEqual(homepageCredentials);
+    expect(credentials).toHaveLength(6);
+    expect(doctorBio.match(/Licensed in \d+ states/g)).toEqual(["Licensed in 12 states"]);
 
     for (const focusArea of approvedDoctorFocusAreas) {
       expect(homepageMedicalTeam).toContain(`"${focusArea}"`);
@@ -414,7 +418,6 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       "COACH",
       "Schedule",
       "Discovery Call",
-      "Licensed in",
       "$",
       "href=",
       "<button",
