@@ -72,6 +72,7 @@ export default function WeightLossMenopauseV2() {
     <div className="wlm-v2-page">
       <Helmet>
         <title>{PAGE_TITLE}</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&display=swap" />
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="robots" content="noindex,follow" />
         <link rel="canonical" href={PAGE_URL} />

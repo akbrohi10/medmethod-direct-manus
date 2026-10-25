@@ -267,3 +267,6 @@
   .wlm-v2-content .hero[data-medmethod-scope] h1{margin-bottom:26px;font-size:clamp(1.5rem,8.6vw,2.85rem)}
   .wlm-v2-content .hero[data-medmethod-scope] .hero-description{max-width:30ch;margin-bottom:32px;font-size:1.0625rem;line-height:1.6}
 }
+
+/* Approved font trial: V2 hero headline only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"Bodoni Moda",serif;font-optical-sizing:auto}

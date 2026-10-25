@@ -24,6 +24,7 @@ const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
+const bodoniFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
   return source
@@ -46,7 +47,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalHeroHeadline).not.toBe("");
     expect(originalHeroSupportingLine).not.toBe("");
     expect(originalHeroPricingBlock).not.toBe("");
-    const restoredHeroCopy = page.replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
+    const restoredHeroCopy = page.replace(bodoniFontLink, "").replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
     expect(restoreOriginalNames(restoredHeroCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
@@ -80,6 +81,16 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(addedCss).toContain("font-size:1.0625rem;line-height:1.6");
     expect(addedCss).toContain(".hero-description strong{color:var(--teal-dark);font-weight:700}");
     expect(addedCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
+  });
+
+  it("loads Bodoni Moda on V2 only and applies it exclusively to the hero h1", () => {
+    const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
+    expect(head).toContain(bodoniFontLink.trim());
+    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"Bodoni Moda",serif;font-optical-sizing:auto}');
+    expect(css.match(/font-family:"Bodoni Moda"/g)).toHaveLength(1);
+    expect(originalPage).not.toContain("Bodoni");
+    expect(originalCss).not.toContain("Bodoni");
+    expect(read("client/index.html")).not.toContain("Bodoni");
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
