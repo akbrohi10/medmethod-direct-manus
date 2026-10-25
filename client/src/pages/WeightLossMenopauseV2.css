@@ -256,3 +256,14 @@
   .wlm-v2-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-media{height:196px}
   .wlm-v2-content .medication-card[data-treatment-id="wegovy_direct_novocare"] .medication-price{min-height:3.5rem;align-content:flex-start}
 }
+
+/* Approved V2 hero refinement: breathing room and clean supporting text only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1{margin-bottom:32px;font-size:clamp(2rem,4.2vw,3.5rem);line-height:1.15}
+.wlm-v2-content .hero[data-medmethod-scope] .hero-headline-line{white-space:normal}
+.wlm-v2-content .hero[data-medmethod-scope] .hero-description{width:100%;max-width:500px;margin:0 auto 36px;padding:0;border:0;background:none;color:var(--muted);font-size:clamp(1.0625rem,1.55vw,1.25rem);font-weight:500;line-height:1.65;text-align:center;text-wrap:pretty}
+.wlm-v2-content .hero[data-medmethod-scope] .hero-description strong{color:var(--teal-dark);font-weight:700}
+@media(max-width:700px){
+  .wlm-v2-content .hero[data-medmethod-scope]{padding-top:62px}
+  .wlm-v2-content .hero[data-medmethod-scope] h1{margin-bottom:26px;font-size:clamp(1.5rem,8.6vw,2.85rem)}
+  .wlm-v2-content .hero[data-medmethod-scope] .hero-description{max-width:30ch;margin-bottom:32px;font-size:1.0625rem;line-height:1.6}
+}

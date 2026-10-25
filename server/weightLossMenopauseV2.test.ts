@@ -19,9 +19,11 @@ const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
 };
 
 const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>';
-const approvedHeroSupportingLine = '<span className="hero-eyebrow"><span style={{ fontWeight: 500 }}>Explore your options for <strong>Weight Loss, GLP-1s, Menopause &amp; Hormone Therapy.</strong></span></span>';
+const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for <strong>Weight Loss, GLP-1s, Menopause &amp; Hormone Therapy.</strong></p>';
 const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
+const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
+const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 
 function restoreOriginalNames(source: string): string {
   return source
@@ -34,7 +36,7 @@ function restoreOriginalNames(source: string): string {
 }
 
 describe("Weight-Loss & Menopause V2 duplicate integration", () => {
-  it("preserves exact source parity after reversing approved hero copy and page/dependency/URL/scope names", () => {
+  it("preserves exact source parity outside the approved hero copy, pricing removal and isolated spacing block", () => {
     expect(page).toContain('import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions"');
     expect(page).toContain('import "./WeightLossMenopauseV2.css"');
     expect(page).toContain("export default function WeightLossMenopauseV2()");
@@ -43,22 +45,41 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page).toContain('className="wlm-v2-content"');
     expect(originalHeroHeadline).not.toBe("");
     expect(originalHeroSupportingLine).not.toBe("");
-    const restoredHeroCopy = page.replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine);
+    expect(originalHeroPricingBlock).not.toBe("");
+    const restoredHeroCopy = page.replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
     expect(restoreOriginalNames(restoredHeroCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
     expect(restoreOriginalNames(interaction)).toBe(originalInteraction);
 
-    expect(restoreOriginalNames(css)).toBe(originalCss);
+    expect(css).toContain(refinementMarker);
+    expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
-  it("uses the exact approved free-text-care hero copy without changing existing pricing or intake links", () => {
+  it("uses the exact approved hero copy without the pricing block, while retaining other pricing and intake links", () => {
     expect(page).toContain(approvedHeroHeadline);
     expect(page).toContain(approvedHeroSupportingLine);
     expect(page).not.toContain(originalHeroHeadline);
     expect(page).not.toContain(originalHeroSupportingLine);
-    expect(page).toContain('<strong>$49/month</strong>');
+    const hero = page.slice(page.indexOf('<section className="hero"'), page.indexOf('<section className="featured-in"'));
+    expect(hero).not.toContain('className="hero-offer"');
+    expect(hero).not.toContain('className="hero-eyebrow"');
+    expect(hero).not.toContain("$49/month");
+    expect(hero).not.toContain("100% refunded if not approved.");
+    expect(hero).not.toContain("First month due today");
+    expect(page).toContain("$49/month plus the cost of medication.");
     expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
+  });
+
+  it("limits added styling to hero typography and breathing room, without phone or other section changes", () => {
+    const addedCss = css.split(refinementMarker)[1];
+    expect(addedCss).toContain("margin-bottom:32px");
+    expect(addedCss).toContain("white-space:normal");
+    expect(addedCss).toContain("margin:0 auto 36px");
+    expect(addedCss).toContain("padding:0;border:0;background:none");
+    expect(addedCss).toContain("font-size:1.0625rem;line-height:1.6");
+    expect(addedCss).toContain(".hero-description strong{color:var(--teal-dark);font-weight:700}");
+    expect(addedCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
