@@ -1,7 +1,7 @@
 import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import { Helmet } from "react-helmet-async";
-import { ShieldCheck } from "lucide-react";
+import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
 import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";
@@ -208,25 +208,46 @@ export default function Masterclass2() {
 
         <PhysicianProfile />
 
-        <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-[#fff9fb] px-5 py-6 sm:px-10 sm:py-8 lg:px-16">
-          <div className="mx-auto max-w-[560px] text-center">
-            <h2 id="masterclass2-work-heading" className="text-2xl font-bold leading-tight text-[#281c30] sm:text-3xl">Choose How to Connect</h2>
-            <p className="mt-2 text-[15px] font-medium leading-6 text-[#5a4452]">100% virtual care · Available in 17 states</p>
+        <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-white px-5 py-8 sm:px-10 sm:py-10 lg:px-16">
+          <div className="mx-auto max-w-[640px] text-center">
+            <h2 id="masterclass2-work-heading" className="mx-auto max-w-[520px] text-[clamp(1.75rem,7.4vw,2.5rem)] font-extrabold leading-[1.12] tracking-[-0.025em] text-[#171225]">Choose How to Connect</h2>
+            <p className="mt-3 text-[14px] font-medium leading-6 text-[#5a4452] sm:text-[15px]">100% virtual care · Available in 17 states</p>
           </div>
-          <div data-masterclass2-stacked-booking-pills className="mx-auto mt-5 flex max-w-[560px] flex-col gap-4 text-center">
+          <div data-masterclass2-connection-rows className="mx-auto mt-6 flex max-w-[640px] flex-col gap-3.5 text-left sm:mt-7">
             <div data-masterclass2-video-offer>
-              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_6px_18px_rgba(122,30,126,0.18)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book My Video Visit — Only $39!</button>
-              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Meet with Dr. Al-Deek by video · About the cost of a copay.</p>
+              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-4 text-left text-white shadow-[0_6px_18px_rgba(122,30,126,0.12)] transition-colors duration-150 hover:from-[#df2c92] hover:to-[#6b1a70] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-full sm:px-6 sm:py-5">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center sm:h-16 sm:w-16"><Video className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Book My Video Visit</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $39</span>
+                </span>
+                <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
+              </button>
             </div>
             <div data-masterclass2-text-visit>
-              <a href="https://intake.medmethoddirect.com/" data-masterclass2-text-visit-cta className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#E8D5DC] bg-[#F4E8EE] px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#E8D5DC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Free Doctor Visit — Text Only</a>
-              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Complete your intake (5–10 min), then instantly connect with your doctor through text messaging.</p>
-              <p className="mt-1 text-[15px] font-medium leading-6 text-[#5a4452]">Ongoing care by text. No video visit. Medication priced separately.</p>
+              <a href="https://intake.medmethoddirect.com/" data-masterclass2-text-visit-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] border border-[#e7cbdc] bg-[#fdf8fb] px-4 py-4 text-left text-[#7a1e7e] transition-colors duration-150 hover:bg-[#f7edf3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-[36px] sm:px-6 sm:py-5">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#fce8f3] sm:h-16 sm:w-16"><MessageCircleMore className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Free Doctor Visit — Text Only</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-[1.55] text-[#5a4452] sm:text-base">Complete your intake (5–10 min), then start messaging with your doctor.</span>
+                </span>
+                <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
+              </a>
             </div>
             <div data-masterclass2-free-call>
-              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-4 py-3 text-center text-sm font-bold text-[#7a1e7e] transition hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] sm:text-base">Book a Free 15-Minute Call</a>
-              <p className="mt-1.5 text-[15px] font-medium leading-6 text-[#5a4452]">Care Team · General information, not medical advice.</p>
+              <a href="/care-team-booking" data-masterclass-video-first-care-team-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] border border-[#e7cbdc] bg-white px-4 py-4 text-left text-[#7a1e7e] transition-colors duration-150 hover:bg-[#fdf8fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-[36px] sm:px-6 sm:py-5">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#fce8f3] sm:h-16 sm:w-16"><PhoneCall className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Free 15-Minute Discovery Call</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-[1.55] text-[#5a4452] sm:text-base">Talk with our care team, ask questions, and find the best option for you.</span>
+                </span>
+                <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
+              </a>
             </div>
+          </div>
+          <div data-masterclass2-connection-disclosures className="mx-auto mt-5 max-w-[640px] text-center text-[12px] font-medium leading-5 text-[#766d75] sm:text-[13px]">
+            <p>Ongoing text care included. Medication priced separately.</p>
+            <p className="mt-1">Care Team call: general information, not medical advice.</p>
           </div>
         </section>
 

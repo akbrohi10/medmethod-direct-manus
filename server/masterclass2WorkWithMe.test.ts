@@ -3,76 +3,110 @@ import { describe, expect, it } from "vitest";
 
 const page = readFileSync("client/src/pages/Masterclass2.tsx", "utf8");
 const original = readFileSync("client/src/pages/MasterclassVideoFirst.tsx", "utf8");
-const section = page.slice(page.indexOf("        <section data-masterclass-video-first-booking"), page.indexOf("\n\n        <footer"));
-const textVisitStart = section.indexOf("data-masterclass2-text-visit>");
-const textVisitEnd = section.indexOf("data-masterclass2-free-call", textVisitStart);
-const textVisit = section.slice(textVisitStart, textVisitEnd);
+const sectionStart = page.indexOf("        <section data-masterclass-video-first-booking");
+const sectionEnd = page.indexOf("\n\n        <footer", sectionStart);
+const section = page.slice(sectionStart, sectionEnd);
+
+function row(marker: string, nextMarker: string) {
+  const start = section.indexOf(marker);
+  const end = section.indexOf(nextMarker, start);
+  return section.slice(start, end === -1 ? undefined : end);
+}
+
+const videoOffer = row("data-masterclass2-video-offer", "data-masterclass2-text-visit");
+const textVisit = row("data-masterclass2-text-visit", "data-masterclass2-free-call");
+const freeCall = row("data-masterclass2-free-call", "data-masterclass2-connection-disclosures");
 const textVisitAnchor = textVisit.match(/<a[^>]*data-masterclass2-text-visit-cta[^>]*>/)?.[0] ?? "";
+const careTeamAnchor = freeCall.match(/<a[^>]*data-masterclass-video-first-care-team-cta[^>]*>/)?.[0] ?? "";
+const videoButton = videoOffer.match(/<button\b[\s\S]*?className="[^"]*"/)?.[0] ?? "";
 
-describe("masterclass2 compact stacked Work With Me booking pills", () => {
-  it("uses the approved concise copy and qualified copay comparison", () => {
-    for (const phrase of ["Choose How to Connect", "Book a Free 15-Minute Call", "Care Team · General information, not medical advice.", "Book My Video Visit — Only $39!", "Meet with Dr. Al-Deek by video · About the cost of a copay."]) expect(section).toContain(phrase);
-    expect(section).not.toContain("the same as your copay");
+const rows = [videoOffer, textVisit, freeCall];
+
+describe("masterclass2 Choose How to Connect connection rows", () => {
+  it("keeps the approved header and a single compact connection-row container", () => {
+    expect(section).toContain("data-masterclass2-work-with-me");
+    expect(section).toContain("Choose How to Connect");
     expect(section).toContain("100% virtual care · Available in 17 states");
-    expect(section).not.toMatch(/Thoughtful care|Together, we’ll|Have questions\?|Personalized care\.|<h3/);
+    expect(section).toMatch(/<div[^>]*data-masterclass2-connection-rows[^>]*className="[^"]*max-w-\[640px\][^"]*flex-col[^"]*gap-3\.5[^"]*"/);
+    expect(section).not.toContain("data-masterclass2-stacked-booking-pills");
+    expect(section).not.toMatch(/Book a Free 15-Minute Call|About the cost of a copay/);
   });
 
-  it("stacks three full-width pills without large cards or desktop columns", () => {
-    expect(section).toContain("data-masterclass2-stacked-booking-pills");
-    expect(section).toContain("flex max-w-[560px] flex-col gap-4 text-center");
-    expect(section).not.toMatch(/sm:grid-cols-2|rounded-2xl|bg-white p-5/);
-    expect(section.match(/min-h-\[56px\] w-full/g)).toHaveLength(3);
-    expect(section.match(/rounded-full/g)).toHaveLength(3);
-    expect(section).toContain("border-2 border-[#b8336a] bg-white");
-    expect(section).toContain("bg-gradient-to-r from-[#e8339e] to-[#7a1e7e]");
-    expect(section.match(/focus-visible:outline-offset-3/g)).toHaveLength(3);
-  });
-
-  it("adds the strict text-only free doctor visit anchor without tracking or patient-prefill URL data", () => {
-    expect(section).toContain("<div data-masterclass2-text-visit>");
-    expect(textVisitAnchor).toMatch(/^<a href="https:\/\/intake\.medmethoddirect\.com\/" data-masterclass2-text-visit-cta\b/);
-    expect(textVisitAnchor).toContain("inline-flex min-h-[56px] w-full");
-    expect(textVisitAnchor).toContain("rounded-full border-2 border-[#E8D5DC] bg-[#F4E8EE]");
-    for (const utility of ["px-4", "py-3", "text-sm", "font-bold", "text-[#7a1e7e]"]) expect(textVisitAnchor).toContain(utility);
-    expect(textVisitAnchor).toContain("focus-visible:outline-offset-3");
-    expect(textVisitAnchor).toContain("sm:text-base");
-    expect(textVisit).toMatch(/<a[^>]*data-masterclass2-text-visit-cta[^>]*>Free Doctor Visit — Text Only<\/a>/);
-  });
-
-  it("discloses the intake-first text-only pathway without implying an immediate physician response", () => {
-    expect(textVisit).toContain("Complete your intake (5–10 min), then instantly connect with your doctor through text messaging.");
-    expect(textVisit).toContain("Ongoing care by text. No video visit. Medication priced separately.");
-    expect(textVisit).toMatch(/text messaging/);
-    expect(textVisit).not.toMatch(/(?:immediate(?:ly)?|instant(?:ly)?) (?:physician|doctor) response/i);
-  });
-
-  it("groups helpers closer to their buttons and removes only the requested disclosure", () => {
-    expect(section.match(/className="mt-1\.5 /g)).toHaveLength(3);
-    expect(page).not.toContain("data-masterclass2-self-pay-disclosure");
-    expect(page).not.toContain("Self-pay—we don’t accept insurance. Copays vary by plan. Medication priced separately.");
-    expect(section).not.toContain("with care focused on you");
-  });
-
-  it("uses 15px medium-weight charcoal text with 24px line height for all five supporting paragraphs", () => {
-    expect(section.match(/text-\[15px\] font-medium leading-6 text-\[#5a4452\]/g)).toHaveLength(5);
-    expect(section).not.toMatch(/<p[^>]+(?:text-xs|text-sm|leading-relaxed|font-semibold)/);
-  });
-
-  it("preserves both existing booking actions and places the paid video, text-only visit, and free call in order beneath the full bio", () => {
-    expect(page.indexOf("data-masterclass2-work-with-me")).toBeGreaterThan(page.indexOf("<PhysicianProfile />"));
+  it("keeps exactly three full-width rounded native controls in video, text, then care-team order", () => {
     expect(section.indexOf("data-masterclass2-video-offer")).toBeLessThan(section.indexOf("data-masterclass2-text-visit"));
     expect(section.indexOf("data-masterclass2-text-visit")).toBeLessThan(section.indexOf("data-masterclass2-free-call"));
-    expect(section).toContain('href="/care-team-booking"');
-    expect(section).toContain('data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)}');
-    expect(page).toContain('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />');
-    expect(page).toContain("data-masterclass2-mobile-booking");
+    expect(section.match(/data-masterclass2-(?:video-offer|text-visit|free-call)(?=[\s>])/g)).toHaveLength(3);
+    expect(rows).toHaveLength(3);
+
+    for (const currentRow of rows) {
+      expect(currentRow).toMatch(/<(?:button|a)\b[\s\S]*?className="[^"]*\bw-full\b[^"]*\brounded-/);
+      expect(currentRow).toMatch(/focus-visible:(?:outline|ring)/);
+      expect(currentRow).not.toMatch(/<p\b/);
+    }
+
+    expect(videoOffer).toMatch(/<button\b/);
+    expect(textVisit).toMatch(/<a\b/);
+    expect(freeCall).toMatch(/<a\b/);
   });
 
-  it("keeps old pricing removed only from the duplicate and preserves the original deposit checkout", () => {
+  it("keeps the paid video row connected to the existing checkout and its approved price", () => {
+    expect(videoOffer).toContain('data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)}');
+    expect(videoButton).toContain("bg-gradient-to-r");
+    expect(videoButton).toContain("from-[#e8339e]");
+    expect(videoButton).toContain("to-[#7a1e7e]");
+    expect(videoOffer).toContain("Book My Video Visit");
+    expect(videoOffer).toContain("Only $39");
+    expect(videoOffer).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
+    expect(videoOffer).toMatch(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/);
+  });
+
+  it("keeps the text-only intake row exact, direct, and free of tracking, prefills, and checkout calls", () => {
+    expect(textVisitAnchor).toMatch(/^<a href="https:\/\/intake\.medmethoddirect\.com\/" data-masterclass2-text-visit-cta\b/);
+    expect(textVisit).toContain("Free Doctor Visit — Text Only");
+    expect(textVisit).toContain("Complete your intake (5–10 min), then start messaging with your doctor.");
+    expect(textVisitAnchor).toMatch(/bg-\[#(?:fff[\w]*|f[\w]*)\]/i);
+    expect(textVisitAnchor).toMatch(/border[^\"]*\[#(?:E8D5DC|[\w]+)\]/i);
+    expect(textVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
+    expect(textVisit).toMatch(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/);
+    expect(textVisit).not.toMatch(/(?:utm_|tracking|prefill|checkout|setConsultationOpen|VideoVisitCheckout)/i);
+  });
+
+  it("keeps the free care-team discovery call as the outlined, non-medical-advice option", () => {
+    expect(careTeamAnchor).toMatch(/^<a href="\/care-team-booking" data-masterclass-video-first-care-team-cta\b/);
+    expect(careTeamAnchor).toMatch(/(?:border|outline)/);
+    expect(careTeamAnchor).toMatch(/bg-white/);
+    expect(freeCall).toContain("Free 15-Minute Discovery Call");
+    expect(freeCall).toContain("Talk with our care team, ask questions, and find the best option for you.");
+    expect(freeCall).toMatch(/<PhoneCall\b[^>]*aria-hidden="true"[^>]*\/>/);
+    expect(freeCall).toMatch(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/);
+  });
+
+  it("uses decorative, unlabelled standard lucide icons and one shared disclosure footer", () => {
+    for (const icon of ["Video", "MessageCircleMore", "PhoneCall"]) {
+      expect(page).toMatch(new RegExp(`import\\s*\\{[^}]*\\b${icon}\\b[^}]*\\}\\s*from\\s*["']lucide-react["']`));
+    }
+    expect(section.match(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/g)).toHaveLength(3);
+    expect(section).not.toMatch(/<(?:Video|MessageCircleMore|PhoneCall|ArrowRight)\b[^>]*aria-label=/);
+
+    const disclosuresStart = section.indexOf("data-masterclass2-connection-disclosures");
+    expect(disclosuresStart).toBeGreaterThan(section.indexOf("data-masterclass2-free-call"));
+    const disclosures = section.slice(disclosuresStart);
+    expect(disclosures).toContain("Ongoing text care included. Medication priced separately.");
+    expect(disclosures).toContain("Care Team call: general information, not medical advice.");
+    expect([...disclosures.matchAll(/Ongoing text care included\. Medication priced separately\.|Care Team call: general information, not medical advice\./g)]).toHaveLength(2);
+    for (const currentRow of rows) {
+      expect(currentRow).not.toMatch(/Ongoing text care included|Care Team call: general information/);
+    }
+  });
+
+  it("leaves the original pricing guard, mobile paid action, and checkout integration intact", () => {
     expect(page).not.toMatch(/\$199|\$50|\$149|\$150|45-Minute|PricingDetails|LpConsultationModal2/);
     expect(original).toContain("See Full Pricing Details");
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
-    expect([...page.matchAll(/\$\d+/g)].map(m => m[0])).toEqual(["$39", "$39"]);
+    expect([...page.matchAll(/\$\d+/g)].map(match => match[0])).toEqual(["$39", "$39"]);
+    expect(page).toContain("data-masterclass2-mobile-booking");
+    expect(page).toContain("Book My Video Visit — Only $39!");
+    expect(page).toContain("<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />");
   });
 });

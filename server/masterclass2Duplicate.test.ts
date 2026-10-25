@@ -65,7 +65,7 @@ const normalizedDuplicate = duplicate
   .replace(currentBooking, originalBooking)
   .replace("export default function Masterclass2()", `${originalPricing}export default function Masterclass2()`)
   .replace('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";', 'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";\nimport LpConsultationModal2 from "@/components/home1/LpConsultationModal2";')
-  .replace('import { ShieldCheck } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
+  .replace('import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
   .replace('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />', '<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />')
   .replace("        <FeaturedInStrip />\n", "")
   .replace("\n\n\n        <PhysicianProfile />", `\n\n${originalLearningAndWatchSection}\n\n        <PhysicianProfile />`)
