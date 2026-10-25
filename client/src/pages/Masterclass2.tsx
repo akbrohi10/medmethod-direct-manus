@@ -265,10 +265,20 @@ export default function Masterclass2() {
         <nav
           data-masterclass2-mobile-connection-bar
           aria-label="Choose how to connect"
-          className="fixed z-40 mx-auto max-w-[440px] rounded-[24px] border border-[#ead7e3] bg-white/95 p-1.5 shadow-[0_8px_28px_rgba(122,30,126,0.18)] backdrop-blur-md md:hidden"
+          className="fixed z-40 mx-auto max-w-[440px] rounded-[12px] border border-[#e9c8f3] bg-white p-1.5 md:hidden"
           style={{ display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
           <div className="grid grid-cols-3 gap-1">
+            <a
+              data-masterclass2-mobile-text-visit
+              href="https://intake.medmethoddirect.com/"
+              aria-label="Text visit — free"
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
+            >
+              <MessageCircleMore className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold">Text Visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">Free</span>
+            </a>
             <button
               type="button"
               data-masterclass2-mobile-booking
@@ -276,31 +286,21 @@ export default function Masterclass2() {
               aria-haspopup="dialog"
               ref={mobileBookingRef}
               onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-0.5 py-1 text-center text-[11px] leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
-              <Video className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Video Visit</span>
-              <span className="block text-white/90">$39</span>
+              <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold">Video Visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">$39</span>
             </button>
             <a
-              data-masterclass2-mobile-text-visit
-              href="https://intake.medmethoddirect.com/"
-              aria-label="Text your doctor — free"
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-[#f7eaf2] px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-[#7a1e7e] transition-transform duration-150 hover:bg-[#f2dfeb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
-            >
-              <MessageCircleMore className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Text Your Doctor</span>
-              <span className="block">Free</span>
-            </a>
-            <a
               data-masterclass2-mobile-care-call
-              href="/care-team-booking"
-              aria-label="Care Team call — free, 15 minutes"
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-white px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-[#7a1e7e] transition-transform duration-150 hover:bg-[#fdf8fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
+              href="tel:+18883627011"
+              aria-label="Call now for more information: (888) 362-7011"
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
-              <PhoneCall className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Care Team Call</span>
-              <span className="block">Free · 15 min</span>
+              <PhoneCall className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold">Call Now</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">For more info</span>
             </a>
           </div>
         </nav>
