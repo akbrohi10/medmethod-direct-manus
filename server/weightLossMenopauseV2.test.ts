@@ -114,6 +114,26 @@ const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this sec
 const uploadedHeroMarker = "\n/* Approved uploaded V2 hero: supplied design with original phone only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
+const freeCareCopyReplacements: ReadonlyArray<readonly [v2Copy: string, originalCopy: string]> = [
+  ["Free doctor evaluation by text. Medication priced separately.", "$49/month plus the cost of medication."],
+  ["<h2>Free doctor evaluation by text.</h2>", "<h2>$49 today. $49 monthly.</h2>"],
+  ["Connect with your doctor by text for free. Medication priced separately.", "One membership: physician-led care, direct texting with Dr. Al-Deek — plus a free bonus: the fitness + nutrition app."],
+  ['aria-label="Free text-care pricing"', 'aria-label="Membership pricing"'],
+  ["<strong>FREE</strong><span>Doctor evaluation and care by text.</span>", '<strong>$49/month</strong><span>First month due today · then monthly · cancel anytime.</span><p className="video-addon">Want face time? Add a video visit for $30.</p>'],
+  ["Patient perspectives", "Member perspectives"],
+  ["Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. Your doctor evaluation and text care are free.", "Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. The clinical membership fee does not include medication."],
+  ["The app includes MMD’s fitness and nutrition tools", "Membership includes MMD’s fitness and nutrition app"],
+  ["<details><summary>Is doctor evaluation by text free?</summary><p>Yes. Doctor evaluation and care by text are free. Medication is priced separately. A prescription is issued only when clinically appropriate.</p></details>", "<details><summary>When is the $49 consultation refunded?</summary><p>The proposed policy is to refund the consultation when the clinician determines no prescription is appropriate after review. Final terms, timing, and exclusions are TBD.</p></details>"],
+  ['<span className="sticky-cta-price">FREE<small> text care</small></span>', '<span className="sticky-cta-price">$49<small>/mo</small></span>'],
+  ['aria-label="Start your free doctor evaluation by text"', 'aria-label="Start your visit — $49 per month membership"'],
+];
+
+function restoreFreeCareCopy(source: string): string {
+  return freeCareCopyReplacements.reduce(
+    (restored, [v2Copy, originalCopy]) => restored.replace(v2Copy, originalCopy),
+    source,
+  );
+}
 
 function restoreOriginalNames(source: string): string {
   return source
@@ -142,7 +162,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(completeNewHero).not.toBe("");
-    const restoredApprovedCopy = page
+    const restoredApprovedCopy = restoreFreeCareCopy(page)
       .replace(approvedGlp1PageDisplayType, "")
       .replace(approvedGlp1CatalogTypeCast, originalGlp1CatalogTypeCast)
       .replace(approvedMedicationCard, originalMedicationCard)
@@ -178,7 +198,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(hero).not.toContain('className="hero-eyebrow"');
     expect(hero).not.toContain("$49/month");
     expect(hero).not.toContain("100% refunded if not approved.");
-    expect(page).toContain("$49/month plus the cost of medication.");
+    expect(page).toContain("Free doctor evaluation by text. Medication priced separately.");
     expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
     expect(interaction).toContain('root.querySelector<HTMLElement>(".hero-actions .btn")');
   });
@@ -414,6 +434,62 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(displays).toEqual(approvedGlp1DisplayMap);
     expect(page.match(/same price at every dose/g)).toHaveLength(1);
     expect(originalPage).not.toContain("same price at every dose");
+  });
+
+  it("uses free doctor text-care copy in both pricing sections while retaining the membership-price styling hook", () => {
+    const medicationPricing = page.match(/<section className="medication-pricing"[\s\S]*?<\/section>/)?.[0] ?? "";
+    const carePricing = page.match(/<section className="section pricing-section wave-top wave-soft" id="pricing">[\s\S]*?<\/section>/)?.[0] ?? "";
+
+    expect(medicationPricing).not.toBe("");
+    expect(medicationPricing).toContain('<p><span>Free doctor evaluation by text. Medication priced separately.</span><span data-glp1-price-copy=""> Exact medication prices are shown below.</span></p>');
+    expect(medicationPricing).not.toContain("$49/month plus the cost of medication.");
+
+    expect(carePricing).not.toBe("");
+    expect(carePricing).toContain("<h2>Free doctor evaluation by text.</h2>");
+    expect(carePricing).toContain("<p>Connect with your doctor by text for free. Medication priced separately.</p>");
+    expect(carePricing).toContain('<div className="membership-price" aria-label="Free text-care pricing"><strong>FREE</strong><span>Doctor evaluation and care by text.</span></div>');
+    expect(carePricing).toContain('className="membership-price"');
+    expect(carePricing).not.toContain("$49 today. $49 monthly.");
+    expect(carePricing).not.toContain("One membership: physician-led care");
+    expect(carePricing).not.toContain("First month due today");
+    expect(carePricing).not.toContain("Want face time");
+  });
+
+  it("uses the approved free-care FAQ, app and patient labels, and sticky CTA without legacy fee or refund copy", () => {
+    const faq = page.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
+    const stickyCta = page.match(/<div className="sticky-cta" aria-hidden="true">[\s\S]*?<\/div>/)?.[0] ?? "";
+
+    expect(faq).not.toBe("");
+    expect(faq).toContain("Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. Your doctor evaluation and text care are free.");
+    expect(faq).toContain("The app includes MMD’s fitness and nutrition tools");
+    expect(faq).toContain("<details><summary>Is doctor evaluation by text free?</summary><p>Yes. Doctor evaluation and care by text are free. Medication is priced separately. A prescription is issued only when clinically appropriate.</p></details>");
+    expect(faq).not.toContain("The clinical membership fee does not include medication.");
+    expect(faq).not.toContain("Membership includes MMD’s fitness and nutrition app");
+    expect(faq).not.toContain("When is the $49 consultation refunded?");
+    expect(faq).not.toContain("The proposed policy is to refund the consultation");
+
+    expect(page).toContain("Patient perspectives");
+    expect(page).not.toContain("Member perspectives");
+    expect(stickyCta).toBe('<div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>');
+
+    for (const legacyCopy of [
+      "$49/month plus the cost of medication.",
+      "$49 today. $49 monthly.",
+      "One membership: physician-led care, direct texting with Dr. Al-Deek — plus a free bonus: the fitness + nutrition app.",
+      'aria-label="Membership pricing"',
+      "First month due today · then monthly · cancel anytime.",
+      "Want face time? Add a video visit for $30.",
+      "The clinical membership fee does not include medication.",
+      "Membership includes MMD’s fitness and nutrition app",
+      "When is the $49 consultation refunded?",
+      "The proposed policy is to refund the consultation when the clinician determines no prescription is appropriate after review.",
+      '<span className="sticky-cta-price">$49<small>/mo</small></span>',
+      'aria-label="Start your visit — $49 per month membership"',
+      "$30",
+      "$49",
+    ]) {
+      expect(page).not.toContain(legacyCopy);
+    }
   });
 
   it("has V2-owned crawler metadata with original content, its own canonical URL, and no sitemap entry", () => {
