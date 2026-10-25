@@ -30,7 +30,7 @@ function section(source: string, marker: string) {
 describe("masterclass2 full homepage-style physician profile", () => {
   it("introduces the unchanged biography with the exact approved visible heading and supporting line", () => {
     expect(profile).toContain("data-masterclass2-profile-introduction");
-    expect(profile).toContain("Meet Dr. Jumana Al-Deek, DO");
+    expect(profile.match(/<h2\s+id="masterclass2-profile-heading"[^>]*>([\s\S]*?)<\/h2>/)?.[1]?.trim()).toBe("Meet Dr. Jumana Al-Deek, DO,MS");
     expect(profile).toContain("Her background, qualifications &amp; approach to care.");
     expect(profile).toContain('aria-labelledby="masterclass2-profile-heading"');
     expect(profile).toContain('id="masterclass2-profile-heading"');

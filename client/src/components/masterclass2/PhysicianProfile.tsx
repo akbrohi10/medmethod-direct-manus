@@ -95,7 +95,7 @@ export default function PhysicianProfile() {
           id="masterclass2-profile-heading"
           className="text-[26px] font-bold leading-tight text-[#7A1E7E] sm:text-[32px]"
         >
-          Meet Dr. Jumana Al-Deek, DO
+          Meet Dr. Jumana Al-Deek, DO,MS
         </h2>
         <a
           data-masterclass2-physician-recognition
