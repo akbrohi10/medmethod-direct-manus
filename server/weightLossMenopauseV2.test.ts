@@ -183,10 +183,17 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(interaction).toContain('root.querySelector<HTMLElement>(".hero-actions .btn")');
   });
 
-  it("uses the simpler DM Sans font for only the headline ampersand", () => {
+  it("uses the exact uploaded glyph mask for only the headline ampersand", () => {
     expect(page.match(/className="hero-ampersand"/g)).toHaveLength(1);
     expect(approvedHeroHeadline).toContain('<span className="hero-ampersand">&amp;</span>');
-    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1 .hero-ampersand{font-family:"DM Sans",Arial,sans-serif;line-height:0}');
+    const symbolRule = css.match(/\.wlm-v2-content \.hero\[data-medmethod-scope\] h1 \.hero-ampersand\{([^}]+)\}/)?.[1] ?? "";
+    expect(symbolRule).toContain('font-family:"DM Sans",Arial,sans-serif;line-height:0');
+    expect(symbolRule).toContain('width:.7em;height:.78em;vertical-align:-.015em;background-color:currentColor');
+    expect(symbolRule).toContain('-webkit-mask-image:url("/manus-storage/menopause-v2-reference-ampersand_40428d79.png")');
+    expect(symbolRule).toContain('mask-image:url("/manus-storage/menopause-v2-reference-ampersand_40428d79.png")');
+    expect(symbolRule).toContain('mask-size:contain');
+    expect(symbolRule).toContain('mask-repeat:no-repeat');
+    expect(symbolRule).toContain('forced-color-adjust:none');
     expect(css.match(/\.hero-ampersand\{/g)).toHaveLength(1);
     expect(css).toContain('font-family:"Playfair Display",Georgia,serif');
     expect(originalPage).not.toContain("hero-ampersand");
