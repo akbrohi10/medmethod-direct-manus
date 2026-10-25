@@ -20,12 +20,15 @@ const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
 
 const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor now</span><span className="hero-headline-line"><em>For FREE!</em></span></h1>';
 const approvedHeroSupportingLine = '<p className="hero-description">to explore <strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const approvedHowItWorksSection = '<section className="section wave-top wave-soft" id="how-it-works"><div className="container"><div className="section-heading"><h2>How it works</h2></div><div className="steps"><article className="step"><div className="step-num">1</div><h3>Complete your intake (5–10 min)</h3></article><article className="step"><div className="step-num">2</div><h3>Text with your doctor</h3></article><article className="step"><div className="step-num">3</div><h3>Discuss your options with your doctor, based on your evaluation.</h3></article></div></div></section>';
 const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
+const originalHowItWorksSection = originalPage.match(/<section className="section wave-top wave-soft" id="how-it-works">[\s\S]*?<\/section>/)?.[0] ?? "";
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
 const supportingLineMarker = "\n/* Approved V2 supporting-line readability: supporting text only. */";
+const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this section only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
@@ -39,7 +42,7 @@ function restoreOriginalNames(source: string): string {
 }
 
 describe("Weight-Loss & Menopause V2 duplicate integration", () => {
-  it("preserves exact source parity outside the approved hero copy, pricing removal and isolated spacing block", () => {
+  it("preserves exact source parity outside the approved hero and How it works changes", () => {
     expect(page).toContain('import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions"');
     expect(page).toContain('import "./WeightLossMenopauseV2.css"');
     expect(page).toContain("export default function WeightLossMenopauseV2()");
@@ -49,8 +52,14 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalHeroHeadline).not.toBe("");
     expect(originalHeroSupportingLine).not.toBe("");
     expect(originalHeroPricingBlock).not.toBe("");
-    const restoredHeroCopy = page.replace(heroFontLink, "").replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine).replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">');
-    expect(restoreOriginalNames(restoredHeroCopy)).toBe(originalPage);
+    expect(originalHowItWorksSection).not.toBe("");
+    const restoredApprovedCopy = page
+      .replace(heroFontLink, "")
+      .replace(approvedHeroHeadline, originalHeroHeadline)
+      .replace(approvedHeroSupportingLine, originalHeroSupportingLine)
+      .replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">')
+      .replace(approvedHowItWorksSection, originalHowItWorksSection);
+    expect(restoreOriginalNames(restoredApprovedCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
     expect(restoreOriginalNames(interaction)).toBe(originalInteraction);
@@ -89,7 +98,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
     expect(head).toContain(heroFontLink.trim());
     expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400}');
-    expect(css.match(/font-family:"DM Serif Display"/g)).toHaveLength(2);
+    expect(css.slice(0, css.indexOf(compactHowItWorksMarker)).match(/font-family:"DM Serif Display"/g)).toHaveLength(2);
     expect(originalPage).not.toContain("DM Serif Display");
     expect(originalCss).not.toContain("DM Serif Display");
     expect(read("client/src/index.css")).not.toContain('.wlm-v2-content .hero[data-medmethod-scope] h1');
@@ -131,7 +140,9 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("appends exactly the approved supporting-line readability rules", () => {
     expect(css).toContain(supportingLineMarker);
-    const supportingLineCss = css.split(supportingLineMarker)[1] ?? "";
+    expect(css).toContain(compactHowItWorksMarker);
+    expect(css.indexOf(supportingLineMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
+    const supportingLineCss = css.slice(css.indexOf(supportingLineMarker) + supportingLineMarker.length, css.indexOf(compactHowItWorksMarker));
     const normalizedCss = supportingLineCss.replace(/\s+/g, "");
     expect(normalizedCss).toBe('.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-family:"Montserrat",sans-serif;font-size:clamp(1.25rem,2.55vw,1.7rem);font-weight:500;line-height:1.5;color:var(--navy)}.wlm-v2-content.hero[data-medmethod-scope].hero-descriptionstrong{font-weight:500;color:var(--teal-dark)}@media(max-width:700px){.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-size:clamp(1.175rem,5.2vw,1.375rem)}}');
 
@@ -147,6 +158,43 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       "font-weight", "color",
       "font-size",
     ]);
+  });
+
+  it("uses exactly the approved compact How it works copy with no extra text or markup", () => {
+    const howItWorks = page.match(/<section className="section wave-top wave-soft" id="how-it-works">[\s\S]*?<\/section>/)?.[0] ?? "";
+
+    expect(howItWorks).toBe(approvedHowItWorksSection);
+    expect([...howItWorks.matchAll(/<h3>(.*?)<\/h3>/g)].map(match => match[1])).toEqual([
+      "Complete your intake (5–10 min)",
+      "Text with your doctor",
+      "Discuss your options with your doctor, based on your evaluation.",
+    ]);
+    expect(howItWorks.match(/<article className="step">/g)).toHaveLength(3);
+    expect([...howItWorks.matchAll(/<div className="step-num">(\d)<\/div>/g)].map(match => match[1])).toEqual(["1", "2", "3"]);
+    expect(howItWorks).not.toMatch(/<p\b|<ul\b|<li\b|<span\b|<a\b|<button\b/);
+  });
+
+  it("appends scoped compact How it works typography, geometry, and token-only colors", () => {
+    expect(css.match(/\/\* Approved V2 compact How it works: this section only\. \*\//g)).toHaveLength(1);
+    const compactHowItWorksCss = css.slice(css.indexOf(compactHowItWorksMarker) + compactHowItWorksMarker.length);
+    const normalizedCss = compactHowItWorksCss.replace(/\s+/g, "");
+
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works{padding:36px0}');
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works.section-headingh2{margin:0;font-family:"DMSerifDisplay",Georgia,serif;font-size:clamp(1.875rem,4vw,3rem);font-weight:400;color:var(--navy)}');
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:20px}');
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works.step{display:grid;grid-template-columns:34pxminmax(0,1fr);align-items:center;gap:12px;min-height:0;padding:18px;border-radius:16px}');
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works.step-num{width:34px;height:34px;margin:0;font-family:"Montserrat",sans-serif;font-size:1rem;line-height:1;background:var(--teal-dark)}');
+    expect(normalizedCss).toContain('.wlm-v2-content#how-it-works.steph3{margin:0;font-family:"DMSerifDisplay",Georgia,serif;font-size:1.25rem;font-weight:400;line-height:1.35;letter-spacing:-.025em;white-space:normal;color:var(--navy)}');
+    expect(normalizedCss).toContain('@media(max-width:900px){.wlm-v2-content#how-it-works{padding:28px0}.wlm-v2-content#how-it-works.steps{grid-template-columns:1fr;gap:24px;margin-top:18px}.wlm-v2-content#how-it-works.step{padding:16px}');
+
+    const selectors = Array.from(compactHowItWorksCss.matchAll(/(?:^|[{}])\s*([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+    expect(selectors.length).toBeGreaterThan(7);
+    for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-content #how-it-works(?:\b|\s|[.:#])/);
+
+    const colorValues = Array.from(compactHowItWorksCss.matchAll(/(?:^|[;{])\s*(?:color|background)\s*:\s*([^;}\n]+)/g), match => match[1].trim());
+    expect(colorValues).toEqual(["var(--navy)", "var(--teal-dark)", "var(--navy)", "var(--teal-dark)"]);
+    expect(compactHowItWorksCss).not.toMatch(/--[\w-]+\s*:/);
+    expect(compactHowItWorksCss).not.toMatch(/#[\da-f]{3,8}\b|(?:rgba?|hsla?)\(|color-mix\(/i);
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
