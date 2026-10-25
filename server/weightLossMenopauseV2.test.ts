@@ -58,7 +58,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       .replace(approvedHeroHeadline, originalHeroHeadline)
       .replace(approvedHeroSupportingLine, originalHeroSupportingLine)
       .replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">')
-      .replace(approvedHowItWorksSection, originalHowItWorksSection);
+      .replace(approvedHowItWorksSection + "\n", "")
+      .replace('<section className="section wave-top wave-surface wave-flip" id="doctor">', originalHowItWorksSection + '\n<section className="section wave-top wave-surface wave-flip" id="doctor">');
     expect(restoreOriginalNames(restoredApprovedCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
@@ -172,6 +173,15 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(howItWorks.match(/<article className="step">/g)).toHaveLength(3);
     expect([...howItWorks.matchAll(/<div className="step-num">(\d)<\/div>/g)].map(match => match[1])).toEqual(["1", "2", "3"]);
     expect(howItWorks).not.toMatch(/<p\b|<ul\b|<li\b|<span\b|<a\b|<button\b/);
+  });
+
+  it("places the unchanged How it works section directly after Featured In", () => {
+    const sections = Array.from(page.matchAll(/<section\b[^>]*>/g), match => match[0]);
+    expect(sections[0]).toContain('className="hero"');
+    expect(sections[1]).toContain('className="featured-in"');
+    expect(sections[2]).toContain('id="how-it-works"');
+    expect(sections[3]).toContain('className="medication-pricing"');
+    expect(page.match(/id="how-it-works"/g)).toHaveLength(1);
   });
 
   it("appends scoped compact How it works typography, geometry, and token-only colors", () => {
