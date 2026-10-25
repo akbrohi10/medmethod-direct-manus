@@ -122,7 +122,7 @@ export default function Masterclass2() {
           [data-masterclass-video-first-watch-arrow] { animation: none; opacity: 1; transform: none; }
         }
         @media (max-width: 767px) {
-          [data-masterclass2-page] { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
         }
       `}</style>
 
@@ -262,17 +262,48 @@ export default function Masterclass2() {
           <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
         </footer>
       </article>
-        <button
-          type="button"
-          data-masterclass2-mobile-booking
-          aria-haspopup="dialog"
-          ref={mobileBookingRef}
-          onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
-          className="fixed z-40 mx-auto flex min-h-[56px] max-w-[440px] items-center justify-center rounded-full border border-white/70 bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-5 py-3 text-center text-base font-bold text-white shadow-[0_8px_28px_rgba(122,30,126,0.32)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98] md:hidden"
+        <nav
+          data-masterclass2-mobile-connection-bar
+          aria-label="Choose how to connect"
+          className="fixed z-40 mx-auto max-w-[440px] rounded-[24px] border border-[#ead7e3] bg-white/95 p-1.5 shadow-[0_8px_28px_rgba(122,30,126,0.18)] backdrop-blur-md md:hidden"
           style={{ display: consultationOpen ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
-          Book My Video Visit — Only $39!
-        </button>
+          <div className="grid grid-cols-3 gap-1">
+            <button
+              type="button"
+              data-masterclass2-mobile-booking
+              aria-label="Video visit — $39"
+              aria-haspopup="dialog"
+              ref={mobileBookingRef}
+              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-gradient-to-r from-[#b92b92] to-[#7a1e7e] px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
+            >
+              <Video className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Video Visit</span>
+              <span className="block text-white/90">$39</span>
+            </button>
+            <a
+              data-masterclass2-mobile-text-visit
+              href="https://intake.medmethoddirect.com/"
+              aria-label="Text your doctor — free"
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-[#f7eaf2] px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-[#7a1e7e] transition-transform duration-150 hover:bg-[#f2dfeb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
+            >
+              <MessageCircleMore className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Text Your Doctor</span>
+              <span className="block">Free</span>
+            </a>
+            <a
+              data-masterclass2-mobile-care-call
+              href="/care-team-booking"
+              aria-label="Care Team call — free, 15 minutes"
+              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-[18px] bg-white px-0.5 py-2 text-center text-[10px] font-semibold leading-[14px] text-[#7a1e7e] transition-transform duration-150 hover:bg-[#fdf8fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1e7e] active:scale-[0.97] motion-reduce:transition-none sm:text-[11px]"
+            >
+              <PhoneCall className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span className="block whitespace-nowrap font-bold tracking-[-0.025em]">Care Team Call</span>
+              <span className="block">Free · 15 min</span>
+            </a>
+          </div>
+        </nav>
       <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </main>
   );
