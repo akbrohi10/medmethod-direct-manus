@@ -3138,3 +3138,8 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Removed only the redundant `/weight-loss-menopauseV2/` Route declaration so the preview lists one original page and one V2 page. All original/V2 page, style, interaction, pricing, link and metadata files remain unchanged. The existing router still accepts a trailing slash without a separate declaration.
 - Updated the regression to require exactly one V2 Route entry. Passed all 16 original/V2 tests, TypeScript, whitespace and protected-file scope checks. Safely intercepted browser checks confirmed original, V2 and trailing-slash V2 each render exactly one correct page.
 - Checkpoint only; not published.
+
+## Menopause V2 Hero Copy — 2026-10-24
+- On `/weight-loss-menopauseV2` only, changed the hero headline to `Text a Doctor NOW — For FREE!` and the supporting pill to `Explore your options for Weight Loss, GLP-1s, Menopause & Hormone Therapy.` Topic names remain bold and `For FREE!` reuses the existing pink/purple headline emphasis. Existing Montserrat, CSS, responsive wrapping, design, pricing, intake links and all other content unchanged; original `/weight-loss-menopause` untouched.
+- Updated exact-copy and inverse-source regressions, preserving whole-page parity outside the two approved hero lines. Passed 17 original/V2 tests, TypeScript and whitespace/protected-file checks. Safely intercepted browser checks passed at 320/375/768/1440px for exact text, bold topics, existing font/gradient, unchanged pricing and no clipping/overflow/overlap; original headline confirmed unchanged.
+- Checkpoint only; not published. No patient submissions, messages, payment or provider actions.

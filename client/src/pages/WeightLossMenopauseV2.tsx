@@ -97,8 +97,8 @@ export default function WeightLossMenopauseV2() {
       <div className="wlm-v2-content" ref={contentRef}>
         <main id="top">
 <section className="hero" data-medmethod-scope=""><div className="container hero-grid"><div className="hero-copy">
-<h1><span className="hero-headline-line">Your weight-loss &amp;</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">menopause doctor,</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line"><em>one text away.</em></span></h1>
-<span className="hero-eyebrow">See if you qualify for GLP-1 or HRT care</span>
+<h1><span className="hero-headline-line">Text a Doctor NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>
+<span className="hero-eyebrow"><span style={{ fontWeight: 500 }}>Explore your options for <strong>Weight Loss, GLP-1s, Menopause &amp; Hormone Therapy.</strong></span></span>
 <div className="hero-offer" aria-label="Membership pricing">
 <strong>$49/month</strong>
 <span className="hero-refund">100% refunded if not approved.</span>

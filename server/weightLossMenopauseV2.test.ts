@@ -18,6 +18,11 @@ const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
   hrt: { options: Array<{ value: string; images: { weightLossMenopause?: string | null } }> };
 };
 
+const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor NOW</span><br className="hero-mobile-headline-break" /> <span className="hero-headline-line">— <em>For FREE!</em></span></h1>';
+const approvedHeroSupportingLine = '<span className="hero-eyebrow"><span style={{ fontWeight: 500 }}>Explore your options for <strong>Weight Loss, GLP-1s, Menopause &amp; Hormone Therapy.</strong></span></span>';
+const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
+const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
+
 function restoreOriginalNames(source: string): string {
   return source
     .replaceAll("WeightLossMenopauseV2", "WeightLossMenopause")
@@ -29,19 +34,31 @@ function restoreOriginalNames(source: string): string {
 }
 
 describe("Weight-Loss & Menopause V2 duplicate integration", () => {
-  it("is an exact source duplicate after only the approved page, dependency, URL, and scope inversions", () => {
+  it("preserves exact source parity after reversing approved hero copy and page/dependency/URL/scope names", () => {
     expect(page).toContain('import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions"');
     expect(page).toContain('import "./WeightLossMenopauseV2.css"');
     expect(page).toContain("export default function WeightLossMenopauseV2()");
     expect(page).toContain('const PAGE_URL = "https://medmethoddirect.com/weight-loss-menopauseV2"');
     expect(page).toContain('className="wlm-v2-page"');
     expect(page).toContain('className="wlm-v2-content"');
-    expect(restoreOriginalNames(page)).toBe(originalPage);
+    expect(originalHeroHeadline).not.toBe("");
+    expect(originalHeroSupportingLine).not.toBe("");
+    const restoredHeroCopy = page.replace(approvedHeroHeadline, originalHeroHeadline).replace(approvedHeroSupportingLine, originalHeroSupportingLine);
+    expect(restoreOriginalNames(restoredHeroCopy)).toBe(originalPage);
 
     expect(interaction).toContain("export function initializeWeightLossMenopauseV2(root: HTMLElement): () => void");
     expect(restoreOriginalNames(interaction)).toBe(originalInteraction);
 
     expect(restoreOriginalNames(css)).toBe(originalCss);
+  });
+
+  it("uses the exact approved free-text-care hero copy without changing existing pricing or intake links", () => {
+    expect(page).toContain(approvedHeroHeadline);
+    expect(page).toContain(approvedHeroSupportingLine);
+    expect(page).not.toContain(originalHeroHeadline);
+    expect(page).not.toContain(originalHeroSupportingLine);
+    expect(page).toContain('<strong>$49/month</strong>');
+    expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
   });
 
   it("registers only one exact user-cased V2 preview entry and no social-proof overlay", () => {
