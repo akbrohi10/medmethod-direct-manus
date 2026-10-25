@@ -78,12 +78,12 @@ const approvedGlp1DisplayMap: Record<string, Glp1PageDisplay> = {
   },
 };
 
-const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor now</span><span className="hero-headline-line"><em>For FREE!</em></span></h1>';
-const approvedHeroSupportingLine = '<p className="hero-description">to explore <strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss &amp;<br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>For FREE!</em></span></h1>';
+const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const approvedPatientMessage = '<div className="chat-message" data-chat-at="400"><div className="bubble me">Hi Dr. Al-Deek,<br />I\'d like to learn about my options for weight loss and hormones.</div><div className="chat-time patient-time">9:41 AM</div></div>';
+const approvedDoctorMessage = '<div className="chat-message" data-chat-at="2400"><div className="bubble">Of course! I\'m happy to help. Let\'s discuss your goals and see what options may be right for you.</div><div className="chat-time">9:42 AM</div></div>';
 const approvedHowItWorksSection = '<section className="section wave-top wave-soft" id="how-it-works"><div className="container"><div className="section-heading"><h2>How it works</h2></div><div className="steps"><article className="step"><div className="step-num">1</div><h3>Complete your intake (5–10 min)</h3></article><article className="step"><div className="step-num">2</div><h3>Text with your doctor</h3></article><article className="step"><div className="step-num">3</div><h3>Discuss your options with your doctor, based on your evaluation.</h3></article></div></div></section>';
-const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
-const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
-const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
+const originalHero = originalPage.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
 const originalHowItWorksSection = originalPage.match(/<section className="section wave-top wave-soft" id="how-it-works">[\s\S]*?<\/section>/)?.[0] ?? "";
 const originalGlp1CatalogTypeCast = originalPage.match(/const treatmentCatalog = treatmentCatalogJson as \{[\s\S]*?\n\};/)?.[0] ?? "";
 const originalMedicationCard = originalPage.match(/function MedicationCard\([\s\S]*?\n}\n/)?.[0] ?? "";
@@ -110,10 +110,10 @@ const approvedMedicationCard = originalMedicationCard
   .replace("aria-label={`Get started with an intake for ${treatment.name}`}", "aria-label={`Get started with an intake for ${name}`}")
   .replace('const price = display?.price ?? treatment.price;', 'const price = display?.price.replace(" — fixed price", " — same price at every dose") ?? treatment.price;');
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
-const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
-const supportingLineMarker = "\n/* Approved V2 supporting-line readability: supporting text only. */";
 const compactHowItWorksMarker = "\n/* Approved V2 compact How it works: this section only. */";
+const uploadedHeroMarker = "\n/* Approved uploaded V2 hero: supplied design with original phone only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
+const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 
 function restoreOriginalNames(source: string): string {
   return source
@@ -126,29 +126,29 @@ function restoreOriginalNames(source: string): string {
 }
 
 describe("Weight-Loss & Menopause V2 duplicate integration", () => {
-  it("preserves exact source parity outside the approved hero and How it works changes", () => {
+  it("preserves exact source parity outside the approved hero and established V2-only changes", () => {
     expect(page).toContain('import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions"');
     expect(page).toContain('import "./WeightLossMenopauseV2.css"');
     expect(page).toContain("export default function WeightLossMenopauseV2()");
     expect(page).toContain('const PAGE_URL = "https://medmethoddirect.com/weight-loss-menopauseV2"');
     expect(page).toContain('className="wlm-v2-page"');
     expect(page).toContain('className="wlm-v2-content"');
-    expect(originalHeroHeadline).not.toBe("");
-    expect(originalHeroSupportingLine).not.toBe("");
-    expect(originalHeroPricingBlock).not.toBe("");
+    expect(originalHero).not.toBe("");
     expect(originalHowItWorksSection).not.toBe("");
     expect(originalGlp1CatalogTypeCast).not.toBe("");
     expect(originalMedicationCard).not.toBe("");
     expect(approvedGlp1CatalogTypeCast).not.toBe(originalGlp1CatalogTypeCast);
     expect(approvedMedicationCard).not.toBe(originalMedicationCard);
+
+    const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(completeNewHero).not.toBe("");
     const restoredApprovedCopy = page
       .replace(approvedGlp1PageDisplayType, "")
       .replace(approvedGlp1CatalogTypeCast, originalGlp1CatalogTypeCast)
       .replace(approvedMedicationCard, originalMedicationCard)
       .replace(heroFontLink, "")
-      .replace(approvedHeroHeadline, originalHeroHeadline)
-      .replace(approvedHeroSupportingLine, originalHeroSupportingLine)
-      .replace('<div className="hero-actions">', originalHeroPricingBlock + '<div className="hero-actions">')
+      .replace(uploadedHeroFontLink, "")
+      .replace(completeNewHero, originalHero)
       .replace(approvedHowItWorksSection + "\n", "")
       .replace('<section className="section wave-top wave-surface wave-flip" id="doctor">', originalHowItWorksSection + '\n<section className="section wave-top wave-surface wave-flip" id="doctor">');
     expect(restoreOriginalNames(restoredApprovedCopy)).toBe(originalPage);
@@ -157,99 +157,94 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(restoreOriginalNames(interaction)).toBe(originalInteraction);
 
     expect(css).toContain(refinementMarker);
+    expect(css).toContain(compactHowItWorksMarker);
+    expect(css).toContain(uploadedHeroMarker);
+    expect(css.indexOf(refinementMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
+    expect(css.indexOf(compactHowItWorksMarker)).toBeLessThan(css.indexOf(uploadedHeroMarker));
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
-  it("uses the exact approved hero copy without the pricing block, while retaining other pricing and intake links", () => {
-    expect(page).toContain(approvedHeroHeadline);
-    expect(page).toContain(approvedHeroSupportingLine);
-    expect(page).not.toContain(originalHeroHeadline);
-    expect(page).not.toContain(originalHeroSupportingLine);
-    const hero = page.slice(page.indexOf('<section className="hero"'), page.indexOf('<section className="featured-in"'));
+  it("uses the complete approved uploaded hero while preserving legacy hero hooks and the external intake CTA", () => {
+    const hero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(hero).not.toBe("");
+    expect(hero.startsWith('<section className="hero" data-medmethod-scope="">')).toBe(true);
+    expect(hero).toContain('<div className="container hero-grid"><div className="hero-copy">');
+    expect(hero).toContain(approvedHeroHeadline);
+    expect(hero).toContain(approvedHeroSupportingLine);
+    expect(hero).toContain('<div className="hero-actions"><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>');
+    expect(hero).toContain('<span className="hero-cta-timing">5–10 min</span>');
+    expect(hero).toContain('<p className="hero-text-note">100% by text message — no video needed.</p>');
     expect(hero).not.toContain('className="hero-offer"');
     expect(hero).not.toContain('className="hero-eyebrow"');
     expect(hero).not.toContain("$49/month");
     expect(hero).not.toContain("100% refunded if not approved.");
-    expect(hero).not.toContain("First month due today");
     expect(page).toContain("$49/month plus the cost of medication.");
     expect(page).toContain('WEIGHT_MENOPAUSE_INTAKE_URL = "https://intake.medmethoddirect.com/"');
+    expect(interaction).toContain('root.querySelector<HTMLElement>(".hero-actions .btn")');
   });
 
-  it("limits the previous refinement to its original hero typography and breathing-room contract", () => {
-    const previousHeroCss = css.slice(css.indexOf(refinementMarker), css.indexOf(conciseHeroMarker));
-    expect(previousHeroCss).toContain("margin-bottom:32px");
-    expect(previousHeroCss).toContain("white-space:normal");
-    expect(previousHeroCss).toContain("margin:0 auto 36px");
-    expect(previousHeroCss).toContain("padding:0;border:0;background:none");
-    expect(previousHeroCss).toContain("font-size:1.0625rem;line-height:1.6");
-    expect(previousHeroCss).toContain(".hero-description strong{color:var(--teal-dark);font-weight:700}");
-    expect(previousHeroCss).not.toMatch(/phone|medication|#pricing|\.hero-actions|\bbody\b|\bhtml\b/);
+  it("uses exactly two large, illustrative chat messages inside the original phone frame", () => {
+    const hero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
+    const chatMessages = Array.from(hero.matchAll(/<div className="chat-message" data-chat-at="(\d+)">/g), match => match[1]);
+
+    expect(hero).toContain('<div className="phone"><div className="phone-screen"><div className="phone-top"><div className="notch"></div></div>');
+    expect(hero).toContain('<img className="chat-avatar" src="/manus-storage/wlm-embedded-bfde38427412_0754b2a5.jpg" alt="Dr. Jumana Al-Deek" />');
+    expect(hero).toContain(approvedPatientMessage);
+    expect(hero).toContain(approvedDoctorMessage);
+    expect(chatMessages).toEqual(["400", "2400"]);
+    expect(hero.match(/className="bubble(?: me)?"/g)).toHaveLength(2);
+    expect(hero).toContain('className="bubble typing-bubble" data-chat-at="1400" data-chat-hide="900" aria-hidden="true"');
+    expect(hero).toMatch(/className="chat-date"[^>]*>[^<]*Illustrative conversation[^<]*<\/div>/);
+    expect(hero).toContain('className="chat-composer" aria-hidden="true"');
+    expect(hero).toContain("Type a message...");
+    expect(hero).not.toMatch(/👩🏻‍⚕️|mmd-(?:phone|screen|avatar|send)|<input\b|<textarea\b|<form\b|<button\b|on(?:Click|Submit|KeyDown)=/);
+    expect(hero).toContain('<div className="hipaa-badge"><svg width="24" height="24"');
+    expect(hero).toContain("HIPAA-compliant • secure text");
   });
 
-  it("uses DM Serif Display for the approved V2 hero headline and Montserrat for its supporting line, preserving all V2 palette and layout rules", () => {
+  it("keeps the original How it works design font and adds page-owned uploaded-hero fonts only", () => {
     const head = page.slice(page.indexOf("<Helmet>"), page.indexOf("</Helmet>"));
     expect(head).toContain(heroFontLink.trim());
-    expect(css).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400}');
-    expect(css.slice(0, css.indexOf(compactHowItWorksMarker)).match(/font-family:"DM Serif Display"/g)).toHaveLength(2);
+    expect(head).toContain(uploadedHeroFontLink.trim());
+    expect((head.match(/DM\+Serif\+Display/g) ?? [])).toHaveLength(1);
+    expect((head.match(/DM\+Sans/g) ?? [])).toHaveLength(1);
+    expect((head.match(/Playfair\+Display/g) ?? [])).toHaveLength(1);
     expect(originalPage).not.toContain("DM Serif Display");
     expect(originalCss).not.toContain("DM Serif Display");
-    expect(read("client/src/index.css")).not.toContain('.wlm-v2-content .hero[data-medmethod-scope] h1');
-    expect(page).not.toMatch(/Bodoni|Playfair|DM\+Sans/);
-    expect(css).not.toMatch(/Bodoni|Playfair|--hero-deep-teal|Approved reference match/);
   });
 
-  it("appends only the approved concise hero typography hierarchy", () => {
-    expect(css).toContain(conciseHeroMarker);
-    expect(css).toContain(supportingLineMarker);
-    const conciseHeroCss = css.slice(css.indexOf(conciseHeroMarker) + conciseHeroMarker.length, css.indexOf(supportingLineMarker));
-    const normalizedCss = conciseHeroCss.replace(/\s+/g, "");
-    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope]h1{font-size:clamp(2.5rem,5.1vw,4.25rem);line-height:1.05;margin-bottom:24px}');
-    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-headline-line{display:block;white-space:normal;text-wrap:balance}');
-    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-family:"DMSerifDisplay",Georgia,serif;font-size:clamp(1.125rem,2.3vw,1.55rem);font-weight:400;line-height:1.35;max-width:32ch;margin-bottom:32px}');
-    expect(normalizedCss).toContain('.wlm-v2-content.hero[data-medmethod-scope].hero-descriptionstrong{font-weight:400}');
-    expect(normalizedCss).toContain('@media(max-width:700px){.wlm-v2-content.hero[data-medmethod-scope]h1{font-size:clamp(2rem,10.5vw,3rem)}.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-size:clamp(1.1rem,4.8vw,1.25rem);max-width:30ch}}');
+  it("appends only the supplied design's scoped hero styles after the historical How it works CSS", () => {
+    expect(css.match(/\/\* Approved uploaded V2 hero: supplied design with original phone only\. \*\//g)).toHaveLength(1);
+    const appendedHeroCss = css.slice(css.indexOf(uploadedHeroMarker) + uploadedHeroMarker.length).trim();
+    const normalizedCss = appendedHeroCss.replace(/\s+/g, "");
+    const selectors = Array.from(appendedHeroCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
 
-    const selectors = Array.from(conciseHeroCss.matchAll(/(?:^|[{}])\s*([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
-    const declarations = Array.from(conciseHeroCss.matchAll(/(?:^|[;{])\s*([a-z-]+)\s*:/g), match => match[1]);
-    expect(selectors).toEqual([
-      ".wlm-v2-content .hero[data-medmethod-scope] h1",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-headline-line",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description strong",
-      ".wlm-v2-content .hero[data-medmethod-scope] h1",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
-    ]);
-    expect(declarations).toEqual([
-      "font-size", "line-height", "margin-bottom",
-      "display", "white-space", "text-wrap",
-      "font-family", "font-size", "font-weight", "line-height", "max-width", "margin-bottom",
-      "font-weight",
-      "font-size",
-      "font-size", "max-width",
-    ]);
-    expect(conciseHeroCss).not.toMatch(/\b(?:color|background)\s*:|phone|\.btn\b|\bbutton\b|\.hero-actions\b|\.(?:featured-in|medication-|estimator-|pricing-section|everything|support-section|testimonials|privacy-band|footer|section)\b|(?:^|[}\n])\s*(?:body|html|:root)\b/i);
+    expect(normalizedCss).toMatch(/\.wlm-v2-content\.hero\[data-medmethod-scope\]\{[^}]*background:#fff[^}]*color:#101523/);
+    expect(normalizedCss).toMatch(/\.wlm-v2-content\.hero\[data-medmethod-scope\]h1\{[^}]*font-family:"PlayfairDisplay",Georgia,serif[^}]*font-weight:700/);
+    expect(normalizedCss).toContain('font-family:"DMSans",Arial,sans-serif');
+    expect(normalizedCss).toMatch(/\.hero-freeem\{[^}]*background-image:linear-gradient\(105deg,#fa2c99,#91238f\)/);
+    expect(normalizedCss).toContain("background:#eea4d2");
+    expect(normalizedCss).toMatch(/\.hero-actions\.btn\{[^}]*background:linear-gradient\(105deg,#f42b9a,#84218c\)/);
+    expect(normalizedCss).toMatch(/\.phone\{[^}]*width:min\(310px,100%\)/);
+    expect(normalizedCss).toMatch(/\.phone-screen\{[^}]*height:580px[^}]*background:#fff/);
+    expect(normalizedCss).toMatch(/\.bubble\{[^}]*font-size:18px/);
+    expect(selectors.length).toBeGreaterThan(8);
+    for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-content \.hero\[data-medmethod-scope\](?:$|[\s.:#>])/);
+    expect(appendedHeroCss).not.toMatch(/(?:^|[;{])\s*--[\w-]+\s*:/);
+    expect(appendedHeroCss).not.toMatch(/(^|[}\n])\s*(?:body|html|:root)\b/);
+    expect(appendedHeroCss).not.toMatch(/(^|[}\n])\s*\.wlm-v2-content(?! \.hero\[data-medmethod-scope\])/);
   });
 
-  it("appends exactly the approved supporting-line readability rules", () => {
-    expect(css).toContain(supportingLineMarker);
-    expect(css).toContain(compactHowItWorksMarker);
-    expect(css.indexOf(supportingLineMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
-    const supportingLineCss = css.slice(css.indexOf(supportingLineMarker) + supportingLineMarker.length, css.indexOf(compactHowItWorksMarker));
-    const normalizedCss = supportingLineCss.replace(/\s+/g, "");
-    expect(normalizedCss).toBe('.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-family:"Montserrat",sans-serif;font-size:clamp(1.25rem,2.55vw,1.7rem);font-weight:500;line-height:1.5;color:var(--navy)}.wlm-v2-content.hero[data-medmethod-scope].hero-descriptionstrong{font-weight:500;color:var(--teal-dark)}@media(max-width:700px){.wlm-v2-content.hero[data-medmethod-scope].hero-description{font-size:clamp(1.175rem,5.2vw,1.375rem)}}');
+  it("retains the earlier V2 hero and How it works CSS as historic rules, ending the latter at the uploaded-hero marker", () => {
+    const historicCss = css.slice(0, css.indexOf(uploadedHeroMarker));
+    const compactHowItWorksCss = css.slice(css.indexOf(compactHowItWorksMarker) + compactHowItWorksMarker.length, css.indexOf(uploadedHeroMarker));
 
-    const selectors = Array.from(supportingLineCss.matchAll(/(?:^|[{}])\s*([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
-    const declarations = Array.from(supportingLineCss.matchAll(/(?:^|[;{])\s*([a-z-]+)\s*:/g), match => match[1]);
-    expect(selectors).toEqual([
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description strong",
-      ".wlm-v2-content .hero[data-medmethod-scope] .hero-description",
-    ]);
-    expect(declarations).toEqual([
-      "font-family", "font-size", "font-weight", "line-height", "color",
-      "font-weight", "color",
-      "font-size",
-    ]);
+    expect(historicCss).toContain(refinementMarker);
+    expect(historicCss).toContain(compactHowItWorksMarker);
+    expect(compactHowItWorksCss).toContain('.wlm-v2-content #how-it-works{padding:36px 0}');
+    expect(compactHowItWorksCss).toContain('font-family:"DM Serif Display",Georgia,serif');
+    expect(compactHowItWorksCss).not.toContain(uploadedHeroMarker.trim());
+    expect(restoreOriginalNames(historicCss.split(refinementMarker)[0])).toBe(originalCss);
   });
 
   it("uses exactly the approved compact How it works copy with no extra text or markup", () => {
@@ -277,7 +272,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("appends scoped compact How it works typography, geometry, and token-only colors", () => {
     expect(css.match(/\/\* Approved V2 compact How it works: this section only\. \*\//g)).toHaveLength(1);
-    const compactHowItWorksCss = css.slice(css.indexOf(compactHowItWorksMarker) + compactHowItWorksMarker.length);
+    const compactHowItWorksCss = css.slice(css.indexOf(compactHowItWorksMarker) + compactHowItWorksMarker.length, css.indexOf(uploadedHeroMarker));
     const normalizedCss = compactHowItWorksCss.replace(/\s+/g, "");
 
     expect(normalizedCss).toContain('.wlm-v2-content#how-it-works{padding:36px0}');
