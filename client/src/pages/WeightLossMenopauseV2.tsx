@@ -29,8 +29,15 @@ type TreatmentCatalogOption = {
   imageAlt?: string;
 };
 
+type Glp1PageDisplay = {
+  name: string;
+  price: string;
+  supply?: string;
+  specs: { label: string; value: string }[];
+};
+
 const treatmentCatalog = treatmentCatalogJson as {
-  glp1: { options: TreatmentCatalogOption[] };
+  glp1: { options: TreatmentCatalogOption[]; pageDisplays: { weightLossIntake: Record<string, Glp1PageDisplay> } };
   hrt: { options: TreatmentCatalogOption[] };
 };
 
@@ -45,17 +52,21 @@ const pageHrtOptions = treatmentCatalog.hrt.options.filter(treatment => PAGE_HRT
 
 function MedicationCard({ treatment, category }: { treatment: TreatmentCatalogOption; category: "glp1" | "hrt" }) {
   const image = treatment.images.weightLossMenopause;
+  const display = category === "glp1" ? treatmentCatalog.glp1.pageDisplays.weightLossIntake[treatment.value] : undefined;
+  const name = display?.name ?? treatment.name;
+  const price = display?.price ?? treatment.price;
+  const supply = display ? display.supply : treatment.supply;
   const mediaClass = image ? `product-photo ${category === "hrt" ? "hrt-product-photo" : treatment.value.replaceAll("_", "-")}` : "hrt-placeholder";
   return (
     <article className="medication-card" data-treatment-id={treatment.value}>
-      <div className="medication-card-name"><h3>{treatment.name}</h3></div>
+      <div className="medication-card-name"><h3>{name}</h3></div>
       <div className={`medication-media ${mediaClass}`}>
         {image ? <img src={image} alt={treatment.imageAlt ?? treatment.name} loading="lazy" /> : <span>Image coming soon</span>}
       </div>
-      <div className="medication-price"><small>Price</small><strong>{treatment.price}</strong>{treatment.supply ? <span className="medication-supply">{treatment.supply}</span> : null}</div>
-      {treatment.frequency || treatment.form ? <dl className="medication-specs">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}
+      <div className="medication-price"><small>Price</small><strong>{price}</strong>{supply ? <span className="medication-supply">{supply}</span> : null}</div>
+      {display ? <dl className="medication-specs">{display.specs.map(spec => <div key={spec.label} style={{ display: "contents" }}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl> : treatment.frequency || treatment.form ? <dl className="medication-specs">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}
       <p className="medication-note">{treatment.note}</p>
-      <a className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label={`Get started with an intake for ${treatment.name}`}>Get started</a>
+      <a className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label={`Get started with an intake for ${name}`}>Get started</a>
     </article>
   );
 }

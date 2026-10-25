@@ -13,9 +13,69 @@ const interaction = read("client/src/pages/weightLossMenopauseV2Interactions.ts"
 const app = read("client/src/App.tsx");
 const vite = read("server/_core/vite.ts");
 const sitemap = read("client/public/sitemap.xml");
+type Glp1PageDisplay = {
+  name: string;
+  price: string;
+  supply?: string;
+  specs: { label: string; value: string }[];
+};
+
 const treatmentCatalog = JSON.parse(read("shared/treatmentCatalog.json")) as {
-  glp1: { options: Array<{ value: string }> };
+  glp1: {
+    options: Array<{ value: string }>;
+    pageDisplays: { weightLossIntake: Record<string, Glp1PageDisplay> };
+  };
   hrt: { options: Array<{ value: string; images: { weightLossMenopause?: string | null } }> };
+};
+
+const approvedGlp1DisplayMap: Record<string, Glp1PageDisplay> = {
+  compounded_semaglutide: {
+    name: "Compounded Semaglutide",
+    price: "$129/month — fixed price",
+    specs: [
+      { label: "Vial size", value: "2.5–12.5 mg vial" },
+      { label: "Form", value: "Injection (multidose vial)" },
+    ],
+  },
+  compounded_tirzepatide: {
+    name: "Compounded Tirzepatide",
+    price: "$149 to $299/month",
+    specs: [
+      { label: "Vial size", value: "10–60 mg vial" },
+      { label: "Form", value: "Injection (multidose vial)" },
+    ],
+  },
+  compounded_liraglutide: {
+    name: "Compounded Liraglutide",
+    price: "$115",
+    supply: "28-day supply",
+    specs: [
+      { label: "Strength", value: "6mg/mL" },
+      { label: "Form", value: "Injection (multidose vial)" },
+    ],
+  },
+  wegovy_direct_novocare: {
+    name: "Wegovy® Pen — Direct from NovoCare®",
+    price: "$349/month — fixed price",
+    supply: "Four single-dose, prefilled pens",
+    specs: [{ label: "Dose per Pen", value: "0.25–2.4 mg" }],
+  },
+  wegovy_pill_direct_novocare: {
+    name: "Wegovy® Pill — Direct from NovoCare®",
+    price: "$149 to $299/month",
+    specs: [{ label: "Strength", value: "1.5–25 mg" }],
+  },
+  zepbound_kwikpen_direct_lillydirect: {
+    name: "Zepbound® KwikPen — Direct from LillyDirect®",
+    price: "$299 to $449/month",
+    supply: "Four prefilled pens",
+    specs: [{ label: "Dose per Pen", value: "2.5–15 mg" }],
+  },
+  foundayo_pill_direct_lillydirect: {
+    name: "Foundayo® Pill — Direct from LillyDirect®",
+    price: "$149 to $299/month",
+    specs: [{ label: "Strength", value: "0.8–17.2 mg" }],
+  },
 };
 
 const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Doctor now</span><span className="hero-headline-line"><em>For FREE!</em></span></h1>';
@@ -25,6 +85,29 @@ const originalHeroHeadline = originalPage.match(/<h1>.*?<\/h1>/)?.[0] ?? "";
 const originalHeroSupportingLine = originalPage.match(/<span className="hero-eyebrow">.*?<\/span>/)?.[0] ?? "";
 const originalHeroPricingBlock = originalPage.match(/<div className="hero-offer"[\s\S]*?<\/div>\n/)?.[0] ?? "";
 const originalHowItWorksSection = originalPage.match(/<section className="section wave-top wave-soft" id="how-it-works">[\s\S]*?<\/section>/)?.[0] ?? "";
+const originalGlp1CatalogTypeCast = originalPage.match(/const treatmentCatalog = treatmentCatalogJson as \{[\s\S]*?\n\};/)?.[0] ?? "";
+const originalMedicationCard = originalPage.match(/function MedicationCard\([\s\S]*?\n}\n/)?.[0] ?? "";
+const approvedGlp1PageDisplayType = `type Glp1PageDisplay = {
+  name: string;
+  price: string;
+  supply?: string;
+  specs: { label: string; value: string }[];
+};
+
+`;
+const approvedGlp1CatalogTypeCast = originalGlp1CatalogTypeCast.replace(
+  "  glp1: { options: TreatmentCatalogOption[] };",
+  "  glp1: { options: TreatmentCatalogOption[]; pageDisplays: { weightLossIntake: Record<string, Glp1PageDisplay> } };",
+);
+const approvedMedicationCard = originalMedicationCard
+  .replace(
+    "  const image = treatment.images.weightLossMenopause;\n",
+    "  const image = treatment.images.weightLossMenopause;\n  const display = category === \"glp1\" ? treatmentCatalog.glp1.pageDisplays.weightLossIntake[treatment.value] : undefined;\n  const name = display?.name ?? treatment.name;\n  const price = display?.price ?? treatment.price;\n  const supply = display ? display.supply : treatment.supply;\n",
+  )
+  .replace("<div className=\"medication-card-name\"><h3>{treatment.name}</h3></div>", "<div className=\"medication-card-name\"><h3>{name}</h3></div>")
+  .replace("<div className=\"medication-price\"><small>Price</small><strong>{treatment.price}</strong>{treatment.supply ? <span className=\"medication-supply\">{treatment.supply}</span> : null}</div>", "<div className=\"medication-price\"><small>Price</small><strong>{price}</strong>{supply ? <span className=\"medication-supply\">{supply}</span> : null}</div>")
+  .replace("{treatment.frequency || treatment.form ? <dl className=\"medication-specs\">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}", "{display ? <dl className=\"medication-specs\">{display.specs.map(spec => <div key={spec.label} style={{ display: \"contents\" }}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl> : treatment.frequency || treatment.form ? <dl className=\"medication-specs\">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl> : null}")
+  .replace("aria-label={`Get started with an intake for ${treatment.name}`}", "aria-label={`Get started with an intake for ${name}`}");
 const refinementMarker = "\n/* Approved V2 hero refinement: breathing room and clean supporting text only. */";
 const conciseHeroMarker = "\n/* Approved V2 concise hero hierarchy: typography only. */";
 const supportingLineMarker = "\n/* Approved V2 supporting-line readability: supporting text only. */";
@@ -53,7 +136,14 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalHeroSupportingLine).not.toBe("");
     expect(originalHeroPricingBlock).not.toBe("");
     expect(originalHowItWorksSection).not.toBe("");
+    expect(originalGlp1CatalogTypeCast).not.toBe("");
+    expect(originalMedicationCard).not.toBe("");
+    expect(approvedGlp1CatalogTypeCast).not.toBe(originalGlp1CatalogTypeCast);
+    expect(approvedMedicationCard).not.toBe(originalMedicationCard);
     const restoredApprovedCopy = page
+      .replace(approvedGlp1PageDisplayType, "")
+      .replace(approvedGlp1CatalogTypeCast, originalGlp1CatalogTypeCast)
+      .replace(approvedMedicationCard, originalMedicationCard)
       .replace(heroFontLink, "")
       .replace(approvedHeroHeadline, originalHeroHeadline)
       .replace(approvedHeroSupportingLine, originalHeroSupportingLine)
@@ -261,6 +351,28 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page).toContain('className="btn medication-card-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL}');
     expect((page.match(/href=\{WEIGHT_MENOPAUSE_INTAKE_URL\}/g) ?? [])).toHaveLength(6);
     expect(page).not.toContain("?treatment");
+  });
+
+  it("renders the approved GLP-1 display mapping while retaining the original HRT card branch", () => {
+    const glp1DisplayMap = treatmentCatalog.glp1.pageDisplays.weightLossIntake;
+    expect(glp1DisplayMap).toEqual(approvedGlp1DisplayMap);
+    expect(Object.keys(glp1DisplayMap)).toEqual(treatmentCatalog.glp1.options.map(option => option.value));
+    expect(Object.keys(glp1DisplayMap)).toHaveLength(7);
+
+    const pageGlp1PageDisplayType = page.match(/type Glp1PageDisplay = \{[\s\S]*?\n};\n\n/)?.[0] ?? "";
+    const pageGlp1CatalogTypeCast = page.match(/const treatmentCatalog = treatmentCatalogJson as \{[\s\S]*?\n\};/)?.[0] ?? "";
+    const pageMedicationCard = page.match(/function MedicationCard\([\s\S]*?\n}\n/)?.[0] ?? "";
+    expect(pageGlp1PageDisplayType).toBe(approvedGlp1PageDisplayType);
+    expect(pageGlp1CatalogTypeCast).toBe(approvedGlp1CatalogTypeCast);
+    expect(pageMedicationCard).toBe(approvedMedicationCard);
+
+    expect(pageMedicationCard).toContain('const display = category === "glp1" ? treatmentCatalog.glp1.pageDisplays.weightLossIntake[treatment.value] : undefined;');
+    expect(pageMedicationCard).toContain("const name = display?.name ?? treatment.name;");
+    expect(pageMedicationCard).toContain("const price = display?.price ?? treatment.price;");
+    expect(pageMedicationCard).toContain("const supply = display ? display.supply : treatment.supply;");
+    expect(pageMedicationCard).toContain('<dl className="medication-specs">{display.specs.map(spec => <div key={spec.label} style={{ display: "contents" }}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>');
+    expect(pageMedicationCard).toContain('<dl className="medication-specs">{treatment.frequency ? <><dt>Frequency</dt><dd>{treatment.frequency}</dd></> : null}{treatment.form ? <><dt>Form</dt><dd>{treatment.form}</dd></> : null}</dl>');
+    expect(pageMedicationCard).toContain('<p className="medication-note">{treatment.note}</p>');
   });
 
   it("has V2-owned crawler metadata with original content, its own canonical URL, and no sitemap entry", () => {
