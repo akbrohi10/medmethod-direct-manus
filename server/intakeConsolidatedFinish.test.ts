@@ -24,11 +24,12 @@ describe("consolidated local intake finish", () => {
 
   it("removes both mandatory review screens and separate checkout only from visible navigation", () => {
     expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[0], screens[1], screens[6]]);
+    expect(helpers().MmdIntakeFlowScreens({ videoVisitInterest: true })).toEqual([screens[0], screens[1], screens[6]]);
     expect(app).toContain('()=>MmdIntakeFlowScreens(answers)');
     for (const type of ['"type":"wReview"', '"type":"planReview"', '"type":"checkout"']) expect(intake).toContain(type);
     expect(intake).toContain('function w(e,t){return x(e).filter(e=>re(e,t))}');
     expect(intake).toContain('screen?.type==="consent"?"Finish your intake"');
-    expect(app).toContain('screen.type==="consent"?"Submit My Free Intake":"Continue"');
+    expect(app).toContain('screen.type==="consent"?answers.videoVisitInterest===true?"Submit Intake & Book Video Visit":"Submit My Free Intake":"Continue"');
   });
 
   it("skips only the approved redundant w03a information screen, not its definition or any other question", () => {

@@ -27,7 +27,8 @@ describe("thank-you-video intake and payment gate", () => {
     const panel = readFileSync("client/src/components/thank-you-video/IntakeVideoPayment.tsx", "utf8");
     const adapter = readFileSync("client/src/components/thank-you-video/checkout.js", "utf8");
     for (const id of ["video-card-name", "video-card-number", "video-card-expiry", "video-card-cvv", "video-coupon-code", "validate-video-coupon", "submit-video-coupon", "video-apple-pay", "recover-video-payment"]) expect(panel).toContain(id);
-    expect(panel).toContain("One last step: complete your $39 Zoom video visit payment, then pick your time.");
+    expect(panel).toContain("Add Your Zoom Video Visit");
+    expect(panel).toContain("Complete your $39 payment below, then pick a time to meet with Dr. Al-Deek.");
     for (const phrase of ['const VIDEO_VISIT_AMOUNT = "39.00"', '"/api/intake/video/status"', '"/api/intake/coupon/validate"', '"/api/intake/coupon/submit"', 'createCardFieldsOneTimePaymentSession()', 'createApplePayOneTimePaymentSession()', 'window.ApplePaySession.canMakePayments()', 'body: JSON.stringify({ approval_token: approvalToken })']) expect(adapter).toContain(phrase);
     expect(adapter).not.toContain('window.location.replace(');
     expect(adapter).not.toMatch(/card_number|card_cvv|submission_token=|vault|recurring/);

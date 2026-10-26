@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, CheckCircle, Mail, MessageSquare, UserPlus } from "lucide-react";
+import { ArrowRight, Calendar, CheckCircle, UserPlus, Video } from "lucide-react";
 import IntakeVideoPayment from "@/components/thank-you-video/IntakeVideoPayment";
 import { confirmedIntakeVideoAccess, readIntakeVideoReceipt, type IntakeVideoReceipt } from "@/components/thank-you-video/receipt";
 import "./thank-you-video.css";
@@ -137,25 +137,24 @@ const BOOKING_URL = "https://link.sendmeapro.com/widget/booking/Ew0Y6y4FVcwaZeb9
 
 const steps = [
   {
-    icon: UserPlus,
+    icon: Calendar,
     label: "Step 1",
-    title: "Create Your Patient Account",
-    description: "Set up your secure patient portal to complete intake forms, sign waivers, upload labs, and communicate with Dr. Al-Deek and our care team before your appointment.",
+    title: "Check Your Email for Your Zoom Link",
+    description: "Your booking confirmation and Zoom link are on their way to your inbox. Add the visit to your calendar so you don't miss it.",
     color: BRAND_ACCENT,
-    link: { href: "https://medmethoddirect.md-hq.com/registration", text: "Create Account" },
   },
   {
-    icon: Mail,
+    icon: UserPlus,
     label: "Step 2",
-    title: "Accept Your Calendar Invite",
-    description: "Check your email for a calendar invitation and accept it now. This confirms your time slot with Dr. Al-Deek.",
+    title: "Create Your Patient Account",
+    description: "Check your email for your Patient Portal invite. Click the link to create your username and password, then complete your forms before your visit so Dr. Al-Deek can review your information ahead of time.",
     color: BRAND_DEEP,
   },
   {
-    icon: MessageSquare,
+    icon: Video,
     label: "Step 3",
-    title: "Reply to Our Text to Secure Your Spot",
-    description: "You'll receive a confirmation text shortly. Reply to confirm and lock in your time. Unconfirmed appointments are released within 24 hours.",
+    title: "Join Your Zoom Visit",
+    description: "At your scheduled time, click the Zoom link in your email to meet with Dr. Al-Deek. Need to reschedule? Just reply to our text or call us.",
     color: BRAND_ACCENT,
   },
 ];
@@ -181,9 +180,9 @@ function VideoBookingFollowup({ firstName, email, compact = false, waived = fals
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[#0e7c7b]/10 to-[#075c5c]/10 mb-4">
           <CheckCircle className="w-8 h-8 text-[#0e7c7b]" strokeWidth={1.8} />
         </div>
-        <h2 className="text-2xl font-bold text-[#113a3a] mb-2" style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>You're Booked!</h2>
+        <h2 className="text-2xl font-bold text-[#113a3a] mb-2" style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>One Last Step: Pick Your Time</h2>
         <p className="text-[#59656f] text-sm max-w-md mx-auto">
-          {waived ? "Your Zoom video visit waiver is confirmed. Now pick a time below to meet with Dr. Al-Deek." : "Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek."}
+          Your $39 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.
         </p>
         <div className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-[#0e7c7b]/5 border border-[#0e7c7b]/20">
           <span className="w-2 h-2 rounded-full bg-[#72a40b] animate-pulse" />
@@ -194,8 +193,8 @@ function VideoBookingFollowup({ firstName, email, compact = false, waived = fals
       <div className={`w-full max-w-2xl mx-auto ${spacing}`}>
         <div className="bg-white rounded-2xl border border-[#d7e1dd] shadow-sm overflow-hidden">
           <div className="px-5 pt-4 pb-3 border-b border-[#d7e1dd]">
-            <h3 className="text-base font-bold text-[#113a3a]">Book Your Zoom Video Visit with Dr. Al-Deek</h3>
-            <p className="text-sm text-[#59656f] mt-0.5">Choose a date and time that works for you</p>
+            <h3 className="text-base font-bold text-[#113a3a]">Schedule Your Zoom Video Visit with Dr. Al-Deek</h3>
+            <p className="text-sm text-[#59656f] mt-0.5">Pick a date and time that works for you. Your visit isn't scheduled until you choose a time.</p>
           </div>
           <iframe
             src={calendarSrc}
@@ -209,7 +208,7 @@ function VideoBookingFollowup({ firstName, email, compact = false, waived = fals
 
       <div className="w-full max-w-lg mx-auto mb-5 text-center">
         <span className="text-xs font-extrabold tracking-[0.2em] uppercase" style={{ color: BRAND_ACCENT }}>What Happens Next</span>
-        <h3 className="text-lg font-bold text-[#113a3a] mt-1">Complete these 3 steps to prepare for your visit</h3>
+        <h3 className="text-lg font-bold text-[#113a3a] mt-1">Once you've picked your time, here's how to get ready.</h3>
       </div>
 
       <div className={`w-full max-w-lg mx-auto ${spacing}`}>
@@ -224,7 +223,6 @@ function VideoBookingFollowup({ firstName, email, compact = false, waived = fals
                     <span className="text-xs font-bold tracking-[0.1em] uppercase mb-1 block" style={{ color: step.color }}>{step.label}</span>
                     <h4 className="text-base font-bold text-[#113a3a] mb-1">{step.title}</h4>
                     <p className="text-[#59656f] text-sm leading-relaxed">{step.description}</p>
-                    {step.link && <a href={step.link.href} target="_blank" rel="noopener noreferrer" className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-gradient-to-r from-[#0e7c7b] to-[#075c5c] text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all">{step.link.text}<ArrowRight className="w-4 h-4" /></a>}
                   </div>
                 </div>
               </div>

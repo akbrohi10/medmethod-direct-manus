@@ -19,11 +19,12 @@ describe("video booking confirmation only", () => {
     expect(page).toContain('content="noindex, nofollow"');
   });
   it("has the exact requested heading, subtitle, badge and calendar introduction", () => {
-    expect(page).toContain("You're Booked!");
-    expect(page).toContain("Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek.");
+    expect(page).toContain("One Last Step: Pick Your Time");
+    expect(page).toContain("Your $39 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.");
     expect(page).toContain("100% Virtual - No Office Visit Needed");
-    expect(page).toContain("Book Your Zoom Video Visit with Dr. Al-Deek");
-    expect(page).toContain("Choose a date and time that works for you");
+    expect(page).toContain("Schedule Your Zoom Video Visit with Dr. Al-Deek");
+    expect(page).toContain("Pick a date and time that works for you. Your visit isn't scheduled until you choose a time.");
+    expect(page).not.toContain("You're Booked!");
     expect(page).not.toMatch(/\$49|\$15|45.minute|15.minute/);
   });
   it("copies the original iframe source, height, loading setting and structure exactly except its accessible title", () => {
@@ -34,10 +35,16 @@ describe("video booking confirmation only", () => {
     expect(page.indexOf("<iframe")).toBeLessThan(page.indexOf("What Happens Next"));
     expect(page).not.toContain('data-src=');
   });
-  it("preserves original next-step wording, account link and layout classes", () => {
-    for (const text of ["Create Your Patient Account", "Accept Your Calendar Invite", "Reply to Our Text to Secure Your Spot", "What Happens Next", "Complete these 3 steps to prepare for your visit", "Questions? Call us anytime", "Create Account", "https://medmethoddirect.md-hq.com/registration", "Continue exploring MedMethod Direct"]) {
+  it("uses the approved three preparation steps, removes the account button and preserves layout/contact links", () => {
+    for (const text of ["Check Your Email for Your Zoom Link", "Create Your Patient Account", "Join Your Zoom Visit", "What Happens Next", "Once you've picked your time, here's how to get ready.", "Your booking confirmation and Zoom link are on their way to your inbox. Add the visit to your calendar so you don't miss it.", "Check your email for your Patient Portal invite. Click the link to create your username and password, then complete your forms before your visit so Dr. Al-Deek can review your information ahead of time.", "At your scheduled time, click the Zoom link in your email to meet with Dr. Al-Deek. Need to reschedule? Just reply to our text or call us.", "Questions? Call us anytime", "Continue exploring MedMethod Direct"]) {
       expect(page).toContain(text);
     }
+    expect(page).toContain("icon: Calendar");
+    expect(page).toContain("icon: UserPlus");
+    expect(page).toContain("icon: Video");
+    expect(page).not.toContain("https://medmethoddirect.md-hq.com/registration");
+    expect(page).not.toContain("step.link");
+    expect(page).toContain('href="tel:8883627011"');
     for (const cls of ['className="w-full max-w-lg mx-auto mb-5 text-center"', 'className={`w-full max-w-lg mx-auto ${spacing}`}', 'className="flex items-start gap-4"']) expect(page).toContain(cls);
   });
   it("checks the existing receipt status before rendering checkout or the unchanged calendar", () => {

@@ -10,7 +10,9 @@ describe("local intake free ongoing care and optional video interest", () => {
   it("makes the introduction doctor-neutral without changing the treatment catalog", () => {
     expect(intake).toContain("Connect with a doctor specializing in medical weight loss");
     expect(intake).toContain("Assessment and ongoing follow-up included. No monthly fee or commitment. Medication costs extra.");
-    expect(intake).not.toMatch(/Dr\. Al-Deek|Jumana|50,000\+|intro-doctor`,src/);
+    const approvedReviewLine = "Meet Dr. Al-Deek face-to-face on Zoom - $39";
+    expect(intake.split(approvedReviewLine)).toHaveLength(2);
+    expect(intake.replace(approvedReviewLine, "")).not.toMatch(/Dr\. Al-Deek|Jumana|50,000\+|intro-doctor`,src/);
     expect(intake).toContain('src="/treatment-catalog.js"');
     expect(intake).toContain("window.MMD_TREATMENT_CATALOG.glp1.options.map");
     expect(intake).not.toMatch(/\$49|\$30|100% refunded|First month due today/);

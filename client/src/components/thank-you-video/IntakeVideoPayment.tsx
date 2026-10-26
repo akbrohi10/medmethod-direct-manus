@@ -18,8 +18,8 @@ export default function IntakeVideoPayment({ receipt, onConfirmed }: { receipt: 
         <p id="video-recovery-status" role="status" />
       </div>
       <section className="checkout" id="video-checkout" aria-labelledby="checkout-title">
-        <h2 id="checkout-title">Complete your Zoom video visit payment</h2>
-        <p>One last step: complete your $39 Zoom video visit payment, then pick your time.</p>
+        <h2 id="checkout-title">Add Your Zoom Video Visit</h2>
+        <p>Complete your $39 payment below, then pick a time to meet with Dr. Al-Deek.</p>
         <p className="checkout-status" id="checkout-status" aria-live="polite" />
         <section className="coupon" aria-labelledby="coupon-title">
           <label id="coupon-title" htmlFor="video-coupon-code">Enter referral code</label>
