@@ -59,17 +59,17 @@ const masterclassNav = mobileNav(masterclass2, "data-masterclass2-mobile-connect
 const v2Nav = mobileNav(mobileBar, "data-wlm-v2-mobile-connection-bar");
 const expectedV2Nav = masterclassNav
   .replaceAll("data-masterclass2-mobile-", "data-wlm-v2-mobile-")
-  // V2 retains its original $39 modal checkout. Its paid control is therefore
+  // V2 owns a distinct $97 modal checkout. Its paid control is therefore
   // intentionally converted from Masterclass2's approved direct intake link
   // back to V2's original native button; everything else stays byte-for-byte equivalent.
-  .replaceAll("$47.99", "$39")
+  .replaceAll("$47.99", "$97")
   .replace(
-    '<a\n              href="https://intake.medmethoddirect.com/?video=1"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $39 per visit"\n              ref={mobileBookingRef}\n              className=',
-    '<button\n              type="button"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $39 per visit"\n              aria-haspopup="dialog"\n              ref={mobileBookingRef}\n              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}\n              className=',
+    '<a\n              href="https://intake.medmethoddirect.com/?video=1"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $97 per visit"\n              ref={mobileBookingRef}\n              className=',
+    '<button\n              type="button"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $97 per visit"\n              aria-haspopup="dialog"\n              ref={mobileBookingRef}\n              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}\n              className=',
   )
   .replace(
-    '<span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>\n            </a>\n            <a\n              data-wlm-v2-mobile-care-call',
-    '<span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>\n            </button>\n            <a\n              data-wlm-v2-mobile-care-call',
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>\n            </a>\n            <a\n              data-wlm-v2-mobile-care-call',
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>\n            </button>\n            <a\n              data-wlm-v2-mobile-care-call',
   )
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
@@ -81,7 +81,7 @@ const careCall = controlSlice(v2Nav, "data-wlm-v2-mobile-care-call");
 
 
 describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
-  it("is the finalized Masterclass2 nav with only V2 marker remapping, approved price normalization, its intentional $39 modal-button exception, and the required explicit Montserrat font", () => {
+  it("is the finalized Masterclass2 nav with only V2 marker remapping, the authorized $97 label, its intentional modal-button exception, and the required explicit Montserrat font", () => {
     expect(v2Nav).toBe(expectedV2Nav);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-connection-bar/g)]).toHaveLength(1);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-text-visit/g)]).toHaveLength(1);
@@ -138,14 +138,14 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
     expect(textVisit).not.toMatch(/<span[^>]*>Free<\/span>/);
 
     expect(booking).toMatch(/^<button\b/);
-    expect(booking).toContain('aria-label="Video visit — $39 per visit"');
+    expect(booking).toContain('aria-label="Video visit — $97 per visit"');
     expect(booking).toContain("bg-gradient-to-r");
     expect(booking).toContain("from-[#bb0d7e]");
     expect(booking).toContain("to-[#680686]");
     expect(booking).toContain("text-white");
     expect(booking).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(booking).toMatch(/<span[^>]*>Video Visit<\/span>/);
-    expect(booking).toMatch(/<span[^>]*>\$39 per visit<\/span>/);
+    expect(booking).toMatch(/<span[^>]*>\$97 per visit<\/span>/);
 
     expect(careCall).toMatch(/^<a\b/);
     expect(careCall).toContain('href="tel:+18883627011"');
@@ -192,12 +192,14 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
     expect(mobileBar).toContain("if (frame !== null) window.cancelAnimationFrame(frame);");
   });
 
-  it("uses only the existing Video Visit checkout state, identical click behavior, and delayed focus recovery without pending-checkout reopening or tracking", () => {
+  it("uses only the V2 $97 Video Visit checkout state, resumes an opaque old-or-$97 pending payment on mount, and preserves identical click and delayed-focus behavior", () => {
     expect(mobileBar).toContain('import { useEffect, useRef, useState } from "react";');
-    expect(mobileBar).toContain('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";');
+    expect(mobileBar).toContain('import VideoVisitCheckout from "@/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97";');
+    expect(mobileBar).toContain('import { getMenopauseV2VideoPendingCheckout } from "@/components/weight-loss-menopause-v2/checkout97/videoVisitCheckout97Storage";');
     expect(mobileBar).toContain("export default function WeightLossMenopauseV2MobileBar()");
     expect(mobileBar).toContain("  const [consultationOpen, setConsultationOpen] = useState(false);");
     expect(mobileBar).toContain("  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);");
+    expect(mobileBar).toContain('  useEffect(() => {\n    // Resume the original provider payment; never replace it with a new charge.\n    if (getMenopauseV2VideoPendingCheckout()) setConsultationOpen(true);\n  }, []);');
     expect(mobileBar).toContain("  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current) {\n      mobileBookingOpened.current = false;\n      const timer = window.setTimeout(() => {\n        if (mobileBookingRef.current?.getClientRects().length) {\n          mobileBookingRef.current.focus({ preventScroll: true });\n        }\n      }, 250);\n      return () => window.clearTimeout(timer);\n    }\n  }, [consultationOpen]);");
     expect(booking).toContain('type="button"');
     expect(booking).toContain('aria-haspopup="dialog"');
@@ -208,9 +210,6 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
     expect(mobileBar).toMatch(/return \(\n    <>[\s\S]*<\/>\n  \);/);
 
     for (const forbiddenBehavior of [
-      "getVideoVisitPendingCheckout",
-      "pendingCheckout",
-      "provider_approved",
       "installMasterclassMetaPixel",
       "localStorage",
       "sessionStorage",

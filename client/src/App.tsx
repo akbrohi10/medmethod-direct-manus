@@ -39,6 +39,7 @@ const LpWL2 = lazy(() => import("@/pages/LpWL2"));
 const ThankYou2 = lazy(() => import("@/pages/ThankYou2"));
 const ThankYouVideo = lazy(() => import("@/pages/ThankYouVideo"));
 const ThankYouVideo4799 = lazy(() => import("@/pages/ThankYouVideo4799"));
+const ThankYouVideo97 = lazy(() => import("@/pages/ThankYouVideo97"));
 const ThanksPaymentWL2 = lazy(() => import("@/pages/ThanksPaymentWL2"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CareTeamBooking = lazy(() => import("@/pages/CareTeamBooking"));
@@ -387,6 +388,7 @@ function Router() {
         <Route path="/thank-you-video" component={ThankYouVideo} />
         <Route path="/thank-you-video/" component={ThankYouVideo} />
         <Route path="/thank-you-video-4799" component={ThankYouVideo4799} />
+        <Route path="/thank-you-video-97" component={ThankYouVideo97} />
         <Route path="/care-team-booking" component={CareTeamBooking} />
         <Route path="/care-team-booking-confirmed" component={CareTeamBookingConfirmed} />
         <Route path="/live-webinar" component={LiveWebinar} />
@@ -415,6 +417,7 @@ function SocialProofNotificationsRouter() {
   const [location] = useLocation();
   if (location === "/weight-loss-menopauseV2" || location === "/weight-loss-menopauseV2/") return null;
   if (location === "/thank-you-video-4799" || location === "/thank-you-video-4799/") return null;
+  if (location === "/thank-you-video-97" || location === "/thank-you-video-97/") return null;
   if (location === "/masterclass2") return null;
   if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
   if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/" || location === "/intake/thank-you") return null;

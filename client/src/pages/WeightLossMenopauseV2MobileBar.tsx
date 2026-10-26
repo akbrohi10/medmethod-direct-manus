@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircleMore, PhoneCall, Video } from "lucide-react";
-import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
+import VideoVisitCheckout from "@/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97";
+import { getMenopauseV2VideoPendingCheckout } from "@/components/weight-loss-menopause-v2/checkout97/videoVisitCheckout97Storage";
 
-/** V2-only mobile connection bar; reuses the existing $39 checkout unchanged. */
+/** V2-only mobile connection bar with an isolated, server-verified $97 checkout. */
 export default function WeightLossMenopauseV2MobileBar() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [pastHeroCta, setPastHeroCta] = useState(false);
   const mobileBookingRef = useRef<HTMLButtonElement>(null);
   const mobileBookingOpened = useRef(false);
+
+  useEffect(() => {
+    // Resume the original provider payment; never replace it with a new charge.
+    if (getMenopauseV2VideoPendingCheckout()) setConsultationOpen(true);
+  }, []);
 
   useEffect(() => {
     const heroCta = document.querySelector<HTMLElement>(".wlm-v2-content .hero-actions .btn");
@@ -87,7 +93,7 @@ export default function WeightLossMenopauseV2MobileBar() {
             <button
               type="button"
               data-wlm-v2-mobile-booking
-              aria-label="Video visit — $39 per visit"
+              aria-label="Video visit — $97 per visit"
               aria-haspopup="dialog"
               ref={mobileBookingRef}
               onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
@@ -95,7 +101,7 @@ export default function WeightLossMenopauseV2MobileBar() {
             >
               <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Video Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>
             </button>
             <a
               data-wlm-v2-mobile-care-call

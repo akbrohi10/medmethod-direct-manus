@@ -12,6 +12,7 @@ import { careTeamBookingRouter } from "./routers/careTeamBooking";
 import { intakeDeliverySettingsRouter } from "./routers/intakeDeliverySettings";
 import { masterclassVideoRouter } from "./routers/masterclassVideo";
 import { masterclassVideo4799Router } from "./routers/masterclassVideo4799";
+import { menopauseVideo97Router } from "./routers/menopauseVideo97";
 
 export const appRouter = router({
   // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -36,6 +37,7 @@ export const appRouter = router({
   intakeDeliverySettings: intakeDeliverySettingsRouter,
   masterclassVideo: masterclassVideoRouter,
   masterclassVideo4799: masterclassVideo4799Router,
+  menopauseVideo97: menopauseVideo97Router,
   superAdmin: superAdminRouter,
 });
 
