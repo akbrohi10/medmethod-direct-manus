@@ -59,9 +59,18 @@ const masterclassNav = mobileNav(masterclass2, "data-masterclass2-mobile-connect
 const v2Nav = mobileNav(mobileBar, "data-wlm-v2-mobile-connection-bar");
 const expectedV2Nav = masterclassNav
   .replaceAll("data-masterclass2-mobile-", "data-wlm-v2-mobile-")
-  // V2 retains its original $39 checkout; all other control markup and actions
-  // must remain byte-for-byte equivalent to the approved masterclass2 bar.
+  // V2 retains its original $39 modal checkout. Its paid control is therefore
+  // intentionally converted from Masterclass2's approved direct intake link
+  // back to V2's original native button; everything else stays byte-for-byte equivalent.
   .replaceAll("$47.99", "$39")
+  .replace(
+    '<a\n              href="https://intake.medmethoddirect.com/?video=1"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $39 per visit"\n              ref={mobileBookingRef}\n              className=',
+    '<button\n              type="button"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $39 per visit"\n              aria-haspopup="dialog"\n              ref={mobileBookingRef}\n              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}\n              className=',
+  )
+  .replace(
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>\n            </a>\n            <a\n              data-wlm-v2-mobile-care-call',
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>\n            </button>\n            <a\n              data-wlm-v2-mobile-care-call',
+  )
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
     'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left:',
@@ -72,7 +81,7 @@ const careCall = controlSlice(v2Nav, "data-wlm-v2-mobile-care-call");
 
 
 describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
-  it("is the entire finalized Masterclass2 nav with only V2 marker remapping, approved price normalization, and the required explicit Montserrat font", () => {
+  it("is the finalized Masterclass2 nav with only V2 marker remapping, approved price normalization, its intentional $39 modal-button exception, and the required explicit Montserrat font", () => {
     expect(v2Nav).toBe(expectedV2Nav);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-connection-bar/g)]).toHaveLength(1);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-text-visit/g)]).toHaveLength(1);

@@ -77,7 +77,7 @@ describe("masterclass2 mobile connection bar", () => {
     }
 
     expect(mobileTextVisit).toMatch(/^<a\b/);
-    expect(mobileBooking).toMatch(/^<button\b/);
+    expect(mobileBooking).toMatch(/^<a\b/);
     expect(mobileCareCall).toMatch(/^<a\b/);
   });
 
@@ -97,14 +97,13 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileNav).not.toMatch(/\bmd:(?:flex|grid|block|inline-flex)\b/);
   });
 
-  it("keeps the paid Video Visit button connected only to the existing checkout and focus recovery", () => {
-    expect(mobileBooking).toContain('type="button"');
-    expect(mobileBooking).toContain('aria-haspopup="dialog"');
+  it("makes the paid Video Visit control the approved accessible native intake link while retaining the existing checkout mount and focus recovery", () => {
+    expect(mobileBooking).toContain('href="https://intake.medmethoddirect.com/?video=1"');
     expect(mobileBooking).toContain('aria-label="Video visit — $47.99 per visit"');
     expect(mobileBooking).toContain("ref={mobileBookingRef}");
-    expect(mobileBooking).toContain(
-      "onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}",
-    );
+    expect(mobileBooking).not.toContain('type="button"');
+    expect(mobileBooking).not.toContain('aria-haspopup="dialog"');
+    expect(mobileBooking).not.toMatch(/\bonClick\s*=/);
     expect(mobileBooking).toContain("rounded-[9px]");
     expect(mobileBooking).toContain("bg-gradient-to-r");
     expect(mobileBooking).toContain("from-[#bb0d7e]");
@@ -116,7 +115,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileBooking).not.toMatch(/(?:fetch\(|trpc\.|location\.|paypal|stripe|localStorage|sessionStorage)/i);
 
     expect(page).toContain(
-      "  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);",
+      "  const mobileBookingRef = useRef<HTMLAnchorElement>(null);\n  const mobileBookingOpened = useRef(false);",
     );
     expect(page).toContain(
       "  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current) {\n      mobileBookingOpened.current = false;\n      const timer = window.setTimeout(() => mobileBookingRef.current?.focus({ preventScroll: true }), 250);\n      return () => window.clearTimeout(timer);\n    }\n  }, [consultationOpen]);",

@@ -56,7 +56,7 @@ const normalizedDuplicate = duplicate
   .replace(/\n        <div data-masterclass2-family-photo-section[\s\S]*?<\/div>\n/, "")
   .replace(currentHero, originalHero)
   .replace(mobileFocusRecovery, "")
-  .replace('  const mobileBookingRef = useRef<HTMLButtonElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
+  .replace('  const mobileBookingRef = useRef<HTMLAnchorElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
   .replace(mobileBookingPill, "")
   .replace("<main data-masterclass2-page ", "<main ")
   .replace('        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }\n', "")
@@ -140,6 +140,11 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).toContain('href="/care-team-booking"');
     expect(duplicate).toContain("Only $47.99");
     expect(duplicate).toContain('aria-label="Video visit — $47.99 per visit"');
+    expect(mobileBookingPill).toMatch(/<a\s+href="https:\/\/intake\.medmethoddirect\.com\/\?video=1"\s+data-masterclass2-mobile-booking/);
+    expect(mobileBookingPill).not.toContain('type="button"');
+    expect(mobileBookingPill).not.toContain('aria-haspopup="dialog"');
+    expect(mobileBookingPill).not.toMatch(/\bonClick\s*=/);
+    expect(duplicate).toContain('const mobileBookingRef = useRef<HTMLAnchorElement>(null);');
     expect(duplicate).toContain(
       '<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />',
     );

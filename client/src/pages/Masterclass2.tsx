@@ -79,7 +79,7 @@ export default function Masterclass2() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [disableFullScreen] = useState(() => typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (max-width: 767px)").matches);
   const videoRef = useRef<HTMLElement>(null);
-  const mobileBookingRef = useRef<HTMLButtonElement>(null);
+  const mobileBookingRef = useRef<HTMLAnchorElement>(null);
   const mobileBookingOpened = useRef(false);
 
   useEffect(() => {
@@ -280,19 +280,17 @@ export default function Masterclass2() {
               <span className="block whitespace-nowrap font-bold">Text Visit</span>
               <span className="block whitespace-nowrap text-[10px] font-normal">First free</span>
             </a>
-            <button
-              type="button"
+            <a
+              href="https://intake.medmethoddirect.com/?video=1"
               data-masterclass2-mobile-booking
               aria-label="Video visit — $47.99 per visit"
-              aria-haspopup="dialog"
               ref={mobileBookingRef}
-              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
               className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-0.5 py-1 text-center text-[11px] leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
               <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Video Visit</span>
               <span className="block whitespace-nowrap text-[10px] font-normal">$47.99 per visit</span>
-            </button>
+            </a>
             <a
               data-masterclass2-mobile-care-call
               href="tel:+18883627011"
