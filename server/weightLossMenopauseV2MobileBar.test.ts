@@ -62,7 +62,9 @@ const expectedV2Nav = masterclassNav
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
     'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left:',
-  );
+  )
+  .replace('aria-label="Text visit — free"', 'aria-label="First text visit — free"')
+  .replace('<span className="block whitespace-nowrap text-[10px] font-normal">Free</span>', '<span className="block whitespace-nowrap text-[10px] font-normal">First free</span>');
 const textVisit = controlSlice(v2Nav, "data-wlm-v2-mobile-text-visit");
 const booking = controlSlice(v2Nav, "data-wlm-v2-mobile-booking");
 const careCall = controlSlice(v2Nav, "data-wlm-v2-mobile-care-call");
@@ -115,13 +117,15 @@ describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
 
     expect(textVisit).toMatch(/^<a\b/);
     expect(textVisit).toContain('href="https://intake.medmethoddirect.com/"');
-    expect(textVisit).toContain('aria-label="Text visit — free"');
+    expect(textVisit).toContain('aria-label="First text visit — free"');
     expect(textVisit).toContain("border-[#b367ca]");
     expect(textVisit).toContain("bg-white");
     expect(textVisit).toContain("text-[#870081]");
     expect(textVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(textVisit).toMatch(/<span[^>]*>Text Visit<\/span>/);
-    expect(textVisit).toMatch(/<span[^>]*>Free<\/span>/);
+    expect(textVisit).toMatch(/<span[^>]*>First free<\/span>/);
+    expect(textVisit).not.toContain('aria-label="Text visit — free"');
+    expect(textVisit).not.toMatch(/<span[^>]*>Free<\/span>/);
 
     expect(booking).toMatch(/^<button\b/);
     expect(booking).toContain('aria-label="Video visit — $39 per visit"');

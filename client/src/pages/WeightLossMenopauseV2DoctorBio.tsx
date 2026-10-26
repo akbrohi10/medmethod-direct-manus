@@ -68,7 +68,7 @@ export default function WeightLossMenopauseV2DoctorBio() {
               <img src={DOCTOR_PORTRAIT} alt="Dr. Jumana Al-Deek, DO, MS" loading="lazy" decoding="async" />
             </div>
             <p className="doctor-bio-proof"><strong>50,000+</strong> patients seen</p>
-            <p className="doctor-bio-direct">Connect directly with your doctor by text — for free.</p>
+            <p className="doctor-bio-direct">Your first doctor text visit is free, with seven days of follow-up support.</p>
             <div className="doctor-bio-badge-group">
               <h3>Credentials</h3>
               <ul className="doctor-bio-credentials">{CREDENTIALS.map(item => <li key={item}>{item}</li>)}</ul>

@@ -77,12 +77,12 @@ export default function WeightLossMenopauseV2MobileBar() {
             <a
               data-wlm-v2-mobile-text-visit
               href="https://intake.medmethoddirect.com/"
-              aria-label="Text visit — free"
+              aria-label="First text visit — free"
               className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
               <MessageCircleMore className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Text Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">Free</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">First free</span>
             </a>
             <button
               type="button"
