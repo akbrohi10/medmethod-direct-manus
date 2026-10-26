@@ -56,14 +56,17 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     expect(videoButton).toContain("to-[#7a1e7e]");
     expect(videoOffer).toContain("Book My Video Visit");
     expect(videoOffer).toContain("Only $39");
+    expect(videoOffer).toContain('<span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $39</span>\n                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>');
     expect(videoOffer).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(videoOffer).toMatch(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/);
   });
 
-  it("keeps the text-only intake row exact, direct, and free of tracking, prefills, and checkout calls", () => {
+  it("keeps the approved first text-only intake row exact, direct, and free of tracking, prefills, and checkout calls", () => {
     expect(textVisitAnchor).toMatch(/^<a href="https:\/\/intake\.medmethoddirect\.com\/" data-masterclass2-text-visit-cta\b/);
-    expect(textVisit).toContain("Free Doctor Visit — Text Only");
-    expect(textVisit).toContain("Complete your intake (5–10 min), then start messaging with your doctor.");
+    expect(textVisit).toContain('<span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Free First Doctor Visit — Text Only</span>');
+    expect(textVisit).toContain('<span className="mt-1 block text-[14px] font-medium leading-[1.55] text-[#5a4452] sm:text-base">Complete your intake (5–10 min), then connect with your doctor by text.</span>');
+    expect(textVisit).not.toContain("Free Doctor Visit — Text Only");
+    expect(textVisit).not.toContain("then start messaging with your doctor.");
     expect(textVisitAnchor).toMatch(/bg-\[#(?:fff[\w]*|f[\w]*)\]/i);
     expect(textVisitAnchor).toMatch(/border[^\"]*\[#(?:E8D5DC|[\w]+)\]/i);
     expect(textVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
@@ -90,12 +93,13 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
 
     const disclosuresStart = section.indexOf("data-masterclass2-connection-disclosures");
     expect(disclosuresStart).toBeGreaterThan(section.indexOf("data-masterclass2-free-call"));
-    const disclosures = section.slice(disclosuresStart);
-    expect(disclosures).toContain("Ongoing text care included. Medication priced separately.");
+    const disclosures = section.slice(disclosuresStart, section.indexOf("</div>", disclosuresStart) + "</div>".length);
+    expect(disclosures).toContain("Every doctor visit includes seven days of follow-up messaging about your care plan. New concerns or additional treatments require a separate visit. Medication priced separately.");
     expect(disclosures).toContain("Care Team call: general information, not medical advice.");
-    expect([...disclosures.matchAll(/Ongoing text care included\. Medication priced separately\.|Care Team call: general information, not medical advice\./g)]).toHaveLength(2);
+    expect([...disclosures.matchAll(/Every doctor visit includes seven days of follow-up messaging about your care plan\. New concerns or additional treatments require a separate visit\. Medication priced separately\.|Care Team call: general information, not medical advice\./g)]).toHaveLength(2);
+    expect(disclosures).not.toContain("Ongoing text care included");
     for (const currentRow of rows) {
-      expect(currentRow).not.toMatch(/Ongoing text care included|Care Team call: general information/);
+      expect(currentRow).not.toMatch(/Every doctor visit includes seven days|Ongoing text care included|Care Team call: general information/);
     }
   });
 
@@ -105,6 +109,7 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
     expect([...page.replace('aria-label="Video visit — $39 per visit"', "").matchAll(/\$\d+/g)].map(match => match[0])).toEqual(["$39", "$39"]);
+    expect(page).not.toMatch(/\$47|\$19\.99/);
     expect(page).toContain("data-masterclass2-mobile-booking");
     expect(page).toContain('aria-label="Video visit — $39 per visit"');
     expect(page).toContain("<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />");

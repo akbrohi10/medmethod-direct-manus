@@ -220,6 +220,7 @@ export default function Masterclass2() {
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Book My Video Visit</span>
                   <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $39</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>
                 </span>
                 <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
               </button>
@@ -228,8 +229,8 @@ export default function Masterclass2() {
               <a href="https://intake.medmethoddirect.com/" data-masterclass2-text-visit-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] border border-[#e7cbdc] bg-[#fdf8fb] px-4 py-4 text-left text-[#7a1e7e] transition-colors duration-150 hover:bg-[#f7edf3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-[36px] sm:px-6 sm:py-5">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#fce8f3] sm:h-16 sm:w-16"><MessageCircleMore className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Free Doctor Visit — Text Only</span>
-                  <span className="mt-1 block text-[14px] font-medium leading-[1.55] text-[#5a4452] sm:text-base">Complete your intake (5–10 min), then start messaging with your doctor.</span>
+                  <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Free First Doctor Visit — Text Only</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-[1.55] text-[#5a4452] sm:text-base">Complete your intake (5–10 min), then connect with your doctor by text.</span>
                 </span>
                 <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
               </a>
@@ -246,7 +247,7 @@ export default function Masterclass2() {
             </div>
           </div>
           <div data-masterclass2-connection-disclosures className="mx-auto mt-5 max-w-[640px] text-center text-[12px] font-medium leading-5 text-[#766d75] sm:text-[13px]">
-            <p>Ongoing text care included. Medication priced separately.</p>
+            <p>Every doctor visit includes seven days of follow-up messaging about your care plan. New concerns or additional treatments require a separate visit. Medication priced separately.</p>
             <p className="mt-1">Care Team call: general information, not medical advice.</p>
           </div>
         </section>
@@ -272,12 +273,12 @@ export default function Masterclass2() {
             <a
               data-masterclass2-mobile-text-visit
               href="https://intake.medmethoddirect.com/"
-              aria-label="Text visit — free"
+              aria-label="First text visit — free"
               className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
               <MessageCircleMore className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Text Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">Free</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">First free</span>
             </a>
             <button
               type="button"

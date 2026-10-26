@@ -62,9 +62,7 @@ const expectedV2Nav = masterclassNav
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
     'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left:',
-  )
-  .replace('aria-label="Text visit — free"', 'aria-label="First text visit — free"')
-  .replace('<span className="block whitespace-nowrap text-[10px] font-normal">Free</span>', '<span className="block whitespace-nowrap text-[10px] font-normal">First free</span>');
+  );
 const textVisit = controlSlice(v2Nav, "data-wlm-v2-mobile-text-visit");
 const booking = controlSlice(v2Nav, "data-wlm-v2-mobile-booking");
 const careCall = controlSlice(v2Nav, "data-wlm-v2-mobile-care-call");

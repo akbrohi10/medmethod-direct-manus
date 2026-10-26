@@ -124,11 +124,13 @@ describe("masterclass2 mobile connection bar", () => {
     expect(page).toContain('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />');
   });
 
-  it("keeps the free text link and native phone link exact, visibly two-line, and decorative-icon-only", () => {
+  it("keeps the first-free text link and native phone link exact, visibly two-line, and decorative-icon-only", () => {
     expect(mobileTextVisit).toContain('href="https://intake.medmethoddirect.com/"');
-    expect(mobileTextVisit).toContain('aria-label="Text visit — free"');
+    expect(mobileTextVisit).toContain('aria-label="First text visit — free"');
     expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Text Visit\s*<\/span>/);
-    expect(mobileTextVisit).toMatch(/<span[^>]*>\s*Free\s*<\/span>/);
+    expect(mobileTextVisit).toContain('<span className="block whitespace-nowrap text-[10px] font-normal">First free</span>');
+    expect(mobileTextVisit).not.toContain('aria-label="Text visit — free"');
+    expect(mobileTextVisit).not.toMatch(/<span[^>]*>\s*Free\s*<\/span>/);
     expect(mobileTextVisit).toMatch(/<MessageCircleMore\b[^>]*aria-hidden="true"[^>]*\/>/);
 
     expect(mobileCareCall).toContain('href="tel:+18883627011"');
