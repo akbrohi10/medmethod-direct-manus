@@ -7,6 +7,7 @@ import { generateCrawlerHtml, getMetaForPath, injectRouteMetaIntoHtml } from "./
 const read = (file: string) => readFileSync(resolve(import.meta.dirname, "..", file), "utf8");
 const root = resolve(import.meta.dirname, "..");
 const approvedHeroSupportingLineBaseline = "9b081b83";
+const boldOnlyHeroSupportingLineBaseline = "01fc6439";
 const v2PagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const v2CssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const originalPage = read("client/src/pages/WeightLossMenopause.tsx");
@@ -88,7 +89,8 @@ const approvedGlp1DisplayMap: Record<string, Glp1PageDisplay> = {
 
 const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>First visit FREE!</em></span></h1>';
 const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
-const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br />Done right for you. 100% virtual</p>';
+const previousApprovedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br />Done right for you. 100% virtual</p>';
+const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br /><b>Done right for you. 100% virtual</b></p>';
 const approvedPatientMessage = '<div className="chat-message" data-chat-at="400"><div className="bubble me">Hi Dr. Al-Deek,<br />I\'d like to learn about my options for weight loss and hormones.</div><div className="chat-time patient-time">9:41 AM</div></div>';
 const approvedDoctorMessage = '<div className="chat-message" data-chat-at="2400"><div className="bubble">Of course! I\'m happy to help. Let\'s discuss your goals and see what options may be right for you.</div><div className="chat-time">9:42 AM</div></div>';
 const previousApprovedHowItWorksSection = '<section className="section wave-top wave-soft" id="how-it-works"><div className="container"><div className="section-heading"><h2>How it works</h2></div><div className="steps"><article className="step"><div className="step-num">1</div><h3>Complete your intake (5–10 min)</h3></article><article className="step"><div className="step-num">2</div><h3>Text with your doctor</h3></article><article className="step"><div className="step-num">3</div><h3>Discuss your options with your doctor, based on your evaluation.</h3></article></div></div></section>';
@@ -363,6 +365,14 @@ function atApprovedHeroSupportingLineBaseline(file: string): string {
   return execFileSync("git", ["show", `${approvedHeroSupportingLineBaseline}:${file}`], { cwd: root, encoding: "utf8" });
 }
 
+function atBoldOnlyHeroSupportingLineBaseline(file: string): string {
+  return execFileSync("git", ["show", `${boldOnlyHeroSupportingLineBaseline}:${file}`], { cwd: root, encoding: "utf8" });
+}
+
+function normalizeApprovedHeroSupportingLine(source: string): string {
+  return source.replace(approvedHeroSupportingLine, previousApprovedHeroSupportingLine);
+}
+
 function countExactOccurrences(source: string, value: string): number {
   return source.split(value).length - 1;
 }
@@ -431,10 +441,14 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
-  it("allows only the approved hero supporting-line replacement against the 9b081b83 page and CSS pin", () => {
+  it("allows only the approved bold hero supporting-line wrapper against the pinned pages and CSS", () => {
     expect(countExactOccurrences(page, approvedHeroSupportingLine)).toBe(1);
+    expect(countExactOccurrences(page, previousApprovedHeroSupportingLine)).toBe(0);
     expect(countExactOccurrences(page, previousHeroSupportingLine)).toBe(0);
-    expect(page.replace(approvedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
+    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(page);
+    expect(restoredBoldOnlyPage).toBe(atBoldOnlyHeroSupportingLineBaseline(v2PagePath));
+    expect(css).toBe(atBoldOnlyHeroSupportingLineBaseline(v2CssPath));
+    expect(restoredBoldOnlyPage.replace(previousApprovedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
     expect(css).toBe(atApprovedHeroSupportingLineBaseline(v2CssPath));
   });
 

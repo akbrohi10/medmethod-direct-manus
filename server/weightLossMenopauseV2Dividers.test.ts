@@ -9,7 +9,7 @@ const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const marker = "/* V2 section dividers — straight, content-width transitions only. */";
 const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
-const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br />Done right for you. 100% virtual</p>';
+const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br /><b>Done right for you. 100% virtual</b></p>';
 const targets = [
   "#how-it-works",
   ".medication-pricing",
