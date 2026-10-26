@@ -126,6 +126,7 @@ const doctorBioMarker = "\n/* Approved V2 homepage-style doctor biography: docto
 const mobileBarMarker = "\n/* Approved V2 three-option mobile bar: content clearance only. */";
 const mobileHeaderMarker = "\n/* Approved V2 mobile header: centered original wordmark without tagline only. */";
 const visitBasedCareMarker = "\n/* Approved V2 visit-based care: app removed, clinical content only. */";
+const pricingOfferCardMarker = "\n/* Approved V2 pricing offer card: pricing section only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
@@ -203,6 +204,42 @@ const approvedFirstVisitPricingSection = previousApprovedPricingSection
   .replace('<strong>FREE</strong><span>Doctor evaluation and care by text.</span>', '<strong>FREE</strong><span>Your first doctor text visit.</span>')
   .replace(approvedZoomOffer, '<p className="video-addon">Prefer face-to-face care?<br />Add a virtual Zoom visit — <b>only $39 per visit.</b><br />Includes seven days of follow-up messaging.</p>')
   .replace('>Start your visit <span className="arrow">→</span></a></div><p className="price-footnote">Medication priced separately</p>', '>Start your free visit <span className="arrow">→</span></a></div><p className="visit-support-scope">Follow-up messaging supports the care plan from that visit. New concerns or additional treatments require a separate visit.</p><p className="price-footnote">Medication priced separately. No membership or long-term commitment.</p>');
+const approvedPricingOfferCard = `<section className="section pricing-section wave-top wave-soft" id="pricing">
+  <div className="container">
+    <div className="section-heading">
+      <span className="section-kicker">Straightforward pricing</span>
+      <h2>Your first text visit is free.</h2>
+    </div>
+    <div className="visit-pricing-card">
+      <div className="visit-pricing-grid">
+        <div className="visit-pricing-main">
+          <div className="membership-price" aria-label="First text-visit pricing">
+            <span>Your first doctor text visit.</span>
+            <strong>FREE</strong>
+          </div>
+          <ul className="visit-pricing-benefits" aria-label="Included in your first text visit">
+            <li>A doctor’s assessment</li>
+            <li>A care plan</li>
+            <li>Seven days of follow-up messaging</li>
+          </ul>
+        </div>
+        <aside className="visit-pricing-addon" aria-label="Optional virtual Zoom visit">
+          <span className="visit-pricing-addon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="5" width="12" height="14" rx="3" /><path d="m15 10 6-4v12l-6-4" /></svg></span>
+          <h3>Prefer face-to-face care?</h3>
+          <p className="video-addon">Add a virtual Zoom visit — <b>only $39 per visit.</b></p>
+          <p className="visit-pricing-addon-support">Includes seven days of follow-up messaging.</p>
+        </aside>
+      </div>
+      <div className="pricing-actions">
+        <a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>Start your free visit <span className="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div className="visit-pricing-notes">
+        <p className="visit-support-scope">Follow-up messaging supports the care plan from that visit. New concerns or additional treatments require a separate visit.</p>
+        <p className="price-footnote">Medication priced separately. No membership or long-term commitment.</p>
+      </div>
+    </div>
+  </div>
+</section>`;
 
 const previousApprovedFaqSection = applyFreeCareCopy(originalFaqSection)
   .replace('<details><summary>Which states are available?</summary>', `${approvedZoomFaq}<details><summary>Which states are available?</summary>`);
@@ -236,6 +273,7 @@ function restoreFirstVisitScope(source: string): string {
     .replace(approvedHowItWorksSection, previousApprovedHowItWorksSection)
     .replace('<span>Your first doctor text visit is free. Medication priced separately.</span>', '<span>Free doctor evaluation by text. Medication priced separately.</span>')
     .replace(`<WeightLossMenopauseV2DoctorBio />\n\n${approvedFirstVisitSupportSection}`, `<WeightLossMenopauseV2DoctorBio />\n${originalAppSection}\n${originalSupportSection}`)
+    .replace(approvedPricingOfferCard, approvedFirstVisitPricingSection)
     .replace(approvedFirstVisitPricingSection, previousApprovedPricingSection)
     .replace(approvedFirstVisitTestimonialsSection, previousApprovedTestimonialsSection)
     .replace(approvedFirstVisitFaqSection, previousApprovedFaqSection)
@@ -325,12 +363,14 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(css).toContain(mobileBarMarker);
     expect(css).toContain(mobileHeaderMarker);
     expect(css).toContain(visitBasedCareMarker);
+    expect(css).toContain(pricingOfferCardMarker);
     expect(css.indexOf(refinementMarker)).toBeLessThan(css.indexOf(compactHowItWorksMarker));
     expect(css.indexOf(compactHowItWorksMarker)).toBeLessThan(css.indexOf(uploadedHeroMarker));
     expect(css.indexOf(uploadedHeroMarker)).toBeLessThan(css.indexOf(doctorBioMarker));
     expect(css.indexOf(doctorBioMarker)).toBeLessThan(css.indexOf(mobileBarMarker));
     expect(css.indexOf(mobileBarMarker)).toBeLessThan(css.indexOf(mobileHeaderMarker));
     expect(css.indexOf(mobileHeaderMarker)).toBeLessThan(css.indexOf(visitBasedCareMarker));
+    expect(css.indexOf(visitBasedCareMarker)).toBeLessThan(css.indexOf(pricingOfferCardMarker));
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
@@ -739,7 +779,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(originalPage).not.toContain("same price at every dose");
   });
 
-  it("uses the approved first-visit copy and visit scope in both pricing sections while retaining the styling hook", () => {
+  it("uses the exact approved single-card first-visit offer with its benefit list, optional Zoom offer, copy, and intake destination", () => {
     const medicationPricing = page.match(/<section className="medication-pricing"[\s\S]*?<\/section>/)?.[0] ?? "";
     const carePricing = page.match(/<section className="section pricing-section wave-top wave-soft" id="pricing">[\s\S]*?<\/section>/)?.[0] ?? "";
 
@@ -748,13 +788,16 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(medicationPricing).not.toContain("$49/month plus the cost of medication.");
 
     expect(carePricing).not.toBe("");
-    expect(carePricing).toContain("<h2>Your first text visit is free.</h2>");
-    expect(carePricing).toContain("<p>A doctor’s assessment, a care plan, and seven days of follow-up messaging.</p>");
-    expect(carePricing).toContain('<div className="membership-price" aria-label="First text-visit pricing"><strong>FREE</strong><span>Your first doctor text visit.</span><p className="video-addon">Prefer face-to-face care?<br />Add a virtual Zoom visit — <b>only $39 per visit.</b><br />Includes seven days of follow-up messaging.</p></div>');
-    expect(carePricing).toContain('<a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>Start your free visit <span className="arrow">→</span></a>');
+    expect(carePricing).toBe(approvedPricingOfferCard);
+    expect(carePricing.match(/className="visit-pricing-card"/g)).toHaveLength(1);
+    expect(carePricing).toContain('<ul className="visit-pricing-benefits" aria-label="Included in your first text visit">\n            <li>A doctor’s assessment</li>\n            <li>A care plan</li>\n            <li>Seven days of follow-up messaging</li>\n          </ul>');
+    expect(carePricing).toContain('<aside className="visit-pricing-addon" aria-label="Optional virtual Zoom visit">');
+    expect(carePricing).toContain('<p className="video-addon">Add a virtual Zoom visit — <b>only $39 per visit.</b></p>');
+    expect(carePricing).toContain('<p className="visit-pricing-addon-support">Includes seven days of follow-up messaging.</p>');
+    expect(carePricing).toContain('<a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>Start your free visit <span className="arrow" aria-hidden="true">→</span></a>');
     expect(carePricing).toContain('<p className="visit-support-scope">Follow-up messaging supports the care plan from that visit. New concerns or additional treatments require a separate visit.</p>');
     expect(carePricing).toContain('<p className="price-footnote">Medication priced separately. No membership or long-term commitment.</p>');
-    expect(carePricing).toContain('className="membership-price"');
+    expect(carePricing).not.toContain('<p>A doctor’s assessment, a care plan, and seven days of follow-up messaging.</p>');
     expect(carePricing).not.toContain('aria-label="Free text-care pricing"');
     expect(carePricing).not.toContain("$49 today. $49 monthly.");
     expect(carePricing).not.toContain("One membership: physician-led care");
@@ -767,7 +810,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   it("retains the existing $39 virtual-visit offer without introducing a new checkout or different price", () => {
     const carePricing = page.match(/<section className="section pricing-section wave-top wave-soft" id="pricing">[\s\S]*?<\/section>/)?.[0] ?? "";
     const faq = page.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
-    expect(carePricing).toContain('Add a virtual Zoom visit — <b>only $39 per visit.</b><br />Includes seven days of follow-up messaging.');
+    expect(carePricing).toContain('Add a virtual Zoom visit — <b>only $39 per visit.</b>');
+    expect(carePricing).toContain('<p className="visit-pricing-addon-support">Includes seven days of follow-up messaging.</p>');
     expect(faq).toContain('Yes. An optional virtual Zoom visit is $39 per visit and includes seven days of follow-up messaging about its care plan. Your first doctor text visit is free. Medication is priced separately.');
     expect(page.match(/\$39/g)).toHaveLength(2);
     expect(page).not.toContain("$39/month");
@@ -861,7 +905,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("appends only the scoped visit-based layout rules after the byte-preserved mobile-header block", () => {
     expect(css.match(/\/\* Approved V2 visit-based care: app removed, clinical content only\. \*\//g)).toHaveLength(1);
-    const visitCss = css.slice(css.indexOf(visitBasedCareMarker) + visitBasedCareMarker.length).trim();
+    const visitCss = css.slice(css.indexOf(visitBasedCareMarker) + visitBasedCareMarker.length, css.indexOf(pricingOfferCardMarker)).trim();
     expect(css.slice(0, css.indexOf(visitBasedCareMarker))).toContain(mobileHeaderMarker.trim());
     expect(visitCss).toBe(`.wlm-v2-content .support-section .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .wlm-v2-content .support-section .feature-grid > .feature-item,
@@ -874,6 +918,22 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   .wlm-v2-content .testimonials .testimonial-grid { grid-template-columns: minmax(0, 1fr); }
 }`);
     expect(visitCss).not.toMatch(/(?:^|[}\n])\s*(?:body|html|:root)\b|#app|\.hero|\.sticky-cta/);
+  });
+
+  it("appends the pricing offer-card styles after visit-based care and scopes every selector to the V2 pricing section", () => {
+    const pricingCss = css.slice(css.indexOf(pricingOfferCardMarker) + pricingOfferCardMarker.length).trim();
+    const selectors = Array.from(pricingCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
+
+    expect(css.match(/\/\* Approved V2 pricing offer card: pricing section only\. \*\//g)).toHaveLength(1);
+    expect(css.indexOf(pricingOfferCardMarker)).toBeGreaterThan(css.indexOf(visitBasedCareMarker));
+    expect(pricingCss).toContain('.wlm-v2-content #pricing .visit-pricing-card { padding: 36px;');
+    expect(pricingCss).toContain('.wlm-v2-content #pricing .visit-pricing-benefits > li::before { content: "✓";');
+    expect(pricingCss).toContain('.wlm-v2-content #pricing .visit-pricing-addon { min-width: 0;');
+    expect(pricingCss).toContain('.wlm-v2-content #pricing .pricing-actions .btn { display: flex;');
+    expect(selectors.length).toBeGreaterThan(20);
+    for (const selector of selectors) expect(selector).toMatch(/^\.wlm-v2-content #pricing(?:$|\s|[.:#>])/);
+    expect(pricingCss).not.toMatch(/(^|[}\n])\s*(?:body|html|:root)\b|(^|[}\n])\s*\.wlm-v2-content(?! #pricing)/);
+    expect(pricingCss).not.toMatch(/#app|\.hero|\.sticky-cta|\.support-section|\.testimonials/);
   });
 
   it("has V2-owned crawler metadata with original content, its own canonical URL, and no sitemap entry", () => {
