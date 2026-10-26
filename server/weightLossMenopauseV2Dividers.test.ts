@@ -6,7 +6,10 @@ import { describe, expect, it } from "vitest";
 const root = resolve(import.meta.dirname, "..");
 const baseline = "e7166374";
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
+const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const marker = "/* V2 section dividers — straight, content-width transitions only. */";
+const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br />Done right for you. 100% virtual</p>';
 const targets = [
   "#how-it-works",
   ".medication-pricing",
@@ -16,7 +19,7 @@ const targets = [
   "#faq",
 ] as const;
 const protectedNonCssFiles = [
-  "client/src/pages/WeightLossMenopauseV2.tsx",
+  pagePath,
   "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx",
   "client/src/pages/WeightLossMenopauseV2MobileBar.tsx",
   "client/src/pages/weightLossMenopauseV2Interactions.ts",
@@ -31,6 +34,14 @@ function read(file: string): string {
 
 function atBaseline(file: string): string {
   return execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
+}
+
+function countExactOccurrences(source: string, value: string): number {
+  return source.split(value).length - 1;
+}
+
+function normalizeApprovedHeroSupportingLine(source: string): string {
+  return source.replace(approvedHeroSupportingLine, previousHeroSupportingLine);
 }
 
 function cssRules(css: string): CssRule[] {
@@ -70,7 +81,16 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
     expect(css.match(/\/\* V2 section dividers — straight, content-width transitions only\. \*\//g)).toHaveLength(1);
     expect(markerIndex).toBeGreaterThanOrEqual(0);
     expect(css.slice(0, markerIndex)).toBe(atBaseline(cssPath));
-    for (const file of protectedNonCssFiles) expect(read(file)).toBe(atBaseline(file));
+    for (const file of protectedNonCssFiles) {
+      const source = read(file);
+      if (file === pagePath) {
+        expect(countExactOccurrences(source, approvedHeroSupportingLine)).toBe(1);
+        expect(countExactOccurrences(source, previousHeroSupportingLine)).toBe(0);
+        expect(normalizeApprovedHeroSupportingLine(source)).toBe(atBaseline(file));
+      } else {
+        expect(source).toBe(atBaseline(file));
+      }
+    }
   });
 
   it("uses only grouped V2 target parent and ::before selectors, never global styling", () => {

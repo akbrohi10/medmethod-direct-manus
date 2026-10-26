@@ -3370,3 +3370,8 @@ Save the completed update as a checkpoint only. Do not publish; the separate pai
 - Original V2 CSS is byte-preserved before the appended block. All markup, other pages, prices, mobile bar, intake, checkout and backend remain unchanged. Updated only the existing combined-CSS slice boundary and added a pinned-baseline divider guard.
 - 48 focused original/V2 tests, TypeScript, production build and whitespace checks passed. Provider-blocked browser QA at 320/375/768/1440px verified all six content-aligned 1px lines, straight/no-mask/no-shadow treatment, unchanged section geometry/padding/backgrounds, prices and intake CTA, usable FAQ and no overflow. Settled mobile/desktop screenshots reviewed outside the repository.
 - Checkpoint only; not published. No real charges, submissions, calls, messages, bookings or provider actions.
+
+## V2 Hero Supporting Copy — 2026-10-26
+- Replaced only the hero supporting paragraph with bold “GLP-1s, menopause & hormone therapy.” followed by “Done right for you. 100% virtual”. Preserved existing paragraph/emphasis classes and all CSS, headlines, buttons, dividers, prices, mobile bar, checkout, intake and other pages.
+- Exact inverse restores the whole V2 page to checkpoint 9b081b83; CSS remains byte-identical. Updated only the exact hero-copy regressions and the divider guard’s narrow approved-copy normalization. Independent 49 focused tests passed; TypeScript/build/whitespace passed. Provider-blocked checks at 320/375/768/1440px verified exact wording, preserved fonts/colors/spacing, fit without clipping/overflow, unchanged intake CTA and intact divider. Mobile/desktop visuals reviewed outside project.
+- Checkpoint only; not published. No real submissions, charges, calls, messages, bookings or provider actions.

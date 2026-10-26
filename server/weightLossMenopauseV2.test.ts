@@ -1,9 +1,14 @@
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { generateCrawlerHtml, getMetaForPath, injectRouteMetaIntoHtml } from "./crawlerMiddleware";
 
 const read = (file: string) => readFileSync(resolve(import.meta.dirname, "..", file), "utf8");
+const root = resolve(import.meta.dirname, "..");
+const approvedHeroSupportingLineBaseline = "9b081b83";
+const v2PagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
+const v2CssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const originalPage = read("client/src/pages/WeightLossMenopause.tsx");
 const originalCss = read("client/src/pages/WeightLossMenopause.css");
 const originalInteraction = read("client/src/pages/weightLossMenopauseInteractions.ts");
@@ -82,7 +87,8 @@ const approvedGlp1DisplayMap: Record<string, Glp1PageDisplay> = {
 };
 
 const approvedHeroHeadline = '<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>First visit FREE!</em></span></h1>';
-const approvedHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
+const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br />Done right for you. 100% virtual</p>';
 const approvedPatientMessage = '<div className="chat-message" data-chat-at="400"><div className="bubble me">Hi Dr. Al-Deek,<br />I\'d like to learn about my options for weight loss and hormones.</div><div className="chat-time patient-time">9:41 AM</div></div>';
 const approvedDoctorMessage = '<div className="chat-message" data-chat-at="2400"><div className="bubble">Of course! I\'m happy to help. Let\'s discuss your goals and see what options may be right for you.</div><div className="chat-time">9:42 AM</div></div>';
 const previousApprovedHowItWorksSection = '<section className="section wave-top wave-soft" id="how-it-works"><div className="container"><div className="section-heading"><h2>How it works</h2></div><div className="steps"><article className="step"><div className="step-num">1</div><h3>Complete your intake (5–10 min)</h3></article><article className="step"><div className="step-num">2</div><h3>Text with your doctor</h3></article><article className="step"><div className="step-num">3</div><h3>Discuss your options with your doctor, based on your evaluation.</h3></article></div></div></section>';
@@ -353,6 +359,14 @@ function restoreOriginalNames(source: string): string {
     .replaceAll("wlm-v2-", "wlm-");
 }
 
+function atApprovedHeroSupportingLineBaseline(file: string): string {
+  return execFileSync("git", ["show", `${approvedHeroSupportingLineBaseline}:${file}`], { cwd: root, encoding: "utf8" });
+}
+
+function countExactOccurrences(source: string, value: string): number {
+  return source.split(value).length - 1;
+}
+
 describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   it("preserves exact source parity outside the approved hero and established V2-only changes", () => {
     expect(page).toContain('import { initializeWeightLossMenopauseV2 } from "./weightLossMenopauseV2Interactions"');
@@ -417,6 +431,13 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(restoreOriginalNames(css.split(refinementMarker)[0])).toBe(originalCss);
   });
 
+  it("allows only the approved hero supporting-line replacement against the 9b081b83 page and CSS pin", () => {
+    expect(countExactOccurrences(page, approvedHeroSupportingLine)).toBe(1);
+    expect(countExactOccurrences(page, previousHeroSupportingLine)).toBe(0);
+    expect(page.replace(approvedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
+    expect(css).toBe(atApprovedHeroSupportingLineBaseline(v2CssPath));
+  });
+
   it("adds only a page-scoped mobile crop and centered original wordmark without changing the shared Navbar or desktop header", () => {
     const pageNavbar = '<Navbar onConsultClick={() => {}} navigationLinks={PAGE_NAVIGATION} localSections showVirtualBanner={false} stickyOnPage primaryHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
     const headerStart = css.indexOf(mobileHeaderMarker);
@@ -457,6 +478,8 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(hero).toContain('<div className="container hero-grid"><div className="hero-copy">');
     expect(hero).toContain(approvedHeroHeadline);
     expect(hero).toContain(approvedHeroSupportingLine);
+    expect(countExactOccurrences(hero, approvedHeroSupportingLine)).toBe(1);
+    expect(hero).not.toContain(previousHeroSupportingLine);
     expect(hero).toContain('<div className="hero-actions"><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL}>');
     expect(hero).toContain('<span className="hero-cta-timing">Complete intake · 5–10 min</span>');
     expect(hero).not.toContain('className="hero-text-note"');
