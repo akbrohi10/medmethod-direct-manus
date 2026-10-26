@@ -60,11 +60,11 @@ const normalizedDuplicate = duplicate
   .replace(mobileBookingPill, "")
   .replace("<main data-masterclass2-page ", "<main ")
   .replace('        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }\n', "")
-  .replace('import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";\n', "")
+  .replace('import { getMasterclass2VideoPendingCheckout as getVideoVisitPendingCheckout } from "@/components/masterclass2/checkout4799/videoVisitCheckout4799Storage";\n', "")
   .replace('    const pendingCheckout = getVideoVisitPendingCheckout();\n    if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);\n', "")
   .replace(currentBooking, originalBooking)
   .replace("export default function Masterclass2()", `${originalPricing}export default function Masterclass2()`)
-  .replace('import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";', 'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";\nimport LpConsultationModal2 from "@/components/home1/LpConsultationModal2";')
+  .replace('import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";', 'import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";\nimport LpConsultationModal2 from "@/components/home1/LpConsultationModal2";')
   .replace('import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";', 'import { CheckCircle2, ShieldCheck, Video } from "lucide-react";')
   .replace('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />', '<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />')
   .replace("        <FeaturedInStrip />\n", "")
@@ -124,6 +124,8 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
 
   it("preserves the video and banner while replacing only approved booking and pricing", () => {
     expect(duplicate).toContain('const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";');
+    expect(duplicate).toContain('import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";');
+    expect(duplicate).toContain('import { getMasterclass2VideoPendingCheckout as getVideoVisitPendingCheckout } from "@/components/masterclass2/checkout4799/videoVisitCheckout4799Storage";');
     expect(duplicate).toContain("data-masterclass2-home-headline");
     expect(duplicate).toContain("Done Right for You.");
     expect(duplicate).toContain("Watch Now—Get Answers.");
@@ -136,6 +138,8 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).not.toContain("$199");
     expect(duplicate).not.toContain("PricingDetails");
     expect(duplicate).toContain('href="/care-team-booking"');
+    expect(duplicate).toContain("Only $47.99");
+    expect(duplicate).toContain('aria-label="Video visit — $47.99 per visit"');
     expect(duplicate).toContain(
       '<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />',
     );

@@ -59,6 +59,9 @@ const masterclassNav = mobileNav(masterclass2, "data-masterclass2-mobile-connect
 const v2Nav = mobileNav(mobileBar, "data-wlm-v2-mobile-connection-bar");
 const expectedV2Nav = masterclassNav
   .replaceAll("data-masterclass2-mobile-", "data-wlm-v2-mobile-")
+  // V2 retains its original $39 checkout; all other control markup and actions
+  // must remain byte-for-byte equivalent to the approved masterclass2 bar.
+  .replaceAll("$47.99", "$39")
   .replace(
     'style={{ display: consultationOpen ? "none" : undefined, left:',
     'style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left:',
@@ -69,7 +72,7 @@ const careCall = controlSlice(v2Nav, "data-wlm-v2-mobile-care-call");
 
 
 describe("Weight-Loss & Menopause V2 approved mobile connection bar", () => {
-  it("is the entire finalized Masterclass2 nav with only V2 marker remapping and the required explicit Montserrat font", () => {
+  it("is the entire finalized Masterclass2 nav with only V2 marker remapping, approved price normalization, and the required explicit Montserrat font", () => {
     expect(v2Nav).toBe(expectedV2Nav);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-connection-bar/g)]).toHaveLength(1);
     expect([...mobileBar.matchAll(/data-wlm-v2-mobile-text-visit/g)]).toHaveLength(1);

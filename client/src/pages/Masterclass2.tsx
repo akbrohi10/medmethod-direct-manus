@@ -1,10 +1,10 @@
-import VideoVisitCheckout from "@/components/masterclass2/VideoVisitCheckout";
+import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
-import { getVideoVisitPendingCheckout } from "@/components/masterclass2/videoVisitCheckoutStorage";
+import { getMasterclass2VideoPendingCheckout as getVideoVisitPendingCheckout } from "@/components/masterclass2/checkout4799/videoVisitCheckout4799Storage";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 const MASTERCLASS_YOUTUBE_ID = "UNYMLkd61z8";
@@ -219,7 +219,7 @@ export default function Masterclass2() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center sm:h-16 sm:w-16"><Video className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Book My Video Visit</span>
-                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $39</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $47.99</span>
                   <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>
                 </span>
                 <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
@@ -283,7 +283,7 @@ export default function Masterclass2() {
             <button
               type="button"
               data-masterclass2-mobile-booking
-              aria-label="Video visit — $39 per visit"
+              aria-label="Video visit — $47.99 per visit"
               aria-haspopup="dialog"
               ref={mobileBookingRef}
               onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
@@ -291,7 +291,7 @@ export default function Masterclass2() {
             >
               <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Video Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">$39 per visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">$47.99 per visit</span>
             </button>
             <a
               data-masterclass2-mobile-care-call

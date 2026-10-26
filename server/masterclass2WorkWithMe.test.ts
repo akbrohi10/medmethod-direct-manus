@@ -55,8 +55,8 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     expect(videoButton).toContain("from-[#e8339e]");
     expect(videoButton).toContain("to-[#7a1e7e]");
     expect(videoOffer).toContain("Book My Video Visit");
-    expect(videoOffer).toContain("Only $39");
-    expect(videoOffer).toContain('<span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $39</span>\n                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>');
+    expect(videoOffer).toContain("Only $47.99");
+    expect(videoOffer).toContain('<span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $47.99</span>\n                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>');
     expect(videoOffer).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(videoOffer).toMatch(/<ArrowRight\b[^>]*aria-hidden="true"[^>]*\/>/);
   });
@@ -103,15 +103,16 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     }
   });
 
-  it("leaves the original pricing guard, mobile paid action, and checkout integration intact", () => {
+  it("leaves the original pricing guard while using the approved $47.99 mobile action and checkout integration", () => {
     expect(page).not.toMatch(/\$199|\$50|\$149|\$150|45-Minute|PricingDetails|LpConsultationModal2/);
     expect(original).toContain("See Full Pricing Details");
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
-    expect([...page.replace('aria-label="Video visit — $39 per visit"', "").matchAll(/\$\d+/g)].map(match => match[0])).toEqual(["$39", "$39"]);
-    expect(page).not.toMatch(/\$47|\$19\.99/);
+    expect([...page.replace('aria-label="Video visit — $47.99 per visit"', "").matchAll(/\$\d+(?:\.\d{2})?/g)].map(match => match[0])).toEqual(["$47.99", "$47.99"]);
+    expect(page).not.toContain("$39");
     expect(page).toContain("data-masterclass2-mobile-booking");
-    expect(page).toContain('aria-label="Video visit — $39 per visit"');
+    expect(page).toContain('aria-label="Video visit — $47.99 per visit"');
+    expect(page).toContain('import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";');
     expect(page).toContain("<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />");
   });
 });

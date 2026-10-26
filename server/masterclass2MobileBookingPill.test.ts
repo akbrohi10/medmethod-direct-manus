@@ -100,7 +100,7 @@ describe("masterclass2 mobile connection bar", () => {
   it("keeps the paid Video Visit button connected only to the existing checkout and focus recovery", () => {
     expect(mobileBooking).toContain('type="button"');
     expect(mobileBooking).toContain('aria-haspopup="dialog"');
-    expect(mobileBooking).toContain('aria-label="Video visit — $39 per visit"');
+    expect(mobileBooking).toContain('aria-label="Video visit — $47.99 per visit"');
     expect(mobileBooking).toContain("ref={mobileBookingRef}");
     expect(mobileBooking).toContain(
       "onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}",
@@ -111,7 +111,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileBooking).toContain("to-[#680686]");
     expect(mobileBooking).toContain("text-white");
     expect(mobileBooking).toMatch(/<span[^>]*>\s*Video Visit\s*<\/span>/);
-    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$39 per visit\s*<\/span>/);
+    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$47\.99 per visit\s*<\/span>/);
     expect(mobileBooking).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(mobileBooking).not.toMatch(/(?:fetch\(|trpc\.|location\.|paypal|stripe|localStorage|sessionStorage)/i);
 
@@ -121,6 +121,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(page).toContain(
       "  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current) {\n      mobileBookingOpened.current = false;\n      const timer = window.setTimeout(() => mobileBookingRef.current?.focus({ preventScroll: true }), 250);\n      return () => window.clearTimeout(timer);\n    }\n  }, [consultationOpen]);",
     );
+    expect(page).toContain('import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";');
     expect(page).toContain('<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />');
   });
 
@@ -168,6 +169,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(page).toContain("100% virtual care · Available in 17 states");
     expect(page).toContain('<a href="/care-team-booking" data-masterclass-video-first-care-team-cta');
     expect(page).not.toContain("Book My Video Visit — Only $39!");
+    expect(page).not.toContain("Book My Video Visit — Only $47.99!");
     expect(original).not.toContain("data-masterclass2-mobile-connection-bar");
     expect(original).not.toContain("data-masterclass2-page");
   });
