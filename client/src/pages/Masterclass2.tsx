@@ -215,7 +215,7 @@ export default function Masterclass2() {
           </div>
           <div data-masterclass2-connection-rows className="mx-auto mt-6 flex max-w-[640px] flex-col gap-3.5 text-left sm:mt-7">
             <div data-masterclass2-video-offer>
-              <button type="button" data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)} className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-4 text-left text-white shadow-[0_6px_18px_rgba(122,30,126,0.12)] transition-colors duration-150 hover:from-[#df2c92] hover:to-[#6b1a70] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-full sm:px-6 sm:py-5">
+              <a href="https://intake.medmethoddirect.com/?video=1" data-masterclass-video-first-physician-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-4 text-left text-white shadow-[0_6px_18px_rgba(122,30,126,0.12)] transition-colors duration-150 hover:from-[#df2c92] hover:to-[#6b1a70] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-full sm:px-6 sm:py-5">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center sm:h-16 sm:w-16"><Video className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Book My Video Visit</span>
@@ -223,7 +223,7 @@ export default function Masterclass2() {
                   <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>
                 </span>
                 <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
-              </button>
+              </a>
             </div>
             <div data-masterclass2-text-visit>
               <a href="https://intake.medmethoddirect.com/" data-masterclass2-text-visit-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] border border-[#e7cbdc] bg-[#fdf8fb] px-4 py-4 text-left text-[#7a1e7e] transition-colors duration-150 hover:bg-[#f7edf3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-[36px] sm:px-6 sm:py-5">

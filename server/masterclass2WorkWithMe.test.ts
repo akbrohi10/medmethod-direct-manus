@@ -18,7 +18,7 @@ const textVisit = row("data-masterclass2-text-visit", "data-masterclass2-free-ca
 const freeCall = row("data-masterclass2-free-call", "data-masterclass2-connection-disclosures");
 const textVisitAnchor = textVisit.match(/<a[^>]*data-masterclass2-text-visit-cta[^>]*>/)?.[0] ?? "";
 const careTeamAnchor = freeCall.match(/<a[^>]*data-masterclass-video-first-care-team-cta[^>]*>/)?.[0] ?? "";
-const videoButton = videoOffer.match(/<button\b[\s\S]*?className="[^"]*"/)?.[0] ?? "";
+const videoAnchor = videoOffer.match(/<a[^>]*data-masterclass-video-first-physician-cta[^>]*>/)?.[0] ?? "";
 
 const rows = [videoOffer, textVisit, freeCall];
 
@@ -44,16 +44,17 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
       expect(currentRow).not.toMatch(/<p\b/);
     }
 
-    expect(videoOffer).toMatch(/<button\b/);
+    expect(videoOffer).toMatch(/<a\b/);
     expect(textVisit).toMatch(/<a\b/);
     expect(freeCall).toMatch(/<a\b/);
   });
 
-  it("keeps the paid video row connected to the existing checkout and its approved price", () => {
-    expect(videoOffer).toContain('data-masterclass-video-first-physician-cta onClick={() => setConsultationOpen(true)}');
-    expect(videoButton).toContain("bg-gradient-to-r");
-    expect(videoButton).toContain("from-[#e8339e]");
-    expect(videoButton).toContain("to-[#7a1e7e]");
+  it("links only the paid video row to the approved intake destination while retaining its approved price and design", () => {
+    expect(videoAnchor).toMatch(/^<a href="https:\/\/intake\.medmethoddirect\.com\/\?video=1" data-masterclass-video-first-physician-cta\b/);
+    expect(videoOffer).not.toMatch(/<button\b|\bonClick\s*=|\btype="button"|setConsultationOpen|aria-haspopup|\btarget\s*=/);
+    expect(videoAnchor).toContain("bg-gradient-to-r");
+    expect(videoAnchor).toContain("from-[#e8339e]");
+    expect(videoAnchor).toContain("to-[#7a1e7e]");
     expect(videoOffer).toContain("Book My Video Visit");
     expect(videoOffer).toContain("Only $47.99");
     expect(videoOffer).toContain('<span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $47.99</span>\n                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>');
