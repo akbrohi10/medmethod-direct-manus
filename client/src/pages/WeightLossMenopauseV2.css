@@ -547,3 +547,47 @@
   .wlm-v2-content #how-it-works .process-pricing-followup p { font-size: 15px; }
   .wlm-v2-content #how-it-works .process-pricing-cta { font-size: 15px; }
 }
+/* V2 section dividers — straight, content-width transitions only. */
+.wlm-v2-content #how-it-works,
+.wlm-v2-content .medication-pricing,
+.wlm-v2-content #doctor,
+.wlm-v2-content .support-section,
+.wlm-v2-content #testimonials,
+.wlm-v2-content #faq {
+  position: relative;
+}
+.wlm-v2-content #how-it-works::before,
+.wlm-v2-content .medication-pricing::before,
+.wlm-v2-content #doctor::before,
+.wlm-v2-content .support-section.wave-top::before,
+.wlm-v2-content #testimonials::before,
+.wlm-v2-content #faq::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: min(calc(100% - 40px), var(--max));
+  height: 1px;
+  margin-inline: auto;
+  background: linear-gradient(90deg, transparent 0%, rgba(232, 51, 158, .55) 16%, rgba(122, 30, 126, .55) 50%, rgba(232, 51, 158, .55) 84%, transparent 100%);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: none;
+  mask: none;
+  transform: none;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 620px) {
+  .wlm-v2-content #how-it-works::before,
+  .wlm-v2-content .medication-pricing::before,
+  .wlm-v2-content #doctor::before,
+  .wlm-v2-content .support-section.wave-top::before,
+  .wlm-v2-content #testimonials::before,
+  .wlm-v2-content #faq::before {
+    width: min(calc(100% - 28px), var(--max));
+  }
+}

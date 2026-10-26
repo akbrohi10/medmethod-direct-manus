@@ -945,7 +945,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("appends the final combined process and visit-pricing CSS once, with every selector scoped to the V2 How-it-works section", () => {
     expect(css.match(/\/\* V2 combined process and visit pricing \*\//g)).toHaveLength(1);
-    const combinedCss = css.slice(css.indexOf(combinedProcessPricingMarker) + combinedProcessPricingMarker.length).trim();
+    const combinedCss = css.slice(css.indexOf(combinedProcessPricingMarker) + combinedProcessPricingMarker.length, css.indexOf("/* V2 section dividers — straight, content-width transitions only. */")).trim();
     const selectors = Array.from(combinedCss.matchAll(/(?:^|[{}])\s*(?!@)([^@{}]+?)\s*\{/g), match => match[1].trim().replace(/\s+/g, " "));
     expect(combinedCss).toContain('.wlm-v2-content #how-it-works.process-pricing-section { padding: 64px 0;');
     expect(combinedCss).toContain('.wlm-v2-content #how-it-works .process-pricing-layout { display: grid;');
