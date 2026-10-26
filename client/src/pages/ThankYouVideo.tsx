@@ -1,8 +1,42 @@
+import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, CheckCircle, Mail, MessageSquare, UserPlus } from "lucide-react";
+import IntakeVideoPayment from "@/components/thank-you-video/IntakeVideoPayment";
+import { confirmedIntakeVideoAccess, readIntakeVideoReceipt, type IntakeVideoReceipt } from "@/components/thank-you-video/receipt";
 import "./thank-you-video.css";
 
 export default function ThankYouVideo() {
+  const [receipt] = useState<IntakeVideoReceipt | null>(() => {
+    try { return readIntakeVideoReceipt(window.sessionStorage); } catch { return null; }
+  });
+  const [access, setAccess] = useState<"checking" | "blocked" | "error" | "available" | "pending" | "paid" | "waived">(receipt ? "checking" : "blocked");
+  const [attempt, setAttempt] = useState(0);
+  const recheck = useCallback(() => { setAccess("checking"); setAttempt(value => value + 1); }, []);
+
+  useEffect(() => {
+    if (!receipt) return;
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20_000);
+    let active = true;
+    (async () => {
+      try {
+        const response = await fetch("/api/intake/video/status", {
+          method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ submission_token: receipt.submission_token }), signal: controller.signal,
+        });
+        if (!active) return;
+        if (response.status === 400 || response.status === 401 || response.status === 403 || response.status === 422) { setAccess("blocked"); return; }
+        if (!response.ok) throw new Error("Receipt verification unavailable");
+        const result = await response.json();
+        const verified = confirmedIntakeVideoAccess(result, receipt);
+        if (active) setAccess(verified);
+      } catch {
+        if (active) setAccess("error");
+      } finally { window.clearTimeout(timeout); }
+    })();
+    return () => { active = false; controller.abort(); window.clearTimeout(timeout); };
+  }, [receipt, attempt]);
+
   return (
     <>
       <Helmet>
@@ -63,7 +97,23 @@ export default function ThankYouVideo() {
           </a>
         </div>
 
-        <VideoBookingFollowup />
+        {access === "checking" && <p className="text-[#59656f] mb-10" role="status">Checking your intake and video visit…</p>}
+        {access === "blocked" && (
+          <section className="w-full max-w-lg bg-white rounded-2xl border border-[#d7e1dd] p-6 text-center mb-10" data-thank-you-video-no-intake>
+            <h2 className="text-xl font-bold mb-3">Complete your free intake first</h2>
+            <p className="text-[#59656f] mb-5">Complete your free intake first. After submission, you can add an optional $39 Zoom video visit and choose a time.</p>
+            <a href="/intake/" className="tyv-intake-primary inline-flex items-center justify-center">Complete your free intake</a>
+          </section>
+        )}
+        {access === "error" && (
+          <section className="w-full max-w-lg bg-white rounded-2xl border border-[#d7e1dd] p-6 text-center mb-10" role="alert">
+            <h2 className="text-xl font-bold mb-3">Unable to verify your video visit</h2>
+            <p className="text-[#59656f] mb-5">Please retry or contact the Care Team. If you have already paid, do not make another payment.</p>
+            <button type="button" onClick={recheck} className="tyv-intake-primary">Retry verification</button>
+          </section>
+        )}
+        {receipt && (access === "available" || access === "pending") && <IntakeVideoPayment receipt={receipt} onConfirmed={recheck} />}
+        {(access === "paid" || access === "waived") && <VideoBookingFollowup waived={access === "waived"} />}
 
         {/* Continue Exploring Link */}
         <div className="w-full max-w-lg text-center pt-6 border-t border-[#d7e1dd]">
@@ -114,10 +164,11 @@ interface VideoBookingFollowupProps {
   firstName?: string;
   email?: string;
   compact?: boolean;
+  waived?: boolean;
 }
 
 /** Shared booking and follow-up material used on /thank-you-video only; original booking page is unchanged. */
-function VideoBookingFollowup({ firstName, email, compact = false }: VideoBookingFollowupProps) {
+function VideoBookingFollowup({ firstName, email, compact = false, waived = false }: VideoBookingFollowupProps) {
   const calendarParams = new URLSearchParams();
   if (firstName) calendarParams.set("name", firstName);
   if (email) calendarParams.set("email", email);
@@ -132,7 +183,7 @@ function VideoBookingFollowup({ firstName, email, compact = false }: VideoBookin
         </div>
         <h2 className="text-2xl font-bold text-[#113a3a] mb-2" style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>You're Booked!</h2>
         <p className="text-[#59656f] text-sm max-w-md mx-auto">
-          Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek.
+          {waived ? "Your Zoom video visit waiver is confirmed. Now pick a time below to meet with Dr. Al-Deek." : "Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek."}
         </p>
         <div className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-[#0e7c7b]/5 border border-[#0e7c7b]/20">
           <span className="w-2 h-2 rounded-full bg-[#72a40b] animate-pulse" />

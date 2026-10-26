@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 const root = resolve(import.meta.dirname, "..");
@@ -14,7 +14,7 @@ describe("video booking confirmation only", () => {
     expect(router).toContain('<Route path="/thank-you2" component={ThankYou2} />');
     expect(router).toContain('<Route path="/thank-you-video" component={ThankYouVideo} />');
     expect(originalPage).toContain("<WL2BookingFollowup />");
-    expect(page).toContain("<VideoBookingFollowup />");
+    expect(page).toContain('{(access === "paid" || access === "waived") && <VideoBookingFollowup waived={access === "waived"} />}');
     expect(page).not.toContain("dataLayer");
     expect(page).toContain('content="noindex, nofollow"');
   });
@@ -40,11 +40,17 @@ describe("video booking confirmation only", () => {
     }
     for (const cls of ['className="w-full max-w-lg mx-auto mb-5 text-center"', 'className={`w-full max-w-lg mx-auto ${spacing}`}', 'className="flex items-start gap-4"']) expect(page).toContain(cls);
   });
-  it("contains no upsell, lock, payment controls, payment script or API calls", () => {
-    expect(page).not.toMatch(/Prefer a face-to-face|Add Zoom Video Visit|Complete your \$39 payment|video-checkout|video-card-|PayPal|paypal|ApplePay|unlockVideoCalendar|fetch\(/);
-    expect(page).not.toContain("useEffect");
-    expect(page).not.toContain("thank-you-video.js");
-    expect(existsSync(resolve(root, "client/public/intake/thank-you-video.js"))).toBe(false);
+  it("checks the existing receipt status before rendering checkout or the unchanged calendar", () => {
+    expect(page).toContain('readIntakeVideoReceipt(window.sessionStorage)');
+    expect(page).toContain('fetch("/api/intake/video/status"');
+    expect(page).toContain('JSON.stringify({ submission_token: receipt.submission_token })');
+    expect(page).toContain('confirmedIntakeVideoAccess(result, receipt)');
+    expect(page).toContain('receipt && (access === "available" || access === "pending") && <IntakeVideoPayment');
+    expect(page).toContain('Complete your free intake first. After submission, you can add an optional $39 Zoom video visit and choose a time.');
+    expect(page).toContain('href="/intake/"');
+    expect(page).toContain('do not make another payment.');
+    expect(page).not.toContain('payment_status=');
+    expect(page).not.toContain('submission_token=');
   });
   it("uses only intake-derived palette, fonts and primary-button styles with isolated selectors", () => {
     const colors = new Set((intake.match(/#[\da-fA-F]{3,8}\b/g) || []).map(x => x.toLowerCase()));
@@ -54,6 +60,6 @@ describe("video booking confirmation only", () => {
     expect(css).toContain("padding: 15px 28px");
     expect(css).toContain("padding: 14px 20px");
     expect(page).not.toMatch(/#E8339E|#7A1E7E|Playfair Display/);
-    for (const selector of css.matchAll(/(?:^|\})\s*([^{}@]+)\{/g)) for (const part of selector[1].split(",")) expect(part.trim()).toMatch(/^#thank-you-video-root/);
+    for (const selector of css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/(?:^|\})\s*([^{}@]+)\{/g)) for (const part of selector[1].split(",")) expect(part.trim()).toMatch(/^#thank-you-video-root/);
   });
 });

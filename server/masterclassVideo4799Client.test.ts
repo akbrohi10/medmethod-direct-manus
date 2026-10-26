@@ -196,8 +196,11 @@ describe("masterclass2 $47.99 video visit client checkout", () => {
     expect(app).not.toContain('path="/thank-you-video-4799/"');
     expect(receipt).toContain("export default function ThankYouVideo4799()");
     expect(receipt).toContain("Your $47.99 Zoom video visit payment is confirmed.");
-    expect(receipt.replaceAll("ThankYouVideo4799", "ThankYouVideo").replaceAll("$47.99", "$39")).toBe(
-      originalReceipt,
-    );
+    const bookingMaterial = (source: string) => source.slice(source.indexOf('const BRAND_ACCENT'));
+    const normalizedOriginal = bookingMaterial(originalReceipt)
+      .replace('  waived?: boolean;\n', '')
+      .replace('compact = false, waived = false', 'compact = false')
+      .replace('{waived ? "Your Zoom video visit waiver is confirmed. Now pick a time below to meet with Dr. Al-Deek." : "Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek."}', 'Your $39 Zoom video visit payment is confirmed. Now pick a time below to meet with Dr. Al-Deek.');
+    expect(bookingMaterial(receipt).replaceAll("$47.99", "$39")).toBe(normalizedOriginal);
   });
 });
