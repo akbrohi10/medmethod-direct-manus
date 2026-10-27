@@ -1,9 +1,17 @@
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import ts from "typescript";
 
 const read = (p: string) => readFileSync(resolve(process.cwd(), p), "utf8");
+const readBaselineProfile = () =>
+  execFileSync("git", ["show", "75d55770:client/src/components/masterclass2/PhysicianProfile.tsx"], {
+    cwd: process.cwd(),
+    encoding: "utf8",
+  });
+const normalizeApprovedCredential = (source: string) =>
+  source.replace('"Board-Certified Family Physician"', '"Board-Certified DO"');
 const page = read("client/src/pages/Masterclass2.tsx");
 const profile = read("client/src/components/masterclass2/PhysicianProfile.tsx");
 const homepage = read("client/src/components/home1/MedicalTeam.tsx");
@@ -55,8 +63,11 @@ describe("masterclass2 full homepage-style physician profile", () => {
   });
 
   it("copies all existing credential, specialty and full narrative data without new claims", () => {
+    expect(profile.match(/"Board-Certified Family Physician"/g)).toHaveLength(1);
+    expect(profile).not.toContain('"Board-Certified DO"');
+    expect(normalizeApprovedCredential(profile)).toBe(readBaselineProfile());
     for (const name of ["CREDENTIAL_PILLS", "FOCUS_AREA_PILLS", "BIO_SECTIONS"]) {
-      expect(initializer(profile, name)).toBe(initializer(homepage, name));
+      expect(initializer(normalizeApprovedCredential(profile), name)).toBe(initializer(homepage, name));
     }
     for (const phrase of ["West Virginia School of Osteopathic Medicine", "Doctor of Osteopathic Medicine", "AdventHealth Winter Park", "Family Medicine Residency", "Georgetown University", "Graduate Training, Physiology & Biophysics", "The Menopause Society", "Advanced Menopause Training", "Obesity Medicine Association", "Obesity & Metabolic Health Certification", "Pre-Medicine Background", "Former NASM-Certified Personal Trainer"]) {
       expect(profile).toContain(phrase);

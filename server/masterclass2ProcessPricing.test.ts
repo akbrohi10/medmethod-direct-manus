@@ -14,6 +14,10 @@ const readBaseline = (path: string) =>
   });
 const count = (source: string, value: string) => source.split(value).length - 1;
 const compact = (source: string) => source.replace(/\s+/g, " ").trim();
+const normalizeApprovedProfileCredential = (path: string, source: string) =>
+  path === "client/src/components/masterclass2/PhysicianProfile.tsx"
+    ? source.replace('"Board-Certified Family Physician"', '"Board-Certified DO"')
+    : source;
 
 const page = read("client/src/pages/Masterclass2.tsx");
 const component = read("client/src/components/masterclass2/ProcessPricing.tsx");
@@ -163,7 +167,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
 
   it("keeps V2, physician profile, backend, intake, and all old/$47.99 payment source byte-identical to f7c2c7e7", () => {
     for (const path of protectedSourcePaths) {
-      expect(read(path), path).toBe(readBaseline(path));
+      expect(normalizeApprovedProfileCredential(path, read(path)), path).toBe(readBaseline(path));
     }
   });
 });

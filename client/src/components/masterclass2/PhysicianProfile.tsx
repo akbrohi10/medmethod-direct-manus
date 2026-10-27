@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 // Kept local to masterclass2 so neither homepage nor original masterclass changes.
 
 const CREDENTIAL_PILLS = [
-  "Board-Certified DO",
+  "Board-Certified Family Physician",
   "Menopause Specialist",
   "Metabolism",
   "Author",
