@@ -10,8 +10,15 @@ const readBaselineProfile = () =>
     cwd: process.cwd(),
     encoding: "utf8",
   });
+const readImmediateBaselineProfile = () =>
+  execFileSync("git", ["show", "e4960372:client/src/components/masterclass2/PhysicianProfile.tsx"], {
+    cwd: process.cwd(),
+    encoding: "utf8",
+  });
 const normalizeApprovedCredential = (source: string) =>
-  source.replace('"Board-Certified Family Physician"', '"Board-Certified DO"');
+  source.replace('"Family Physician"', '"Board-Certified DO"');
+const restoreImmediateBaselineCredential = (source: string) =>
+  source.replace('"Family Physician"', '"Board-Certified Family Physician"');
 const page = read("client/src/pages/Masterclass2.tsx");
 const profile = read("client/src/components/masterclass2/PhysicianProfile.tsx");
 const homepage = read("client/src/components/home1/MedicalTeam.tsx");
@@ -63,9 +70,11 @@ describe("masterclass2 full homepage-style physician profile", () => {
   });
 
   it("copies all existing credential, specialty and full narrative data without new claims", () => {
-    expect(profile.match(/"Board-Certified Family Physician"/g)).toHaveLength(1);
+    expect(profile.match(/"Family Physician"/g)).toHaveLength(1);
+    expect(profile).not.toContain('"Board-Certified Family Physician"');
     expect(profile).not.toContain('"Board-Certified DO"');
     expect(normalizeApprovedCredential(profile)).toBe(readBaselineProfile());
+    expect(restoreImmediateBaselineCredential(profile)).toBe(readImmediateBaselineProfile());
     for (const name of ["CREDENTIAL_PILLS", "FOCUS_AREA_PILLS", "BIO_SECTIONS"]) {
       expect(initializer(normalizeApprovedCredential(profile), name)).toBe(initializer(homepage, name));
     }

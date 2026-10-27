@@ -16,7 +16,7 @@ const count = (source: string, value: string) => source.split(value).length - 1;
 const compact = (source: string) => source.replace(/\s+/g, " ").trim();
 const normalizeApprovedProfileCredential = (path: string, source: string) =>
   path === "client/src/components/masterclass2/PhysicianProfile.tsx"
-    ? source.replace('"Board-Certified Family Physician"', '"Board-Certified DO"')
+    ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
 
 const page = read("client/src/pages/Masterclass2.tsx");
