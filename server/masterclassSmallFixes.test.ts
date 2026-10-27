@@ -1,0 +1,179 @@
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+import { describe, expect, it } from "vitest";
+
+type V2FaqData = {
+  V2_FAQ_CATEGORIES: Array<{ items: unknown[] }>;
+  V2_FAQ_FOOTER_PARAGRAPHS: string[];
+};
+
+const BASELINE = "15da38f3";
+const root = resolve(import.meta.dirname, "..");
+const pagePath = "client/src/pages/Masterclass2.tsx";
+const componentPath = "client/src/components/masterclass2/FinalFaq.tsx";
+const dataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
+const cssPath = "client/src/components/masterclass2/FinalFaq.css";
+
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
+const oldMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const approvedMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const oldMobileBookingAria = 'aria-label="Video visit — $97 per visit"';
+const approvedMobileBookingAria = 'aria-label="Video visit — $97"';
+const oldMobileBookingPrice =
+  '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>';
+const approvedMobileBookingPrice =
+  '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>';
+const originalShowAllButton = `                <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
+                  aria-controls={\`mc-faq-questions-\${category.id}\`}
+                  onClick={() => {
+                    if (expanded) collapseTarget.current = category.id;
+                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
+                  }}>{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>`;
+const approvedConditionalShowAllButton = `                {category.items.length > 3 && (
+                <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
+                  aria-controls={\`mc-faq-questions-\${category.id}\`}
+                  onClick={() => {
+                    if (expanded) collapseTarget.current = category.id;
+                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
+                  }}>{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>
+                )}`;
+
+const read = (path: string) => readFileSync(resolve(root, path), "utf8");
+const atBaseline = (path: string) =>
+  execFileSync("git", ["show", `${BASELINE}:${path}`], {
+    cwd: root,
+    encoding: "utf8",
+  });
+const count = (source: string, value: string) => source.split(value).length - 1;
+
+function loadV2FaqData(): V2FaqData {
+  const moduleUrl = pathToFileURL(resolve(root, dataPath)).href;
+  const script = `import(${JSON.stringify(moduleUrl)}).then(module => process.stdout.write(JSON.stringify({ V2_FAQ_CATEGORIES: module.V2_FAQ_CATEGORIES, V2_FAQ_FOOTER_PARAGRAPHS: module.V2_FAQ_FOOTER_PARAGRAPHS })))`;
+  return JSON.parse(
+    execFileSync(process.execPath, ["--import", "tsx", "-e", script], {
+      cwd: root,
+      encoding: "utf8",
+    }),
+  ) as V2FaqData;
+}
+
+function v2ProductionPaths(): string[] {
+  return execFileSync(
+    "git",
+    ["ls-tree", "-r", "--name-only", BASELINE, "--", "client/src"],
+    { cwd: root, encoding: "utf8" },
+  )
+    .split("\n")
+    .filter(Boolean)
+    .filter(path =>
+      /(?:WeightLossMenopauseV2|weightLossMenopauseV2|weight-loss-menopause-v2)/.test(
+        path,
+      ),
+    );
+}
+
+function changedProductionFiles(): string[] {
+  return execFileSync(
+    "git",
+    ["diff", "--name-only", BASELINE, "--", "client", "server", "shared"],
+    { cwd: root, encoding: "utf8" },
+  )
+    .split("\n")
+    .filter(Boolean)
+    .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
+}
+
+function restoreApprovedPage(source: string): string {
+  expect(count(source, footerParagraphImport)).toBe(1);
+  expect(count(source, footerDisclaimers)).toBe(1);
+  expect(count(source, approvedMobilePadding)).toBe(1);
+  expect(count(source, approvedMobileBookingAria)).toBe(1);
+  expect(count(source, approvedMobileBookingPrice)).toBe(1);
+
+  return source
+    .replace(footerParagraphImport, "")
+    .replace(footerDisclaimers, "")
+    .replace(approvedMobilePadding, oldMobilePadding)
+    .replace(approvedMobileBookingAria, oldMobileBookingAria)
+    .replace(approvedMobileBookingPrice, oldMobileBookingPrice);
+}
+
+function unwrapApprovedShowAllConditional(source: string): string {
+  expect(count(source, approvedConditionalShowAllButton)).toBe(1);
+  return source.replace(approvedConditionalShowAllButton, originalShowAllButton);
+}
+
+describe("Masterclass small footer, FAQ, and mobile-bar fixes", () => {
+  it("is exactly reversible to 15da38f3 by undoing only the approved footer import/block, mobile clearance, visible price, and aria label", () => {
+    const page = read(pagePath);
+
+    expect(page).toContain(`${footerDisclaimers}\n        </footer>`);
+    expect(page.indexOf("data-masterclass-legitscript-footer-seal")).toBeLessThan(
+      page.indexOf("data-masterclass-footer-disclaimers"),
+    );
+    expect(page).not.toContain(oldMobilePadding);
+    expect(page).not.toContain(oldMobileBookingAria);
+    expect(page).not.toContain(oldMobileBookingPrice);
+    expect(restoreApprovedPage(page)).toBe(atBaseline(pagePath));
+  });
+
+  it("reuses the immutable two-paragraph V2 disclosures without copying them, while retaining all 44 V2 FAQ items", () => {
+    const page = read(pagePath);
+    const data = loadV2FaqData();
+
+    expect(read(dataPath)).toBe(atBaseline(dataPath));
+    expect(data.V2_FAQ_CATEGORIES.flatMap(category => category.items)).toHaveLength(44);
+    expect(data.V2_FAQ_FOOTER_PARAGRAPHS).toEqual([
+      "Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.",
+      "For adults age 18 and older. Services are currently available in Arizona, Colorado, the District of Columbia, Florida, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia. This website does not provide emergency care. If you are experiencing a medical emergency, call 911.",
+    ]);
+    expect(page).toContain(footerParagraphImport.trim());
+    expect(page).toContain(
+      "{V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}",
+    );
+    for (const paragraph of data.V2_FAQ_FOOTER_PARAGRAPHS) {
+      expect(page).not.toContain(paragraph);
+    }
+  });
+
+  it("uses the taller mobile-only clearance and keeps the bar's simplified $97 text limited to its visible label and accessible name", () => {
+    const page = read(pagePath);
+    const mobileBar = page.slice(
+      page.indexOf("data-masterclass2-mobile-connection-bar"),
+      page.indexOf("</nav>", page.indexOf("data-masterclass2-mobile-connection-bar")),
+    );
+
+    expect(page).toContain(approvedMobilePadding);
+    expect(page).not.toContain("padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px))");
+    expect(mobileBar).toContain(approvedMobileBookingAria);
+    expect(mobileBar).toContain(approvedMobileBookingPrice);
+    expect(mobileBar).not.toContain("per visit");
+    expect(page).toContain("Only $97");
+  });
+
+  it("makes the existing show-all control conditional only for categories with more than three questions and is otherwise byte-reversible", () => {
+    const component = read(componentPath);
+
+    expect(component).toContain("{category.items.length > 3 && (");
+    expect(component).toContain(approvedConditionalShowAllButton);
+    expect(component).toContain('>{expanded ? "Show fewer" : `Show all ${category.items.length} questions`}</button>');
+    expect(unwrapApprovedShowAllConditional(component)).toBe(atBaseline(componentPath));
+  });
+
+  it("leaves every V2 source and FinalFaq stylesheet byte-identical and changes no production source outside the approved page and FAQ component", () => {
+    expect(read(cssPath)).toBe(atBaseline(cssPath));
+    for (const path of v2ProductionPaths()) {
+      expect(read(path), path).toBe(atBaseline(path));
+    }
+    expect(changedProductionFiles()).toEqual([componentPath, pagePath]);
+  });
+});

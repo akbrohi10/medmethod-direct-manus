@@ -158,12 +158,14 @@ export default function FinalFaq({ intakeHref }: { intakeHref: string }) {
                     );
                   })}
                 </div>
+                {category.items.length > 3 && (
                 <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
                   aria-controls={`mc-faq-questions-${category.id}`}
                   onClick={() => {
                     if (expanded) collapseTarget.current = category.id;
                     setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
                   }}>{expanded ? "Show fewer" : `Show all ${category.items.length} questions`}</button>
+                )}
                 <a className="mc-faq-category-cta" href={intakeHref}>Ready? Start your free visit →</a>
               </div>
             );

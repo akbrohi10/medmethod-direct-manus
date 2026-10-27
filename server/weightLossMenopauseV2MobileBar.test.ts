@@ -63,6 +63,11 @@ const expectedV2Nav = masterclassNav
   // intentionally converted from Masterclass2's approved direct intake link
   // back to V2's original native button; everything else stays byte-for-byte equivalent.
   .replaceAll("$47.99", "$97")
+  .replace('aria-label="Video visit — $97"', 'aria-label="Video visit — $97 per visit"')
+  .replace(
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+    '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+  )
   .replace(
     '<a\n              href="https://intake.medmethoddirect.com/?video=1"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $97 per visit"\n              ref={mobileBookingRef}\n              className=',
     '<button\n              type="button"\n              data-wlm-v2-mobile-booking\n              aria-label="Video visit — $97 per visit"\n              aria-haspopup="dialog"\n              ref={mobileBookingRef}\n              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}\n              className=',

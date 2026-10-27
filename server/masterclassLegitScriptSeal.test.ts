@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 const BASELINE = "ea6bf90f";
 const root = resolve(import.meta.dirname, "..");
 const pagePath = "client/src/pages/Masterclass2.tsx";
+const finalFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const sealMarker = "data-masterclass-legitscript-footer-seal";
 const sealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
@@ -15,6 +16,19 @@ const verificationHref =
   "https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com";
 const verificationTitle = "Verify LegitScript Approval for www.medmethoddirect.com";
 const verificationAlt = "Verify Approval for www.medmethoddirect.com";
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
+const approvedMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const previousMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const approvedShowAllConditionalStart =
+  "                {category.items.length > 3 && (\n";
+const approvedShowAllConditionalEnd = "\n                )}";
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -40,12 +54,32 @@ function removeMarkedSealBlock(source: string): string {
   return source.replace(block, "");
 }
 
+function removeApprovedSmallFixes(source: string): string {
+  return source
+    .replace(footerParagraphImport, "")
+    .replace(footerDisclaimers, "")
+    .replace(approvedMobilePadding, previousMobilePadding)
+    .replace('aria-label="Video visit — $97"', 'aria-label="Video visit — $97 per visit"')
+    .replace(
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+    );
+}
+
+function unwrapApprovedFinalFaqConditional(source: string): string {
+  expect(count(source, approvedShowAllConditionalStart)).toBe(1);
+  expect(count(source, approvedShowAllConditionalEnd)).toBe(1);
+  return source
+    .replace(approvedShowAllConditionalStart, "")
+    .replace(approvedShowAllConditionalEnd, "");
+}
+
 describe("Masterclass LegitScript footer seal", () => {
   it("is exactly reversible to ea6bf90f by removing only the uniquely marked new footer div", () => {
     const page = read(pagePath);
 
     expect(count(page, sealMarker)).toBe(1);
-    expect(removeMarkedSealBlock(page)).toBe(atBaseline(pagePath));
+    expect(removeMarkedSealBlock(removeApprovedSmallFixes(page))).toBe(atBaseline(pagePath));
   });
 
   it("uses the approved verification destination, secure new-tab attributes, exact title, and authorized seal asset", () => {
@@ -74,7 +108,7 @@ describe("Masterclass LegitScript footer seal", () => {
     expect(image).toContain("sm:w-[73px]");
   });
 
-  it("leaves every production source other than the authorized Masterclass page insertion unchanged from ea6bf90f", () => {
+  it("leaves every production source other than the authorized Masterclass page and conditionally updated FinalFaq unchanged from ea6bf90f", () => {
     const changedProductionFiles = execFileSync(
       "git",
       ["diff", "--name-only", BASELINE, "--", "client", "server", "shared"],
@@ -84,6 +118,12 @@ describe("Masterclass LegitScript footer seal", () => {
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
 
-    expect(changedProductionFiles).toEqual([pagePath]);
+    expect(changedProductionFiles).toEqual([
+      finalFaqPath,
+      pagePath,
+    ]);
+    expect(unwrapApprovedFinalFaqConditional(read(finalFaqPath))).toBe(
+      atBaseline(finalFaqPath),
+    );
   });
 });

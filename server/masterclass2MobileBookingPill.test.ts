@@ -99,7 +99,7 @@ describe("masterclass2 mobile connection bar", () => {
 
   it("makes the paid Video Visit control the approved accessible native intake link while retaining the existing checkout mount and focus recovery", () => {
     expect(mobileBooking).toContain('href="https://intake.medmethoddirect.com/?video=1"');
-    expect(mobileBooking).toContain('aria-label="Video visit — $97 per visit"');
+    expect(mobileBooking).toContain('aria-label="Video visit — $97"');
     expect(mobileBooking).toContain("ref={mobileBookingRef}");
     expect(mobileBooking).not.toContain('type="button"');
     expect(mobileBooking).not.toContain('aria-haspopup="dialog"');
@@ -110,7 +110,7 @@ describe("masterclass2 mobile connection bar", () => {
     expect(mobileBooking).toContain("to-[#680686]");
     expect(mobileBooking).toContain("text-white");
     expect(mobileBooking).toMatch(/<span[^>]*>\s*Video Visit\s*<\/span>/);
-    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$97 per visit\s*<\/span>/);
+    expect(mobileBooking).toMatch(/<span[^>]*>\s*\$97\s*<\/span>/);
     expect(mobileBooking).toMatch(/<Video\b[^>]*aria-hidden="true"[^>]*\/>/);
     expect(mobileBooking).not.toMatch(/(?:fetch\(|trpc\.|location\.|paypal|stripe|localStorage|sessionStorage)/i);
 
@@ -158,8 +158,9 @@ describe("masterclass2 mobile connection bar", () => {
   it("reserves the taller mobile-only safe area without changing the approved headline, main copy, or large connection rows", () => {
     expect(page).toContain("<main data-masterclass2-page ");
     expect(page).toContain(
-      "@media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }",
+      "@media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }",
     );
+    expect(page).not.toContain("padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px))");
     expect(page).not.toContain("padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px))");
     expect(page).toContain("Menopause, Hormones");
     expect(page).toContain("Done Right for You.");

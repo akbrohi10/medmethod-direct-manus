@@ -30,6 +30,12 @@ const finalMasterclassFaqMount = '        <FinalFaq intakeHref="https://intake.m
 const legitScriptFooterSealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
 const legitScriptFooterSealEnd = "\n          </div>";
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
 const removeApprovedMasterclassLegitScriptFooterSeal = (source: string) => {
   const start = source.indexOf(legitScriptFooterSealStart);
   if (start < 0) return source;
@@ -37,6 +43,19 @@ const removeApprovedMasterclassLegitScriptFooterSeal = (source: string) => {
   if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
   return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
 };
+const normalizeApprovedMasterclassSmallFixes = (source: string) =>
+  source
+    .replace(footerParagraphImport, "")
+    .replace(footerDisclaimers, "")
+    .replace(
+      "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }",
+      "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }",
+    )
+    .replace('aria-label="Video visit — $97"', 'aria-label="Video visit — $97 per visit"')
+    .replace(
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+    );
 const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
   if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
   const baseline = readBaseline(path);
@@ -58,7 +77,9 @@ const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
 const normalizeApprovedFinalMasterclassFaq = (path: string, source: string) =>
   path === "client/src/pages/Masterclass2.tsx"
     ? removeApprovedMasterclassLegitScriptFooterSeal(
-      source.replace(finalMasterclassFaqImport, "").replace(finalMasterclassFaqMount, "")
+      normalizeApprovedMasterclassSmallFixes(source)
+        .replace(finalMasterclassFaqImport, "")
+        .replace(finalMasterclassFaqMount, "")
     )
     : source;
 const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
@@ -136,8 +157,13 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
     expect(count(page, pageImport)).toBe(1);
     expect(count(page, pageMount)).toBe(1);
     expect(count(page, "Only $97")).toBe(1);
-    expect(count(page, 'aria-label="Video visit — $97 per visit"')).toBe(1);
-    expect(count(page, "$97 per visit</span>")).toBe(1);
+    expect(count(page, 'aria-label="Video visit — $97"')).toBe(1);
+    expect(
+      count(
+        page,
+        '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+      ),
+    ).toBe(1);
 
     const restoredBaselinePage = normalizeApprovedFinalMasterclassFaq("client/src/pages/Masterclass2.tsx", normalizeApprovedMasterclassRouteSwap("client/src/pages/Masterclass2.tsx", page))
       .replace(pageImport, "")

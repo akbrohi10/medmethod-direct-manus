@@ -53,6 +53,12 @@ const approvedMasterclassFinalFaqPaths = new Set([
 const legitScriptFooterSealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
 const legitScriptFooterSealEnd = "\n          </div>";
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
@@ -73,6 +79,17 @@ function changedProductionFiles(): string[] {
 
 function normalizeApprovedFinalFaqPageLines(source: string): string {
   const withoutFinalFaq = source
+    .replace(footerParagraphImport, "")
+    .replace(footerDisclaimers, "")
+    .replace(
+      "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }",
+      "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }",
+    )
+    .replace('aria-label="Video visit — $97"', 'aria-label="Video visit — $97 per visit"')
+    .replace(
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+    )
     .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
     .replace('        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n', "");
   const start = withoutFinalFaq.indexOf(legitScriptFooterSealStart);

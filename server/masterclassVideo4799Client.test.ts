@@ -177,9 +177,9 @@ describe("masterclass2 $47.99 video visit client checkout", () => {
 
   it("keeps the masterclass2 landing paid actions at $97 while preserving the local $47.99 checkout alias and same JSX mount", () => {
     expect(masterclass2).toContain("Only $97");
-    expect(masterclass2).toContain('aria-label="Video visit — $97 per visit"');
+    expect(masterclass2).toContain('aria-label="Video visit — $97"');
     expect(masterclass2).toContain(
-      '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
     );
     expect(masterclass2).not.toContain("$39");
     expect(count(masterclass2, "VideoVisitCheckout")).toBeGreaterThanOrEqual(2);

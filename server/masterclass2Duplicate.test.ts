@@ -13,6 +13,12 @@ const legitScriptFooterSealMarker = "data-masterclass-legitscript-footer-seal";
 const legitScriptFooterSealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
 const legitScriptFooterSealEnd = "\n          </div>";
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
 const physicianProfile = read(
   "client/src/components/masterclass2/PhysicianProfile.tsx",
 );
@@ -67,6 +73,8 @@ const currentBooking = sliceBetween(duplicate, "        <section data-masterclas
 const mobileBookingPill = sliceBetween(duplicate, "\n        <nav\n          data-masterclass2-mobile-connection-bar", "\n      <VideoVisitCheckout");
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = removeApprovedMasterclassLegitScriptFooterSeal(duplicate)
+  .replace(footerParagraphImport, "")
+  .replace(footerDisclaimers, "")
   .replace(finalFaqImport, "")
   .replace(finalFaqMount, "")
   .replace('import ProcessPricing from "@/components/masterclass2/ProcessPricing";\n', "")
@@ -77,7 +85,7 @@ const normalizedDuplicate = removeApprovedMasterclassLegitScriptFooterSeal(dupli
   .replace('  const mobileBookingRef = useRef<HTMLAnchorElement>(null);\n  const mobileBookingOpened = useRef(false);\n', "")
   .replace(mobileBookingPill, "")
   .replace("<main data-masterclass2-page ", "<main ")
-  .replace('        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }\n', "")
+  .replace('        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }\n', "")
   .replace('import { getMasterclass2VideoPendingCheckout as getVideoVisitPendingCheckout } from "@/components/masterclass2/checkout4799/videoVisitCheckout4799Storage";\n', "")
   .replace('    const pendingCheckout = getVideoVisitPendingCheckout();\n    if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);\n', "")
   .replace(currentBooking, originalBooking)
@@ -161,7 +169,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).not.toContain("PricingDetails");
     expect(duplicate).toContain('href="/care-team-booking"');
     expect(duplicate).toContain("Only $97");
-    expect(duplicate).toContain('aria-label="Video visit — $97 per visit"');
+    expect(duplicate).toContain('aria-label="Video visit — $97"');
     expect(mobileBookingPill).toMatch(/<a\s+href="https:\/\/intake\.medmethoddirect\.com\/\?video=1"\s+data-masterclass2-mobile-booking/);
     expect(mobileBookingPill).not.toContain('type="button"');
     expect(mobileBookingPill).not.toContain('aria-haspopup="dialog"');

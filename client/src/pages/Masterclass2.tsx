@@ -2,6 +2,7 @@ import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisi
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import ProcessPricing from "@/components/masterclass2/ProcessPricing";
 import FinalFaq from "@/components/masterclass2/FinalFaq";
+import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -125,7 +126,7 @@ export default function Masterclass2() {
           [data-masterclass-video-first-watch-arrow] { animation: none; opacity: 1; transform: none; }
         }
         @media (max-width: 767px) {
-          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }
         }
       `}</style>
 
@@ -285,6 +286,9 @@ export default function Masterclass2() {
               />
             </a>
           </div>
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>
         </footer>
       </article>
         <nav
@@ -307,13 +311,13 @@ export default function Masterclass2() {
             <a
               href="https://intake.medmethoddirect.com/?video=1"
               data-masterclass2-mobile-booking
-              aria-label="Video visit — $97 per visit"
+              aria-label="Video visit — $97"
               ref={mobileBookingRef}
               className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-0.5 py-1 text-center text-[11px] leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
               <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Video Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">$97</span>
             </a>
             <a
               data-masterclass2-mobile-care-call

@@ -23,6 +23,7 @@ type FinalFaqFixture = {
 };
 
 const BASELINE = "40e49baf";
+const FINAL_FAQ_COMPONENT_BASELINE = "15da38f3";
 const root = resolve(import.meta.dirname, "..");
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const componentPath = "client/src/components/masterclass2/FinalFaq.tsx";
@@ -38,10 +39,28 @@ const legitScriptFooterSealMarker =
 const legitScriptFooterSealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
 const legitScriptFooterSealEnd = "\n          </div>";
+const footerParagraphImport =
+  'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
+const footerDisclaimers = `
+          <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
+            {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          </div>`;
+const approvedMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const previousMobilePadding =
+  "        @media (max-width: 767px) {\n          [data-masterclass2-page] { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }\n        }";
+const approvedShowAllConditionalStart =
+  "                {category.items.length > 3 && (\n";
+const approvedShowAllConditionalEnd = "\n                )}";
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
+    cwd: root,
+    encoding: "utf8",
+  });
+const atFinalFaqComponentBaseline = (path: string) =>
+  execFileSync("git", ["show", `${FINAL_FAQ_COMPONENT_BASELINE}:${path}`], {
     cwd: root,
     encoding: "utf8",
   });
@@ -85,6 +104,26 @@ function removeApprovedMasterclassLegitScriptFooterSeal(source: string): string 
   return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
 }
 
+function removeApprovedSmallFixes(source: string): string {
+  return source
+    .replace(footerParagraphImport, "")
+    .replace(footerDisclaimers, "")
+    .replace(approvedMobilePadding, previousMobilePadding)
+    .replace('aria-label="Video visit — $97"', 'aria-label="Video visit — $97 per visit"')
+    .replace(
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>',
+      '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>',
+    );
+}
+
+function unwrapApprovedFinalFaqConditional(source: string): string {
+  expect(count(source, approvedShowAllConditionalStart)).toBe(1);
+  expect(count(source, approvedShowAllConditionalEnd)).toBe(1);
+  return source
+    .replace(approvedShowAllConditionalStart, "")
+    .replace(approvedShowAllConditionalEnd, "");
+}
+
 function removeApprovedFinalFaqPageLines(source: string): string {
   expect(
     count(source, pageImport),
@@ -95,7 +134,7 @@ function removeApprovedFinalFaqPageLines(source: string): string {
     "FinalFaq mount must occur exactly once"
   ).toBe(1);
   return removeApprovedMasterclassLegitScriptFooterSeal(
-    source.replace(pageImport, "").replace(pageMount, "")
+    removeApprovedSmallFixes(source).replace(pageImport, "").replace(pageMount, "")
   );
 }
 
@@ -163,11 +202,15 @@ describe("Masterclass final FAQ", () => {
     }
   });
 
-  it("is exactly reversible to 40e49baf outside the approved FinalFaq lines and marked LegitScript seal, with every V2 production source byte-pinned", () => {
+  it("is exactly reversible to 40e49baf outside the approved FinalFaq lines, small fixes, and marked LegitScript seal, with every V2 production source byte-pinned", () => {
     const page = read(pagePath);
+    const component = read(componentPath);
 
     expect(count(page, legitScriptFooterSealMarker)).toBe(1);
     expect(removeApprovedFinalFaqPageLines(page)).toBe(atBaseline(pagePath));
+    expect(unwrapApprovedFinalFaqConditional(component)).toBe(
+      atFinalFaqComponentBaseline(componentPath),
+    );
     const v2Paths = baselineV2ProductionPaths();
     expect(v2Paths.length).toBeGreaterThan(0);
     for (const path of v2Paths) {

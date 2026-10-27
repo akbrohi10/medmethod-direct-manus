@@ -109,10 +109,10 @@ describe("masterclass2 Choose How to Connect connection rows", () => {
     expect(original).toContain("See Full Pricing Details");
     expect(original).toContain("$199 first visit. A $50 deposit");
     expect(original).toContain("LpConsultationModal2");
-    expect([...page.replace('aria-label="Video visit — $97 per visit"', "").matchAll(/\$\d+(?:\.\d{2})?/g)].map(match => match[0])).toEqual(["$97", "$97"]);
+    expect([...page.replace('aria-label="Video visit — $97"', "").matchAll(/\$\d+(?:\.\d{2})?/g)].map(match => match[0])).toEqual(["$97", "$97"]);
     expect(page).not.toContain("$39");
     expect(page).toContain("data-masterclass2-mobile-booking");
-    expect(page).toContain('aria-label="Video visit — $97 per visit"');
+    expect(page).toContain('aria-label="Video visit — $97"');
     expect(page).toContain('import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";');
     expect(page).toContain("<VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />");
   });
