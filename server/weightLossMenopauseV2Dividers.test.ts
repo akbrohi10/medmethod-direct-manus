@@ -7,6 +7,7 @@ const root = resolve(import.meta.dirname, "..");
 const baseline = "e7166374";
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
+const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const marker = "/* V2 section dividers — straight, content-width transitions only. */";
 const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper only. */";
 const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
@@ -23,7 +24,7 @@ const targets = [
 ] as const;
 const protectedNonCssFiles = [
   pagePath,
-  "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx",
+  doctorBioPath,
   "client/src/pages/WeightLossMenopauseV2MobileBar.tsx",
   "client/src/pages/weightLossMenopauseV2Interactions.ts",
   "shared/treatmentCatalog.json",
@@ -49,6 +50,10 @@ function normalizeApprovedHeroSupportingLine(source: string): string {
 
 function normalizeApprovedFirstTextVisitNote(source: string): string {
   return source.replace(approvedFirstTextVisitRow, legacyFirstTextVisitRow);
+}
+
+function normalizeApprovedV2DoctorBioCredential(file: string, source: string): string {
+  return file === doctorBioPath ? source.replace('"Family Physician"', '"Board-Certified DO"') : source;
 }
 
 function cssRules(css: string): CssRule[] {
@@ -95,7 +100,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
         expect(countExactOccurrences(source, previousHeroSupportingLine)).toBe(0);
         expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(source))).toBe(atBaseline(file));
       } else {
-        expect(source).toBe(atBaseline(file));
+        expect(normalizeApprovedV2DoctorBioCredential(file, source)).toBe(atBaseline(file));
       }
     }
   });

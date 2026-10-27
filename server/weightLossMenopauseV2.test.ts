@@ -8,14 +8,16 @@ const read = (file: string) => readFileSync(resolve(import.meta.dirname, "..", f
 const root = resolve(import.meta.dirname, "..");
 const approvedHeroSupportingLineBaseline = "9b081b83";
 const boldOnlyHeroSupportingLineBaseline = "01fc6439";
+const currentBaseline = "d587bc75";
 const v2PagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const v2CssPath = "client/src/pages/WeightLossMenopauseV2.css";
+const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const originalPage = read("client/src/pages/WeightLossMenopause.tsx");
 const originalCss = read("client/src/pages/WeightLossMenopause.css");
 const originalInteraction = read("client/src/pages/weightLossMenopauseInteractions.ts");
 const page = read("client/src/pages/WeightLossMenopauseV2.tsx");
 const css = read("client/src/pages/WeightLossMenopauseV2.css");
-const doctorBio = read("client/src/pages/WeightLossMenopauseV2DoctorBio.tsx");
+const doctorBio = read(v2DoctorBioPath);
 const homepageMedicalTeam = read("client/src/components/home1/MedicalTeam.tsx");
 const home1Navbar = read("client/src/components/home1/Navbar.tsx");
 const interaction = read("client/src/pages/weightLossMenopauseV2Interactions.ts");
@@ -140,7 +142,7 @@ const combinedProcessPricingMarker = "\n/* V2 combined process and visit pricing
 const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
-const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
+const approvedDoctorCredentials = ["Family Physician", "Menopause Specialist", "Author"];
 const approvedDoctorFocusAreas = [
   "Medical Weight Loss",
   "Menopause & Perimenopause",
@@ -389,12 +391,20 @@ function atFirstTextVisitNoteBaseline(file: string): string {
   return execFileSync("git", ["show", `ac46db89:${file}`], { cwd: root, encoding: "utf8" });
 }
 
+function atCurrentBaseline(file: string): string {
+  return execFileSync("git", ["show", `${currentBaseline}:${file}`], { cwd: root, encoding: "utf8" });
+}
+
 function normalizeApprovedHeroSupportingLine(source: string): string {
   return source.replace(approvedHeroSupportingLine, previousApprovedHeroSupportingLine);
 }
 
 function normalizeApprovedFirstTextVisitNote(source: string): string {
   return source.replace(approvedFirstTextVisitRow, legacyFirstTextVisitRow);
+}
+
+function normalizeV2DoctorBioCredential(source: string): string {
+  return source.replace('"Family Physician"', '"Board-Certified DO"');
 }
 
 function countExactOccurrences(source: string, value: string): number {
@@ -642,14 +652,17 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
   it("copies the approved homepage physician facts and full biography source without adding claims", () => {
     for (const credential of approvedDoctorCredentials) {
-      expect(homepageMedicalTeam).toContain(`"${credential}"`);
       expect(doctorBio).toContain(`"${credential}"`);
     }
-    expect(doctorBio).toContain('const CREDENTIALS = ["Board-Certified DO", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];');
+    expect(countExactOccurrences(doctorBio, '"Family Physician"')).toBe(1);
+    expect(doctorBio).not.toContain('"Board-Certified DO"');
+    expect(doctorBio).toContain('const CREDENTIALS = ["Family Physician", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];');
     const credentials = Array.from((doctorBio.match(/const CREDENTIALS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
+    const normalizedCredentials = Array.from((normalizeV2DoctorBioCredential(doctorBio).match(/const CREDENTIALS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
     const homepageCredentials = Array.from((homepageMedicalTeam.match(/const CREDENTIAL_PILLS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
-    expect(credentials).toEqual(homepageCredentials);
+    expect(normalizedCredentials).toEqual(homepageCredentials);
     expect(credentials).toHaveLength(6);
+    expect(normalizeV2DoctorBioCredential(doctorBio)).toBe(atCurrentBaseline(v2DoctorBioPath));
     expect(doctorBio.match(/Licensed in \d+ states/g)).toEqual(["Licensed in 12 states"]);
 
     for (const focusArea of approvedDoctorFocusAreas) {
