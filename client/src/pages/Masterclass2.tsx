@@ -1,5 +1,6 @@
 import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
+import ProcessPricing from "@/components/masterclass2/ProcessPricing";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -207,6 +208,7 @@ export default function Masterclass2() {
         </div>
 
         <PhysicianProfile />
+        <ProcessPricing />
 
         <section data-masterclass-video-first-booking data-masterclass2-work-with-me aria-labelledby="masterclass2-work-heading" className="border-t border-[#f0e5eb] bg-white px-5 py-8 sm:px-10 sm:py-10 lg:px-16">
           <div className="mx-auto max-w-[640px] text-center">
@@ -219,7 +221,7 @@ export default function Masterclass2() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center sm:h-16 sm:w-16"><Video className="h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true" /></span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-bold leading-6 sm:text-[19px]">Book My Video Visit</span>
-                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $47.99</span>
+                  <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Only $97</span>
                   <span className="mt-1 block text-[14px] font-medium leading-5 text-white/90 sm:text-base sm:leading-6">Includes seven days of follow-up messaging.</span>
                 </span>
                 <ArrowRight className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" aria-hidden="true" />
@@ -283,13 +285,13 @@ export default function Masterclass2() {
             <a
               href="https://intake.medmethoddirect.com/?video=1"
               data-masterclass2-mobile-booking
-              aria-label="Video visit — $47.99 per visit"
+              aria-label="Video visit — $97 per visit"
               ref={mobileBookingRef}
               className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-0.5 py-1 text-center text-[11px] leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
             >
               <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
               <span className="block whitespace-nowrap font-bold">Video Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">$47.99 per visit</span>
+              <span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>
             </a>
             <a
               data-masterclass2-mobile-care-call

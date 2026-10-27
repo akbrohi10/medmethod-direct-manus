@@ -53,6 +53,8 @@ const currentBooking = sliceBetween(duplicate, "        <section data-masterclas
 const mobileBookingPill = sliceBetween(duplicate, "\n        <nav\n          data-masterclass2-mobile-connection-bar", "\n      <VideoVisitCheckout");
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = duplicate
+  .replace('import ProcessPricing from "@/components/masterclass2/ProcessPricing";\n', "")
+  .replace("        <ProcessPricing />\n", "")
   .replace(/\n        <div data-masterclass2-family-photo-section[\s\S]*?<\/div>\n/, "")
   .replace(currentHero, originalHero)
   .replace(mobileFocusRecovery, "")
@@ -98,7 +100,7 @@ const manuscriptAssets = (source: string) =>
   [...source.matchAll(/\/manus-storage\/[^"']+/g)].map(([asset]) => asset);
 
 describe("approved /masterclass2 duplicate checkpoint", () => {
-  it("differs from the original only by approved hero, profile, banner, removals and Work With Me checkout replacement", () => {
+  it("differs from the original only by approved hero, profile, ProcessPricing, banner, removals and Work With Me checkout replacement", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
       '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
@@ -138,8 +140,8 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).not.toContain("$199");
     expect(duplicate).not.toContain("PricingDetails");
     expect(duplicate).toContain('href="/care-team-booking"');
-    expect(duplicate).toContain("Only $47.99");
-    expect(duplicate).toContain('aria-label="Video visit — $47.99 per visit"');
+    expect(duplicate).toContain("Only $97");
+    expect(duplicate).toContain('aria-label="Video visit — $97 per visit"');
     expect(mobileBookingPill).toMatch(/<a\s+href="https:\/\/intake\.medmethoddirect\.com\/\?video=1"\s+data-masterclass2-mobile-booking/);
     expect(mobileBookingPill).not.toContain('type="button"');
     expect(mobileBookingPill).not.toContain('aria-haspopup="dialog"');

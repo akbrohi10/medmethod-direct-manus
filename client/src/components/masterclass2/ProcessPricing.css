@@ -1,0 +1,408 @@
+[data-masterclass2-process-pricing] {
+  box-sizing: border-box;
+  padding: 52px 20px;
+  background: #fff;
+  color: #111;
+  font-family: "Montserrat", sans-serif;
+}
+
+[data-masterclass2-process-pricing] *,
+[data-masterclass2-process-pricing] *::before,
+[data-masterclass2-process-pricing] *::after {
+  box-sizing: border-box;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-page-article {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-intro,
+[data-masterclass2-process-pricing] .process-pricing-offer {
+  min-width: 0;
+}
+
+[data-masterclass2-process-pricing] .section-kicker {
+  display: block;
+  margin: 0 0 14px;
+  color: #7a1e7e;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+[data-masterclass2-process-pricing] h2 {
+  margin: 0 0 20px;
+  color: #111;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 4.8vw, 3.65rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+[data-masterclass2-process-pricing] h2 > span {
+  display: block;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-lead {
+  margin: 0 0 30px;
+  color: #111;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 20px;
+  padding: 0 0 30px;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps > li:last-child {
+  padding-bottom: 0;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps > li:not(:last-child)::after {
+  position: absolute;
+  top: 54px;
+  bottom: 6px;
+  left: 23px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(122, 30, 126, 0.18);
+  content: "";
+}
+
+[data-masterclass2-process-pricing] .process-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f02b9b, #d7259e);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps h3 {
+  margin: 1px 0 6px;
+  color: #111;
+  font-family: "Montserrat", sans-serif;
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-steps p {
+  margin: 0;
+  color: #63516b;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-offer {
+  padding: 0;
+  scroll-margin-top: 96px;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-card {
+  padding: 30px;
+  border: 1px solid rgba(122, 30, 126, 0.5);
+  border-radius: 20px;
+  background: linear-gradient(145deg, #fbf3fc, #f1e9f9);
+}
+
+[data-masterclass2-process-pricing] .process-pricing-card > h3 {
+  margin: 0 0 24px;
+  color: #111;
+  font-family: "Montserrat", sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates {
+  display: block;
+  margin: 0;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  min-height: 84px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(122, 30, 126, 0.16);
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates > div:first-child {
+  align-items: start;
+  padding-top: 18px;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates dt {
+  color: #111;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+[data-masterclass2-process-pricing] .first-text-visit-note {
+  display: block;
+  margin-top: 4px;
+  color: #63516b;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates dd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0;
+  color: #7a1e7e;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-rates dd > span {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  display: block;
+  font-size: 0.6em;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-followup {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 18px 14px;
+  border-radius: 14px;
+  background: #ffe8f7;
+}
+
+[data-masterclass2-process-pricing] .process-followup-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e8339e;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-followup strong {
+  display: block;
+  color: #7a1e7e;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-followup p {
+  margin: 5px 0 0;
+  color: #7a1e7e;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+[data-masterclass2-process-pricing] .process-medication-note {
+  margin: 16px 0 0;
+  color: #63516b;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(105deg, #e8339e, #7a1e7e);
+  box-shadow: 0 9px 20px rgba(122, 30, 126, 0.18);
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-cta:hover {
+  box-shadow: 0 12px 24px rgba(122, 30, 126, 0.24);
+  transform: translateY(-1px);
+}
+
+[data-masterclass2-process-pricing] .process-pricing-cta:focus-visible {
+  outline: 3px solid #7a1e7e;
+  outline-offset: 4px;
+}
+
+[data-masterclass2-process-pricing] .process-intake-note {
+  margin: 10px 0 0;
+  color: #63516b;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+[data-masterclass2-process-pricing] .process-pricing-terms {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(122, 30, 126, 0.15);
+  color: #63516b;
+  font-size: 14px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+[data-masterclass2-process-pricing] .process-no-membership {
+  margin: 8px 0 0;
+  color: #63516b;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  [data-masterclass2-process-pricing] {
+    padding: 64px 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-masterclass2-process-pricing] {
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+}
+
+@media (max-width: 900px) {
+  [data-masterclass2-process-pricing] .process-pricing-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-masterclass2-process-pricing] h2 {
+    font-size: clamp(2rem, 8.6vw, 2.6rem);
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-lead {
+    margin-bottom: 24px;
+    font-size: 17px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-steps > li {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 16px;
+    padding-bottom: 26px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-steps > li:not(:last-child)::after {
+    top: 48px;
+    left: 20px;
+  }
+
+  [data-masterclass2-process-pricing] .process-step-number {
+    width: 42px;
+    height: 42px;
+    font-size: 23px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-steps h3 {
+    font-size: 19px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-card > h3 {
+    font-size: 23px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-rates dt {
+    font-size: 17px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-rates dd {
+    font-size: 26px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-followup {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px;
+    padding: 16px 10px;
+  }
+
+  [data-masterclass2-process-pricing] .process-followup-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 25px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-followup strong {
+    font-size: 17px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-followup p {
+    font-size: 15px;
+  }
+
+  [data-masterclass2-process-pricing] .process-pricing-cta {
+    font-size: 15px;
+  }
+}
