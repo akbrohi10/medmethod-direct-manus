@@ -22,6 +22,37 @@ const normalizeApprovedV2DoctorBioCredential = (path: string, source: string) =>
   path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
     ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
+const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
+  if (path === "client/src/pages/Masterclass2.tsx") {
+    return source.replace(
+      '        <link rel="canonical" href="https://medmethoddirect.com/masterclass" />\n        <meta property="og:url" content="https://medmethoddirect.com/masterclass" />',
+      '        <link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
+    );
+  }
+  if (path === "client/src/components/masterclass2/VideoVisitStripePayment.tsx") {
+    return source
+      .replace(
+        'return_url: `${window.location.origin}${window.location.pathname.replace(/\\/$/, "") === "/masterclass" ? "/masterclass" : "/masterclass2"}`,',
+        'return_url: `${window.location.origin}/masterclass2`,',
+      )
+      .replace(
+        "// Masterclass bank-authentication returns use /masterclass; other consumers keep their legacy /masterclass2 fallback. The\n",
+        "// For bank-authentication redirects, the page returns to /masterclass2. The\n",
+      );
+  }
+  if (path === "client/src/components/masterclass2/checkout4799/VideoVisitStripePayment4799.tsx") {
+    return source
+      .replace(
+        'return_url: `${window.location.origin}/masterclass`,',
+        'return_url: `${window.location.origin}/masterclass2`,',
+      )
+      .replace(
+        "// For bank-authentication redirects, the page returns to /masterclass. The\n",
+        "// For bank-authentication redirects, the page returns to /masterclass2. The\n",
+      );
+  }
+  return source;
+};
 
 const page = read("client/src/pages/Masterclass2.tsx");
 const component = read("client/src/components/masterclass2/ProcessPricing.tsx");
@@ -69,7 +100,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
     expect(count(page, 'aria-label="Video visit — $97 per visit"')).toBe(1);
     expect(count(page, "$97 per visit</span>")).toBe(1);
 
-    const restoredBaselinePage = page
+    const restoredBaselinePage = normalizeApprovedMasterclassRouteSwap("client/src/pages/Masterclass2.tsx", page)
       .replace(pageImport, "")
       .replace(pageMount, "")
       .replace("Only $97", "Only $47.99")
@@ -169,9 +200,9 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
     }
   });
 
-  it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7", () => {
+  it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, read(path))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedMasterclassRouteSwap(path, read(path)))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

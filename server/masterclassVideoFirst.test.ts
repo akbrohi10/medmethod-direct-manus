@@ -9,9 +9,9 @@ const appSource = fs.readFileSync(path.join(projectRoot, "client/src/App.tsx"), 
 const viteSource = fs.readFileSync(path.join(projectRoot, "server/_core/vite.ts"), "utf8");
 
 describe("video-first masterclass variant", () => {
-  it("registers an isolated /masterclass route without replacing the original page", () => {
+  it("registers an isolated /masterclass2 route while retaining the original page component", () => {
     expect(appSource).toContain('const MasterclassVideoFirst = lazy(() => import("@/pages/MasterclassVideoFirst"));');
-    expect(appSource).toContain('<Route path="/masterclass" component={MasterclassVideoFirst} />');
+    expect(appSource).toContain('<Route path="/masterclass2" component={MasterclassVideoFirst} />');
     expect(appSource).toContain('<Route path="/free-masterclass" component={FreeMasterclass} />');
     expect(appSource).toContain('location === "/masterclass") return null;');
   });
@@ -150,10 +150,10 @@ describe("video-first masterclass variant", () => {
     expect(pageSource).not.toContain('Reserve My Free Spot');
   });
 
-  it("uses a dedicated social preview for the masterclass route", () => {
+  it("uses a dedicated social preview for the masterclass2 route", () => {
     expect(pageSource).toContain('Free Masterclass: Menopause, Metabolism &amp; Weight Loss');
     expect(pageSource).toContain('Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+.');
-    expect(pageSource).toContain('https://medmethoddirect.com/masterclass');
+    expect(pageSource).toContain('https://medmethoddirect.com/masterclass2');
     expect(pageSource).not.toContain('<meta property="og:image"');
     expect(pageSource).not.toContain('<meta name="twitter:image"');
     expect(viteSource).toContain('if (cleanPath !== "/masterclass") return template;');

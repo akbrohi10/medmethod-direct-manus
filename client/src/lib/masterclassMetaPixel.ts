@@ -34,7 +34,7 @@ function hasExistingMasterclassPageView(): boolean {
         url.pathname.replace(/\/$/, "") === "/tr" &&
         url.searchParams.get("id") === MASTERCLASS_PIXEL_ID &&
         url.searchParams.get("ev") === "PageView" &&
-        !!pageUrl && new URL(pageUrl).pathname.replace(/\/$/, "") === "/masterclass";
+        !!pageUrl && new URL(pageUrl).pathname.replace(/\/$/, "") === "/masterclass2";
     } catch {
       return false;
     }
@@ -43,7 +43,7 @@ function hasExistingMasterclassPageView(): boolean {
 
 export function installMasterclassMetaPixel(): boolean {
   if (typeof window === "undefined" || typeof document === "undefined") return false;
-  if (window.location.pathname.replace(/\/$/, "") !== "/masterclass") return false;
+  if (window.location.pathname.replace(/\/$/, "") !== "/masterclass2") return false;
   if (document.getElementById(MASTERCLASS_PIXEL_SCRIPT_ID)) return false;
   // Do not repeat a matching PageView if an external tag manager already sent it.
   if (hasExistingMasterclassPageView()) return false;

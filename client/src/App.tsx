@@ -397,8 +397,8 @@ function Router() {
         <Route path="/webinar-registration-confirmed" component={WebinarRegistrationConfirmed} />
         <Route path="/live-webinar3-confirmed" component={LiveWebinar3Confirmed} />
         <Route path="/free-masterclass" component={FreeMasterclass} />
-        <Route path="/masterclass" component={MasterclassVideoFirst} />
-        <Route path="/masterclass2" component={Masterclass2} />
+        <Route path="/masterclass" component={Masterclass2} />
+        <Route path="/masterclass2" component={MasterclassVideoFirst} />
         <Route path="/asynchronous" component={Asynchronous} />
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />

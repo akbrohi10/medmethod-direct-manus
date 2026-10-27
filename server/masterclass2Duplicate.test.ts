@@ -83,8 +83,8 @@ const normalizedDuplicate = duplicate
   .replace("        <PhysicianProfile />", `${originalFamilyBio}\n        <FeaturedInStrip />`)
   .replaceAll("Masterclass2", "MasterclassVideoFirst")
   .replaceAll(
-    "https://medmethoddirect.com/masterclass2",
     "https://medmethoddirect.com/masterclass",
+    "https://medmethoddirect.com/masterclass2",
   );
 
 const socialProofRouter = app.slice(
@@ -103,7 +103,10 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
   it("differs from the original only by approved hero, profile, ProcessPricing, banner, removals and Work With Me checkout replacement", () => {
     expect(duplicate).toContain("export default function Masterclass2()");
     expect(duplicate).toContain(
-      '<link rel="canonical" href="https://medmethoddirect.com/masterclass2" />',
+      '<link rel="canonical" href="https://medmethoddirect.com/masterclass" />',
+    );
+    expect(duplicate).toContain(
+      '<meta property="og:url" content="https://medmethoddirect.com/masterclass" />',
     );
     expect(duplicate).toContain(
       'import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";',
@@ -164,11 +167,11 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(physicianProfile).toContain("Credentials");
   });
 
-  it("registers the additional lazy route while retaining the original /masterclass route", () => {
+  it("retains both lazy pages while assigning the duplicate to /masterclass", () => {
     expect(app).toContain('const MasterclassVideoFirst = lazy(() => import("@/pages/MasterclassVideoFirst"));');
     expect(app).toContain('const Masterclass2 = lazy(() => import("@/pages/Masterclass2"));');
-    expect(app).toContain('<Route path="/masterclass" component={MasterclassVideoFirst} />');
-    expect(app).toContain('<Route path="/masterclass2" component={Masterclass2} />');
+    expect(app).toContain('<Route path="/masterclass" component={Masterclass2} />');
+    expect(app).toContain('<Route path="/masterclass2" component={MasterclassVideoFirst} />');
   });
 
   it("suppresses social-proof notifications on the duplicate route", () => {
@@ -178,11 +181,13 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     );
   });
 
-  it("keeps Meta Pixel installation limited to /masterclass", () => {
+  it("keeps Meta Pixel installation limited to /masterclass2", () => {
     expect(duplicate).toContain("installMasterclassMetaPixel();");
     expect(pixelHelper).toContain(
-      'window.location.pathname.replace(/\\/$/, "") !== "/masterclass"',
+      'window.location.pathname.replace(/\\/$/, "") !== "/masterclass2"',
     );
-    expect(pixelHelper).not.toContain("/masterclass2");
+    expect(pixelHelper).toContain(
+      'new URL(pageUrl).pathname.replace(/\\/$/, "") === "/masterclass2"',
+    );
   });
 });

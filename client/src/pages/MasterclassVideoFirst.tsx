@@ -206,7 +206,8 @@ export default function MasterclassVideoFirst() {
       <Helmet>
         <title>Free Masterclass: Menopause, Metabolism &amp; Weight Loss</title>
         <meta name="description" content="Watch Dr. Jumana Al-Deek explain how hormones, metabolism, and medical weight loss connect—plus real questions from women 35+." />
-        <link rel="canonical" href="https://medmethoddirect.com/masterclass" />
+        <link rel="canonical" href="https://medmethoddirect.com/masterclass2" />
+        <meta property="og:url" content="https://medmethoddirect.com/masterclass2" />
       </Helmet>
       <style>{`
         @keyframes mmdMasterclassWatchPulse {

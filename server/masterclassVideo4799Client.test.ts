@@ -156,10 +156,10 @@ describe("masterclass2 $47.99 video visit client checkout", () => {
     expect(paypal).not.toContain("saveForFuture");
   });
 
-  it("uses Stripe Payment Element fields, returns 3DS to /masterclass2, and saves recovery metadata first", () => {
+  it("uses Stripe Payment Element fields, returns 3DS to /masterclass, and saves recovery metadata first", () => {
     expect(stripe).toContain("PaymentElement");
     expect(stripe).toContain('redirect: "if_required"');
-    expect(stripe).toContain('return_url: `${window.location.origin}/masterclass2`');
+    expect(stripe).toContain('return_url: `${window.location.origin}/masterclass`');
     expect(stripe).toContain('address: { country: "never", postalCode: "auto" }');
     expect(stripe).toContain('terms: { card: "never" }');
     expect(stripe.indexOf('savePendingPhase("confirming");')).toBeLessThan(

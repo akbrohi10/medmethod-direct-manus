@@ -143,7 +143,7 @@ function StripeElementForm({
       redirect: "if_required",
       confirmParams: {
         // The URL includes no contact details or other patient information.
-        return_url: `${window.location.origin}/masterclass2`,
+        return_url: `${window.location.origin}/masterclass`,
         payment_method_data: {
           billing_details: { address: { country: "US" } },
         },
@@ -187,7 +187,7 @@ function StripeElementForm({
       return;
     }
 
-    // For bank-authentication redirects, the page returns to /masterclass2. The
+    // For bank-authentication redirects, the page returns to /masterclass. The
     // opaque intent/token saved before confirmation lets the user verify the same payment.
     if (
       paymentIntent?.status === "requires_action" ||
