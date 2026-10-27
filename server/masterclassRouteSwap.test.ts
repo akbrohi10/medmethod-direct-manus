@@ -40,6 +40,12 @@ function restoreMasterclass2RouteMetadata(source: string) {
   );
 }
 
+function restoreApprovedFinalFaqPageLines(source: string) {
+  return source
+    .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
+    .replace('        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n', "");
+}
+
 function restoreMasterclassVideoFirstRouteMetadata(source: string) {
   return source.replace(
     '        <link rel="canonical" href="https://medmethoddirect.com/masterclass2" />\n        <meta property="og:url" content="https://medmethoddirect.com/masterclass2" />',
@@ -125,7 +131,7 @@ describe("approved masterclass route swap", () => {
     expect(count(masterclass2, 'content="https://medmethoddirect.com/masterclass"')).toBe(1);
     expect(count(masterclassVideoFirst, 'href="https://medmethoddirect.com/masterclass2"')).toBe(1);
     expect(count(masterclassVideoFirst, 'content="https://medmethoddirect.com/masterclass2"')).toBe(1);
-    expect(restoreMasterclass2RouteMetadata(masterclass2)).toBe(readBaseline(masterclass2Path));
+    expect(restoreApprovedFinalFaqPageLines(restoreMasterclass2RouteMetadata(masterclass2))).toBe(readBaseline(masterclass2Path));
     expect(restoreMasterclassVideoFirstRouteMetadata(masterclassVideoFirst)).toBe(
       readBaseline(masterclassVideoFirstPath),
     );

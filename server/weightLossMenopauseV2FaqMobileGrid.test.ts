@@ -36,7 +36,6 @@ const explicitUnchangedSources = [
   "client/src/pages/WeightLossMenopauseV2.tsx",
   faqComponentPath,
   faqDataPath,
-  "client/src/pages/Masterclass2.tsx",
   "client/src/pages/WeightLossMenopauseV2MobileBar.tsx",
   "client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx",
   "client/src/components/weight-loss-menopause-v2/checkout97/videoVisitCheckout97Storage.ts",
@@ -47,6 +46,10 @@ const explicitUnchangedSources = [
   "server/wl2PaymentResume.test.ts",
   "shared/treatmentCatalog.json",
 ] as const;
+const approvedMasterclassFinalFaqPaths = new Set([
+  "client/src/components/masterclass2/FinalFaq.tsx",
+  "client/src/components/masterclass2/FinalFaq.css",
+]);
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
@@ -61,7 +64,14 @@ function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedMasterclassFinalFaqPaths.has(file) && file !== "client/src/pages/Masterclass2.tsx");
+}
+
+function normalizeApprovedFinalFaqPageLines(source: string): string {
+  return source
+    .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
+    .replace('        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n', "");
 }
 
 describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
@@ -108,6 +118,7 @@ describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
     for (const file of explicitUnchangedSources) {
       expect(read(file), file).toBe(atBaseline(file));
     }
+    expect(normalizeApprovedFinalFaqPageLines(read("client/src/pages/Masterclass2.tsx"))).toBe(atBaseline("client/src/pages/Masterclass2.tsx"));
     expect(changedProductionFiles()).toEqual([faqCssPath]);
   });
 });

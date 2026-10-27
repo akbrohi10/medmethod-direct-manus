@@ -1,6 +1,7 @@
 import VideoVisitCheckout from "@/components/masterclass2/checkout4799/VideoVisitCheckout4799";
 import PhysicianProfile from "@/components/masterclass2/PhysicianProfile";
 import ProcessPricing from "@/components/masterclass2/ProcessPricing";
+import FinalFaq from "@/components/masterclass2/FinalFaq";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -255,6 +256,7 @@ export default function Masterclass2() {
           </div>
         </section>
 
+        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />
         <footer className="border-t border-[#eee4e9] px-5 py-8 sm:px-10">
           <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-5 sm:flex-row">
             <a href="/" aria-label="MedMethod Direct home"><img src={LOGO} alt="MedMethod Direct" className="h-9 w-auto" loading="eager" /></a>

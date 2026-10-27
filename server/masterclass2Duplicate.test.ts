@@ -7,6 +7,8 @@ const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 
 const original = read("client/src/pages/MasterclassVideoFirst.tsx");
 const duplicate = read("client/src/pages/Masterclass2.tsx");
+const finalFaqImport = 'import FinalFaq from "@/components/masterclass2/FinalFaq";\n';
+const finalFaqMount = '        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n';
 const physicianProfile = read(
   "client/src/components/masterclass2/PhysicianProfile.tsx",
 );
@@ -49,10 +51,12 @@ const originalFamilyBio = sliceBetween(
 );
 const originalPricing = sliceBetween(original, "function PricingDetails()", "export default function");
 const originalBooking = sliceBetween(original, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
-const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <footer");
+const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <FinalFaq intakeHref=\"https://intake.medmethoddirect.com/\" />");
 const mobileBookingPill = sliceBetween(duplicate, "\n        <nav\n          data-masterclass2-mobile-connection-bar", "\n      <VideoVisitCheckout");
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
 const normalizedDuplicate = duplicate
+  .replace(finalFaqImport, "")
+  .replace(finalFaqMount, "")
   .replace('import ProcessPricing from "@/components/masterclass2/ProcessPricing";\n', "")
   .replace("        <ProcessPricing />\n", "")
   .replace(/\n        <div data-masterclass2-family-photo-section[\s\S]*?<\/div>\n/, "")
