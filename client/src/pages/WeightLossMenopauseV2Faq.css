@@ -98,3 +98,22 @@
   .wlm-v2-content #faq .v2-faq-closing { padding:24px 18px; }
   .wlm-v2-content #faq .v2-faq-show-all { width:100%; }
 }
+
+/* V2 mobile FAQ chips — six equal cells, no horizontal scrolling. */
+@media(max-width:767px) {
+  .wlm-v2-content #faq .v2-faq-tabs {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    overflow-x:visible;
+  }
+  .wlm-v2-content #faq .v2-faq-tabs button {
+    width:100%;
+    min-width:0;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:9px 4px;
+    text-align:center;
+  }
+}
