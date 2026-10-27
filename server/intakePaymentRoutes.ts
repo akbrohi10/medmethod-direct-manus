@@ -6,15 +6,18 @@ import { decryptIntakeCredential } from "./intakeCredentialCrypto";
 import { ENV } from "./_core/env";
 import { registerIntakePhoneVerificationRoutes, validPhoneVerificationToken, getPhoneVerificationSettings } from "./intakePhoneVerification";
 import {
+  LEGACY_VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_DESCRIPTION,
   finalizeFreeIntake,
+  finalizeLegacyVideoVisitPaidRecovery,
   finalizeVideoVisitPaid,
   finalizeVideoVisitWaived,
   validateIntakeDraft,
   type CompletedFreeIntakeReceipt,
   type IntakeDraft,
   type PhoneAttestation,
+  type VerifiedLegacyVideoVisitPayment,
   type VerifiedVideoVisitPayment,
 } from "./intakeSubmissionContract";
 
@@ -31,8 +34,8 @@ type SubmissionToken = CompletedFreeIntakeReceipt & {
   purpose: "completed_free_intake";
   expires_at: number;
 };
-type ApprovalToken = {
-  version: 2;
+type CurrentApprovalToken = {
+  version: 3;
   purpose: "video_visit_payment";
   submission_id: string;
   order_id: string;
@@ -41,6 +44,11 @@ type ApprovalToken = {
   currency: "USD";
   expires_at: number;
 };
+type LegacyApprovalToken = Omit<CurrentApprovalToken, "version" | "amount"> & {
+  version: 2;
+  amount: typeof LEGACY_VIDEO_VISIT_AMOUNT;
+};
+type ApprovalToken = CurrentApprovalToken | LegacyApprovalToken;
 
 const freeSubmissionSchema = z.object({
   intake: z.record(z.string(), z.unknown()),
@@ -81,7 +89,7 @@ function paymentModeForClientToken(settings: Awaited<ReturnType<typeof getPaypal
 }
 function requireActivePayPal(settings: Awaited<ReturnType<typeof getPaypalSettings>>) {
   if (!settings || settings.activeProvider !== "paypal") {
-    throw new Error("PayPal is not the enabled payment provider. An administrator must enable PayPal before an optional $39.00 video visit can be purchased.");
+    throw new Error("PayPal is not the enabled payment provider. An administrator must enable PayPal before an optional $97.00 video visit can be purchased.");
   }
 }
 async function getPayPalClient(mode: PayPalMode) {
@@ -132,14 +140,20 @@ function decodeSubmissionToken(value: unknown): SubmissionToken {
   if (!parsed.success || parsed.data.expires_at < Date.now()) throw new Error("This completed-intake receipt has expired. Please contact the Care Team.");
   return parsed.data;
 }
-function encodeApprovalToken(payload: Omit<ApprovalToken, "version" | "purpose" | "expires_at">): string {
-  return sign({ version: 2, purpose: "video_visit_payment", ...payload, expires_at: Date.now() + TOKEN_TTL_MS } satisfies ApprovalToken);
+function encodeApprovalToken(payload: Omit<CurrentApprovalToken, "version" | "purpose" | "expires_at">): string {
+  return sign({ version: 3, purpose: "video_visit_payment", ...payload, expires_at: Date.now() + TOKEN_TTL_MS } satisfies CurrentApprovalToken);
 }
 function decodeApprovalToken(value: unknown): ApprovalToken {
-  const parsed = z.object({
-    version: z.literal(2), purpose: z.literal("video_visit_payment"), submission_id: z.string().uuid(), order_id: z.string().min(3).max(128),
-    mode: z.enum(["sandbox", "live"]), amount: z.literal(VIDEO_VISIT_AMOUNT), currency: z.literal("USD"), expires_at: z.number().int().positive(),
-  }).safeParse(verifiedPayload(value));
+  const approvalBase = {
+    purpose: z.literal("video_visit_payment"), submission_id: z.string().uuid(), order_id: z.string().min(3).max(128),
+    mode: z.enum(["sandbox", "live"]), currency: z.literal("USD"), expires_at: z.number().int().positive(),
+  };
+  const parsed = z.discriminatedUnion("version", [
+    z.object({ version: z.literal(3), ...approvalBase, amount: z.literal(VIDEO_VISIT_AMOUNT) }),
+    // Retained transparently for the one permitted recovery: an already-completed
+    // historical capture. Legacy approvals can never create a new order or capture.
+    z.object({ version: z.literal(2), ...approvalBase, amount: z.literal(LEGACY_VIDEO_VISIT_AMOUNT) }),
+  ]).safeParse(verifiedPayload(value));
   if (!parsed.success || parsed.data.expires_at < Date.now()) throw new Error("Payment approval has expired. Please start the optional video visit checkout again.");
   return parsed.data;
 }
@@ -217,7 +231,7 @@ type VideoRecord = {
   mode?: PayPalMode;
   paymentMethod?: PaymentMethod;
   order?: OrderResult;
-  payment?: VerifiedVideoVisitPayment;
+  payment?: VerifiedVideoVisitPayment | VerifiedLegacyVideoVisitPayment;
   eventId?: string;
   // These event payloads are deliberately minimal and contain no clinical/contact payload.
   deliveryPayload?: Record<string, unknown>;
@@ -271,15 +285,23 @@ export function registerIntakePaymentRoutes(app: Express) {
     }
     return receipt;
   }
+  function videoReceiptFor(value: unknown): CompletedFreeIntakeReceipt {
+    // The checkbox chooses the post-intake destination, not payment eligibility.
+    // Patients who left it unticked can still add a visit from intake/thank-you.
+    return receiptFor(value);
+  }
   function freeResult(record: FreeRecord): FreeResult {
     if (!record.result) throw new Error("The intake receipt is not ready.");
     return record.result;
   }
-  function redirectUrlFor(explicitDemoPrefill: boolean, demo: boolean): IntakeRedirectUrl {
-    // The exact approved demo path is the only completion flow that retains its
-    // test-mode marker. Normal intake and the advertised sandbox demo continue
-    // to use the clean fixed thank-you URL regardless of client redirect values.
-    return explicitDemoPrefill && demo ? "/intake/thank-you/?prefill=demo" : "/intake/thank-you/";
+  function redirectUrlFor(explicitDemoPrefill: boolean, demo: boolean, videoVisitInterest: boolean): IntakeRedirectUrl {
+    // The exact approved demo path remains on its existing test-safe endpoint so
+    // a demo receipt cannot be presented as a live checkout. All non-demo checked
+    // intakes are server-routed to the optional video checkout; unchecked intakes
+    // go to the ordinary thank-you destination.
+    if (explicitDemoPrefill && demo) return "/intake/thank-you/?prefill=demo";
+    if (!demo && videoVisitInterest) return "/thank-you-video";
+    return "/intake/thank-you/";
   }
   async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, explicitDemoPrefill = false): Promise<FreeResult> {
     cleanup();
@@ -289,9 +311,9 @@ export function registerIntakePaymentRoutes(app: Express) {
     const hash = fingerprint({ draft, video_visit_interest: input.video_visit_interest, is_test: isTest });
     let record = freeSubmissions.get(draft.submission_id);
     if (record && record.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
-    if (record?.delivered) return { ...freeResult(record), redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
+    if (record?.delivered) return { ...freeResult(record), redirect_url: redirectUrlFor(explicitDemoPrefill, demo, record.receipt?.video_visit_interest ?? input.video_visit_interest) };
     const inFlight = deliveringFree.get(draft.submission_id);
-    if (inFlight) return { ...(await inFlight), redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
+    if (inFlight) return { ...(await inFlight), redirect_url: redirectUrlFor(explicitDemoPrefill, demo, input.video_visit_interest) };
     // An unapproved demo flag is not a bypass; the normal phone requirement remains in force.
     const phone = phoneAttestation(draft, input.phone_verification_token, demo);
     const phoneTokenKey = phone.phone_verified && typeof input.phone_verification_token === "string"
@@ -350,7 +372,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       pending.delivered = true;
       const storedReceipt = pending.receipt = receipt;
       pending.token = preparedReceiptToken;
-      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(explicitDemoPrefill, demo) };
+      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(explicitDemoPrefill, demo, storedReceipt.video_visit_interest) };
       // Remove all patient, clinical, consent, and contact contents immediately after acceptance.
       delete pending.deliveryPayload;
       return pending.result;
@@ -380,6 +402,10 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (record?.waiver) throw new Error("This optional video visit was already waived.");
     if (record?.completion) throw new Error("This optional video visit was already completed.");
     if (record?.order) {
+      const existingApproval = decodeApprovalToken(record.order.approval_token);
+      if (existingApproval.version === 2) {
+        throw new Error("A prior video-visit approval cannot be captured at the retired price. No charge will be made. Please contact the Care Team for assistance.");
+      }
       if (record.mode !== mode || record.paymentMethod !== paymentMethod) throw new Error("This optional video visit already has a different checkout in progress.");
       return record.order;
     }
@@ -403,7 +429,7 @@ export function registerIntakePaymentRoutes(app: Express) {
         }),
         signal: AbortSignal.timeout(20_000),
       });
-      if (!response.ok) throw new Error("PayPal could not prepare the $39.00 video visit payment. Your card has not been charged.");
+      if (!response.ok) throw new Error("PayPal could not prepare the $97.00 video visit payment. Your card has not been charged.");
       const order = await response.json() as { id?: string; links?: Array<{ rel?: string; href?: string }> };
       if (!order.id) throw new Error("PayPal did not return a payment order. Your card has not been charged.");
       pending.order = {
@@ -423,7 +449,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       throw error;
     } finally { creatingOrders.delete(receipt.submission_id); }
   }
-  function verifyVideoCapture(raw: unknown, approval: ApprovalToken): VerifiedVideoVisitPayment {
+  function verifyVideoCapture(raw: unknown, approval: CurrentApprovalToken): VerifiedVideoVisitPayment {
     const order = raw as {
       id?: string; status?: string;
       purchase_units?: Array<{ custom_id?: string; description?: string; amount?: { value?: string; currency_code?: string }; payments?: { captures?: Array<{ id?: string; status?: string; custom_id?: string; amount?: { value?: string; currency_code?: string }; create_time?: string }> } }>;
@@ -441,26 +467,59 @@ export function registerIntakePaymentRoutes(app: Express) {
       (unit?.amount?.value !== undefined && unit.amount.value !== VIDEO_VISIT_AMOUNT) ||
       (unit?.amount?.currency_code !== undefined && unit.amount.currency_code !== "USD") ||
       (capture.custom_id !== undefined && capture.custom_id !== approval.submission_id) || !capture.create_time || !Number.isFinite(Date.parse(capture.create_time))
-    ) throw new Error("PayPal payment confirmation did not match this $39.00 USD optional video visit. Please contact the Care Team; do not make another payment.");
+    ) throw new Error("PayPal payment confirmation did not match this $97.00 USD optional video visit. Please contact the Care Team; do not make another payment.");
     return { provider: "paypal", environment: approval.mode, status: "COMPLETED", order_id: approval.order_id, capture_id: capture.id, amount: VIDEO_VISIT_AMOUNT, currency: "USD", captured_at: capture.create_time };
   }
-  function verifyVideoOrderBinding(raw: unknown, approval: ApprovalToken): { status?: string } {
+  function verifyVideoOrderBinding(raw: unknown, approval: CurrentApprovalToken): { status?: string } {
     const order = raw as { id?: string; status?: string; purchase_units?: Array<{ custom_id?: string; description?: string; amount?: { value?: string; currency_code?: string } }> };
     const unit = order.purchase_units?.[0];
     if (order.id !== approval.order_id || order.purchase_units?.length !== 1 || unit?.custom_id !== approval.submission_id || unit?.description !== VIDEO_VISIT_DESCRIPTION || unit.amount?.value !== VIDEO_VISIT_AMOUNT || unit.amount.currency_code !== "USD") {
-      throw new Error("PayPal has not approved the matching $39.00 USD optional video visit order. Please complete payment approval first.");
+      throw new Error("PayPal has not approved the matching $97.00 USD optional video visit order. Please complete payment approval first.");
     }
     return order;
   }
-  function verifyApprovedOrder(raw: unknown, approval: ApprovalToken) {
+  function verifyApprovedOrder(raw: unknown, approval: CurrentApprovalToken) {
     const order = verifyVideoOrderBinding(raw, approval);
     if (order.status !== "APPROVED") {
-      throw new Error("PayPal has not approved the matching $39.00 USD optional video visit order. Please complete payment approval first.");
+      throw new Error("PayPal has not approved the matching $97.00 USD optional video visit order. Please complete payment approval first.");
     }
   }
-  async function finishVideoPayment(approval: ApprovalToken): Promise<Completion> {
+  function verifyLegacyCompletedCapture(raw: unknown, approval: LegacyApprovalToken): VerifiedLegacyVideoVisitPayment {
+    const order = raw as {
+      id?: string; status?: string;
+      purchase_units?: Array<{ custom_id?: string; description?: string; amount?: { value?: string; currency_code?: string }; payments?: { captures?: Array<{ id?: string; status?: string; custom_id?: string; amount?: { value?: string; currency_code?: string }; create_time?: string }> } }>;
+    };
+    const unit = order.purchase_units?.[0], captures = unit?.payments?.captures, capture = captures?.[0];
+    if (
+      order.id !== approval.order_id || order.status !== "COMPLETED" || order.purchase_units?.length !== 1 ||
+      captures?.length !== 1 || !capture?.id || capture.status !== "COMPLETED" || capture.amount?.value !== LEGACY_VIDEO_VISIT_AMOUNT || capture.amount.currency_code !== "USD" ||
+      unit?.custom_id !== approval.submission_id || unit?.description !== VIDEO_VISIT_DESCRIPTION ||
+      unit?.amount?.value !== LEGACY_VIDEO_VISIT_AMOUNT || unit.amount.currency_code !== "USD" ||
+      capture.custom_id !== approval.submission_id || !capture.create_time || !Number.isFinite(Date.parse(capture.create_time))
+    ) throw new Error("The historical video-visit payment could not be verified. No charge will be made. Please contact the Care Team.");
+    return { provider: "paypal", environment: approval.mode, status: "COMPLETED", order_id: approval.order_id, capture_id: capture.id, amount: LEGACY_VIDEO_VISIT_AMOUNT, currency: "USD", captured_at: capture.create_time };
+  }
+  async function finishVideoPayment(approval: ApprovalToken, submittedApprovalToken: string): Promise<Completion> {
     cleanup();
-    const record = videoVisits.get(approval.submission_id);
+    let record = videoVisits.get(approval.submission_id);
+    if (!record && approval.version === 2) {
+      const freeRecord = freeSubmissions.get(approval.submission_id);
+      const receipt = freeRecord?.receipt;
+      if (!freeRecord?.delivered || !receipt) {
+        throw new Error("This historical video-visit approval is no longer available. No charge will be made. Please contact the Care Team.");
+      }
+      ensureCapacity();
+      // This reconstructed record has no approval URL and is never eligible for
+      // createVideoOrder. It exists only to serialize completed-payment recovery.
+      record = {
+        receipt,
+        expiresAt: Math.min(freeRecord.expiresAt, approval.expires_at),
+        mode: approval.mode,
+        order: { order_id: approval.order_id, approval_url: "", approval_token: submittedApprovalToken, environment: approval.mode, payment_method: "card" },
+        delivered: false,
+      };
+      videoVisits.set(approval.submission_id, record);
+    }
     if (!record || !record.order || record.order.order_id !== approval.order_id || record.mode !== approval.mode || record.waiver) {
       throw new Error("This optional video visit checkout is no longer available. Contact the Care Team if payment was completed; do not pay again.");
     }
@@ -469,13 +528,30 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (existing) return existing;
     const promise = (async () => {
       if (!record.payment) {
+        const existingOrder = record.order;
+        if (!existingOrder) throw new Error("This optional video visit checkout is no longer available. Contact the Care Team if payment was completed; do not pay again.");
+        const storedApproval = decodeApprovalToken(existingOrder.approval_token);
+        if (storedApproval.version !== approval.version || storedApproval.amount !== approval.amount) {
+          if (approval.version === 2) {
+            throw new Error("A prior video-visit approval cannot be captured at the retired price. No charge will be made. Please contact the Care Team for assistance.");
+          }
+          throw new Error("This payment approval no longer matches its checkout. No charge will be made. Please contact the Care Team.");
+        }
         const client = await getPayPalClient(approval.mode);
         const url = `${client.baseUrl}/v2/checkout/orders/${encodeURIComponent(approval.order_id)}`;
         const details = await fetch(url, { headers: { Authorization: `Bearer ${client.token}`, Accept: "application/json" }, signal: AbortSignal.timeout(15_000) });
         if (!details.ok) throw new Error("PayPal could not check the payment status. Please retry completion; do not pay again.");
         let raw = await details.json() as { id?: string; status?: string };
-        if (raw.status === "COMPLETED") {
+        if (approval.version === 2) {
+          // This is recovery only: v2 can confirm a completed historical capture,
+          // but must never initiate a retired-price capture or a replacement order.
+          if (raw.status !== "COMPLETED") {
+            throw new Error("A prior video-visit approval cannot be captured at the retired price. No charge will be made. Please contact the Care Team for assistance.");
+          }
+          record.payment = verifyLegacyCompletedCapture(raw, approval);
+        } else if (raw.status === "COMPLETED") {
           verifyVideoOrderBinding(raw, approval);
+          record.payment = verifyVideoCapture(raw, approval);
         } else {
           verifyApprovedOrder(raw, approval);
           const captured = await fetch(`${url}/capture`, {
@@ -485,16 +561,20 @@ export function registerIntakePaymentRoutes(app: Express) {
           });
           if (!captured.ok) throw new Error("PayPal could not confirm the video visit payment. Please retry completion; do not make another payment.");
           raw = await captured.json() as { id?: string; status?: string };
+          record.payment = verifyVideoCapture(raw, approval);
         }
-        record.payment = verifyVideoCapture(raw, approval);
       }
+      const payment = record.payment;
+      if (!payment) throw new Error("Payment confirmation is unavailable. Please contact the Care Team; do not make another payment.");
       record.eventId ??= randomUUID();
-      record.deliveryPayload ??= finalizeVideoVisitPaid(record.receipt, record.eventId, record.payment);
+      record.deliveryPayload ??= payment.amount === LEGACY_VIDEO_VISIT_AMOUNT
+        ? finalizeLegacyVideoVisitPaidRecovery(record.receipt, record.eventId, payment)
+        : finalizeVideoVisitPaid(record.receipt, record.eventId, payment);
       if (!record.delivered) {
         await deliverIntake(record.deliveryPayload);
         record.delivered = true;
       }
-      record.completion = { submission_id: approval.submission_id, payment_status: "COMPLETED", capture_id: record.payment.capture_id, environment: approval.mode };
+      record.completion = { submission_id: approval.submission_id, payment_status: "COMPLETED", capture_id: payment.capture_id, environment: approval.mode };
       delete record.deliveryPayload;
       return record.completion;
     })();
@@ -551,7 +631,7 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = videoCouponSchema.safeParse(req.body);
       if (!parsed.success || !isFamilyIntakeCoupon(parsed.success ? parsed.data.coupon_code : undefined)) return res.status(422).json({ error: "That coupon code is not valid." });
-      const result = await waiveVideoVisit(receiptFor(parsed.data.submission_token));
+      const result = await waiveVideoVisit(videoReceiptFor(parsed.data.submission_token));
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(result);
     } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }
@@ -560,7 +640,7 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = videoStatusSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "The completed-intake receipt is invalid." });
-      const receipt = receiptFor(parsed.data.submission_token);
+      const receipt = videoReceiptFor(parsed.data.submission_token);
       const record = videoVisits.get(receipt.submission_id);
       res.setHeader("Cache-Control", "no-store");
       if (!record) return res.json({ status: "available" });
@@ -590,7 +670,7 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = videoOrderSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "A completed intake receipt and payment method are required." });
-      const receipt = receiptFor(parsed.data.submission_token);
+      const receipt = videoReceiptFor(parsed.data.submission_token);
       const order = await createVideoOrder(receipt, parsed.data.payment_method, parsed.data.demo_mode === true, hasExactDemoPrefill(req));
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(order);
@@ -599,10 +679,11 @@ export function registerIntakePaymentRoutes(app: Express) {
   app.post("/api/paypal/orders/:orderId/capture", async (req: Request, res: Response) => {
     try {
       const orderId = z.string().min(3).max(128).regex(/^[A-Za-z0-9-]+$/).parse(req.params.orderId);
-      const approval = decodeApprovalToken(req.body?.approval_token);
+      const approvalToken = z.string().min(1).max(4096).parse(req.body?.approval_token);
+      const approval = decodeApprovalToken(approvalToken);
       if (approval.order_id !== orderId) return res.status(400).json({ error: "Payment approval does not match this order." });
       res.setHeader("Cache-Control", "no-store");
-      return res.json(await finishVideoPayment(approval));
+      return res.json(await finishVideoPayment(approval, approvalToken));
     } catch (error) { return res.status(400).json({ error: errorMessage(error) }); }
   });
 }

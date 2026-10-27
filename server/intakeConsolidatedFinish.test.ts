@@ -28,7 +28,7 @@ describe("consolidated local intake finish", () => {
     expect(app).toContain('()=>MmdIntakeFlowScreens(answers)');
     for (const type of ['"type":"wReview"', '"type":"planReview"', '"type":"checkout"']) expect(intake).toContain(type);
     expect(intake).toContain('function w(e,t){return x(e).filter(e=>re(e,t))}');
-    expect(intake).toContain('screen?.type==="consent"?"Finish your intake"');
+    expect(app).toContain('screen?.id!=="w01"&&(0,M.jsx)("h1",{children:screen?.type==="consent"?"Finish your intake"');
     expect(app).toContain('screen.type==="consent"?answers.videoVisitInterest===true?"Submit Intake & Book Video Visit":"Submit My Free Intake":"Continue"');
   });
 

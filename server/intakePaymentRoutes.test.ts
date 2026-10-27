@@ -55,18 +55,28 @@ describe("intake free-first delivery and optional video payment boundary", () =>
     expect(routes).toContain("settings.mode === \"sandbox\" && settings.demo_available === true");
   });
 
-  it("requires a delivered signed receipt for the optional video checkout and uses fixed server-side $39 identity", () => {
+  it("requires a delivered signed receipt for the optional video checkout and uses fixed server-side $97 identity", () => {
     expect(routes).toContain('app.post("/api/paypal/orders"');
     expect(routes).toContain("submission_token: z.string()");
-    expect(routes).toContain("const receipt = receiptFor(parsed.data.submission_token);");
+    expect(routes).toContain("const receipt = videoReceiptFor(parsed.data.submission_token);");
+    expect(routes).toContain("return receiptFor(value);");
     expect(routes).toContain("VIDEO_VISIT_AMOUNT");
-    expect(contract).toContain('VIDEO_VISIT_AMOUNT = "39.00"');
+    expect(contract).toContain('VIDEO_VISIT_AMOUNT = "97.00"');
     expect(contract).toContain('VIDEO_VISIT_DESCRIPTION = "optional one-time medical-weight-loss Zoom video visit"');
     expect(routes).toContain("description: VIDEO_VISIT_DESCRIPTION");
     expect(routes).toContain('amount: { currency_code: "USD", value: VIDEO_VISIT_AMOUNT }');
     expect(routes).toContain("unit?.custom_id !== approval.submission_id");
     expect(routes).toContain("capture.amount?.value !== VIDEO_VISIT_AMOUNT");
     expect(routes).toContain('capture.amount.currency_code !== "USD"');
+  });
+
+  it("keeps the retired $39 value only in an explicit historical completed-payment recovery that never initiates a capture", () => {
+    expect(contract).toContain('LEGACY_VIDEO_VISIT_AMOUNT = "39.00"');
+    expect(routes).toContain("version: z.literal(2)");
+    expect(routes).toContain("finalizeLegacyVideoVisitPaidRecovery");
+    expect(routes).toContain("if (approval.version === 2)");
+    expect(routes).toContain("raw.status !== \"COMPLETED\"");
+    expect(routes).toContain("cannot be captured at the retired price. No charge will be made. Please contact the Care Team");
   });
 
   it("keeps client-token's existing public response shape and payment configuration source", () => {

@@ -41,7 +41,7 @@ export default function ThankYouVideo() {
     <>
       <Helmet>
         <title>You're Confirmed | MedMethod Direct</title>
-        <meta name="description" content="Your $39 Zoom video visit payment is confirmed. Choose a time with Dr. Al-Deek, then follow the next steps." />
+        <meta name="description" content="Your $97 Zoom video visit payment is confirmed. Choose a time with Dr. Al-Deek, then follow the next steps." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
@@ -101,7 +101,7 @@ export default function ThankYouVideo() {
         {access === "blocked" && (
           <section className="w-full max-w-lg bg-white rounded-2xl border border-[#d7e1dd] p-6 text-center mb-10" data-thank-you-video-no-intake>
             <h2 className="text-xl font-bold mb-3">Complete your free intake first</h2>
-            <p className="text-[#59656f] mb-5">Complete your free intake first. After submission, you can add an optional $39 Zoom video visit and choose a time.</p>
+            <p className="text-[#59656f] mb-5">Complete your free intake first. After submission, you can add an optional $97 Zoom video visit and choose a time.</p>
             <a href="/intake/" className="tyv-intake-primary inline-flex items-center justify-center">Complete your free intake</a>
           </section>
         )}
@@ -182,7 +182,7 @@ function VideoBookingFollowup({ firstName, email, compact = false, waived = fals
         </div>
         <h2 className="text-2xl font-bold text-[#113a3a] mb-2" style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>One Last Step: Pick Your Time</h2>
         <p className="text-[#59656f] text-sm max-w-md mx-auto">
-          Your $39 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.
+          Your $97 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.
         </p>
         <div className="tyv-intake-primary inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-[#0e7c7b]/5 border border-[#0e7c7b]/20">
           <span className="w-2 h-2 rounded-full bg-[#72a40b] animate-pulse" />

@@ -57,8 +57,8 @@ const protectedSourcePaths = [
   "server/routers.ts",
   "server/routers/masterclassVideo.ts",
   "server/routers/masterclassVideo4799.ts",
-  "server/intakePaymentRoutes.ts",
-  "client/src/components/thank-you-video/IntakeVideoPayment.tsx",
+  // Intake payment routes were separately upgraded to $97 on 2026-10-27.
+  // Their behavior is covered by intakePaymentRoutes/intakePaidFinalization tests.
 ];
 
 describe("masterclass2 ProcessPricing display-only addition", () => {
@@ -169,9 +169,11 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
     }
   });
 
-  it("keeps V2, physician profile, backend, intake, and all old/$47.99 payment source byte-identical to f7c2c7e7", () => {
+  it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7", () => {
     for (const path of protectedSourcePaths) {
       expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, read(path))), path).toBe(readBaseline(path));
     }
+    const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
+    expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));
   });
 });

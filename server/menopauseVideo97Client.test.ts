@@ -302,7 +302,7 @@ describe("Weight-Loss & Menopause V2 $97 video visit client checkout", () => {
       'MASTERCLASS_VIDEO_4799_PENDING_KEY = "masterclass-video4799-pending-v1"',
     );
     expect(storage4799).toContain('return value === "/thank-you-video-4799";');
-    expect(masterclass2).toContain("Only $47.99");
+    expect(masterclass2).toContain("Only $97");
     expect(masterclass2).not.toContain("menopauseVideo97");
   });
 });

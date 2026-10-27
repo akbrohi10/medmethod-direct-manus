@@ -6,39 +6,41 @@ import { describe, expect, it } from "vitest";
 const intake = readFileSync(resolve(import.meta.dirname, "../client/intake/index.html"), "utf8");
 const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));
 
-describe("local intake free ongoing care and optional video interest", () => {
-  it("makes the introduction doctor-neutral without changing the treatment catalog", () => {
-    expect(intake).toContain("Connect with a doctor specializing in medical weight loss");
-    expect(intake).toContain("Assessment and ongoing follow-up included. No monthly fee or commitment. Medication costs extra.");
-    const approvedReviewLine = "Meet Dr. Al-Deek face-to-face on Zoom - $39";
-    expect(intake.split(approvedReviewLine)).toHaveLength(2);
-    expect(intake.replace(approvedReviewLine, "")).not.toMatch(/Dr\. Al-Deek|Jumana|50,000\+|intro-doctor`,src/);
+describe("local intake pay-per-visit care and optional video interest", () => {
+  it("keeps the treatment catalog and presents the approved first-text-visit pricing model", () => {
+    for (const text of [
+      "Your doctor. One text away.",
+      "Your first text visit is FREE and includes 7 days of follow-up messaging.",
+      "Additional text visits are $29 each.",
+      "Video visits are $97.",
+      "Medication costs extra.",
+    ]) expect(intake).toContain(text);
     expect(intake).toContain('src="/treatment-catalog.js"');
     expect(intake).toContain("window.MMD_TREATMENT_CATALOG.glp1.options.map");
-    expect(intake).not.toMatch(/\$49|\$30|100% refunded|First month due today/);
+    expect(intake).not.toMatch(/\$49|\$39|\$30|100% refunded|First month due today/);
+    expect(intake).not.toMatch(/Free ongoing|No monthly|Ongoing text-based/i);
   });
 
-  it("records unchecked interest only and never treats it as payment authorization", () => {
-    expect(intake).toContain("I’m interested in adding a video visit — $39 per visit");
+  it("records optional video interest without authorizing a payment", () => {
+    expect(intake).toContain("I'd like a video visit with Dr. Al-Deek - $97");
     expect(intake).toContain('checked:answers.videoVisitInterest===true');
-    expect(intake).toContain("Interest only. No charge now.");
+    expect(intake).toContain("You'll pay and pick a time after submitting your intake.");
     expect(intake).toContain("video_visit_interest:answers.videoVisitInterest===true");
     expect(intake).not.toContain("videoVisitInterest:true");
-    expect(intake).toContain("No charge has been authorized.");
-  });
-
-  it("submits for free without initializing payment or requiring a coupon", () => {
-    expect(intake).toContain("Submit My Free Intake");
-    expect(intake).toContain("No card, payment or video purchase is needed to submit your intake.");
-    expect(intake).toContain("/api/intake/submit");
     expect(intake).not.toContain("/api/paypal/");
     expect(intake).not.toContain("ApplePaySession");
     expect(intake).not.toContain("/api/intake/coupon/");
+  });
+
+  it("submits the free first text visit without requiring payment or a coupon", () => {
+    expect(intake).toContain("Submit My Free Intake");
+    expect(intake).toContain("No payment is needed to submit your intake.");
+    expect(intake).toContain("/api/intake/submit");
     expect(app).toContain("submittingRef.current=true");
     expect(app).toContain("submittingRef.current=false");
   });
 
-  it("retains completion even if browser storage is unavailable and keeps patient details out of receipt storage", () => {
+  it("retains completion if browser storage is unavailable and keeps patient details out of receipt storage", () => {
     const start = intake.indexOf("async function MmdSubmitFreeIntake");
     const end = intake.indexOf("var Ae=", start);
     const helpers = intake.slice(start, end);
@@ -48,7 +50,7 @@ describe("local intake free ongoing care and optional video interest", () => {
     expect(helpers).not.toMatch(/result\.(patient|answers|email|phone|first_name|last_name|dob)/);
     expect(intake).not.toMatch(/(?:window|globalThis)\.localStorage|localStorage\.setItem/);
     expect(app).toContain("Browser storage is unavailable");
-    expect(app).toContain("Your free intake is complete and unaffected.");
+    expect(app).toContain("Your intake is complete and unaffected.");
     expect(app).not.toContain("?submission_token");
   });
 

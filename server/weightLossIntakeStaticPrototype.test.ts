@@ -364,7 +364,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(confirmationStart).toBeGreaterThan(-1);
     expect(restartStart).toBeGreaterThan(confirmationStart);
     expect(intake).toContain("Complete your free intake");
-    expect(intake).toContain("Your secure text-based doctor care and ongoing asynchronous follow-up are free.");
+    expect(intake).toContain("Your first text visit is FREE and includes 7 days of follow-up messaging.");
     expect(intake).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(intakeThankYou).toContain("What happens next");
     expect(intakeThankYou).toContain("Check your email &amp; create your account");
@@ -404,7 +404,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(videoVisit).toContain('customElements.get("apple-pay-button")');
     expect(videoVisit).toContain('isEligible("applepay")');
     expect(videoVisit).toContain('buttonstyle=\\"black\\"');
-    expect(intakeThankYou).toContain('src="/intake/video-visit.js?v=video-booking-redirect-20261023"');
+    expect(intakeThankYou).toContain('src="/intake/video-visit.js?v=intake-video-97-20261027"');
   });
 
   it("keeps optional video coupons server-validated and out of the free intake", () => {

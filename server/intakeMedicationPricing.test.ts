@@ -290,7 +290,7 @@ describe("local intake medication pricing", () => {
     ]);
   });
 
-  it("normalizes every submitted local selection to its intake display name while preserving the draft schema and $39 video charge", () => {
+  it("normalizes every submitted local selection to its intake display name while preserving the draft schema and $97 video charge", () => {
     for (const expected of approvedIntakeDisplays) {
       const draft = validateIntakeDraft(syntheticDraft(expected.value));
       expect(draft.answers.w.treatment_interest).toBe(expected.name);
@@ -316,8 +316,8 @@ describe("local intake medication pricing", () => {
       "373ef4af-190d-45cb-9d51-42c627f5376b",
       { provider: "paypal", environment: "sandbox", status: "COMPLETED", order_id: "TEST-ORDER", capture_id: "TEST-CAPTURE", amount: VIDEO_VISIT_AMOUNT, currency: "USD", captured_at: "2026-10-21T19:01:00.000Z" },
     );
-    expect(VIDEO_VISIT_AMOUNT).toBe("39.00");
-    expect(paid.service.amount).toBe("39.00");
-    expect(paid.payment.amount).toBe("39.00");
+    expect(VIDEO_VISIT_AMOUNT).toBe("97.00");
+    expect(paid.service.amount).toBe("97.00");
+    expect(paid.payment.amount).toBe("97.00");
   });
 });

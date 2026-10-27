@@ -1,5 +1,5 @@
 const CHECKOUT_KEY = "mmd_video_visit_checkout";
-const VIDEO_VISIT_AMOUNT = "39.00";
+const VIDEO_VISIT_AMOUNT = "97.00";
 
 /**
  * Mount the optional video-visit checkout into one React-owned root.
@@ -445,7 +445,7 @@ export function initializeThankYouVideoCheckout(root, receipt, onConfirmed) {
       const methods = await instance.findEligibleMethods({ currencyCode: "USD" });
       if (!mounted() || !methods.isEligible("applepay")) return;
       state.apple = { session: instance.createApplePayOneTimePaymentSession(), details: methods.getDetails("applepay") };
-      container.innerHTML = "<p class=\"apple-pay-divider\">or pay with</p><apple-pay-button id=\"video-apple-pay-button\" type=\"buy\" buttonstyle=\"black\" locale=\"en-US\" aria-label=\"Pay $39 with Apple Pay\"></apple-pay-button>";
+      container.innerHTML = "<p class=\"apple-pay-divider\">or pay with</p><apple-pay-button id=\"video-apple-pay-button\" type=\"buy\" buttonstyle=\"black\" locale=\"en-US\" aria-label=\"Pay $97 with Apple Pay\"></apple-pay-button>";
       container.hidden = false;
       const appleButton = byId("video-apple-pay-button");
       if (appleButton) listen(appleButton, "click", () => {

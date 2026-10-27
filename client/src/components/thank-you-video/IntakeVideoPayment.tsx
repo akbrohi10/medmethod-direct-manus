@@ -19,7 +19,7 @@ export default function IntakeVideoPayment({ receipt, onConfirmed }: { receipt: 
       </div>
       <section className="checkout" id="video-checkout" aria-labelledby="checkout-title">
         <h2 id="checkout-title">Add Your Zoom Video Visit</h2>
-        <p>Complete your $39 payment below, then pick a time to meet with Dr. Al-Deek.</p>
+        <p>Complete your $97 payment below, then pick a time to meet with Dr. Al-Deek.</p>
         <p className="checkout-status" id="checkout-status" aria-live="polite" />
         <section className="coupon" aria-labelledby="coupon-title">
           <label id="coupon-title" htmlFor="video-coupon-code">Enter referral code</label>
@@ -36,7 +36,7 @@ export default function IntakeVideoPayment({ receipt, onConfirmed }: { receipt: 
         <div className="checkout-payment-area" id="checkout-payment-area">
           <p className="checkout-note">Enter card details only in PayPal-hosted secure fields. MedMethod Direct does not receive or store card numbers or security codes.</p>
           <div className="checkout-card-fields" id="checkout-card-fields" hidden>
-            <h3>Pay $39 securely</h3>
+            <h3>Pay $97 securely</h3>
             <p className="checkout-note">Your card details stay inside PayPal-hosted secure fields.</p>
             <div className="paypal-inputs" aria-busy="true">
               <label className="paypal-field"><span>Cardholder name</span><div id="video-card-name" /></label>
@@ -46,7 +46,7 @@ export default function IntakeVideoPayment({ receipt, onConfirmed }: { receipt: 
                 <label className="paypal-field"><span>Security code</span><div id="video-card-cvv" /></label>
               </div>
             </div>
-            <button className="primary paypal-pay" id="pay-video-card" type="button" disabled>Pay $39 securely</button>
+            <button className="primary paypal-pay" id="pay-video-card" type="button" disabled>Pay $97 securely</button>
           </div>
           <div className="apple-pay-option" id="video-apple-pay" hidden />
         </div>

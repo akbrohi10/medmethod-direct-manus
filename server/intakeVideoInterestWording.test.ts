@@ -32,27 +32,29 @@ function expectUnchangedFromHead(start: string, end: string) {
 }
 
 describe("intake video-visit interest wording", () => {
-  it("keeps the exact free branch and conditionally presents the $39 wording", () => {
+  it("uses the $97 pay-per-visit model while retaining the free first-text-visit branch", () => {
     const pricing = fragment("function He({answers})", "})}var Ue=[]");
     expect(pricing).toContain('answers.videoVisitInterest===true');
-    expect(pricing).toContain('videoVisitInterest?"$39":"FREE"');
-    expect(pricing).toContain('videoVisitInterest?"Zoom video visit \\xB7 Ongoing text-based care included":"Ongoing text-based doctor care \\xB7 No commitment"');
-    expect(pricing).toContain('videoVisitInterest?"Your Zoom video visit: $39 (paid after you submit)":"Optional Zoom video visits: $39 per visit"');
+    expect(pricing).toContain('videoVisitInterest?"$97":"FREE"');
+    expect(pricing).toContain('videoVisitInterest?"Video visit · $97":"First text visit · FREE with 7 days of follow-up messaging"');
+    expect(pricing).toContain('"Additional text visits are $29 each"');
+    expect(pricing).toContain('videoVisitInterest?"Your video visit: $97 (pay after you submit)":"Optional video visits are $97"');
 
     const review = fragment("function qe({answers,onChangeMedication})", "})}function Xe({");
-    expect(review).toContain('videoVisitInterest?"Zoom video visit $39 + ongoing text-based care":"FREE — no monthly fee or commitment"');
-    expect(review).toContain('...(videoVisitInterest?["Meet Dr. Al-Deek face-to-face on Zoom - $39"]:[])');
+    expect(review).toContain('videoVisitInterest?"Video visit $97":"First text visit FREE — includes 7 days of follow-up messaging"');
+    expect(review).toContain('...(videoVisitInterest?["Meet Dr. Al-Deek face-to-face by video - $97"]:[])');
 
     const finish = fragment("function MmdIntakeFinish({", "}\nfunction $e(){");
     expect(finish).toContain('answers.videoVisitInterest===true?(0,M.jsxs)("aside",{className:"order-summary panel"');
-    expect(finish).toContain('children:"ZOOM VIDEO VISIT"');
-    expect(finish).toContain('children:"$39"');
-    expect(finish).toContain('children:"Paid on the next page, after you submit. Ongoing text-based care included."');
-    expect(finish).toContain('):(0,M.jsx)("p",{className:"fine",children:"Your intake and ongoing text-based care are free. Medication costs are separate."})');
-
+    expect(finish).toContain('children:"VIDEO VISIT"');
+    expect(finish).toContain('children:"$97"');
+    expect(finish).toContain('children:"Pay and pick a time after submitting your intake."');
+    expect(finish).toContain('):(0,M.jsx)("p",{className:"fine",children:"Your first text visit is FREE and includes 7 days of follow-up messaging. Medication costs extra."})');
     expect(intakeSource).toContain('t.videoVisitInterest===true?`Review & submission`:`Review & free submission`');
     expect(intakeSource).toContain('answers.videoVisitInterest===true?"Submitting your intake...":"Submitting your free intake\\u2026"');
     expect(intakeSource).toContain('answers.videoVisitInterest===true?"Submit Intake & Book Video Visit":"Submit My Free Intake"');
+    expect(intakeSource).not.toContain("$39");
+    expect(intakeSource).not.toMatch(/Free ongoing|No monthly|Ongoing text-based/i);
   });
 
   it("does not alter protected submission, verification, or redirect behavior", () => {
@@ -63,7 +65,6 @@ describe("intake video-visit interest wording", () => {
       "function MmdDemoIdentityVerificationSkipped(",
       "function MmdPhoneVerification({",
     );
-
     expect(intakeSource).toContain('MmdIntakePhoneReady(answers,demoMode)');
     expect(intakeSource).toContain('MmdPhoneVerificationSatisfied');
     expect(intakeSource).toContain('allowedRedirects=demoSubmission?["/intake/thank-you/?prefill=demo"]:["/thank-you-video","/intake/thank-you/"]');

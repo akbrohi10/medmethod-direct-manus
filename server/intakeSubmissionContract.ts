@@ -2,7 +2,14 @@ import { z } from "zod";
 import treatmentCatalog from "../shared/treatmentCatalog.json";
 
 export const INTAKE_SMS_OPT_IN_TEXT = "Yes, I'd like to receive text messages from MedMethod Direct about my care, including appointment reminders, treatment updates, and health information such as lab results. I understand that standard text messages are not encrypted and may be seen by others with access to my phone. Message frequency varies. Message & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. See our Terms of Service and Privacy Policy.";
-export const VIDEO_VISIT_AMOUNT = "39.00" as const;
+/** The immutable server-side price for every newly created optional video visit. */
+export const VIDEO_VISIT_AMOUNT = "97.00" as const;
+/**
+ * Historical signed v2 approvals used this amount. It is never eligible for a
+ * new order or a new capture; it is retained solely to reconcile a capture
+ * that PayPal already completed before the price migration.
+ */
+export const LEGACY_VIDEO_VISIT_AMOUNT = "39.00" as const;
 export const VIDEO_VISIT_DESCRIPTION = "optional one-time medical-weight-loss Zoom video visit";
 
 const isoTimestamp = z.string().datetime({ offset: true });
@@ -34,6 +41,9 @@ export type PhoneAttestation = { phone_verified: boolean; phone_verified_at: str
 export type VerifiedVideoVisitPayment = {
   provider: "paypal"; environment: "sandbox" | "live"; status: "COMPLETED";
   order_id: string; capture_id: string; amount: typeof VIDEO_VISIT_AMOUNT; currency: "USD"; captured_at: string;
+};
+export type VerifiedLegacyVideoVisitPayment = Omit<VerifiedVideoVisitPayment, "amount"> & {
+  amount: typeof LEGACY_VIDEO_VISIT_AMOUNT;
 };
 export type CompletedFreeIntakeReceipt = {
   submission_id: string;
@@ -120,6 +130,30 @@ export function finalizeVideoVisitPaid(
     submitted_at: payment.captured_at,
     is_test: receipt.is_test,
     service: { type: "optional_video_visit", description: VIDEO_VISIT_DESCRIPTION, one_time: true, amount: VIDEO_VISIT_AMOUNT, currency: "USD" },
+    payment,
+  };
+}
+
+/**
+ * This event is only for a PayPal capture completed under the retired v2 price
+ * before the immutable 97 USD checkout was deployed. Keeping the actual amount
+ * avoids misrepresenting an historical payment while preventing any re-capture.
+ */
+export function finalizeLegacyVideoVisitPaidRecovery(
+  receipt: CompletedFreeIntakeReceipt,
+  eventId: string,
+  payment: VerifiedLegacyVideoVisitPayment,
+) {
+  return {
+    event: "mmd_intake.video_visit_paid",
+    schema_version: "1.2",
+    event_id: eventId,
+    submission_id: eventId,
+    related_submission_id: receipt.submission_id,
+    submitted_at: payment.captured_at,
+    is_test: receipt.is_test,
+    legacy_price_recovery: true,
+    service: { type: "optional_video_visit", description: VIDEO_VISIT_DESCRIPTION, one_time: true, amount: LEGACY_VIDEO_VISIT_AMOUNT, currency: "USD" },
     payment,
   };
 }

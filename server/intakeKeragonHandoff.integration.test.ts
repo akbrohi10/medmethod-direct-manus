@@ -3,7 +3,7 @@ import { it } from "vitest";
 /**
  * Intentionally disabled integration harness.
  *
- * The intake is now free-first and payment is a separate optional $39 video visit.
+ * The intake is now free-first and payment is a separate optional $97 video visit.
  * This repository's regular test suite must never contact Keragon, PayPal, Spruce,
  * or any endpoint with patient data. The mocked unit coverage in
  * intakePaidFinalization.test.ts covers free delivery, receipts, video payment,

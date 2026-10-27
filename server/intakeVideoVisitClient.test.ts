@@ -87,7 +87,16 @@ describe("optional video visit confirmation client", () => {
     expect(page).not.toContain("Dr. Al-Deek");
     expect(page).not.toContain("$49 safety net");
     expect(page).toContain("Prefer a face-to-face conversation?");
-    expect(page).toContain("Add a Video Visit — $39");
+    expect(page).toContain("Add a Zoom video visit with a doctor specializing in medical weight loss — <strong>$97.</strong>");
+    expect(page).toContain("Every visit includes 7 days of follow-up messaging. This is optional; declining, cancelling, or a payment issue never affects your free intake.");
+    expect(page).not.toContain("No monthly charge and no commitment.");
+    expect(page).toContain("Add a Video Visit — $97");
+    expect(page).toContain("Payment is only for the optional $97 video visit. Your free intake remains complete either way.");
+    expect(page).toContain("Pay $97 securely");
+    expect(page).not.toContain("$39");
+    expect(source).toContain('const VIDEO_VISIT_AMOUNT = "97.00"');
+    expect(source).toContain('aria-label=\\"Pay $97 with Apple Pay\\"');
+    expect(source).toContain('total: { label: "MedMethod Direct", amount: VIDEO_VISIT_AMOUNT, type: "final" }');
     expect(page).toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(page).toContain('<strong id="care-message-title">Check your text messages</strong>');
     expect(page).toContain("Look for a text from MedMethod Direct. Open it and reply to start chatting with our Care Team or a doctor.");
@@ -96,6 +105,7 @@ describe("optional video visit confirmation client", () => {
     expect(page.indexOf('PatientPortalMenuHighlights_5e7b0fd0.png')).toBeLessThan(page.indexOf('id="video-visit-card"'));
     expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
     expect(page).toContain('class="start-over" href="/intake/">Start over</a>');
+    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>');
     expect(source).toContain('title.textContent = "Use your secure Patient Portal"');
     expect(source).toContain('copy.textContent = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms."');
   });

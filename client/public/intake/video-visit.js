@@ -3,7 +3,7 @@
 
   const RECEIPT_KEY = "mmd_free_intake_receipt";
   const CHECKOUT_KEY = "mmd_video_visit_checkout";
-  const VIDEO_VISIT_AMOUNT = "39.00";
+  const VIDEO_VISIT_AMOUNT = "97.00";
   const CARE_EMAIL = "info@medmethoddirect.com";
   const CARE_PHONE = "888-362-7011";
   const demoParams = new URLSearchParams(window.location.search);
@@ -127,7 +127,7 @@
   }
 
   // This fixed destination intentionally carries no receipt, patient, or payment data.
-  // It is called only after the server has confirmed a completed $39 capture or waiver.
+  // It is called only after the server has confirmed a completed $97 capture or waiver.
   function continueToVideoBooking() {
     window.location.replace("/thank-you-video");
   }
@@ -357,7 +357,7 @@
       const methods = await instance.findEligibleMethods({ currencyCode: "USD" });
       if (!methods.isEligible("applepay")) return;
       state.apple = { session: instance.createApplePayOneTimePaymentSession(), details: methods.getDetails("applepay") };
-      container.innerHTML = "<p class=\"apple-pay-divider\">or pay with</p><apple-pay-button id=\"video-apple-pay-button\" type=\"buy\" buttonstyle=\"black\" locale=\"en-US\" aria-label=\"Pay $39 with Apple Pay\"></apple-pay-button>";
+      container.innerHTML = "<p class=\"apple-pay-divider\">or pay with</p><apple-pay-button id=\"video-apple-pay-button\" type=\"buy\" buttonstyle=\"black\" locale=\"en-US\" aria-label=\"Pay $97 with Apple Pay\"></apple-pay-button>";
       container.hidden = false;
       const appleButton = byId("video-apple-pay-button");
       appleButton.addEventListener("click", () => startApplePay(receipt, appleButton));
@@ -431,7 +431,7 @@
       if (title) title.textContent = "Video visit waived";
       if (copy) copy.innerHTML = `No charge was collected for your optional video visit. To coordinate your visit, contact the Care Team at <a href="mailto:${CARE_EMAIL}">${CARE_EMAIL}</a> or <a href="tel:+18883627011">${CARE_PHONE}</a>.`;
     } else {
-      if (title) title.textContent = "Video visit paid — $39";
+      if (title) title.textContent = "Video visit paid — $97";
       if (copy) copy.innerHTML = `Thank you. To coordinate your optional video visit, contact the Care Team at <a href="mailto:${CARE_EMAIL}">${CARE_EMAIL}</a> or <a href="tel:+18883627011">${CARE_PHONE}</a>.`;
     }
   }

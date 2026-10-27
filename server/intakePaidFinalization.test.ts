@@ -1,7 +1,7 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from "vitest";
 import { createHmac } from "node:crypto";
 import type { Express, Request, Response } from "express";
-import { INTAKE_SMS_OPT_IN_TEXT, VIDEO_VISIT_AMOUNT, VIDEO_VISIT_DESCRIPTION, validateIntakeDraft } from "./intakeSubmissionContract";
+import { INTAKE_SMS_OPT_IN_TEXT, LEGACY_VIDEO_VISIT_AMOUNT, VIDEO_VISIT_AMOUNT, VIDEO_VISIT_DESCRIPTION, validateIntakeDraft } from "./intakeSubmissionContract";
 
 const mocks = vi.hoisted(() => ({ settings: vi.fn(), deliverySettings: vi.fn(), attestation: vi.fn(), getPhoneSettings: vi.fn() }));
 vi.mock("./db", () => ({ getPaypalSettings: mocks.settings, getIntakeDeliverySettings: mocks.deliverySettings }));
@@ -37,10 +37,10 @@ function harness() {
   };
 }
 const orderId = "MOCK-NO-CHARGE-ORDER";
-function completed(id: string, overrides: any = {}) {
-  return { id: orderId, status: "COMPLETED", purchase_units: [{ custom_id: id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" }, payments: { captures: [{ id: "MOCK-NO-CHARGE-CAPTURE", status: "COMPLETED", custom_id: id, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" }, create_time: "2026-10-21T19:01:00.000Z", ...overrides }] } }] };
+function completed(id: string, overrides: any = {}, amount = VIDEO_VISIT_AMOUNT) {
+  return { id: orderId, status: "COMPLETED", purchase_units: [{ custom_id: id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: amount, currency_code: "USD" }, payments: { captures: [{ id: "MOCK-NO-CHARGE-CAPTURE", status: "COMPLETED", custom_id: id, amount: { value: amount, currency_code: "USD" }, create_time: "2026-10-21T19:01:00.000Z", ...overrides }] } }] };
 }
-function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFailOnce?: boolean; orderFail?: boolean; completedAlready?: boolean; captureOverrides?: any; captureResponse?: unknown; approvedOrder?: unknown } = {}) {
+function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFailOnce?: boolean; orderFail?: boolean; completedAlready?: boolean; legacyCompleted?: boolean; captureOverrides?: any; captureResponse?: unknown; approvedOrder?: unknown } = {}) {
   const events: string[] = [], payloads: any[] = [], bodies: any[] = [];
   let relayAttempts = 0;
   vi.stubGlobal("fetch", vi.fn(async (url: string, init: RequestInit = {}) => {
@@ -56,7 +56,7 @@ function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFail
     if (url.endsWith("/capture")) { events.push("capture"); return Response.json(options.captureResponse ?? completed(draft.submission_id, options.captureOverrides)); }
     if (url.endsWith(orderId)) {
       events.push("get");
-      return Response.json(options.completedAlready ? completed(draft.submission_id, options.captureOverrides) : options.approvedOrder ?? { id: orderId, status: "APPROVED", purchase_units: [{ custom_id: draft.submission_id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" } }] });
+      return Response.json(options.completedAlready ? completed(draft.submission_id, options.captureOverrides) : options.legacyCompleted ? completed(draft.submission_id, {}, LEGACY_VIDEO_VISIT_AMOUNT) : options.approvedOrder ?? { id: orderId, status: "APPROVED", purchase_units: [{ custom_id: draft.submission_id, description: VIDEO_VISIT_DESCRIPTION, amount: { value: VIDEO_VISIT_AMOUNT, currency_code: "USD" } }] });
     }
     throw new Error(`Unexpected network request in isolated test: ${url}`);
   }));
@@ -70,6 +70,11 @@ function expire(token: string) {
   const body = { ...JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")), expires_at: Date.now() - 1 };
   const next = Buffer.from(JSON.stringify(body)).toString("base64url");
   return `${next}.${createHmac("sha256", "synthetic-test-signing-key").update(next).digest("base64url")}`;
+}
+function historicalApprovalToken(submissionId: string) {
+  const payload = { version: 2, purpose: "video_visit_payment", submission_id: submissionId, order_id: orderId, mode: "sandbox", amount: LEGACY_VIDEO_VISIT_AMOUNT, currency: "USD", expires_at: Date.now() + 30 * 60 * 1000 };
+  const encoded = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  return `${encoded}.${createHmac("sha256", "synthetic-test-signing-key").update(encoded).digest("base64url")}`;
 }
 
 beforeEach(() => {
@@ -85,7 +90,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     const draft = syntheticDraft(), network = provider(draft), request = harness();
     const result = await submitFree(request, draft);
     expect(result.code).toBe(201);
-    expect(result.body).toMatchObject({ submission_id: draft.submission_id, sms_opt_in: false, video_visit_interest: true, is_test: false, payment_status: "NOT_REQUIRED", redirect_url: "/intake/thank-you/" });
+    expect(result.body).toMatchObject({ submission_id: draft.submission_id, sms_opt_in: false, video_visit_interest: true, is_test: false, payment_status: "NOT_REQUIRED", redirect_url: "/thank-you-video" });
     expect(result.body.submission_token).toBeTypeOf("string");
     expect(network.events).toEqual(["relay"]);
     expect(mocks.settings).not.toHaveBeenCalled();
@@ -99,14 +104,14 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(mocks.attestation).toHaveBeenCalledWith("valid-phone-token", draft.patient.phone);
   });
 
-  it("returns the clean thank-you destination for normal requests and ignores body or query redirect injection", async () => {
+  it("server-routes checked intakes to video, unchecked intakes to thank-you, and ignores redirect injection", async () => {
     const videoDraft = syntheticDraft(), videoNetwork = provider(videoDraft), videoRequest = harness();
     const video = await videoRequest(
       "POST", "/api/intake/submit",
       { intake: videoDraft, phone_verification_token: "valid-phone-token", video_visit_interest: true, redirect_url: "https://attacker.example.test" },
       {}, { redirect_url: "javascript:alert(1)" },
     );
-    expect(video.code).toBe(201); expect(video.body.redirect_url).toBe("/intake/thank-you/");
+    expect(video.code).toBe(201); expect(video.body.redirect_url).toBe("/thank-you-video");
     expect(videoNetwork.events).toEqual(["relay"]);
 
     const freeDraft = syntheticDraft("73cb857e-d80d-453c-8106-420cbe2b3b45"), freeNetwork = provider(freeDraft), freeRequest = harness();
@@ -128,7 +133,7 @@ describe("free intake receipt and optional video visit handoff", () => {
       {}, { redirect_url: "https://attacker.example.test" },
     );
     expect(retry.code).toBe(201); expect(retry.body).toEqual(accepted.body);
-    expect(retry.body.redirect_url).toBe("/intake/thank-you/");
+    expect(retry.body.redirect_url).toBe("/thank-you-video");
 
     const opposite = await request("POST", "/api/intake/submit", { intake: draft, phone_verification_token: "valid-phone-token", video_visit_interest: false });
     expect(opposite.code).toBe(422); expect(opposite.body.error).toMatch(/already used with different intake information/i);
@@ -240,7 +245,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     mocks.attestation.mockReturnValue({ verifiedAt: "2026-10-21T18:59:00.000Z", mode: "live" });
     const accepted = await submitFree(request, draft);
     expect(accepted.code).toBe(201);
-    expect(accepted.body).toMatchObject({ is_test: false, redirect_url: "/intake/thank-you/" });
+    expect(accepted.body).toMatchObject({ is_test: false, redirect_url: "/thank-you-video" });
     expect(network.payloads[0].patient).toMatchObject({ phone_verified: true, phone_verified_at: "2026-10-21T18:59:00.000Z" });
   });
 
@@ -263,7 +268,24 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(network.events).toEqual(["relay"]);
   });
 
-  it("creates a $39 optional video visit only from a receipt and sends a separate clinical-data-free paid event", async () => {
+  it("lets an unchecked completed intake add a $97 video visit later without resubmitting the intake", async () => {
+    const draft = syntheticDraft(), network = provider(draft), request = harness();
+    const free = await submitFree(request, draft, { video_visit_interest: false });
+    expect(free.body.redirect_url).toBe("/intake/thank-you/");
+    const status = await request("POST", "/api/intake/video/status", { submission_token: free.body.submission_token });
+    expect(status.code).toBe(200);
+    expect(status.body.status).toBe("available");
+    const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
+    expect(created.code).toBe(201);
+    expect(network.bodies[0].purchase_units[0].amount).toEqual({ currency_code: "USD", value: "97.00" });
+    const paid = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token: created.body.approval_token }, { orderId });
+    expect(paid.code).toBe(200);
+    expect(paid.body.payment_status).toBe("COMPLETED");
+    expect(network.payloads.filter(payload => payload.event === "mmd_intake.free_submitted")).toHaveLength(1);
+    expect(network.payloads.filter(payload => payload.event === "mmd_intake.video_visit_paid")).toHaveLength(1);
+  });
+
+  it("creates an immutable $97 optional video visit only from a delivered receipt and sends a separate clinical-data-free paid event", async () => {
     const draft = syntheticDraft(), network = provider(draft), request = harness();
     const free = await submitFree(request, draft);
     const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
@@ -320,12 +342,12 @@ describe("free intake receipt and optional video visit handoff", () => {
 
   it.each([
     { value: "49.00", currency_code: "USD" },
-    { value: "39.99", currency_code: "USD" },
-    { value: "39.00", currency_code: "CAD" },
-  ])("rejects a video capture that is not exactly 39.00 USD: %j", async (amount) => {
+    { value: "39.00", currency_code: "USD" },
+    { value: "97.00", currency_code: "CAD" },
+  ])("rejects a video capture that is not exactly 97.00 USD: %j", async (amount) => {
     const draft = syntheticDraft(), network = provider(draft, { captureOverrides: { amount } }), request = harness();
     const free = await submitFree(request, draft);
-    expect(free.body.redirect_url).toBe("/intake/thank-you/");
+    expect(free.body.redirect_url).toBe("/thank-you-video");
     const created = await request("POST", "/api/paypal/orders", { submission_token: free.body.submission_token, payment_method: "card" });
     const finished = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token: created.body.approval_token }, { orderId });
     expect(finished.code).toBe(400);
@@ -346,7 +368,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     const draft = syntheticDraft(), network = provider(draft, { relayFailOnce: false }), request = harness();
     const [first, second] = await Promise.all([submitFree(request, draft), submitFree(request, draft)]);
     expect(first.body).toEqual(second.body); expect(network.events.filter(e => e === "relay")).toHaveLength(1);
-    expect(first.body.redirect_url).toBe("/intake/thank-you/");
+    expect(first.body.redirect_url).toBe("/thank-you-video");
     const body = { submission_token: first.body.submission_token, payment_method: "card" as const };
     const [one, two] = await Promise.all([request("POST", "/api/paypal/orders", body), request("POST", "/api/paypal/orders", body)]);
     expect(one.body).toEqual(two.body); expect(network.events.filter(e => e === "create")).toHaveLength(1);
@@ -354,6 +376,42 @@ describe("free intake receipt and optional video visit handoff", () => {
     await Promise.all([request(...capture), request(...capture)]); await request(...capture);
     expect(network.events.filter(e => e === "capture")).toHaveLength(1);
     expect(network.payloads.filter(payload => payload.event === "mmd_intake.video_visit_paid")).toHaveLength(1);
+  });
+
+  it("recovers a signed historical completed $39 receipt once without a replacement order or second capture", async () => {
+    const draft = syntheticDraft(), network = provider(draft, { legacyCompleted: true }), request = harness();
+    await submitFree(request, draft);
+    const approval_token = historicalApprovalToken(draft.submission_id);
+
+    const first = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token }, { orderId });
+    const retry = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token }, { orderId });
+
+    expect(first.code).toBe(200);
+    expect(retry.body).toEqual(first.body);
+    expect(network.events).toEqual(["relay", "auth", "get", "relay"]);
+    expect(network.events).not.toContain("capture");
+    expect(network.events).not.toContain("create");
+    const paid = network.payloads.at(-1);
+    expect(paid).toMatchObject({ event: "mmd_intake.video_visit_paid", schema_version: "1.2", legacy_price_recovery: true, service: { amount: LEGACY_VIDEO_VISIT_AMOUNT, currency: "USD" }, payment: { amount: LEGACY_VIDEO_VISIT_AMOUNT, currency: "USD" } });
+    expect(network.payloads.filter(payload => payload.event === "mmd_intake.video_visit_paid")).toHaveLength(1);
+  });
+
+  it("fails a signed historical pending approval closed without capture or a replacement $97 order", async () => {
+    const draft = syntheticDraft(), network = provider(draft), request = harness();
+    await submitFree(request, draft);
+    const approval_token = historicalApprovalToken(draft.submission_id);
+
+    const blockedCapture = await request("POST", "/api/paypal/orders/:orderId/capture", { approval_token }, { orderId });
+    const blockedReplacement = await request("POST", "/api/paypal/orders", { submission_token: (await submitFree(request, draft)).body.submission_token, payment_method: "card" });
+
+    expect(blockedCapture.code).toBe(400);
+    expect(blockedCapture.body.error).toMatch(/retired price\. No charge will be made\. Please contact the Care Team/i);
+    expect(blockedReplacement.code).toBe(422);
+    expect(blockedReplacement.body.error).toMatch(/retired price\. No charge will be made\. Please contact the Care Team/i);
+    expect(network.events).toEqual(["relay", "auth", "get"]);
+    expect(network.events).not.toContain("capture");
+    expect(network.events).not.toContain("create");
+    expect(network.payloads.filter(payload => payload.event === "mmd_intake.video_visit_paid")).toHaveLength(0);
   });
 
   it("uses the existing family validator only to waive optional video service, never the free intake", async () => {

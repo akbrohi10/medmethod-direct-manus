@@ -20,7 +20,8 @@ describe("video booking confirmation only", () => {
   });
   it("has the exact requested heading, subtitle, badge and calendar introduction", () => {
     expect(page).toContain("One Last Step: Pick Your Time");
-    expect(page).toContain("Your $39 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.");
+    expect(page).toContain("Your $97 Zoom video visit is secured. Choose a date and time below to schedule your visit with Dr. Al-Deek.");
+    expect(page).toContain('content="Your $97 Zoom video visit payment is confirmed. Choose a time with Dr. Al-Deek, then follow the next steps."');
     expect(page).toContain("100% Virtual - No Office Visit Needed");
     expect(page).toContain("Schedule Your Zoom Video Visit with Dr. Al-Deek");
     expect(page).toContain("Pick a date and time that works for you. Your visit isn't scheduled until you choose a time.");
@@ -53,9 +54,10 @@ describe("video booking confirmation only", () => {
     expect(page).toContain('JSON.stringify({ submission_token: receipt.submission_token })');
     expect(page).toContain('confirmedIntakeVideoAccess(result, receipt)');
     expect(page).toContain('receipt && (access === "available" || access === "pending") && <IntakeVideoPayment');
-    expect(page).toContain('Complete your free intake first. After submission, you can add an optional $39 Zoom video visit and choose a time.');
+    expect(page).toContain('Complete your free intake first. After submission, you can add an optional $97 Zoom video visit and choose a time.');
     expect(page).toContain('href="/intake/"');
     expect(page).toContain('do not make another payment.');
+    expect(page).not.toContain("$39");
     expect(page).not.toContain('payment_status=');
     expect(page).not.toContain('submission_token=');
   });

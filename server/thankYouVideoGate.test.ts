@@ -28,8 +28,11 @@ describe("thank-you-video intake and payment gate", () => {
     const adapter = readFileSync("client/src/components/thank-you-video/checkout.js", "utf8");
     for (const id of ["video-card-name", "video-card-number", "video-card-expiry", "video-card-cvv", "video-coupon-code", "validate-video-coupon", "submit-video-coupon", "video-apple-pay", "recover-video-payment"]) expect(panel).toContain(id);
     expect(panel).toContain("Add Your Zoom Video Visit");
-    expect(panel).toContain("Complete your $39 payment below, then pick a time to meet with Dr. Al-Deek.");
-    for (const phrase of ['const VIDEO_VISIT_AMOUNT = "39.00"', '"/api/intake/video/status"', '"/api/intake/coupon/validate"', '"/api/intake/coupon/submit"', 'createCardFieldsOneTimePaymentSession()', 'createApplePayOneTimePaymentSession()', 'window.ApplePaySession.canMakePayments()', 'body: JSON.stringify({ approval_token: approvalToken })']) expect(adapter).toContain(phrase);
+    expect(panel).toContain("Complete your $97 payment below, then pick a time to meet with Dr. Al-Deek.");
+    expect(panel).toContain("Pay $97 securely");
+    expect(panel).not.toContain("$39");
+    for (const phrase of ['const VIDEO_VISIT_AMOUNT = "97.00"', '"/api/intake/video/status"', '"/api/intake/coupon/validate"', '"/api/intake/coupon/submit"', 'createCardFieldsOneTimePaymentSession()', 'createApplePayOneTimePaymentSession()', 'window.ApplePaySession.canMakePayments()', 'aria-label=\\"Pay $97 with Apple Pay\\"', 'body: JSON.stringify({ approval_token: approvalToken })']) expect(adapter).toContain(phrase);
+    expect(adapter).not.toContain('"39.00"');
     expect(adapter).not.toContain('window.location.replace(');
     expect(adapter).not.toMatch(/card_number|card_cvv|submission_token=|vault|recurring/);
     expect(adapter).toContain('root.querySelector');
