@@ -66,7 +66,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain('#how-it-works.wave-top::before{display:none}');
   });
 
-  it("uses free ongoing doctor care on the landing and local intake with optional post-intake video", () => {
+  it("uses the approved first-visit pricing copy on the landing while keeping local intake submission free", () => {
     expect(landing).toContain("Text a");
     expect(landing).toContain("weight-loss doctor");
     expect(landing).toContain("For FREE!");
@@ -74,7 +74,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain("Instantly receive a text and connect with your doctor.");
     expect(landing).toContain("Start My Free Doctor Visit");
     expect(landing).toContain("Medication costs extra.");
-    expect(landing).toContain("Ongoing doctor care by secure text is free.");
+    expect(landing).toContain("Your first text visit with a doctor is FREE.");
     expect(landing).toContain("Patient perspectives");
     expect(landing).not.toContain("$49/month");
     expect(landing).not.toContain("$49 today");
@@ -94,7 +94,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(hero.indexOf('class="hero-actions"')).toBeLessThan(hero.indexOf('class="phone-stage"'));
     expect(hero).not.toContain('class="hero-subheadline"');
     expect(hero).not.toContain('class="hero-path"');
-    expect(hero).toContain('Ongoing care by secure text is free. Optional Zoom video visits: $39 each. Medication costs extra.');
+    expect(hero).toContain('Your first text visit is FREE and includes 7 days of follow-up messaging. Additional text visits are $29 each. Video visits are $97. Medication costs extra.');
     expect(landing).toContain('.hero .hero-headline-last::after{content:"";position:absolute');
     expect(landing).toContain('border-top:7px solid var(--hero-sage)');
     expect(landing).toContain('/* Approved flyer-inspired hero — existing animated phone preserved. */');
