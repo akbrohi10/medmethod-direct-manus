@@ -131,7 +131,7 @@ export default function WeightLossMenopauseV2() {
       <div className="process-pricing-card">
         <h3 id="visit-pricing-title">Simple, pay-per-visit care</h3>
         <dl className="process-pricing-rates">
-          <div><dt>First text visit</dt><dd>FREE</dd></div>
+          <div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>
           <div><dt>Additional text visits</dt><dd>$29 <span>each</span></dd></div>
           <div><dt>Video visit</dt><dd>$97</dd></div>
         </dl>

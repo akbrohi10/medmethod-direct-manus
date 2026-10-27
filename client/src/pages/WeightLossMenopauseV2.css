@@ -591,3 +591,15 @@
     width: min(calc(100% - 28px), var(--max));
   }
 }
+/* V2 first text visit note — pricing helper only. */
+.wlm-v2-content #how-it-works .process-pricing-rates .first-text-visit-note {
+  display: block;
+  margin-top: 4px;
+  color: #63516b;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.wlm-v2-content #how-it-works .process-pricing-rates > div:first-child {
+  align-items: start;
+}

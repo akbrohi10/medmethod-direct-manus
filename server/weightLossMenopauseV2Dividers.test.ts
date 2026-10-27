@@ -8,8 +8,11 @@ const baseline = "e7166374";
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const marker = "/* V2 section dividers — straight, content-width transitions only. */";
+const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper only. */";
 const previousHeroSupportingLine = '<p className="hero-description">Explore your options for<br /><strong>GLP-1s, menopause &amp; hormone therapy.</strong></p>';
 const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br /><b>Done right for you. 100% virtual</b></p>';
+const legacyFirstTextVisitRow = '<div><dt>First text visit</dt><dd>FREE</dd></div>';
+const approvedFirstTextVisitRow = '<div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>';
 const targets = [
   "#how-it-works",
   ".medication-pricing",
@@ -42,6 +45,10 @@ function countExactOccurrences(source: string, value: string): number {
 
 function normalizeApprovedHeroSupportingLine(source: string): string {
   return source.replace(approvedHeroSupportingLine, previousHeroSupportingLine);
+}
+
+function normalizeApprovedFirstTextVisitNote(source: string): string {
+  return source.replace(approvedFirstTextVisitRow, legacyFirstTextVisitRow);
 }
 
 function cssRules(css: string): CssRule[] {
@@ -86,7 +93,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
       if (file === pagePath) {
         expect(countExactOccurrences(source, approvedHeroSupportingLine)).toBe(1);
         expect(countExactOccurrences(source, previousHeroSupportingLine)).toBe(0);
-        expect(normalizeApprovedHeroSupportingLine(source)).toBe(atBaseline(file));
+        expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(source))).toBe(atBaseline(file));
       } else {
         expect(source).toBe(atBaseline(file));
       }
@@ -95,7 +102,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
 
   it("uses only grouped V2 target parent and ::before selectors, never global styling", () => {
     const css = read(cssPath);
-    const dividerCss = css.slice(css.indexOf(marker) + marker.length).trim();
+    const dividerCss = css.slice(css.indexOf(marker) + marker.length, css.indexOf(firstTextVisitNoteMarker)).trim();
     const rules = cssRules(dividerCss);
 
     expect(dividerCss).not.toBe("");
@@ -110,7 +117,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
 
   it("adds the six straight, content-width, non-interactive pink-to-purple dividers and keeps wave resets on their pseudo-elements", () => {
     const css = read(cssPath);
-    const dividerCss = css.slice(css.indexOf(marker) + marker.length).trim();
+    const dividerCss = css.slice(css.indexOf(marker) + marker.length, css.indexOf(firstTextVisitNoteMarker)).trim();
     const rules = cssRules(dividerCss);
     const parentRule = rules.find(rule =>
       containsEveryTarget(rule.selectors, false)

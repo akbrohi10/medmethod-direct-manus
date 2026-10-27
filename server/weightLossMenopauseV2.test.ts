@@ -137,6 +137,7 @@ const mobileHeaderMarker = "\n/* Approved V2 mobile header: centered original wo
 const visitBasedCareMarker = "\n/* Approved V2 visit-based care: app removed, clinical content only. */";
 const pricingOfferCardMarker = "\n/* Approved V2 pricing offer card: pricing section only. */";
 const combinedProcessPricingMarker = "\n/* V2 combined process and visit pricing */";
+const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Board-Certified DO", "Menopause Specialist", "Author"];
@@ -182,6 +183,21 @@ const freeCareCopyReplacements: ReadonlyArray<readonly [v2Copy: string, original
 const approvedZoomOffer = '<p className="video-addon">Prefer face-to-face care?<br />Add a virtual Zoom visit — <b>only $39 per visit.</b></p>';
 const approvedZoomFaq = '<details><summary>Can I add a virtual Zoom visit?</summary><p>Yes. You can add an optional virtual Zoom visit for $39 per visit. Doctor evaluation and text care remain free. Medication is priced separately.</p></details>';
 const legacyStickyCta = '<div className="sticky-cta" aria-hidden="true"><span className="sticky-cta-price">FREE<small> text care</small></span><a className="btn" href={WEIGHT_MENOPAUSE_INTAKE_URL} aria-label="Start your free doctor evaluation by text">Start your visit <span className="arrow">→</span></a></div>';
+const legacyFirstTextVisitRow = '<div><dt>First text visit</dt><dd>FREE</dd></div>';
+const approvedFirstTextVisitRow = '<div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>';
+const firstTextVisitNoteSelector = ".wlm-v2-content #how-it-works .process-pricing-rates .first-text-visit-note";
+const firstTextVisitAlignmentSelector = ".wlm-v2-content #how-it-works .process-pricing-rates > div:first-child";
+const approvedFirstTextVisitNoteCss = `${firstTextVisitNoteSelector} {
+  display: block;
+  margin-top: 4px;
+  color: #63516b;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+${firstTextVisitAlignmentSelector} {
+  align-items: start;
+}`;
 const approvedCombinedProcessPricingSection = `<section className="section process-pricing-section" id="how-it-works" aria-labelledby="process-pricing-title">
   <div className="container process-pricing-layout">
     <div className="process-pricing-intro">
@@ -198,7 +214,7 @@ const approvedCombinedProcessPricingSection = `<section className="section proce
       <div className="process-pricing-card">
         <h3 id="visit-pricing-title">Simple, pay-per-visit care</h3>
         <dl className="process-pricing-rates">
-          <div><dt>First text visit</dt><dd>FREE</dd></div>
+          ${approvedFirstTextVisitRow}
           <div><dt>Additional text visits</dt><dd>$29 <span>each</span></dd></div>
           <div><dt>Video visit</dt><dd>$97</dd></div>
         </dl>
@@ -369,8 +385,16 @@ function atBoldOnlyHeroSupportingLineBaseline(file: string): string {
   return execFileSync("git", ["show", `${boldOnlyHeroSupportingLineBaseline}:${file}`], { cwd: root, encoding: "utf8" });
 }
 
+function atFirstTextVisitNoteBaseline(file: string): string {
+  return execFileSync("git", ["show", `ac46db89:${file}`], { cwd: root, encoding: "utf8" });
+}
+
 function normalizeApprovedHeroSupportingLine(source: string): string {
   return source.replace(approvedHeroSupportingLine, previousApprovedHeroSupportingLine);
+}
+
+function normalizeApprovedFirstTextVisitNote(source: string): string {
+  return source.replace(approvedFirstTextVisitRow, legacyFirstTextVisitRow);
 }
 
 function countExactOccurrences(source: string, value: string): number {
@@ -445,11 +469,23 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(countExactOccurrences(page, approvedHeroSupportingLine)).toBe(1);
     expect(countExactOccurrences(page, previousApprovedHeroSupportingLine)).toBe(0);
     expect(countExactOccurrences(page, previousHeroSupportingLine)).toBe(0);
-    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(page);
+    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(page));
     expect(restoredBoldOnlyPage).toBe(atBoldOnlyHeroSupportingLineBaseline(v2PagePath));
-    expect(css).toBe(atBoldOnlyHeroSupportingLineBaseline(v2CssPath));
+    expect(css.slice(0, css.indexOf(firstTextVisitNoteMarker))).toBe(atBoldOnlyHeroSupportingLineBaseline(v2CssPath));
     expect(restoredBoldOnlyPage.replace(previousApprovedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
-    expect(css).toBe(atApprovedHeroSupportingLineBaseline(v2CssPath));
+    expect(css.slice(0, css.indexOf(firstTextVisitNoteMarker))).toBe(atApprovedHeroSupportingLineBaseline(v2CssPath));
+  });
+  it("adds only the approved first-text-visit helper line and its two scoped pricing rules", () => {
+    const markerIndex = css.indexOf(firstTextVisitNoteMarker);
+    const helperCss = css.slice(markerIndex + firstTextVisitNoteMarker.length).trim();
+    expect(countExactOccurrences(page, approvedFirstTextVisitRow)).toBe(1);
+    expect(countExactOccurrences(page, legacyFirstTextVisitRow)).toBe(0);
+    expect(normalizeApprovedFirstTextVisitNote(page)).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
+    expect(css.match(/\/\* V2 first text visit note — pricing helper only\. \*\//g)).toHaveLength(1);
+    expect(markerIndex).toBeGreaterThanOrEqual(0);
+    expect(css.slice(0, markerIndex)).toBe(atFirstTextVisitNoteBaseline(v2CssPath));
+    expect(helperCss.match(/\.wlm-v2-content #how-it-works \.process-pricing-rates \.first-text-visit-note/g)).toHaveLength(1);
+    expect(helperCss).toBe(approvedFirstTextVisitNoteCss);
   });
 
   it("adds only a page-scoped mobile crop and centered original wordmark without changing the shared Navbar or desktop header", () => {
@@ -739,7 +775,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       ["3", "Make a plan together", "Agree on the next steps that are right for you."],
     ]);
     expect(combined).toContain('<h3 id="visit-pricing-title">Simple, pay-per-visit care</h3>');
-    expect(combined).toContain('<div><dt>First text visit</dt><dd>FREE</dd></div>');
+    expect(combined).toContain(approvedFirstTextVisitRow);
     expect(combined).toContain('<div><dt>Additional text visits</dt><dd>$29 <span>each</span></dd></div>');
     expect(combined).toContain('<div><dt>Video visit</dt><dd>$97</dd></div>');
     expect(combined).toContain('Included with every visit—even your free first visit.');
