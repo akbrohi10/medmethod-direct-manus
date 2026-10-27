@@ -22,6 +22,27 @@ const normalizeApprovedV2DoctorBioCredential = (path: string, source: string) =>
   path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
     ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
+const finalV2FaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
+const finalV2FaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
+const finalV2FaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const baseline = readBaseline(path);
+  const baselineFaq = baseline.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
+  const baselineDisclosures = baseline.match(/<div className="disclosures">[\s\S]*?<\/div>/)?.[0] ?? "";
+  const baselineCopyright = baseline.match(/<span className="footer-legal-copy">[\s\S]*?<\/span>/)?.[0] ?? "";
+  const finalDisclosures = source.match(/<div className="disclosures">[\s\S]*?<\/div>/)?.[0] ?? "";
+  const finalCopyright = source.match(/<span className="footer-legal-copy">[\s\S]*?<\/span>/)?.[0] ?? "";
+  if (!baselineFaq || !baselineDisclosures || !baselineCopyright || !finalDisclosures || !finalCopyright) {
+    throw new Error("Missing approved final V2 FAQ/footer replacement");
+  }
+  return source
+    .replace(finalV2FaqComponentImport, "")
+    .replace(finalV2FaqDataImport, "")
+    .replace(finalV2FaqMount, baselineFaq)
+    .replace(finalDisclosures, baselineDisclosures)
+    .replace(finalCopyright, baselineCopyright);
+};
 const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
   if (path === "client/src/pages/Masterclass2.tsx") {
     return source.replace(
@@ -200,9 +221,9 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
     }
   });
 
-  it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap normalizations", () => {
+  it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap and final-FAQ normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedMasterclassRouteSwap(path, read(path)))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path))))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

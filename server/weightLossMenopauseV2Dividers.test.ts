@@ -14,6 +14,9 @@ const previousHeroSupportingLine = '<p className="hero-description">Explore your
 const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-1s, menopause &amp; hormone therapy.</strong><br /><b>Done right for you. 100% virtual</b></p>';
 const legacyFirstTextVisitRow = '<div><dt>First text visit</dt><dd>FREE</dd></div>';
 const approvedFirstTextVisitRow = '<div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>';
+const finalFaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
+const finalFaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
+const finalFaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
 const targets = [
   "#how-it-works",
   ".medication-pricing",
@@ -52,6 +55,24 @@ function normalizeApprovedFirstTextVisitNote(source: string): string {
   return source.replace(approvedFirstTextVisitRow, legacyFirstTextVisitRow);
 }
 
+function normalizeFinalFaq(source: string): string {
+  const baselinePage = atBaseline(pagePath);
+  const baselineFaq = baselinePage.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
+  const baselineDisclosures = baselinePage.match(/<div className="disclosures">[\s\S]*?<\/div>/)?.[0] ?? "";
+  const baselineCopyright = baselinePage.match(/<span className="footer-legal-copy">[\s\S]*?<\/span>/)?.[0] ?? "";
+  const finalDisclosures = source.match(/<div className="disclosures">[\s\S]*?<\/div>/)?.[0] ?? "";
+  const finalCopyright = source.match(/<span className="footer-legal-copy">[\s\S]*?<\/span>/)?.[0] ?? "";
+  if (!baselineFaq || !baselineDisclosures || !baselineCopyright || !finalDisclosures || !finalCopyright) {
+    throw new Error("Missing final FAQ or pinned footer replacement");
+  }
+  return source
+    .replace(finalFaqComponentImport, "")
+    .replace(finalFaqDataImport, "")
+    .replace(finalFaqMount, baselineFaq)
+    .replace(finalDisclosures, baselineDisclosures)
+    .replace(finalCopyright, baselineCopyright);
+}
+
 function normalizeApprovedV2DoctorBioCredential(file: string, source: string): string {
   return file === doctorBioPath ? source.replace('"Family Physician"', '"Board-Certified DO"') : source;
 }
@@ -86,7 +107,7 @@ function has(declarations: string, property: string, value: string): boolean {
 }
 
 describe("Weight-Loss & Menopause V2 section dividers", () => {
-  it("is a CSS-only append to the pinned approved V2 baseline, with no markup or payment-source change", () => {
+  it("is a CSS-only append to the pinned approved V2 baseline after normalizing the separately approved final FAQ/footer delta", () => {
     const css = read(cssPath);
     const markerIndex = css.indexOf(marker);
 
@@ -98,7 +119,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
       if (file === pagePath) {
         expect(countExactOccurrences(source, approvedHeroSupportingLine)).toBe(1);
         expect(countExactOccurrences(source, previousHeroSupportingLine)).toBe(0);
-        expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(source))).toBe(atBaseline(file));
+        expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(source)))).toBe(atBaseline(file));
       } else {
         expect(normalizeApprovedV2DoctorBioCredential(file, source)).toBe(atBaseline(file));
       }

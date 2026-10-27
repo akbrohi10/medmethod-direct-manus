@@ -317,6 +317,15 @@ const approved97ZoomFaq = "Yes. A virtual Zoom visit is $97 and includes seven d
 const approved29AdditionalTextFaq = "A new concern, an additional treatment, or a new assessment beyond your follow-up window requires a separate visit. Additional text visits are $29 each. Follow-up messages within your visit’s seven-day support window are included.";
 const previousZoomFaqCopy = "Yes. An optional virtual Zoom visit is $39 per visit and includes seven days of follow-up messaging about its care plan. Your first doctor text visit is free. Medication is priced separately.";
 const previousAdditionalVisitFaqCopy = "A new concern, an additional treatment, or a new assessment beyond your follow-up window requires a separate visit. Follow-up messages within your visit’s seven-day support window are included. Any new visit fee will be explained before you proceed.";
+const finalFaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
+const finalFaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
+const finalFaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+const preFinalFaqFooterDisclosures = `<div className="disclosures">
+              <p><strong>Prototype disclosure:</strong> state availability, refund terms, and other operational details marked TBD must be confirmed before launch.</p>
+              <p>Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.</p>
+              <p>For adults age 18 and older. Services are available only in states where the treating clinician is licensed; final state availability list is TBD. This website does not provide emergency care.</p>
+            </div>`;
+const preFinalFaqFooterCopyright = '<span className="footer-legal-copy">© 2026 MMD Weight Loss. Working title and prototype content.</span>';
 
 const originalSupportCards = Array.from(originalSupportSection.matchAll(/<article className="feature-item">[\s\S]*?<\/article>/g), match => match[0]);
 const approvedFirstVisitSupportSection = originalSupportSection
@@ -348,6 +357,20 @@ function restoreFirstVisitScope(source: string): string {
     .replace('state availability, refund terms, and other operational details', 'state availability, app details, refund terms, and other operational details')
     .replace('              <a href="/hipaa-notice">HIPAA Notice</a>\n              <a href="/shipping-policy">Shipping</a>', '              <a href="/hipaa-notice">HIPAA Notice</a>\n              <a href="/subscription-policy">Subscription &amp; Refunds</a>\n              <a href="/shipping-policy">Shipping</a>')
     .replaceAll('Start your free visit', 'Start your visit');
+}
+
+function normalizeFinalFaq(source: string): string {
+  const finalDisclosures = source.match(/<div className="disclosures">[\s\S]*?<\/div>/)?.[0] ?? "";
+  const finalCopyright = source.match(/<span className="footer-legal-copy">[\s\S]*?<\/span>/)?.[0] ?? "";
+  const preFinalFaq = atCurrentBaseline(v2PagePath).match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
+  if (!finalDisclosures || !finalCopyright) throw new Error("Missing final FAQ footer replacement");
+  if (!preFinalFaq) throw new Error("Missing pinned pre-final FAQ section");
+  return source
+    .replace(finalFaqComponentImport, "")
+    .replace(finalFaqDataImport, "")
+    .replace(finalFaqMount, preFinalFaq)
+    .replace(finalDisclosures, preFinalFaqFooterDisclosures)
+    .replace(finalCopyright, preFinalFaqFooterCopyright);
 }
 
 function normalizeApprovedMobileBar(source: string): string {
@@ -436,7 +459,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(completeNewHero).not.toBe("");
-    const restoredFirstVisitCopy = restoreFirstVisitScope(page);
+    const restoredFirstVisitCopy = restoreFirstVisitScope(normalizeFinalFaq(page));
     const previousApprovedHero = restoredFirstVisitCopy.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(previousApprovedHero).not.toBe("");
     const restoredApprovedCopy = restoreFreeCareCopy(normalizeApprovedMobileBar(restoredFirstVisitCopy))
@@ -479,7 +502,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(countExactOccurrences(page, approvedHeroSupportingLine)).toBe(1);
     expect(countExactOccurrences(page, previousApprovedHeroSupportingLine)).toBe(0);
     expect(countExactOccurrences(page, previousHeroSupportingLine)).toBe(0);
-    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(page));
+    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(page)));
     expect(restoredBoldOnlyPage).toBe(atBoldOnlyHeroSupportingLineBaseline(v2PagePath));
     expect(css.slice(0, css.indexOf(firstTextVisitNoteMarker))).toBe(atBoldOnlyHeroSupportingLineBaseline(v2CssPath));
     expect(restoredBoldOnlyPage.replace(previousApprovedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
@@ -490,7 +513,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     const helperCss = css.slice(markerIndex + firstTextVisitNoteMarker.length).trim();
     expect(countExactOccurrences(page, approvedFirstTextVisitRow)).toBe(1);
     expect(countExactOccurrences(page, legacyFirstTextVisitRow)).toBe(0);
-    expect(normalizeApprovedFirstTextVisitNote(page)).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
+    expect(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(page))).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
     expect(css.match(/\/\* V2 first text visit note — pricing helper only\. \*\//g)).toHaveLength(1);
     expect(markerIndex).toBeGreaterThanOrEqual(0);
     expect(css.slice(0, markerIndex)).toBe(atFirstTextVisitNoteBaseline(v2CssPath));
@@ -954,26 +977,19 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(doctorBio).toContain("certified personal trainer working exclusively with women struggling through hormonal weight gain");
   });
 
-  it("updates only the approved FAQ price disclosures while retaining first-visit scope and no automatic-charge claims", () => {
-    const faq = page.match(/<section className="section wave-top wave-surface" id="faq">[\s\S]*?<\/section>/)?.[0] ?? "";
-
-    expect(faq).not.toBe("");
-    expect(faq).toContain("Medication is priced separately and shown up front before purchase. Cost may vary by medication and dose. Your first doctor text visit is free and includes seven days of follow-up messaging about that visit’s care plan.");
-    expect(faq).toContain("<details><summary>What does my free first text visit include?</summary><p>Your first visit includes a doctor’s assessment, a recommended care plan, and seven days of follow-up messaging about that assessment. Medication is priced separately. A prescription is issued only when clinically appropriate.</p></details>");
-    expect(faq).toContain("<details><summary>What does seven-day follow-up cover?</summary><p>Questions and clarification about the assessment and care plan from that visit. It does not include opening a new concern or starting an additional treatment. For example, a separate hormone-therapy assessment after a weight-loss visit requires another visit.</p></details>");
-    expect(faq).toContain(`<details><summary>Can I add a virtual Zoom visit?</summary><p>${approved97ZoomFaq}</p></details>`);
-    expect(faq).toContain(`<details><summary>When do I need another visit?</summary><p>${approved29AdditionalTextFaq}</p></details>`);
-    expect(faq).not.toContain(previousZoomFaqCopy);
-    expect(faq).not.toContain(previousAdditionalVisitFaqCopy);
-    expect(faq).toContain("Additional text visits are $29 each.");
-    expect(faq).toContain("A virtual Zoom visit is $97");
-    expect(faq).not.toContain("The clinical membership fee does not include medication.");
-    expect(faq).not.toContain("Membership includes MMD’s fitness and nutrition app");
-    expect(faq).not.toContain("When is the $49 consultation refunded?");
-    expect(faq).not.toContain("The proposed policy is to refund the consultation");
-    expect(faq).not.toContain("What is included in the fitness + nutrition app?");
-    expect(faq).not.toContain("Is doctor evaluation by text free?");
-    expect(faq).not.toMatch(/automatically charged|automatic payment|new visits? (?:are|will be) (?:started|opened)/i);
+  it("replaces the obsolete inline FAQ only with the final fixture-backed FAQ component and keeps prior FAQ copy out of the page shell", () => {
+    expect(page).toContain(finalFaqComponentImport.trim());
+    expect(page).toContain(finalFaqDataImport.trim());
+    expect(page).toContain(finalFaqMount);
+    expect(page.match(/<WeightLossMenopauseV2Faq intakeHref=\{WEIGHT_MENOPAUSE_INTAKE_URL\} \/>/g)).toHaveLength(1);
+    expect(page).not.toMatch(/<section className="section wave-top wave-surface" id="faq">/);
+    expect(page).not.toContain("Final clinical, pharmacy, pricing, and state-availability language should be reviewed before launch.");
+    expect(page).not.toContain("What does my free first text visit include?");
+    expect(page).not.toContain("Can I add a virtual Zoom visit?");
+    expect(page).not.toContain("When do I need another visit?");
+    expect(page).not.toContain("State availability is TBD.");
+    expect(page).not.toContain("Prototype disclosure:");
+    expect(page).not.toContain("© 2026 MMD Weight Loss. Working title and prototype content.");
 
     for (const legacyCopy of [
       "$49/month plus the cost of medication.",

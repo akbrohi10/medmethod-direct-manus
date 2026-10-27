@@ -1,0 +1,239 @@
+/** Exact owner-supplied copy from Weight Loss & Menopause FAQ – Final (27 Oct 2026). */
+export type V2FaqCategory = {
+  id: string;
+  label: string;
+  title: string;
+  items: { question: string; answer: string }[];
+};
+
+export const V2_FAQ_CATEGORIES: V2FaqCategory[] = [
+  {
+    "id": "cost",
+    "label": "Cost",
+    "title": "Getting started and cost",
+    "items": [
+      {
+        "question": "Is my first visit really free?",
+        "answer": "Yes. Your first text visit with Dr. Al-Deek costs nothing. It includes her review of your intake, a personalized care plan, and 7 days of follow-up messaging. The intake takes 5–10 minutes."
+      },
+      {
+        "question": "What if I'm not a good candidate?",
+        "answer": "Then you've lost nothing. Dr. Al-Deek will explain why and what options may fit you better, at no cost. She prescribes only when treatment is medically right for you."
+      },
+      {
+        "question": "How much will my care cost each month?",
+        "answer": "Most patients pay for their medication plus one $29 follow-up text visit every 4–6 weeks. If you'd like a video visit, you can request one any time for $97. Medication is priced separately, depending on your care plan."
+      },
+      {
+        "question": "How often will I need a visit?",
+        "answer": "Dr. Al-Deek typically checks in every 4–6 weeks, depending on your treatment and how you're responding. She sets your schedule in your first visit. These check-ins are when she adjusts your dose, reviews side effects, and keeps your plan on track."
+      },
+      {
+        "question": "Is there a membership or subscription?",
+        "answer": "No. You pay per visit: your first text visit is free, additional text visits are $29, and video visits are $97. Medication is priced separately and shown upfront. Each refill requires a visit before it's sent in, so nothing renews without Dr. Al-Deek reviewing your progress first."
+      },
+      {
+        "question": "How fast can I get started?",
+        "answer": "The intake takes 5–10 minutes. Dr. Al-Deek typically responds within 4 hours and always within 24. If medication is right for you, it typically arrives 1–2 days after it's ordered."
+      },
+      {
+        "question": "Do you take insurance?",
+        "answer": "We don't bill insurance. Visit and medication prices are self-pay and shown upfront, so there are no prior authorizations and no surprise bills."
+      },
+      {
+        "question": "Can I use my HSA or FSA card?",
+        "answer": "Yes. Doctor visits and prescription medications are generally HSA/FSA-eligible."
+      },
+      {
+        "question": "Can I talk to someone before I start?",
+        "answer": "Yes, and the fastest way is your free first visit: you'll be texting directly with Dr. Al-Deek, at no cost and with no commitment. Prefer a phone call? Our care team is at (888) 362-7011."
+      }
+    ]
+  },
+  {
+    "id": "visits",
+    "label": "Visits",
+    "title": "Text and video visits",
+    "items": [
+      {
+        "question": "Do I need a video appointment?",
+        "answer": "No. Your care can happen entirely by secure text. Dr. Al-Deek may suggest a video visit if she needs to see you to make a safe decision, and you can book one any time if you'd rather talk face to face."
+      },
+      {
+        "question": "How does texting my doctor work?",
+        "answer": "After your intake, you log in to your secure patient portal and we text a secure link to your phone. That thread is your care chat with Dr. Al-Deek, with no app to download. Message her on your schedule; she typically replies within 4 hours."
+      },
+      {
+        "question": "Who will I be texting with?",
+        "answer": "Dr. Al-Deek, a board-certified physician. Not a chatbot, not a call center."
+      },
+      {
+        "question": "When should I choose a video visit?",
+        "answer": "A $97 video visit is a good fit if you have a complex health history, several concerns to sort through, or simply prefer talking live. It includes the same 7 days of follow-up messaging as a text visit. Many patients start with the free text visit and add video only if they want it."
+      },
+      {
+        "question": "What does 7-day follow-up cover?",
+        "answer": "Questions about the assessment and care plan from that visit: how to start your medication, side effects, what to expect. Starting a new treatment or raising an unrelated concern needs a new visit. For example, if your first visit covered weight loss only, adding hormone therapy later is a separate visit."
+      },
+      {
+        "question": "What if I have a question after my 7 days end?",
+        "answer": "Book a $29 text visit any time for a fresh assessment and another 7 days of follow-up. If your 4–6 week check-in is close, you can save your question for that visit."
+      },
+      {
+        "question": "What if something feels urgent?",
+        "answer": "Text care is not for emergencies. For severe stomach pain, chest pain, trouble breathing, or signs of an allergic reaction, call 911 or go to the nearest emergency room."
+      }
+    ]
+  },
+  {
+    "id": "weight-loss",
+    "label": "Weight loss",
+    "title": "Weight loss with GLP-1 medications",
+    "items": [
+      {
+        "question": "How do GLP-1 medications help with weight loss?",
+        "answer": "They mimic hormones your gut releases after eating, so you feel full sooner, stay full longer, and have fewer cravings and less \"food noise.\" Tirzepatide acts on two hormone pathways (GLP-1 and GIP), which is why it tends to produce more weight loss."
+      },
+      {
+        "question": "How much weight could I lose?",
+        "answer": "In large clinical trials, people lost about 15% of their body weight on average with injectable semaglutide and about 20% with injectable tirzepatide, over roughly 16 months. GLP-1 pills averaged about 11–17%. Results vary with dose, consistency, nutrition, and activity, and no result is guaranteed."
+      },
+      {
+        "question": "How quickly will I see results?",
+        "answer": "Many people notice less appetite within the first few weeks. Weight loss builds gradually as your dose increases over the first several months. Dr. Al-Deek starts low and adjusts at each check-in to balance results with comfort."
+      },
+      {
+        "question": "Am I a candidate?",
+        "answer": "GLP-1 medications for weight management are generally for adults with a BMI of 30 or higher, or 27 or higher with a weight-related condition such as high blood pressure, prediabetes, or high cholesterol. Dr. Al-Deek also reviews your history and current medications. They aren't used during pregnancy or breastfeeding, or with a personal or family history of medullary thyroid cancer or MEN2."
+      },
+      {
+        "question": "What side effects should I expect?",
+        "answer": "The most common are nausea, constipation, diarrhea, and reduced appetite. They're usually mild and strongest when starting or increasing a dose. Dr. Al-Deek manages them with gradual dosing and practical tips, and reviews rarer serious risks, like gallbladder problems and pancreatitis, before you start."
+      },
+      {
+        "question": "Which medication is right for me?",
+        "answer": "Dr. Al-Deek recommends an option based on your goals, health history, budget, and whether you prefer a weekly injection or a daily pill. Options range from compounded semaglutide at $129/month to brand-name Zepbound at $299–$449/month, and every price is shown upfront on this page."
+      },
+      {
+        "question": "What's the difference between compounded and brand-name medications?",
+        "answer": "Brand-name medications like Wegovy, Zepbound, and Foundayo are FDA-approved and come directly from the manufacturers' self-pay programs. Compounded medications are prepared by licensed pharmacies and cost less, but they are not FDA-approved. Dr. Al-Deek will explain the trade-offs so you can choose with full information."
+      },
+      {
+        "question": "Is it a shot or a pill?",
+        "answer": "Both are available. Most injections are once weekly with a very small needle; Wegovy pill and Foundayo are once-daily pills for patients who prefer not to inject."
+      },
+      {
+        "question": "Will I lose muscle?",
+        "answer": "Some lean mass loss happens with any significant weight loss. Dr. Al-Deek, a former certified personal trainer, builds protein and strength-training guidance into your plan to help protect muscle and metabolism."
+      },
+      {
+        "question": "What happens if I stop the medication?",
+        "answer": "Many people regain some weight after stopping, because the medication's effect on appetite ends. Dr. Al-Deek plans for this from the start, whether that means tapering gradually, building habits that last, or staying on a maintenance dose."
+      },
+      {
+        "question": "I'm already on a GLP-1 elsewhere. Can I switch?",
+        "answer": "Yes. Share your current medication and dose in your intake, and Dr. Al-Deek will decide whether to continue, adjust, or change your plan."
+      }
+    ]
+  },
+  {
+    "id": "menopause",
+    "label": "Menopause",
+    "title": "Menopause and hormone therapy",
+    "items": [
+      {
+        "question": "What symptoms do you treat?",
+        "answer": "Hot flashes, night sweats, poor sleep, mood changes, brain fog, low libido, vaginal dryness, joint aches, and stubborn midlife weight gain. Dr. Al-Deek looks at the whole picture, not one symptom at a time."
+      },
+      {
+        "question": "I'm in my 40s and still have periods. Could this be perimenopause?",
+        "answer": "Very possibly. Perimenopause can begin in your early-to-mid 40s, years before your last period, and often shows up as irregular cycles, worse sleep, mood shifts, and weight gain around the middle. Many women are told they're \"too young.\" Dr. Al-Deek treats perimenopause as well as menopause."
+      },
+      {
+        "question": "What is hormone therapy?",
+        "answer": "Hormone therapy replaces the estrogen and progesterone your body makes less of during menopause. Many options use bioidentical hormones, chemically identical to the ones your body makes, in forms like patches, gels, pills, and creams. Dr. Al-Deek recommends the type and dose that fit your symptoms and history."
+      },
+      {
+        "question": "Is hormone therapy safe?",
+        "answer": "For most healthy women who start within 10 years of menopause or before age 60, the benefits generally outweigh the risks. In November 2025 the FDA removed most of the boxed warning from menopausal hormone therapy after reviewing the evidence. Dr. Al-Deek reviews your personal and family history, including breast cancer, blood clots, and heart disease, before recommending treatment."
+      },
+      {
+        "question": "What if I can't or don't want to take hormones?",
+        "answer": "There are effective non-hormonal options for hot flashes and other symptoms. Dr. Al-Deek will walk you through them in your visit."
+      },
+      {
+        "question": "How is hormone therapy adjusted?",
+        "answer": "Dr. Al-Deek starts with a dose matched to your symptoms and fine-tunes it at your 4–6 week check-ins until you feel like yourself again. If labs are needed, she'll tell you in your first visit and we'll get them ordered for you."
+      },
+      {
+        "question": "How much does hormone therapy cost?",
+        "answer": "Medication cost depends on what you need. Dr. Al-Deek will review pricing with you before any medication is ordered. Follow-up text visits are $29, with no membership."
+      }
+    ]
+  },
+  {
+    "id": "both",
+    "label": "Both",
+    "title": "Treating weight and menopause together",
+    "items": [
+      {
+        "question": "Why treat weight and menopause together?",
+        "answer": "Falling estrogen shifts where your body stores fat, makes muscle harder to keep, and disrupts sleep, which drives appetite. That's why many women gain weight in midlife while doing everything \"right.\" Treating one without the other often misses half the problem; Dr. Al-Deek wrote The Menopause Weight Loss Trap about exactly this."
+      },
+      {
+        "question": "Can one doctor manage both?",
+        "answer": "Yes. Dr. Al-Deek is a menopause specialist with obesity medicine training, so one physician manages both treatments, watches how they work together, and adjusts them as one plan. Many telehealth services treat only one or the other."
+      },
+      {
+        "question": "How do visits work if I want both?",
+        "answer": "Your free first visit can cover both weight loss and menopause care together. After that, your regular check-ins cover your whole plan."
+      }
+    ]
+  },
+  {
+    "id": "safety",
+    "label": "Safety",
+    "title": "Your doctor, safety, and privacy",
+    "items": [
+      {
+        "question": "Who is Dr. Al-Deek?",
+        "answer": "Dr. Jumana Al-Deek, DO, MS, is a board-certified family physician specializing in medical weight loss, menopause, and metabolic health. She completed advanced menopause training through The Menopause Society, holds obesity and metabolic health certification through the Obesity Medicine Association, and has seen more than 50,000 patients. She's also the author of The Menopause Weight Loss Trap and a mom of four."
+      },
+      {
+        "question": "Which states do you serve?",
+        "answer": "We currently serve patients in 12 states: Arizona, Colorado, the District of Columbia, Florida, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia."
+      },
+      {
+        "question": "Where does my medication come from?",
+        "answer": "Brand-name medications come directly from the manufacturers through NovoCare and LillyDirect. Compounded medications are prepared by licensed U.S. pharmacies."
+      },
+      {
+        "question": "How is medication shipped?",
+        "answer": "Medication ships to your door, with injectables cold-packed, and typically arrives 1–2 days after it's ordered. Shipping cost varies by medication; we'll review it with you before anything is ordered."
+      },
+      {
+        "question": "Do I need lab work?",
+        "answer": "Sometimes. Dr. Al-Deek may ask for recent bloodwork, or order labs if needed, to prescribe safely. If you've had labs in the past year, you can upload them with your intake."
+      },
+      {
+        "question": "Is my information private?",
+        "answer": "Yes. Your intake, messages, and records are protected under HIPAA, and messages go through a secure, encrypted patient portal."
+      },
+      {
+        "question": "Can I cancel or get a refund?",
+        "answer": "There's nothing to cancel: no membership and no contract. Paid visits are non-refundable, and medication can't be refunded once it's ordered."
+      }
+    ]
+  }
+];
+
+export const V2_FAQ_LEFT_TEXT = "Straight answers on cost, care, and what to expect. Still wondering? Ask Dr. Al-Deek in your free first visit.";
+
+export const V2_FAQ_CLOSING_TEXT = "Ask Dr. Al-Deek and her care team directly in your free first text visit. It takes 5–10 minutes to start, with no cost and no commitment. Prefer to talk to someone first? Call our care team at (888) 362-7011.";
+
+export const V2_FAQ_FOOTER_PARAGRAPHS = [
+  "Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.",
+  "For adults age 18 and older. Services are currently available in Arizona, Colorado, the District of Columbia, Florida, Georgia, Illinois, Maryland, Michigan, North Carolina, Pennsylvania, Texas, and Virginia. This website does not provide emergency care. If you are experiencing a medical emergency, call 911."
+];
+
+export const V2_FAQ_COPYRIGHT = "© 2026 MedMethod Direct. All rights reserved.";

@@ -24,6 +24,7 @@ const storage = read(
 );
 const mobileBar = read("client/src/pages/WeightLossMenopauseV2MobileBar.tsx");
 const v2Page = read("client/src/pages/WeightLossMenopauseV2.tsx");
+const v2FaqData = read("client/src/pages/WeightLossMenopauseV2FaqData.ts");
 const receipt = read("client/src/pages/ThankYouVideo97.tsx");
 const app = read("client/src/App.tsx");
 const legacyCheckout = read("client/src/components/masterclass2/VideoVisitCheckout.tsx");
@@ -231,7 +232,8 @@ describe("Weight-Loss & Menopause V2 $97 video visit client checkout", () => {
 
   it("keeps the V2 page and mobile control at the authorized $97 labels while preserving all other mobile navigation destinations", () => {
     expect(v2Page).toContain("<div><dt>Video visit</dt><dd>$97</dd></div>");
-    expect(v2Page).toContain("A virtual Zoom visit is $97");
+    expect(v2FaqData).toContain("A $97 video visit is a good fit");
+    expect(v2FaqData).not.toContain("A virtual Zoom visit is $97");
     expect(v2Page).not.toContain("$39");
     expect(v2Page).not.toContain("$47.99");
 
