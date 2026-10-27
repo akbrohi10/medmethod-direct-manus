@@ -9,6 +9,10 @@ const original = read("client/src/pages/MasterclassVideoFirst.tsx");
 const duplicate = read("client/src/pages/Masterclass2.tsx");
 const finalFaqImport = 'import FinalFaq from "@/components/masterclass2/FinalFaq";\n';
 const finalFaqMount = '        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n';
+const legitScriptFooterSealMarker = "data-masterclass-legitscript-footer-seal";
+const legitScriptFooterSealStart =
+  '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
+const legitScriptFooterSealEnd = "\n          </div>";
 const physicianProfile = read(
   "client/src/components/masterclass2/PhysicianProfile.tsx",
 );
@@ -24,6 +28,14 @@ function sliceBetween(source: string, start: string, end: string) {
   }
 
   return source.slice(startIndex, endIndex);
+}
+
+function removeApprovedMasterclassLegitScriptFooterSeal(source: string): string {
+  const start = source.indexOf(legitScriptFooterSealStart);
+  if (start < 0) return source;
+  const end = source.indexOf(legitScriptFooterSealEnd, start);
+  if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
+  return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
 }
 
 const originalHero = sliceBetween(original, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
@@ -54,7 +66,7 @@ const originalBooking = sliceBetween(original, "        <section data-masterclas
 const currentBooking = sliceBetween(duplicate, "        <section data-masterclass-video-first-booking", "\n\n        <FinalFaq intakeHref=\"https://intake.medmethoddirect.com/\" />");
 const mobileBookingPill = sliceBetween(duplicate, "\n        <nav\n          data-masterclass2-mobile-connection-bar", "\n      <VideoVisitCheckout");
 const mobileFocusRecovery = sliceBetween(duplicate, '  useEffect(() => {\n    if (!consultationOpen && mobileBookingOpened.current)', '  const scrollToVideo');
-const normalizedDuplicate = duplicate
+const normalizedDuplicate = removeApprovedMasterclassLegitScriptFooterSeal(duplicate)
   .replace(finalFaqImport, "")
   .replace(finalFaqMount, "")
   .replace('import ProcessPricing from "@/components/masterclass2/ProcessPricing";\n', "")
@@ -120,6 +132,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
     expect(duplicate).not.toContain("data-webinar2-learning");
     expect(duplicate).not.toContain("What You’ll Learn");
     expect(duplicate).not.toContain("Because You Deserve to Know.");
+    expect(duplicate.match(new RegExp(legitScriptFooterSealMarker, "g")) ?? []).toHaveLength(1);
     expect(normalizedDuplicate).toBe(original);
   });
 
@@ -162,7 +175,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
   it("restores the original family image while keeping other assets and the portrait-free local profile unchanged", () => {
     const originalAssets = manuscriptAssets(original);
 
-    expect(manuscriptAssets(duplicate)).toEqual(originalAssets);
+    expect(manuscriptAssets(removeApprovedMasterclassLegitScriptFooterSeal(duplicate))).toEqual(originalAssets);
     expect(manuscriptAssets(physicianProfile)).toEqual([]);
     expect(duplicate).toContain(FAMILY_PRESENTER_ASSET);
     expect(physicianProfile).not.toContain(FAMILY_PRESENTER_ASSET);

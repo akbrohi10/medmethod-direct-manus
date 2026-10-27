@@ -33,6 +33,11 @@ const pageImport =
   'import FinalFaq from "@/components/masterclass2/FinalFaq";\n';
 const pageMount =
   '        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n';
+const legitScriptFooterSealMarker =
+  "data-masterclass-legitscript-footer-seal";
+const legitScriptFooterSealStart =
+  '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
+const legitScriptFooterSealEnd = "\n          </div>";
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -72,6 +77,14 @@ function loadV2FaqData(): V2FaqData {
   ) as V2FaqData;
 }
 
+function removeApprovedMasterclassLegitScriptFooterSeal(source: string): string {
+  const start = source.indexOf(legitScriptFooterSealStart);
+  if (start < 0) return source;
+  const end = source.indexOf(legitScriptFooterSealEnd, start);
+  if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
+  return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
+}
+
 function removeApprovedFinalFaqPageLines(source: string): string {
   expect(
     count(source, pageImport),
@@ -81,7 +94,9 @@ function removeApprovedFinalFaqPageLines(source: string): string {
     count(source, pageMount),
     "FinalFaq mount must occur exactly once"
   ).toBe(1);
-  return source.replace(pageImport, "").replace(pageMount, "");
+  return removeApprovedMasterclassLegitScriptFooterSeal(
+    source.replace(pageImport, "").replace(pageMount, "")
+  );
 }
 
 function classNames(source: string): string[] {
@@ -148,9 +163,10 @@ describe("Masterclass final FAQ", () => {
     }
   });
 
-  it("is exactly reversible to 40e49baf outside the two approved Masterclass page lines, with every V2 production source byte-pinned", () => {
+  it("is exactly reversible to 40e49baf outside the approved FinalFaq lines and marked LegitScript seal, with every V2 production source byte-pinned", () => {
     const page = read(pagePath);
 
+    expect(count(page, legitScriptFooterSealMarker)).toBe(1);
     expect(removeApprovedFinalFaqPageLines(page)).toBe(atBaseline(pagePath));
     const v2Paths = baselineV2ProductionPaths();
     expect(v2Paths.length).toBeGreaterThan(0);

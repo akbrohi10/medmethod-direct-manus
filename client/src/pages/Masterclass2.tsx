@@ -266,6 +266,25 @@ export default function Masterclass2() {
             </a>
           </div>
           <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-xs text-[#766d75]"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />Physician-led virtual care. Individual recommendations require an appropriate medical evaluation.</div>
+          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">
+            <a
+              href="https://www.legitscript.com/websites/?checker_keywords=medmethoddirect.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Verify LegitScript Approval for www.medmethoddirect.com"
+              className="inline-flex rounded-md transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7a1e7e]"
+            >
+              <img
+                src="/manus-storage/legitscript-certified-seal-51795425_51edddb5.png"
+                alt="Verify Approval for www.medmethoddirect.com"
+                width="73"
+                height="79"
+                loading="eager"
+                decoding="async"
+                className="block h-auto w-[61px] max-w-full object-contain sm:w-[73px]"
+              />
+            </a>
+          </div>
         </footer>
       </article>
         <nav

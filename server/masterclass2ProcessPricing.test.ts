@@ -27,6 +27,16 @@ const finalV2FaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGH
 const finalV2FaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
 const finalMasterclassFaqImport = 'import FinalFaq from "@/components/masterclass2/FinalFaq";\n';
 const finalMasterclassFaqMount = '        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n';
+const legitScriptFooterSealStart =
+  '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
+const legitScriptFooterSealEnd = "\n          </div>";
+const removeApprovedMasterclassLegitScriptFooterSeal = (source: string) => {
+  const start = source.indexOf(legitScriptFooterSealStart);
+  if (start < 0) return source;
+  const end = source.indexOf(legitScriptFooterSealEnd, start);
+  if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
+  return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
+};
 const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
   if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
   const baseline = readBaseline(path);
@@ -47,7 +57,9 @@ const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
 };
 const normalizeApprovedFinalMasterclassFaq = (path: string, source: string) =>
   path === "client/src/pages/Masterclass2.tsx"
-    ? source.replace(finalMasterclassFaqImport, "").replace(finalMasterclassFaqMount, "")
+    ? removeApprovedMasterclassLegitScriptFooterSeal(
+      source.replace(finalMasterclassFaqImport, "").replace(finalMasterclassFaqMount, "")
+    )
     : source;
 const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
   if (path === "client/src/pages/Masterclass2.tsx") {

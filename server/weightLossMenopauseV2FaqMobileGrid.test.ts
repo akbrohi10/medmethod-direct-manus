@@ -50,6 +50,9 @@ const approvedMasterclassFinalFaqPaths = new Set([
   "client/src/components/masterclass2/FinalFaq.tsx",
   "client/src/components/masterclass2/FinalFaq.css",
 ]);
+const legitScriptFooterSealStart =
+  '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
+const legitScriptFooterSealEnd = "\n          </div>";
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
@@ -69,9 +72,14 @@ function changedProductionFiles(): string[] {
 }
 
 function normalizeApprovedFinalFaqPageLines(source: string): string {
-  return source
+  const withoutFinalFaq = source
     .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
     .replace('        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n', "");
+  const start = withoutFinalFaq.indexOf(legitScriptFooterSealStart);
+  if (start < 0) return withoutFinalFaq;
+  const end = withoutFinalFaq.indexOf(legitScriptFooterSealEnd, start);
+  if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
+  return withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length);
 }
 
 describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {

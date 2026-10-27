@@ -20,6 +20,9 @@ const pixelPath = "client/src/lib/masterclassMetaPixel.ts";
 const crawlerPath = "server/crawlerMiddleware.ts";
 const legacyStripePath = "client/src/components/masterclass2/VideoVisitStripePayment.tsx";
 const stripe4799Path = "client/src/components/masterclass2/checkout4799/VideoVisitStripePayment4799.tsx";
+const legitScriptFooterSealStart =
+  '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
+const legitScriptFooterSealEnd = "\n          </div>";
 
 function restoreAppRoutes(source: string) {
   return source
@@ -41,9 +44,14 @@ function restoreMasterclass2RouteMetadata(source: string) {
 }
 
 function restoreApprovedFinalFaqPageLines(source: string) {
-  return source
+  const withoutFinalFaq = source
     .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
     .replace('        <FinalFaq intakeHref="https://intake.medmethoddirect.com/" />\n', "");
+  const start = withoutFinalFaq.indexOf(legitScriptFooterSealStart);
+  if (start < 0) return withoutFinalFaq;
+  const end = withoutFinalFaq.indexOf(legitScriptFooterSealEnd, start);
+  if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
+  return withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length);
 }
 
 function restoreMasterclassVideoFirstRouteMetadata(source: string) {
