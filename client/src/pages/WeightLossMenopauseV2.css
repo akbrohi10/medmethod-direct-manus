@@ -616,3 +616,13 @@
     font-size: clamp(36px, 3vw, 50px);
   }
 }
+
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}

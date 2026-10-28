@@ -46,6 +46,23 @@ const approvedV2DesktopHeroSizingAppend = `
   }
 }
 `;
+const approvedAuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
+const approvedFaqAnswerFontAppend = `
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}
+`;
 
 const explicitUnchangedSources = [
   "client/src/pages/WeightLossMenopauseV2.tsx",
@@ -78,6 +95,13 @@ const footerDisclaimers = `
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 
+function faqCssWithoutApprovedAuditPriorityFixes(): string {
+  const css = read(faqCssPath);
+  return css.endsWith(approvedFaqAnswerFontAppend)
+    ? css.slice(0, -approvedFaqAnswerFontAppend.length)
+    : css;
+}
+
 function loadFaqCategories(): FaqCategory[] {
   const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
   const script = `import(${JSON.stringify(moduleUrl)}).then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.map(({ id, label }) => ({ id, label })))));`;
@@ -95,7 +119,9 @@ function changedProductionFiles(): string[] {
 
 function normalizeApprovedV2HeroFontAppend(file: string, source: string): string {
   return file === "client/src/pages/WeightLossMenopauseV2.css"
-    ? source.replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
+    ? source.endsWith(approvedAuditPriorityFixesAppend)
+      ? source.slice(0, -approvedAuditPriorityFixesAppend.length).replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
+      : source.replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
     : source;
 }
 
@@ -123,7 +149,7 @@ function normalizeApprovedFinalFaqPageLines(source: string): string {
 
 describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
   it("is an append-only CSS change: the prefix is byte-identical to 94e43fdc and the appended mobile block is exact", () => {
-    const css = read(faqCssPath);
+    const css = faqCssWithoutApprovedAuditPriorityFixes();
     const markerIndex = css.indexOf(mobileGridMarker);
 
     expect(markerIndex, "mobile FAQ chip marker missing").toBeGreaterThan(-1);
@@ -152,7 +178,8 @@ describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
   });
 
   it("limits the override to the #faq mobile query and keeps six equal, centered 44px cells without horizontal overflow", () => {
-    const appended = read(faqCssPath).slice(read(faqCssPath).indexOf(mobileGridMarker));
+    const css = faqCssWithoutApprovedAuditPriorityFixes();
+    const appended = css.slice(css.indexOf(mobileGridMarker));
 
     expect(appended).toContain("@media(max-width:767px)");
     expect(appended).not.toMatch(/@media\(max-width:(?!767px)/);

@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 const baseline = "c8783393";
 const root = resolve(import.meta.dirname, "..");
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
+const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const indexPath = "client/index.html";
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
@@ -27,6 +28,23 @@ const approvedDesktopHeroSizingAppend = `
   }
 }
 `;
+const approvedAuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
+const approvedFaqAnswerFontAppend = `
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}
+`;
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -36,6 +54,19 @@ function atBaseline(file: string): string {
   return execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 }
 
+function cssWithoutApprovedAuditPriorityFixes(): string {
+  const css = read(cssPath);
+  return css.endsWith(approvedAuditPriorityFixesAppend)
+    ? css.slice(0, -approvedAuditPriorityFixesAppend.length)
+    : css;
+}
+
+function normalizeApprovedAuditPriorityAppend(file: string, source: string): string {
+  return file === faqCssPath && source.endsWith(approvedFaqAnswerFontAppend)
+    ? source.slice(0, -approvedFaqAnswerFontAppend.length)
+    : source;
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -43,12 +74,13 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => normalizeApprovedAuditPriorityAppend(file, read(file)) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
   it("keeps the approved six-line font append exact before the separately approved terminal desktop sizing append", () => {
-    const css = read(cssPath);
+    const css = cssWithoutApprovedAuditPriorityFixes();
     const markerIndex = css.indexOf(heroFontMarker);
     const sizingMarkerIndex = css.indexOf(desktopHeroSizingMarker);
 
@@ -63,7 +95,7 @@ describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
   });
 
   it("changes only the scoped hero h1 family and weight, letting headline spans inherit while preserving the masked ampersand's DM Sans rule", () => {
-    const css = read(cssPath);
+    const css = cssWithoutApprovedAuditPriorityFixes();
     const append = css.slice(css.indexOf(heroFontMarker), css.indexOf(desktopHeroSizingMarker));
     const page = read(pagePath);
     const cssPrefix = css.slice(0, css.indexOf(heroFontMarker));

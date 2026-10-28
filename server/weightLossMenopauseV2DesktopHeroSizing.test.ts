@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 const baseline = "120cf596";
 const root = resolve(import.meta.dirname, "..");
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
+const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const desktopHeroSizingMarker = "/* V2 desktop hero headline — restrained sizing only. */";
 const approvedDesktopHeroSizingAppend = `
@@ -14,6 +15,23 @@ const approvedDesktopHeroSizingAppend = `
   .wlm-v2-content .hero[data-medmethod-scope] h1 {
     font-size: clamp(36px, 3vw, 50px);
   }
+}
+`;
+const approvedAuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
+const approvedFaqAnswerFontAppend = `
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
 }
 `;
 
@@ -25,6 +43,19 @@ function atBaseline(file: string): string {
   return execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 }
 
+function cssWithoutApprovedAuditPriorityFixes(): string {
+  const css = read(cssPath);
+  return css.endsWith(approvedAuditPriorityFixesAppend)
+    ? css.slice(0, -approvedAuditPriorityFixesAppend.length)
+    : css;
+}
+
+function normalizeApprovedAuditPriorityAppend(file: string, source: string): string {
+  return file === faqCssPath && source.endsWith(approvedFaqAnswerFontAppend)
+    ? source.slice(0, -approvedFaqAnswerFontAppend.length)
+    : source;
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -32,12 +63,13 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => normalizeApprovedAuditPriorityAppend(file, read(file)) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {
   it("is exactly the approved terminal CSS append to the 120cf596 stylesheet baseline", () => {
-    const css = read(cssPath);
+    const css = cssWithoutApprovedAuditPriorityFixes();
     const markerIndex = css.indexOf(desktopHeroSizingMarker);
 
     expect(markerIndex).toBe(atBaseline(cssPath).length + 1);
@@ -48,7 +80,8 @@ describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {
   });
 
   it("sets only the scoped headline font size in a desktop media query beginning at 1025px", () => {
-    const append = read(cssPath).slice(read(cssPath).indexOf(desktopHeroSizingMarker));
+    const css = cssWithoutApprovedAuditPriorityFixes();
+    const append = css.slice(css.indexOf(desktopHeroSizingMarker));
 
     expect(append).toBe(approvedDesktopHeroSizingAppend.trimStart());
     expect(append).toContain("@media (min-width: 1025px)");
@@ -63,7 +96,7 @@ describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {
   });
 
   it("leaves the entire pre-existing stylesheet, markup, and every other production source at 120cf596", () => {
-    const css = read(cssPath);
+    const css = cssWithoutApprovedAuditPriorityFixes();
     const markerIndex = css.indexOf(desktopHeroSizingMarker);
     const page = read(pagePath);
 

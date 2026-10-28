@@ -1,0 +1,134 @@
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+import { describe, expect, it } from "vitest";
+
+type FaqItem = { question: string; answer: string };
+const baseline = "62bec055";
+const root = resolve(import.meta.dirname, "..");
+const heroCssPath = "client/src/pages/WeightLossMenopauseV2.css";
+const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
+const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
+const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
+const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
+const heroAuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
+const faqAnswerFontAppend = `
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}
+`;
+
+function read(file: string): string {
+  return readFileSync(resolve(root, file), "utf8");
+}
+
+function atBaseline(file: string): string {
+  return execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
+}
+
+function normalizeOnlyApprovedAuditPriorityAppend(file: string, source: string): string {
+  if (file === heroCssPath && source.endsWith(heroAuditPriorityFixesAppend)) {
+    return source.slice(0, -heroAuditPriorityFixesAppend.length);
+  }
+  if (file === faqCssPath && source.endsWith(faqAnswerFontAppend)) {
+    return source.slice(0, -faqAnswerFontAppend.length);
+  }
+  return source;
+}
+
+function changedProductionFiles(): string[] {
+  return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
+    cwd: root,
+    encoding: "utf8",
+  })
+    .split("\n")
+    .filter(Boolean)
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+}
+
+function loadFaqItems(): FaqItem[] {
+  const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
+  const script = `import(${JSON.stringify(moduleUrl)}).then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.flatMap(category => category.items))))`;
+  return JSON.parse(execFileSync(process.execPath, ["--import", "tsx", "-e", script], { cwd: root, encoding: "utf8" })) as FaqItem[];
+}
+
+describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
+  it("keeps both production stylesheet prefixes byte-identical to 62bec055 and appends only the two approved blocks", () => {
+    const heroCss = read(heroCssPath);
+    const faqCss = read(faqCssPath);
+
+    expect(heroCss).toBe(`${atBaseline(heroCssPath)}${heroAuditPriorityFixesAppend}`);
+    expect(faqCss).toBe(`${atBaseline(faqCssPath)}${faqAnswerFontAppend}`);
+    expect(normalizeOnlyApprovedAuditPriorityAppend(heroCssPath, heroCss)).toBe(atBaseline(heroCssPath));
+    expect(normalizeOnlyApprovedAuditPriorityAppend(faqCssPath, faqCss)).toBe(atBaseline(faqCssPath));
+    expect(normalizeOnlyApprovedAuditPriorityAppend(pagePath, read(pagePath))).toBe(read(pagePath));
+  });
+
+  it("limits the hero handoff to the 901–1024px gap and makes only the existing scoped headline 36px there", () => {
+    const baselineHeroCss = atBaseline(heroCssPath);
+    const handoffMediaRule = heroAuditPriorityFixesAppend.match(/@media \(min-width: 901px\) and \(max-width: 1024px\) \{[\s\S]*?\n\}/)?.[0] ?? "";
+
+    expect(heroAuditPriorityFixesAppend).toContain("@media (min-width: 901px) and (max-width: 1024px)");
+    expect(handoffMediaRule).toBe(`@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}`);
+    expect(heroAuditPriorityFixesAppend).not.toMatch(/@media\s*\(\s*(?:min-width\s*:\s*(?:0|[1-8]\d\d|900)px|max-width\s*:\s*(?:102[5-9]|10[3-9]\d|1[1-9]\d\d|[2-9]\d{3,})px)/);
+    expect(baselineHeroCss).toContain("@media (min-width: 1025px) {\n  .wlm-v2-content .hero[data-medmethod-scope] h1 {\n    font-size: clamp(36px, 3vw, 50px);\n  }\n}");
+  });
+
+  it("raises only FAQ answer paragraphs to 17px and preserves the existing answer color, line height, questions, answers, and interactions", () => {
+    const faqItems = loadFaqItems();
+    const faqComponent = read(faqComponentPath);
+
+    expect(faqAnswerFontAppend).toBe(`
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}
+`);
+    expect(faqAnswerFontAppend.match(/font-size\s*:/g)).toHaveLength(1);
+    expect(faqAnswerFontAppend).not.toMatch(/(?:color|line-height|margin|padding|display|position|height|width|transition|animation)\s*:/);
+    expect(read(faqDataPath)).toBe(atBaseline(faqDataPath));
+    expect(faqComponent).toBe(atBaseline(faqComponentPath));
+    expect(faqItems).toHaveLength(44);
+    expect(faqItems.every(item => item.question.length > 0 && item.answer.length > 0)).toBe(true);
+    expect(faqComponent).toContain("<details");
+    expect(faqComponent).toContain("hidden={index >= 3 && !expanded}");
+    expect(faqComponent).toContain("onToggle={event =>");
+    expect(faqComponent).toContain("<p>{item.answer}</p>");
+  });
+
+  it("sets the existing book-title strong to dark brand purple only, without altering its source or doctor section behavior", () => {
+    const doctorBio = read(doctorBioPath);
+
+    expect(heroAuditPriorityFixesAppend).toContain(".wlm-v2-content #doctor .doctor-bio-book {\n  color: #7A1E7E;\n}");
+    expect(heroAuditPriorityFixesAppend.match(/\.doctor-bio-book/g)).toHaveLength(1);
+    expect(heroAuditPriorityFixesAppend.match(/color\s*:/g)).toHaveLength(1);
+    expect(doctorBio).toBe(atBaseline(doctorBioPath));
+    expect(doctorBio).toContain('<strong className="doctor-bio-book">The Menopause Weight Loss Trap</strong>');
+  });
+
+  it("leaves every other production file, including page copy, pricing, links, and payment paths, at the 62bec055 baseline", () => {
+    expect(changedProductionFiles()).toEqual([heroCssPath, faqCssPath]);
+    expect(read(pagePath)).toBe(atBaseline(pagePath));
+    expect(read("shared/treatmentCatalog.json")).toBe(atBaseline("shared/treatmentCatalog.json"));
+    expect(read("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx")).toBe(atBaseline("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx"));
+    expect(read("server/routers/stripe.wl2.test.ts")).toBe(atBaseline("server/routers/stripe.wl2.test.ts"));
+    expect(read("server/routers/paypal.wl2.test.ts")).toBe(atBaseline("server/routers/paypal.wl2.test.ts"));
+  });
+});

@@ -117,3 +117,8 @@
     text-align:center;
   }
 }
+
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}

@@ -44,6 +44,23 @@ const approvedV2DesktopHeroSizingAppend = `
   }
 }
 `;
+const approvedV2AuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
+const approvedV2FaqAnswerFontAppend = `
+/* V2 audit priority fix — readable FAQ answers only. */
+.wlm-v2-content #faq .faq-list details > p {
+  font-size: 17px;
+}
+`;
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -91,7 +108,11 @@ function unwrapApprovedFinalFaqConditional(source: string): string {
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
   return path === "client/src/pages/WeightLossMenopauseV2.css"
-    ? source.replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
+    ? (source.endsWith(approvedV2AuditPriorityFixesAppend)
+      ? source.slice(0, -approvedV2AuditPriorityFixesAppend.length)
+      : source).replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
+    : path === "client/src/pages/WeightLossMenopauseV2Faq.css" && source.endsWith(approvedV2FaqAnswerFontAppend)
+      ? source.slice(0, -approvedV2FaqAnswerFontAppend.length)
     : source;
 }
 

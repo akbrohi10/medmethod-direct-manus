@@ -41,13 +41,26 @@ const approvedDesktopHeroSizingAppend = `
   }
 }
 `;
+const approvedAuditPriorityFixesAppend = `
+/* V2 audit priority fixes — hero handoff and book-title contrast. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+.wlm-v2-content #doctor .doctor-bio-book {
+  color: #7A1E7E;
+}
+`;
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
 
 function normalizeApprovedHeroFontAppend(path: string, source: string): string {
   return path === pageCssPath
-    ? source.replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
+    ? source.endsWith(approvedAuditPriorityFixesAppend)
+      ? source.slice(0, -approvedAuditPriorityFixesAppend.length).replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
+      : source.replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
     : source;
 }
 
