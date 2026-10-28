@@ -603,3 +603,9 @@
 .wlm-v2-content #how-it-works .process-pricing-rates > div:first-child {
   align-items: start;
 }
+
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}

@@ -32,6 +32,13 @@ const oldMobileBookingPrice =
   '<span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>';
 const approvedMobileBookingPrice =
   '<span className="block whitespace-nowrap text-[10px] font-normal">$97</span>';
+const approvedV2HeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 const originalShowAllButton = `                <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
                   aria-controls={\`mc-faq-questions-\${category.id}\`}
                   onClick={() => {
@@ -89,7 +96,14 @@ function changedProductionFiles(): string[] {
   )
     .split("\n")
     .filter(Boolean)
-    .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
+    .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
+    .filter(path => normalizeApprovedV2HeroFontAppend(path, read(path)) !== atBaseline(path));
+}
+
+function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
+  return path === "client/src/pages/WeightLossMenopauseV2.css"
+    ? source.replace(approvedV2HeroFontAppend, "")
+    : source;
 }
 
 function restoreApprovedPage(source: string): string {
@@ -172,7 +186,7 @@ describe("Masterclass small footer, FAQ, and mobile-bar fixes", () => {
   it("leaves every V2 source and FinalFaq stylesheet byte-identical and changes no production source outside the approved page and FAQ component", () => {
     expect(read(cssPath)).toBe(atBaseline(cssPath));
     for (const path of v2ProductionPaths()) {
-      expect(read(path), path).toBe(atBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, read(path)), path).toBe(atBaseline(path));
     }
     expect(changedProductionFiles()).toEqual([componentPath, pagePath]);
   });

@@ -31,6 +31,13 @@ const expectedMobileGridOverride = `${mobileGridMarker}
   }
 }
 `;
+const approvedV2HeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 
 const explicitUnchangedSources = [
   "client/src/pages/WeightLossMenopauseV2.tsx",
@@ -74,7 +81,14 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
-    .filter(file => !approvedMasterclassFinalFaqPaths.has(file) && file !== "client/src/pages/Masterclass2.tsx");
+    .filter(file => !approvedMasterclassFinalFaqPaths.has(file) && file !== "client/src/pages/Masterclass2.tsx")
+    .filter(file => normalizeApprovedV2HeroFontAppend(file, read(file)) !== atBaseline(file));
+}
+
+function normalizeApprovedV2HeroFontAppend(file: string, source: string): string {
+  return file === "client/src/pages/WeightLossMenopauseV2.css"
+    ? source.replace(approvedV2HeroFontAppend, "")
+    : source;
 }
 
 function normalizeApprovedFinalFaqPageLines(source: string): string {

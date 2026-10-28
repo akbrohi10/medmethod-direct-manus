@@ -140,6 +140,7 @@ const visitBasedCareMarker = "\n/* Approved V2 visit-based care: app removed, cl
 const pricingOfferCardMarker = "\n/* Approved V2 pricing offer card: pricing section only. */";
 const combinedProcessPricingMarker = "\n/* V2 combined process and visit pricing */";
 const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper only. */";
+const heroFontMatchMarker = "/* V2 hero headline — homepage font match only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Family Physician", "Menopause Specialist", "Author"];
@@ -510,12 +511,13 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   });
   it("adds only the approved first-text-visit helper line and its two scoped pricing rules", () => {
     const markerIndex = css.indexOf(firstTextVisitNoteMarker);
-    const helperCss = css.slice(markerIndex + firstTextVisitNoteMarker.length).trim();
+    const helperCss = css.slice(markerIndex + firstTextVisitNoteMarker.length, css.indexOf(heroFontMatchMarker)).trim();
     expect(countExactOccurrences(page, approvedFirstTextVisitRow)).toBe(1);
     expect(countExactOccurrences(page, legacyFirstTextVisitRow)).toBe(0);
     expect(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(page))).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
     expect(css.match(/\/\* V2 first text visit note — pricing helper only\. \*\//g)).toHaveLength(1);
     expect(markerIndex).toBeGreaterThanOrEqual(0);
+    expect(css.indexOf(heroFontMatchMarker)).toBeGreaterThan(markerIndex);
     expect(css.slice(0, markerIndex)).toBe(atFirstTextVisitNoteBaseline(v2CssPath));
     expect(helperCss.match(/\.wlm-v2-content #how-it-works \.process-pricing-rates \.first-text-visit-note/g)).toHaveLength(1);
     expect(helperCss).toBe(approvedFirstTextVisitNoteCss);

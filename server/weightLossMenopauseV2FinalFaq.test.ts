@@ -26,9 +26,20 @@ const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const fixturePath = "server/fixtures/v2FaqFinal.json";
+const approvedHeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
+
+function normalizeApprovedHeroFontAppend(path: string, source: string): string {
+  return path === pageCssPath ? source.replace(approvedHeroFontAppend, "") : source;
+}
 
 function section(source: string, id: string): string {
   return source.match(new RegExp(`<section[^>]*\\bid="${id}"[\\s\\S]*?<\\/section>`))?.[0] ?? "";
@@ -130,7 +141,7 @@ describe("Weight-Loss & Menopause V2 final approved FAQ", () => {
     expect(component).toContain("intakeHref");
     expect(component).not.toContain("Prototype disclosure:");
     expect(read(faqCssPath)).not.toBe("");
-    expect(read(pageCssPath)).toBe(atBaseline(pageCssPath));
+    expect(normalizeApprovedHeroFontAppend(pageCssPath, read(pageCssPath))).toBe(atBaseline(pageCssPath));
     expect(page).toContain('import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";');
   });
 
@@ -166,7 +177,7 @@ describe("Weight-Loss & Menopause V2 final approved FAQ", () => {
       "server/wl2OneTimePayment.ts",
       "server/wl2PaymentResume.test.ts",
     ]) {
-      expect(read(file), file).toBe(atBaseline(file));
+      expect(normalizeApprovedHeroFontAppend(file, read(file)), file).toBe(atBaseline(file));
     }
   });
 });

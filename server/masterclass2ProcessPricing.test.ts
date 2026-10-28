@@ -30,6 +30,13 @@ const finalMasterclassFaqMount = '        <FinalFaq intakeHref="https://intake.m
 const legitScriptFooterSealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
 const legitScriptFooterSealEnd = "\n          </div>";
+const approvedV2HeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 const footerParagraphImport =
   'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
 const footerDisclaimers = `
@@ -81,6 +88,10 @@ const normalizeApprovedFinalMasterclassFaq = (path: string, source: string) =>
         .replace(finalMasterclassFaqImport, "")
         .replace(finalMasterclassFaqMount, "")
     )
+    : source;
+const normalizeApprovedV2HeroFontAppend = (path: string, source: string) =>
+  path === "client/src/pages/WeightLossMenopauseV2.css"
+    ? source.replace(approvedV2HeroFontAppend, "")
     : source;
 const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
   if (path === "client/src/pages/Masterclass2.tsx") {
@@ -267,7 +278,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
 
   it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap and final-FAQ normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path)))))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path))))))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

@@ -52,6 +52,13 @@ const previousMobilePadding =
 const approvedShowAllConditionalStart =
   "                {category.items.length > 3 && (\n";
 const approvedShowAllConditionalEnd = "\n                )}";
+const approvedV2HeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -83,6 +90,12 @@ function baselineV2ProductionPaths(): string[] {
         path
       )
     );
+}
+
+function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
+  return path === "client/src/pages/WeightLossMenopauseV2.css"
+    ? source.replace(approvedV2HeroFontAppend, "")
+    : source;
 }
 
 function loadV2FaqData(): V2FaqData {
@@ -214,7 +227,7 @@ describe("Masterclass final FAQ", () => {
     const v2Paths = baselineV2ProductionPaths();
     expect(v2Paths.length).toBeGreaterThan(0);
     for (const path of v2Paths) {
-      expect(read(path), path).toBe(atBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, read(path)), path).toBe(atBaseline(path));
     }
   });
 

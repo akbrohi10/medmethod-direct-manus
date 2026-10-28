@@ -29,6 +29,13 @@ const previousMobilePadding =
 const approvedShowAllConditionalStart =
   "                {category.items.length > 3 && (\n";
 const approvedShowAllConditionalEnd = "\n                )}";
+const approvedV2HeroFontAppend = `
+/* V2 hero headline — homepage font match only. */
+.wlm-v2-content .hero[data-medmethod-scope] h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+`;
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -74,6 +81,12 @@ function unwrapApprovedFinalFaqConditional(source: string): string {
     .replace(approvedShowAllConditionalEnd, "");
 }
 
+function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
+  return path === "client/src/pages/WeightLossMenopauseV2.css"
+    ? source.replace(approvedV2HeroFontAppend, "")
+    : source;
+}
+
 describe("Masterclass LegitScript footer seal", () => {
   it("is exactly reversible to ea6bf90f by removing only the uniquely marked new footer div", () => {
     const page = read(pagePath);
@@ -116,7 +129,8 @@ describe("Masterclass LegitScript footer seal", () => {
     )
       .split("\n")
       .filter(Boolean)
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
+      .filter(path => normalizeApprovedV2HeroFontAppend(path, read(path)) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([
       finalFaqPath,
