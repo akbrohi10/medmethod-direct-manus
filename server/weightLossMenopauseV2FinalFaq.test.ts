@@ -153,7 +153,9 @@ describe("Weight-Loss & Menopause V2 final approved FAQ", () => {
     expect(component).toContain("<details");
     expect(component).toContain('hidden={selectedCategory !== category.id}');
     expect(component).toContain('hidden={index >= 3 && !expanded}');
-    expect(component).toContain('const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];');
+    expect(component).toContain(`const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
+  category.items.slice(0, 3).map((_, index) => \`\${category.id}-\${index}\`),
+);`);
     expect(component).toContain("Show all");
     expect(component).toContain("Show fewer");
     expect(fixture.categories[0].items[0].question).toBe("Is my first visit really free?");

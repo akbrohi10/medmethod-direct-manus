@@ -7,7 +7,9 @@ import {
 } from "./WeightLossMenopauseV2FaqData";
 import "./WeightLossMenopauseV2Faq.css";
 
-const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];
+const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
+  category.items.slice(0, 3).map((_, index) => `${category.id}-${index}`),
+);
 
 export default function WeightLossMenopauseV2Faq({ intakeHref }: { intakeHref: string }) {
   const [selectedCategory, setSelectedCategory] = useState("cost");
@@ -70,6 +72,17 @@ export default function WeightLossMenopauseV2Faq({ intakeHref }: { intakeHref: s
     };
   }, []);
 
+  function selectCategory(categoryId: string) {
+    const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
+    if (!category) return;
+    setExpandedCategories(previous => ({ ...previous, [categoryId]: false }));
+    setOpenQuestions(previous => ({
+      ...previous,
+      ...Object.fromEntries(category.items.map((_, index) => [`${categoryId}-${index}`, index < 3])),
+    }));
+    setSelectedCategory(categoryId);
+  }
+
   function moveTab(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number;
     if (event.key === "ArrowRight") next = (index + 1) % V2_FAQ_CATEGORIES.length;
@@ -78,7 +91,7 @@ export default function WeightLossMenopauseV2Faq({ intakeHref }: { intakeHref: s
     else if (event.key === "End") next = V2_FAQ_CATEGORIES.length - 1;
     else return;
     event.preventDefault();
-    setSelectedCategory(V2_FAQ_CATEGORIES[next].id);
+    selectCategory(V2_FAQ_CATEGORIES[next].id);
     tabRefs.current[next]?.focus({ preventScroll: true });
     tabRefs.current[next]?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
   }
@@ -106,7 +119,7 @@ export default function WeightLossMenopauseV2Faq({ intakeHref }: { intakeHref: s
                 aria-controls={`v2-faq-panel-${category.id}`}
                 tabIndex={selectedCategory === category.id ? 0 : -1}
                 ref={node => { tabRefs.current[index] = node; }}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => selectCategory(category.id)}
                 onKeyDown={event => moveTab(event, index)}
               >{category.label}</button>
             ))}
@@ -145,13 +158,21 @@ export default function WeightLossMenopauseV2Faq({ intakeHref }: { intakeHref: s
                     );
                   })}
                 </div>
+                {category.items.length > 3 && (
                 <button
                   type="button"
                   className="btn secondary v2-faq-show-all"
                   aria-expanded={expanded}
                   aria-controls={`v2-faq-questions-${category.id}`}
-                  onClick={() => setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }))}
+                  onClick={() => {
+                    setOpenQuestions(previous => ({
+                      ...previous,
+                      ...Object.fromEntries(category.items.slice(3).map((_, index) => [`${category.id}-${index + 3}`, false])),
+                    }));
+                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
+                  }}
                 >{expanded ? "Show fewer" : `Show all ${category.items.length} questions`}</button>
+                )}
                 <a className="v2-faq-category-cta" href={intakeHref}>Ready? Start your free visit →</a>
               </div>
             );

@@ -7,7 +7,9 @@ import {
 } from "@/pages/WeightLossMenopauseV2FaqData";
 import "./FinalFaq.css";
 
-const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];
+const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
+  category.items.slice(0, 3).map((_, index) => `${category.id}-${index}`),
+);
 
 function headerBottom() {
   return Math.max(0, ...Array.from(document.querySelectorAll<HTMLElement>("header, [data-site-header]")).map(header => {
@@ -100,6 +102,17 @@ export default function FinalFaq({ intakeHref }: { intakeHref: string }) {
     return () => cancelAnimationFrame(frame);
   }, [expandedCategories]);
 
+  function selectCategory(categoryId: string) {
+    const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
+    if (!category) return;
+    setExpandedCategories(previous => ({ ...previous, [categoryId]: false }));
+    setOpenQuestions(previous => ({
+      ...previous,
+      ...Object.fromEntries(category.items.map((_, index) => [`${categoryId}-${index}`, index < 3])),
+    }));
+    setSelectedCategory(categoryId);
+  }
+
   function moveTab(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number;
     if (event.key === "ArrowRight") next = (index + 1) % V2_FAQ_CATEGORIES.length;
@@ -108,7 +121,7 @@ export default function FinalFaq({ intakeHref }: { intakeHref: string }) {
     else if (event.key === "End") next = V2_FAQ_CATEGORIES.length - 1;
     else return;
     event.preventDefault();
-    setSelectedCategory(V2_FAQ_CATEGORIES[next].id);
+    selectCategory(V2_FAQ_CATEGORIES[next].id);
     tabRefs.current[next]?.focus({ preventScroll: true });
   }
 
@@ -131,7 +144,7 @@ export default function FinalFaq({ intakeHref }: { intakeHref: string }) {
                   aria-selected={selectedCategory === category.id} aria-controls={`mc-faq-panel-${category.id}`}
                   tabIndex={selectedCategory === category.id ? 0 : -1}
                   ref={node => { tabRefs.current[index] = node; }}
-                  onClick={() => setSelectedCategory(category.id)} onKeyDown={event => moveTab(event, index)}
+                  onClick={() => selectCategory(category.id)} onKeyDown={event => moveTab(event, index)}
                 >{category.label}</button>
               ))}
             </div>
@@ -163,6 +176,10 @@ export default function FinalFaq({ intakeHref }: { intakeHref: string }) {
                   aria-controls={`mc-faq-questions-${category.id}`}
                   onClick={() => {
                     if (expanded) collapseTarget.current = category.id;
+                    setOpenQuestions(previous => ({
+                      ...previous,
+                      ...Object.fromEntries(category.items.slice(3).map((_, index) => [`${category.id}-${index + 3}`, false])),
+                    }));
                     setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
                   }}>{expanded ? "Show fewer" : `Show all ${category.items.length} questions`}</button>
                 )}

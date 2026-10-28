@@ -52,6 +52,56 @@ const previousMobilePadding =
 const approvedShowAllConditionalStart =
   "                {category.items.length > 3 && (\n";
 const approvedShowAllConditionalEnd = "\n                )}";
+const oldDefaultOpenQuestions =
+  'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
+const approvedDefaultOpenQuestions = [
+  "const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>",
+  "  category.items.slice(0, 3).map((_, index) => `${category.id}-${index}`),",
+  ");",
+].join("\n");
+const approvedSelectCategory = [
+  "  function selectCategory(categoryId: string) {",
+  "    const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);",
+  "    if (!category) return;",
+  "    setExpandedCategories(previous => ({ ...previous, [categoryId]: false }));",
+  "    setOpenQuestions(previous => ({",
+  "      ...previous,",
+  "      ...Object.fromEntries(category.items.map((_, index) => [`${categoryId}-${index}`, index < 3])),",
+  "    }));",
+  "    setSelectedCategory(categoryId);",
+  "  }",
+  "",
+  "",
+].join("\n");
+const approvedAdditionalQuestionReset = [
+  "                    setOpenQuestions(previous => ({",
+  "                      ...previous,",
+  "                      ...Object.fromEntries(category.items.slice(3).map((_, index) => [`${category.id}-${index + 3}`, false])),",
+  "                    }));",
+].join("\n");
+const oldV2ShowAllButton = [
+  "                <button",
+  "                  type=\"button\"",
+  "                  className=\"btn secondary v2-faq-show-all\"",
+  "                  aria-expanded={expanded}",
+  "                  aria-controls={`v2-faq-questions-${category.id}`}",
+  "                  onClick={() => setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }))}",
+  "                >{expanded ? \"Show fewer\" : `Show all ${category.items.length} questions`}</button>",
+].join("\n");
+const approvedV2ShowAllButton = [
+  "                {category.items.length > 3 && (",
+  "                <button",
+  "                  type=\"button\"",
+  "                  className=\"btn secondary v2-faq-show-all\"",
+  "                  aria-expanded={expanded}",
+  "                  aria-controls={`v2-faq-questions-${category.id}`}",
+  "                  onClick={() => {",
+  approvedAdditionalQuestionReset,
+  "                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));",
+  "                  }}",
+  "                >{expanded ? \"Show fewer\" : `Show all ${category.items.length} questions`}</button>",
+  "                )}",
+].join("\n");
 const approvedV2HeroFontAppend = `
 /* V2 hero headline — homepage font match only. */
 .wlm-v2-content .hero[data-medmethod-scope] h1 {
@@ -118,13 +168,16 @@ function baselineV2ProductionPaths(): string[] {
 }
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
-  return path === "client/src/pages/WeightLossMenopauseV2.css"
-    ? (source.endsWith(approvedV2AuditPriorityFixesAppend)
-      ? source.slice(0, -approvedV2AuditPriorityFixesAppend.length)
-      : source).replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
-    : path === "client/src/pages/WeightLossMenopauseV2Faq.css" && source.endsWith(approvedV2FaqAnswerFontAppend)
-      ? source.slice(0, -approvedV2FaqAnswerFontAppend.length)
+  const withoutApprovedFaqFirstThreeOpen = path === "client/src/pages/WeightLossMenopauseV2Faq.tsx"
+    ? normalizeApprovedV2FaqFirstThreeOpen(source)
     : source;
+  return path === "client/src/pages/WeightLossMenopauseV2.css"
+    ? (withoutApprovedFaqFirstThreeOpen.endsWith(approvedV2AuditPriorityFixesAppend)
+      ? withoutApprovedFaqFirstThreeOpen.slice(0, -approvedV2AuditPriorityFixesAppend.length)
+      : withoutApprovedFaqFirstThreeOpen).replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
+    : path === "client/src/pages/WeightLossMenopauseV2Faq.css" && source.endsWith(approvedV2FaqAnswerFontAppend)
+      ? withoutApprovedFaqFirstThreeOpen.slice(0, -approvedV2FaqAnswerFontAppend.length)
+    : withoutApprovedFaqFirstThreeOpen;
 }
 
 function loadV2FaqData(): V2FaqData {
@@ -158,10 +211,39 @@ function removeApprovedSmallFixes(source: string): string {
     );
 }
 
-function unwrapApprovedFinalFaqConditional(source: string): string {
-  expect(count(source, approvedShowAllConditionalStart)).toBe(1);
-  expect(count(source, approvedShowAllConditionalEnd)).toBe(1);
+function normalizeApprovedFaqFirstThreeOpen(source: string): string {
+  expect(count(source, approvedDefaultOpenQuestions)).toBe(1);
+  expect(count(source, approvedSelectCategory)).toBe(1);
+  expect(count(source, "selectCategory(V2_FAQ_CATEGORIES[next].id);")).toBe(1);
+  expect(count(source, "onClick={() => selectCategory(category.id)}")).toBe(1);
+  expect(count(source, approvedAdditionalQuestionReset)).toBe(1);
   return source
+    .replace(approvedDefaultOpenQuestions, oldDefaultOpenQuestions)
+    .replace(approvedSelectCategory, "")
+    .replace("selectCategory(V2_FAQ_CATEGORIES[next].id);", "setSelectedCategory(V2_FAQ_CATEGORIES[next].id);")
+    .replace("onClick={() => selectCategory(category.id)}", "onClick={() => setSelectedCategory(category.id)}")
+    .replace(`${approvedAdditionalQuestionReset}\n`, "");
+}
+
+function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
+  const withoutCommonFirstThreeOpen = source
+    .replace(approvedDefaultOpenQuestions, oldDefaultOpenQuestions)
+    .replace(approvedSelectCategory, "")
+    .replace("selectCategory(V2_FAQ_CATEGORIES[next].id);", "setSelectedCategory(V2_FAQ_CATEGORIES[next].id);")
+    .replace("onClick={() => selectCategory(category.id)}", "onClick={() => setSelectedCategory(category.id)}");
+  expect(count(source, approvedDefaultOpenQuestions)).toBe(1);
+  expect(count(source, approvedSelectCategory)).toBe(1);
+  expect(count(source, "selectCategory(V2_FAQ_CATEGORIES[next].id);")).toBe(1);
+  expect(count(source, "onClick={() => selectCategory(category.id)}")).toBe(1);
+  expect(count(source, approvedV2ShowAllButton)).toBe(1);
+  return withoutCommonFirstThreeOpen.replace(approvedV2ShowAllButton, oldV2ShowAllButton);
+}
+
+function unwrapApprovedFinalFaqConditional(source: string): string {
+  const withoutApprovedFirstThreeOpen = normalizeApprovedFaqFirstThreeOpen(source);
+  expect(count(withoutApprovedFirstThreeOpen, approvedShowAllConditionalStart)).toBe(1);
+  expect(count(withoutApprovedFirstThreeOpen, approvedShowAllConditionalEnd)).toBe(1);
+  return withoutApprovedFirstThreeOpen
     .replace(approvedShowAllConditionalStart, "")
     .replace(approvedShowAllConditionalEnd, "");
 }
@@ -289,7 +371,7 @@ describe("Masterclass final FAQ", () => {
       'const [selectedCategory, setSelectedCategory] = useState("cost");'
     );
     expect(component).toContain(
-      'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];'
+      approvedDefaultOpenQuestions
     );
     expect(component).toContain("open={Boolean(openQuestions[id])}");
     expect(component).toContain('role="tablist"');

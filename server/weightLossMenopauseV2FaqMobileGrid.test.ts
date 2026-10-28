@@ -91,9 +91,63 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const oldDefaultOpenQuestions =
+  'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
+const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
+  category.items.slice(0, 3).map((_, index) => \`\${category.id}-\${index}\`),
+);`;
+const approvedSelectCategory = `  function selectCategory(categoryId: string) {
+    const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
+    if (!category) return;
+    setExpandedCategories(previous => ({ ...previous, [categoryId]: false }));
+    setOpenQuestions(previous => ({
+      ...previous,
+      ...Object.fromEntries(category.items.map((_, index) => [\`\${categoryId}-\${index}\`, index < 3])),
+    }));
+    setSelectedCategory(categoryId);
+  }
+
+`;
+const originalV2ShowAllButton = `                <button
+                  type="button"
+                  className="btn secondary v2-faq-show-all"
+                  aria-expanded={expanded}
+                  aria-controls={\`v2-faq-questions-\${category.id}\`}
+                  onClick={() => setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }))}
+                >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>`;
+const approvedV2ShowAllButton = `                {category.items.length > 3 && (
+                <button
+                  type="button"
+                  className="btn secondary v2-faq-show-all"
+                  aria-expanded={expanded}
+                  aria-controls={\`v2-faq-questions-\${category.id}\`}
+                  onClick={() => {
+                    setOpenQuestions(previous => ({
+                      ...previous,
+                      ...Object.fromEntries(category.items.slice(3).map((_, index) => [\`\${category.id}-\${index + 3}\`, false])),
+                    }));
+                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
+                  }}
+                >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>
+                )}`;
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
+
+function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
+  const count = (value: string) => source.split(value).length - 1;
+  expect(count(approvedDefaultOpenQuestions)).toBe(1);
+  expect(count(approvedSelectCategory)).toBe(1);
+  expect(count("selectCategory(V2_FAQ_CATEGORIES[next].id);")).toBe(1);
+  expect(count("onClick={() => selectCategory(category.id)}")).toBe(1);
+  expect(count(approvedV2ShowAllButton)).toBe(1);
+  return source
+    .replace(approvedDefaultOpenQuestions, oldDefaultOpenQuestions)
+    .replace(approvedSelectCategory, "")
+    .replace("selectCategory(V2_FAQ_CATEGORIES[next].id);", "setSelectedCategory(V2_FAQ_CATEGORIES[next].id);")
+    .replace("onClick={() => selectCategory(category.id)}", "onClick={() => setSelectedCategory(category.id)}")
+    .replace(approvedV2ShowAllButton, originalV2ShowAllButton);
+}
 
 function faqCssWithoutApprovedAuditPriorityFixes(): string {
   const css = read(faqCssPath);
@@ -114,7 +168,10 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedMasterclassFinalFaqPaths.has(file) && file !== "client/src/pages/Masterclass2.tsx")
-    .filter(file => normalizeApprovedV2HeroFontAppend(file, read(file)) !== atBaseline(file));
+    .filter(file => normalizeApprovedV2HeroFontAppend(
+      file,
+      file === faqComponentPath ? normalizeApprovedV2FaqFirstThreeOpen(read(file)) : read(file),
+    ) !== atBaseline(file));
 }
 
 function normalizeApprovedV2HeroFontAppend(file: string, source: string): string {
@@ -163,7 +220,7 @@ describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
     const component = read(faqComponentPath);
 
     expect(data).toBe(atBaseline(faqDataPath));
-    expect(component).toBe(atBaseline(faqComponentPath));
+    expect(normalizeApprovedV2FaqFirstThreeOpen(component)).toBe(atBaseline(faqComponentPath));
     expect(loadFaqCategories()).toEqual([
       { id: "cost", label: "Cost" },
       { id: "visits", label: "Visits" },
@@ -190,7 +247,10 @@ describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
 
   it("leaves every production source byte-identical to 94e43fdc except the approved FAQ stylesheet append", () => {
     for (const file of explicitUnchangedSources) {
-      expect(read(file), file).toBe(atBaseline(file));
+      expect(
+        file === faqComponentPath ? normalizeApprovedV2FaqFirstThreeOpen(read(file)) : read(file),
+        file,
+      ).toBe(atBaseline(file));
     }
     expect(normalizeApprovedFinalFaqPageLines(read("client/src/pages/Masterclass2.tsx"))).toBe(atBaseline("client/src/pages/Masterclass2.tsx"));
     expect(changedProductionFiles()).toEqual([faqCssPath]);

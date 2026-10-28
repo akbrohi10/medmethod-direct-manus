@@ -12,7 +12,47 @@ const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
+const masterclassFaqComponentPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
+const oldDefaultOpenQuestions =
+  'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
+const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
+  category.items.slice(0, 3).map((_, index) => \`\${category.id}-\${index}\`),
+);`;
+const approvedSelectCategory = `  function selectCategory(categoryId: string) {
+    const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
+    if (!category) return;
+    setExpandedCategories(previous => ({ ...previous, [categoryId]: false }));
+    setOpenQuestions(previous => ({
+      ...previous,
+      ...Object.fromEntries(category.items.map((_, index) => [\`\${categoryId}-\${index}\`, index < 3])),
+    }));
+    setSelectedCategory(categoryId);
+  }
+
+`;
+const originalV2ShowAllButton = `                <button
+                  type="button"
+                  className="btn secondary v2-faq-show-all"
+                  aria-expanded={expanded}
+                  aria-controls={\`v2-faq-questions-\${category.id}\`}
+                  onClick={() => setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }))}
+                >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>`;
+const approvedV2ShowAllButton = `                {category.items.length > 3 && (
+                <button
+                  type="button"
+                  className="btn secondary v2-faq-show-all"
+                  aria-expanded={expanded}
+                  aria-controls={\`v2-faq-questions-\${category.id}\`}
+                  onClick={() => {
+                    setOpenQuestions(previous => ({
+                      ...previous,
+                      ...Object.fromEntries(category.items.slice(3).map((_, index) => [\`\${category.id}-\${index + 3}\`, false])),
+                    }));
+                    setExpandedCategories(previous => ({ ...previous, [category.id]: !expanded }));
+                  }}
+                >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>
+                )}`;
 const heroAuditPriorityFixesAppend = `
 /* V2 audit priority fixes — hero handoff and book-title contrast. */
 @media (min-width: 901px) and (max-width: 1024px) {
@@ -49,6 +89,21 @@ function normalizeOnlyApprovedAuditPriorityAppend(file: string, source: string):
   return source;
 }
 
+function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
+  const count = (value: string) => source.split(value).length - 1;
+  expect(count(approvedDefaultOpenQuestions)).toBe(1);
+  expect(count(approvedSelectCategory)).toBe(1);
+  expect(count("selectCategory(V2_FAQ_CATEGORIES[next].id);")).toBe(1);
+  expect(count("onClick={() => selectCategory(category.id)}")).toBe(1);
+  expect(count(approvedV2ShowAllButton)).toBe(1);
+  return source
+    .replace(approvedDefaultOpenQuestions, oldDefaultOpenQuestions)
+    .replace(approvedSelectCategory, "")
+    .replace("selectCategory(V2_FAQ_CATEGORIES[next].id);", "setSelectedCategory(V2_FAQ_CATEGORIES[next].id);")
+    .replace("onClick={() => selectCategory(category.id)}", "onClick={() => setSelectedCategory(category.id)}")
+    .replace(approvedV2ShowAllButton, originalV2ShowAllButton);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -56,7 +111,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath);
 }
 
 function loadFaqItems(): FaqItem[] {
@@ -104,7 +160,7 @@ describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
     expect(faqAnswerFontAppend.match(/font-size\s*:/g)).toHaveLength(1);
     expect(faqAnswerFontAppend).not.toMatch(/(?:color|line-height|margin|padding|display|position|height|width|transition|animation)\s*:/);
     expect(read(faqDataPath)).toBe(atBaseline(faqDataPath));
-    expect(faqComponent).toBe(atBaseline(faqComponentPath));
+    expect(normalizeApprovedV2FaqFirstThreeOpen(faqComponent)).toBe(atBaseline(faqComponentPath));
     expect(faqItems).toHaveLength(44);
     expect(faqItems.every(item => item.question.length > 0 && item.answer.length > 0)).toBe(true);
     expect(faqComponent).toContain("<details");

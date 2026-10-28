@@ -8,6 +8,10 @@ const root = resolve(import.meta.dirname, "..");
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
+const approvedFaqBehaviorComponentPaths = new Set([
+  "client/src/components/masterclass2/FinalFaq.tsx",
+  "client/src/pages/WeightLossMenopauseV2Faq.tsx",
+]);
 const desktopHeroSizingMarker = "/* V2 desktop hero headline — restrained sizing only. */";
 const approvedDesktopHeroSizingAppend = `
 /* V2 desktop hero headline — restrained sizing only. */
@@ -64,6 +68,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
     .filter(file => normalizeApprovedAuditPriorityAppend(file, read(file)) !== atBaseline(file));
 }
 

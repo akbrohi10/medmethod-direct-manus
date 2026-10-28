@@ -11,6 +11,10 @@ const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const indexPath = "client/index.html";
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
 const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
+const approvedFaqBehaviorComponentPaths = new Set([
+  "client/src/components/masterclass2/FinalFaq.tsx",
+  "client/src/pages/WeightLossMenopauseV2Faq.tsx",
+]);
 const heroFontMarker = "/* V2 hero headline — homepage font match only. */";
 const approvedHeroFontAppend = `
 /* V2 hero headline — homepage font match only. */
@@ -75,6 +79,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
     .filter(file => normalizeApprovedAuditPriorityAppend(file, read(file)) !== atBaseline(file));
 }
 
