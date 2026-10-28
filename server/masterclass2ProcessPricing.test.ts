@@ -37,6 +37,14 @@ const approvedV2HeroFontAppend = `
   font-weight: 900;
 }
 `;
+const approvedV2DesktopHeroSizingAppend = `
+/* V2 desktop hero headline — restrained sizing only. */
+@media (min-width: 1025px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+`;
 const footerParagraphImport =
   'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
 const footerDisclaimers = `
@@ -91,7 +99,7 @@ const normalizeApprovedFinalMasterclassFaq = (path: string, source: string) =>
     : source;
 const normalizeApprovedV2HeroFontAppend = (path: string, source: string) =>
   path === "client/src/pages/WeightLossMenopauseV2.css"
-    ? source.replace(approvedV2HeroFontAppend, "")
+    ? source.replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
     : source;
 const normalizeApprovedMasterclassRouteSwap = (path: string, source: string) => {
   if (path === "client/src/pages/Masterclass2.tsx") {

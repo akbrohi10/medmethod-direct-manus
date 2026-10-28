@@ -33,12 +33,22 @@ const approvedHeroFontAppend = `
   font-weight: 900;
 }
 `;
+const approvedDesktopHeroSizingAppend = `
+/* V2 desktop hero headline — restrained sizing only. */
+@media (min-width: 1025px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+`;
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
 
 function normalizeApprovedHeroFontAppend(path: string, source: string): string {
-  return path === pageCssPath ? source.replace(approvedHeroFontAppend, "") : source;
+  return path === pageCssPath
+    ? source.replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
+    : source;
 }
 
 function section(source: string, id: string): string {

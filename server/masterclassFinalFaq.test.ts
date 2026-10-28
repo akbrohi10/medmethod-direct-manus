@@ -59,6 +59,14 @@ const approvedV2HeroFontAppend = `
   font-weight: 900;
 }
 `;
+const approvedV2DesktopHeroSizingAppend = `
+/* V2 desktop hero headline — restrained sizing only. */
+@media (min-width: 1025px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+`;
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -94,7 +102,7 @@ function baselineV2ProductionPaths(): string[] {
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
   return path === "client/src/pages/WeightLossMenopauseV2.css"
-    ? source.replace(approvedV2HeroFontAppend, "")
+    ? source.replace(approvedV2DesktopHeroSizingAppend, "").replace(approvedV2HeroFontAppend, "")
     : source;
 }
 

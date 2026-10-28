@@ -18,6 +18,15 @@ const approvedHeroFontAppend = `
   font-weight: 900;
 }
 `;
+const desktopHeroSizingMarker = "/* V2 desktop hero headline — restrained sizing only. */";
+const approvedDesktopHeroSizingAppend = `
+/* V2 desktop hero headline — restrained sizing only. */
+@media (min-width: 1025px) {
+  .wlm-v2-content .hero[data-medmethod-scope] h1 {
+    font-size: clamp(36px, 3vw, 50px);
+  }
+}
+`;
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -38,23 +47,28 @@ function changedProductionFiles(): string[] {
 }
 
 describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
-  it("is exactly the approved six-line terminal CSS append to the c8783393 stylesheet baseline", () => {
+  it("keeps the approved six-line font append exact before the separately approved terminal desktop sizing append", () => {
     const css = read(cssPath);
     const markerIndex = css.indexOf(heroFontMarker);
+    const sizingMarkerIndex = css.indexOf(desktopHeroSizingMarker);
 
     expect(markerIndex).toBe(atBaseline(cssPath).length + 1);
+    expect(sizingMarkerIndex).toBe(atBaseline(cssPath).length + approvedHeroFontAppend.length + 1);
     expect(css.match(/\/\* V2 hero headline — homepage font match only\. \*\//g)).toHaveLength(1);
-    expect(css).toBe(`${atBaseline(cssPath)}${approvedHeroFontAppend}`);
+    expect(css.match(/\/\* V2 desktop hero headline — restrained sizing only\. \*\//g)).toHaveLength(1);
+    expect(css).toBe(`${atBaseline(cssPath)}${approvedHeroFontAppend}${approvedDesktopHeroSizingAppend}`);
     expect(css.slice(0, markerIndex)).toBe(atBaseline(cssPath) + "\n");
-    expect(css.slice(markerIndex)).toBe(approvedHeroFontAppend.trimStart());
+    expect(css.slice(markerIndex, sizingMarkerIndex)).toBe(`${approvedHeroFontAppend.trimStart()}\n`);
+    expect(css.slice(sizingMarkerIndex)).toBe(approvedDesktopHeroSizingAppend.trimStart());
   });
 
   it("changes only the scoped hero h1 family and weight, letting headline spans inherit while preserving the masked ampersand's DM Sans rule", () => {
-    const append = read(cssPath).slice(read(cssPath).indexOf(heroFontMarker));
+    const css = read(cssPath);
+    const append = css.slice(css.indexOf(heroFontMarker), css.indexOf(desktopHeroSizingMarker));
     const page = read(pagePath);
-    const cssPrefix = read(cssPath).slice(0, read(cssPath).indexOf(heroFontMarker));
+    const cssPrefix = css.slice(0, css.indexOf(heroFontMarker));
 
-    expect(append).toBe(approvedHeroFontAppend.trimStart());
+    expect(append).toBe(`${approvedHeroFontAppend.trimStart()}\n`);
     expect(append).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1 {\n  font-family: "Montserrat", sans-serif;\n  font-weight: 900;\n}');
     expect(append).not.toMatch(/(?:font-size|line-height|letter-spacing|color|background|margin|padding|mask|text-decoration|transform)\s*:/);
     expect(append).not.toContain(".hero-headline-line");
