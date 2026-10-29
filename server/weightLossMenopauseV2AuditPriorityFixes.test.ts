@@ -19,6 +19,7 @@ const oldDefaultOpenQuestions =
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
   category.items.slice(0, 3).map((_, index) => \`\${category.id}-\${index}\`),
 );`;
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedSelectCategory = `  function selectCategory(categoryId: string) {
     const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
     if (!category) return;
@@ -87,6 +88,10 @@ function normalizeOnlyApprovedAuditPriorityAppend(file: string, source: string):
     return source.slice(0, -faqAnswerFontAppend.length);
   }
   return source;
+}
+
+function normalizeApprovedV2DoctorBioMscpCredential(file: string, source: string): string {
+  return file === doctorBioPath ? source.replace(approvedMscpCredential, "") : source;
 }
 
 function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
@@ -175,12 +180,12 @@ describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
     expect(heroAuditPriorityFixesAppend).toContain(".wlm-v2-content #doctor .doctor-bio-book {\n  color: #7A1E7E;\n}");
     expect(heroAuditPriorityFixesAppend.match(/\.doctor-bio-book/g)).toHaveLength(1);
     expect(heroAuditPriorityFixesAppend.match(/color\s*:/g)).toHaveLength(1);
-    expect(doctorBio).toBe(atBaseline(doctorBioPath));
+    expect(normalizeApprovedV2DoctorBioMscpCredential(doctorBioPath, doctorBio)).toBe(atBaseline(doctorBioPath));
     expect(doctorBio).toContain('<strong className="doctor-bio-book">The Menopause Weight Loss Trap</strong>');
   });
 
   it("leaves every other production file, including page copy, pricing, links, and payment paths, at the 62bec055 baseline", () => {
-    expect(changedProductionFiles()).toEqual([heroCssPath, faqCssPath]);
+    expect(changedProductionFiles()).toEqual([heroCssPath, doctorBioPath, faqCssPath]);
     expect(read(pagePath)).toBe(atBaseline(pagePath));
     expect(read("shared/treatmentCatalog.json")).toBe(atBaseline("shared/treatmentCatalog.json"));
     expect(read("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx")).toBe(atBaseline("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx"));

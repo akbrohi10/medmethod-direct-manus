@@ -22,6 +22,11 @@ const normalizeApprovedV2DoctorBioCredential = (path: string, source: string) =>
   path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
     ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const normalizeApprovedV2DoctorBioMscpCredential = (path: string, source: string) =>
+  path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
+    ? source.replace(approvedMscpCredential, "")
+    : source;
 const finalV2FaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
 const finalV2FaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
 const finalV2FaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
@@ -307,7 +312,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
 
   it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap and final-FAQ normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path))))))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedV2DoctorBioMscpCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path)))))))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

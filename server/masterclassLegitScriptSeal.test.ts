@@ -7,6 +7,7 @@ const BASELINE = "ea6bf90f";
 const root = resolve(import.meta.dirname, "..");
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const finalFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
+const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const sealMarker = "data-masterclass-legitscript-footer-seal";
 const sealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
@@ -105,6 +106,7 @@ const approvedV2FaqAnswerFontAppend = `
   font-size: 17px;
 }
 `;
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -180,9 +182,12 @@ function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
 }
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
-  const withoutApprovedFaqFirstThreeOpen = path === "client/src/pages/WeightLossMenopauseV2Faq.tsx"
-    ? normalizeApprovedV2FaqFirstThreeOpen(source)
+  const withoutApprovedMscpCredential = path === v2DoctorBioPath
+    ? source.replace(approvedMscpCredential, "")
     : source;
+  const withoutApprovedFaqFirstThreeOpen = path === "client/src/pages/WeightLossMenopauseV2Faq.tsx"
+    ? normalizeApprovedV2FaqFirstThreeOpen(withoutApprovedMscpCredential)
+    : withoutApprovedMscpCredential;
   return path === "client/src/pages/WeightLossMenopauseV2.css"
     ? (withoutApprovedFaqFirstThreeOpen.endsWith(approvedV2AuditPriorityFixesAppend)
       ? withoutApprovedFaqFirstThreeOpen.slice(0, -approvedV2AuditPriorityFixesAppend.length)

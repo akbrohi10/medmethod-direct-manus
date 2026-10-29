@@ -1,7 +1,7 @@
 const DOCTOR_PORTRAIT = "/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp";
 
 // Existing homepage credentials, focus areas and training; no additional claims.
-const CREDENTIALS = ["Family Physician", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];
+const CREDENTIALS = ["Family Physician", "Menopause Certified (MSCP)", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];
 const FOCUS_AREAS = [
   "Medical Weight Loss",
   "Menopause & Perimenopause",

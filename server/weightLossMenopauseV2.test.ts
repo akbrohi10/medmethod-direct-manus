@@ -143,7 +143,8 @@ const firstTextVisitNoteMarker = "/* V2 first text visit note — pricing helper
 const heroFontMatchMarker = "/* V2 hero headline — homepage font match only. */";
 const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" />\n';
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
-const approvedDoctorCredentials = ["Family Physician", "Menopause Specialist", "Author"];
+const approvedDoctorCredentials = ["Family Physician", "Menopause Certified (MSCP)", "Menopause Specialist", "Author"];
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedDoctorFocusAreas = [
   "Medical Weight Loss",
   "Menopause & Perimenopause",
@@ -428,7 +429,9 @@ function normalizeApprovedFirstTextVisitNote(source: string): string {
 }
 
 function normalizeV2DoctorBioCredential(source: string): string {
-  return source.replace('"Family Physician"', '"Board-Certified DO"');
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace('"Family Physician"', '"Board-Certified DO"');
 }
 
 function countExactOccurrences(source: string, value: string): number {
@@ -680,13 +683,14 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
       expect(doctorBio).toContain(`"${credential}"`);
     }
     expect(countExactOccurrences(doctorBio, '"Family Physician"')).toBe(1);
+    expect(countExactOccurrences(doctorBio, '"Menopause Certified (MSCP)"')).toBe(1);
     expect(doctorBio).not.toContain('"Board-Certified DO"');
-    expect(doctorBio).toContain('const CREDENTIALS = ["Family Physician", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];');
+    expect(doctorBio).toContain('const CREDENTIALS = ["Family Physician", "Menopause Certified (MSCP)", "Menopause Specialist", "Metabolism", "Author", "Mom of Four", "Licensed in 12 states"];');
     const credentials = Array.from((doctorBio.match(/const CREDENTIALS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
     const normalizedCredentials = Array.from((normalizeV2DoctorBioCredential(doctorBio).match(/const CREDENTIALS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
     const homepageCredentials = Array.from((homepageMedicalTeam.match(/const CREDENTIAL_PILLS = \[([^\]]+)\]/)?.[1] ?? "").matchAll(/"([^"]+)"/g), match => match[1]);
     expect(normalizedCredentials).toEqual(homepageCredentials);
-    expect(credentials).toHaveLength(6);
+    expect(credentials).toHaveLength(7);
     expect(normalizeV2DoctorBioCredential(doctorBio)).toBe(atCurrentBaseline(v2DoctorBioPath));
     expect(doctorBio.match(/Licensed in \d+ states/g)).toEqual(["Licensed in 12 states"]);
 

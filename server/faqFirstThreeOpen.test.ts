@@ -10,8 +10,10 @@ const BASELINE = "9c65e262";
 const root = resolve(import.meta.dirname, "..");
 const masterclassFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const v2FaqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
+const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const approvedComponentPaths = [masterclassFaqPath, v2FaqPath] as const;
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const oldDefaultOpenQuestions = 'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
   category.items.slice(0, 3).map((_, index) => \`${"${category.id}"}-${"${index}"}\`),
@@ -105,6 +107,12 @@ function approvedComponentSource(path: typeof masterclassFaqPath | typeof v2FaqP
   return replaceOnce(expected, v2OldShowAllButton, v2ApprovedShowAllButton, "V2 conditional show-all reset");
 }
 
+function normalizeApprovedV2DoctorBioMscpCredential(path: string, source: string): string {
+  if (path !== v2DoctorBioPath) return source;
+  expect(count(source, approvedMscpCredential)).toBe(1);
+  return source.replace(approvedMscpCredential, "");
+}
+
 function loadCategories(): FaqCategory[] {
   const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
   const script = "import(" + JSON.stringify(moduleUrl) + ").then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.map(({ id, label, items }) => ({ id, label, items })))));";
@@ -147,7 +155,7 @@ describe("FAQ first-three-open behavior", () => {
     expect(defaultOpenIds).toHaveLength(18);
   });
 
-  it("changes no production source from 9c65e262 except the two authorized FAQ components, each by the exact approved replacement set", () => {
+  it("changes no production source from 9c65e262 except the two authorized FAQ components and the exact reversible MSCP doctor-bio pill", () => {
     const changedProductionFiles = execFileSync(
       "git",
       ["diff", "--name-only", BASELINE, "--", "client", "server", "shared"],
@@ -157,10 +165,11 @@ describe("FAQ first-three-open behavior", () => {
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
 
-    expect(changedProductionFiles).toEqual(approvedComponentPaths);
+    expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());
     for (const path of approvedComponentPaths) {
       expect(read(path), path).toBe(approvedComponentSource(path));
     }
+    expect(normalizeApprovedV2DoctorBioMscpCredential(v2DoctorBioPath, read(v2DoctorBioPath))).toBe(atBaseline(v2DoctorBioPath));
   });
 
   it("initializes every category's first three native details open, while retaining native manual toggles and hiding additional questions by default", () => {

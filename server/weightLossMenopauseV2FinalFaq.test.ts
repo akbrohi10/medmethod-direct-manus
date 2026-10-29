@@ -52,6 +52,7 @@ const approvedAuditPriorityFixesAppend = `
   color: #7A1E7E;
 }
 `;
+const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
@@ -61,6 +62,12 @@ function normalizeApprovedHeroFontAppend(path: string, source: string): string {
     ? source.endsWith(approvedAuditPriorityFixesAppend)
       ? source.slice(0, -approvedAuditPriorityFixesAppend.length).replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
       : source.replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")
+    : source;
+}
+
+function normalizeApprovedV2DoctorBioMscpCredential(path: string, source: string): string {
+  return path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
+    ? source.replace(approvedMscpCredential, "")
     : source;
 }
 
@@ -202,7 +209,7 @@ describe("Weight-Loss & Menopause V2 final approved FAQ", () => {
       "server/wl2OneTimePayment.ts",
       "server/wl2PaymentResume.test.ts",
     ]) {
-      expect(normalizeApprovedHeroFontAppend(file, read(file)), file).toBe(atBaseline(file));
+      expect(normalizeApprovedHeroFontAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, read(file))), file).toBe(atBaseline(file));
     }
   });
 });
