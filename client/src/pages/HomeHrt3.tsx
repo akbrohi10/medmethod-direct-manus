@@ -262,6 +262,7 @@ export default function HomeHrt3() {
         <MedicalTeam
           onConsultClick={openConsult}
           hideBullets
+          showMscpCredential
           overrideHeadline={
             <span
               style={{

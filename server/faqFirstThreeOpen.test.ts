@@ -12,10 +12,23 @@ const masterclassFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2FaqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const approvedComponentPaths = [masterclassFaqPath, v2FaqPath] as const;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 const oldDefaultOpenQuestions = 'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
   category.items.slice(0, 3).map((_, index) => \`${"${category.id}"}-${"${index}"}\`),
@@ -121,6 +134,23 @@ function normalizeApprovedMasterclassMscpCredential(path: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function normalizeApprovedHomepageMscpCredential(path: string, source: string): string {
+  if (path === homepagePath) {
+    expect(count(source, approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (path !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageMscpType)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 function loadCategories(): FaqCategory[] {
   const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
   const script = "import(" + JSON.stringify(moduleUrl) + ").then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.map(({ id, label, items }) => ({ id, label, items })))));";
@@ -172,7 +202,7 @@ describe("FAQ first-three-open behavior", () => {
       .split("\n")
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-      .filter(path => normalizeApprovedMasterclassMscpCredential(path, read(path)) !== atBaseline(path));
+      .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());
     for (const path of approvedComponentPaths) {

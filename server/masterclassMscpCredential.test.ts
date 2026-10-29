@@ -6,7 +6,20 @@ import { describe, expect, it } from "vitest";
 const baseline = "ad6831863ae44e57f573ac3ed4741d52fc47e33d";
 const root = resolve(import.meta.dirname, "..");
 const profilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const approvedMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
@@ -17,6 +30,23 @@ function credentialPills(source: string): string[] {
   return Array.from(initializer.matchAll(/"([^"]+)"/g), match => match[1]);
 }
 
+function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
+  if (file === homepagePath) {
+    expect(count(source, approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageMscpType)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -24,7 +54,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, read(file)) !== atBaseline(file));
 }
 
 describe("Masterclass MSCP credential", () => {

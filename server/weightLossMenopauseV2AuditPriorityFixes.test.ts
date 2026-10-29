@@ -15,6 +15,8 @@ const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProf
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const masterclassFaqComponentPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const oldDefaultOpenQuestions =
   'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
@@ -22,6 +24,17 @@ const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATE
 );`;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 const approvedSelectCategory = `  function selectCategory(categoryId: string) {
     const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
     if (!category) return;
@@ -102,6 +115,24 @@ function normalizeApprovedMasterclassMscpCredential(file: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
+  const count = (value: string) => source.split(value).length - 1;
+  if (file === homepagePath) {
+    expect(count(approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(approvedHomepageMscpType)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
   const count = (value: string) => source.split(value).length - 1;
   expect(count(approvedDefaultOpenQuestions)).toBe(1);
@@ -126,7 +157,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath)
-    .filter(file => normalizeApprovedMasterclassMscpCredential(file, read(file)) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file))) !== atBaseline(file));
 }
 
 function loadFaqItems(): FaqItem[] {

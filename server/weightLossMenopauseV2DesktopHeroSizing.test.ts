@@ -10,6 +10,8 @@ const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const approvedFaqBehaviorComponentPaths = new Set([
   "client/src/components/masterclass2/FinalFaq.tsx",
   "client/src/pages/WeightLossMenopauseV2Faq.tsx",
@@ -42,6 +44,17 @@ const approvedFaqAnswerFontAppend = `
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -74,6 +87,24 @@ function normalizeApprovedMasterclassMscpCredential(file: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
+  const count = (value: string) => source.split(value).length - 1;
+  if (file === homepagePath) {
+    expect(count(approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(approvedHomepageMscpType)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -83,7 +114,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
-    .filter(file => normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file)))) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file))))) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {

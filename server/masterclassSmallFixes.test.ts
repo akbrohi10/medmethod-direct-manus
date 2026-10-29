@@ -17,6 +17,8 @@ const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProf
 const dataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const cssPath = "client/src/components/masterclass2/FinalFaq.css";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 
 const footerParagraphImport =
   'import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";\n';
@@ -85,6 +87,17 @@ const approvedV2FaqAnswerFontAppend = `
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 const originalShowAllButton = `                <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
                   aria-controls={\`mc-faq-questions-\${category.id}\`}
                   onClick={() => {
@@ -169,13 +182,30 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-    .filter(path => normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
+    .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path)))) !== atBaseline(path));
 }
 
 function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {
   if (path !== masterclassProfilePath) return source;
   expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
   return source.replace(approvedMasterclassMscpCredentialLine, "");
+}
+
+function normalizeApprovedHomepageMscpCredential(path: string, source: string): string {
+  if (path === homepagePath) {
+    expect(count(source, approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (path !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageMscpType)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
 }
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {

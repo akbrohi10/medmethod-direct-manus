@@ -53,6 +53,17 @@ const approvedFaqAnswerFontAppend = `
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -85,6 +96,24 @@ function normalizeApprovedMasterclassMscpCredential(file: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
+  const count = (value: string) => source.split(value).length - 1;
+  if (file === homepagePath) {
+    expect(count(approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(approvedHomepageMscpType)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -94,7 +123,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
-    .filter(file => normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file)))) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file))))) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
@@ -137,9 +166,9 @@ describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
 
     expect(index).toBe(atBaseline(indexPath));
     expect(index).toMatch(/fonts\.googleapis\.com\/css2\?family=Montserrat:wght@400;500;600;700;800;900&/);
-    expect(homepage).toBe(atBaseline(homepagePath));
+    expect(normalizeApprovedHomepageMscpCredential(homepagePath, homepage)).toBe(atBaseline(homepagePath));
     expect(homepage).toContain('import MedicalTeam from "@/components/home1/MedicalTeam";');
-    expect(homepageMedicalTeam).toBe(atBaseline(homepageMedicalTeamPath));
+    expect(normalizeApprovedHomepageMscpCredential(homepageMedicalTeamPath, homepageMedicalTeam)).toBe(atBaseline(homepageMedicalTeamPath));
     expect(homepageMedicalTeam).toMatch(/<h1\s+className="font-black text-\[#111111\] leading-\[1\.05\]"\s+style=\{\{[\s\S]*?fontFamily: "Montserrat, sans-serif"/);
   });
 

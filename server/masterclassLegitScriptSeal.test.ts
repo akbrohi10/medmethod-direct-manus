@@ -9,6 +9,8 @@ const pagePath = "client/src/pages/Masterclass2.tsx";
 const finalFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const sealMarker = "data-masterclass-legitscript-footer-seal";
 const sealStart =
   '\n          <div data-masterclass-legitscript-footer-seal className="mt-6 flex justify-center">';
@@ -109,6 +111,17 @@ const approvedV2FaqAnswerFontAppend = `
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const approvedHomepageMscpOptIn = "          showMscpCredential\n";
+const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
+const approvedHomepageMscpType = "  showMscpCredential?: boolean;\n";
+const approvedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
+const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -205,6 +218,23 @@ function normalizeApprovedMasterclassMscpCredential(path: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function normalizeApprovedHomepageMscpCredential(path: string, source: string): string {
+  if (path === homepagePath) {
+    expect(count(source, approvedHomepageMscpOptIn)).toBe(1);
+    return source.replace(approvedHomepageMscpOptIn, "");
+  }
+  if (path !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageMscpDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageMscpType)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialSelection)).toBe(1);
+  expect(count(source, approvedHomepageMscpCredentialMap)).toBe(1);
+  return source
+    .replace(approvedHomepageMscpDestructuredDefault, "")
+    .replace(approvedHomepageMscpType, "")
+    .replace(approvedHomepageMscpCredentialSelection, "")
+    .replace(approvedHomepageMscpCredentialMap, defaultHomepageCredentialMap);
+}
+
 describe("Masterclass LegitScript footer seal", () => {
   it("is exactly reversible to ea6bf90f by removing only the uniquely marked new footer div", () => {
     const page = read(pagePath);
@@ -248,7 +278,7 @@ describe("Masterclass LegitScript footer seal", () => {
       .split("\n")
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-      .filter(path => normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
+      .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path)))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([
       finalFaqPath,
