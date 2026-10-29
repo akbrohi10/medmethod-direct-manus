@@ -10,6 +10,8 @@ const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProf
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
 const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const approvedHomepageMscpOptIn = "          showMscpCredential\n";
 const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
@@ -25,6 +27,14 @@ const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
+const normalizeApprovedV2DoctorBioMscpCredential = (file: string, source: string) => {
+  if (file !== doctorBioPath) return source;
+  expect(count(source, approvedMscpCredential)).toBe(1);
+  expect(count(source, approvedV2DoctorHeading)).toBe(1);
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
+};
 const normalizeApprovedMasterclassMscpCredential = (file: string, source: string) => {
   if (file !== masterclassProfilePath) return source;
   expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
@@ -95,11 +105,10 @@ describe("Weight-Loss & Menopause V2 MSCP credential", () => {
     ]);
   });
 
-  it("is exactly reversible to 46eba676fce14a593bef9515b3eb0f270d6ab129 by removing only the one approved MSCP literal", () => {
-    const doctorBio = read(doctorBioPath);
-
-    expect(count(doctorBio, approvedMscpCredential)).toBe(1);
-    expect(doctorBio.replace(approvedMscpCredential, "")).toBe(atBaseline(doctorBioPath));
+  it("is exactly reversible to 46eba676fce14a593bef9515b3eb0f270d6ab129 by removing only the approved MSCP credential and full V2 heading", () => {
+    expect(normalizeApprovedV2DoctorBioMscpCredential(doctorBioPath, read(doctorBioPath))).toBe(
+      atBaseline(doctorBioPath),
+    );
   });
 
   it("leaves every other production source at 46eba676fce14a593bef9515b3eb0f270d6ab129", () => {

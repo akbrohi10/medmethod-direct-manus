@@ -52,6 +52,8 @@ const approvedFaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const approvedHomepageMscpOptIn = "          showMscpCredential\n";
 const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
@@ -87,7 +89,13 @@ function normalizeApprovedAuditPriorityAppend(file: string, source: string): str
 }
 
 function normalizeApprovedV2DoctorBioMscpCredential(file: string, source: string): string {
-  return file === doctorBioPath ? source.replace(approvedMscpCredential, "") : source;
+  if (file !== doctorBioPath) return source;
+  const count = (value: string) => source.split(value).length - 1;
+  expect(count(approvedMscpCredential)).toBe(1);
+  expect(count(approvedV2DoctorHeading)).toBe(1);
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
 }
 
 function normalizeApprovedMasterclassMscpCredential(file: string, source: string): string {

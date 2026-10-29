@@ -86,6 +86,8 @@ const approvedV2FaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const approvedHomepageMscpOptIn = "          showMscpCredential\n";
 const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
@@ -210,7 +212,13 @@ function normalizeApprovedHomepageMscpCredential(path: string, source: string): 
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {
   const withoutApprovedMscpCredential = path === v2DoctorBioPath
-    ? source.replace(approvedMscpCredential, "")
+    ? (() => {
+      expect(count(source, approvedMscpCredential)).toBe(1);
+      expect(count(source, approvedV2DoctorHeading)).toBe(1);
+      return source
+        .replace(approvedMscpCredential, "")
+        .replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
+    })()
     : source;
   const withoutApprovedFaqFirstThreeOpen = path === "client/src/pages/WeightLossMenopauseV2Faq.tsx"
     ? normalizeApprovedV2FaqFirstThreeOpen(withoutApprovedMscpCredential)

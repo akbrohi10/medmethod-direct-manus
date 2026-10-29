@@ -15,6 +15,8 @@ const approvedHeroSupportingLine = '<p className="hero-description"><strong>GLP-
 const legacyFirstTextVisitRow = '<div><dt>First text visit</dt><dd>FREE</dd></div>';
 const approvedFirstTextVisitRow = '<div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>';
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const finalFaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
 const finalFaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
 const finalFaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
@@ -75,9 +77,13 @@ function normalizeFinalFaq(source: string): string {
 }
 
 function normalizeApprovedV2DoctorBioCredential(file: string, source: string): string {
-  return file === doctorBioPath
-    ? source.replace(approvedMscpCredential, "").replace('"Family Physician"', '"Board-Certified DO"')
-    : source;
+  if (file !== doctorBioPath) return source;
+  expect(countExactOccurrences(source, approvedMscpCredential)).toBe(1);
+  expect(countExactOccurrences(source, approvedV2DoctorHeading)).toBe(1);
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading)
+    .replace('"Family Physician"', '"Board-Certified DO"');
 }
 
 function cssRules(css: string): CssRule[] {

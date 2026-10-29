@@ -22,6 +22,8 @@ const approvedCredentialSelection = [
 ].join("\n");
 const approvedCredentialMap = "{credentialPills.map((pill) => (";
 const defaultCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) =>
@@ -55,6 +57,12 @@ function normalizeApprovedHomepageMscpCredential(file: string, source: string): 
   return source;
 }
 
+function normalizeApprovedV2DoctorHeading(file: string, source: string): string {
+  if (file !== v2DoctorBioPath) return source;
+  expect(count(source, approvedV2DoctorHeading)).toBe(1);
+  return source.replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -63,7 +71,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
-    .filter(file => normalizeApprovedHomepageMscpCredential(file, read(file)) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, read(file))) !== atBaseline(file));
 }
 
 describe("homepage-only MSCP credential", () => {
@@ -110,11 +118,13 @@ describe("homepage-only MSCP credential", () => {
     );
   });
 
-  it("leaves all other production sources unchanged, including LP HRT3, masterclass, V2, homepage copy, styles, links, and metadata", () => {
+  it("leaves all other production sources unchanged, including LP HRT3, masterclass, and V2 outside the one approved full doctor heading", () => {
     expect(read(lpHrt3Path)).toBe(atBaseline(lpHrt3Path));
     expect(read(masterclassProfilePath)).toBe(atBaseline(masterclassProfilePath));
     expect(read(v2PagePath)).toBe(atBaseline(v2PagePath));
-    expect(read(v2DoctorBioPath)).toBe(atBaseline(v2DoctorBioPath));
+    expect(normalizeApprovedV2DoctorHeading(v2DoctorBioPath, read(v2DoctorBioPath))).toBe(
+      atBaseline(v2DoctorBioPath),
+    );
     expect(changedProductionFiles()).toEqual([]);
   });
 });

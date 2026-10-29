@@ -30,10 +30,16 @@ const normalizeApprovedV2DoctorBioCredential = (path: string, source: string) =>
     ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
-const normalizeApprovedV2DoctorBioMscpCredential = (path: string, source: string) =>
-  path === "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"
-    ? source.replace(approvedMscpCredential, "")
-    : source;
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
+const normalizeApprovedV2DoctorBioMscpCredential = (path: string, source: string) => {
+  if (path !== "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx") return source;
+  expect(count(source, approvedMscpCredential)).toBe(1);
+  expect(count(source, approvedV2DoctorHeading)).toBe(1);
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
+};
 const finalV2FaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
 const finalV2FaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
 const finalV2FaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';

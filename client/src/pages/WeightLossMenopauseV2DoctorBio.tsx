@@ -62,7 +62,7 @@ export default function WeightLossMenopauseV2DoctorBio() {
           </aside>
           <div className="doctor-bio-main">
             <span className="section-kicker">About Your Physician</span>
-            <h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>
+            <h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>
             <p className="doctor-bio-intro">Board-certified family physician specializing in medical weight loss, menopause and metabolic health.</p>
             <div className="doctor-bio-portrait doctor-bio-mobile-portrait">
               <img src={DOCTOR_PORTRAIT} alt="Dr. Jumana Al-Deek, DO, MS" loading="lazy" decoding="async" />

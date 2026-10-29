@@ -17,6 +17,8 @@ const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const approvedComponentPaths = [masterclassFaqPath, v2FaqPath] as const;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const approvedHomepageMscpOptIn = "          showMscpCredential\n";
 const approvedHomepageMscpDestructuredDefault = "  showMscpCredential = false,\n";
@@ -125,7 +127,10 @@ function approvedComponentSource(path: typeof masterclassFaqPath | typeof v2FaqP
 function normalizeApprovedV2DoctorBioMscpCredential(path: string, source: string): string {
   if (path !== v2DoctorBioPath) return source;
   expect(count(source, approvedMscpCredential)).toBe(1);
-  return source.replace(approvedMscpCredential, "");
+  expect(count(source, approvedV2DoctorHeading)).toBe(1);
+  return source
+    .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
 }
 
 function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {

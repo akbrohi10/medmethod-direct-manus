@@ -145,6 +145,8 @@ const heroFontLink = '        <link rel="stylesheet" href="https://fonts.googlea
 const uploadedHeroFontLink = '        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />\n';
 const approvedDoctorCredentials = ["Family Physician", "Menopause Certified (MSCP)", "Menopause Specialist", "Author"];
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
+const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const approvedDoctorFocusAreas = [
   "Medical Weight Loss",
   "Menopause & Perimenopause",
@@ -429,8 +431,11 @@ function normalizeApprovedFirstTextVisitNote(source: string): string {
 }
 
 function normalizeV2DoctorBioCredential(source: string): string {
+  expect(countExactOccurrences(source, approvedMscpCredential)).toBe(1);
+  expect(countExactOccurrences(source, approvedV2DoctorHeading)).toBe(1);
   return source
     .replace(approvedMscpCredential, "")
+    .replace(approvedV2DoctorHeading, baselineV2DoctorHeading)
     .replace('"Family Physician"', '"Board-Certified DO"');
 }
 
