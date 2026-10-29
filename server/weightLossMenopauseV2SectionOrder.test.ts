@@ -11,10 +11,44 @@ const medicationPricingStart = '<section className="medication-pricing"';
 const estimatorStart = '<section className="estimator-band"';
 const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
 const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
+const approvedHomepageFamilyPhysicianOptIn = '          firstCredentialLabel="Family Physician"\n';
+const approvedHomepageFamilyPhysicianDestructuredDefault = "  firstCredentialLabel = CREDENTIAL_PILLS[0],\n";
+const approvedHomepageFamilyPhysicianType = "  firstCredentialLabel?: string;\n";
+const approvedHomepageFamilyPhysicianCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];",
+  "",
+].join("\n");
+const retainedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
+
+
+function normalizeApprovedHomepageFamilyPhysicianCredential(file: string, source: string): string {
+  if (file === homepagePath) {
+    expect(count(source, approvedHomepageFamilyPhysicianOptIn)).toBe(1);
+    return source.replace(approvedHomepageFamilyPhysicianOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageFamilyPhysicianDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianType)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianCredentialSelection)).toBe(1);
+  return source
+    .replace(approvedHomepageFamilyPhysicianDestructuredDefault, "")
+    .replace(approvedHomepageFamilyPhysicianType, "")
+    .replace(approvedHomepageFamilyPhysicianCredentialSelection, retainedHomepageMscpCredentialSelection);
+}
 
 function medicationAndEstimatorBlock(source: string, endMarker: string): string {
   const start = source.indexOf(medicationPricingStart);
@@ -117,7 +151,8 @@ describe("Weight-Loss & Menopause V2 approved section order", () => {
     )
       .split("\n")
       .filter(Boolean)
-      .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+      .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+      .filter(file => normalizeApprovedHomepageFamilyPhysicianCredential(file, read(file)) !== atBaseline(file));
 
     expect(changedProductionFiles).toEqual([pagePath]);
   });

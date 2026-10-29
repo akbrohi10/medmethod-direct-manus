@@ -9,9 +9,43 @@ const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 const unchangedPortraitAlt = 'alt="Dr. Jumana Al-Deek, DO, MS"';
+const homepagePath = "client/src/pages/HomeHrt3.tsx";
+const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
+const approvedHomepageFamilyPhysicianOptIn = '          firstCredentialLabel="Family Physician"\n';
+const approvedHomepageFamilyPhysicianDestructuredDefault = "  firstCredentialLabel = CREDENTIAL_PILLS[0],\n";
+const approvedHomepageFamilyPhysicianType = "  firstCredentialLabel?: string;\n";
+const approvedHomepageFamilyPhysicianCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];",
+  "",
+].join("\n");
+const retainedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
+
+
+function normalizeApprovedHomepageFamilyPhysicianCredential(file: string, source: string): string {
+  if (file === homepagePath) {
+    expect(count(source, approvedHomepageFamilyPhysicianOptIn)).toBe(1);
+    return source.replace(approvedHomepageFamilyPhysicianOptIn, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageFamilyPhysicianDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianType)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianCredentialSelection)).toBe(1);
+  return source
+    .replace(approvedHomepageFamilyPhysicianDestructuredDefault, "")
+    .replace(approvedHomepageFamilyPhysicianType, "")
+    .replace(approvedHomepageFamilyPhysicianCredentialSelection, retainedHomepageMscpCredentialSelection);
+}
 
 function normalizeApprovedV2DoctorHeading(file: string, source: string): string {
   if (file !== doctorBioPath) return source;
@@ -27,7 +61,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
-    .filter(file => normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file))) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageFamilyPhysicianCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {

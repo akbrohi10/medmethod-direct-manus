@@ -66,6 +66,22 @@ const approvedHomepageMscpCredentialSelection = [
 ].join("\n");
 const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
 const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
+const approvedHomepageFamilyPhysicianOptIn = '          firstCredentialLabel="Family Physician"\n';
+const approvedHomepageFamilyPhysicianDestructuredDefault = "  firstCredentialLabel = CREDENTIAL_PILLS[0],\n";
+const approvedHomepageFamilyPhysicianType = "  firstCredentialLabel?: string;\n";
+const approvedHomepageFamilyPhysicianCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];",
+  "",
+].join("\n");
+const retainedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -107,15 +123,25 @@ function normalizeApprovedMasterclassMscpCredential(file: string, source: string
 function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
   const count = (value: string) => source.split(value).length - 1;
   if (file === homepagePath) {
+    expect(count(approvedHomepageFamilyPhysicianOptIn)).toBe(1);
     expect(count(approvedHomepageMscpOptIn)).toBe(1);
-    return source.replace(approvedHomepageMscpOptIn, "");
+    return source
+      .replace(approvedHomepageFamilyPhysicianOptIn, "")
+      .replace(approvedHomepageMscpOptIn, "");
   }
   if (file !== homepageMedicalTeamPath) return source;
+  expect(count(approvedHomepageFamilyPhysicianDestructuredDefault)).toBe(1);
+  expect(count(approvedHomepageFamilyPhysicianType)).toBe(1);
+  expect(count(approvedHomepageFamilyPhysicianCredentialSelection)).toBe(1);
   expect(count(approvedHomepageMscpDestructuredDefault)).toBe(1);
   expect(count(approvedHomepageMscpType)).toBe(1);
-  expect(count(approvedHomepageMscpCredentialSelection)).toBe(1);
   expect(count(approvedHomepageMscpCredentialMap)).toBe(1);
-  return source
+  const restoredFamilyCredential = source
+    .replace(approvedHomepageFamilyPhysicianDestructuredDefault, "")
+    .replace(approvedHomepageFamilyPhysicianType, "")
+    .replace(approvedHomepageFamilyPhysicianCredentialSelection, retainedHomepageMscpCredentialSelection);
+  expect(restoredFamilyCredential.split(approvedHomepageMscpCredentialSelection).length - 1).toBe(1);
+  return restoredFamilyCredential
     .replace(approvedHomepageMscpDestructuredDefault, "")
     .replace(approvedHomepageMscpType, "")
     .replace(approvedHomepageMscpCredentialSelection, "")

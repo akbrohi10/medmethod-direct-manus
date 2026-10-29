@@ -191,6 +191,7 @@ export default function MedicalTeam({
   overrideSubline,
   overrideBody,
   showMscpCredential = false,
+  firstCredentialLabel = CREDENTIAL_PILLS[0],
 }: {
   onConsultClick?: () => void;
   ctaEyebrow?: ReactNode;
@@ -212,6 +213,7 @@ export default function MedicalTeam({
   overrideSubline?: ReactNode;
   overrideBody?: ReactNode;
   showMscpCredential?: boolean;
+  firstCredentialLabel?: string;
 } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
@@ -229,8 +231,8 @@ export default function MedicalTeam({
   const numberRef = useRef<HTMLDivElement | null>(null);
   const careTeamIsPrimary = Boolean(swapBookingActions && secondaryAction);
   const credentialPills = showMscpCredential
-    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]
-    : CREDENTIAL_PILLS;
+    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]
+    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];
 
   const physicianBookingAction = (
     <div key="physician-booking-action" className="flex min-w-0 flex-col">

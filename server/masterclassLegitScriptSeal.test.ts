@@ -124,6 +124,22 @@ const approvedHomepageMscpCredentialSelection = [
 ].join("\n");
 const approvedHomepageMscpCredentialMap = "{credentialPills.map((pill) => (";
 const defaultHomepageCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
+const approvedHomepageFamilyPhysicianOptIn = '          firstCredentialLabel="Family Physician"\n';
+const approvedHomepageFamilyPhysicianDestructuredDefault = "  firstCredentialLabel = CREDENTIAL_PILLS[0],\n";
+const approvedHomepageFamilyPhysicianType = "  firstCredentialLabel?: string;\n";
+const approvedHomepageFamilyPhysicianCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];",
+  "",
+].join("\n");
+const retainedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -228,15 +244,25 @@ function normalizeApprovedMasterclassMscpCredential(path: string, source: string
 
 function normalizeApprovedHomepageMscpCredential(path: string, source: string): string {
   if (path === homepagePath) {
+    expect(count(source, approvedHomepageFamilyPhysicianOptIn)).toBe(1);
     expect(count(source, approvedHomepageMscpOptIn)).toBe(1);
-    return source.replace(approvedHomepageMscpOptIn, "");
+    return source
+      .replace(approvedHomepageFamilyPhysicianOptIn, "")
+      .replace(approvedHomepageMscpOptIn, "");
   }
   if (path !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedHomepageFamilyPhysicianDestructuredDefault)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianType)).toBe(1);
+  expect(count(source, approvedHomepageFamilyPhysicianCredentialSelection)).toBe(1);
   expect(count(source, approvedHomepageMscpDestructuredDefault)).toBe(1);
   expect(count(source, approvedHomepageMscpType)).toBe(1);
-  expect(count(source, approvedHomepageMscpCredentialSelection)).toBe(1);
   expect(count(source, approvedHomepageMscpCredentialMap)).toBe(1);
-  return source
+  const restoredFamilyCredential = source
+    .replace(approvedHomepageFamilyPhysicianDestructuredDefault, "")
+    .replace(approvedHomepageFamilyPhysicianType, "")
+    .replace(approvedHomepageFamilyPhysicianCredentialSelection, retainedHomepageMscpCredentialSelection);
+  expect(count(restoredFamilyCredential, approvedHomepageMscpCredentialSelection)).toBe(1);
+  return restoredFamilyCredential
     .replace(approvedHomepageMscpDestructuredDefault, "")
     .replace(approvedHomepageMscpType, "")
     .replace(approvedHomepageMscpCredentialSelection, "")

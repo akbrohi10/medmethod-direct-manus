@@ -22,6 +22,22 @@ const approvedCredentialSelection = [
 ].join("\n");
 const approvedCredentialMap = "{credentialPills.map((pill) => (";
 const defaultCredentialMap = "{CREDENTIAL_PILLS.map((pill) => (";
+const approvedHomepageFamilyPhysicianOptIn = '          firstCredentialLabel="Family Physician"\n';
+const approvedHomepageFamilyPhysicianDestructuredDefault = "  firstCredentialLabel = CREDENTIAL_PILLS[0],\n";
+const approvedHomepageFamilyPhysicianType = "  firstCredentialLabel?: string;\n";
+const approvedHomepageFamilyPhysicianCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];",
+  "",
+].join("\n");
+const retainedHomepageMscpCredentialSelection = [
+  "  const credentialPills = showMscpCredential",
+  '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+  "    : CREDENTIAL_PILLS;",
+  "",
+].join("\n");
+
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 
@@ -38,16 +54,23 @@ function credentialPills(source: string): string[] {
 
 function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
   if (file === homePath) {
+    expect(count(source, approvedHomepageFamilyPhysicianOptIn)).toBe(1);
     expect(count(source, approvedHomeOptIn)).toBe(1);
-    return source.replace(approvedHomeOptIn, "");
+    return source
+      .replace(approvedHomepageFamilyPhysicianOptIn, "")
+      .replace(approvedHomeOptIn, "");
   }
 
   if (file === medicalTeamPath) {
     expect(count(source, approvedDestructuredDefault)).toBe(1);
     expect(count(source, approvedType)).toBe(1);
-    expect(count(source, approvedCredentialSelection)).toBe(1);
     expect(count(source, approvedCredentialMap)).toBe(1);
-    return source
+    const restoredFamilyCredential = source
+      .replace(approvedHomepageFamilyPhysicianDestructuredDefault, "")
+      .replace(approvedHomepageFamilyPhysicianType, "")
+      .replace(approvedHomepageFamilyPhysicianCredentialSelection, retainedHomepageMscpCredentialSelection);
+    expect(count(restoredFamilyCredential, approvedCredentialSelection)).toBe(1);
+    return restoredFamilyCredential
       .replace(approvedDestructuredDefault, "")
       .replace(approvedType, "")
       .replace(approvedCredentialSelection, "")
@@ -118,10 +141,12 @@ describe("homepage-only MSCP credential", () => {
     expect(defaultCredentials).toHaveLength(6);
     expect(medicalTeam).toContain("showMscpCredential = false");
     expect(medicalTeam).toContain("showMscpCredential?: boolean;");
+    expect(medicalTeam).toContain("firstCredentialLabel = CREDENTIAL_PILLS[0]");
+    expect(medicalTeam).toContain("firstCredentialLabel?: string;");
     expect(medicalTeam).toContain(
-      '? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
+      '? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]',
     );
-    expect(medicalTeam).toContain(": CREDENTIAL_PILLS;");
+    expect(medicalTeam).toContain(": [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];");
     expect(medicalTeam).toContain(approvedCredentialMap);
     expect(medicalTeam).not.toContain(defaultCredentialMap);
   });
@@ -132,11 +157,17 @@ describe("homepage-only MSCP credential", () => {
     const homeMedicalTeamCall = home.match(/<MedicalTeam[\s\S]*?\n\s*\/>/)?.[0] ?? "";
     const lpHrt3MedicalTeamCall = lpHrt3.match(/<MedicalTeam[\s\S]*?\n\s*\/>/)?.[0] ?? "";
 
-    expect(homeMedicalTeamCall).toContain("hideBullets\n          showMscpCredential");
+    expect(homeMedicalTeamCall).toContain(
+      'hideBullets\n          showMscpCredential\n          firstCredentialLabel="Family Physician"',
+    );
     expect(homeMedicalTeamCall).toContain("showMscpCredential");
+    expect(homeMedicalTeamCall).toContain('firstCredentialLabel="Family Physician"');
     expect(lpHrt3MedicalTeamCall).not.toContain("showMscpCredential");
+    expect(lpHrt3MedicalTeamCall).not.toContain("firstCredentialLabel");
     expect(count(home, "showMscpCredential")).toBe(1);
+    expect(count(home, "firstCredentialLabel")).toBe(1);
     expect(count(lpHrt3, "showMscpCredential")).toBe(0);
+    expect(count(lpHrt3, "firstCredentialLabel")).toBe(0);
   });
 
   it("is exactly reversible to ede96ffe through only the two authorized source inverses", () => {

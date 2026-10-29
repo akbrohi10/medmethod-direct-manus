@@ -263,6 +263,7 @@ export default function HomeHrt3() {
           onConsultClick={openConsult}
           hideBullets
           showMscpCredential
+          firstCredentialLabel="Family Physician"
           overrideHeadline={
             <span
               style={{
