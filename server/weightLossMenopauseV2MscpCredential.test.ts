@@ -6,10 +6,17 @@ import { describe, expect, it } from "vitest";
 const baseline = "46eba676fce14a593bef9515b3eb0f270d6ab129";
 const root = resolve(import.meta.dirname, "..");
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
+const normalizeApprovedMasterclassMscpCredential = (file: string, source: string) => {
+  if (file !== masterclassProfilePath) return source;
+  expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+};
 
 function credentials(source: string): string[] {
   return Array.from(
@@ -25,7 +32,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => normalizeApprovedMasterclassMscpCredential(file, read(file)) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 MSCP credential", () => {

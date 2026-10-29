@@ -13,6 +13,7 @@ const BASELINE = "15da38f3";
 const root = resolve(import.meta.dirname, "..");
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const componentPath = "client/src/components/masterclass2/FinalFaq.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const dataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const cssPath = "client/src/components/masterclass2/FinalFaq.css";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
@@ -83,6 +84,7 @@ const approvedV2FaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const originalShowAllButton = `                <button type="button" className="mc-faq-show-all" aria-expanded={expanded}
                   aria-controls={\`mc-faq-questions-\${category.id}\`}
                   onClick={() => {
@@ -167,7 +169,13 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-    .filter(path => normalizeApprovedV2HeroFontAppend(path, read(path)) !== atBaseline(path));
+    .filter(path => normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
+}
+
+function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {
+  if (path !== masterclassProfilePath) return source;
+  expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
 function normalizeApprovedV2HeroFontAppend(path: string, source: string): string {

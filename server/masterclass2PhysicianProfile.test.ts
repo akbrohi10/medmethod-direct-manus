@@ -15,6 +15,12 @@ const readImmediateBaselineProfile = () =>
     cwd: process.cwd(),
     encoding: "utf8",
   });
+const approvedMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const count = (source: string, value: string) => source.split(value).length - 1;
+const normalizeApprovedMscpCredential = (source: string) => {
+  expect(count(source, approvedMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMscpCredentialLine, "");
+};
 const normalizeApprovedCredential = (source: string) =>
   source.replace('"Family Physician"', '"Board-Certified DO"');
 const restoreImmediateBaselineCredential = (source: string) =>
@@ -69,14 +75,16 @@ describe("masterclass2 full homepage-style physician profile", () => {
     expect(original).not.toContain("data-masterclass2-physician-recognition");
   });
 
-  it("copies all existing credential, specialty and full narrative data without new claims", () => {
+  it("copies all existing credential, specialty and full narrative data with only the approved MSCP pill", () => {
     expect(profile.match(/"Family Physician"/g)).toHaveLength(1);
+    expect(profile.match(/"Menopause Certified \(MSCP\)"/g)).toHaveLength(1);
     expect(profile).not.toContain('"Board-Certified Family Physician"');
     expect(profile).not.toContain('"Board-Certified DO"');
-    expect(normalizeApprovedCredential(profile)).toBe(readBaselineProfile());
-    expect(restoreImmediateBaselineCredential(profile)).toBe(readImmediateBaselineProfile());
+    expect(normalizeApprovedMscpCredential(profile)).toBe(readImmediateBaselineProfile().replace('"Board-Certified Family Physician"', '"Family Physician"'));
+    expect(normalizeApprovedCredential(normalizeApprovedMscpCredential(profile))).toBe(readBaselineProfile());
+    expect(restoreImmediateBaselineCredential(normalizeApprovedMscpCredential(profile))).toBe(readImmediateBaselineProfile());
     for (const name of ["CREDENTIAL_PILLS", "FOCUS_AREA_PILLS", "BIO_SECTIONS"]) {
-      expect(initializer(normalizeApprovedCredential(profile), name)).toBe(initializer(homepage, name));
+      expect(initializer(normalizeApprovedCredential(normalizeApprovedMscpCredential(profile)), name)).toBe(initializer(homepage, name));
     }
     for (const phrase of ["West Virginia School of Osteopathic Medicine", "Doctor of Osteopathic Medicine", "AdventHealth Winter Park", "Family Medicine Residency", "Georgetown University", "Graduate Training, Physiology & Biophysics", "The Menopause Society", "Advanced Menopause Training", "Obesity Medicine Association", "Obesity & Metabolic Health Certification", "Pre-Medicine Background", "Former NASM-Certified Personal Trainer"]) {
       expect(profile).toContain(phrase);

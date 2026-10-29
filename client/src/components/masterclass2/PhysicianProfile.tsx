@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 
 const CREDENTIAL_PILLS = [
   "Family Physician",
+  "Menopause Certified (MSCP)",
   "Menopause Specialist",
   "Metabolism",
   "Author",

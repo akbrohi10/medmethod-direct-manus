@@ -14,8 +14,15 @@ const readBaseline = (path: string) =>
   });
 const count = (source: string, value: string) => source.split(value).length - 1;
 const compact = (source: string) => source.replace(/\s+/g, " ").trim();
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
+const normalizeApprovedMasterclassMscpCredential = (path: string, source: string) => {
+  if (path !== masterclassProfilePath) return source;
+  expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+};
 const normalizeApprovedProfileCredential = (path: string, source: string) =>
-  path === "client/src/components/masterclass2/PhysicianProfile.tsx"
+  path === masterclassProfilePath
     ? source.replace('"Family Physician"', '"Board-Certified DO"')
     : source;
 const normalizeApprovedV2DoctorBioCredential = (path: string, source: string) =>
@@ -312,7 +319,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
 
   it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap and final-FAQ normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedV2DoctorBioMscpCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path)))))))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedV2DoctorBioMscpCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path))))))))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

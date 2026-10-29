@@ -9,11 +9,13 @@ type FaqCategory = { id: string; label: string; items: unknown[] };
 const BASELINE = "9c65e262";
 const root = resolve(import.meta.dirname, "..");
 const masterclassFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2FaqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const approvedComponentPaths = [masterclassFaqPath, v2FaqPath] as const;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const oldDefaultOpenQuestions = 'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
   category.items.slice(0, 3).map((_, index) => \`${"${category.id}"}-${"${index}"}\`),
@@ -113,6 +115,12 @@ function normalizeApprovedV2DoctorBioMscpCredential(path: string, source: string
   return source.replace(approvedMscpCredential, "");
 }
 
+function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {
+  if (path !== masterclassProfilePath) return source;
+  expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+}
+
 function loadCategories(): FaqCategory[] {
   const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
   const script = "import(" + JSON.stringify(moduleUrl) + ").then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.map(({ id, label, items }) => ({ id, label, items })))));";
@@ -163,7 +171,8 @@ describe("FAQ first-three-open behavior", () => {
     )
       .split("\n")
       .filter(Boolean)
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
+      .filter(path => normalizeApprovedMasterclassMscpCredential(path, read(path)) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());
     for (const path of approvedComponentPaths) {

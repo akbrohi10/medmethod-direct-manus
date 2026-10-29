@@ -11,6 +11,7 @@ const heroCssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const masterclassFaqComponentPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
@@ -20,6 +21,7 @@ const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATE
   category.items.slice(0, 3).map((_, index) => \`\${category.id}-\${index}\`),
 );`;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 const approvedSelectCategory = `  function selectCategory(categoryId: string) {
     const category = V2_FAQ_CATEGORIES.find(item => item.id === categoryId);
     if (!category) return;
@@ -94,6 +96,12 @@ function normalizeApprovedV2DoctorBioMscpCredential(file: string, source: string
   return file === doctorBioPath ? source.replace(approvedMscpCredential, "") : source;
 }
 
+function normalizeApprovedMasterclassMscpCredential(file: string, source: string): string {
+  if (file !== masterclassProfilePath) return source;
+  expect(source.split(approvedMasterclassMscpCredentialLine).length - 1).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+}
+
 function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
   const count = (value: string) => source.split(value).length - 1;
   expect(count(approvedDefaultOpenQuestions)).toBe(1);
@@ -117,7 +125,8 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
-    .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath);
+    .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath)
+    .filter(file => normalizeApprovedMasterclassMscpCredential(file, read(file)) !== atBaseline(file));
 }
 
 function loadFaqItems(): FaqItem[] {

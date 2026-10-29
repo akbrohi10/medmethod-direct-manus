@@ -9,6 +9,7 @@ const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const approvedFaqBehaviorComponentPaths = new Set([
   "client/src/components/masterclass2/FinalFaq.tsx",
   "client/src/pages/WeightLossMenopauseV2Faq.tsx",
@@ -40,6 +41,7 @@ const approvedFaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 
 function read(file: string): string {
   return readFileSync(resolve(root, file), "utf8");
@@ -66,6 +68,12 @@ function normalizeApprovedV2DoctorBioMscpCredential(file: string, source: string
   return file === doctorBioPath ? source.replace(approvedMscpCredential, "") : source;
 }
 
+function normalizeApprovedMasterclassMscpCredential(file: string, source: string): string {
+  if (file !== masterclassProfilePath) return source;
+  expect(source.split(approvedMasterclassMscpCredentialLine).length - 1).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -75,7 +83,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
-    .filter(file => normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, read(file))) !== atBaseline(file));
+    .filter(file => normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file)))) !== atBaseline(file));
 }
 
 describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {

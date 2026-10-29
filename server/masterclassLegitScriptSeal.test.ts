@@ -7,6 +7,7 @@ const BASELINE = "ea6bf90f";
 const root = resolve(import.meta.dirname, "..");
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const finalFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const sealMarker = "data-masterclass-legitscript-footer-seal";
 const sealStart =
@@ -107,6 +108,7 @@ const approvedV2FaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const atBaseline = (path: string) =>
@@ -197,6 +199,12 @@ function normalizeApprovedV2HeroFontAppend(path: string, source: string): string
     : withoutApprovedFaqFirstThreeOpen;
 }
 
+function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {
+  if (path !== masterclassProfilePath) return source;
+  expect(count(source, approvedMasterclassMscpCredentialLine)).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
+}
+
 describe("Masterclass LegitScript footer seal", () => {
   it("is exactly reversible to ea6bf90f by removing only the uniquely marked new footer div", () => {
     const page = read(pagePath);
@@ -240,7 +248,7 @@ describe("Masterclass LegitScript footer seal", () => {
       .split("\n")
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-      .filter(path => normalizeApprovedV2HeroFontAppend(path, read(path)) !== atBaseline(path));
+      .filter(path => normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([
       finalFaqPath,

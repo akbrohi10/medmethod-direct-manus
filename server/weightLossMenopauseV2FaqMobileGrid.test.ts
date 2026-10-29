@@ -12,6 +12,7 @@ const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
+const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const mobileGridMarker = "\n/* V2 mobile FAQ chips — six equal cells, no horizontal scrolling. */";
 const expectedMobileGridOverride = `${mobileGridMarker}
 @media(max-width:767px) {
@@ -65,6 +66,7 @@ const approvedFaqAnswerFontAppend = `
 }
 `;
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
+const approvedMasterclassMscpCredentialLine = '  "Menopause Certified (MSCP)",\n';
 
 const explicitUnchangedSources = [
   "client/src/pages/WeightLossMenopauseV2.tsx",
@@ -174,13 +176,22 @@ function changedProductionFiles(): string[] {
       file,
       normalizeApprovedV2DoctorBioMscpCredential(
         file,
-        file === faqComponentPath ? normalizeApprovedV2FaqFirstThreeOpen(read(file)) : read(file),
+        normalizeApprovedMasterclassMscpCredential(
+          file,
+          file === faqComponentPath ? normalizeApprovedV2FaqFirstThreeOpen(read(file)) : read(file),
+        ),
       ),
     ) !== atBaseline(file));
 }
 
 function normalizeApprovedV2DoctorBioMscpCredential(file: string, source: string): string {
   return file === doctorBioPath ? source.replace(approvedMscpCredential, "") : source;
+}
+
+function normalizeApprovedMasterclassMscpCredential(file: string, source: string): string {
+  if (file !== masterclassProfilePath) return source;
+  expect(source.split(approvedMasterclassMscpCredentialLine).length - 1).toBe(1);
+  return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
 function normalizeApprovedV2HeroFontAppend(file: string, source: string): string {
