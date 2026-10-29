@@ -210,6 +210,34 @@ const protectedSourcePaths = [
   // Their behavior is covered by intakePaymentRoutes/intakePaidFinalization tests.
 ];
 
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
+}
+
 describe("masterclass2 ProcessPricing display-only addition", () => {
   it("is exactly reversible to the f7c2c7e7 Masterclass2 page by removing only its import/mount and restoring the three approved display prices", () => {
     expect(count(page, pageImport)).toBe(1);
@@ -325,7 +353,7 @@ describe("masterclass2 ProcessPricing display-only addition", () => {
 
   it("keeps V2, physician profile, shared router, and all old/$47.99 checkout source byte-identical to f7c2c7e7 after only the approved route-swap and final-FAQ normalizations", () => {
     for (const path of protectedSourcePaths) {
-      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedV2DoctorBioMscpCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, read(path))))))))), path).toBe(readBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedProfileCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2DoctorBioCredential(path, normalizeApprovedV2DoctorBioMscpCredential(path, normalizeApprovedFinalMasterclassFaq(path, normalizeApprovedMasterclassRouteSwap(path, normalizeApprovedFinalV2Faq(path, normalizeApprovedV2SectionOrder(path, read(path)))))))))), path).toBe(readBaseline(path));
     }
     const intakePanelPath = "client/src/components/thank-you-video/IntakeVideoPayment.tsx";
     expect(read(intakePanelPath).replaceAll("$97", "$39")).toBe(readBaseline(intakePanelPath));

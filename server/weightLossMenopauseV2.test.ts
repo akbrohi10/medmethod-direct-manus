@@ -324,6 +324,9 @@ const previousAdditionalVisitFaqCopy = "A new concern, an additional treatment, 
 const finalFaqComponentImport = 'import WeightLossMenopauseV2Faq from "./WeightLossMenopauseV2Faq";\n';
 const finalFaqDataImport = 'import { V2_FAQ_FOOTER_PARAGRAPHS, V2_FAQ_COPYRIGHT } from "./WeightLossMenopauseV2FaqData";\n';
 const finalFaqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+const medicationPricingStart = '<section className="medication-pricing"';
+const estimatorStart = '<section className="estimator-band"';
+const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
 const preFinalFaqFooterDisclosures = `<div className="disclosures">
               <p><strong>Prototype disclosure:</strong> state availability, refund terms, and other operational details marked TBD must be confirmed before launch.</p>
               <p>Compounded medications are not FDA-approved. A prescription is never guaranteed and is issued only when a licensed clinician determines treatment is appropriate. Individual results vary. Weight-loss medication carries risks and may not be appropriate for everyone.</p>
@@ -375,6 +378,28 @@ function normalizeFinalFaq(source: string): string {
     .replace(finalFaqMount, preFinalFaq)
     .replace(finalDisclosures, preFinalFaqFooterDisclosures)
     .replace(finalCopyright, preFinalFaqFooterCopyright);
+}
+
+function normalizeApprovedV2SectionOrder(file: string, source: string): string {
+  if (file !== v2PagePath) return source;
+  expect(countExactOccurrences(source, medicationPricingStart)).toBe(1);
+  expect(countExactOccurrences(source, estimatorStart)).toBe(1);
+  expect(countExactOccurrences(source, doctorBioMount)).toBe(1);
+  expect(countExactOccurrences(source, finalFaqMount)).toBe(1);
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(finalFaqMount);
+  expect(medicationStart).toBeGreaterThan(doctorStart);
+  expect(medicationStart).toBeLessThan(faqStart);
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  expect(medicationAndEstimator).toContain(estimatorStart);
+  expect(medicationAndEstimator.endsWith("\n")).toBe(true);
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  expect(restoredDoctorStart).toBeGreaterThan(-1);
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
 }
 
 function normalizeApprovedMobileBar(source: string): string {
@@ -468,7 +493,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
 
     const completeNewHero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(completeNewHero).not.toBe("");
-    const restoredFirstVisitCopy = restoreFirstVisitScope(normalizeFinalFaq(page));
+    const restoredFirstVisitCopy = restoreFirstVisitScope(normalizeFinalFaq(normalizeApprovedV2SectionOrder(v2PagePath, page)));
     const previousApprovedHero = restoredFirstVisitCopy.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(previousApprovedHero).not.toBe("");
     const restoredApprovedCopy = restoreFreeCareCopy(normalizeApprovedMobileBar(restoredFirstVisitCopy))
@@ -511,7 +536,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(countExactOccurrences(page, approvedHeroSupportingLine)).toBe(1);
     expect(countExactOccurrences(page, previousApprovedHeroSupportingLine)).toBe(0);
     expect(countExactOccurrences(page, previousHeroSupportingLine)).toBe(0);
-    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(page)));
+    const restoredBoldOnlyPage = normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(normalizeApprovedV2SectionOrder(v2PagePath, page))));
     expect(restoredBoldOnlyPage).toBe(atBoldOnlyHeroSupportingLineBaseline(v2PagePath));
     expect(css.slice(0, css.indexOf(firstTextVisitNoteMarker))).toBe(atBoldOnlyHeroSupportingLineBaseline(v2CssPath));
     expect(restoredBoldOnlyPage.replace(previousApprovedHeroSupportingLine, previousHeroSupportingLine)).toBe(atApprovedHeroSupportingLineBaseline(v2PagePath));
@@ -522,7 +547,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     const helperCss = css.slice(markerIndex + firstTextVisitNoteMarker.length, css.indexOf(heroFontMatchMarker)).trim();
     expect(countExactOccurrences(page, approvedFirstTextVisitRow)).toBe(1);
     expect(countExactOccurrences(page, legacyFirstTextVisitRow)).toBe(0);
-    expect(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(page))).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
+    expect(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(normalizeApprovedV2SectionOrder(v2PagePath, page)))).toBe(atFirstTextVisitNoteBaseline(v2PagePath));
     expect(css.match(/\/\* V2 first text visit note — pricing helper only\. \*\//g)).toHaveLength(1);
     expect(markerIndex).toBeGreaterThanOrEqual(0);
     expect(css.indexOf(heroFontMatchMarker)).toBeGreaterThan(markerIndex);
@@ -801,13 +826,19 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
     expect(page.match(/id="pricing"/g)).toHaveLength(1);
   });
 
-  it("places the combined section immediately after the hero and restores the unchanged Featured In strip immediately after it", () => {
+  it("places the combined section immediately after the hero and retains Featured In, doctor, support, testimonials, then medication and estimator before FAQ", () => {
     const sections = Array.from(page.matchAll(/<section\b[^>]*>/g), match => match[0]);
     expect(sections[0]).toContain('className="hero"');
     expect(sections[1]).toContain("process-pricing-section");
     expect(sections[1]).toContain('id="how-it-works"');
     expect(sections[2]).toContain('className="featured-in"');
-    expect(sections[3]).toContain('className="medication-pricing"');
+    expect(sections[3]).toContain('className="section support-section');
+    expect(sections[4]).toContain('className="section testimonials');
+    expect(sections[5]).toContain('className="medication-pricing"');
+    expect(sections[6]).toContain('className="estimator-band"');
+    expect(page.indexOf(doctorBioMount)).toBeGreaterThan(page.indexOf('<section className="featured-in"'));
+    expect(page.indexOf(medicationPricingStart)).toBeGreaterThan(page.indexOf('<section className="section testimonials"'));
+    expect(page.indexOf(medicationPricingStart)).toBeLessThan(page.indexOf(finalFaqMount));
     const currentFeaturedInSection = page.match(/<section className="featured-in"[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(currentFeaturedInSection).toBe(originalFeaturedInSection);
   });

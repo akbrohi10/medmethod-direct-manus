@@ -165,13 +165,41 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath)
-    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, read(file))) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
 function loadFaqItems(): FaqItem[] {
   const moduleUrl = pathToFileURL(resolve(root, faqDataPath)).href;
   const script = `import(${JSON.stringify(moduleUrl)}).then(module => process.stdout.write(JSON.stringify(module.V2_FAQ_CATEGORIES.flatMap(category => category.items))))`;
   return JSON.parse(execFileSync(process.execPath, ["--import", "tsx", "-e", script], { cwd: root, encoding: "utf8" })) as FaqItem[];
+}
+
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
 }
 
 describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
@@ -234,7 +262,7 @@ describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
 
   it("leaves every other production file, including page copy, pricing, links, and payment paths, at the 62bec055 baseline", () => {
     expect(changedProductionFiles()).toEqual([heroCssPath, doctorBioPath, faqCssPath]);
-    expect(read(pagePath)).toBe(atBaseline(pagePath));
+    expect(normalizeApprovedV2SectionOrder(pagePath, read(pagePath))).toBe(atBaseline(pagePath));
     expect(read("shared/treatmentCatalog.json")).toBe(atBaseline("shared/treatmentCatalog.json"));
     expect(read("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx")).toBe(atBaseline("client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx"));
     expect(read("server/routers/stripe.wl2.test.ts")).toBe(atBaseline("server/routers/stripe.wl2.test.ts"));

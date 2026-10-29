@@ -173,6 +173,34 @@ function showAllClick(component: string, componentPath: string): string {
   return component.slice(start, end + "                  }}".length);
 }
 
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
+}
+
 describe("FAQ first-three-open behavior", () => {
   it("keeps the immutable six-category, 44-question data source and derives all 18 initial opens from each category's first three items", () => {
     const categories = loadCategories();
@@ -207,7 +235,7 @@ describe("FAQ first-three-open behavior", () => {
       .split("\n")
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-      .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedMasterclassMscpCredential(path, read(path))) !== atBaseline(path));
+      .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path)))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());
     for (const path of approvedComponentPaths) {

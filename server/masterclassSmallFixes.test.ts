@@ -184,7 +184,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
-    .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, read(path)))) !== atBaseline(path));
+    .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path))))) !== atBaseline(path));
 }
 
 function normalizeApprovedMasterclassMscpCredential(path: string, source: string): string {
@@ -275,6 +275,34 @@ function unwrapApprovedShowAllConditional(source: string): string {
   return withoutApprovedFirstThreeOpen.replace(approvedConditionalShowAllButton, originalShowAllButton);
 }
 
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
+}
+
 describe("Masterclass small footer, FAQ, and mobile-bar fixes", () => {
   it("is exactly reversible to 15da38f3 by undoing only the approved footer import/block, mobile clearance, visible price, and aria label", () => {
     const page = read(pagePath);
@@ -335,7 +363,7 @@ describe("Masterclass small footer, FAQ, and mobile-bar fixes", () => {
   it("leaves every V2 source and FinalFaq stylesheet byte-identical and changes no production source outside the approved page and FAQ component", () => {
     expect(read(cssPath)).toBe(atBaseline(cssPath));
     for (const path of v2ProductionPaths()) {
-      expect(normalizeApprovedV2HeroFontAppend(path, read(path)), path).toBe(atBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedV2SectionOrder(path, read(path))), path).toBe(atBaseline(path));
     }
     expect(changedProductionFiles()).toEqual([componentPath, pagePath]);
   });

@@ -299,6 +299,34 @@ const protectedRouteMetadataAndPaymentPaths = [
   "client/src/components/masterclass2/checkout4799/videoVisitCheckout4799Storage.ts",
 ] as const;
 
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
+}
+
 describe("Masterclass final FAQ", () => {
   it("reuses the exact immutable V2 44-question source fixture, without copying question or answer text into the Masterclass component", () => {
     const component = read(componentPath);
@@ -351,7 +379,7 @@ describe("Masterclass final FAQ", () => {
     const v2Paths = baselineV2ProductionPaths();
     expect(v2Paths.length).toBeGreaterThan(0);
     for (const path of v2Paths) {
-      expect(normalizeApprovedV2HeroFontAppend(path, read(path)), path).toBe(atBaseline(path));
+      expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedV2SectionOrder(path, read(path))), path).toBe(atBaseline(path));
     }
   });
 

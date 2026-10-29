@@ -115,6 +115,34 @@ function has(declarations: string, property: string, value: string): boolean {
   return new RegExp(`${property}\\s*:\\s*${value}(?:\\s*!important)?\\s*(?:;|$)`, "i").test(declarations);
 }
 
+function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
+  const medicationPricingStart = '<section className="medication-pricing"';
+  const estimatorStart = '<section className="estimator-band"';
+  const doctorBioMount = "<WeightLossMenopauseV2DoctorBio />";
+  const faqMount = '<WeightLossMenopauseV2Faq intakeHref={WEIGHT_MENOPAUSE_INTAKE_URL} />';
+  const count = (value: string) => source.split(value).length - 1;
+  if (count(medicationPricingStart) !== 1 || count(estimatorStart) !== 1 || count(doctorBioMount) !== 1 || count(faqMount) !== 1) {
+    throw new Error("Expected exactly one approved V2 medication/estimator reorder boundary");
+  }
+  const medicationStart = source.indexOf(medicationPricingStart);
+  const doctorStart = source.indexOf(doctorBioMount);
+  const faqStart = source.indexOf(faqMount);
+  if (medicationStart <= doctorStart || medicationStart >= faqStart) {
+    throw new Error("Expected medication and estimator block only between doctor bio and final FAQ");
+  }
+  const medicationAndEstimator = source.slice(medicationStart, faqStart);
+  if (!medicationAndEstimator.includes(estimatorStart) || !medicationAndEstimator.endsWith("\n")) {
+    throw new Error("Expected the exact adjacent medication and estimator block with its trailing newline");
+  }
+  const withoutMedicationAndEstimator = source.slice(0, medicationStart) + source.slice(faqStart);
+  const restoredDoctorStart = withoutMedicationAndEstimator.indexOf(doctorBioMount);
+  if (restoredDoctorStart < 0) throw new Error("Missing V2 doctor-bio restoration anchor");
+  return withoutMedicationAndEstimator.slice(0, restoredDoctorStart)
+    + medicationAndEstimator
+    + withoutMedicationAndEstimator.slice(restoredDoctorStart);
+}
+
 describe("Weight-Loss & Menopause V2 section dividers", () => {
   it("is a CSS-only append to the pinned approved V2 baseline after normalizing the separately approved final FAQ/footer delta", () => {
     const css = read(cssPath);
@@ -128,7 +156,7 @@ describe("Weight-Loss & Menopause V2 section dividers", () => {
       if (file === pagePath) {
         expect(countExactOccurrences(source, approvedHeroSupportingLine)).toBe(1);
         expect(countExactOccurrences(source, previousHeroSupportingLine)).toBe(0);
-        expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(source)))).toBe(atBaseline(file));
+        expect(normalizeApprovedHeroSupportingLine(normalizeApprovedFirstTextVisitNote(normalizeFinalFaq(normalizeApprovedV2SectionOrder(file, source))))).toBe(atBaseline(file));
       } else {
         expect(normalizeApprovedV2DoctorBioCredential(file, source)).toBe(atBaseline(file));
       }
