@@ -92,17 +92,24 @@ function MmdSignFormsPointerPoint(event, canvas) {
   };
 }
 
-function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsentChange, documents}) {
+function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsentChange, documents, validationAttempt}) {
   patientName = patientName || "";
   documents = Array.isArray(documents) ? documents : [];
   var documentIds = documents.map(function (document) { return document.id; });
   var documentIdKey = documentIds.join("\u001f");
+  var validationAttemptNumber = typeof validationAttempt === "number" && isFinite(validationAttempt)
+    ? validationAttempt
+    : 0;
   var initialNameRef = l.useRef(patientName);
   var nameEditedRef = l.useRef(false);
   var readyCallbackRef = l.useRef(onReadyChange);
   var signingCallbackRef = l.useRef(onSigningChange);
   var glpConsentCallbackRef = l.useRef(onGlpConsentChange);
   var canvasRef = l.useRef(null);
+  var nameInputRef = l.useRef(null);
+  var electronicAgreementRef = l.useRef(null);
+  var documentInputRefs = l.useRef({});
+  var validationAttemptRef = l.useRef(validationAttemptNumber);
   var resizeSignatureCanvasRef = l.useRef(null);
   var signatureDrawingRef = l.useRef({
     active: false,
@@ -121,10 +128,16 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
   var relationshipState = l.useState("");
   var relationship = relationshipState[0];
   var setRelationship = relationshipState[1];
-  var documentChecksState = l.useState({});
+  var documentChecksState = l.useState(function () {
+    var initiallyAccepted = {};
+    documentIds.forEach(function (id) {
+      initiallyAccepted[id] = true;
+    });
+    return initiallyAccepted;
+  });
   var documentChecks = documentChecksState[0];
   var setDocumentChecks = documentChecksState[1];
-  var electronicAgreementState = l.useState(false);
+  var electronicAgreementState = l.useState(true);
   var electronicAgreement = electronicAgreementState[0];
   var setElectronicAgreement = electronicAgreementState[1];
   var signatureState = l.useState(false);
@@ -133,9 +146,12 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
   var signatureRevisionState = l.useState(0);
   var signatureRevision = signatureRevisionState[0];
   var setSignatureRevision = signatureRevisionState[1];
-  var noticeState = l.useState({});
-  var revealedNotices = noticeState[0];
-  var setRevealedNotices = noticeState[1];
+  var openDocumentsState = l.useState({});
+  var openDocuments = openDocumentsState[0];
+  var setOpenDocuments = openDocumentsState[1];
+  var validationState = l.useState(false);
+  var validationVisible = validationState[0];
+  var setValidationVisible = validationState[1];
   var dateState = l.useState(Date.now());
   var dateNow = dateState[0];
   var setDateNow = dateState[1];
@@ -160,7 +176,7 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
     setDocumentChecks(function (previous) {
       var next = {};
       documentIds.forEach(function (id) {
-        if (previous[id]) next[id] = true;
+        next[id] = Object.prototype.hasOwnProperty.call(previous, id) ? Boolean(previous[id]) : true;
       });
       return next;
     });
@@ -252,6 +268,55 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
   var policyConsent = Boolean(documentChecks.policy);
   var allDocumentsAccepted = glpConsent && generalConsent && telehealthConsent && privacyConsent && policyConsent;
   var signingReady = Boolean(signatureName.trim()) && allDocumentsAccepted && electronicAgreement && hasSignature;
+  var hasUncheckedForms = !allDocumentsAccepted || !electronicAgreement;
+  var needsName = !signatureName.trim();
+  var validationMessage = validationVisible && hasUncheckedForms
+    ? "Please check all forms"
+    : validationVisible && needsName
+      ? "Please enter your full name"
+      : validationVisible && !hasSignature
+        ? "Please sign below to continue"
+        : "";
+
+  function validationFeedback(visible) {
+    return visible && validationMessage ? M.jsx("p", {
+      className: "sign-forms-validation-message",
+      role: "alert",
+      children: validationMessage
+    }) : null;
+  }
+
+  function validationTarget() {
+    var missingDocument = documentIds.filter(function (id) { return !documentChecks[id]; })[0];
+    if (missingDocument && documentInputRefs.current[missingDocument]) {
+      return documentInputRefs.current[missingDocument];
+    }
+    if (!electronicAgreement && electronicAgreementRef.current) return electronicAgreementRef.current;
+    if (needsName && nameInputRef.current) return nameInputRef.current;
+    if (!hasSignature && canvasRef.current) return canvasRef.current;
+    return null;
+  }
+
+  l.useEffect(function () {
+    if (validationAttemptNumber <= validationAttemptRef.current) return;
+    validationAttemptRef.current = validationAttemptNumber;
+    setValidationVisible(true);
+
+    (window.requestAnimationFrame || function (callback) { return window.setTimeout(callback, 0); })(function () {
+      var target = validationTarget();
+      if (!target) return;
+      if (typeof target.focus === "function") {
+        try {
+          target.focus({preventScroll: true});
+        } catch (error) {
+          target.focus();
+        }
+      }
+      if (typeof target.scrollIntoView === "function") {
+        target.scrollIntoView({behavior: "smooth", block: "center"});
+      }
+    });
+  }, [validationAttemptNumber]);
   l.useEffect(function () {
     if (documentIds.indexOf("glp1") !== -1 && typeof glpConsentCallbackRef.current === "function") {
       glpConsentCallbackRef.current(glpConsent);
@@ -328,6 +393,18 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
         if (Object.prototype.hasOwnProperty.call(previous, key)) next[key] = previous[key];
       }
       next[id] = checked;
+      return next;
+    });
+  }
+
+  function toggleDocument(id) {
+    setOpenDocuments(function (previous) {
+      var next = {};
+      var key;
+      for (key in previous) {
+        if (Object.prototype.hasOwnProperty.call(previous, key)) next[key] = previous[key];
+      }
+      next[id] = !previous[id];
       return next;
     });
   }
@@ -439,50 +516,42 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
             children: documents.map(function (document) {
           var documentId = "mmd-sign-forms-" + document.id;
           var noticeId = "mmd-sign-forms-notice-" + document.id;
-          var isFullNotice = document.id === "npp" || Boolean(document.linkLabel);
-          var contentIsVisible = !isFullNotice || Boolean(revealedNotices[document.id]);
-          return M.jsxs("details", {
+          var documentIsOpen = Boolean(openDocuments[document.id]);
+          var documentIsMissing = validationVisible && !documentChecks[document.id];
+          return M.jsxs("section", {
             className: "sign-forms-document",
+            "data-error": documentIsMissing ? "true" : undefined,
             children: [
-              M.jsx("summary", { children: document.title }),
-              M.jsxs("div", {
-                className: "sign-forms-document-body",
+              M.jsx("button", {
+                className: "sign-forms-document-toggle",
+                type: "button",
+                "aria-controls": noticeId,
+                "aria-expanded": documentIsOpen,
+                onClick: function () { toggleDocument(document.id); },
+                children: document.title
+              }),
+              M.jsxs("label", {
+                className: "sign-forms-checkline sign-forms-document-checkline",
+                htmlFor: documentId,
                 children: [
-                  isFullNotice ? M.jsx("button", {
-                    className: "sign-forms-read-notice",
-                    type: "button",
-                    "aria-expanded": Boolean(revealedNotices[document.id]),
-                    "aria-controls": noticeId,
-                    onClick: function () {
-                      setRevealedNotices(function (previous) {
-                        var next = {};
-                        var key;
-                        for (key in previous) {
-                          if (Object.prototype.hasOwnProperty.call(previous, key)) next[key] = previous[key];
-                        }
-                        next[document.id] = true;
-                        return next;
-                      });
-                    },
-                    children: document.linkLabel || "Read full notice"
-                  }) : null,
-                  contentIsVisible ? M.jsx("div", {
-                    id: noticeId,
-                    children: M.jsx(MmdSignFormsContent, { content: document.content })
-                  }) : null,
-                  M.jsxs("label", {
-                    className: "sign-forms-checkline",
-                    htmlFor: documentId,
-                    children: [
-                      M.jsx("input", {
-                        id: documentId,
-                        type: "checkbox",
-                        checked: Boolean(documentChecks[document.id]),
-                        onChange: function (event) { updateDocumentCheck(document.id, event); }
-                      }),
-                      M.jsx("span", { children: document.checkbox })
-                    ]
-                  })
+                  M.jsx("input", {
+                    ref: function (element) { documentInputRefs.current[document.id] = element; },
+                    id: documentId,
+                    type: "checkbox",
+                    checked: Boolean(documentChecks[document.id]),
+                    "aria-invalid": documentIsMissing ? "true" : undefined,
+                    onChange: function (event) { updateDocumentCheck(document.id, event); }
+                  }),
+                  M.jsx("span", { children: document.checkbox })
+                ]
+              }),
+              validationFeedback(documentIsMissing && document.id === documentIds.filter(function (id) { return !documentChecks[id]; })[0]),
+              M.jsxs("div", {
+                id: noticeId,
+                className: "sign-forms-document-body",
+                hidden: !documentIsOpen,
+                children: [
+                  M.jsx(MmdSignFormsContent, { content: document.content })
                 ]
               })
             ]
@@ -495,18 +564,21 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
         className: "sign-forms-signature-fields",
         children: [
           M.jsx("legend", { children: "Signature" }),
+          validationFeedback(!hasUncheckedForms && needsName),
           M.jsxs("div", {
             className: "sign-forms-fields-grid",
             children: [
               M.jsxs("label", {
-                className: "sign-forms-field sign-forms-field-name",
+                className: "sign-forms-field sign-forms-field-name" + (validationVisible && needsName ? " sign-forms-field-error" : ""),
                 children: [
                   M.jsx("span", { children: "Full name" }),
                   M.jsx("input", {
+                    ref: nameInputRef,
                     type: "text",
                     value: signatureName,
                     autoComplete: "name",
                     "data-hj-suppress": "true",
+                    "aria-invalid": validationVisible && needsName ? "true" : undefined,
                     onChange: function (event) {
                       nameEditedRef.current = true;
                       signedAtRef.current = null;
@@ -546,11 +618,13 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
             ]
           }),
           M.jsxs("label", {
-            className: "sign-forms-checkline sign-forms-electronic-agreement",
+            className: "sign-forms-checkline sign-forms-electronic-agreement" + (validationVisible && !electronicAgreement ? " sign-forms-checkline-error" : ""),
             children: [
               M.jsx("input", {
+                ref: electronicAgreementRef,
                 type: "checkbox",
                 checked: electronicAgreement,
+                "aria-invalid": validationVisible && !electronicAgreement ? "true" : undefined,
                 onChange: function (event) {
                   signedAtRef.current = null;
                   setElectronicAgreement(event.target.checked);
@@ -561,9 +635,11 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
               })
             ]
           }),
+          validationFeedback(allDocumentsAccepted && !electronicAgreement),
           M.jsxs("div", {
-            className: "sign-forms-signature-pad",
+            className: "sign-forms-signature-pad" + (validationVisible && !hasSignature ? " sign-forms-signature-pad-error" : ""),
             children: [
+              validationFeedback(!hasUncheckedForms && !needsName && !hasSignature),
               M.jsx("label", {
                 className: "sign-forms-canvas-label",
                 children: "Sign with your finger or mouse"
@@ -572,7 +648,9 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
                 ref: canvasRef,
                 className: "sign-forms-canvas",
                 role: "img",
+                tabIndex: "0",
                 "aria-label": "Sign with your finger or mouse",
+                "aria-invalid": validationVisible && !hasSignature ? "true" : undefined,
                 "data-hj-suppress": "true",
                 onPointerDown: beginSignature,
                 onPointerMove: continueSignature,
