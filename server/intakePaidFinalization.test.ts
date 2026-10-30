@@ -3,9 +3,13 @@ import { createHmac } from "node:crypto";
 import type { Express, Request, Response } from "express";
 import { INTAKE_SMS_OPT_IN_TEXT, LEGACY_VIDEO_VISIT_AMOUNT, VIDEO_VISIT_AMOUNT, VIDEO_VISIT_DESCRIPTION, validateIntakeDraft } from "./intakeSubmissionContract";
 
-const mocks = vi.hoisted(() => ({ settings: vi.fn(), deliverySettings: vi.fn(), attestation: vi.fn(), getPhoneSettings: vi.fn() }));
+const mocks = vi.hoisted(() => ({ settings: vi.fn(), deliverySettings: vi.fn(), attestation: vi.fn(), getPhoneSettings: vi.fn(), resolveUploads: vi.fn() }));
 vi.mock("./db", () => ({ getPaypalSettings: mocks.settings, getIntakeDeliverySettings: mocks.deliverySettings }));
 vi.mock("./intakePhoneVerification", () => ({ registerIntakePhoneVerificationRoutes: () => {}, validPhoneVerificationToken: mocks.attestation, getPhoneVerificationSettings: mocks.getPhoneSettings }));
+vi.mock("./intakePrivateUploads", () => ({
+  registerIntakePrivateUploadRoutes: () => {},
+  resolveIntakeUploads: mocks.resolveUploads,
+}));
 vi.mock("./_core/env", () => ({ ENV: { cookieSecret: "synthetic-test-signing-key", keragonWebhookUrl: "https://relay.example.test/intake", intakeFamilyCouponCode: "family" } }));
 import { registerIntakePaymentRoutes } from "./intakePaymentRoutes";
 
@@ -14,7 +18,7 @@ export function syntheticDraft(id = "873ef4af-190d-45cb-9d51-42c627f5376a") {
   return {
     event: "mmd_intake.submitted", schema_version: "1.0", submission_id: id,
     submitted_at: "2026-10-21T19:00:00.000Z", is_test: false, route: "weight_care",
-    patient: { first_name: "Integration", last_name: "TEST ONLY", dob: "1985-01-15", state: "GA", state_name: "Georgia", email: "integration-test@example.com", phone: "(202) 555-0101", sex: "female" },
+    patient: { first_name: "Integration", last_name: "TEST ONLY", dob: "1985-01-15", state: "GA", state_name: "Georgia", email: "integration-test@example.com", phone: "(202) 555-0101", sex: "female", address_line1: "SYNTHETIC 123 Example Street", address_line2: "", city: "Atlanta", zip: "30301" },
     answers: { w: { w04: "compounded_semaglutide", treatment_interest: "Compounded Semaglutide — $129", ft: "5", inch: "8", lb: "180", wConsent: true, wDecline: false } },
     consents: { terms_accepted: true, final_submission_acknowledged: true, sms_opt_in: false, sms_opt_in_at: null, sms_opt_in_text: INTAKE_SMS_OPT_IN_TEXT, contact_preference: "phone_portal", glp1_consent: true, glp1_declined: false, glp1_consent_at: "2026-10-21T19:00:00.000Z", glp1_consent_version: "2026-10" },
     meta: { source: "mmd-intake-web", form_version: "1.2.0" }, checkout_preview: { payment_processed: false, card_fields_omitted: true },
@@ -82,6 +86,12 @@ beforeEach(() => {
   mocks.deliverySettings.mockResolvedValue(null);
   mocks.getPhoneSettings.mockReturnValue({ mode: "sandbox", required: true, demo_available: true });
   mocks.attestation.mockImplementation((token, phone) => token === "valid-phone-token" && /202.*555.*0101/.test(phone) ? { verifiedAt: "2026-10-21T18:59:00.000Z", mode: "sandbox" } : null);
+  mocks.resolveUploads.mockResolvedValue({
+    lab_results: [], lab_results_provided: false,
+    lab_result_1_url: null, lab_result_2_url: null, lab_result_3_url: null,
+    lab_result_4_url: null, lab_result_5_url: null,
+    scale_photo_url: null, scale_photo_provided: false,
+  });
 });
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
@@ -102,6 +112,38 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(payload.care).toEqual({ intake: "free", payment_required: false, amount: "0.00", currency: "USD" });
     expect(JSON.stringify(result.body.submission_token)).not.toContain("integration-test@example.com");
     expect(mocks.attestation).toHaveBeenCalledWith("valid-phone-token", draft.patient.phone);
+  });
+
+  it("resolves opaque upload references server-side and relays only verified attachment fields", async () => {
+    const labRef = "L".repeat(32), scaleRef = "S".repeat(32);
+    const draft = {
+      ...syntheticDraft(),
+      answers: { w: { ...syntheticDraft().answers.w, w30: "yes" } },
+      upload_refs: { lab_results: [labRef], scale_photo: scaleRef },
+    };
+    const resolved = {
+      lab_results: [{ url: "https://private.example.test/lab", file_name: "synthetic-lab.pdf", mime_type: "application/pdf" }],
+      lab_results_provided: true,
+      lab_result_1_url: "https://private.example.test/lab",
+      lab_result_2_url: null, lab_result_3_url: null, lab_result_4_url: null, lab_result_5_url: null,
+      scale_photo_url: "https://private.example.test/scale",
+      scale_photo_provided: true,
+    };
+    mocks.resolveUploads.mockResolvedValueOnce(resolved);
+    const network = provider(draft), request = harness();
+
+    const result = await submitFree(request, draft);
+
+    expect(result.code).toBe(201);
+    expect(mocks.resolveUploads).toHaveBeenCalledWith(
+      expect.objectContaining({ body: expect.anything() }),
+      { lab_results: [labRef], scale_photo: scaleRef },
+      true,
+    );
+    expect(network.payloads[0]).toMatchObject(resolved);
+    expect(network.payloads[0]).not.toHaveProperty("upload_refs");
+    expect(JSON.stringify(network.payloads[0])).not.toContain(labRef);
+    expect(JSON.stringify(network.payloads[0])).not.toContain(scaleRef);
   });
 
   it("server-routes checked intakes to video, unchecked intakes to thank-you, and ignores redirect injection", async () => {

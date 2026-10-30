@@ -179,6 +179,10 @@ function syntheticDraft(selected: string) {
       email: "pricing-test@example.com",
       phone: "(202) 555-0101",
       sex: "female",
+      address_line1: "SYNTHETIC 123 Example Street",
+      address_line2: "",
+      city: "Atlanta",
+      zip: "30301",
     },
     answers: { w: { w04: selected, treatment_interest: "Unapproved client display text" } },
     consents: {

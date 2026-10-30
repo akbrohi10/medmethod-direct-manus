@@ -18,6 +18,10 @@ const patientSchema = z.object({
   dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), state: z.string().regex(/^[A-Z]{2}$/),
   state_name: z.string().trim().min(1).max(80), email: z.string().email().max(254),
   phone: z.string().min(10).max(40), sex: z.string().max(40),
+  address_line1: z.string().trim().min(1).max(200),
+  address_line2: z.string().trim().max(100).default(""),
+  city: z.string().trim().min(1).max(100),
+  zip: z.string().regex(/^\d{5}$/),
 });
 const consentSchema = z.object({
   terms_accepted: z.literal(true), final_submission_acknowledged: z.literal(true),
@@ -34,9 +38,31 @@ const draftSchema = z.object({
   consents: consentSchema, meta: z.object({ source: z.literal("mmd-intake-web"), form_version: z.literal("1.2.0") }),
   checkout_preview: z.object({ payment_processed: z.literal(false), card_fields_omitted: z.literal(true) }),
   intake_summary: z.string().min(1).max(60000), intake_summary_html: z.string().min(1).max(90000),
+  // References only: URLs and attachment claims are resolved by the server.
+  upload_refs: z.object({
+    lab_results: z.array(z.string().regex(/^[A-Za-z0-9_-]{32,128}$/)).max(5),
+    scale_photo: z.string().regex(/^[A-Za-z0-9_-]{32,128}$/).nullable(),
+  }).strict().optional(),
 });
 
 export type IntakeDraft = z.infer<typeof draftSchema>;
+export type VerifiedIntakeUploads = {
+  lab_results: { url: string; file_name: string; mime_type: string }[];
+  lab_results_provided: boolean;
+  lab_result_1_url: string | null;
+  lab_result_2_url: string | null;
+  lab_result_3_url: string | null;
+  lab_result_4_url: string | null;
+  lab_result_5_url: string | null;
+  scale_photo_url: string | null;
+  scale_photo_provided: boolean;
+};
+export const EMPTY_INTAKE_UPLOADS: VerifiedIntakeUploads = {
+  lab_results: [], lab_results_provided: false,
+  lab_result_1_url: null, lab_result_2_url: null, lab_result_3_url: null,
+  lab_result_4_url: null, lab_result_5_url: null,
+  scale_photo_url: null, scale_photo_provided: false,
+};
 export type PhoneAttestation = { phone_verified: boolean; phone_verified_at: string | null };
 export type VerifiedVideoVisitPayment = {
   provider: "paypal"; environment: "sandbox" | "live"; status: "COMPLETED";
@@ -96,9 +122,22 @@ export function finalizeFreeIntake(
   draft: IntakeDraft,
   phone: PhoneAttestation,
   options: { is_test: boolean; video_visit_interest: boolean },
+  uploads: VerifiedIntakeUploads = EMPTY_INTAKE_UPLOADS,
 ) {
+  // Never relay browser-supplied links, claims, or private upload references.
+  const { upload_refs: _uploadRefs, ...clinicalDraft } = draft;
+  const attachmentLines = [
+    `Lab results uploaded: ${uploads.lab_results_provided ? `Yes (${uploads.lab_results.length} ${uploads.lab_results.length === 1 ? "file" : "files"})` : "No"}`,
+    `Scale photo: ${uploads.scale_photo_provided ? "provided" : "not provided"}`,
+  ];
+  const withoutAttachmentLines = (lines: string[]) => lines.filter(line =>
+    !/^(?:Lab results uploaded|Scale photo):/i.test(line.replace(/<\/?b>/gi, "").trim()),
+  );
   return {
-    ...draft,
+    ...clinicalDraft,
+    ...uploads,
+    intake_summary: [...withoutAttachmentLines(draft.intake_summary.split("\n")), ...attachmentLines].join("\n"),
+    intake_summary_html: [...withoutAttachmentLines(draft.intake_summary_html.split(/<br\s*\/?\s*>/i)), ...attachmentLines].join("<br>"),
     event: "mmd_intake.free_submitted",
     schema_version: "1.1",
     // Test classification is server-derived from the eligible sandbox demo path.

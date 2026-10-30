@@ -5,6 +5,17 @@ import { describe, expect, it } from "vitest";
 
 const baseline = "ede96ffe";
 const root = resolve(import.meta.dirname, "..");
+
+// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
+// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+const approvedWeightCareRegressionPaths = new Set([
+  "client/intake/index.html",
+  "client/public/intake/weight-care-uploads.js",
+  "client/public/intake/weight-care-uploads.css",
+  "server/intakePaymentRoutes.ts",
+  "server/intakeSubmissionContract.ts",
+  "server/intakePrivateUploads.ts",
+]);
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const lpHrt3Path = "client/src/pages/LpHrt3.tsx";
@@ -94,6 +105,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 

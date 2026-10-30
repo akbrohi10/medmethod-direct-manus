@@ -5,6 +5,17 @@ import { describe, expect, it } from "vitest";
 
 const baseline = "de623f2d";
 const root = resolve(import.meta.dirname, "..");
+
+// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
+// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+const approvedWeightCareRegressionPaths = new Set([
+  "client/intake/index.html",
+  "client/public/intake/weight-care-uploads.js",
+  "client/public/intake/weight-care-uploads.css",
+  "server/intakePaymentRoutes.ts",
+  "server/intakeSubmissionContract.ts",
+  "server/intakePrivateUploads.ts",
+]);
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
@@ -61,6 +72,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => normalizeApprovedHomepageFamilyPhysicianCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 

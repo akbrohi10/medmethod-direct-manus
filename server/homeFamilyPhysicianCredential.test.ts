@@ -5,6 +5,17 @@ import { describe, expect, it } from "vitest";
 
 const baseline = "bee1e5469e673a1d0947add4b46803074838a2c2";
 const root = resolve(import.meta.dirname, "..");
+
+// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
+// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+const approvedWeightCareRegressionPaths = new Set([
+  "client/intake/index.html",
+  "client/public/intake/weight-care-uploads.js",
+  "client/public/intake/weight-care-uploads.css",
+  "server/intakePaymentRoutes.ts",
+  "server/intakeSubmissionContract.ts",
+  "server/intakePrivateUploads.ts",
+]);
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const lpHrt3Path = "client/src/pages/LpHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
@@ -65,7 +76,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedWeightCareRegressionPaths.has(file));
 }
 
 describe("homepage-only Family Physician credential", () => {

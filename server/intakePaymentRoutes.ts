@@ -5,6 +5,7 @@ import { getIntakeDeliverySettings, getPaypalSettings } from "./db";
 import { decryptIntakeCredential } from "./intakeCredentialCrypto";
 import { ENV } from "./_core/env";
 import { registerIntakePhoneVerificationRoutes, validPhoneVerificationToken, getPhoneVerificationSettings } from "./intakePhoneVerification";
+import { registerIntakePrivateUploadRoutes, resolveIntakeUploads } from "./intakePrivateUploads";
 import {
   LEGACY_VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_AMOUNT,
@@ -247,6 +248,7 @@ type VideoRecord = {
  */
 export function registerIntakePaymentRoutes(app: Express) {
   registerIntakePhoneVerificationRoutes(app);
+  registerIntakePrivateUploadRoutes(app);
   const freeSubmissions = new Map<string, FreeRecord>();
   const videoVisits = new Map<string, VideoRecord>();
   const pendingPhoneTokens = new Map<string, string>();
@@ -303,11 +305,14 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (!demo && videoVisitInterest) return "/thank-you-video";
     return "/intake/thank-you/";
   }
-  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, explicitDemoPrefill = false): Promise<FreeResult> {
+  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false): Promise<FreeResult> {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
     const demo = eligibleDemo(input.demo_mode === true, explicitDemoPrefill, draft.is_test === true);
     const isTest = demo;
+    // Resolve before reading/reserving the idempotency maps so concurrent retries
+    // cannot both create a handoff while asynchronous file checks are pending.
+    const uploads = await resolveIntakeUploads(request, draft.upload_refs ?? { lab_results: [], scale_photo: null }, draft.answers.w.w30 === "yes");
     const hash = fingerprint({ draft, video_visit_interest: input.video_visit_interest, is_test: isTest });
     let record = freeSubmissions.get(draft.submission_id);
     if (record && record.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
@@ -345,7 +350,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       // still-pending relay payload and retire no token until it is accepted.
       if (record.phoneTokenKey) pendingPhoneTokens.delete(record.phoneTokenKey);
       record.phoneTokenKey = phoneTokenKey;
-      record.deliveryPayload = finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest });
+      record.deliveryPayload = finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads);
     }
     if (!record) {
       ensureCapacity();
@@ -353,7 +358,7 @@ export function registerIntakePaymentRoutes(app: Express) {
         fingerprint: hash,
         expiresAt: Date.now() + PENDING_TTL_MS,
         phoneTokenKey,
-        deliveryPayload: finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }),
+        deliveryPayload: finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads),
         delivered: false,
       };
       freeSubmissions.set(draft.submission_id, record);
@@ -616,7 +621,7 @@ export function registerIntakePaymentRoutes(app: Express) {
       // Duplicate query keys parse as an array and must not activate the approved
       // prefill path. Only one exact string value is accepted.
       const explicitDemoPrefill = typeof req.query.prefill === "string" && req.query.prefill === "demo";
-      const result = await submitFreeIntake(parsed.data, explicitDemoPrefill);
+      const result = await submitFreeIntake(parsed.data, req, explicitDemoPrefill);
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(result);
     } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }

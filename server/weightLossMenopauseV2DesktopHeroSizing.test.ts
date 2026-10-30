@@ -5,6 +5,17 @@ import { describe, expect, it } from "vitest";
 
 const baseline = "120cf596";
 const root = resolve(import.meta.dirname, "..");
+
+// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
+// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+const approvedWeightCareRegressionPaths = new Set([
+  "client/intake/index.html",
+  "client/public/intake/weight-care-uploads.js",
+  "client/public/intake/weight-care-uploads.css",
+  "server/intakePaymentRoutes.ts",
+  "server/intakeSubmissionContract.ts",
+  "server/intakePrivateUploads.ts",
+]);
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
@@ -147,6 +158,7 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))))) !== atBaseline(file));
 }

@@ -8,6 +8,17 @@ type FaqCategory = { id: string; label: string; items: unknown[] };
 
 const BASELINE = "9c65e262";
 const root = resolve(import.meta.dirname, "..");
+
+// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
+// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+const approvedWeightCareRegressionPaths = new Set([
+  "client/intake/index.html",
+  "client/public/intake/weight-care-uploads.js",
+  "client/public/intake/weight-care-uploads.css",
+  "server/intakePaymentRoutes.ts",
+  "server/intakeSubmissionContract.ts",
+  "server/intakePrivateUploads.ts",
+]);
 const masterclassFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2FaqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
@@ -261,6 +272,7 @@ describe("FAQ first-three-open behavior", () => {
       .split("\n")
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
+      .filter(path => !approvedWeightCareRegressionPaths.has(path))
       .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path)))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());
