@@ -92,7 +92,7 @@ function MmdSignFormsPointerPoint(event, canvas) {
   };
 }
 
-function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents}) {
+function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsentChange, documents}) {
   patientName = patientName || "";
   documents = Array.isArray(documents) ? documents : [];
   var documentIds = documents.map(function (document) { return document.id; });
@@ -100,6 +100,7 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
   var initialNameRef = l.useRef(patientName);
   var nameEditedRef = l.useRef(false);
   var readyCallbackRef = l.useRef(onReadyChange);
+  var signingCallbackRef = l.useRef(onSigningChange);
   var glpConsentCallbackRef = l.useRef(onGlpConsentChange);
   var canvasRef = l.useRef(null);
   var resizeSignatureCanvasRef = l.useRef(null);
@@ -113,6 +114,7 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
     started: false
   });
   var initializedCanvasRef = l.useRef(false);
+  var signedAtRef = l.useRef(null);
   var nameState = l.useState(initialNameRef.current);
   var signatureName = nameState[0];
   var setSignatureName = nameState[1];
@@ -128,6 +130,9 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
   var signatureState = l.useState(false);
   var hasSignature = signatureState[0];
   var setHasSignature = signatureState[1];
+  var signatureRevisionState = l.useState(0);
+  var signatureRevision = signatureRevisionState[0];
+  var setSignatureRevision = signatureRevisionState[1];
   var noticeState = l.useState({});
   var revealedNotices = noticeState[0];
   var setRevealedNotices = noticeState[1];
@@ -138,6 +143,10 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
   l.useEffect(function () {
     readyCallbackRef.current = onReadyChange;
   }, [onReadyChange]);
+
+  l.useEffect(function () {
+    signingCallbackRef.current = onSigningChange;
+  }, [onSigningChange]);
 
   l.useEffect(function () {
     glpConsentCallbackRef.current = onGlpConsentChange;
@@ -237,6 +246,12 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
   }, []);
 
   var glpConsent = Boolean(documentChecks.glp1);
+  var generalConsent = Boolean(documentChecks.general);
+  var telehealthConsent = Boolean(documentChecks.telehealth);
+  var privacyConsent = Boolean(documentChecks.privacy);
+  var policyConsent = Boolean(documentChecks.policy);
+  var allDocumentsAccepted = glpConsent && generalConsent && telehealthConsent && privacyConsent && policyConsent;
+  var signingReady = Boolean(signatureName.trim()) && allDocumentsAccepted && electronicAgreement && hasSignature;
   l.useEffect(function () {
     if (documentIds.indexOf("glp1") !== -1 && typeof glpConsentCallbackRef.current === "function") {
       glpConsentCallbackRef.current(glpConsent);
@@ -244,15 +259,68 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
   }, [glpConsent, documentIdKey]);
 
   l.useEffect(function () {
-    var allDocumentsAccepted = documents.length > 0 && documents.every(function (document) {
-      return Boolean(documentChecks[document.id]);
+    if (typeof readyCallbackRef.current === "function") readyCallbackRef.current(signingReady);
+  }, [signingReady]);
+
+  l.useEffect(function () {
+    var callback = signingCallbackRef.current;
+    var canvas;
+    var signaturePng;
+
+    if (typeof callback !== "function") return;
+    if (!signingReady) {
+      signedAtRef.current = null;
+      callback(null);
+      return;
+    }
+
+    canvas = canvasRef.current;
+    if (!canvas) {
+      signedAtRef.current = null;
+      callback(null);
+      return;
+    }
+
+    try {
+      signaturePng = canvas.toDataURL("image/png");
+    } catch (error) {
+      signedAtRef.current = null;
+      callback(null);
+      return;
+    }
+
+    if (!signedAtRef.current) signedAtRef.current = new Date().toISOString();
+    callback({
+      version: "2026-10",
+      signer_name: signatureName.trim(),
+      relation: relationship.trim(),
+      signed_at: signedAtRef.current,
+      document_checks: {
+        glp1: true,
+        general: true,
+        telehealth: true,
+        privacy: true,
+        policy: true
+      },
+      electronic_agreement: true,
+      signature_png: signaturePng
     });
-    var ready = Boolean(signatureName.trim()) && allDocumentsAccepted && electronicAgreement && hasSignature;
-    if (typeof readyCallbackRef.current === "function") readyCallbackRef.current(ready);
-  }, [signatureName, documentChecks, electronicAgreement, hasSignature, documentIdKey]);
+  }, [
+    signatureName,
+    relationship,
+    glpConsent,
+    generalConsent,
+    telehealthConsent,
+    privacyConsent,
+    policyConsent,
+    electronicAgreement,
+    hasSignature,
+    signatureRevision
+  ]);
 
   function updateDocumentCheck(id, event) {
     var checked = event.target.checked;
+    signedAtRef.current = null;
     setDocumentChecks(function (previous) {
       var next = {};
       var key;
@@ -330,6 +398,10 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
     }
     drawing.active = false;
     drawing.pointerId = null;
+    if (drawing.started) {
+      signedAtRef.current = null;
+      setSignatureRevision(function (previous) { return previous + 1; });
+    }
   }
 
   function clearSignature() {
@@ -350,6 +422,7 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
       lastY: 0,
       started: false
     };
+    signedAtRef.current = null;
     setHasSignature(false);
   }
 
@@ -436,6 +509,7 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
                     "data-hj-suppress": "true",
                     onChange: function (event) {
                       nameEditedRef.current = true;
+                      signedAtRef.current = null;
                       setSignatureName(event.target.value);
                     }
                   })
@@ -450,7 +524,10 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
                     value: relationship,
                     autoComplete: "off",
                     "data-hj-suppress": "true",
-                    onChange: function (event) { setRelationship(event.target.value); }
+                    onChange: function (event) {
+                      signedAtRef.current = null;
+                      setRelationship(event.target.value);
+                    }
                   })
                 ]
               }),
@@ -474,7 +551,10 @@ function MmdSignForms({patientName, onReadyChange, onGlpConsentChange, documents
               M.jsx("input", {
                 type: "checkbox",
                 checked: electronicAgreement,
-                onChange: function (event) { setElectronicAgreement(event.target.checked); }
+                onChange: function (event) {
+                  signedAtRef.current = null;
+                  setElectronicAgreement(event.target.checked);
+                }
               }),
               M.jsx("span", {
                 children: "I agree to sign electronically, and my electronic signature is as valid as a handwritten one."

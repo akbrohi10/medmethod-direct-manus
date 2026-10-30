@@ -2,13 +2,40 @@ import { beforeEach, afterEach, describe, it, expect, vi } from "vitest";
 import { createHmac } from "node:crypto";
 import type { Express, Request, Response } from "express";
 import { INTAKE_SMS_OPT_IN_TEXT, LEGACY_VIDEO_VISIT_AMOUNT, VIDEO_VISIT_AMOUNT, VIDEO_VISIT_DESCRIPTION, validateIntakeDraft } from "./intakeSubmissionContract";
+import { SYNTHETIC_SIGNATURE_PNG, syntheticIntakeSigning, syntheticSignedFormsPreparation, syntheticSignedPdfs } from "./fixtures/intakeSigningFixture";
+import { createIntakeTestAuthorization } from "./intakeTestAuthorization";
 
-const mocks = vi.hoisted(() => ({ settings: vi.fn(), deliverySettings: vi.fn(), attestation: vi.fn(), getPhoneSettings: vi.fn(), resolveUploads: vi.fn() }));
+const mocks = vi.hoisted(() => ({
+  settings: vi.fn(),
+  deliverySettings: vi.fn(),
+  attestation: vi.fn(),
+  getPhoneSettings: vi.fn(),
+  resolveUploads: vi.fn(),
+  validateSigning: vi.fn(),
+  generateSignedPdfs: vi.fn(),
+  readSubmission: vi.fn(),
+  prepareSignedForms: vi.fn(),
+  markAttempted: vi.fn(),
+  markDelivered: vi.fn(),
+  registerSignedFormsRoutes: vi.fn(),
+  signedSubmissions: new Map<string, any>(),
+}));
 vi.mock("./db", () => ({ getPaypalSettings: mocks.settings, getIntakeDeliverySettings: mocks.deliverySettings }));
 vi.mock("./intakePhoneVerification", () => ({ registerIntakePhoneVerificationRoutes: () => {}, validPhoneVerificationToken: mocks.attestation, getPhoneVerificationSettings: mocks.getPhoneSettings }));
 vi.mock("./intakePrivateUploads", () => ({
   registerIntakePrivateUploadRoutes: () => {},
   resolveIntakeUploads: mocks.resolveUploads,
+}));
+vi.mock("./intakeSigningInput", () => ({ validateIntakeSigning: mocks.validateSigning }));
+vi.mock("./intakeSignedPdf", () => ({ generateIntakeSignedPdfs: mocks.generateSignedPdfs }));
+vi.mock("./intakeSignedFormsStore", () => ({
+  getIntakeSignedFormsStore: () => ({
+    readSubmission: mocks.readSubmission,
+    prepare: mocks.prepareSignedForms,
+    markAttempted: mocks.markAttempted,
+    markDelivered: mocks.markDelivered,
+  }),
+  registerIntakeSignedFormsRoutes: mocks.registerSignedFormsRoutes,
 }));
 vi.mock("./_core/env", () => ({ ENV: { cookieSecret: "synthetic-test-signing-key", keragonWebhookUrl: "https://relay.example.test/intake", intakeFamilyCouponCode: "family" } }));
 import { registerIntakePaymentRoutes } from "./intakePaymentRoutes";
@@ -34,9 +61,12 @@ function harness() {
     get: (path: string, handler: Handler) => routes.set(`GET ${path}`, handler),
   } as unknown as Express;
   registerIntakePaymentRoutes(app);
-  return async (method: "POST" | "GET", path: string, body: unknown = {}, params: Record<string, string> = {}, query = {}) => {
+  return async (method: "POST" | "GET", path: string, body: any = {}, params: Record<string, string> = {}, query = {}, headers: Record<string, string> = {}) => {
+    const requestBody = method === "POST" && path === "/api/intake/submit" && body && typeof body === "object"
+      ? { ...body, signing: body.signing ?? syntheticIntakeSigning() }
+      : body;
     const response = { code: 200, body: undefined as any, status(code: number) { this.code = code; return this; }, json(data: unknown) { this.body = data; return this; }, setHeader() {} };
-    await routes.get(`${method} ${path}`)!({ body, params, query } as Request, response as unknown as Response);
+    await routes.get(`${method} ${path}`)!({ body: requestBody, params, query, headers } as Request, response as unknown as Response);
     return response;
   };
 }
@@ -67,7 +97,13 @@ function provider(draft: ReturnType<typeof syntheticDraft>, options: { relayFail
   return { events, payloads, bodies };
 }
 async function submitFree(request: ReturnType<typeof harness>, draft = syntheticDraft(), options: Record<string, unknown> = {}) {
-  return request("POST", "/api/intake/submit", { intake: draft, phone_verification_token: "valid-phone-token", video_visit_interest: true, ...options });
+  return request("POST", "/api/intake/submit", {
+    intake: draft,
+    phone_verification_token: "valid-phone-token",
+    video_visit_interest: true,
+    signing: syntheticIntakeSigning(),
+    ...options,
+  });
 }
 function expire(token: string) {
   const [encoded] = token.split(".");
@@ -92,6 +128,29 @@ beforeEach(() => {
     lab_result_4_url: null, lab_result_5_url: null,
     scale_photo_url: null, scale_photo_provided: false,
   });
+  mocks.signedSubmissions.clear();
+  mocks.validateSigning.mockImplementation(async (value: unknown) => ({
+    signing: value,
+    signaturePng: Buffer.from(SYNTHETIC_SIGNATURE_PNG.split(",")[1], "base64"),
+  }));
+  mocks.generateSignedPdfs.mockResolvedValue(syntheticSignedPdfs());
+  mocks.readSubmission.mockImplementation(async (submissionId: string) => mocks.signedSubmissions.get(submissionId) ?? null);
+  mocks.prepareSignedForms.mockImplementation(async (_request: Request, submissionId: string, fingerprint: string) => {
+    const forms = syntheticSignedFormsPreparation();
+    mocks.signedSubmissions.set(submissionId, { fingerprint, state: "prepared", forms });
+    return forms;
+  });
+  mocks.markAttempted.mockImplementation(async (submissionId: string) => {
+    const record = mocks.signedSubmissions.get(submissionId);
+    if (!record || record.state !== "prepared") throw new Error("The signed-form submission was already claimed for delivery.");
+    record.state = "attempted";
+  });
+  mocks.markDelivered.mockImplementation(async (submissionId: string, result: Record<string, unknown>) => {
+    const record = mocks.signedSubmissions.get(submissionId);
+    if (!record) throw new Error("The signed-form submission is unavailable.");
+    record.state = "delivered";
+    record.result = result;
+  });
 });
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
@@ -110,6 +169,34 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(payload.answers.w.treatment_interest).toBe("Compounded Semaglutide");
     expect(payload.payment).toEqual({ provider: "none", status: "not_required", amount: "0.00", currency: "USD" });
     expect(payload.care).toEqual({ intake: "free", payment_required: false, amount: "0.00", currency: "USD" });
+    expect(payload).toMatchObject({
+      glp1_consent: true,
+      glp1_consent_at: syntheticIntakeSigning().signed_at,
+      glp1_consent_version: "2026-10",
+      glp1_consent_url: "https://forms.example.test/api/intake/signed-forms/synthetic-glp1",
+      general_consent_url: "https://forms.example.test/api/intake/signed-forms/synthetic-general",
+      telehealth_consent_url: "https://forms.example.test/api/intake/signed-forms/synthetic-telehealth",
+      privacy_notice_ack_url: "https://forms.example.test/api/intake/signed-forms/synthetic-privacy",
+      medication_policy_url: "https://forms.example.test/api/intake/signed-forms/synthetic-policy",
+    });
+    expect(payload.signed_forms).toHaveLength(5);
+    expect(JSON.stringify(payload)).not.toContain(SYNTHETIC_SIGNATURE_PNG);
+    expect(mocks.validateSigning).toHaveBeenCalledTimes(1);
+    expect(mocks.validateSigning.mock.calls[0]?.[0]).toMatchObject({
+      version: "2026-10",
+      signer_name: "Integration TEST ONLY",
+      document_checks: { glp1: true, general: true, telehealth: true, privacy: true, policy: true },
+      electronic_agreement: true,
+      signature_png: SYNTHETIC_SIGNATURE_PNG,
+    });
+    expect(mocks.generateSignedPdfs).toHaveBeenCalledWith(expect.objectContaining({
+      submissionId: draft.submission_id,
+      signerName: "Integration TEST ONLY",
+      signedAt: syntheticIntakeSigning().signed_at,
+    }));
+    expect(mocks.prepareSignedForms).toHaveBeenCalledTimes(1);
+    expect(mocks.markAttempted).toHaveBeenCalledWith(draft.submission_id);
+    expect(mocks.markDelivered).toHaveBeenCalledWith(draft.submission_id, expect.objectContaining({ submission_id: draft.submission_id }));
     expect(JSON.stringify(result.body.submission_token)).not.toContain("integration-test@example.com");
     expect(mocks.attestation).toHaveBeenCalledWith("valid-phone-token", draft.patient.phone);
   });
@@ -182,12 +269,19 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(network.events).toEqual(["relay"]);
   });
 
-  it("does not consume verification on a rejected delivery and only mints a receipt once delivery accepts", async () => {
+  it("fails closed after an attempted relay response so a retry never sends a duplicate intake", async () => {
     const draft = syntheticDraft(), network = provider(draft, { relayFailOnce: true }), request = harness();
     const failed = await submitFree(request, draft);
     expect(failed.code).toBe(422); expect(failed.body.submission_token).toBeUndefined();
-    const accepted = await submitFree(request, draft);
-    expect(accepted.code).toBe(201); expect(network.events).toEqual(["relay", "relay"]);
+    expect(mocks.markAttempted).toHaveBeenCalledTimes(1);
+
+    const repeat = await submitFree(request, draft);
+
+    expect(repeat.code).toBe(422);
+    expect(repeat.body.submission_token).toBeUndefined();
+    expect(repeat.body.error).toMatch(/awaiting confirmation|contact the Care Team/i);
+    expect(network.events).toEqual(["relay"]);
+    expect(mocks.markAttempted).toHaveBeenCalledTimes(1);
   });
 
   it("does not let one verified phone token finalize two different free intakes after acceptance", async () => {
@@ -289,6 +383,27 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(accepted.code).toBe(201);
     expect(accepted.body).toMatchObject({ is_test: false, redirect_url: "/thank-you-video" });
     expect(network.payloads[0].patient).toMatchObject({ phone_verified: true, phone_verified_at: "2026-10-21T18:59:00.000Z" });
+  });
+
+  it("classifies an HMAC-authorized normal test without allowing it to bypass required phone verification", async () => {
+    const draft = { ...syntheticDraft(), is_test: true }, network = provider(draft), request = harness();
+    mocks.getPhoneSettings.mockReturnValue({ mode: "live", required: true, demo_available: false });
+    mocks.attestation.mockReturnValue(null);
+    const header = createIntakeTestAuthorization(draft.submission_id);
+
+    const blocked = await request(
+      "POST",
+      "/api/intake/submit",
+      { intake: draft, signing: syntheticIntakeSigning(), phone_verification_token: null, video_visit_interest: false },
+      {},
+      {},
+      { "x-mmd-intake-test": header },
+    );
+
+    expect(blocked.code).toBe(422);
+    expect(blocked.body.error).toMatch(/verify your mobile number/i);
+    expect(network.events).toEqual([]);
+    expect(mocks.prepareSignedForms).not.toHaveBeenCalled();
   });
 
   it("allows demo bypass only for an advertised sandbox demo and marks that free receipt synthetic", async () => {

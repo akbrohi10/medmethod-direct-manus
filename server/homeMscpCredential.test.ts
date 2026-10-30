@@ -6,15 +6,25 @@ import { describe, expect, it } from "vitest";
 const baseline = "ede96ffe";
 const root = resolve(import.meta.dirname, "..");
 
-// Separately approved WeightCare paths; server/intakeWeightCareDetails.test.ts and
-// server/intakePrivateUploads.test.ts cover them independently. Keep all other sources frozen.
+// Separately approved WeightCare and signed-intake paths are covered independently.
+// Keep all other sources frozen.
 const approvedWeightCareRegressionPaths = new Set([
   "client/intake/index.html",
   "client/public/intake/weight-care-uploads.js",
   "client/public/intake/weight-care-uploads.css",
+  "client/public/intake/sign-forms-data.js",
+  "client/public/intake/sign-forms-ui.js",
+  "client/public/intake/sign-forms.css",
+  "server/fixtures/intakeSigningFixture.ts",
+  "server/fixtures/intake-sign-forms-copy.json",
   "server/intakePaymentRoutes.ts",
   "server/intakeSubmissionContract.ts",
   "server/intakePrivateUploads.ts",
+  "server/intakeSignedFormsStore.ts",
+  "server/intakeSignedPdf.ts",
+  "server/intakeSigningInput.ts",
+  "server/intakeTestAuthorization.ts",
+  "shared/intakeSignForms.json",
 ]);
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";

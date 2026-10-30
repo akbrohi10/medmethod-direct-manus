@@ -258,8 +258,11 @@ describe("Weight-loss intake static prototype import", () => {
   it("keeps both documents self-contained, noindex, and outside the existing site stylesheet", () => {
     for (const page of [landing, intake]) {
       expect(page).toContain('name="robots" content="noindex,follow"');
-      expect(page).not.toContain("data:image/");
+      expect(page).not.toContain("data:image/png;base64,iVBOR");
     }
+    expect(landing).not.toContain("data:image/");
+    expect(intake.match(/data:image\//g)).toEqual(["data:image/"]);
+    expect(intake).toContain('signature_png.startsWith("data:image/png;base64,")');
     expect(landing).toContain('href="https://medmethoddirect.com/weight-loss-intake"');
     expect(intake).toContain('href="https://medmethoddirect.com/intake/"');
     expect(crawler).toContain('path === "/weight-loss-intake" || path === "/weight-loss-intake/"');

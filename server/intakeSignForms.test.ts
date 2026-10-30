@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -98,6 +99,10 @@ function componentSource(name: string): string {
   return intake.slice(start, next === -1 ? undefined : next);
 }
 
+function builderSource(): string {
+  return namedFunction(intake, "be");
+}
+
 const expectedCheckboxes = [
   "I have read and understand the GLP-1 Weight Care Consent, including the risks, and I consent to evaluation for GLP-1 treatment.",
   "I have read and agree to the General Consent to Treatment.",
@@ -148,22 +153,38 @@ describe("Weight Care Sign Your Forms", () => {
     ]);
     expect(publicCopy).not.toMatch(/Bary Test|Test MMD|10\/20\/2026|09\/08\/2026|md-hq\.com\/demo/i);
     expect(JSON.stringify(fixture)).not.toMatch(/demo\.patient@example\.com|123 Demo Street|Bary Test|Test MMD/i);
-    expect(`${dataSource}\n${uiSource}`).not.toMatch(/window\.print|print\s*\(|toDataURL|toBlob|FileReader|base64|application\/pdf|\.pdf\b/i);
+    expect(`${dataSource}\n${uiSource}`).not.toMatch(/window\.print|print\s*\(|toBlob|FileReader|application\/pdf|\.pdf\b/i);
   });
 
-  it("is an isolated, Hotjar-suppressed UI: it sends nothing, stores nothing, and never serializes a signature", () => {
+  it("is an isolated, Hotjar-suppressed UI: it sends and stores nothing, and exposes its PNG only through the transient signing callback", () => {
+    const form = namedFunction(uiSource, "MmdSignForms");
     expect(uiSource).toContain('"data-hj-suppress": "true"');
     expect(uiSource).toContain('"data-hj-suppress": "true",\n                    onChange');
     expect(uiSource).toContain('"data-hj-suppress": "true",\n                onPointerDown');
     expect(uiSource).not.toMatch(/\bfetch\s*\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|indexedDB|document\.cookie|navigator\.sendBeacon/i);
-    expect(uiSource).not.toMatch(/toDataURL|toBlob|FileReader|base64|Blob\s*\(|FormData\s*\(/i);
+    expect(uiSource).not.toMatch(/toBlob|FileReader|Blob\s*\(|FormData\s*\(/i);
+    expect(form).toContain("var signingCallbackRef = l.useRef(onSigningChange)");
+    expect(form).toContain('signaturePng = canvas.toDataURL("image/png")');
+    expect(form).toContain("callback(null)");
+    expect(form).toContain('version: "2026-10"');
+    expect(form).toContain("signer_name: signatureName.trim()");
+    expect(form).toContain("relation: relationship.trim()");
+    expect(form).toContain("signed_at: signedAtRef.current");
+    expect(form).toContain("document_checks: {");
+    expect(form).toContain("glp1: true,");
+    expect(form).toContain("general: true,");
+    expect(form).toContain("telehealth: true,");
+    expect(form).toContain("privacy: true,");
+    expect(form).toContain("policy: true");
+    expect(form).toContain("electronic_agreement: true");
+    expect(form).toContain("signature_png: signaturePng");
   });
 
   it("requires every document acknowledgement, electronic agreement, nonblank editable name, and a real manual signature", () => {
     const form = namedFunction(uiSource, "MmdSignForms");
     const signatureMotion = namedFunction(uiSource, "continueSignature");
 
-    expect(form).toContain("documents.every(function (document)");
+    expect(form).toContain("var allDocumentsAccepted = glpConsent && generalConsent && telehealthConsent && privacyConsent && policyConsent;");
     expect(form).toContain("Boolean(signatureName.trim()) && allDocumentsAccepted && electronicAgreement && hasSignature");
     expect(form).toContain("Full name");
     expect(form).toContain("Relation to patient (only if signing for someone else)");
@@ -208,7 +229,7 @@ describe("Weight Care Sign Your Forms", () => {
     expect(cssSource).toMatch(/@media \(prefers-color-scheme:dark\)\{[\s\S]*?\.sign-forms-canvas\{background:#fff !important;/);
   });
 
-  it("wires Sign Your Forms immediately before final review, removes the legacy Ze view, and keeps only existing GLP-1 consent in the payload", () => {
+  it("wires Sign Your Forms immediately before final review, removes the legacy Ze view, sends the in-memory signing envelope only at submission, and keeps be() byte-for-byte unchanged", () => {
     const flow = namedFunction(intake, "MmdIntakeFlowScreens");
     expect(flow).toContain(".flatMap(");
     expect(flow).toContain('screen.type==="consent"?[{id:"wSignForms",route:"w",type:"signForms"');
@@ -231,15 +252,23 @@ describe("Weight Care Sign Your Forms", () => {
 
     const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));
     expect(app).toContain('[formsReady,setFormsReady]=(0,l.useState)(false)');
+    expect(app).toContain("signingPayloadRef=(0,l.useRef)(null)");
+    expect(app).toContain("const onSigningChange=signing=>{signingPayloadRef.current=signing}");
     expect(app).toContain('screen.type==="signForms"?(0,M.jsx)(MmdSignForms');
     expect(app).toContain("onReadyChange:setFormsReady");
+    expect(app).toContain("onSigningChange:onSigningChange");
     expect(app).toContain('onGlpConsentChange:checked=>onValue("wConsent",checked)');
     expect(app).toContain('screen.type==="signForms"?formsReady:screen.type==="consent"?formsReady&&MmdIntakeFinishReady');
     expect(app).toContain('screen.type!=="signForms"&&!["checkoutAck","phoneVerificationSettings"].includes(key))setFormsReady(false)');
     expect(app).toContain('navigate(formsReady?returnScreen:"wSignForms")');
 
-    const builder = namedFunction(intake, "be");
+    const submit = namedFunction(intake, "MmdSubmitFreeIntake");
+    expect(submit).toContain("signing");
+    expect(submit).toMatch(/JSON\.stringify\(\{[^}]*signing/);
+
+    const builder = builderSource();
     expect(builder).toContain("glp1_consent:t.wConsent===!0");
     expect(builder).not.toMatch(/signature|formsReady|signForms|electronicAgreement|relationship/i);
+    expect(createHash("sha256").update(builder).digest("hex")).toBe("59a3ec57205a52cf44fa62e906aa522c7b4ab26a7f5815e652079b810a03ead3");
   });
 });

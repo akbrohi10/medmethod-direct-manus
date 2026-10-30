@@ -6,6 +6,10 @@ import { decryptIntakeCredential } from "./intakeCredentialCrypto";
 import { ENV } from "./_core/env";
 import { registerIntakePhoneVerificationRoutes, validPhoneVerificationToken, getPhoneVerificationSettings } from "./intakePhoneVerification";
 import { registerIntakePrivateUploadRoutes, resolveIntakeUploads } from "./intakePrivateUploads";
+import { generateIntakeSignedPdfs } from "./intakeSignedPdf";
+import { getIntakeSignedFormsStore, registerIntakeSignedFormsRoutes } from "./intakeSignedFormsStore";
+import { validateIntakeSigning } from "./intakeSigningInput";
+import { authorizedNormalIntakeTest } from "./intakeTestAuthorization";
 import {
   LEGACY_VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_AMOUNT,
@@ -56,6 +60,7 @@ const freeSubmissionSchema = z.object({
   phone_verification_token: z.string().max(2048).nullable().optional(),
   demo_mode: z.boolean().optional(),
   video_visit_interest: z.boolean(),
+  signing: z.unknown().optional(),
 });
 const videoOrderSchema = z.object({
   submission_token: z.string().min(16).max(4096),
@@ -176,7 +181,7 @@ function eligibleDemo(demoRequested: boolean, explicitDemoPrefill: boolean, draf
   const explicitApprovedDemo = explicitDemoPrefill && demoRequested && draftIsTest;
   return advertisedSandboxDemo || explicitApprovedDemo;
 }
-async function deliverIntake(payload: Record<string, unknown>) {
+async function deliverIntake(payload: Record<string, unknown>, claimBeforeSend?: () => Promise<void>) {
   // Existing secret-first URL, encrypted admin fallback, and request headers are retained.
   let endpoint = ENV.keragonWebhookUrl.trim();
   if (!endpoint) {
@@ -186,10 +191,12 @@ async function deliverIntake(payload: Record<string, unknown>) {
   if (!endpoint) throw new Error("KERAGON_WEBHOOK_URL is not configured. An administrator must set the project secret or Intake Delivery setting before this intake can be submitted.");
   const body = JSON.stringify(payload);
   if (Buffer.byteLength(body, "utf8") > MAX_INTAKE_BYTES) throw new Error("This intake is too large to send securely. Please shorten any free-text answers and try again.");
+  // Persist the delivery claim only after configuration/size checks pass and immediately before the external POST.
+  await claimBeforeSend?.();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DELIVERY_TIMEOUT_MS);
   try {
-    const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body, signal: controller.signal });
+    const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json", ...(payload.event === "mmd_intake.free_submitted" ? { "Idempotency-Key": `mmd-free-intake-${payload.submission_id}` } : {}) }, body, signal: controller.signal });
     if (!response.ok) throw new Error("The intake could not be delivered. Please retry; do not make another payment.");
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") throw new Error("Intake delivery is awaiting confirmation. Please retry; do not make another payment.");
@@ -249,6 +256,7 @@ type VideoRecord = {
 export function registerIntakePaymentRoutes(app: Express) {
   registerIntakePhoneVerificationRoutes(app);
   registerIntakePrivateUploadRoutes(app);
+  registerIntakeSignedFormsRoutes(app);
   const freeSubmissions = new Map<string, FreeRecord>();
   const videoVisits = new Map<string, VideoRecord>();
   const pendingPhoneTokens = new Map<string, string>();
@@ -309,84 +317,92 @@ export function registerIntakePaymentRoutes(app: Express) {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
     const demo = eligibleDemo(input.demo_mode === true, explicitDemoPrefill, draft.is_test === true);
-    const isTest = demo;
-    // Resolve before reading/reserving the idempotency maps so concurrent retries
-    // cannot both create a handoff while asynchronous file checks are pending.
+    const isTest = demo || authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true);
+    const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);
+    // The actual signing event, not the earlier checkbox tap, is the authoritative consent time.
+    draft.consents = { ...draft.consents, glp1_consent: true, glp1_declined: false, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version };
     const uploads = await resolveIntakeUploads(request, draft.upload_refs ?? { lab_results: [], scale_photo: null }, draft.answers.w.w30 === "yes");
-    const hash = fingerprint({ draft, video_visit_interest: input.video_visit_interest, is_test: isTest });
+    const hash = fingerprint({ draft, signing, video_visit_interest: input.video_visit_interest, is_test: isTest, demo });
     let record = freeSubmissions.get(draft.submission_id);
     if (record && record.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
     if (record?.delivered) return { ...freeResult(record), redirect_url: redirectUrlFor(explicitDemoPrefill, demo, record.receipt?.video_visit_interest ?? input.video_visit_interest) };
     const inFlight = deliveringFree.get(draft.submission_id);
     if (inFlight) return { ...(await inFlight), redirect_url: redirectUrlFor(explicitDemoPrefill, demo, input.video_visit_interest) };
-    // An unapproved demo flag is not a bypass; the normal phone requirement remains in force.
-    const phone = phoneAttestation(draft, input.phone_verification_token, demo);
-    const phoneTokenKey = phone.phone_verified && typeof input.phone_verification_token === "string"
-      ? fingerprint({ token: input.phone_verification_token })
-      : undefined;
-    if (phoneTokenKey) {
-      const activeSubmission = pendingPhoneTokens.get(phoneTokenKey);
-      if (consumedPhoneTokens.has(phoneTokenKey) || (activeSubmission && activeSubmission !== draft.submission_id)) {
-        throw new Error("This phone verification has already been used. Please verify your mobile number again.");
-      }
-    }
-    const receipt: CompletedFreeIntakeReceipt = {
-      submission_id: draft.submission_id,
-      submitted_at: draft.submitted_at,
-      is_test: isTest,
-      sms_opt_in: draft.consents.sms_opt_in,
-      video_visit_interest: input.video_visit_interest,
-    };
-    // Check signing configuration before any external handoff. The token is not
-    // exposed to the client until delivery accepts, so a missing signing key can
-    // never leave a delivered intake without its usable completion receipt.
-    const preparedReceiptToken = encodeSubmissionToken(receipt);
-    // Reserve this one-way token key for retries too. The reservation is released
-    // if relay delivery fails and retired only after the relay accepts.
-    if (phoneTokenKey) pendingPhoneTokens.set(phoneTokenKey, draft.submission_id);
-    if (record && record.phoneTokenKey !== phoneTokenKey) {
-      // A delivery failure must not burn a valid verification. A user who obtains a
-      // fresh attestation may retry the same unchanged draft; overwrite only the
-      // still-pending relay payload and retire no token until it is accepted.
-      if (record.phoneTokenKey) pendingPhoneTokens.delete(record.phoneTokenKey);
-      record.phoneTokenKey = phoneTokenKey;
-      record.deliveryPayload = finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads);
-    }
     if (!record) {
       ensureCapacity();
-      record = {
-        fingerprint: hash,
-        expiresAt: Date.now() + PENDING_TTL_MS,
-        phoneTokenKey,
-        deliveryPayload: finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads),
-        delivered: false,
-      };
+      record = { fingerprint: hash, expiresAt: Date.now() + PENDING_TTL_MS, delivered: false };
       freeSubmissions.set(draft.submission_id, record);
     }
     const pending = record;
+    // Reserve this promise before the first store await. Concurrent retries in this
+    // runtime share it; the private store's atomic claim also protects process restarts.
     const delivery = (async () => {
-      if (!pending.deliveryPayload) throw new Error("The intake relay is no longer available. Please contact the Care Team.");
-      await deliverIntake(pending.deliveryPayload);
-      // Do not consume a usable verification token for a failed delivery. Once the
-      // clinical handoff accepts, retire its local one-way key. A same-token request
-      // is serialized while delivery is pending, so two completed intakes cannot use it.
-      if (pending.phoneTokenKey) {
-        pendingPhoneTokens.delete(pending.phoneTokenKey);
-        consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt);
+      const store = getIntakeSignedFormsStore();
+      const saved = await store.readSubmission(draft.submission_id);
+      if (saved && saved.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
+      const receipt: CompletedFreeIntakeReceipt = {
+        submission_id: draft.submission_id, submitted_at: draft.submitted_at,
+        is_test: isTest, sms_opt_in: draft.consents.sms_opt_in, video_visit_interest: input.video_visit_interest,
+      };
+      if (saved?.state === "delivered" && saved.result) {
+        const recovered = saved.result as unknown as FreeResult;
+        let token = recovered.submission_token;
+        try { decodeSubmissionToken(token); } catch { token = encodeSubmissionToken(receipt); }
+        pending.receipt = receipt; pending.token = token; pending.delivered = true;
+        pending.result = { ...recovered, submission_token: token, redirect_url: redirectUrlFor(explicitDemoPrefill, demo, receipt.video_visit_interest) };
+        return pending.result;
       }
-      pending.delivered = true;
-      const storedReceipt = pending.receipt = receipt;
-      pending.token = preparedReceiptToken;
-      pending.result = { submission_id: storedReceipt.submission_id, submission_token: pending.token, sms_opt_in: storedReceipt.sms_opt_in, video_visit_interest: storedReceipt.video_visit_interest, is_test: storedReceipt.is_test, payment_status: "NOT_REQUIRED", redirect_url: redirectUrlFor(explicitDemoPrefill, demo, storedReceipt.video_visit_interest) };
-      // Remove all patient, clinical, consent, and contact contents immediately after acceptance.
-      delete pending.deliveryPayload;
-      return pending.result;
+      if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.");
+      // Test classification never bypasses normal phone verification.
+      const phone = phoneAttestation(draft, input.phone_verification_token, demo);
+      const phoneTokenKey = phone.phone_verified && typeof input.phone_verification_token === "string" ? fingerprint({ token: input.phone_verification_token }) : undefined;
+      if (phoneTokenKey) {
+        const activeSubmission = pendingPhoneTokens.get(phoneTokenKey);
+        if (consumedPhoneTokens.has(phoneTokenKey) || (activeSubmission && activeSubmission !== draft.submission_id)) throw new Error("This phone verification has already been used. Please verify your mobile number again.");
+        pendingPhoneTokens.set(phoneTokenKey, draft.submission_id);
+        pending.phoneTokenKey = phoneTokenKey;
+      }
+      const preparedReceiptToken = encodeSubmissionToken(receipt);
+      let forms = saved?.forms;
+      if (!forms) {
+        const pdfs = await generateIntakeSignedPdfs({
+          submissionId: draft.submission_id,
+          patientFullName: `${draft.patient.first_name} ${draft.patient.last_name}`,
+          patientDob: draft.patient.dob, patientLastName: draft.patient.last_name,
+          signerName: signing.signer_name, relation: signing.relation,
+          signedAt: signing.signed_at, demo, signaturePng,
+        });
+        forms = await store.prepare(request, draft.submission_id, hash, pdfs, { signed_at: signing.signed_at, signer_name: signing.signer_name, relation: signing.relation });
+      }
+      pending.deliveryPayload = {
+        ...finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads),
+        ...forms,
+        glp1_consent: true, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version,
+      };
+      await deliverIntake(pending.deliveryPayload, async () => {
+        await store.markAttempted(draft.submission_id);
+        if (pending.phoneTokenKey) {
+          pendingPhoneTokens.delete(pending.phoneTokenKey);
+          consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt);
+        }
+      });
+      const result: FreeResult = {
+        submission_id: receipt.submission_id, submission_token: preparedReceiptToken,
+        sms_opt_in: receipt.sms_opt_in, video_visit_interest: receipt.video_visit_interest,
+        is_test: receipt.is_test, payment_status: "NOT_REQUIRED",
+        redirect_url: redirectUrlFor(explicitDemoPrefill, demo, receipt.video_visit_interest),
+      };
+      await store.markDelivered(draft.submission_id, result);
+      pending.delivered = true; pending.receipt = receipt;
+      pending.token = preparedReceiptToken; pending.result = result;
+      return result;
     })();
     deliveringFree.set(draft.submission_id, delivery);
     try { return await delivery; }
     finally {
       deliveringFree.delete(draft.submission_id);
-      if (!pending.delivered && pending.phoneTokenKey) pendingPhoneTokens.delete(pending.phoneTokenKey);
+      delete pending.deliveryPayload;
+      if (pending.phoneTokenKey) pendingPhoneTokens.delete(pending.phoneTokenKey);
     }
   }
   function modeForVideoReceipt(receipt: CompletedFreeIntakeReceipt, demoRequested: boolean, explicitDemoPrefill: boolean, settings: Awaited<ReturnType<typeof getPaypalSettings>>): PayPalMode {

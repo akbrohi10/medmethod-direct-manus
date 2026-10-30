@@ -61,7 +61,9 @@ describe("consolidated local intake finish", () => {
     expect(intake).toContain('final_submission_acknowledged:t.checkoutAck===!0');
     expect(intake).toContain('sms_opt_in:t.smsOptIn===!0');
     expect(intake).toContain('glp1_consent:t.wConsent===!0');
-    expect(app).toContain('const receipt=await MmdSubmitFreeIntake("w",answers,demo)');
+    expect(app).toContain('const signing=signingPayloadRef.current');
+    expect(app).toContain('if(!MmdSigningPayloadReady(signing))');
+    expect(app).toContain('const receipt=await MmdSubmitFreeIntake("w",answers,demo,signing)');
     expect(app).toContain('window.location.replace(receipt.redirect_url)');
   });
 });

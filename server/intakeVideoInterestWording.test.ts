@@ -31,6 +31,29 @@ function expectUnchangedFromHead(start: string, end: string) {
   expect(intakeSource.slice(currentStart, currentEnd)).toBe(headSource.slice(headStart, headEnd));
 }
 
+function expectSubmitChangedOnlyForSigningTransport() {
+  const start = "async function MmdSubmitFreeIntake(";
+  const end = "function MmdStoreFreeIntakeReceipt(";
+  const currentStart = intakeSource.indexOf(start);
+  const currentEnd = intakeSource.indexOf(end, currentStart);
+  expect(currentStart, `missing ${start}`).toBeGreaterThanOrEqual(0);
+  expect(currentEnd, `missing ${end} after ${start}`).toBeGreaterThan(currentStart);
+  const headSource = execFileSync("git", ["show", "HEAD:client/intake/index.html"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+  });
+  const headStart = headSource.indexOf(start);
+  const headEnd = headSource.indexOf(end, headStart);
+  expect(headStart, `HEAD missing ${start}`).toBeGreaterThanOrEqual(0);
+  expect(headEnd, `HEAD missing ${end} after ${start}`).toBeGreaterThan(headStart);
+  const current = intakeSource.slice(currentStart, currentEnd);
+  expect(current).toContain("route,answers,demoMode=false,signing=null");
+  expect(current).toContain("signing:signing");
+  expect(current.replace(",signing=null", "").replace(",signing:signing", "")).toBe(
+    headSource.slice(headStart, headEnd),
+  );
+}
+
 describe("intake video-visit interest wording", () => {
   it("uses the $97 pay-per-visit model while retaining the free first-text-visit branch", () => {
     const pricing = fragment("function He({answers})", "})}var Ue=[]");
@@ -58,9 +81,7 @@ describe("intake video-visit interest wording", () => {
   });
 
   it("does not alter protected submission, verification, or redirect behavior", () => {
-    const submitStart = "async function MmdSubmitFreeIntake(";
-    const submitEnd = "function MmdStoreFreeIntakeReceipt(";
-    expectUnchangedFromHead(submitStart, submitEnd);
+    expectSubmitChangedOnlyForSigningTransport();
     expectUnchangedFromHead(
       "function MmdDemoIdentityVerificationSkipped(",
       "function MmdPhoneVerification({",

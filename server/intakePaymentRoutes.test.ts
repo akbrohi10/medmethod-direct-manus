@@ -2,13 +2,17 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-it("prepares a usable signed receipt before any free clinical handoff is delivered", () => {
+it("prepares the signed-form ledger and receipt before any free clinical handoff is delivered", () => {
   const routes = readFileSync(resolve(import.meta.dirname, "intakePaymentRoutes.ts"), "utf8");
   const freeStart = routes.indexOf("async function submitFreeIntake");
   const freeEnd = routes.indexOf("function modeForVideoReceipt", freeStart);
   const free = routes.slice(freeStart, freeEnd);
   expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeGreaterThan(0);
-  expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeLessThan(free.indexOf("await deliverIntake(pending.deliveryPayload)"));
+  expect(free).toContain("const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);");
+  expect(free).toContain("const pdfs = await generateIntakeSignedPdfs({");
+  expect(free).toContain("forms = await store.prepare(request, draft.submission_id, hash, pdfs");
+  expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeLessThan(free.indexOf("await deliverIntake(pending.deliveryPayload, async () =>"));
+  expect(free).toContain("await deliverIntake(pending.deliveryPayload, async () => {\n        await store.markAttempted(draft.submission_id);");
   expect(free).toContain("pending.token = preparedReceiptToken");
 });
 
@@ -18,6 +22,10 @@ const routes = read("server/intakePaymentRoutes.ts");
 const contract = read("server/intakeSubmissionContract.ts");
 const crypto = read("server/intakeCredentialCrypto.ts");
 const env = read("server/_core/env.ts");
+const signingInput = read("server/intakeSigningInput.ts");
+const signedPdf = read("server/intakeSignedPdf.ts");
+const signedStore = read("server/intakeSignedFormsStore.ts");
+const testAuthorization = read("server/intakeTestAuthorization.ts");
 
 // Source assertions complement mocked route tests in intakePaidFinalization.test.ts.
 // No Keragon, PayPal, Spruce, or patient-data traffic is performed here.
@@ -29,14 +37,14 @@ describe("intake free-first delivery and optional video payment boundary", () =>
     expect(routes).toContain("let endpoint = ENV.keragonWebhookUrl.trim();");
     expect(routes).toContain("if (settings?.keragonWebhookUrlEncrypted)");
     expect(routes).toContain("endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);");
-    expect(routes).toContain('headers: { "Content-Type": "application/json", Accept: "application/json" }');
+    expect(routes).toContain('headers: { "Content-Type": "application/json", Accept: "application/json", ...(payload.event === "mmd_intake.free_submitted" ? { "Idempotency-Key": `mmd-free-intake-${payload.submission_id}` } : {}) }');
   });
 
-  it("has an explicit free completed-intake endpoint and releases its limited signed receipt only after clinical delivery accepts", () => {
+  it("has an explicit signed free-intake endpoint and releases its limited receipt only after clinical delivery accepts", () => {
     expect(routes).toContain('app.post("/api/intake/submit"');
     expect(routes).toContain("finalizeFreeIntake(draft, phone");
-    expect(routes).toContain("await deliverIntake(pending.deliveryPayload);");
-    expect(routes.indexOf("await deliverIntake(pending.deliveryPayload);")).toBeLessThan(routes.indexOf("pending.token = preparedReceiptToken;"));
+    expect(routes).toContain("await deliverIntake(pending.deliveryPayload, async () =>");
+    expect(routes.indexOf("await deliverIntake(pending.deliveryPayload, async () =>")).toBeLessThan(routes.indexOf("pending.token = preparedReceiptToken;"));
     expect(routes).toContain('purpose: "completed_free_intake"');
     expect(routes).toContain("sms_opt_in: boolean");
     expect(routes).toContain("video_visit_interest: boolean");
@@ -46,13 +54,44 @@ describe("intake free-first delivery and optional video payment boundary", () =>
     expect(contract).not.toContain("paid_submitted");
   });
 
-  it("enforces a server-attested phone verification and retires its local one-way key only after accepted free delivery", () => {
+  it("requires a complete server-validated signing envelope, normalizes GLP-1 consent to the signing time, and transports only signed-form capabilities", () => {
+    expect(routes).toContain("signing: z.unknown().optional()");
+    expect(routes).toContain("await validateIntakeSigning(input.signing, draft)");
+    expect(routes).toContain("glp1_consent_at: signing.signed_at");
+    expect(routes).toContain("glp1_consent_version: signing.version");
+    expect(routes).toContain("await generateIntakeSignedPdfs({");
+    expect(routes).toContain("...forms,");
+    expect(routes).not.toContain("signature_png: signaturePng");
+    expect(signingInput).toContain('version: z.literal("2026-10")');
+    expect(signingInput).toContain("signature_png: z.string()");
+    expect(signingInput).toContain("document_checks: z.object({ glp1: z.literal(true), general: z.literal(true), telehealth: z.literal(true), privacy: z.literal(true), policy: z.literal(true) }).strict()");
+    expect(signedPdf).toContain("generateIntakeSignedPdfs");
+    expect(signedPdf).toContain("canonicalForms");
+  });
+
+  it("enforces a server-attested phone verification and never lets HMAC normal-test classification bypass it", () => {
     expect(routes).toContain("validPhoneVerificationToken(token, draft.patient.phone)");
     expect(routes).toContain("const pendingPhoneTokens = new Map");
     expect(routes).toContain("const consumedPhoneTokens = new Map");
-    expect(routes.indexOf("await deliverIntake(pending.deliveryPayload);")).toBeLessThan(routes.indexOf("consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt)"));
+    expect(routes.indexOf("await store.markAttempted(draft.submission_id);")).toBeLessThan(routes.indexOf("consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt)"));
     expect(routes).toContain("fingerprint({ token: input.phone_verification_token })");
     expect(routes).toContain("settings.mode === \"sandbox\" && settings.demo_available === true");
+    expect(routes).toContain("authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true)");
+    expect(routes.indexOf("authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true)")).toBeLessThan(routes.indexOf("const phone = phoneAttestation(draft, input.phone_verification_token, demo);"));
+    expect(testAuthorization).toContain('req.headers?.["x-mmd-intake-test"]');
+    expect(testAuthorization).toContain("mmd-normal-intake-test-v1");
+  });
+
+  it("persists the private signed-form claim immediately before the relay attempt and fails closed rather than retrying an ambiguous delivery", () => {
+    expect(routes).toContain("registerIntakeSignedFormsRoutes(app)");
+    expect(routes).toContain("const saved = await store.readSubmission(draft.submission_id);");
+    expect(routes).toContain('if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.")');
+    expect(routes).toContain("await store.markAttempted(draft.submission_id);");
+    expect(routes).toContain("await store.markDelivered(draft.submission_id, result);");
+    expect(routes.indexOf("await claimBeforeSend?.();")).toBeLessThan(routes.indexOf("const controller = new AbortController();"));
+    expect(signedStore).toContain("async markAttempted(submissionId: string)");
+    expect(signedStore).toContain('if (ledger.state !== "prepared") throw storeError(409, "The signed-form submission was already claimed for delivery.")');
+    expect(signedStore).toContain("async markDelivered(submissionId: string, result: Record<string, unknown>)");
   });
 
   it("requires a delivered signed receipt for the optional video checkout and uses fixed server-side $97 identity", () => {
