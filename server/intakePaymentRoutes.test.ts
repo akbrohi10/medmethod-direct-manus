@@ -10,9 +10,12 @@ it("prepares the signed-form ledger and receipt before any free clinical handoff
   expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeGreaterThan(0);
   expect(free).toContain("const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);");
   expect(free).toContain("const pdfs = await generateIntakeSignedPdfs({");
-  expect(free).toContain("forms = await store.prepare(request, draft.submission_id, hash, pdfs");
+  expect(free).toContain("forms = await store!.prepare(request, draft.submission_id, hash, pdfs");
   expect(free.indexOf("const preparedReceiptToken = encodeSubmissionToken(receipt);")).toBeLessThan(free.indexOf("await deliverIntake(pending.deliveryPayload, async () =>"));
-  expect(free).toContain("await deliverIntake(pending.deliveryPayload, async () => {\n        await store.markAttempted(draft.submission_id);");
+  expect(free).toContain("await deliverIntake(pending.deliveryPayload, async () => {");
+  expect(free).toContain("if (storageAvailable)");
+  expect(free).toContain("await store!.markAttempted(draft.submission_id);");
+  expect(free).toContain("if (isDeliveryClaimConflict(error)) throw error;");
   expect(free).toContain("pending.token = preparedReceiptToken");
 });
 
@@ -73,7 +76,8 @@ describe("intake free-first delivery and optional video payment boundary", () =>
     expect(routes).toContain("validPhoneVerificationToken(token, draft.patient.phone)");
     expect(routes).toContain("const pendingPhoneTokens = new Map");
     expect(routes).toContain("const consumedPhoneTokens = new Map");
-    expect(routes.indexOf("await store.markAttempted(draft.submission_id);")).toBeLessThan(routes.indexOf("consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt)"));
+    expect(routes.indexOf("await store!.markAttempted(draft.submission_id);")).toBeGreaterThan(0);
+    expect(routes.indexOf("await store!.markAttempted(draft.submission_id);")).toBeLessThan(routes.indexOf("consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt)"));
     expect(routes).toContain("fingerprint({ token: input.phone_verification_token })");
     expect(routes).toContain("settings.mode === \"sandbox\" && settings.demo_available === true");
     expect(routes).toContain("authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true)");
@@ -84,10 +88,10 @@ describe("intake free-first delivery and optional video payment boundary", () =>
 
   it("persists the private signed-form claim immediately before the relay attempt and fails closed rather than retrying an ambiguous delivery", () => {
     expect(routes).toContain("registerIntakeSignedFormsRoutes(app)");
-    expect(routes).toContain("const saved = await store.readSubmission(draft.submission_id);");
+    expect(routes).toContain("saved = await store.readSubmission(draft.submission_id);");
     expect(routes).toContain('if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.")');
-    expect(routes).toContain("await store.markAttempted(draft.submission_id);");
-    expect(routes).toContain("await store.markDelivered(draft.submission_id, result);");
+    expect(routes).toContain("await store!.markAttempted(draft.submission_id);");
+    expect(routes).toContain("await store!.markDelivered(draft.submission_id, result);");
     expect(routes.indexOf("await claimBeforeSend?.();")).toBeLessThan(routes.indexOf("const controller = new AbortController();"));
     expect(signedStore).toContain("async markAttempted(submissionId: string)");
     expect(signedStore).toContain('if (ledger.state !== "prepared") throw storeError(409, "The signed-form submission was already claimed for delivery.")');

@@ -38,7 +38,7 @@ vi.mock("./intakeSignedFormsStore", () => ({
   registerIntakeSignedFormsRoutes: mocks.registerSignedFormsRoutes,
 }));
 vi.mock("./_core/env", () => ({ ENV: { cookieSecret: "synthetic-test-signing-key", keragonWebhookUrl: "https://relay.example.test/intake", intakeFamilyCouponCode: "family" } }));
-import { registerIntakePaymentRoutes } from "./intakePaymentRoutes";
+import { registerIntakePaymentRoutes, FRIENDLY_INTAKE_SUBMIT_ERROR } from "./intakePaymentRoutes";
 
 // Deliberately fake contact details; every outbound request is mocked below.
 export function syntheticDraft(id = "873ef4af-190d-45cb-9d51-42c627f5376a") {
@@ -265,7 +265,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     expect(retry.body.redirect_url).toBe("/thank-you-video");
 
     const opposite = await request("POST", "/api/intake/submit", { intake: draft, phone_verification_token: "valid-phone-token", video_visit_interest: false });
-    expect(opposite.code).toBe(422); expect(opposite.body.error).toMatch(/already used with different intake information/i);
+    expect(opposite.code).toBe(422); expect(opposite.body.error).toBe(FRIENDLY_INTAKE_SUBMIT_ERROR);
     expect(network.events).toEqual(["relay"]);
   });
 
@@ -279,7 +279,7 @@ describe("free intake receipt and optional video visit handoff", () => {
 
     expect(repeat.code).toBe(422);
     expect(repeat.body.submission_token).toBeUndefined();
-    expect(repeat.body.error).toMatch(/awaiting confirmation|contact the Care Team/i);
+    expect(repeat.body.error).toBe(FRIENDLY_INTAKE_SUBMIT_ERROR);
     expect(network.events).toEqual(["relay"]);
     expect(mocks.markAttempted).toHaveBeenCalledTimes(1);
   });
@@ -401,7 +401,7 @@ describe("free intake receipt and optional video visit handoff", () => {
     );
 
     expect(blocked.code).toBe(422);
-    expect(blocked.body.error).toMatch(/verify your mobile number/i);
+    expect(blocked.body.error).toBe(FRIENDLY_INTAKE_SUBMIT_ERROR);
     expect(network.events).toEqual([]);
     expect(mocks.prepareSignedForms).not.toHaveBeenCalled();
   });

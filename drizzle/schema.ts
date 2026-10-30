@@ -1,4 +1,11 @@
-import { bigint, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { bigint, customType, int, mysqlEnum, mysqlTable, primaryKey, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+
+/** Encrypted chunks may be up to 256 KiB; MEDIUMBLOB avoids cleartext type coercion. */
+const mediumblob = customType<{ data: Buffer; driverData: Buffer }>({
+  dataType() {
+    return "mediumblob";
+  },
+});
 
 /**
  * Core user table backing auth flow.
@@ -266,3 +273,43 @@ export const careTeamBookingCalendarEvents = mysqlTable("care_team_booking_calen
 
 export type CareTeamBookingCalendarEvent = typeof careTeamBookingCalendarEvents.$inferSelect;
 export type InsertCareTeamBookingCalendarEvent = typeof careTeamBookingCalendarEvents.$inferInsert;
+
+/**
+ * Encrypted private intake object headers. keyHash is an HMAC lookup address; keyCiphertext and
+ * all caller metadata remain AES-256-GCM ciphertext. TiDB native TTL is added in the matching
+ * migration and physical cleanup is intentionally independent from exact app expiry checks.
+ */
+export const intakePrivateBlobs = mysqlTable("intake_private_blobs", {
+  keyHash: varchar("keyHash", { length: 64 }).primaryKey(),
+  keyCiphertext: mediumblob("keyCiphertext").notNull(),
+  revision: int("revision").notNull().default(1),
+  expiresAt: bigint("expiresAt", { mode: "number" }).notNull(),
+  chunkCount: int("chunkCount").notNull(),
+  byteLength: int("byteLength").notNull(),
+  /** TiDB native TTL anchor; rewritten on a logical object revision. */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type IntakePrivateBlob = typeof intakePrivateBlobs.$inferSelect;
+export type InsertIntakePrivateBlob = typeof intakePrivateBlobs.$inferInsert;
+
+/** Every encrypted chunk has its own TTL anchor so it is physically removed even if a header is gone. */
+export const intakePrivateBlobChunks = mysqlTable("intake_private_blob_chunks", {
+  keyHash: varchar("keyHash", { length: 64 }).notNull(),
+  chunkIndex: int("chunkIndex").notNull(),
+  ciphertext: mediumblob("ciphertext").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, table => [
+  primaryKey({ columns: [table.keyHash, table.chunkIndex] }),
+]);
+export type IntakePrivateBlobChunk = typeof intakePrivateBlobChunks.$inferSelect;
+export type InsertIntakePrivateBlobChunk = typeof intakePrivateBlobChunks.$inferInsert;
+
+/** Cross-instance database lease state. A stale lease is reclaimed only by a conditional update. */
+export const intakePrivateBlobLocks = mysqlTable("intake_private_blob_locks", {
+  nameHash: varchar("nameHash", { length: 64 }).primaryKey(),
+  owner: varchar("owner", { length: 64 }).notNull(),
+  expiresAt: bigint("expiresAt", { mode: "number" }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type IntakePrivateBlobLock = typeof intakePrivateBlobLocks.$inferSelect;
+export type InsertIntakePrivateBlobLock = typeof intakePrivateBlobLocks.$inferInsert;

@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import type { Express, NextFunction, Request, Response } from "express";
 import { ENV } from "./_core/env";
+import { createIntakeSignedFormsDatabaseStore, type IntakeSignedFormsDatabaseStore } from "./intakeSignedFormsDatabaseStore";
 
 /**
  * Encrypted, private, short-lived storage for the five PDFs produced after an intake signature.
@@ -81,6 +82,17 @@ export type IntakeSignedFormsRecord = {
   /** Canonical Keragon URL aliases plus the complete signed_forms attachment array. */
   forms: IntakeSignedFormsPrepareResult;
   expiresAt: number;
+};
+
+/** Public contract shared by the explicit filesystem test store and the application DB store. */
+export type IntakeSignedFormsStoreApi = {
+  prepare(req: Request, submissionId: string, fingerprint: string, pdfs: IntakeSignedFormInput[], metadata: IntakeSignedFormsMetadata): Promise<IntakeSignedFormsPrepareResult>;
+  readSubmission(submissionId: string): Promise<IntakeSignedFormsRecord | null>;
+  markAttempted(submissionId: string): Promise<void>;
+  markDelivered(submissionId: string, result: Record<string, unknown>): Promise<void>;
+  revokeSubmission(submissionId: string): Promise<void>;
+  cleanup(): Promise<void>;
+  register(app: Express): void;
 };
 
 type StoredPdf = {
@@ -803,9 +815,12 @@ export function createIntakeSignedFormsStore(deps: IntakeSignedFormsStoreDepende
   return new IntakeSignedFormsStore(deps);
 }
 
-let defaultStore: IntakeSignedFormsStore | undefined;
-function store(): IntakeSignedFormsStore {
-  defaultStore ??= createIntakeSignedFormsStore();
+// The explicit factory above remains a filesystem implementation for isolated tempDir tests only.
+// Application calls use the encrypted DATABASE_URL store in every environment; its constructor and
+// route registration are intentionally lazy so unrelated pages do not open a DB connection.
+let defaultStore: IntakeSignedFormsDatabaseStore | undefined;
+function store(): IntakeSignedFormsDatabaseStore {
+  defaultStore ??= createIntakeSignedFormsDatabaseStore();
   return defaultStore;
 }
 
@@ -815,6 +830,6 @@ export function registerIntakeSignedFormsRoutes(app: Express): void {
 }
 
 /** Access the process singleton for the intake submission handler. */
-export function getIntakeSignedFormsStore(): IntakeSignedFormsStore {
+export function getIntakeSignedFormsStore(): IntakeSignedFormsStoreApi {
   return store();
 }

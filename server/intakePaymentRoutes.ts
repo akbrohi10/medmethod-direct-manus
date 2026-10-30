@@ -11,6 +11,7 @@ import { getIntakeSignedFormsStore, registerIntakeSignedFormsRoutes } from "./in
 import { validateIntakeSigning } from "./intakeSigningInput";
 import { authorizedNormalIntakeTest } from "./intakeTestAuthorization";
 import {
+  EMPTY_INTAKE_UPLOADS,
   LEGACY_VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_AMOUNT,
   VIDEO_VISIT_DESCRIPTION,
@@ -31,6 +32,19 @@ const PENDING_TTL_MS = 60 * 60 * 1000;
 const DELIVERY_TIMEOUT_MS = 15_000;
 const MAX_INTAKE_BYTES = 180_000;
 const MAX_PENDING = 2000;
+export const FRIENDLY_INTAKE_SUBMIT_ERROR = "Something went wrong submitting your intake. Please try again, or call us at (888) 362-7011.";
+const EMPTY_SIGNED_FORMS = {
+  glp1_consent_url: "", general_consent_url: "", telehealth_consent_url: "",
+  privacy_notice_ack_url: "", medication_policy_url: "", signed_forms: [],
+};
+/** Fixed codes only: never log errors, SQL, patient data, file names, or capabilities. */
+function noteAttachmentFailure(stage: "resolve" | "recover" | "prepare" | "claim" | "receipt") {
+  console.error(`[IntakeAttachments] ${stage}_unavailable; intake delivery continues without requiring file storage.`);
+}
+function isDeliveryClaimConflict(error: unknown): boolean {
+  return !!error && typeof error === "object" && "status" in error && error.status === 409;
+}
+
 type PayPalMode = "sandbox" | "live";
 type PaymentMethod = "card" | "apple_pay";
 
@@ -189,10 +203,11 @@ async function deliverIntake(payload: Record<string, unknown>, claimBeforeSend?:
     if (settings?.keragonWebhookUrlEncrypted) endpoint = decryptIntakeCredential(settings.keragonWebhookUrlEncrypted);
   }
   if (!endpoint) throw new Error("KERAGON_WEBHOOK_URL is not configured. An administrator must set the project secret or Intake Delivery setting before this intake can be submitted.");
-  const body = JSON.stringify(payload);
-  if (Buffer.byteLength(body, "utf8") > MAX_INTAKE_BYTES) throw new Error("This intake is too large to send securely. Please shorten any free-text answers and try again.");
+  const initialBody = JSON.stringify(payload);
+  if (Buffer.byteLength(initialBody, "utf8") > MAX_INTAKE_BYTES) throw new Error("This intake is too large to send securely. Please shorten any free-text answers and try again.");
   // Persist the delivery claim only after configuration/size checks pass and immediately before the external POST.
   await claimBeforeSend?.();
+  const body = JSON.stringify(payload);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DELIVERY_TIMEOUT_MS);
   try {
@@ -321,7 +336,12 @@ export function registerIntakePaymentRoutes(app: Express) {
     const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);
     // The actual signing event, not the earlier checkbox tap, is the authoritative consent time.
     draft.consents = { ...draft.consents, glp1_consent: true, glp1_declined: false, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version };
-    const uploads = await resolveIntakeUploads(request, draft.upload_refs ?? { lab_results: [], scale_photo: null }, draft.answers.w.w30 === "yes");
+    // Optional files never gate an otherwise valid signed/phone-verified intake. Invalid,
+    // expired, foreign, or unavailable file references fail closed to *empty* attachment fields.
+    let uploads = { ...EMPTY_INTAKE_UPLOADS, lab_results: [...EMPTY_INTAKE_UPLOADS.lab_results] };
+    try {
+      uploads = await resolveIntakeUploads(request, draft.upload_refs ?? { lab_results: [], scale_photo: null }, draft.answers.w.w30 === "yes");
+    } catch { noteAttachmentFailure("resolve"); }
     const hash = fingerprint({ draft, signing, video_visit_interest: input.video_visit_interest, is_test: isTest, demo });
     let record = freeSubmissions.get(draft.submission_id);
     if (record && record.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
@@ -337,8 +357,11 @@ export function registerIntakePaymentRoutes(app: Express) {
     // Reserve this promise before the first store await. Concurrent retries in this
     // runtime share it; the private store's atomic claim also protects process restarts.
     const delivery = (async () => {
-      const store = getIntakeSignedFormsStore();
-      const saved = await store.readSubmission(draft.submission_id);
+      let store: ReturnType<typeof getIntakeSignedFormsStore> | undefined;
+      let storageAvailable = true;
+      let saved: Awaited<ReturnType<ReturnType<typeof getIntakeSignedFormsStore>["readSubmission"]>> = null;
+      try { store = getIntakeSignedFormsStore(); saved = await store.readSubmission(draft.submission_id); }
+      catch (error) { if (isDeliveryClaimConflict(error)) throw error; storageAvailable = false; noteAttachmentFailure("recover"); }
       if (saved && saved.fingerprint !== hash) throw new Error("This submission ID was already used with different intake information.");
       const receipt: CompletedFreeIntakeReceipt = {
         submission_id: draft.submission_id, submitted_at: draft.submitted_at,
@@ -363,16 +386,22 @@ export function registerIntakePaymentRoutes(app: Express) {
         pending.phoneTokenKey = phoneTokenKey;
       }
       const preparedReceiptToken = encodeSubmissionToken(receipt);
-      let forms = saved?.forms;
-      if (!forms) {
-        const pdfs = await generateIntakeSignedPdfs({
-          submissionId: draft.submission_id,
-          patientFullName: `${draft.patient.first_name} ${draft.patient.last_name}`,
-          patientDob: draft.patient.dob, patientLastName: draft.patient.last_name,
-          signerName: signing.signer_name, relation: signing.relation,
-          signedAt: signing.signed_at, demo, signaturePng,
-        });
-        forms = await store.prepare(request, draft.submission_id, hash, pdfs, { signed_at: signing.signed_at, signer_name: signing.signer_name, relation: signing.relation });
+      let forms = saved?.forms ?? EMPTY_SIGNED_FORMS;
+      if (!saved?.forms && storageAvailable) {
+        try {
+          const pdfs = await generateIntakeSignedPdfs({
+            submissionId: draft.submission_id,
+            patientFullName: `${draft.patient.first_name} ${draft.patient.last_name}`,
+            patientDob: draft.patient.dob, patientLastName: draft.patient.last_name,
+            signerName: signing.signer_name, relation: signing.relation,
+            signedAt: signing.signed_at, demo, signaturePng,
+          });
+          forms = await store!.prepare(request, draft.submission_id, hash, pdfs, { signed_at: signing.signed_at, signer_name: signing.signer_name, relation: signing.relation });
+        } catch (error) {
+          // A concurrent/replayed delivery claim is not a storage outage and must not send again.
+          if (isDeliveryClaimConflict(error)) throw error;
+          storageAvailable = false; forms = EMPTY_SIGNED_FORMS; noteAttachmentFailure("prepare");
+        }
       }
       pending.deliveryPayload = {
         ...finalizeFreeIntake(draft, phone, { is_test: isTest, video_visit_interest: input.video_visit_interest }, uploads),
@@ -380,7 +409,16 @@ export function registerIntakePaymentRoutes(app: Express) {
         glp1_consent: true, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version,
       };
       await deliverIntake(pending.deliveryPayload, async () => {
-        await store.markAttempted(draft.submission_id);
+        if (storageAvailable) {
+          try { await store!.markAttempted(draft.submission_id); }
+          catch (error) {
+            if (isDeliveryClaimConflict(error)) throw error;
+            storageAvailable = false;
+            // The POST body is assembled after this callback, so no failed PDF links escape.
+            Object.assign(pending.deliveryPayload!, EMPTY_SIGNED_FORMS);
+            noteAttachmentFailure("claim");
+          }
+        }
         if (pending.phoneTokenKey) {
           pendingPhoneTokens.delete(pending.phoneTokenKey);
           consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt);
@@ -392,9 +430,14 @@ export function registerIntakePaymentRoutes(app: Express) {
         is_test: receipt.is_test, payment_status: "NOT_REQUIRED",
         redirect_url: redirectUrlFor(explicitDemoPrefill, demo, receipt.video_visit_interest),
       };
-      await store.markDelivered(draft.submission_id, result);
+      // Once Keragon accepted the intake, no receipt-storage failure can turn success into
+      // a technical patient error or cause an automatic second delivery in this process.
       pending.delivered = true; pending.receipt = receipt;
       pending.token = preparedReceiptToken; pending.result = result;
+      if (storageAvailable) {
+        try { await store!.markDelivered(draft.submission_id, result); }
+        catch { noteAttachmentFailure("receipt"); }
+      }
       return result;
     })();
     deliveringFree.set(draft.submission_id, delivery);
@@ -633,14 +676,19 @@ export function registerIntakePaymentRoutes(app: Express) {
   app.post("/api/intake/submit", async (req: Request, res: Response) => {
     try {
       const parsed = freeSubmissionSchema.safeParse(req.body);
-      if (!parsed.success) return res.status(400).json({ error: "The completed intake payload is invalid." });
+      res.setHeader("Cache-Control", "no-store");
+      if (!parsed.success) return res.status(400).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });
       // Duplicate query keys parse as an array and must not activate the approved
       // prefill path. Only one exact string value is accepted.
       const explicitDemoPrefill = typeof req.query.prefill === "string" && req.query.prefill === "demo";
       const result = await submitFreeIntake(parsed.data, req, explicitDemoPrefill);
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(result);
-    } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }
+    } catch {
+      console.error("[IntakeSubmit] request_failed; no clinical or technical error details logged.");
+      res.setHeader("Cache-Control", "no-store");
+      return res.status(422).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });
+    }
   });
   app.post("/api/intake/coupon/validate", (req: Request, res: Response) => {
     const parsed = couponCodeSchema.safeParse(req.body);

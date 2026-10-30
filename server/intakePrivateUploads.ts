@@ -1,24 +1,18 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { createRequire } from "node:module";
 import { promises as fs } from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import express, { type Express, type NextFunction, type Request, type Response } from "express";
 import sharp from "sharp";
 import { ENV } from "./_core/env";
+import { DbIntakePrivateUploadPersistence } from "./intakePrivateUploadDb";
 
 /**
- * Temporary, process-local private intake file store.
+ * Private intake file store.
  *
- * This module deliberately never uses the platform storage proxy: that proxy is public and
- * cannot delete files. Upload bytes and metadata (including original filenames) are AES-256-GCM
- * encrypted at rest under a 0700 non-public directory, then removed at their absolute 24-hour
- * expiry. Temporary files can be lost when a runtime is replaced; deployments which need files
- * to survive restarts must configure INTAKE_PRIVATE_UPLOAD_DIR to a persistent private volume
- * available only to the application. This filesystem implementation serializes one Node process;
- * multi-replica deployments need a provider-managed private store (or a cross-process lock) before
- * sharing a volume. Expiration always fails closed, including if cleanup cannot remove an
- * encrypted file immediately.
+ * Runtime storage is the encrypted, TTL-aware database blob helper. Values are keyed with opaque
+ * HMAC namespace keys and the helper encrypts them before database persistence. A filesystem
+ * backend is retained only when an isolated test factory explicitly provides `tempDir`.
  */
 
 const VERSION = "mmd-intake-private-v1";
@@ -90,8 +84,10 @@ export type ResolvedIntakeUploads = {
 export type IntakePrivateUploadDependencies = {
   /** Stable server-only JWT_SECRET/cookie secret. Required; a missing secret fails closed. */
   secret?: string;
-  /** A private directory outside all static/public roots. Defaults to os.tmpdir()/mmd-intake-private-v1. */
+  /** Explicit isolated filesystem test backend. Runtime storage never reads an environment volume. */
   tempDir?: string;
+  /** Injectable encrypted DB persistence for isolated tests. Defaults to the shared DB blob helper. */
+  persistence?: DbIntakePrivateUploadPersistence;
   /** Injectable clock used by tests. */
   now?: () => number;
   /** Injectable entropy source used only by tests. Production uses crypto.randomBytes. */
@@ -129,6 +125,7 @@ function noStore(res: Response) {
     Pragma: "no-cache",
     Expires: "0",
     "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow, noarchive",
     "Content-Security-Policy": "default-src 'none'; sandbox",
     "Referrer-Policy": "no-referrer",
   });
@@ -311,14 +308,14 @@ function requireSessionRequestOrigin(req: Request, deps: IntakePrivateUploadDepe
 }
 
 function privateDirectoryFor(deps: IntakePrivateUploadDependencies): string {
-  const configured = deps.tempDir ?? process.env.INTAKE_PRIVATE_UPLOAD_DIR;
-  const directory = path.resolve(configured || path.join(os.tmpdir(), VERSION));
-  if (!path.isAbsolute(directory)) throw new Error("INTAKE_PRIVATE_UPLOAD_DIR must be absolute.");
+  if (!deps.tempDir) throw new Error("An explicit private test directory is required.");
+  const directory = path.resolve(deps.tempDir);
+  if (!path.isAbsolute(directory)) throw new Error("The explicit private test directory must be absolute.");
   const components = directory.split(path.sep).filter(Boolean).map(component => component.toLowerCase());
-  if (components.includes("public")) throw new Error("INTAKE_PRIVATE_UPLOAD_DIR must not be under a public directory.");
+  if (components.includes("public")) throw new Error("The explicit private test directory must not be under a public directory.");
   const projectRelative = path.relative(process.cwd(), directory);
   if (!projectRelative.startsWith("..") && !path.isAbsolute(projectRelative) && /(^|[\\/])(client[\\/]public|dist[\\/]public|public)([\\/]|$)/i.test(projectRelative)) {
-    throw new Error("INTAKE_PRIVATE_UPLOAD_DIR must not be under a public directory.");
+    throw new Error("The explicit private test directory must not be under a public directory.");
   }
   return directory;
 }
@@ -470,9 +467,12 @@ async function prepareUpload(kind: UploadKind, rawFileName: unknown, input: Buff
 
 export class IntakePrivateUploadService {
   private readonly deps: IntakePrivateUploadDependencies;
-  private readonly directory: string;
+  private readonly directory: string | null;
   private readonly now: () => number;
   private readonly entropy: (size: number) => Buffer;
+  private dbPersistence: DbIntakePrivateUploadPersistence | undefined;
+  // Filesystem expiry timers are retained only for isolated legacy test factories that explicitly
+  // pass tempDir. The default DB path has no process-local timer or interval.
   private readonly expiryTimers = new Map<string, NodeJS.Timeout>();
   private readonly rates = new Map<string, RateEntry>();
   private initialized: Promise<void> | null = null;
@@ -480,7 +480,7 @@ export class IntakePrivateUploadService {
 
   constructor(deps: IntakePrivateUploadDependencies = {}) {
     this.deps = deps;
-    this.directory = privateDirectoryFor(deps);
+    this.directory = deps.tempDir ? privateDirectoryFor(deps) : null;
     this.now = deps.now ?? Date.now;
     this.entropy = deps.randomBytes ?? randomBytes;
   }
@@ -493,6 +493,18 @@ export class IntakePrivateUploadService {
 
   private key(): Buffer {
     return createHash("sha256").update(this.secret(), "utf8").update(`:${VERSION}:aes-256-gcm`, "utf8").digest();
+  }
+
+  private db(): DbIntakePrivateUploadPersistence {
+    return this.deps.persistence ?? (this.dbPersistence ??= new DbIntakePrivateUploadPersistence({
+      secret: this.secret(),
+      now: this.now,
+    }));
+  }
+
+  private legacyDirectory(): string {
+    if (!this.directory) throw new Error("Filesystem upload storage is enabled only for explicit test factories.");
+    return this.directory;
   }
 
   private keyedHash(value: string): string {
@@ -521,18 +533,19 @@ export class IntakePrivateUploadService {
 
   private idPath(id: string, suffix: "bin" | "meta") {
     if (!ID_PATTERN.test(id)) throw uploadError(404);
-    return path.join(this.directory, `${id}.${suffix}`);
+    return path.join(this.legacyDirectory(), `${id}.${suffix}`);
   }
 
   private async ensureDirectory() {
-    await fs.mkdir(this.directory, { recursive: true, mode: 0o700 });
-    const stat = await fs.lstat(this.directory);
+    const directory = this.legacyDirectory();
+    await fs.mkdir(directory, { recursive: true, mode: 0o700 });
+    const stat = await fs.lstat(directory);
     if (!stat.isDirectory() || stat.isSymbolicLink()) throw new Error("Private intake upload directory is invalid.");
-    await fs.chmod(this.directory, 0o700);
+    await fs.chmod(directory, 0o700);
   }
 
   private async writePrivateFile(destination: string, contents: Buffer) {
-    const temporary = path.join(this.directory, `.${path.basename(destination)}.${this.entropy(12).toString("base64url")}.tmp`);
+    const temporary = path.join(this.legacyDirectory(), `.${path.basename(destination)}.${this.entropy(12).toString("base64url")}.tmp`);
     try {
       await fs.writeFile(temporary, contents, { mode: 0o600, flag: "wx" });
       await fs.chmod(temporary, 0o600);
@@ -545,6 +558,16 @@ export class IntakePrivateUploadService {
   }
 
   private async removePaths(id: string): Promise<void> {
+    if (!this.directory) {
+      const raw = await this.db().readMetadata(id).catch(() => null);
+      const token = raw && typeof raw === "object" ? (raw as { download_token?: unknown }).download_token : undefined;
+      if (typeof token === "string" && validOpaqueToken(token)) {
+        await this.db().delete({ id, download_token: token });
+      } else {
+        await this.db().deleteById(id);
+      }
+      return;
+    }
     const timer = this.expiryTimers.get(id);
     if (timer) clearTimeout(timer);
     this.expiryTimers.delete(id);
@@ -592,6 +615,24 @@ export class IntakePrivateUploadService {
 
   private async readMetadata(id: string): Promise<StoredMetadata | null> {
     if (!ID_PATTERN.test(id)) return null;
+    if (!this.directory) {
+      try {
+        const record = await this.db().readMetadata(id);
+        if (!record || !this.metadataIsValid(record, id)) {
+          if (record) await this.db().deleteById(id).catch(() => undefined);
+          return null;
+        }
+        if (record.expires_at <= this.now()) {
+          await this.db().delete(record).catch(() => undefined);
+          return null;
+        }
+        return record;
+      } catch {
+        // Database/decryption/serialization errors must never make a private file available.
+        await this.db().deleteById(id).catch(() => undefined);
+        return null;
+      }
+    }
     let encrypted: Buffer;
     try {
       const stat = await fs.lstat(this.idPath(id, "meta"));
@@ -619,7 +660,7 @@ export class IntakePrivateUploadService {
   }
 
   private async allRecordIds(): Promise<string[]> {
-    const entries = await fs.readdir(this.directory, { withFileTypes: true });
+    const entries = await fs.readdir(this.legacyDirectory(), { withFileTypes: true });
     const ids: string[] = [];
     const dataIds = new Set<string>();
     for (const entry of entries) {
@@ -627,7 +668,7 @@ export class IntakePrivateUploadService {
       if (!match || !entry.isFile()) {
         // Only this module owns this directory. Remove abandoned atomics, symlinks, and unknown
         // files so an attacker cannot make the private volume accumulate unbounded junk.
-        await fs.unlink(path.join(this.directory, entry.name)).catch(() => undefined);
+        await fs.unlink(path.join(this.legacyDirectory(), entry.name)).catch(() => undefined);
         continue;
       }
       if (match[2] === "meta") ids.push(match[1]);
@@ -640,6 +681,23 @@ export class IntakePrivateUploadService {
   }
 
   private async listRecords(): Promise<StoredMetadata[]> {
+    if (!this.directory) {
+      const records: StoredMetadata[] = [];
+      for (const raw of await this.db().listMetadata()) {
+        const id = raw && typeof raw === "object" ? (raw as { id?: unknown }).id : undefined;
+        if (typeof id !== "string" || !ID_PATTERN.test(id) || !this.metadataIsValid(raw, id)) {
+          if (typeof id === "string" && ID_PATTERN.test(id)) await this.db().deleteById(id).catch(() => undefined);
+          continue;
+        }
+        const record = raw as StoredMetadata;
+        if (record.expires_at <= this.now()) {
+          await this.db().delete(record).catch(() => undefined);
+          continue;
+        }
+        records.push(record);
+      }
+      return records;
+    }
     const records: StoredMetadata[] = [];
     for (const id of await this.allRecordIds()) {
       const record = await this.readMetadata(id);
@@ -650,6 +708,12 @@ export class IntakePrivateUploadService {
 
   private async initializeInternal() {
     this.secret();
+    if (!this.directory) {
+      // The shared store enforces absolute expiry on reads. Cleanup is deliberately invoked by
+      // the application's native scheduler, not a process-local interval or startup sweep.
+      this.db();
+      return;
+    }
     await this.ensureDirectory();
     for (const record of await this.listRecords()) this.scheduleExpiry(record.id, record.expires_at);
   }
@@ -660,6 +724,7 @@ export class IntakePrivateUploadService {
   }
 
   private async exclusive<T>(operation: () => Promise<T>): Promise<T> {
+    if (!this.directory) return this.db().withLock(operation);
     let release: (() => void) | undefined;
     const next = new Promise<void>(resolve => { release = resolve; });
     const previous = this.mutation;
@@ -767,16 +832,20 @@ export class IntakePrivateUploadService {
         created_at: createdAt,
         expires_at: createdAt + TTL_MS,
       };
-      const encryptedBytes = this.encrypt(prepared.bytes, `data:${id}`);
-      const encryptedMetadata = this.encrypt(Buffer.from(JSON.stringify(record), "utf8"), `metadata:${id}`);
-      try {
-        await this.writePrivateFile(this.idPath(id, "bin"), encryptedBytes);
-        await this.writePrivateFile(this.idPath(id, "meta"), encryptedMetadata);
-      } catch (error) {
-        await this.removePaths(id).catch(() => undefined);
-        throw error;
+      if (!this.directory) {
+        await this.db().write(record, prepared.bytes);
+      } else {
+        const encryptedBytes = this.encrypt(prepared.bytes, `data:${id}`);
+        const encryptedMetadata = this.encrypt(Buffer.from(JSON.stringify(record), "utf8"), `metadata:${id}`);
+        try {
+          await this.writePrivateFile(this.idPath(id, "bin"), encryptedBytes);
+          await this.writePrivateFile(this.idPath(id, "meta"), encryptedMetadata);
+        } catch (error) {
+          await this.removePaths(id).catch(() => undefined);
+          throw error;
+        }
+        this.scheduleExpiry(id, record.expires_at);
       }
-      this.scheduleExpiry(id, record.expires_at);
       return {
         upload_id: id,
         file_name: record.file_name,
@@ -796,6 +865,11 @@ export class IntakePrivateUploadService {
 
   private async decryptedBytes(record: StoredMetadata): Promise<Buffer> {
     try {
+      if (!this.directory) {
+        const bytes = await this.db().readBytes(record.id);
+        if (!bytes || bytes.length !== record.byte_length) throw new Error("Unexpected byte length.");
+        return bytes;
+      }
       const encrypted = await fs.readFile(this.idPath(record.id, "bin"));
       const bytes = this.decrypt(encrypted, `data:${record.id}`);
       if (bytes.length !== record.byte_length) throw new Error("Unexpected byte length.");
@@ -817,10 +891,36 @@ export class IntakePrivateUploadService {
     await this.removePaths(id);
   }
 
+  /** Invoked by an application-native scheduler; this module never starts a DB cleanup timer. */
+  async cleanup(): Promise<{ deleted: number }> {
+    await this.initialize();
+    if (!this.directory) return this.db().cleanup();
+    let deleted = 0;
+    for (const record of await this.listRecords()) {
+      if (record.expires_at <= this.now()) {
+        await this.removePaths(record.id);
+        deleted += 1;
+      }
+    }
+    return { deleted };
+  }
+
   async download(capability: string): Promise<{ bytes: Buffer; fileName: string; mimeType: StoredMime } | null> {
     await this.initialize();
     if (!validOpaqueToken(capability)) return null;
     const candidateHash = this.keyedHash(capability);
+    if (!this.directory) {
+      return this.exclusive(async () => {
+        const raw = await this.db().findByCapability(capability);
+        const id = raw && typeof raw === "object" ? (raw as { id?: unknown }).id : undefined;
+        if (typeof id !== "string" || !this.metadataIsValid(raw, id)) return null;
+        const record = raw as StoredMetadata;
+        if (record.expires_at <= this.now()
+          || !constantTimeEqual(record.download_token_hash, candidateHash)
+          || !constantTimeEqual(record.download_token, capability)) return null;
+        return { bytes: await this.decryptedBytes(record), fileName: record.file_name, mimeType: record.mime_type };
+      });
+    }
     // listRecords removes incomplete/orphaned atomic-write files. Hold the same process-local
     // mutation gate used by upload so a capability read cannot mistake a just-created .bin or
     // transient .tmp for an abandoned record between the two atomic writes.
@@ -980,4 +1080,9 @@ export async function resolveIntakeUploads(
   labsAnswerYes: boolean,
 ): Promise<ResolvedIntakeUploads> {
   return service().resolve(req, refs, labsAnswerYes);
+}
+
+/** Application-native scheduled cleanup entrypoint for the default encrypted DB backend. */
+export async function cleanupIntakePrivateUploads(): Promise<{ deleted: number }> {
+  return service().cleanup();
 }
