@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const lpHrt3Path = "client/src/pages/LpHrt3.tsx";
@@ -116,6 +121,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
@@ -199,7 +205,7 @@ describe("homepage-only MSCP credential", () => {
     );
   });
 
-  it("leaves all other production sources unchanged, including LP HRT3, masterclass, and V2 outside the one approved full doctor heading", () => {
+  it("leaves all other production sources unchanged, including LP HRT3, masterclass, and V2 outside the one approved full doctor heading and separately verified thank-you copy", () => {
     expect(read(lpHrt3Path)).toBe(atBaseline(lpHrt3Path));
     expect(read(masterclassProfilePath)).toBe(atBaseline(masterclassProfilePath));
     expect(normalizeApprovedV2SectionOrder(v2PagePath, read(v2PagePath))).toBe(atBaseline(v2PagePath));

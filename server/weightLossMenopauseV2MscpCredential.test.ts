@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
@@ -120,6 +125,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
@@ -187,7 +193,7 @@ describe("Weight-Loss & Menopause V2 MSCP credential", () => {
     );
   });
 
-  it("leaves every other production source at 46eba676fce14a593bef9515b3eb0f270d6ab129", () => {
+  it("leaves every other production source at 46eba676fce14a593bef9515b3eb0f270d6ab129 apart from separately verified thank-you copy", () => {
     expect(changedProductionFiles()).toEqual([doctorBioPath]);
   });
 });

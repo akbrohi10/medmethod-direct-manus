@@ -84,7 +84,6 @@ describe("optional video visit confirmation client", () => {
     expect(source).toContain('mmd_free_intake_receipt');
     expect(page).toContain("Complete your free intake to get started");
     expect(page).toContain('href="/intake/"');
-    expect(page).not.toContain("Dr. Al-Deek");
     expect(page).not.toContain("$49 safety net");
     expect(page).toContain("Prefer a face-to-face conversation?");
     expect(page).toContain("Add a Zoom video visit with a doctor specializing in medical weight loss — <strong>$97.</strong>");
@@ -97,12 +96,13 @@ describe("optional video visit confirmation client", () => {
     expect(source).toContain('const VIDEO_VISIT_AMOUNT = "97.00"');
     expect(source).toContain('aria-label=\\"Pay $97 with Apple Pay\\"');
     expect(source).toContain('total: { label: "MedMethod Direct", amount: VIDEO_VISIT_AMOUNT, type: "final" }');
-    expect(page).toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
+    expect(page).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(page).toContain('<strong id="care-message-title">Check your text messages</strong>');
-    expect(page).toContain("Look for a text from MedMethod Direct. Open it and reply to start chatting with our Care Team or a doctor.");
+    expect(page).toContain("You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!");
+    expect(page).toContain("Upload or update your info in the Patient Portal");
+    expect(page).toContain("Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.");
     expect(page).not.toContain("Doctor-led weight-care review");
     expect(page).not.toContain("Your intake is free.");
-    expect(page.indexOf('PatientPortalMenuHighlights_5e7b0fd0.png')).toBeLessThan(page.indexOf('id="video-visit-card"'));
     expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
     expect(page).toContain('class="start-over" href="/intake/">Start over</a>');
     expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>');

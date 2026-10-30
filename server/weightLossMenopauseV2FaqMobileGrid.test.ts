@@ -29,6 +29,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const faqComponentPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const faqDataPath = "client/src/pages/WeightLossMenopauseV2FaqData.ts";
@@ -224,6 +229,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => !approvedMasterclassFinalFaqPaths.has(file) && file !== "client/src/pages/Masterclass2.tsx")
     .filter(file => normalizeApprovedV2HeroFontAppend(
       file,
@@ -383,7 +389,7 @@ describe("Weight-Loss & Menopause V2 mobile FAQ chip grid", () => {
     expect(appended).not.toMatch(/(?:font|color|border-radius|aria-selected|sticky|position)\s*:/);
   });
 
-  it("leaves every production source byte-identical to 94e43fdc except the approved FAQ stylesheet append", () => {
+  it("leaves every production source byte-identical to 94e43fdc except the approved FAQ stylesheet append and separately verified thank-you copy", () => {
     for (const file of explicitUnchangedSources) {
       expect(
         file === faqComponentPath ? normalizeApprovedV2FaqFirstThreeOpen(read(file)) : normalizeApprovedV2SectionOrder(file, read(file)),

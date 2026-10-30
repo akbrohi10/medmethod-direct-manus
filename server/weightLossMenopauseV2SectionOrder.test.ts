@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
 const faqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
 const medicationPricingStart = '<section className="medication-pricing"';
@@ -164,7 +169,7 @@ describe("Weight-Loss & Menopause V2 approved section order", () => {
     expect(restoreApprovedMedicationEstimatorOrder(page)).toBe(baselinePage);
   });
 
-  it("changes no production source other than the approved V2 page move", () => {
+  it("changes no production source other than the approved V2 page move and separately verified thank-you copy", () => {
     const changedProductionFiles = execFileSync(
       "git",
       ["diff", "--name-only", baseline, "--", "client", "server", "shared"],
@@ -174,6 +179,7 @@ describe("Weight-Loss & Menopause V2 approved section order", () => {
       .filter(Boolean)
       .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
       .filter(file => !approvedWeightCareRegressionPaths.has(file))
+      .filter(file => !approvedThankYouNextStepsPaths.has(file))
       .filter(file => normalizeApprovedHomepageFamilyPhysicianCredential(file, read(file)) !== atBaseline(file));
 
     expect(changedProductionFiles).toEqual([pagePath]);

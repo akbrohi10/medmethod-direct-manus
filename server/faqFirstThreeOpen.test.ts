@@ -29,6 +29,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const masterclassFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const v2FaqPath = "client/src/pages/WeightLossMenopauseV2Faq.tsx";
@@ -273,7 +278,7 @@ describe("FAQ first-three-open behavior", () => {
     expect(defaultOpenIds).toHaveLength(18);
   });
 
-  it("changes no production source from 9c65e262 except the two authorized FAQ components and the exact reversible MSCP doctor-bio pill", () => {
+  it("changes no production source from 9c65e262 except the authorized FAQ components, the exact reversible MSCP doctor-bio pill, and separately verified thank-you copy", () => {
     const changedProductionFiles = execFileSync(
       "git",
       ["diff", "--name-only", BASELINE, "--", "client", "server", "shared"],
@@ -283,6 +288,7 @@ describe("FAQ first-three-open behavior", () => {
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
       .filter(path => !approvedWeightCareRegressionPaths.has(path))
+      .filter(path => !approvedThankYouNextStepsPaths.has(path))
       .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path)))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([...approvedComponentPaths, v2DoctorBioPath].sort());

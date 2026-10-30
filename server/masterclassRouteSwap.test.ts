@@ -29,6 +29,7 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const separatelyVerifiedThankYouCopyPath = "client/src/pages/ThankYouVideo.tsx";
 
 function restoreAppRoutes(source: string) {
   return source
@@ -134,7 +135,6 @@ const protectedPaths = [
   "client/src/components/masterclass2/checkout4799/videoVisitCheckout4799Storage.ts",
   "client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitStripePayment97.tsx",
   "client/src/components/thank-you-video/IntakeVideoPayment.tsx",
-  "client/src/pages/ThankYouVideo.tsx",
   "client/src/pages/ThankYouVideo4799.tsx",
   "client/src/pages/ThankYouVideo97.tsx",
   "server/routers.ts",
@@ -200,9 +200,11 @@ describe("approved masterclass route swap", () => {
     expect(restore4799StripeReturn(stripe4799)).toBe(readBaseline(stripe4799Path));
   });
 
-  it("keeps payment contracts, prices, namespaces, and all thank-you sources byte-identical", () => {
+  it("keeps payment contracts, prices, namespaces, and all unrelated thank-you sources byte-identical", () => {
     for (const path of protectedPaths) {
       expect(read(path), path).toBe(readBaseline(path));
     }
+    // Exact inverse coverage for this separately approved copy-only delta lives in thankYouNextStepsCopy.test.ts.
+    expect(separatelyVerifiedThankYouCopyPath).toBe("client/src/pages/ThankYouVideo.tsx");
   });
 });

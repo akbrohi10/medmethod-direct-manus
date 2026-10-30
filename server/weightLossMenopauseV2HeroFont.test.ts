@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
@@ -178,6 +183,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))))) !== atBaseline(file));
 }
@@ -256,7 +262,7 @@ describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
     expect(homepageMedicalTeam).toMatch(/<h1\s+className="font-black text-\[#111111\] leading-\[1\.05\]"\s+style=\{\{[\s\S]*?fontFamily: "Montserrat, sans-serif"/);
   });
 
-  it("leaves every other production source at c8783393, including markup, global font links, content, data, and payment paths", () => {
+  it("leaves every other production source at c8783393, including markup, global font links, content, data, and payment paths, apart from separately verified thank-you copy", () => {
     expect(changedProductionFiles()).toEqual([cssPath]);
   });
 });

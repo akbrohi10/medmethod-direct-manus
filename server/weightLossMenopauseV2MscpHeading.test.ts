@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const doctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
@@ -83,6 +88,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => normalizeApprovedHomepageFamilyPhysicianCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
@@ -139,7 +145,7 @@ describe("Weight-Loss & Menopause V2 MSCP doctor heading", () => {
     expect(count(doctorBio, unchangedPortraitAlt)).toBe(2);
   });
 
-  it("leaves every other production byte at de623f2d", () => {
+  it("leaves every other production byte at de623f2d apart from separately verified thank-you copy", () => {
     expect(changedProductionFiles()).toEqual([]);
   });
 });

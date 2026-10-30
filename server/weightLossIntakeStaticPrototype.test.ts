@@ -371,7 +371,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intake).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(intakeThankYou).toContain("What happens next");
     expect(intakeThankYou).toContain("Check your email &amp; create your account");
-    expect(intakeThankYou).toContain("Complete your Account Details &amp; Required Forms");
+    expect(intakeThankYou).toContain("Upload or update your info in the Patient Portal");
     expect(intakeThankYou).toContain("confirmation-next-steps");
   });
 
@@ -388,10 +388,13 @@ describe("Weight-loss intake static prototype import", () => {
     expect(intakeThankYou).not.toContain("Doctor-led weight-care review");
     expect(intakeThankYou).toContain("Check your email &amp; create your account");
     expect(intakeThankYou).toContain("Look for our welcome email with your Patient Portal link.");
-    expect(intakeThankYou).toContain("Complete your Account Details &amp; Required Forms");
-    expect(intakeThankYou).toContain("On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.");
-    expect(intakeThankYou).toContain("/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png");
-    expect(intakeThankYou).toContain('alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted"');
+    expect(intakeThankYou).toContain("You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!");
+    expect(intakeThankYou).toContain("Upload or update your info in the Patient Portal");
+    expect(intakeThankYou).toContain("Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.");
+    expect(intakeThankYou).not.toContain("Complete your Account Details &amp; Required Forms");
+    expect(intakeThankYou).not.toContain("On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.");
+    expect(intakeThankYou).not.toContain("/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png");
+    expect(intakeThankYou).not.toContain('alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted"');
     expect(intakeThankYou).toContain("Complete the portal steps above so the Care Team can help with the next steps in your care.");
     expect(intakeThankYou).toContain('href="tel:+18883627011"');
     expect(intakeThankYou).toContain('href="/intake/"');

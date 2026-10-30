@@ -147,7 +147,7 @@ const steps = [
     icon: UserPlus,
     label: "Step 2",
     title: "Create Your Patient Account",
-    description: "Check your email for your Patient Portal invite. Click the link to create your username and password, then complete your forms before your visit so Dr. Al-Deek can review your information ahead of time.",
+    description: "Check your email for your Patient Portal invite. Click the link to create your username and password, then upload or update your info so Dr. Al-Deek can review it before your visit.",
     color: BRAND_DEEP,
   },
   {

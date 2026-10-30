@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const profilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
 const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
@@ -112,6 +117,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
 
@@ -163,7 +169,7 @@ describe("Masterclass MSCP credential", () => {
     expect(profile.replace(approvedMscpCredentialLine, "")).toBe(atBaseline(profilePath));
   });
 
-  it("leaves every other production source unchanged since ad6831863ae44e57f573ac3ed4741d52fc47e33d", () => {
+  it("leaves every other production source unchanged since ad6831863ae44e57f573ac3ed4741d52fc47e33d, apart from separately verified thank-you copy", () => {
     expect(changedProductionFiles()).toEqual([profilePath]);
   });
 });

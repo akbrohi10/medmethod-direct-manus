@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const cssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
@@ -169,6 +174,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => !approvedFaqBehaviorComponentPaths.has(file))
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedAuditPriorityAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))))) !== atBaseline(file));
 }
@@ -229,7 +235,7 @@ describe("Weight-Loss & Menopause V2 desktop hero sizing", () => {
     expect(append).not.toContain(".hero-ampersand");
   });
 
-  it("leaves the entire pre-existing stylesheet, markup, and every other production source at 120cf596", () => {
+  it("leaves the entire pre-existing stylesheet, markup, and every other production source at 120cf596 apart from separately verified thank-you copy", () => {
     const css = cssWithoutApprovedAuditPriorityFixes();
     const markerIndex = css.indexOf(desktopHeroSizingMarker);
     const page = read(pagePath);

@@ -32,6 +32,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const componentPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
@@ -222,6 +227,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
     .filter(path => !approvedWeightCareRegressionPaths.has(path))
+    .filter(path => !approvedThankYouNextStepsPaths.has(path))
     .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path))))) !== atBaseline(path));
 }
 
@@ -408,7 +414,7 @@ describe("Masterclass small footer, FAQ, and mobile-bar fixes", () => {
     expect(unwrapApprovedShowAllConditional(component)).toBe(atBaseline(componentPath));
   });
 
-  it("leaves every V2 source and FinalFaq stylesheet byte-identical and changes no production source outside the approved page and FAQ component", () => {
+  it("leaves every V2 source and FinalFaq stylesheet byte-identical and changes no production source outside the approved page, FAQ component, and separately verified thank-you copy", () => {
     expect(read(cssPath)).toBe(atBaseline(cssPath));
     for (const path of v2ProductionPaths()) {
       expect(normalizeApprovedV2HeroFontAppend(path, normalizeApprovedV2SectionOrder(path, read(path))), path).toBe(atBaseline(path));

@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const lpHrt3Path = "client/src/pages/LpHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
@@ -87,7 +92,8 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
-    .filter(file => !approvedWeightCareRegressionPaths.has(file));
+    .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file));
 }
 
 describe("homepage-only Family Physician credential", () => {
@@ -158,7 +164,7 @@ describe("homepage-only Family Physician credential", () => {
     );
   });
 
-  it("leaves LP HRT3 and every other production source unchanged", () => {
+  it("leaves LP HRT3 and every other production source unchanged apart from separately verified thank-you copy", () => {
     expect(read(lpHrt3Path)).toBe(atBaseline(lpHrt3Path));
     expect(changedProductionFiles()).toEqual([medicalTeamPath, homePath]);
   });

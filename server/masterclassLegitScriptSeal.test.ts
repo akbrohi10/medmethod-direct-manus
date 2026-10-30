@@ -26,6 +26,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const pagePath = "client/src/pages/Masterclass2.tsx";
 const finalFaqPath = "client/src/components/masterclass2/FinalFaq.tsx";
 const masterclassProfilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
@@ -352,7 +357,7 @@ describe("Masterclass LegitScript footer seal", () => {
     expect(image).toContain("sm:w-[73px]");
   });
 
-  it("leaves every production source other than the authorized Masterclass page and conditionally updated FinalFaq unchanged from ea6bf90f", () => {
+  it("leaves every production source other than authorized Masterclass, FinalFaq, and separately verified thank-you copy paths unchanged from ea6bf90f", () => {
     const changedProductionFiles = execFileSync(
       "git",
       ["diff", "--name-only", BASELINE, "--", "client", "server", "shared"],
@@ -362,6 +367,7 @@ describe("Masterclass LegitScript footer seal", () => {
       .filter(Boolean)
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
       .filter(path => !approvedWeightCareRegressionPaths.has(path))
+      .filter(path => !approvedThankYouNextStepsPaths.has(path))
       .filter(path => normalizeApprovedHomepageMscpCredential(path, normalizeApprovedV2HeroFontAppend(path, normalizeApprovedMasterclassMscpCredential(path, normalizeApprovedV2SectionOrder(path, read(path))))) !== atBaseline(path));
 
     expect(changedProductionFiles).toEqual([

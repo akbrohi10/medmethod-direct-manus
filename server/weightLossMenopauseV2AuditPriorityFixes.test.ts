@@ -28,6 +28,11 @@ const approvedWeightCareRegressionPaths = new Set([
   "server/intakeTestAuthorization.ts",
   "shared/intakeSignForms.json",
 ]);
+// Exact inverse coverage for these separately approved copy-only deltas lives in thankYouNextStepsCopy.test.ts.
+const approvedThankYouNextStepsPaths = new Set([
+  "client/intake/thank-you/index.html",
+  "client/src/pages/ThankYouVideo.tsx",
+]);
 const heroCssPath = "client/src/pages/WeightLossMenopauseV2.css";
 const faqCssPath = "client/src/pages/WeightLossMenopauseV2Faq.css";
 const pagePath = "client/src/pages/WeightLossMenopauseV2.tsx";
@@ -212,6 +217,7 @@ function changedProductionFiles(): string[] {
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
+    .filter(file => !approvedThankYouNextStepsPaths.has(file))
     .filter(file => file !== faqComponentPath && file !== masterclassFaqComponentPath)
     .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedMasterclassMscpCredential(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
 }
@@ -308,7 +314,7 @@ describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
     expect(doctorBio).toContain('<strong className="doctor-bio-book">The Menopause Weight Loss Trap</strong>');
   });
 
-  it("leaves every other production file, including page copy, pricing, links, and payment paths, at the 62bec055 baseline", () => {
+  it("leaves every other production file, including page copy, pricing, links, and payment paths, at the 62bec055 baseline apart from separately verified thank-you copy", () => {
     expect(changedProductionFiles()).toEqual([heroCssPath, doctorBioPath, faqCssPath]);
     expect(normalizeApprovedV2SectionOrder(pagePath, read(pagePath))).toBe(atBaseline(pagePath));
     expect(read("shared/treatmentCatalog.json")).toBe(atBaseline("shared/treatmentCatalog.json"));
