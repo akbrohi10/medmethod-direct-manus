@@ -20,6 +20,8 @@ const newStaticStep3 = "Upload or update your info in the Patient Portal";
 const oldStaticStep3Description = "On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.";
 const newStaticStep3Description = "Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.";
 const removedPortalGuide = `        <figure class="portal-guide">\n          <img src="/manus-storage/PatientPortalMenuHighlights_5e7b0fd0.png" alt="Patient Portal menu with My Account Details and Forms and Questionnaires highlighted" />\n        </figure>\n\n`;
+const oldVideoVisitLoader = '<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>';
+const newVideoVisitLoader = '<script src="/intake/video-visit.js?v=intake-video-97-20261030-step1"></script>';
 const oldVideoStep2 = "Check your email for your Patient Portal invite. Click the link to create your username and password, then complete your forms before your visit so Dr. Al-Deek can review your information ahead of time.";
 const newVideoStep2 = "Check your email for your Patient Portal invite. Click the link to create your username and password, then upload or update your info so Dr. Al-Deek can review it before your visit.";
 
@@ -45,7 +47,7 @@ describe("approved thank-you next steps copy", () => {
       '<button class="secondary" id="recover-video-payment" type="button">Check payment confirmation</button>',
       '<section class="checkout" id="video-checkout"',
       '<a class="start-over" href="/intake/">Start over</a>',
-      '<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>',
+      newVideoVisitLoader,
       '.portal-guide { margin: 28px auto 22px; }',
       '.portal-guide img { display: block;',
     ]) expect(staticThankYou).toContain(text);
@@ -56,7 +58,8 @@ describe("approved thank-you next steps copy", () => {
       .replace(oldStaticStep1, newStaticStep1)
       .replace(oldStaticStep3, newStaticStep3)
       .replace(oldStaticStep3Description, newStaticStep3Description)
-      .replace(removedPortalGuide, "");
+      .replace(removedPortalGuide, "")
+      .replace(oldVideoVisitLoader, newVideoVisitLoader);
 
     expect(staticThankYou).toBe(expected);
   });

@@ -511,8 +511,8 @@
     if (receipt.sms_opt_in) return;
     const title = byId("care-message-title");
     const copy = byId("care-message-copy");
-    if (title) title.textContent = "Use your secure Patient Portal";
-    if (copy) copy.textContent = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms.";
+    if (title) title.textContent = "Check your text messages";
+    if (copy) copy.textContent = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
   }
 
   function initializePage() {

@@ -105,9 +105,10 @@ describe("optional video visit confirmation client", () => {
     expect(page).not.toContain("Your intake is free.");
     expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
     expect(page).toContain('class="start-over" href="/intake/">Start over</a>');
-    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>');
-    expect(source).toContain('title.textContent = "Use your secure Patient Portal"');
-    expect(source).toContain('copy.textContent = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms."');
+    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261030-step1"></script>');
+    expect(source).toContain('if (receipt.sms_opt_in) return;');
+    expect(source).toContain('title.textContent = "Check your text messages"');
+    expect(source).toContain('copy.textContent = "You should have received a text from MedMethod Direct, or you\'ll receive one shortly. Please reply to our message so we can stay connected!"');
   });
 
   it("posts only the submission token and approved payment method to the optional PayPal order API", async () => {
