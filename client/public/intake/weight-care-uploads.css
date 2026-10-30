@@ -131,3 +131,71 @@
   .scale-example figcaption { color: #84cbc7; }
   .upload-error { color: #ffb4ab; }
 }
+
+/* Scale photo screen only — permanent example, wrapping and stacked actions. */
+.stage.scale-photo-stage,
+.scale-photo,
+.scale-photo > * {
+  min-width: 0;
+  box-sizing: border-box;
+}
+.stage.scale-photo-stage > h1,
+.stage.scale-photo-stage > .lede,
+.scale-photo > p {
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.scale-photo {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+}
+.scale-photo .scale-example {
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+}
+.scale-photo .scale-example img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.scale-photo > .upload-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+.scale-photo > .upload-actions > .primary {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  white-space: normal;
+}
+.scale-photo .scale-skip-link {
+  align-self: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  background: transparent;
+  color: #075c5c;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.scale-photo .scale-skip-link:focus-visible {
+  outline: 3px solid #0e7c7b;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.scale-photo .scale-skip-link:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+@media (prefers-color-scheme: dark) {
+  .scale-photo .scale-skip-link { color: #84cbc7; }
+}

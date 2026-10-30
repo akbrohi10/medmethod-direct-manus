@@ -6,6 +6,7 @@ import express, { type Express, type NextFunction, type Request, type Response }
 import sharp from "sharp";
 import { ENV } from "./_core/env";
 import { DbIntakePrivateUploadPersistence } from "./intakePrivateUploadDb";
+import { registerIntakeScaleExampleAsset } from "./intakeScaleExampleAsset";
 
 /**
  * Private intake file store.
@@ -1067,6 +1068,7 @@ function service(): IntakePrivateUploadService {
 /** Register browser and Keragon capability routes. Called by registerIntakePaymentRoutes. */
 export function registerIntakePrivateUploadRoutes(app: Express) {
   service().register(app);
+  registerIntakeScaleExampleAsset(app);
 }
 
 /**
