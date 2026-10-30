@@ -79,7 +79,7 @@ describe("local intake handoff client", () => {
     const component = intake.slice(intake.indexOf("function MmdPhoneVerification({"), intake.indexOf("function N(", intake.indexOf("function MmdPhoneVerification({")));
     expect(component).toContain("mmdSettingsRef=(0,l.useRef)(o)");
     expect(component).not.toContain("M=(0,l.useRef)(o)");
-    expect(rootComponent).toContain("if(!screen||!se(screen,answers,demo)||submittingRef.current||uploadBusy)return");
+    expect(rootComponent).toContain('if(!screen||!se(screen,answers,demo)||submittingRef.current||uploadBusy||["signForms","consent"].includes(screen.type)&&!formsReady)return');
     expect(rootComponent).toContain("if(!MmdIntakePhoneReady(answers,demo))");
   });
 });

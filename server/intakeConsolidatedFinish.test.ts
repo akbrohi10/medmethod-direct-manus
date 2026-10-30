@@ -23,8 +23,9 @@ describe("consolidated local intake finish", () => {
   }
 
   it("removes both mandatory review screens and separate checkout only from visible navigation", () => {
-    expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[0], screens[1], screens[6]]);
-    expect(helpers().MmdIntakeFlowScreens({ videoVisitInterest: true })).toEqual([screens[0], screens[1], screens[6]]);
+    const signingScreen = { id: "wSignForms", route: "w", type: "signForms", required: true, section: "Sign your forms", question_text: "Sign your forms", helper_text: "Please review and sign. This takes about a minute." };
+    expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[0], signingScreen, screens[1], screens[6]]);
+    expect(helpers().MmdIntakeFlowScreens({ videoVisitInterest: true })).toEqual([screens[0], signingScreen, screens[1], screens[6]]);
     expect(app).toContain('()=>MmdIntakeFlowScreens(answers)');
     for (const type of ['"type":"wReview"', '"type":"planReview"', '"type":"checkout"']) expect(intake).toContain(type);
     expect(intake).toContain('function w(e,t){return x(e).filter(e=>re(e,t))}');

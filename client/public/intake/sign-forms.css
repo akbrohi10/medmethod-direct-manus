@@ -1,0 +1,193 @@
+/* Sign Forms — standalone styles for the existing intake palette. */
+.sign-forms{
+  --mmd-sign-ink:#1f2937;
+  --mmd-sign-heading:#113a3a;
+  --mmd-sign-muted:#59656f;
+  --mmd-sign-teal:#0e7c7b;
+  --mmd-sign-teal-deep:#075c5c;
+  --mmd-sign-line:#d7e1dd;
+  --mmd-sign-surface:#fff;
+  color:var(--mmd-sign-ink);
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  font:400 17px/1.6 Montserrat,Arial,sans-serif;
+}
+.sign-forms *{box-sizing:border-box}
+.sign-forms fieldset{
+  min-width:0;
+  border:0;
+  margin:0;
+  padding:0;
+}
+.sign-forms legend{
+  color:var(--mmd-sign-heading);
+  margin:0 0 15px;
+  padding:0;
+  font:700 1.25rem/1.35 Montserrat,Arial,sans-serif;
+}
+.sign-forms .sign-forms-documents{margin:0 0 35px}
+.sign-forms-document-list{display:grid;gap:13px}
+.sign-forms-document{
+  background:var(--mmd-sign-surface);
+  border:1.5px solid var(--mmd-sign-line);
+  border-radius:12px;
+  overflow:hidden;
+}
+.sign-forms-document[open]{border-color:var(--mmd-sign-teal)}
+.sign-forms-document summary{
+  color:var(--mmd-sign-heading);
+  cursor:pointer;
+  padding:19px 52px 19px 19px;
+  position:relative;
+  font:700 18px/1.4 Montserrat,Arial,sans-serif;
+  list-style:none;
+}
+.sign-forms-document summary::-webkit-details-marker{display:none}
+.sign-forms-document summary::after{
+  content:"+";
+  color:var(--mmd-sign-teal-deep);
+  position:absolute;
+  top:50%;
+  right:19px;
+  font:500 28px/1 Montserrat,Arial,sans-serif;
+  transform:translateY(-52%);
+}
+.sign-forms-document[open] summary::after{content:"−"}
+.sign-forms-document summary:focus-visible,
+.sign-forms-read-notice:focus-visible,
+.sign-forms-clear:focus-visible,
+.sign-forms input:focus-visible{
+  outline:3px solid var(--mmd-sign-teal);
+  outline-offset:3px;
+}
+.sign-forms-document-body{
+  border-top:1px solid var(--mmd-sign-line);
+  padding:19px;
+}
+.sign-forms-document-copy{color:var(--mmd-sign-muted)}
+.sign-forms-document-copy h3{
+  color:var(--mmd-sign-heading);
+  margin:0 0 10px;
+  font:700 18px/1.4 Montserrat,Arial,sans-serif;
+}
+.sign-forms-document-copy p,
+.sign-forms-document-copy ul,
+.sign-forms-document-copy ol{margin:0 0 16px}
+.sign-forms-document-copy p,
+.sign-forms-document-copy li{font-size:17px;line-height:1.65}
+.sign-forms-document-copy ul,
+.sign-forms-document-copy ol{padding-left:25px}
+.sign-forms-document-copy li+li{margin-top:8px}
+.sign-forms-read-notice,
+.sign-forms-clear{
+  color:var(--mmd-sign-teal-deep);
+  cursor:pointer;
+  background:transparent;
+  border:0;
+  padding:2px 0;
+  font:700 17px/1.45 Montserrat,Arial,sans-serif;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.sign-forms-read-notice{margin:0 0 16px}
+.sign-forms-checkline{
+  color:var(--mmd-sign-ink);
+  cursor:pointer;
+  align-items:flex-start;
+  gap:12px;
+  margin:18px 0 0;
+  font:500 17px/1.55 Montserrat,Arial,sans-serif;
+  display:flex;
+}
+.sign-forms-checkline input{
+  accent-color:var(--mmd-sign-teal);
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  margin:3px 0 0;
+}
+.sign-forms .sign-forms-signature-fields{
+  border-top:1px solid var(--mmd-sign-line);
+  padding-top:31px;
+}
+.sign-forms-fields-grid{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(150px,.6fr);
+  align-items:end;
+  gap:18px;
+  display:grid;
+}
+.sign-forms-field{gap:8px;display:grid}
+.sign-forms-field>span{
+  color:var(--mmd-sign-heading);
+  font:700 17px/1.4 Montserrat,Arial,sans-serif;
+}
+.sign-forms input[type="text"]{
+  color:var(--mmd-sign-ink);
+  background:var(--mmd-sign-surface);
+  border:1.5px solid var(--mmd-sign-line);
+  border-radius:9px;
+  width:100%;
+  min-height:55px;
+  padding:13px 15px;
+  font:400 17px/1.4 Montserrat,Arial,sans-serif;
+}
+.sign-forms input[type="text"]:focus{
+  border-color:var(--mmd-sign-teal);
+  box-shadow:0 0 0 3px rgb(14 124 123 / 15%);
+  outline:none;
+}
+.sign-forms input[readonly]{color:var(--mmd-sign-muted);cursor:default}
+.sign-forms-electronic-agreement{margin-top:25px}
+.sign-forms-signature-pad{margin-top:27px}
+.sign-forms-canvas-label{
+  color:var(--mmd-sign-heading);
+  margin:0 0 9px;
+  font:700 17px/1.4 Montserrat,Arial,sans-serif;
+  display:block;
+}
+.sign-forms-canvas{
+  touch-action:none;
+  cursor:crosshair;
+  color-scheme:light;
+  background:#fff !important;
+  border:1.5px solid var(--mmd-sign-line);
+  border-radius:10px;
+  width:100%;
+  height:280px;
+  display:block;
+}
+.sign-forms-canvas:focus-visible{outline:3px solid var(--mmd-sign-teal);outline-offset:3px}
+.sign-forms-clear{margin-top:11px}
+
+@media (min-width:721px){
+  .sign-forms-signature-pad{width:min(100%,600px)}
+}
+@media (max-width:720px){
+  .sign-forms{font-size:17px}
+  .sign-forms .sign-forms-documents{margin-bottom:30px}
+  .sign-forms-fields-grid{grid-template-columns:1fr}
+  .sign-forms-field-date{max-width:none}
+  .sign-forms-document summary{padding:17px 49px 17px 17px}
+  .sign-forms-document-body{padding:17px}
+  .sign-forms-canvas{height:280px}
+}
+@media (prefers-color-scheme:dark){
+  .sign-forms{
+    --mmd-sign-ink:#f7fbfa;
+    --mmd-sign-heading:#d8f0ed;
+    --mmd-sign-muted:#c9e4e1;
+    --mmd-sign-teal:#84cbc7;
+    --mmd-sign-teal-deep:#84cbc7;
+    --mmd-sign-line:#31514e;
+    --mmd-sign-surface:#102526;
+  }
+  .sign-forms-document[open]{border-color:#84cbc7}
+  .sign-forms-document summary::after{color:#84cbc7}
+  .sign-forms input[type="text"]{color:#f7fbfa;background:#102526}
+  .sign-forms input[type="text"]:focus{border-color:#b6e46e;box-shadow:0 0 0 3px rgb(182 228 110 / 18%)}
+  .sign-forms-canvas{background:#fff !important;border-color:#31514e}
+}
+@media (prefers-reduced-motion:reduce){
+  .sign-forms *{scroll-behavior:auto!important;transition:none!important}
+}

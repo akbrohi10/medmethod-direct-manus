@@ -1,0 +1,678 @@
+// Exact source consent copy; no patient values or captured signatures.
+window.MmdSignFormDocuments = [
+  {
+    "id": "glp1",
+    "title": "GLP-1 Weight Care Consent",
+    "checkbox": "I have read and understand the GLP-1 Weight Care Consent, including the risks, and I consent to evaluation for GLP-1 treatment.",
+    "content": [
+      {
+        "tag": "h3",
+        "text": "How GLP-1 medications work"
+      },
+      {
+        "tag": "p",
+        "text": "GLP-1 medications (such as semaglutide and tirzepatide) act on hormones that regulate appetite, digestion, and blood sugar. They can help you feel full sooner, reduce cravings, and support weight loss when combined with nutrition and activity changes. Results vary from person to person. your doctor will review your health history to determine whether a GLP-1 is appropriate for you, and if so, which medication and dose."
+      },
+      {
+        "tag": "h3",
+        "text": "Possible side effects"
+      },
+      {
+        "tag": "p",
+        "text": "Most side effects are digestive and tend to be strongest when starting treatment or increasing your dose. They can include nausea, vomiting, diarrhea, constipation, bloating, heartburn, stomach pain, reduced appetite, fatigue, headache, dizziness, and redness or irritation at the injection site. Staying hydrated, eating smaller meals, and increasing your dose gradually can help. Tell your doctor if side effects are severe or don't improve."
+      },
+      {
+        "tag": "h3",
+        "text": "Serious risks"
+      },
+      {
+        "tag": "p",
+        "text": "Although uncommon, GLP-1 medications can cause serious problems. Stop the medication and seek medical care right away if you experience:"
+      },
+      {
+        "tag": "p",
+        "text": "In animal studies, some GLP-1 medications caused thyroid C-cell tumors. It is not known whether this happens in people. GLP-1 medications should not be used if you or a family member has had medullary thyroid cancer (MTC) or Multiple Endocrine Neoplasia syndrome type 2 (MEN2). Tell your doctor about any lump or swelling in your neck, trouble swallowing, or persistent hoarseness."
+      },
+      {
+        "tag": "p",
+        "text": "If you have a medical emergency, call 911."
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Severe stomach pain that doesn't go away, with or without vomiting (possible pancreatitis)",
+          "Pain in the upper right abdomen, fever, yellowing of the skin or eyes, or clay-colored stools (possible gallbladder problems)",
+          "Signs of a serious allergic reaction, such as swelling of the face, lips, tongue, or throat, difficulty breathing, or a severe rash",
+          "Signs of low blood sugar, such as shakiness, sweating, confusion, or a fast heartbeat - especially if you also take insulin or a sulfonylurea",
+          "Decreased urination or signs of dehydration from ongoing vomiting or diarrhea, which can affect kidney function",
+          "Changes in vision, if you have diabetes",
+          "New or worsening depression, unusual changes in mood, or thoughts of self-harm"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Pregnancy, birth control, and procedures"
+      },
+      {
+        "tag": "p",
+        "text": "GLP-1 medications should not be used during pregnancy or while breastfeeding. If you are planning to become pregnant, talk with your doctor - some medications need to be stopped at least two months before trying to conceive. Some GLP-1 medications can make birth control pills less effective, particularly after starting or increasing a dose; your doctor may recommend a backup method. Because these medications slow digestion, tell any surgeon or anesthesia provider that you take a GLP-1 before any procedure that requires sedation or anesthesia."
+      },
+      {
+        "tag": "h3",
+        "text": "Compounded medications"
+      },
+      {
+        "tag": "p",
+        "text": "If a compounded medication is recommended, it is prepared by a licensed pharmacy based on your prescription. Compounded medications are not FDA-approved, which means the FDA has not reviewed them for safety, effectiveness, or quality in the same way as brand-name medications. Your doctor can explain the differences between compounded and brand-name options and help you choose what's right for you."
+      },
+      {
+        "tag": "h3",
+        "text": "Treatment expectations"
+      },
+      {
+        "tag": "p",
+        "text": "Medication is one part of your care. your doctor may recommend nutrition, activity, and lifestyle changes, regular check-ins, and dose adjustments based on how you respond. Weight may return if the medication is stopped. GLP-1 medications are intended for ongoing use under medical supervision - do not change your dose or share your medication with anyone else."
+      },
+      {
+        "tag": "h3",
+        "text": "Your responsibilities"
+      },
+      {
+        "tag": "p",
+        "text": "To keep your treatment safe, you agree to: provide complete and accurate health information, including all medications and supplements; report side effects or changes in your health promptly; let us know if you become pregnant; and complete follow-up check-ins when requested."
+      },
+      {
+        "tag": "h3",
+        "text": "Telehealth care"
+      },
+      {
+        "tag": "p",
+        "text": "Your care is provided through telehealth. Your doctor will rely on the information you provide and may request additional details, lab work, or a video visit before making a recommendation. Telehealth is not a substitute for emergency care or for in-person care when it is needed."
+      },
+      {
+        "tag": "h3",
+        "text": "Your choice"
+      },
+      {
+        "tag": "p",
+        "text": "Your first text visit is FREE and includes 7 days of follow-up messaging. Additional text visits are $29 each. Video visits are $97. Medication costs extra. A prescription is not guaranteed, and any prescribed medication is billed separately. Video visits are $97. You pay and pick a time after submitting your intake."
+      }
+    ]
+  },
+  {
+    "id": "general",
+    "title": "General Consent to Treatment",
+    "checkbox": "I have read and agree to the General Consent to Treatment.",
+    "content": [
+      {
+        "tag": "p",
+        "text": "This consent provides us with your permission to perform reasonable and necessary medical examinations, testing and treatment. By signing below, you are indicating that:"
+      },
+      {
+        "tag": "ol",
+        "items": [
+          "You consent to treatment at this office (or any other satellite office under common ownership).",
+          "You intend this consent to remain effective after a specific diagnosis has been made and treatment recommended."
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "You have the right at any time to discontinue services. You have the right to discuss the treatment plan with your physician, including the purpose, potential risks, and benefits of any test, treatment, or recommended course of action. If you have any concerns regarding any test or treatment recommend by your health care provider, we encourage you to ask questions."
+      },
+      {
+        "tag": "h3",
+        "text": "Patient statement of consent:"
+      },
+      {
+        "tag": "p",
+        "text": "\"I voluntarily request the health care provider(s) at this clinic to perform reasonable and necessary medical examination, testing, and treatment for the condition which has brought me to seek care at this practice. I understand that if additional testing, invasive, or interventional procedures are recommended, I will be asked to read and sign additional consent forms prior to the test(s) or procedure(s). I certify that I have read and understand the above statements and consent fully and voluntarily to them.\""
+      }
+    ]
+  },
+  {
+    "id": "telehealth",
+    "title": "Telehealth Consent",
+    "checkbox": "I have read and agree to the Telehealth Consent.",
+    "content": [
+      {
+        "tag": "p",
+        "text": "For convenience of accessing care, our clinic offers remote telehealth consultations between patients and clinicians via a secure video platform. Additionally, your healthcare provider may consult with other providers or specialists remotely about your care via video or phone. Please carefully review this form and indicate your acceptance below. Potential benefits of telehealth include:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Convenience in accessing your providers from your home or another location.",
+          "Protection against the transmission of communicable illnesses between yourself and other patients and clinic staff.",
+          "Improvements to the quality of care when your clinician can consult with other providers as needed."
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "Inherent in the use of telehealth are technological risks of disruption to the call or video connection and other technical difficulties. You or the provider may discontinue the telehealth consultation if either of you determine that technical difficulties are too disruptive to continue. We take strong precautions to safeguard the privacy of your protected health information (PHI), including using only HIPAA-compliant platforms for telehealth. Nevertheless, there is an unavoidable risk of unauthorized access when sending/ receiving PHI electronically (for example, via a video feed). You are solely responsible for ensuring privacy and confidentiality on your side - by conducting the visit in a private space where others cannot overhear and cannot see private information on the screen. We do not record (voice or video) telehealth consultations, but the health care provider will retain a medical record of care in their secure electronic health records system. Some visits - specifically, those that require the clinician to be physically present with you - are not suitable for telehealth. Your provider may ask that you schedule an in-person visit for any issues that require in-person evaluation or treatment. Telehealth is not a substitute for emergency care. If you need urgent care, call 911 or go to the nearest urgent care facility. You are responsible for the cost of your telehealth consultation. If you are seeking insurance payment or reimbursement for the visit, note that insurance companies may require that you participate in the telehealth consultation from a hospital, a mental health facility, a physician's office, an adult care facility, or your home."
+      },
+      {
+        "tag": "h3",
+        "text": "Consent to the Use of Telehealth"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "I have read this form - or had it read and explained to me - in full. I fully understand its contents, including the risks, benefits, and alternatives.",
+          "I have been given opportunity to ask questions and any questions have been answered to my satisfaction."
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "I hereby give my informed consent to the use of telehealth in the course of my diagnosis and treatment."
+      }
+    ]
+  },
+  {
+    "id": "privacy",
+    "title": "Notice of Privacy Practices",
+    "checkbox": "I acknowledge that I received the Notice of Privacy Practices.",
+    "content": [
+      {
+        "tag": "h3",
+        "text": "Your Information. Your Rights. Our Responsibilities."
+      },
+      {
+        "tag": "p",
+        "text": "This notice describes how medical information about you may be used and disclosed and how you can get access to this information. Please review it carefully. Effective date of this notice: [EFFECTIVE DATE] Privacy officer name, email, and phone number: [PRIVACY OFFICER NAME / EMAIL / PHONE]"
+      },
+      {
+        "tag": "h3",
+        "text": "Summary"
+      },
+      {
+        "tag": "h3",
+        "text": "Your Rights"
+      },
+      {
+        "tag": "p",
+        "text": "You have the right to:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Get a copy of your paper or electronic medical record",
+          "Correct your paper or electronic medical record",
+          "Request confidential communication",
+          "Ask us to limit the information we share",
+          "Get a list of those with whom we’ve shared your information"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Get a copy of this privacy notice"
+      },
+      {
+        "tag": "h3",
+        "text": "Choose someone to act for you"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "File a complaint if you believe your privacy rights have been violated"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Your Choices"
+      },
+      {
+        "tag": "p",
+        "text": "You have choices in the way that we use and share information as we:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Tell family and friends about your condition",
+          "Provide disaster relief",
+          "Include you in a hospital directory",
+          "Provide mental health care",
+          "Market our services and sell your information",
+          "Raise funds"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Our Uses and Disclosures"
+      },
+      {
+        "tag": "p",
+        "text": "We may use and share your information as we:"
+      },
+      {
+        "tag": "h3",
+        "text": "Treat you"
+      },
+      {
+        "tag": "h3",
+        "text": "Run our organization"
+      },
+      {
+        "tag": "h3",
+        "text": "Bill for your services"
+      },
+      {
+        "tag": "h3",
+        "text": "Help with public health and safety issues"
+      },
+      {
+        "tag": "h3",
+        "text": "Do research"
+      },
+      {
+        "tag": "h3",
+        "text": "Comply with the law"
+      },
+      {
+        "tag": "h3",
+        "text": "Respond to organ and tissue donation requests"
+      },
+      {
+        "tag": "h3",
+        "text": "Work with a medical examiner or funeral director"
+      },
+      {
+        "tag": "h3",
+        "text": "Address workers’ compensation, law enforcement, and other government requests"
+      },
+      {
+        "tag": "h3",
+        "text": "Respond to lawsuits and legal actions"
+      },
+      {
+        "tag": "p",
+        "text": "To the extent that we have your substance use disorder patient records, subject to 42 CFR part 2, we will not share that information for investigations or legal proceedings against you without (1) your written consent or (2) a court order and a subpoena."
+      },
+      {
+        "tag": "h3",
+        "text": "Details"
+      },
+      {
+        "tag": "h3",
+        "text": "Your Rights"
+      },
+      {
+        "tag": "p",
+        "text": "When it comes to your health information, you have certain rights. This section explains your rights and some of our responsibilities to help you."
+      },
+      {
+        "tag": "h3",
+        "text": "Get an electronic or paper copy of your medical record"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can ask to see or get an electronic or paper copy of your medical record and other health information we have about you. Ask us how to do this.",
+          "We will provide a copy or a summary of your health information, usually within 30 days of your request. We may charge a reasonable, cost-based fee."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Ask us to correct your medical record"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can ask us to correct health information about you that you think is incorrect or incomplete. Ask us how to do this.",
+          "We may say “no” to your request, but we’ll tell you why in writing within 60 days."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Request confidential communications"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can ask us to contact you in a specific way (for example, home or office phone) or to send mail to a different address.",
+          "We will say “yes” to all reasonable requests."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Ask us to limit what we use or share"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can ask us not to use or share certain health information for treatment, payment, or our operations. We are not required to agree to your request, and we may say “no” if it would affect your care. If we agree to your request, we may still share this information in the event that you need emergency treatment.",
+          "If you pay for a service or health care item out-of-pocket in full, you can ask us not to share that information for the purpose of payment or our operations with your health insurer. We will say “yes” unless a law requires us to share that information."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Get a list of those with whom we’ve shared information"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can ask for a list (accounting) of the times we’ve shared your health information for six years prior to the date you ask, who we shared it with, and why.",
+          "We will include all the disclosures except for those about treatment, payment, and health care operations, and certain other disclosures (such as any you asked us to make). We’ll provide one accounting a year for free but will charge a reasonable, cost-based fee if you ask for another one within 12 months."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Get a copy of this privacy notice"
+      },
+      {
+        "tag": "p",
+        "text": "You can ask for a paper copy of this notice at any time, even if you have agreed to receive the notice electronically. We will provide you with a paper copy promptly."
+      },
+      {
+        "tag": "h3",
+        "text": "Choose someone to act for you"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "If you have given someone medical power of attorney or if someone is your legal guardian, that person can exercise your rights and make choices about your health information.",
+          "We will make sure the person has this authority and can act for you before we take any action."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "File a complaint if you feel your rights are violated"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "You can complain if you feel we have violated your rights by contacting us using the information on page 1.",
+          "You can file a complaint with the U.S. Department of Health and Human Services Office for Civil Rights by sending a letter to 200 Independence Avenue, S.W., Washington, D.C. 20201, calling 1-877-696-6775, or visiting https://www.hhs.gov/hipaa/filing-a-complaint/index.html.",
+          "We will not retaliate against you for filing a complaint."
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Your Choices"
+      },
+      {
+        "tag": "p",
+        "text": "For certain health information, you can tell us your choices about what we share. If you have a clear preference for how we share your information in the situations described below, talk to us. Tell us what you want us to do, and we will follow your instructions. In these cases, you have both the right and choice to tell us to:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Share information with your family, close friends, or others involved in your care or payment for your care Share information in a disaster relief situation",
+          "Include your information in a hospital directory"
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "If you are not able to tell us your preference, for example if you are unconscious, we may go ahead and share your information if we believe it is in your best interest. We may also share your information when needed to lessen a serious and imminent threat to health or safety. In these cases we never share your information unless you give us written permission:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Marketing purposes",
+          "Sale of your information",
+          "Most sharing of psychotherapy notes"
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "In the case of fundraising:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "We may contact you for fundraising efforts, but you can tell us not to contact you again."
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "If we have your substance use disorder patient records, subject to 42 CFR part 2, we will give you clear and obvious notice in advance and a choice about whether to receive fundraising communications that use your Part 2 information."
+      },
+      {
+        "tag": "h3",
+        "text": "Our Uses and Disclosures"
+      },
+      {
+        "tag": "h3",
+        "text": "How do we typically use or share your health information?"
+      },
+      {
+        "tag": "p",
+        "text": "We typically use or share your health information in the following ways."
+      },
+      {
+        "tag": "h3",
+        "text": "Treat you"
+      },
+      {
+        "tag": "p",
+        "text": "We can use your health information and share it with other professionals who are treating you. Example: A doctor treating you for an injury asks another doctor about your overall health condition."
+      },
+      {
+        "tag": "h3",
+        "text": "Run our organization"
+      },
+      {
+        "tag": "p",
+        "text": "We can use and share your health information to run our practice, improve your care, and contact you when necessary. Example: We use health information about you to manage your treatment and services."
+      },
+      {
+        "tag": "h3",
+        "text": "Bill for your services"
+      },
+      {
+        "tag": "p",
+        "text": "We can use and share your health information to bill and get payment from health plans or other entities. Example: We give information about you to your health insurance plan so it will pay for your services."
+      },
+      {
+        "tag": "h3",
+        "text": "How else can we use or share your health information?"
+      },
+      {
+        "tag": "p",
+        "text": "We are allowed or required to share your information in other ways – usually in ways that contribute to the public good, such as public health and research. We have to meet many conditions in the law before we can share your information for these purposes. In all cases, including those listed below, if we have substance use disorder patient records about you, subject to 42 CFR part 2, we cannot use or share information in those records in civil, criminal, administrative, or legislative investigations or proceedings against you without (1) your consent or (2) a court order and a subpoena. For more information see: www.hhs.gov/ocr/privacy/hipaa/understanding/consumers/index.html."
+      },
+      {
+        "tag": "h3",
+        "text": "Help with public health and safety issues"
+      },
+      {
+        "tag": "p",
+        "text": "We can share health information about you for certain situations such as:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "Preventing disease",
+          "Helping with product recalls",
+          "Reporting adverse reactions to medications",
+          "Reporting suspected abuse, neglect, or domestic violence",
+          "Preventing or reducing a serious threat to anyone’s health or safety"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Do research"
+      },
+      {
+        "tag": "p",
+        "text": "We can use or share your information for health research."
+      },
+      {
+        "tag": "h3",
+        "text": "Comply with the law"
+      },
+      {
+        "tag": "p",
+        "text": "We will share information about you if state or federal laws require it, including with the Department of Health and Human Services if it wants to see that we’re complying with federal privacy law."
+      },
+      {
+        "tag": "h3",
+        "text": "Respond to organ and tissue donation requests"
+      },
+      {
+        "tag": "p",
+        "text": "We can share health information about you with organ procurement organizations."
+      },
+      {
+        "tag": "h3",
+        "text": "Work with a medical examiner or funeral director"
+      },
+      {
+        "tag": "p",
+        "text": "We can share health information with a coroner, medical examiner, or funeral director when an individual dies."
+      },
+      {
+        "tag": "h3",
+        "text": "Address workers’ compensation, law enforcement, and other government requests"
+      },
+      {
+        "tag": "p",
+        "text": "We can use or share health information about you:"
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "For workers’ compensation claims",
+          "For law enforcement purposes or with a law enforcement official",
+          "With health oversight agencies for activities authorized by law",
+          "For special government functions such as military, national security, and presidential protective services"
+        ]
+      },
+      {
+        "tag": "h3",
+        "text": "Respond to lawsuits and legal actions"
+      },
+      {
+        "tag": "p",
+        "text": "We can share health information about you in response to a court or administrative order, or in response to a subpoena."
+      },
+      {
+        "tag": "h3",
+        "text": "Our Responsibilities"
+      },
+      {
+        "tag": "p",
+        "text": "We are required by law to maintain the privacy and security of your protected health information."
+      },
+      {
+        "tag": "ul",
+        "items": [
+          "We will let you know promptly if a breach occurs that may have compromised the privacy or security of your information.",
+          "We must follow the duties and privacy practices described in this notice and give you a copy of it.",
+          "We will not use or share your information other than as described here unless you tell us we can in writing. If you tell us we can, you may change your mind at any time. Let us know in writing if you change your mind."
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "For more information see: www.hhs.gov/ocr/privacy/hipaa/understanding/consumers/noticepp.html."
+      },
+      {
+        "tag": "h3",
+        "text": "Changes to the Terms of this Notice"
+      },
+      {
+        "tag": "p",
+        "text": "We can change the terms of this notice, and the changes will apply to all information we have about you. The new notice will be available upon request, in our office, and on our web site."
+      }
+    ],
+    "linkLabel": "Read the full Notice of Privacy Practices"
+  },
+  {
+    "id": "policy",
+    "title": "Medication & Lab Ordering, Payment, Shipping & Refund Policy",
+    "checkbox": "I have read this policy and understand that if medication or lab tests are ordered for me, payment is required before my order is sent to the pharmacy, and that prescription orders are final once submitted and are not eligible for return or refund except as described in this policy.",
+    "content": [
+      {
+        "tag": "p",
+        "text": "Please read this agreement carefully. By signing below, you acknowledge that you understand and agree to the following:"
+      },
+      {
+        "tag": "p",
+        "text": "Please review this policy carefully before authorizing or paying for prescription medications, laboratory testing, shipping, or related services through Med Method Direct."
+      },
+      {
+        "tag": "h3",
+        "text": "1. Medication Orders & Payment"
+      },
+      {
+        "tag": "p",
+        "text": "I understand that medications are prescribed only when clinically appropriate. Payment, including applicable medication, shipping, and pharmacy-related charges, is required before an order is submitted to the dispensing pharmacy."
+      },
+      {
+        "tag": "p",
+        "text": "Once a prescription order has been submitted to the dispensing pharmacy, medication, shipping, and pharmacy-related charges are final and non-refundable, except when a replacement or other resolution is approved for a verified fulfillment or shipping issue."
+      },
+      {
+        "tag": "h3",
+        "text": "2. Pharmacy Fulfillment & Shipping"
+      },
+      {
+        "tag": "p",
+        "text": "Prescription medications are prepared, dispensed, packaged, and shipped directly by licensed partner pharmacies. Med Method Direct does not control pharmacy processing times or carrier operations and cannot guarantee a specific delivery date."
+      },
+      {
+        "tag": "p",
+        "text": "Processing and transit times are estimates and may vary by medication, pharmacy, destination, carrier service, order volume, weekends, holidays, weather, supply disruptions, and other circumstances. Processing begins only after the prescription is clinically approved, payment is received, and the dispensing pharmacy has all required information."
+      },
+      {
+        "tag": "p",
+        "text": "Shipping charges are disclosed before payment and may vary by pharmacy, destination, package type, and service level. Shipping charges are final once the order is submitted to the pharmacy. Expedited shipping shortens carrier transit time only and does not guarantee same-day pharmacy processing or a specific delivery date."
+      },
+      {
+        "tag": "h3",
+        "text": "3. Delivery Address, Tracking & Patient Responsibility"
+      },
+      {
+        "tag": "p",
+        "text": "I am responsible for providing a complete and accurate shipping address, confirming that the pharmacy can ship to that location, monitoring available tracking information, and arranging prompt receipt of my package."
+      },
+      {
+        "tag": "p",
+        "text": "Address changes must be requested before the order is submitted to the pharmacy and may not be possible after submission. Med Method Direct and the dispensing pharmacy are not responsible for delays, loss, or damage caused by an incorrect or incomplete address supplied by the patient."
+      },
+      {
+        "tag": "p",
+        "text": "If a package is returned, refused, unclaimed, or requires reshipment for reasons attributable to the patient, additional medication and shipping charges may apply, subject to pharmacy and prescriber approval. Carrier delays, weather, natural disasters, holidays, supply disruptions, or other events outside Med Method Direct's control do not automatically qualify for a refund."
+      },
+      {
+        "tag": "h3",
+        "text": "4. Temperature-Sensitive Medications"
+      },
+      {
+        "tag": "p",
+        "text": "Some medications require temperature-controlled or insulated packaging. Packaging, cooling materials, and shipping methods are selected by the dispensing pharmacy."
+      },
+      {
+        "tag": "p",
+        "text": "A package that arrives warm or with melted cooling materials is not automatically unusable. I will not discard the medication solely for this reason. I will follow the pharmacy label and storage instructions and will contact Med Method Direct promptly for pharmacy review before using or discarding the medication if I have concerns."
+      },
+      {
+        "tag": "h3",
+        "text": "5. Damaged, Incorrect, Missing, Lost or Compromised Shipments"
+      },
+      {
+        "tag": "p",
+        "text": "I agree to report a suspected shipping or fulfillment issue within 24 hours of delivery, or within 24 hours of the carrier marking an undelivered package as delivered."
+      },
+      {
+        "tag": "p",
+        "text": "I may be asked to provide my name and order information, a description of the issue, clear photographs of the medication, label, packaging and shipping box, tracking information, and any relevant carrier notice. I will keep all medication and packaging until the review is complete and will not use medication that appears incorrect, contaminated, visibly damaged, or otherwise unsafe."
+      },
+      {
+        "tag": "p",
+        "text": "Med Method Direct will coordinate with the dispensing pharmacy and carrier as appropriate. Any replacement, reshipment, credit, refund, or other resolution is determined case by case and is subject to pharmacy policy, carrier findings, clinical review, and applicable law. Replacements are not guaranteed for lost, stolen, or misdelivered packages."
+      },
+      {
+        "tag": "h3",
+        "text": "6. Medication Returns, Exchanges & Refunds"
+      },
+      {
+        "tag": "p",
+        "text": "For safety and legal reasons, prescription medications cannot be returned, restocked, or exchanged after dispensing or shipment."
+      },
+      {
+        "tag": "p",
+        "text": "Refunds are not issued because I change my mind, no longer wish to begin or continue treatment, do not use the medication, miss delivery, fail to retrieve the package promptly, or fail to follow storage or administration instructions. Prescription medication orders are generally final once submitted to the dispensing pharmacy, except as otherwise described in this policy."
+      }
+    ]
+  }
+];
