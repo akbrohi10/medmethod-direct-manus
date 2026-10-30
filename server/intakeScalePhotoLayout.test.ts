@@ -24,7 +24,7 @@ function selectors(css: string) {
 describe("intake scale-photo layout", () => {
   it("changes only the approved image path and button classes while preserving the upload component", () => {
     const scalePhoto = component(readFileSync(intakePath, "utf8"), "MmdScalePhoto");
-    const examplePath = "src:`/assets/scale-example.jpg`";
+    const examplePath = 'src:`/api/intake/assets/scale-example.jpg`,alt:`Example of both feet on a digital scale with the weight visible`,onError:e=>{let t=e.currentTarget;t.getAttribute(`src`)!==`https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CkjwARGtcsaSNmuw.jpg`&&(t.src=`https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CkjwARGtcsaSNmuw.jpg`)}';
     const primaryUpload = "className:`primary`,disabled:u,onClick:()=>r.current?.click(),children:u?`Uploading…`:`Take or upload a photo`";
     const scaleSkip = "className:`scale-skip-link`,disabled:u,onClick:()=>{if(!u){h();v?.()}},children:`Skip for now`";
 
@@ -33,7 +33,7 @@ describe("intake scale-photo layout", () => {
     expect(scalePhoto).toContain(scaleSkip);
 
     const inverseNormalized = scalePhoto
-      .replace(examplePath, "src:`/manus-storage/intake-scale-example-original_dffe4759.png`")
+      .replace(examplePath, "src:`/manus-storage/intake-scale-example-original_dffe4759.png`,alt:`Example of both feet on a digital scale with the weight visible`")
       .replace(primaryUpload, "className:`secondary`,disabled:u,onClick:()=>r.current?.click(),children:u?`Uploading…`:`Take or upload a photo`")
       .replace(scaleSkip, "className:`remove`,disabled:u,onClick:()=>{if(!u){h();v?.()}},children:`Skip for now`");
 

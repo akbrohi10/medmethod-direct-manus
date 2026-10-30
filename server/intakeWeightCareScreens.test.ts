@@ -71,7 +71,7 @@ describe("Weight Care lab, shipping, and scale screens", () => {
     expect(scale).toContain("if(!u){h();v?.()}");
     expect(scale).toContain("try{e&&(await MmdDeletePrivateUpload(e,!0),t(null));");
     expect(scale).toContain("'data-hj-suppress':!0");
-    expect(scale).toContain("/assets/scale-example.jpg");
+    expect(scale).toContain("/api/intake/assets/scale-example.jpg");
     expect(intake).toContain("onSkipScale:onContinue");
   });
 

@@ -1,7 +1,9 @@
 import type { Express } from "express";
+import { registerIntakeMedicationImageAssets } from "./intakeMedicationImageAssets";
 
 /** Public instructional example only; never used for uploaded patient files. */
 export const SCALE_EXAMPLE_PATH = "/assets/scale-example.jpg";
+export const SCALE_EXAMPLE_API_PATH = "/api/intake/assets/scale-example.jpg";
 const EXAMPLE_SOURCE = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CkjwARGtcsaSNmuw.jpg";
 const MAX_BYTES = 200_000;
 let cachedExample: Promise<Buffer> | undefined;
@@ -25,7 +27,7 @@ async function exampleBytes(): Promise<Buffer> {
 }
 
 export function registerIntakeScaleExampleAsset(app: Express): void {
-  app.get(SCALE_EXAMPLE_PATH, (_req, res) => {
+  app.get([SCALE_EXAMPLE_PATH, SCALE_EXAMPLE_API_PATH], (_req, res) => {
     void exampleBytes().then(bytes => {
       res.set({
         "Content-Type": "image/jpeg",
@@ -38,4 +40,5 @@ export function registerIntakeScaleExampleAsset(app: Express): void {
       res.status(503).end();
     });
   });
+  registerIntakeMedicationImageAssets(app);
 }
