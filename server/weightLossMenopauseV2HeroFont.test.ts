@@ -107,6 +107,11 @@ const retainedHomepageMscpCredentialSelection = [
   "    : CREDENTIAL_PILLS;",
   "",
 ].join("\n");
+const approvedMscpTrustRowProps = '          mscpBadgeSrc="/manus-storage/mscp-badge-2026_09c3feaa.webp"\n          mscpBadgeFallbackSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp"\n';
+const approvedMscpTrustRowDestructure = "  mscpBadgeSrc,\n  mscpBadgeFallbackSrc,\n";
+const approvedMscpTrustRowTypes = "  mscpBadgeSrc?: string;\n  mscpBadgeFallbackSrc?: string;\n";
+const approvedMscpTrustRowStart = "              {mscpBadgeSrc && (\n";
+const approvedMscpTrustRowEnd = "              {/* Two clear booking paths.";
 
 
 function read(file: string): string {
@@ -146,7 +151,27 @@ function normalizeApprovedMasterclassMscpCredential(file: string, source: string
   return source.replace(approvedMasterclassMscpCredentialLine, "");
 }
 
+function inverseApprovedMscpTrustRow(file: string, source: string): string {
+  if (file === homepagePath) {
+    expect(source.split(approvedMscpTrustRowProps).length - 1).toBe(1);
+    return source.replace(approvedMscpTrustRowProps, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  const count = (value: string) => source.split(value).length - 1;
+  expect(count(approvedMscpTrustRowDestructure)).toBe(1);
+  expect(count(approvedMscpTrustRowTypes)).toBe(1);
+  const withoutBadgeProps = source
+    .replace(approvedMscpTrustRowDestructure, "")
+    .replace(approvedMscpTrustRowTypes, "");
+  const start = withoutBadgeProps.indexOf(approvedMscpTrustRowStart);
+  const end = withoutBadgeProps.indexOf(approvedMscpTrustRowEnd);
+  expect(start).toBeGreaterThan(-1);
+  expect(end).toBeGreaterThan(start);
+  return withoutBadgeProps.slice(0, start) + withoutBadgeProps.slice(end);
+}
+
 function normalizeApprovedHomepageMscpCredential(file: string, source: string): string {
+  source = inverseApprovedMscpTrustRow(file, source);
   const count = (value: string) => source.split(value).length - 1;
   if (file === homepagePath) {
     expect(count(approvedHomepageFamilyPhysicianOptIn)).toBe(1);

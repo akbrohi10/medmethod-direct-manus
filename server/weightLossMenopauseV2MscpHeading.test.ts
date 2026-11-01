@@ -52,13 +52,36 @@ const retainedHomepageMscpCredentialSelection = [
   "    : CREDENTIAL_PILLS;",
   "",
 ].join("\n");
+const approvedMscpTrustRowProps = '          mscpBadgeSrc="/manus-storage/mscp-badge-2026_09c3feaa.webp"\n          mscpBadgeFallbackSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp"\n';
+const approvedMscpTrustRowDestructure = "  mscpBadgeSrc,\n  mscpBadgeFallbackSrc,\n";
+const approvedMscpTrustRowTypes = "  mscpBadgeSrc?: string;\n  mscpBadgeFallbackSrc?: string;\n";
+const approvedMscpTrustRowStart = "              {mscpBadgeSrc && (\n";
+const approvedMscpTrustRowEnd = "              {/* Two clear booking paths.";
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
 
+function inverseApprovedMscpTrustRow(file: string, source: string): string {
+  if (file === homepagePath) {
+    expect(count(source, approvedMscpTrustRowProps)).toBe(1);
+    return source.replace(approvedMscpTrustRowProps, "");
+  }
+  if (file !== homepageMedicalTeamPath) return source;
+  expect(count(source, approvedMscpTrustRowDestructure)).toBe(1);
+  expect(count(source, approvedMscpTrustRowTypes)).toBe(1);
+  const withoutBadgeProps = source
+    .replace(approvedMscpTrustRowDestructure, "")
+    .replace(approvedMscpTrustRowTypes, "");
+  const start = withoutBadgeProps.indexOf(approvedMscpTrustRowStart);
+  const end = withoutBadgeProps.indexOf(approvedMscpTrustRowEnd);
+  expect(start).toBeGreaterThan(-1);
+  expect(end).toBeGreaterThan(start);
+  return withoutBadgeProps.slice(0, start) + withoutBadgeProps.slice(end);
+}
 
 function normalizeApprovedHomepageFamilyPhysicianCredential(file: string, source: string): string {
+  source = inverseApprovedMscpTrustRow(file, source);
   if (file === homepagePath) {
     expect(count(source, approvedHomepageFamilyPhysicianOptIn)).toBe(1);
     return source.replace(approvedHomepageFamilyPhysicianOptIn, "");

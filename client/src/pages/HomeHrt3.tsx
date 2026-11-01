@@ -264,6 +264,8 @@ export default function HomeHrt3() {
           hideBullets
           showMscpCredential
           firstCredentialLabel="Family Physician"
+          mscpBadgeSrc="/manus-storage/mscp-badge-2026_09c3feaa.webp"
+          mscpBadgeFallbackSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp"
           overrideHeadline={
             <span
               style={{

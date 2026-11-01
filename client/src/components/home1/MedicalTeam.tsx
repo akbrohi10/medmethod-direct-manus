@@ -192,6 +192,8 @@ export default function MedicalTeam({
   overrideBody,
   showMscpCredential = false,
   firstCredentialLabel = CREDENTIAL_PILLS[0],
+  mscpBadgeSrc,
+  mscpBadgeFallbackSrc,
 }: {
   onConsultClick?: () => void;
   ctaEyebrow?: ReactNode;
@@ -214,6 +216,8 @@ export default function MedicalTeam({
   overrideBody?: ReactNode;
   showMscpCredential?: boolean;
   firstCredentialLabel?: string;
+  mscpBadgeSrc?: string;
+  mscpBadgeFallbackSrc?: string;
 } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
@@ -680,6 +684,38 @@ export default function MedicalTeam({
                   Dr. Al-Deek has seen <span className="font-black text-[#7A1E7E]">50,000+ patients.</span>
                 </p>
               </div>
+
+              {mscpBadgeSrc && (
+                <div
+                  data-home-mscp-trust-row
+                  className="mt-4 flex w-full items-center gap-3"
+                  style={{ fontFamily: "Montserrat, sans-serif" }}
+                >
+                  <img
+                    src={mscpBadgeSrc}
+                    alt="2026 Menopause Society Certified Practitioner badge"
+                    width={80}
+                    height={80}
+                    className="h-[72px] w-[72px] shrink-0 object-contain sm:h-20 sm:w-20"
+                    decoding="async"
+                    onError={(event) => {
+                      const image = event.currentTarget;
+                      if (mscpBadgeFallbackSrc && image.dataset.fallbackUsed !== "true") {
+                        image.dataset.fallbackUsed = "true";
+                        image.src = mscpBadgeFallbackSrc;
+                      }
+                    }}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[17px] font-bold leading-snug text-[#7A1E7E]">
+                      Certified menopause expertise.
+                    </p>
+                    <p className="mt-1 text-[14px] font-medium leading-relaxed text-[#5A4452]">
+                      Dr. Al-Deek is a Menopause Society Certified Practitioner.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Two clear booking paths. Each path keeps its decision label,
                   action, and explanation together on mobile and desktop. */}

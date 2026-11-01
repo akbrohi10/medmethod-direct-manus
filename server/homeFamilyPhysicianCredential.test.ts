@@ -45,6 +45,11 @@ const approvedDefaultFirstCredentialSelection =
 const retainedMscpFirstCredentialSelection =
   '    ? [CREDENTIAL_PILLS[0], "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]';
 const retainedDefaultFirstCredentialSelection = "    : CREDENTIAL_PILLS;";
+const approvedMscpTrustRowProps = '          mscpBadgeSrc="/manus-storage/mscp-badge-2026_09c3feaa.webp"\n          mscpBadgeFallbackSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp"\n';
+const approvedMscpTrustRowDestructure = "  mscpBadgeSrc,\n  mscpBadgeFallbackSrc,\n";
+const approvedMscpTrustRowTypes = "  mscpBadgeSrc?: string;\n  mscpBadgeFallbackSrc?: string;\n";
+const approvedMscpTrustRowStart = "              {mscpBadgeSrc && (\n";
+const approvedMscpTrustRowEnd = "              {/* Two clear booking paths.";
 const credentialPillRender = "{credentialPills.map((pill) => (";
 const defaultCredentialPillStyles = [
   'className="px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide"',
@@ -65,7 +70,26 @@ function credentialPills(source: string): string[] {
   return Array.from(initializer.matchAll(/"([^"]+)"/g), match => match[1]);
 }
 
+function inverseApprovedMscpTrustRow(file: string, source: string): string {
+  if (file === homePath) {
+    expect(count(source, approvedMscpTrustRowProps)).toBe(1);
+    return source.replace(approvedMscpTrustRowProps, "");
+  }
+  if (file !== medicalTeamPath) return source;
+  expect(count(source, approvedMscpTrustRowDestructure)).toBe(1);
+  expect(count(source, approvedMscpTrustRowTypes)).toBe(1);
+  const withoutBadgeProps = source
+    .replace(approvedMscpTrustRowDestructure, "")
+    .replace(approvedMscpTrustRowTypes, "");
+  const start = withoutBadgeProps.indexOf(approvedMscpTrustRowStart);
+  const end = withoutBadgeProps.indexOf(approvedMscpTrustRowEnd);
+  expect(start).toBeGreaterThan(-1);
+  expect(end).toBeGreaterThan(start);
+  return withoutBadgeProps.slice(0, start) + withoutBadgeProps.slice(end);
+}
+
 function normalizeApprovedHomepageFamilyPhysicianCredential(file: string, source: string): string {
+  source = inverseApprovedMscpTrustRow(file, source);
   if (file === homePath) {
     expect(count(source, approvedHomeFirstCredentialLabel)).toBe(1);
     return source.replace(approvedHomeFirstCredentialLabel, "");
