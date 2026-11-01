@@ -152,6 +152,8 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 const oldDefaultOpenQuestions =
   'const DEFAULT_OPEN_QUESTIONS = ["cost-0", "cost-2", "visits-0"];';
 const approvedDefaultOpenQuestions = `const DEFAULT_OPEN_QUESTIONS = V2_FAQ_CATEGORIES.flatMap(category =>
@@ -317,7 +319,12 @@ function normalizeApprovedFinalFaqPageLines(source: string): string {
   if (start < 0) return withoutFinalFaq;
   const end = withoutFinalFaq.indexOf(legitScriptFooterSealEnd, start);
   if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
-  return withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length);
+  const withoutSeal = withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length);
+  const trustRowStart = withoutSeal.indexOf(masterclassMscpTrustRowStart);
+  const trustRowEnd = withoutSeal.indexOf(masterclassMscpTrustRowEnd, trustRowStart);
+  expect(withoutSeal.split(masterclassMscpTrustRowStart).length - 1).toBe(1);
+  if (trustRowEnd < 0) throw new Error("Missing approved Masterclass MSCP trust-row boundary");
+  return withoutSeal.slice(0, trustRowStart) + withoutSeal.slice(trustRowEnd);
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {

@@ -116,12 +116,13 @@ describe("intake thank-you Step 1 SMS copy", () => {
       .filter((path) => path && !path.endsWith(".test.ts"))
       .sort();
 
-    // These homepage additions have complete inverse guards in homeMscpTrustRow.test.ts.
+    // Homepage and Masterclass trust-row additions have complete inverse guards in their dedicated tests.
     expect(changedProductionPaths).toEqual([
       thankYouPath,
       clientPath,
       "client/src/components/home1/MedicalTeam.tsx",
       "client/src/pages/HomeHrt3.tsx",
+      "client/src/pages/Masterclass2.tsx",
     ].sort());
   });
 });

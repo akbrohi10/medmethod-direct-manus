@@ -19,6 +19,8 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 const physicianProfile = read(
   "client/src/components/masterclass2/PhysicianProfile.tsx",
 );
@@ -42,6 +44,15 @@ function removeApprovedMasterclassLegitScriptFooterSeal(source: string): string 
   const end = source.indexOf(legitScriptFooterSealEnd, start);
   if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
   return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
+}
+
+function removeApprovedMasterclassMscpTrustRow(source: string): string {
+  const start = source.indexOf(masterclassMscpTrustRowStart);
+  const end = source.indexOf(masterclassMscpTrustRowEnd, start);
+  if (start < 0 || end < 0 || source.indexOf(masterclassMscpTrustRowStart, start + 1) >= 0) {
+    throw new Error("Missing unique approved Masterclass MSCP trust row");
+  }
+  return source.slice(0, start) + source.slice(end);
 }
 
 const originalHero = sliceBetween(original, "        <section data-masterclass-video-first-hero", "\n\n        <section ref={videoRef}");
@@ -183,7 +194,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
   it("restores the original family image while keeping other assets and the portrait-free local profile unchanged", () => {
     const originalAssets = manuscriptAssets(original);
 
-    expect(manuscriptAssets(removeApprovedMasterclassLegitScriptFooterSeal(duplicate))).toEqual(originalAssets);
+    expect(manuscriptAssets(removeApprovedMasterclassMscpTrustRow(removeApprovedMasterclassLegitScriptFooterSeal(duplicate)))).toEqual(originalAssets);
     expect(manuscriptAssets(physicianProfile)).toEqual([]);
     expect(duplicate).toContain(FAMILY_PRESENTER_ASSET);
     expect(physicianProfile).not.toContain(FAMILY_PRESENTER_ASSET);

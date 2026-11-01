@@ -218,6 +218,28 @@ export default function Masterclass2() {
             <h2 id="masterclass2-work-heading" className="mx-auto max-w-[520px] text-[clamp(1.75rem,7.4vw,2.5rem)] font-extrabold leading-[1.12] tracking-[-0.025em] text-[#171225]">Choose How to Connect</h2>
             <p className="mt-3 text-[14px] font-medium leading-6 text-[#5a4452] sm:text-[15px]">100% virtual care · Available in 17 states</p>
           </div>
+          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">
+            <img
+              src="/manus-storage/mscp-badge-2026_09c3feaa.webp"
+              alt="2026 Menopause Society Certified Practitioner badge"
+              width={80}
+              height={80}
+              loading="lazy"
+              decoding="async"
+              className="h-[72px] w-[72px] shrink-0 object-contain sm:h-20 sm:w-20"
+              onError={(event) => {
+                const image = event.currentTarget;
+                if (image.dataset.fallbackUsed !== "true") {
+                  image.dataset.fallbackUsed = "true";
+                  image.src = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp";
+                }
+              }}
+            />
+            <div className="min-w-0 flex-1">
+              <p className="text-[17px] font-bold leading-snug text-[#7a1e7e]">Certified menopause expertise.</p>
+              <p className="mt-1 text-[14px] font-medium leading-relaxed text-[#5a4452]">Dr. Al-Deek is a Menopause Society Certified Practitioner.</p>
+            </div>
+          </div>
           <div data-masterclass2-connection-rows className="mx-auto mt-6 flex max-w-[640px] flex-col gap-3.5 text-left sm:mt-7">
             <div data-masterclass2-video-offer>
               <a href="https://intake.medmethoddirect.com/?video=1" data-masterclass-video-first-physician-cta className="group flex min-h-[88px] w-full items-center gap-3 rounded-[28px] bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-4 py-4 text-left text-white shadow-[0_6px_18px_rgba(122,30,126,0.12)] transition-colors duration-150 hover:from-[#df2c92] hover:to-[#6b1a70] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] sm:gap-5 sm:rounded-full sm:px-6 sm:py-5">

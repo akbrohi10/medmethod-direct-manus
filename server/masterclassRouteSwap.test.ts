@@ -29,6 +29,8 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 const separatelyVerifiedThankYouCopyPath = "client/src/pages/ThankYouVideo.tsx";
 
 function restoreAppRoutes(source: string) {
@@ -65,6 +67,14 @@ function restoreApprovedSmallFixes(source: string) {
     );
 }
 
+function removeApprovedMasterclassMscpTrustRow(source: string) {
+  const start = source.indexOf(masterclassMscpTrustRowStart);
+  const end = source.indexOf(masterclassMscpTrustRowEnd, start);
+  expect(count(source, masterclassMscpTrustRowStart)).toBe(1);
+  if (end < 0) throw new Error("Missing approved Masterclass MSCP trust-row boundary");
+  return source.slice(0, start) + source.slice(end);
+}
+
 function restoreApprovedFinalFaqPageLines(source: string) {
   const withoutFinalFaq = restoreApprovedSmallFixes(source)
     .replace('import FinalFaq from "@/components/masterclass2/FinalFaq";\n', "")
@@ -73,7 +83,7 @@ function restoreApprovedFinalFaqPageLines(source: string) {
   if (start < 0) return withoutFinalFaq;
   const end = withoutFinalFaq.indexOf(legitScriptFooterSealEnd, start);
   if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
-  return withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length);
+  return removeApprovedMasterclassMscpTrustRow(withoutFinalFaq.slice(0, start) + withoutFinalFaq.slice(end + legitScriptFooterSealEnd.length));
 }
 
 function restoreMasterclassVideoFirstRouteMetadata(source: string) {

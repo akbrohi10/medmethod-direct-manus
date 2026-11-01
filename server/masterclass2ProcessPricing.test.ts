@@ -86,12 +86,21 @@ const footerDisclaimers = `
           <div data-masterclass-footer-disclaimers className="mx-auto mt-6 max-w-3xl space-y-3 text-center text-xs leading-6 text-[#766d75] sm:text-[13px]">
             {V2_FAQ_FOOTER_PARAGRAPHS.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           </div>`;
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 const removeApprovedMasterclassLegitScriptFooterSeal = (source: string) => {
   const start = source.indexOf(legitScriptFooterSealStart);
   if (start < 0) return source;
   const end = source.indexOf(legitScriptFooterSealEnd, start);
   if (end < 0) throw new Error("Missing end of marked Masterclass LegitScript footer seal");
   return source.slice(0, start) + source.slice(end + legitScriptFooterSealEnd.length);
+};
+const removeApprovedMasterclassMscpTrustRow = (source: string) => {
+  const start = source.indexOf(masterclassMscpTrustRowStart);
+  const end = source.indexOf(masterclassMscpTrustRowEnd, start);
+  expect(count(source, masterclassMscpTrustRowStart)).toBe(1);
+  if (end < 0) throw new Error("Missing approved Masterclass MSCP trust-row boundary");
+  return source.slice(0, start) + source.slice(end);
 };
 const normalizeApprovedMasterclassSmallFixes = (source: string) =>
   source
@@ -126,11 +135,11 @@ const normalizeApprovedFinalV2Faq = (path: string, source: string) => {
 };
 const normalizeApprovedFinalMasterclassFaq = (path: string, source: string) =>
   path === "client/src/pages/Masterclass2.tsx"
-    ? removeApprovedMasterclassLegitScriptFooterSeal(
+    ? removeApprovedMasterclassMscpTrustRow(removeApprovedMasterclassLegitScriptFooterSeal(
       normalizeApprovedMasterclassSmallFixes(source)
         .replace(finalMasterclassFaqImport, "")
         .replace(finalMasterclassFaqMount, "")
-    )
+    ))
     : source;
 const normalizeApprovedV2HeroFontAppend = (path: string, source: string) =>
   path === "client/src/pages/WeightLossMenopauseV2.css"

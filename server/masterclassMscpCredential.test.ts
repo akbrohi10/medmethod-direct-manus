@@ -32,6 +32,7 @@ const approvedThankYouNextStepsPaths = new Set([
   "client/src/pages/ThankYouVideo.tsx",
 ]);
 const profilePath = "client/src/components/masterclass2/PhysicianProfile.tsx";
+const pagePath = "client/src/pages/Masterclass2.tsx";
 const homepagePath = "client/src/pages/HomeHrt3.tsx";
 const homepageMedicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
 const v2DoctorBioPath = "client/src/pages/WeightLossMenopauseV2DoctorBio.tsx";
@@ -65,6 +66,8 @@ const retainedHomepageMscpCredentialSelection = [
 
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
@@ -108,6 +111,15 @@ function normalizeApprovedV2DoctorHeading(file: string, source: string): string 
   return source.replace(approvedV2DoctorHeading, baselineV2DoctorHeading);
 }
 
+function normalizeApprovedMasterclassMscpTrustRow(file: string, source: string): string {
+  if (file !== pagePath) return source;
+  const start = source.indexOf(masterclassMscpTrustRowStart);
+  const end = source.indexOf(masterclassMscpTrustRowEnd, start);
+  expect(count(source, masterclassMscpTrustRowStart)).toBe(1);
+  if (end < 0) throw new Error("Missing approved Masterclass MSCP trust-row boundary");
+  return source.slice(0, start) + source.slice(end);
+}
+
 function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
@@ -118,7 +130,7 @@ function changedProductionFiles(): string[] {
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => !approvedThankYouNextStepsPaths.has(file))
-    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedV2SectionOrder(file, read(file)))) !== atBaseline(file));
+    .filter(file => normalizeApprovedHomepageMscpCredential(file, normalizeApprovedV2DoctorHeading(file, normalizeApprovedMasterclassMscpTrustRow(file, normalizeApprovedV2SectionOrder(file, read(file))))) !== atBaseline(file));
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {

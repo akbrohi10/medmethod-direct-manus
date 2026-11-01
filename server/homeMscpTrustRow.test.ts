@@ -7,6 +7,7 @@ const baseline = "59e7c056";
 const root = resolve(import.meta.dirname, "..");
 const homePath = "client/src/pages/HomeHrt3.tsx";
 const medicalTeamPath = "client/src/components/home1/MedicalTeam.tsx";
+const masterclassPath = "client/src/pages/Masterclass2.tsx";
 const mscpBadgeSrc = "/manus-storage/mscp-badge-2026_09c3feaa.webp";
 const mscpBadgeFallbackSrc = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp";
 const approvedBadgeProps = [
@@ -17,6 +18,8 @@ const approvedMedicalTeamDestructure = "  mscpBadgeSrc,\n  mscpBadgeFallbackSrc,
 const approvedMedicalTeamTypes = "  mscpBadgeSrc?: string;\n  mscpBadgeFallbackSrc?: string;\n";
 const trustRowStart = "              {mscpBadgeSrc && (\n";
 const trustRowEnd = "              {/* Two clear booking paths.";
+const masterclassMscpTrustRowStart = '\n          <div data-masterclass-mscp-trust-row className="mx-auto mt-5 flex w-full max-w-[640px] items-center gap-3 text-left">';
+const masterclassMscpTrustRowEnd = "\n          <div data-masterclass2-connection-rows";
 
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 const atBaseline = (file: string) =>
@@ -24,6 +27,14 @@ const atBaseline = (file: string) =>
 const count = (source: string, value: string) => source.split(value).length - 1;
 
 function inverseApprovedMscpTrustRow(file: string, source: string): string {
+  if (file === masterclassPath) {
+    expect(count(source, masterclassMscpTrustRowStart)).toBe(1);
+    const start = source.indexOf(masterclassMscpTrustRowStart);
+    const end = source.indexOf(masterclassMscpTrustRowEnd, start);
+    expect(end).toBeGreaterThan(start);
+    return source.slice(0, start) + source.slice(end);
+  }
+
   if (file === homePath) {
     expect(count(source, approvedBadgeProps)).toBe(1);
     return source.replace(`${approvedBadgeProps}\n`, "");
@@ -52,7 +63,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean)
-    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file));
+    .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    .filter(file => file !== masterclassPath || inverseApprovedMscpTrustRow(file, read(file)) !== atBaseline(file));
 }
 
 describe("homepage-only MSCP trust row", () => {
