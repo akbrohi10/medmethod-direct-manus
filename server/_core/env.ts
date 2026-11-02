@@ -17,6 +17,8 @@ export const ENV = {
   ghlCareTeamWebhookSecret: process.env.GHL_CARE_TEAM_WEBHOOK_SECRET ?? "",
   /** Primary server-only delivery destination for the completed intake */
   keragonWebhookUrl: process.env.KERAGON_WEBHOOK_URL ?? "",
+  /** Contact/status-only notification after the website Weight Care intake succeeds. */
+  ghlIntakeWebhookUrl: process.env.GHL_INTAKE_WEBHOOK_URL ?? "",
   /** Server-only Spruce phone verification credentials; never use VITE_ names. */
   spruceApiToken: process.env.SPRUCE_API_TOKEN ?? "",
   spruceInternalEndpointId: process.env.SPRUCE_INTERNAL_ENDPOINT_ID ?? "",

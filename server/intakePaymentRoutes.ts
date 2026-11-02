@@ -10,6 +10,8 @@ import { generateIntakeSignedPdfs } from "./intakeSignedPdf";
 import { getIntakeSignedFormsStore, registerIntakeSignedFormsRoutes } from "./intakeSignedFormsStore";
 import { validateIntakeSigning } from "./intakeSigningInput";
 import { authorizedNormalIntakeTest } from "./intakeTestAuthorization";
+import { buildGhlIntakeWebhookPayload } from "./ghlIntakeWebhookPayload";
+import { enqueueGhlIntakeWebhook, registerGhlIntakeWebhookRoutes } from "./ghlIntakeWebhookQueue";
 import {
   EMPTY_INTAKE_UPLOADS,
   LEGACY_VIDEO_VISIT_AMOUNT,
@@ -43,6 +45,18 @@ function noteAttachmentFailure(stage: "resolve" | "recover" | "prepare" | "claim
 }
 function isDeliveryClaimConflict(error: unknown): boolean {
   return !!error && typeof error === "object" && "status" in error && error.status === 409;
+}
+
+/** Never await GHL or expose notification errors to the patient. */
+function notifyGhlAfterAcceptedIntake(draft: IntakeDraft, receipt: CompletedFreeIntakeReceipt, request: Request): void {
+  if (!ENV.ghlIntakeWebhookUrl) return;
+  try {
+    const payload = buildGhlIntakeWebhookPayload(draft, { isTest: receipt.is_test, videoVisitInterest: receipt.video_visit_interest }, request);
+    if (payload) enqueueGhlIntakeWebhook(draft.submission_id, payload);
+    else console.error("[GhlIntake] contact_format_unavailable; patient submission unaffected.");
+  } catch {
+    console.error("[GhlIntake] notification_unavailable; patient submission unaffected.");
+  }
 }
 
 type PayPalMode = "sandbox" | "live";
@@ -272,6 +286,7 @@ export function registerIntakePaymentRoutes(app: Express) {
   registerIntakePhoneVerificationRoutes(app);
   registerIntakePrivateUploadRoutes(app);
   registerIntakeSignedFormsRoutes(app);
+  registerGhlIntakeWebhookRoutes(app);
   const freeSubmissions = new Map<string, FreeRecord>();
   const videoVisits = new Map<string, VideoRecord>();
   const pendingPhoneTokens = new Map<string, string>();
@@ -373,6 +388,8 @@ export function registerIntakePaymentRoutes(app: Express) {
         try { decodeSubmissionToken(token); } catch { token = encodeSubmissionToken(receipt); }
         pending.receipt = receipt; pending.token = token; pending.delivered = true;
         pending.result = { ...recovered, submission_token: token, redirect_url: redirectUrlFor(explicitDemoPrefill, demo, receipt.video_visit_interest) };
+        // Recovery may repair an interrupted enqueue; the durable GHL event key prevents re-sending.
+        notifyGhlAfterAcceptedIntake(draft, receipt, request);
         return pending.result;
       }
       if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.");
@@ -424,6 +441,7 @@ export function registerIntakePaymentRoutes(app: Express) {
           consumedPhoneTokens.set(pending.phoneTokenKey, pending.expiresAt);
         }
       });
+      notifyGhlAfterAcceptedIntake(draft, receipt, request);
       const result: FreeResult = {
         submission_id: receipt.submission_id, submission_token: preparedReceiptToken,
         sms_opt_in: receipt.sms_opt_in, video_visit_interest: receipt.video_visit_interest,

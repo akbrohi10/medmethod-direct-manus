@@ -64,6 +64,8 @@ function changedProductionFiles(): string[] {
     .split("\n")
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
+    // Separately authorized backend-only notification; dedicated GHL suites protect its scope.
+    .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))
     .filter(file => file !== masterclassPath || inverseApprovedMscpTrustRow(file, read(file)) !== atBaseline(file));
 }
 

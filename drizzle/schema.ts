@@ -1,4 +1,4 @@
-import { bigint, customType, int, mysqlEnum, mysqlTable, primaryKey, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { bigint, customType, index, int, mysqlEnum, mysqlTable, primaryKey, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 /** Encrypted chunks may be up to 256 KiB; MEDIUMBLOB avoids cleartext type coercion. */
 const mediumblob = customType<{ data: Buffer; driverData: Buffer }>({
@@ -313,3 +313,24 @@ export const intakePrivateBlobLocks = mysqlTable("intake_private_blob_locks", {
 });
 export type IntakePrivateBlobLock = typeof intakePrivateBlobLocks.$inferSelect;
 export type InsertIntakePrivateBlobLock = typeof intakePrivateBlobLocks.$inferInsert;
+
+/**
+ * Independent contact-only GHL outbox. No relationship to clinical receipt/blob TTLs.
+ * eventKey is a domain-separated submission-ID HMAC; the contact payload is AES-GCM
+ * ciphertext, erased on either terminal state. All operational dates are UTC epoch ms.
+ * Terminal HMAC tombstones deduplicate for 30 days; only expired terminal rows are purged.
+ */
+export const ghlIntakeWebhookOutbox = mysqlTable("ghl_intake_webhook_outbox", {
+  eventKey: varchar("eventKey", { length: 64 }).primaryKey(),
+  encryptedPayload: mediumblob("encryptedPayload"),
+  status: mysqlEnum("status", ["pending", "processing", "sent", "failed"]).notNull().default("pending"),
+  attempts: int("attempts").notNull().default(0),
+  leaseOwner: varchar("leaseOwner", { length: 64 }),
+  leaseExpiresAt: bigint("leaseExpiresAt", { mode: "number" }),
+  createdAt: bigint("createdAt", { mode: "number" }).notNull(),
+  terminalExpiresAt: bigint("terminalExpiresAt", { mode: "number" }),
+}, table => [
+  index("ghl_intake_outbox_claim_idx").on(table.status, table.leaseExpiresAt),
+  index("ghl_intake_outbox_retention_idx").on(table.status, table.terminalExpiresAt),
+]);
+export type GhlIntakeWebhookOutbox = typeof ghlIntakeWebhookOutbox.$inferSelect;

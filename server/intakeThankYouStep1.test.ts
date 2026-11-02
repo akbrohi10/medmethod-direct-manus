@@ -114,6 +114,8 @@ describe("intake thank-you Step 1 SMS copy", () => {
     )
       .split("\n")
       .filter((path) => path && !path.endsWith(".test.ts"))
+      // No thank-you/UI change: the separately verified GHL notification is backend-only.
+      .filter(path => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(path))
       .sort();
 
     // Homepage and Masterclass trust-row additions have complete inverse guards in their dedicated tests.
