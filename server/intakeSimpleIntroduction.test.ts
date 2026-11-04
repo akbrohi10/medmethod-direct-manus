@@ -28,7 +28,8 @@ describe("Intro 97 local intake introduction", () => {
     expect(introduction).toContain('className:"intro97-price-list"');
     expect(source).toContain('screen?.id!=="w01"&&(0,M.jsx)("h1"');
     expect(source).toContain('screen?.id!=="w01"&&(0,M.jsx)("p",{className:"eyebrow"');
-    expect(source).toContain('screen?.type==="consent"?"Ready to submit":screen?screen.question_text');
+    expect(source).toContain('children:screen?screen.question_text:"Welcome to MedMethod Direct"');
+    expect(source).toContain('question_text:"Last step: where should Dr. Al-Deek text you?",helper_text:"Add your details so Dr. Al-Deek can review your answers and text you."');
   });
 
   it("keeps one unchecked boolean interest control and changes only the w01 CTA", () => {
@@ -42,7 +43,7 @@ describe("Intro 97 local intake introduction", () => {
     const footer = source.slice(source.lastIndexOf('className:"intro97-footer-note"'));
     expect(footer.indexOf('className:"intro97-fine-print"')).toBeGreaterThan(0);
     expect(introduction).not.toContain('className:"intro97-fine-print"');
-    expect(source).toContain('className:screen?.id==="w01"?"stage intake-intro-stage":screen?.type==="signForms"?"stage sign-forms-stage":screen?.type==="scalePhoto"?"stage scale-photo-stage":"stage"');
+    expect(source).toContain('className:screen?.id==="w01"?"stage intake-intro-stage":screen?.type==="signForms"?"stage sign-forms-stage":screen?.type==="scalePhoto"?"stage scale-photo-stage":MmdIntakeSubmitScreen(screen)?"stage patient-submit-stage":"stage"');
     expect(source).toContain('.intro-footer .footer-inner{flex-direction:column;align-items:flex-start;gap:0}');
     for (const retired of ["$39", "39.00", "Free ongoing", "FREE ONGOING", "No monthly", "Ongoing text-based care", "Takes about 5 minutes", "Your assessment and ongoing asynchronous doctor care are free", "Intake & ongoing text care", "provides ongoing care and support"]) {
       expect(source.toLowerCase()).not.toContain(retired.toLowerCase());

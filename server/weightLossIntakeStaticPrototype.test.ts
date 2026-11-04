@@ -82,7 +82,7 @@ describe("Weight-loss intake static prototype import", () => {
     expect(landing).not.toContain("FREE BONUS");
     expect(landing).not.toContain("Membership pricing");
     expect(landing).not.toContain("Member perspectives");
-    expect(intake).toContain("Submit My Free Intake");
+    expect(intake).toContain("Submit & start my free visit");
   });
 
   it("keeps the removed hero brand label absent and uses the approved flyer-inspired hierarchy", () => {

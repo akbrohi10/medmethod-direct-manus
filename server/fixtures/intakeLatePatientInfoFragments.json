@@ -58,5 +58,135 @@
   {
     "old": "</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />",
     "new": "\n/* Late-intake doctor introduction: existing teal palette and Montserrat only. */\n.intro97-doctor{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:center;background:#eef6f3;border:1px solid #d7e1dd;border-radius:16px;margin:0 0 28px;padding:18px}.intro97-doctor img{display:block;width:88px;height:110px;object-fit:cover;border-radius:12px}.intro97-doctor-copy{min-width:0}.intro97-doctor h2{color:#113a3a;margin:0 0 7px;font:700 18px/1.4 Montserrat,Arial,sans-serif}.intro97-doctor p{overflow-wrap:anywhere;margin:0;font:400 15px/1.6 Montserrat,Arial,sans-serif;color:#465963}.intro97-doctor .intro97-doctor-credentials{font-weight:600;color:#075c5c;margin-bottom:9px}.intro97-doctor .intro97-doctor-note{font-size:17px}@media(max-width:480px){.intro97-doctor{grid-template-columns:68px minmax(0,1fr);gap:13px;padding:16px}.intro97-doctor img{width:68px;height:88px;align-self:start}.intro97-doctor h2{font-size:17px}.intro97-doctor .intro97-doctor-note{grid-column:1/-1;font-size:16px}}@media(prefers-color-scheme:dark){.intro97-doctor{background:#102526;border-color:#31514e}.intro97-doctor h2{color:#d8f0ed}.intro97-doctor p{color:#c9e4e1}.intro97-doctor .intro97-doctor-credentials{color:#84cbc7}}\n</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />"
+  },
+  {
+    "old": "section:\"Sign your forms\",question_text:\"Sign your forms\",helper_text:\"Please review and sign. This takes about a minute.\"",
+    "new": "section:\"Sign your forms\",question_text:\"Almost there: sign to connect with Dr. Al-Deek\",helper_text:\"Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you.\"",
+    "count": 1
+  },
+  {
+    "old": "find(\"w01\"),find(\"w02\"),find(\"w39\")].filter(Boolean)",
+    "new": "find(\"w01\"),find(\"w02\")?{...find(\"w02\"),question_text:\"Last step: where should Dr. Al-Deek text you?\",helper_text:\"Add your details so Dr. Al-Deek can review your answers and text you.\"}:null].filter(Boolean)",
+    "count": 1
+  },
+  {
+    "old": "function MmdIntakeLateDetails(screen){",
+    "new": "function MmdIntakeSubmitScreen(screen){return screen?.type===\"identity\"}function MmdIntakeLateDetails(screen){",
+    "count": 1
+  },
+  {
+    "old": "a.forEach(e=>O(e).forEach(e=>delete r[e])),e===`w`&&a.some(e=>e.type===`consent`)&&delete r.wConsentAt",
+    "new": "a.forEach(e=>{O(e).forEach(e=>delete r[e]);if(e.type===\"signForms\"){delete r.wConsent;delete r.wDecline}}),e===`w`&&a.some(e=>e.type===`consent`||e.type===\"signForms\")&&delete r.wConsentAt",
+    "count": 1
+  },
+  {
+    "old": "function MmdIntakeFinishReady(screen,answers,demoMode){return se(screen,answers,demoMode)&&answers.checkoutAck===true&&se(x(\"w\").find(item=>item.type===\"checkout\"),answers,demoMode)&&MmdIntakePhoneReady(answers,demoMode)}",
+    "new": "function MmdIntakeFinishReady(screen,answers,demoMode){return se(screen,answers,demoMode)&&answers.checkoutAck===true&&se(x(\"w\").find(item=>item.type===\"consent\"),answers,demoMode)&&se(x(\"w\").find(item=>item.type===\"checkout\"),answers,demoMode)&&MmdIntakePhoneReady(answers,demoMode)}",
+    "count": 1
+  },
+  {
+    "old": "function MmdSigningPayloadReady(signing){",
+    "new": "function MmdIntakeMissingDetails(answers,demoMode,formsReady){const missing=[];if(!E(answers.first))missing.push(\"First name\");if(!E(answers.last))missing.push(\"Last name\");if(!ie(answers).value)missing.push(\"Date of birth\");if(!E(answers.state)||!ae(answers.state))missing.push(\"State\");if(!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(String(answers.email??\"\")))missing.push(\"Email address\");const phoneValid=String(answers.phone??\"\").replace(/\\D/g,\"\").length>=10;if(!phoneValid)missing.push(\"Mobile number\");if(phoneValid&&!MmdIntakePhoneReady(answers,demoMode))missing.push(\"Mobile number verification\");if(answers.terms!==true)missing.push(\"Terms of Service and Privacy Policy acceptance\");if(answers.checkoutAck!==true)missing.push(\"Clinical review confirmation\");if(!formsReady||answers.wConsent!==true||answers.wDecline===true)missing.push(\"Signed forms\");return missing}function MmdSigningPayloadReady(signing){",
+    "count": 1
+  },
+  {
+    "old": "function MmdIntakeFinish({answers,onValue,demoMode,onUpdateVerification}){const verified=MmdIntakePhoneReady(answers,demoMode);return(0,M.jsxs)(\"div\",{className:\"intake-finish\",children:[(0,M.jsx)(MmdShippingUploadReview,{answers}),!verified&&(0,M.jsxs)(\"div\",{className:\"info\",children:[(0,M.jsx)(\"p\",{children:\"Please verify your mobile number before submitting. If verification expired, request a new code.\"}),(0,M.jsx)(\"button\",{type:\"button\",className:\"secondary\",onClick:onUpdateVerification,children:\"Verify mobile number\"})]}),(0,M.jsxs)(\"label\",{className:\"checkline\",children:[(0,M.jsx)(\"input\",{id:\"mmd-free-intake-ack\",type:\"checkbox\",checked:answers.checkoutAck===true,onChange:event=>onValue(\"checkoutAck\",event.target.checked)}),(0,M.jsx)(\"span\",{children:\"I confirm that my information is accurate and consent to securely submit this intake for clinical review. No payment is required.\"})]}),(0,M.jsxs)(M.Fragment,{children:[answers.videoVisitInterest===true?(0,M.jsxs)(\"aside\",{className:\"order-summary panel\",children:[(0,M.jsx)(\"span\",{className:\"eyebrow\",children:\"VIDEO VISIT\"}),(0,M.jsx)(\"strong\",{className:\"summary-price\",children:\"$97\"}),(0,M.jsx)(\"p\",{children:\"Pay and pick a time after submitting your intake.\"})]}):(0,M.jsx)(\"p\",{className:\"fine\",children:\"Your first text visit is FREE and includes 7 days of follow-up messaging. Medication costs extra.\"})]})]})}",
+    "new": "function MmdIntakeFinish({answers,onValue}){return(0,M.jsx)(\"div\",{className:\"intake-finish\",children:(0,M.jsxs)(\"label\",{className:\"checkline\",children:[(0,M.jsx)(\"input\",{id:\"mmd-free-intake-ack\",type:\"checkbox\",checked:answers.checkoutAck===true,onChange:event=>onValue(\"checkoutAck\",event.target.checked)}),(0,M.jsx)(\"span\",{children:\"I confirm my information is accurate and consent to submit it for clinical review.\"})]})})}",
+    "count": 1
+  },
+  {
+    "old": "[\"signForms\",\"consent\"].includes(screen.type)&&!formsReady",
+    "new": "(screen.type===\"signForms\"||MmdIntakeSubmitScreen(screen))&&!formsReady",
+    "count": 1
+  },
+  {
+    "old": "if(screen.type===\"consent\"){if(answers.checkoutAck!==true)",
+    "new": "if(MmdIntakeSubmitScreen(screen)){if(!MmdIntakeFinishReady(screen,answers,demo))return;if(answers.checkoutAck!==true)",
+    "count": 1
+  },
+  {
+    "old": "(returnScreen===\"w39\"&&screen.type===\"treatmentInterest\"||returnScreen===\"w39\"&&screen.type===\"identity\")",
+    "new": "(returnScreen===\"w02\"&&screen.type===\"treatmentInterest\")",
+    "count": 1
+  },
+  {
+    "old": "if(previous===\"w39\")setReturnScreen(null)",
+    "new": "if(previous===\"w02\")setReturnScreen(null)",
+    "count": 1
+  },
+  {
+    "old": "setReturnScreen(\"w39\")",
+    "new": "setReturnScreen(\"w02\")",
+    "count": 2
+  },
+  {
+    "old": "screen.type===\"consent\"?formsReady&&MmdIntakeFinishReady(screen,answers,demo)",
+    "new": "MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)",
+    "count": 1
+  },
+  {
+    "old": "informationOnly=screen?je.has(screen.type):false;",
+    "new": "informationOnly=screen?je.has(screen.type):false;const missingDetails=screen&&MmdIntakeSubmitScreen(screen)?MmdIntakeMissingDetails(answers,demo,formsReady):[];",
+    "count": 1
+  },
+  {
+    "old": "screen?.type===\"consent\"?\"Consent & submit\"",
+    "new": "MmdIntakeSubmitScreen(screen)?\"Patient info\"",
+    "count": 1
+  },
+  {
+    "old": "children:screen?.type===\"consent\"?\"Ready to submit\":screen?screen.question_text",
+    "new": "children:screen?screen.question_text",
+    "count": 1
+  },
+  {
+    "old": "(screen.type===\"signForms\"?\"sign-forms-footer\":\"\")",
+    "new": "(screen.type===\"signForms\"?\"sign-forms-footer\":\"\")+\" \"+(MmdIntakeSubmitScreen(screen)?\"patient-submit-footer\":\"\")",
+    "count": 1
+  },
+  {
+    "old": "screen.type===\"consent\"&&(0,M.jsxs)(\"div\",{className:\"pay\",children:[(0,M.jsx)(\"small\",{children:\"First text visit\"}),(0,M.jsx)(\"strong\",{children:\"FREE\"})]})",
+    "new": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdIntakeFinish,{answers,onValue}),MmdIntakeSubmitScreen(screen)&&!canContinue&&missingDetails.length>0&&(0,M.jsxs)(\"div\",{className:\"patient-submit-missing\",role:\"status\",\"aria-live\":\"polite\",children:[(0,M.jsx)(\"p\",{children:\"Almost there - please fill in:\"}),(0,M.jsx)(\"ul\",{children:missingDetails.map(item=>(0,M.jsx)(\"li\",{children:item},item))})]})",
+    "count": 1
+  },
+  {
+    "old": "screen.type===\"consent\"?answers.videoVisitInterest===true?\"Submit Intake & Book Video Visit\":\"Submit My Free Intake\":\"Continue\"",
+    "new": "MmdIntakeSubmitScreen(screen)?answers.videoVisitInterest===true?\"Submit & book my video visit\":\"Submit & start my free visit\":screen.type===\"signForms\"?\"Sign & continue\":\"Continue\"",
+    "count": 1
+  },
+  {
+    "old": "screen.id===\"w01\"&&(0,M.jsx)(\"p\",{className:\"intro97-footer-note\"",
+    "new": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(\"p\",{className:\"patient-submit-note\",children:answers.videoVisitInterest===true?\"You'll pay $97 and pick your time on the next page.\":\"Watch for a text from us after you submit.\"}),screen.id===\"w01\"&&(0,M.jsx)(\"p\",{className:\"intro97-footer-note\"",
+    "count": 1
+  },
+  {
+    "old": "href:`https://medmethoddirect.com/privacy-policy`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Privacy Policy`}),`.`]})]})]})",
+    "new": "href:`https://medmethoddirect.com/privacy-policy`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Privacy Policy`})]})]})]})",
+    "count": 1
+  },
+  {
+    "old": "</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />",
+    "new": "\n/* Final patient-info submission additions reuse the existing teal/column layout. */\n.patient-submit-footer .footer-inner{flex-direction:column;align-items:stretch;gap:14px}.patient-submit-footer .primary{width:100%}.patient-submit-footer .intake-finish{width:100%;margin:0}.patient-submit-missing{width:100%;color:#465963;font:400 15px/1.5 Montserrat,Arial,sans-serif}.patient-submit-missing p{margin:0 0 5px;font-weight:600}.patient-submit-missing ul{margin:0;padding-left:22px}.patient-submit-note{margin:0;text-align:center;color:#465963;font:400 15px/1.5 Montserrat,Arial,sans-serif}@media(prefers-color-scheme:dark){.patient-submit-missing,.patient-submit-note{color:#c9e4e1}}\n</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />",
+    "count": 1
+  },
+  {
+    "old": "MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)",
+    "new": "MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)&&MmdSigningPayloadReady(signingPayloadRef.current)",
+    "count": 1
+  },
+  {
+    "old": "MmdIntakeMissingDetails(answers,demo,formsReady):[]",
+    "new": "MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current)):[]",
+    "count": 1
+  },
+  {
+    "old": "screen?.type===\"scalePhoto\"?\"stage scale-photo-stage\":\"stage\"",
+    "new": "screen?.type===\"scalePhoto\"?\"stage scale-photo-stage\":MmdIntakeSubmitScreen(screen)?\"stage patient-submit-stage\":\"stage\"",
+    "count": 1
+  },
+  {
+    "old": ".patient-submit-footer .footer-inner{flex-direction:column;align-items:stretch;gap:14px}",
+    "new": ".stage.patient-submit-stage{padding-bottom:24px}.footer.patient-submit-footer{position:static;inset:auto}.patient-submit-footer .footer-inner{display:flex;flex-direction:column;align-items:stretch;gap:14px}",
+    "count": 1
   }
 ]

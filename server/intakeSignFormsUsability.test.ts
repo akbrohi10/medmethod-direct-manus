@@ -100,7 +100,8 @@ describe("Sign Your Forms usability", () => {
     expect(app).toContain('if(screen?.type==="signForms"&&!formsReady&&!submittingRef.current&&!uploadBusy){setFormsValidationAttempt(value=>value+1);return}');
     expect(app).toContain('disabled:submitting||uploadBusy||!canContinue&&!informationOnly&&screen.type!=="signForms"');
     expect(app).toContain('"aria-disabled":screen.type==="signForms"?submitting||uploadBusy||!formsReady:undefined');
-    expect(app).toContain('if(!screen||!se(screen,answers,demo)||submittingRef.current||uploadBusy||["signForms","consent"].includes(screen.type)&&!formsReady)return;');
+    expect(app).toContain('if(!screen||!se(screen,answers,demo)||submittingRef.current||uploadBusy||(screen.type==="signForms"||MmdIntakeSubmitScreen(screen))&&!formsReady)return;');
+    expect(app).toContain('screen.type==="signForms"?"Sign & continue":"Continue"');
 
     const form = namedFunction(ui, "MmdSignForms");
     expect(form).toContain("documents, validationAttempt})");

@@ -1,0 +1,118 @@
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+
+const root = resolve(import.meta.dirname, "..");
+const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const old = (path: string) => execFileSync("git", ["show", `c7a19865:${path}`], { cwd: root, encoding: "utf8" });
+const baseline = old("client/intake/index.html");
+const fixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
+type Fragment = { old: string; new: string; count?: number };
+const fragments: Fragment[] = JSON.parse(readFileSync(resolve(root, fixturePath), "utf8"));
+const previous: Fragment[] = JSON.parse(old(fixturePath));
+const fn = (text: string, name: string) => {
+  const start = text.lastIndexOf(`function ${name}(`);
+  expect(start).toBeGreaterThanOrEqual(0);
+  const end = text.indexOf("function ", start + 12);
+  return text.slice(start, end);
+};
+const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
+const screens = metadata.w.screens;
+const phoneStart = source.indexOf("function MmdDemoIdentityVerificationSkipped(");
+const phoneEnd = source.indexOf("async function MmdPhoneVerificationApi", phoneStart);
+const helpers = (search = "") => new Function("window", "URLSearchParams", "b", "x", "w", source.slice(phoneStart, phoneEnd) + fn(source, "E") + fn(source, "ie") + fn(source, "ae") + fn(source, "se") + fn(source, "MmdIntakePhoneReady") + fn(source, "MmdIntakeFinishReady") + fn(source, "MmdIntakeMissingDetails") + fn(source, "MmdIntakeFlowScreens") + ";return {MmdIntakeMissingDetails,MmdIntakeFinishReady,MmdIntakeFlowScreens}")(
+  { location: { search } }, URLSearchParams, { Georgia: "GA", Florida: "FL" }, () => screens, () => screens,
+) as {
+  MmdIntakeMissingDetails: (answers: Record<string, unknown>, demo: boolean, signed: boolean) => string[];
+  MmdIntakeFinishReady: (screen: unknown, answers: Record<string, unknown>, demo: boolean) => boolean;
+  MmdIntakeFlowScreens: (answers: unknown) => Array<{ id: string; type: string; question_text?: string; helper_text?: string }>;
+};
+const valid = () => ({ first: "SYNTHETIC", last: "Example", dobMonth: "1", dobDay: "15", dobYear: "1985", state: "Georgia", email: "synthetic@example.invalid", phone: "2025550188", terms: true, smsOptIn: false, checkoutAck: true, wConsent: true, wDecline: false, phoneVerified: true, phoneVerificationToken: "SYNTHETIC-ONLY", phoneVerificationExpiresAt: Date.now() + 60000, phoneVerificationSettings: { mode: "live", required: true } });
+
+describe("Weight Care final patient-info submission wording", () => {
+  it("retains the complete canonical questions/options/state fields and makes identity the sole visible final submit screen", () => {
+    expect(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]).toBe(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
+    const flow = helpers().MmdIntakeFlowScreens({});
+    expect(flow.slice(-7).map(screen => screen.id)).toEqual(["w30", "wShippingAddress", "wScalePhoto", "w38", "wSignForms", "w01", "w02"]);
+    expect(flow.filter(screen => screen.type === "identity")).toHaveLength(1);
+    expect(flow.some(screen => screen.id === "w39")).toBe(false);
+    expect(metadata.w.screens.some((screen: { id: string }) => screen.id === "w39")).toBe(true);
+    expect(flow.at(-1)).toMatchObject({ type: "identity", question_text: "Last step: where should Dr. Al-Deek text you?", helper_text: "Add your details so Dr. Al-Deek can review your answers and text you." });
+  });
+
+  it("uses the exact signing copy without modifying document wording, signing fields, validation or CSS", () => {
+    const sign = helpers().MmdIntakeFlowScreens({}).find(screen => screen.id === "wSignForms");
+    expect(sign).toMatchObject({ question_text: "Almost there: sign to connect with Dr. Al-Deek", helper_text: "Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you." });
+    expect(source).toContain('screen.type==="signForms"?"Sign & continue":"Continue"');
+    for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(readFileSync(resolve(root, path), "utf8")).toBe(old(path));
+  });
+
+  it("moves one final acknowledgement above Submit and preserves the terms links, optional SMS consent and checkoutAck key", () => {
+    expect((fn(source, "MmdIntakeFinish").match(/id:"mmd-free-intake-ack"/g) ?? []).length).toBe(1);
+    expect((source.match(/id:"mmd-free-intake-ack"/g) ?? []).length).toBe((baseline.match(/id:"mmd-free-intake-ack"/g) ?? []).length);
+    expect(fn(source, "MmdIntakeFinish")).toContain("I confirm my information is accurate and consent to submit it for clinical review.");
+    expect(source).toContain('MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdIntakeFinish,{answers,onValue})');
+    expect(source).toContain('checked:answers.checkoutAck===true');
+    expect(source).toContain('href:`https://medmethoddirect.com/terms`');
+    expect(source).toContain('href:`https://medmethoddirect.com/privacy-policy`');
+    expect(source).toContain('children:[`I accept the `');
+    expect(fn(source, "be")).toBe(fn(baseline, "be"));
+  });
+
+  it("uses exact free/video button wording and next-page note, and retains authoritative signing locks and submission transport", () => {
+    for (const text of ["Submit & start my free visit", "Submit & book my video visit", "Watch for a text from us after you submit.", "You'll pay $97 and pick your time on the next page.", "Almost there - please fill in:"]) expect(source).toContain(text);
+    const app = source.slice(source.lastIndexOf("function $e()"));
+    expect(app).toContain('MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)&&MmdSigningPayloadReady(signingPayloadRef.current)');
+    expect(app).toContain('MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current))');
+    expect(app).toContain('if(!MmdSigningPayloadReady(signing))');
+    expect(app).toContain('const receipt=await MmdSubmitFreeIntake("w",answers,demo,signing)');
+    expect(app).not.toContain('setReturnScreen("w39")');
+    expect(app).toContain('setReturnScreen("w02")');
+    expect(fn(source, "MmdSigningPayloadReady")).toBe(fn(baseline, "MmdSigningPayloadReady"));
+    const submit = (text: string) => text.slice(text.indexOf("async function MmdSubmitFreeIntake"), text.indexOf("var Ae=", text.indexOf("async function MmdSubmitFreeIntake")));
+    expect(submit(source)).toBe(submit(baseline));
+  });
+
+  it("lists only actual missing items, excluding completed fields and optional SMS opt-in", () => {
+    const h = helpers();
+    expect(h.MmdIntakeMissingDetails(valid(), false, true)).toEqual([]);
+    expect(h.MmdIntakeMissingDetails({}, false, false)).toEqual(["First name", "Last name", "Date of birth", "State", "Email address", "Mobile number", "Terms of Service and Privacy Policy acceptance", "Clinical review confirmation", "Signed forms"]);
+    expect(h.MmdIntakeMissingDetails({ ...valid(), checkoutAck: false }, false, true)).toEqual(["Clinical review confirmation"]);
+    expect(h.MmdIntakeMissingDetails(valid(), false, false)).toEqual(["Signed forms"]);
+  });
+
+  it.each([["first", "", "First name"], ["last", "", "Last name"], ["state", "Unknown", "State"], ["email", "bad", "Email address"], ["phone", "123", "Mobile number"], ["terms", false, "Terms of Service and Privacy Policy acceptance"], ["wConsent", false, "Signed forms"], ["wDecline", true, "Signed forms"]])("reports only %s when that one requirement is invalid", (key, value, label) => {
+    expect(helpers().MmdIntakeMissingDetails({ ...valid(), [String(key)]: value }, false, true)).toEqual([label]);
+  });
+
+  it("keeps exact DOB/calendar/adult validation and only lists date of birth when invalid", () => {
+    const h = helpers();
+    for (const override of [{ dobDay: "" }, { dobMonth: "2", dobDay: "30" }, { dobYear: "2015" }]) {
+      expect(h.MmdIntakeMissingDetails({ ...valid(), ...override }, false, true)).toEqual(["Date of birth"]);
+      expect(h.MmdIntakeFinishReady(screens.find((screen: { type: string }) => screen.type === "identity"), { ...valid(), ...override }, false)).toBe(false);
+    }
+    expect(fn(source, "ie")).toBe(fn(baseline, "ie"));
+    expect(fn(source, "se")).toBe(fn(baseline, "se"));
+  });
+
+  it("retains verification expiry and the exact initialized demo exception without falsely listing optional SMS consent", () => {
+    const expired = { ...valid(), phoneVerificationExpiresAt: Date.now() - 1 };
+    expect(helpers().MmdIntakeMissingDetails(expired, false, true)).toEqual(["Mobile number verification"]);
+    expect(helpers("?prefill=demo").MmdIntakeMissingDetails(expired, true, true)).toEqual([]);
+    expect(helpers("?prefill=Demo").MmdIntakeMissingDetails(expired, true, true)).toEqual(["Mobile number verification"]);
+    const identity = screens.find((screen: { type: string }) => screen.type === "identity");
+    expect(helpers().MmdIntakeFinishReady(identity, valid(), false)).toBe(true);
+    for (const override of [{ checkoutAck: false }, { wConsent: false }, { wDecline: true }, expired]) expect(helpers().MmdIntakeFinishReady(identity, { ...valid(), ...override }, false)).toBe(false);
+  });
+
+  it("extends prior exact fixtures unchanged and reverses only this approved update back to the complete c7a19865 intake", () => {
+    expect(fragments.slice(0, previous.length)).toEqual(previous);
+    let restored = source;
+    for (const fragment of fragments.slice(previous.length).reverse()) {
+      expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
+      restored = restored.split(fragment.new).join(fragment.old);
+    }
+    expect(restored).toBe(baseline);
+  });
+});

@@ -76,12 +76,14 @@ describe("Weight Care lab, shipping, and scale screens", () => {
     expect(intake).toContain("onSkipScale:onContinue");
   });
 
-  it("shows address and verified upload counts on the actual final acknowledgment screen, not only the hidden legacy review", () => {
+  it("retains private shipping and upload review data without repeating the removed review on the final acknowledgment footer", () => {
     const review = component("MmdShippingUploadReview");
     expect(review).toContain("'data-hj-suppress':true");
     for (const label of ["Your shipping address", "Lab results uploaded:", "Scale photo:"]) expect(review).toContain(label);
     const finish = component("MmdIntakeFinish");
-    expect(finish).toContain("(0,M.jsx)(MmdShippingUploadReview,{answers})");
+    expect(finish).not.toContain("MmdShippingUploadReview");
     expect(finish).toContain('id:"mmd-free-intake-ack"');
+    expect(finish).toContain('checked:answers.checkoutAck===true,onChange:event=>onValue("checkoutAck",event.target.checked)');
+    expect(intake).toContain('MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdIntakeFinish,{answers,onValue})');
   });
 });

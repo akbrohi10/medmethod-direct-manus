@@ -68,14 +68,17 @@ describe("intake video-visit interest wording", () => {
     expect(review).toContain('...(videoVisitInterest?["Meet Dr. Al-Deek face-to-face by video - $97"]:[])');
 
     const finish = fragment("function MmdIntakeFinish({", "}\nfunction $e(){");
-    expect(finish).toContain('answers.videoVisitInterest===true?(0,M.jsxs)("aside",{className:"order-summary panel"');
-    expect(finish).toContain('children:"VIDEO VISIT"');
-    expect(finish).toContain('children:"$97"');
-    expect(finish).toContain('children:"Pay and pick a time after submitting your intake."');
-    expect(finish).toContain('):(0,M.jsx)("p",{className:"fine",children:"Your first text visit is FREE and includes 7 days of follow-up messaging. Medication costs extra."})');
+    expect(finish).not.toContain('className:"order-summary panel"');
+    expect(finish).not.toContain('children:"VIDEO VISIT"');
+    expect(finish).not.toContain('MmdShippingUploadReview');
+    expect(finish).toContain('id:"mmd-free-intake-ack",type:"checkbox",checked:answers.checkoutAck===true');
+    expect(finish).toContain('onChange:event=>onValue("checkoutAck",event.target.checked)');
+    expect(finish).toContain('children:"I confirm my information is accurate and consent to submit it for clinical review."');
+    expect(intakeSource).toContain('MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdIntakeFinish,{answers,onValue})');
+    expect(intakeSource).toContain('className:"patient-submit-note",children:answers.videoVisitInterest===true?"You\'ll pay $97 and pick your time on the next page.":"Watch for a text from us after you submit."');
     expect(intakeSource).toContain('t.videoVisitInterest===true?`Review & submission`:`Review & free submission`');
     expect(intakeSource).toContain('answers.videoVisitInterest===true?"Submitting your intake...":"Submitting your free intake\\u2026"');
-    expect(intakeSource).toContain('answers.videoVisitInterest===true?"Submit Intake & Book Video Visit":"Submit My Free Intake"');
+    expect(intakeSource).toContain('MmdIntakeSubmitScreen(screen)?answers.videoVisitInterest===true?"Submit & book my video visit":"Submit & start my free visit"');
     expect(intakeSource).not.toContain("$39");
     expect(intakeSource).not.toMatch(/Free ongoing|No monthly|Ongoing text-based/i);
   });

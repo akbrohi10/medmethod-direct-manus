@@ -33,7 +33,7 @@ describe("local intake pay-per-visit care and optional video interest", () => {
   });
 
   it("submits the free first text visit without requiring payment or a coupon", () => {
-    expect(intake).toContain("Submit My Free Intake");
+    expect(intake).toContain("Submit & start my free visit");
     expect(intake).toContain("No payment is needed to submit your intake.");
     expect(intake).toContain("/api/intake/submit");
     expect(app).toContain("submittingRef.current=true");
@@ -58,7 +58,7 @@ describe("local intake pay-per-visit care and optional video interest", () => {
     expect(intake).toContain("/api/phone-verification/confirm");
     expect(intake).toContain("Please verify your mobile number before submitting your free intake.");
     expect(intake).toContain("I confirm that my information is accurate and consent to securely submit this intake for clinical review. No payment is required.");
-    expect(app).toContain('setReturnScreen("w39")');
+    expect(app).toContain('setReturnScreen("w02")');
     expect(intake).toContain("I have read this information and consent to discuss GLP-1 treatment with my clinician.");
   });
 

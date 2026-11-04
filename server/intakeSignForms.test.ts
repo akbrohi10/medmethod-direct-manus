@@ -232,7 +232,8 @@ describe("Weight Care Sign Your Forms", () => {
   it("wires signing before late introduction and identity, removes the legacy Ze view, sends the in-memory signing envelope only at submission, and keeps be() byte-for-byte unchanged", () => {
     const flow = namedFunction(intake, "MmdIntakeFlowScreens");
     expect(flow).toContain('const signing={id:"wSignForms",route:"w",type:"signForms"');
-    expect(flow).toContain('find("w38"),...(find("w39")?[signing]:[]),find("w01"),find("w02"),find("w39")');
+    expect(flow).toContain('find("w38"),...(find("w39")?[signing]:[]),find("w01"),find("w02")?{...find("w02"),question_text:"Last step: where should Dr. Al-Deek text you?",helper_text:"Add your details so Dr. Al-Deek can review your answers and text you."}:null].filter(Boolean)');
+    expect(flow).toContain('question_text:"Almost there: sign to connect with Dr. Al-Deek",helper_text:"Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you."');
 
     expect(intake).toMatch(/src="\/intake\/sign-forms-data\.js(?:\?[^\"]*)?"/);
     expect(intake).toMatch(/src="\/intake\/sign-forms-ui\.js(?:\?[^\"]*)?"/);
@@ -257,7 +258,7 @@ describe("Weight Care Sign Your Forms", () => {
     expect(app).toContain("onReadyChange:setFormsReady");
     expect(app).toContain("onSigningChange:onSigningChange");
     expect(app).toContain('onGlpConsentChange:checked=>onValue("wConsent",checked)');
-    expect(app).toContain('screen.type==="signForms"?formsReady:screen.type==="consent"?formsReady&&MmdIntakeFinishReady');
+    expect(app).toContain('screen.type==="signForms"?formsReady:MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady');
     expect(app).toContain('screen.type!=="signForms"&&!MmdIntakeLateDetails(screen)&&!["checkoutAck","phoneVerificationSettings"].includes(key))setFormsReady(false)');
     expect(app).toContain('navigate(formsReady?returnScreen:"wSignForms")');
 

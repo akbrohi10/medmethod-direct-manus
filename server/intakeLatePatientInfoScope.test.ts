@@ -5,14 +5,14 @@ import { describe, expect, it } from "vitest";
 
 const root = resolve(import.meta.dirname, "..");
 export const latePatientInfoFixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
-const fragments = JSON.parse(readFileSync(resolve(root, latePatientInfoFixturePath), "utf8")) as Array<{ old: string; new: string }>;
+const fragments = JSON.parse(readFileSync(resolve(root, latePatientInfoFixturePath), "utf8")) as Array<{ old: string; new: string; count?: number }>;
 
 /** Reverse only the exact separately authorized intake fragments; unexpected changes remain visible. */
 export function inverseApprovedLatePatientInfo(path: string, source: string): string {
   if (path !== "client/intake/index.html") return source;
   for (const fragment of [...fragments].reverse()) {
-    if (source.split(fragment.new).length - 1 !== 1) throw new Error("Expected exactly one authorized late-patient-info source fragment");
-    source = source.replace(fragment.new, fragment.old);
+    if (source.split(fragment.new).length - 1 !== (fragment.count ?? 1)) throw new Error("Unexpected authorized late-patient-info source fragment count");
+    source = source.split(fragment.new).join(fragment.old);
   }
   return source;
 }

@@ -50,7 +50,7 @@ describe("intake scale-photo layout", () => {
     const scaleScreen = intake.slice(intake.indexOf('"id":"wScalePhoto"'), intake.indexOf('"id":"w38"'));
     expect(scaleScreen).toContain('"type":"scalePhoto"');
     expect(intake.match(/"type":"scalePhoto"/g)).toHaveLength(1);
-    expect(shell).toContain('screen?.type==="scalePhoto"?"stage scale-photo-stage":"stage"');
+    expect(shell).toContain('screen?.type==="scalePhoto"?"stage scale-photo-stage":MmdIntakeSubmitScreen(screen)?"stage patient-submit-stage":"stage"');
     expect(addedStyles).not.toBe("");
     expect(addedSelectors.length).toBeGreaterThan(0);
     for (const selector of addedSelectors) {

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
 const baseline = execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" });
-const fragments = JSON.parse(readFileSync(resolve(root, "server/fixtures/intakeLatePatientInfoFragments.json"), "utf8")) as Array<{ old: string; new: string }>;
+const fragments = JSON.parse(readFileSync(resolve(root, "server/fixtures/intakeLatePatientInfoFragments.json"), "utf8")) as Array<{ old: string; new: string; count?: number }>;
 const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const originalMetadata = JSON.parse(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const catalog = metadata.w.screens as Array<{ id: string; type: string; [key: string]: unknown }>;
@@ -48,10 +48,10 @@ describe("Weight Care late patient info and doctor introduction", () => {
   it("starts with treatment then measurements and puts labs and the exact requested tail after the last health question", () => {
     const flow = helpers.MmdIntakeFlowScreens({});
     expect(flow.slice(0, 2).map(screen => screen.id)).toEqual(["w04", "w03"]);
-    expect(flow.slice(-9).map(screen => screen.id)).toEqual(["w37", "w30", "wShippingAddress", "wScalePhoto", "w38", "wSignForms", "w01", "w02", "w39"]);
+    expect(flow.slice(-8).map(screen => screen.id)).toEqual(["w37", "w30", "wShippingAddress", "wScalePhoto", "w38", "wSignForms", "w01", "w02"]);
     const tail = new Set(["w30", "wShippingAddress", "wScalePhoto", "w38", "w01", "w02", "w39"]);
     const preserved = catalog.filter(screen => !tail.has(screen.id) && screen.id !== "w03a" && !["wReview", "planReview", "checkout"].includes(screen.type));
-    expect(flow.slice(0, -8)).toEqual(preserved);
+    expect(flow.slice(0, -7)).toEqual(preserved);
     expect(new Set(flow.map(screen => screen.id)).size).toBe(flow.length);
   });
 
@@ -118,8 +118,8 @@ describe("Weight Care late patient info and doctor introduction", () => {
   it("makes exactly the approved reversible changes, including only the new teal doctor-card CSS", () => {
     let restored = source;
     for (const fragment of [...fragments].reverse()) {
-      expect(restored.split(fragment.new).length - 1).toBe(1);
-      restored = restored.replace(fragment.new, fragment.old);
+      expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
+      restored = restored.split(fragment.new).join(fragment.old);
     }
     expect(restored).toBe(baseline);
     expect(source).not.toContain("[CREDENTIAL LINE]");
