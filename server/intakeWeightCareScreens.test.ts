@@ -32,11 +32,12 @@ describe("Weight Care lab, shipping, and scale screens", () => {
     expect(intake.slice(scale, notes)).toContain('"required":false');
   });
 
-  it("keeps shipping fields autofillable and suppressed, with state locked to identity and a five-digit ZIP", () => {
+  it("keeps shipping fields autofillable and suppressed, with editable canonical state and a five-digit ZIP", () => {
     const shipping = component("MmdShippingAddress");
-    for (const value of ["Street address", "Apt/suite/unit", "City", "ZIP code", "shipping address-line1", "shipping address-line2", "shipping address-level2", "shipping postal-code", "readOnly:!0", "'data-hj-suppress':!0"]) {
+    for (const value of ["Street address", "Apt/suite/unit", "City", "ZIP code", "shipping address-line1", "shipping address-line2", "shipping address-level2", "shipping address-level1", "shipping postal-code", "'data-hj-suppress':!0", "y.map(e=>(0,M.jsx)(`option`,{children:e},e))", "onChange:e=>t(`state`,e.target.value)"]) {
       expect(shipping).toContain(value);
     }
+    expect(shipping).not.toContain("readOnly:!0");
     expect(shipping).toContain("This is where medication may ship, so please make sure it's accurate.");
     expect(intake).toContain('/^\\d{5}$/.test(String(t.wAddressZip??``))');
   });

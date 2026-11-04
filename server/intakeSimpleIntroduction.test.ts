@@ -11,8 +11,10 @@ describe("Intro 97 local intake introduction", () => {
     for (const text of [
       "HOW IT WORKS",
       "Your doctor. One text away.",
-      "Complete a 5-10 minute intake. Then connect immediately with your doctor by text.",
-      "Fill out your intake", "Tell us about your health and goals.",
+      "Just add your details, and Dr. Al-Deek will text you to make a plan together.",
+      "Add your details", "Your name, email, and mobile number.",
+      "Dr. Jumana Al-Deek, DO", "Family Physician · Menopause Society Certified Practitioner (MSCP)",
+      "Dr. Al-Deek personally reviews every intake and will text you after you submit.",
       "Text with your doctor", "Connect immediately after submitting.",
       "Make a plan together", "Discuss your options and next steps.",
       "Simple, pay-per-visit care", "First text visit", "Includes 7 days of follow-up messaging.",
@@ -26,7 +28,7 @@ describe("Intro 97 local intake introduction", () => {
     expect(introduction).toContain('className:"intro97-price-list"');
     expect(source).toContain('screen?.id!=="w01"&&(0,M.jsx)("h1"');
     expect(source).toContain('screen?.id!=="w01"&&(0,M.jsx)("p",{className:"eyebrow"');
-    expect(source).toContain('screen?.type==="consent"?"Finish your intake":screen?screen.question_text');
+    expect(source).toContain('screen?.type==="consent"?"Ready to submit":screen?screen.question_text');
   });
 
   it("keeps one unchecked boolean interest control and changes only the w01 CTA", () => {

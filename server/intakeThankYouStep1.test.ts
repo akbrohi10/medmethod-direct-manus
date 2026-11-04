@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import vm from "node:vm";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath } from "./intakeLatePatientInfoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "1e99a10c";
@@ -116,6 +117,8 @@ describe("intake thank-you Step 1 SMS copy", () => {
       .filter((path) => path && !path.endsWith(".test.ts"))
       // No thank-you/UI change: the separately verified GHL notification is backend-only.
       .filter(path => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(path))
+      .filter(path => path !== latePatientInfoFixturePath)
+      .filter(path => path !== "client/intake/index.html" || inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
       .sort();
 
     // Homepage and Masterclass trust-row additions have complete inverse guards in their dedicated tests.

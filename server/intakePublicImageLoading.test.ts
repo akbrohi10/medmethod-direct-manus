@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { inverseApprovedLatePatientInfo } from "./intakeLatePatientInfoScope.test";
 
 const intakeImageFilenames = [
   "wli-f1f33b29d8189847_61cd9035.png",
@@ -68,7 +69,7 @@ async function request(url: string, method = "GET") {
 describe("public intake image loading", () => {
   it("changes the intake HTML only through the two approved public-image substitutions", () => {
     const baseline = execFileSync("git", ["show", "e3aba40:client/intake/index.html"], { cwd: root, encoding: "utf8" });
-    const current = readFileSync(intakePath, "utf8");
+    const current = inverseApprovedLatePatientInfo("client/intake/index.html", readFileSync(intakePath, "utf8"));
     const baselineMedicationImage = component(baseline, "Ie");
     const currentMedicationImage = current.slice(current.indexOf("function MmdIntakeImageSources("), current.indexOf("function MmdIntakeMedicationDetails("));
     const baselineScaleImage = "src:`/assets/scale-example.jpg`,alt:`Example of both feet on a digital scale with the weight visible`";

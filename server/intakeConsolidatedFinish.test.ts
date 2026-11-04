@@ -24,12 +24,12 @@ describe("consolidated local intake finish", () => {
 
   it("removes both mandatory review screens and separate checkout only from visible navigation", () => {
     const signingScreen = { id: "wSignForms", route: "w", type: "signForms", required: true, section: "Sign your forms", question_text: "Sign your forms", helper_text: "Please review and sign. This takes about a minute." };
-    expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[0], signingScreen, screens[1], screens[6]]);
-    expect(helpers().MmdIntakeFlowScreens({ videoVisitInterest: true })).toEqual([screens[0], signingScreen, screens[1], screens[6]]);
+    expect(helpers().MmdIntakeFlowScreens({})).toEqual([screens[6], screens[0], signingScreen, screens[1]]);
+    expect(helpers().MmdIntakeFlowScreens({ videoVisitInterest: true })).toEqual([screens[6], screens[0], signingScreen, screens[1]]);
     expect(app).toContain('()=>MmdIntakeFlowScreens(answers)');
     for (const type of ['"type":"wReview"', '"type":"planReview"', '"type":"checkout"']) expect(intake).toContain(type);
     expect(intake).toContain('function w(e,t){return x(e).filter(e=>re(e,t))}');
-    expect(app).toContain('screen?.id!=="w01"&&(0,M.jsx)("h1",{children:screen?.type==="consent"?"Finish your intake"');
+    expect(app).toContain('screen?.id!=="w01"&&(0,M.jsx)("h1",{children:screen?.type==="consent"?"Ready to submit"');
     expect(app).toContain('screen.type==="consent"?answers.videoVisitInterest===true?"Submit Intake & Book Video Visit":"Submit My Free Intake":"Continue"');
   });
 

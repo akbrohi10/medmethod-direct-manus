@@ -229,11 +229,10 @@ describe("Weight Care Sign Your Forms", () => {
     expect(cssSource).toMatch(/@media \(prefers-color-scheme:dark\)\{[\s\S]*?\.sign-forms-canvas\{background:#fff !important;/);
   });
 
-  it("wires Sign Your Forms immediately before final review, removes the legacy Ze view, sends the in-memory signing envelope only at submission, and keeps be() byte-for-byte unchanged", () => {
+  it("wires signing before late introduction and identity, removes the legacy Ze view, sends the in-memory signing envelope only at submission, and keeps be() byte-for-byte unchanged", () => {
     const flow = namedFunction(intake, "MmdIntakeFlowScreens");
-    expect(flow).toContain(".flatMap(");
-    expect(flow).toContain('screen.type==="consent"?[{id:"wSignForms",route:"w",type:"signForms"');
-    expect(flow).toContain("},screen]:[screen]");
+    expect(flow).toContain('const signing={id:"wSignForms",route:"w",type:"signForms"');
+    expect(flow).toContain('find("w38"),...(find("w39")?[signing]:[]),find("w01"),find("w02"),find("w39")');
 
     expect(intake).toMatch(/src="\/intake\/sign-forms-data\.js(?:\?[^\"]*)?"/);
     expect(intake).toMatch(/src="\/intake\/sign-forms-ui\.js(?:\?[^\"]*)?"/);
@@ -259,7 +258,7 @@ describe("Weight Care Sign Your Forms", () => {
     expect(app).toContain("onSigningChange:onSigningChange");
     expect(app).toContain('onGlpConsentChange:checked=>onValue("wConsent",checked)');
     expect(app).toContain('screen.type==="signForms"?formsReady:screen.type==="consent"?formsReady&&MmdIntakeFinishReady');
-    expect(app).toContain('screen.type!=="signForms"&&!["checkoutAck","phoneVerificationSettings"].includes(key))setFormsReady(false)');
+    expect(app).toContain('screen.type!=="signForms"&&!MmdIntakeLateDetails(screen)&&!["checkoutAck","phoneVerificationSettings"].includes(key))setFormsReady(false)');
     expect(app).toContain('navigate(formsReady?returnScreen:"wSignForms")');
 
     const submit = namedFunction(intake, "MmdSubmitFreeIntake");

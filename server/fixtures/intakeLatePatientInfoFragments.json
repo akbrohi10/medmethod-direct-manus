@@ -1,0 +1,62 @@
+[
+  {
+    "old": "function MmdIntakeFlowScreens(answers){return w(\"w\",answers).filter(screen=>screen.id!==\"w03a\"&&![\"wReview\",\"planReview\",\"checkout\"].includes(screen.type)).flatMap(screen=>screen.type===\"consent\"?[{id:\"wSignForms\",route:\"w\",type:\"signForms\",required:true,section:\"Sign your forms\",question_text:\"Sign your forms\",helper_text:\"Please review and sign. This takes about a minute.\"},screen]:[screen])}",
+    "new": "function MmdIntakeFlowScreens(answers){const visible=w(\"w\",answers).filter(screen=>screen.id!==\"w03a\"&&![\"wReview\",\"planReview\",\"checkout\"].includes(screen.type));const tailIds=[\"w30\",\"wShippingAddress\",\"wScalePhoto\",\"w38\",\"w01\",\"w02\",\"w39\"];const find=id=>visible.find(screen=>screen.id===id);const signing={id:\"wSignForms\",route:\"w\",type:\"signForms\",required:true,section:\"Sign your forms\",question_text:\"Sign your forms\",helper_text:\"Please review and sign. This takes about a minute.\"};return [...visible.filter(screen=>!tailIds.includes(screen.id)),find(\"w30\"),find(\"wShippingAddress\"),find(\"wScalePhoto\"),find(\"w38\"),...(find(\"w39\")?[signing]:[]),find(\"w01\"),find(\"w02\"),find(\"w39\")].filter(Boolean)}function MmdIntakeLateDetails(screen){return screen?.id===\"w01\"||screen?.type===\"identity\"}"
+  },
+  {
+    "old": "function k(e,t,n){let r={...n},i=x(e).findIndex(e=>e.id===t),a=x(e).slice(i+1);",
+    "new": "function k(e,t,n){let r={...n},screens=e===`w`?MmdIntakeFlowScreens(n):x(e),i=screens.findIndex(e=>e.id===t),a=screens.slice(i+1).filter(e=>!MmdIntakeLateDetails(e));"
+  },
+  {
+    "old": "let r=w(e,n).filter(e=>![`wReview`,`planReview`,`checkout`,`consent`].includes(e.type)),i=r.findIndex(e=>e.id===t);",
+    "new": "let r=(e===`w`?MmdIntakeFlowScreens(n):w(e,n)).filter(e=>![`wReview`,`planReview`,`checkout`,`consent`].includes(e.type)),i=r.findIndex(e=>e.id===t);"
+  },
+  {
+    "old": "const onValue=(key,value)=>{if(screen.type!==\"signForms\"&&![\"checkoutAck\",\"phoneVerificationSettings\"].includes(key))setFormsReady(false);",
+    "new": "const onValue=(key,value)=>{if(screen.type!==\"signForms\"&&!MmdIntakeLateDetails(screen)&&![\"checkoutAck\",\"phoneVerificationSettings\"].includes(key))setFormsReady(false);"
+  },
+  {
+    "old": "next=demo||editing||screen.type===\"signForms\"||key===\"videoVisitInterest\"?",
+    "new": "next=demo||editing||screen.type===\"signForms\"||MmdIntakeLateDetails(screen)||key===\"videoVisitInterest\"?"
+  },
+  {
+    "old": "setCurrentId(x(\"w\")[0]?.id??null)",
+    "new": "setCurrentId(MmdIntakeFlowScreens(preset)[0]?.id??null)"
+  },
+  {
+    "old": "const[answers,setAnswers]=(0,l.useState)(()=>({_submissionId:ve(),_submittedAt:new Date().toISOString()}));",
+    "new": "const[answers,setAnswers]=(0,l.useState)(()=>({_submissionId:ve(),_submittedAt:new Date().toISOString(),videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"}));"
+  },
+  {
+    "old": "setAnswers({...preset,_submissionId:ve(),_submittedAt:new Date().toISOString()});",
+    "new": "setAnswers({...preset,_submissionId:ve(),_submittedAt:new Date().toISOString(),videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"});"
+  },
+  {
+    "old": "(0,M.jsxs)(`label`,{className:`field locked-state`,children:[(0,M.jsx)(`span`,{children:`State`}),(0,M.jsx)(`input`,{id:`wAddressState`,autoComplete:`shipping address-level1`,value:String(e.state??``),readOnly:!0,'aria-label':`State`,'data-hj-suppress':!0})]})",
+    "new": "(0,M.jsxs)(`label`,{className:`field`,children:[(0,M.jsxs)(`span`,{children:[`State `,(0,M.jsx)(`span`,{className:`required-mark`,children:`*`})]}),(0,M.jsxs)(`select`,{id:`wAddressState`,autoComplete:`shipping address-level1`,value:String(e.state??``),onChange:e=>t(`state`,e.target.value),'aria-label':`State`,'data-hj-suppress':!0,children:[(0,M.jsx)(`option`,{value:``,children:`Select your state`}),y.map(e=>(0,M.jsx)(`option`,{children:e},e))]})]})"
+  },
+  {
+    "old": "children:screen?.type===\"consent\"?\"Finish your intake\":screen?screen.question_text",
+    "new": "children:screen?.type===\"consent\"?\"Ready to submit\":screen?screen.question_text"
+  },
+  {
+    "old": "children:\"Complete a 5-10 minute intake. Then connect immediately with your doctor by text.\"",
+    "new": "children:\"Just add your details, and Dr. Al-Deek will text you to make a plan together.\""
+  },
+  {
+    "old": "children:\"Fill out your intake\"",
+    "new": "children:\"Add your details\""
+  },
+  {
+    "old": "children:\"Tell us about your health and goals.\"",
+    "new": "children:\"Your name, email, and mobile number.\""
+  },
+  {
+    "old": "(0,M.jsxs)(\"ol\",{className:\"intro97-steps\",",
+    "new": "(0,M.jsxs)(\"aside\",{className:\"intro97-doctor\",\"aria-label\":\"Your doctor\",children:[(0,M.jsx)(\"img\",{src:\"/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp\",alt:\"Dr. Jumana Al-Deek\",width:88,height:110,decoding:\"async\"}),(0,M.jsxs)(\"div\",{className:\"intro97-doctor-copy\",children:[(0,M.jsx)(\"h2\",{children:\"Dr. Jumana Al-Deek, DO\"}),(0,M.jsx)(\"p\",{className:\"intro97-doctor-credentials\",children:\"Family Physician \u00b7 Menopause Society Certified Practitioner (MSCP)\"}),(0,M.jsx)(\"p\",{className:\"intro97-doctor-note\",children:\"Dr. Al-Deek personally reviews every intake and will text you after you submit.\"})]})]}),(0,M.jsxs)(\"ol\",{className:\"intro97-steps\","
+  },
+  {
+    "old": "</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />",
+    "new": "\n/* Late-intake doctor introduction: existing teal palette and Montserrat only. */\n.intro97-doctor{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:center;background:#eef6f3;border:1px solid #d7e1dd;border-radius:16px;margin:0 0 28px;padding:18px}.intro97-doctor img{display:block;width:88px;height:110px;object-fit:cover;border-radius:12px}.intro97-doctor-copy{min-width:0}.intro97-doctor h2{color:#113a3a;margin:0 0 7px;font:700 18px/1.4 Montserrat,Arial,sans-serif}.intro97-doctor p{overflow-wrap:anywhere;margin:0;font:400 15px/1.6 Montserrat,Arial,sans-serif;color:#465963}.intro97-doctor .intro97-doctor-credentials{font-weight:600;color:#075c5c;margin-bottom:9px}.intro97-doctor .intro97-doctor-note{font-size:17px}@media(max-width:480px){.intro97-doctor{grid-template-columns:68px minmax(0,1fr);gap:13px;padding:16px}.intro97-doctor img{width:68px;height:88px;align-self:start}.intro97-doctor h2{font-size:17px}.intro97-doctor .intro97-doctor-note{grid-column:1/-1;font-size:16px}}@media(prefers-color-scheme:dark){.intro97-doctor{background:#102526;border-color:#31514e}.intro97-doctor h2{color:#d8f0ed}.intro97-doctor p{color:#c9e4e1}.intro97-doctor .intro97-doctor-credentials{color:#84cbc7}}\n</style>\n<link rel=\"stylesheet\" href=\"/intake/sign-forms.css?v=20261030-usability\" />"
+  }
+]
