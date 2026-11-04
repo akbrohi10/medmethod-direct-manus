@@ -5,7 +5,7 @@
   const CHECKOUT_KEY = "mmd_video_visit_checkout";
   const VIDEO_VISIT_AMOUNT = "97.00";
   const CARE_EMAIL = "info@medmethoddirect.com";
-  const CARE_PHONE = "888-362-7011";
+  const CARE_PHONE = "(888) 362-7011";
   const demoParams = new URLSearchParams(window.location.search);
   const DEMO_MODE = demoParams.getAll("prefill").length === 1 && demoParams.get("prefill") === "demo";
   let state = { receipt: null, config: null, cardSession: null, apple: null, initializing: false };
@@ -512,7 +512,7 @@
     const title = byId("care-message-title");
     const copy = byId("care-message-copy");
     if (title) title.textContent = "Check your text messages";
-    if (copy) copy.textContent = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
+    if (copy) copy.textContent = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
   }
 
   function initializePage() {

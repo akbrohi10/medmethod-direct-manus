@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedIntroDetailsPhoto, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 export const latePatientInfoFixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
@@ -16,6 +17,7 @@ const fragments = JSON.parse(readFileSync(resolve(root, latePatientInfoFixturePa
 
 /** Reverse only the exact separately authorized intake fragments; unexpected changes remain visible. */
 export function inverseApprovedLatePatientInfo(path: string, source: string): string {
+  if (approvedThankYouWordingPaths.some(approvedPath => approvedPath === path)) return inverseApprovedThankYouWording(path, source);
   if (path === signingUiPath) {
     if (source.split(signingStatusFragment.new).length - 1 !== 1) throw new Error("Unexpected authorized signing-status source fragment count");
     return source.replace(signingStatusFragment.new, signingStatusFragment.old);
@@ -35,7 +37,9 @@ describe("late patient info complete production scope", () => {
     const changed = [
       ...execFileSync("git", ["diff", "--name-only", "87fcd00d", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
-    ].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath].includes(path));
+    ].filter(Boolean)
+      .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(resolve(root, path), "utf8")) !== execFileSync("git", ["show", `87fcd00d:${path}`], { cwd: root, encoding: "utf8" }))
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath, thankYouWordingFixturePath].includes(path));
     expect([...new Set(changed)].sort()).toEqual(["client/intake/index.html", introducedContinueGuidanceAssetPath, signingUiPath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
     const current = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
     expect(inverseApprovedLatePatientInfo("client/intake/index.html", current)).toBe(execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" }));

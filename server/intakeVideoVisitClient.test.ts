@@ -86,8 +86,8 @@ describe("optional video visit confirmation client", () => {
     expect(page).toContain('href="/intake/"');
     expect(page).not.toContain("$49 safety net");
     expect(page).toContain("Prefer a face-to-face conversation?");
-    expect(page).toContain("Add a Zoom video visit with a doctor specializing in medical weight loss — <strong>$97.</strong>");
-    expect(page).toContain("Every visit includes 7 days of follow-up messaging. This is optional; declining, cancelling, or a payment issue never affects your free intake.");
+    expect(page).toContain("Add a Zoom video visit with Dr. Al-Deek - <strong>$97.</strong>");
+    expect(page).toContain("Includes 7 days of follow-up messaging. Totally optional - your free intake is already complete.");
     expect(page).not.toContain("No monthly charge and no commitment.");
     expect(page).toContain("Add a Video Visit — $97");
     expect(page).toContain("Payment is only for the optional $97 video visit. Your free intake remains complete either way.");
@@ -98,17 +98,18 @@ describe("optional video visit confirmation client", () => {
     expect(source).toContain('total: { label: "MedMethod Direct", amount: VIDEO_VISIT_AMOUNT, type: "final" }');
     expect(page).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(page).toContain('<strong id="care-message-title">Check your text messages</strong>');
-    expect(page).toContain("You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!");
+    expect(page).toContain("You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!");
     expect(page).toContain("Upload or update your info in the Patient Portal");
     expect(page).toContain("Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.");
     expect(page).not.toContain("Doctor-led weight-care review");
     expect(page).not.toContain("Your intake is free.");
     expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
-    expect(page).toContain('class="start-over" href="/intake/">Start over</a>');
-    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261030-step1"></script>');
+    expect(page).toContain('class="start-over" href="https://www.medmethoddirect.com">Back to MedMethod Direct</a>');
+    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy"></script>');
+    expect(source).toContain('const CARE_PHONE = "(888) 362-7011";');
     expect(source).toContain('if (receipt.sms_opt_in) return;');
     expect(source).toContain('title.textContent = "Check your text messages"');
-    expect(source).toContain('copy.textContent = "You should have received a text from MedMethod Direct, or you\'ll receive one shortly. Please reply to our message so we can stay connected!"');
+    expect(source).toContain('copy.textContent = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!"');
   });
 
   it("posts only the submission token and approved payment method to the optional PayPal order API", async () => {

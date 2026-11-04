@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const path = "client/intake/index.html";
@@ -55,7 +56,9 @@ describe("Weight Care shipping screen exact copy", () => {
 
   it("changes no other production source from the approved checkpoint", () => {
     const scope = ["client", "server", "shared", "package.json", "pnpm-lock.yaml", "vite.config.ts", "drizzle"];
-    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean).filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(p));
+    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean)
+      .filter(p => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === p) || inverseApprovedThankYouWording(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }))
+      .filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath, thankYouWordingFixturePath].includes(p));
     expect(inverseApprovedIntroDetailsPhoto(introDetailsPhotoRegistrationPath, readFileSync(resolve(root, introDetailsPhotoRegistrationPath), "utf8"))).toBe(execFileSync("git", ["show", `b69c2aa2:${introDetailsPhotoRegistrationPath}`], { cwd: root, encoding: "utf8" }));
     const remaining = paths.filter(p => p !== introDetailsPhotoRegistrationPath || inverseApprovedIntroDetailsPhoto(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }));
     expect([...new Set(remaining)]).toEqual([path]);

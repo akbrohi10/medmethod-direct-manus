@@ -55,7 +55,8 @@
     .confirmation-next-steps { margin: 30px 0 26px; text-align: left; }
     .confirmation-next-steps ol { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
     .confirmation-next-steps li { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 14px; min-height: 42px; font-size: 1rem; font-weight: 750; line-height: 1.35; }
-    .confirmation-next-steps li:not(:last-child)::after { position: absolute; top: 42px; bottom: -16px; left: 20px; width: 2px; background: #84cbc7; content: ""; }
+    .confirmation-next-steps li:not(:last-child)::after { position: absolute; top: calc(50% + 21px); bottom: -16px; left: 20px; width: 2px; background: #84cbc7; content: ""; }
+    .confirmation-next-steps li:not(:first-child)::before { position: absolute; top: 0; height: calc(50% - 21px); left: 20px; width: 2px; background: #84cbc7; content: ""; }
     .step-number { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: linear-gradient(135deg, #b6e46e, #84cbc7); color: #0d2021; font-weight: 800; }
     .step-copy { display: grid; gap: 2px; min-width: 0; }
     .step-copy strong { color: #1f2937; font-size: 1rem; }
@@ -156,28 +157,28 @@
 
       <section class="confirmation" id="confirmed-intake" aria-labelledby="confirmation-title" hidden>
         <div class="checkmark" aria-hidden="true">✓</div>
-        <h1 id="confirmation-title">Your intake is complete.</h1>
-        <p class="lede">Your free intake has been received. Follow the steps below to get started.</p>
+        <h1 id="confirmation-title">Congratulations, your intake is complete!</h1>
+        <p class="lede">Your free intake has been received. Dr. Al-Deek will review your answers and text you soon.</p>
 
         <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
           <h2 id="next-steps-title">What happens next</h2>
           <ol>
-            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your text messages</strong><span id="care-message-copy">You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!</span></span></li>
+            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your text messages</strong><span id="care-message-copy">You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!</span></span></li>
             <li><span class="step-number">2</span><span class="step-copy"><strong>Check your email &amp; create your account</strong><span>Look for our welcome email with your Patient Portal link. Click the link, create your username and password, and log in.</span></span></li>
             <li><span class="step-number">3</span><span class="step-copy"><strong>Upload or update your info in the Patient Portal</strong><span>Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.</span></span></li>
           </ol>
         </section>
 
         <div class="next-steps-followup">
-          <p>Complete the portal steps above so the Care Team can help with the next steps in your care.</p>
-          <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">888-362-7011</a>.</p>
+          <p>Complete these steps so Dr. Al-Deek and our Care Team can help with your next steps.</p>
+          <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">(888) 362-7011</a>.</p>
         </div>
 
         <section class="video-visit-card" id="video-visit-card" aria-labelledby="video-visit-title">
           <div class="video-visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 5-3v10l-5-3"/></svg></div>
           <h2 id="video-visit-title">Prefer a face-to-face conversation?</h2>
-          <p>Add a Zoom video visit with a doctor specializing in medical weight loss — <strong>$97.</strong></p>
-          <p class="video-visit-reassurance">Every visit includes 7 days of follow-up messaging. This is optional; declining, cancelling, or a payment issue never affects your free intake.</p>
+          <p>Add a Zoom video visit with Dr. Al-Deek - <strong>$97.</strong></p>
+          <p class="video-visit-reassurance">Includes 7 days of follow-up messaging. Totally optional - your free intake is already complete.</p>
           <button class="primary" id="open-video-checkout" type="button">Add a Video Visit — $97</button>
         </section>
 
@@ -228,10 +229,10 @@
 
         <section class="checkout-complete" id="video-visit-complete" aria-live="polite" hidden>
           <h2 id="video-complete-title">Video visit paid — $97</h2>
-          <p id="video-complete-copy">Thank you. To coordinate your optional video visit, contact the Care Team at <a href="mailto:info@medmethoddirect.com">info@medmethoddirect.com</a> or <a href="tel:+18883627011">888-362-7011</a>.</p>
+          <p id="video-complete-copy">Thank you. To coordinate your optional video visit, contact the Care Team at <a href="mailto:info@medmethoddirect.com">info@medmethoddirect.com</a> or <a href="tel:+18883627011">(888) 362-7011</a>.</p>
         </section>
 
-        <a class="start-over" href="/intake/">Start over</a>
+        <a class="start-over" href="https://www.medmethoddirect.com">Back to MedMethod Direct</a>
       </section>
 
       <section class="anonymous-panel" id="no-intake" aria-labelledby="start-title" hidden>
@@ -242,6 +243,6 @@
       </section>
     </main>
   </div>
-  <script src="/intake/video-visit.js?v=intake-video-97-20261030-step1"></script>
+  <script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy"></script>
 </body>
 </html>

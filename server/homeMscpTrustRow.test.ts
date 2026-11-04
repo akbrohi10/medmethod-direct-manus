@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
 import { introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const baseline = "59e7c056";
 const root = resolve(import.meta.dirname, "..");
@@ -67,6 +68,8 @@ function changedProductionFiles(): string[] {
     ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" }).split("\n"),
   ])]
     .filter(Boolean)
+    .filter(file => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === file) || inverseApprovedThankYouWording(file, read(file)) !== atBaseline(file))
+    .filter(file => file !== thankYouWordingFixturePath)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     // Separately authorized backend-only notification; dedicated GHL suites protect its scope.
     .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))

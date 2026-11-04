@@ -2,12 +2,13 @@ import { describe, expect, it } from "vitest";
 import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { Script } from "node:vm";
+import { inverseApprovedThankYouWording } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const landing = read("client/weight-loss-intake.html");
 const intake = read("client/intake/index.html");
-const intakeThankYou = read("client/intake/thank-you/index.html");
+const intakeThankYou = inverseApprovedThankYouWording("client/intake/thank-you/index.html", read("client/intake/thank-you/index.html"));
 const server = read("server/_core/index.ts");
 const crawler = read("server/crawlerMiddleware.ts");
 const vite = read("vite.config.ts");

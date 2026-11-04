@@ -5,6 +5,7 @@ import vm from "node:vm";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
 import { introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "1e99a10c";
@@ -15,7 +16,8 @@ const thankYou = readFileSync(resolve(root, thankYouPath), "utf8");
 const baselineFile = (path: string) => execFileSync("git", ["show", `${baseline}:${path}`], { cwd: root, encoding: "utf8" });
 
 const titleCopy = "Check your text messages";
-const bodyCopy = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
+const bodyCopy = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+const previousBodyCopy = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
 const oldTitleCopy = "Use your secure Patient Portal";
 const oldBodyCopy = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms.";
 const oldLoader = '<script src="/intake/video-visit.js?v=intake-video-97-20261027"></script>';
@@ -100,12 +102,12 @@ describe("intake thank-you Step 1 SMS copy", () => {
   it("changes only the two authorized client literals from the clean baseline", () => {
     const expected = baselineFile(clientPath)
       .replace(oldTitleCopy, titleCopy)
-      .replace(oldBodyCopy, bodyCopy);
-    expect(source).toBe(expected);
+      .replace(oldBodyCopy, previousBodyCopy);
+    expect(inverseApprovedThankYouWording(clientPath, source)).toBe(expected);
   });
 
   it("changes only the thank-you loader cache key from the clean baseline", () => {
-    expect(thankYou).toBe(baselineFile(thankYouPath).replace(oldLoader, newLoader));
+    expect(inverseApprovedThankYouWording(thankYouPath, thankYou)).toBe(baselineFile(thankYouPath).replace(oldLoader, newLoader));
   });
 
   it("leaves every other production source unchanged from the clean baseline", () => {
@@ -117,6 +119,9 @@ describe("intake thank-you Step 1 SMS copy", () => {
       ).split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" }).split("\n"),
     ])]
+      .filter(Boolean)
+      .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
+      .filter(path => path !== thankYouWordingFixturePath)
       .filter((path) => path && !path.endsWith(".test.ts"))
       // No thank-you/UI change: the separately verified GHL notification is backend-only.
       .filter(path => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(path))

@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "0648c6e3";
@@ -22,6 +23,7 @@ export const approvedIntroDetailsPhotoHtmlFragments = packet.html_fragments;
 
 /** Reverse only the seven exact HTML fragments or two additive registration fragments. */
 export function inverseApprovedIntroDetailsPhoto(path: string, source: string): string {
+  if (approvedThankYouWordingPaths.some(approvedPath => approvedPath === path)) return inverseApprovedThankYouWording(path, source);
   const fragments = path === intakePath ? packet.html_fragments : path === introDetailsPhotoRegistrationPath ? packet.registration_fragments : [];
   for (const fragment of [...fragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized intro-details-photo source fragment count");
@@ -68,7 +70,9 @@ describe("intro details copy and doctor photo exact production scope", () => {
     const paths = [
       ...execFileSync("git", ["diff", "--name-only", baseline, "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
-    ].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json"].includes(path));
+    ].filter(Boolean)
+      .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, read(path)) !== old(path))
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath].includes(path));
     expect([...new Set(paths)].sort()).toEqual([intakePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
   });
 });

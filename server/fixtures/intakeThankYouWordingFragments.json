@@ -1,0 +1,69 @@
+{
+  "baseline": "76d1479d",
+  "files": {
+    "client/intake/thank-you/index.html": [
+      {
+        "old": "<h1 id=\"confirmation-title\">Your intake is complete.</h1>",
+        "new": "<h1 id=\"confirmation-title\">Congratulations, your intake is complete!</h1>",
+        "count": 1
+      },
+      {
+        "old": "Your free intake has been received. Follow the steps below to get started.",
+        "new": "Your free intake has been received. Dr. Al-Deek will review your answers and text you soon.",
+        "count": 1
+      },
+      {
+        "old": "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!",
+        "new": "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "count": 1
+      },
+      {
+        "old": "Complete the portal steps above so the Care Team can help with the next steps in your care.",
+        "new": "Complete these steps so Dr. Al-Deek and our Care Team can help with your next steps.",
+        "count": 1
+      },
+      {
+        "old": ">888-362-7011</a>",
+        "new": ">(888) 362-7011</a>",
+        "count": 2
+      },
+      {
+        "old": "Add a Zoom video visit with a doctor specializing in medical weight loss \u2014 <strong>$97.</strong>",
+        "new": "Add a Zoom video visit with Dr. Al-Deek - <strong>$97.</strong>",
+        "count": 1
+      },
+      {
+        "old": "Every visit includes 7 days of follow-up messaging. This is optional; declining, cancelling, or a payment issue never affects your free intake.",
+        "new": "Includes 7 days of follow-up messaging. Totally optional - your free intake is already complete.",
+        "count": 1
+      },
+      {
+        "old": "<a class=\"start-over\" href=\"/intake/\">Start over</a>",
+        "new": "<a class=\"start-over\" href=\"https://www.medmethoddirect.com\">Back to MedMethod Direct</a>",
+        "count": 1
+      },
+      {
+        "old": ".confirmation-next-steps li:not(:last-child)::after { position: absolute; top: 42px; bottom: -16px; left: 20px; width: 2px; background: #84cbc7; content: \"\"; }",
+        "new": ".confirmation-next-steps li:not(:last-child)::after { position: absolute; top: calc(50% + 21px); bottom: -16px; left: 20px; width: 2px; background: #84cbc7; content: \"\"; }\n    .confirmation-next-steps li:not(:first-child)::before { position: absolute; top: 0; height: calc(50% - 21px); left: 20px; width: 2px; background: #84cbc7; content: \"\"; }",
+        "count": 1
+      },
+      {
+        "old": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261030-step1\"></script>",
+        "new": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy\"></script>",
+        "count": 1
+      }
+    ],
+    "client/public/intake/video-visit.js": [
+      {
+        "old": "const CARE_PHONE = \"888-362-7011\";",
+        "new": "const CARE_PHONE = \"(888) 362-7011\";",
+        "count": 1
+      },
+      {
+        "old": "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!",
+        "new": "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "count": 1
+      }
+    ]
+  }
+}
