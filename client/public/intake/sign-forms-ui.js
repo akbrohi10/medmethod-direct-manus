@@ -506,6 +506,10 @@ function MmdSignForms({patientName, onReadyChange, onSigningChange, onGlpConsent
   return M.jsxs("section", {
     className: "sign-forms",
     "data-hj-suppress": "true",
+    "data-mmd-missing-name": needsName ? "true" : "false",
+    "data-mmd-missing-signature": !hasSignature ? "true" : "false",
+    "data-mmd-missing-e-sign": !electronicAgreement ? "true" : "false",
+    "data-mmd-missing-documents": JSON.stringify(documentIds.filter(function (id) { return !documentChecks[id]; })),
     children: [
       M.jsxs("fieldset", {
         className: "sign-forms-documents",

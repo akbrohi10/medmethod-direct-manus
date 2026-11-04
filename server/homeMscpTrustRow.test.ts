@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath } from "./intakeLatePatientInfoScope.test";
+import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
 
 const baseline = "59e7c056";
 const root = resolve(import.meta.dirname, "..");
@@ -68,7 +68,8 @@ function changedProductionFiles(): string[] {
     // Separately authorized backend-only notification; dedicated GHL suites protect its scope.
     .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))
     .filter(file => file !== latePatientInfoFixturePath)
-    .filter(file => file !== "client/intake/index.html" || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file))
+    .filter(file => file !== introducedContinueGuidanceAssetPath)
+    .filter(file => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js"].includes(file) || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file))
     .filter(file => file !== masterclassPath || inverseApprovedMscpTrustRow(file, read(file)) !== atBaseline(file));
 }
 

@@ -188,5 +188,35 @@
     "old": ".patient-submit-footer .footer-inner{flex-direction:column;align-items:stretch;gap:14px}",
     "new": ".stage.patient-submit-stage{padding-bottom:24px}.footer.patient-submit-footer{position:static;inset:auto}.patient-submit-footer .footer-inner{display:flex;flex-direction:column;align-items:stretch;gap:14px}",
     "count": 1
+  },
+  {
+    "old": "children:m.helper})]})]})",
+    "new": "children:m.helper}),o(m.value)&&(0,M.jsx)(`span`,{className:`choice-note medication-cost-confirmation`,\"aria-live\":`polite`,children:`Dr. Al-Deek will confirm the exact medication cost by text before anything is prescribed or charged, and she approves it first.`})]})]})",
+    "count": 1
+  },
+  {
+    "old": "className:`group-field`,children:",
+    "new": "className:`group-field`,\"data-mmd-field\":e.id,children:",
+    "count": 2
+  },
+  {
+    "old": "const MmdSignForms=window.MmdCreateSignForms(l,M);",
+    "new": "const MmdSignForms=window.MmdCreateSignForms(l,M);const MmdContinueGuidance=window.MmdCreateContinueGuidance(l,M,{E,D,C,T,ae});",
+    "count": 1
+  },
+  {
+    "old": "MmdIntakeSubmitScreen(screen)&&!canContinue&&missingDetails.length>0&&(0,M.jsxs)(\"div\",{className:\"patient-submit-missing\",role:\"status\",\"aria-live\":\"polite\",children:[(0,M.jsx)(\"p\",{children:\"Almost there - please fill in:\"}),(0,M.jsx)(\"ul\",{children:missingDetails.map(item=>(0,M.jsx)(\"li\",{children:item},item))})]})",
+    "new": "(0,M.jsx)(MmdContinueGuidance,{screen,answers,formsReady,missingDetails,submitting,uploadBusy,blocked:submitting||uploadBusy||(!canContinue&&(!informationOnly||screen.type===\"signForms\"))})",
+    "count": 1
+  },
+  {
+    "old": "<script src=\"/intake/sign-forms-ui.js?v=20261030-usability\"></script>",
+    "new": "<script src=\"/intake/sign-forms-ui.js?v=20261030-usability\"></script>\n<script src=\"/intake/continue-guidance.js?v=20261104\"></script>",
+    "count": 1
+  },
+  {
+    "old": "@media(prefers-color-scheme:dark){.patient-submit-missing,.patient-submit-note{color:#c9e4e1}}",
+    "new": "@media(prefers-color-scheme:dark){.patient-submit-missing,.patient-submit-note{color:#c9e4e1}}\n/* Required-answer guidance: presentation only; original validation is unchanged. */\n.medication-cost-confirmation{margin-top:12px;padding-top:12px;border-top:1px solid #d7e1dd;color:#145652;font-weight:600;font-size:17px;line-height:1.55;white-space:normal}\n.intake-continue-guidance{width:100%;flex:1 1 100%;padding:14px 16px;border:1px solid #97bebb;border-radius:10px;background:#eff8f6;color:#113a3a;font:500 17px/1.5 Montserrat,Arial,sans-serif;overflow-wrap:anywhere}\n.intake-continue-guidance p{margin:0}.intake-continue-guidance ul{margin:6px 0 0;padding-left:22px}\n.footer:has(.intake-continue-guidance){position:static;inset:auto}.footer-inner:has(>.intake-continue-guidance){flex-wrap:wrap;gap:14px}.footer-inner:has(>.intake-continue-guidance)>.primary{width:100%}\n.app:has(.intake-continue-guidance)>.stage:not(.sign-forms-stage):not(.patient-submit-stage){padding-bottom:24px}\n[data-mmd-missing=\"true\"]{outline:2px solid #368c84;outline-offset:3px;border-radius:8px}\n@media(prefers-color-scheme:dark){.intake-continue-guidance{background:#173d3b;border-color:#639a94;color:#e1f3ef}.medication-cost-confirmation{color:#c9e4e1;border-color:#31514e}[data-mmd-missing=\"true\"]{outline-color:#76b9ae}}\n",
+    "count": 1
   }
 ]

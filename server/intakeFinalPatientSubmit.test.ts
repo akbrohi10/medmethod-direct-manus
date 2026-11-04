@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
@@ -45,7 +46,7 @@ describe("Weight Care final patient-info submission wording", () => {
     const sign = helpers().MmdIntakeFlowScreens({}).find(screen => screen.id === "wSignForms");
     expect(sign).toMatchObject({ question_text: "Almost there: sign to connect with Dr. Al-Deek", helper_text: "Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you." });
     expect(source).toContain('screen.type==="signForms"?"Sign & continue":"Continue"');
-    for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(readFileSync(resolve(root, path), "utf8")).toBe(old(path));
+    for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8"))).toBe(old(path));
   });
 
   it("moves one final acknowledgement above Submit and preserves the terms links, optional SMS consent and checkoutAck key", () => {
@@ -61,10 +62,12 @@ describe("Weight Care final patient-info submission wording", () => {
   });
 
   it("uses exact free/video button wording and next-page note, and retains authoritative signing locks and submission transport", () => {
-    for (const text of ["Submit & start my free visit", "Submit & book my video visit", "Watch for a text from us after you submit.", "You'll pay $97 and pick your time on the next page.", "Almost there - please fill in:"]) expect(source).toContain(text);
+    for (const text of ["Submit & start my free visit", "Submit & book my video visit", "Watch for a text from us after you submit.", "You'll pay $97 and pick your time on the next page."]) expect(source).toContain(text);
+    expect(readFileSync(resolve(root, introducedContinueGuidanceAssetPath), "utf8")).toContain('JSX.jsx("p", { children: "Almost there - please fill in:" })');
     const app = source.slice(source.lastIndexOf("function $e()"));
     expect(app).toContain('MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)&&MmdSigningPayloadReady(signingPayloadRef.current)');
-    expect(app).toContain('MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current))');
+    expect(app).toContain('const missingDetails=screen&&MmdIntakeSubmitScreen(screen)?MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current)):[];');
+    expect(app).toContain('(0,M.jsx)(MmdContinueGuidance,{screen,answers,formsReady,missingDetails,submitting,uploadBusy,blocked:submitting||uploadBusy||(!canContinue&&(!informationOnly||screen.type==="signForms"))})');
     expect(app).toContain('if(!MmdSigningPayloadReady(signing))');
     expect(app).toContain('const receipt=await MmdSubmitFreeIntake("w",answers,demo,signing)');
     expect(app).not.toContain('setReturnScreen("w39")');
@@ -108,6 +111,16 @@ describe("Weight Care final patient-info submission wording", () => {
 
   it("extends prior exact fixtures unchanged and reverses only this approved update back to the complete c7a19865 intake", () => {
     expect(fragments.slice(0, previous.length)).toEqual(previous);
+    const beforeGuidance: Fragment[] = JSON.parse(execFileSync("git", ["show", `16e39af2:${fixturePath}`], { cwd: root, encoding: "utf8" }));
+    expect(beforeGuidance).toHaveLength(41);
+    expect(fragments.slice(0, beforeGuidance.length)).toEqual(beforeGuidance);
+    expect(fragments).toHaveLength(beforeGuidance.length + 6);
+    let beforeGuidanceSource = source;
+    for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
+      expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
+      beforeGuidanceSource = beforeGuidanceSource.split(fragment.new).join(fragment.old);
+    }
+    expect(beforeGuidanceSource).toBe(execFileSync("git", ["show", "16e39af2:client/intake/index.html"], { cwd: root, encoding: "utf8" }));
     let restored = source;
     for (const fragment of fragments.slice(previous.length).reverse()) {
       expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
