@@ -1,0 +1,53 @@
+{
+  "baseline": "0648c6e3",
+  "html_fragments": [
+    {
+      "old": "screen.id===\"w01\"?answers.videoVisitInterest===true?\"Continue with intake\":\"Start Your Free Text Visit\"",
+      "new": "screen.id===\"w01\"?\"Continue to my details\"",
+      "count": 1
+    },
+    {
+      "old": "className:\"intro97-footer-note\",children:\"Intake first. Then text your doctor.\"",
+      "new": "className:\"intro97-footer-note\",children:\"Just one more step.\"",
+      "count": 1
+    },
+    {
+      "old": "src:\"/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp\",alt:\"Dr. Jumana Al-Deek\",width:88,height:110,decoding:\"async\"",
+      "new": "src:\"/assets/dr-jumana-al-deek-portrait.webp\",alt:\"Dr. Jumana Al-Deek\",width:88,height:88,decoding:\"async\",onError:event=>{const image=event.currentTarget;if(image.dataset.publicPortraitFallback)return;image.dataset.publicPortraitFallback=\"true\";image.src=\"https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/NfYmKtEGqUrrcCpa.webp\"}",
+      "count": 1
+    },
+    {
+      "old": ".intro97-doctor{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;",
+      "new": ".intro97-doctor{display:grid;grid-template-columns:var(--intro97-doctor-size,88px) minmax(0,1fr);gap:18px;",
+      "count": 1
+    },
+    {
+      "old": ".intro97-doctor img{display:block;width:88px;height:110px;object-fit:cover;border-radius:12px}",
+      "new": ".intro97-doctor img{display:block;width:var(--intro97-doctor-size,88px);height:var(--intro97-doctor-size,88px);object-fit:cover;object-position:center 25%;border-radius:12px}",
+      "count": 1
+    },
+    {
+      "old": ".intro97-doctor img{width:68px;height:88px;align-self:start}",
+      "new": ".intro97-doctor img{width:68px;height:68px;align-self:start}",
+      "count": 1
+    },
+    {
+      "old": "function Ge({answers,onValue}){return",
+      "new": "function Ge({answers,onValue}){(0,l.useLayoutEffect)(()=>{const card=document.querySelector(\".intro97-doctor\"),copy=card?.querySelector(\".intro97-doctor-copy\");if(!card||!copy)return;let frame;const fit=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const mobile=window.matchMedia(\"(max-width:480px)\").matches;const size=mobile?68:Math.max(88,Math.min(copy.getBoundingClientRect().height,Math.max(88,card.clientWidth-220)));const value=Math.round(size*100)/100+\"px\";if(card.style.getPropertyValue(\"--intro97-doctor-size\")!==value)card.style.setProperty(\"--intro97-doctor-size\",value)})};const observer=new ResizeObserver(fit);observer.observe(copy);window.addEventListener(\"resize\",fit);fit();return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener(\"resize\",fit)}},[]);return",
+      "count": 1
+    }
+  ],
+  "registration_fragments": [
+    {
+      "old": "import { registerIntakeMedicationImageAssets } from \"./intakeMedicationImageAssets\";",
+      "new": "import { registerIntakeMedicationImageAssets } from \"./intakeMedicationImageAssets\";\nimport { registerIntakeDoctorPortraitAsset } from \"./intakeDoctorPortraitAsset\";",
+      "count": 1
+    },
+    {
+      "old": "  registerIntakeMedicationImageAssets(app);",
+      "new": "  registerIntakeMedicationImageAssets(app);\n  registerIntakeDoctorPortraitAsset(app);",
+      "count": 1
+    }
+  ],
+  "introduced_asset": "server/intakeDoctorPortraitAsset.ts"
+}

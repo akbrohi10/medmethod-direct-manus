@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import vm from "node:vm";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
+import { introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "1e99a10c";
@@ -108,18 +109,21 @@ describe("intake thank-you Step 1 SMS copy", () => {
   });
 
   it("leaves every other production source unchanged from the clean baseline", () => {
-    const changedProductionPaths = execFileSync(
+    const changedProductionPaths = [...new Set([
+      ...execFileSync(
       "git",
       ["diff", "--name-only", baseline, "--", "client", "server", "shared"],
       { cwd: root, encoding: "utf8" },
-    )
-      .split("\n")
+      ).split("\n"),
+      ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" }).split("\n"),
+    ])]
       .filter((path) => path && !path.endsWith(".test.ts"))
       // No thank-you/UI change: the separately verified GHL notification is backend-only.
       .filter(path => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(path))
       .filter(path => path !== latePatientInfoFixturePath)
       .filter(path => path !== introducedContinueGuidanceAssetPath)
-      .filter(path => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js"].includes(path) || inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
+      .filter(path => ![introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(path))
+      .filter(path => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath].includes(path) || inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
       .sort();
 
     // Homepage and Masterclass trust-row additions have complete inverse guards in their dedicated tests.

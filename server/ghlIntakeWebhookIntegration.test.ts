@@ -3,6 +3,7 @@ import type { Express, Request, Response } from "express";
 import { INTAKE_SMS_OPT_IN_TEXT, EMPTY_INTAKE_UPLOADS } from "./intakeSubmissionContract";
 import { syntheticIntakeSigning, syntheticSignedFormsPreparation, syntheticSignedPdfs, SYNTHETIC_SIGNATURE_PNG } from "./fixtures/intakeSigningFixture";
 import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
+import { introDetailsPhotoRegistrationPath } from "./intakeIntroDetailsPhotoScope.test";
 
 const m = vi.hoisted(() => ({ enqueue: vi.fn(), read: vi.fn(), prepare: vi.fn(), delivered: vi.fn(), phone: vi.fn() }));
 vi.mock("./db", () => ({ getPaypalSettings: vi.fn(), getIntakeDeliverySettings: vi.fn() }));
@@ -68,6 +69,7 @@ describe("GHL notification is isolated from Keragon and patient submission", () 
       .replace("      notifyGhlAfterAcceptedIntake(draft, receipt, request);\n", "");
     expect(inverse).toBe(old("server/intakePaymentRoutes.ts"));
     expect(readFileSync("server/_core/env.ts", "utf8").replace('  /** Contact/status-only notification after the website Weight Care intake succeeds. */\n  ghlIntakeWebhookUrl: process.env.GHL_INTAKE_WEBHOOK_URL ?? "",\n', "")).toBe(old("server/_core/env.ts"));
+    expect(inverseApprovedLatePatientInfo(introDetailsPhotoRegistrationPath, readFileSync(introDetailsPhotoRegistrationPath, "utf8"))).toBe(old(introDetailsPhotoRegistrationPath));
     const front = execFileSync("git", ["diff", "--name-only", "ed9524e1", "--", "client", "shared", "package.json", "pnpm-lock.yaml"], { encoding: "utf8" });
     expect(front.trim().split("\n").filter(Boolean).filter(path => path !== introducedContinueGuidanceAssetPath).filter(path => inverseApprovedLatePatientInfo(path, readFileSync(path, "utf8")) !== old(path))).toEqual([]);
   });

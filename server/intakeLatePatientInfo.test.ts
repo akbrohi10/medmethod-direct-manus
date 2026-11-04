@@ -123,7 +123,7 @@ describe("Weight Care late patient info and doctor introduction", () => {
     }
     expect(restored).toBe(baseline);
     expect(source).not.toContain("[CREDENTIAL LINE]");
-    expect(fn("Ge")).toContain('/manus-storage/dr-aldeek-home-portrait_ba2b0014.webp');
+    expect(fn("Ge")).toContain('/assets/dr-jumana-al-deek-portrait.webp');
     expect(fn("Ge")).toContain('Dr. Al-Deek personally reviews every intake and will text you after you submit.');
   });
 });

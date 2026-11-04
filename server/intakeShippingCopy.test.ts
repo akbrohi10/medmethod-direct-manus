@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const path = "client/intake/index.html";
@@ -14,7 +15,7 @@ describe("Weight Care shipping screen exact copy", () => {
   it("changes only the single apartment label and restores the complete intake byte-for-byte", () => {
     expect(source.split(newLabel)).toHaveLength(2);
     expect(baseline.split(oldLabel)).toHaveLength(2);
-    expect(source.replace(newLabel, oldLabel)).toBe(baseline);
+    expect(inverseApprovedIntroDetailsPhoto(path, source).replace(newLabel, oldLabel)).toBe(baseline);
   });
 
   it("retains the requested shipping heading, exact medication note and all five labels", () => {
@@ -40,13 +41,23 @@ describe("Weight Care shipping screen exact copy", () => {
     const current = JSON.parse(readFileSync(resolve(root, fixture), "utf8"));
     const previous = JSON.parse(execFileSync("git", ["show", `b69c2aa2:${fixture}`], { cwd: root, encoding: "utf8" }));
     expect(current.slice(0, previous.length)).toEqual(previous);
-    expect(current).toHaveLength(previous.length + 1);
-    expect(current.at(-1)).toEqual({ old: oldLabel, new: newLabel, count: 1 });
+    const afterShipping = JSON.parse(execFileSync("git", ["show", `0648c6e3:${fixture}`], { cwd: root, encoding: "utf8" }));
+    expect(afterShipping).toHaveLength(48);
+    expect(afterShipping).toHaveLength(previous.length + 1);
+    expect(afterShipping.slice(0, previous.length)).toEqual(previous);
+    expect(afterShipping.at(-1)).toEqual({ old: oldLabel, new: newLabel, count: 1 });
+    expect(current.slice(0, afterShipping.length)).toEqual(afterShipping);
+    expect(approvedIntroDetailsPhotoHtmlFragments).toHaveLength(7);
+    expect(current.slice(afterShipping.length)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
+    expect(current.slice(afterShipping.length)).toHaveLength(7);
+    expect(current).toHaveLength(afterShipping.length + 7);
   });
 
   it("changes no other production source from the approved checkpoint", () => {
     const scope = ["client", "server", "shared", "package.json", "pnpm-lock.yaml", "vite.config.ts", "drizzle"];
-    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean).filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && p !== "server/fixtures/intakeLatePatientInfoFragments.json");
-    expect([...new Set(paths)]).toEqual([path]);
+    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean).filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(p));
+    expect(inverseApprovedIntroDetailsPhoto(introDetailsPhotoRegistrationPath, readFileSync(resolve(root, introDetailsPhotoRegistrationPath), "utf8"))).toBe(execFileSync("git", ["show", `b69c2aa2:${introDetailsPhotoRegistrationPath}`], { cwd: root, encoding: "utf8" }));
+    const remaining = paths.filter(p => p !== introDetailsPhotoRegistrationPath || inverseApprovedIntroDetailsPhoto(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }));
+    expect([...new Set(remaining)]).toEqual([path]);
   });
 });

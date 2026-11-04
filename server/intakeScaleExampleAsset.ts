@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { registerIntakeMedicationImageAssets } from "./intakeMedicationImageAssets";
+import { registerIntakeDoctorPortraitAsset } from "./intakeDoctorPortraitAsset";
 
 /** Public instructional example only; never used for uploaded patient files. */
 export const SCALE_EXAMPLE_PATH = "/assets/scale-example.jpg";
@@ -41,4 +42,5 @@ export function registerIntakeScaleExampleAsset(app: Express): void {
     });
   });
   registerIntakeMedicationImageAssets(app);
+  registerIntakeDoctorPortraitAsset(app);
 }

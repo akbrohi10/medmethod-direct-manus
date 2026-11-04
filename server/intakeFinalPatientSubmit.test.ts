@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
+import { approvedIntroDetailsPhotoHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
@@ -117,8 +118,15 @@ describe("Weight Care final patient-info submission wording", () => {
     const afterGuidance: Fragment[] = JSON.parse(execFileSync("git", ["show", `b69c2aa2:${fixturePath}`], { cwd: root, encoding: "utf8" }));
     expect(afterGuidance).toHaveLength(beforeGuidance.length + 6);
     expect(fragments.slice(0, afterGuidance.length)).toEqual(afterGuidance);
-    expect(fragments).toHaveLength(afterGuidance.length + 1);
-    expect(fragments.at(-1)).toEqual({ old: "children:`Apt/suite/unit`", new: "children:`Apt, suite, unit (optional)`", count: 1 });
+    const afterShipping: Fragment[] = JSON.parse(execFileSync("git", ["show", `0648c6e3:${fixturePath}`], { cwd: root, encoding: "utf8" }));
+    expect(afterShipping).toHaveLength(afterGuidance.length + 1);
+    expect(afterShipping.slice(0, afterGuidance.length)).toEqual(afterGuidance);
+    expect(afterShipping.at(-1)).toEqual({ old: "children:`Apt/suite/unit`", new: "children:`Apt, suite, unit (optional)`", count: 1 });
+    expect(fragments.slice(0, afterShipping.length)).toEqual(afterShipping);
+    expect(approvedIntroDetailsPhotoHtmlFragments).toHaveLength(7);
+    expect(fragments.slice(afterShipping.length)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
+    expect(fragments.slice(afterShipping.length)).toHaveLength(7);
+    expect(fragments).toHaveLength(afterShipping.length + 7);
     let beforeGuidanceSource = source;
     for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
       expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);

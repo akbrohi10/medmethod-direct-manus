@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, latePatientInfoFixturePath, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
+import { introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
 
 const baseline = "59e7c056";
 const root = resolve(import.meta.dirname, "..");
@@ -58,18 +59,21 @@ function inverseApprovedMscpTrustRow(file: string, source: string): string {
 }
 
 function changedProductionFiles(): string[] {
-  return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
+  return [...new Set([
+    ...execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], {
     cwd: root,
     encoding: "utf8",
-  })
-    .split("\n")
+    }).split("\n"),
+    ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" }).split("\n"),
+  ])]
     .filter(Boolean)
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     // Separately authorized backend-only notification; dedicated GHL suites protect its scope.
     .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))
     .filter(file => file !== latePatientInfoFixturePath)
     .filter(file => file !== introducedContinueGuidanceAssetPath)
-    .filter(file => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js"].includes(file) || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file))
+    .filter(file => ![introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(file))
+    .filter(file => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath].includes(file) || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file))
     .filter(file => file !== masterclassPath || inverseApprovedMscpTrustRow(file, read(file)) !== atBaseline(file));
 }
 

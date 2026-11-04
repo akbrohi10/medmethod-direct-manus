@@ -36,8 +36,8 @@ describe("Intro 97 local intake introduction", () => {
     expect(introduction).toContain('id:"mmd-video-interest",type:"checkbox",checked:answers.videoVisitInterest===true,onChange:event=>onValue("videoVisitInterest",event.target.checked)');
     expect(introduction).toContain("I'd like a video visit with Dr. Al-Deek - $97");
     expect(introduction).not.toMatch(/fetch\(|PayPal|paypal|checkoutAck|smsOptIn|onPaid|<iframe/);
-    expect(source).toContain('screen.id==="w01"?answers.videoVisitInterest===true?"Continue with intake":"Start Your Free Text Visit"');
-    expect(source).toContain('screen.id==="w01"&&(0,M.jsx)("p",{className:"intro97-footer-note",children:"Intake first. Then text your doctor."})');
+    expect(source).toContain('screen.id==="w01"?"Continue to my details"');
+    expect(source).toContain('screen.id==="w01"&&(0,M.jsx)("p",{className:"intro97-footer-note",children:"Just one more step."})');
     expect(source).not.toContain("videoVisitInterest:true");
     expect(source).toContain('screen.id==="w01"&&(0,M.jsx)("p",{className:"intro97-fine-print",children:"Prescriptions only when medically appropriate. Follow-up covers that visit\'s assessment and plan. New concerns or additional treatments require a separate visit."})');
     const footer = source.slice(source.lastIndexOf('className:"intro97-footer-note"'));
