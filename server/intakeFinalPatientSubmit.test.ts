@@ -114,7 +114,11 @@ describe("Weight Care final patient-info submission wording", () => {
     const beforeGuidance: Fragment[] = JSON.parse(execFileSync("git", ["show", `16e39af2:${fixturePath}`], { cwd: root, encoding: "utf8" }));
     expect(beforeGuidance).toHaveLength(41);
     expect(fragments.slice(0, beforeGuidance.length)).toEqual(beforeGuidance);
-    expect(fragments).toHaveLength(beforeGuidance.length + 6);
+    const afterGuidance: Fragment[] = JSON.parse(execFileSync("git", ["show", `b69c2aa2:${fixturePath}`], { cwd: root, encoding: "utf8" }));
+    expect(afterGuidance).toHaveLength(beforeGuidance.length + 6);
+    expect(fragments.slice(0, afterGuidance.length)).toEqual(afterGuidance);
+    expect(fragments).toHaveLength(afterGuidance.length + 1);
+    expect(fragments.at(-1)).toEqual({ old: "children:`Apt/suite/unit`", new: "children:`Apt, suite, unit (optional)`", count: 1 });
     let beforeGuidanceSource = source;
     for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
       expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);

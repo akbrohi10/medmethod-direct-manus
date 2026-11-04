@@ -218,5 +218,10 @@
     "old": "@media(prefers-color-scheme:dark){.patient-submit-missing,.patient-submit-note{color:#c9e4e1}}",
     "new": "@media(prefers-color-scheme:dark){.patient-submit-missing,.patient-submit-note{color:#c9e4e1}}\n/* Required-answer guidance: presentation only; original validation is unchanged. */\n.medication-cost-confirmation{margin-top:12px;padding-top:12px;border-top:1px solid #d7e1dd;color:#145652;font-weight:600;font-size:17px;line-height:1.55;white-space:normal}\n.intake-continue-guidance{width:100%;flex:1 1 100%;padding:14px 16px;border:1px solid #97bebb;border-radius:10px;background:#eff8f6;color:#113a3a;font:500 17px/1.5 Montserrat,Arial,sans-serif;overflow-wrap:anywhere}\n.intake-continue-guidance p{margin:0}.intake-continue-guidance ul{margin:6px 0 0;padding-left:22px}\n.footer:has(.intake-continue-guidance){position:static;inset:auto}.footer-inner:has(>.intake-continue-guidance){flex-wrap:wrap;gap:14px}.footer-inner:has(>.intake-continue-guidance)>.primary{width:100%}\n.app:has(.intake-continue-guidance)>.stage:not(.sign-forms-stage):not(.patient-submit-stage){padding-bottom:24px}\n[data-mmd-missing=\"true\"]{outline:2px solid #368c84;outline-offset:3px;border-radius:8px}\n@media(prefers-color-scheme:dark){.intake-continue-guidance{background:#173d3b;border-color:#639a94;color:#e1f3ef}.medication-cost-confirmation{color:#c9e4e1;border-color:#31514e}[data-mmd-missing=\"true\"]{outline-color:#76b9ae}}\n",
     "count": 1
+  },
+  {
+    "old": "children:`Apt/suite/unit`",
+    "new": "children:`Apt, suite, unit (optional)`",
+    "count": 1
   }
 ]
