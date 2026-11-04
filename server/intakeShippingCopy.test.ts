@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments, approvedSigningConnectionHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
 import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
@@ -58,8 +58,13 @@ describe("Weight Care shipping screen exact copy", () => {
     expect(beforeApproval).toHaveLength(55);
     expect(current.slice(0, beforeApproval.length)).toEqual(beforeApproval);
     expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
-    expect(current.slice(beforeApproval.length)).toEqual(approvedShippingApprovalHtmlFragments);
-    expect(current).toHaveLength(afterShipping.length + 7 + 4);
+    expect(current.slice(beforeApproval.length, 59)).toEqual(approvedShippingApprovalHtmlFragments);
+    const beforeSigning = JSON.parse(execFileSync("git", ["show", `0c5f2ca4:${fixture}`], { cwd: root, encoding: "utf8" }));
+    expect(beforeSigning).toHaveLength(59);
+    expect(current.slice(0, beforeSigning.length)).toEqual(beforeSigning);
+    expect(approvedSigningConnectionHtmlFragments).toHaveLength(2);
+    expect(current.slice(beforeSigning.length)).toEqual(approvedSigningConnectionHtmlFragments);
+    expect(current).toHaveLength(afterShipping.length + 7 + 4 + 2);
   });
 
   it("changes no other production source from the approved checkpoint", () => {

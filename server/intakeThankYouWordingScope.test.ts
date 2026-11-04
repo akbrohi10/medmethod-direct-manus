@@ -3,7 +3,6 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { inverseApprovedShippingApprovalWording, approvedShippingApprovalHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "76d1479d";
@@ -52,6 +51,39 @@ export function inverseApprovedThankYouWording(path: string, source: string): st
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const old = (path: string) => execFileSync("git", ["show", `${baseline}:${path}`], { cwd: root, encoding: "utf8" });
 
+// Independently pin these later intake-only display packets; importing the intro helper would be circular.
+const intakeFixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
+const intakeFixtureSource = read(intakeFixturePath);
+const intakeFragments: Fragment[] = JSON.parse(intakeFixtureSource);
+const signingPrefixSource = execFileSync("git", ["show", `0c5f2ca4:${intakeFixturePath}`], { cwd: root, encoding: "utf8" });
+const signingPrefix: Fragment[] = JSON.parse(signingPrefixSource);
+const approvedShippingApprovalHtmlFragments = intakeFragments.slice(55, 59);
+const approvedSigningConnectionHtmlFragments = intakeFragments.slice(59);
+if (intakeFragments.length !== 61 || signingPrefix.length !== 59 || createHash("sha256").update(signingPrefixSource).digest("hex") !== "145fcb1a162123ea36bb8ae756e34af543170837083a44ca34a64abb555789b8" || !signingPrefixSource.endsWith("\n]\n") || !intakeFixtureSource.startsWith(signingPrefixSource.slice(0, -3) + ",\n") || JSON.stringify(intakeFragments.slice(0, 59)) !== JSON.stringify(signingPrefix) || createHash("sha256").update(JSON.stringify(intakeFragments.slice(0, 59))).digest("hex") !== "fd64a544685dc810b04f74693ca9500ad5201b29bdf43e69cda0686c60030bff" || createHash("sha256").update(JSON.stringify(approvedShippingApprovalHtmlFragments)).digest("hex") !== "b70076ac088a824631b71d29b377d6091dae82e0f2e11c5bd2f31309df92f867" || approvedSigningConnectionHtmlFragments.length !== 2 || createHash("sha256").update(JSON.stringify(approvedSigningConnectionHtmlFragments)).digest("hex") !== "7fc4a428667945db527fe1169448c6cb49ed7fc27097ed773f997ecc586446da" || [...approvedShippingApprovalHtmlFragments, ...approvedSigningConnectionHtmlFragments].some(fragment => Object.keys(fragment).sort().join(",") !== "count,new,old" || fragment.count !== 1 || !fragment.old || !fragment.new || fragment.old === fragment.new)) {
+  throw new Error("Unexpected approved later intake display fragments");
+}
+for (const fragments of [approvedShippingApprovalHtmlFragments, approvedSigningConnectionHtmlFragments]) {
+  for (const fragment of fragments) Object.freeze(fragment);
+  Object.freeze(fragments);
+}
+function inverseApprovedSigningConnectionCopy(path: string, source: string): string {
+  if (path !== "client/intake/index.html") return source;
+  for (const fragment of [...approvedSigningConnectionHtmlFragments].reverse()) {
+    if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized signing-connection source fragment count");
+    source = source.split(fragment.new).join(fragment.old);
+  }
+  return source;
+}
+function inverseApprovedShippingApprovalWording(path: string, source: string): string {
+  if (path !== "client/intake/index.html") return source;
+  source = inverseApprovedSigningConnectionCopy(path, source);
+  for (const fragment of [...approvedShippingApprovalHtmlFragments].reverse()) {
+    if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized shipping-approval source fragment count");
+    source = source.split(fragment.new).join(fragment.old);
+  }
+  return source;
+}
+
 describe("thank-you wording exact production scope", () => {
   it("freezes the exact twelve-HTML/three-client packet with thirteen HTML occurrences and introduced fixture path", () => {
     expect(createHash("sha256").update(read(thankYouWordingFixturePath)).digest("hex")).toBe(packetHash);
@@ -99,10 +131,20 @@ describe("thank-you wording exact production scope", () => {
         const previous = JSON.parse(old(path));
         const current = JSON.parse(read(path));
         expect(previous).toHaveLength(55);
-        expect(current).toHaveLength(59);
+        expect(current).toHaveLength(61);
         expect(current.slice(0, previous.length)).toEqual(previous);
         expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
-        expect(current.slice(previous.length)).toEqual(approvedShippingApprovalHtmlFragments);
+        expect(current.slice(previous.length, 59)).toEqual(approvedShippingApprovalHtmlFragments);
+        expect(current.slice(0, 59)).toEqual(signingPrefix);
+        expect(approvedSigningConnectionHtmlFragments).toHaveLength(2);
+        expect(current.slice(59)).toEqual(approvedSigningConnectionHtmlFragments);
+        const source = read("client/intake/index.html");
+        expect(inverseApprovedSigningConnectionCopy("client/intake/index.html", source)).toBe(execFileSync("git", ["show", "0c5f2ca4:client/intake/index.html"], { cwd: root, encoding: "utf8" }));
+        for (const fragment of approvedSigningConnectionHtmlFragments) {
+          expect(() => inverseApprovedShippingApprovalWording("client/intake/index.html", source.replace(fragment.new, fragment.old))).toThrow("Unexpected authorized signing-connection source fragment count");
+          expect(() => inverseApprovedShippingApprovalWording("client/intake/index.html", source + fragment.new)).toThrow("Unexpected authorized signing-connection source fragment count");
+        }
+        expect(inverseApprovedSigningConnectionCopy("client/public/intake/sign-forms-ui.js", "unchanged")).toBe("unchanged");
         return false;
       }
       return true;

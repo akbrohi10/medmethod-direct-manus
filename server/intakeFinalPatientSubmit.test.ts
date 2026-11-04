@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
-import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
+import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments, approvedSigningConnectionHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
@@ -45,7 +45,7 @@ describe("Weight Care final patient-info submission wording", () => {
 
   it("uses the exact signing copy without modifying document wording, signing fields, validation or CSS", () => {
     const sign = helpers().MmdIntakeFlowScreens({}).find(screen => screen.id === "wSignForms");
-    expect(sign).toMatchObject({ question_text: "Almost there: sign to connect with Dr. Al-Deek", helper_text: "Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you." });
+    expect(sign).toMatchObject({ question_text: "Almost there — then you can text with Dr. Al-Deek", helper_text: "Telehealth law requires your consent before a doctor can discuss treatment with you. Signing gives Dr. Al-Deek permission to review your assessment and text with you — then your free visit starts." });
     expect(source).toContain('screen.type==="signForms"?"Sign & continue":"Continue"');
     for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8"))).toBe(old(path));
   });
@@ -130,8 +130,13 @@ describe("Weight Care final patient-info submission wording", () => {
     expect(beforeApproval).toHaveLength(55);
     expect(fragments.slice(0, beforeApproval.length)).toEqual(beforeApproval);
     expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
-    expect(fragments.slice(beforeApproval.length)).toEqual(approvedShippingApprovalHtmlFragments);
-    expect(fragments).toHaveLength(afterShipping.length + 7 + 4);
+    expect(fragments.slice(beforeApproval.length, 59)).toEqual(approvedShippingApprovalHtmlFragments);
+    const beforeSigning: Fragment[] = JSON.parse(execFileSync("git", ["show", `0c5f2ca4:${fixturePath}`], { cwd: root, encoding: "utf8" }));
+    expect(beforeSigning).toHaveLength(59);
+    expect(fragments.slice(0, beforeSigning.length)).toEqual(beforeSigning);
+    expect(approvedSigningConnectionHtmlFragments).toHaveLength(2);
+    expect(fragments.slice(beforeSigning.length)).toEqual(approvedSigningConnectionHtmlFragments);
+    expect(fragments).toHaveLength(afterShipping.length + 7 + 4 + 2);
     let beforeGuidanceSource = source;
     for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
       expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);

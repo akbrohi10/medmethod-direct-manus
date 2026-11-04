@@ -278,5 +278,15 @@
     "old": "onChange:e=>t(`wAddressZip`,e.target.value.replace(/\\D/g,``).slice(0,5)),'data-hj-suppress':!0})]})]})}",
     "new": "onChange:e=>t(`wAddressZip`,e.target.value.replace(/\\D/g,``).slice(0,5)),'data-hj-suppress':!0})]}),(0,M.jsx)(`p`,{className:`group-helper full`,children:`Choose your state here. We\u2019ll use it on your identity form.`})]})}",
     "count": 1
+  },
+  {
+    "old": "Almost there: sign to connect with Dr. Al-Deek",
+    "new": "Almost there \u2014 then you can text with Dr. Al-Deek",
+    "count": 1
+  },
+  {
+    "old": "Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you.",
+    "new": "Telehealth law requires your consent before a doctor can discuss treatment with you. Signing gives Dr. Al-Deek permission to review your assessment and text with you \u2014 then your free visit starts.",
+    "count": 1
   }
 ]

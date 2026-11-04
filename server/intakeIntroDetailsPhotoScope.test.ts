@@ -22,18 +22,39 @@ if (createHash("sha256").update(packetSource).digest("hex") !== packetHash || pa
 export const approvedIntroDetailsPhotoHtmlFragments = packet.html_fragments;
 
 const shippingFixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
-const shippingFragments: Fragment[] = JSON.parse(readFileSync(resolve(root, shippingFixturePath), "utf8"));
+const shippingFixtureSource = readFileSync(resolve(root, shippingFixturePath), "utf8");
+const shippingFragments: Fragment[] = JSON.parse(shippingFixtureSource);
 const previousShippingFragments: Fragment[] = JSON.parse(execFileSync("git", ["show", `1476a622:${shippingFixturePath}`], { cwd: root, encoding: "utf8" }));
-export const approvedShippingApprovalHtmlFragments = shippingFragments.slice(previousShippingFragments.length);
-if (previousShippingFragments.length !== 55 || shippingFragments.length !== 59 || JSON.stringify(shippingFragments.slice(0, 55)) !== JSON.stringify(previousShippingFragments) || createHash("sha256").update(JSON.stringify(approvedShippingApprovalHtmlFragments)).digest("hex") !== "b70076ac088a824631b71d29b377d6091dae82e0f2e11c5bd2f31309df92f867") {
+export const approvedShippingApprovalHtmlFragments = shippingFragments.slice(55, 59);
+if (previousShippingFragments.length !== 55 || shippingFragments.length !== 61 || JSON.stringify(shippingFragments.slice(0, 55)) !== JSON.stringify(previousShippingFragments) || createHash("sha256").update(JSON.stringify(approvedShippingApprovalHtmlFragments)).digest("hex") !== "b70076ac088a824631b71d29b377d6091dae82e0f2e11c5bd2f31309df92f867") {
   throw new Error("Unexpected approved shipping-approval fragments");
 }
 for (const fragment of approvedShippingApprovalHtmlFragments) Object.freeze(fragment);
 Object.freeze(approvedShippingApprovalHtmlFragments);
 
-/** Reverse only the four exact display fragments appended after the unchanged 1476a622 prefix. */
+const previousSigningFixtureSource = execFileSync("git", ["show", `0c5f2ca4:${shippingFixturePath}`], { cwd: root, encoding: "utf8" });
+const previousSigningFragments: Fragment[] = JSON.parse(previousSigningFixtureSource);
+export const approvedSigningConnectionHtmlFragments = shippingFragments.slice(59);
+if (previousSigningFragments.length !== 59 || createHash("sha256").update(previousSigningFixtureSource).digest("hex") !== "145fcb1a162123ea36bb8ae756e34af543170837083a44ca34a64abb555789b8" || !previousSigningFixtureSource.endsWith("\n]\n") || !shippingFixtureSource.startsWith(previousSigningFixtureSource.slice(0, -3) + ",\n") || JSON.stringify(shippingFragments.slice(0, 59)) !== JSON.stringify(previousSigningFragments) || createHash("sha256").update(JSON.stringify(shippingFragments.slice(0, 59))).digest("hex") !== "fd64a544685dc810b04f74693ca9500ad5201b29bdf43e69cda0686c60030bff" || approvedSigningConnectionHtmlFragments.length !== 2 || createHash("sha256").update(JSON.stringify(approvedSigningConnectionHtmlFragments)).digest("hex") !== "7fc4a428667945db527fe1169448c6cb49ed7fc27097ed773f997ecc586446da" || approvedSigningConnectionHtmlFragments.some(fragment => Object.keys(fragment).sort().join(",") !== "count,new,old" || fragment.count !== 1 || !fragment.old || !fragment.new || fragment.old === fragment.new)) {
+  throw new Error("Unexpected approved signing-connection fragments");
+}
+for (const fragment of approvedSigningConnectionHtmlFragments) Object.freeze(fragment);
+Object.freeze(approvedSigningConnectionHtmlFragments);
+
+/** Reverse only the two frozen display strings appended after the byte-identical 0c5f2ca4 prefix. */
+export function inverseApprovedSigningConnectionCopy(path: string, source: string): string {
+  if (path !== intakePath) return source;
+  for (const fragment of [...approvedSigningConnectionHtmlFragments].reverse()) {
+    if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized signing-connection source fragment count");
+    source = source.split(fragment.new).join(fragment.old);
+  }
+  return source;
+}
+
+/** Normalize the two signing strings, then reverse the unchanged four shipping display fragments. */
 export function inverseApprovedShippingApprovalWording(path: string, source: string): string {
   if (path !== intakePath) return source;
+  source = inverseApprovedSigningConnectionCopy(path, source);
   for (const fragment of [...approvedShippingApprovalHtmlFragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized shipping-approval source fragment count");
     source = source.split(fragment.new).join(fragment.old);
@@ -41,7 +62,7 @@ export function inverseApprovedShippingApprovalWording(path: string, source: str
   return source;
 }
 
-/** Normalize the four approved shipping fragments, then reverse the original exact intro/photo packet. */
+/** Normalize two signing strings and four shipping fragments, then reverse the original exact intro/photo packet. */
 export function inverseApprovedIntroDetailsPhoto(path: string, source: string): string {
   if (approvedThankYouWordingPaths.some(approvedPath => approvedPath === path)) return inverseApprovedThankYouWording(path, source);
   if (path === intakePath) source = inverseApprovedShippingApprovalWording(path, source);
@@ -84,6 +105,13 @@ describe("intro details copy and doctor photo exact production scope", () => {
     }
     expect(inverseApprovedIntroDetailsPhoto("client/public/intake/sign-forms-ui.js", "unchanged")).toBe("unchanged");
     expect(inverseApprovedIntroDetailsPhoto(introducedDoctorPortraitAssetPath, "unchanged")).toBe("unchanged");
+    const source = read(intakePath);
+    expect(inverseApprovedSigningConnectionCopy(intakePath, source)).toBe(execFileSync("git", ["show", `0c5f2ca4:${intakePath}`], { cwd: root, encoding: "utf8" }));
+    for (const fragment of approvedSigningConnectionHtmlFragments) {
+      expect(() => inverseApprovedIntroDetailsPhoto(intakePath, source.replace(fragment.new, fragment.old))).toThrow("Unexpected authorized signing-connection source fragment count");
+      expect(() => inverseApprovedIntroDetailsPhoto(intakePath, source + fragment.new)).toThrow("Unexpected authorized signing-connection source fragment count");
+    }
+    expect(inverseApprovedSigningConnectionCopy("client/public/intake/sign-forms-ui.js", "unchanged")).toBe("unchanged");
   });
 
   it("permits only intake HTML, the additive registration, and the exact introduced portrait asset from 0648c6e3", () => {

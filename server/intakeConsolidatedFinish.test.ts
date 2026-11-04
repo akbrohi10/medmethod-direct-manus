@@ -24,7 +24,7 @@ describe("consolidated local intake finish", () => {
   }
 
   it("removes both mandatory review screens and separate checkout only from visible navigation", () => {
-    const signingScreen = { id: "wSignForms", route: "w", type: "signForms", required: true, section: "Sign your forms", question_text: "Almost there: sign to connect with Dr. Al-Deek", helper_text: "Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you." };
+    const signingScreen = { id: "wSignForms", route: "w", type: "signForms", required: true, section: "Sign your forms", question_text: "Almost there — then you can text with Dr. Al-Deek", helper_text: "Telehealth law requires your consent before a doctor can discuss treatment with you. Signing gives Dr. Al-Deek permission to review your assessment and text with you — then your free visit starts." };
     const identityScreen = { ...screens[8], question_text: "Last step: where should Dr. Al-Deek text you?", helper_text: "Add your details so Dr. Al-Deek can review your answers and text you." };
     const expected = [screens[6], screens[0], signingScreen, screens[7], identityScreen];
     const flow = helpers().MmdIntakeFlowScreens({}) as Array<{ id: string; type: string }>;

@@ -233,7 +233,7 @@ describe("Weight Care Sign Your Forms", () => {
     const flow = namedFunction(intake, "MmdIntakeFlowScreens");
     expect(flow).toContain('const signing={id:"wSignForms",route:"w",type:"signForms"');
     expect(flow).toContain('find("w38"),...(find("w39")?[signing]:[]),find("w01"),find("w02")?{...find("w02"),question_text:"Last step: where should Dr. Al-Deek text you?",helper_text:"Add your details so Dr. Al-Deek can review your answers and text you."}:null].filter(Boolean)');
-    expect(flow).toContain('question_text:"Almost there: sign to connect with Dr. Al-Deek",helper_text:"Your consent is required before a doctor can review your information and discuss treatment with you. Signing gives Dr. Al-Deek permission to review your answers and text with you."');
+    expect(flow).toContain('question_text:"Almost there — then you can text with Dr. Al-Deek",helper_text:"Telehealth law requires your consent before a doctor can discuss treatment with you. Signing gives Dr. Al-Deek permission to review your assessment and text with you — then your free visit starts."');
 
     expect(intake).toMatch(/src="\/intake\/sign-forms-data\.js(?:\?[^\"]*)?"/);
     expect(intake).toMatch(/src="\/intake\/sign-forms-ui\.js(?:\?[^\"]*)?"/);
