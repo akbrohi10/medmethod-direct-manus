@@ -98,18 +98,18 @@ describe("optional video visit confirmation client", () => {
     expect(source).toContain('total: { label: "MedMethod Direct", amount: VIDEO_VISIT_AMOUNT, type: "final" }');
     expect(page).not.toContain("PatientPortalMenuHighlights_5e7b0fd0.png");
     expect(page).toContain('<strong id="care-message-title">Check your text messages</strong>');
-    expect(page).toContain("You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!");
+    expect(page).toContain("You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!");
     expect(page).toContain("Upload or update your info in the Patient Portal");
     expect(page).toContain("Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.");
     expect(page).not.toContain("Doctor-led weight-care review");
     expect(page).not.toContain("Your intake is free.");
     expect(page.indexOf('id="video-visit-card"')).toBeLessThan(page.indexOf('id="video-checkout"'));
     expect(page).toContain('class="start-over" href="https://www.medmethoddirect.com">Back to MedMethod Direct</a>');
-    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy"></script>');
+    expect(page).toContain('<script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-text-only"></script>');
     expect(source).toContain('const CARE_PHONE = "(888) 362-7011";');
     expect(source).toContain('if (receipt.sms_opt_in) return;');
     expect(source).toContain('title.textContent = "Check your text messages"');
-    expect(source).toContain('copy.textContent = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!"');
+    expect(source).toContain('copy.textContent = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!"');
   });
 
   it("posts only the submission token and approved payment method to the optional PayPal order API", async () => {

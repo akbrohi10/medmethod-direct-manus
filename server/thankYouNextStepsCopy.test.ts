@@ -16,7 +16,7 @@ const videoThankYou = read(videoThankYouPath);
 
 const oldStaticStep1 = "Look for a text from MedMethod Direct. Open it and reply to start chatting with our Care Team or a doctor.";
 const newStaticStep1 = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
-const currentStaticStep1 = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+const currentStaticStep1 = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
 const oldStaticStep3 = "Complete your Account Details &amp; Required Forms";
 const newStaticStep3 = "Upload or update your info in the Patient Portal";
 const oldStaticStep3Description = "On the right-side menu, click My Account Details to complete your information then click Forms &amp; Questionnaires to review, sign, and submit all required forms.";
@@ -49,7 +49,7 @@ describe("approved thank-you next steps copy", () => {
       '<button class="secondary" id="recover-video-payment" type="button">Check payment confirmation</button>',
       '<section class="checkout" id="video-checkout"',
       '<a class="start-over" href="https://www.medmethoddirect.com">Back to MedMethod Direct</a>',
-      '<script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy"></script>',
+      '<script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-text-only"></script>',
       '.portal-guide { margin: 28px auto 22px; }',
       '.portal-guide img { display: block;',
     ]) expect(staticThankYou).toContain(text);

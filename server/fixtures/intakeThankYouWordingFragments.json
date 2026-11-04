@@ -51,6 +51,16 @@
         "old": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261030-step1\"></script>",
         "new": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy\"></script>",
         "count": 1
+      },
+      {
+        "old": "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "new": "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "count": 1
+      },
+      {
+        "old": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261104-thank-you-copy\"></script>",
+        "new": "<script src=\"/intake/video-visit.js?v=intake-video-97-20261104-thank-you-text-only\"></script>",
+        "count": 1
       }
     ],
     "client/public/intake/video-visit.js": [
@@ -62,6 +72,11 @@
       {
         "old": "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!",
         "new": "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "count": 1
+      },
+      {
+        "old": "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
+        "new": "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!",
         "count": 1
       }
     ]

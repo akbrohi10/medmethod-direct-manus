@@ -14,15 +14,15 @@ export const approvedThankYouWordingPaths = Object.freeze([
 type Fragment = Readonly<{ old: string; new: string; count: number }>;
 type Packet = { baseline: string; files: Record<string, readonly Fragment[]> };
 const packetSource = readFileSync(resolve(root, thankYouWordingFixturePath), "utf8");
-const packetHash = "9818174bcf674d9cb12d1ccad75f7b83628667d2e6724c34d9be135457ca693a";
+const packetHash = "b76ab43d01ba6fda7b586a050b74d87b53e23cf98032aa06d7ce29fbaed8adf3";
 const packet: Packet = JSON.parse(packetSource);
 if (
   createHash("sha256").update(packetSource).digest("hex") !== packetHash ||
   Object.keys(packet).sort().join(",") !== "baseline,files" ||
   packet.baseline !== baseline ||
   Object.keys(packet.files).sort().join(",") !== [...approvedThankYouWordingPaths].sort().join(",") ||
-  packet.files[approvedThankYouWordingPaths[0]].length !== 10 ||
-  packet.files[approvedThankYouWordingPaths[1]].length !== 2 ||
+  packet.files[approvedThankYouWordingPaths[0]].length !== 12 ||
+  packet.files[approvedThankYouWordingPaths[1]].length !== 3 ||
   approvedThankYouWordingPaths.some(path => packet.files[path].some((fragment, index) =>
     Object.keys(fragment).sort().join(",") !== "count,new,old" ||
     fragment.count !== (path === approvedThankYouWordingPaths[0] && index === 4 ? 2 : 1) ||
@@ -52,16 +52,16 @@ const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const old = (path: string) => execFileSync("git", ["show", `${baseline}:${path}`], { cwd: root, encoding: "utf8" });
 
 describe("thank-you wording exact production scope", () => {
-  it("freezes the exact ten-HTML/two-client packet with eleven HTML occurrences and introduced fixture path", () => {
+  it("freezes the exact twelve-HTML/three-client packet with thirteen HTML occurrences and introduced fixture path", () => {
     expect(createHash("sha256").update(read(thankYouWordingFixturePath)).digest("hex")).toBe(packetHash);
     expect(Object.keys(packet).sort()).toEqual(["baseline", "files"]);
     expect(packet.baseline).toBe(baseline);
     expect(Object.keys(packet.files).sort()).toEqual([...approvedThankYouWordingPaths].sort());
-    expect(packet.files[approvedThankYouWordingPaths[0]]).toHaveLength(10);
-    expect(packet.files[approvedThankYouWordingPaths[0]].map(fragment => fragment.count)).toEqual([1, 1, 1, 1, 2, 1, 1, 1, 1, 1]);
-    expect(packet.files[approvedThankYouWordingPaths[0]].reduce((total, fragment) => total + fragment.count, 0)).toBe(11);
-    expect(packet.files[approvedThankYouWordingPaths[1]]).toHaveLength(2);
-    expect(packet.files[approvedThankYouWordingPaths[1]].map(fragment => fragment.count)).toEqual([1, 1]);
+    expect(packet.files[approvedThankYouWordingPaths[0]]).toHaveLength(12);
+    expect(packet.files[approvedThankYouWordingPaths[0]].map(fragment => fragment.count)).toEqual([1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1]);
+    expect(packet.files[approvedThankYouWordingPaths[0]].reduce((total, fragment) => total + fragment.count, 0)).toBe(13);
+    expect(packet.files[approvedThankYouWordingPaths[1]]).toHaveLength(3);
+    expect(packet.files[approvedThankYouWordingPaths[1]].map(fragment => fragment.count)).toEqual([1, 1, 1]);
     expect(execFileSync("git", ["ls-tree", "--name-only", baseline, "--", thankYouWordingFixturePath], { cwd: root, encoding: "utf8" })).toBe("");
   });
 
@@ -73,8 +73,11 @@ describe("thank-you wording exact production scope", () => {
     for (const path of approvedThankYouWordingPaths) {
       const source = read(path);
       for (const fragment of packet.files[path]) {
-        expect(() => inverseApprovedThankYouWording(path, source.replace(fragment.new, fragment.old))).toThrow("Unexpected authorized thank-you wording source fragment count");
-        expect(() => inverseApprovedThankYouWording(path, source + fragment.new)).toThrow("Unexpected authorized thank-you wording source fragment count");
+        let visible = fragment.new;
+        for (const later of packet.files[path]) if (later.old === visible) visible = later.new;
+        expect(source.split(visible).length - 1).toBe(fragment.count);
+        expect(() => inverseApprovedThankYouWording(path, source.replace(visible, fragment.old))).toThrow("Unexpected authorized thank-you wording source fragment count");
+        expect(() => inverseApprovedThankYouWording(path, source + visible)).toThrow("Unexpected authorized thank-you wording source fragment count");
       }
       expect(inverseApprovedThankYouWording(path, source + "\nUNAPPROVED")).not.toBe(old(path));
     }

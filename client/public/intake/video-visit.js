@@ -512,7 +512,7 @@
     const title = byId("care-message-title");
     const copy = byId("care-message-copy");
     if (title) title.textContent = "Check your text messages";
-    if (copy) copy.textContent = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+    if (copy) copy.textContent = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
   }
 
   function initializePage() {

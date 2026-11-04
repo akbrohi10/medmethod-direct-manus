@@ -10,7 +10,7 @@ const page = readFileSync(resolve(root, pagePath), "utf8"), script = readFileSyn
 const baseline = (path: string) => execFileSync("git", ["show", `76d1479d:${path}`], { cwd: root, encoding: "utf8" });
 const packet = JSON.parse(readFileSync(resolve(root, "server/fixtures/intakeThankYouWordingFragments.json"), "utf8"));
 function extract(text: string, name: string, next: string) { const p = text.search(new RegExp(`  (?:async )?function ${name}\\(`)); expect(p).toBeGreaterThanOrEqual(0); const offset = text.slice(p).search(new RegExp(`\\n\\n  (?:async )?function ${next}\\(`)); expect(offset).toBeGreaterThan(0); return text.slice(p, p + offset); }
-const step1 = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+const step1 = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
 
 describe("Intake thank-you congratulations wording and timeline", () => {
   it.each([pagePath, jsPath])("makes only the approved exact fragments in %s", path => {

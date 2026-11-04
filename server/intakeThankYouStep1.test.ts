@@ -16,7 +16,7 @@ const thankYou = readFileSync(resolve(root, thankYouPath), "utf8");
 const baselineFile = (path: string) => execFileSync("git", ["show", `${baseline}:${path}`], { cwd: root, encoding: "utf8" });
 
 const titleCopy = "Check your text messages";
-const bodyCopy = "You should receive a text (or call) from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+const bodyCopy = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
 const previousBodyCopy = "You should have received a text from MedMethod Direct, or you'll receive one shortly. Please reply to our message so we can stay connected!";
 const oldTitleCopy = "Use your secure Patient Portal";
 const oldBodyCopy = "Because you did not opt in to SMS, use your secure Patient Portal and welcome email for care updates and required forms.";
