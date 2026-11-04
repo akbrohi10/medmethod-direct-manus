@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { inverseApprovedShippingApprovalWording } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
@@ -14,11 +15,12 @@ function fn(text: string, name: string) { const p = text.lastIndexOf(`function $
 describe("Weight Care How it works details CTA and doctor photo", () => {
   it("reverses only seven approved fragments to the complete prior intake and leaves metadata/validators/navigation intact", () => {
     expect(packet.html_fragments).toHaveLength(7);
-    let restored = source;
+    const beforeShippingApproval = inverseApprovedShippingApprovalWording("client/intake/index.html", source);
+    let restored = beforeShippingApproval;
     for (const f of [...packet.html_fragments].reverse()) { expect(restored.split(f.new).length - 1).toBe(f.count); restored = restored.split(f.new).join(f.old); }
     expect(restored).toBe(baseline);
     expect(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]).toBe(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
-    for (const name of ["se", "ie", "be", "MmdIntakeFlowScreens", "MmdIntakeMissingDetails", "MmdSigningPayloadReady", "MmdPhoneVerificationSatisfied"]) expect(fn(source, name)).toBe(fn(baseline, name));
+    for (const name of ["se", "ie", "be", "MmdIntakeFlowScreens", "MmdIntakeMissingDetails", "MmdSigningPayloadReady", "MmdPhoneVerificationSatisfied"]) expect(fn(beforeShippingApproval, name)).toBe(fn(baseline, name));
   });
 
   it.each([false, true])("uses the exact same details button and supporting note when video=%s", video => {

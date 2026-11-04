@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } from "./intakeLatePatientInfoScope.test";
-import { approvedIntroDetailsPhotoHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
+import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
@@ -124,9 +124,14 @@ describe("Weight Care final patient-info submission wording", () => {
     expect(afterShipping.at(-1)).toEqual({ old: "children:`Apt/suite/unit`", new: "children:`Apt, suite, unit (optional)`", count: 1 });
     expect(fragments.slice(0, afterShipping.length)).toEqual(afterShipping);
     expect(approvedIntroDetailsPhotoHtmlFragments).toHaveLength(7);
-    expect(fragments.slice(afterShipping.length)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
-    expect(fragments.slice(afterShipping.length)).toHaveLength(7);
-    expect(fragments).toHaveLength(afterShipping.length + 7);
+    expect(fragments.slice(afterShipping.length, afterShipping.length + 7)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
+    expect(fragments.slice(afterShipping.length, afterShipping.length + 7)).toHaveLength(7);
+    const beforeApproval: Fragment[] = JSON.parse(execFileSync("git", ["show", `1476a622:${fixturePath}`], { cwd: root, encoding: "utf8" }));
+    expect(beforeApproval).toHaveLength(55);
+    expect(fragments.slice(0, beforeApproval.length)).toEqual(beforeApproval);
+    expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
+    expect(fragments.slice(beforeApproval.length)).toEqual(approvedShippingApprovalHtmlFragments);
+    expect(fragments).toHaveLength(afterShipping.length + 7 + 4);
     let beforeGuidanceSource = source;
     for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
       expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);

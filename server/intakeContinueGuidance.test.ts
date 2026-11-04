@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import vm from "node:vm";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedShippingApprovalWording } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
@@ -30,7 +31,8 @@ describe("Weight Care Continue/Submit requirement guidance", () => {
 
   it("preserves every question, option, price, screen order and validation predicate byte-for-byte", () => {
     expect(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]).toBe(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
-    for (const name of ["se", "E", "D", "C", "T", "ie", "oe", "ae", "be", "MmdIntakeFlowScreens", "MmdIntakeMissingDetails", "MmdIntakeFinishReady", "MmdSigningPayloadReady", "MmdPhoneVerificationSatisfied"]) expect(fn(source, name)).toBe(fn(baseline, name));
+    const beforeShippingApproval = inverseApprovedShippingApprovalWording("client/intake/index.html", source);
+    for (const name of ["se", "E", "D", "C", "T", "ie", "oe", "ae", "be", "MmdIntakeFlowScreens", "MmdIntakeMissingDetails", "MmdIntakeFinishReady", "MmdSigningPayloadReady", "MmdPhoneVerificationSatisfied"]) expect(fn(beforeShippingApproval, name)).toBe(fn(baseline, name));
     const segment = (text: string, from: string, to: string) => text.slice(text.lastIndexOf(from), text.indexOf(to, text.lastIndexOf(from)));
     for (const [from, to] of [["const onValue=", ";const onPhoneVerified="], ["const onContinue=", ";const goBack="], ["const canContinue=", ";const missingDetails="]]) expect(segment(source, from, to)).toBe(segment(baseline, from, to));
   });

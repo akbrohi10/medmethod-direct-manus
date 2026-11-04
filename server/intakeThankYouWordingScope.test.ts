@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedShippingApprovalWording, approvedShippingApprovalHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
 const baseline = "76d1479d";
@@ -92,7 +93,21 @@ describe("thank-you wording exact production scope", () => {
       ...execFileSync("git", ["diff", "--name-only", baseline, "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
     ])].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && path !== thankYouWordingFixturePath);
-    expect(paths.sort()).toEqual([...approvedThankYouWordingPaths].sort());
-    expect(paths.filter(path => inverseApprovedThankYouWording(path, read(path)) !== old(path))).toEqual([]);
+    const remaining = paths.filter(path => {
+      if (path === "client/intake/index.html") return inverseApprovedShippingApprovalWording(path, read(path)) !== old(path);
+      if (path === "server/fixtures/intakeLatePatientInfoFragments.json") {
+        const previous = JSON.parse(old(path));
+        const current = JSON.parse(read(path));
+        expect(previous).toHaveLength(55);
+        expect(current).toHaveLength(59);
+        expect(current.slice(0, previous.length)).toEqual(previous);
+        expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
+        expect(current.slice(previous.length)).toEqual(approvedShippingApprovalHtmlFragments);
+        return false;
+      }
+      return true;
+    });
+    expect(remaining.sort()).toEqual([...approvedThankYouWordingPaths].sort());
+    expect(remaining.filter(path => inverseApprovedThankYouWording(path, read(path)) !== old(path))).toEqual([]);
   });
 });

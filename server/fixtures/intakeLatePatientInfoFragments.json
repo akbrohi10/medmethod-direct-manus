@@ -258,5 +258,25 @@
     "old": "function Ge({answers,onValue}){return",
     "new": "function Ge({answers,onValue}){(0,l.useLayoutEffect)(()=>{const card=document.querySelector(\".intro97-doctor\"),copy=card?.querySelector(\".intro97-doctor-copy\");if(!card||!copy)return;let frame;const fit=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const mobile=window.matchMedia(\"(max-width:480px)\").matches;const size=mobile?68:Math.max(88,Math.min(copy.getBoundingClientRect().height,Math.max(88,card.clientWidth-220)));const value=Math.round(size*100)/100+\"px\";if(card.style.getPropertyValue(\"--intro97-doctor-size\")!==value)card.style.setProperty(\"--intro97-doctor-size\",value)})};const observer=new ResizeObserver(fit);observer.observe(copy);window.addEventListener(\"resize\",fit);fit();return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener(\"resize\",fit)}},[]);return",
     "count": 1
+  },
+  {
+    "old": "find(\"wShippingAddress\"),find(\"wScalePhoto\")",
+    "new": "find(\"wShippingAddress\")?{...find(\"wShippingAddress\"),question_text:\"If you\u2019re medically approved, where would you like your meds shipped?\"}:null,find(\"wScalePhoto\")",
+    "count": 1
+  },
+  {
+    "old": "children:`This is where medication may ship, so please make sure it's accurate.`",
+    "new": "children:`Only used if Dr. Al-Deek prescribes medication for you. Nothing ships \u2014 and nothing is charged \u2014 until you\u2019ve approved your plan first.`",
+    "count": 1
+  },
+  {
+    "old": "children:`Apt, suite, unit (optional)`",
+    "new": "children:`Apt, suite, unit`",
+    "count": 1
+  },
+  {
+    "old": "onChange:e=>t(`wAddressZip`,e.target.value.replace(/\\D/g,``).slice(0,5)),'data-hj-suppress':!0})]})]})}",
+    "new": "onChange:e=>t(`wAddressZip`,e.target.value.replace(/\\D/g,``).slice(0,5)),'data-hj-suppress':!0})]}),(0,M.jsx)(`p`,{className:`group-helper full`,children:`Choose your state here. We\u2019ll use it on your identity form.`})]})}",
+    "count": 1
   }
 ]

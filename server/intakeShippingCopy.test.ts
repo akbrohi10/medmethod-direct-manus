@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
+import { inverseApprovedIntroDetailsPhoto, approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments, introDetailsPhotoFixturePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath } from "./intakeIntroDetailsPhotoScope.test";
 import { inverseApprovedThankYouWording, approvedThankYouWordingPaths, thankYouWordingFixturePath } from "./intakeThankYouWordingScope.test";
 
 const root = resolve(import.meta.dirname, "..");
@@ -14,7 +14,8 @@ function component(name: string) { const start = source.indexOf(`function ${name
 
 describe("Weight Care shipping screen exact copy", () => {
   it("changes only the single apartment label and restores the complete intake byte-for-byte", () => {
-    expect(source.split(newLabel)).toHaveLength(2);
+    expect(source.split("children:`Apt, suite, unit`")).toHaveLength(2);
+    expect(inverseApprovedIntroDetailsPhoto(path, source).split(newLabel)).toHaveLength(2);
     expect(baseline.split(oldLabel)).toHaveLength(2);
     expect(inverseApprovedIntroDetailsPhoto(path, source).replace(newLabel, oldLabel)).toBe(baseline);
   });
@@ -23,8 +24,10 @@ describe("Weight Care shipping screen exact copy", () => {
     const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
     expect(metadata.w.screens.find((s: { id: string }) => s.id === "wShippingAddress").question_text).toBe("Your shipping address");
     const shipping = component("MmdShippingAddress");
-    expect(shipping).toContain("This is where medication may ship, so please make sure it's accurate.");
-    for (const label of ["Street address", "Apt, suite, unit (optional)", "City", "State", "ZIP code"]) expect(shipping).toContain(label);
+    expect(component("MmdIntakeFlowScreens")).toContain('find("wShippingAddress")?{...find("wShippingAddress"),question_text:"If you’re medically approved, where would you like your meds shipped?"}:null');
+    expect(shipping).toContain("Only used if Dr. Al-Deek prescribes medication for you. Nothing ships — and nothing is charged — until you’ve approved your plan first.");
+    expect(shipping).toContain("Choose your state here. We’ll use it on your identity form.");
+    for (const label of ["Street address", "Apt, suite, unit", "City", "State", "ZIP code"]) expect(shipping).toContain(label);
     expect(shipping).not.toMatch(/compounded|from your profile|as entered above|locked|readOnly|disabled/);
   });
 
@@ -49,9 +52,14 @@ describe("Weight Care shipping screen exact copy", () => {
     expect(afterShipping.at(-1)).toEqual({ old: oldLabel, new: newLabel, count: 1 });
     expect(current.slice(0, afterShipping.length)).toEqual(afterShipping);
     expect(approvedIntroDetailsPhotoHtmlFragments).toHaveLength(7);
-    expect(current.slice(afterShipping.length)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
-    expect(current.slice(afterShipping.length)).toHaveLength(7);
-    expect(current).toHaveLength(afterShipping.length + 7);
+    expect(current.slice(afterShipping.length, afterShipping.length + 7)).toEqual(approvedIntroDetailsPhotoHtmlFragments);
+    expect(current.slice(afterShipping.length, afterShipping.length + 7)).toHaveLength(7);
+    const beforeApproval = JSON.parse(execFileSync("git", ["show", `1476a622:${fixture}`], { cwd: root, encoding: "utf8" }));
+    expect(beforeApproval).toHaveLength(55);
+    expect(current.slice(0, beforeApproval.length)).toEqual(beforeApproval);
+    expect(approvedShippingApprovalHtmlFragments).toHaveLength(4);
+    expect(current.slice(beforeApproval.length)).toEqual(approvedShippingApprovalHtmlFragments);
+    expect(current).toHaveLength(afterShipping.length + 7 + 4);
   });
 
   it("changes no other production source from the approved checkpoint", () => {

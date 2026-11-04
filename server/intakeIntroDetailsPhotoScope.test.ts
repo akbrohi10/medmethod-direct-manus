@@ -21,9 +21,30 @@ if (createHash("sha256").update(packetSource).digest("hex") !== packetHash || pa
 }
 export const approvedIntroDetailsPhotoHtmlFragments = packet.html_fragments;
 
-/** Reverse only the seven exact HTML fragments or two additive registration fragments. */
+const shippingFixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
+const shippingFragments: Fragment[] = JSON.parse(readFileSync(resolve(root, shippingFixturePath), "utf8"));
+const previousShippingFragments: Fragment[] = JSON.parse(execFileSync("git", ["show", `1476a622:${shippingFixturePath}`], { cwd: root, encoding: "utf8" }));
+export const approvedShippingApprovalHtmlFragments = shippingFragments.slice(previousShippingFragments.length);
+if (previousShippingFragments.length !== 55 || shippingFragments.length !== 59 || JSON.stringify(shippingFragments.slice(0, 55)) !== JSON.stringify(previousShippingFragments) || createHash("sha256").update(JSON.stringify(approvedShippingApprovalHtmlFragments)).digest("hex") !== "b70076ac088a824631b71d29b377d6091dae82e0f2e11c5bd2f31309df92f867") {
+  throw new Error("Unexpected approved shipping-approval fragments");
+}
+for (const fragment of approvedShippingApprovalHtmlFragments) Object.freeze(fragment);
+Object.freeze(approvedShippingApprovalHtmlFragments);
+
+/** Reverse only the four exact display fragments appended after the unchanged 1476a622 prefix. */
+export function inverseApprovedShippingApprovalWording(path: string, source: string): string {
+  if (path !== intakePath) return source;
+  for (const fragment of [...approvedShippingApprovalHtmlFragments].reverse()) {
+    if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized shipping-approval source fragment count");
+    source = source.split(fragment.new).join(fragment.old);
+  }
+  return source;
+}
+
+/** Normalize the four approved shipping fragments, then reverse the original exact intro/photo packet. */
 export function inverseApprovedIntroDetailsPhoto(path: string, source: string): string {
   if (approvedThankYouWordingPaths.some(approvedPath => approvedPath === path)) return inverseApprovedThankYouWording(path, source);
+  if (path === intakePath) source = inverseApprovedShippingApprovalWording(path, source);
   const fragments = path === intakePath ? packet.html_fragments : path === introDetailsPhotoRegistrationPath ? packet.registration_fragments : [];
   for (const fragment of [...fragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized intro-details-photo source fragment count");
