@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -7,7 +7,7 @@ import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
 const BASELINE = "f7c2c7e7";
-const read = (path: string) => readFileSync(resolve(root, path), "utf8");
+const read = (path: string) => inverseApprovedV2BioMscpBadge(path, readFileSync(resolve(root, path), "utf8"));
 const readBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
     cwd: root,

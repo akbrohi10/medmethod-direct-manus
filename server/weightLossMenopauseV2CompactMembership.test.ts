@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { inverseApprovedV2BioMscpBadge, v2BioMscpBadgePath } from "./weightLossMenopauseV2BioMscpBadge.test"; import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -8,7 +8,7 @@ const page='client/src/pages/WeightLossMenopauseV2.tsx',css='client/src/pages/We
 export const compactMembershipFixturePath='server/fixtures/weightLossMenopauseV2CompactMembershipFragments.json';
 const read=(p:string)=>readFileSync(resolve(root,p),'utf8');
 const baseline=(p:string)=>execFileSync('git',['show',`d4df92f1:${p}`],{cwd:root,encoding:'utf8'});
-export function inverseApprovedV2CompactMembership(path:string,source:string):string {
+export function inverseApprovedV2CompactMembership(path:string,source:string):string { source=inverseApprovedV2BioMscpBadge(path,source);
  const raw=read(compactMembershipFixturePath);
  if(createHash('sha256').update(raw).digest('hex')!=='7241c25f68b124ae97c0dab85f1db8fdc587e509b4da49204982132fbdfe6e7c')throw new Error('Unexpected compact membership approval packet');
  const f=JSON.parse(raw) as {fragments:{path:string;old:string;new:string}[]};
@@ -57,7 +57,7 @@ describe('V2 compact membership pricing — native collapsed benefits only',()=>
   expect(inverseApprovedV2CompactMembership(page,'UNAPPROVED\n'+read(page))).not.toBe(baseline(page));
   expect(inverseApprovedV2CompactMembership('unrelated.ts','unchanged')).toBe('unchanged');
   const roots=['client','server','shared','drizzle','vite.config.ts','package.json','pnpm-lock.yaml'];
-  const changed=[...execFileSync('git',['diff','--name-only','d4df92f1','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==compactMembershipFixturePath);
+  const changed=[...execFileSync('git',['diff','--name-only','d4df92f1','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==compactMembershipFixturePath).filter(p=>p!==v2BioMscpBadgePath||inverseApprovedV2BioMscpBadge(p,read(p))!==baseline(p));
   expect([...new Set(changed)].sort()).toEqual([page,css].sort());
   for(const p of execFileSync('git',['ls-tree','-r','--name-only','d4df92f1','--','server/fixtures'],{cwd:root,encoding:'utf8'}).trim().split('\n'))expect(read(p)).toBe(baseline(p));
   for(const p of['shared/treatmentCatalog.json','client/src/pages/WeightLossMenopauseV2Faq.tsx','client/intake/index.html','client/public/hormone-symptom-quiz.html','server/intakeSubmissionContract.ts'])expect(read(p)).toBe(baseline(p));

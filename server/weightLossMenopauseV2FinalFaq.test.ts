@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test";
 import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -59,7 +59,7 @@ const approvedAuditPriorityFixesAppend = `
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
-const read = (file: string) => readFileSync(resolve(root, file), "utf8");
+const read = (file: string) => inverseApprovedV2BioMscpBadge(file, readFileSync(resolve(root, file), "utf8"));
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;

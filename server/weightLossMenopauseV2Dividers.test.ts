@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -40,7 +40,7 @@ const protectedNonCssFiles = [
 type CssRule = { selectors: string[]; declarations: string };
 
 function read(file: string): string {
-  return readFileSync(resolve(root, file), "utf8");
+  return inverseApprovedV2BioMscpBadge(file, readFileSync(resolve(root, file), "utf8"));
 }
 
 function atBaseline(file: string): string {

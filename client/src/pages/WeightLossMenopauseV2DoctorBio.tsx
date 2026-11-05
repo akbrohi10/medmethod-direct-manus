@@ -73,6 +73,32 @@ export default function WeightLossMenopauseV2DoctorBio() {
               <h3>Credentials</h3>
               <ul className="doctor-bio-credentials">{CREDENTIALS.map(item => <li key={item}>{item}</li>)}</ul>
             </div>
+            <div
+              data-v2-bio-mscp-trust-row
+              className="flex w-full items-center gap-3"
+              style={{ marginTop: 20, fontFamily: "Montserrat, sans-serif" }}
+            >
+              <img
+                src="/manus-storage/mscp-badge-2026_09c3feaa.webp"
+                alt="2026 Menopause Society Certified Practitioner badge"
+                width={80}
+                height={80}
+                className="h-[72px] w-[72px] shrink-0 object-contain sm:h-20 sm:w-20"
+                loading="lazy"
+                decoding="async"
+                onError={(event) => {
+                  const image = event.currentTarget;
+                  if (image.dataset.fallbackUsed !== "true") {
+                    image.dataset.fallbackUsed = "true";
+                    image.src = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/VUbVCEUAQsHMTUAM.webp";
+                  }
+                }}
+              />
+              <div className="min-w-0 flex-1">
+                <p style={{ margin: 0, fontSize: 17, fontWeight: 700, lineHeight: 1.375, color: "#7A1E7E" }}>Certified menopause expertise.</p>
+                <p style={{ margin: "4px 0 0", fontSize: 14, fontWeight: 500, lineHeight: 1.625, color: "#5A4452" }}>Dr. Al-Deek is a Menopause Society Certified Practitioner.</p>
+              </div>
+            </div>
             <div className="doctor-bio-badge-group">
               <h3>Focus Areas</h3>
               <ul className="doctor-bio-focus">{FOCUS_AREAS.map(item => <li key={item}>{item}</li>)}</ul>

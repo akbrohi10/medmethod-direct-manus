@@ -66,7 +66,7 @@ describe('V2 optional $300 annual membership — pricing section only',()=>{
   });
   it('keeps every other production source, medication catalog and all old fixtures byte-identical',()=>{
     const roots=['client','server','shared','drizzle','vite.config.ts','package.json','pnpm-lock.yaml'];
-    const changed=[...execFileSync('git',['diff','--name-only','efd9c628','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==membershipFixturePath).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "");
+    const changed=[...execFileSync('git',['diff','--name-only','efd9c628','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==membershipFixturePath).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p=>p!=="client/src/pages/WeightLossMenopauseV2DoctorBio.tsx"||read(p)!==baseline(p));
     expect([...new Set(changed)].sort()).toEqual([cssPath,pagePath].sort());
     for(const p of execFileSync('git',['ls-tree','-r','--name-only','efd9c628','--','server/fixtures'],{cwd:root,encoding:'utf8'}).trim().split('\n'))expect(read(p)).toBe(baseline(p));
     for(const p of['shared/treatmentCatalog.json','client/src/pages/WeightLossMenopauseV2Faq.tsx','client/intake/index.html','client/public/hormone-symptom-quiz.html','server/intakeSubmissionContract.ts'])expect(read(p)).toBe(baseline(p));
