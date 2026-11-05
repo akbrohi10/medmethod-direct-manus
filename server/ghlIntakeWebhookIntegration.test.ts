@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test";
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
 import { resolve } from "node:path";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
@@ -78,7 +78,7 @@ describe("GHL notification is isolated from Keragon and patient submission", () 
     expect(readFileSync("server/_core/env.ts", "utf8").replace('  /** Contact/status-only notification after the website Weight Care intake succeeds. */\n  ghlIntakeWebhookUrl: process.env.GHL_INTAKE_WEBHOOK_URL ?? "",\n', "")).toBe(old("server/_core/env.ts"));
     expect(inverseApprovedLatePatientInfo(introDetailsPhotoRegistrationPath, readFileSync(introDetailsPhotoRegistrationPath, "utf8"))).toBe(old(introDetailsPhotoRegistrationPath));
     const front = execFileSync("git", ["diff", "--name-only", "ed9524e1", "--", "client", "shared", "package.json", "pnpm-lock.yaml"], { encoding: "utf8" });
-    expect(front.trim().split("\n").filter(Boolean).filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
+    expect(front.trim().split("\n").filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
       .filter(p => !["client/src/pages/WeightLossMenopauseV2.tsx", "client/src/pages/WeightLossMenopauseV2.css"].includes(p) || inverseApprovedV2HeroQuestion(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", String("ed9524e1") + ":" + p], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
       .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `ed9524e1:${p}`], { cwd: process.cwd(), encoding: "utf8" }))

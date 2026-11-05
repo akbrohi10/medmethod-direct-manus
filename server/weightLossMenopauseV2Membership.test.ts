@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash } from 'node:crypto'; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -7,10 +7,10 @@ export const membershipFixturePath = 'server/fixtures/weightLossMenopauseV2Membe
 const root = resolve(import.meta.dirname, '..');
 const pagePath = 'client/src/pages/WeightLossMenopauseV2.tsx';
 const cssPath = 'client/src/pages/WeightLossMenopauseV2.css';
-const read = (p: string) => readFileSync(resolve(root,p),'utf8');
+const readRaw = (p: string) => readFileSync(resolve(root,p),'utf8'); const readBeforeCompact = (p: string) => inverseApprovedV2CompactMembership(p, readRaw(p)); const read = readBeforeCompact;
 const baseline = (p: string) => execFileSync('git',['show',`efd9c628:${p}`],{cwd:root,encoding:'utf8'});
-export function inverseApprovedV2Membership(path: string, source: string): string {
-  const raw = read(membershipFixturePath);
+export function inverseApprovedV2Membership(path: string, source: string): string { return inverseApprovedV2MembershipBeforeCompact(path, inverseApprovedV2CompactMembership(path, source)); } export function inverseApprovedV2MembershipBeforeCompact(path: string, source: string): string {
+  const raw = readRaw(membershipFixturePath);
   if (createHash('sha256').update(raw).digest('hex') !== '8b2e2b3373353a03bd35ac622434411d448c25b91ea2c98347d6cc946d603627') throw new Error('Unexpected membership approval packet');
   const fixture = JSON.parse(raw) as { baseline: string; fragments: {path:string;old:string;new:string}[] };
   for (const f of fixture.fragments.filter(f=>f.path===path).reverse()) {
@@ -22,8 +22,8 @@ export function inverseApprovedV2Membership(path: string, source: string): strin
 const offer = () => read(pagePath).match(/    <div className="process-pricing-offer" id="pricing"[\s\S]*?\n    <\/div>\n  <\/div>\n<\/section>/)?.[0] ?? '';
 describe('V2 optional $300 annual membership — pricing section only',()=>{
   it('preserves the complete page and CSS except one pricing offer block and one scoped appended style block',()=>{
-    expect(inverseApprovedV2Membership(pagePath,read(pagePath))).toBe(baseline(pagePath));
-    expect(inverseApprovedV2Membership(cssPath,read(cssPath))).toBe(baseline(cssPath));
+    expect(inverseApprovedV2MembershipBeforeCompact(pagePath,read(pagePath))).toBe(baseline(pagePath));
+    expect(inverseApprovedV2MembershipBeforeCompact(cssPath,read(cssPath))).toBe(baseline(cssPath));
     const f=JSON.parse(read(membershipFixturePath));expect(f.baseline).toBe('efd9c628');expect(f.fragments).toHaveLength(2);
     expect(f.fragments[0].old).toMatch(/^    <div className="process-pricing-offer"/);
     expect(f.fragments[0].new).toMatch(/^    <div className="process-pricing-offer"/);
@@ -58,15 +58,15 @@ describe('V2 optional $300 annual membership — pricing section only',()=>{
     expect(offer()).toContain('Pay-as-you-go follow-up covers that visit’s assessment and care plan.');
   });
   it('rejects missing, duplicate, trailing or otherwise modified approved fragments and unknown edits are not hidden',()=>{
-    expect(()=>inverseApprovedV2Membership(pagePath,baseline(pagePath))).toThrow('Unexpected approved membership source count');
-    const f=JSON.parse(read(membershipFixturePath));expect(()=>inverseApprovedV2Membership(cssPath,read(cssPath)+f.fragments[1].new)).toThrow();
-    expect(()=>inverseApprovedV2Membership(cssPath,read(cssPath)+'EXTRA')).toThrow();
-    expect(inverseApprovedV2Membership(pagePath,'UNAPPROVED\n'+read(pagePath))).not.toBe(baseline(pagePath));
-    expect(inverseApprovedV2Membership('unrelated.ts','unchanged')).toBe('unchanged');
+    expect(()=>inverseApprovedV2MembershipBeforeCompact(pagePath,baseline(pagePath))).toThrow('Unexpected approved membership source count');
+    const f=JSON.parse(read(membershipFixturePath));expect(()=>inverseApprovedV2MembershipBeforeCompact(cssPath,read(cssPath)+f.fragments[1].new)).toThrow();
+    expect(()=>inverseApprovedV2MembershipBeforeCompact(cssPath,read(cssPath)+'EXTRA')).toThrow();
+    expect(inverseApprovedV2MembershipBeforeCompact(pagePath,'UNAPPROVED\n'+read(pagePath))).not.toBe(baseline(pagePath));
+    expect(inverseApprovedV2MembershipBeforeCompact('unrelated.ts','unchanged')).toBe('unchanged');
   });
   it('keeps every other production source, medication catalog and all old fixtures byte-identical',()=>{
     const roots=['client','server','shared','drizzle','vite.config.ts','package.json','pnpm-lock.yaml'];
-    const changed=[...execFileSync('git',['diff','--name-only','efd9c628','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==membershipFixturePath);
+    const changed=[...execFileSync('git',['diff','--name-only','efd9c628','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==membershipFixturePath).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "");
     expect([...new Set(changed)].sort()).toEqual([cssPath,pagePath].sort());
     for(const p of execFileSync('git',['ls-tree','-r','--name-only','efd9c628','--','server/fixtures'],{cwd:root,encoding:'utf8'}).trim().split('\n'))expect(read(p)).toBe(baseline(p));
     for(const p of['shared/treatmentCatalog.json','client/src/pages/WeightLossMenopauseV2Faq.tsx','client/intake/index.html','client/public/hormone-symptom-quiz.html','server/intakeSubmissionContract.ts'])expect(read(p)).toBe(baseline(p));

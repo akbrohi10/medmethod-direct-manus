@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test";
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
@@ -75,7 +75,7 @@ describe("Weight Care shipping screen exact copy", () => {
 
   it("changes no other production source from the approved checkpoint", () => {
     const scope = ["client", "server", "shared", "package.json", "pnpm-lock.yaml", "vite.config.ts", "drizzle"];
-    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean).filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
+    const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
       .filter(p => !["client/src/pages/WeightLossMenopauseV2.tsx", "client/src/pages/WeightLossMenopauseV2.css"].includes(p) || inverseApprovedV2HeroQuestion(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", String("b69c2aa2") + ":" + p], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
       .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: process.cwd(), encoding: "utf8" }))

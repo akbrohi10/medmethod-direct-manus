@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestionBeforeMembership } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test";
+import { inverseApprovedV2HeroQuestionBeforeMembership } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -181,7 +181,7 @@ describe("Weight-Loss & Menopause V2 approved section order", () => {
       { cwd: root, encoding: "utf8" },
     )
       .split("\n")
-      .filter(Boolean).filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
+      .filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
       .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
       .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `d3b42db5:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
