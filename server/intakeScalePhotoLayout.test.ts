@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -42,7 +43,8 @@ describe("intake scale-photo layout", () => {
 
   it("activates scoped scale styling only for wScalePhoto", () => {
     const intake = readFileSync(intakePath, "utf8");
-    const shell = intake.slice(intake.lastIndexOf('className:"app"'));
+    const historicalIntake = inverseApprovedGlp1Combined("client/intake/index.html", intake);
+    const shell = historicalIntake.slice(historicalIntake.lastIndexOf('className:"app"'));
     const stylesheet = readFileSync(stylesheetPath, "utf8");
     const addedStyles = stylesheet.slice(existingUploadStylesLength).trim();
     const addedSelectors = selectors(addedStyles.replace(/^\/\*.*?\*\/\s*/s, ""));

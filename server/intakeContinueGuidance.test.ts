@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -10,6 +11,7 @@ const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const old = (path: string) => execFileSync("git", ["show", `16e39af2:${path}`], { cwd: root, encoding: "utf8" });
 const source = read("client/intake/index.html"), baseline = old("client/intake/index.html");
+const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const script = read("client/public/intake/continue-guidance.js");
 const fixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
 const fragments = JSON.parse(read(fixturePath)) as Array<{ old: string; new: string; count?: number }>;
@@ -34,7 +36,7 @@ describe("Weight Care Continue/Submit requirement guidance", () => {
     const beforeShippingApproval = inverseApprovedShippingApprovalWording("client/intake/index.html", source);
     for (const name of ["se", "E", "D", "C", "T", "ie", "oe", "ae", "be", "MmdIntakeFlowScreens", "MmdIntakeMissingDetails", "MmdIntakeFinishReady", "MmdSigningPayloadReady", "MmdPhoneVerificationSatisfied"]) expect(fn(beforeShippingApproval, name)).toBe(fn(baseline, name));
     const segment = (text: string, from: string, to: string) => text.slice(text.lastIndexOf(from), text.indexOf(to, text.lastIndexOf(from)));
-    for (const [from, to] of [["const onValue=", ";const onPhoneVerified="], ["const onContinue=", ";const goBack="], ["const canContinue=", ";const missingDetails="]]) expect(segment(source, from, to)).toBe(segment(baseline, from, to));
+    for (const [from, to] of [["const onValue=", ";const onPhoneVerified="], ["const onContinue=", ";const goBack="], ["const canContinue=", ";const missingDetails="]]) expect(segment(historicalSource, from, to)).toBe(segment(baseline, from, to));
   });
 
   it("adds exact cost text only to the selected recommendation option, without altering its label or medication cards", () => {
@@ -122,7 +124,7 @@ describe("Weight Care Continue/Submit requirement guidance", () => {
 
   it("keeps the exact native-disabled/aria-disabled gate, uses scoped nonoverlapping feedback and restores added ARIA attributes", () => {
     const action = (text: string) => text.slice(text.lastIndexOf('className:"primary",type:"button",disabled:submitting'), text.indexOf('onClick:onContinue', text.lastIndexOf('className:"primary",type:"button",disabled:submitting')));
-    expect(action(source)).toBe(action(baseline));
+    expect(action(historicalSource)).toBe(action(baseline));
     expect(source).toContain('.footer:has(.intake-continue-guidance){position:static;inset:auto}');
     expect(script).toContain('if (r.invalid === null) r.control.removeAttribute("aria-invalid")');
     expect(script).toContain('if (r.description === null) r.control.removeAttribute("aria-describedby")');
@@ -131,7 +133,7 @@ describe("Weight Care Continue/Submit requirement guidance", () => {
 
   it("appends only exact approved HTML fragments and reverses the complete intake to 16e39af2", () => {
     expect(fragments.slice(0, prior.length)).toEqual(prior);
-    let restored = source;
+    let restored = historicalSource;
     for (const fragment of fragments.slice(prior.length).reverse()) { expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1); restored = restored.split(fragment.new).join(fragment.old); }
     expect(restored).toBe(baseline);
   });

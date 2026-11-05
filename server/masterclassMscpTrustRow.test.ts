@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -111,7 +112,7 @@ describe("Masterclass MSCP trust row", () => {
     ])]
       .filter(Boolean)
       .filter(file => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === file) || inverseApprovedThankYouWording(file, read(file)) !== atBaseline(file))
-      .filter(file => file !== thankYouWordingFixturePath)
+      .filter(file => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(file))
       .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
       // Separately authorized notification backend, covered by the dedicated GHL regressions.
       .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))

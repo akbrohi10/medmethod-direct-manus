@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -24,6 +25,7 @@ export function inverseApprovedLatePatientInfo(path: string, source: string): st
   }
   if (path === introDetailsPhotoRegistrationPath) return inverseApprovedIntroDetailsPhoto(path, source);
   if (path !== "client/intake/index.html") return source;
+  source = inverseApprovedGlp1Combined(path, source);
   for (const fragment of [...fragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== (fragment.count ?? 1)) throw new Error("Unexpected authorized late-patient-info source fragment count");
     source = source.split(fragment.new).join(fragment.old);
@@ -39,7 +41,7 @@ describe("late patient info complete production scope", () => {
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
     ].filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(resolve(root, path), "utf8")) !== execFileSync("git", ["show", `87fcd00d:${path}`], { cwd: root, encoding: "utf8" }))
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath, thankYouWordingFixturePath].includes(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path));
     expect([...new Set(changed)].sort()).toEqual(["client/intake/index.html", introducedContinueGuidanceAssetPath, signingUiPath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
     const current = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
     expect(inverseApprovedLatePatientInfo("client/intake/index.html", current)).toBe(execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" }));

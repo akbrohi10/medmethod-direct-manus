@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -68,6 +69,7 @@ for (const fragments of [approvedShippingApprovalHtmlFragments, approvedSigningC
 }
 function inverseApprovedSigningConnectionCopy(path: string, source: string): string {
   if (path !== "client/intake/index.html") return source;
+  source = inverseApprovedGlp1Combined(path, source);
   for (const fragment of [...approvedSigningConnectionHtmlFragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized signing-connection source fragment count");
     source = source.split(fragment.new).join(fragment.old);
@@ -124,7 +126,7 @@ describe("thank-you wording exact production scope", () => {
     const paths = [...new Set([
       ...execFileSync("git", ["diff", "--name-only", baseline, "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
-    ])].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && path !== thankYouWordingFixturePath);
+    ])].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path));
     const remaining = paths.filter(path => {
       if (path === "client/intake/index.html") return inverseApprovedShippingApprovalWording(path, read(path)) !== old(path);
       if (path === "server/fixtures/intakeLatePatientInfoFragments.json") {

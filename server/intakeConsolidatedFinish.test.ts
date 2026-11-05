@@ -1,8 +1,10 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const intake = readFileSync(resolve(import.meta.dirname, "../client/intake/index.html"), "utf8");
+const glp1 = new Function("window", readFileSync(resolve(import.meta.dirname, "..", glp1CombinedAssetPath), "utf8") + ";return window.MmdCreateGlp1Screens")({})({}, {}, {});
 const start = intake.indexOf("function MmdIntakeFlowScreens(");
 const end = intake.indexOf("function MmdIntakeFinish({", start);
 const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));
@@ -15,8 +17,8 @@ describe("consolidated local intake finish", () => {
     { id: "w01", type: "wIntro" }, { id: "w02", type: "identity" },
   ];
   function helpers() {
-    return new Function("w", "x", "se", "MmdPhoneVerificationSatisfied", "MmdDemoIdentityVerificationSkipped", `${intake.slice(start, end)};return { MmdIntakeFlowScreens, MmdIntakeSubmitScreen, MmdIntakeFinishReady };`)(
-      () => screens, () => screens,
+    return new Function("w", "x", "MmdGlp1", "se", "MmdPhoneVerificationSatisfied", "MmdDemoIdentityVerificationSkipped", `${intake.slice(start, end)};return { MmdIntakeFlowScreens, MmdIntakeSubmitScreen, MmdIntakeFinishReady };`)(
+      () => screens, () => screens, glp1,
       (screen: { type: string }, answers: Record<string, unknown>) => screen.type === "consent" ? answers.wConsent === true && answers.wDecline !== true : screen.type === "identity" ? answers.contactValid === true : answers.checkoutAck === true && answers.contactValid === true,
       (_settings: unknown, answers: Record<string, unknown>) => answers.validPhone === true,
       () => false,

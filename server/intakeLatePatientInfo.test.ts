@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -5,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const baseline = execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" });
 const fragments = JSON.parse(readFileSync(resolve(root, "server/fixtures/intakeLatePatientInfoFragments.json"), "utf8")) as Array<{ old: string; new: string; count?: number }>;
 const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
@@ -15,8 +17,9 @@ const fn = (name: string) => {
   const end = source.indexOf("function ", start + 12);
   return source.slice(start, end);
 };
+const glp1 = new Function("window", readFileSync(resolve(root, glp1CombinedAssetPath), "utf8") + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => catalog });
 const helperCode = fn("MmdIntakeFlowScreens") + fn("MmdIntakeLateDetails");
-const helpers = new Function("w", helperCode + ";return {MmdIntakeFlowScreens,MmdIntakeLateDetails}")((_route: string, _answers: unknown) => catalog) as {
+const helpers = new Function("w", "MmdGlp1", helperCode + ";return {MmdIntakeFlowScreens,MmdIntakeLateDetails}")((_route: string, _answers: unknown) => catalog, glp1) as {
   MmdIntakeFlowScreens: (answers: unknown) => typeof catalog;
   MmdIntakeLateDetails: (screen: unknown) => boolean;
 };
@@ -48,10 +51,10 @@ describe("Weight Care late patient info and doctor introduction", () => {
   it("starts with treatment then measurements and puts labs and the exact requested tail after the last health question", () => {
     const flow = helpers.MmdIntakeFlowScreens({});
     expect(flow.slice(0, 2).map(screen => screen.id)).toEqual(["w04", "w03"]);
-    expect(flow.slice(-8).map(screen => screen.id)).toEqual(["w37", "w30", "wShippingAddress", "wScalePhoto", "w38", "wSignForms", "w01", "w02"]);
+    expect(flow.slice(-8).map(screen => screen.id)).toEqual(["w34", "w30", "wShippingAddress", "wScalePhoto", "w38", "wSignForms", "w01", "w02"]);
     const tail = new Set(["w30", "wShippingAddress", "wScalePhoto", "w38", "w01", "w02", "w39"]);
     const preserved = catalog.filter(screen => !tail.has(screen.id) && screen.id !== "w03a" && !["wReview", "planReview", "checkout"].includes(screen.type));
-    expect(flow.slice(0, -7)).toEqual(preserved);
+    expect(flow.slice(0, -7)).toEqual(glp1.combine(preserved));
     expect(new Set(flow.map(screen => screen.id)).size).toBe(flow.length);
   });
 
@@ -116,7 +119,7 @@ describe("Weight Care late patient info and doctor introduction", () => {
   });
 
   it("makes exactly the approved reversible changes, including only the new teal doctor-card CSS", () => {
-    let restored = source;
+    let restored = historicalSource;
     for (const fragment of [...fragments].reverse()) {
       expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
       restored = restored.split(fragment.new).join(fragment.old);

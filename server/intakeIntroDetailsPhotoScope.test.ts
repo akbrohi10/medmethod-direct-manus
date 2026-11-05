@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -44,6 +45,7 @@ Object.freeze(approvedSigningConnectionHtmlFragments);
 /** Reverse only the two frozen display strings appended after the byte-identical 0c5f2ca4 prefix. */
 export function inverseApprovedSigningConnectionCopy(path: string, source: string): string {
   if (path !== intakePath) return source;
+  source = inverseApprovedGlp1Combined(path, source);
   for (const fragment of [...approvedSigningConnectionHtmlFragments].reverse()) {
     if (source.split(fragment.new).length - 1 !== fragment.count) throw new Error("Unexpected authorized signing-connection source fragment count");
     source = source.split(fragment.new).join(fragment.old);
@@ -98,7 +100,9 @@ describe("intro details copy and doctor photo exact production scope", () => {
     for (const [path, fragments] of [[intakePath, packet.html_fragments], [introDetailsPhotoRegistrationPath, packet.registration_fragments]] as const) {
       const source = read(path);
       for (const fragment of fragments) {
-        expect(() => inverseApprovedIntroDetailsPhoto(path, source.replace(fragment.new, fragment.old))).toThrow("Unexpected authorized intro-details-photo source fragment count");
+        const groupFragments: Fragment[] = JSON.parse(read(glp1CombinedFixturePath)).fragments;
+        const nestedInGroupWrapper = path === intakePath && groupFragments.some(group => group.new.includes(fragment.new));
+        expect(() => inverseApprovedIntroDetailsPhoto(path, source.replace(fragment.new, fragment.old))).toThrow(nestedInGroupWrapper ? "Unexpected authorized GLP-1 fragment count" : "Unexpected authorized intro-details-photo source fragment count");
         expect(() => inverseApprovedIntroDetailsPhoto(path, source + fragment.new)).toThrow("Unexpected authorized intro-details-photo source fragment count");
       }
       expect(inverseApprovedIntroDetailsPhoto(path, source + "\nUNAPPROVED")).not.toBe(old(path));
@@ -121,7 +125,7 @@ describe("intro details copy and doctor photo exact production scope", () => {
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
     ].filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, read(path)) !== old(path))
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath].includes(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path));
     expect([...new Set(paths)].sort()).toEqual([intakePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
   });
 });

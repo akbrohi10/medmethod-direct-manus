@@ -1,0 +1,71 @@
+{
+  "baseline": "443868b1",
+  "fragments": [
+    {
+      "old": "<script src=\"/intake/continue-guidance.js?v=20261104\"></script>",
+      "new": "<script src=\"/intake/continue-guidance.js?v=20261104\"></script>\n<script src=\"/intake/glp1-screens.js?v=20261105\"></script>",
+      "count": 1
+    },
+    {
+      "old": "function se(e,t,n=!1){if(!e.required)",
+      "new": "function se(e,t,n=!1){if(e.type===\"glp1Group\")return MmdGlp1.missing(e,t,n).length===0;if(!e.required)",
+      "count": 1
+    },
+    {
+      "old": "function O(e,t){if(e.fields)",
+      "new": "function O(e,t){if(e.glp1_question_ids)return e.glp1_question_ids;if(e.fields)",
+      "count": 1
+    },
+    {
+      "old": "function MmdIntakeFlowScreens(answers){const visible=w(\"w\",answers).filter(screen=>screen.id!==\"w03a\"&&![\"wReview\",\"planReview\",\"checkout\"].includes(screen.type));",
+      "new": "const MmdGlp1=window.MmdCreateGlp1Screens(l,M,{questions:x,validate:se,Question:Qe});\nfunction MmdIntakeFlowScreens(answers){const visible=MmdGlp1.combine(w(\"w\",answers).filter(screen=>screen.id!==\"w03a\"&&![\"wReview\",\"planReview\",\"checkout\"].includes(screen.type)));",
+      "count": 1
+    },
+    {
+      "old": "return{...next,[key]:value}})",
+      "new": "return screen.type===\"glp1Group\"?MmdGlp1.clearHidden(screen,{...next,[key]:value}):{...next,[key]:value}})",
+      "count": 1
+    },
+    {
+      "old": "const onContinue=async()=>{if(screen?.type===\"signForms\"",
+      "new": "const onContinue=async()=>{if(screen?.type===\"glp1Group\"&&!se(screen,answers,demo)){MmdGlp1.focusMissing(screen,answers,demo);return}if(screen?.type===\"signForms\"",
+      "count": 1
+    },
+    {
+      "old": "MmdIntakeSubmitScreen(screen)?\"stage patient-submit-stage\":\"stage\"",
+      "new": "MmdIntakeSubmitScreen(screen)?\"stage patient-submit-stage\":screen?.type===\"glp1Group\"?\"stage glp1-group-stage\":\"stage\"",
+      "count": 1
+    },
+    {
+      "old": "screen&&(screen.type===\"signForms\"?",
+      "new": "screen&&(screen.type===\"glp1Group\"?(0,M.jsx)(MmdGlp1.Screen,{screen,answers,onValue,demoMode:demo}):screen.type===\"signForms\"?",
+      "count": 1
+    },
+    {
+      "old": "(MmdIntakeSubmitScreen(screen)?\"patient-submit-footer\":\"\")",
+      "new": "(MmdIntakeSubmitScreen(screen)?\"patient-submit-footer\":\"\")+\" \"+(screen.type===\"glp1Group\"?\"glp1-group-footer\":\"\")",
+      "count": 1
+    },
+    {
+      "old": "(0,M.jsx)(MmdContinueGuidance,{screen,answers,formsReady,missingDetails,submitting,uploadBusy,blocked:submitting||uploadBusy||(!canContinue&&(!informationOnly||screen.type===\"signForms\"))})",
+      "new": "screen.type===\"glp1Group\"?(0,M.jsx)(MmdGlp1.Guidance,{screen,answers,demoMode:demo}):(0,M.jsx)(MmdContinueGuidance,{screen,answers,formsReady,missingDetails,submitting,uploadBusy,blocked:submitting||uploadBusy||(!canContinue&&(!informationOnly||screen.type===\"signForms\"))})",
+      "count": 1
+    },
+    {
+      "old": "onClick:onContinue,children:submitting?",
+      "new": "onPointerDown:screen.type===\"glp1Group\"&&!canContinue?()=>MmdGlp1.focusMissing(screen,answers,demo):undefined,\"aria-describedby\":screen.type===\"glp1Group\"&&!canContinue?\"mmd-glp1-guidance\":undefined,onClick:onContinue,children:submitting?",
+      "count": 1
+    },
+    {
+      "old": ".weight-intro{padding-bottom:14px}}\n</style>",
+      "new": ".weight-intro{padding-bottom:14px}}\n/* GLP-1 grouped questions only \u2014 existing teal controls and field styling retained */\n.glp1-questions{display:flex;flex-direction:column;gap:36px;margin-top:28px}\n.glp1-question{min-width:0;scroll-margin-top:84px;padding:22px;border:1px solid #d7e1dd;border-radius:16px}\n.glp1-question h2,.glp1-question .field>span{font-size:20px;font-weight:700;line-height:1.4;margin:0 0 18px;overflow-wrap:anywhere}\n.glp1-question .field>span{display:block}\n.glp1-question .choices{margin-top:0}\n.glp1-question .choice{min-height:52px}\n.glp1-question .field-help{font-size:17px;line-height:1.5}\n.glp1-follow-up{border-left:4px solid #0c7776}\n.glp1-question[data-mmd-missing=\"true\"]{border-color:#0c7776}\n.glp1-group-stage{padding-bottom:24px}\n.footer.glp1-group-footer{position:static;margin-top:0;border-top:0;background:transparent;padding:0 0 34px}\n.glp1-group-footer .footer-inner{width:min(920px,100% - 56px);max-width:920px;display:flex;flex-direction:column;align-items:stretch;gap:14px}\n.glp1-guidance{width:100%;margin:0;font-size:17px;line-height:1.5}\n.glp1-group-footer .primary{width:100%;min-height:52px;flex:0 0 auto}\n.glp1-continue-hitarea .primary:disabled{pointer-events:none}\n.glp1-missing-link{background:none;border:0;color:inherit;font:inherit;text-align:left;text-decoration:underline;text-underline-offset:3px;padding:8px 0;min-height:44px;cursor:pointer}\n.glp1-missing-link:focus-visible,.glp1-question:focus-visible{outline:3px solid #0c7776;outline-offset:4px}\n@media(max-width:767px){.glp1-questions{gap:26px}.glp1-question{padding:18px 16px}.glp1-question h2,.glp1-question .field>span{font-size:18px}.glp1-group-footer .footer-inner{width:calc(100% - 44px)}}\n</style>",
+      "count": 1
+    },
+    {
+      "old": "(0,M.jsx)(\"button\",{className:\"primary\",type:\"button\",disabled:submitting||uploadBusy||!canContinue&&!informationOnly&&screen.type!==\"signForms\",\"aria-disabled\":screen.type===\"signForms\"?submitting||uploadBusy||!formsReady:undefined,onPointerDown:screen.type===\"glp1Group\"&&!canContinue?()=>MmdGlp1.focusMissing(screen,answers,demo):undefined,\"aria-describedby\":screen.type===\"glp1Group\"&&!canContinue?\"mmd-glp1-guidance\":undefined,onClick:onContinue,children:submitting?answers.videoVisitInterest===true?\"Submitting your intake...\":\"Submitting your free intake\\u2026\":screen.id===\"w01\"?\"Continue to my details\":MmdIntakeSubmitScreen(screen)?answers.videoVisitInterest===true?\"Submit & book my video visit\":\"Submit & start my free visit\":screen.type===\"signForms\"?\"Sign & continue\":\"Continue\"})",
+      "new": "(0,M.jsx)(screen.type===\"glp1Group\"?\"div\":M.Fragment,{...(screen.type===\"glp1Group\"?{className:\"glp1-continue-hitarea\",onPointerDown:event=>{if(!canContinue){event.preventDefault();MmdGlp1.focusMissing(screen,answers,demo)}}}:{}),children:(0,M.jsx)(\"button\",{className:\"primary\",type:\"button\",disabled:submitting||uploadBusy||!canContinue&&!informationOnly&&screen.type!==\"signForms\",\"aria-disabled\":screen.type===\"signForms\"?submitting||uploadBusy||!formsReady:undefined,onPointerDown:screen.type===\"glp1Group\"&&!canContinue?()=>MmdGlp1.focusMissing(screen,answers,demo):undefined,\"aria-describedby\":screen.type===\"glp1Group\"&&!canContinue?\"mmd-glp1-guidance\":undefined,onClick:onContinue,children:submitting?answers.videoVisitInterest===true?\"Submitting your intake...\":\"Submitting your free intake\\u2026\":screen.id===\"w01\"?\"Continue to my details\":MmdIntakeSubmitScreen(screen)?answers.videoVisitInterest===true?\"Submit & book my video visit\":\"Submit & start my free visit\":screen.type===\"signForms\"?\"Sign & continue\":\"Continue\"})})",
+      "count": 1
+    }
+  ],
+  "introduced_asset": "client/public/intake/glp1-screens.js"
+}

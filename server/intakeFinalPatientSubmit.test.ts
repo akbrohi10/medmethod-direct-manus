@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -7,6 +8,7 @@ import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFra
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const old = (path: string) => execFileSync("git", ["show", `c7a19865:${path}`], { cwd: root, encoding: "utf8" });
 const baseline = old("client/intake/index.html");
 const fixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
@@ -21,10 +23,11 @@ const fn = (text: string, name: string) => {
 };
 const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const screens = metadata.w.screens;
+const glp1 = new Function("window", readFileSync(resolve(root, glp1CombinedAssetPath), "utf8") + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => screens });
 const phoneStart = source.indexOf("function MmdDemoIdentityVerificationSkipped(");
 const phoneEnd = source.indexOf("async function MmdPhoneVerificationApi", phoneStart);
-const helpers = (search = "") => new Function("window", "URLSearchParams", "b", "x", "w", source.slice(phoneStart, phoneEnd) + fn(source, "E") + fn(source, "ie") + fn(source, "ae") + fn(source, "se") + fn(source, "MmdIntakePhoneReady") + fn(source, "MmdIntakeFinishReady") + fn(source, "MmdIntakeMissingDetails") + fn(source, "MmdIntakeFlowScreens") + ";return {MmdIntakeMissingDetails,MmdIntakeFinishReady,MmdIntakeFlowScreens}")(
-  { location: { search } }, URLSearchParams, { Georgia: "GA", Florida: "FL" }, () => screens, () => screens,
+const helpers = (search = "") => new Function("window", "URLSearchParams", "b", "x", "w", "MmdGlp1", source.slice(phoneStart, phoneEnd) + fn(source, "E") + fn(source, "ie") + fn(source, "ae") + fn(source, "se") + fn(source, "MmdIntakePhoneReady") + fn(source, "MmdIntakeFinishReady") + fn(source, "MmdIntakeMissingDetails") + fn(source, "MmdIntakeFlowScreens") + ";return {MmdIntakeMissingDetails,MmdIntakeFinishReady,MmdIntakeFlowScreens}")(
+  { location: { search } }, URLSearchParams, { Georgia: "GA", Florida: "FL" }, () => screens, () => screens, glp1,
 ) as {
   MmdIntakeMissingDetails: (answers: Record<string, unknown>, demo: boolean, signed: boolean) => string[];
   MmdIntakeFinishReady: (screen: unknown, answers: Record<string, unknown>, demo: boolean) => boolean;
@@ -97,7 +100,7 @@ describe("Weight Care final patient-info submission wording", () => {
       expect(h.MmdIntakeFinishReady(screens.find((screen: { type: string }) => screen.type === "identity"), { ...valid(), ...override }, false)).toBe(false);
     }
     expect(fn(source, "ie")).toBe(fn(baseline, "ie"));
-    expect(fn(source, "se")).toBe(fn(baseline, "se"));
+    expect(fn(historicalSource, "se")).toBe(fn(baseline, "se"));
   });
 
   it("retains verification expiry and the exact initialized demo exception without falsely listing optional SMS consent", () => {
@@ -137,13 +140,13 @@ describe("Weight Care final patient-info submission wording", () => {
     expect(approvedSigningConnectionHtmlFragments).toHaveLength(2);
     expect(fragments.slice(beforeSigning.length)).toEqual(approvedSigningConnectionHtmlFragments);
     expect(fragments).toHaveLength(afterShipping.length + 7 + 4 + 2);
-    let beforeGuidanceSource = source;
+    let beforeGuidanceSource = historicalSource;
     for (const fragment of fragments.slice(beforeGuidance.length).reverse()) {
       expect(beforeGuidanceSource.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
       beforeGuidanceSource = beforeGuidanceSource.split(fragment.new).join(fragment.old);
     }
     expect(beforeGuidanceSource).toBe(execFileSync("git", ["show", "16e39af2:client/intake/index.html"], { cwd: root, encoding: "utf8" }));
-    let restored = source;
+    let restored = historicalSource;
     for (const fragment of fragments.slice(previous.length).reverse()) {
       expect(restored.split(fragment.new).length - 1).toBe(fragment.count ?? 1);
       restored = restored.split(fragment.new).join(fragment.old);

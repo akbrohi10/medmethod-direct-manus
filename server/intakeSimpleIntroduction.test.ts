@@ -1,3 +1,4 @@
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -43,7 +44,7 @@ describe("Intro 97 local intake introduction", () => {
     const footer = source.slice(source.lastIndexOf('className:"intro97-footer-note"'));
     expect(footer.indexOf('className:"intro97-fine-print"')).toBeGreaterThan(0);
     expect(introduction).not.toContain('className:"intro97-fine-print"');
-    expect(source).toContain('className:screen?.id==="w01"?"stage intake-intro-stage":screen?.type==="signForms"?"stage sign-forms-stage":screen?.type==="scalePhoto"?"stage scale-photo-stage":MmdIntakeSubmitScreen(screen)?"stage patient-submit-stage":"stage"');
+    expect(inverseApprovedGlp1Combined("client/intake/index.html", source)).toContain('className:screen?.id==="w01"?"stage intake-intro-stage":screen?.type==="signForms"?"stage sign-forms-stage":screen?.type==="scalePhoto"?"stage scale-photo-stage":MmdIntakeSubmitScreen(screen)?"stage patient-submit-stage":"stage"');
     expect(source).toContain('.intro-footer .footer-inner{flex-direction:column;align-items:flex-start;gap:0}');
     for (const retired of ["$39", "39.00", "Free ongoing", "FREE ONGOING", "No monthly", "Ongoing text-based care", "Takes about 5 minutes", "Your assessment and ongoing asynchronous doctor care are free", "Intake & ongoing text care", "provides ongoing care and support"]) {
       expect(source.toLowerCase()).not.toContain(retired.toLowerCase());

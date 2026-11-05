@@ -1,0 +1,27 @@
+import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
+import { runInNewContext } from "node:vm";
+import { describe, expect, it } from "vitest";
+const root=resolve(import.meta.dirname,".."),path="client/intake/index.html",source=readFileSync(resolve(root,path),"utf8"),baseline=execFileSync("git",["show",`443868b1:${path}`],{cwd:root,encoding:"utf8"});
+const metadata=(s:string)=>JSON.parse(s.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
+const questions=metadata(source).w.screens;
+const extract=(s:string,name:string,next:string)=>s.slice(s.indexOf(`function ${name}(`,s.indexOf('function E(e)')),s.indexOf(`function ${next}(`,s.indexOf(`function ${name}(`,s.indexOf('function E(e)'))));
+const env:any={window:{},questions};
+runInNewContext(readFileSync(resolve(root,"client/public/intake/glp1-screens.js"),"utf8"),env);
+const validate=(q:any,a:any)=>!q.required||(q.type==='text'?!!String(a[q.id]??'').trim():q.selection_mode?.startsWith('multiple')?Array.isArray(a[q.id])&&a[q.id].length>0:!!String(a[q.id]??'').trim());
+const group=env.window.MmdCreateGlp1Screens({}, {}, {questions:()=>questions,validate,Question:()=>null});
+const a={id:'w16',type:'glp1Group'},b={id:'w34',type:'glp1Group'};
+const all={w16:'yes',w17:'SYNTHETIC experience',w32:'no',w18:'yes',w19:'sema',w20:'SYNTHETIC dose',w21:'7',w22:'same',w34:['muscle'],w35:'yes',w36:'none',w37:'no'};
+const ids=(q:any[])=>q.map(x=>x.id);
+describe('GLP-1 history and preferences presentation grouping',()=>{
+ it('retains complete canonical question/option/help/required/status/visibility metadata byte-for-byte',()=>{expect(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]).toBe(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);});
+ it.each([["no","no",['w16','w18']],["yes","no",['w16','w17','w32','w18']],["no","yes",['w16','w18','w19','w20','w21','w22']],["yes","yes",['w16','w17','w32','w18','w19','w20','w21','w22']]])('renders exact original question order for history %s/%s',(w16,w18,expected)=>{expect(ids(group.visible(a,{w16,w18}))).toEqual(expected);});
+ it('keeps preferences order and never adds follow-ups',()=>{expect(ids(group.visible(b,{}))).toEqual(['w34','w35','w36','w37']);});
+ it('removes only member screens from navigation while keeping both anchors and all unrelated screens',()=>{const before=questions.filter((q:any)=>!['w03a','w39','w40','w40a','w41'].includes(q.id));const after=group.combine(before);expect(after.find((x:any)=>x.id==='w16').question_text).toBe('Your GLP-1 history');expect(after.find((x:any)=>x.id==='w34').question_text).toBe('Your GLP-1 preferences');expect(ids(after)).toEqual(ids(before).filter(x=>!['w17','w32','w18','w19','w20','w21','w22','w35','w36','w37'].includes(x)));});
+ it('blocks each individual required visible history and preference answer',()=>{expect(group.missing(a,all)).toHaveLength(0);expect(group.missing(b,all)).toHaveLength(0);for(const screen of[a,b])for(const q of group.visible(screen,all)){const copy:any={...all};delete copy[q.id];expect(ids(group.missing(screen,copy))).toContain(q.id);}});
+ it('requires no hidden children and preserves multi-select and no-preference value shapes',()=>{expect(group.missing(a,{w16:'no',w18:'no'})).toHaveLength(0);expect(group.missing(b,{...all,w34:[]})).toHaveLength(1);expect(group.missing(b,{...all,w34:['muscle','side'],w36:'none'})).toHaveLength(0);});
+ it('clears hidden branch answers when parent changes but retains sibling groups, IDs and types',()=>{const after=group.clearHidden(a,{...all,w16:'no'});expect(after.w17).toBeUndefined();expect(after.w32).toBeUndefined();expect(after.w18).toBe('yes');expect(after.w20).toBe(all.w20);expect(after.w34).toEqual(all.w34);const stopped=group.clearHidden(a,{...all,w18:'no'});for(const id of['w19','w20','w21','w22'])expect(stopped[id]).toBeUndefined();expect(stopped.w17).toBe(all.w17);expect(stopped.w32).toBe('no');expect(group.clearHidden(b,all)).toEqual(all);});
+ it('keeps original payload and review/summary functions unchanged',()=>{for(const[name,next]of[['be','xe'],['j','he'],['he','ge'],['ge','_e']]){const old=extract(baseline,name,next);if(old)expect(extract(source,name,next)).toBe(old);}expect(source).toContain('Question:Qe');expect(source).toContain('questions:x,validate:se');});
+ it('uses original per-question controls, original help and precise required-field guidance',()=>{const js=readFileSync(resolve(root,'client/public/intake/glp1-screens.js'),'utf8');expect(js).toContain('original.Question');expect(js).toContain('original.validate(question');expect(js).toContain('Almost there - please answer:');expect(js).toContain('scrollQuestion(appeared[0].id, false)');expect(js).toContain('prefers-reduced-motion');expect(source).toContain('MmdGlp1.focusMissing(screen,answers,demo)');expect(source).toContain('if(e.glp1_question_ids)return e.glp1_question_ids');});
+});
