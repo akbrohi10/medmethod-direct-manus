@@ -1,3 +1,4 @@
+import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -41,7 +42,7 @@ describe("late patient info complete production scope", () => {
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
     ].filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(resolve(root, path), "utf8")) !== execFileSync("git", ["show", `87fcd00d:${path}`], { cwd: root, encoding: "utf8" }))
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![latePatientInfoFixturePath, introDetailsPhotoFixturePath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path));
     expect([...new Set(changed)].sort()).toEqual(["client/intake/index.html", introducedContinueGuidanceAssetPath, signingUiPath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
     const current = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
     expect(inverseApprovedLatePatientInfo("client/intake/index.html", current)).toBe(execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" }));

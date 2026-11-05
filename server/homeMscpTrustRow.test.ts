@@ -1,3 +1,4 @@
+import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -70,7 +71,7 @@ function changedProductionFiles(): string[] {
   ])]
     .filter(Boolean)
     .filter(file => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === file) || inverseApprovedThankYouWording(file, read(file)) !== atBaseline(file))
-    .filter(file => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(file))
+    .filter(file => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(file))
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     // Separately authorized backend-only notification; dedicated GHL suites protect its scope.
     .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))

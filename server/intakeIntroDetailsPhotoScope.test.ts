@@ -1,3 +1,4 @@
+import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -125,7 +126,7 @@ describe("intro details copy and doctor photo exact production scope", () => {
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
     ].filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, read(path)) !== old(path))
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path));
     expect([...new Set(paths)].sort()).toEqual([intakePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
   });
 });

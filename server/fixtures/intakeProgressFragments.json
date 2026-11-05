@@ -1,0 +1,26 @@
+{
+  "baseline": "bcd801c8",
+  "fragments": [
+    {
+      "old": "<script src=\"/intake/glp1-screens.js?v=20261105\"></script>",
+      "new": "<script src=\"/intake/glp1-screens.js?v=20261105\"></script>\n<script src=\"/intake/progress.js?v=20261105\"></script>",
+      "count": 1
+    },
+    {
+      "old": "const MmdGlp1=window.MmdCreateGlp1Screens(l,M,{questions:x,validate:se,Question:Qe});",
+      "new": "const MmdGlp1=window.MmdCreateGlp1Screens(l,M,{questions:x,validate:se,Question:Qe});\nconst MmdIntakeProgress=window.MmdCreateIntakeProgress(l,M).Progress;",
+      "count": 1
+    },
+    {
+      "old": "(0,M.jsx)(\"div\",{className:\"track\",children:(0,M.jsx)(\"span\",{style:{width:(localReceipt?100:screen?de(\"w\",screen.id,answers):0)+\"%\"}})})",
+      "new": "(0,M.jsx)(MmdIntakeProgress,{screen,screens,history,hidden:!!localReceipt})",
+      "count": 1
+    },
+    {
+      "old": ".glp1-group-footer .footer-inner{width:calc(100% - 44px)}}\n</style>",
+      "new": ".glp1-group-footer .footer-inner{width:calc(100% - 44px)}}\n/* Intake-only progress presentation \u2014 no questionnaire or navigation changes */\n.mmd-progress-wrap{background:#faf9f7;padding:13px max(22px,env(safe-area-inset-left)) 12px;border-bottom:1px solid #d7e1dd}\n.mmd-progress-inner{max-width:920px;margin:0 auto}\n.mmd-progress-label{margin:0 0 9px;color:#0a5151;font:600 15px/1.5 Montserrat,Arial,sans-serif}\n.mmd-progress-track{height:6px;overflow:hidden;background:#d7e1dd;border-radius:999px}\n.mmd-progress-fill{height:100%;width:100%;display:block;transform-origin:left center;background:linear-gradient(90deg,#0e7c7b,#075c5c);transition:transform 240ms cubic-bezier(.22,.61,.36,1)}\n.mmd-progress-time{margin:8px 0 0;color:#465963;font:500 14px/1.5 Montserrat,Arial,sans-serif}\n@media(prefers-color-scheme:dark){.mmd-progress-wrap{background:#0d2021;border-color:#315653}.mmd-progress-label{color:#d5f2ef}.mmd-progress-time{color:#c9e4e1}.mmd-progress-track{background:#315653}.mmd-progress-fill{background:linear-gradient(90deg,#91ce99,#8fcfc5)}}\n@media(prefers-reduced-motion:reduce){.mmd-progress-fill{transition:none}}\n</style>",
+      "count": 1
+    }
+  ],
+  "introduced_asset": "client/public/intake/progress.js"
+}

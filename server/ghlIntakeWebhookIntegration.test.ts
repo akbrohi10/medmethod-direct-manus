@@ -1,3 +1,4 @@
+import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { beforeEach, afterEach, describe, it, expect, vi } from "vitest";
 import type { Express, Request, Response } from "express";
@@ -75,7 +76,7 @@ describe("GHL notification is isolated from Keragon and patient submission", () 
     const front = execFileSync("git", ["diff", "--name-only", "ed9524e1", "--", "client", "shared", "package.json", "pnpm-lock.yaml"], { encoding: "utf8" });
     expect(front.trim().split("\n").filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(path, "utf8")) !== old(path))
-      .filter(path => ![introducedContinueGuidanceAssetPath, glp1CombinedFixturePath, glp1CombinedAssetPath].includes(path))
+      .filter(path => ![introducedContinueGuidanceAssetPath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path))
       .filter(path => inverseApprovedLatePatientInfo(path, readFileSync(path, "utf8")) !== old(path))).toEqual([]);
   });
   it("enqueues after Keragon accepts, sends contact/status only and does not enqueue on refresh", async () => {
