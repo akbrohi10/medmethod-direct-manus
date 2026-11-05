@@ -1,4 +1,5 @@
-import { finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
+import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { inverseApprovedShippingSkip, shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
@@ -129,7 +130,9 @@ describe("thank-you wording exact production scope", () => {
     const paths = [...new Set([
       ...execFileSync("git", ["diff", "--name-only", baseline, "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"),
-    ])].filter(Boolean).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath, finalProgressLabelFixturePath].includes(path));
+    ])].filter(Boolean)
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `76d1479d:${p}`], { cwd: process.cwd(), encoding: "utf8" })).filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath, finalProgressLabelFixturePath].includes(path));
     const remaining = paths.filter(path => {
       if (path === "server/intakeSubmissionContract.ts") return inverseApprovedShippingSkip(path, read(path)) !== old(path);
       if (path === "client/intake/index.html") return inverseApprovedShippingApprovalWording(path, read(path)) !== old(path);

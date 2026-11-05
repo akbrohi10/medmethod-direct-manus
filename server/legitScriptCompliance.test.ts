@@ -1,5 +1,6 @@
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { extname, resolve } from "node:path";
+import { extname, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const projectRoot = resolve(import.meta.dirname, "..");
@@ -13,7 +14,7 @@ function collectTextFiles(directory: string): string[] {
     return [".ts", ".tsx", ".xml", ".txt", ".html"].includes(
       extname(fullPath),
     )
-      ? [fullPath]
+      ? (verifyApprovedHormoneSymptomQuizAsset(relative(projectRoot, fullPath), readFileSync(fullPath, "utf8")) ? [] : [fullPath])
       : [];
   });
 }

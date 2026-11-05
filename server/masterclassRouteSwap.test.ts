@@ -1,3 +1,4 @@
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -155,7 +156,7 @@ const protectedPaths = [
 
 describe("approved masterclass route swap", () => {
   it("is exactly reversible to bd30bdec in App.tsx except for the two inverse route lines", () => {
-    const app = read(appPath);
+    const app = inverseApprovedFinalProgressLabel(appPath, read(appPath));
 
     expect(count(app, '<Route path="/masterclass" component={Masterclass2} />')).toBe(1);
     expect(count(app, '<Route path="/masterclass2" component={MasterclassVideoFirst} />')).toBe(1);

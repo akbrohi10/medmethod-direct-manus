@@ -1,3 +1,4 @@
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
@@ -244,7 +245,7 @@ describe("Weight-Loss & Menopause V2 final approved FAQ", () => {
       "server/wl2OneTimePayment.ts",
       "server/wl2PaymentResume.test.ts",
     ]) {
-      expect(normalizeApprovedHeroFontAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, read(file))), file).toBe(atBaseline(file));
+      expect(normalizeApprovedHeroFontAppend(file, normalizeApprovedV2DoctorBioMscpCredential(file, inverseApprovedFinalProgressLabel(file, read(file)))), file).toBe(atBaseline(file));
     }
   });
 });

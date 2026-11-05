@@ -1,4 +1,5 @@
-import { finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
+import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -288,6 +289,8 @@ describe("FAQ first-three-open behavior", () => {
     )
       .split("\n")
       .filter(Boolean)
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `9c65e262:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
       .filter(path => !approvedWeightCareRegressionPaths.has(path))
       .filter(path => !approvedThankYouNextStepsPaths.has(path))

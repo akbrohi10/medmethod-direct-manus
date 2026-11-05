@@ -247,6 +247,15 @@ function IntakeThankYouStandaloneRedirect() {
   return <a href="/intake/thank-you/">Opening intake confirmation…</a>;
 }
 
+/** Open the original quiz document without mounting it inside the site theme. */
+function HormoneSymptomQuizStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/hormone-symptom-quiz");
+  }, []);
+
+  return <a href="/hormone-symptom-quiz">Opening Hormone Symptom Quiz…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -402,6 +411,7 @@ function Router() {
         <Route path="/asynchronous" component={Asynchronous} />
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />
+        <Route path="/hormone-symptom-quiz" component={HormoneSymptomQuizStandaloneRedirect} />
         <Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
@@ -415,6 +425,7 @@ function Router() {
 
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
+  if (location === "/hormone-symptom-quiz" || location === "/hormone-symptom-quiz/") return null;
   if (location === "/weight-loss-menopauseV2" || location === "/weight-loss-menopauseV2/") return null;
   if (location === "/thank-you-video-4799" || location === "/thank-you-video-4799/") return null;
   if (location === "/thank-you-video-97" || location === "/thank-you-video-97/") return null;

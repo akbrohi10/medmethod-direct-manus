@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Hormone Symptom Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #faf4f0;
+        --paper: #fffdfb;
+        --ink: #3a2130;
+        --ink-soft: #6f5563;
+        --plum: #6d214f;
+        --plum-deep: #4c1537;
+        --rasp: #b03060;
+        --rasp-soft: #f7e3ec;
+        --line: #e8d5dc;
+        --green: #48784f;
+        --green-soft: #e4efe0;
+        --gold: #b98a2f;
+        --chip: #f3e6ec;
+        --shadow: 0 10px 30px rgba(76, 21, 55, 0.10);
+        --radius: 18px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #20121a;
+          --paper: #2c1824;
+          --ink: #f4e7ee;
+          --ink-soft: #c9a9ba;
+          --plum: #e59ec2;
+          --plum-deep: #f0bcd6;
+          --rasp: #e57ba6;
+          --rasp-soft: #40202f;
+          --line: #4a2c3c;
+          --green: #9cc794;
+          --green-soft: #2c3a26;
+          --gold: #d9b45c;
+          --chip: #3a2231;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Karla", system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .wrap { max-width: 680px; margin: 0 auto; padding: 20px 18px 64px; }
+      h1, h2, h3, .serif { font-family: "Lora", Georgia, serif; }
+      button { font-family: inherit; cursor: pointer; }
+      .hidden { display: none !important; }
+
+      /* ---------- Intro ---------- */
+      .intro { padding-top: 44px; }
+      .intro .over {
+        font-size: clamp(9px, 2.9vw, 13px); font-weight: 800; letter-spacing: 0.06em;
+        text-transform: uppercase; color: var(--rasp); white-space: nowrap;
+      }
+      .intro h1 {
+        font-size: clamp(34px, 8.5vw, 46px); line-height: 1.15;
+        font-weight: 600; margin: 14px 0 16px; color: var(--plum-deep);
+      }
+      .intro p.lede { font-size: 19px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 40px; }
+      .intro p.lede b { color: var(--plum-deep); font-weight: 700; }
+      .intro .intro-meta { font-size: 15.5px; font-weight: 600; color: var(--ink-soft); margin: -4px 0 36px; letter-spacing: 0.01em; }
+      .hook { margin: 0 4px 44px; }
+      .hook-scale { position: relative; height: 14px; background: var(--chip); border-radius: 99px; }
+      .hook-scale .zone { position: absolute; top: 0; bottom: 0; left: 82%; width: 18%; background: var(--green); opacity: 0.5; border-radius: 99px; }
+      .hook-pin { position: absolute; top: -30px; transform: translateX(-50%); text-align: center; font-size: 13px; font-weight: 800; line-height: 1; white-space: nowrap; }
+      .hook-pin::after {
+        content: ""; display: block; width: 4px; height: 22px; background: currentColor;
+        border-radius: 2px; margin: 5px auto 0;
+      }
+      .hook-pin.you {
+        color: #fff; background: var(--rasp); border-radius: 50%; top: -34px;
+        width: 56px; height: 56px; padding: 0;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .hook-pin.you::after { display: none; }
+      .hook-ticks { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--ink-soft); margin: 10px 0 0; }
+      .hook-note { font-size: 14.5px; line-height: 1.45; color: var(--ink-soft); margin: 12px 0 0; }
+      .hook-note .swatch { display: inline-block; width: 22px; height: 9px; border-radius: 99px; background: var(--green); opacity: 0.55; vertical-align: middle; margin-right: 7px; }
+      .hook-note b { color: var(--green); font-weight: 800; }
+      .hook-scale .zone-label {
+        position: absolute; top: -27px; right: 0; font-size: 12.5px; font-weight: 800;
+        color: var(--green); white-space: nowrap; letter-spacing: 0.02em;
+      }
+      .cta {
+        display: block; width: 100%; border: 0; border-radius: 16px;
+        background: var(--plum); color: #fff; font-size: 19px; font-weight: 800;
+        padding: 18px 20px; box-shadow: var(--shadow);
+      }
+      .cta:active { transform: scale(0.99); }
+      .fineprint { font-size: 14px; color: var(--ink-soft); text-align: center; margin-top: 14px; }
+      .privacy-badge {
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        font-size: 14px; font-weight: 700; color: var(--ink-soft); text-align: center; margin: 14px auto 0; max-width: 46ch;
+      }
+      .privacy-badge svg { flex: 0 0 auto; color: var(--green); }
+
+      /* ---------- Gate ---------- */
+      .gate { padding-top: 34px; }
+      .gate .over {
+        font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--rasp); text-align: center;
+      }
+      .gate h1 {
+        text-align: center; font-size: clamp(30px, 7.5vw, 40px); line-height: 1.15;
+        color: var(--plum-deep); margin: 10px 0 8px; font-weight: 600;
+      }
+      .gate .sub { text-align: center; color: var(--ink-soft); margin: 0 auto 22px; font-size: 16.5px; max-width: 48ch; }
+      .lock-preview { margin: 0 auto 22px; max-width: 520px; }
+      .lock-card {
+        background: var(--plum-deep); color: #fdf3f8; border-radius: 22px;
+        padding: 24px 22px 20px; text-align: center; box-shadow: var(--shadow);
+      }
+      @media (prefers-color-scheme: dark) { .lock-card { background: #3d1a2e; } }
+      .lock-card .lbl { font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #eebbd4; }
+      .lock-score { font-family: "Lora", serif; font-size: 56px; line-height: 1.1; font-weight: 700; filter: blur(7px); user-select: none; }
+      .lock-bar { height: 14px; background: rgba(255,255,255,0.18); border-radius: 99px; margin: 12px 4px 10px; overflow: hidden; }
+      .lock-bar span { display: block; height: 100%; width: 46%; background: var(--rasp); border-radius: 99px; filter: blur(3px); }
+      .lock-card p { margin: 0; font-size: 15px; color: #f6dcea; }
+      .gate-form {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+        padding: 24px 22px; box-shadow: var(--shadow);
+      }
+      .field { margin-bottom: 16px; }
+      .field label { display: block; font-size: 15px; font-weight: 800; color: var(--plum-deep); margin-bottom: 6px; }
+      .field input {
+        width: 100%; font-family: inherit; font-size: 17px; color: var(--ink);
+        background: var(--bg); border: 2px solid var(--line); border-radius: 12px; padding: 13px 14px;
+      }
+      .field input:focus { outline: none; border-color: var(--rasp); }
+      .field input.invalid { border-color: #b3261e; }
+      .field-error { font-size: 14px; font-weight: 700; color: #b3261e; margin: 6px 0 0; }
+      @media (prefers-color-scheme: dark) { .field-error { color: #f2a49d; } .field input.invalid { border-color: #f2a49d; } }
+      .gate-privacy { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--ink-soft); margin: 4px 0 18px; }
+      .gate-privacy svg { flex: 0 0 auto; margin-top: 2px; color: var(--green); }
+
+      /* ---------- Quiz ---------- */
+      .progress-head { padding-top: 8px; }
+      .progress-meta {
+        display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+        font-size: 14px; font-weight: 700; color: var(--ink-soft);
+      }
+      .progress-meta .sec { color: var(--rasp); text-transform: uppercase; letter-spacing: 0.08em; font-size: 12.5px; }
+      .sec-sub { font-size: 14.5px; font-style: italic; color: var(--ink-soft); margin: 3px 0 0; }
+      .bar { height: 10px; background: var(--chip); border-radius: 99px; margin: 8px 0 4px; overflow: hidden; }
+      .bar > i { display: block; height: 100%; background: var(--rasp); border-radius: 99px; transition: width 0.35s ease; }
+      .time-left { font-size: 13px; color: var(--ink-soft); margin: 0 0 18px; }
+      .qcard {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+        padding: 26px 22px 22px; box-shadow: var(--shadow);
+      }
+      .qcard h2 { font-size: clamp(23px, 6vw, 28px); line-height: 1.25; margin: 0 0 6px; color: var(--plum-deep); font-weight: 600; }
+      .qhint { color: var(--ink-soft); font-size: 15.5px; margin: 0 0 18px; }
+      .opts { display: grid; gap: 10px; }
+      .opt {
+        display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+        background: var(--bg); border: 2px solid var(--line); border-radius: 14px;
+        padding: 15px 16px; font-size: 17.5px; font-weight: 600; color: var(--ink);
+        transition: border-color 0.12s ease, background 0.12s ease;
+      }
+      .opt .dot {
+        flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+        border: 2px solid var(--rasp); display: grid; place-items: center;
+      }
+      .opt .dot::after { content: ""; width: 11px; height: 11px; border-radius: 50%; background: transparent; }
+      .opt.sel { border-color: var(--rasp); background: var(--rasp-soft); }
+      .opt.sel .dot::after { background: var(--rasp); }
+      .opt .box {
+        flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+        border: 2px solid var(--rasp); display: grid; place-items: center;
+        color: #fff; font-size: 15px; font-weight: 800; line-height: 1;
+      }
+      .opt.sel .box { background: var(--rasp); }
+      .opt small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 14px; }
+      .qnav { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; gap: 12px; }
+      .backbtn {
+        background: none; border: 0; color: var(--ink-soft); font-size: 16px; font-weight: 700;
+        padding: 10px 6px;
+      }
+      .backbtn:disabled { opacity: 0.35; cursor: default; }
+      .nextbtn {
+        border: 0; border-radius: 12px; background: var(--plum); color: #fff;
+        font-size: 17px; font-weight: 800; padding: 13px 26px;
+      }
+      .nextbtn:disabled { opacity: 0.4; cursor: default; }
+      .curiosity {
+        margin-top: 16px; font-size: 14.5px; color: var(--ink-soft);
+        border-top: 1px dashed var(--line); padding-top: 12px; font-style: italic;
+      }
+      .fadein { animation: fadein 0.28s ease both; }
+      @keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        .fadein { animation: none; }
+        .bar > i { transition: none; }
+      }
+
+      /* ---------- Report ---------- */
+      .report { padding-top: 14px; }
+      .report .over {
+        font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--rasp); text-align: center;
+      }
+      .report h1 {
+        text-align: center; font-size: clamp(30px, 7.5vw, 40px); line-height: 1.15;
+        color: var(--plum-deep); margin: 10px 0 4px; font-weight: 600;
+      }
+      .report .sub { text-align: center; color: var(--ink-soft); margin: 0 0 24px; font-size: 16.5px; }
+      .letter {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+        padding: 26px 24px; box-shadow: var(--shadow); margin-bottom: 20px;
+        font-family: "Lora", Georgia, serif; font-size: 18.5px; line-height: 1.65;
+      }
+      .letter p { margin: 0 0 14px; }
+      .letter p:last-child { margin-bottom: 0; }
+      .glance { font-family: "Karla", sans-serif; font-size: 16.5px; margin: 18px 0 4px; }
+      .glance li { margin-bottom: 6px; }
+      .score-callout {
+        background: var(--plum-deep); color: #fdf3f8; border-radius: 22px;
+        padding: 28px 24px 24px; text-align: center; margin-bottom: 20px;
+        box-shadow: var(--shadow);
+      }
+      @media (prefers-color-scheme: dark) { .score-callout { background: #3d1a2e; } }
+      .score-callout .lbl { font-size: 14px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #eebbd4; }
+      .score-big { font-family: "Lora", serif; font-size: 84px; line-height: 1; font-weight: 700; margin: 8px 0 2px; }
+      .score-big small { font-size: 30px; font-weight: 500; color: #eebbd4; }
+      .score-what { font-size: 15px; line-height: 1.5; margin: 10px auto 0; max-width: 54ch; color: #f6dcea; }
+      .score-read { font-size: 17px; margin: 10px 0 20px; color: #f6dcea; }
+      .scale { position: relative; height: 16px; background: rgba(255,255,255,0.18); border-radius: 99px; margin: 0 4px; }
+      .scale .zone { position: absolute; top: 0; bottom: 0; background: var(--green); border-radius: 99px; opacity: 0.95; }
+      .scale .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--rasp); border-radius: 99px; }
+      @media (prefers-color-scheme: dark) { .scale .fill { background: #e57ba6; } }
+      .scale .pin {
+        position: absolute; top: -7px; width: 4px; height: 30px; background: #fff; border-radius: 2px;
+        transform: translateX(-2px);
+      }
+      .scale-labels { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #eebbd4; margin: 8px 4px 0; }
+      .zone-note { font-size: 14.5px; color: #f6dcea; margin-top: 12px; }
+      .zone-note b { color: #bfe3b8; }
+      .pattern {
+        background: var(--rasp-soft); border: 1px solid var(--line); border-radius: 18px;
+        padding: 20px 22px; margin-bottom: 26px; text-align: center;
+      }
+      .pattern .pl { font-size: 12.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rasp); }
+      .pattern h2 { margin: 6px 0 6px; font-size: 27px; color: var(--plum-deep); }
+      .pattern p { margin: 0; color: var(--ink-soft); font-size: 16px; }
+      .sect-title { font-size: 24px; color: var(--plum-deep); margin: 30px 0 6px; font-weight: 600; }
+      .sect-sub { color: var(--ink-soft); margin: 0 0 16px; font-size: 15.5px; }
+      .domain {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+        padding: 16px 18px 14px; margin-bottom: 12px;
+      }
+      .domain .dhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+      .domain h3 { margin: 0; font-size: 18px; color: var(--plum-deep); font-weight: 600; }
+      .domain .you { font-weight: 800; font-size: 17px; white-space: nowrap; }
+      .domain .you b { font-size: 24px; font-family: "Lora", serif; }
+      .domain .bal { font-size: 14px; color: var(--green); font-weight: 700; margin: 2px 0 10px; }
+      .dbar { position: relative; height: 14px; background: var(--chip); border-radius: 99px; }
+      .dbar .zone { position: absolute; top: 0; bottom: 0; background: var(--green); opacity: 0.35; border-radius: 99px; }
+      .dbar .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--rasp); border-radius: 99px; }
+      .dbar .pin { position: absolute; top: -5px; width: 3px; height: 24px; background: var(--ink); border-radius: 2px; transform: translateX(-1.5px); }
+      .dticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-soft); font-weight: 700; margin-top: 6px; }
+      .domain .note { font-size: 15px; color: var(--ink-soft); margin: 8px 0 2px; }
+      .driver {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+        padding: 22px; margin-bottom: 14px; box-shadow: var(--shadow);
+      }
+      .driver .num {
+        display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+        background: var(--plum); color: #fff; font-weight: 800; font-size: 16px; margin-bottom: 8px;
+      }
+      @media (prefers-color-scheme: dark) { .driver .num { color: #2c1824; } }
+      .driver h3 { margin: 0 0 8px; font-size: 21px; color: var(--plum-deep); font-weight: 600; }
+      .driver p { margin: 0 0 10px; font-size: 16.5px; }
+      .driver p:last-child { margin-bottom: 0; }
+      .yours {
+        background: var(--rasp-soft); border-radius: 12px; padding: 12px 14px;
+        font-size: 15.5px; margin-bottom: 12px;
+      }
+      .yours b { color: var(--rasp); }
+      .callout {
+        border: 2px solid var(--gold); border-radius: 14px; padding: 16px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px;
+        text-align: center;
+      }
+      .callout .c b { display: block; font-family: "Lora", serif; font-size: 30px; color: var(--plum-deep); }
+      .callout .c span { font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+      .callout .vs { grid-column: 1 / -1; font-size: 15px; color: var(--ink-soft); margin: 0; }
+      .envs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+      @media (max-width: 520px) { .envs { grid-template-columns: 1fr; } .callout { grid-template-columns: 1fr 1fr; } }
+      .env { border-radius: 14px; padding: 16px; }
+      .env.low { background: var(--rasp-soft); }
+      .env.bal { background: var(--green-soft); }
+      .env h4 { margin: 0 0 10px; font-size: 16px; font-family: "Lora", serif; color: var(--plum-deep); }
+      .env ul { margin: 0; padding-left: 18px; font-size: 15px; }
+      .env li { margin-bottom: 5px; }
+      .closing {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+        padding: 26px 24px; box-shadow: var(--shadow); margin-top: 26px; text-align: center;
+      }
+      .closing h2 { margin: 0 0 8px; font-size: 25px; color: var(--plum-deep); font-weight: 600; }
+      .closing p { color: var(--ink-soft); margin: 0 auto 18px; max-width: 46ch; font-size: 16.5px; }
+      .closing .cta { text-decoration: none; }
+      .ghostbtn {
+        display: block; width: 100%; margin-top: 12px; background: none;
+        border: 2px solid var(--line); border-radius: 14px; padding: 14px;
+        font-size: 16px; font-weight: 700; color: var(--ink);
+      }
+      .domain .bandline { font-size: 14px; color: var(--ink-soft); font-weight: 700; margin: 2px 0 10px; }
+      .domain .bandline b { color: var(--plum-deep); }
+      .driver .secondary-note {
+        font-size: 14.5px; font-weight: 700; color: var(--rasp);
+        background: var(--rasp-soft); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px;
+      }
+      .driver .goal-note { font-size: 14.5px; font-style: italic; color: var(--ink-soft); margin-bottom: 10px; }
+      .closing .pl { font-size: 12.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rasp); margin-bottom: 6px; }
+      .call-points { list-style: none; margin: 0 auto 20px; padding: 0; max-width: 420px; text-align: left; display: grid; gap: 8px; }
+      .call-points li { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 15.5px; font-weight: 600; color: var(--ink); }
+      .call-points li b { color: var(--rasp); }
+      .call-note { font-size: 14px !important; margin-top: 14px !important; }
+      .disclaimer { font-size: 13.5px; color: var(--ink-soft); text-align: center; margin-top: 22px; }
+      .sources-block {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+        padding: 20px 22px; margin-top: 30px; text-align: left;
+      }
+      .sources-block h2 { font-size: 19px; margin: 0 0 6px; color: var(--plum-deep); font-weight: 600; }
+      .sources-block p { margin: 0 0 10px; font-size: 15px; color: var(--ink-soft); }
+      .sources-block ul { margin: 0; padding-left: 18px; font-size: 15px; color: var(--ink-soft); }
+      .sources-block li { margin-bottom: 6px; }
+      .sources-block li:last-child { margin-bottom: 0; }
+      .sources-block b { color: var(--plum-deep); }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+
+      <!-- ============ INTRO ============ -->
+      <section id="intro" class="intro">
+        <div class="over">MMD. Hormones letting you down?</div>
+        <h1>See how you feel compared to other women like you</h1>
+        <p class="intro-meta">30 questions &middot; about 5 minutes &middot; a few quick details at the end. Detailed report.</p>
+        <div class="hook" aria-label="Where you fall — preview">
+          <div class="hook-scale" aria-hidden="true">
+            <span class="zone"></span>
+            <span class="zone-label">balanced: 82+</span>
+            <span class="hook-pin you" style="left:56%">You: ?</span>
+          </div>
+          <div class="hook-ticks" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>
+          <p class="hook-note"><span class="swatch" aria-hidden="true"></span>The green section is where women with <b>balanced hormones</b> fall.</p>
+        </div>
+        <button class="cta" id="startBtn" type="button">See where I fall &rarr;</button>
+        <p class="privacy-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>100% secure, &amp; HIPAA compliant</span></p>
+      </section>
+
+      <!-- ============ QUIZ ============ -->
+      <section id="quiz" class="hidden">
+        <div class="progress-head">
+          <div class="progress-meta">
+            <span class="sec" id="secLabel">About you</span>
+            <span id="qCount">Question 1 of 30</span>
+          </div>
+          <p class="sec-sub" id="secSub"></p>
+          <div class="bar"><i id="barFill" style="width:0%"></i></div>
+          <p class="time-left" id="timeLeft">About 5 minutes total</p>
+        </div>
+        <div class="qcard fadein" id="qcard">
+          <h2 id="qText"></h2>
+          <p class="qhint" id="qHint"></p>
+          <div class="opts" id="opts"></div>
+          <p class="curiosity hidden" id="qCuriosity"></p>
+          <div class="qnav">
+            <button class="backbtn" id="backBtn" type="button">← Back</button>
+            <button class="nextbtn hidden" id="nextBtn" type="button">Continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ GATE — contact details before the report ============ -->
+      <section id="gate" class="gate hidden">
+        <div class="over">One last step</div>
+        <h1>Your report is ready</h1>
+        <p class="sub">Add your details below and we&rsquo;ll add this report to your secure record at MedMethod Direct — then your full report opens right here.</p>
+        <div class="lock-preview" aria-hidden="true">
+          <div class="lock-card">
+            <div class="lbl">Your Balance Index</div>
+            <div class="lock-score">••</div>
+            <div class="lock-bar"><span></span></div>
+            <p>Your score, your pattern, your five areas and your drivers are inside — add your details to open it.</p>
+          </div>
+        </div>
+        <form class="gate-form" id="gateForm" novalidate>
+          <div class="field">
+            <label for="gateName">Your name</label>
+            <input id="gateName" name="name" type="text" autocomplete="name" placeholder="First and last name" />
+            <p class="field-error hidden" id="gateNameError">Please add your name so we can put this report in your record.</p>
+          </div>
+          <div class="field">
+            <label for="gateEmail">Email</label>
+            <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+            <p class="field-error hidden" id="gateEmailError">Please add a valid email address, like you@example.com.</p>
+          </div>
+          <div class="field">
+            <label for="gatePhone">Phone number</label>
+            <input id="gatePhone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" />
+            <p class="field-error hidden" id="gatePhoneError">Please add a valid phone number — at least 10 digits.</p>
+          </div>
+          <p class="gate-privacy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>100% secure, &amp; HIPAA compliant</span></p>
+          <button class="cta" id="gateSubmit" type="submit">Show my report &rarr;</button>
+        </form>
+      </section>
+
+      <!-- ============ REPORT ============ -->
+      <section id="report" class="report hidden">
+        <div id="submissionData" class="hidden" aria-hidden="true"></div>
+        <div class="over">Your report</div>
+        <h1>Here is your picture.</h1>
+        <p class="sub">Built from your answers just now — nothing here is a guess about someone else.</p>
+        <div id="reportBody"></div>
+        <div class="sources-block">
+          <h2>Sources &amp; how this is benchmarked</h2>
+          <p>Every benchmark in this report comes only from credible, published research:</p>
+          <ul>
+            <li><b>The score bands</b> — converted from the Menopause Rating Scale, a validated clinical scale for rating menopause symptoms (Heinemann et al., 2004).</li>
+            <li><b>The &ldquo;women your age&rdquo; comparisons</b> — SWAN, the Study of Women&rsquo;s Health Across the Nation, which has followed 3,302 women through the menopause transition. Your sleep and hot-flash figures come from SWAN too.</li>
+            <li><b>Weight and waist changes</b> — Greendale et al., 2019, from SWAN&rsquo;s body-composition data.</li>
+            <li><b>Joint and muscle pain figures</b> — Kruse et al., 2026, a study of 93,021 women.</li>
+          </ul>
+        </div>
+        <p class="disclaimer">This report is educational. It is not a medical diagnosis, and it does not replace care from your own clinician. Its bands are population severity categories, not clinical or treatment thresholds.</p>
+      </section>
+
+    </main>
+
+    <script>
+    "use strict";
+    /* ================= Question bank =================
+       s = severity 0 (balanced) .. 3 (strongest signal). skip = excluded from scoring.
+       d = domain key. Sections run in the locked order. */
+    var DOMAINS = {
+      sleep:    { name: "Sleep",            note: "Nights broken, mornings unrefreshed." },
+      temp:     { name: "Temperature & flashes", note: "Heat waves and night sweats." },
+      intimacy: { name: "Intimacy & libido", note: "Libido, arousal and comfort." },
+      mood:     { name: "Mood & mind",       note: "Fog, word-finding, worry and mood." },
+      body:     { name: "Body & metabolism", note: "Weight, waist, energy and recovery." }
+    };
+
+    var QUESTIONS = [
+      /* ---- Quick check (unscored recognition — mirrored back in the report, never scored) ---- */
+      { id:"recognize", sec:"Quick check", multi:true, text:"Which of these have you noticed?",
+        hint:"Tap everything that sounds familiar. This isn't scored — it's just so you can see, right away, how much of this is already your story.",
+        opts:[["Hot flashes"],["Night sweats"],["Waking up around 3 a.m."],["Weight gain — especially at the waist"],["Anxiety that wasn't there before"],["Brain fog or lost words"],["Mood swings"],["Irritability"],["Exhaustion, even after a full night's sleep"],["Joint aches or stiffness"],["Trouble falling asleep"],["Cravings for sugar or snacks"],["None of these"]] },
+
+      /* ---- About you (unscored, sets her benchmark band) ---- */
+      { id:"age", sec:"About you", text:"How old are you?",
+        opts:[["Under 40"],["40–44"],["45–49"],["50–54"],["55–59"],["60 or older"]] },
+      { id:"cycle", sec:"About you", text:"Where are you in the cycle picture?",
+        opts:[["My periods are still regular"],["They're skipping or changing"],["No period for 12+ months"],["I've had a hysterectomy, or I'm not sure"]] },
+      /* ---- Sleep ---- */
+      { id:"wakeNights", sec:"Sleep", d:"sleep", text:"How many nights a week do you wake up in the middle of the night?",
+        opts:[["I sleep through",0],["1–2 nights",1],["3–4 nights",2],["5 or more nights",3]] },
+      { id:"wakeTime", sec:"Sleep", d:"sleep", text:"When you wake up, what time is it usually?",
+        curiosity:"One time of night shows up again and again in women's answers. Yours helps name your pattern.",
+        opts:[["Before 1 a.m.",1],["Around 2–3 a.m.",3],["Around 4–5 a.m.",2],["I don't wake up",0]] },
+      { id:"wakeCause", sec:"Sleep", d:"sleep", text:"What wakes you most often?",
+        opts:[["I'm too hot or sweating",3],["My mind starts racing",2],["I need the bathroom",1],["Nothing — I just wake up",2],["I sleep through",0]] },
+      { id:"backAsleep", sec:"Sleep", d:"sleep", text:"Once you're awake, how long until you're back asleep?",
+        opts:[["Under 15 minutes",0],["15–30 minutes",1],["30–60 minutes",2],["Over an hour — sometimes I'm just up",3],["I don't wake up",0]] },
+      /* ---- Intimacy & libido ---- */
+      { id:"desire", sec:"Intimacy & libido", d:"intimacy", text:"Compared to two years ago, your libido — wanting sex and physical closeness — is…",
+        hint:"Every question in this section has a “prefer to say less” option. Skipped answers are never counted against your score.",
+        opts:[["About the same or higher",0],["A little lower",1],["Much lower",3],["Prefer to say less",null,"skip"]] },
+      { id:"arousal", sec:"Intimacy & libido", d:"intimacy", text:"Once things start, how long does it take to feel fully aroused?",
+        curiosity:"Arousal time quietly lengthens as estrogen falls — most women are never asked about it.",
+        opts:[["A few minutes, like always",0],["About 10 minutes",1],["15–20 minutes",2],["Much longer than it used to",3],["Prefer to say less",null,"skip"]] },
+      { id:"orgasm", sec:"Intimacy & libido", d:"intimacy", text:"How long does it usually take to reach orgasm?",
+        opts:[["A few minutes",0],["About 10 minutes",1],["15–20 minutes",2],["Much longer than it used to",3],["I usually don't get there",3],["Prefer to say less",null,"skip"]] },
+      { id:"orgasmChange", sec:"Intimacy & libido", d:"intimacy", text:"And compared to two years ago, how has reaching orgasm itself changed?",
+        hint:"Not the time it takes — the feeling. Has it gotten harder to get there, or less intense when you do?",
+        opts:[["About the same as two years ago",0],["A little harder to reach, or a little less intense",1],["Noticeably harder to reach, or weaker",2],["Much harder — or it just doesn't happen anymore",3],["Prefer to say less",null,"skip"]] },
+      { id:"dryness", sec:"Intimacy & libido", d:"intimacy", text:"Dryness or discomfort during intimacy?",
+        opts:[["Never",0],["Sometimes",1],["Often",2],["It's the main reason I avoid intimacy",3],["Prefer to say less",null,"skip"]] },
+      { id:"wantFreq", sec:"Intimacy & libido", d:"intimacy", text:"How often do you find yourself wanting intimacy these days?",
+        opts:[["A few times a week",0],["About once a week",1],["A few times a month",2],["Rarely — the want just isn't there",3],["Prefer to say less",null,"skip"]] },
+
+      /* ---- The unusual ones ---- */
+      { id:"weird", sec:"The unusual ones", multi:true, text:"Tap any of these you've noticed lately.",
+        hint:"These are the symptoms women almost never connect to hormones — because nobody mentions them.",
+        opts:[["Itchy ears"],["A burning tongue or mouth"],["Skin that feels like it's crawling"],["Smells that aren't there"],["A fluttering heart while resting"],["New ringing in the ears"],["Brief electric-shock feelings"],["Dizziness"],["New or worsening allergies"],["Changed body odor"],["Bloating or digestive changes"],["Headaches or migraines (new or worse)"],["None of these"]] },
+      { id:"weirdWorst", sec:"The unusual ones", conditional:true, text:"Which one of those bothers you most?",
+        hint:"Tap one.", opts:[] },
+
+      /* ---- Temperature & flashes ---- */
+      { id:"flashes", sec:"Temperature & flashes", d:"temp", text:"How many hot flashes or sudden waves of heat do you get in a day?",
+        opts:[["None",0],["1–2",1],["3–5",2],["6 or more",3]] },
+      { id:"sweats", sec:"Temperature & flashes", d:"temp", text:"How many nights a week do night sweats wake you or soak your sleep clothes?",
+        opts:[["None",0],["1–2 nights",1],["3–4 nights",2],["5 or more nights",3]] },
+
+      /* ---- Brain & mood ---- */
+      { id:"words", sec:"Brain & mood", d:"mood", text:"Mid-sentence, the word just isn't there. How often does that happen?",
+        curiosity:"Word-finding trouble is one of the most common — and most frightening — changes women report. It is also one of the most hormonal.",
+        opts:[["Rarely",0],["A few times a week",1],["Every day",2],["Many times a day",3]] },
+      { id:"fog", sec:"Brain & mood", d:"mood", text:"Compared to two years ago, your mental sharpness feels…",
+        opts:[["Just as sharp",0],["A little slower",1],["Noticeably foggier",2],["Much foggier — it's hard to think",3]] },
+      { id:"anxietyLevel", sec:"Brain & mood", d:"mood", text:"How anxious do you feel day to day, compared to two years ago?",
+        opts:[["About the same",0],["A little more anxious",1],["Noticeably more anxious",2],["Much more anxious — it's there most days",3]] },
+      { id:"anxiety", sec:"Brain & mood", d:"mood", text:"A wave of worry that arrives out of nowhere — how often?",
+        opts:[["Never",0],["Sometimes",1],["Often",2],["Most days",3]] },
+      { id:"swings", sec:"Brain & mood", d:"mood", text:"How often do your moods swing — fine one moment, then tearful, snappy, or overwhelmed the next?",
+        opts:[["Rarely",0],["Sometimes",1],["Often",2],["Most days",3]] },
+
+      /* ---- Body & metabolism ---- */
+      { id:"weightChange", sec:"Body & metabolism", d:"body", text:"How has your weight changed in the last two years?",
+        opts:[["I lost weight",0],["It stayed about the same",0],["I gained about 5 lb",1],["I gained about 10 lb",2],["I gained 15 lb or more",3]] },
+      { id:"weightWhere", sec:"Body & metabolism", d:"body", text:"Where is the weight going?",
+        opts:[["Mostly my belly and waist",3],["Hips and thighs",1],["All over",1],["No real change",0]] },
+      { id:"triedToLose", sec:"Body & metabolism", d:"body", text:"In the last two years, what happened when you tried to lose it?",
+        opts:[["I haven't tried to lose it",0],["I tried briefly — I didn't really stick with it",1],["I made a real effort — it came off slowly, then stalled",2],["I made a real effort — and it barely moved, or came right back",3]] },
+      { id:"recovery", sec:"Body & metabolism", d:"body", text:"After a workout, how long until you feel recovered?",
+        curiosity:"Recovery slows as estrogen falls — and slow recovery is one of the quiet reasons women stop exercising.",
+        opts:[["Same as always",0],["About a day",1],["Two days",2],["It wipes me out, and I dread the next one",3],["I don't work out",2]] },
+      { id:"activeDays", sec:"Body & metabolism", d:"body", text:"How many days a week are you active for 30 minutes or more?",
+        opts:[["4 or more days",0],["2–3 days",1],["1 day",2],["Rarely or never",3]] },
+      { id:"afternoon", sec:"Body & metabolism", d:"body", text:"Compared to two years ago, your energy by mid-afternoon is…",
+        opts:[["About the same",0],["A little lower",1],["Much lower — I hit a wall",2],["I'm running on empty",3]] },
+      { id:"cravings", sec:"Body & metabolism", d:"body", text:"Cravings — for sugar, salt, or an evening snack — how strong are they lately?",
+        opts:[["No different than before",0],["A bit stronger",1],["Much stronger",2],["Hard to resist most days",3]] },
+      { id:"joints", sec:"Body & metabolism", d:"body", text:"New joint aches or stiffness?",
+        opts:[["None",0],["Mild",1],["Noticeable most days",2],["They limit what I do",3]] },
+      { id:"bladder", sec:"Body & metabolism", d:"body", text:"Bladder changes — leaking a little, or needing to go more often?",
+        opts:[["No change",0],["A leak now and then — coughing, laughing, jumping",1],["Regular leaks, or urgency that plans my day around bathrooms",2],["It's a real problem — pads, planning, avoiding activities",3]] },
+
+      /* ---- Impact ---- */
+      { id:"fixFirst", sec:"The impact", text:"Last one. If one thing could change first, what would you pick?",
+        opts:[["Sleep through the night"],["My energy back"],["The weight"],["My mood"],["My libido"],["The flashes"]] }
+    ];
+    var BY_ID = {};
+    QUESTIONS.forEach(function(q){ BY_ID[q.id] = q; });
+
+    /* One-line framing shown under each section label for the whole section. */
+    var SEC_SUBS = {
+      "About you": "A few basics, so your report is compared to women like you.",
+      "Quick check": "The familiar ones — tap everything that sounds like you.",
+      "Sleep": "Your nights, where most patterns show up first.",
+      "Intimacy & libido": "Libido, arousal, and orgasm — the questions nobody asks.",
+      "The unusual ones": "Symptoms women rarely connect to hormones.",
+      "Temperature & flashes": "Hot flashes and night sweats, counted honestly.",
+      "Brain & mood": "Focus, memory, mood swings, anxiety.",
+      "Body & metabolism": "Weight, energy, and recovery.",
+      "The impact": "How much of your life this is taking."
+    };
+    </script>
+
+    <script>
+    "use strict";
+    /* ================= Engine ================= */
+    var answers = {};            // id -> option index, or array of indices for multi
+    var order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });
+    var pos = 0;
+    var advanceTimer = null;
+
+    var $ = function(id){ return document.getElementById(id); };
+    var introEl = $("intro"), quizEl = $("quiz"), reportEl = $("report"), gateEl = $("gate");
+    var submissionRecord = null;
+
+    function label(q, idx){ return q.opts[idx][0]; }
+    function sev(q, idx){ var o = q.opts[idx]; return (o && typeof o[1] === "number") ? o[1] : null; }
+    function isSkip(q, idx){ var o = q.opts[idx]; return !!(o && o[2] === "skip"); }
+
+    function totalSteps(){ return order.length; }
+
+    function syncConditional(){
+      // Insert/remove the "which bothers you most" follow-up based on the weird-symptom taps.
+      var w = answers["weird"];
+      var has = Array.isArray(w) && w.some(function(i){ return label(BY_ID["weird"], i) !== "None of these"; });
+      var at = order.indexOf("weirdWorst");
+      if (has && at === -1) {
+        order.splice(order.indexOf("weird") + 1, 0, "weirdWorst");
+      } else if (!has && at !== -1) {
+        order.splice(at, 1);
+        delete answers["weirdWorst"];
+        if (pos > at) pos--;
+      }
+    }
+
+    function render(){
+      syncConditional();
+      var q = BY_ID[order[pos]];
+      if (q.id === "weirdWorst") {
+        var picked = (answers["weird"] || []).filter(function(i){ return label(BY_ID["weird"], i) !== "None of these"; });
+        q.opts = picked.map(function(i){ return [label(BY_ID["weird"], i)]; });
+      }
+      $("secLabel").textContent = q.sec;
+      $("secSub").textContent = SEC_SUBS[q.sec] || "";
+      if (q.id === "recognize") {
+        $("qCount").textContent = "Quick check";
+      } else {
+        var numPos = 0, numTotal = 0;
+        order.forEach(function(id, i){ if (id !== "recognize") { numTotal++; if (i <= pos) numPos++; } });
+        $("qCount").textContent = "Question " + numPos + " of " + numTotal;
+      }
+      $("barFill").style.width = Math.round(((pos + 1) / totalSteps()) * 100) + "%";
+      var left = totalSteps() - pos;
+      $("timeLeft").textContent = pos === 0 ? "About 5 minutes total — tap an answer to move on"
+        : (left <= 2 ? "Almost there" : "About " + Math.max(1, Math.round(left * 9 / 60)) + " min left at this pace");
+      $("qText").textContent = q.text;
+      var hint = $("qHint");
+      if (q.hint) { hint.textContent = q.hint; hint.classList.remove("hidden"); }
+      else hint.classList.add("hidden");
+      var cur = $("qCuriosity");
+      if (q.curiosity) { cur.textContent = q.curiosity; cur.classList.remove("hidden"); }
+      else cur.classList.add("hidden");
+
+      var box = $("opts");
+      box.innerHTML = "";
+      q.opts.forEach(function(o, i){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "opt";
+        var chosen = q.multi
+          ? (Array.isArray(answers[q.id]) && answers[q.id].indexOf(i) !== -1)
+          : answers[q.id] === i;
+        if (chosen) b.classList.add("sel");
+        b.setAttribute("aria-pressed", chosen ? "true" : "false");
+        var mark = q.multi ? '<span class="box">' + (chosen ? "✓" : "") + '</span>'
+                           : '<span class="dot"></span>';
+        b.innerHTML = mark + "<span>" + o[0] + "</span>";
+        b.addEventListener("click", function(){ choose(q, i); });
+        box.appendChild(b);
+      });
+
+      $("backBtn").disabled = pos === 0;
+      var nb = $("nextBtn");
+      if (q.multi) {
+        nb.classList.remove("hidden");
+        nb.disabled = !(Array.isArray(answers[q.id]) && answers[q.id].length > 0);
+      } else nb.classList.add("hidden");
+
+      var card = $("qcard");
+      card.classList.remove("fadein"); void card.offsetWidth; card.classList.add("fadein");
+      window.scrollTo(0, 0);
+    }
+
+    function choose(q, i){
+      if (q.multi) {
+        var arr = Array.isArray(answers[q.id]) ? answers[q.id].slice() : [];
+        var at = arr.indexOf(i);
+        if (at !== -1) arr.splice(at, 1); else arr.push(i);
+        // "None of these" / "Prefer to say less" stand alone.
+        var lbl = label(q, i);
+        if (at === -1 && (lbl === "None of these" || lbl === "Prefer to say less")) arr = [i];
+        else arr = arr.filter(function(j){ var l = label(q, j); return l !== "None of these" && l !== "Prefer to say less"; });
+        answers[q.id] = arr;
+        render();
+        return;
+      }
+      answers[q.id] = i;
+      renderSelectionOnly(q, i);
+      clearTimeout(advanceTimer);
+      advanceTimer = setTimeout(next, 220);
+    }
+
+    function renderSelectionOnly(q, i){
+      var kids = $("opts").children;
+      for (var k = 0; k < kids.length; k++) {
+        kids[k].classList.toggle("sel", k === i);
+        kids[k].setAttribute("aria-pressed", k === i ? "true" : "false");
+      }
+    }
+
+    function next(){
+      syncConditional();
+      if (pos < totalSteps() - 1) { pos++; render(); }
+      else finish();
+    }
+
+    $("nextBtn").addEventListener("click", next);
+    $("backBtn").addEventListener("click", function(){
+      clearTimeout(advanceTimer);
+      if (pos > 0) { pos--; render(); }
+    });
+    $("startBtn").addEventListener("click", function(){
+      introEl.classList.add("hidden");
+      quizEl.classList.remove("hidden");
+      render();
+    });
+    document.addEventListener("keydown", function(e){
+      if (quizEl.classList.contains("hidden")) return;
+      var n = parseInt(e.key, 10);
+      var q = BY_ID[order[pos]];
+      if (!isNaN(n) && n >= 1 && n <= q.opts.length && !q.multi) choose(q, n - 1);
+    });
+
+    /* ================= Scoring — Model v1.0 =================
+       Pooled Balance Index, per-item weights, MRS-anchored bands (Heinemann 2004),
+       11 patterns in fixed priority order, driver metrics / tiers / ordering.
+       Skips are exclusions, never zeros. Orgasm minutes (Q11 part 1) carry zero
+       points by the model's binding rule — that item is asked and never scored;
+       its second half, orgasm change (Q11 part 2), is the scored item.
+       Item mapping: question -> model item (weight). Domain weight totals now
+       match the model exactly — Sleep 8, Temperature 5, Intimacy 10,
+       Mood & mind 10, Body 14 — and the minimum-answer rule uses half of each
+       domain's total. The bank alignment swap removed three non-bank screens
+       (hormone history, morning feel — cut from Sleep in the bank, its signal
+       lives in the energy driver — and impact plans) and added the bank's
+       orgasm-change, bladder, and tried-to-lose items, keeping the numbered
+       question count at 30. */
+    var ITEM_DEFS = [
+      { id:"wakeNights",   d:"sleep",    w:2 },   /* Q05 */
+      { id:"wakeTime",     d:"sleep",    w:1 },   /* Q06 */
+      { id:"backAsleep",   d:"sleep",    w:3 },   /* Q07 — heaviest in Sleep */
+      { id:"wakeCause",    d:"sleep",    w:1 },   /* Q08 */
+      { id:"sweats",       d:"sleep",    w:1 },   /* Q14 in Sleep */
+      { id:"flashes",      d:"temp",     w:3 },   /* Q13 — heaviest in Temperature */
+      { id:"sweats",       d:"temp",     w:2 },   /* Q14 in Temperature (one answer, scored once per domain — the model's single stated exception) */
+      { id:"wantFreq",     d:"intimacy", w:3 },   /* Q09a — heaviest in Intimacy */
+      { id:"desire",       d:"intimacy", w:2 },   /* Q09b */
+      { id:"arousal",      d:"intimacy", w:1 },   /* Q10 — self-reported difficulty only, never benchmarked */
+      { id:"orgasmChange", d:"intimacy", w:2 },   /* Q11 part 2 — the scored half of the orgasm question (part 1, minutes, carries zero points) */
+      { id:"dryness",      d:"intimacy", w:2 },   /* Q12 */
+      { id:"weirdCount",   d:"mood",     w:1, count:true }, /* Q15 count only */
+      { id:"words",        d:"mood",     w:3 },   /* Q18 — heaviest in Mood */
+      { id:"fog",          d:"mood",     w:1 },   /* prototype cognitive item */
+      { id:"swings",       d:"mood",     w:2 },   /* Q20 */
+      { id:"anxietyLevel", d:"mood",     w:2 },   /* Q21 */
+      { id:"anxiety",      d:"mood",     w:1 },   /* prototype worry-wave item */
+      { id:"joints",       d:"body",     w:1 },   /* Q16 */
+      { id:"bladder",      d:"body",     w:1 },   /* Q17 */
+      { id:"weightChange", d:"body",     w:3 },   /* Q22 — heaviest in Body */
+      { id:"weightWhere",  d:"body",     w:2 },   /* Q23 */
+      { id:"triedToLose",  d:"body",     w:2 },   /* Q24 */
+      { id:"recovery",     d:"body",     w:1 },   /* Q25 */
+      { id:"afternoon",    d:"body",     w:2 },   /* Q26 */
+      { id:"activeDays",   d:"body",     w:1 },   /* Q27a */
+      { id:"cravings",     d:"body",     w:1 }    /* prototype item */
+    ];
+    var TOTW = { sleep:8, temp:5, intimacy:10, mood:10, body:14 };
+    var MINW = { sleep:4, temp:2.5, intimacy:5, mood:5, body:7 };
+    var FAMILY = { sleep:"somato", temp:"somato", body:"somato", mood:"psych", intimacy:"uro" };
+    /* Band edges from the MRS conversion: [min score, name]. Level 0 = In balance, 1 = Mild, 2 = Moderate, 3 = Strong signal. */
+    var BANDS = {
+      index:  [[91,"In balance"],[82,"Mild"],[64,"Moderate"],[0,"Strong signal"]],
+      somato: [[85,"In balance"],[72,"Mild"],[47,"Moderate"],[0,"Strong signal"]],
+      psych:  [[91,"In balance"],[79,"Mild"],[60,"Moderate"],[0,"Strong signal"]],
+      uro:    [[96,"In balance"],[86,"Mild"],[71,"Moderate"],[0,"Strong signal"]]
+    };
+    function bandOf(fam, score){
+      if (score === null || score === undefined) return null;
+      var edges = BANDS[fam];
+      for (var i = 0; i < edges.length; i++) if (score >= edges[i][0]) return { name: edges[i][1], level: i, floor: edges[i][0] };
+      return { name: "Strong signal", level: 3, floor: 0 };
+    }
+    function weirdTapCount(){
+      var w = answers["weird"];
+      if (!Array.isArray(w)) return 0;
+      return w.filter(function(i){ return label(BY_ID["weird"], i) !== "None of these"; }).length;
+    }
+    function itemPoints(def){
+      if (def.count) { var c = weirdTapCount(); return c === 0 ? 0 : (c === 1 ? 1 : (c === 2 ? 2 : 3)); }
+      var a = answers[def.id];
+      if (typeof a !== "number" || isSkip(BY_ID[def.id], a)) return null;
+      return sev(BY_ID[def.id], a);
+    }
+    function computeModel(){
+      var S = {}, W = {}, pts = {};
+      Object.keys(DOMAINS).forEach(function(k){ S[k] = 0; W[k] = 0; });
+      ITEM_DEFS.forEach(function(def){
+        var p = itemPoints(def);
+        if (p === null) return;
+        pts[def.id] = p;
+        S[def.d] += def.w * p; W[def.d] += def.w;
+      });
+      var scores = {}, poolS = 0, poolW = 0, scoredCount = 0;
+      Object.keys(DOMAINS).forEach(function(k){
+        if (W[k] < MINW[k]) { scores[k] = null; return; }
+        scores[k] = Math.round(100 * (1 - S[k] / (3 * W[k])));
+        poolS += S[k]; poolW += W[k]; scoredCount++;
+      });
+      var index = scoredCount >= 3 ? Math.round(100 * (1 - poolS / (3 * poolW))) : null;
+      return { scores: scores, index: index, pts: pts };
+    }
+    function subscore(pts, list){
+      var s = 0, w = 0;
+      list.forEach(function(it){ if (typeof pts[it[0]] === "number") { s += it[1] * pts[it[0]]; w += it[1]; } });
+      return w === 0 ? null : Math.round(100 * (1 - s / (3 * w)));
+    }
+    function driverMetrics(m){
+      var weightSub = subscore(m.pts, [["weightChange",3],["weightWhere",2]]);
+      var energySub = subscore(m.pts, [["recovery",1],["afternoon",2],["activeDays",1]]);
+      var d5 = (energySub !== null && m.scores.sleep !== null) ? Math.round((energySub + m.scores.sleep) / 2)
+             : (energySub !== null ? energySub : m.scores.body);
+      return {
+        1: { metric: m.scores.sleep, fam: "somato" },
+        2: { metric: m.scores.temp,  fam: "somato" },
+        3: { metric: m.scores.mood,  fam: "psych" },
+        4: { metric: weightSub !== null ? weightSub : m.scores.body, fam: "somato" },
+        5: { metric: d5, fam: "somato" }
+      };
+    }
+    function bandText(idx){
+      if (idx === null) return "";
+      if (idx >= 91) return "Inside the balanced range — your answers line up with hormones in balance.";
+      if (idx >= 82) return "Just below the strongest range — mild signals, an early-transition picture.";
+      if (idx >= 64) return "Below the balanced range — several systems are asking for help at once.";
+      return "Far below the balanced range — a body working very hard to cope.";
+    }
+    var PATTERN_BY_DOMAIN = { sleep:"The Broken Night Pattern", temp:"The Heat Pattern", mood:"The Fog & Static Pattern", body:"The Shifting Middle Pattern", intimacy:"The Quiet Libido Pattern" };
+    function pickPattern(m){
+      var scores = m.scores, pts = m.pts;
+      var bands = {};
+      Object.keys(DOMAINS).forEach(function(k){ bands[k] = bandOf(FAMILY[k], scores[k]); });
+      function modPlus(k){ return bands[k] && bands[k].level >= 2; }
+      var loopFires = (typeof pts["afternoon"] === "number" && pts["afternoon"] >= 2)
+        && (typeof pts["activeDays"] === "number" && pts["activeDays"] >= 2)
+        && scores.sleep !== null && scores.sleep <= 84;
+      /* P1 — The 3 A.M. Pattern */
+      if (typeof pts["wakeTime"] === "number" && label(BY_ID["wakeTime"], answers["wakeTime"] || 0).indexOf("2–3") !== -1 && pts["wakeTime"] >= 3
+          && (pts["wakeNights"] || 0) >= 2 && (pts["backAsleep"] || 0) >= 2) {
+        return { name: "The 3 A.M. Pattern", domain: "sleep", loopSecondary: loopFires,
+          text: "You wake in the small hours, most nights, and the day starts before you've recovered from the night. Sleep is where this pattern begins — and where it can begin to unwind." };
+      }
+      /* P3 — The Full Picture Pattern. Evaluated before P2: the model's worked
+         example Ruth (all five domains Strong, loop conditions also met) is named
+         Full Picture, so four-plus moderate domains outrank the loop as primary.
+         The loop still names as secondary under P1 via loopSecondary. */
+      var modCount = Object.keys(DOMAINS).filter(modPlus).length;
+      if (modCount >= 4) {
+        return { name: "The Full Picture Pattern", domain: null, loopSecondary: false,
+          text: modCount + " of your five areas are carrying moderate or stronger signals at once. That is not five separate problems — it is the classic shape of one hormonal shift driving many changes." };
+      }
+      /* P2 — The Energy Loop Pattern */
+      if (loopFires) {
+        return { name: "The Energy Loop Pattern", domain: "sleep", loopSecondary: false,
+          text: "Broken sleep is draining the energy your days run on — and as the energy goes, the activity goes with it, which feeds the weight, the mood, and the next bad night. Your answers trace the whole loop." };
+      }
+      /* P4–P9 — domain-led: band level first, then raw score, then section order (Sleep, Temperature, Mood, Body, Intimacy). P9 outranks P8. */
+      var secOrder = { sleep:0, temp:1, mood:2, body:3, intimacy:4 };
+      var cands = [];
+      if (modPlus("sleep")) cands.push({ dom:"sleep", name:"The Broken Night Pattern",
+        text:"Your nights are fragmented and your mornings show it. When sleep breaks down, every other system pays for it the next day." });
+      if (modPlus("temp") && ((pts["flashes"] || 0) >= 2 || (pts["sweats"] || 0) >= 2)) {
+        var nightLed = (pts["sweats"] || 0) > (pts["flashes"] || 0);
+        cands.push({ dom:"temp", name:"The Heat Pattern",
+          text: nightLed ? "Heat is running your nights first, and your days second. Temperature swings are the loudest signal in your answers."
+                         : "Heat is running your days and your nights. Temperature swings are the loudest signal in your answers." });
+      }
+      if (modPlus("mood")) {
+        var moodText = "Fog, lost words and a mind that won't settle. Your answers point to a brain running on less estrogen than it's used to.";
+        if ((pts["anxietyLevel"] || 0) >= 2) moodText = "Anxiety that wasn't there before is leading this picture, with the fog close behind. Your answers point to a brain running on less estrogen than it's used to.";
+        else if ((pts["words"] || 0) >= 2) moodText = "Words go missing, again and again through the day — and the fog comes with them. It is one of the most common patterns of these years, and one of the most hormonal.";
+        cands.push({ dom:"mood", name:"The Fog & Static Pattern", text: moodText });
+      }
+      if (bands.body && bands.body.level >= 1 && pts["joints"] === 3) cands.push({ dom:"body", name:"The Aches & Stiffness Pattern", p9:true,
+        text:"Joint pain is limiting what you do — and you are far from alone in it: muscle and joint pain is reported by 57% of women in perimenopause and 59% after menopause, versus 40% before. When movement hurts, every other system feels it." });
+      if (modPlus("body") && (pts["weightWhere"] || 0) >= 2) cands.push({ dom:"body", name:"The Shifting Middle Pattern",
+        text:"Weight is moving to your middle and energy is draining out of the day. Your metabolism is playing by new rules." });
+      if (modPlus("intimacy")) {
+        var comfortLed = (pts["dryness"] || 0) >= 2 && (pts["desire"] || 0) <= 1;
+        cands.push({ dom:"intimacy", name:"The Quiet Libido Pattern",
+          text: comfortLed ? "Dryness and discomfort are quietly closing the door on intimacy. This is one of the most hormonal patterns there is — and one of the least talked about."
+                           : "Libido and comfort have quietly changed — a shift from two years ago, not who you are. This is one of the most hormonal patterns there is, and one of the least talked about." });
+      }
+      if (cands.length) {
+        cands.sort(function(a, b){
+          var la = bands[a.dom].level, lb = bands[b.dom].level;
+          if (lb !== la) return lb - la;
+          if (a.p9 && !b.p9 && a.dom === b.dom) return -1;
+          if (b.p9 && !a.p9 && a.dom === b.dom) return 1;
+          if (scores[a.dom] !== scores[b.dom]) return scores[a.dom] - scores[b.dom];
+          return secOrder[a.dom] - secOrder[b.dom];
+        });
+        var win = cands[0];
+        var secondary = null;
+        Object.keys(DOMAINS).forEach(function(k){
+          if (k !== win.dom && bands[k] && bands[k].level === 3 && PATTERN_BY_DOMAIN[k]) secondary = { dom: k, name: PATTERN_BY_DOMAIN[k] };
+        });
+        return { name: win.name, text: win.text, domain: win.dom, loopSecondary: false, secondaryDomain: secondary };
+      }
+      /* P10 — The Unusual Ones Pattern */
+      if (weirdTapCount() >= 4) {
+        var leadTap = ans("weirdWorst");
+        if (!leadTap) { var wp = (answers["weird"] || []).filter(function(i){ return label(BY_ID["weird"], i) !== "None of these"; }); if (wp.length) leadTap = label(BY_ID["weird"], wp[0]); }
+        return { name: "The Unusual Ones Pattern", domain: null, loopSecondary: false,
+          text: "Your scored areas are holding — but you carry a cluster of the symptoms nobody connects" + (leadTap ? ", led by " + leadTap.toLowerCase() : "") + ". They travel with this transition often enough that they have a pattern of their own." };
+      }
+      /* P11 — The Steady Pattern */
+      return { name: "The Steady Pattern", domain: null, loopSecondary: false,
+        text: "Your answers line up with the balanced picture. Any mild signals you do have are named honestly in your areas below — and no problem is invented where your answers don't show one." };
+    }
+    var GOAL_DRIVER = { "Sleep through the night":1, "The flashes":2, "My mood":3, "The weight":4, "My energy back":5, "My libido":0 };
+    function orderDrivers(metrics, goalLabel){
+      var goalDriver = GOAL_DRIVER[goalLabel] || 0;
+      var info = { goalDriver: goalDriver, dualDriver: goalDriver, dualLed: false, dualInBalance: false };
+      function lvl(n){ var b = bandOf(metrics[n].fam, metrics[n].metric); return b ? b.level : -1; }
+      /* All five drivers always appear. Default order: strongest signal first
+         (band level, then lowest metric, then driver number). */
+      var ordered = [1,2,3,4,5].slice();
+      ordered.sort(function(a, b){
+        var la = lvl(a), lb = lvl(b);
+        if (lb !== la) return lb - la;
+        var ma = metrics[a].metric === null ? 999 : metrics[a].metric;
+        var mb = metrics[b].metric === null ? 999 : metrics[b].metric;
+        if (ma !== mb) return ma - mb;
+        return a - b;
+      });
+      if (goalDriver) {
+        if (lvl(goalDriver) >= 1) {
+          /* Her goal carries signal — it leads, the rest keep signal order. */
+          ordered = [goalDriver].concat(ordered.filter(function(n){ return n !== goalDriver; }));
+          info.goalLed = true;
+        } else if (lvl(goalDriver) === 0) {
+          /* Her goal is in balance — it stays in the list, in signal order. */
+          info.goalInBalance = true;
+        }
+      }
+      return { ordered: ordered, info: info };
+    }
+    function ans(id){ var a = answers[id]; return (typeof a === "number") ? label(BY_ID[id], a) : null; }
+
+
+    /* ================= Gate — capture details before the report =================
+       The report is not rendered or revealed until the form validates. On a
+       valid submit the contact details and her results are assembled into one
+       record (kept in memory and written into a hidden data island in the
+       report for the production Cerbo hand-off to pick up). This prototype
+       makes no network call. */
+    function finish(){
+      quizEl.classList.add("hidden");
+      gateEl.classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    function setFieldState(inputId, errorId, invalid){
+      var input = $(inputId), err = $(errorId);
+      if (invalid) { input.classList.add("invalid"); input.setAttribute("aria-invalid", "true"); err.classList.remove("hidden"); }
+      else { input.classList.remove("invalid"); input.removeAttribute("aria-invalid"); err.classList.add("hidden"); }
+      return !invalid;
+    }
+
+    $("gateForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      var name = $("gateName").value.trim();
+      var email = $("gateEmail").value.trim();
+      var phone = $("gatePhone").value.trim();
+      var nameOk = setFieldState("gateName", "gateNameError", name.length === 0);
+      var emailOk = setFieldState("gateEmail", "gateEmailError", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+      var phoneOk = setFieldState("gatePhone", "gatePhoneError", phone.replace(/\D/g, "").length < 10);
+      if (!nameOk) { $("gateName").focus(); return; }
+      if (!emailOk) { $("gateEmail").focus(); return; }
+      if (!phoneOk) { $("gatePhone").focus(); return; }
+
+      var model = computeModel();
+      submissionRecord = {
+        name: name,
+        email: email,
+        phone: phone,
+        submittedAt: new Date().toISOString(),
+        answers: JSON.parse(JSON.stringify(answers)),
+        balanceIndex: model.index,
+        pattern: pickPattern(model).name,
+        domainScores: model.scores
+      };
+      window.__quizSubmission = submissionRecord;
+      $("submissionData").textContent = JSON.stringify(submissionRecord);
+      renderReport();
+    });
+    ["gateName", "gateEmail", "gatePhone"].forEach(function(id){
+      $(id).addEventListener("input", function(){
+        $(id).classList.remove("invalid");
+        $(id + "Error").classList.add("hidden");
+      });
+    });
+
+    /* ================= Report ================= */
+    function renderReport(){
+      gateEl.classList.add("hidden");
+      reportEl.classList.remove("hidden");
+      var model = computeModel();
+      var scores = model.scores;
+      var idx = model.index;
+      var pattern = pickPattern(model);
+      var metrics = driverMetrics(model);
+      var html = "";
+
+      /* The Mirror letter */
+      var glance = [];
+      var wn = ans("wakeNights"), wt = ans("wakeTime");
+      if (wn && wn !== "I sleep through") glance.push("You wake during the night " + wn.toLowerCase() + " a week" + (wt && wt.indexOf("2–3") !== -1 ? " — most often around 2–3 a.m." : "."));
+      else if (wt && wt.indexOf("2–3") !== -1) glance.push("When you wake, it's most often around 2–3 a.m.");
+      var fl = ans("flashes");
+      if (fl && fl !== "None") glance.push("Heat waves find you " + fl + " times a day.");
+      if (ans("words") && ans("words") !== "Rarely") glance.push("Words go missing mid-sentence " + ans("words").toLowerCase() + ".");
+      var wc = ans("weightChange");
+      if (wc && wc.indexOf("gained") !== -1) glance.push("Your weight is up — " + wc.toLowerCase().replace("i gained","").trim() + " in two years — " + (ans("weightWhere") === "Mostly my belly and waist" ? "mostly at your waist." : "and not where it used to go."));
+      if (ans("afternoon") && ans("afternoon").indexOf("empty") !== -1) glance.push("By mid-afternoon, you're running on empty.");
+      var weirdPicked = (answers["weird"] || []).filter(function(i){ return label(BY_ID["weird"], i) !== "None of these"; })
+        .map(function(i){ return label(BY_ID["weird"], i); });
+      if (weirdPicked.length) glance.push("And the unusual ones: " + weirdPicked.slice(0, 3).join(", ").toLowerCase() + (weirdPicked.length > 3 ? ", and more" : "") + ".");
+      var recogPicked = (answers["recognize"] || []).filter(function(i){ return label(BY_ID["recognize"], i) !== "None of these"; })
+        .map(function(i){ return label(BY_ID["recognize"], i); });
+      if (recogPicked.length) glance.unshift("Right at the start, you checked " + recogPicked.length + " of the familiar ones — " + recogPicked.slice(0, 4).join(", ").toLowerCase() + (recogPicked.length > 4 ? ", and more" : "") + ". If this quiz feels like it was written about you, that's why.");
+      var fix = ans("fixFirst");
+      html += '<div class="letter"><p>Dear friend,</p>'
+        + "<p>Before the numbers, here is what you told us — in plain sight, the way it deserves to be:</p>"
+        + (glance.length ? '<ul class="glance">' + glance.map(function(g){ return "<li>" + g + "</li>"; }).join("") + "</ul>" : "")
+        + "<p>None of these arrived on their own. They tend to travel together, because they share a driver: estrogen, falling the way it does in these years. Here is your whole picture, scored.</p>"
+        + (fix ? "<p>And the thing you'd fix first — <b>" + fix.toLowerCase() + "</b> — shapes the order of your drivers below.</p>" : "")
+        + "</div>";
+      var ord = orderDrivers(metrics, fix);
+      var leadDriver = ord.ordered[0];
+      var patternDriver = pattern.domain ? { sleep:1, temp:2, mood:3, body:4, intimacy:0 }[pattern.domain] : 0;
+
+      /* Balance Index */
+      if (idx !== null) {
+        html += '<div class="score-callout"><div class="lbl">Your Balance Index</div>'
+          + '<div class="score-big">' + idx + ' <small>out of 100</small></div>'
+          + '<p class="score-what">This score is about how you feel — your sleep, hot flashes, mood, body, and libido — compared with thousands of women your age. It doesn&rsquo;t measure your hormone levels — only blood work does that.</p>'
+          + '<p class="score-read">' + bandText(idx) + '</p>'
+          + '<div class="scale"><span class="zone" style="left:82%;width:18%"></span>'
+          + '<span class="fill" style="width:' + idx + '%"></span>'
+          + '<span class="pin" style="left:' + idx + '%"></span></div>'
+          + '<div class="scale-labels"><span>0</span><span>50</span><span>100</span></div>'
+          + '<p class="zone-note">The green stretch, <b>82 to 100 out of 100</b>, is the balanced range — where women with balanced hormones typically land.</p></div>';
+      }
+
+      /* Pattern */
+      html += '<div class="pattern"><div class="pl">Your pattern</div><h2>' + pattern.name + '</h2><p>' + pattern.text + '</p>'
+        + (ord.info.goalLed && patternDriver && patternDriver !== leadDriver
+            ? '<p style="margin-top:10px">Your pattern starts with ' + DOMAINS[pattern.domain].name.toLowerCase() + '; your drivers start where you asked them to: ' + fix.toLowerCase() + '.</p>' : '')
+        + '</div>';
+
+      /* Domain bars */
+      html += '<h2 class="sect-title">Your five areas</h2>'
+        + '<p class="sect-sub">Every score is out of 100. Higher is more balanced. Each area is read against its own balanced range, shown under its score.</p>';
+      Object.keys(DOMAINS).forEach(function(k){
+        var v = scores[k];
+        html += '<div class="domain"><div class="dhead"><h3>' + DOMAINS[k].name + '</h3>'
+          + (v === null ? '<span class="you">Not scored</span>' : '<span class="you">You: <b>' + v + '</b> / 100</span>') + '</div>';
+        if (v === null) {
+          html += '<p class="note">Not scored — you chose to say less here, so this area was left out of your score entirely, never counted as zero.</p>';
+        } else {
+          var db = bandOf(FAMILY[k], v);
+          var floor = BANDS[FAMILY[k]][0][0];
+          html += '<div class="bandline">Your band: <b>' + db.name + '</b> · In balance for this area: ' + floor + ' out of 100 or higher</div>'
+            + '<div class="dbar"><span class="zone" style="left:' + floor + '%;width:' + (100 - floor) + '%"></span>'
+            + '<span class="fill" style="width:' + v + '%"></span><span class="pin" style="left:' + v + '%"></span></div>'
+            + '<div class="dticks"><span>0</span><span>50</span><span>100</span></div>'
+            + '<p class="note">' + DOMAINS[k].note + '</p>';
+        }
+        html += '</div>';
+      });
+
+      /* Drivers — Model v1.0 surfacing: all five always appear. Order: her goal
+         leads when its metric carries signal (Mild or stronger); the rest sort by
+         metric, strongest signal first. Depth by tier: Full (Moderate/Strong) =
+         complete treatment incl. callouts; Standard (Mild) = her answers + one
+         mechanism paragraph; Short (In balance) = two honest lines. */
+      var driversIntro = "The “why” underneath the scores — each one tied to your own answers.";
+      if (ord.info.goalLed && fix) driversIntro = "You said " + fix.toLowerCase() + " matters most — so your drivers start there, then follow your strongest signals.";
+      else if (ord.info.goalInBalance && fix) driversIntro = "You said " + fix.toLowerCase() + " matters most. Your answers there are actually in balance — so your drivers start where your signals are strongest.";
+      else if (ord.info.goalDriver === 0 && fix) driversIntro = "You said " + fix.toLowerCase() + " matters most — it's answered by your pattern and your Intimacy & libido area above. Your drivers follow your strongest signals.";
+      html += '<h2 class="sect-title">Your five drivers</h2>'
+        + '<p class="sect-sub">' + driversIntro + '</p>';
+
+      var yoursSleep = [];
+      if (wn) yoursSleep.push("you wake " + wn.toLowerCase());
+      if (wt && wt !== "I don't wake up") yoursSleep.push("usually " + wt.toLowerCase());
+      var yoursTemp = [];
+      if (fl) yoursTemp.push(fl + " heat waves a day");
+      if (ans("sweats")) yoursTemp.push("night sweats " + ans("sweats").toLowerCase());
+      var yoursMood = [];
+      if (ans("words")) yoursMood.push("words go missing " + ans("words").toLowerCase());
+      if (ans("fog")) yoursMood.push("sharpness is " + ans("fog").toLowerCase());
+      if (ans("anxiety") && ans("anxiety") !== "Never") yoursMood.push("worry arrives " + ans("anxiety").toLowerCase());
+      if (ans("anxietyLevel") && ans("anxietyLevel") !== "About the same") yoursMood.push("day-to-day anxiety is " + ans("anxietyLevel").toLowerCase().split(" — ")[0]);
+      var yoursBody = [];
+      if (wc) yoursBody.push(wc.toLowerCase());
+      if (ans("weightWhere") && ans("weightWhere") !== "No real change") yoursBody.push("going " + ans("weightWhere").toLowerCase());
+      var yoursEnergy = [];
+      if (ans("afternoon")) yoursEnergy.push("by mid-afternoon you're " + ans("afternoon").toLowerCase().split(" — ")[0]);
+      if (ans("activeDays")) yoursEnergy.push("active " + ans("activeDays").toLowerCase());
+      if (ans("recovery")) yoursEnergy.push("recovery: " + ans("recovery").toLowerCase());
+
+      var gainTxt = "", gainVal = null;
+      if (wc && wc.indexOf("5 lb") !== -1) gainVal = "+5 lb";
+      else if (wc && wc.indexOf("10 lb") !== -1) gainVal = "+10 lb";
+      else if (wc && wc.indexOf("15") !== -1) gainVal = "+15 lb or more";
+      if (gainVal) {
+        gainTxt = '<div class="callout"><div class="c"><b>' + gainVal + '</b><span>your gain, last 2 years</span></div>'
+          + '<div class="c"><b>≈4.6 lb</b><span>average gain over 3 years in SWAN — linked mainly to ageing, not menopause itself</span></div>'
+          + '<p class="vs">What menopause changes is where it goes: the rate of fat gain doubled, and it shifted to the waist. And the same shift makes it harder to lose. They are one story, not two failings.</p></div>';
+      }
+      var envTxt = '<div class="envs"><div class="env low"><h4>When estrogen is low</h4><ul>'
+        + "<li>Awake at 3 a.m., again</li><li>Exhausted by mid-afternoon</li><li>Hot flashes through the day</li>"
+        + "<li>Mood on a short fuse</li><li>Exercise feels impossible to start</li></ul></div>"
+        + '<div class="env bal"><h4>When hormones are balanced</h4><ul>'
+        + "<li>Sleeping through the night</li><li>Waking rested, energy steady</li><li>Calmer, steadier mood</li>"
+        + "<li>No flashes running the day</li><li>The willingness to move is just… there</li></ul></div></div>"
+        + "<p style='margin-top:12px'>The activity doesn't come back through willpower. It comes back when the energy does — and the energy comes back when the hormones are addressed.</p>";
+
+      var DRIVER_CONTENT = {
+        1: { title: "The broken night", yours: yoursSleep.length ? "Your answers: " + yoursSleep.join(", ") + "." : "",
+             paras: ["<p>Estrogen helps hold sleep together through the night. As it falls, sleep gets lighter and easier to break — which is why so many women wake at almost the same time, night after night, wide awake.</p>",
+                     "<p>Broken sleep is never just about sleep. It sets up the fog, the mood and the cravings of the next day. Difficulty sleeping rises from about 30% of women before the transition to about 40–45% in perimenopause (SWAN).</p>"], extra: "" },
+        2: { title: "Heat, day and night", yours: yoursTemp.length ? "Your answers: " + yoursTemp.join("; ") + "." : "",
+             paras: ["<p>Your brain's thermostat is set by estrogen. With less of it, the comfort zone narrows to a sliver — a warm room, a sip of coffee, a stressful minute, and the heat wave fires.</p>",
+                     "<p>At night, the same narrowing is what soaks the sheets and splits sleep in two. Up to 80% of women experience hot flashes or night sweats at some point in the transition — and with frequent flashes, they last a median of 7.4 years (SWAN).</p>"], extra: "" },
+        3: { title: "The fog &amp; the static", yours: yoursMood.length ? "Your answers: " + yoursMood.join("; ") + "." : "",
+             paras: ["<p>Estrogen feeds the parts of the brain that handle words, focus and calm. When it dips, names and words take longer to arrive, and worry can show up with no trigger at all.</p>",
+                     "<p>It feels alarming. It is also one of the most common patterns of these years — and one of the most hormonal.</p>"], extra: "" },
+        4: { title: "Estrogen, fat &amp; the changing waist", yours: yoursBody.length ? "Your answers: " + yoursBody.join(", ") + "." : "",
+             paras: ["<p><b>Fat moves to the belly.</b> Estrogen tells the body where to store fat. As it falls, storage shifts from hips and thighs to the waist.</p>",
+                     "<p><b>Metabolism slows.</b> The body burns a little less at rest than it did — so the same eating can quietly add up.</p><p><b>Muscle slips away.</b> Muscle is the engine that burns calories. Losing it makes everything above worse.</p>"], extra: gainTxt },
+        5: { title: "Energy &amp; activity: the loop", yours: yoursEnergy.length ? "Your answers: " + yoursEnergy.join("; ") + "." : "",
+             paras: ["<p>Hormones set the environment your motivation lives in. Low estrogen breaks sleep; broken sleep drains energy; low energy quietly takes the exercise away — and less movement feeds the weight, the mood and the next bad night.</p>"], extra: envTxt }
+      };
+      var DRIVER_DOMAIN = { 1:"sleep", 2:"temp", 3:"mood", 4:"body", 5:"body" };
+      ord.ordered.forEach(function(n){
+        var c = DRIVER_CONTENT[n];
+        var mb = bandOf(metrics[n].fam, metrics[n].metric);
+        var tier = !mb ? "short" : (mb.level >= 2 ? "full" : (mb.level === 1 ? "standard" : "short"));
+        var head = '<span class="num">' + n + '</span><h3>Driver No. ' + n + ' — ' + c.title + '</h3>';
+        var notes = "";
+        if (n === 5 && pattern.loopSecondary) notes += '<p class="secondary-note">Also named in your report: The Energy Loop Pattern — your secondary pattern.</p>';
+        if (pattern.secondaryDomain && DRIVER_DOMAIN[n] === pattern.secondaryDomain.dom) notes += '<p class="secondary-note">Also at strong signal in your report: ' + pattern.secondaryDomain.name + '.</p>';
+        if (tier === "short") {
+          html += '<div class="driver">' + head + notes
+            + '<p>This area is holding.' + (c.yours ? ' ' + c.yours.replace(/^Your answers: /, "Your mildest signal here: ") : "") + '</p>'
+            + '<p>It is in the picture because the other drivers touch it — not because it is driving how you feel.</p></div>';
+        } else if (tier === "standard") {
+          html += driver(n, "Driver No. " + n + " — " + c.title, c.yours, notes + c.paras[0]);
+        } else {
+          html += driver(n, "Driver No. " + n + " — " + c.title, c.yours, notes + c.paras.join("") + c.extra);
+        }
+      });
+
+
+      /* Closing — the discovery call, offered now that she has her report.
+         Booking completes on MedMethod Direct's booking page (the same
+         https://medmethoddirect.com destination the call CTA already used);
+         no answers, score, or pattern travel with the link. */
+      html += '<div class="closing"><div class="pl">Your next step</div><h2>Book your discovery call.</h2>'
+        + "<p>Now that you have your report, book a discovery call with the MedMethod Direct care team. They'll walk through this report with you, answer your questions, and explain how MMD can help — and if you want treatment, they'll send you the intake link right on the call.</p>"
+        + '<ul class="call-points"><li><b>Free</b> — no cost, and no obligation to start anything</li><li><b>15 minutes</b> — by phone, at a time you pick</li><li><b>Your report, walked through</b> — your pattern, your score, and what to do about them</li></ul>'
+        + '<a class="cta" href="https://medmethoddirect.com" target="_blank" rel="noopener">Book my discovery call</a>'
+        + '<p class="call-note">MedMethod Direct is led by Dr. Jumana Al-Deek, DO — board-certified family physician and Menopause Society Certified Practitioner.</p>'
+        + '<button class="ghostbtn" type="button" id="dlBtn">Download a copy of my report</button>'
+        + '<button class="ghostbtn" type="button" id="againBtn">Take the check again</button></div>';
+
+      $("reportBody").innerHTML = html;
+      window.scrollTo(0, 0);
+
+      $("againBtn").addEventListener("click", function(){
+        answers = {}; pos = 0;
+        order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });
+        submissionRecord = null;
+        window.__quizSubmission = null;
+        $("submissionData").textContent = "";
+        $("gateForm").reset();
+        reportEl.classList.add("hidden");
+        introEl.classList.remove("hidden");
+        window.scrollTo(0, 0);
+      });
+      $("dlBtn").addEventListener("click", function(){
+        var lines = ["MY HORMONE SYMPTOM CHECK — REPORT", ""];
+        if (idx !== null) lines.push("Balance Index: " + idx + " out of 100 — " + bandOf("index", idx).name + " (balanced range: 82–100)");
+        lines.push("Pattern: " + pattern.name, "");
+        if (recogPicked.length) lines.push("Quick check — you recognized " + recogPicked.length + " of the familiar ones: " + recogPicked.join(", "), "");
+        Object.keys(DOMAINS).forEach(function(k){
+          lines.push(DOMAINS[k].name + ": " + (scores[k] === null ? "not scored (you chose to say less)" : scores[k] + " out of 100 — " + bandOf(FAMILY[k], scores[k]).name + " (in balance for this area: " + BANDS[FAMILY[k]][0][0] + " or higher)"));
+        });
+        lines.push("", "Drivers, in your report's order: " + ord.ordered.map(function(n){ return "No. " + n; }).join(", "));
+        lines.push("", "Next step: book a discovery call with the MedMethod Direct care team at medmethoddirect.com.");
+        lines.push("", "Sources: score bands converted from the Menopause Rating Scale (Heinemann et al., 2004); comparisons and sleep/hot-flash figures from SWAN, the Study of Women's Health Across the Nation (3,302 women); weight and waist changes from Greendale et al., 2019; joint and muscle pain figures from Kruse et al., 2026.");
+        lines.push("", "Educational only — not a medical diagnosis. Bands are population severity categories, not clinical thresholds.");
+        var blob = new Blob([lines.join("\n")], { type: "text/plain" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "my-hormone-report.txt";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+      });
+    }
+
+    function driver(n, title, yours, bodyHtml){
+      return '<div class="driver"><span class="num">' + n + '</span><h3>' + title + '</h3>'
+        + (yours ? '<p class="yours"><b>Yours:</b> ' + yours.replace(/^Your answers: /, "") + '</p>' : "")
+        + bodyHtml + '</div>';
+    }
+    </script>
+  </body>
+</html>

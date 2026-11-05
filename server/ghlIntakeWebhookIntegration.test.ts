@@ -1,3 +1,6 @@
+import { resolve } from "node:path";
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { beforeEach, afterEach, describe, it, expect, vi } from "vitest";
@@ -75,6 +78,8 @@ describe("GHL notification is isolated from Keragon and patient submission", () 
     expect(inverseApprovedLatePatientInfo(introDetailsPhotoRegistrationPath, readFileSync(introDetailsPhotoRegistrationPath, "utf8"))).toBe(old(introDetailsPhotoRegistrationPath));
     const front = execFileSync("git", ["diff", "--name-only", "ed9524e1", "--", "client", "shared", "package.json", "pnpm-lock.yaml"], { encoding: "utf8" });
     expect(front.trim().split("\n").filter(Boolean)
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `ed9524e1:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(path, "utf8")) !== old(path))
       .filter(path => ![introducedContinueGuidanceAssetPath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path))
       .filter(path => inverseApprovedLatePatientInfo(path, readFileSync(path, "utf8")) !== old(path))).toEqual([]);

@@ -1,4 +1,5 @@
-import { finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
+import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
@@ -74,6 +75,8 @@ describe("Weight Care shipping screen exact copy", () => {
   it("changes no other production source from the approved checkpoint", () => {
     const scope = ["client", "server", "shared", "package.json", "pnpm-lock.yaml", "vite.config.ts", "drizzle"];
     const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean)
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(p => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === p) || inverseApprovedThankYouWording(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }))
       .filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath, finalProgressLabelFixturePath].includes(p))
       .filter(p => p !== "server/intakeSubmissionContract.ts" || inverseApprovedIntroDetailsPhoto(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }));

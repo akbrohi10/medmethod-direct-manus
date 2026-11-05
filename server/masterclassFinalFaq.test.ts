@@ -1,3 +1,4 @@
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -514,7 +515,7 @@ describe("Masterclass final FAQ", () => {
 
   it("leaves route metadata and every existing Masterclass payment contract byte-identical to 40e49baf", () => {
     for (const path of protectedRouteMetadataAndPaymentPaths) {
-      expect(read(path), path).toBe(atBaseline(path));
+      expect(inverseApprovedFinalProgressLabel(path, read(path)), path).toBe(atBaseline(path));
     }
   });
 });

@@ -161,6 +161,14 @@ async function startServer() {
     res.sendFile(intakePrototypeHtml);
   });
 
+  // Preserve the supplied quiz as an isolated standalone document, without site CSS or tracking.
+  const hormoneSymptomQuizHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/public/hormone-symptom-quiz.html")
+    : path.resolve(import.meta.dirname, "public/hormone-symptom-quiz.html");
+  app.get(["/hormone-symptom-quiz", "/hormone-symptom-quiz/"], (_req, res) => {
+    res.sendFile(hormoneSymptomQuizHtml);
+  });
+
   // Apple Pay / PayPal Live domain validation requires this exact dot-directory
   // URL. Serve the supplied association file explicitly because Express static
   // middleware ignores dot-directories by default.

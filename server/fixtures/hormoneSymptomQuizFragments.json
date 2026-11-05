@@ -1,0 +1,30 @@
+{
+  "baseline": "48d614b7",
+  "html_sha256": "db2679e2347857f1e282234f6324a12b4536a409ff4c65d83884a475ba7af845",
+  "files": {
+    "server/_core/index.ts": [
+      {
+        "old": "  // Apple Pay / PayPal Live domain validation requires this exact dot-directory",
+        "new": "  // Preserve the supplied quiz as an isolated standalone document, without site CSS or tracking.\n  const hormoneSymptomQuizHtml = process.env.NODE_ENV === \"development\"\n    ? path.resolve(import.meta.dirname, \"../../client/public/hormone-symptom-quiz.html\")\n    : path.resolve(import.meta.dirname, \"public/hormone-symptom-quiz.html\");\n  app.get([\"/hormone-symptom-quiz\", \"/hormone-symptom-quiz/\"], (_req, res) => {\n    res.sendFile(hormoneSymptomQuizHtml);\n  });\n\n  // Apple Pay / PayPal Live domain validation requires this exact dot-directory",
+        "count": 1
+      }
+    ],
+    "client/src/App.tsx": [
+      {
+        "old": "function Router() {",
+        "new": "/** Open the original quiz document without mounting it inside the site theme. */\nfunction HormoneSymptomQuizStandaloneRedirect() {\n  useEffect(() => {\n    window.location.replace(\"/hormone-symptom-quiz\");\n  }, []);\n\n  return <a href=\"/hormone-symptom-quiz\">Opening Hormone Symptom Quiz…</a>;\n}\n\nfunction Router() {",
+        "count": 1
+      },
+      {
+        "old": "        <Route path=\"/weight-loss-intake\" component={WeightLossIntakeStandaloneRedirect} />",
+        "new": "        <Route path=\"/weight-loss-intake\" component={WeightLossIntakeStandaloneRedirect} />\n        <Route path=\"/hormone-symptom-quiz\" component={HormoneSymptomQuizStandaloneRedirect} />",
+        "count": 1
+      },
+      {
+        "old": "  const [location] = useLocation();\n  if (location === \"/weight-loss-menopauseV2\"",
+        "new": "  const [location] = useLocation();\n  if (location === \"/hormone-symptom-quiz\" || location === \"/hormone-symptom-quiz/\") return null;\n  if (location === \"/weight-loss-menopauseV2\"",
+        "count": 1
+      }
+    ]
+  }
+}
