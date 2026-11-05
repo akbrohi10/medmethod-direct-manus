@@ -1,0 +1,19 @@
+{
+  "baseline": "24838ad1",
+  "files": {
+    "client/intake/index.html": [
+      {
+        "old": "<script src=\"/intake/progress.js?v=20261105\">",
+        "new": "<script src=\"/intake/progress.js?v=20261106-final-step\">",
+        "count": 1
+      }
+    ],
+    "client/public/intake/progress.js": [
+      {
+        "old": "last = index >= visible.length - 2;",
+        "new": "last = index === visible.length - 1;",
+        "count": 1
+      }
+    ]
+  }
+}

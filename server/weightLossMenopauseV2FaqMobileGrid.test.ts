@@ -1,3 +1,4 @@
+import { finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -12,6 +13,7 @@ const root = resolve(import.meta.dirname, "..");
 // Separately approved WeightCare and signed-intake paths are covered independently.
 // Keep all other sources frozen.
 const approvedWeightCareRegressionPaths = new Set([
+  finalProgressLabelFixturePath,
   "client/intake/index.html",
   "client/public/intake/weight-care-uploads.js",
   "client/public/intake/weight-care-uploads.css",

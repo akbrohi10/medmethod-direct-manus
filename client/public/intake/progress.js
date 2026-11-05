@@ -30,7 +30,7 @@ window.MmdCreateIntakeProgress = function (React, JSX) {
     percent = Math.max(0, Math.min(100, percent));
     entries = entries.slice();
     entries[depth] = { id: id, percent: percent };
-    var rounded = Math.round(percent), late = rounded >= 75, last = index >= visible.length - 2;
+    var rounded = Math.round(percent), late = rounded >= 75, last = index === visible.length - 1;
     return { id: id, depth: depth, percent: percent, rounded: rounded, entries: entries, section: section(screen, index), label: last ? "Last step!" : (late ? "Almost there" : section(screen, index)) + " · " + rounded + "%", time: index === 0 ? "About 5-10 minutes" : late ? "About 1 minute left" : null };
   }
   function Progress(props) {
