@@ -2,11 +2,13 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { inverseApprovedQuizInstantScore } from './hormoneSymptomQuizInstantScore.test';
 const root = resolve(import.meta.dirname, '..');
 const htmlPath = 'client/public/hormone-symptom-quiz.html';
 const previous = '<a class="cta" href="https://medmethoddirect.com" target="_blank" rel="noopener">Book my discovery call</a>';
 const approved = '<a class="cta" href="https://medmethoddirect.com/care-team-booking" target="_blank" rel="noopener">Book my discovery call</a>';
 export function inverseApprovedQuizBookingLink(path: string, source: string): string {
+  source = inverseApprovedQuizInstantScore(path, source);
   if (path !== htmlPath) return source;
   if (source.split(approved).length - 1 !== 1 || source.includes(previous)) throw new Error('Unexpected approved quiz booking link count');
   return source.replace(approved, previous);
