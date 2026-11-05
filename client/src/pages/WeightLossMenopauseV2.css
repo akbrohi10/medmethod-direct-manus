@@ -626,3 +626,14 @@
 .wlm-v2-content #doctor .doctor-bio-book {
   color: #7A1E7E;
 }
+
+/* V2 hero CTA — lighter vertical padding and shadow only. */
+.wlm-v2-content .hero[data-medmethod-scope] .hero-actions .btn {
+  min-height: 80px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  box-shadow: 0 7px 16px rgba(181, 34, 132, .10);
+}
+.wlm-v2-content .hero[data-medmethod-scope] .hero-actions .btn:hover {
+  box-shadow: 0 10px 22px rgba(181, 34, 132, .14);
+}

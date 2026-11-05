@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
+import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -265,7 +265,7 @@ function normalizeApprovedV2SectionOrder(path: string, source: string): string {
 
 describe("Weight-Loss & Menopause V2 audit priority fixes", () => {
   it("keeps both production stylesheet prefixes byte-identical to 62bec055 and appends only the two approved blocks", () => {
-    const heroCss = read(heroCssPath);
+    const heroCss = inverseApprovedV2HeroCtaComfort(heroCssPath, read(heroCssPath));
     const faqCss = read(faqCssPath);
 
     expect(heroCss).toBe(`${atBaseline(heroCssPath)}${heroAuditPriorityFixesAppend}`);

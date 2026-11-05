@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test";
 import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -64,6 +65,7 @@ const count = (source: string, value: string) => source.split(value).length - 1;
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
 
 function normalizeApprovedHeroFontAppend(path: string, source: string): string {
+  source = inverseApprovedV2HeroCtaComfort(path, source);
   return path === pageCssPath
     ? source.endsWith(approvedAuditPriorityFixesAppend)
       ? source.slice(0, -approvedAuditPriorityFixesAppend.length).replace(approvedDesktopHeroSizingAppend, "").replace(approvedHeroFontAppend, "")

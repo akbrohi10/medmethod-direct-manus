@@ -54,7 +54,7 @@ describe('exact standalone hormone quiz import scope', () => {
   it('changes no other production file, original question, payment or intake asset', () => {
     const scope = ['client', 'server', 'shared', 'drizzle', 'vite.config.ts', 'package.json', 'pnpm-lock.yaml'];
     const paths = [...execFileSync('git', ['diff', '--name-only', '48d614b7', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n'), ...execFileSync('git', ['ls-files', '--others', '--exclude-standard', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n')].filter(p => p && !/\.test\.[cm]?[jt]sx?$/.test(p) && !verifyApprovedHormoneSymptomQuizAsset(p, read(p)))
-      .filter(p => p !== "client/src/pages/WeightLossMenopauseV2.tsx" || inverseApprovedV2HeroQuestion(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", String('48d614b7') + ":" + p], { cwd: process.cwd(), encoding: "utf8" }));
+      .filter(p => !["client/src/pages/WeightLossMenopauseV2.tsx", "client/src/pages/WeightLossMenopauseV2.css"].includes(p) || inverseApprovedV2HeroQuestion(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", String('48d614b7') + ":" + p], { cwd: process.cwd(), encoding: "utf8" }));
     expect([...new Set(paths)].sort()).toEqual(Object.keys(packet.files).sort());
     for (const path of execFileSync('git', ['ls-tree', '-r', '--name-only', '48d614b7', '--', 'server/fixtures'], { cwd: root, encoding: 'utf8' }).trim().split('\n')) expect(read(path)).toBe(old(path));
   });

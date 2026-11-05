@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
+import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -127,7 +127,7 @@ function atBaseline(file: string): string {
 }
 
 function cssWithoutApprovedAuditPriorityFixes(): string {
-  const css = read(cssPath);
+  const css = inverseApprovedV2HeroCtaComfort(cssPath, read(cssPath));
   return css.endsWith(approvedAuditPriorityFixesAppend)
     ? css.slice(0, -approvedAuditPriorityFixesAppend.length)
     : css;
