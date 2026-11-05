@@ -2,11 +2,13 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { inverseApprovedV2HeroAssessmentCta } from './weightLossMenopauseV2HeroAssessmentCta.test';
 const root = resolve(import.meta.dirname, '..');
 export const v2HeroQuestionPagePath = 'client/src/pages/WeightLossMenopauseV2.tsx';
 export const v2HeroQuestionBefore = '<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>First visit FREE!</em></span></h1>';
 export const v2HeroQuestionAfter = '<h1><span className="hero-headline-line">Is medical weight loss or hormone therapy right for you?</span><span className="hero-headline-line hero-free"><em>Find out free.</em></span></h1>';
 export function inverseApprovedV2HeroQuestion(path: string, source: string): string {
+  source = inverseApprovedV2HeroAssessmentCta(path, source);
   if (path !== v2HeroQuestionPagePath) return source;
   if (source.split(v2HeroQuestionAfter).length - 1 !== 1 || source.includes(v2HeroQuestionBefore)) throw new Error('Unexpected approved V2 hero question count');
   return source.replace(v2HeroQuestionAfter, v2HeroQuestionBefore);
