@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -119,6 +120,7 @@ function normalizeFinalFaqPage(source: string, baselinePage: string): string {
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  source = inverseApprovedV2HeroQuestion(path, source);
   if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
   const medicationPricingStart = '<section className="medication-pricing"';
   const estimatorStart = '<section className="estimator-band"';

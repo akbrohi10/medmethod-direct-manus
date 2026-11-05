@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -333,6 +334,7 @@ function normalizeApprovedFinalFaqPageLines(source: string): string {
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  source = inverseApprovedV2HeroQuestion(path, source);
   if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
   const medicationPricingStart = '<section className="medication-pricing"';
   const estimatorStart = '<section className="estimator-band"';

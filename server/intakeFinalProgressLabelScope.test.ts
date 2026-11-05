@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { inverseApprovedHormoneSymptomQuiz, verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -38,6 +39,7 @@ describe('final-screen-only progress label exact scope', () => {
   it('retains all prior fixtures and allows only the label expression and cache key in production', () => {
     const scope = ['client', 'server', 'shared', 'drizzle', 'package.json', 'pnpm-lock.yaml', 'vite.config.ts'];
     const paths = [...execFileSync('git', ['diff', '--name-only', '24838ad1', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n'), ...execFileSync('git', ['ls-files', '--others', '--exclude-standard', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n')].filter(p => p && !/\.test\.[cm]?[jt]sx?$/.test(p) && p !== finalProgressLabelFixturePath)
+      .filter(p => p !== "client/src/pages/WeightLossMenopauseV2.tsx" || inverseApprovedV2HeroQuestion(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", String('24838ad1') + ":" + p], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
       .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `24838ad1:${p}`], { cwd: process.cwd(), encoding: "utf8" }));
     expect([...new Set(paths)].sort()).toEqual(Object.keys(packet.files).sort());

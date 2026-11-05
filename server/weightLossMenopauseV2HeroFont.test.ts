@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -219,6 +220,7 @@ function changedProductionFiles(): string[] {
 }
 
 function normalizeApprovedV2SectionOrder(path: string, source: string): string {
+  source = inverseApprovedV2HeroQuestion(path, source);
   if (path !== "client/src/pages/WeightLossMenopauseV2.tsx") return source;
   const medicationPricingStart = '<section className="medication-pricing"';
   const estimatorStart = '<section className="estimator-band"';
@@ -275,7 +277,7 @@ describe("Weight-Loss & Menopause V2 homepage hero font match", () => {
     expect(append).not.toContain(".hero-ampersand");
     expect(append).not.toContain(".hero-free");
     expect(normalizeApprovedV2SectionOrder(pagePath, page)).toBe(atBaseline(pagePath));
-    expect(page).toContain('<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>First visit FREE!</em></span></h1>');
+    expect(inverseApprovedV2HeroQuestion(pagePath, page)).toContain('<h1><span className="hero-headline-line">Text a Weight Loss <span className="hero-ampersand">&amp;</span><br />Hormone Doctor now.</span><span className="hero-headline-line hero-free"><em>First visit FREE!</em></span></h1>');
     expect(cssPrefix).toContain('.wlm-v2-content .hero[data-medmethod-scope] h1 .hero-ampersand{font-family:"DM Sans",Arial,sans-serif;line-height:0');
   });
 

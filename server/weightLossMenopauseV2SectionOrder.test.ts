@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -92,6 +93,7 @@ function section(source: string, start: string): string {
 }
 
 function restoreApprovedMedicationEstimatorOrder(source: string): string {
+  source = inverseApprovedV2HeroQuestion(pagePath, source);
   expect(count(source, medicationPricingStart)).toBe(1);
   expect(count(source, estimatorStart)).toBe(1);
   expect(count(source, doctorBioMount)).toBe(1);

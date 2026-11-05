@@ -1,3 +1,4 @@
+import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -381,6 +382,7 @@ function normalizeFinalFaq(source: string): string {
 }
 
 function normalizeApprovedV2SectionOrder(file: string, source: string): string {
+  source = inverseApprovedV2HeroQuestion(file, source);
   if (file !== v2PagePath) return source;
   expect(countExactOccurrences(source, medicationPricingStart)).toBe(1);
   expect(countExactOccurrences(source, estimatorStart)).toBe(1);
@@ -590,7 +592,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   });
 
   it("uses the complete approved uploaded hero while preserving legacy hero hooks and the external intake CTA", () => {
-    const hero = page.match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
+    const hero = inverseApprovedV2HeroQuestion(v2PagePath, page).match(/<section className="hero" data-medmethod-scope="">[\s\S]*?<\/section>/)?.[0] ?? "";
     expect(hero).not.toBe("");
     expect(hero.startsWith('<section className="hero" data-medmethod-scope="">')).toBe(true);
     expect(hero).toContain('<div className="container hero-grid"><div className="hero-copy">');
@@ -614,7 +616,7 @@ describe("Weight-Loss & Menopause V2 duplicate integration", () => {
   });
 
   it("uses the exact uploaded glyph mask for only the headline ampersand", () => {
-    expect(page.match(/className="hero-ampersand"/g)).toHaveLength(1);
+    expect(inverseApprovedV2HeroQuestion(v2PagePath, page).match(/className="hero-ampersand"/g)).toHaveLength(1);
     expect(approvedHeroHeadline).toContain('<span className="hero-ampersand">&amp;</span>');
     const symbolRule = css.match(/\.wlm-v2-content \.hero\[data-medmethod-scope\] h1 \.hero-ampersand\{([^}]+)\}/)?.[1] ?? "";
     expect(symbolRule).toContain('font-family:"DM Sans",Arial,sans-serif;line-height:0');
