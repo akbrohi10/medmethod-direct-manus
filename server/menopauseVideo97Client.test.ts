@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { inverseApprovedV2Membership } from "./weightLossMenopauseV2Membership.test";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../client/src/components/weight-loss-menopause-v2/checkout97/videoVisitCheckout97Storage";
 
 const root = process.cwd();
-const read = (path: string) => readFileSync(resolve(root, path), "utf8");
+const read = (path: string) => inverseApprovedV2Membership(path, readFileSync(resolve(root, path), "utf8"));
 
 const checkout = read(
   "client/src/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97.tsx",

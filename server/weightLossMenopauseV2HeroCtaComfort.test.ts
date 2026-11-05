@@ -1,21 +1,21 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process'; import { inverseApprovedV2Membership, membershipFixturePath } from './weightLossMenopauseV2Membership.test';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 const root = resolve(import.meta.dirname, '..');
 export const heroCtaComfortCssPath = 'client/src/pages/WeightLossMenopauseV2.css';
 export const heroCtaComfortStyles = '\n/* V2 hero CTA — lighter vertical padding and shadow only. */\n.wlm-v2-content .hero[data-medmethod-scope] .hero-actions .btn {\n  min-height: 80px;\n  padding-top: 12px;\n  padding-bottom: 12px;\n  box-shadow: 0 7px 16px rgba(181, 34, 132, .10);\n}\n.wlm-v2-content .hero[data-medmethod-scope] .hero-actions .btn:hover {\n  box-shadow: 0 10px 22px rgba(181, 34, 132, .14);\n}\n';
-export function inverseApprovedV2HeroCtaComfort(path: string, source: string): string {
+export function inverseApprovedV2HeroCtaComfort(path: string, source: string): string { return inverseApprovedV2HeroCtaComfortBeforeMembership(path, inverseApprovedV2Membership(path, source)); } export function inverseApprovedV2HeroCtaComfortBeforeMembership(path: string, source: string): string {
   if (path !== heroCtaComfortCssPath) return source;
   if (source.split(heroCtaComfortStyles).length - 1 !== 1 || !source.endsWith(heroCtaComfortStyles)) throw new Error('Unexpected approved V2 hero CTA comfort style count');
   return source.slice(0, -heroCtaComfortStyles.length);
 }
-const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
+const read = (p: string) => inverseApprovedV2Membership(p, readFileSync(resolve(root, p), 'utf8'));
 const baseline = (p: string) => execFileSync('git', ['show', `8c161014:${p}`], { cwd: root, encoding: 'utf8' });
 describe('V2 hero button padding and shadow only', () => {
   it('appends only the approved strictly scoped style block with the complete prior CSS unchanged', () => {
     const css = read(heroCtaComfortCssPath);
-    expect(inverseApprovedV2HeroCtaComfort(heroCtaComfortCssPath, css)).toBe(baseline(heroCtaComfortCssPath));
+    expect(inverseApprovedV2HeroCtaComfortBeforeMembership(heroCtaComfortCssPath, css)).toBe(baseline(heroCtaComfortCssPath));
     expect(css).toBe(baseline(heroCtaComfortCssPath) + heroCtaComfortStyles);
     expect(heroCtaComfortStyles.match(/min-height:/g)).toHaveLength(1);
     expect(heroCtaComfortStyles.match(/padding-(?:top|bottom):/g)).toHaveLength(2);
@@ -24,17 +24,17 @@ describe('V2 hero button padding and shadow only', () => {
   });
   it('leaves the entire page component, wording, destination and every other production file byte-identical', () => {
     const scope = ['client', 'server', 'shared', 'drizzle', 'vite.config.ts', 'package.json', 'pnpm-lock.yaml'];
-    const changed = [...execFileSync('git', ['diff', '--name-only', '8c161014', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n'), ...execFileSync('git', ['ls-files', '--others', '--exclude-standard', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n')].filter(p => p && !/\.test\.[cm]?[jt]sx?$/.test(p));
+    const changed = [...execFileSync('git', ['diff', '--name-only', '8c161014', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n'), ...execFileSync('git', ['ls-files', '--others', '--exclude-standard', '--', ...scope], { cwd: root, encoding: 'utf8' }).split('\n')].filter(p => p && !/\.test\.[cm]?[jt]sx?$/.test(p) && (p !== membershipFixturePath || inverseApprovedV2Membership(p, '') !== '') && !(p === 'client/src/pages/WeightLossMenopauseV2.tsx' && read(p) === baseline(p))).filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "");
     expect([...new Set(changed)]).toEqual([heroCtaComfortCssPath]);
     expect(read('client/src/pages/WeightLossMenopauseV2.tsx')).toBe(baseline('client/src/pages/WeightLossMenopauseV2.tsx'));
     for (const p of execFileSync('git', ['ls-tree', '-r', '--name-only', '8c161014', '--', 'server/fixtures'], { cwd: root, encoding: 'utf8' }).trim().split('\n')) expect(read(p)).toBe(baseline(p));
   });
   it('rejects omitted, duplicated or misplaced style blocks and detects all unrelated CSS edits', () => {
     const css = read(heroCtaComfortCssPath);
-    expect(() => inverseApprovedV2HeroCtaComfort(heroCtaComfortCssPath, baseline(heroCtaComfortCssPath))).toThrow('Unexpected approved V2 hero CTA comfort style count');
-    expect(() => inverseApprovedV2HeroCtaComfort(heroCtaComfortCssPath, css + heroCtaComfortStyles)).toThrow('Unexpected approved V2 hero CTA comfort style count');
-    expect(() => inverseApprovedV2HeroCtaComfort(heroCtaComfortCssPath, css + 'UNAPPROVED')).toThrow('Unexpected approved V2 hero CTA comfort style count');
-    expect(inverseApprovedV2HeroCtaComfort(heroCtaComfortCssPath, 'UNAPPROVED\n' + css)).not.toBe(baseline(heroCtaComfortCssPath));
+    expect(() => inverseApprovedV2HeroCtaComfortBeforeMembership(heroCtaComfortCssPath, baseline(heroCtaComfortCssPath))).toThrow('Unexpected approved V2 hero CTA comfort style count');
+    expect(() => inverseApprovedV2HeroCtaComfortBeforeMembership(heroCtaComfortCssPath, css + heroCtaComfortStyles)).toThrow('Unexpected approved V2 hero CTA comfort style count');
+    expect(() => inverseApprovedV2HeroCtaComfortBeforeMembership(heroCtaComfortCssPath, css + 'UNAPPROVED')).toThrow('Unexpected approved V2 hero CTA comfort style count');
+    expect(inverseApprovedV2HeroCtaComfortBeforeMembership(heroCtaComfortCssPath, 'UNAPPROVED\n' + css)).not.toBe(baseline(heroCtaComfortCssPath));
     expect(inverseApprovedV2HeroCtaComfort('client/src/pages/Home.tsx', 'unchanged')).toBe('unchanged');
   });
 });

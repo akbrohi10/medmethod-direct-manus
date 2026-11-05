@@ -131,22 +131,44 @@ export default function WeightLossMenopauseV2() {
     </div>
     <div className="process-pricing-offer" id="pricing" aria-labelledby="visit-pricing-title">
       <div className="process-pricing-card">
-        <h3 id="visit-pricing-title">Simple, pay-per-visit care</h3>
+        <h3 id="visit-pricing-title">Start free. Then choose how you keep going.</h3>
+        <p className="membership-intro">Choose what fits your care after your free visit.</p>
         <dl className="process-pricing-rates">
-          <div><dt>First text visit<small className="first-text-visit-note">Includes 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>
-          <div><dt>Additional text visits</dt><dd>$29 <span>each</span></dd></div>
-          <div><dt>Video visit</dt><dd>$97</dd></div>
+          <div><dt>Your first text visit<small className="first-text-visit-note">Doctor assessment review, plus 7 days of follow-up messaging.</small></dt><dd>FREE</dd></div>
         </dl>
-        <div className="process-pricing-followup">
-          <span className="process-followup-icon" aria-hidden="true">✓</span>
-          <div><strong>7 days of follow-up messaging</strong><p>Included with every visit—even your free first visit.</p></div>
-        </div>
-        <p className="process-medication-note">Medication costs extra, if prescribed.</p>
       </div>
-      <a className="btn process-pricing-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL}>Start Your Free Text Visit <span className="arrow" aria-hidden="true">→</span></a>
-      <p className="process-intake-note">Intake first. Then text your doctor.</p>
-      <p className="process-pricing-terms">Prescriptions only when medically appropriate. Follow-up covers that visit’s assessment and care plan. New concerns or additional treatments require a separate visit.</p>
-      <p className="process-no-membership">No membership or long-term commitment.</p>
+      <div className="membership-options">
+        <article className="membership-plan membership-plan-payg" aria-labelledby="payg-pricing-title">
+          <h4 id="payg-pricing-title">Pay As You Go</h4>
+          <p className="membership-plan-description">Best for a single concern or occasional care.</p>
+          <p className="membership-plan-price"><strong>$29</strong><span>per text visit</span></p>
+          <ul className="membership-plan-benefits">
+            <li><span aria-hidden="true">✓</span><span>Each visit includes <strong>7 days of messaging</strong></span></li>
+            <li><span aria-hidden="true">✓</span><span>Refill visits <strong>$29 each</strong></span></li>
+            <li><span aria-hidden="true">✓</span><span>Video visits <strong>$97</strong></span></li>
+            <li><span aria-hidden="true">✓</span><span>No membership required</span></li>
+          </ul>
+        </article>
+        <article className="membership-plan membership-plan-annual" aria-labelledby="annual-pricing-title">
+          <span className="membership-value-badge">Best value for ongoing care</span>
+          <h4 id="annual-pricing-title">MedMethod Membership</h4>
+          <p className="membership-plan-description">Best if you're on treatment and refilling.</p>
+          <p className="membership-plan-price"><strong>$300</strong><span>/year</span></p>
+          <p className="membership-annual-payment">One annual upfront payment</p>
+          <ul className="membership-plan-benefits">
+            <li><span aria-hidden="true">✓</span><span><strong>Unlimited text visits</strong> with your doctor</span></li>
+            <li><span aria-hidden="true">✓</span><span><strong>All refill visits included</strong>, with no per-visit fees</span></li>
+            <li><span aria-hidden="true">✓</span><span>Member video visits <strong>$49</strong> <span className="membership-video-regular-price">rather than $97</span></span></li>
+            <li><span aria-hidden="true">✓</span><span>Dose-adjustment and side-effect questions included</span></li>
+            <li><span aria-hidden="true">✓</span><span>Weight loss, hormones and menopause in one plan</span></li>
+          </ul>
+        </article>
+      </div>
+      <p className="process-medication-note">Medication costs extra, if prescribed.</p>
+      <a className="btn process-pricing-cta" href={WEIGHT_MENOPAUSE_INTAKE_URL}>Start your free assessment <span className="arrow" aria-hidden="true">→</span></a>
+      <p className="process-intake-note">No payment today. You'll choose a plan after your free visit, only if treatment is right for you.</p>
+      <p className="process-pricing-terms">Prescriptions only when medically appropriate. Pay-as-you-go follow-up covers that visit’s assessment and care plan. New concerns or additional treatments require a separate visit.</p>
+      <p className="process-no-membership">Membership is optional. Pay-as-you-go care has no membership commitment.</p>
     </div>
   </div>
 </section>

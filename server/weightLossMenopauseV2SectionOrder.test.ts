@@ -1,4 +1,4 @@
-import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
+import { inverseApprovedV2HeroQuestionBeforeMembership } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -60,7 +60,7 @@ const retainedHomepageMscpCredentialSelection = [
 ].join("\n");
 
 
-const read = (file: string) => readFileSync(resolve(root, file), "utf8");
+const read = (file: string) => inverseApprovedV2Membership(file, readFileSync(resolve(root, file), "utf8"));
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
 
@@ -93,7 +93,7 @@ function section(source: string, start: string): string {
 }
 
 function restoreApprovedMedicationEstimatorOrder(source: string): string {
-  source = inverseApprovedV2HeroQuestion(pagePath, source);
+  source = inverseApprovedV2HeroQuestionBeforeMembership(pagePath, source);
   expect(count(source, medicationPricingStart)).toBe(1);
   expect(count(source, estimatorStart)).toBe(1);
   expect(count(source, doctorBioMount)).toBe(1);
@@ -181,7 +181,7 @@ describe("Weight-Loss & Menopause V2 approved section order", () => {
       { cwd: root, encoding: "utf8" },
     )
       .split("\n")
-      .filter(Boolean)
+      .filter(Boolean).filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
       .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
       .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `d3b42db5:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
       .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
