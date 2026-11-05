@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { inverseApprovedQuizBookingLink } from './hormoneSymptomQuizBookingLink.test';
 const root = resolve(import.meta.dirname, '..');
 export const quizDemoFixturePath = 'server/fixtures/hormoneSymptomQuizDemoFragments.json';
 const raw = readFileSync(resolve(root, quizDemoFixturePath), 'utf8');
@@ -11,6 +12,7 @@ const hash = (v: string) => createHash('sha256').update(v).digest('hex');
 const packet: { baseline: string; path: string; fragments: { old: string; new: string; count: number }[] } = JSON.parse(raw);
 if (hash(raw) !== packetHash || packet.baseline !== 'a827f914' || packet.path !== 'client/public/hormone-symptom-quiz.html' || packet.fragments.length !== 4 || packet.fragments.some(f => f.count !== 1 || !f.old || !f.new || f.old === f.new)) throw new Error('Unexpected approved quiz demo packet');
 export function inverseApprovedQuizDemo(path: string, source: string): string {
+  source = inverseApprovedQuizBookingLink(path, source);
   if (path !== packet.path) return source;
   for (const f of [...packet.fragments].reverse()) {
     if (source.split(f.new).length - 1 !== 1) throw new Error('Unexpected approved quiz demo fragment count');
