@@ -1,0 +1,26 @@
+{
+  "baseline": "a827f914",
+  "path": "client/public/hormone-symptom-quiz.html",
+  "fragments": [
+    {
+      "old": "    var answers = {};            // id -> option index, or array of indices for multi\n",
+      "new": "    var answers = {};            // id -> option index, or array of indices for multi\n    var demoPrefill = new URLSearchParams(window.location.search).get(\"prefill\") === \"demo\";\n    function prefillDemoAnswers(){\n      QUESTIONS.forEach(function(q){\n        if (q.conditional) return;\n        answers[q.id] = q.multi ? [0] : Math.min(1, q.opts.length - 1);\n      });\n      answers.recognize = [0, 2, 5];\n      answers.weird = [0, 1];\n      answers.age = 2;\n      answers.weirdWorst = 0;\n    }\n    if (demoPrefill) prefillDemoAnswers();\n",
+      "count": 1
+    },
+    {
+      "old": "      if (q.multi) {\n        nb.classList.remove(\"hidden\");\n        nb.disabled = !(Array.isArray(answers[q.id]) && answers[q.id].length > 0);\n      } else nb.classList.add(\"hidden\");",
+      "new": "      if (q.multi || demoPrefill) {\n        nb.classList.remove(\"hidden\");\n        nb.disabled = q.multi\n          ? !(Array.isArray(answers[q.id]) && answers[q.id].length > 0)\n          : !(typeof answers[q.id] === \"number\" && q.opts[answers[q.id]]);\n      } else nb.classList.add(\"hidden\");",
+      "count": 1
+    },
+    {
+      "old": "      clearTimeout(advanceTimer);\n      advanceTimer = setTimeout(next, 220);",
+      "new": "      clearTimeout(advanceTimer);\n      if (demoPrefill) { $(\"nextBtn\").disabled = false; return; }\n      advanceTimer = setTimeout(next, 220);",
+      "count": 1
+    },
+    {
+      "old": "        answers = {}; pos = 0;\n        order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });",
+      "new": "        answers = {}; pos = 0;\n        if (demoPrefill) prefillDemoAnswers();\n        order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });",
+      "count": 1
+    }
+  ]
+}

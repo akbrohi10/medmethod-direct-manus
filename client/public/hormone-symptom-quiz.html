@@ -566,6 +566,18 @@
     "use strict";
     /* ================= Engine ================= */
     var answers = {};            // id -> option index, or array of indices for multi
+    var demoPrefill = new URLSearchParams(window.location.search).get("prefill") === "demo";
+    function prefillDemoAnswers(){
+      QUESTIONS.forEach(function(q){
+        if (q.conditional) return;
+        answers[q.id] = q.multi ? [0] : Math.min(1, q.opts.length - 1);
+      });
+      answers.recognize = [0, 2, 5];
+      answers.weird = [0, 1];
+      answers.age = 2;
+      answers.weirdWorst = 0;
+    }
+    if (demoPrefill) prefillDemoAnswers();
     var order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });
     var pos = 0;
     var advanceTimer = null;
@@ -642,9 +654,11 @@
 
       $("backBtn").disabled = pos === 0;
       var nb = $("nextBtn");
-      if (q.multi) {
+      if (q.multi || demoPrefill) {
         nb.classList.remove("hidden");
-        nb.disabled = !(Array.isArray(answers[q.id]) && answers[q.id].length > 0);
+        nb.disabled = q.multi
+          ? !(Array.isArray(answers[q.id]) && answers[q.id].length > 0)
+          : !(typeof answers[q.id] === "number" && q.opts[answers[q.id]]);
       } else nb.classList.add("hidden");
 
       var card = $("qcard");
@@ -668,6 +682,7 @@
       answers[q.id] = i;
       renderSelectionOnly(q, i);
       clearTimeout(advanceTimer);
+      if (demoPrefill) { $("nextBtn").disabled = false; return; }
       advanceTimer = setTimeout(next, 220);
     }
 
@@ -1163,6 +1178,7 @@
 
       $("againBtn").addEventListener("click", function(){
         answers = {}; pos = 0;
+        if (demoPrefill) prefillDemoAnswers();
         order = QUESTIONS.filter(function(q){ return !q.conditional; }).map(function(q){ return q.id; });
         submissionRecord = null;
         window.__quizSubmission = null;

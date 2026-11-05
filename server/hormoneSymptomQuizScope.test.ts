@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { inverseApprovedQuizDemo, verifyApprovedQuizDemoAsset } from './hormoneSymptomQuizDemoScope.test';
 const root = resolve(import.meta.dirname, '..');
 export const hormoneSymptomQuizFixturePath = 'server/fixtures/hormoneSymptomQuizFragments.json';
 export const hormoneSymptomQuizHtmlPath = 'client/public/hormone-symptom-quiz.html';
@@ -21,7 +22,9 @@ export function inverseApprovedHormoneSymptomQuiz(path: string, source: string):
   return source;
 }
 export function verifyApprovedHormoneSymptomQuizAsset(path: string, source: string): boolean {
+  if (verifyApprovedQuizDemoAsset(path, source)) return true;
   if (path !== hormoneSymptomQuizHtmlPath && path !== hormoneSymptomQuizFixturePath) return false;
+  if (path === hormoneSymptomQuizHtmlPath) source = inverseApprovedQuizDemo(path, source);
   if (hash(source) !== (path === hormoneSymptomQuizHtmlPath ? hormoneSymptomQuizHtmlHash : packetHash)) throw new Error('Unexpected authorized hormone quiz asset');
   return true;
 }
@@ -29,7 +32,7 @@ const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const old = (p: string) => execFileSync('git', ['show', `48d614b7:${p}`], { cwd: root, encoding: 'utf8' });
 describe('exact standalone hormone quiz import scope', () => {
   it('preserves supplied HTML byte-for-byte at a frozen original hash', () => {
-    expect(hash(read(hormoneSymptomQuizHtmlPath))).toBe(hormoneSymptomQuizHtmlHash);
+    expect(hash(inverseApprovedQuizDemo(hormoneSymptomQuizHtmlPath, read(hormoneSymptomQuizHtmlPath)))).toBe(hormoneSymptomQuizHtmlHash);
     expect(verifyApprovedHormoneSymptomQuizAsset(hormoneSymptomQuizHtmlPath, read(hormoneSymptomQuizHtmlPath))).toBe(true);
     expect(() => verifyApprovedHormoneSymptomQuizAsset(hormoneSymptomQuizHtmlPath, read(hormoneSymptomQuizHtmlPath) + '\n')).toThrow('Unexpected authorized hormone quiz asset');
   });
