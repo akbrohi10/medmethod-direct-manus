@@ -1,3 +1,4 @@
+import { shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
@@ -123,14 +124,14 @@ describe("intake thank-you Step 1 SMS copy", () => {
     ])]
       .filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
-      .filter(path => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path))
+      .filter(path => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath].includes(path))
       .filter((path) => path && !path.endsWith(".test.ts"))
       // No thank-you/UI change: the separately verified GHL notification is backend-only.
       .filter(path => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(path))
       .filter(path => path !== latePatientInfoFixturePath)
       .filter(path => path !== introducedContinueGuidanceAssetPath)
       .filter(path => ![introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(path))
-      .filter(path => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath].includes(path) || inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
+      .filter(path => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath, "server/intakeSubmissionContract.ts"].includes(path) || inverseApprovedLatePatientInfo(path, readFileSync(resolve(root, path), "utf8")) !== baselineFile(path))
       .sort();
 
     // Homepage and Masterclass trust-row additions have complete inverse guards in their dedicated tests.

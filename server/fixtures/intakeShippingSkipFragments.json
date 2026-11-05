@@ -1,0 +1,79 @@
+{
+  "baseline": "5fcf1b75",
+  "files": {
+    "client/intake/index.html": [
+      {
+        "old": "address_line1:String(t.wAddressLine1??``).trim(),address_line2:String(t.wAddressLine2??``).trim(),city:String(t.wAddressCity??``).trim(),zip:String(t.wAddressZip??``).trim(),",
+        "new": "address_line1:t._shippingSkipped===true?``:String(t.wAddressLine1??``).trim(),address_line2:t._shippingSkipped===true?``:String(t.wAddressLine2??``).trim(),city:t._shippingSkipped===true?``:String(t.wAddressCity??``).trim(),zip:t._shippingSkipped===true?``:String(t.wAddressZip??``).trim(),",
+        "count": 1
+      },
+      {
+        "old": "i(`Shipping address`,[t.wAddressLine1,t.wAddressLine2,t.wAddressCity,t.state,t.wAddressZip].filter(e=>typeof e===`string`&&e.trim()).join(`, `),void 0,`wShippingAddress`)",
+        "new": "i(`Shipping address`,t._shippingSkipped===true?`Skipped for now`:[t.wAddressLine1,t.wAddressLine2,t.wAddressCity,t.state,t.wAddressZip].filter(e=>typeof e===`string`&&e.trim()).join(`, `),void 0,`wShippingAddress`)",
+        "count": 1
+      },
+      {
+        "old": "const address=[answers.wAddressLine1,answers.wAddressLine2,answers.wAddressCity,answers.state,answers.wAddressZip].filter(value=>typeof value===\"string\"&&value.trim()).join(\", \");",
+        "new": "const address=answers._shippingSkipped===true?\"Skipped for now\":[answers.wAddressLine1,answers.wAddressLine2,answers.wAddressCity,answers.state,answers.wAddressZip].filter(value=>typeof value===\"string\"&&value.trim()).join(\", \");",
+        "count": 1
+      },
+      {
+        "old": "if(key===\"phone\"&&Fe(previous.phone)!==Fe(value))",
+        "new": "if(screen.type===\"shippingAddress\"&&[\"wAddressLine1\",\"wAddressLine2\",\"wAddressCity\",\"wAddressZip\",\"state\"].includes(key))delete next._shippingSkipped;if(key===\"phone\"&&Fe(previous.phone)!==Fe(value))",
+        "count": 1
+      },
+      {
+        "old": "const index=screens.findIndex(item=>item.id===screen.id);if(index<screens.length-1){setHistory",
+        "new": "if(screen.type===\"shippingAddress\")setAnswers(previous=>{const next={...previous};delete next._shippingSkipped;return next});const index=screens.findIndex(item=>item.id===screen.id);if(index<screens.length-1){setHistory",
+        "count": 1
+      },
+      {
+        "old": "const goBack=()=>{",
+        "new": "const skipShipping=()=>{if(screen?.type!==\"shippingAddress\"||submittingRef.current||uploadBusy)return;const index=screens.findIndex(item=>item.id===screen.id);if(index<0||index>=screens.length-1)return;setFormsReady(false);setAnswers(previous=>{const next={...previous,_shippingSkipped:true};delete next.wConsent;delete next.wDecline;delete next.wConsentAt;return next});setHistory(previous=>[...previous,screen.id]);setCurrentId(screens[index+1].id);setError(\"\");window.scrollTo({top:0,behavior:\"smooth\"})};const goBack=()=>{",
+        "count": 1
+      },
+      {
+        "old": "+(screen.type===\"glp1Group\"?\"glp1-group-footer\":\"\"),children:",
+        "new": "+(screen.type===\"glp1Group\"?\"glp1-group-footer\":\"\")+\" \"+(screen.type===\"shippingAddress\"?\"shipping-skip-footer\":\"\"),children:",
+        "count": 1
+      },
+      {
+        "old": "(0,M.jsx)(screen.type===\"glp1Group\"?\"div\":M.Fragment,{",
+        "new": "screen.type===\"shippingAddress\"&&(0,M.jsx)(\"button\",{className:\"secondary shipping-skip\",type:\"button\",onClick:skipShipping,disabled:submitting||uploadBusy,children:\"Skip for now\"}),(0,M.jsx)(screen.type===\"glp1Group\"?\"div\":M.Fragment,{",
+        "count": 1
+      },
+      {
+        "old": "@media(prefers-reduced-motion:reduce){.mmd-progress-fill{transition:none}}\n</style>",
+        "new": "@media(prefers-reduced-motion:reduce){.mmd-progress-fill{transition:none}}\n/* Shipping-only optional deferral action; existing primary validation is retained */\n.shipping-skip-footer .footer-inner{flex-wrap:wrap;justify-content:flex-end;gap:12px}\n.footer.shipping-skip-footer .footer-inner>button.primary{width:auto;flex:none}\n.shipping-skip-footer .intake-continue-guidance{flex-basis:100%;width:100%}\n.shipping-skip-footer .shipping-skip{min-width:145px;min-height:48px;color:#0a5151;border:1.5px solid #8dafaa;background:transparent;font-weight:600;padding:14px 22px}\n.shipping-skip-footer .shipping-skip:focus-visible{outline:3px solid #0e7c7b;outline-offset:3px}\n.shipping-skip-footer .shipping-skip:disabled{opacity:.35;cursor:not-allowed}\n@media(max-width:600px){.shipping-skip-footer .footer-inner{gap:10px}.shipping-skip-footer .shipping-skip,.footer.shipping-skip-footer .footer-inner>button.primary{min-width:0;flex:1;padding:14px 12px}}\n@media(prefers-color-scheme:dark){.shipping-skip-footer .shipping-skip{color:#d5f2ef;border-color:#8fcfc5}.shipping-skip-footer .shipping-skip:focus-visible{outline-color:#8fcfc5}}\n</style>",
+        "count": 1
+      },
+      {
+        "old": "return{event:`mmd_intake.submitted`,schema_version:`1.0`",
+        "new": "if(t._shippingSkipped===true)a.wAddressSkipped=true;return{event:`mmd_intake.submitted`,schema_version:`1.0`",
+        "count": 1
+      }
+    ],
+    "server/intakeSubmissionContract.ts": [
+      {
+        "old": "const patientSchema = z.object({",
+        "new": "const completePatientSchema = z.object({",
+        "count": 1
+      },
+      {
+        "old": "});\nconst consentSchema = z.object({",
+        "new": "});\n// Shipping may be deferred, but only an entirely blank address is accepted.\n// The existing complete-address and patient identity/state validation stays intact.\nconst patientSchema = completePatientSchema.or(completePatientSchema.extend({\n  address_line1: z.literal(\"\"), address_line2: z.literal(\"\").default(\"\"),\n  city: z.literal(\"\"), zip: z.literal(\"\"),\n}));\nconst consentSchema = z.object({",
+        "count": 1
+      },
+      {
+        "old": "  const draft = parsed.data;\n  const selected = draft.answers.w.w04;",
+        "new": "  const draft = parsed.data;\n  const skipped = draft.answers.w.wAddressSkipped;\n  if (skipped !== undefined && typeof skipped !== \"boolean\") throw new Error(\"The completed intake or consent information is invalid. Please review the form.\");\n  const blankAddress = [draft.patient.address_line1, draft.patient.address_line2, draft.patient.city, draft.patient.zip].every(value => value === \"\");\n  if (skipped === true ? !blankAddress : !completePatientSchema.safeParse(draft.patient).success) throw new Error(\"The completed intake or consent information is invalid. Please review the form.\");\n  const selected = draft.answers.w.w04;",
+        "count": 1
+      },
+      {
+        "old": "[\"ft\", \"inch\", \"lb\", \"wConsent\", \"wDecline\", \"treatment_interest\"].includes(key)",
+        "new": "[\"ft\", \"inch\", \"lb\", \"wConsent\", \"wDecline\", \"treatment_interest\", \"wAddressSkipped\"].includes(key)",
+        "count": 1
+      }
+    ]
+  }
+}

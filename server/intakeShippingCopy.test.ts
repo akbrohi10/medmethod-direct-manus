@@ -1,3 +1,4 @@
+import { shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
@@ -73,7 +74,8 @@ describe("Weight Care shipping screen exact copy", () => {
     const scope = ["client", "server", "shared", "package.json", "pnpm-lock.yaml", "vite.config.ts", "drizzle"];
     const paths = [...execFileSync("git", ["diff", "--name-only", "b69c2aa2", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n")].filter(Boolean)
       .filter(p => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === p) || inverseApprovedThankYouWording(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }))
-      .filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(p));
+      .filter(p => !/\.test\.[cm]?[jt]sx?$/.test(p) && !["server/fixtures/intakeLatePatientInfoFragments.json", introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath, thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath].includes(p))
+      .filter(p => p !== "server/intakeSubmissionContract.ts" || inverseApprovedIntroDetailsPhoto(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }));
     expect(inverseApprovedIntroDetailsPhoto(introDetailsPhotoRegistrationPath, readFileSync(resolve(root, introDetailsPhotoRegistrationPath), "utf8"))).toBe(execFileSync("git", ["show", `b69c2aa2:${introDetailsPhotoRegistrationPath}`], { cwd: root, encoding: "utf8" }));
     const remaining = paths.filter(p => p !== introDetailsPhotoRegistrationPath || inverseApprovedIntroDetailsPhoto(p, readFileSync(resolve(root, p), "utf8")) !== execFileSync("git", ["show", `b69c2aa2:${p}`], { cwd: root, encoding: "utf8" }));
     expect([...new Set(remaining)]).toEqual([path]);

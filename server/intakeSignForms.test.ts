@@ -1,3 +1,4 @@
+import { inverseApprovedShippingSkip } from "./intakeShippingSkipScope.test";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
@@ -31,6 +32,7 @@ type CanonicalFixture = {
 const root = resolve(import.meta.dirname, "..");
 const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const intake = read("client/intake/index.html");
+const beforeShippingSkip = inverseApprovedShippingSkip("client/intake/index.html", intake);
 const dataSource = read("client/public/intake/sign-forms-data.js");
 const uiSource = read("client/public/intake/sign-forms-ui.js");
 const cssSource = read("client/public/intake/sign-forms.css");
@@ -269,6 +271,6 @@ describe("Weight Care Sign Your Forms", () => {
     const builder = builderSource();
     expect(builder).toContain("glp1_consent:t.wConsent===!0");
     expect(builder).not.toMatch(/signature|formsReady|signForms|electronicAgreement|relationship/i);
-    expect(createHash("sha256").update(builder).digest("hex")).toBe("59a3ec57205a52cf44fa62e906aa522c7b4ab26a7f5815e652079b810a03ead3");
+    expect(createHash("sha256").update(namedFunction(beforeShippingSkip, "be")).digest("hex")).toBe("59a3ec57205a52cf44fa62e906aa522c7b4ab26a7f5815e652079b810a03ead3");
   });
 });

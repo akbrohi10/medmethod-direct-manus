@@ -1,3 +1,4 @@
+import { shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
@@ -113,14 +114,14 @@ describe("Masterclass MSCP trust row", () => {
     ])]
       .filter(Boolean)
       .filter(file => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === file) || inverseApprovedThankYouWording(file, read(file)) !== atBaseline(file))
-      .filter(file => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(file))
+      .filter(file => ![thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath].includes(file))
       .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
       // Separately authorized notification backend, covered by the dedicated GHL regressions.
       .filter(file => !["server/_core/env.ts", "server/intakePaymentRoutes.ts", "server/ghlIntakeWebhookPayload.ts", "server/ghlIntakeWebhookQueue.ts"].includes(file))
       .filter(file => file !== latePatientInfoFixturePath)
       .filter(file => file !== introducedContinueGuidanceAssetPath)
       .filter(file => ![introDetailsPhotoFixturePath, introducedDoctorPortraitAssetPath].includes(file))
-      .filter(file => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath].includes(file) || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file));
+      .filter(file => !["client/intake/index.html", "client/public/intake/sign-forms-ui.js", introDetailsPhotoRegistrationPath, "server/intakeSubmissionContract.ts"].includes(file) || inverseApprovedLatePatientInfo(file, read(file)) !== atBaseline(file));
 
     expect(changedProductionFiles).toEqual([pagePath]);
   });

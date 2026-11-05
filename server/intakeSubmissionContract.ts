@@ -13,7 +13,7 @@ export const LEGACY_VIDEO_VISIT_AMOUNT = "39.00" as const;
 export const VIDEO_VISIT_DESCRIPTION = "optional one-time medical-weight-loss Zoom video visit";
 
 const isoTimestamp = z.string().datetime({ offset: true });
-const patientSchema = z.object({
+const completePatientSchema = z.object({
   first_name: z.string().trim().min(1).max(100), last_name: z.string().trim().min(1).max(100),
   dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), state: z.string().regex(/^[A-Z]{2}$/),
   state_name: z.string().trim().min(1).max(80), email: z.string().email().max(254),
@@ -23,6 +23,12 @@ const patientSchema = z.object({
   city: z.string().trim().min(1).max(100),
   zip: z.string().regex(/^\d{5}$/),
 });
+// Shipping may be deferred, but only an entirely blank address is accepted.
+// The existing complete-address and patient identity/state validation stays intact.
+const patientSchema = completePatientSchema.or(completePatientSchema.extend({
+  address_line1: z.literal(""), address_line2: z.literal("").default(""),
+  city: z.literal(""), zip: z.literal(""),
+}));
 const consentSchema = z.object({
   terms_accepted: z.literal(true), final_submission_acknowledged: z.literal(true),
   sms_opt_in: z.boolean(), sms_opt_in_at: isoTimestamp.nullable(),
@@ -97,6 +103,10 @@ export function validateIntakeDraft(value: unknown): IntakeDraft {
   const parsed = draftSchema.safeParse(value);
   if (!parsed.success) throw new Error("The completed intake or consent information is invalid. Please review the form.");
   const draft = parsed.data;
+  const skipped = draft.answers.w.wAddressSkipped;
+  if (skipped !== undefined && typeof skipped !== "boolean") throw new Error("The completed intake or consent information is invalid. Please review the form.");
+  const blankAddress = [draft.patient.address_line1, draft.patient.address_line2, draft.patient.city, draft.patient.zip].every(value => value === "");
+  if (skipped === true ? !blankAddress : !completePatientSchema.safeParse(draft.patient).success) throw new Error("The completed intake or consent information is invalid. Please review the form.");
   const selected = draft.answers.w.w04;
   if (typeof selected !== "string") throw new Error("The treatment selection is missing.");
   const option = treatmentCatalog.glp1.options.find(o => o.value === selected);
@@ -109,7 +119,7 @@ export function validateIntakeDraft(value: unknown): IntakeDraft {
   }
   else if (!/not.?sure|recommend|unsure/i.test(selected)) throw new Error("The treatment selection is invalid.");
   for (const key of Object.keys(draft.answers.w)) {
-    if (!/^w\d+[A-Za-z]*$/.test(key) && !["ft", "inch", "lb", "wConsent", "wDecline", "treatment_interest"].includes(key)) {
+    if (!/^w\d+[A-Za-z]*$/.test(key) && !["ft", "inch", "lb", "wConsent", "wDecline", "treatment_interest", "wAddressSkipped"].includes(key)) {
       throw new Error("The Weight Care answer fields are invalid.");
     }
   }

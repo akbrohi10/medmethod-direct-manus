@@ -1,3 +1,4 @@
+import { inverseApprovedShippingSkip } from "./intakeShippingSkipScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -8,6 +9,7 @@ import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFra
 
 const root = resolve(import.meta.dirname, "..");
 const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const beforeShippingSkip = inverseApprovedShippingSkip("client/intake/index.html", source);
 const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const old = (path: string) => execFileSync("git", ["show", `c7a19865:${path}`], { cwd: root, encoding: "utf8" });
 const baseline = old("client/intake/index.html");
@@ -62,7 +64,7 @@ describe("Weight Care final patient-info submission wording", () => {
     expect(source).toContain('href:`https://medmethoddirect.com/terms`');
     expect(source).toContain('href:`https://medmethoddirect.com/privacy-policy`');
     expect(source).toContain('children:[`I accept the `');
-    expect(fn(source, "be")).toBe(fn(baseline, "be"));
+    expect(fn(beforeShippingSkip, "be")).toBe(fn(baseline, "be"));
   });
 
   it("uses exact free/video button wording and next-page note, and retains authoritative signing locks and submission transport", () => {

@@ -1,3 +1,4 @@
+import { inverseApprovedShippingSkip, shippingSkipFixturePath } from "./intakeShippingSkipScope.test";
 import { progressFixturePath, progressAssetPath } from "./intakeProgressScope.test";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
@@ -67,6 +68,7 @@ export function inverseApprovedShippingApprovalWording(path: string, source: str
 
 /** Normalize two signing strings and four shipping fragments, then reverse the original exact intro/photo packet. */
 export function inverseApprovedIntroDetailsPhoto(path: string, source: string): string {
+  if (path !== intakePath) source = inverseApprovedShippingSkip(path, source);
   if (approvedThankYouWordingPaths.some(approvedPath => approvedPath === path)) return inverseApprovedThankYouWording(path, source);
   if (path === intakePath) source = inverseApprovedShippingApprovalWording(path, source);
   const fragments = path === intakePath ? packet.html_fragments : path === introDetailsPhotoRegistrationPath ? packet.registration_fragments : [];
@@ -126,7 +128,8 @@ describe("intro details copy and doctor photo exact production scope", () => {
       ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).trim().split("\n"),
     ].filter(Boolean)
       .filter(path => !approvedThankYouWordingPaths.some(approvedPath => approvedPath === path) || inverseApprovedThankYouWording(path, read(path)) !== old(path))
-      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath].includes(path));
+      .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path) && ![introDetailsPhotoFixturePath, "server/fixtures/intakeLatePatientInfoFragments.json", thankYouWordingFixturePath, glp1CombinedFixturePath, glp1CombinedAssetPath, progressFixturePath, progressAssetPath, shippingSkipFixturePath].includes(path))
+      .filter(path => path !== "server/intakeSubmissionContract.ts" || inverseApprovedIntroDetailsPhoto(path, read(path)) !== old(path));
     expect([...new Set(paths)].sort()).toEqual([intakePath, introDetailsPhotoRegistrationPath, introducedDoctorPortraitAssetPath].sort());
   });
 });
