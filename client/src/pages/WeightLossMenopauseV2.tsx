@@ -140,11 +140,13 @@ export default function WeightLossMenopauseV2() {
         </dl>
         <details className="compact-membership-details">
           <summary><span>See membership benefits</span><svg className="compact-membership-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
+          <p><strong>Best value for ongoing care</strong><br />Best if you're on treatment and refilling.</p>
           <ul className="compact-membership-benefits">
             <li><span aria-hidden="true">✓</span><span><strong>Unlimited text visits</strong> with your doctor</span></li>
-            <li><span aria-hidden="true">✓</span><span><strong>All refill visits included</strong>, with no per-visit fees</span></li>
-            <li><span aria-hidden="true">✓</span><span>Dose-adjustment and side-effect questions included</span></li>
-            <li><span aria-hidden="true">✓</span><span>Weight loss, hormones and menopause in one plan</span></li>
+            <li><span aria-hidden="true">✓</span><span><strong>All refill visits included</strong>, no per-visit fees</span></li>
+            <li><span aria-hidden="true">✓</span><span><strong>Video visits just $49</strong> <s>$97</s></span></li>
+            <li><span aria-hidden="true">✓</span><span>Dose adjustments and side-effect questions, any time</span></li>
+            <li><span aria-hidden="true">✓</span><span>Weight loss, hormones and menopause, all in one plan</span></li>
           </ul>
         </details>
         <p className="process-medication-note">Medication costs extra, if prescribed.</p>

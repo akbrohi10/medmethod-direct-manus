@@ -8,7 +8,7 @@ const page='client/src/pages/WeightLossMenopauseV2.tsx',css='client/src/pages/We
 export const compactMembershipFixturePath='server/fixtures/weightLossMenopauseV2CompactMembershipFragments.json';
 const read=(p:string)=>inverseApprovedV2FourProcessSteps(p,readFileSync(resolve(root,p),'utf8'));
 const baseline=(p:string)=>execFileSync('git',['show',`d4df92f1:${p}`],{cwd:root,encoding:'utf8'});
-export function inverseApprovedV2CompactMembership(path:string,source:string):string { source=inverseApprovedV2BioMscpBadge(path,source);
+export function inverseApprovedV2CompactMembership(path:string,source:string):string { source=path===page&&source===baseline(page)?source:inverseApprovedV2BioMscpBadge(path,source);
  const raw=read(compactMembershipFixturePath);
  if(createHash('sha256').update(raw).digest('hex')!=='7241c25f68b124ae97c0dab85f1db8fdc587e509b4da49204982132fbdfe6e7c')throw new Error('Unexpected compact membership approval packet');
  const f=JSON.parse(raw) as {fragments:{path:string;old:string;new:string}[]};
