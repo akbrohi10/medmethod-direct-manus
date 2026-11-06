@@ -6,7 +6,8 @@ import { inverseRemovedV2CareSection, readCareScopeFile as readCareScopeFileBefo
 import { inverseV2FooterLogo } from './fixtures/v2FooterLogoScope';
 import { inverseV2TestimonialReadMore } from './fixtures/v2TestimonialReadMoreScope';
 import { inverseV2TestimonialTextAction } from "./fixtures/v2TestimonialTextActionScope";
-const readCareScopeFile = (path: string) => inverseV2FooterLogo(path, inverseV2TestimonialReadMore(path, inverseV2TestimonialTextAction(path, readCareScopeFileBeforeFooter(path))));
+import { inverseV2TestimonialAttribution } from "./fixtures/v2TestimonialAttributionScope";
+const readCareScopeFile = (path: string) => inverseV2FooterLogo(path, inverseV2TestimonialReadMore(path, inverseV2TestimonialTextAction(path, inverseV2TestimonialAttribution(path, readCareScopeFileBeforeFooter(path)))));
 const root = resolve(import.meta.dirname, '..');
 const before = (p: string) => execFileSync('git', ['show', packet.baseline + ':' + p], { cwd: root, encoding: 'utf8' });
 describe('V2 care-plan section — confirmed deletion only', () => {

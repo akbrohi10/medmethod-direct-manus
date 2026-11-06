@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import { describe, it, expect } from "vitest";
 import { inverseV2TestimonialTextAction } from "./fixtures/v2TestimonialTextActionScope";
+import { inverseV2TestimonialAttribution } from "./fixtures/v2TestimonialAttributionScope";
 
 const root = resolve(import.meta.dirname, "..");
 const read = (p: string) => {
@@ -16,7 +17,7 @@ const read = (p: string) => {
       if (!count) throw new Error("Unexpected incomplete source read");
       n += count;
     }
-    return b.toString("utf8");
+    return inverseV2TestimonialAttribution(p, b.toString("utf8"));
   } finally {
     closeSync(fd);
   }
@@ -43,7 +44,7 @@ describe("V2 testimonial text action — confirmed borderless underlined control
     for (const p of [page, css]) expect(inverseV2TestimonialTextAction(p, read(p))).toBe(before(p));
     const scope = ["client", "server", "shared", "drizzle", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml"];
     const changed = [...execFileSync("git", ["diff", "--name-only", "6372b9f4", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n")].filter(p => p && !p.endsWith(".test.ts")).filter(p => {
-      if (p !== helper) return true;
+      if (p === "server/fixtures/v2TestimonialAttributionScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("289a41016d926e29ea901349023bb373dfd7e17fde3c427e57fdbb63ffd7a18c"); return false; } if (p !== helper) return true;
       expect(createHash("sha256").update(read(p)).digest("hex")).toBe(helperSHA);
       return false;
     });

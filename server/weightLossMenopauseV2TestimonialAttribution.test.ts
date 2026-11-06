@@ -1,0 +1,125 @@
+import { openSync, readSync, fstatSync, closeSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
+import { describe, it, expect } from "vitest";
+import { inverseV2TestimonialAttribution } from "./fixtures/v2TestimonialAttributionScope";
+
+const root = resolve(import.meta.dirname, "..");
+const read = (p: string) => {
+  const fd = openSync(resolve(root, p), "r");
+  try {
+    const b = Buffer.alloc(fstatSync(fd).size);
+    let n = 0;
+    while (n < b.length) {
+      const count = readSync(fd, b, n, b.length - n, n);
+      if (!count) throw new Error("Unexpected incomplete source read");
+      n += count;
+    }
+    return b.toString("utf8");
+  } finally { closeSync(fd); }
+};
+const before = (p: string) => execFileSync("git", ["show", "946928b8:" + p], { cwd: root, encoding: "utf8" });
+const page = "client/src/pages/WeightLossMenopauseV2.tsx";
+const css = "client/src/pages/WeightLossMenopauseV2.css";
+const helper = "server/fixtures/v2TestimonialAttributionScope.ts";
+const helperSHA = "289a41016d926e29ea901349023bb373dfd7e17fde3c427e57fdbb63ffd7a18c";
+const names = ["Salma, 47", "Michelle, 52", "Huda, 45", "Hufsa, 58", "Jennifer, 49"];
+const rating = '<span className="testimonial-rating" aria-label="5 out of 5 stars">★★★★★</span>';
+const header = (name: string) => '<div className="testimonial-card-header"><span className="testimonial-author">' + name + '</span>' + rating + '</div>';
+const style = '\n/* V2 testimonials only: attribution and stars share one compact top row. */\n.wlm-v2-content #testimonials .testimonial-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }\n.wlm-v2-content #testimonials .testimonial-author { min-width: 0; color: var(--muted); font-family: inherit; font-size: .78rem; font-weight: 700; }\n.wlm-v2-content #testimonials .testimonial-card-header .testimonial-rating { flex: 0 0 auto; margin-bottom: 0; }\n';
+const cards = (s: string) => [...s.matchAll(/<article className="testimonial-card">[\s\S]*?<\/article>/g)].map(m => m[0]);
+const blockquote = (s: string) => s.match(/<blockquote>[\s\S]*?<\/blockquote>/)?.[0] ?? "";
+const literals = (s: string) => [...s.matchAll(/\{("(?:[^"\\]|\\.)*")\}/g)].map(m => JSON.parse(m[1]));
+
+describe("V2 testimonial attribution — exact compact top row only", () => {
+  it("moves only the five exact attributions and restores both full production files to 946928b8 with no other production change", () => {
+    const baseline = before(page), previous = cards(baseline), current = read(page);
+    expect(previous).toHaveLength(5);
+    let expected = baseline;
+    previous.forEach((card, i) => {
+      expect(card.split(rating).length - 1).toBe(1);
+      expect(card.split('<footer>' + names[i] + '</footer>').length - 1).toBe(1);
+      const next = card.replace(rating, header(names[i])).replace('<footer>' + names[i] + '</footer>', "");
+      expect(current.split(next).length - 1).toBe(1);
+      expected = expected.replace(card, next);
+    });
+    expect(current).toBe(expected);
+    for (const p of [page, css]) expect(inverseV2TestimonialAttribution(p, read(p))).toBe(before(p));
+    const scope = ["client", "server", "shared", "drizzle", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml"];
+    const changed = [...execFileSync("git", ["diff", "--name-only", "946928b8", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n")].filter(p => p && !p.endsWith(".test.ts")).filter(p => {
+      if (p !== helper) return true;
+      expect(createHash("sha256").update(read(p)).digest("hex")).toBe(helperSHA);
+      return false;
+    });
+    expect([...new Set(changed)].sort()).toEqual([css, page].sort());
+  });
+
+  it("keeps five names and ages left with five existing purple stars right in each top row, no footers, and every story, headline, disclosure and native control unchanged", () => {
+    const current = cards(read(page)), previous = cards(before(page));
+    expect(current).toHaveLength(5);
+    expect(previous).toHaveLength(5);
+    expect(current.map(c => c.match(/<span className="testimonial-author">([^<]+)<\/span>/)?.[1])).toEqual(names);
+    current.forEach((card, i) => {
+      expect(card.startsWith('<article className="testimonial-card">' + header(names[i]) + '<blockquote>')).toBe(true);
+      expect(card.split(header(names[i])).length - 1).toBe(1);
+      expect(card.match(/className="testimonial-card-header"/g)).toHaveLength(1);
+      expect(card.match(/className="testimonial-author"/g)).toHaveLength(1);
+      expect(card.split(rating).length - 1).toBe(1);
+      expect(card).not.toContain('<footer');
+      expect(card.endsWith('</blockquote></article>')).toBe(true);
+      expect(blockquote(card)).not.toBe("");
+      expect(blockquote(card)).toBe(blockquote(previous[i]));
+      expect(literals(card)).toEqual(literals(previous[i]));
+      expect(card.match(/<strong className="testimonial-story-title">/g)).toHaveLength(1);
+      expect(card.match(/<details className="testimonial-story"/g)).toHaveLength(1);
+      expect(card).toContain('<details className="testimonial-story" onToggle={event => { const details = event.currentTarget; details.querySelector("summary")?.setAttribute("aria-expanded", String(details.open)); }}>');
+      expect(card.match(/<summary role="button" aria-expanded="false">/g)).toHaveLength(1);
+      expect(card).toContain('<span className="testimonial-read-more">Read more</span><span className="testimonial-read-less">Read less</span><span className="testimonial-story-context"> — ' + names[i] + '</span></summary><div className="testimonial-story-rest">');
+      expect(card.match(/<details[\s\S]*?<\/details>/)?.[0]).toBe(previous[i].match(/<details[\s\S]*?<\/details>/)?.[0]);
+      expect(literals(card.replace(/<details[\s\S]*?<\/details>/, ""))).toHaveLength(2);
+      expect(card).not.toMatch(/<svg|<details[^>]+\sopen(?:[\s=>])|\sname=|onClick|useState|fetch\(|line-clamp|truncate|substring|slice\(/);
+    });
+    expect(read(page).replace(current.join("\n"), "CARDS")).toBe(before(page).replace(previous.join("\n"), "CARDS"));
+  });
+
+  it("appends exactly three V2 testimonial CSS rules for one compact left/right row and preserves every prior CSS byte, spacing, typography, colors and control style", () => {
+    const current = read(css), baseline = before(css);
+    expect(current).toBe(baseline + style);
+    expect(current.split(style).length - 1).toBe(1);
+    expect(style.match(/\{/g)).toHaveLength(3);
+    expect(style.match(/\}/g)).toHaveLength(3);
+    for (const line of style.trim().split("\n").slice(1)) expect(line.startsWith('.wlm-v2-content #testimonials ')).toBe(true);
+    expect(style).toContain('display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px;');
+    expect(style).toContain('min-width: 0; color: var(--muted); font-family: inherit; font-size: .78rem; font-weight: 700;');
+    expect(style).toContain('.testimonial-card-header .testimonial-rating { flex: 0 0 auto; margin-bottom: 0; }');
+    expect(style).not.toMatch(/padding:|line-height:|color: #|#doctor|#how-it-works|\.hero|\.mobile|#faq|@media|order:|flex-direction:|flex-wrap:/);
+    for (const token of ['padding-top: 14px; padding-bottom: 14px', 'testimonial-rating { margin-bottom: 6px', 'testimonial-story-title { display: block; margin-bottom: 6px', 'blockquote { margin-bottom: 4px', 'testimonial-story { margin-top: 4px', 'min-height: 44px', 'padding: 8px 0; border: 0; border-radius: 0; text-decoration: underline', 'color: #7A1E7E', 'font-size: 14px', 'outline: 3px solid #7A1E7E', '.testimonial-read-less { display: none; }', '.testimonial-story[open] .testimonial-read-more { display: none; }', '.testimonial-story[open] .testimonial-read-less { display: inline; }', 'testimonial-story-context { position: absolute; width: 1px; height: 1px', 'prefers-reduced-motion']) expect(baseline).toContain(token);
+    expect(inverseV2TestimonialAttribution(css, current)).toBe(baseline);
+  });
+
+  it("freezes the pure non-registering helper, rejects missing, repeated, mixed and tampered attribution fragments, is idempotent and preserves unrelated edits and other paths", () => {
+    const source = read(helper), p = read(page), s = read(css), currentCards = cards(p), previousCards = cards(before(page));
+    expect(createHash("sha256").update(source).digest("hex")).toBe(helperSHA);
+    expect(source).not.toMatch(/\b(?:describe|it|test)\s*\(|\bimport\s|\brequire\s*\(|readFile|writeFile|execFile|fetch\(|process\.|https?:\/\//);
+    for (const bad of [p.replace(currentCards[0], ""), p + currentCards[0], p.replace(currentCards[0], previousCards[0]), p.replace(header(names[0]), ""), p.replace(header(names[0]), header(names[0]) + header(names[0])), p.replace('testimonial-author">Salma, 47', 'testimonial-author">Salma, 99'), p.replace('testimonial-card-header', 'testimonial-card-header-tampered'), p.replace(rating, rating.replace('5 out of 5 stars', '4 out of 5 stars')), p.replace(rating, rating.replace('★★★★★', '★★★★')), p.replace('</blockquote></article>', '</blockquote><footer>Salma, 47</footer></article>'), p.replace('</blockquote></article>', '</blockquote><div></div></article>'), p.replace(currentCards[0], "SWAP_CARD").replace(currentCards[1], currentCards[0]).replace("SWAP_CARD", currentCards[1])]) expect(() => inverseV2TestimonialAttribution(page, bad)).toThrow();
+    for (const token of ['display: flex', 'align-items: center', 'justify-content: space-between', 'gap: 12px', 'margin-bottom: 6px', 'min-width: 0', 'color: var(--muted)', 'font-family: inherit', 'font-size: .78rem', 'font-weight: 700', 'flex: 0 0 auto', 'margin-bottom: 0']) expect(() => inverseV2TestimonialAttribution(css, s.replace(style, style.replace(token, "UNAPPROVED")))).toThrow();
+    for (const bad of [s + style, s.replace(style.split("\n")[2] + "\n", ""), s.replace(style, style.replace('testimonial-author', 'testimonial-author-tampered'))]) expect(() => inverseV2TestimonialAttribution(css, bad)).toThrow();
+    for (const path of [page, css]) {
+      const current = read(path), original = before(path);
+      expect(inverseV2TestimonialAttribution(path, original)).toBe(original);
+      expect(inverseV2TestimonialAttribution(path, inverseV2TestimonialAttribution(path, current))).toBe(original);
+      expect(inverseV2TestimonialAttribution(resolve(root, path), current)).toBe(original);
+      expect(inverseV2TestimonialAttribution(path.replaceAll("/", "\\"), current)).toBe(original);
+      expect(inverseV2TestimonialAttribution(path, current + "\nUNAPPROVED")).toBe(original + "\nUNAPPROVED");
+    }
+    const storyEdit = p.replace('I finally started feeling like myself again.', 'UNAPPROVED STORY');
+    expect(inverseV2TestimonialAttribution(page, storyEdit)).toBe(before(page).replace('I finally started feeling like myself again.', 'UNAPPROVED STORY'));
+    expect(inverseV2TestimonialAttribution(page, storyEdit)).not.toBe(before(page));
+    expect(inverseV2TestimonialAttribution(css, s.replace('padding-top: 14px', 'padding-top: 15px'))).toBe(before(css).replace('padding-top: 14px', 'padding-top: 15px'));
+    expect(inverseV2TestimonialAttribution(css, s.replace('padding-top: 14px', 'padding-top: 15px'))).not.toBe(before(css));
+    expect(inverseV2TestimonialAttribution('other.ts', 'unchanged')).toBe('unchanged');
+    expect(inverseV2TestimonialAttribution('client/src/pages/WeightLossMenopause.tsx', p)).toBe(p);
+    expect(inverseV2TestimonialAttribution('client/src/pages/WeightLossMenopause.css', s)).toBe(s);
+  });
+});

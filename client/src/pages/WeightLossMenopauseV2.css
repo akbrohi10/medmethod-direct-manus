@@ -675,3 +675,8 @@
 .wlm-v2-content #testimonials .testimonial-story[open] .testimonial-story-chevron { transform: rotate(180deg); }
 .wlm-v2-content #testimonials .testimonial-story-rest { margin-top: 12px; }
 @media (prefers-reduced-motion: reduce) { .wlm-v2-content #testimonials .testimonial-story-chevron { transition: none; } }
+
+/* V2 testimonials only: attribution and stars share one compact top row. */
+.wlm-v2-content #testimonials .testimonial-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.wlm-v2-content #testimonials .testimonial-author { min-width: 0; color: var(--muted); font-family: inherit; font-size: .78rem; font-weight: 700; }
+.wlm-v2-content #testimonials .testimonial-card-header .testimonial-rating { flex: 0 0 auto; margin-bottom: 0; }
