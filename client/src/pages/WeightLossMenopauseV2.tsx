@@ -123,10 +123,11 @@ export default function WeightLossMenopauseV2() {
       <span className="section-kicker">How it works</span>
       <h2 id="process-pricing-title"><span>Your doctor.</span><span>One text away.</span></h2>
       <p className="process-pricing-lead">Start with a 5–10 minute intake.</p>
-      <ol className="process-pricing-steps">
-        <li><span className="process-step-number" aria-hidden="true">1</span><div><h3>Fill out your intake</h3><p>Tell us about your health and goals.</p></div></li>
-        <li><span className="process-step-number" aria-hidden="true">2</span><div><h3>Text with your doctor</h3><p>Your doctor reviews your intake, then discusses your options with you.</p></div></li>
-        <li><span className="process-step-number" aria-hidden="true">3</span><div><h3>Make a plan together</h3><p>Agree on the next steps that are right for you.</p></div></li>
+      <ol className="process-pricing-steps" data-v2-four-process-steps>
+        <li><span className="process-step-number" aria-hidden="true">1</span><div><h3>Take the free assessment</h3><p>A 5–10 minute intake about your health and goals. Or start with our <a href="/hormone-symptom-quiz" style={{ color: "#7A1E7E", textDecoration: "underline", textUnderlineOffset: 3 }}>quick quiz</a>.</p><small style={{ display: "block", marginTop: 8, color: "#7A1E7E", fontSize: 14, fontWeight: 700 }}>FREE</small></div></li>
+        <li><span className="process-step-number" aria-hidden="true">2</span><div><h3>Text with your doctor</h3><p>Your doctor reviews your assessment and talks through your options, with 7 days of follow-up messaging.</p><small style={{ display: "block", marginTop: 8, color: "#7A1E7E", fontSize: 14, fontWeight: 700 }}>FREE</small></div></li>
+        <li><span className="process-step-number" aria-hidden="true">3</span><div><h3>Start your treatment</h3><p>If prescribed, medication is shipped to your door. Want to meet face to face first? Add a video visit.</p><small style={{ display: "block", marginTop: 8, color: "#7A1E7E", fontSize: 14, fontWeight: 700 }}>Medication priced separately</small></div></li>
+        <li><span className="process-step-number" aria-hidden="true">4</span><div><h3>Keep going your way</h3><p>Pay per visit as you go, or become a member for unlimited texting and $49 video visits.</p><small style={{ display: "block", marginTop: 8, color: "#7A1E7E", fontSize: 14, fontWeight: 700 }}>Membership $300/year</small></div></li>
       </ol>
     </div>
     <div className="process-pricing-offer" id="pricing" aria-labelledby="visit-pricing-title">

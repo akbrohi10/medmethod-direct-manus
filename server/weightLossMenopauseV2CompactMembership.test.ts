@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge, v2BioMscpBadgePath } from "./weightLossMenopauseV2BioMscpBadge.test"; import { createHash } from 'node:crypto';
+import { inverseApprovedV2FourProcessSteps } from "./weightLossMenopauseV2FourProcessSteps.test"; import { inverseApprovedV2BioMscpBadge, v2BioMscpBadgePath } from "./weightLossMenopauseV2BioMscpBadge.test"; import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 const root=resolve(import.meta.dirname,'..');
 const page='client/src/pages/WeightLossMenopauseV2.tsx',css='client/src/pages/WeightLossMenopauseV2.css';
 export const compactMembershipFixturePath='server/fixtures/weightLossMenopauseV2CompactMembershipFragments.json';
-const read=(p:string)=>readFileSync(resolve(root,p),'utf8');
+const read=(p:string)=>inverseApprovedV2FourProcessSteps(p,readFileSync(resolve(root,p),'utf8'));
 const baseline=(p:string)=>execFileSync('git',['show',`d4df92f1:${p}`],{cwd:root,encoding:'utf8'});
 export function inverseApprovedV2CompactMembership(path:string,source:string):string { source=inverseApprovedV2BioMscpBadge(path,source);
  const raw=read(compactMembershipFixturePath);
