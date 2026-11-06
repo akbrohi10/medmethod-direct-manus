@@ -341,6 +341,17 @@
       .sources-block li { margin-bottom: 6px; }
       .sources-block li:last-child { margin-bottom: 0; }
       .sources-block b { color: var(--plum-deep); }
+      /* Report closing highlight — approved panel-only styling */
+      .report .closing {
+        background: var(--rasp-soft);
+        border-top: 4px solid var(--plum);
+        margin-top: 48px;
+      }
+      .report .closing .report-utilities {
+        border-top: 1px solid var(--line);
+        margin-top: 24px;
+        padding-top: 8px;
+      }
     </style>
   </head>
   <body>
@@ -1166,12 +1177,13 @@
          score, pattern, or contact details in the URL. */
       html += '<div class="closing"><div class="pl">READY TO EXPLORE YOUR TREATMENT OPTIONS?</div><h2>Connect with a Hormone &amp; Weight Loss Doctor—for FREE.</h2>'
         + "<p>Discuss your symptoms and explore treatment options directly with Dr. Al-Deek, a menopause and weight loss specialist.</p>"
-        + "<p>Complete your medical intake, then receive a text to start chatting with her. Your first text visit includes 7 days of follow-up messaging, free.</p>"
+        + "<p>Complete your medical intake, then receive a text to start chatting with her. Your first text visit includes <strong>7 days of follow-up messaging</strong>, free.</p>"
         + '<a class="cta" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Connect with Dr. Al-Deek—Free</a>'
         + '<p class="call-note">Not ready yet? <a href="https://medmethoddirect.com/care-team-booking" target="_blank" rel="noopener" style="color:var(--plum);font-weight:800;text-decoration:underline">Book a free discovery call</a> instead.</p>'
         + '<p class="call-note">MedMethod Direct is led by Dr. Jumana Al-Deek, DO — board-certified family physician and Menopause Society Certified Practitioner.</p>'
+        + '<div class="report-utilities">'
         + '<button class="ghostbtn" type="button" id="dlBtn">Download a copy of my report</button>'
-        + '<button class="ghostbtn" type="button" id="againBtn">Take the check again</button></div>';
+        + '<button class="ghostbtn" type="button" id="againBtn">Take the check again</button></div></div>';
 
       $("reportBody").innerHTML = html;
       window.scrollTo(0, 0);

@@ -1,11 +1,11 @@
-import { execFileSync } from 'node:child_process'; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope";
+import { execFileSync } from 'node:child_process'; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope"; import { inverseHormoneQuizPanel } from "./fixtures/hormoneQuizPanelScope";
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 import { inverseApprovedQuizBookingLink } from './hormoneSymptomQuizBookingLink.test';
 const root = resolve(import.meta.dirname, '..');
-const html = inverseApprovedQuizBookingLink('client/public/hormone-symptom-quiz.html', inverseHormoneQuizTreatmentCta('client/public/hormone-symptom-quiz.html', readFileSync(resolve(root, 'client/public/hormone-symptom-quiz.html'), 'utf8')));
+const html = inverseApprovedQuizBookingLink('client/public/hormone-symptom-quiz.html', inverseHormoneQuizTreatmentCta('client/public/hormone-symptom-quiz.html', inverseHormoneQuizPanel('client/public/hormone-symptom-quiz.html', readFileSync(resolve(root, 'client/public/hormone-symptom-quiz.html'), 'utf8'))));
 const baseline = execFileSync('git', ['show', 'a827f914:client/public/hormone-symptom-quiz.html'], { cwd: root, encoding: 'utf8' });
 function engine(search: string, source = html) {
   const nodes: Record<string, any> = {}, timers: Function[] = [];

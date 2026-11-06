@@ -1,4 +1,4 @@
-import { openSync, readSync, fstatSync, closeSync } from "node:fs"; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope";
+import { openSync, readSync, fstatSync, closeSync } from "node:fs"; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope"; import { inverseHormoneQuizPanel } from "./fixtures/hormoneQuizPanelScope";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
@@ -16,7 +16,7 @@ const read = (p: string) => {
       if (!count) throw new Error("Unexpected incomplete source read");
       n += count;
     }
-    return b.toString("utf8");
+    return inverseHormoneQuizPanel(p, b.toString("utf8"));
   } finally { closeSync(fd); }
 };
 const before = (p: string) => execFileSync("git", ["show", "946928b8:" + p], { cwd: root, encoding: "utf8" });
@@ -48,7 +48,7 @@ describe("V2 testimonial attribution — exact compact top row only", () => {
     for (const p of [page, css]) expect(inverseV2TestimonialAttribution(p, read(p))).toBe(before(p));
     const scope = ["client", "server", "shared", "drizzle", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml"];
     const changed = [...execFileSync("git", ["diff", "--name-only", "946928b8", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n")].filter(p => p && !p.endsWith(".test.ts")).filter(p => {
-      if (p === "server/fixtures/hormoneQuizTreatmentCtaScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("4e2c90b2879cb08ced0129214db38f67751ec239632f99f353dd371e61b93668"); return false; } if (p === "client/public/hormone-symptom-quiz.html") return inverseHormoneQuizTreatmentCta(p, read(p)) !== before(p); if (p !== helper) return true;
+      if (p === "server/fixtures/hormoneQuizTreatmentCtaScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("4e2c90b2879cb08ced0129214db38f67751ec239632f99f353dd371e61b93668"); return false; } if (p === "client/public/hormone-symptom-quiz.html") return inverseHormoneQuizTreatmentCta(p, read(p)) !== before(p); if (p === "server/fixtures/hormoneQuizPanelScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("f3e3c8f12ba66965de9fca2140e1842b43d6865b7f833a9e49485bbc4b9c4798"); return false; } if (p !== helper) return true;
       expect(createHash("sha256").update(read(p)).digest("hex")).toBe(helperSHA);
       return false;
     });

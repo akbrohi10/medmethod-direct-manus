@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { inverseHormoneQuizPanel } from "./fixtures/hormoneQuizPanelScope";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -11,7 +11,7 @@ const page = "client/public/hormone-symptom-quiz.html";
 const built = "dist/public/hormone-symptom-quiz.html";
 const helper = "server/fixtures/hormoneQuizTreatmentCtaScope.ts";
 const helperSHA = "4e2c90b2879cb08ced0129214db38f67751ec239632f99f353dd371e61b93668";
-const read = (p: string) => readFileSync(resolve(root, p), "utf8");
+const read = (p: string) => inverseHormoneQuizPanel(p, readFileSync(resolve(root, p), "utf8"));
 const before = (p: string) => execFileSync("git", ["show", "4bd780d8:" + p], { cwd: root, encoding: "utf8" });
 const oldBlock = `      /* Closing — the discovery call, offered now that she has her report.
          Booking completes on MedMethod Direct's booking page (the same
@@ -76,7 +76,7 @@ describe("Quiz treatment CTA — approved report closing block only", () => {
     }
     const scope = ["client", "server", "shared", "drizzle", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml", "tsconfig.json"];
     const paths = [...execFileSync("git", ["diff", "--name-only", "4bd780d8", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n")].filter(p => p && !/^server\/[^/]+\.test\.ts$/.test(p)).filter(p => {
-      if (p !== helper) return true;
+      if (p === "server/fixtures/hormoneQuizPanelScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("f3e3c8f12ba66965de9fca2140e1842b43d6865b7f833a9e49485bbc4b9c4798"); return false; } if (p !== helper) return true;
       expect(createHash("sha256").update(read(p)).digest("hex")).toBe(helperSHA);
       return false;
     });
