@@ -4,7 +4,8 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { inverseV2FooterLogo,newV2FooterLogo,oldV2FooterLogo } from "./fixtures/v2FooterLogoScope";
 import { inverseV2TestimonialReadMore } from "./fixtures/v2TestimonialReadMoreScope";
-const read=(p:string)=>inverseV2TestimonialReadMore(p,readFileSync(p,"utf8"));
+import { inverseV2TestimonialTextAction } from "./fixtures/v2TestimonialTextActionScope";
+const read=(p:string)=>inverseV2TestimonialReadMore(p,inverseV2TestimonialTextAction(p,readFileSync(p,"utf8")));
 const page="client/src/pages/WeightLossMenopauseV2.tsx", source=()=>read(page),base=(p:string)=>execFileSync("git",["show","cf73e20f:"+p],{encoding:"utf8"});
 describe("V2 regular footer logo only",()=>{
  it("replaces the footer label with the existing regular centered clinic logo",()=>{expect(source()).toContain(newV2FooterLogo);expect(source()).not.toContain(oldV2FooterLogo);expect(newV2FooterLogo).toContain('alt="MedMethod Direct"');expect(newV2FooterLogo).toContain('margin: "0 auto"');expect(newV2FooterLogo).toContain('/manus-storage/medmethod-logo-navbar_99a2ea82.png');});

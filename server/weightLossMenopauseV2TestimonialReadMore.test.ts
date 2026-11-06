@@ -4,8 +4,9 @@ import {execFileSync} from "node:child_process";
 import {resolve} from "node:path";
 import {describe,it,expect} from "vitest";
 import {inverseV2TestimonialReadMore} from "./fixtures/v2TestimonialReadMoreScope";
+import { inverseV2TestimonialTextAction } from "./fixtures/v2TestimonialTextActionScope";
 const root=resolve(import.meta.dirname,"..");
-const read=(p:string)=>{const fd=openSync(resolve(root,p),'r');try{const b=Buffer.alloc(fstatSync(fd).size);let n=0;while(n<b.length)n+=readSync(fd,b,n,b.length-n,n);return b.toString('utf8')}finally{closeSync(fd)}};
+const read=(p:string)=>{const fd=openSync(resolve(root,p),'r');try{const b=Buffer.alloc(fstatSync(fd).size);let n=0;while(n<b.length)n+=readSync(fd,b,n,b.length-n,n);return inverseV2TestimonialTextAction(p,b.toString('utf8'))}finally{closeSync(fd)}};
 const before=(p:string)=>execFileSync('git',['show','2ca10e9b:'+p],{cwd:root,encoding:'utf8'});
 const page='client/src/pages/WeightLossMenopauseV2.tsx',css='client/src/pages/WeightLossMenopauseV2.css';
 describe('V2 testimonial Read more — confirmed control and spacing only',()=>{
