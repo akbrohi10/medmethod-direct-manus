@@ -658,15 +658,15 @@
 }
 
 /* V2 testimonial stories only: exact first paragraph preview and native disclosure. */
-.wlm-v2-content #testimonials .testimonial-card { align-self: start; padding-top: 20px; padding-bottom: 18px; }
-.wlm-v2-content #testimonials .testimonial-rating { margin-bottom: 10px; }
-.wlm-v2-content #testimonials .testimonial-card blockquote { margin-bottom: 8px; }
-.wlm-v2-content #testimonials .testimonial-story-title { display: block; margin-bottom: 10px; }
-.wlm-v2-content #testimonials .testimonial-story { margin-top: 8px; border: 0; }
-.wlm-v2-content #testimonials .testimonial-story > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 0; color: var(--teal-dark); font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.5; cursor: pointer; list-style: none; }
+.wlm-v2-content #testimonials .testimonial-card { align-self: start; padding-top: 14px; padding-bottom: 14px; }
+.wlm-v2-content #testimonials .testimonial-rating { margin-bottom: 6px; }
+.wlm-v2-content #testimonials .testimonial-card blockquote { margin-bottom: 4px; }
+.wlm-v2-content #testimonials .testimonial-story-title { display: block; margin-bottom: 6px; }
+.wlm-v2-content #testimonials .testimonial-story { margin-top: 4px; border: 0; }
+.wlm-v2-content #testimonials .testimonial-story > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 2px solid #7A1E7E; border-radius: 10px; background: transparent; color: #7A1E7E; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.5; cursor: pointer; list-style: none; }
 .wlm-v2-content #testimonials .testimonial-story > summary::-webkit-details-marker { display: none; }
 .wlm-v2-content #testimonials .testimonial-story > summary::after { content: none; display: none; }
-.wlm-v2-content #testimonials .testimonial-story > summary:focus-visible { outline: 3px solid #7A1E7E; outline-offset: 3px; border-radius: 4px; }
+.wlm-v2-content #testimonials .testimonial-story > summary:focus-visible { outline: 3px solid #7A1E7E; outline-offset: 3px; border-radius: 10px; }
 .wlm-v2-content #testimonials .testimonial-read-less { display: none; }
 .wlm-v2-content #testimonials .testimonial-story[open] .testimonial-read-more { display: none; }
 .wlm-v2-content #testimonials .testimonial-story[open] .testimonial-read-less { display: inline; }
