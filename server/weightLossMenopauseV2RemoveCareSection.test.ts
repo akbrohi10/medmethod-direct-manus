@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { inverseRemovedV2CareSection, readCareScopeFile, removedV2CareSection as packet } from './fixtures/v2RemoveCareSectionScope';
+import { inverseRemovedV2CareSection, readCareScopeFile as readCareScopeFileBeforeFooter, removedV2CareSection as packet } from './fixtures/v2RemoveCareSectionScope';
+import { inverseV2FooterLogo } from './fixtures/v2FooterLogoScope';
+const readCareScopeFile = (path: string) => inverseV2FooterLogo(path, readCareScopeFileBeforeFooter(path));
 const root = resolve(import.meta.dirname, '..');
 const before = (p: string) => execFileSync('git', ['show', packet.baseline + ':' + p], { cwd: root, encoding: 'utf8' });
 describe('V2 care-plan section — confirmed deletion only', () => {

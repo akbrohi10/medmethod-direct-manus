@@ -174,7 +174,7 @@ export default function WeightLossMenopauseV2() {
           <div className="container">
             <div className="footer-top">
               <div>
-                <div className="footer-wordmark">MMD Weight Loss</div>
+                <div className="footer-wordmark" data-v2-footer-logo style={{ maxWidth: "550px" }}><img src="/manus-storage/medmethod-logo-navbar_99a2ea82.png" alt="MedMethod Direct" width="1536" height="321" loading="lazy" decoding="async" style={{ display: "block", width: "240px", maxWidth: "100%", height: "auto", margin: "0 auto", filter: "brightness(0) invert(1)" }} /></div>
                 <p>Physician-guided weight-loss and hormone care, with seven days of follow-up support for each visit.</p>
               </div>
               <div className="footer-navigation">
