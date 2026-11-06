@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageCircleMore, PhoneCall, Video } from "lucide-react";
 import VideoVisitCheckout from "@/components/weight-loss-menopause-v2/checkout97/VideoVisitCheckout97";
 import { getMenopauseV2VideoPendingCheckout } from "@/components/weight-loss-menopause-v2/checkout97/videoVisitCheckout97Storage";
 
@@ -75,45 +74,18 @@ export default function WeightLossMenopauseV2MobileBar() {
     <>
         <nav
           data-wlm-v2-mobile-connection-bar
-          aria-label="Choose how to connect"
+          aria-label="Start my free assessment"
           className="fixed z-40 mx-auto max-w-[440px] rounded-[12px] border border-[#e9c8f3] bg-white p-1.5 shadow-[0_6px_20px_rgba(61,22,64,0.12)] md:hidden"
           style={{ fontFamily: "Montserrat, sans-serif", color: "#25212a", display: consultationOpen || !pastHeroCta ? "none" : undefined, left: "max(12px, env(safe-area-inset-left, 0px))", right: "max(12px, env(safe-area-inset-right, 0px))", bottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
         >
-          <div className="grid grid-cols-3 gap-1">
-            <a
-              data-wlm-v2-mobile-text-visit
-              href="https://intake.medmethoddirect.com/"
-              aria-label="First text visit — free"
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
-            >
-              <MessageCircleMore className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold">Text Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">First free</span>
-            </a>
-            <button
-              type="button"
-              data-wlm-v2-mobile-booking
-              aria-label="Video visit — $97 per visit"
-              aria-haspopup="dialog"
-              ref={mobileBookingRef}
-              onClick={() => { mobileBookingOpened.current = true; setConsultationOpen(true); }}
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-0.5 py-1 text-center text-[11px] leading-[14px] text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
-            >
-              <Video className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold">Video Visit</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">$97 per visit</span>
-            </button>
-            <a
-              data-wlm-v2-mobile-care-call
-              href="tel:+18883627011"
-              aria-label="Call now for more information: (888) 362-7011"
-              className="flex min-h-[68px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-[9px] border border-[#b367ca] bg-white px-0.5 py-1 text-center text-[11px] leading-[14px] text-[#870081] transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
-            >
-              <PhoneCall className="h-[22px] w-[22px] shrink-0" aria-hidden="true" />
-              <span className="block whitespace-nowrap font-bold">Call Now</span>
-              <span className="block whitespace-nowrap text-[10px] font-normal">Clinic info</span>
-            </a>
-          </div>
+          <a
+            data-wlm-v2-mobile-assessment
+            href="https://intake.medmethoddirect.com/"
+            className="flex min-h-[68px] w-full min-w-0 flex-col items-center justify-center gap-1 rounded-[9px] bg-gradient-to-r from-[#bb0d7e] to-[#680686] px-3 py-2 text-center text-white transition-transform duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#870081] active:scale-[0.97] motion-reduce:transition-none"
+          >
+            <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-[16px] font-bold leading-[22px] sm:text-[18px]">Start my free assessment <span aria-hidden="true">→</span></span>
+            <span className="block text-[14px] font-normal leading-[18px]">Takes 5–10 min</span>
+          </a>
         </nav>
       <VideoVisitCheckout open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </>

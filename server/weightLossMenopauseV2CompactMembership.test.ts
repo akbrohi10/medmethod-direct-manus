@@ -57,7 +57,7 @@ describe('V2 compact membership pricing — native collapsed benefits only',()=>
   expect(inverseApprovedV2CompactMembership(page,'UNAPPROVED\n'+read(page))).not.toBe(baseline(page));
   expect(inverseApprovedV2CompactMembership('unrelated.ts','unchanged')).toBe('unchanged');
   const roots=['client','server','shared','drizzle','vite.config.ts','package.json','pnpm-lock.yaml'];
-  const changed=[...execFileSync('git',['diff','--name-only','d4df92f1','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==compactMembershipFixturePath).filter(p=>p!==v2BioMscpBadgePath||inverseApprovedV2BioMscpBadge(p,read(p))!==baseline(p));
+  const changed=[...execFileSync('git',['diff','--name-only','d4df92f1','--',...roots],{cwd:root,encoding:'utf8'}).split('\n'),...execFileSync('git',['ls-files','--others','--exclude-standard','--',...roots],{cwd:root,encoding:'utf8'}).split('\n')].filter(p=>p&&!p.endsWith('.test.ts')&&p!==compactMembershipFixturePath).filter(p=>(p!==v2BioMscpBadgePath&&p!=="client/src/pages/WeightLossMenopauseV2MobileBar.tsx")||inverseApprovedV2BioMscpBadge(p,read(p))!==baseline(p));
   expect([...new Set(changed)].sort()).toEqual([page,css].sort());
   for(const p of execFileSync('git',['ls-tree','-r','--name-only','d4df92f1','--','server/fixtures'],{cwd:root,encoding:'utf8'}).trim().split('\n'))expect(read(p)).toBe(baseline(p));
   for(const p of['shared/treatmentCatalog.json','client/src/pages/WeightLossMenopauseV2Faq.tsx','client/intake/index.html','client/public/hormone-symptom-quiz.html','server/intakeSubmissionContract.ts'])expect(read(p)).toBe(baseline(p));

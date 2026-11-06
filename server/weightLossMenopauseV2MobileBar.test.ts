@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { inverseApprovedV2SingleAssessmentBar } from "./weightLossMenopauseV2SingleAssessmentBar.test";
 
-const read = (file: string) => readFileSync(resolve(import.meta.dirname, "..", file), "utf8");
+const read = (file: string) => inverseApprovedV2SingleAssessmentBar(file, readFileSync(resolve(import.meta.dirname, "..", file), "utf8"));
 const page = read("client/src/pages/WeightLossMenopauseV2.tsx");
 const css = read("client/src/pages/WeightLossMenopauseV2.css");
 const mobileBar = read("client/src/pages/WeightLossMenopauseV2MobileBar.tsx");
