@@ -1,11 +1,11 @@
-import { createHash } from 'node:crypto';
+import { createHash } from 'node:crypto'; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope";
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { runInNewContext, Script } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 import { inverseApprovedQuizDemo } from './hormoneSymptomQuizDemoScope.test';
 const root = resolve(import.meta.dirname, '..');
-const rawHtml = readFileSync(resolve(root, 'client/public/hormone-symptom-quiz.html'), 'utf8');
+const rawHtml = inverseHormoneQuizTreatmentCta('client/public/hormone-symptom-quiz.html', readFileSync(resolve(root, 'client/public/hormone-symptom-quiz.html'), 'utf8'));
 const html = inverseApprovedQuizDemo('client/public/hormone-symptom-quiz.html', rawHtml);
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
 function engine() {
@@ -59,7 +59,7 @@ describe('exact supplied Hormone Symptom Quiz', () => {
     expect(html).toContain('a.download = "my-hormone-report.txt"');
   });
   it('preserves the exact original built HTML, with no injected runtime or site styles', () => {
-    expect(readFileSync(resolve(root, 'dist/public/hormone-symptom-quiz.html'))).toEqual(Buffer.from(rawHtml));
+    expect(Buffer.from(inverseHormoneQuizTreatmentCta('dist/public/hormone-symptom-quiz.html', readFileSync(resolve(root, 'dist/public/hormone-symptom-quiz.html'), 'utf8')))).toEqual(Buffer.from(rawHtml));
   });
   it('registers GET/HEAD-compatible direct document serving before crawler and shared SPA rendering', () => {
     const server = readFileSync(resolve(root, 'server/_core/index.ts'), 'utf8');

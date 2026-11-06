@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash } from 'node:crypto'; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope";
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { describe, it, expect } from 'vitest';
@@ -7,7 +7,7 @@ import { inverseV2FooterLogo } from './fixtures/v2FooterLogoScope';
 import { inverseV2TestimonialReadMore } from './fixtures/v2TestimonialReadMoreScope';
 import { inverseV2TestimonialTextAction } from "./fixtures/v2TestimonialTextActionScope";
 import { inverseV2TestimonialAttribution } from "./fixtures/v2TestimonialAttributionScope";
-const readCareScopeFile = (path: string) => inverseV2FooterLogo(path, inverseV2TestimonialReadMore(path, inverseV2TestimonialTextAction(path, inverseV2TestimonialAttribution(path, readCareScopeFileBeforeFooter(path)))));
+const readCareScopeFile = (path: string) => inverseV2FooterLogo(path, inverseV2TestimonialReadMore(path, inverseV2TestimonialTextAction(path, inverseV2TestimonialAttribution(path, inverseHormoneQuizTreatmentCta(path, readCareScopeFileBeforeFooter(path))))));
 const root = resolve(import.meta.dirname, '..');
 const before = (p: string) => execFileSync('git', ['show', packet.baseline + ':' + p], { cwd: root, encoding: 'utf8' });
 describe('V2 care-plan section — confirmed deletion only', () => {
@@ -22,7 +22,7 @@ describe('V2 care-plan section — confirmed deletion only', () => {
     expect(s).toBe(before(packet.path).replace(packet.old, ''));
     expect(inverseRemovedV2CareSection(packet.path, s)).toBe(before(packet.path));
     for (const p of ['client/src/pages/WeightLossMenopauseV2.css', 'client/src/pages/WeightLossMenopauseV2DoctorBio.tsx', 'client/src/pages/WeightLossMenopauseV2MobileBar.tsx', 'client/src/pages/WeightLossMenopauseV2Faq.tsx', 'client/src/pages/Masterclass2.tsx', 'client/public/hormone-symptom-quiz.html', 'client/intake/index.html', 'shared/treatmentCatalog.json']) expect(readCareScopeFile(p)).toBe(before(p));
-    const changed = execFileSync('git', ['diff', '--name-only', packet.baseline, '--', 'client', 'server', 'shared', 'drizzle', 'vite.config.ts', 'package.json', 'pnpm-lock.yaml'], { cwd: root, encoding: 'utf8' }).trim().split('\n').filter(p => p && !p.endsWith('.test.ts') && !p.startsWith('server/fixtures/'));
+    const changed = execFileSync('git', ['diff', '--name-only', packet.baseline, '--', 'client', 'server', 'shared', 'drizzle', 'vite.config.ts', 'package.json', 'pnpm-lock.yaml'], { cwd: root, encoding: 'utf8' }).trim().split('\n').filter(p => p && !p.endsWith('.test.ts') && !p.startsWith('server/fixtures/')).filter(p => p !== "client/public/hormone-symptom-quiz.html" || inverseHormoneQuizTreatmentCta(p, readCareScopeFile(p)) !== before(p));
     expect(changed.filter(p => p !== 'client/src/pages/WeightLossMenopauseV2.css' || readCareScopeFile(p) !== before(p))).toEqual([packet.path]);
   });
   it('preserves the five independent testimonial disclosures, four process steps, compact pricing and CTA', () => {
