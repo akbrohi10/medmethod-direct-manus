@@ -1,4 +1,4 @@
-import { openSync, readSync, fstatSync, closeSync } from "node:fs"; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope"; import { inverseHormoneQuizPanel } from "./fixtures/hormoneQuizPanelScope";
+import { openSync, readSync, fstatSync, closeSync } from "node:fs"; import { inverseHormoneQuizTreatmentCta } from "./fixtures/hormoneQuizTreatmentCtaScope"; import { inverseHormoneQuizPanel } from "./fixtures/hormoneQuizPanelScope"; import { inverseHormoneQuizPhone } from "./fixtures/hormoneQuizPhoneScope";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
@@ -17,7 +17,7 @@ const read = (p: string) => {
       if (!count) throw new Error("Unexpected incomplete source read");
       n += count;
     }
-    return inverseV2TestimonialAttribution(p, inverseHormoneQuizTreatmentCta(p, inverseHormoneQuizPanel(p, b.toString("utf8"))));
+    return inverseV2TestimonialAttribution(p, inverseHormoneQuizTreatmentCta(p, inverseHormoneQuizPanel(p, inverseHormoneQuizPhone(p, b.toString("utf8")))));
   } finally {
     closeSync(fd);
   }
@@ -44,7 +44,7 @@ describe("V2 testimonial text action — confirmed borderless underlined control
     for (const p of [page, css]) expect(inverseV2TestimonialTextAction(p, read(p))).toBe(before(p));
     const scope = ["client", "server", "shared", "drizzle", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml"];
     const changed = [...execFileSync("git", ["diff", "--name-only", "6372b9f4", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n"), ...execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", ...scope], { cwd: root, encoding: "utf8" }).split("\n")].filter(p => p && !p.endsWith(".test.ts")).filter(p => {
-      if (p === "server/fixtures/v2TestimonialAttributionScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("289a41016d926e29ea901349023bb373dfd7e17fde3c427e57fdbb63ffd7a18c"); return false; } if (p === "server/fixtures/hormoneQuizTreatmentCtaScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("4e2c90b2879cb08ced0129214db38f67751ec239632f99f353dd371e61b93668"); return false; } if (p === "client/public/hormone-symptom-quiz.html") return inverseHormoneQuizTreatmentCta(p, read(p)) !== before(p); if (p === "server/fixtures/hormoneQuizPanelScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("f3e3c8f12ba66965de9fca2140e1842b43d6865b7f833a9e49485bbc4b9c4798"); return false; } if (p !== helper) return true;
+      if (p === "server/fixtures/v2TestimonialAttributionScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("289a41016d926e29ea901349023bb373dfd7e17fde3c427e57fdbb63ffd7a18c"); return false; } if (p === "server/fixtures/hormoneQuizTreatmentCtaScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("4e2c90b2879cb08ced0129214db38f67751ec239632f99f353dd371e61b93668"); return false; } if (p === "client/public/hormone-symptom-quiz.html") return inverseHormoneQuizTreatmentCta(p, read(p)) !== before(p); if (p === "server/fixtures/hormoneQuizPanelScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("f3e3c8f12ba66965de9fca2140e1842b43d6865b7f833a9e49485bbc4b9c4798"); return false; } if (p === "server/fixtures/hormoneQuizPhoneScope.ts") { expect(createHash("sha256").update(read(p)).digest("hex")).toBe("a1da7935b8aa5a94ea012f6b194339943f31bf799a066ed562bfba3c058fcb25"); return false; } if (p !== helper) return true;
       expect(createHash("sha256").update(read(p)).digest("hex")).toBe(helperSHA);
       return false;
     });

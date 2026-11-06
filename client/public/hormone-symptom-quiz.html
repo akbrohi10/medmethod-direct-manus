@@ -964,6 +964,7 @@
     function finish(){
       quizEl.classList.add("hidden");
       gateEl.classList.remove("hidden");
+      formatGatePhone();
       window.scrollTo(0, 0);
     }
 
@@ -974,11 +975,61 @@
       return !invalid;
     }
 
+    /* Gate phone display — match the existing US placeholder without changing validation or payload fields. */
+    function formatGatePhoneValue(value){
+      var digits = value.replace(/\D/g, "");
+      if (/^\s*\+(?:1)?$/.test(value) || (/^\s*\+1/.test(value) && digits.length < 11)) return value;
+      if (digits.length === 11 && digits.charAt(0) === "1") digits = digits.slice(1);
+      // Do not truncate longer or unsupported numbers into an apparently valid US number.
+      if (digits.length > 10) return value;
+      if (!digits.length) return "";
+      if (digits.length <= 3) return "(" + digits;
+      if (digits.length <= 6) return "(" + digits.slice(0, 3) + ") " + digits.slice(3);
+      return "(" + digits.slice(0, 3) + ") " + digits.slice(3, 6) + "-" + digits.slice(6);
+    }
+    function formatGatePhone(event){
+      if (event && event.isComposing) return;
+      var input = $("gatePhone"), value = input.value, formatted = formatGatePhoneValue(value);
+      if (formatted === value) return;
+      var start = input.selectionStart, end = input.selectionEnd;
+      var removedCountryCode = value.replace(/\D/g, "").length === 11 && value.replace(/\D/g, "").charAt(0) === "1" && formatted.replace(/\D/g, "").length === 10;
+      function mappedCaret(position){
+        if (position === value.length) return formatted.length;
+        var count = value.slice(0, position).replace(/\D/g, "").length - (removedCountryCode ? 1 : 0);
+        if (count <= 0) return formatted.charAt(0) === "(" ? 1 : 0;
+        for (var i = 0; i < formatted.length; i++) {
+          if (/\d/.test(formatted.charAt(i)) && --count === 0) return i + 1;
+        }
+        return formatted.length;
+      }
+      input.value = formatted;
+      if (typeof start === "number" && typeof end === "number" && typeof input.setSelectionRange === "function") {
+        try { input.setSelectionRange(mappedCaret(start), mappedCaret(end)); } catch (ignore) {}
+      }
+    }
+    $("gatePhone").addEventListener("beforeinput", function(event){
+      var input = $("gatePhone"), start = input.selectionStart, end = input.selectionEnd;
+      if (event.isComposing || start !== end || typeof start !== "number" || typeof input.setSelectionRange !== "function") return;
+      if (event.inputType === "deleteContentBackward") {
+        while (start > 0 && !/\d/.test(input.value.charAt(start - 1))) start--;
+      } else if (event.inputType === "deleteContentForward") {
+        while (start < input.value.length && !/\d/.test(input.value.charAt(start))) start++;
+      } else return;
+      try { input.setSelectionRange(start, start); } catch (ignore) {}
+    });
+    ["input", "change", "blur", "compositionend"].forEach(function(eventName){
+      $("gatePhone").addEventListener(eventName, formatGatePhone);
+    });
+    $("gatePhone").addEventListener("focus", function(){ formatGatePhone(); setTimeout(formatGatePhone, 0); });
+    if (window.addEventListener) window.addEventListener("pageshow", formatGatePhone);
+    formatGatePhone();
+
     $("gateForm").addEventListener("submit", function(e){
       e.preventDefault();
       var name = $("gateName").value.trim();
       var email = $("gateEmail").value.trim();
       var phone = $("gatePhone").value.trim();
+      formatGatePhone();
       var nameOk = setFieldState("gateName", "gateNameError", name.length === 0);
       var emailOk = setFieldState("gateEmail", "gateEmailError", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
       var phoneOk = setFieldState("gatePhone", "gatePhoneError", phone.replace(/\D/g, "").length < 10);
