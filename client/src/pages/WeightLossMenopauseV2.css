@@ -656,3 +656,22 @@
 @media (prefers-reduced-motion: reduce) {
   .wlm-v2-content #how-it-works .compact-membership-chevron { transition: none; }
 }
+
+/* V2 testimonial stories only: exact first paragraph preview and native disclosure. */
+.wlm-v2-content #testimonials .testimonial-card { align-self: start; padding-top: 20px; padding-bottom: 18px; }
+.wlm-v2-content #testimonials .testimonial-rating { margin-bottom: 10px; }
+.wlm-v2-content #testimonials .testimonial-card blockquote { margin-bottom: 8px; }
+.wlm-v2-content #testimonials .testimonial-story-title { display: block; margin-bottom: 10px; }
+.wlm-v2-content #testimonials .testimonial-story { margin-top: 8px; border: 0; }
+.wlm-v2-content #testimonials .testimonial-story > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 0; color: var(--teal-dark); font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.5; cursor: pointer; list-style: none; }
+.wlm-v2-content #testimonials .testimonial-story > summary::-webkit-details-marker { display: none; }
+.wlm-v2-content #testimonials .testimonial-story > summary::after { content: none; display: none; }
+.wlm-v2-content #testimonials .testimonial-story > summary:focus-visible { outline: 3px solid #7A1E7E; outline-offset: 3px; border-radius: 4px; }
+.wlm-v2-content #testimonials .testimonial-read-less { display: none; }
+.wlm-v2-content #testimonials .testimonial-story[open] .testimonial-read-more { display: none; }
+.wlm-v2-content #testimonials .testimonial-story[open] .testimonial-read-less { display: inline; }
+.wlm-v2-content #testimonials .testimonial-story-context { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wlm-v2-content #testimonials .testimonial-story-chevron { flex: 0 0 18px; transition: transform 160ms ease-out; }
+.wlm-v2-content #testimonials .testimonial-story[open] .testimonial-story-chevron { transform: rotate(180deg); }
+.wlm-v2-content #testimonials .testimonial-story-rest { margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .wlm-v2-content #testimonials .testimonial-story-chevron { transition: none; } }
