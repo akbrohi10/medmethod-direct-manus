@@ -5,9 +5,30 @@ import { equalQuizToken, quizDigest, signQuizPdfToken } from "./hormoneQuizSecur
 
 const TTL=24*60*60*1000;
 const SAFE_ORIGINS=new Set(["https://medmethoddirect.com","https://www.medmethoddirect.com","https://medmethod-kywclyds.manus.space","https://3000-i96796e94ozetw9qpb6zg-37388edb.us1.manus.computer"]);
-export function quizReportOrigin(host:string){
-  const https=`https://${host.toLowerCase()}`;
-  if(SAFE_ORIGINS.has(https))return https;
+type QuizOriginHeaders={origin?:string|string[];"x-forwarded-host"?:string|string[];referer?:string|string[]};
+function trustedQuizOrigin(value:unknown,hostOnly=false):string|null{
+  if(typeof value!=="string"||!value||value.length>2048||/[\u0000-\u0020\u007f,\\]/.test(value))return null;
+  try{
+    const parsed=new URL(hostOnly?`https://${value}`:value);
+    if(parsed.protocol!=="https:"||parsed.username||parsed.password||!SAFE_ORIGINS.has(parsed.origin))return null;
+    if(hostOnly&&(parsed.pathname!=="/"||parsed.search||parsed.hash))return null;
+    return parsed.origin;
+  }catch{return null;}
+}
+export function quizReportOrigin(host:string,headers:QuizOriginHeaders={}){
+  // Browser Origin survives reverse proxies whose upstream Host is internal.
+  // Never trust an arbitrary forwarded host or manufacture a public PDF origin.
+  if(headers.origin!==undefined){
+    if(process.env.NODE_ENV!=="production"&&typeof headers.origin==="string"&&/^https?:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(headers.origin)){
+      try{if(new URL(headers.origin).host===host)return "https://3000-i96796e94ozetw9qpb6zg-37388edb.us1.manus.computer";}catch{/* Fall through to strict validation. */}
+    }
+    const origin=trustedQuizOrigin(headers.origin);
+    if(!origin||typeof headers.origin!=="string"||new URL(headers.origin).origin!==headers.origin)throw new Error("Quiz origin unavailable.");
+    return origin;
+  }
+  const direct=trustedQuizOrigin(host,true);if(direct)return direct;
+  const forwarded=trustedQuizOrigin(headers["x-forwarded-host"],true);if(forwarded)return forwarded;
+  const referrer=trustedQuizOrigin(headers.referer);if(referrer)return referrer;
   if(process.env.NODE_ENV!=="production"&&/^(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(host))return "https://3000-i96796e94ozetw9qpb6zg-37388edb.us1.manus.computer";
   throw new Error("Quiz origin unavailable.");
 }

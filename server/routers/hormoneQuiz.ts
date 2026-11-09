@@ -8,7 +8,7 @@ const completion=z.object({request_key:z.string().regex(/^[A-Za-z0-9_-]{32,128}$
 export const hormoneQuizRouter=router({
   complete:publicProcedure.input(completion).mutation(async({input,ctx})=>{
     try{
-      const origin=quizReportOrigin(ctx.req.headers.host??"");
+      const origin=quizReportOrigin(ctx.req.headers.host??"",ctx.req.headers);
       const accepted=await quizService.complete(input,origin);
       // Caller has already shown the report. No webhook latency is awaited by the patient API.
       void quizService.flush(accepted.quiz_id).catch(()=>{});
@@ -17,7 +17,7 @@ export const hormoneQuizRouter=router({
   }),
   configuration:superAdminOrAdminProcedure.query(()=>({keragon_configured:Boolean(process.env.KERAGON_QUIZ_WEBHOOK_URL),ghl_configured:Boolean(process.env.GHL_QUIZ_WEBHOOK_URL)})),
   sendTest:superAdminOrAdminProcedure.input(z.object({request_key:z.string().regex(/^[A-Za-z0-9_-]{32,128}$/)}).strict()).mutation(async({input,ctx})=>{
-    try{return await quizService.sendTest(input.request_key,quizReportOrigin(ctx.req.headers.host??""));}
+    try{return await quizService.sendTest(input.request_key,quizReportOrigin(ctx.req.headers.host??"",ctx.req.headers));}
     catch{throw new TRPCError({code:"INTERNAL_SERVER_ERROR",message:"The dummy quiz test could not complete. No private error details are shown."});}
   }),
 });
