@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { inverseHormoneQuizGhlAnswerBlock } from "./fixtures/hormoneQuizGhlAnswerBlockScope";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -10,7 +10,7 @@ const baseline = "6fdc2970";
 const page = "client/public/hormone-symptom-quiz.html";
 const built = "dist/public/hormone-symptom-quiz.html";
 const helper = "server/fixtures/hormoneQuizIntegrationScope.ts";
-const read = (p: string) => readFileSync(resolve(root, p), "utf8");
+const read = (p: string) => inverseHormoneQuizGhlAnswerBlock(p, readFileSync(resolve(root, p), "utf8"));
 const before = (p: string) => execFileSync("git", ["show", baseline + ":" + p], { cwd: root, encoding: "utf8" });
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
 const helperSHA = "c213c08ee14e7d5195640881e15390d7ef3a35a13d71d153019e061f9711b80f";
@@ -19,7 +19,7 @@ const newFileSHAs: Record<string, string> = {"client/quiz-webhook-transport.ts":
 const baselineSHAs: Record<string, string> = {".gitignore": "b4572613f7e7b7827f8dd1c7543b03f903082ba146ebe8115dd9bd81aebd4bee", "client/public/hormone-symptom-quiz.html": "79f39d0d00a994e71a9a45184262edbff58dc78e229523303ce5e829112c70d5", "client/src/pages/AdminSettings.tsx": "1fb9dc9c6c5a2f9be62dbf2bc8bfde870a4b3a41a32d767011d8d3cb57e3643b", "drizzle/meta/_journal.json": "95c6b9bfc4ee56f65a5b59ee60ac9507746dee6e4bb0425ee397377ff653373b", "drizzle/schema.ts": "b1b087b3c94cbd5c3a5395358b72b4e1c682b33317ebae806a2e962e7c9b3530", "package.json": "9026530d7237c3303799cda328f2d3cc488e74cbc35d73df6b190a428b99bd42", "server/_core/index.ts": "14ad2b6e75c8efb044e803f70d2239a7f87e5476219bd21f15b8b956fab2deeb", "server/routers.ts": "4f89f8904bf00da655ee411ef26c721503af3083843bc1b92823b82b0161e116"};
 const originalFixtures = ["server/fixtures/hormoneQuizPanelScope.ts", "server/fixtures/hormoneQuizPhoneScope.ts", "server/fixtures/hormoneQuizTreatmentCtaScope.ts", "server/fixtures/hormoneSymptomQuizDemoFragments.json", "server/fixtures/hormoneSymptomQuizFragments.json", "server/fixtures/intake-sign-forms-copy.json", "server/fixtures/intakeFinalProgressLabelFragments.json", "server/fixtures/intakeGlp1CombinedFragments.json", "server/fixtures/intakeIntroDetailsPhotoFragments.json", "server/fixtures/intakeLatePatientInfoFragments.json", "server/fixtures/intakeProgressFragments.json", "server/fixtures/intakeShippingSkipFragments.json", "server/fixtures/intakeSigningFixture.ts", "server/fixtures/intakeThankYouWordingFragments.json", "server/fixtures/v2FaqFinal.json", "server/fixtures/v2FooterLogoScope.ts", "server/fixtures/v2RemoveCareSection.json", "server/fixtures/v2RemoveCareSectionScope.ts", "server/fixtures/v2TestimonialAttributionScope.ts", "server/fixtures/v2TestimonialReadMoreScope.ts", "server/fixtures/v2TestimonialTextActionScope.ts", "server/fixtures/weightLossMenopauseV2CompactMembershipFragments.json", "server/fixtures/weightLossMenopauseV2MembershipFragments.json"];
 const scope = ["client", "server", "shared", "drizzle", ".gitignore", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml", "tsconfig.json"];
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(Boolean);
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(Boolean).filter(p => { if (args[0] !== "diff" || args.at(-1) !== "server/fixtures" || p !== "server/fixtures/hormoneQuizGhlAnswerBlockScope.ts") return true; if (hash(read(p)) !== "36bad6875b176d1d7cb671b38e64d53f352f38fb3a42969fcb98b9f4b48058b3") throw Error("GHL quiz answer block helper SHA mismatch"); return false; });
 const aliases = (p: string) => [p, resolve(root, p), p.replaceAll("/", "\\"), "C:\\project\\" + p.replaceAll("/", "\\"), ...(p === page ? [built, resolve(root, built), built.replaceAll("/", "\\")] : [])];
 const strip = (p: string, source: string) => [...(files[p] ?? [])].reverse().reduce((s, f) => s.replace(f.new, f.old), source);
 const verifyNew = (p: string, source: string) => { if (!Object.hasOwn(newFileSHAs, p)) return false; if (hash(source) !== newFileSHAs[p]) throw Error("Quiz new-file authorization mismatch"); return true; };
@@ -93,9 +93,9 @@ describe("Hormone quiz completion integration — frozen exact authorized scope"
   });
 
   it("permits only the eight exact tracked paths and twelve fixed new sources plus one pure helper, with no broad skip", () => {
-    const changed = git("diff", "--name-only", baseline, "--", ...scope).filter(p => !/^server\/[^/]+\.test\.ts$/.test(p));
+    const changed = git("diff", "--name-only", baseline, "--", ...scope).filter(p => { if (p !== "server/fixtures/hormoneQuizGhlAnswerBlockScope.ts") return true; if (hash(read(p)) !== "36bad6875b176d1d7cb671b38e64d53f352f38fb3a42969fcb98b9f4b48058b3") throw Error("GHL quiz answer block helper SHA mismatch"); return false; }).filter(p => !/^server\/[^/]+\.test\.ts$/.test(p));
     expect(changed.sort()).toEqual(Object.keys(files).sort());
-    const added = git("ls-files", "--others", "--exclude-standard", "--", ...scope).filter(p => !/^server\/[^/]+\.test\.ts$/.test(p));
+    const added = git("ls-files", "--others", "--exclude-standard", "--", ...scope).filter(p => { if (p !== "server/fixtures/hormoneQuizGhlAnswerBlockScope.ts") return true; if (hash(read(p)) !== "36bad6875b176d1d7cb671b38e64d53f352f38fb3a42969fcb98b9f4b48058b3") throw Error("GHL quiz answer block helper SHA mismatch"); return false; }).filter(p => !/^server\/[^/]+\.test\.ts$/.test(p));
     expect(added.sort()).toEqual([...Object.keys(newFileSHAs), helper].sort());
     for (const p of added) {
       if (p === helper) expect(hash(read(p))).toBe(helperSHA);

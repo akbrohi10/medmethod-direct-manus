@@ -1,5 +1,5 @@
 import { randomUUID, randomBytes } from "node:crypto";
-import { computeQuizScore, createTestQuizAnswers, quizAnswerTexts, validateQuizAnswers, type QuizAnswers, type QuizAnswerText } from "./hormoneQuizModel";
+import { QUIZ_QUESTIONS, computeQuizScore, createTestQuizAnswers, quizAnswerTexts, validateQuizAnswers, type QuizAnswers, type QuizAnswerText } from "./hormoneQuizModel";
 import { decryptQuizRecord, encryptQuizRecord, quizDigest } from "./hormoneQuizSecurity";
 import { generateQuizReportPdf, quizDocumentName } from "./hormoneQuizPdf";
 import { quizPrivateReports } from "./hormoneQuizPrivateReport";
@@ -9,7 +9,19 @@ export type QuizCompletionInput={request_key:string;name:string;email:string;pho
 export type StoredQuizRecord={quiz_id:string;submitted_at:string;first_name:string;last_name:string;name:string;email:string;phone:string;balance_index:number|null;score_band:string;answers:QuizAnswerText[];selections:QuizAnswers;report_pdf_url:string;report_document_name:string;report_expires_at:number;fingerprint:string;is_test:boolean};
 export function normalizeQuizPhone(raw:string){let digits=raw.replace(/\D/g,"");if(digits.length===11&&digits[0]==="1")digits=digits.slice(1);if(!/^\d{10}$/.test(digits))throw new Error("A valid US phone number is required.");return "+1"+digits;}
 export function buildKeragonQuizPayload(record:StoredQuizRecord){return {event:"mmd_quiz.completed",quiz_id:record.quiz_id,submitted_at:record.submitted_at,first_name:record.first_name,last_name:record.last_name,email:record.email,phone:record.phone,balance_index:record.balance_index,score_band:record.score_band,answers:record.answers.map(a=>({id:a.id,section:a.section,question:a.question,answer:a.answer})),report_pdf_url:record.report_pdf_url,report_document_name:record.report_document_name};}
-export function buildGhlQuizPayload(record:StoredQuizRecord){return {first_name:record.first_name,last_name:record.last_name,email:record.email,phone:record.phone,tags:"quiz-completed",source:"hormone-symptom-quiz",submitted_at:record.submitted_at};}
+export function formatGhlQuizAnswers(record:StoredQuizRecord):string{
+  const [year,month,day]=record.submitted_at.slice(0,10).split("-");
+  const questions=QUIZ_QUESTIONS.filter(q=>q.id!=="recognize"&&!q.conditional);
+  const blocks=questions.map((q,i)=>{
+    const value=record.selections[q.id];
+    const answer=Array.isArray(value)?value.map(n=>q.opts[n]?.[0]).filter((label):label is string=>typeof label==="string").join(", ")
+      :typeof value==="number"?String(q.opts[value]?.[0]??""):"";
+    return `${i+1}. ${q.text}<br>Answer: ${answer||"No answer"}`;
+  });
+  const index=record.balance_index===null?"No answer":`${record.balance_index}/100`;
+  return [`Hormone Symptom Quiz – completed ${month}/${day}/${year}`,`Balance Index: ${index} (${record.score_band})`,"",blocks.join("<br><br>")].join("<br>");
+}
+export function buildGhlQuizPayload(record:StoredQuizRecord){return {first_name:record.first_name,last_name:record.last_name,email:record.email,phone:record.phone,tags:"quiz-completed",source:"hormone-symptom-quiz",submitted_at:record.submitted_at,quiz_answers:formatGhlQuizAnswers(record)};}
 export type QuizServiceDependencies={store?:QuizStore;reports?:Pick<typeof quizPrivateReports,"prepare"|"cleanup">;pdf?:typeof generateQuizReportPdf;now?:()=>number;fetch?:typeof fetch;configuration?:()=>{keragon:string;ghl:string};warn?:(value:{status_code:number;quiz_id:string})=>void};
 export function createQuizService(deps:QuizServiceDependencies={}){
   const store=deps.store??createQuizSqlStore(),reports=deps.reports??quizPrivateReports,now=deps.now??Date.now,fetcher=deps.fetch??globalThis.fetch;

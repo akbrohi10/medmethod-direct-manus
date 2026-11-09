@@ -56,7 +56,7 @@ describe("completed Hormone Symptom Quiz integration",()=>{
   expect(result[0].quiz_id).toBe(result[1].quiz_id);expect(result[0].quiz_id).toMatch(/^[0-9a-f-]{36}$/);expect(f.rows.size).toBe(1);expect(post).not.toHaveBeenCalled();
   const row=[...f.rows.values()][0];expect(row.encryptedRecord.toString()).not.toContain("Test");expect(row.encryptedRecord.toString()).not.toContain("wakeNights");
   const record=decryptQuizRecord<StoredQuizRecord>(row.quizId,row.encryptedRecord);expect(record.phone).toBe("+15555550100");expect(record.answers.map(a=>a.id)).toEqual(quizAnswerTexts(createTestQuizAnswers()).map(a=>a.id));
-  expect(Object.keys(buildGhlQuizPayload({...record,...{unexpectedHealth:"DO NOT SEND"}} as StoredQuizRecord))).toEqual(["first_name","last_name","email","phone","tags","source","submitted_at"]);
+  expect(Object.keys(buildGhlQuizPayload({...record,...{unexpectedHealth:"DO NOT SEND"}} as StoredQuizRecord))).toEqual(["first_name","last_name","email","phone","tags","source","submitted_at","quiz_answers"]);
   const full=buildKeragonQuizPayload(record);expect(full.event).toBe("mmd_quiz.completed");expect(full.quiz_id).toBe(result[0].quiz_id);expect(full.report_document_name).toMatch(/^Hormone Symptom Quiz Report - \d{4}-\d{2}-\d{2}$/);expect(full.report_document_name).not.toContain("&");expect(full.balance_index).toBe(computeQuizScore(createTestQuizAnswers()).balance_index);
   await service.flush();expect(post).toHaveBeenCalledTimes(2);await service.flush();expect(post).toHaveBeenCalledTimes(2);
   const bodies=post.mock.calls.map(c=>JSON.parse((c[1] as RequestInit).body as string));expect(bodies.find(b=>b.tags)).toEqual(buildGhlQuizPayload(record));
