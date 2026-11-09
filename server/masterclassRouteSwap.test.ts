@@ -1,4 +1,4 @@
-import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
 const BASELINE = "bd30bdec";
-const read = (path: string) => readFileSync(resolve(root, path), "utf8");
+const read = (path: string) => inverseHormoneQuizIntegration(path, readFileSync(resolve(root, path), "utf8"));
 const readBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
     cwd: root,

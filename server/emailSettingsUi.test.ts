@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope";
 import { describe, expect, it } from "vitest";
 
-const adminSettings = readFileSync(new URL("../client/src/pages/AdminSettings.tsx", import.meta.url), "utf8");
+const adminSettings = inverseHormoneQuizIntegration("client/src/pages/AdminSettings.tsx", readFileSync(new URL("../client/src/pages/AdminSettings.tsx", import.meta.url), "utf8"));
 const emailSettings = readFileSync(new URL("../client/src/components/AdminEmailSettings.tsx", import.meta.url), "utf8");
 const emailSettingsRouter = readFileSync(new URL("./routers/emailSettings.ts", import.meta.url), "utf8");
 

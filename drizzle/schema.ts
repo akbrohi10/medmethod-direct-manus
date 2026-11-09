@@ -334,3 +334,28 @@ export const ghlIntakeWebhookOutbox = mysqlTable("ghl_intake_webhook_outbox", {
   index("ghl_intake_outbox_retention_idx").on(table.status, table.terminalExpiresAt),
 ]);
 export type GhlIntakeWebhookOutbox = typeof ghlIntakeWebhookOutbox.$inferSelect;
+
+/** Permanent quiz record: contact, selections, exact answers, score and PDF capability are AES-GCM encrypted. */
+export const hormoneQuizRecords = mysqlTable("hormone_quiz_records", {
+  quizId: varchar("quizId", { length: 36 }).primaryKey(),
+  requestKeyHash: varchar("requestKeyHash", { length: 64 }).notNull().unique(),
+  encryptedRecord: mediumblob("encryptedRecord").notNull(),
+  submittedAt: bigint("submittedAt", { mode: "number" }).notNull(),
+  isTest: int("isTest").notNull().default(0),
+});
+
+/** Durable deduplication and retry claims. No personal/health data or webhook URLs in this table. */
+export const hormoneQuizDeliveries = mysqlTable("hormone_quiz_deliveries", {
+  quizId: varchar("quizId", { length: 36 }).notNull(),
+  provider: mysqlEnum("provider", ["keragon", "ghl"]).notNull(),
+  status: mysqlEnum("status", ["pending", "processing", "sent", "failed"]).notNull().default("pending"),
+  attempts: int("attempts").notNull().default(0),
+  maxAttempts: int("maxAttempts").notNull().default(2),
+  nextAttemptAt: bigint("nextAttemptAt", { mode: "number" }).notNull(),
+  leaseOwner: varchar("leaseOwner", { length: 64 }),
+  leaseExpiresAt: bigint("leaseExpiresAt", { mode: "number" }),
+  httpStatus: int("httpStatus").notNull().default(0),
+}, table => [
+  primaryKey({ columns: [table.quizId, table.provider] }),
+  index("hormone_quiz_delivery_due_idx").on(table.status, table.nextAttemptAt, table.leaseExpiresAt),
+]);

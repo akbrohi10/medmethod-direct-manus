@@ -12,6 +12,7 @@
 
 import { useAuth } from "@/_core/hooks/useAuth";
 import AdminEmailSettings from "@/components/AdminEmailSettings";
+import AdminQuizWebhooks from "@/components/AdminQuizWebhooks";
 import { trpc } from "@/lib/trpc";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -248,7 +249,7 @@ export default function AdminSettings() {
   const [testSecKey, setTestSecKey] = useState("");
   const [livePubKey, setLivePubKey] = useState("");
   const [liveSecKey, setLiveSecKey] = useState("");
-  const [activeTab, setActiveTab] = useState<"settings" | "paypal" | "intake" | "email" | "payments">("settings");
+  const [activeTab, setActiveTab] = useState<"settings" | "paypal" | "intake" | "email" | "quiz" | "payments">("settings");
 
   // PayPal local form state
   const [ppMode, setPpMode] = useState<PayPalMode>("sandbox");
@@ -516,7 +517,15 @@ export default function AdminSettings() {
           >
             Payments ({payments.length})
           </button>
+          <button
+            onClick={() => setActiveTab("quiz")}
+            className={`px-4 py-2 rounded-md text-sm font-semibold transition ${activeTab === "quiz" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+          >
+            Quiz Webhooks
+          </button>
         </div>
+
+        {activeTab === "quiz" && <AdminQuizWebhooks />}
 
         {/* PayPal Settings Tab */}
         {activeTab === "paypal" && (
