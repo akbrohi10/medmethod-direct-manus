@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Fail closed: health-answer clicks cannot be proven safe in session replay. No tracker is installed here. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; frame-src 'none'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
@@ -355,8 +358,8 @@
     </style>
     <script defer src="/assets/hormone-quiz-transport.js"></script>
   </head>
-  <body>
-    <main class="wrap">
+  <body data-hj-suppress data-cs-mask>
+    <main class="wrap" data-hj-suppress data-cs-mask>
 
       <!-- ============ INTRO ============ -->
       <section id="intro" class="intro">
@@ -377,7 +380,7 @@
       </section>
 
       <!-- ============ QUIZ ============ -->
-      <section id="quiz" class="hidden">
+      <section id="quiz" class="hidden" data-hj-suppress data-cs-mask>
         <div class="progress-head">
           <div class="progress-meta">
             <span class="sec" id="secLabel">About you</span>
@@ -390,7 +393,7 @@
         <div class="qcard fadein" id="qcard">
           <h2 id="qText"></h2>
           <p class="qhint" id="qHint"></p>
-          <div class="opts" id="opts"></div>
+          <div class="opts" id="opts" data-hj-suppress data-cs-mask></div>
           <p class="curiosity hidden" id="qCuriosity"></p>
           <div class="qnav">
             <button class="backbtn" id="backBtn" type="button">← Back</button>
@@ -400,7 +403,7 @@
       </section>
 
       <!-- ============ GATE — contact details before the report ============ -->
-      <section id="gate" class="gate hidden">
+      <section id="gate" class="gate hidden" data-hj-suppress data-cs-mask>
         <div class="over">One last step</div>
         <h1>Your report is ready</h1>
         <p class="sub">Add your details below and we&rsquo;ll add this report to your secure record at MedMethod Direct — then your full report opens right here.</p>
@@ -412,20 +415,20 @@
             <p>Your score, your pattern, your five areas and your drivers are inside — add your details to open it.</p>
           </div>
         </div>
-        <form class="gate-form" id="gateForm" novalidate>
+        <form class="gate-form" id="gateForm" novalidate data-hj-suppress data-cs-mask>
           <div class="field">
             <label for="gateName">Your name</label>
-            <input id="gateName" name="name" type="text" autocomplete="name" placeholder="First and last name" />
+            <input id="gateName" name="name" type="text" autocomplete="name" placeholder="First and last name" data-hj-suppress data-cs-mask />
             <p class="field-error hidden" id="gateNameError">Please add your name so we can put this report in your record.</p>
           </div>
           <div class="field">
             <label for="gateEmail">Email</label>
-            <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+            <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" data-hj-suppress data-cs-mask />
             <p class="field-error hidden" id="gateEmailError">Please add a valid email address, like you@example.com.</p>
           </div>
           <div class="field">
             <label for="gatePhone">Phone number</label>
-            <input id="gatePhone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" />
+            <input id="gatePhone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" data-hj-suppress data-cs-mask />
             <p class="field-error hidden" id="gatePhoneError">Please add a valid phone number — at least 10 digits.</p>
           </div>
           <p class="gate-privacy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>100% secure, &amp; HIPAA compliant</span></p>
@@ -434,8 +437,8 @@
       </section>
 
       <!-- ============ REPORT ============ -->
-      <section id="report" class="report hidden">
-        <div id="submissionData" class="hidden" aria-hidden="true"></div>
+      <section id="report" class="report hidden" data-hj-suppress data-cs-mask>
+        <div id="submissionData" class="hidden" aria-hidden="true" data-hj-suppress data-cs-mask></div>
         <div class="over">Your report</div>
         <h1>Here is your picture.</h1>
         <p class="sub">Built from your answers just now — nothing here is a guess about someone else.</p>

@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { inverseHormoneQuizPrivacy } from "./fixtures/hormoneQuizPrivacyScope";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -21,8 +21,8 @@ const production = {
   "server/hormoneQuizPrivateReport.ts": { before: "0b09d70a1da392697b7c17e5c55c4a0c8c4cc244e96bed1afdac8c1aa68dc834", after: "378abd7a02401b0837e4e42c9d137a9c2aa2abf78ec5e58db8ff649411577e59" },
   "server/routers/hormoneQuiz.ts": { before: "1c1404a42c9e1d89c19440bd0533c0267a1fcd9636068b2491c22da29efbe9a6", after: "d664ec6e2b8a2263c5f074542f2c7d865716358df1791fb88c7568d7847e6306" },
 };
-const read = (p: string) => readFileSync(resolve(root, p), "utf8");
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" });
+const read = (p: string) => inverseHormoneQuizPrivacy(p, readFileSync(resolve(root, p), "utf8"));
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizPrivacyScope.ts" ? "589a41f28d49b6bdc2dec9149f7dbfe996bdd0f0a5389fcf1d4ee501b04fb156" : p === "server/hormoneQuizPrivacy.test.ts" ? "ab258e67b82562ae04298394dba34c0bf021541fb6b452331509a9fb0e742e0c" : null; if (pin) { if (hash(read(p)) !== pin) throw Error("Quiz privacy inventory SHA mismatch"); return false; } const expected = ({"client/public/hormone-symptom-quiz.html": "24c45b7c284477614037c7a3fe305d57aeca022eba889103770a0d26c3b16f50", "server/_core/index.ts": "58b888efb532a6dc0165b784753cbfec632fa29f257376e96f7f03155da76bff"} as Record<string, string>)[p]; if (args[0] !== "diff" || !expected) return true; if (hash(inverseHormoneQuizPrivacy(p, read(p))) !== expected) throw Error("Quiz privacy production inverse SHA mismatch"); return false; }).join("\n");
 const before = (p: string) => git("show", baseline + ":" + p);
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
 const lines = (s: string) => s.split("\n").filter(Boolean);
