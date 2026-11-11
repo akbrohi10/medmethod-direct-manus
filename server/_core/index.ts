@@ -17,6 +17,7 @@ import { stripePaymentWebhookHandler } from "../stripePaymentWebhook";
 import { careTeamBookingWebhookHandler } from "../careTeamBookingWebhook";
 import { registerIntakePaymentRoutes } from "../intakePaymentRoutes";
 import { registerHormoneQuizRoutes } from "../hormoneQuizRoutes";
+import { serveQuizPreviewResults } from "../hormoneQuizPreviewResults";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -167,11 +168,12 @@ async function startServer() {
   const hormoneSymptomQuizHtml = process.env.NODE_ENV === "development"
     ? path.resolve(import.meta.dirname, "../../client/public/hormone-symptom-quiz.html")
     : path.resolve(import.meta.dirname, "public/hormone-symptom-quiz.html");
-  app.get(["/hormone-symptom-quiz", "/hormone-symptom-quiz/", "/hormone-symptom-quiz.html"], (_req, res) => {
+  app.get(["/hormone-symptom-quiz", "/hormone-symptom-quiz/", "/hormone-symptom-quiz.html"], (req, res) => {
     // Quiz only: exclude session capture, including an SDK already running in this document.
     // Response policy applies before scripts execute; masking alone cannot hide answer-selection clicks.
     res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; frame-src 'none'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors https://manus.im https://*.manus.im https://manus.ai https://*.manus.ai");
     res.setHeader("Referrer-Policy", "no-referrer");
+    if (serveQuizPreviewResults(req, res, hormoneSymptomQuizHtml)) return;
     res.sendFile(hormoneSymptomQuizHtml);
   });
 

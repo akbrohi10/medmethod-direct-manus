@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto"; import { isolationHistoricalSource, isolationInventoryPin } from "./fixtures/hormoneQuizIsolationScope"; const isolationHelperSHA = "7a6892924c391c4d9cce8520a5cf52aa987d7579c653ea6af20beb354b411c6c";
+import { createHash } from "node:crypto"; import { isolationHistoricalSource, isolationInventoryPin } from "./fixtures/hormoneQuizIsolationScope"; const isolationHelperSHA = "7a6892924c391c4d9cce8520a5cf52aa987d7579c653ea6af20beb354b411c6c"; import { createHash as previewResultsCreateHash } from "node:crypto"; import { inverseHormoneQuizPreviewResults as qpi, previewResultsHistoricalSource, previewResultsApprovedInventory } from "./fixtures/hormoneQuizPreviewResultsScope"; const previewResultsHelperSHA = "20b894339a1ed562393fca6651ab4e88c37cc59d22afc63f8cbf36cacb155f8b";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -19,8 +19,8 @@ const helperSHA = "0c00547da82534553fcaeef64060f14c2077c34b7a0cff7e7053d9e4fd8de
 const oldOffer = '<p class="report-text-visit-offer"><strong>Your first text visit is FREE</strong>Includes 7 days of follow-up messaging.</p>';
 const newOffer = '<p class="report-text-visit-offer"><strong>Your first text visit is FREE</strong>100% online, by text. Includes 7 days of follow-up messaging.</p>';
 const sentence = "100% online, by text. Includes 7 days of follow-up messaging.";
-const read = (p: string) => isolationHistoricalSource(p, readFileSync(resolve(root, p), "utf8"), s => hash(s), isolationHelperSHA);
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizIsolationScope.ts" ? isolationHelperSHA : isolationInventoryPin(p); if (!pin) return true; if (hash(readFileSync(resolve(root, p), "utf8")) !== pin) throw Error("Quiz isolation inventory SHA mismatch"); return false; }).join("\n");
+const read = (p: string) => isolationHistoricalSource(p, previewResultsHistoricalSource(p, readFileSync(resolve(root, p), "utf8"), s => previewResultsCreateHash("sha256").update(s).digest("hex"), previewResultsHelperSHA), s => hash(s), isolationHelperSHA);
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!p || !["diff", "ls-files"].includes(args[0])) return true; return !previewResultsApprovedInventory(p, readFileSync(resolve(root, p), "utf8"), s => previewResultsCreateHash("sha256").update(s).digest("hex"), previewResultsHelperSHA, p === "server/_core/index.ts" && args[0] === "diff" ? execFileSync("git", ["show", args[2] + ":" + p], { cwd: root, encoding: "utf8" }) : undefined); }).filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizIsolationScope.ts" ? isolationHelperSHA : isolationInventoryPin(p); if (!pin) return true; if (hash(readFileSync(resolve(root, p), "utf8")) !== pin) throw Error("Quiz isolation inventory SHA mismatch"); return false; }).join("\n");
 const before = (p: string) => git("show", baseline + ":" + p);
 const hash = (s: string | Buffer) => createHash("sha256").update(s).digest("hex");
 const html = read(page), original = before(page);
@@ -61,7 +61,7 @@ describe("Hormone quiz online-care sentence — exact copy-only checkpoint scope
     expect(styles(html)).toEqual(styles(original)); expect(html.match(/<link\b[^>]*>/g)).toEqual(original.match(/<link\b[^>]*>/g));
     const paths = git("ls-tree", "-r", "--name-only", baseline, "--", "client", "server", "shared", "drizzle").trim().split("\n");
     for (const p of paths.filter(p => !/\.test\.[cm]?[jt]sx?$|\.spec\.[cm]?[jt]sx?$/.test(p))) {
-      const current = readFileSync(resolve(root, p)), previous = execFileSync("git", ["show", baseline + ":" + p], { cwd: root });
+      const current = (p === "server/_core/index.ts" ? Buffer.from(previewResultsHistoricalSource(p, readFileSync(resolve(root, p)).toString("utf8"), s => previewResultsCreateHash("sha256").update(s).digest("hex"), previewResultsHelperSHA)) : readFileSync(resolve(root, p))), previous = execFileSync("git", ["show", baseline + ":" + p], { cwd: root });
       expect(p === page ? Buffer.from(inverseHormoneQuizOnlineCopy(p, current.toString("utf8"))) : current, p).toEqual(previous);
     }
     const scope = ["client", "server", "shared", "drizzle", ".gitignore", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml", "tsconfig.json"];
