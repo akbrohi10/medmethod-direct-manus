@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { inverseHormoneQuizLetterRemoval } from "./fixtures/hormoneQuizLetterRemovalScope";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -14,8 +14,8 @@ const direct = "server/hormoneQuizCtaPlacement.test.ts";
 const beforeSHA = "725c507f5e87708401e0bfd133a3b3bc55060c06211f3d88a31ab4861114003f";
 const afterSHA = "3eec5f60a3933f6acf15033e1a7d0327b735adc85781c3566628c393d839df8e";
 const helperSHA = "045fb37fbf5cbcd1c0cf07f8e3ca0d84a18512b5151fd4d835835546bc26dcf8";
-const read = (p: string) => readFileSync(resolve(root, p), "utf8");
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" });
+const read = (p: string) => inverseHormoneQuizLetterRemoval(p, readFileSync(resolve(root, p), "utf8"));
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizLetterRemovalScope.ts" ? "96938eba387ef8b4249cd02e6a6773b1073c877eb99812e4b7900d2be66d1d7d" : p === "server/hormoneQuizLetterRemoval.test.ts" ? "d7416dfa4c92225fa859e32f6d86fa640b6cfc5259b625471274a05011b6d98b" : null; if (!pin) return true; if (hash(read(p)) !== pin) throw Error("Quiz letter removal inventory SHA mismatch"); return false; }).join("\n");
 const before = (p: string) => git("show", baseline + ":" + p);
 const hash = (s: string | Buffer) => createHash("sha256").update(s).digest("hex");
 const html = read(page), original = before(page);
@@ -114,7 +114,7 @@ describe("Hormone quiz CTA placement — exact results-only checkpoint scope", (
     const paths = git("ls-tree", "-r", "--name-only", baseline, "--", "client", "server", "shared", "drizzle").trim().split("\n");
     for (const p of paths.filter(p => !/\.test\.[cm]?[jt]sx?$|\.spec\.[cm]?[jt]sx?$/.test(p))) {
       const current = readFileSync(resolve(root, p)); const previous = execFileSync("git", ["show", baseline + ":" + p], { cwd: root });
-      expect(p === page ? Buffer.from(inverseHormoneQuizCtaPlacement(p, current.toString("utf8"))) : current, p).toEqual(previous);
+      expect(p === page ? Buffer.from(inverseHormoneQuizCtaPlacement(p, inverseHormoneQuizLetterRemoval(p, current.toString("utf8")))) : current, p).toEqual(previous);
     }
     const prior = git("ls-tree", "-r", "--name-only", baseline, "--", "server/fixtures").trim().split("\n"); expect(prior).toHaveLength(27); for (const p of prior) expect(read(p), p).toBe(before(p));
     for (const p of ["package.json", "pnpm-lock.yaml", "vite.config.ts", "vitest.config.ts", "tsconfig.json", ".gitignore"]) expect(read(p), p).toBe(before(p));

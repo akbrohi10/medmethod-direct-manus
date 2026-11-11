@@ -1130,12 +1130,6 @@
         .map(function(i){ return label(BY_ID["recognize"], i); });
       if (recogPicked.length) glance.unshift("Right at the start, you checked " + recogPicked.length + " of the familiar ones — " + recogPicked.slice(0, 4).join(", ").toLowerCase() + (recogPicked.length > 4 ? ", and more" : "") + ". If this quiz feels like it was written about you, that's why.");
       var fix = ans("fixFirst");
-      html += '<div class="letter"><p>Dear friend,</p>'
-        + "<p>Before the numbers, here is what you told us — in plain sight, the way it deserves to be:</p>"
-        + (glance.length ? '<ul class="glance">' + glance.map(function(g){ return "<li>" + g + "</li>"; }).join("") + "</ul>" : "")
-        + "<p>None of these arrived on their own. They tend to travel together, because they share a driver: estrogen, falling the way it does in these years. Here is your whole picture, scored.</p>"
-        + (fix ? "<p>And the thing you'd fix first — <b>" + fix.toLowerCase() + "</b> — shapes the order of your drivers below.</p>" : "")
-        + "</div>";
       var ord = orderDrivers(metrics, fix);
       var leadDriver = ord.ordered[0];
       var patternDriver = pattern.domain ? { sleep:1, temp:2, mood:3, body:4, intimacy:0 }[pattern.domain] : 0;
