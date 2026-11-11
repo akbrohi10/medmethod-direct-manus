@@ -355,6 +355,42 @@
         margin-top: 24px;
         padding-top: 8px;
       }
+      /* Results-only repeated actions — same approved destinations, no new offer. */
+      .report-start-actions { margin: 0 0 26px; text-align: center; }
+      .report-start-actions .cta {
+        display: flex; align-items: center; justify-content: center; min-height: 56px;
+        font-size: 18px; line-height: 1.35; text-decoration: none; padding: 16px 18px;
+      }
+      .report-start-actions .report-discovery-link {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 44px; margin-top: 6px; padding: 8px 4px;
+        font-size: 16px; font-weight: 800; color: var(--plum);
+        text-decoration: underline; text-underline-offset: 3px;
+      }
+      @media (prefers-color-scheme: dark) {
+        .report-start-actions .cta { color: #4c1537; }
+      }
+      .report-floating-cta { display: none; }
+      .report-start-actions a:focus-visible, .report-floating-cta:focus-visible {
+        outline: 3px solid var(--rasp); outline-offset: 4px;
+      }
+      @media (max-width: 700px) {
+        .report { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+        .report-floating-cta {
+          display: flex; align-items: center; justify-content: center;
+          position: fixed; z-index: 60;
+          left: max(12px, env(safe-area-inset-left, 0px));
+          right: max(12px, env(safe-area-inset-right, 0px));
+          bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+          max-width: 440px; min-height: 60px; margin: 0 auto; padding: 16px 20px;
+          border: 2px solid #fff; border-radius: 999px;
+          background: #e59ec2; color: #4c1537;
+          box-shadow: 0 8px 24px rgba(76, 21, 55, 0.20);
+          font-size: 17px; font-weight: 800; line-height: 1.3;
+          text-align: center; text-decoration: none;
+        }
+        .report-floating-cta:active { transform: scale(0.99); }
+      }
     </style>
     <script defer src="/assets/hormone-quiz-transport.js"></script>
   </head>
@@ -443,6 +479,7 @@
         <h1>Here is your picture.</h1>
         <p class="sub">Built from your answers just now — nothing here is a guess about someone else.</p>
         <div id="reportBody"></div>
+        <a class="report-floating-cta" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Start your free text visit</a>
         <div class="sources-block">
           <h2>Sources &amp; how this is benchmarked</h2>
           <p>Every benchmark in this report comes only from credible, published research:</p>
@@ -1115,6 +1152,11 @@
           + '<div class="scale-labels"><span>0</span><span>50</span><span>100</span></div>'
           + '<p class="zone-note">The green stretch, <b>82 to 100 out of 100</b>, is the balanced range — where women with balanced hormones typically land.</p></div>';
       }
+
+      /* Repeat the existing actions directly after the Balance Index. */
+      html += '<nav class="report-start-actions" aria-label="Next steps">'
+        + '<a class="cta" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Connect with Dr. Al-Deek—Free</a>'
+        + '<a class="report-discovery-link" href="https://medmethoddirect.com/care-team-booking" target="_blank" rel="noopener">Book a free discovery call</a></nav>';
 
       /* Pattern */
       html += '<div class="pattern"><div class="pl">Your pattern</div><h2>' + pattern.name + '</h2><p>' + pattern.text + '</p>'
