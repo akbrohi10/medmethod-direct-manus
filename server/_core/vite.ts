@@ -7,8 +7,10 @@ import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { getMetaForPath, injectRouteMetaIntoHtml } from "../crawlerMiddleware";
 import { injectCareTeamConfirmationPrivacyIntoHtml } from "../careTeamConfirmationPrivacy";
+import { injectPublicMarketingMetaPixel } from "../publicMarketingMetaPixel";
 
 function injectMasterclassRouteMeta(template: string, url: string): string {
+  template = injectPublicMarketingMetaPixel(template, url);
   template = injectCareTeamConfirmationPrivacyIntoHtml(template, url);
   const cleanPath = url.split("?")[0].replace(/\/$/, "") || "/";
   if (cleanPath === "/weight-loss-menopauseV2") return injectRouteMetaIntoHtml(template, getMetaForPath(url));
@@ -32,6 +34,13 @@ export async function setupVite(app: Express, server: Server) {
     appType: "custom",
   });
 
+  // Route root/index through the same gated HTML response instead of a raw static index.
+  app.use(["/", "/index.html"], (req, _res, next) => {
+    if (["GET", "HEAD"].includes(req.method) && ["/", "/index.html"].includes(req.originalUrl.split("?")[0])) {
+      req.url = "/__public_website_html__" + (req.originalUrl.includes("?") ? "?" + req.originalUrl.split("?").slice(1).join("?") : "");
+    }
+    next();
+  });
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
@@ -71,6 +80,14 @@ export function serveStatic(app: Express) {
     );
   }
 
+  app.get(["/", "/index.html"], (req, res, next) => {
+    try {
+      const template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
+      res.status(200).type("html").send(injectMasterclassRouteMeta(template, req.originalUrl));
+    } catch (error) {
+      next(error);
+    }
+  });
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist

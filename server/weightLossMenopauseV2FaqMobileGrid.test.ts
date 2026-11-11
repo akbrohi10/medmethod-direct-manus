@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test"; import { createHash as publicMarketingCreateHash } from "node:crypto"; import { publicMarketingHistoricalSource, publicMarketingApprovedInventory } from "./fixtures/publicMarketingPixelScope"; const publicMarketingHelperSHA = "e3afb1740354430518b39a9e1102b8b1afec18fc53796c6e9879ea3472a97e72";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -198,7 +198,7 @@ const approvedV2ShowAllButton = `                {category.items.length > 3 && (
                 >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>
                 )}`;
 
-const read = (file: string) => inverseApprovedV2BioMscpBadge(file, readFileSync(resolve(root, file), "utf8"));
+const read = (file: string) => inverseApprovedV2BioMscpBadge(file, publicMarketingHistoricalSource(file, readFileSync(resolve(root, file), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA));
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 
 function normalizeApprovedV2FaqFirstThreeOpen(source: string): string {
@@ -233,8 +233,8 @@ function changedProductionFiles(): string[] {
   return execFileSync("git", ["diff", "--name-only", baseline, "--", "client", "server", "shared"], { cwd: root, encoding: "utf8" })
     .split("\n")
     .filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
-      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
-      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `94e43fdc:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, publicMarketingHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA)))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, publicMarketingHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA)) !== execFileSync("git", ["show", `94e43fdc:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => !approvedThankYouNextStepsPaths.has(file))

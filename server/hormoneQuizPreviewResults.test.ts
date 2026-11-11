@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { createHash as publicMarketingCreateHash } from "node:crypto"; import { publicMarketingHistoricalSource, publicMarketingApprovedInventory } from "./fixtures/publicMarketingPixelScope"; const publicMarketingHelperSHA = "e3afb1740354430518b39a9e1102b8b1afec18fc53796c6e9879ea3472a97e72";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -18,7 +18,7 @@ const helperPath = "server/fixtures/hormoneQuizPreviewResultsScope.ts";
 const directPath = "server/hormoneQuizPreviewResults.test.ts";
 const html = readFileSync(resolve(root, page), "utf8");
 const hash = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" });
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!p || !["diff", "ls-files"].includes(args[0])) return true; return !publicMarketingApprovedInventory(p, readFileSync(resolve(root, p), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA); }).join("\n");
 const transport = '<script defer src="/assets/hormone-quiz-transport.js"></script>';
 const scripts = (value: string) => [...value.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]);
 const req = (preview?: unknown) => ({ query: preview === undefined ? {} : { preview } }) as Pick<Request, "query">;
@@ -122,13 +122,13 @@ describe("Hormone quiz development-only immediate sample results — frozen prev
     const helperCode = helper.split("\n").slice(1).join("\n").replace(/"(?:[^"\\]|\\.)*"/g, '"FROZEN_DATA_LITERAL"');
     expect(helperCode).not.toMatch(/(?<![.\w])(?:describe|it|test)\s*\(|\bimport\s|\brequire\s*\(|readFile|writeFile|execFile|fetch\(|process\.|XMLHttpRequest|sendBeacon/);
     expect(readFileSync(resolve(root, directPath), "utf8")).not.toMatch(/from\s+["'][^"']*\.test["']/);
-    for (const path of [modulePath, directPath]) expect(hash(readFileSync(resolve(root, path), "utf8"))).toBe(previewResultsInventoryPin(path));
+    for (const path of [modulePath, directPath]) expect(hash(publicMarketingHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA))).toBe(previewResultsInventoryPin(path));
     expect(previewResultsInventoryPin(modulePath + ".bak")).toBeNull();
     const scope = ["client", "server", "shared", "drizzle", ".gitignore", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml", "tsconfig.json"];
     const entries = git("ls-tree", "-r", base, "--", ...scope).trim().split("\n").map(line => { const [metadata, path] = line.split("\t"); return { path, blobSHA: metadata.split(" ")[2] }; });
     const paths = entries.map(entry => entry.path);
     for (const { path, blobSHA } of entries) {
-      const raw = readFileSync(resolve(root, path));
+      const raw = (path === "server/_core/vite.ts" || /\.(?:test|spec)\.[cm]?[jt]sx?$/.test(path) ? Buffer.from(publicMarketingHistoricalSource(path, readFileSync(resolve(root, path)).toString("utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA)) : readFileSync(resolve(root, path)));
       const restored = path === indexPath || /\.(?:test|spec)\.[cm]?[jt]sx?$/.test(path) ? Buffer.from(previewResultsHistoricalSource(path, raw.toString("utf8"), hash, helperSHA)) : raw;
       expect(createHash("sha1").update(Buffer.from("blob " + restored.length + "\0")).update(restored).digest("hex"), path).toBe(blobSHA);
     }

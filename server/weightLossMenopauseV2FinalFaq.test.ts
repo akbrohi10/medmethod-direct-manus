@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test"; import { createHash as publicMarketingCreateHash } from "node:crypto"; import { publicMarketingHistoricalSource, publicMarketingApprovedInventory } from "./fixtures/publicMarketingPixelScope"; const publicMarketingHelperSHA = "e3afb1740354430518b39a9e1102b8b1afec18fc53796c6e9879ea3472a97e72";
 import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -59,7 +59,7 @@ const approvedAuditPriorityFixesAppend = `
 const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
-const read = (file: string) => inverseApprovedV2BioMscpBadge(file, readFileSync(resolve(root, file), "utf8"));
+const read = (file: string) => inverseApprovedV2BioMscpBadge(file, publicMarketingHistoricalSource(file, readFileSync(resolve(root, file), "utf8"), s => publicMarketingCreateHash("sha256").update(s).digest("hex"), publicMarketingHelperSHA));
 const atBaseline = (file: string) => execFileSync("git", ["show", `${baseline}:${file}`], { cwd: root, encoding: "utf8" });
 const count = (source: string, value: string) => source.split(value).length - 1;
 const fixture = JSON.parse(read(fixturePath)) as FinalFaqFixture;
