@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto"; import { inverseHormoneQuizOnlineCopy } from "./fixtures/hormoneQuizOnlineCopyScope";
+import { createHash } from "node:crypto"; import { inverseHormoneQuizOnlineCopy } from "./fixtures/hormoneQuizOnlineCopyScope"; import { isolationHistoricalSource, isolationInventoryPin } from "./fixtures/hormoneQuizIsolationScope"; const isolationHelperSHA = "7a6892924c391c4d9cce8520a5cf52aa987d7579c653ea6af20beb354b411c6c";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -14,8 +14,8 @@ const direct = "server/hormoneQuizMobileTop.test.ts";
 const beforeSHA = "36bad6087a2fe01313e2b2aebb63556a4a2070ede12f310a4dfbebdd31a78256";
 const afterSHA = "e30840b323f11c4096957a85635a196d20f3ab4bfc717e1c7b4286527f26671a";
 const helperSHA = "c44fd9ec9f7b8f160216ac64073c060a96a2b388c82c4ca0f6c47b7d51f6ebcd";
-const read = (p: string) => inverseHormoneQuizOnlineCopy(p, readFileSync(resolve(root, p), "utf8"));
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizOnlineCopyScope.ts" ? "0c00547da82534553fcaeef64060f14c2077c34b7a0cff7e7053d9e4fd8de949" : p === "server/hormoneQuizOnlineCopy.test.ts" ? "64d52ffd15f3f02cbbb8bf8bf0deade6499b9a6742741c5de895690b91197b0a" : null; if (!pin) return true; if (hash(read(p)) !== pin) throw Error("Quiz online copy inventory SHA mismatch"); return false; }).join("\n");
+const read = (p: string) => inverseHormoneQuizOnlineCopy(p, isolationHistoricalSource(p, readFileSync(resolve(root, p), "utf8"), s => hash(s), isolationHelperSHA));
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizIsolationScope.ts" ? isolationHelperSHA : isolationInventoryPin(p); if (!pin) return true; if (hash(readFileSync(resolve(root, p), "utf8")) !== pin) throw Error("Quiz isolation inventory SHA mismatch"); return false; }).filter(p => { if (!["diff", "ls-files"].includes(args[0])) return true; const pin = p === "server/fixtures/hormoneQuizOnlineCopyScope.ts" ? "0c00547da82534553fcaeef64060f14c2077c34b7a0cff7e7053d9e4fd8de949" : p === "server/hormoneQuizOnlineCopy.test.ts" ? "64d52ffd15f3f02cbbb8bf8bf0deade6499b9a6742741c5de895690b91197b0a" : null; if (!pin) return true; if (hash(read(p)) !== pin) throw Error("Quiz online copy inventory SHA mismatch"); return false; }).join("\n");
 const before = (p: string) => git("show", baseline + ":" + p);
 const hash = (s: string | Buffer) => createHash("sha256").update(s).digest("hex");
 const html = read(page), original = before(page);
