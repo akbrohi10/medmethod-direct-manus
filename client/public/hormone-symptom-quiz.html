@@ -391,6 +391,34 @@
         }
         .report-floating-cta:active { transform: scale(0.99); }
       }
+      /* Results-only physician introduction — existing portrait and care pathway. */
+      .report-doctor-intro {
+        margin: 0 0 18px; padding: 18px; border: 1px solid var(--line);
+        border-radius: var(--radius); background: var(--paper); text-align: left;
+      }
+      .report-doctor-header { display: flex; align-items: center; gap: 14px; }
+      .report-doctor-photo {
+        display: block; flex: 0 0 76px; width: 76px; height: 76px;
+        border-radius: 14px; object-fit: cover; object-position: 50% 28%;
+      }
+      .report-doctor-identity { min-width: 0; }
+      .report-doctor-intro .report-doctor-name {
+        margin: 0 0 5px; font-size: 19px; line-height: 1.3; font-weight: 700;
+        color: var(--plum-deep);
+      }
+      .report-doctor-intro .report-doctor-credentials {
+        margin: 0; font-size: 15px; line-height: 1.4; color: var(--ink-soft);
+      }
+      .report-doctor-intro .report-doctor-description {
+        margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: var(--ink-soft);
+      }
+      .report-start-actions .report-text-visit-offer {
+        margin: 0 0 12px; font-size: 17px; line-height: 1.45; color: var(--ink-soft);
+      }
+      .report-text-visit-offer strong { display: block; font-weight: 800; color: var(--plum-deep); }
+      .report-start-actions .report-text-visit-next {
+        margin: 10px 0 0; font-size: 15px; line-height: 1.45; color: var(--ink-soft);
+      }
     </style>
     <script defer src="/assets/hormone-quiz-transport.js"></script>
   </head>
@@ -1147,9 +1175,16 @@
           + '<p class="zone-note">The green stretch, <b>82 to 100 out of 100</b>, is the balanced range — where women with balanced hormones typically land.</p></div>';
       }
 
-      /* Repeat the existing actions directly after the Balance Index. */
-      html += '<nav class="report-start-actions" aria-label="Next steps">'
-        + '<a class="cta" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Connect with Dr. Al-Deek—Free</a>'
+      /* Introduce the physician before the existing free text-visit pathway. */
+      html += '<section class="report-doctor-intro" aria-labelledby="report-doctor-name">'
+        + '<div class="report-doctor-header"><img class="report-doctor-photo" src="/assets/dr-jumana-al-deek-portrait.webp" alt="Dr. Jumana Al-Deek, DO" width="76" height="76" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
+        + '<div class="report-doctor-identity"><h2 class="report-doctor-name" id="report-doctor-name">Meet Dr. Jumana Al-Deek, DO</h2>'
+        + '<p class="report-doctor-credentials">Family Physician<br>Menopause Society Certified Practitioner</p></div></div>'
+        + '<p class="report-doctor-description">Dr. Al-Deek takes a thoughtful approach to your care—reviewing your symptoms, health history, and goals, then working with you by text on a personalized plan.</p></section>'
+        + '<nav class="report-start-actions" aria-label="Next steps">'
+        + '<p class="report-text-visit-offer"><strong>Your first text visit is FREE</strong>Includes 7 days of follow-up messaging.</p>'
+        + '<a class="cta" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Start my free text visit</a>'
+        + '<p class="report-text-visit-next">Complete your medical intake first. No appointment or video call needed.</p>'
         + '<a class="report-discovery-link" href="https://medmethoddirect.com/care-team-booking" target="_blank" rel="noopener">Book a free discovery call</a></nav>';
 
       /* Pattern */
