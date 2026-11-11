@@ -419,6 +419,44 @@
       .report-start-actions .report-text-visit-next {
         margin: 10px 0 0; font-size: 15px; line-height: 1.45; color: var(--ink-soft);
       }
+      /* Mobile results-only top action; the existing bottom pill stays unchanged. */
+      .report-top-strip { display: none; }
+      @media (max-width: 700px) {
+        .report { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
+        html:has(#report:not(.hidden)) {
+          scroll-padding-top: calc(88px + env(safe-area-inset-top, 0px));
+          scroll-padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+        }
+        .report-top-strip {
+          display: block; position: fixed; z-index: 60; top: 0; left: 0; right: 0;
+          padding-top: env(safe-area-inset-top, 0px); background: var(--paper);
+          border-bottom: 1px solid var(--line); box-shadow: var(--shadow);
+        }
+        .report-top-inner {
+          display: grid; grid-template-columns: 40px minmax(0, 1fr) minmax(124px, 128px);
+          align-items: center; gap: 10px; max-width: 680px; min-height: 72px;
+          margin: 0 auto; padding: 8px max(12px, env(safe-area-inset-right, 0px)) 8px max(12px, env(safe-area-inset-left, 0px));
+        }
+        .report-top-photo {
+          display: block; width: 40px; height: 40px; border-radius: 10px;
+          object-fit: cover; object-position: 50% 28%;
+        }
+        .report-top-identity { min-width: 0; color: var(--ink); }
+        .report-top-name { display: block; font-size: 14px; line-height: 1.25; font-weight: 800; }
+        .report-top-offer { display: block; margin-top: 3px; font-size: 13px; line-height: 1.3; color: var(--ink-soft); }
+        .report-top-offer strong { font-weight: 800; color: var(--plum-deep); }
+        .report-top-button {
+          display: flex; align-items: center; justify-content: center; min-height: 48px;
+          padding: 8px 12px; border-radius: 14px; background: var(--plum); color: #fff;
+          font-size: 14px; line-height: 1.25; font-weight: 800;
+          text-align: center; text-decoration: none;
+        }
+        .report-top-button:focus-visible { outline: 3px solid var(--rasp); outline-offset: 3px; }
+        .report-top-button:active { transform: scale(0.99); }
+      }
+      @media (max-width: 700px) and (prefers-color-scheme: dark) {
+        .report-top-button { color: #4c1537; }
+      }
     </style>
     <script defer src="/assets/hormone-quiz-transport.js"></script>
   </head>
@@ -502,6 +540,13 @@
 
       <!-- ============ REPORT ============ -->
       <section id="report" class="report hidden" data-hj-suppress data-cs-mask>
+        <nav class="report-top-strip" aria-label="Free text visit with Dr. Al-Deek">
+          <div class="report-top-inner">
+            <img class="report-top-photo" src="/assets/dr-jumana-al-deek-portrait.webp" alt="Dr. Jumana Al-Deek, DO" width="40" height="40" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+            <div class="report-top-identity"><span class="report-top-name">Dr. Al-Deek</span><span class="report-top-offer">First text visit <strong>FREE</strong></span></div>
+            <a class="report-top-button" href="https://intake.medmethoddirect.com/" target="_blank" rel="noopener">Start my free text visit</a>
+          </div>
+        </nav>
         <div id="submissionData" class="hidden" aria-hidden="true" data-hj-suppress data-cs-mask></div>
         <div class="over">Your report</div>
         <h1>Here is your picture.</h1>
