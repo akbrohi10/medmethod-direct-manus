@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { installCareTeamBookingMetaPixel } from "../client/src/lib/careTeamBookingMetaPixel";
@@ -79,7 +79,7 @@ describe("care-team booking page-only supplied Meta events", () => {
   });
 
   it("keeps the booking calendar and redirect guards and existing confirmation mappings", () => {
-    expect(pageSource).toContain("installCareTeamBookingMetaPixel();");
+    expect(pageSource).not.toContain("installCareTeamBookingMetaPixel();");
     expect(pageSource).toContain('src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN"');
     expect(pageSource).toContain("event.origin !== CARE_TEAM_CALENDAR_ORIGIN");
     expect(pageSource).toContain("event.source !== calendarRef.current.contentWindow");

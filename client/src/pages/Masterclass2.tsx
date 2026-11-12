@@ -6,7 +6,6 @@ import { V2_FAQ_FOOTER_PARAGRAPHS } from "@/pages/WeightLossMenopauseV2FaqData";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, MessageCircleMore, PhoneCall, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { installMasterclassMetaPixel } from "@/lib/masterclassMetaPixel";
 import { getMasterclass2VideoPendingCheckout as getVideoVisitPendingCheckout } from "@/components/masterclass2/checkout4799/videoVisitCheckout4799Storage";
 
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
@@ -86,7 +85,6 @@ export default function Masterclass2() {
   const mobileBookingOpened = useRef(false);
 
   useEffect(() => {
-    installMasterclassMetaPixel();
     const pendingCheckout = getVideoVisitPendingCheckout();
     if (pendingCheckout && ["confirming", "provider_approved"].includes(pendingCheckout.phase ?? "")) setConsultationOpen(true);
   }, []);

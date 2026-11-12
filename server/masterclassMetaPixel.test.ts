@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { installMasterclassMetaPixel } from "../client/src/lib/masterclassMetaPixel";
@@ -82,18 +82,18 @@ describe("masterclass-only supplied Meta Pixel", () => {
     expect(scripts).toHaveLength(1);
   });
 
-  it("mounts tracking without editing the shared shell or confirmation bootstrap", () => {
-    expect(pageSource).toContain("installMasterclassMetaPixel();");
+  it("intentional removal replacement: leaves tracking unmounted without editing the shared shell or archival helper", () => {
+    expect(pageSource).not.toContain("installMasterclassMetaPixel();");
     expect(documentSource).not.toContain("1589326469554181");
     expect(documentSource).not.toContain("fbevents.js");
     expect(source).not.toContain("setTimeout"); // No second PageView image fallback with JS enabled.
   });
 
-  it("inserts the supplied real noscript exactly once only in masterclass2 HTML", () => {
+  it("intentional removal replacement: omits the old real noscript from masterclass2 HTML", () => {
     const html = injectRouteMetaIntoHtml(documentSource, getMetaForPath("/masterclass2?utm_source=ad"));
-    expect(html.match(/id="masterclass-meta-pixel-noscript"/g)).toHaveLength(1);
-    expect(html).toContain('src="https://www.facebook.com/tr?id=1589326469554181&amp;ev=PageView&amp;noscript=1"');
-    expect(html).toContain('height="1" width="1" style="display:none"');
+    expect(html.match(/id="masterclass-meta-pixel-noscript"/g)).toBeNull();
+    expect(html).not.toContain('src="https://www.facebook.com/tr?id=1589326469554181&amp;ev=PageView&amp;noscript=1"');
+    expect(html).not.toContain('height="1" width="1" style="display:none"');
     expect(injectRouteMetaIntoHtml(html, getMetaForPath("/masterclass2"))).toBe(html);
     for (const route of ["/", "/masterclass", "/weight-loss-menopause", "/care-team-booking-confirmed", "/thank-you"]) {
       expect(injectRouteMetaIntoHtml(documentSource, getMetaForPath(route))).not.toContain("masterclass-meta-pixel-noscript");

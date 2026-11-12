@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -143,7 +143,7 @@ const approvedMscpCredential = '"Menopause Certified (MSCP)", ';
 const approvedV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS, MSCP</h2>';
 const baselineV2DoctorHeading = '<h2 id="v2-doctor-heading">Meet Dr. Jumana Al-Deek, DO, MS</h2>';
 
-const read = (path: string) => inverseApprovedV2BioMscpBadge(path, inverseHormoneQuizIntegration(path, readFileSync(resolve(root, path), "utf8")));
+const read = (path: string) => inverseApprovedV2BioMscpBadge(path, inverseHormoneQuizIntegration(path, oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)));
 const atBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
     cwd: root,

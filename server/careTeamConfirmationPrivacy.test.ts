@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { crawlerMiddleware } from "./crawlerMiddleware";
@@ -51,20 +51,20 @@ describe("confirmation-only tracking URL privacy", () => {
     expect(privacy).toBeGreaterThan(0);
     expect(privacy).toBeLessThan(html.indexOf("<!-- Google Tag Manager -->"));
     expect(html).toContain('window.history.replaceState(window.history.state, "", window.location.pathname);');
-    expect(privacy).toBeLessThan(html.indexOf('id="confirmation-meta-pixel"'));
-    expect(html.match(/id="confirmation-meta-pixel"/g)).toHaveLength(1);
-    expect(html.indexOf('id="confirmation-meta-pixel"')).toBeLessThan(html.indexOf("</head>"));
-    expect(html.match(/fbq\('init', '1589326469554181'\)/g)).toHaveLength(1);
-    expect(html.match(/fbq\('track', 'PageView'\)/g)).toHaveLength(1);
-    expect(html.match(/fbq\('track', 'Lead'\)/g)).toHaveLength(1);
+    expect(html.indexOf('id="confirmation-meta-pixel"')).toBe(-1);
+    expect(html.match(/id="confirmation-meta-pixel"/g)).toBeNull();
+    expect(html).not.toContain("fbevents.js");
+    expect(html.match(/fbq\('init', '1589326469554181'\)/g)).toBeNull();
+    expect(html.match(/fbq\('track', 'PageView'\)/g)).toBeNull();
+    expect(html.match(/fbq\('track', 'Lead'\)/g)).toBeNull();
     expect(html).not.toContain("mmd_lead_fired");
     expect(html).not.toContain("sessionStorage");
-    expect(html).toContain("fbq('track', 'PageView');\nfbq('track', 'Lead');");
+    expect(html).not.toContain("fbq('track', 'PageView');\nfbq('track', 'Lead');");
     expect(html).not.toContain("fbq('track', 'Schedule')");
     expect(html).not.toContain("fbq('track', 'Purchase')");
-    expect(html.match(/id="care-team-confirmation-meta-pixel-noscript"/g)).toHaveLength(1);
-    expect(html.indexOf('id="care-team-confirmation-meta-pixel-noscript"')).toBeGreaterThan(html.indexOf("<body"));
-    expect(html).toContain('ev=PageView&amp;noscript=1');
+    expect(html.match(/id="care-team-confirmation-meta-pixel-noscript"/g)).toBeNull();
+    expect(html).not.toContain("1589326469554181");
+    expect(html).not.toContain('ev=PageView&amp;noscript=1');
     expect(injectCareTeamConfirmationPrivacyIntoHtml(html, "/care-team-booking-confirmed")).toBe(html);
     for (const path of ["/", "/masterclass", "/care-team-booking", "/intake/", "/webinar-registration-confirmed"]) {
       expect(injectCareTeamConfirmationPrivacyIntoHtml(template, path)).toBe(template);

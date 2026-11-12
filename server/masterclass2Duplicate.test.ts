@@ -1,9 +1,9 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
-const read = (path: string) => readFileSync(resolve(root, path), "utf8");
+const read = (path: string) => oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA);
 
 const original = read("client/src/pages/MasterclassVideoFirst.tsx");
 const duplicate = read("client/src/pages/Masterclass2.tsx");
@@ -218,7 +218,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
   });
 
   it("keeps Meta Pixel installation limited to /masterclass2", () => {
-    expect(duplicate).toContain("installMasterclassMetaPixel();");
+    expect(readFileSync(resolve(root, "client/src/pages/Masterclass2.tsx"), "utf8")).not.toContain("installMasterclassMetaPixel();");
     expect(pixelHelper).toContain(
       'window.location.pathname.replace(/\\/$/, "") !== "/masterclass2"',
     );

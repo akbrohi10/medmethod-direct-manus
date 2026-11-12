@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -189,7 +189,7 @@ const approvedV2ShowAllButton = `                {category.items.length > 3 && (
                 >{expanded ? "Show fewer" : \`Show all \${category.items.length} questions\`}</button>
                 )}`;
 
-const read = (path: string) => inverseApprovedV2BioMscpBadge(path, readFileSync(resolve(root, path), "utf8"));
+const read = (path: string) => inverseApprovedV2BioMscpBadge(path, oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA));
 const atBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
     cwd: root,
@@ -231,8 +231,8 @@ function changedProductionFiles(): string[] {
   )
     .split("\n")
     .filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
-      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
-      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `15da38f3:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, oldMetaPixelRemovalHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, oldMetaPixelRemovalHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)) !== execFileSync("git", ["show", `15da38f3:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
     .filter(path => !/\.test\.[cm]?[jt]sx?$/.test(path))
     .filter(path => !approvedWeightCareRegressionPaths.has(path))
     .filter(path => !approvedThankYouNextStepsPaths.has(path))

@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash } from "node:crypto"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
 import { execFileSync } from "node:child_process";
 import fs, { readFileSync } from "node:fs";
 import { createServer, get as httpGet, type Server } from "node:http";
@@ -27,8 +27,8 @@ const base = "0d8263d4";
 const sourcePath = "server/_core/vite.ts", modulePath = "server/publicMarketingMetaPixel.ts";
 const helperPath = "server/fixtures/publicMarketingPixelScope.ts", directPath = "server/publicMarketingMetaPixel.test.ts";
 const hash = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
-const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" });
-const html = readFileSync(resolve(root, "client/index.html"), "utf8");
+const git = (...args: string[]) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).split("\n").filter(p => { if (!p || !["diff", "ls-files"].includes(args[0])) return true; return !oldMetaPixelRemovalApprovedInventory(p, readFileSync(resolve(root, p), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA, OLD_REMOVAL_SOURCE_PATHS.includes(p) && args[0] === "diff" ? execFileSync("git", ["show", args[2] + ":" + p], { cwd: root, encoding: "utf8" }) : undefined); }).join("\n");
+const html = oldMetaPixelRemovalHistoricalSource("client/index.html", readFileSync(resolve(root, "client/index.html"), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA);
 const scriptTag = (value: string) => value.match(/<script id="public-marketing-meta-pageview">[\s\S]*?<\/script>/)?.[0] ?? "";
 const fallbackTag = (value: string) => value.match(/<noscript id="public-marketing-meta-pageview-noscript">[\s\S]*?<\/noscript>/)?.[0] ?? "";
 const boot = (value: string) => scriptTag(value).replace(/^<script[^>]*>/, "").replace(/<\/script>$/, "");
@@ -80,7 +80,7 @@ afterEach(async () => { vi.restoreAllMocks(); vi.unstubAllEnvs(); viteMock.urls.
 
 describe("Public marketing Meta PageView — frozen SDK-free allowlist", () => {
   it("matches the exact 94 registered city paths and all registered public marketing, legal and state-hub pages without prefix allowance", () => {
-    const app = readFileSync(resolve(root, "client/src/App.tsx"), "utf8");
+    const app = oldMetaPixelRemovalHistoricalSource("client/src/App.tsx", readFileSync(resolve(root, "client/src/App.tsx"), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA);
     const registered = [...app.matchAll(/<Route path=(?:\{)?["']([^"']+)["'](?:\})? component=\{(\w+)\}/g)].map(match => ({ path: match[1], component: match[2] }));
     const cities = registered.filter(route => route.component.startsWith("Location") && route.path.split("/").length === 3).map(route => route.path);
     expect(cities).toHaveLength(94);
@@ -174,28 +174,28 @@ describe("Public marketing Meta PageView — frozen SDK-free allowlist", () => {
   });
 
   it("strictly inverses exactly four approved Vite fragments and latest-first historical sources, pins only exact additions and freezes prior production and all old fixtures", () => {
-    const current = readFileSync(resolve(root, sourcePath), "utf8"), original = git("show", base + ":" + sourcePath);
+    const current = oldMetaPixelRemovalHistoricalSource(sourcePath, readFileSync(resolve(root, sourcePath), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA), original = git("show", base + ":" + sourcePath);
     expect(hash(current)).toBe("6a37aaf7308c12c80e6a38aae5fb375fee5bdada1b4692f5a5f3b02594d789f4"); expect(hash(original)).toBe("24da00343da042c79c6db9f41c4c4e602cb1ef5b73eee885675766d3519840e7");
     for (const path of [sourcePath, resolve(root, sourcePath), sourcePath.replaceAll("/", "\\")]) {
       expect(inversePublicMarketingPixel(path, current, hash)).toBe(original); expect(inversePublicMarketingPixel(path, original, hash)).toBe(original);
       for (const bad of ["", current + "UNAPPROVED", current.replace("injectPublicMarketingMetaPixel(template, url)", "injectPublicMarketingMetaPixel(template, privateUrl)")]) expect(() => inversePublicMarketingPixel(path, bad, hash)).toThrow("Public marketing pixel source scope mismatch");
     }
     expect(inversePublicMarketingPixel(sourcePath + ".bak", current, hash)).toBe(current);
-    const helper = readFileSync(resolve(root, helperPath), "utf8"), helperSHA = hash(helper);
+    const helper = oldMetaPixelRemovalHistoricalSource(helperPath, readFileSync(resolve(root, helperPath), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA), helperSHA = hash(helper);
     const code = helper.split("\n").slice(1).join("\n").replace(/"(?:[^"\\]|\\.)*"/g, '"FROZEN_DATA_LITERAL"');
     expect(code).not.toMatch(/(?<![.\w])(?:describe|it|test)\s*\(|\bimport\s|\brequire\s*\(|readFile|writeFile|execFile|fetch\(|process\.|XMLHttpRequest|sendBeacon/);
-    expect(readFileSync(resolve(root, directPath), "utf8")).not.toMatch(/from\s+["'][^"']*\.test["']/);
-    for (const path of [modulePath, directPath]) { const raw = readFileSync(resolve(root, path), "utf8"); expect(hash(raw)).toBe(publicMarketingInventoryPin(path)); expect(publicMarketingApprovedInventory(path, raw, hash, helperSHA)).toBe(true); expect(() => publicMarketingApprovedInventory(path, raw + "UNAPPROVED", hash, helperSHA)).toThrow("Public marketing pixel inventory SHA mismatch"); }
+    expect(oldMetaPixelRemovalHistoricalSource(directPath, readFileSync(resolve(root, directPath), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)).not.toMatch(/from\s+["'][^"']*\.test["']/);
+    for (const path of [modulePath, directPath]) { const raw = oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA); expect(hash(raw)).toBe(publicMarketingInventoryPin(path)); expect(publicMarketingApprovedInventory(path, raw, hash, helperSHA)).toBe(true); expect(() => publicMarketingApprovedInventory(path, raw + "UNAPPROVED", hash, helperSHA)).toThrow("Public marketing pixel inventory SHA mismatch"); }
     expect(publicMarketingInventoryPin(modulePath + ".bak")).toBeNull();
     const scope = ["client", "server", "shared", "drizzle", ".gitignore", "vite.config.ts", "vitest.config.ts", "package.json", "pnpm-lock.yaml", "tsconfig.json"];
     const entries = git("ls-tree", "-r", base, "--", ...scope).trim().split("\n").map(line => { const [metadata, path] = line.split("\t"); return { path, blobSHA: metadata.split(" ")[2] }; });
     for (const { path, blobSHA } of entries) {
-      const raw = readFileSync(resolve(root, path)), restored = path === sourcePath || /\.(?:test|spec)\.[cm]?[jt]sx?$/.test(path) ? Buffer.from(publicMarketingHistoricalSource(path, raw.toString("utf8"), hash, helperSHA)) : raw;
+      const raw = (oldMetaPixelRemovalNeedsInverse(path) ? Buffer.from(oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path)).toString("utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)) : readFileSync(resolve(root, path))), restored = path === sourcePath || /\.(?:test|spec)\.[cm]?[jt]sx?$/.test(path) ? Buffer.from(publicMarketingHistoricalSource(path, raw.toString("utf8"), hash, helperSHA)) : raw;
       expect(createHash("sha1").update(Buffer.from("blob " + restored.length + "\0")).update(restored).digest("hex"), path).toBe(blobSHA);
     }
     const old = new Set(entries.map(entry => entry.path)), additions = git("ls-files", "--cached", "--others", "--exclude-standard", "--", ...scope).split("\n").filter(path => path && !old.has(path));
     expect(additions.sort()).toEqual([modulePath, directPath, helperPath].sort());
-    const legacyPath = "client/src/lib/metaPixelBootstrap.ts"; expect(readFileSync(resolve(root, "client/index.html"), "utf8")).toBe(git("show", base + ":client/index.html"));
-    expect(readFileSync(resolve(root, legacyPath), "utf8")).toBe(git("show", base + ":" + legacyPath)); expect(readFileSync(resolve(root, legacyPath), "utf8")).toContain("1589326469554181"); expect(html).toContain("GTM-KMBG6HSR");
+    const legacyPath = "client/src/lib/metaPixelBootstrap.ts"; expect(oldMetaPixelRemovalHistoricalSource("client/index.html", readFileSync(resolve(root, "client/index.html"), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)).toBe(git("show", base + ":client/index.html"));
+    expect(oldMetaPixelRemovalHistoricalSource(legacyPath, readFileSync(resolve(root, legacyPath), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)).toBe(git("show", base + ":" + legacyPath)); expect(oldMetaPixelRemovalHistoricalSource(legacyPath, readFileSync(resolve(root, legacyPath), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA)).toContain("1589326469554181"); expect(html).toContain("GTM-KMBG6HSR");
   });
 });
