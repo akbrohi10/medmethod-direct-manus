@@ -1,3 +1,4 @@
+import { armVerifiedVideoPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import {
   PayPalCardFieldsForm,
@@ -343,6 +344,7 @@ function ApplePayButton({
               token: event.payment.token,
               billingContact: event.payment.billingContact,
             });
+            rememberPaymentLeadProvenance("paypal", created.orderId);
             onCreated(created);
             saveVideoVisitPendingCheckout({
               version: 1,
@@ -441,6 +443,7 @@ export default function VideoVisitPaypalPayment4799({
     created: CreatedOrder,
     paymentMethod: "card" | "apple_pay"
   ) => {
+    rememberPaymentLeadProvenance("paypal", created.orderId);
     setOrder(created);
     saveVideoVisitPendingCheckout({
       version: 1,
@@ -479,6 +482,7 @@ export default function VideoVisitPaypalPayment4799({
       orderId: created.orderId,
       checkout_token: created.checkout_token,
     });
+    armVerifiedVideoPaymentLead(result.redirect_url, "paypal", created.orderId, created.checkout_token);
     onComplete(result.redirect_url);
   };
 

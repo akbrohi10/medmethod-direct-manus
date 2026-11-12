@@ -262,7 +262,7 @@ export const stripeRouter = router({
         transactionId: pi.id,
       });
 
-      return { success: true };
+      return { success: true, ...(pi.livemode === true && pi.id === input.paymentIntentId ? { metaLeadLivePayment: true } : {}) };
     }),
 
   /**
@@ -338,7 +338,7 @@ export const stripeRouter = router({
         status: WL2_ONE_TIME_PAYMENT.finalStatus,
       });
 
-      return { success: true };
+      return { success: true, ...(intent.livemode === true && intent.id === input.paymentIntentId && payment.stripeMode === "live" ? { metaLeadLivePayment: true } : {}) };
     }),
 
   /**

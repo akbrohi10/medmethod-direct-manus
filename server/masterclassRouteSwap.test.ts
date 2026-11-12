@@ -1,4 +1,4 @@
-import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
+import { inverseApprovedFinalProgressLabel } from "./intakeFinalProgressLabelScope.test"; import { inverseHormoneQuizIntegration } from "./fixtures/hormoneQuizIntegrationScope"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
 const BASELINE = "bd30bdec";
-const read = (path: string) => inverseHormoneQuizIntegration(path, oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA));
+const read = (path: string) => inverseHormoneQuizIntegration(path, oldMetaPixelRemovalHistoricalSource(path, metaLeadConversionsHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA));
 const readBaseline = (path: string) =>
   execFileSync("git", ["show", `${BASELINE}:${path}`], {
     cwd: root,

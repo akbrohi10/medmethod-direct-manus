@@ -1,13 +1,13 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 const root = resolve(import.meta.dirname, "..");
-const page = readFileSync(resolve(root, "client/src/pages/ThankYouVideo.tsx"), "utf8");
-const css = readFileSync(resolve(root, "client/src/pages/thank-you-video.css"), "utf8");
-const intake = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
-const original = readFileSync(resolve(root, "client/src/components/home1/WL2BookingFollowup.tsx"), "utf8");
-const originalPage = readFileSync(resolve(root, "client/src/pages/ThankYou2.tsx"), "utf8");
-const router = readFileSync(resolve(root, "client/src/App.tsx"), "utf8");
+const page = metaLeadConversionsHistoricalSource("client/src/pages/ThankYouVideo.tsx", readFileSync(resolve(root, "client/src/pages/ThankYouVideo.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const css = metaLeadConversionsHistoricalSource("client/src/pages/thank-you-video.css", readFileSync(resolve(root, "client/src/pages/thank-you-video.css"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const intake = metaLeadConversionsHistoricalSource("client/intake/index.html", readFileSync(resolve(root, "client/intake/index.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const original = metaLeadConversionsHistoricalSource("client/src/components/home1/WL2BookingFollowup.tsx", readFileSync(resolve(root, "client/src/components/home1/WL2BookingFollowup.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const originalPage = metaLeadConversionsHistoricalSource("client/src/pages/ThankYou2.tsx", readFileSync(resolve(root, "client/src/pages/ThankYou2.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const router = metaLeadConversionsHistoricalSource("client/src/App.tsx", readFileSync(resolve(root, "client/src/App.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 describe("video booking confirmation only", () => {
   it("keeps the original page and isolated new route with no additional tracking", () => {

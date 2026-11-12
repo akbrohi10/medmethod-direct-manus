@@ -1,3 +1,4 @@
+import { armVerifiedVideoPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import {
   Elements,
@@ -47,6 +48,7 @@ function ConfirmedStripePayment({
         paymentIntentId: intent.paymentIntentId,
         checkout_token: intent.checkout_token,
       });
+      armVerifiedVideoPaymentLead(result.redirect_url, "stripe", intent.paymentIntentId, intent.checkout_token);
       onComplete(result.redirect_url);
     } catch (error) {
       onError(
@@ -119,6 +121,7 @@ function StripeElementForm({
       paymentIntentId: intent.paymentIntentId,
       checkout_token: intent.checkout_token,
     });
+    armVerifiedVideoPaymentLead(result.redirect_url, "stripe", intent.paymentIntentId, intent.checkout_token);
     onComplete(result.redirect_url);
   };
 
@@ -295,6 +298,7 @@ export default function VideoVisitStripePayment97({
       })
       .then(created => {
         if (!active) return;
+        rememberPaymentLeadProvenance("stripe", created.paymentIntentId);
         setIntent(created);
         saveVideoVisitPendingCheckout({
           version: 1,

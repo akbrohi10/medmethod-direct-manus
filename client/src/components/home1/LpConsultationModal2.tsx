@@ -1375,6 +1375,7 @@ export default function LpConsultationModal2({
                   patientPhone={leadData.phone || answers.phone}
                   landingPage={landingPage}
                   enableApplePay={landingPage === "/masterclass"}
+                  metaLeadExcluded={!startAtPayment}
                   consultationTotalAmountCents={referralPricing.consultationTotalAmount}
                   remainingAmountCents={referralPricing.remainingAmount}
                   referralCreditAmountCents={referralPricing.referralCreditAmount}
@@ -1385,6 +1386,7 @@ export default function LpConsultationModal2({
                 />
               ) : (
                 <StripePaymentForm
+                  metaLeadExcluded={!startAtPayment}
                   patientName={leadData.firstName.trim() || answers.firstName || "Patient"}
                   patientEmail={leadData.email.trim() || answers.email || ""}
                   patientPhone={leadData.phone || answers.phone}

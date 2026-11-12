@@ -14,6 +14,7 @@
  *
  * Requires PayPal Advanced Card Processing to be enabled on the merchant account.
  */
+import { armVerifiedPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import {
   PayPalCardFieldsForm,
@@ -34,6 +35,7 @@ interface PayPalPaymentFormProps {
   patientEmail: string;
   patientPhone: string;
   landingPage?: string;
+  metaLeadExcluded?: boolean;
   /** Only the masterclass appointment deposit offers the Apple Pay saved-method flow. */
   enableApplePay?: boolean;
   consultationTotalAmountCents: number;
@@ -270,7 +272,8 @@ function PayPalCardFormWithProvider({
   const [submitting, setSubmitting] = useState(false);
 
   const captureOrder = trpc.paypal.captureOrder.useMutation({
-    onSuccess: () => {
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you", "paypal", variables.orderId, result.metaLeadLivePayment === true);
       onComplete();
     },
     onError: (err) => {
@@ -310,6 +313,7 @@ export default function PayPalPaymentForm({
   patientEmail,
   patientPhone,
   landingPage,
+  metaLeadExcluded = true,
   enableApplePay = false,
   consultationTotalAmountCents,
   remainingAmountCents,
@@ -341,6 +345,7 @@ export default function PayPalPaymentForm({
       { patientName, patientEmail, patientPhone, landingPage },
       {
         onSuccess: (data) => {
+          rememberPaymentLeadProvenance("paypal", data.orderId, { excluded: metaLeadExcluded });
           setOrderId(data.orderId);
           setPaymentId(data.paymentId);
           onPaymentId?.(data.paymentId);
@@ -421,6 +426,7 @@ export default function PayPalPaymentForm({
           patientEmail={patientEmail}
           patientPhone={patientPhone}
           landingPage="/masterclass"
+          metaLeadExcluded={metaLeadExcluded}
           onAvailableChange={setApplePayAvailable}
           onUseCard={() => setSelectedMethod("card")}
           onPaymentId={onPaymentId ?? (() => undefined)}

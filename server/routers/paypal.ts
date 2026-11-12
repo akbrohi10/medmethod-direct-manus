@@ -462,7 +462,7 @@ export const paypalRouter = router({
         transactionId: capture.id,
       });
 
-      return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken };
+      return { success: true, captureId: capture.id, hasVaultToken: !!vaultToken, ...(mode === "live" && capture.id === input.orderId ? { metaLeadLivePayment: true } : {}) };
     }),
 
   /**
@@ -581,7 +581,7 @@ export const paypalRouter = router({
         chargedAmount: paidPayment?.depositAmount ?? 5000,
         transactionId: capture.id,
       });
-      return { success: true, captureId: capture.id, hasVaultToken: vaultIsReady, vaultStatus: vault?.status ?? null };
+      return { success: true, captureId: capture.id, hasVaultToken: vaultIsReady, vaultStatus: vault?.status ?? null, ...(mode === "live" && capture.id === input.orderId ? { metaLeadLivePayment: true } : {}) };
     }),
 
   /** Creates a one-time $15 WL2 PayPal order with no vault or later balance. */
@@ -686,7 +686,7 @@ export const paypalRouter = router({
         status: WL2_ONE_TIME_PAYMENT.finalStatus,
       });
 
-      return { success: true, captureId: capture.id };
+      return { success: true, captureId: capture.id, ...(mode === "live" && capture.id === input.orderId ? { metaLeadLivePayment: true } : {}) };
     }),
 
   /**

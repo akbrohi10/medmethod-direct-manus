@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { registerMetaLeadFrame, injectMetaLeadGate } from "../metaLeadTracking";
 import "dotenv/config";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { createServer } from "http";
@@ -111,6 +113,7 @@ async function startServer() {
   // The endpoints read the currently selected PayPal sandbox/live configuration.
   registerIntakePaymentRoutes(app);
   registerHormoneQuizRoutes(app);
+  registerMetaLeadFrame(app);
 
   // Permanent compliance and legacy-route redirects — registered before tRPC,
   // crawler metadata, Vite, and static fallthrough so the HTTP response is a
@@ -157,11 +160,13 @@ async function startServer() {
   app.get(["/weight-loss-intake", "/weight-loss-intake/"], (_req, res) => {
     res.sendFile(weightLossIntakeHtml);
   });
-  app.get(["/intake/thank-you", "/intake/thank-you/"], (_req, res) => {
-    res.sendFile(intakeThankYouHtml);
+  app.get(["/intake/thank-you", "/intake/thank-you/"], (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    res.type("html").send(injectMetaLeadGate(readFileSync(intakeThankYouHtml, "utf8"), req));
   });
-  app.get(["/intake", "/intake/"], (_req, res) => {
-    res.sendFile(intakePrototypeHtml);
+  app.get(["/intake", "/intake/"], (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    res.type("html").send(injectMetaLeadGate(readFileSync(intakePrototypeHtml, "utf8"), req));
   });
 
   // Preserve the supplied quiz as an isolated standalone document, without site CSS or tracking.

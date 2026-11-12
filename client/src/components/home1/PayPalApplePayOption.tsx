@@ -1,3 +1,4 @@
+import { armVerifiedPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import { SCRIPT_LOADING_STATE, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect, useRef, useState } from "react";
@@ -72,6 +73,7 @@ interface PayPalApplePayOptionProps {
   patientEmail: string;
   patientPhone: string;
   landingPage: "/masterclass";
+  metaLeadExcluded?: boolean;
   onUseCard: () => void;
   onAvailableChange: (available: boolean) => void;
   onPaymentId: (paymentId: number) => void;
@@ -89,6 +91,7 @@ export default function PayPalApplePayOption({
   patientEmail,
   patientPhone,
   landingPage,
+  metaLeadExcluded = true,
   onUseCard,
   onAvailableChange,
   onPaymentId,
@@ -204,6 +207,7 @@ export default function PayPalApplePayOption({
               landingPage,
               saveForFuture: true,
             });
+            rememberPaymentLeadProvenance("paypal", created.orderId, { excluded: metaLeadExcluded });
             onPaymentId(created.paymentId);
 
             await applePay.confirmOrder({
@@ -211,7 +215,8 @@ export default function PayPalApplePayOption({
               token: event.payment.token,
               billingContact: event.payment.billingContact,
             });
-            await captureOrder.mutateAsync({ orderId: created.orderId, paymentId: created.paymentId });
+            const result = await captureOrder.mutateAsync({ orderId: created.orderId, paymentId: created.paymentId });
+            if (result.success === true) armVerifiedPaymentLead("/thank-you", "paypal", created.orderId, result.metaLeadLivePayment === true);
             session.completePayment(Session.STATUS_SUCCESS);
             onComplete();
           } catch (error) {

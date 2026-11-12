@@ -1,12 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import fs from "node:fs";
 import path from "node:path";
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
-const pageSource = fs.readFileSync(path.join(projectRoot, "client/src/pages/MasterclassVideoFirst.tsx"), "utf8");
-const webinarSource = fs.readFileSync(path.join(projectRoot, "client/src/pages/LiveWebinar2.tsx"), "utf8");
-const appSource = fs.readFileSync(path.join(projectRoot, "client/src/App.tsx"), "utf8");
-const viteSource = fs.readFileSync(path.join(projectRoot, "server/_core/vite.ts"), "utf8");
+const pageSource = metaLeadConversionsHistoricalSource("client/src/pages/MasterclassVideoFirst.tsx", fs.readFileSync(path.join(projectRoot, "client/src/pages/MasterclassVideoFirst.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const webinarSource = metaLeadConversionsHistoricalSource("client/src/pages/LiveWebinar2.tsx", fs.readFileSync(path.join(projectRoot, "client/src/pages/LiveWebinar2.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const appSource = metaLeadConversionsHistoricalSource("client/src/App.tsx", fs.readFileSync(path.join(projectRoot, "client/src/App.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const viteSource = metaLeadConversionsHistoricalSource("server/_core/vite.ts", fs.readFileSync(path.join(projectRoot, "server/_core/vite.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 describe("video-first masterclass variant", () => {
   it("registers an isolated /masterclass2 route while retaining the original page component", () => {

@@ -1,10 +1,10 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { resolve } from "node:path";
 import { Script } from "node:vm";
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
 
-const intake = readFileSync(resolve(import.meta.dirname, "../client/intake/index.html"), "utf8");
+const intake = metaLeadConversionsHistoricalSource("../client/intake/index.html", readFileSync(resolve(import.meta.dirname, "../client/intake/index.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const finalSubmitError = "Something went wrong submitting your intake. Please try again, or call us at (888) 362-7011.";
 const attachmentError = "We couldn't upload this attachment. You can continue with your intake and upload it later in your Patient Portal.";
 const app = intake.slice(intake.lastIndexOf("function $e()"), intake.lastIndexOf("(0,u.createRoot)"));

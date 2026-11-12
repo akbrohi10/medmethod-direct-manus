@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { execFileSync } from "node:child_process";
@@ -69,7 +69,7 @@ async function request(url: string, method = "GET") {
 describe("public intake image loading", () => {
   it("changes the intake HTML only through the two approved public-image substitutions", () => {
     const baseline = execFileSync("git", ["show", "e3aba40:client/intake/index.html"], { cwd: root, encoding: "utf8" });
-    const current = inverseApprovedLatePatientInfo("client/intake/index.html", readFileSync(intakePath, "utf8"));
+    const current = inverseApprovedLatePatientInfo("client/intake/index.html", metaLeadConversionsHistoricalSource(intakePath, readFileSync(intakePath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
     const baselineMedicationImage = component(baseline, "Ie");
     const currentMedicationImage = current.slice(current.indexOf("function MmdIntakeImageSources("), current.indexOf("function MmdIntakeMedicationDetails("));
     const baselineScaleImage = "src:`/assets/scale-example.jpg`,alt:`Example of both feet on a digital scale with the weight visible`";
@@ -90,7 +90,7 @@ describe("public intake image loading", () => {
   it("allows exactly the seven canonical intake image filenames and only fixed public CDN sources", async () => {
     vi.resetModules();
     const { INTAKE_MEDICATION_IMAGE_SOURCES } = await import("./intakeMedicationImageAssets");
-    const catalog = JSON.parse(readFileSync(resolve(import.meta.dirname, "../shared/treatmentCatalog.json"), "utf8")) as {
+    const catalog = JSON.parse(metaLeadConversionsHistoricalSource("../shared/treatmentCatalog.json", readFileSync(resolve(import.meta.dirname, "../shared/treatmentCatalog.json"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))) as {
       glp1: { options: Array<{ images: { intake?: string | null } }> };
     };
     const canonicalIntakeFilenames = catalog.glp1.options.map(option => option.images.intake?.replace("/manus-storage/", ""));

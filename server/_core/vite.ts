@@ -8,6 +8,7 @@ import viteConfig from "../../vite.config";
 import { getMetaForPath, injectRouteMetaIntoHtml } from "../crawlerMiddleware";
 import { injectCareTeamConfirmationPrivacyIntoHtml } from "../careTeamConfirmationPrivacy";
 import { injectPublicMarketingMetaPixel } from "../publicMarketingMetaPixel";
+import { injectMetaLeadGate } from "../metaLeadTracking";
 
 function injectMasterclassRouteMeta(template: string, url: string): string {
   template = injectPublicMarketingMetaPixel(template, url);
@@ -55,7 +56,7 @@ export async function setupVite(app: Express, server: Server) {
 
       // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
-      template = injectMasterclassRouteMeta(template, url);
+      template = injectMetaLeadGate(injectMasterclassRouteMeta(template, url), req);
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -83,7 +84,7 @@ export function serveStatic(app: Express) {
   app.get(["/", "/index.html"], (req, res, next) => {
     try {
       const template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
-      res.status(200).type("html").send(injectMasterclassRouteMeta(template, req.originalUrl));
+      res.status(200).type("html").send(injectMetaLeadGate(injectMasterclassRouteMeta(template, req.originalUrl), req));
     } catch (error) {
       next(error);
     }
@@ -94,7 +95,7 @@ export function serveStatic(app: Express) {
   app.use("*", (req, res, next) => {
     try {
       const template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
-      const page = injectMasterclassRouteMeta(template, req.originalUrl);
+      const page = injectMetaLeadGate(injectMasterclassRouteMeta(template, req.originalUrl), req);
       res.status(200).type("html").send(page);
     } catch (error) {
       next(error);

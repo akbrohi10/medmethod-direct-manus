@@ -1,3 +1,4 @@
+import { armVerifiedPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe, type Stripe as StripeType } from "@stripe/stripe-js";
@@ -28,7 +29,10 @@ function StripeCheckout({ paymentId, onComplete, onError, onThreeDsRedirect }: {
   const [ready, setReady] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const confirmPayment = trpc.stripe.confirmWl2OneTimePayment.useMutation({
-    onSuccess: (_, variables) => onComplete(paymentId, variables.paymentIntentId),
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you2", "stripe", variables.paymentIntentId, result.metaLeadLivePayment === true);
+      onComplete(paymentId, variables.paymentIntentId);
+    },
     onError: (error) => {
       onError(`Payment confirmation failed: ${error.message}`);
       setSubmitting(false);
@@ -63,6 +67,7 @@ function StripeCheckout({ paymentId, onComplete, onError, onThreeDsRedirect }: {
       onError(error.message ?? "Payment failed. Please try again.");
       setSubmitting(false);
     } else if (paymentIntent?.status === "succeeded") {
+      armVerifiedPaymentLead("/thank-you2", "stripe", paymentIntent.id, paymentIntent.livemode === true);
       confirmPayment.mutate({ paymentId, paymentIntentId: paymentIntent.id });
     } else if (paymentIntent?.status !== "requires_action") {
       onError("Payment was not completed. Please try again.");
@@ -118,7 +123,7 @@ export default function WL2StripePaymentForm({ patientName, patientEmail, patien
   const initialized = useRef(false);
   const publishableKey = trpc.stripe.getPublishableKey.useQuery();
   const createIntent = trpc.stripe.createWl2OneTimeIntent.useMutation({
-    onSuccess: (data) => { setClientSecret(data.clientSecret); setPaymentId(data.paymentId); },
+    onSuccess: (data) => { rememberPaymentLeadProvenance("stripe", data.clientSecret?.split("_secret_")[0]); setClientSecret(data.clientSecret); setPaymentId(data.paymentId); },
     onError: (error) => setErrorMessage(`Could not initialize payment: ${error.message}`),
   });
 

@@ -6,6 +6,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { armVerifiedVideoPaymentLead } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import {
   CheckCircle2,
@@ -89,6 +90,7 @@ function PendingPaymentConfirmation({
           paymentIntentId: pending.paymentIntentId,
           checkout_token: pending.checkoutToken,
         });
+        armVerifiedVideoPaymentLead(result.redirect_url, "stripe", pending.paymentIntentId, pending.checkoutToken);
         onComplete(result.redirect_url);
         return;
       }
@@ -98,6 +100,7 @@ function PendingPaymentConfirmation({
           orderId: pending.orderId,
           checkout_token: pending.checkoutToken,
         });
+        armVerifiedVideoPaymentLead(result.redirect_url, "paypal", pending.orderId, pending.checkoutToken);
         onComplete(result.redirect_url);
         return;
       }

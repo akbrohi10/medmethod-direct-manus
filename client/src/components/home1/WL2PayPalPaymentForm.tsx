@@ -1,3 +1,4 @@
+import { armVerifiedPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import { PayPalCardFieldsForm, PayPalCardFieldsProvider, PayPalScriptProvider, usePayPalCardFields } from "@paypal/react-paypal-js";
 import { Lock } from "lucide-react";
@@ -57,7 +58,10 @@ function WL2PayPalProvider({ orderId, paymentId, onComplete, onError }: {
   const [submitting, setSubmitting] = useState(false);
   const resolvedPaymentId = paymentId;
   const captureOrder = trpc.paypal.captureWl2OneTimeOrder.useMutation({
-    onSuccess: (data) => { if (resolvedPaymentId !== null) onComplete(resolvedPaymentId, data.captureId); },
+    onSuccess: (data, variables) => {
+      if (data.success === true) armVerifiedPaymentLead("/thank-you2", "paypal", variables.orderId, data.metaLeadLivePayment === true);
+      if (resolvedPaymentId !== null) onComplete(resolvedPaymentId, data.captureId);
+    },
     onError: (error) => { onError(`Payment confirmation failed: ${error.message}`); setSubmitting(false); },
   });
   if (!orderId || paymentId === null) {
@@ -84,7 +88,7 @@ export default function WL2PayPalPaymentForm({ clientId, mode, patientName, pati
   useEffect(() => {
     if (created.current) return;
     created.current = true;
-    createOrder.mutate({ patientName, patientEmail, patientPhone }, { onSuccess: (data) => { setOrderId(data.orderId); setPaymentId(data.paymentId); }, onError: (error) => setErrorMessage(`Could not initialize payment: ${error.message}`) });
+    createOrder.mutate({ patientName, patientEmail, patientPhone }, { onSuccess: (data) => { rememberPaymentLeadProvenance("paypal", data.orderId); setOrderId(data.orderId); setPaymentId(data.paymentId); }, onError: (error) => setErrorMessage(`Could not initialize payment: ${error.message}`) });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

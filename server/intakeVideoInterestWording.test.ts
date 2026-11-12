@@ -1,11 +1,11 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync } from "node:child_process"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const repoRoot = resolve(import.meta.dirname, "..");
 const intakePath = resolve(repoRoot, "client/intake/index.html");
-const intakeSource = readFileSync(intakePath, "utf8");
+const intakeSource = metaLeadConversionsHistoricalSource(intakePath, readFileSync(intakePath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 function fragment(start: string, end: string) {
   const index = intakeSource.indexOf(start);

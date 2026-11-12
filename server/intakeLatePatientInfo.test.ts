@@ -1,14 +1,14 @@
-import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(import.meta.dirname, "..");
-const source = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const source = metaLeadConversionsHistoricalSource("client/intake/index.html", readFileSync(resolve(root, "client/intake/index.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const baseline = execFileSync("git", ["show", "87fcd00d:client/intake/index.html"], { cwd: root, encoding: "utf8" });
-const fragments = JSON.parse(readFileSync(resolve(root, "server/fixtures/intakeLatePatientInfoFragments.json"), "utf8")) as Array<{ old: string; new: string; count?: number }>;
+const fragments = JSON.parse(metaLeadConversionsHistoricalSource("server/fixtures/intakeLatePatientInfoFragments.json", readFileSync(resolve(root, "server/fixtures/intakeLatePatientInfoFragments.json"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))) as Array<{ old: string; new: string; count?: number }>;
 const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const originalMetadata = JSON.parse(baseline.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const catalog = metadata.w.screens as Array<{ id: string; type: string; [key: string]: unknown }>;
@@ -17,7 +17,7 @@ const fn = (name: string) => {
   const end = source.indexOf("function ", start + 12);
   return source.slice(start, end);
 };
-const glp1 = new Function("window", readFileSync(resolve(root, glp1CombinedAssetPath), "utf8") + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => catalog });
+const glp1 = new Function("window", metaLeadConversionsHistoricalSource(glp1CombinedAssetPath, readFileSync(resolve(root, glp1CombinedAssetPath), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")) + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => catalog });
 const helperCode = fn("MmdIntakeFlowScreens") + fn("MmdIntakeLateDetails");
 const helpers = new Function("w", "MmdGlp1", helperCode + ";return {MmdIntakeFlowScreens,MmdIntakeLateDetails}")((_route: string, _answers: unknown) => catalog, glp1) as {
   MmdIntakeFlowScreens: (answers: unknown) => typeof catalog;

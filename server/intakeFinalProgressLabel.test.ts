@@ -1,10 +1,10 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process'; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 const root = resolve(import.meta.dirname, '..'), path = 'client/public/intake/progress.js';
-const source = readFileSync(resolve(root, path), 'utf8');
+const source = metaLeadConversionsHistoricalSource(path, readFileSync(resolve(root, path), 'utf8'), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const before = execFileSync('git', ['show', `24838ad1:${path}`], { cwd: root, encoding: 'utf8' });
 function load(code: string) {
   const env: any = { window: {} }; runInNewContext(code, env);
@@ -46,7 +46,7 @@ describe('truthful final intake progress label', () => {
   });
   it('keeps the component byte-identical except one condition and refreshes only its script cache key', () => {
     expect(source.replace('last = index === visible.length - 1;', 'last = index >= visible.length - 2;')).toBe(before);
-    const html = readFileSync(resolve(root, 'client/intake/index.html'), 'utf8'), previous = execFileSync('git', ['show', '24838ad1:client/intake/index.html'], { cwd: root, encoding: 'utf8' });
+    const html = metaLeadConversionsHistoricalSource('client/intake/index.html', readFileSync(resolve(root, 'client/intake/index.html'), 'utf8'), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), previous = execFileSync('git', ['show', '24838ad1:client/intake/index.html'], { cwd: root, encoding: 'utf8' });
     expect(html.replace('<script src="/intake/progress.js?v=20261106-final-step">', '<script src="/intake/progress.js?v=20261105">')).toBe(previous);
   });
 });

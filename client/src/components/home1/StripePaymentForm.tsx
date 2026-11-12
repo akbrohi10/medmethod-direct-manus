@@ -12,6 +12,7 @@
  *   5. Calls onComplete() to advance the modal to the calendar step
  */
 
+import { armVerifiedPaymentLead, rememberPaymentLeadProvenance } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import {
   Elements,
@@ -54,7 +55,8 @@ function CheckoutForm({
   const [ready, setReady] = useState(false);
 
   const confirmDeposit = trpc.stripe.confirmDeposit.useMutation({
-    onSuccess: () => {
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you", "stripe", variables.paymentIntentId, result.metaLeadLivePayment === true);
       onComplete();
     },
     onError: (err) => {
@@ -107,6 +109,7 @@ function CheckoutForm({
 
     if (paymentIntent?.status === "succeeded") {
       // Notify parent of the PaymentIntent ID so it can include it in the GHL payload
+      armVerifiedPaymentLead("/thank-you", "stripe", paymentIntent.id, paymentIntent.livemode === true);
       onPaymentIntentId?.(paymentIntent.id);
       // Update our DB record with the confirmed payment method
       confirmDeposit.mutate({
@@ -260,6 +263,7 @@ interface StripePaymentFormProps {
   patientPhone?: string;
   /** e.g. "/lp/WL" or "/lp/hrt3" — stored in Stripe metadata for webhook routing */
   landingPage?: string;
+  metaLeadExcluded?: boolean;
   consultationTotalAmountCents: number;
   remainingAmountCents: number;
   referralCreditAmountCents: number;
@@ -275,6 +279,7 @@ export default function StripePaymentForm({
   patientEmail,
   patientPhone,
   landingPage,
+  metaLeadExcluded = true,
   consultationTotalAmountCents,
   remainingAmountCents,
   referralCreditAmountCents,
@@ -297,6 +302,7 @@ export default function StripePaymentForm({
   const createIntent = trpc.stripe.createDepositIntent.useMutation({
     onSuccess: (data) => {
       if (data.clientSecret) {
+        rememberPaymentLeadProvenance("stripe", data.clientSecret.split("_secret_")[0], { excluded: metaLeadExcluded });
         setClientSecret(data.clientSecret);
         setPaymentId(data.paymentId);
         onPaymentId(data.paymentId);

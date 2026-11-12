@@ -1,13 +1,13 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const page = readFileSync(resolve(root, "client/supplements.html"), "utf8");
-const server = readFileSync(resolve(root, "server/_core/index.ts"), "utf8");
-const crawler = readFileSync(resolve(root, "server/crawlerMiddleware.ts"), "utf8");
-const vite = readFileSync(resolve(root, "vite.config.ts"), "utf8");
-const app = readFileSync(resolve(root, "client/src/App.tsx"), "utf8");
+const page = metaLeadConversionsHistoricalSource("client/supplements.html", readFileSync(resolve(root, "client/supplements.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const server = metaLeadConversionsHistoricalSource("server/_core/index.ts", readFileSync(resolve(root, "server/_core/index.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const crawler = metaLeadConversionsHistoricalSource("server/crawlerMiddleware.ts", readFileSync(resolve(root, "server/crawlerMiddleware.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const vite = metaLeadConversionsHistoricalSource("vite.config.ts", readFileSync(resolve(root, "vite.config.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const app = metaLeadConversionsHistoricalSource("client/src/App.tsx", readFileSync(resolve(root, "client/src/App.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 describe("standalone /supplements preview", () => {
   it("serves the supplied store document through its own route and build entry", () => {

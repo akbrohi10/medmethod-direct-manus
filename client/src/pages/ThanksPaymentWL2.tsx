@@ -1,3 +1,4 @@
+import { armVerifiedPaymentLead } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import { useEffect, useState } from "react";
 
@@ -9,7 +10,10 @@ export default function ThanksPaymentWL2() {
   const paymentId = params.get("paymentId");
   const redirectStatus = params.get("redirect_status");
   const confirmPayment = trpc.stripe.confirmWl2OneTimePayment.useMutation({
-    onSuccess: () => { window.location.href = "/thank-you2"; },
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you2", "stripe", variables.paymentIntentId, result.metaLeadLivePayment === true);
+      window.location.href = "/thank-you2";
+    },
     onError: (error) => setErrorMessage(error.message),
   });
 

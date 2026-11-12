@@ -7,6 +7,7 @@
  * The patient sees only a brief loading spinner — never a full page.
  */
 
+import { armVerifiedPaymentLead } from "@/lib/metaLeadPaymentHooks";
 import { trpc } from "@/lib/trpc";
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
@@ -22,7 +23,8 @@ export default function ThanksPayment() {
   const paymentId = params.get("paymentId");
 
   const confirmDeposit = trpc.stripe.confirmDeposit.useMutation({
-    onSuccess: () => {
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you", "stripe", variables.paymentIntentId, result.metaLeadLivePayment === true);
       navigate("/thank-you");
     },
     onError: (err) => {

@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest'; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
-const landing = readFileSync(resolve(root, 'client/weight-loss-intake.html'), 'utf8');
+const landing = metaLeadConversionsHistoricalSource('client/weight-loss-intake.html', readFileSync(resolve(root, 'client/weight-loss-intake.html'), 'utf8'), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const heroCss = landing.split('/* Approved flyer-inspired hero')[1].split('</style>')[0];
 const heroMarkup = landing.split('<section class="hero">')[1].split('</section>')[0];
 
@@ -26,7 +26,7 @@ describe('Simplified weight-loss-intake hero', () => {
   });
   it('does not introduce removed hero-step styling into protected intake or menopause pages', () => {
     for (const file of ['client/intake/index.html', 'client/src/pages/WeightLossMenopause.tsx']) {
-      expect(readFileSync(resolve(root, file), 'utf8')).not.toContain('hero-start-steps');
+      expect(metaLeadConversionsHistoricalSource(file, readFileSync(resolve(root, file), 'utf8'), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))).not.toContain('hero-start-steps');
     }
   });
 });

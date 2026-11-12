@@ -1,10 +1,10 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { resolve } from "node:path";
 import vm from "node:vm";
 import { describe, expect, it, vi } from "vitest";
 
 const root = resolve(import.meta.dirname, "..");
-const intake = readFileSync(resolve(root, "client/intake/index.html"), "utf8");
+const intake = metaLeadConversionsHistoricalSource("client/intake/index.html", readFileSync(resolve(root, "client/intake/index.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const receipt = { submission_id: "synthetic-test-id", submission_token: "synthetic-test-token", sms_opt_in: false, video_visit_interest: true, is_test: false, payment_status: "NOT_REQUIRED" };
 
 function intakeHelpers(result: Record<string, unknown>) {

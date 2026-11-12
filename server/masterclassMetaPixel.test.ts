@@ -33,56 +33,38 @@ describe("masterclass-only supplied Meta Pixel", () => {
     expect(scripts).toHaveLength(0);
   });
 
-  it.each(["/masterclass2", "/masterclass2/"])("installs once on %s despite repeated effects", path => {
+  it.each(["/masterclass2", "/masterclass2/"]) ("retired installer remains inactive on %s despite repeated effects", path => {
     const scripts = mockBrowser(path);
-    expect(installMasterclassMetaPixel()).toBe(true);
     expect(installMasterclassMetaPixel()).toBe(false);
-    expect(scripts).toHaveLength(1);
-    expect(scripts[0].id).toBe("masterclass-meta-pixel");
-    expect(scripts[0].textContent).toContain("fbq('init', '1589326469554181');");
-    expect(scripts[0].textContent).toContain("fbq('track', 'PageView');");
-    expect(scripts[0].textContent).not.toMatch(/Lead|Schedule|CompleteRegistration|Purchase|content_name|content_category/);
-  });
-
-  it("executes only init and PageView when the pixel is not initialized", () => {
-    const scripts = mockBrowser();
-    const fbq = vi.fn();
-    vi.stubGlobal("fbq", fbq);
-    (window as unknown as { fbq: typeof fbq }).fbq = fbq;
-    installMasterclassMetaPixel();
-    new Function(scripts[0].textContent)();
-    expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["init", "1589326469554181"], ["track", "PageView"]]);
-    expect(source).toContain("fbq.disablePushState = true;");
-  });
-
-  it("reuses the same already-initialized pixel without another init", () => {
-    const scripts = mockBrowser();
-    const fbq = Object.assign(vi.fn(), { getState: () => ({ pixels: [{ id: "1589326469554181" }] }) });
-    vi.stubGlobal("fbq", fbq);
-    (window as unknown as { fbq: typeof fbq }).fbq = fbq;
-    installMasterclassMetaPixel();
-    new Function(scripts[0].textContent)();
-    expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["track", "PageView"]]);
-  });
-
-  it("skips an existing matching masterclass PageView sent by another tag", () => {
-    const url = "https://www.facebook.com/tr?id=1589326469554181&ev=PageView&dl=" + encodeURIComponent("https://medmethoddirect.com/masterclass2?utm_source=ad");
-    const scripts = mockBrowser("/masterclass2", [{ name: url }]);
     expect(installMasterclassMetaPixel()).toBe(false);
     expect(scripts).toHaveLength(0);
   });
 
-  it("does not mistake an unrelated route, pixel, or event for this PageView", () => {
-    const scripts = mockBrowser("/masterclass2", [
-      { name: "https://www.facebook.com/tr?id=1589326469554181&ev=PageView&dl=https%3A%2F%2Fmedmethoddirect.com%2F" },
-      { name: "https://www.facebook.com/tr?id=other&ev=PageView&dl=https%3A%2F%2Fmedmethoddirect.com%2Fmasterclass2" },
-      { name: "https://www.facebook.com/tr?id=1589326469554181&ev=Lead&dl=https%3A%2F%2Fmedmethoddirect.com%2Fmasterclass2" },
-    ]);
-    expect(installMasterclassMetaPixel()).toBe(true);
-    expect(scripts).toHaveLength(1);
+  it("does not dispatch or inspect a previously initialized SDK", () => {
+    const scripts = mockBrowser();
+    const fbq = Object.assign(vi.fn(), { getState: vi.fn(() => ({ pixels: [{ id: "synthetic-retired-id" }] })) });
+    vi.stubGlobal("fbq", fbq);
+    (window as unknown as { fbq: typeof fbq }).fbq = fbq;
+    expect(installMasterclassMetaPixel()).toBe(false);
+    expect(fbq).not.toHaveBeenCalled();
+    expect(fbq.getState).not.toHaveBeenCalled();
+    expect(scripts).toHaveLength(0);
   });
 
-  it("intentional removal replacement: leaves tracking unmounted without editing the shared shell or archival helper", () => {
+  it("does not scan resource entries or load a replacement script", () => {
+    const scripts = mockBrowser("/masterclass2", [{ name: "https://example.invalid/synthetic-resource" }]);
+    const getEntriesByType = vi.fn();
+    vi.stubGlobal("performance", { getEntriesByType });
+    expect(installMasterclassMetaPixel()).toBe(false);
+    expect(getEntriesByType).not.toHaveBeenCalled();
+    expect(scripts).toHaveLength(0);
+  });
+
+  it("contains no retired SDK, collection URL, ID, or event dispatch", () => {
+    expect(source).not.toMatch(/1589326469554181|fbq|fbevents|facebook\.(?:com|net)|createElement|setTimeout/);
+  });
+
+  it("intentional removal replacement: leaves tracking unmounted without restoring the retired installer", () => {
     expect(pageSource).not.toContain("installMasterclassMetaPixel();");
     expect(documentSource).not.toContain("1589326469554181");
     expect(documentSource).not.toContain("fbevents.js");

@@ -9,15 +9,31 @@ import {
   getCareTeamConfirmationRedirectTarget,
 } from "@/lib/careTeamBookingRedirect";
 
+import {
+  armExternalMetaLead,
+  isVerifiedCareTeamBookingSuccess,
+} from "@/lib/metaLeadProviderSuccess";
+
 const LOGO = "/manus-storage/medmethod-logo-navbar_99a2ea82.png";
 
 export default function CareTeamBooking() {
   const calendarRef = useRef<HTMLIFrameElement>(null);
+  const bookingCompletedRef = useRef(false);
 
   useEffect(() => {
     const handleCalendarMessage = (event: MessageEvent) => {
       if (event.origin !== CARE_TEAM_CALENDAR_ORIGIN) return;
       if (!calendarRef.current?.contentWindow || event.source !== calendarRef.current.contentWindow) return;
+      if (isVerifiedCareTeamBookingSuccess(event, calendarRef.current.contentWindow)) {
+        if (bookingCompletedRef.current) return;
+        bookingCompletedRef.current = true;
+        armExternalMetaLead(CARE_TEAM_BOOKING_CONFIRMATION_PATH);
+        window.location.assign(CARE_TEAM_BOOKING_CONFIRMATION_PATH);
+        return;
+      }
+
+      // Legacy provider navigation remains independent of Lead authorization.
+      // modify-parent-url can also mean payment URL cleanup, never completion.
       const confirmationTarget = getCareTeamConfirmationRedirectTarget(event.data);
       if (!confirmationTarget) return;
 
@@ -98,7 +114,10 @@ export default function CareTeamBooking() {
         <div className="w-full">
           <iframe
             ref={calendarRef}
-            src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN"
+            // Verified GHL ct(a) honors redirect=false after posting booking-complete.
+            // Parent owns the same confirmation redirect to avoid a postMessage /
+            // provider top-navigation race before synchronous one-use arming.
+            src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN?redirect=false"
             allow="payment"
             style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "700px" }}
             scrolling="no"

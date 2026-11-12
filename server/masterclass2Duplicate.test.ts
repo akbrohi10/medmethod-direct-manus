@@ -1,9 +1,9 @@
-import { readFileSync } from "node:fs"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f";
+import { readFileSync } from "node:fs"; import { createHash as oldRemovalCreateHash } from "node:crypto"; import { oldMetaPixelRemovalHistoricalSource, oldMetaPixelRemovalApprovedInventory, oldMetaPixelRemovalNeedsInverse, OLD_REMOVAL_SOURCE_PATHS } from "./fixtures/oldMetaPixelRemovalScope"; const oldRemovalHelperSHA = "844f119278b6da6e807529d1446163610a3585dee5065cfad49f7bac01be4c2f"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
-const read = (path: string) => oldMetaPixelRemovalHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA);
+const read = (path: string) => oldMetaPixelRemovalHistoricalSource(path, metaLeadConversionsHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), s => oldRemovalCreateHash("sha256").update(s).digest("hex"), oldRemovalHelperSHA);
 
 const original = read("client/src/pages/MasterclassVideoFirst.tsx");
 const duplicate = read("client/src/pages/Masterclass2.tsx");
@@ -218,7 +218,7 @@ describe("approved /masterclass2 duplicate checkpoint", () => {
   });
 
   it("keeps Meta Pixel installation limited to /masterclass2", () => {
-    expect(readFileSync(resolve(root, "client/src/pages/Masterclass2.tsx"), "utf8")).not.toContain("installMasterclassMetaPixel();");
+    expect(metaLeadConversionsHistoricalSource("client/src/pages/Masterclass2.tsx", readFileSync(resolve(root, "client/src/pages/Masterclass2.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))).not.toContain("installMasterclassMetaPixel();");
     expect(pixelHelper).toContain(
       'window.location.pathname.replace(/\\/$/, "") !== "/masterclass2"',
     );

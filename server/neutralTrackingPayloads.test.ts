@@ -1,21 +1,21 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { buildNeutralWebinarRegistrationPayload } from "../client/src/lib/neutralTrackingPayloads";
 
 const projectRoot = process.cwd();
-const webinarConfirmationSource = readFileSync(
+const webinarConfirmationSource = metaLeadConversionsHistoricalSource("client/src/pages/WebinarRegistrationConfirmed.tsx", readFileSync(
   resolve(projectRoot, "client/src/pages/WebinarRegistrationConfirmed.tsx"),
   "utf8",
-);
-const companionConfirmationSource = readFileSync(
+), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const companionConfirmationSource = metaLeadConversionsHistoricalSource("client/src/pages/LiveWebinar3Confirmed.tsx", readFileSync(
   resolve(projectRoot, "client/src/pages/LiveWebinar3Confirmed.tsx"),
   "utf8",
-);
-const pixelBootstrapSource = readFileSync(
+), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const pixelBootstrapSource = metaLeadConversionsHistoricalSource("client/src/lib/metaPixelBootstrap.ts", readFileSync(
   resolve(projectRoot, "client/src/lib/metaPixelBootstrap.ts"),
   "utf8",
-);
+), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 describe("neutral webinar tracking payloads", () => {
   it("uses generic metadata for both webinar lead events", () => {

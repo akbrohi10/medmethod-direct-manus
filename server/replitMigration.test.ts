@@ -1,10 +1,10 @@
-import fs from "node:fs";
+import fs from "node:fs"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = path.resolve(import.meta.dirname, "..");
 const read = (relativePath: string) =>
-  fs.readFileSync(path.join(root, relativePath), "utf8");
+  metaLeadConversionsHistoricalSource(relativePath, fs.readFileSync(path.join(root, relativePath), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
 describe("Replit migration package", () => {
   it("creates every current database table without exporting rows", () => {

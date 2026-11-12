@@ -4,38 +4,37 @@ import { CARE_TEAM_CONFIRMATION_LEAD_CODE } from "../client/src/lib/careTeamConf
 const run = () => new Function(CARE_TEAM_CONFIRMATION_LEAD_CODE)();
 afterEach(() => vi.unstubAllGlobals());
 
-describe("unconditional parameter-free confirmation Lead command", () => {
-  it("is exactly the supplied Lead call with no condition or session checks", () => {
-    expect(CARE_TEAM_CONFIRMATION_LEAD_CODE).toBe("fbq('track', 'Lead');");
+describe("retired confirmation command compatibility export", () => {
+  it("is an empty string and needs no global SDK", () => {
+    expect(CARE_TEAM_CONFIRMATION_LEAD_CODE).toBe("");
+    expect(run).not.toThrow();
   });
 
-  it("calls Lead on every execution and refreshed load", () => {
+  it("does not emit on execution, repeat, or refresh", () => {
     const fbq = vi.fn(); vi.stubGlobal("fbq", fbq); run(); run();
-    expect(fbq.mock.calls).toEqual([["track", "Lead"], ["track", "Lead"]]);
-    const refreshedFbq = vi.fn(); vi.stubGlobal("fbq", refreshedFbq); run();
-    expect(refreshedFbq.mock.calls).toEqual([["track", "Lead"]]);
+    expect(fbq).not.toHaveBeenCalled();
+    const refreshed = vi.fn(); vi.stubGlobal("fbq", refreshed); run();
+    expect(refreshed).not.toHaveBeenCalled();
   });
 
-  it("ignores the old Lead and Schedule flags without reading or modifying them", () => {
-    const fbq = vi.fn(); vi.stubGlobal("fbq", fbq);
+  it("does not read or modify historical session flags", () => {
     const getItem = vi.fn(() => "true"), setItem = vi.fn(), removeItem = vi.fn();
-    vi.stubGlobal("window", { sessionStorage: { getItem, setItem, removeItem } }); run();
-    expect(fbq).toHaveBeenCalledWith("track", "Lead");
-    expect(getItem).not.toHaveBeenCalled(); expect(setItem).not.toHaveBeenCalled(); expect(removeItem).not.toHaveBeenCalled();
+    vi.stubGlobal("window", { sessionStorage: { getItem, setItem, removeItem } });
+    run();
+    for (const spy of [getItem, setItem, removeItem]) expect(spy).not.toHaveBeenCalled();
   });
 
-  it("does not skip Lead if sessionStorage access is denied", () => {
-    const fbq = vi.fn(); vi.stubGlobal("fbq", fbq);
-    const win = {}; Object.defineProperty(win, "sessionStorage", { get() { throw new Error("storage denied"); } });
-    vi.stubGlobal("window", win); expect(run).not.toThrow(); expect(fbq).toHaveBeenCalledWith("track", "Lead");
+  it("does not access denied browser storage", () => {
+    const win = {};
+    Object.defineProperty(win, "sessionStorage", { get() { throw new Error("storage denied"); } });
+    vi.stubGlobal("window", win);
+    expect(run).not.toThrow();
   });
 
-  it("queues the command while the base snippet's asynchronous SDK is loading", () => {
-    const queue: unknown[][] = []; vi.stubGlobal("fbq", (...args: unknown[]) => queue.push(args)); run();
-    expect(queue).toEqual([["track", "Lead"]]);
-  });
-
-  it("does not contain extra events, parameters, matching, initialization or suppression logic", () => {
-    expect(CARE_TEAM_CONFIRMATION_LEAD_CODE).not.toMatch(/sessionStorage|mmd_lead_fired|\bif\b|PageView|Schedule|Purchase|CompleteRegistration|name|email|phone|dob|condition|treatment|value|currency|user_data|init/);
+  it("cannot add a command to a previously existing SDK queue", () => {
+    const queue: unknown[][] = [];
+    vi.stubGlobal("fbq", (...args: unknown[]) => queue.push(args));
+    run();
+    expect(queue).toEqual([]);
   });
 });

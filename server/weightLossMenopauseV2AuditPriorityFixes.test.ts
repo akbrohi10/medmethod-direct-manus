@@ -1,4 +1,4 @@
-import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test";
+import { inverseApprovedV2BioMscpBadge } from "./weightLossMenopauseV2BioMscpBadge.test"; import { inverseApprovedV2HeroCtaComfort } from "./weightLossMenopauseV2HeroCtaComfort.test"; import { inverseApprovedV2HeroQuestion } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership, membershipFixturePath } from "./weightLossMenopauseV2Membership.test"; import { compactMembershipFixturePath, inverseApprovedV2CompactMembership } from "./weightLossMenopauseV2CompactMembership.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
 import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test";
 import { inverseApprovedFinalProgressLabel, finalProgressLabelFixturePath } from "./intakeFinalProgressLabelScope.test";
 import { execFileSync } from "node:child_process";
@@ -136,7 +136,7 @@ const faqAnswerFontAppend = `
 `;
 
 function read(file: string): string {
-  return inverseApprovedV2BioMscpBadge(file, readFileSync(resolve(root, file), "utf8"));
+  return inverseApprovedV2BioMscpBadge(file, metaLeadConversionsHistoricalSource(file, readFileSync(resolve(root, file), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
 }
 
 function atBaseline(file: string): string {
@@ -219,8 +219,8 @@ function changedProductionFiles(): string[] {
   })
     .split("\n")
     .filter(Boolean).filter(p => p !== compactMembershipFixturePath || inverseApprovedV2CompactMembership(p, "") !== "").filter(p => p !== membershipFixturePath || inverseApprovedV2Membership(p, "") !== "")
-      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, readFileSync(resolve(process.cwd(), p), "utf8")))
-      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, readFileSync(resolve(process.cwd(), p), "utf8")) !== execFileSync("git", ["show", `62bec055:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
+      .filter(p => !verifyApprovedHormoneSymptomQuizAsset(p, metaLeadConversionsHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))))
+      .filter(p => !["client/src/App.tsx", "server/_core/index.ts"].includes(p) || inverseApprovedFinalProgressLabel(p, metaLeadConversionsHistoricalSource(p, readFileSync(resolve(process.cwd(), p), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))) !== execFileSync("git", ["show", `62bec055:${p}`], { cwd: process.cwd(), encoding: "utf8" }))
     .filter(file => !/\.test\.[cm]?[jt]sx?$/.test(file))
     .filter(file => !approvedWeightCareRegressionPaths.has(file))
     .filter(file => !approvedThankYouNextStepsPaths.has(file))

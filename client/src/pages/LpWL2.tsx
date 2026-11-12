@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { X, Check, ChevronDown, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
+import { armVerifiedPaymentLead } from "@/lib/metaLeadPaymentHooks";
 import WL2PayPalPaymentForm from "@/components/home1/WL2PayPalPaymentForm";
 import WL2StripePaymentForm from "@/components/home1/WL2StripePaymentForm";
 import { clearWl2PaymentResume, getWl2PaymentResume, getWl2ThreeDsPaymentIntent, saveWl2PaymentResume } from "@/lib/wl2PaymentResume";
@@ -138,7 +139,10 @@ function WL2Modal({ open, onClose }: ModalProps) {
   };
 
   const confirmThreeDsReturn = trpc.stripe.confirmWl2OneTimePayment.useMutation({
-    onSuccess: (_, variables) => handleOneTimePaymentComplete(variables.paymentId, variables.paymentIntentId, "stripe"),
+    onSuccess: (result, variables) => {
+      if (result.success === true) armVerifiedPaymentLead("/thank-you2", "stripe", variables.paymentIntentId, result.metaLeadLivePayment === true);
+      handleOneTimePaymentComplete(variables.paymentId, variables.paymentIntentId, "stripe");
+    },
     onError: (error) => {
       setResumingStripePayment(false);
       toast.error(`Payment confirmation failed: ${error.message}`);

@@ -31,56 +31,33 @@ describe("care-team booking page-only supplied Meta events", () => {
     expect(scripts).toHaveLength(0);
   });
 
-  it.each(["/care-team-booking", "/care-team-booking/"])("installs only once on %s", path => {
+  it.each(["/care-team-booking", "/care-team-booking/"]) ("retired installer remains inactive on %s despite repeated effects", path => {
     const scripts = mockBrowser(path);
-    expect(installCareTeamBookingMetaPixel()).toBe(true);
     expect(installCareTeamBookingMetaPixel()).toBe(false);
-    expect(scripts).toHaveLength(1);
-    expect(scripts[0].id).toBe("care-team-booking-meta-pixel");
-    expect(scripts[0].textContent).toContain("fbq('track', 'PageView');\nfbq('track', 'Lead');");
-    expect(scripts[0].textContent).not.toMatch(/Schedule|Purchase|CompleteRegistration|content_name|content_category/);
+    expect(installCareTeamBookingMetaPixel()).toBe(false);
+    expect(scripts).toHaveLength(0);
   });
 
-  it("initializes the existing pixel and fires only the supplied events without extra parameters", () => {
+  it("does not dispatch or change an existing SDK, including queued initialization", () => {
     const scripts = mockBrowser();
-    const fbq = vi.fn();
+    const queue = [["init", "synthetic-retired-id"]];
+    const fbq = Object.assign(vi.fn(), { queue, getState: vi.fn(() => ({ pixels: [{ id: "synthetic-retired-id" }] })) });
     vi.stubGlobal("fbq", fbq);
     (window as unknown as { fbq: typeof fbq }).fbq = fbq;
-    installCareTeamBookingMetaPixel();
-    new Function(scripts[0].textContent)();
-    expect(fbq.mock.calls).toEqual([
-      ["set", "autoConfig", false, "1589326469554181"],
-      ["init", "1589326469554181"],
-      ["track", "PageView"],
-      ["track", "Lead"],
-    ]);
-    expect(source).toContain("fbq.disablePushState = true;");
-    expect(source).not.toContain("setTimeout");
+    expect(installCareTeamBookingMetaPixel()).toBe(false);
+    expect(fbq).not.toHaveBeenCalled();
+    expect(fbq.getState).not.toHaveBeenCalled();
+    expect(queue).toEqual([["init", "synthetic-retired-id"]]);
+    expect(scripts).toHaveLength(0);
   });
 
-  it("reuses an already-initialized pixel when arriving from another route", () => {
-    const scripts = mockBrowser();
-    const fbq = Object.assign(vi.fn(), { getState: () => ({ pixels: [{ id: "1589326469554181" }] }) });
-    vi.stubGlobal("fbq", fbq);
-    (window as unknown as { fbq: typeof fbq }).fbq = fbq;
-    installCareTeamBookingMetaPixel();
-    new Function(scripts[0].textContent)();
-    expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
-  });
-
-  it("does not enqueue a duplicate init while a prior pixel is still loading", () => {
-    const scripts = mockBrowser();
-    const fbq = Object.assign(vi.fn(), { queue: [["init", "1589326469554181"]] });
-    vi.stubGlobal("fbq", fbq);
-    (window as unknown as { fbq: typeof fbq }).fbq = fbq;
-    installCareTeamBookingMetaPixel();
-    new Function(scripts[0].textContent)();
-    expect(fbq.mock.calls).toEqual([["set", "autoConfig", false, "1589326469554181"], ["track", "PageView"], ["track", "Lead"]]);
+  it("contains no retired SDK, collection URL, ID, or event dispatch", () => {
+    expect(source).not.toMatch(/1589326469554181|fbq|fbevents|facebook\.(?:com|net)|createElement|setTimeout/);
   });
 
   it("keeps the booking calendar and redirect guards and existing confirmation mappings", () => {
     expect(pageSource).not.toContain("installCareTeamBookingMetaPixel();");
-    expect(pageSource).toContain('src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN"');
+    expect(pageSource).toContain('src="https://link.sendmeapro.com/widget/booking/18sbmUpLKjc7pcLE8jdN?redirect=false"');
     expect(pageSource).toContain("event.origin !== CARE_TEAM_CALENDAR_ORIGIN");
     expect(pageSource).toContain("event.source !== calendarRef.current.contentWindow");
     expect(pageSource).toContain("window.location.assign(confirmationTarget)");
