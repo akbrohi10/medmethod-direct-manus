@@ -6,6 +6,7 @@
    ============================================================================= */
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { installPhysicianScheduleListener } from "@/lib/metaScheduleBooking";
 import { CheckCircle, Mail, MessageSquare, Clock, HelpCircle, ArrowRight, BookOpen, Download, UserPlus } from "lucide-react";
 
 const BRAND_PINK = "#E8339E";
@@ -44,6 +45,7 @@ const STEPS = [
 ];
 
 export default function ThankYou() {
+  useEffect(() => installPhysicianScheduleListener(), []);
   // Track the completed appointment-deposit handoff once per browser session.
   // This route is reached after the $50 payment, before the calendar choice.
   useEffect(() => {

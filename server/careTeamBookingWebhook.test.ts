@@ -1,4 +1,4 @@
-import type { Request, Response } from "express"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
+import type { Request, Response } from "express"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc"; import { beforeMetaSchedule, metaScheduleApprovedInventory } from "./fixtures/metaScheduleScope"; const metaScheduleHelperSHA = "b9687e0da13457a07b541655bef530808eacdd6c465a50c5104e967625b5c613";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it, vi } from "vitest";
@@ -269,17 +269,17 @@ describe("care-team booking calendar webhook", () => {
   });
 
   it("mounts the production webhook and exposes only the minimal no-store lookup", () => {
-    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", readFileSync(resolve(process.cwd(), "server/_core/index.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const routerSource = metaLeadConversionsHistoricalSource("server/routers/careTeamBooking.ts", readFileSync(
+    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", beforeMetaSchedule("server/_core/index.ts", readFileSync(resolve(process.cwd(), "server/_core/index.ts"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const routerSource = metaLeadConversionsHistoricalSource("server/routers/careTeamBooking.ts", beforeMetaSchedule("server/routers/careTeamBooking.ts", readFileSync(
       resolve(process.cwd(), "server/routers/careTeamBooking.ts"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const dbSource = metaLeadConversionsHistoricalSource("server/db.ts", readFileSync(resolve(process.cwd(), "server/db.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const schemaSource = metaLeadConversionsHistoricalSource("drizzle/schema.ts", readFileSync(resolve(process.cwd(), "drizzle/schema.ts"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const componentSource = metaLeadConversionsHistoricalSource("client/src/components/CareTeamAddToCalendar.tsx", readFileSync(
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const dbSource = metaLeadConversionsHistoricalSource("server/db.ts", beforeMetaSchedule("server/db.ts", readFileSync(resolve(process.cwd(), "server/db.ts"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const schemaSource = metaLeadConversionsHistoricalSource("drizzle/schema.ts", beforeMetaSchedule("drizzle/schema.ts", readFileSync(resolve(process.cwd(), "drizzle/schema.ts"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const componentSource = metaLeadConversionsHistoricalSource("client/src/components/CareTeamAddToCalendar.tsx", beforeMetaSchedule("client/src/components/CareTeamAddToCalendar.tsx", readFileSync(
       resolve(process.cwd(), "client/src/components/CareTeamAddToCalendar.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
     expect(serverSource).toContain('/api/webhooks/care-team-booking');
     expect(routerSource).toContain('"Cache-Control", "no-store, max-age=0"');

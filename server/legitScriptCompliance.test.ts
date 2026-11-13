@@ -1,4 +1,4 @@
-import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
+import { verifyApprovedHormoneSymptomQuizAsset } from "./hormoneSymptomQuizScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc"; import { beforeMetaSchedule, metaScheduleApprovedInventory } from "./fixtures/metaScheduleScope"; const metaScheduleHelperSHA = "b9687e0da13457a07b541655bef530808eacdd6c465a50c5104e967625b5c613";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { extname, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -14,26 +14,26 @@ function collectTextFiles(directory: string): string[] {
     return [".ts", ".tsx", ".xml", ".txt", ".html"].includes(
       extname(fullPath),
     )
-      ? (verifyApprovedHormoneSymptomQuizAsset(relative(projectRoot, fullPath), metaLeadConversionsHistoricalSource(fullPath, readFileSync(fullPath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))) ? [] : [fullPath])
+      ? (verifyApprovedHormoneSymptomQuizAsset(relative(projectRoot, fullPath), metaLeadConversionsHistoricalSource(fullPath, beforeMetaSchedule(fullPath, readFileSync(fullPath, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))) ? [] : [fullPath])
       : [];
   });
 }
 
 function readClientText(): string {
   return collectTextFiles(clientRoot)
-    .map((file) => metaLeadConversionsHistoricalSource(file, readFileSync(file, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))
+    .map((file) => metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(file, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))
     .join("\n");
 }
 
 describe("LegitScript compliance remediation", () => {
   it("keeps requested articles and comparison-heavy legacy pages unpublished", () => {
-    const appSource = metaLeadConversionsHistoricalSource("App.tsx", readFileSync(resolve(sourceRoot, "App.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const blogRegistry = metaLeadConversionsHistoricalSource("data/blogPosts.ts", readFileSync(
+    const appSource = metaLeadConversionsHistoricalSource("App.tsx", beforeMetaSchedule("App.tsx", readFileSync(resolve(sourceRoot, "App.tsx"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const blogRegistry = metaLeadConversionsHistoricalSource("data/blogPosts.ts", beforeMetaSchedule("data/blogPosts.ts", readFileSync(
       resolve(sourceRoot, "data/blogPosts.ts"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const sitemap = metaLeadConversionsHistoricalSource("public/sitemap.xml", readFileSync(resolve(clientRoot, "public/sitemap.xml"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const llms = metaLeadConversionsHistoricalSource("public/llms.txt", readFileSync(resolve(clientRoot, "public/llms.txt"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const sitemap = metaLeadConversionsHistoricalSource("public/sitemap.xml", beforeMetaSchedule("public/sitemap.xml", readFileSync(resolve(clientRoot, "public/sitemap.xml"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const llms = metaLeadConversionsHistoricalSource("public/llms.txt", beforeMetaSchedule("public/llms.txt", readFileSync(resolve(clientRoot, "public/llms.txt"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const removedSlug = "semaglutide-vs-tirzepatide-women-midlife";
 
     expect(
@@ -79,7 +79,7 @@ describe("LegitScript compliance remediation", () => {
     const masterclass2Path = resolve(sourceRoot, "pages/Masterclass2.tsx");
     const bookingClaim = "100% virtual care · Available in 17 states";
     const readBookingClaim = (path: string) => {
-      const source = metaLeadConversionsHistoricalSource(path, readFileSync(path, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+      const source = metaLeadConversionsHistoricalSource(path, beforeMetaSchedule(path, readFileSync(path, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
       const bookingSection = source.slice(
         source.indexOf("data-masterclass-video-first-booking"),
         source.indexOf("</section>", source.indexOf("data-masterclass-video-first-booking")),
@@ -91,17 +91,17 @@ describe("LegitScript compliance remediation", () => {
     expect(readBookingClaim(masterclass2Path)).toBe(bookingClaim);
     for (const file of collectTextFiles(clientRoot)) {
       if (file === masterclassPath || file === masterclass2Path) continue;
-      expect(metaLeadConversionsHistoricalSource(file, readFileSync(file, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), file).not.toMatch(
+      expect(metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(file, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), file).not.toMatch(
         /(?:17 states|licensed in 17|seventeen states)/i,
       );
     }
   });
 
   it("keeps the homepage prescription and treatment-response copy appropriately qualified", () => {
-    const homepageSource = metaLeadConversionsHistoricalSource("pages/HomeHrt3.tsx", readFileSync(
+    const homepageSource = metaLeadConversionsHistoricalSource("pages/HomeHrt3.tsx", beforeMetaSchedule("pages/HomeHrt3.tsx", readFileSync(
       resolve(sourceRoot, "pages/HomeHrt3.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
     expect(homepageSource).toContain(
       "when clinically appropriate, a prescription",
@@ -119,13 +119,13 @@ describe("LegitScript compliance remediation", () => {
   });
 
   it("keeps the auditor-flagged blog and location FAQ language fully removed", () => {
-    const articleSource = metaLeadConversionsHistoricalSource("articles/why-weight-gain-feels-different-in-menopause.tsx", readFileSync(
+    const articleSource = metaLeadConversionsHistoricalSource("articles/why-weight-gain-feels-different-in-menopause.tsx", beforeMetaSchedule("articles/why-weight-gain-feels-different-in-menopause.tsx", readFileSync(
       resolve(
         sourceRoot,
         "articles/why-weight-gain-feels-different-in-menopause.tsx",
       ),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
     expect(articleSource).not.toContain("Protecting and building muscle mass");
     expect(articleSource).not.toContain("improved body composition");
@@ -136,7 +136,7 @@ describe("LegitScript compliance remediation", () => {
 
     expect(locationFiles.length).toBeGreaterThan(0);
     for (const file of locationFiles) {
-      const source = metaLeadConversionsHistoricalSource(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+      const source = metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
       expect(source).not.toContain(
         "hormonal weight gain, low energy, low libido",
       );
@@ -148,17 +148,17 @@ describe("LegitScript compliance remediation", () => {
   });
 
   it("keeps the additional auditor-flagged article and homepage claims removed", () => {
-    const menopauseArticle = metaLeadConversionsHistoricalSource("articles/why-weight-gain-feels-different-in-menopause.tsx", readFileSync(
+    const menopauseArticle = metaLeadConversionsHistoricalSource("articles/why-weight-gain-feels-different-in-menopause.tsx", beforeMetaSchedule("articles/why-weight-gain-feels-different-in-menopause.tsx", readFileSync(
       resolve(
         sourceRoot,
         "articles/why-weight-gain-feels-different-in-menopause.tsx",
       ),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const foodNoiseArticle = metaLeadConversionsHistoricalSource("articles/what-is-food-noise-midlife.tsx", readFileSync(
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const foodNoiseArticle = metaLeadConversionsHistoricalSource("articles/what-is-food-noise-midlife.tsx", beforeMetaSchedule("articles/what-is-food-noise-midlife.tsx", readFileSync(
       resolve(sourceRoot, "articles/what-is-food-noise-midlife.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const homepageSources = [
       "pages/HomeHrt3.tsx",
       "components/home1/MedicalTeam.tsx",
@@ -167,7 +167,7 @@ describe("LegitScript compliance remediation", () => {
       "components/home1/LpConsultationModal.tsx",
       "components/home1/LpConsultationModal2.tsx",
     ]
-      .map(path => metaLeadConversionsHistoricalSource(path, readFileSync(resolve(sourceRoot, path), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))
+      .map(path => metaLeadConversionsHistoricalSource(path, beforeMetaSchedule(path, readFileSync(resolve(sourceRoot, path), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))
       .join("\n");
 
     for (const phrase of [
@@ -203,17 +203,17 @@ describe("LegitScript compliance remediation", () => {
 
   it("keeps the incomplete hormone-therapy article unpublished with the shared external-blog redirect", () => {
     const removedSlug = "hormone-therapy-weight-sleep-metabolism";
-    const appSource = metaLeadConversionsHistoricalSource("App.tsx", readFileSync(resolve(sourceRoot, "App.tsx"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const blogRegistry = metaLeadConversionsHistoricalSource("data/blogPosts.ts", readFileSync(
+    const appSource = metaLeadConversionsHistoricalSource("App.tsx", beforeMetaSchedule("App.tsx", readFileSync(resolve(sourceRoot, "App.tsx"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const blogRegistry = metaLeadConversionsHistoricalSource("data/blogPosts.ts", beforeMetaSchedule("data/blogPosts.ts", readFileSync(
       resolve(sourceRoot, "data/blogPosts.ts"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const sitemap = metaLeadConversionsHistoricalSource("public/sitemap.xml", readFileSync(resolve(clientRoot, "public/sitemap.xml"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const llms = metaLeadConversionsHistoricalSource("public/llms.txt", readFileSync(resolve(clientRoot, "public/llms.txt"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", readFileSync(
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const sitemap = metaLeadConversionsHistoricalSource("public/sitemap.xml", beforeMetaSchedule("public/sitemap.xml", readFileSync(resolve(clientRoot, "public/sitemap.xml"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const llms = metaLeadConversionsHistoricalSource("public/llms.txt", beforeMetaSchedule("public/llms.txt", readFileSync(resolve(clientRoot, "public/llms.txt"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", beforeMetaSchedule("server/_core/index.ts", readFileSync(
       resolve(process.cwd(), "server/_core/index.ts"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const locationFiles = readdirSync(resolve(sourceRoot, "pages")).filter(
       name => /^Location.*\.tsx$/.test(name),
     );
@@ -228,7 +228,7 @@ describe("LegitScript compliance remediation", () => {
     expect(sitemap).not.toContain(removedSlug);
     expect(llms).not.toContain(removedSlug);
     for (const file of locationFiles) {
-      const source = metaLeadConversionsHistoricalSource(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+      const source = metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
       expect(source).not.toContain(removedSlug);
     }
     expect(serverSource).toContain('app.get("/blog", (_req, res) =>');
@@ -237,10 +237,10 @@ describe("LegitScript compliance remediation", () => {
   });
 
   it("uses the exact 12 jurisdictions supplied in the approved instructions", () => {
-    const locationsSource = metaLeadConversionsHistoricalSource("pages/Locations.tsx", readFileSync(
+    const locationsSource = metaLeadConversionsHistoricalSource("pages/Locations.tsx", beforeMetaSchedule("pages/Locations.tsx", readFileSync(
       resolve(sourceRoot, "pages/Locations.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const approvedJurisdictions = [
       "Florida",
       "Arizona",
@@ -267,14 +267,14 @@ describe("LegitScript compliance remediation", () => {
 
   it("keeps the existing shared navigation and locations at 12 states until separately updated", () => {
     const clientText = readClientText();
-    const navbarSource = metaLeadConversionsHistoricalSource("components/Navbar.tsx", readFileSync(
+    const navbarSource = metaLeadConversionsHistoricalSource("components/Navbar.tsx", beforeMetaSchedule("components/Navbar.tsx", readFileSync(
       resolve(sourceRoot, "components/Navbar.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
-    const locationsSource = metaLeadConversionsHistoricalSource("pages/Locations.tsx", readFileSync(
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const locationsSource = metaLeadConversionsHistoricalSource("pages/Locations.tsx", beforeMetaSchedule("pages/Locations.tsx", readFileSync(
       resolve(sourceRoot, "pages/Locations.tsx"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 
     expect(clientText).not.toMatch(/12 (?:approved )?jurisdictions/i);
     expect(navbarSource).toContain("Licensed in 12 states");
@@ -306,7 +306,7 @@ describe("LegitScript compliance remediation", () => {
     );
 
     for (const file of locationFiles) {
-      const source = metaLeadConversionsHistoricalSource(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+      const source = metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(resolve(sourceRoot, "pages", file), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
       expect(source).not.toContain("quote:");
       expect(source).not.toContain("testimonials.map");
       expect(source).not.toContain("<PopularPrograms");
@@ -320,7 +320,7 @@ describe("LegitScript compliance remediation", () => {
     const testosteroneDisclosure =
       "Testosterone is prescribed off-label for hypoactive sexual desire disorder in women. There is no FDA-approved testosterone product for women in the United States. This treatment is available only to patients in Florida.";
     for (const file of collectTextFiles(sourceRoot).filter((file) => file.endsWith(".tsx"))) {
-      const source = metaLeadConversionsHistoricalSource(file, readFileSync(file, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+      const source = metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(file, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
       const isDisclosureComponent = file.endsWith("ComplianceDisclosures.tsx");
       const isReviewOnlyEducationalWebinar =
         file.endsWith("LiveWebinar2.tsx") &&
@@ -347,14 +347,14 @@ describe("LegitScript compliance remediation", () => {
   });
 
   it("serves permanent redirects for removed public routes and no placeholder footer links", () => {
-    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", readFileSync(
+    const serverSource = metaLeadConversionsHistoricalSource("server/_core/index.ts", beforeMetaSchedule("server/_core/index.ts", readFileSync(
       resolve(projectRoot, "server/_core/index.ts"),
       "utf8",
-    ), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    )), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const footerSources = [
       resolve(sourceRoot, "components/Footer.tsx"),
       resolve(sourceRoot, "components/home1/Footer.tsx"),
-    ].map((file) => metaLeadConversionsHistoricalSource(file, readFileSync(file, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
+    ].map((file) => metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(file, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
 
     for (const route of [
       "/male",

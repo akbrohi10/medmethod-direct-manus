@@ -1,4 +1,4 @@
-import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
+import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc"; import { beforeMetaSchedule, metaScheduleApprovedInventory } from "./fixtures/metaScheduleScope"; const metaScheduleHelperSHA = "b9687e0da13457a07b541655bef530808eacdd6c465a50c5104e967625b5c613";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -24,7 +24,7 @@ function selectors(css: string) {
 
 describe("intake scale-photo layout", () => {
   it("changes only the approved image path and button classes while preserving the upload component", () => {
-    const scalePhoto = component(metaLeadConversionsHistoricalSource(intakePath, readFileSync(intakePath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), "MmdScalePhoto");
+    const scalePhoto = component(metaLeadConversionsHistoricalSource(intakePath, beforeMetaSchedule(intakePath, readFileSync(intakePath, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")), "MmdScalePhoto");
     const examplePath = 'src:`/api/intake/assets/scale-example.jpg`,alt:`Example of both feet on a digital scale with the weight visible`,onError:e=>{let t=e.currentTarget;t.getAttribute(`src`)!==`https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CkjwARGtcsaSNmuw.jpg`&&(t.src=`https://files.manuscdn.com/user_upload_by_module/session_file/310519663416709267/CkjwARGtcsaSNmuw.jpg`)}';
     const primaryUpload = "className:`primary`,disabled:u,onClick:()=>r.current?.click(),children:u?`Uploading…`:`Take or upload a photo`";
     const scaleSkip = "className:`scale-skip-link`,disabled:u,onClick:()=>{if(!u){h();v?.()}},children:`Skip for now`";
@@ -42,10 +42,10 @@ describe("intake scale-photo layout", () => {
   });
 
   it("activates scoped scale styling only for wScalePhoto", () => {
-    const intake = metaLeadConversionsHistoricalSource(intakePath, readFileSync(intakePath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const intake = metaLeadConversionsHistoricalSource(intakePath, beforeMetaSchedule(intakePath, readFileSync(intakePath, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const historicalIntake = inverseApprovedGlp1Combined("client/intake/index.html", intake);
     const shell = historicalIntake.slice(historicalIntake.lastIndexOf('className:"app"'));
-    const stylesheet = metaLeadConversionsHistoricalSource(stylesheetPath, readFileSync(stylesheetPath, "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+    const stylesheet = metaLeadConversionsHistoricalSource(stylesheetPath, beforeMetaSchedule(stylesheetPath, readFileSync(stylesheetPath, "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
     const addedStyles = stylesheet.slice(existingUploadStylesLength).trim();
     const addedSelectors = selectors(addedStyles.replace(/^\/\*.*?\*\/\s*/s, ""));
 

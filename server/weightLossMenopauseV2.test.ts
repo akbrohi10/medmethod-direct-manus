@@ -1,11 +1,11 @@
-import { inverseApprovedV2HeroQuestionBeforeMembership } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership } from "./weightLossMenopauseV2Membership.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
+import { inverseApprovedV2HeroQuestionBeforeMembership } from "./weightLossMenopauseV2HeroQuestion.test"; import { inverseApprovedV2Membership } from "./weightLossMenopauseV2Membership.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc"; import { beforeMetaSchedule, metaScheduleApprovedInventory } from "./fixtures/metaScheduleScope"; const metaScheduleHelperSHA = "b9687e0da13457a07b541655bef530808eacdd6c465a50c5104e967625b5c613";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { generateCrawlerHtml, getMetaForPath, injectRouteMetaIntoHtml } from "./crawlerMiddleware";
 
-const read = (file: string) => inverseApprovedV2Membership(file, metaLeadConversionsHistoricalSource(file, readFileSync(resolve(import.meta.dirname, "..", file), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
+const read = (file: string) => inverseApprovedV2Membership(file, metaLeadConversionsHistoricalSource(file, beforeMetaSchedule(file, readFileSync(resolve(import.meta.dirname, "..", file), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
 const root = resolve(import.meta.dirname, "..");
 const approvedHeroSupportingLineBaseline = "9b081b83";
 const boldOnlyHeroSupportingLineBaseline = "01fc6439";

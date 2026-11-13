@@ -1,4 +1,4 @@
-import { inverseApprovedShippingSkip } from "./intakeShippingSkipScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc";
+import { inverseApprovedShippingSkip } from "./intakeShippingSkipScope.test"; import { createHash as metaLeadScopeCreateHash } from "node:crypto"; import { gunzipSync as metaLeadScopeGunzipSync } from "node:zlib"; import { metaLeadConversionsHistoricalSource, metaLeadConversionsApprovedInventory, metaLeadConversionsNeedsInverse, META_LEAD_CONVERSIONS_SOURCE_PATHS } from "./fixtures/metaLeadConversionsScope"; const metaLeadConversionsHelperSHA = "d34479c6329419bf251177058890f3ac1bbb2d8fd943685846528c717b98afcc"; import { beforeMetaSchedule, metaScheduleApprovedInventory } from "./fixtures/metaScheduleScope"; const metaScheduleHelperSHA = "b9687e0da13457a07b541655bef530808eacdd6c465a50c5104e967625b5c613";
 import { inverseApprovedGlp1Combined, glp1CombinedFixturePath, glp1CombinedAssetPath } from "./intakeGlp1CombinedScope.test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -8,14 +8,14 @@ import { inverseApprovedLatePatientInfo, introducedContinueGuidanceAssetPath } f
 import { approvedIntroDetailsPhotoHtmlFragments, approvedShippingApprovalHtmlFragments, approvedSigningConnectionHtmlFragments } from "./intakeIntroDetailsPhotoScope.test";
 
 const root = resolve(import.meta.dirname, "..");
-const source = metaLeadConversionsHistoricalSource("client/intake/index.html", readFileSync(resolve(root, "client/intake/index.html"), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
+const source = metaLeadConversionsHistoricalSource("client/intake/index.html", beforeMetaSchedule("client/intake/index.html", readFileSync(resolve(root, "client/intake/index.html"), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"));
 const beforeShippingSkip = inverseApprovedShippingSkip("client/intake/index.html", source);
 const historicalSource = inverseApprovedGlp1Combined("client/intake/index.html", source);
 const old = (path: string) => execFileSync("git", ["show", `c7a19865:${path}`], { cwd: root, encoding: "utf8" });
 const baseline = old("client/intake/index.html");
 const fixturePath = "server/fixtures/intakeLatePatientInfoFragments.json";
 type Fragment = { old: string; new: string; count?: number };
-const fragments: Fragment[] = JSON.parse(metaLeadConversionsHistoricalSource(fixturePath, readFileSync(resolve(root, fixturePath), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
+const fragments: Fragment[] = JSON.parse(metaLeadConversionsHistoricalSource(fixturePath, beforeMetaSchedule(fixturePath, readFileSync(resolve(root, fixturePath), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")));
 const previous: Fragment[] = JSON.parse(old(fixturePath));
 const fn = (text: string, name: string) => {
   const start = text.lastIndexOf(`function ${name}(`);
@@ -25,7 +25,7 @@ const fn = (text: string, name: string) => {
 };
 const metadata = JSON.parse(source.match(/routes:JSON\.parse\(`(.*?)`\)/s)![1]);
 const screens = metadata.w.screens;
-const glp1 = new Function("window", metaLeadConversionsHistoricalSource(glp1CombinedAssetPath, readFileSync(resolve(root, glp1CombinedAssetPath), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")) + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => screens });
+const glp1 = new Function("window", metaLeadConversionsHistoricalSource(glp1CombinedAssetPath, beforeMetaSchedule(glp1CombinedAssetPath, readFileSync(resolve(root, glp1CombinedAssetPath), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")) + ";return window.MmdCreateGlp1Screens")({})({}, {}, { questions: () => screens });
 const phoneStart = source.indexOf("function MmdDemoIdentityVerificationSkipped(");
 const phoneEnd = source.indexOf("async function MmdPhoneVerificationApi", phoneStart);
 const helpers = (search = "") => new Function("window", "URLSearchParams", "b", "x", "w", "MmdGlp1", source.slice(phoneStart, phoneEnd) + fn(source, "E") + fn(source, "ie") + fn(source, "ae") + fn(source, "se") + fn(source, "MmdIntakePhoneReady") + fn(source, "MmdIntakeFinishReady") + fn(source, "MmdIntakeMissingDetails") + fn(source, "MmdIntakeFlowScreens") + ";return {MmdIntakeMissingDetails,MmdIntakeFinishReady,MmdIntakeFlowScreens}")(
@@ -52,7 +52,7 @@ describe("Weight Care final patient-info submission wording", () => {
     const sign = helpers().MmdIntakeFlowScreens({}).find(screen => screen.id === "wSignForms");
     expect(sign).toMatchObject({ question_text: "Almost there — then you can text with Dr. Al-Deek", helper_text: "Telehealth law requires your consent before a doctor can discuss treatment with you. Signing gives Dr. Al-Deek permission to review your assessment and text with you — then your free visit starts." });
     expect(source).toContain('screen.type==="signForms"?"Sign & continue":"Continue"');
-    for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(inverseApprovedLatePatientInfo(path, metaLeadConversionsHistoricalSource(path, readFileSync(resolve(root, path), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))).toBe(old(path));
+    for (const path of ["client/public/intake/sign-forms-ui.js", "client/public/intake/sign-forms.css", "client/public/intake/sign-forms-data.js"]) expect(inverseApprovedLatePatientInfo(path, metaLeadConversionsHistoricalSource(path, beforeMetaSchedule(path, readFileSync(resolve(root, path), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8")))).toBe(old(path));
   });
 
   it("moves one final acknowledgement above Submit and preserves the terms links, optional SMS consent and checkoutAck key", () => {
@@ -69,7 +69,7 @@ describe("Weight Care final patient-info submission wording", () => {
 
   it("uses exact free/video button wording and next-page note, and retains authoritative signing locks and submission transport", () => {
     for (const text of ["Submit & start my free visit", "Submit & book my video visit", "Watch for a text from us after you submit.", "You'll pay $97 and pick your time on the next page."]) expect(source).toContain(text);
-    expect(metaLeadConversionsHistoricalSource(introducedContinueGuidanceAssetPath, readFileSync(resolve(root, introducedContinueGuidanceAssetPath), "utf8"), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))).toContain('JSX.jsx("p", { children: "Almost there - please fill in:" })');
+    expect(metaLeadConversionsHistoricalSource(introducedContinueGuidanceAssetPath, beforeMetaSchedule(introducedContinueGuidanceAssetPath, readFileSync(resolve(root, introducedContinueGuidanceAssetPath), "utf8")), s => metaLeadScopeCreateHash("sha256").update(s).digest("hex"), metaLeadConversionsHelperSHA, s => metaLeadScopeGunzipSync(Buffer.from(s, "base64")).toString("utf8"))).toContain('JSX.jsx("p", { children: "Almost there - please fill in:" })');
     const app = source.slice(source.lastIndexOf("function $e()"));
     expect(app).toContain('MmdIntakeSubmitScreen(screen)?formsReady&&MmdIntakeFinishReady(screen,answers,demo)&&MmdSigningPayloadReady(signingPayloadRef.current)');
     expect(app).toContain('const missingDetails=screen&&MmdIntakeSubmitScreen(screen)?MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current)):[];');

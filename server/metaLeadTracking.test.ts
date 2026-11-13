@@ -60,16 +60,16 @@ describe("Meta Lead privacy and one-time gates", () => {
     const b = browser({ search });expect(b.lead.arm("/intake/thank-you/")).toBe(false);expect(b.frames).toHaveLength(0);
   });
   it("fails closed for preview/admin eligibility and explicit non-live success", () => {
-    expect(browser({ eligible: false }).lead.arm("/thank-you")).toBe(false);
-    const b = browser();expect(b.lead.arm("/thank-you", { excluded: true })).toBe(false);expect(b.lead.arm("/thank-you")).toBe(false);
+    expect(browser({ eligible: false }).lead.arm("/thank-you2")).toBe(false);
+    const b = browser();expect(b.lead.arm("/thank-you2", { excluded: true })).toBe(false);expect(b.lead.arm("/thank-you2")).toBe(false);
   });
   it("rejects wrong destinations, expired and malformed flags", () => {
-    const b = browser();expect(b.lead.arm("/thank-you?email=secret")).toBe(false);
-    const c = browser();c.lead.arm("/thank-you");expect(c.lead.consume("/thank-you2")).toBe(false);
-    const item = JSON.parse(c.storage.get("mmd_meta_lead_once_v1")!);item.at = Date.now() - 20 * 60 * 1000;c.storage.set("mmd_meta_lead_once_v1", JSON.stringify(item));expect(c.lead.consume("/thank-you")).toBe(false);
+    const b = browser();expect(b.lead.arm("/thank-you2?email=secret")).toBe(false);
+    const c = browser();c.lead.arm("/thank-you2");expect(c.lead.consume("/care-team-booking-confirmed")).toBe(false);
+    const item = JSON.parse(c.storage.get("mmd_meta_lead_once_v1")!);item.at = Date.now() - 20 * 60 * 1000;c.storage.set("mmd_meta_lead_once_v1", JSON.stringify(item));expect(c.lead.consume("/thank-you2")).toBe(false);
   });
   it("grants only its exact opaque child once and transmits no identifiers", () => {
-    const b = browser();b.lead.arm("/thank-you");b.lead.consume("/thank-you");const f = b.frames[0];
+    const b = browser();b.lead.arm("/thank-you2");b.lead.consume("/thank-you2");const f = b.frames[0];
     b.listeners.message({ source: {}, origin: "null", data: { type: "mmd_meta_ready" } });expect(f.messages).toEqual([]);
     b.listeners.message({ source: f.contentWindow, origin: "https://evil.example", data: { type: "mmd_meta_ready" } });expect(f.messages).toEqual([]);
     b.listeners.message({ source: f.contentWindow, origin: "null", data: { type: "mmd_meta_ready", email: "secret" } });expect(f.messages).toEqual([]);
@@ -91,10 +91,10 @@ describe("Meta Lead privacy and one-time gates", () => {
     expect(metaLeadFrameHtml(true)).toContain("Object.keys(event.data).length !== 1");
   });
   it("excludes development, test queries and authenticated cookies server-side", () => {
-    const req = { originalUrl: "/thank-you", headers: {} };
+    const req = { originalUrl: "/thank-you2", headers: {} };
     expect(metaLeadRequestExcluded(req, "production")).toBe(false);
     for (const env of ["development", "test", undefined]) expect(metaLeadRequestExcluded(req, env)).toBe(true);
-    expect(metaLeadRequestExcluded({ originalUrl: "/thank-you?prefill=demo", headers: {} }, "production")).toBe(true);
+    expect(metaLeadRequestExcluded({ originalUrl: "/thank-you2?prefill=demo", headers: {} }, "production")).toBe(true);
     for (const cookie of ["app_session_id=private", "sa_session=private"]) expect(metaLeadRequestExcluded({ ...req, headers: { cookie } }, "production")).toBe(true);
   });
   it("injects only first-party bookkeeping at approved sources/confirmations and preserves question/upgrade content", () => {
