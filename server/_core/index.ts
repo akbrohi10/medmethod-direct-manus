@@ -182,6 +182,14 @@ async function startServer() {
     res.sendFile(hormoneSymptomQuizHtml);
   });
 
+  // Serve the supplied Feeling Stuck quiz unchanged, outside the shared SPA and tracking.
+  const feelingStuckQuizHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/public/feeling-stuck.html")
+    : path.resolve(import.meta.dirname, "public/feeling-stuck.html");
+  app.get(["/feeling-stuck", "/feeling-stuck/", "/feeling-stuck.html"], (_req, res) => {
+    res.sendFile(feelingStuckQuizHtml);
+  });
+
   // Apple Pay / PayPal Live domain validation requires this exact dot-directory
   // URL. Serve the supplied association file explicitly because Express static
   // middleware ignores dot-directories by default.

@@ -256,6 +256,15 @@ function HormoneSymptomQuizStandaloneRedirect() {
   return <a href="/hormone-symptom-quiz">Opening Hormone Symptom Quiz…</a>;
 }
 
+/** Load the supplied Feeling Stuck document without shared styling or overlays. */
+function FeelingStuckQuizStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/feeling-stuck");
+  }, []);
+
+  return <a href="/feeling-stuck">Opening Feeling Stuck Quiz…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -412,6 +421,8 @@ function Router() {
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />
         <Route path="/hormone-symptom-quiz" component={HormoneSymptomQuizStandaloneRedirect} />
+        <Route path="/feeling-stuck" component={FeelingStuckQuizStandaloneRedirect} />
+        <Route path="/feeling-stuck/" component={FeelingStuckQuizStandaloneRedirect} />
         <Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
@@ -426,6 +437,7 @@ function Router() {
 function SocialProofNotificationsRouter() {
   const [location] = useLocation();
   if (location === "/hormone-symptom-quiz" || location === "/hormone-symptom-quiz/") return null;
+  if (location === "/feeling-stuck" || location === "/feeling-stuck/") return null;
   if (location === "/weight-loss-menopauseV2" || location === "/weight-loss-menopauseV2/") return null;
   if (location === "/thank-you-video-4799" || location === "/thank-you-video-4799/") return null;
   if (location === "/thank-you-video-97" || location === "/thank-you-video-97/") return null;
