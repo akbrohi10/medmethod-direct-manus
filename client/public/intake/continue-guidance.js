@@ -20,6 +20,7 @@ window.MmdCreateContinueGuidance = function (React, JSX) {
     React.useLayoutEffect(function () {
       var records = [];
       items.forEach(function (item, index) {
+        if (props.screen.type === "signForms" && document.querySelector(".typed-sign-forms")) return;
         var target = ui.target(item); if (!target) return;
         var box = target.matches("input,select,textarea") ? target.closest(".field,.checkline,.sign-forms-document") || target.parentElement : target;
         var id = "mmd-field-message-" + props.screen.id + "-" + index, text = document.createElement("p"); text.className = "mmd-field-message"; text.id = id; text.setAttribute("data-hj-suppress", "true");

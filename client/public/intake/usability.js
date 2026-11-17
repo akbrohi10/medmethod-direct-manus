@@ -31,13 +31,14 @@ window.MmdIntakeUsability = (function () {
     }
     if (screen.type === "identity") {
       var labels = { "First name": ["first", "Please type your full first and last name."], "Last name": ["last", "Please type your full first and last name."], "Date of birth": ["dob", "Please select your full date of birth.", ".dob-field"], "State": ["state", "Please choose your state."], "Email address": ["email", "Please enter a valid email address."], "Mobile number": ["phone", "Please enter a valid 10-digit mobile number."], "Mobile number verification": ["verification", "Please verify your mobile number to continue.", 'section[aria-labelledby="mmd-phone-verification-title"]'], "Terms of Service and Privacy Policy acceptance": ["terms", "Please check this box to continue.", "#w-terms"], "Clinical review confirmation": ["checkoutAck", "Please check this box to continue.", "#mmd-free-intake-ack"], "Signed forms": ["signing", "Please return to the signing screen and sign all required forms.", ".mmd-return-signing"] };
+      labels["Care text-message consent"] = ["smsOptIn", "Please check this box so Dr. Al-Deek can text you about your care.", ".mmd-care-sms-checkline"];
+      labels["Information confirmation and agreements"] = ["terms", "Please check this box to continue.", ".mmd-combined-agreements"];
       (options.missingDetails || []).forEach(function (label) { var value = labels[label] || [label, "Please fill this in to continue."]; add(value[0], label, value[1], value[2], value[0] === "email" || value[0] === "phone" ? "invalid_format" : "missing"); });
     } else if (screen.type === "signForms") {
       var signing = options.signing || {};
-      (signing.documents || []).forEach(function (d) { add(d.id, d.title, "Please check this box to continue.", "#mmd-sign-forms-" + d.id); });
-      if (signing.name) add("signer", "Full name", "Please type your full first and last name.", ".sign-forms-field-name");
-      if (signing.electronic) add("electronic", "Electronic signature agreement", "Please check this box to continue.", ".sign-forms-electronic-agreement");
-      if (signing.signature) add("signature", "Your signature", "Please sign below to continue.", ".sign-forms-signature-pad");
+      if (signing.name) add("signer", "Full name", "Type your full first and last name to create your signature.", ".sign-forms-field-name");
+      if (signing.electronic) add("electronic", "All documents and electronic signature agreement", "Please check this box to continue.", ".sign-forms-electronic-agreement");
+      if (signing.signature && !signing.name) add("signature", "Your signature", "Please choose a signature style.", ".typed-signature-options");
     } else if (screen.type === "glp1Group") {
       config.glp1.missing(screen, answers, options.demoMode).forEach(function (q) { question(q, "#mmd-glp1-" + q.id); });
     } else if (screen.type === "shippingAddress") {

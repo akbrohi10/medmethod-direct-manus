@@ -1,6 +1,7 @@
 import { z } from "zod";
 import sharp from "sharp";
 import type { IntakeDraft } from "./intakeSubmissionContract";
+import { INTAKE_TYPED_SIGNATURE_STYLES, validatedIntakeSignatureAudit } from "./intakeSignatureMetadata";
 
 export const intakeSigningSchema = z.object({
   version: z.literal("2026-10"),
@@ -10,6 +11,9 @@ export const intakeSigningSchema = z.object({
   document_checks: z.object({ glp1: z.literal(true), general: z.literal(true), telehealth: z.literal(true), privacy: z.literal(true), policy: z.literal(true) }).strict(),
   electronic_agreement: z.literal(true),
   signature_png: z.string().min(50).max(720_000).regex(/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/),
+  signature_method: z.enum(["drawn", "typed"]).optional(),
+  typed_name: z.string().trim().min(1).max(200).refine(value => !/[\u0000-\u001f\u007f]/.test(value)).optional(),
+  signature_style: z.enum(INTAKE_TYPED_SIGNATURE_STYLES).optional(),
 }).strict();
 export type IntakeSigningInput = z.infer<typeof intakeSigningSchema>;
 
@@ -18,6 +22,7 @@ export async function validateIntakeSigning(value: unknown, draft: IntakeDraft, 
   const parsed = intakeSigningSchema.safeParse(value);
   if (!parsed.success) throw new Error("Please complete all five form acknowledgments and sign your forms before submitting.");
   const signing = parsed.data;
+  validatedIntakeSignatureAudit(signing, signing.signer_name);
   const signedAt = Date.parse(signing.signed_at);
   if (signedAt > now + 5 * 60_000 || signedAt < now - 24 * 60 * 60_000) {
     throw new Error("Your form signature has expired or has an invalid date. Please review and sign again.");
@@ -40,6 +45,20 @@ export async function validateIntakeSigning(value: unknown, draft: IntakeDraft, 
       if (data[y * raw.width + x] < 128) { ink++; left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y); }
     }
     if (ink < 12 || right - left < 4 || ink > raw.width * raw.height * 0.5) throw new Error("invalid");
+    if (signing.signature_method === "typed") {
+      // Retain smooth high-resolution glyph edges, remove source metadata/colors, and use
+      // transparent background. The binary ink check above is not the rendered image.
+      const greys = await sharp(bytes, { limitInputPixels: 4_000_000, failOn: "error" })
+        .flatten({ background: "#ffffff" }).greyscale().raw().toBuffer();
+      const rgba = Buffer.alloc(raw.width * raw.height * 4);
+      for (let pixel = 0; pixel < greys.length; pixel++) rgba[pixel * 4 + 3] = 255 - greys[pixel];
+      const signaturePng = await sharp(rgba, { raw: { width: raw.width, height: raw.height, channels: 4 } })
+        .extract({ left: Math.max(0, left - 3), top: Math.max(0, top - 3), width: Math.min(raw.width - Math.max(0, left - 3), right - left + 7), height: Math.min(raw.height - Math.max(0, top - 3), bottom - top + 7) })
+        .resize({ width: 1800, height: 400, fit: "inside", withoutEnlargement: true })
+        .extend({ top: 3, bottom: 3, left: 3, right: 3, background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .png({ compressionLevel: 9 }).toBuffer();
+      return { signing, signaturePng };
+    }
     // Trim only the blank pad surrounding real ink. Server-produced output is always
     // dark ink on opaque white and contains no client image metadata.
     const signaturePng = await sharp(data, { raw: { width: raw.width, height: raw.height, channels: 1 } })

@@ -1,7 +1,8 @@
 import { z } from "zod";
 import treatmentCatalog from "../shared/treatmentCatalog.json";
 
-export const INTAKE_SMS_OPT_IN_TEXT = "Yes, I'd like to receive text messages from MedMethod Direct about my care, including appointment reminders, treatment updates, and health information such as lab results. I understand that standard text messages are not encrypted and may be seen by others with access to my phone. Message frequency varies. Message & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. See our Terms of Service and Privacy Policy.";
+export const INTAKE_SMS_OPT_IN_TEXT = "Yes, text me about my care, including appointment reminders and health information like lab results. Texts aren't encrypted. Msg frequency varies; msg & data rates may apply. Reply STOP to opt out, HELP for help. Terms of Service · Privacy Policy";
+export const INTAKE_CARE_SMS_CONSENT_VERSION = "2026-11-17-care-sms-v1" as const;
 /** The immutable server-side price for every newly created optional video visit. */
 export const VIDEO_VISIT_AMOUNT = "97.00" as const;
 /**
@@ -32,6 +33,11 @@ const patientSchema = completePatientSchema.or(completePatientSchema.extend({
 const consentSchema = z.object({
   terms_accepted: z.literal(true), final_submission_acknowledged: z.literal(true),
   sms_opt_in: z.boolean(), sms_opt_in_at: isoTimestamp.nullable(),
+  // Optional in the reusable draft contract; mandatory for the current website submit route.
+  sms_consent: z.boolean().optional(), sms_consent_at: isoTimestamp.nullable().optional(),
+  sms_consent_version: z.literal(INTAKE_CARE_SMS_CONSENT_VERSION).optional(),
+  terms_accepted_at: isoTimestamp.optional(),
+  clinical_review_confirmed: z.literal(true).optional(), clinical_review_confirmed_at: isoTimestamp.optional(),
   sms_opt_in_text: z.literal(INTAKE_SMS_OPT_IN_TEXT), contact_preference: z.enum(["sms", "phone_portal"]),
   glp1_consent: z.boolean(), glp1_declined: z.boolean(),
   glp1_consent_at: isoTimestamp, glp1_consent_version: z.literal("2026-10"),
@@ -127,6 +133,24 @@ export function validateIntakeDraft(value: unknown): IntakeDraft {
   return draft;
 }
 
+/** Website Weight Care requires an explicit current election, not a phone-verification code. */
+export function validateWebsiteCareSmsConsent(draft: IntakeDraft, now = Date.now()): void {
+  const phone = draft.patient.phone.trim();
+  const compact = phone.replace(/[\s().-]/g, "");
+  // Accept US national and +1/1 E.164 formatting only; never silently strip letters or other countries.
+  if (!/^[\d\s().+-]+$/.test(phone) || !/^(?:\+?1)?[2-9]\d{2}[2-9]\d{6}$/.test(compact)) {
+    throw new Error("Please enter a valid US mobile phone number.");
+  }
+  const consentAt = draft.consents.sms_opt_in_at ? Date.parse(draft.consents.sms_opt_in_at) : NaN;
+  if (draft.consents.sms_opt_in !== true || draft.consents.contact_preference !== "sms"
+    || draft.consents.sms_consent !== true || draft.consents.sms_consent_at !== draft.consents.sms_opt_in_at
+    || draft.consents.sms_consent_version !== INTAKE_CARE_SMS_CONSENT_VERSION
+    || draft.consents.sms_opt_in_text !== INTAKE_SMS_OPT_IN_TEXT || !Number.isFinite(consentAt)
+    || consentAt > now + 5 * 60_000 || consentAt < now - 24 * 60 * 60_000) {
+    throw new Error("Please agree to receive care text messages before submitting your intake.");
+  }
+}
+
 /** The only full clinical payload. It is sent once a free intake is accepted. */
 export function finalizeFreeIntake(
   draft: IntakeDraft,
@@ -153,6 +177,10 @@ export function finalizeFreeIntake(
     // Test classification is server-derived from the eligible sandbox demo path.
     is_test: options.is_test,
     patient: { ...draft.patient, ...phone },
+    sms_consent: draft.consents.sms_consent ?? draft.consents.sms_opt_in,
+    sms_consent_at: draft.consents.sms_consent_at ?? draft.consents.sms_opt_in_at,
+    sms_consent_version: draft.consents.sms_consent_version ?? null,
+    sms_consent_text: draft.consents.sms_opt_in_text,
     checkout_preview: { payment_processed: false, card_fields_omitted: true },
     care: { intake: "free", payment_required: false, amount: "0.00", currency: "USD" },
     payment: { provider: "none", status: "not_required", amount: "0.00", currency: "USD" },

@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import type { Express, NextFunction, Request, Response } from "express";
 import { ENV } from "./_core/env";
+import { validatedIntakeSignatureAudit, type IntakeSignatureAudit } from "./intakeSignatureMetadata";
 import { createIntakeSignedFormsDatabaseStore, type IntakeSignedFormsDatabaseStore } from "./intakeSignedFormsDatabaseStore";
 
 /**
@@ -53,7 +54,7 @@ export type IntakeSignedFormsMetadata = {
   signed_at: string;
   signer_name: string;
   relation: string;
-};
+} & IntakeSignatureAudit;
 
 export type IntakeSignedFormManifest = {
   form: string;
@@ -63,7 +64,7 @@ export type IntakeSignedFormManifest = {
   signed_at: string;
   signer_name: string;
   relation: string;
-};
+} & IntakeSignatureAudit;
 
 export type IntakeSignedFormsPrepareResult = {
   /** Stable URL aliases provided for downstream form-specific webhook mappings. */
@@ -117,7 +118,7 @@ type StoredLedger = {
   signer_name: string;
   relation: string;
   public_origin: string;
-};
+} & IntakeSignatureAudit;
 
 type DownloadedPdf = { bytes: Buffer; fileName: string };
 
@@ -475,6 +476,7 @@ export class IntakeSignedFormsStore {
     if (!Array.isArray(forms) || forms.length !== REQUIRED_FORM_COUNT || new Set(forms.map(form => form.form)).size !== REQUIRED_FORM_COUNT || !CANONICAL_FORMS.every(form => forms.some(candidate => candidate.form === form))) return false;
     if (typeof ledger.signed_at !== "string" || ledger.signed_at.length < 1 || ledger.signed_at.length > 80 || typeof ledger.signer_name !== "string" || ledger.signer_name.length < 1 || ledger.signer_name.length > 200 || typeof ledger.relation !== "string" || ledger.relation.length > 200) return false;
     if (!validOrigin(ledger.public_origin)) return false;
+    try { validatedIntakeSignatureAudit(ledger, ledger.signer_name); } catch { return false; }
     return forms.every(form =>
       form && typeof form === "object"
       && typeof form.form === "string" && FORM_PATTERN.test(form.form)
@@ -608,6 +610,7 @@ export class IntakeSignedFormsStore {
       signed_at: ledger.signed_at,
       signer_name: ledger.signer_name,
       relation: ledger.relation,
+      ...validatedIntakeSignatureAudit(ledger, ledger.signer_name),
     }));
   }
 
@@ -642,7 +645,9 @@ export class IntakeSignedFormsStore {
     if (!metadata || typeof metadata.signed_at !== "string" || metadata.signed_at.length < 1 || metadata.signed_at.length > 80 || typeof metadata.signer_name !== "string" || !metadata.signer_name.trim() || metadata.signer_name.length > 200 || typeof metadata.relation !== "string" || metadata.relation.length > 200) {
       throw storeError(400, "Signed-form metadata is invalid.");
     }
-    return { signed_at: metadata.signed_at, signer_name: metadata.signer_name.trim(), relation: metadata.relation.trim() };
+    try {
+      return { signed_at: metadata.signed_at, signer_name: metadata.signer_name.trim(), relation: metadata.relation.trim(), ...validatedIntakeSignatureAudit(metadata, metadata.signer_name) };
+    } catch { throw storeError(400, "Signed-form metadata is invalid."); }
   }
 
   async prepare(req: Request, submissionId: string, fingerprint: string, pdfs: IntakeSignedFormInput[], metadata: IntakeSignedFormsMetadata): Promise<IntakeSignedFormsPrepareResult> {
@@ -688,6 +693,7 @@ export class IntakeSignedFormsStore {
         signer_name: safeMetadata.signer_name,
         relation: safeMetadata.relation,
         public_origin: publicOrigin,
+        ...validatedIntakeSignatureAudit(safeMetadata, safeMetadata.signer_name),
       };
 
       // Commit PDFs first, then the encrypted ledger as the visibility marker. If anything fails,

@@ -10,6 +10,7 @@ import { generateIntakeSignedPdfs } from "./intakeSignedPdf";
 import { getIntakeSignedFormsStore, registerIntakeSignedFormsRoutes } from "./intakeSignedFormsStore";
 import { validateIntakeSigning } from "./intakeSigningInput";
 import { authorizedNormalIntakeTest } from "./intakeTestAuthorization";
+import { validatedIntakeSignatureAudit } from "./intakeSignatureMetadata";
 import { buildGhlIntakeWebhookPayload } from "./ghlIntakeWebhookPayload";
 import { enqueueGhlIntakeWebhook, registerGhlIntakeWebhookRoutes } from "./ghlIntakeWebhookQueue";
 import {
@@ -22,6 +23,7 @@ import {
   finalizeVideoVisitPaid,
   finalizeVideoVisitWaived,
   validateIntakeDraft,
+  validateWebsiteCareSmsConsent,
   type CompletedFreeIntakeReceipt,
   type IntakeDraft,
   type PhoneAttestation,
@@ -197,7 +199,8 @@ function phoneAttestation(draft: IntakeDraft, token: unknown, demoBypass: boolea
   const verified = validPhoneVerificationToken(token, draft.patient.phone);
   // A sandbox token must never satisfy a live setting (or vice versa).
   if (verified && verified.mode === settings.mode) return { phone_verified: true, phone_verified_at: verified.verifiedAt };
-  if (settings.required) throw new Error("Please verify your mobile number before continuing. If your code expired, request a new code.");
+  // Website intake does not require verification. Existing valid attestations remain truthful;
+  // the verification APIs, settings, and all other callers keep their existing behavior.
   return { phone_verified: false, phone_verified_at: null };
 }
 function eligibleDemo(demoRequested: boolean, explicitDemoPrefill: boolean, draftIsTest: boolean): boolean {
@@ -346,12 +349,14 @@ export function registerIntakePaymentRoutes(app: Express) {
   async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false): Promise<FreeResult> {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
+    validateWebsiteCareSmsConsent(draft);
     const demo = eligibleDemo(input.demo_mode === true, explicitDemoPrefill, draft.is_test === true);
     const isTest = demo || authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true);
     const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);
+    const signatureAudit = validatedIntakeSignatureAudit(signing, signing.signer_name);
     // The actual signing event, not the earlier checkbox tap, is the authoritative consent time.
     draft.consents = { ...draft.consents, glp1_consent: true, glp1_declined: false, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version };
-    // Optional files never gate an otherwise valid signed/phone-verified intake. Invalid,
+    // Optional files never gate an otherwise valid signed/care-SMS-consented intake. Invalid,
     // expired, foreign, or unavailable file references fail closed to *empty* attachment fields.
     let uploads = { ...EMPTY_INTAKE_UPLOADS, lab_results: [...EMPTY_INTAKE_UPLOADS.lab_results] };
     try {
@@ -393,7 +398,7 @@ export function registerIntakePaymentRoutes(app: Express) {
         return pending.result;
       }
       if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.");
-      // Test classification never bypasses normal phone verification.
+      // Verification is optional only for this website submission; never invent an attestation.
       const phone = phoneAttestation(draft, input.phone_verification_token, demo);
       const phoneTokenKey = phone.phone_verified && typeof input.phone_verification_token === "string" ? fingerprint({ token: input.phone_verification_token }) : undefined;
       if (phoneTokenKey) {
@@ -412,8 +417,9 @@ export function registerIntakePaymentRoutes(app: Express) {
             patientDob: draft.patient.dob, patientLastName: draft.patient.last_name,
             signerName: signing.signer_name, relation: signing.relation,
             signedAt: signing.signed_at, demo, signaturePng,
+            ...signatureAudit,
           });
-          forms = await store!.prepare(request, draft.submission_id, hash, pdfs, { signed_at: signing.signed_at, signer_name: signing.signer_name, relation: signing.relation });
+          forms = await store!.prepare(request, draft.submission_id, hash, pdfs, { signed_at: signing.signed_at, signer_name: signing.signer_name, relation: signing.relation, ...signatureAudit });
         } catch (error) {
           // A concurrent/replayed delivery claim is not a storage outage and must not send again.
           if (isDeliveryClaimConflict(error)) throw error;

@@ -1,5 +1,6 @@
 import PDFDocument from "pdfkit";
 import canonicalForms from "../shared/intakeSignForms.json";
+import { validatedIntakeSignatureAudit, type IntakeSignatureAudit } from "./intakeSignatureMetadata";
 
 type CanonicalContentBlock =
   | { tag: "h3" | "p"; text: string }
@@ -22,7 +23,7 @@ export type IntakeSignedPdfInput = {
   signedAt: string;
   demo: boolean;
   signaturePng: Buffer;
-};
+} & IntakeSignatureAudit;
 
 export type IntakeSignedPdf = {
   form: string;
@@ -62,6 +63,7 @@ export async function generateIntakeSignedPdfs(
   input: IntakeSignedPdfInput,
 ): Promise<IntakeSignedPdf[]> {
   assertCanonicalForms();
+  validatedIntakeSignatureAudit(input, input.signerName);
 
   const signedAt = parseSignedAt(input.signedAt);
   const easternDate = formatEasternDate(signedAt);
@@ -293,6 +295,13 @@ function renderAcknowledgmentAndSignature(options: {
     `Signer name: ${input.signerName}`,
     ...(relationship ? [`Relation to patient: ${relationship}`] : []),
     `Signed: ${easternDate}`,
+    ...(input.signature_method === "typed" ? [
+      "Signature method: typed",
+      `Typed name: ${input.typed_name}`,
+      `Signature style: ${input.signature_style}`,
+      `Signature timestamp: ${input.signedAt}`,
+      "Electronic signature agreement: accepted",
+    ] : input.signature_method === "drawn" ? ["Signature method: drawn"] : []),
   ];
   const acknowledgmentHeight = measureText(doc, form.checkbox, CONTENT_WIDTH - 22, 10.2, 2.8);
   const metadataHeights = metadata.map(line => measureText(doc, line, CONTENT_WIDTH, 10.2, 2.5));

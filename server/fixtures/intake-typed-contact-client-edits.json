@@ -1,0 +1,201 @@
+{
+  "baseline": "7d6df50a",
+  "baselineSha256": "72032b9faea9527a83be3a402ae8433df68dd809e975c3c4465afa0d613d411f",
+  "edits": [
+    {
+      "old": "<script src=\"/intake/sign-forms-ui.js?v=20261030-usability\"></script>",
+      "new": "<script src=\"/intake/typed-signature.js\"></script>\n<script src=\"/intake/sign-forms-ui.js?v=20261030-usability\"></script>\n<script src=\"/intake/contact-step.js\"></script>",
+      "position": 50485
+    },
+    {
+      "old": "<link rel=\"stylesheet\" href=\"/intake/premium.css?v=20261117\" />",
+      "new": "<link rel=\"stylesheet\" href=\"/intake/premium.css?v=20261117\" />\n<link rel=\"stylesheet\" href=\"/intake/sign-contact.css\" />",
+      "position": 50145
+    },
+    {
+      "old": "function Pe({answers:e,onValue:t,whyAsk:n}){let r=ie(e)",
+      "new": "function Pe({answers:e,onValue:t,whyAsk:n}){let[whyOpen,setWhyOpen]=(0,l.useState)(false);let r=ie(e)",
+      "position": 323308
+    },
+    {
+      "old": "(0,M.jsx)(`span`,{children:`Date of birth`}),(0,M.jsxs)(`div`,{className:`dob-inputs`",
+      "new": "(0,M.jsxs)(`div`,{className:`dob-label-row`,children:[(0,M.jsx)(`span`,{children:`Date of birth`}),(0,M.jsxs)(`button`,{type:`button`,className:`mmd-dob-why`,\"aria-expanded\":whyOpen,onClick:()=>setWhyOpen(v=>!v),children:[(0,M.jsx)(`span`,{\"aria-hidden\":true,children:`\u24d8`}),`Why we ask this?`]})]}),(0,M.jsxs)(`div`,{className:`dob-inputs`",
+      "position": 323600
+    },
+    {
+      "old": "(0,M.jsx)(N,{text:n})]})}function Fe(",
+      "new": "whyOpen&&(0,M.jsx)(`p`,{className:`info why-info`,children:n||`Your date of birth helps your doctor review your health information and confirm eligibility.`})]})}function Fe(",
+      "position": 325004
+    },
+    {
+      "old": "e.type===`identity`?(0,M.jsxs)(`div`,{className:`form`,children:[(0,M.jsx)(Ne,{label:`First name`,value:t.first,onChange:e=>n(`first`,e)}),(0,M.jsx)(Ne,{label:`Last name`,value:t.last,onChange:e=>n(`last`,e)}),(0,M.jsx)(Pe,{answers:t,onValue:n,whyAsk:e.why_ask}),(0,M.jsxs)(`label`,{className:`field full`,children:[(0,M.jsx)(`span`,{children:`Your state`}),(0,M.jsxs)(`select`,{value:String(t.state??``),onChange:e=>n(`state`,e.target.value),children:[(0,M.jsx)(`option`,{value:``,children:`Select your state`}),y.map(e=>(0,M.jsx)(`option`,{children:e},e))]})]}),(0,M.jsx)(Ne,{label:`Email address`,type:`email`,value:t.email,onChange:e=>n(`email`,e),full:!0,placeholder:`you@example.com`}),(0,M.jsx)(Ne,{label:`Mobile number`,type:`tel`,value:t.phone,onChange:e=>n(`phone`,e),full:!0,placeholder:`(555) 555-5555`}),(0,M.jsx)(`p`,{className:`field-help full`,children:`Used to continue your intake and open your private doctor message thread.`}),(0,M.jsx)(MmdPhoneVerification,{phone:t.phone,phoneVerified:t.phoneVerified,phoneVerificationToken:t.phoneVerificationToken,phoneVerificationExpiresAt:t.phoneVerificationExpiresAt,demoMode:a,onVerified:r,onSettings:d}),(0,M.jsxs)(`div`,{className:`checkline terms-checkline full`,children:[(0,M.jsx)(`input`,{id:`${e.route}-sms-opt-in`,type:`checkbox`,checked:t.smsOptIn===!0,onChange:e=>n(`smsOptIn`,e.target.checked)}),(0,M.jsxs)(`label`,{htmlFor:`${e.route}-sms-opt-in`,children:[`Yes, I'd like to receive text messages from MedMethod Direct about my care, including appointment reminders, treatment updates, and health information such as lab results. I understand that standard text messages are not encrypted and may be seen by others with access to my phone. Message frequency varies. Message & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. See our `,(0,M.jsx)(`a`,{className:`legal-link`,href:`https://medmethoddirect.com/terms`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Terms of Service`}),` and `,(0,M.jsx)(`a`,{className:`legal-link`,href:`https://medmethoddirect.com/privacy-policy`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Privacy Policy`}),`.`]})]}),(0,M.jsxs)(`div`,{className:`checkline terms-checkline full`,children:[(0,M.jsx)(`input`,{id:`${e.route}-terms`,type:`checkbox`,checked:t.terms===!0,onChange:e=>n(`terms`,e.target.checked)}),(0,M.jsxs)(`label`,{htmlFor:`${e.route}-terms`,children:[`I accept the `,(0,M.jsx)(`a`,{className:`legal-link`,href:`https://medmethoddirect.com/terms`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Terms of Service`}),` and `,(0,M.jsx)(`a`,{className:`legal-link`,href:`https://medmethoddirect.com/privacy-policy`,target:`_blank`,rel:`noopener`,onClick:e=>e.stopPropagation(),children:`Privacy Policy`})]})]})]})",
+      "new": "e.type===`identity`?(0,M.jsx)(MmdContactStep,{screen:e,answers:t,onValue:n,onReadTelehealth:MmdOnUpdateVerification})",
+      "position": 356920
+    },
+    {
+      "old": "const MmdSignForms=window.MmdCreateSignForms(l,M);",
+      "new": "const MmdSignForms=window.MmdCreateSignForms(l,M);const MmdContactStep=window.MmdCreateContactStep(l,M,{Field:Ne,BirthDate:Pe,states:y});",
+      "position": 359583
+    },
+    {
+      "old": "String(t.phone??``).replace(/\\D/g,``).length>=10&&t.terms===!0&&(MmdDemoIdentityVerificationSkipped(n)||MmdPhoneVerificationSatisfied(t.phoneVerificationSettings,t,n))",
+      "new": "String(t.phone??``).replace(/\\D/g,``).length===10&&t.terms===!0&&t.smsOptIn===true",
+      "position": 293101
+    },
+    {
+      "old": "function MmdIntakePhoneReady(answers,demoMode){return MmdDemoIdentityVerificationSkipped(demoMode)||MmdPhoneVerificationSatisfied(answers.phoneVerificationSettings??{mode:\"live\",required:true},answers,demoMode)}",
+      "new": "function MmdIntakePhoneReady(answers,demoMode){return String(answers.phone??\"\").replace(/\\D/g,\"\").length===10}",
+      "position": 361301
+    },
+    {
+      "old": "if(phoneValid&&!MmdIntakePhoneReady(answers,demoMode))missing.push(\"Mobile number verification\");",
+      "new": "if(answers.smsOptIn!==true)missing.push(\"Care text-message consent\");",
+      "position": 362197
+    },
+    {
+      "old": "if(answers.terms!==true)missing.push(\"Terms of Service and Privacy Policy acceptance\");if(answers.checkoutAck!==true)missing.push(\"Clinical review confirmation\");",
+      "new": "if(answers.terms!==true||answers.checkoutAck!==true)missing.push(\"Information confirmation and agreements\");",
+      "position": 362266
+    },
+    {
+      "old": "phone_verification_token:MmdLivePhoneVerificationToken(answers),",
+      "new": "",
+      "position": 319919
+    },
+    {
+      "old": "if(!MmdIntakePhoneReady(answers,demo)){setError(\"Please verify your mobile number before submitting your intake.\");return}",
+      "new": "if(!MmdIntakePhoneReady(answers,demo)){setError(\"Please enter a valid 10-digit mobile number.\");return}",
+      "position": 369233
+    },
+    {
+      "old": "videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "new": "terms:true,checkoutAck:true,smsOptIn:false,videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "position": 363532
+    },
+    {
+      "old": "videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "new": "terms:true,checkoutAck:true,smsOptIn:false,videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "position": 363575
+    },
+    {
+      "old": "const restored={...draft.answers,_submissionId:ve(),_submittedAt:new Date().toISOString()};",
+      "new": "const restored={...draft.answers,terms:true,checkoutAck:true,smsOptIn:false,_submissionId:ve(),_submittedAt:new Date().toISOString()};",
+      "position": 365152
+    },
+    {
+      "old": "const onSigningChange=signing=>{signingPayloadRef.current=signing};",
+      "new": "const onSigningChange=signing=>{signingPayloadRef.current=signing;if(signing)setAnswers(previous=>previous.wConsentAt===signing.signed_at?previous:{...previous,wConsentAt:signing.signed_at})};",
+      "position": 364501
+    },
+    {
+      "old": "if(key===\"smsOptIn\"&&value===true)next.smsOptInAt=typeof previous.smsOptInAt===\"string\"?previous.smsOptInAt:new Date().toISOString();if(key===\"smsOptIn\"&&value!==true)delete next.smsOptInAt;",
+      "new": "if(key===\"smsOptIn\"&&value===true){next.smsOptInAt=typeof previous.smsOptInAt===\"string\"?previous.smsOptInAt:new Date().toISOString();next.smsConsentAt=next.smsOptInAt;next.smsConsentVersion=MmdSmsConsentVersion}if(key===\"smsOptIn\"&&value!==true){delete next.smsOptInAt;delete next.smsConsentAt;delete next.smsConsentVersion}if([\"terms\",\"checkoutAck\"].includes(key)){if(value===true){const agreementAt=previous.termsAt||previous.checkoutAckAt||new Date().toISOString();next.termsAt=agreementAt;next.checkoutAckAt=agreementAt}else{delete next.termsAt;delete next.checkoutAckAt}}",
+      "position": 367773
+    },
+    {
+      "old": "const receipt=await MmdSubmitFreeIntake(\"w\",answers,demo,signing);",
+      "new": "const agreementAt=answers.termsAt||answers.checkoutAckAt||new Date().toISOString();const receipt=await MmdSubmitFreeIntake(\"w\",{...answers,termsAt:agreementAt,checkoutAckAt:agreementAt},demo,signing);",
+      "position": 370146
+    },
+    {
+      "old": "const MmdSmsOptInText=`Yes, I'd like to receive text messages from MedMethod Direct about my care, including appointment reminders, treatment updates, and health information such as lab results. I understand that standard text messages are not encrypted and may be seen by others with access to my phone. Message frequency varies. Message & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. See our Terms of Service and Privacy Policy.`;",
+      "new": "const MmdSmsConsentVersion=\"2026-11-17-care-sms-v1\";const MmdSmsOptInText=\"Yes, text me about my care, including appointment reminders and health information like lab results. Texts aren't encrypted. Msg frequency varies; msg & data rates may apply. Reply STOP to opt out, HELP for help. Terms of Service \u00b7 Privacy Policy\";",
+      "position": 301820
+    },
+    {
+      "old": "sms_opt_in_text:MmdSmsOptInText,",
+      "new": "sms_opt_in_text:MmdSmsOptInText,sms_consent:t.smsOptIn===true,sms_consent_at:t.smsConsentAt??t.smsOptInAt??null,sms_consent_version:t.smsConsentVersion??MmdSmsConsentVersion,terms_accepted_at:t.termsAt??null,clinical_review_confirmed:t.checkoutAck===true,clinical_review_confirmed_at:t.checkoutAckAt??null,",
+      "position": 310739
+    },
+    {
+      "old": "signing.signature_png.startsWith(\"data:image/png;base64,\")}",
+      "new": "signing.signature_png.startsWith(\"data:image/png;base64,\")&&signing.signature_method===\"typed\"&&signing.typed_name===signing.signer_name&&window.MmdTypedSignature.valid(signing.signer_name)&&[\"dancing_script\",\"great_vibes\",\"homemade_apple\"].includes(signing.signature_style)}",
+      "position": 363031
+    },
+    {
+      "old": "hidden:!!localReceipt",
+      "new": "hidden:!!localReceipt||MmdIntakeSubmitScreen(screen)",
+      "position": 373675
+    },
+    {
+      "old": "screen?.id!==\"w01\"&&(0,M.jsx)(\"p\",{className:\"eyebrow\",children:S(\"w\")}),screen?.id!==\"w01\"&&(0,M.jsx)(\"h1\",",
+      "new": "screen?.id!==\"w01\"&&!MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(\"p\",{className:\"eyebrow\",children:S(\"w\")}),MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(window.MmdPremiumDoctorRow,{}),screen?.id!==\"w01\"&&(0,M.jsx)(\"h1\",",
+      "position": 374734
+    },
+    {
+      "old": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(window.MmdPremiumDoctorRow,{}),screen?.id===\"w03\"",
+      "new": "screen?.id===\"w03\"",
+      "position": 375044
+    },
+    {
+      "old": "documents:window.MmdSignFormDocuments,validationAttempt:formsValidationAttempt,",
+      "new": "documents:window.MmdSignFormDocuments,demoMode:demo,validationAttempt:formsValidationAttempt,",
+      "position": 375515
+    },
+    {
+      "old": "const updateVerification=()=>{const identity=x(\"w\").find(item=>item.type===\"identity\");if(identity){setHistory(previous=>[...previous,screen.id]);setCurrentId(identity.id);setReturnScreen(\"w02\");setError(\"\");window.scrollTo({top:0,behavior:\"smooth\"})}};",
+      "new": "const updateVerification=()=>setReadTelehealth(true);",
+      "position": 372417
+    },
+    {
+      "old": "const submittingRef=(0,l.useRef)(false),signingPayloadRef=(0,l.useRef)(null);",
+      "new": "const[readTelehealth,setReadTelehealth]=(0,l.useState)(false);const submittingRef=(0,l.useRef)(false),signingPayloadRef=(0,l.useRef)(null);",
+      "position": 364748
+    },
+    {
+      "old": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdIntakeFinish,{answers,onValue}),",
+      "new": "",
+      "position": 375869
+    },
+    {
+      "old": "\"Submit & start my text visit\"",
+      "new": "\"Submit & start my text visit \u2192\"",
+      "position": 378379
+    },
+    {
+      "old": "helpOpen&&(0,M.jsx)(\"div\",{className:\"modal-bg open\"",
+      "new": "readTelehealth&&(0,M.jsx)(\"div\",{className:\"modal-bg open\",children:(0,M.jsxs)(\"section\",{className:\"modal\",role:\"dialog\",\"aria-modal\":true,\"aria-labelledby\":\"mmd-telehealth-title\",children:[(0,M.jsxs)(\"div\",{className:\"modal-head\",children:[(0,M.jsx)(\"h2\",{id:\"mmd-telehealth-title\",children:\"Consent to Telehealth\"}),(0,M.jsx)(\"button\",{type:\"button\",\"aria-label\":\"Close telehealth consent\",onClick:()=>setReadTelehealth(false),children:\"\u00d7\"})]}),window.MmdSignFormDocuments.find(doc=>doc.id===\"telehealth\").content.map((block,index)=>(0,M.jsx)(block.tag||\"p\",{children:block.items?block.items.map((text,i)=>(0,M.jsx)(\"li\",{children:text},i)):block.text},index))]})}),helpOpen&&(0,M.jsx)(\"div\",{className:\"modal-bg open\"",
+      "position": 378590
+    },
+    {
+      "old": "String(t.phone??``).replace(/\\D/g,``).length===10&&t.terms===!0&&t.smsOptIn===true",
+      "new": "window.MmdCareUsPhone(t.phone)&&t.terms===!0&&t.smsOptIn===true",
+      "position": 293101
+    },
+    {
+      "old": "return String(answers.phone??\"\").replace(/\\D/g,\"\").length===10",
+      "new": "return window.MmdCareUsPhone(answers.phone)",
+      "position": 361373
+    },
+    {
+      "old": "const phoneValid=String(answers.phone??\"\").replace(/\\D/g,\"\").length===10;",
+      "new": "const phoneValid=window.MmdCareUsPhone(answers.phone);",
+      "position": 362085
+    },
+    {
+      "old": "\"Submit & book my video visit\"",
+      "new": "\"Submit & book my video visit \u2192\"",
+      "position": 378291
+    },
+    {
+      "old": "const updateVerification=()=>setReadTelehealth(true);",
+      "new": "const updateVerification=()=>{const identity=x(\"w\").find(item=>item.type===\"identity\");if(identity){setHistory(previous=>[...previous,screen.id]);setCurrentId(identity.id);setReturnScreen(\"w02\");setError(\"\");window.scrollTo({top:0,behavior:\"smooth\"})}};const openTelehealth=()=>setReadTelehealth(true);",
+      "position": 372422
+    },
+    {
+      "old": "onUpdateVerification:MmdOnUpdateVerification,onUploadBusyChange:u",
+      "new": "onUpdateVerification:MmdOnUpdateVerification,onReadTelehealth:MmdOnReadTelehealth,onUploadBusyChange:u",
+      "position": 355958
+    },
+    {
+      "old": "onReadTelehealth:MmdOnUpdateVerification",
+      "new": "onReadTelehealth:MmdOnReadTelehealth",
+      "position": 356972
+    },
+    {
+      "old": "onUpdateVerification:updateVerification,onUploadBusyChange:setUploadBusy",
+      "new": "onUpdateVerification:updateVerification,onReadTelehealth:openTelehealth,onUploadBusyChange:setUploadBusy",
+      "position": 375916
+    }
+  ]
+}

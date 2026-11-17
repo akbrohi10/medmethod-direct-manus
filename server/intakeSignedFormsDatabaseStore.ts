@@ -1,6 +1,7 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import type { Express, NextFunction, Request, Response } from "express";
 import { ENV } from "./_core/env";
+import { validatedIntakeSignatureAudit, type IntakeSignatureAudit } from "./intakeSignatureMetadata";
 import {
   createIntakePrivateBlobDb,
   isIntakePrivateBlobDbError,
@@ -68,7 +69,7 @@ type StoredLedger = {
   signer_name: string;
   relation: string;
   public_origin: string;
-};
+} & IntakeSignatureAudit;
 
 type DownloadIndex = {
   version: 1;
@@ -359,6 +360,7 @@ export class IntakeSignedFormsDatabaseStore {
         || typeof ledger.signed_at !== "string" || ledger.signed_at.length < 1 || ledger.signed_at.length > 80
         || typeof ledger.signer_name !== "string" || ledger.signer_name.length < 1 || ledger.signer_name.length > 200
         || typeof ledger.relation !== "string" || ledger.relation.length > 200 || !validOrigin(ledger.public_origin)) return null;
+      validatedIntakeSignatureAudit(ledger, ledger.signer_name);
       const validForms = ledger.forms.every(form => form && typeof form === "object" && FORM_PATTERN.test(form.form)
         && typeof form.title === "string" && form.title.length > 0 && form.title.length <= 300
         && typeof form.file_name === "string" && (() => { try { return safeFileName(form.file_name) === form.file_name; } catch { return false; } })()
@@ -398,6 +400,7 @@ export class IntakeSignedFormsDatabaseStore {
       signed_at: ledger.signed_at,
       signer_name: ledger.signer_name,
       relation: ledger.relation,
+      ...validatedIntakeSignatureAudit(ledger, ledger.signer_name),
     }));
   }
 
@@ -429,7 +432,9 @@ export class IntakeSignedFormsDatabaseStore {
     if (!metadata || typeof metadata.signed_at !== "string" || metadata.signed_at.length < 1 || metadata.signed_at.length > 80
       || typeof metadata.signer_name !== "string" || !metadata.signer_name.trim() || metadata.signer_name.length > 200
       || typeof metadata.relation !== "string" || metadata.relation.length > 200) throw storeError(400, "Signed-form metadata is invalid.");
-    return { signed_at: metadata.signed_at, signer_name: metadata.signer_name.trim(), relation: metadata.relation.trim() };
+    try {
+      return { signed_at: metadata.signed_at, signer_name: metadata.signer_name.trim(), relation: metadata.relation.trim(), ...validatedIntakeSignatureAudit(metadata, metadata.signer_name) };
+    } catch { throw storeError(400, "Signed-form metadata is invalid."); }
   }
 
   private async liveLedgers(): Promise<StoredLedger[]> {
@@ -492,6 +497,7 @@ export class IntakeSignedFormsDatabaseStore {
             signer_name: safeMetadata.signer_name,
             relation: safeMetadata.relation,
             public_origin: publicOrigin,
+            ...validatedIntakeSignatureAudit(safeMetadata, safeMetadata.signer_name),
           };
           const indexes: DownloadIndex[] = forms.map(form => ({
             version: 1, token: form.token, token_hash: form.token_hash, file_name: form.file_name,
