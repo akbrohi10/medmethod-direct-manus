@@ -1,0 +1,21 @@
+.premium-form-panel{padding-bottom:var(--mmd-action-clearance,100px)}
+.premium-form-panel .app>.footer,#mmd-start-assessment{display:none!important}
+.mmd-action-dock{position:fixed;z-index:8;box-sizing:border-box;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(250,249,247,0),rgba(250,249,247,.97) 18px,#faf9f7 100%);border-radius:0 0 28px 28px;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+.mmd-action-dock>button{pointer-events:auto;width:100%;margin:0}.mmd-dock-primary{min-height:54px!important}.mmd-dock-primary::after{content:'→'}.mmd-dock-primary:not(:disabled){opacity:1!important}
+.mmd-action-dock .mmd-dock-skip{border:0;background:transparent;color:var(--accent);font:500 14px/1.4 Inter,Arial,sans-serif;min-height:44px;cursor:pointer;border-radius:999px}
+.mmd-selected-counter{font:500 13px/1.4 Inter,Arial,sans-serif;color:var(--muted);margin:0 0 3px}
+.mmd-field-message,.mmd-validation-summary,.mmd-unsupported-state{color:#a52c35!important;font:500 14px/1.55 Inter,Arial,sans-serif!important;overflow-wrap:anywhere;text-align:left;margin:8px 0 0}
+.mmd-field-message{display:flex;align-items:flex-start;gap:8px;grid-column:1/-1}.mmd-field-message>span{flex:none;width:17px;height:17px;margin-top:2px;border:1.5px solid currentColor;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:600 12px/1 Inter,Arial,sans-serif}
+[data-mmd-missing=true]{outline:0!important;border:1px solid #a52c35!important;border-radius:14px;padding:10px!important;scroll-margin-top:80px;scroll-margin-bottom:calc(var(--mmd-action-clearance,100px) + 24px)}
+[data-mmd-missing=true] input[aria-invalid=true],[data-mmd-missing=true] select[aria-invalid=true],[data-mmd-missing=true] textarea[aria-invalid=true],[data-mmd-missing=true] canvas[aria-invalid=true]{border-color:#a52c35!important}
+.mmd-validation-summary{border:1px solid #edd0d3;background:#fff7f7;border-radius:14px;padding:12px 14px;margin-top:18px}.mmd-validation-summary>p{margin:0}.mmd-validation-summary ul{margin:6px 0 0;padding-left:18px}.mmd-validation-summary button{font:500 14px/1.55 Inter,Arial,sans-serif;color:#a52c35;border:0;background:none;text-decoration:underline;text-underline-offset:3px;text-align:left;min-height:44px;padding:6px 0;cursor:pointer}
+.mmd-unsupported-state{padding:12px 14px;border:1px solid #edd0d3;background:#fff7f7;border-radius:14px}.shipping-address select{width:100%;max-width:100%;font-size:16px;text-overflow:clip;white-space:normal}
+.mmd-save-setting{margin:24px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.mmd-save-setting .checkline{margin:0;display:flex;align-items:flex-start}.mmd-save-setting p{font:400 12px/1.55 Inter,Arial,sans-serif;margin:8px 0 0}.mmd-personal-review{font:400 13px/1.55 Inter,Arial,sans-serif!important;color:var(--muted);margin:0 0 16px}
+html{scroll-padding-top:76px;scroll-padding-bottom:calc(var(--mmd-action-clearance,100px) + 24px)}.stage input,.stage select,.stage textarea,.sign-forms-canvas{scroll-margin-top:80px;scroll-margin-bottom:calc(var(--mmd-action-clearance,100px) + 24px)}
+.mmd-return-signing{margin:18px 0 0}.stage .field-error,.stage .upload-error,.stage .submission-error,.sign-forms-validation-message{color:#a52c35!important}.sign-forms{--mmd-sign-error:#a52c35;--mmd-sign-error-soft:#fff7f7}
+@media(max-width:1023px){.mmd-action-dock{border-radius:0}.premium-layout{margin-bottom:20px}.premium-welcome.stage{padding-bottom:14px}.premium-trust-chips{margin-bottom:8px!important}}
+@media(min-width:1024px){.mmd-action-dock{padding:12px 30px 20px;background:linear-gradient(180deg,rgba(250,249,247,0),rgba(250,249,247,.98) 20px,#faf9f7)}.premium-form-panel{min-height:300px}.premium-doctor-panel{height:min(580px,calc(100dvh - 124px))}}
+@media(prefers-reduced-motion:reduce){.mmd-action-dock,[data-mmd-missing=true]{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.mmd-validation-summary-single{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:1023px){.premium-layout{padding-bottom:var(--mmd-keyboard-space,0px)}}

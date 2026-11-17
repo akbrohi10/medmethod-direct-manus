@@ -52,7 +52,8 @@ window.MmdCreatePremiumIntake = function (React, JSX, Intake) {
     ] });
   }
   function PremiumIntake() {
-    var state = React.useState(false), started = state[0], setStarted = state[1], right = React.useRef(null);
+    var state = React.useState(function () { return !new URLSearchParams(window.location.search).has("prefill") && !!window.MmdIntakeUsability.load(); }), started = state[0], setStarted = state[1], right = React.useRef(null);
+    var ActionDock = React.useMemo(function () { return window.MmdCreateActionDock(React, JSX); }, []);
     var backState = React.useState(true), backDisabled = backState[0], setBackDisabled = backState[1];
     function begin() { setStarted(true); window.scrollTo({ top: 0, behavior: "auto" }); }
     React.useEffect(function () {
@@ -78,7 +79,8 @@ window.MmdCreatePremiumIntake = function (React, JSX, Intake) {
         JSX.jsx("span", { className: "step", children: "MedMethod Direct" }),
         started ? JSX.jsx("button", { className: "help", type: "button", onClick: function () { nativeAction(".top .help"); }, children: "Help" }) : JSX.jsx("a", { className: "help", href: "mailto:info@medmethoddirect.com", children: "Help" })
       ] }),
-      JSX.jsxs("div", { className: "premium-layout", children: [JSX.jsx(DoctorPanel, {}), JSX.jsx("div", { className: "premium-form-panel", ref: right, children: started ? JSX.jsx(Intake, {}) : JSX.jsx(Welcome, { onStart: begin }) })] })
+      JSX.jsxs("div", { className: "premium-layout", children: [JSX.jsx(DoctorPanel, {}), JSX.jsx("div", { className: "premium-form-panel", ref: right, children: started ? JSX.jsx(Intake, {}) : JSX.jsx(Welcome, { onStart: begin }) })] }),
+      JSX.jsx(ActionDock, { panel: right })
     ] });
   }
   window.MmdPremiumDoctorRow = DoctorRow;

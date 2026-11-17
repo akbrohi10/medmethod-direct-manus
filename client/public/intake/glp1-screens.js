@@ -54,7 +54,7 @@ window.MmdCreateGlp1Screens = function (React, JSX, original) {
     return JSX.jsx("div", { className: "glp1-questions", "data-hj-suppress": true, children: questions.map(function (question) {
       var incomplete = !original.validate(question, props.answers, props.demoMode);
       var follow = ["w17", "w32", "w19", "w20", "w21", "w22"].indexOf(question.id) !== -1;
-      return JSX.jsxs("section", { id: "mmd-glp1-" + question.id, className: "glp1-question" + (follow ? " glp1-follow-up" : ""), "data-glp1-question": question.id, "data-mmd-missing": incomplete ? "true" : undefined, role: "group", "aria-label": question.question_text, tabIndex: -1, children: [
+      return JSX.jsxs("section", { id: "mmd-glp1-" + question.id, className: "glp1-question" + (follow ? " glp1-follow-up" : ""), "data-glp1-question": question.id, role: "group", "aria-label": question.question_text, tabIndex: -1, children: [
         question.type !== "text" && JSX.jsx("h2", { children: window.MmdPremiumHeading ? window.MmdPremiumHeading(JSX, question.question_text) : question.question_text }),
         question.helper_text && JSX.jsx("p", { className: "field-help", children: question.helper_text }),
         JSX.jsx(original.Question, Object.assign({}, props, { screen: question }))
