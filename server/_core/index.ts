@@ -160,8 +160,10 @@ async function startServer() {
   app.get(["/weight-loss-intake", "/weight-loss-intake/"], (_req, res) => {
     res.sendFile(weightLossIntakeHtml);
   });
-  app.get(["/intake/thank-you", "/intake/thank-you/"], (req, res) => {
+  app.get(["/intake/thank-you", "/intake/thank-you/", "/confirmation", "/confirmation/"], (req, res) => {
     res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Referrer-Policy", "no-referrer");
+    res.setHeader("X-Robots-Tag", "noindex, nofollow");
     res.type("html").send(injectMetaLeadGate(readFileSync(intakeThankYouHtml, "utf8"), req));
   });
   app.get(["/intake", "/intake/"], (req, res) => {

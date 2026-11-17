@@ -13,6 +13,8 @@ import { authorizedNormalIntakeTest } from "./intakeTestAuthorization";
 import { validatedIntakeSignatureAudit } from "./intakeSignatureMetadata";
 import { buildGhlIntakeWebhookPayload } from "./ghlIntakeWebhookPayload";
 import { enqueueGhlIntakeWebhook, registerGhlIntakeWebhookRoutes } from "./ghlIntakeWebhookQueue";
+import { getIntakeContactService } from "./intakeContactService";
+import { registerIntakeContactRoutes } from "./intakeContactRoutes";
 import {
   EMPTY_INTAKE_UPLOADS,
   LEGACY_VIDEO_VISIT_AMOUNT,
@@ -59,6 +61,16 @@ function notifyGhlAfterAcceptedIntake(draft: IntakeDraft, receipt: CompletedFree
   } catch {
     console.error("[GhlIntake] notification_unavailable; patient submission unaffected.");
   }
+}
+
+/** Only after authenticated server acceptance; contact-store outages never resend a clinical intake. */
+async function preserveAcceptedIntakeContact(draft: IntakeDraft, receipt: CompletedFreeIntakeReceipt): Promise<void> {
+  try {
+    await getIntakeContactService().saveAccepted(receipt, {
+      first_name: draft.patient.first_name, last_name: draft.patient.last_name,
+      email: draft.patient.email, phone: draft.patient.phone,
+    });
+  } catch { console.error("[IntakeContact] snapshot_unavailable; accepted intake unaffected."); }
 }
 
 type PayPalMode = "sandbox" | "live";
@@ -290,6 +302,7 @@ export function registerIntakePaymentRoutes(app: Express) {
   registerIntakePrivateUploadRoutes(app);
   registerIntakeSignedFormsRoutes(app);
   registerGhlIntakeWebhookRoutes(app);
+  registerIntakeContactRoutes(app);
   const freeSubmissions = new Map<string, FreeRecord>();
   const videoVisits = new Map<string, VideoRecord>();
   const pendingPhoneTokens = new Map<string, string>();
@@ -395,6 +408,7 @@ export function registerIntakePaymentRoutes(app: Express) {
         pending.result = { ...recovered, submission_token: token, redirect_url: redirectUrlFor(explicitDemoPrefill, demo, receipt.video_visit_interest) };
         // Recovery may repair an interrupted enqueue; the durable GHL event key prevents re-sending.
         notifyGhlAfterAcceptedIntake(draft, receipt, request);
+        await preserveAcceptedIntakeContact(draft, receipt);
         return pending.result;
       }
       if (saved?.state === "attempted") throw new Error("Your intake delivery is awaiting confirmation. Please contact the Care Team; do not submit a new intake.");
@@ -462,6 +476,7 @@ export function registerIntakePaymentRoutes(app: Express) {
         try { await store!.markDelivered(draft.submission_id, result); }
         catch { noteAttachmentFailure("receipt"); }
       }
+      await preserveAcceptedIntakeContact(draft, receipt);
       return result;
     })();
     deliveringFree.set(draft.submission_id, delivery);

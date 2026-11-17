@@ -458,6 +458,7 @@
     const checkout = byId("video-checkout");
     if (!checkout) return;
     checkout.hidden = false;
+    if (window.MmdThankYou) window.MmdThankYou.payment();
     checkout.scrollIntoView({ behavior: "smooth", block: "start" });
     initializeCheckout();
   }
@@ -512,7 +513,7 @@
     const title = byId("care-message-title");
     const copy = byId("care-message-copy");
     if (title) title.textContent = "Check your text messages";
-    if (copy) copy.textContent = "You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!";
+    if (copy) copy.textContent = "You'll get a text from MedMethod Direct shortly. Reply YES to confirm your number so Dr. Al-Deek can reach you.";
   }
 
   function initializePage() {
@@ -529,6 +530,7 @@
     applySmsCopy(receipt);
     byId("open-video-checkout").addEventListener("click", openCheckout);
     setupCoupon(receipt);
+    if (window.MmdThankYou) window.MmdThankYou.initialize(receipt);
     recoverVideoStatus(receipt);
   }
 

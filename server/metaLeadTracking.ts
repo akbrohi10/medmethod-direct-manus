@@ -5,7 +5,9 @@ import { PUBLIC_MARKETING_PATHS } from "./publicMarketingMetaPixel";
 export const META_LEAD_PIXEL_ID = "1651526243430714";
 export const META_LEAD_FRAME_PATH = "/meta-confirmation";
 const origins = ["https://medmethoddirect.com", "https://www.medmethoddirect.com"];
-const confirmationPaths = new Set(["/intake/thank-you", "/thank-you-video", "/thank-you", "/thank-you2", "/thank-you-video-4799", "/thank-you-video-97", "/care-team-booking-confirmed", "/webinar-registration-confirmed", "/live-webinar3-confirmed"]);
+export const INTAKE_THANK_YOU_ALIAS = "/confirmation";
+const intakeThankYouPaths = new Set(["/intake/thank-you", INTAKE_THANK_YOU_ALIAS]);
+const confirmationPaths = new Set([...Array.from(intakeThankYouPaths), "/thank-you-video", "/thank-you", "/thank-you2", "/thank-you-video-4799", "/thank-you-video-97", "/care-team-booking-confirmed", "/webinar-registration-confirmed", "/live-webinar3-confirmed"]);
 
 export function metaLeadRequestExcluded(req: Pick<Request, "originalUrl" | "headers">, environment = process.env.NODE_ENV): boolean {
   if (environment !== "production") return true;
@@ -29,7 +31,9 @@ export function injectMetaLeadGate(html: string, req: Pick<Request, "originalUrl
   const source = ["/intake", "/care-team-booking", "/lp/wl", "/lp/wl2", "/thanks-payment", "/thanks-payment-wl2"].includes(path) || Array.from(PUBLIC_MARKETING_PATHS).some(publicPath => publicPath.toLowerCase() === path);
   if (!source && !confirmationPaths.has(path)) return html;
   const eligible = !metaLeadRequestExcluded(req, environment);
-  const tag = `<script id="mmd-meta-lead-gate">window.__mmdMetaLeadEligible=${eligible ? "true" : "false"};</script><script src="/meta-lead.js" referrerpolicy="no-referrer"></script>`;
+  // Only the intake TY/its alias defer consumption until their UI reads query parameters.
+  const intakeScope = intakeThankYouPaths.has(path) ? "window.__mmdIntakeThankYou=true;" : "";
+  const tag = `<script id="mmd-meta-lead-gate">window.__mmdMetaLeadEligible=${eligible ? "true" : "false"};${intakeScope}</script><script src="/meta-lead.js" referrerpolicy="no-referrer"></script>`;
   return html.replace(/(<head(?:\s[^>]*)?>)/i, `$1\n${tag}`);
 }
 
@@ -48,7 +52,7 @@ export function metaLeadFrameHtml(enabled: boolean): string {
     else { fbq('track','Lead'); }
   });
   window.parent.postMessage({type:'mmd_meta_ready'}, '*');
-})();` : "";
+})();` : "console.info('[Confirmation measurement] suppressed.');";
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>Confirmation</title><script>${bootstrap}</script></head><body></body></html>`;
 }
 

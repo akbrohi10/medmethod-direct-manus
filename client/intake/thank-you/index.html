@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="light" />
   <meta name="robots" content="noindex,follow" />
-  <link rel="canonical" href="https://medmethoddirect.com/intake/thank-you" />
+  <link rel="canonical" href="https://medmethoddirect.com/confirmation" />
+  <meta name="referrer" content="no-referrer" />
   <link rel="preload" href="/intake/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/intake/fonts/fraunces-500.woff2" as="font" type="font/woff2" crossorigin />
-  <title>Intake Complete | MedMethod Direct</title>
+  <title>Confirmation | MedMethod Direct</title>
   <style>
     :root { color: #1f2937; background: #faf9f7; font-family: Montserrat, Arial, sans-serif; font-synthesis: none; }
     * { box-sizing: border-box; }
@@ -143,12 +144,13 @@
     }
   </style>
   <link rel="stylesheet" href="/intake/premium.css?v=20261117" />
+  <link rel="stylesheet" href="/intake/thank-you.css" />
 </head>
 <body>
   <div class="page">
     <header class="top">
-      <a class="back" href="/intake/" aria-label="Back to intake">← Back</a>
-      <div class="step">Complete</div>
+      <span aria-hidden="true"></span>
+      <div class="step">MedMethod Direct</div>
       <a class="help" href="mailto:info@medmethoddirect.com">Help</a>
     </header>
     <div class="track" aria-hidden="true"><span></span></div>
@@ -168,31 +170,47 @@
 
       <section class="confirmation" id="confirmed-intake" aria-labelledby="confirmation-title" hidden>
         <div class="checkmark" aria-hidden="true">✓</div>
-        <h1 id="confirmation-title">Congratulations, your intake is complete!</h1>
-        <p class="lede">Your intake has been received. Dr. Al-Deek will review your answers and text you soon.</p>
+        <h1 id="confirmation-title">Congratulations, your intake is <em>complete!</em></h1>
+        <p class="lede">Dr. Al-Deek is personally reviewing your intake. She usually replies within 4–5 hours, and always within 24 hours. Your visit includes 7 days of follow-up messaging.</p>
+
+        <section class="ty-phone" aria-label="Your text-message number" data-hj-suppress="true">
+          <p id="ty-phone-display" role="status">Confirming your text-message number…</p>
+          <button class="ty-text-link" id="ty-edit-phone" type="button" hidden>Wrong number? Tap to fix it.</button>
+          <form id="ty-phone-form" hidden novalidate>
+            <label for="ty-phone-input">Mobile number</label>
+            <div class="ty-phone-input-row"><input id="ty-phone-input" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(XXX) XXX-XXXX" maxlength="18" data-hj-suppress="true" /><button class="secondary" id="ty-save-phone" type="submit">Save</button></div>
+            <p id="ty-phone-error" class="ty-inline-error" role="alert" hidden></p>
+            <button class="ty-text-link" id="ty-cancel-phone" type="button">Cancel</button>
+          </form>
+        </section>
 
         <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
           <h2 id="next-steps-title">What happens next</h2>
           <ol>
-            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your text messages</strong><span id="care-message-copy">You should receive a text from MedMethod Direct shortly. Please reply to our message so we can stay connected!</span></span></li>
-            <li><span class="step-number">2</span><span class="step-copy"><strong>Check your email &amp; create your account</strong><span>Look for our welcome email with your Patient Portal link. Click the link, create your username and password, and log in.</span></span></li>
-            <li><span class="step-number">3</span><span class="step-copy"><strong>Upload or update your info in the Patient Portal</strong><span>Log in to review your details and upload anything Dr. Al-Deek may need, like recent lab results.</span></span></li>
+            <li><span class="step-number">1</span><span class="step-copy"><strong id="care-message-title">Check your text messages</strong><span id="care-message-copy">You'll get a text from MedMethod Direct shortly. Reply YES to confirm your number so Dr. Al-Deek can reach you.</span></span></li>
           </ol>
         </section>
 
         <div class="next-steps-followup">
-          <p>Complete these steps so Dr. Al-Deek and our Care Team can help with your next steps.</p>
           <p><strong>Need help?</strong> Our Care Team is happy to assist! Call us at <a href="tel:+18883627011">(888) 362-7011</a>.</p>
         </div>
 
-        <section class="video-visit-card" id="video-visit-card" aria-labelledby="video-visit-title">
-          <div class="video-visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 5-3v10l-5-3"/></svg></div>
-          <h2 id="video-visit-title">Prefer a face-to-face conversation?</h2>
-          <p>Add a Zoom video visit with Dr. Al-Deek - <strong>$97.</strong></p>
-          <p class="video-visit-reassurance">Includes 7 days of follow-up messaging. Totally optional - your intake is already complete.</p>
-          <button class="primary" id="open-video-checkout" type="button">Add a Video Visit — $97</button>
+        <section class="video-visit-card ty-video-flow" id="video-visit-card" aria-labelledby="video-visit-title">
+          <div id="ty-video-step1">
+            <h2 id="video-visit-title">Would you like to add a video visit?</h2>
+            <p>Prefer to talk face-to-face? Meet Dr. Al-Deek by video.</p>
+            <div class="ty-decision-actions"><button class="primary" id="ty-video-yes" type="button">Yes</button><button class="secondary" id="ty-video-no" type="button">No thanks</button></div>
+          </div>
+          <div id="ty-video-step2" hidden tabindex="-1">
+            <h2>How would you like to add it?</h2>
+            <fieldset class="ty-offers"><legend class="ty-sr-only">Choose your video visit option</legend>
+              <label class="ty-offer"><input type="radio" name="ty-video-offer" value="single" id="ty-offer-single" checked /><span><strong>Single video visit – $97</strong><span>Zoom with Dr. Al-Deek, plus 7 days of follow-up messaging.</span></span></label>
+            </fieldset>
+            <button class="primary" id="open-video-checkout" type="button">Continue to payment – $97 →</button>
+            <button class="ty-text-link ty-back" id="ty-video-back" type="button">← Back</button>
+          </div>
+          <div id="ty-video-declined" hidden><p>No problem – you can add a video visit anytime by text.</p><button class="ty-text-link" id="ty-video-change" type="button">← Change my mind</button></div>
         </section>
-
         <section class="checkout-complete" id="video-payment-pending" aria-live="polite" hidden>
           <h2>Check your existing video payment</h2>
           <p>Your optional video checkout is pending confirmation. Check that payment before trying again. Your intake remains complete.</p>
@@ -256,6 +274,8 @@
       </div>
     </div>
   </div>
+  <script src="/intake/neutral-events.js"></script>
+  <script src="/intake/thank-you.js"></script>
   <script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-text-only"></script>
 </body>
 </html>
