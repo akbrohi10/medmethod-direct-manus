@@ -1,0 +1,72 @@
+{
+  "beforeSha256": "513adf27f8c2e6813e06182547ccda29582c1877be07e74a089761ca3ea0cb62",
+  "edits": [
+    {
+      "position": 347222,
+      "old": ",(0,M.jsxs)(\"div\",{children:[(0,M.jsx)(\"dt\",{children:\"Video visit\"}),(0,M.jsx)(\"dd\",{children:\"$97\"})]})",
+      "new": ""
+    },
+    {
+      "position": 347581,
+      "old": ",(0,M.jsxs)(\"label\",{className:\"video-interest-check intro97-video-interest\",htmlFor:\"mmd-video-interest\",children:[(0,M.jsx)(\"input\",{id:\"mmd-video-interest\",type:\"checkbox\",checked:answers.videoVisitInterest===true,onChange:event=>onValue(\"videoVisitInterest\",event.target.checked)}),(0,M.jsx)(\"span\",{children:\"I'd like a video visit with Dr. Al-Deek - $97\"})]}),(0,M.jsx)(\"p\",{className:\"video-interest-note intro97-video-note\",children:\"You'll pay and pick a time after submitting your intake.\"})",
+      "new": ""
+    },
+    {
+      "position": 363336,
+      "old": "videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "new": "videoVisitInterest:false"
+    },
+    {
+      "position": 364959,
+      "old": "videoVisitInterest:new URLSearchParams(window.location.search).get(\"video\")===\"1\"",
+      "new": "videoVisitInterest:false"
+    },
+    {
+      "position": 365102,
+      "old": "const restored={...draft.answers,terms:true,checkoutAck:true,smsOptIn:false,",
+      "new": "const restored={...draft.answers,videoVisitInterest:false,terms:true,checkoutAck:true,smsOptIn:false,"
+    },
+    {
+      "position": 376592,
+      "old": "className:\"patient-submit-note\",children:answers.videoVisitInterest===true?\"You'll pay $97 and pick your time on the next page.\":\"Watch for a text from us after you submit.\"",
+      "new": "className:\"patient-submit-note\",children:\"Watch for a text from us after you submit.\""
+    },
+    {
+      "position": 377941,
+      "old": "MmdIntakeSubmitScreen(screen)?answers.videoVisitInterest===true?\"Submit & book my video visit \u2192\":\"Submit & start my text visit \u2192\"",
+      "new": "MmdIntakeSubmitScreen(screen)?\"Submit & start my text visit \u2192\""
+    },
+    {
+      "position": 319653,
+      "old": "async function MmdSubmitFreeIntake(route,answers,demoMode=false,signing=null){const demoSubmission=",
+      "new": "async function MmdSubmitFreeIntake(route,answers,demoMode=false,signing=null){const textAnswers={...answers,videoVisitInterest:false};const demoSubmission="
+    },
+    {
+      "position": 320025,
+      "old": "intake:be(route,answers,\"mmd-intake-web\",demoSubmission),demo_mode:demoSubmission,video_visit_interest:answers.videoVisitInterest===true",
+      "new": "intake:be(route,textAnswers,\"mmd-intake-web\",demoSubmission),demo_mode:demoSubmission,video_visit_interest:false"
+    },
+    {
+      "position": 320210,
+      "old": "const allowedRedirects=demoSubmission?[\"/intake/thank-you/?prefill=demo\"]:[\"/thank-you-video\",\"/intake/thank-you/\"]",
+      "new": "const allowedRedirects=demoSubmission?[\"/intake/thank-you/?prefill=demo\"]:[\"/intake/thank-you/\"]"
+    },
+    {
+      "position": 320646,
+      "old": "sms_opt_in:result.sms_opt_in===true,video_visit_interest:result.video_visit_interest===true,is_test:result.is_test===true",
+      "new": "sms_opt_in:result.sms_opt_in===true,video_visit_interest:false,is_test:result.is_test===true"
+    }
+  ],
+  "frozenFiles": {
+    "client/intake/thank-you/index.html": "7eb17f4a6c363b91771d3085afbc4f3a4193e1234ec527e8efe54b4999b56ab0",
+    "client/public/intake/thank-you.js": "547509ddaca2d72ae7a703c38829b3f67475d5ca816e5e0b564f278d3de82846",
+    "client/public/intake/thank-you.css": "60a63a70faaa2c78810505f8a25be98ce93b71efa3c0cbed27a1dacf88fac1b3",
+    "client/public/intake/video-visit.js": "34c8dd34bcc42d55f5445ea00a80ff1e1ecb5d6694e20ad590c829d93cc53233",
+    "server/intakePaymentRoutes.ts": "704512a6affe9544060bba49c0289a9fa8754fa360e7b3b764338286ed5937f8",
+    "server/intakeSubmissionContract.ts": "c12a36c99feda9d3ad6f54c86d3c2c431f499853e5bac8695f0e3595f29a5408",
+    "server/metaLeadTracking.ts": "48058737ef93e1e60f56ab4f22719d8b69d4a700068b7b4450dac0305aa56b59",
+    "client/public/meta-lead.js": "8bc085ab92d610745c4b5f4b7e57782eaa9c07a154bc1f4d062337b67833e854",
+    "client/public/intake/usability.js": "9f21e96169944c455e73861017900e8991ddaab838d16361d70f7a12180f8574",
+    "client/public/intake/contact-step.js": "113b631d128375e5b96f035da2dc53591fdc0f49be2aa469fd9233b4167bd8a7"
+  }
+}
