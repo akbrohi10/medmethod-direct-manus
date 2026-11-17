@@ -1,0 +1,398 @@
+{
+  "baseline": {
+    "client/intake/index.html": "6afb66a9142469a2b1b1e21a0dadb48288758028b1f13ad48f7137981e8ea039",
+    "client/intake/thank-you/index.html": "ee57bc488990fccd4fb4cefb7cb0909f8d15a3d9ae17d3eb497607fc3de1281b",
+    "client/public/intake/glp1-screens.js": "36c7b54eef8def648e47b7f85ecd810005b6ad455a3fa6b9c3b4962242c4adff",
+    "client/public/intake/video-visit.js": "944a7f1db517dd6a5a6d33d437a25681cd5df4812021e5b544b94d208b08ba1c"
+  },
+  "changes": [
+    {
+      "path": "client/intake/index.html",
+      "before": "  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n  <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" />\n",
+      "after": "  <link rel=\"preload\" href=\"/intake/fonts/inter-variable.woff2\" as=\"font\" type=\"font/woff2\" crossorigin />\n  <link rel=\"preload\" href=\"/intake/fonts/fraunces-500.woff2\" as=\"font\" type=\"font/woff2\" crossorigin />\n",
+      "count": 1,
+      "positions": [
+        212
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "</head>",
+      "after": "  <link rel=\"stylesheet\" href=\"/intake/premium.css?v=20261117\" />\n</head>",
+      "count": 1,
+      "positions": [
+        50148
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "name=\"color-scheme\" content=\"light dark\"",
+      "after": "name=\"color-scheme\" content=\"light\"",
+      "count": 1,
+      "positions": [
+        168
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n  <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" />\n",
+      "after": "  <link rel=\"preload\" href=\"/intake/fonts/inter-variable.woff2\" as=\"font\" type=\"font/woff2\" crossorigin />\n  <link rel=\"preload\" href=\"/intake/fonts/fraunces-500.woff2\" as=\"font\" type=\"font/woff2\" crossorigin />\n",
+      "count": 1,
+      "positions": [
+        341
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "</head>",
+      "after": "  <link rel=\"stylesheet\" href=\"/intake/premium.css?v=20261117\" />\n</head>",
+      "count": 1,
+      "positions": [
+        13171
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "name=\"color-scheme\" content=\"light dark\"",
+      "after": "name=\"color-scheme\" content=\"light\"",
+      "count": 1,
+      "positions": [
+        168
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "  <script src=\"/treatment-catalog.js\">",
+      "after": "  <script src=\"/intake/premium-ui.js?v=20261117\"></script>\n  <script src=\"/treatment-catalog.js\">",
+      "count": 1,
+      "positions": [
+        50248
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "children:(0,M.jsx)($e,{})}));",
+      "after": "children:(0,M.jsx)(window.MmdCreatePremiumIntake(l,M,$e),{})}));",
+      "count": 1,
+      "positions": [
+        381022
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "children:screen?screen.question_text:\"Welcome to MedMethod Direct\"",
+      "after": "children:window.MmdPremiumHeading(M,screen?screen.question_text:\"Welcome to MedMethod Direct\")",
+      "count": 1,
+      "positions": [
+        376485
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "disabled:submitting||uploadBusy||history.length===0,children:\"\\u2190 Back\"",
+      "after": "disabled:submitting||uploadBusy||history.length===0,\"aria-label\":\"Go back\",children:\"\\u2190 Back\"",
+      "count": 1,
+      "positions": [
+        374964
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "children:\"HELP\"",
+      "after": "children:\"Help\"",
+      "count": 1,
+      "positions": [
+        375293
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "screen?.helper_text&&screen.id!==\"w01\"",
+      "after": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(window.MmdPremiumDoctorRow,{}),screen?.helper_text&&screen.id!==\"w01\"",
+      "count": 1,
+      "positions": [
+        376605
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "className:`dot`,\"aria-hidden\":`true`}),(0,M.jsxs)(`span`,{className:`choice-copy`",
+      "after": "className:`dot ${n?`multi`:``}`,\"aria-hidden\":`true`}),(0,M.jsxs)(`span`,{className:`choice-copy`",
+      "count": 1,
+      "positions": [
+        321543
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "className:`group-question`,children:e.question",
+      "after": "className:`group-question`,children:window.MmdPremiumHeading(M,e.question)",
+      "count": 2,
+      "positions": [
+        329346,
+        342314
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Your first text visit is FREE",
+      "after": "Your text visit is $29",
+      "count": 7,
+      "positions": [
+        238199,
+        312623,
+        317320,
+        344186,
+        350955,
+        354097,
+        380728
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "First text visit \u00b7 FREE with 7 days of follow-up messaging",
+      "after": "Text visit \u00b7 $29 with 7 days of follow-up messaging",
+      "count": 1,
+      "positions": [
+        344073
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "First text visit FREE \u2014 includes 7 days of follow-up messaging",
+      "after": "Text visit $29 \u2014 includes 7 days of follow-up messaging",
+      "count": 1,
+      "positions": [
+        351514
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "First text visit FREE",
+      "after": "Text visit $29",
+      "count": 1,
+      "positions": [
+        351678
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Included with every visit - even your free first visit.",
+      "after": "Included with every text visit.",
+      "count": 1,
+      "positions": [
+        349181
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "then your free visit starts.",
+      "after": "then your text visit starts.",
+      "count": 1,
+      "positions": [
+        364714
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Complete your free intake",
+      "after": "Complete your intake",
+      "count": 2,
+      "positions": [
+        285964,
+        353967
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "submitting your free intake",
+      "after": "submitting your intake",
+      "count": 1,
+      "positions": [
+        372119
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Unable to complete your free intake. Please try again.",
+      "after": "Unable to complete your intake. Please try again.",
+      "count": 1,
+      "positions": [
+        319721
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Your free intake could not be confirmed. Please retry completion.",
+      "after": "Your intake could not be confirmed. Please retry completion.",
+      "count": 1,
+      "positions": [
+        320042
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "DEMO DATA \u2014 FREE INTAKE TEST",
+      "after": "DEMO DATA \u2014 INTAKE TEST",
+      "count": 1,
+      "positions": [
+        375731
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Submitting your free intake",
+      "after": "Submitting your intake",
+      "count": 1,
+      "positions": [
+        379223
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "Submit & start my free visit",
+      "after": "Submit & start my text visit",
+      "count": 1,
+      "positions": [
+        379392
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "No payment is needed to submit your intake.",
+      "after": "Includes 7 days of follow-up messaging.",
+      "count": 1,
+      "positions": [
+        354099
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "children:\"FREE\"",
+      "after": "children:\"$29\"",
+      "count": 1,
+      "positions": [
+        348689
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "videoVisitInterest?\"$97\":\"FREE\"",
+      "after": "videoVisitInterest?\"$97\":\"$29\"",
+      "count": 1,
+      "positions": [
+        343927
+      ]
+    },
+    {
+      "path": "client/intake/index.html",
+      "before": "children:[\"First text visit\",",
+      "after": "children:[\"Text visit\",",
+      "count": 1,
+      "positions": [
+        348569
+      ]
+    },
+    {
+      "path": "client/public/intake/glp1-screens.js",
+      "before": "children: question.question_text }),",
+      "after": "children: window.MmdPremiumHeading ? window.MmdPremiumHeading(JSX, question.question_text) : question.question_text }),",
+      "count": 1,
+      "positions": [
+        3963
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "Your free intake",
+      "after": "Your intake",
+      "count": 3,
+      "positions": [
+        13941,
+        16328,
+        16781
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "your free intake",
+      "after": "your intake",
+      "count": 3,
+      "positions": [
+        15903,
+        19835,
+        20067
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "<a class=\"back\" href=\"/intake/\">",
+      "after": "<a class=\"back\" href=\"/intake/\" aria-label=\"Back to intake\">",
+      "count": 1,
+      "positions": [
+        13299
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": ">HELP</a>",
+      "after": ">Help</a>",
+      "count": 1,
+      "positions": [
+        13469
+      ]
+    },
+    {
+      "path": "client/public/intake/video-visit.js",
+      "before": " Your free intake remains complete.",
+      "after": " Your intake remains complete.",
+      "count": 1,
+      "positions": [
+        3002
+      ]
+    },
+    {
+      "path": "client/public/intake/video-visit.js",
+      "before": "Your free intake is complete; do not start a second payment.",
+      "after": "Your intake is complete; do not start a second payment.",
+      "count": 1,
+      "positions": [
+        9955
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "    <main class=\"stage\">",
+      "after": "    <div class=\"premium-layout\">\n      <aside class=\"premium-doctor-panel\" aria-label=\"Meet your doctor\">\n        <img class=\"premium-doctor-portrait\" src=\"/assets/dr-jumana-al-deek-portrait.webp\" alt=\"Dr. Jumana Al-Deek, DO\" width=\"440\" height=\"600\" />\n        <div class=\"premium-doctor-caption\">\n          <p class=\"premium-doctor-eyebrow\">YOUR CARE, PERSONALLY GUIDED</p>\n          <h2>Dr. Jumana Al-Deek, DO</h2>\n          <p class=\"premium-doctor-credential\">Menopause Society Certified Practitioner</p>\n          <p class=\"premium-doctor-stat\">Dr. Al-Deek has seen <strong>50,000+ patients</strong>.</p>\n        </div>\n      </aside>\n      <div class=\"premium-form-panel\">\n    <main class=\"stage\">",
+      "count": 1,
+      "positions": [
+        13555
+      ]
+    },
+    {
+      "path": "client/intake/thank-you/index.html",
+      "before": "    </main>\n  </div>",
+      "after": "    </main>\n      </div>\n    </div>\n  </div>",
+      "count": 1,
+      "positions": [
+        20808
+      ]
+    }
+  ],
+  "unchanged": {
+    "server/intakePaymentRoutes.ts": "c00345956f5d511ed95e540f6d2f16a6b128b04d8494a3baddcb57c0e2c943e0",
+    "server/intakeSubmissionContract.ts": "63f57a3fdbb056a86dfe6de9fc2fcf215e0ac9afc12a2c8d954cd44f6fcafaf7",
+    "server/intakePhoneVerification.ts": "13a092f6207e66c304e1c7142ec49a7131d31f30af34397305c8c64b2641a8e5",
+    "server/intakePrivateUploads.ts": "b2d5f40c6dfb0ae3cb022692e6d37448c14392f8cff01214c2dc18affd9432ab",
+    "server/intakeSignedPdf.ts": "f9fab887a91542bd85240b69350ca1bcc9f6a870f6b2c85a678c343ca57b75b8",
+    "server/intakeSignedFormsStore.ts": "3157f9a67b23f5bdd937746b583332ee2176c2f7187cc6b03ba6e1755e99963d",
+    "server/ghlIntakeWebhookPayload.ts": "17f93bb9a1861c70200663d1b77752ca363e8587cb302eb89a7b5a79db2ef5dd",
+    "server/ghlIntakeWebhookQueue.ts": "97aa507744cc143f414f7eeaa0718d88f0b18119c5cac251332926b146d4f958",
+    "client/public/intake/sign-forms-data.js": "bf33b4cae0a9024e13cb6f893c019b5c9c7bc1457f6442e3eb913307b3092114",
+    "client/public/intake/sign-forms-ui.js": "8a43bcf58913ac6d4f5659cb9fbce3725f47aa1630957cb20d8480a75c2b67f6",
+    "client/public/intake/progress.js": "5d4259a708d7607a9faa1f51b03e74f4587388186e6f0ad4458b449d15f314fa",
+    "client/public/intake/continue-guidance.js": "65b920d8a37cd8114f8c79010ff437ed5ce06992d0b78c03f14e9efe436af757",
+    "server/_core/index.ts": "37638534aff0c116cc26bef4ba68f3fc1f5367d0eef9051e6de63fcf368b86ed",
+    "client/src/App.tsx": "a7e691a8a6245b66525437a4fc7636e7fffbc966198fce7fe4179daef82062f6"
+  }
+}

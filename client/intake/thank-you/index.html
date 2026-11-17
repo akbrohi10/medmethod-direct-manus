@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
+  <meta name="color-scheme" content="light" />
   <meta name="robots" content="noindex,follow" />
   <link rel="canonical" href="https://medmethoddirect.com/intake/thank-you" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/intake/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/intake/fonts/fraunces-500.woff2" as="font" type="font/woff2" crossorigin />
   <title>Intake Complete | MedMethod Direct</title>
   <style>
     :root { color: #1f2937; background: #faf9f7; font-family: Montserrat, Arial, sans-serif; font-synthesis: none; }
@@ -143,22 +142,34 @@
       .coupon-confirmed strong { color: #d6ff9e; }
     }
   </style>
+  <link rel="stylesheet" href="/intake/premium.css?v=20261117" />
 </head>
 <body>
   <div class="page">
     <header class="top">
-      <a class="back" href="/intake/">← Back</a>
+      <a class="back" href="/intake/" aria-label="Back to intake">← Back</a>
       <div class="step">Complete</div>
-      <a class="help" href="mailto:info@medmethoddirect.com">HELP</a>
+      <a class="help" href="mailto:info@medmethoddirect.com">Help</a>
     </header>
     <div class="track" aria-hidden="true"><span></span></div>
+    <div class="premium-layout">
+      <aside class="premium-doctor-panel" aria-label="Meet your doctor">
+        <img class="premium-doctor-portrait" src="/assets/dr-jumana-al-deek-portrait.webp" alt="Dr. Jumana Al-Deek, DO" width="440" height="600" />
+        <div class="premium-doctor-caption">
+          <p class="premium-doctor-eyebrow">YOUR CARE, PERSONALLY GUIDED</p>
+          <h2>Dr. Jumana Al-Deek, DO</h2>
+          <p class="premium-doctor-credential">Menopause Society Certified Practitioner</p>
+          <p class="premium-doctor-stat">Dr. Al-Deek has seen <strong>50,000+ patients</strong>.</p>
+        </div>
+      </aside>
+      <div class="premium-form-panel">
     <main class="stage">
       <div class="demo-banner" id="demo-banner" hidden role="status">DEMO DATA — SANDBOX VIDEO-VISIT PAYMENT TEST</div>
 
       <section class="confirmation" id="confirmed-intake" aria-labelledby="confirmation-title" hidden>
         <div class="checkmark" aria-hidden="true">✓</div>
         <h1 id="confirmation-title">Congratulations, your intake is complete!</h1>
-        <p class="lede">Your free intake has been received. Dr. Al-Deek will review your answers and text you soon.</p>
+        <p class="lede">Your intake has been received. Dr. Al-Deek will review your answers and text you soon.</p>
 
         <section class="confirmation-next-steps" aria-labelledby="next-steps-title">
           <h2 id="next-steps-title">What happens next</h2>
@@ -178,20 +189,20 @@
           <div class="video-visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 5-3v10l-5-3"/></svg></div>
           <h2 id="video-visit-title">Prefer a face-to-face conversation?</h2>
           <p>Add a Zoom video visit with Dr. Al-Deek - <strong>$97.</strong></p>
-          <p class="video-visit-reassurance">Includes 7 days of follow-up messaging. Totally optional - your free intake is already complete.</p>
+          <p class="video-visit-reassurance">Includes 7 days of follow-up messaging. Totally optional - your intake is already complete.</p>
           <button class="primary" id="open-video-checkout" type="button">Add a Video Visit — $97</button>
         </section>
 
         <section class="checkout-complete" id="video-payment-pending" aria-live="polite" hidden>
           <h2>Check your existing video payment</h2>
-          <p>Your optional video checkout is pending confirmation. Check that payment before trying again. Your free intake remains complete.</p>
+          <p>Your optional video checkout is pending confirmation. Check that payment before trying again. Your intake remains complete.</p>
           <button class="secondary" id="recover-video-payment" type="button">Check payment confirmation</button>
           <p id="video-recovery-status" role="status"></p>
         </section>
 
         <section class="checkout" id="video-checkout" aria-labelledby="checkout-title" hidden>
           <h2 id="checkout-title">Add your optional video visit</h2>
-          <p>Payment is only for the optional $97 video visit. Your free intake remains complete either way.</p>
+          <p>Payment is only for the optional $97 video visit. Your intake remains complete either way.</p>
           <p class="checkout-status" id="checkout-status" aria-live="polite"></p>
 
           <section class="coupon" aria-labelledby="coupon-title">
@@ -237,11 +248,13 @@
 
       <section class="anonymous-panel" id="no-intake" aria-labelledby="start-title" hidden>
         <p class="eyebrow">Get started</p>
-        <h1 id="start-title">Complete your free intake to get started</h1>
+        <h1 id="start-title">Complete your intake to get started</h1>
         <p class="lede">After a successful intake submission, you can return here to review your next steps and optionally add a video visit.</p>
-        <a class="secondary" href="/intake/">Complete your free intake</a>
+        <a class="secondary" href="/intake/">Complete your intake</a>
       </section>
     </main>
+      </div>
+    </div>
   </div>
   <script src="/intake/video-visit.js?v=intake-video-97-20261104-thank-you-text-only"></script>
 </body>

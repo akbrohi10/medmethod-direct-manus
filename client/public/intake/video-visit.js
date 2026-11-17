@@ -81,7 +81,7 @@
   function setError(message) {
     const target = byId("checkout-error");
     if (!target) return;
-    target.textContent = message ? `${message} Your free intake remains complete.` : "";
+    target.textContent = message ? `${message} Your intake remains complete.` : "";
   }
 
   function setBusy(button, busy, busyLabel) {
@@ -229,7 +229,7 @@
             const captured = await captureVideoOrder(result.order.order_id, result.order.approval_token);
             if (!finishConfirmedVideoVisit("paid", captured)) throw new Error("Your video-visit payment has not been confirmed. Please try again.");
           } catch (_) {
-            if (statusCopy) statusCopy.textContent = "The existing video payment is not yet confirmed. You may resume the same secure checkout below, or contact the Care Team if you were charged. Your free intake is complete; do not start a second payment.";
+            if (statusCopy) statusCopy.textContent = "The existing video payment is not yet confirmed. You may resume the same secure checkout below, or contact the Care Team if you were charged. Your intake is complete; do not start a second payment.";
           } finally {
             setBusy(button, false, "Checking existing payment…");
           }
