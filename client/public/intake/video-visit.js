@@ -26,18 +26,23 @@
     const parsed = typeof value === "string" ? safeJson(value) : value;
     if (!parsed || typeof parsed !== "object") return null;
     const allowedKeys = ["submission_id", "submission_token", "sms_opt_in", "video_visit_interest", "is_test", "payment_status"];
+    const paidKeys = ["payment_provider", "amount", "paypal_order_id", "paypal_capture_id", "paid_at", "environment"];
+    const paid = parsed.payment_status === "COMPLETED";
+    if (paid) allowedKeys.push(...paidKeys);
     if (Object.keys(parsed).length !== allowedKeys.length || Object.keys(parsed).some((key) => !allowedKeys.includes(key))) return null;
     if (typeof parsed.submission_id !== "string" || !parsed.submission_id) return null;
     if (typeof parsed.submission_token !== "string" || !parsed.submission_token) return null;
     if (typeof parsed.sms_opt_in !== "boolean" || typeof parsed.is_test !== "boolean") return null;
-    if (parsed.payment_status !== "NOT_REQUIRED") return null;
+    if (paid && (parsed.payment_provider !== "paypal" || parsed.amount !== "29.00" || !/^[A-Za-z0-9_-]{3,128}$/.test(parsed.paypal_order_id) || !/^[A-Za-z0-9_-]{3,128}$/.test(parsed.paypal_capture_id) || !Number.isFinite(Date.parse(parsed.paid_at)) || !["sandbox", "live"].includes(parsed.environment) || (parsed.environment === "sandbox" && parsed.is_test !== true))) return null;
+    if (!paid && parsed.payment_status !== "NOT_REQUIRED") return null;
     return {
       submission_id: parsed.submission_id,
       submission_token: parsed.submission_token,
       sms_opt_in: parsed.sms_opt_in,
       video_visit_interest: parsed.video_visit_interest === true,
       is_test: parsed.is_test,
-      payment_status: "NOT_REQUIRED",
+      payment_status: paid ? "COMPLETED" : "NOT_REQUIRED",
+      ...(paid ? { payment_provider: parsed.payment_provider, amount: parsed.amount, paypal_order_id: parsed.paypal_order_id, paypal_capture_id: parsed.paypal_capture_id, paid_at: parsed.paid_at, environment: parsed.environment } : {}),
     };
   }
 

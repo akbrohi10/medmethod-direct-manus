@@ -52,7 +52,7 @@ window.MmdCreatePremiumIntake = function (React, JSX, Intake) {
     ] });
   }
   function PremiumIntake() {
-    var state = React.useState(function () { return !new URLSearchParams(window.location.search).has("prefill") && !!window.MmdIntakeUsability.load(); }), started = state[0], setStarted = state[1], right = React.useRef(null);
+    var state = React.useState(function () { var params = new URLSearchParams(window.location.search); return params.get("resume") === "1" || (!params.has("prefill") && !!window.MmdIntakeUsability.load()); }), started = state[0], setStarted = state[1], right = React.useRef(null);
     var ActionDock = React.useMemo(function () { return window.MmdCreateActionDock(React, JSX); }, []);
     var backState = React.useState(true), backDisabled = backState[0], setBackDisabled = backState[1];
     function begin() { setStarted(true); window.scrollTo({ top: 0, behavior: "auto" }); }

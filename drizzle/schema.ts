@@ -359,3 +359,29 @@ export const hormoneQuizDeliveries = mysqlTable("hormone_quiz_deliveries", {
   primaryKey({ columns: [table.quizId, table.provider] }),
   index("hormone_quiz_delivery_due_idx").on(table.status, table.nextAttemptAt, table.leaseExpiresAt),
 ]);
+
+/** Full unpaid intake is AES-GCM encrypted; indexed metadata contains no contact or answers. */
+export const intakeTextPayments = mysqlTable("intake_text_payments", {
+  keyHash: varchar("keyHash", { length: 64 }).primaryKey(),
+  rowType: mysqlEnum("rowType", ["guard", "record"]).notNull(),
+  version: int("version").notNull().default(0),
+  encryptedRecord: mediumblob("encryptedRecord"),
+  expiresAt: bigint("expiresAt", { mode: "number" }).notNull(),
+  retentionUntil: bigint("retentionUntil", { mode: "number" }),
+  createdAt: bigint("createdAt", { mode: "number" }).notNull(),
+  nextSweepAt: bigint("nextSweepAt", { mode: "number" }).notNull(),
+  state: varchar("state", { length: 32 }).notNull(),
+  paymentTokenHash: varchar("paymentTokenHash", { length: 64 }),
+  resumeTokenHash: varchar("resumeTokenHash", { length: 64 }),
+}, table => [
+  index("text_payment_token_idx").on(table.rowType, table.paymentTokenHash),
+  index("text_resume_token_idx").on(table.rowType, table.resumeTokenHash),
+  index("text_payment_due_idx").on(table.rowType, table.state, table.nextSweepAt),
+]);
+
+/** A post-deployment project Heartbeat must bind its authenticated task UID here. */
+export const intakeTextPaymentWorker = mysqlTable("intake_text_payment_worker", {
+  id: int("id").primaryKey(),
+  scheduleCronTaskUid: varchar("scheduleCronTaskUid", { length: 65 }),
+  enabled: int("enabled").notNull().default(0),
+}, table => [index("text_payment_worker_uid_idx").on(table.scheduleCronTaskUid)]);

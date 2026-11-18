@@ -20,6 +20,7 @@ import { careTeamBookingWebhookHandler } from "../careTeamBookingWebhook";
 import { registerIntakePaymentRoutes } from "../intakePaymentRoutes";
 import { registerHormoneQuizRoutes } from "../hormoneQuizRoutes";
 import { serveQuizPreviewResults } from "../hormoneQuizPreviewResults";
+import { intakeTextPaymentSweep } from "../intakeTextPaymentWorker";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -114,6 +115,17 @@ async function startServer() {
   registerIntakePaymentRoutes(app);
   registerHormoneQuizRoutes(app);
   registerMetaLeadFrame(app);
+  app.post("/api/scheduled/intake-text-payments", intakeTextPaymentSweep);
+  const textResumeHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/public/intake/text-payment-resume.html")
+    : path.resolve(import.meta.dirname, "public/intake/text-payment-resume.html");
+  app.get(["/intake/resume", "/intake/resume/", "/intake/text-payment-resume.html"], (_req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Referrer-Policy", "no-referrer");
+    res.setHeader("X-Robots-Tag", "noindex, nofollow, noarchive");
+    res.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
+    res.sendFile(textResumeHtml);
+  });
 
   // Permanent compliance and legacy-route redirects — registered before tRPC,
   // crawler metadata, Vite, and static fallthrough so the HTTP response is a

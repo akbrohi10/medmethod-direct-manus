@@ -1,0 +1,25 @@
+import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import vm from 'node:vm';
+import { describe, expect, it, vi } from 'vitest';
+vi.mock('./db',()=>({getPaypalSettings:async()=>({sandboxClientId:'PUBLIC_TEST',sandboxClientSecret:'TEST_SECRET'})}));
+import { validateTextPaymentInput, textPaymentOrigin } from './intakeTextPaymentIntegration';
+const root=process.cwd();
+const fixture=JSON.parse(readFileSync(resolve(root,'server/fixtures/intake29-dummy.json'),'utf8'));
+const source=(p:string)=>readFileSync(resolve(root,p),'utf8');
+const clone=<T>(v:T):T=>structuredClone(v);
+const hash=(v:string)=>createHash('sha256').update(v).digest('hex');
+function invert(file:string,manifest:string){let s=source(file);const changes=JSON.parse(source(manifest));for(const e of [...changes].reverse()){expect(s.slice(e.position,e.position+e.new.length)).toBe(e.new);s=s.slice(0,e.position)+e.old+s.slice(e.position+e.new.length)}return s;}
+describe('paid-only intake integration',()=>{
+ it('validates the real captured dummy draft and stamps Sandbox test mode on the server',async()=>{const b=clone(fixture);b.intake.is_test=false;const r=await validateTextPaymentInput({body:b,public_origin:'https://medmethoddirect.com'});expect(r.is_test).toBe(true);expect(r.signing.signature_method).toBe('typed');expect(r.intake.patient.phone).toBe('(555) 555-0100');expect(r.intake.consents.sms_consent).toBe(true)});
+ it.each(['amount','price','payment_status','paypal_capture_id'])('rejects browser-controlled extra %s',async key=>{await expect(validateTextPaymentInput({body:{...fixture,[key]:'29.00'},public_origin:'https://medmethoddirect.com'})).rejects.toThrow()});
+ it('rejects a superseded video choice and false required consent',async()=>{await expect(validateTextPaymentInput({body:{...fixture,video_visit_interest:true},public_origin:'https://medmethoddirect.com'})).rejects.toThrow();const b=clone(fixture);b.intake.consents.sms_consent=false;await expect(validateTextPaymentInput({body:b,public_origin:'https://medmethoddirect.com'})).rejects.toThrow()});
+ it.each(['https://foreign.invalid','https://medmethoddirect.com.evil.invalid','http://medmethoddirect.com'])('rejects foreign/non-TLS public origin %s',async origin=>{await expect(validateTextPaymentInput({body:fixture,public_origin:origin})).rejects.toThrow()});
+ it('requires exact same-origin requests and rejects duplicate Origin values',()=>{expect(textPaymentOrigin({headers:{origin:'https://medmethoddirect.com','sec-fetch-site':'same-origin'}} as any)).toBe('https://medmethoddirect.com');expect(()=>textPaymentOrigin({headers:{origin:['https://medmethoddirect.com']}} as any)).toThrow();expect(()=>textPaymentOrigin({headers:{origin:'https://medmethoddirect.com','sec-fetch-site':'cross-site'}} as any)).toThrow()});
+ it('exact inline and existing finalizer inverses restore the checkpoint baseline',()=>{for(const [file,manifest] of [['client/intake/index.html','server/fixtures/intake29-client-edits.json'],['server/intakePaymentRoutes.ts','server/fixtures/intake29-server-edits.json']])expect(hash(invert(file,manifest))).toBe(hash(execFileSync('git',['show',`c0c914b8:${file}`],{encoding:'utf8',maxBuffer:10000000})))});
+ it('retains no separate final submit and blocks the old unpaid HTTP handoff',()=>{expect(source('client/intake/index.html')).toContain('text-payment.js');const e=JSON.parse(source('server/fixtures/intake29-server-edits.json')).find((x:any)=>x.old.includes('app.post("/api/intake/submit"'));expect(e.new).toContain('res.status(402)');expect(e.new).not.toContain('await submitFreeIntake(parsed.data');expect(source('client/public/intake/contact-step.js')).toBe(execFileSync('git',['show','c0c914b8:client/public/intake/contact-step.js'],{encoding:'utf8'}))});
+ it('parses a strict metadata-only paid receipt without trusting extra or altered amounts',()=>{let js=source('client/public/intake/video-visit.js');const start=js.indexOf('  function safeJson('),end=js.indexOf('  function readReceipt(',start);const box:any={};vm.runInNewContext(js.slice(start,end)+';this.parse=parseReceipt;',box);const paid={submission_id:'id',submission_token:'token',sms_opt_in:true,video_visit_interest:false,is_test:true,payment_status:'COMPLETED',payment_provider:'paypal',amount:'29.00',paypal_order_id:'ORDER29',paypal_capture_id:'CAPTURE29',paid_at:'2026-11-18T16:00:00Z',environment:'sandbox'};expect(box.parse(paid).amount).toBe('29.00');expect(box.parse({...paid,amount:'0.00'})).toBeNull();expect(box.parse({...paid,health:'not allowed'})).toBeNull();expect(box.parse({...paid,is_test:false})).toBeNull()});
+ it('no schedule or refund is activated from application startup',()=>{const worker=source('server/intakeTextPaymentWorker.ts');expect(worker).toContain('user.isCron');expect(worker).toContain('scheduleCronTaskUid');expect(worker).toContain('intakeTextPaymentWorker.enabled, 1');expect(worker).not.toMatch(/createHeartbeatJob|setInterval|setTimeout/);expect(source('server/intakeTextPaymentService.ts')).not.toContain('/refund')});
+});

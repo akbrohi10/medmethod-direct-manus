@@ -15,6 +15,8 @@ import { buildGhlIntakeWebhookPayload } from "./ghlIntakeWebhookPayload";
 import { enqueueGhlIntakeWebhook, registerGhlIntakeWebhookRoutes } from "./ghlIntakeWebhookQueue";
 import { getIntakeContactService } from "./intakeContactService";
 import { registerIntakeContactRoutes } from "./intakeContactRoutes";
+import { installIntakeTextPayment, getIntakeTextPaymentService, type TextPaymentInput } from "./intakeTextPaymentIntegration";
+import type { TextIntakeVerifiedPayment } from "./intakeTextPaymentService";
 import {
   EMPTY_INTAKE_UPLOADS,
   LEGACY_VIDEO_VISIT_AMOUNT,
@@ -341,10 +343,12 @@ export function registerIntakePaymentRoutes(app: Express) {
     }
     return receipt;
   }
-  function videoReceiptFor(value: unknown): CompletedFreeIntakeReceipt {
-    // The checkbox chooses the post-intake destination, not payment eligibility.
-    // Patients who left it unticked can still add a visit from intake/thank-you.
-    return receiptFor(value);
+  async function videoReceiptFor(value: unknown): Promise<CompletedFreeIntakeReceipt> {
+    try { return receiptFor(value); } catch { /* A paid receipt can survive a process restart. */ }
+    const signed = decodeSubmissionToken(value);
+    const stored = await getIntakeTextPaymentService().receiptBySubmissionId(signed.submission_id);
+    if (!stored || stored.payment_status !== "COMPLETED" || stored.amount !== "29.00" || stored.is_test !== signed.is_test || stored.sms_opt_in !== signed.sms_opt_in) throw new Error("This completed-intake receipt is unavailable.");
+    return { submission_id: signed.submission_id, submitted_at: signed.submitted_at, is_test: signed.is_test, sms_opt_in: signed.sms_opt_in, video_visit_interest: false };
   }
   function freeResult(record: FreeRecord): FreeResult {
     if (!record.result) throw new Error("The intake receipt is not ready.");
@@ -359,13 +363,13 @@ export function registerIntakePaymentRoutes(app: Express) {
     if (!demo && videoVisitInterest) return "/thank-you-video";
     return "/intake/thank-you/";
   }
-  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false): Promise<FreeResult> {
+  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false, paid?: { payment: TextIntakeVerifiedPayment; validatedAt: number; signal: AbortSignal }): Promise<FreeResult> {
     cleanup();
     const draft = validateIntakeDraft(input.intake);
-    validateWebsiteCareSmsConsent(draft);
+    validateWebsiteCareSmsConsent(draft, paid?.validatedAt);
     const demo = eligibleDemo(input.demo_mode === true, explicitDemoPrefill, draft.is_test === true);
     const isTest = demo || authorizedNormalIntakeTest(request, draft.submission_id, draft.is_test === true);
-    const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);
+    const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft, paid?.validatedAt);
     const signatureAudit = validatedIntakeSignatureAudit(signing, signing.signer_name);
     // The actual signing event, not the earlier checkbox tap, is the authoritative consent time.
     draft.consents = { ...draft.consents, glp1_consent: true, glp1_declined: false, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version };
@@ -445,6 +449,17 @@ export function registerIntakePaymentRoutes(app: Express) {
         ...forms,
         glp1_consent: true, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version,
       };
+      if (paid) {
+        const proof = paid.payment;
+        if (proof.status !== "COMPLETED" || proof.amount !== "29.00" || proof.currency !== "USD" || proof.environment !== "live") throw new Error("Verified payment is required.");
+        const taskNote = `Paid $29 – PayPal capture ID ${proof.capture_id}`;
+        Object.assign(pending.deliveryPayload, { payment_provider: "paypal", paypal_order_id: proof.order_id, paypal_capture_id: proof.capture_id,
+          amount: "29.00", paid_at: proof.captured_at, task_note: taskNote,
+          care: { intake: "paid_text_visit", payment_required: true, amount: "29.00", currency: "USD" },
+          payment: proof, checkout_preview: { payment_processed: true, card_fields_omitted: true },
+          intake_summary: `${pending.deliveryPayload.intake_summary}\n${taskNote}`,
+          intake_summary_html: `${pending.deliveryPayload.intake_summary_html}<br>${taskNote}` });
+      }
       await deliverIntake(pending.deliveryPayload, async () => {
         if (storageAvailable) {
           try { await store!.markAttempted(draft.submission_id); }
@@ -712,22 +727,15 @@ export function registerIntakePaymentRoutes(app: Express) {
     try { return await promise; } finally { waivingVideo.delete(receipt.submission_id); }
   }
 
-  app.post("/api/intake/submit", async (req: Request, res: Response) => {
-    try {
-      const parsed = freeSubmissionSchema.safeParse(req.body);
-      res.setHeader("Cache-Control", "no-store");
-      if (!parsed.success) return res.status(400).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });
-      // Duplicate query keys parse as an array and must not activate the approved
-      // prefill path. Only one exact string value is accepted.
-      const explicitDemoPrefill = typeof req.query.prefill === "string" && req.query.prefill === "demo";
-      const result = await submitFreeIntake(parsed.data, req, explicitDemoPrefill);
-      res.setHeader("Cache-Control", "no-store");
-      return res.status(201).json(result);
-    } catch {
-      console.error("[IntakeSubmit] request_failed; no clinical or technical error details logged.");
-      res.setHeader("Cache-Control", "no-store");
-      return res.status(422).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });
-    }
+  installIntakeTextPayment(async (input: TextPaymentInput, payment, _idempotencyKey, signal) => {
+    const origin = new URL(input.public_origin);
+    const request = { headers: { host: origin.host, origin: origin.origin }, protocol: origin.protocol.slice(0, -1), query: {} } as Request;
+    return submitFreeIntake({ intake: input.intake, signing: input.signing, demo_mode: false, video_visit_interest: false }, request, false,
+      { payment, validatedAt: input.validated_at, signal });
+  });
+  app.post("/api/intake/submit", (_req: Request, res: Response) => {
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(402).json({ error: "Please complete your $29 payment on the last step. Your assessment has not been submitted." });
   });
   app.post("/api/intake/coupon/validate", (req: Request, res: Response) => {
     const parsed = couponCodeSchema.safeParse(req.body);
@@ -739,16 +747,16 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = videoCouponSchema.safeParse(req.body);
       if (!parsed.success || !isFamilyIntakeCoupon(parsed.success ? parsed.data.coupon_code : undefined)) return res.status(422).json({ error: "That coupon code is not valid." });
-      const result = await waiveVideoVisit(videoReceiptFor(parsed.data.submission_token));
+      const result = await waiveVideoVisit(await videoReceiptFor(parsed.data.submission_token));
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(result);
     } catch (error) { return res.status(422).json({ error: errorMessage(error) }); }
   });
-  app.post("/api/intake/video/status", (req: Request, res: Response) => {
+  app.post("/api/intake/video/status", async (req: Request, res: Response) => {
     try {
       const parsed = videoStatusSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "The completed-intake receipt is invalid." });
-      const receipt = videoReceiptFor(parsed.data.submission_token);
+      const receipt = await videoReceiptFor(parsed.data.submission_token);
       const record = videoVisits.get(receipt.submission_id);
       res.setHeader("Cache-Control", "no-store");
       if (!record) return res.json({ status: "available" });
@@ -778,7 +786,7 @@ export function registerIntakePaymentRoutes(app: Express) {
     try {
       const parsed = videoOrderSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: "A completed intake receipt and payment method are required." });
-      const receipt = videoReceiptFor(parsed.data.submission_token);
+      const receipt = await videoReceiptFor(parsed.data.submission_token);
       const order = await createVideoOrder(receipt, parsed.data.payment_method, parsed.data.demo_mode === true, hasExactDemoPrefill(req));
       res.setHeader("Cache-Control", "no-store");
       return res.status(201).json(order);

@@ -1,0 +1,57 @@
+[
+  {
+    "position": 1192,
+    "old": "import { registerIntakeContactRoutes } from \"./intakeContactRoutes\";",
+    "new": "import { registerIntakeContactRoutes } from \"./intakeContactRoutes\";\nimport { installIntakeTextPayment, getIntakeTextPaymentService, type TextPaymentInput } from \"./intakeTextPaymentIntegration\";\nimport type { TextIntakeVerifiedPayment } from \"./intakeTextPaymentService\";"
+  },
+  {
+    "position": 20356,
+    "old": "  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false): Promise<FreeResult> {",
+    "new": "  async function submitFreeIntake(input: z.infer<typeof freeSubmissionSchema>, request: Request, explicitDemoPrefill = false, paid?: { payment: TextIntakeVerifiedPayment; validatedAt: number; signal: AbortSignal }): Promise<FreeResult> {"
+  },
+  {
+    "position": 20662,
+    "old": "    validateWebsiteCareSmsConsent(draft);",
+    "new": "    validateWebsiteCareSmsConsent(draft, paid?.validatedAt);"
+  },
+  {
+    "position": 20934,
+    "old": "    const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft);",
+    "new": "    const { signing, signaturePng } = await validateIntakeSigning(input.signing, draft, paid?.validatedAt);"
+  },
+  {
+    "position": 26908,
+    "old": "        ...forms,\n        glp1_consent: true, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version,\n      };",
+    "new": "        ...forms,\n        glp1_consent: true, glp1_consent_at: signing.signed_at, glp1_consent_version: signing.version,\n      };\n      if (paid) {\n        const proof = paid.payment;\n        if (proof.status !== \"COMPLETED\" || proof.amount !== \"29.00\" || proof.currency !== \"USD\" || proof.environment !== \"live\") throw new Error(\"Verified payment is required.\");\n        const taskNote = `Paid $29 \u2013 PayPal capture ID ${proof.capture_id}`;\n        Object.assign(pending.deliveryPayload, { payment_provider: \"paypal\", paypal_order_id: proof.order_id, paypal_capture_id: proof.capture_id,\n          amount: \"29.00\", paid_at: proof.captured_at, task_note: taskNote,\n          care: { intake: \"paid_text_visit\", payment_required: true, amount: \"29.00\", currency: \"USD\" },\n          payment: proof, checkout_preview: { payment_processed: true, card_fields_omitted: true },\n          intake_summary: `${pending.deliveryPayload.intake_summary}\\n${taskNote}`,\n          intake_summary_html: `${pending.deliveryPayload.intake_summary_html}<br>${taskNote}` });\n      }"
+  },
+  {
+    "position": 45335,
+    "old": "  app.post(\"/api/intake/submit\", async (req: Request, res: Response) => {\n    try {\n      const parsed = freeSubmissionSchema.safeParse(req.body);\n      res.setHeader(\"Cache-Control\", \"no-store\");\n      if (!parsed.success) return res.status(400).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });\n      // Duplicate query keys parse as an array and must not activate the approved\n      // prefill path. Only one exact string value is accepted.\n      const explicitDemoPrefill = typeof req.query.prefill === \"string\" && req.query.prefill === \"demo\";\n      const result = await submitFreeIntake(parsed.data, req, explicitDemoPrefill);\n      res.setHeader(\"Cache-Control\", \"no-store\");\n      return res.status(201).json(result);\n    } catch {\n      console.error(\"[IntakeSubmit] request_failed; no clinical or technical error details logged.\");\n      res.setHeader(\"Cache-Control\", \"no-store\");\n      return res.status(422).json({ error: FRIENDLY_INTAKE_SUBMIT_ERROR });\n    }\n  });\n",
+    "new": "  installIntakeTextPayment(async (input: TextPaymentInput, payment, _idempotencyKey, signal) => {\n    const origin = new URL(input.public_origin);\n    const request = { headers: { host: origin.host, origin: origin.origin }, protocol: origin.protocol.slice(0, -1), query: {} } as Request;\n    return submitFreeIntake({ intake: input.intake, signing: input.signing, demo_mode: false, video_visit_interest: false }, request, false,\n      { payment, validatedAt: input.validated_at, signal });\n  });\n  app.post(\"/api/intake/submit\", (_req: Request, res: Response) => {\n    res.setHeader(\"Cache-Control\", \"no-store\");\n    return res.status(402).json({ error: \"Please complete your $29 payment on the last step. Your assessment has not been submitted.\" });\n  });\n"
+  },
+  {
+    "position": 19324,
+    "old": "  function videoReceiptFor(value: unknown): CompletedFreeIntakeReceipt {\n    // The checkbox chooses the post-intake destination, not payment eligibility.\n    // Patients who left it unticked can still add a visit from intake/thank-you.\n    return receiptFor(value);\n  }",
+    "new": "  async function videoReceiptFor(value: unknown): Promise<CompletedFreeIntakeReceipt> {\n    try { return receiptFor(value); } catch { /* A paid receipt can survive a process restart. */ }\n    const signed = decodeSubmissionToken(value);\n    const stored = await getIntakeTextPaymentService().receiptBySubmissionId(signed.submission_id);\n    if (!stored || stored.payment_status !== \"COMPLETED\" || stored.amount !== \"29.00\" || stored.is_test !== signed.is_test || stored.sms_opt_in !== signed.sms_opt_in) throw new Error(\"This completed-intake receipt is unavailable.\");\n    return { submission_id: signed.submission_id, submitted_at: signed.submitted_at, is_test: signed.is_test, sms_opt_in: signed.sms_opt_in, video_visit_interest: false };\n  }"
+  },
+  {
+    "position": 47385,
+    "old": "waiveVideoVisit(videoReceiptFor(parsed.data.submission_token))",
+    "new": "waiveVideoVisit(await videoReceiptFor(parsed.data.submission_token))"
+  },
+  {
+    "position": 47641,
+    "old": "app.post(\"/api/intake/video/status\", (req: Request, res: Response) => {",
+    "new": "app.post(\"/api/intake/video/status\", async (req: Request, res: Response) => {"
+  },
+  {
+    "position": 47900,
+    "old": "      const receipt = videoReceiptFor(parsed.data.submission_token);\n      const record = videoVisits.get",
+    "new": "      const receipt = await videoReceiptFor(parsed.data.submission_token);\n      const record = videoVisits.get"
+  },
+  {
+    "position": 49802,
+    "old": "      const receipt = videoReceiptFor(parsed.data.submission_token);\n      const order = await createVideoOrder",
+    "new": "      const receipt = await videoReceiptFor(parsed.data.submission_token);\n      const order = await createVideoOrder"
+  }
+]

@@ -1,0 +1,347 @@
+/* Standalone intake checkout. Public SDK credentials only; never send intake data to PayPal. */
+(function () {
+  "use strict";
+  var STORAGE_KEY = "mmd_text_payment_v1";
+  var NAMESPACE = "mmdTextPayPal";
+  var PAYMENT_ERROR = "Your payment didn't go through. Please try again or use a different card.";
+  var CONFIG_ERROR = "Secure payment isn't configured correctly. Please contact the Care Team at (888) 362-7011.";
+  var SDK_ERROR = "Secure payment is temporarily unavailable. Please retry loading payment options.";
+  var RECOVERY_ERROR = "We couldn't confirm your payment status. Check again before making another payment.";
+  var sdkLoad = null;
+
+  function opaquePair(value) {
+    if (!value || typeof value.payment_token !== "string" || typeof value.order_id !== "string") return null;
+    if (!/^[A-Za-z0-9._~-]{1,16384}$/.test(value.payment_token) || !/^[A-Za-z0-9_-]{1,128}$/.test(value.order_id)) return null;
+    return { payment_token: value.payment_token, order_id: value.order_id };
+  }
+  function readPair() {
+    try { return opaquePair(JSON.parse(window.sessionStorage.getItem(STORAGE_KEY) || "null")); } catch (_) { return null; }
+  }
+  function savePair(pair) {
+    try { window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(opaquePair(pair))); } catch (_) { /* Recovery remains available in memory. */ }
+  }
+  function clearPair(pair) {
+    try {
+      var stored = readPair();
+      if (stored && stored.payment_token === pair.payment_token) window.sessionStorage.removeItem(STORAGE_KEY);
+    } catch (_) { /* No patient data is persisted by this module. */ }
+  }
+  function validConfig(config) {
+    return config && config.configured === true && typeof config.client_id === "string" &&
+      /^[A-Za-z0-9_-]{10,256}$/.test(config.client_id) &&
+      (config.environment === "live" || config.environment === "sandbox") &&
+      config.amount === "29.00" && config.currency === "USD";
+  }
+  function sameMode(result, config) {
+    return result && (result.environment === undefined || result.environment === config.environment) &&
+      (result.client_id === undefined || result.client_id === config.client_id) && (result.currency === undefined || result.currency === "USD");
+  }
+  function verified(result, config) {
+    return sameMode(result, config) && result.payment_status === "COMPLETED" &&
+      result.payment_provider === "paypal" && result.amount === "29.00" &&
+      (result.redirect_url === "/intake/thank-you/" ||
+        (config.environment === "sandbox" && result.is_test === true && result.redirect_url === "/intake/thank-you/?prefill=demo"));
+  }
+  function sdkUrl(config) {
+    var query = new URLSearchParams({
+      "client-id": config.client_id, components: "buttons", "enable-funding": "card",
+      "disable-funding": "paylater,venmo", currency: "USD", intent: "capture"
+    });
+    if (config.environment === "sandbox") query.set("buyer-country", "US");
+    return "https://www.paypal.com/sdk/js?" + query.toString();
+  }
+  function matchesScript(script, config) {
+    try {
+      var url = new URL(script.src), expected = new URL(sdkUrl(config));
+      if (url.origin !== expected.origin || url.pathname !== expected.pathname) return false;
+      if (script.getAttribute("data-namespace") !== NAMESPACE) return false;
+      return url.searchParams.toString() === expected.searchParams.toString();
+    } catch (_) { return false; }
+  }
+  function loadSdk(config, retry) {
+    var key = config.environment + ":" + config.client_id;
+    if (sdkLoad && sdkLoad.key !== key) return Promise.reject(new Error(CONFIG_ERROR));
+    if (retry && sdkLoad && sdkLoad.failed) {
+      if (sdkLoad.script) sdkLoad.script.remove();
+      // A failed load may have left a partial namespace, but never touch the optional video SDK.
+      try { delete window[NAMESPACE]; } catch (_) { return Promise.reject(new Error(CONFIG_ERROR)); }
+      sdkLoad = null;
+    }
+    if (sdkLoad) return sdkLoad.promise;
+    var existing = document.querySelector('script[data-namespace="' + NAMESPACE + '"]');
+    if (existing && !matchesScript(existing, config)) return Promise.reject(new Error(CONFIG_ERROR));
+    if (window[NAMESPACE] && !existing) return Promise.reject(new Error(CONFIG_ERROR));
+    var entry = { key: key, script: existing, failed: false, promise: null };
+    sdkLoad = entry;
+    entry.promise = new Promise(function (resolve, reject) {
+      var script = existing || document.createElement("script"), settled = false, timer;
+      entry.script = script;
+      function clean() {
+        window.clearTimeout(timer);
+        script.removeEventListener("load", loaded);
+        script.removeEventListener("error", failed);
+      }
+      function failed() {
+        if (settled) return;
+        settled = true; entry.failed = true; clean(); reject(new Error(SDK_ERROR));
+      }
+      function loaded() {
+        if (settled) return;
+        var sdk = window[NAMESPACE];
+        if (!sdk || typeof sdk.Buttons !== "function" || !sdk.FUNDING || !sdk.FUNDING.PAYPAL || !sdk.FUNDING.CARD) { failed(); return; }
+        settled = true; clean(); resolve(sdk);
+      }
+      timer = window.setTimeout(failed, 15000);
+      script.addEventListener("load", loaded);
+      script.addEventListener("error", failed);
+      if (existing && window[NAMESPACE]) { loaded(); return; }
+      if (!existing) {
+        script.src = sdkUrl(config); script.async = true;
+        script.setAttribute("data-namespace", NAMESPACE);
+        document.head.appendChild(script);
+      }
+    });
+    return entry.promise;
+  }
+
+  window.MmdCreateTextPayment = function (React, JSX, helpers) {
+    if (!helpers || typeof helpers.request !== "function") throw new Error("Text payment requires the intake request helper.");
+    var configPromise = null, completionClaims = new Set();
+    function configuration(retry) {
+      if (retry) configPromise = null;
+      if (!configPromise) {
+        configPromise = helpers.request("/api/intake/text-payment/config", { method: "GET" }, CONFIG_ERROR).then(function (config) {
+          if (!validConfig(config)) throw new Error(CONFIG_ERROR);
+          return config;
+        });
+        configPromise.catch(function () { configPromise = null; });
+      }
+      return configPromise;
+    }
+    function post(path, body) {
+      return helpers.request(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }, PAYMENT_ERROR);
+    }
+    return function TextPayment(props) {
+      var latest = React.useRef(props); latest.current = props;
+      var root = React.useRef(null), paypalHost = React.useRef(null), cardHost = React.useRef(null);
+      var buttonActions = React.useRef([]), mounted = React.useRef(false);
+      var operation = React.useRef(null);
+      if (!operation.current) {
+        var initialPair = opaquePair(props.resumePayment) || readPair();
+        operation.current = { pair: initialPair, create: null, capture: null, status: null, open: false, done: false, blocked: !!initialPair, recovered: false };
+      }
+      var op = operation.current;
+      var configState = React.useState(null), config = configState[0], setConfig = configState[1];
+      var sdkState = React.useState(null), sdk = sdkState[0], setSdk = sdkState[1];
+      var loadState = React.useState("loading"), loading = loadState[0], setLoading = loadState[1];
+      var errorState = React.useState(""), error = errorState[0], setError = errorState[1];
+      var busyState = React.useState(false), processing = busyState[0], setProcessing = busyState[1];
+      var recoveryState = React.useState(op.blocked), recovering = recoveryState[0], setRecovering = recoveryState[1];
+      var confirmedState = React.useState(false), confirmed = confirmedState[0], setConfirmed = confirmedState[1];
+      var fundingState = React.useState({ paypal: null, card: null }), funding = fundingState[0], setFunding = fundingState[1];
+      var retryState = React.useState(0), retry = retryState[0], setRetry = retryState[1];
+      var recoveryRetryState = React.useState(0), recoveryRetry = recoveryRetryState[0], setRecoveryRetry = recoveryRetryState[1];
+      function showError(message) { if (mounted.current) setError(message); }
+      function payBusy(value) { if (mounted.current) setProcessing(value); }
+      function eligibleNow() {
+        return latest.current.valid === true && latest.current.busy !== true && !op.open &&
+          !op.create && !op.capture && !op.status && !op.blocked && !op.done;
+      }
+      function updateActions() {
+        var enabled = eligibleNow();
+        buttonActions.current.forEach(function (actions) {
+          try { Promise.resolve(enabled ? actions.enable() : actions.disable()).catch(function () {}); } catch (_) { /* SDK teardown can race an update. */ }
+        });
+      }
+      function validate() {
+        try { return typeof latest.current.onValidate === "function" && latest.current.onValidate() === true; } catch (_) { return false; }
+      }
+      async function complete(result, activeConfig) {
+        if (!verified(result, activeConfig)) throw new Error(PAYMENT_ERROR);
+        if (op.pair && result.paypal_order_id !== undefined && result.paypal_order_id !== op.pair.order_id) throw new Error(PAYMENT_ERROR);
+        if (op.done) return;
+        op.done = true; op.blocked = true; op.open = false;
+        if (mounted.current) { setConfirmed(true); setRecovering(false); setError(""); }
+        updateActions();
+        var claim = op.pair && op.pair.payment_token;
+        if (claim && completionClaims.has(claim)) return;
+        if (claim) completionClaims.add(claim);
+        try {
+          await latest.current.onComplete(result);
+          if (op.pair) clearPair(op.pair);
+        } catch (_) {
+          // A verified charge must never become a new checkout if parent navigation fails.
+          showError("Your payment is confirmed, but we couldn't open your confirmation. Please contact the Care Team at (888) 362-7011.");
+        }
+      }
+      function paymentFailed() {
+        if (op.done) return;
+        // Do not unlock an in-flight capture on a late SDK popup error or cancel event.
+        if (!op.capture && !op.create) { op.open = false; payBusy(false); }
+        showError(PAYMENT_ERROR); updateActions();
+      }
+      function createOrder() {
+        if (op.create) return op.create;
+        if (op.done || op.blocked || op.capture || latest.current.busy === true || !validate() || latest.current.valid !== true) return Promise.reject(new Error(PAYMENT_ERROR));
+        if (op.pair) { op.open = true; payBusy(true); updateActions(); return Promise.resolve(op.pair.order_id); }
+        op.open = true; payBusy(true); showError("");
+        op.create = (async function () {
+          // Read the current callback only when checkout starts. Serialize a real immutable snapshot.
+          var input = await latest.current.getInput();
+          if (!validate() || latest.current.valid !== true || latest.current.busy === true) throw new Error(PAYMENT_ERROR);
+          var result = await post("/api/intake/text-payment/order", input);
+          if (!sameMode(result, config)) throw new Error(CONFIG_ERROR);
+          var pair = opaquePair(result);
+          if (!pair) throw new Error(PAYMENT_ERROR);
+          op.pair = pair; savePair(pair);
+          return pair.order_id;
+        })().catch(function () {
+          op.open = false; payBusy(false); showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);
+        }).finally(function () { op.create = null; updateActions(); });
+        updateActions(); return op.create;
+      }
+      function approve(data) {
+        if (op.capture) return op.capture;
+        if (op.done) return Promise.resolve();
+        if (!op.pair || !data || op.blocked || op.status || latest.current.busy === true || data.orderID !== op.pair.order_id || !validate() || latest.current.valid !== true) {
+          paymentFailed(); return Promise.reject(new Error(PAYMENT_ERROR));
+        }
+        op.open = true; payBusy(true); showError("");
+        op.capture = (async function () {
+          var result = await post("/api/intake/text-payment/capture", op.pair);
+          await complete(result, config);
+        })().catch(function () {
+          // An ambiguous capture must be checked server-side before enabling another attempt.
+          op.blocked = true;
+          if (mounted.current) setRecovering(true);
+          showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);
+        }).finally(function () { op.capture = null; op.open = false; payBusy(false); updateActions(); });
+        updateActions(); return op.capture;
+      }
+      function checkStatus(activeConfig) {
+        if (op.status) return op.status;
+        if (!op.pair || op.done) return Promise.resolve();
+        op.blocked = true;
+        if (mounted.current) { setRecovering(true); setError(""); }
+        op.status = (async function () {
+          var result = await post("/api/intake/text-payment/status", { payment_token: op.pair.payment_token });
+          if (!sameMode(result, activeConfig)) throw new Error(CONFIG_ERROR);
+          if (result.order_id && result.order_id !== op.pair.order_id) throw new Error(CONFIG_ERROR);
+          if (result.payment_status === "COMPLETED") { await complete(result, activeConfig); return; }
+          if (result.amount !== undefined && result.amount !== "29.00") throw new Error(CONFIG_ERROR);
+          // Only explicit server states can release recovery. Never infer unpaid from an error.
+          if (["PENDING", "CREATED", "SAVED", "APPROVED", "NOT_COMPLETED", "DECLINED", "CANCELLED", "CANCELED", "VOIDED", "EXPIRED"].indexOf(result.payment_status) === -1) throw new Error(RECOVERY_ERROR);
+          if (["VOIDED", "EXPIRED"].indexOf(result.payment_status) !== -1) { clearPair(op.pair); op.pair = null; }
+          op.blocked = false; op.recovered = true;
+          if (mounted.current) setRecovering(false);
+        })().catch(function () { showError(RECOVERY_ERROR); }).finally(function () { op.status = null; updateActions(); });
+        updateActions(); return op.status;
+      }
+      React.useLayoutEffect(function () {
+        mounted.current = true;
+        if (op.pair) savePair(op.pair);
+        // Mask the payment region AND every ancestor before rendering third-party buttons.
+        for (var node = root.current; node && node.nodeType === 1; node = node.parentElement) {
+          node.setAttribute("data-hj-suppress", "true"); node.setAttribute("data-cs-mask", "true");
+        }
+        return function () { mounted.current = false; };
+      }, []);
+      React.useEffect(function () {
+        var stopped = false;
+        setLoading("loading"); setError("");
+        configuration(retry > 0).then(function (value) {
+          if (stopped) return null;
+          setConfig(value);
+          return loadSdk(value, retry > 0);
+        }).then(function (value) {
+          if (stopped || !value) return;
+          setSdk(value); setLoading("ready");
+        }).catch(function (failure) {
+          if (stopped) return;
+          setLoading(failure.message === CONFIG_ERROR ? "configuration-error" : "sdk-error");
+          setError(failure.message === CONFIG_ERROR ? CONFIG_ERROR : SDK_ERROR);
+        });
+        return function () { stopped = true; };
+      }, [retry]);
+      var resumeToken = props.resumePayment && props.resumePayment.payment_token;
+      var resumeOrder = props.resumePayment && props.resumePayment.order_id;
+      React.useEffect(function () {
+        var incoming = opaquePair(latest.current.resumePayment);
+        if (incoming && !op.done && !op.create && !op.capture && !op.status &&
+          (!op.pair || op.pair.payment_token !== incoming.payment_token)) {
+          op.pair = incoming; op.blocked = true; op.recovered = false; savePair(incoming);
+        }
+        if (config && op.pair && !op.done && (!op.recovered || recoveryRetry > 0)) checkStatus(config);
+      }, [config, resumeToken, resumeOrder, recoveryRetry]);
+      React.useEffect(function () {
+        if (!sdk || !config || !paypalHost.current || !cardHost.current) return;
+        var stopped = false, instances = [], actionsForRender = [];
+        setFunding({ paypal: null, card: null }); buttonActions.current = actionsForRender;
+        function render(kind, source, host) {
+          var instance = sdk.Buttons({
+            fundingSource: source,
+            style: { layout: "vertical", shape: "pill", height: 48, label: "pay", tagline: false },
+            onInit: function (_, actions) {
+              if (stopped) return;
+              actionsForRender.push(actions); updateActions();
+            },
+            onClick: function (_, actions) {
+              if (!eligibleNow() || !validate()) return actions.reject();
+              showError(""); return actions.resolve();
+            },
+            createOrder: createOrder, onApprove: approve, onCancel: paymentFailed, onError: paymentFailed
+          });
+          instances.push(instance);
+          if (!instance.isEligible()) {
+            if (!stopped) setFunding(function (old) { return Object.assign({}, old, kind === "card" ? { card: false } : { paypal: false }); });
+            return Promise.resolve();
+          }
+          return Promise.resolve(instance.render(host)).then(function () {
+            if (!stopped) setFunding(function (old) { return Object.assign({}, old, kind === "card" ? { card: true } : { paypal: true }); });
+          });
+        }
+        Promise.all([
+          Promise.resolve().then(function () { return render("paypal", sdk.FUNDING.PAYPAL, paypalHost.current); }),
+          Promise.resolve().then(function () { return render("card", sdk.FUNDING.CARD, cardHost.current); })
+        ]).catch(function () {
+          if (!stopped) { setLoading("buttons-error"); showError(SDK_ERROR); }
+        });
+        return function () {
+          stopped = true;
+          if (buttonActions.current === actionsForRender) buttonActions.current = [];
+          instances.forEach(function (instance) { try { Promise.resolve(instance.close()).catch(function () {}); } catch (_) {} });
+        };
+      }, [sdk, config, retry]);
+      React.useEffect(function () { updateActions(); }, [props.valid, props.busy, processing, recovering, confirmed, funding]);
+
+      function interceptInvalid() {
+        if (latest.current.busy !== true && !op.open && !op.blocked && !op.done) validate();
+      }
+      function slot(kind, ref, label) {
+        var available = funding[kind];
+        var guarded = available === true && props.valid !== true && !processing && !props.busy && !recovering && !confirmed;
+        var inaccessible = guarded || processing || props.busy === true || recovering || confirmed;
+        return JSX.jsxs("div", { className: "mmd-text-payment-slot", hidden: available === false, "data-hj-suppress": "true", "data-cs-mask": "true", children: [
+          JSX.jsx("div", { ref: ref, className: "mmd-text-payment-sdk", "aria-label": label, "aria-hidden": inaccessible || undefined, inert: inaccessible || undefined }),
+          guarded && JSX.jsx("button", { type: "button", className: "mmd-text-payment-validation-guard", "aria-label": label + ". Complete all required fields and consents first.", "aria-disabled": "true", onClick: interceptInvalid, children: JSX.jsx("span", { className: "mmd-text-payment-sr-only", children: label }) })
+        ] }, kind);
+      }
+      var unavailable = loading === "ready" && funding.paypal === false && funding.card === false;
+      var busy = processing || props.busy === true;
+      return JSX.jsxs("section", { ref: root, className: "mmd-text-payment full" + (busy || recovering || confirmed ? " is-blocked" : ""), "data-hj-suppress": "true", "data-cs-mask": "true", "aria-label": "Secure text visit payment", "aria-busy": busy || loading === "loading", children: [
+        JSX.jsxs("h2", { className: "mmd-text-payment-heading", children: [JSX.jsx("svg", { width: 17, height: 19, viewBox: "0 0 20 22", fill: "none", stroke: "currentColor", strokeWidth: 1.6, "aria-hidden": "true", children: JSX.jsxs("g", { children: [JSX.jsx("rect", { x: 3, y: 9, width: 14, height: 11, rx: 3 }), JSX.jsx("path", { d: "M6 9V6a4 4 0 0 1 8 0v3M10 13v3" })] }) }), "Secure payment – $29 today"] }),
+        config && config.environment === "sandbox" && JSX.jsx("p", { className: "mmd-text-payment-sandbox", role: "status", children: "Sandbox test payment — no real charge." }),
+        loading === "loading" && JSX.jsx("p", { className: "mmd-text-payment-status", role: "status", children: "Loading secure payment options…" }),
+        JSX.jsxs("div", { className: "mmd-text-payment-options", hidden: loading !== "ready" || confirmed, children: [slot("paypal", paypalHost, "Pay with PayPal"), slot("card", cardHost, "Pay with debit or credit card")] }),
+        loading === "ready" && !confirmed && funding.card === false && funding.paypal !== false && JSX.jsx("p", { className: "mmd-text-payment-availability", children: "Debit or credit card guest checkout isn't available for this account or browser. You can use PayPal if available above." }),
+        unavailable && JSX.jsx("p", { className: "mmd-text-payment-availability", role: "alert", children: "PayPal and debit or credit card checkout aren't available for this account or browser. Please contact the Care Team at (888) 362-7011." }),
+        loading === "ready" && props.valid !== true && !recovering && !confirmed && JSX.jsx("p", { className: "mmd-text-payment-hint", children: "Complete all required fields, SMS permission and consents above to pay." }),
+        (busy || recovering || confirmed) && JSX.jsx("p", { className: "mmd-text-payment-status", role: "status", "aria-live": "polite", children: confirmed ? "Payment confirmed. Opening your confirmation…" : busy ? "Processing your payment…" : "Checking your payment status…" }),
+        error && JSX.jsx("p", { className: "mmd-text-payment-error", role: "alert", children: error }),
+        (loading === "sdk-error" || loading === "buttons-error" || loading === "configuration-error") && !op.done && JSX.jsx("button", { type: "button", className: "mmd-text-payment-retry", disabled: busy, onClick: function () { setSdk(null); setRetry(function (value) { return value + 1; }); }, children: "Retry loading payment options" }),
+        recovering && error && config && !op.done && JSX.jsx("button", { type: "button", className: "mmd-text-payment-retry", disabled: busy || !!op.status, onClick: function () { setRecoveryRetry(function (value) { return value + 1; }); }, children: "Check payment status again" }),
+        JSX.jsx("p", { className: "mmd-text-payment-fine-print", children: "Charged once. Full refund if Dr. Al-Deek determines you're not a candidate. Medication costs are separate." })
+      ] });
+    };
+  };
+})();

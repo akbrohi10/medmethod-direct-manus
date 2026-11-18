@@ -1,0 +1,57 @@
+[
+  {
+    "old": "<script src=\"/intake/contact-step.js\"></script>",
+    "new": "<script src=\"/intake/contact-step.js\"></script>\n<script src=\"/intake/text-payment-api.js\"></script>\n<script src=\"/intake/text-payment.js\"></script>",
+    "position": 50716
+  },
+  {
+    "old": "<link rel=\"stylesheet\" href=\"/intake/sign-contact.css\" />",
+    "new": "<link rel=\"stylesheet\" href=\"/intake/sign-contact.css\" />\n<link rel=\"stylesheet\" href=\"/intake/text-payment.css\" />",
+    "position": 50209
+  },
+  {
+    "old": "const submittingRef=(0,l.useRef)(false),signingPayloadRef=(0,l.useRef)(null);",
+    "new": "const[resumePayment,setResumePayment]=(0,l.useState)(null);const submittingRef=(0,l.useRef)(false),signingPayloadRef=(0,l.useRef)(null);",
+    "position": 364289
+  },
+  {
+    "old": "(0,l.useEffect)(()=>{if(new URLSearchParams(window.location.search).get(\"prefill\")===\"demo\"){",
+    "new": "(0,l.useEffect)(()=>{if(new URLSearchParams(window.location.search).get(\"resume\")===\"1\"){window.history.replaceState(window.history.state,\"\",\"/intake/\");window.MmdTextPaymentApi.restore().then(restored=>{const saved=restored.input;const draft=saved.intake;const patient=draft.patient;const consent=draft.consents;const parts=patient.dob.split(\"-\");const values={...draft.answers.w,first:patient.first_name,last:patient.last_name,dobYear:parts[0],dobMonth:parts[1],dobDay:parts[2],state:patient.state_name,email:patient.email,phone:patient.phone,wAddressLine1:patient.address_line1,wAddressLine2:patient.address_line2,wAddressCity:patient.city,wAddressZip:patient.zip,_shippingSkipped:draft.answers.w.wAddressSkipped===true,_submissionId:draft.submission_id,_submittedAt:draft.submitted_at,terms:consent.terms_accepted,checkoutAck:consent.final_submission_acknowledged,termsAt:consent.terms_accepted_at,checkoutAckAt:consent.clinical_review_confirmed_at,smsOptIn:consent.sms_opt_in,smsOptInAt:consent.sms_opt_in_at,smsConsentAt:consent.sms_consent_at,smsConsentVersion:consent.sms_consent_version,wConsent:true,wDecline:false,wConsentAt:saved.signing.signed_at,videoVisitInterest:false};signingPayloadRef.current=saved.signing;setAnswers(values);setFormsReady(MmdSigningPayloadReady(saved.signing));setCurrentId(MmdIntakeFlowScreens(values).find(item=>MmdIntakeSubmitScreen(item))?.id);setHistory([]);setDemo(saved.is_test===true);setResumePayment({payment_token:restored.payment_token,order_id:restored.order_id});setSaveNotice(\"Your assessment is restored securely. Complete your $29 payment below. Uploaded photos may need to be added again after they expire.\")}).catch(()=>setError(\"Your saved intake is unavailable or expired. Please start a new assessment.\"));return}if(new URLSearchParams(window.location.search).get(\"prefill\")===\"demo\"){",
+    "position": 364953
+  },
+  {
+    "old": "if(MmdIntakeSubmitScreen(screen)){if(!MmdIntakeFinishReady(screen,answers,demo))return;if(answers.checkoutAck!==true){setError(\"Please confirm your information and consent to submit your intake.\");return}if(!MmdIntakePhoneReady(answers,demo)){setError(\"Please enter a valid 10-digit mobile number.\");return}const signing=signingPayloadRef.current;if(!MmdSigningPayloadReady(signing)){setFormsReady(false);return}submittingRef.current=true;setSubmitting(true);setError(\"\");try{const agreementAt=answers.termsAt||answers.checkoutAckAt||new Date().toISOString();const receipt=await MmdSubmitFreeIntake(\"w\",{...answers,termsAt:agreementAt,checkoutAckAt:agreementAt},demo,signing);window.MmdIntakeUsability.clear();setSaveEnabled(false);setAnswers({_submissionId:ve(),_submittedAt:new Date().toISOString()});if(MmdStoreFreeIntakeReceipt(receipt))window.location.replace(receipt.redirect_url);else setLocalReceipt(receipt)}catch(failure){setError(MMD_INTAKE_SUBMISSION_ERROR)}finally{submittingRef.current=false;setSubmitting(false)}return}",
+    "new": "if(MmdIntakeSubmitScreen(screen))return;",
+    "position": 371472
+  },
+  {
+    "old": "const missingDetails=screen&&MmdIntakeSubmitScreen(screen)?MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current)):[];",
+    "new": "const missingDetails=screen&&MmdIntakeSubmitScreen(screen)?MmdIntakeMissingDetails(answers,demo,formsReady&&MmdSigningPayloadReady(signingPayloadRef.current)):[];const validatePayment=()=>{if(!canContinue){setValidationAttempt(value=>value+1);return false}return true};const paymentInput=async()=>{if(!validatePayment())throw Error(\"Please complete the required fields.\");const agreementAt=answers.termsAt||answers.checkoutAckAt||new Date().toISOString();return{intake:be(\"w\",{...answers,videoVisitInterest:false,termsAt:agreementAt,checkoutAckAt:agreementAt},\"mmd-intake-web\",demo),demo_mode:demo,video_visit_interest:false,signing:signingPayloadRef.current}};const paidComplete=async(result)=>{if(!result||result.payment_status!==\"COMPLETED\"||result.amount!==\"29.00\"||result.payment_provider!==\"paypal\"||!result.submission_id||!result.submission_token||![\"/intake/thank-you/\",\"/intake/thank-you/?prefill=demo\"].includes(result.redirect_url))throw Error(\"Your paid intake is awaiting confirmation. Please check again or call our Care Team.\");await MmdArmIntakeLead(result,demo);window.MmdIntakeUsability.clear();setSaveEnabled(false);setAnswers({_submissionId:ve(),_submittedAt:new Date().toISOString()});if(MmdStoreFreeIntakeReceipt(result))window.location.replace(result.redirect_url);else setLocalReceipt(result)};",
+    "position": 373481
+  },
+  {
+    "old": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(\"p\",{className:\"patient-submit-note\",children:\"Watch for a text from us after you submit.\"}),",
+    "new": "MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(MmdTextPayment,{valid:canContinue,busy:submitting||uploadBusy,onValidate:validatePayment,getInput:paymentInput,onComplete:paidComplete,resumePayment:resumePayment}),",
+    "position": 378660
+  },
+  {
+    "old": "!localReceipt&&screen&&(0,M.jsx)(\"footer\",",
+    "new": "!localReceipt&&screen&&!MmdIntakeSubmitScreen(screen)&&(0,M.jsx)(\"footer\",",
+    "position": 379294
+  },
+  {
+    "old": "}(0,u.createRoot)(document.getElementById(`root`)).render(",
+    "new": "}const MmdTextPayment=window.MmdCreateTextPayment(l,M,{request:window.MmdTextPaymentApi.request});(0,u.createRoot)(document.getElementById(`root`)).render(",
+    "position": 381947
+  },
+  {
+    "old": "DEMO DATA \u2014 INTAKE TEST \\xB7 Optional video payment uses Sandbox",
+    "new": "DEMO DATA \u2014 INTAKE TEST \\xB7 Text payment uses Sandbox",
+    "position": 375800
+  },
+  {
+    "old": "function MmdStoreFreeIntakeReceipt(receipt){try{const{redirect_url,...storedReceipt}=receipt;window.sessionStorage.setItem(\"mmd_free_intake_receipt\",JSON.stringify(storedReceipt));window.sessionStorage.removeItem(\"mmd_video_visit_checkout\");return true}catch{return false}}",
+    "new": "function MmdStoreFreeIntakeReceipt(receipt){try{const keys=[\"submission_id\",\"submission_token\",\"sms_opt_in\",\"video_visit_interest\",\"is_test\",\"payment_status\",...(receipt.payment_status===\"COMPLETED\"?[\"payment_provider\",\"amount\",\"paypal_order_id\",\"paypal_capture_id\",\"paid_at\",\"environment\"]:[])];const storedReceipt=Object.fromEntries(keys.map(key=>[key,receipt[key]]));window.sessionStorage.setItem(\"mmd_free_intake_receipt\",JSON.stringify(storedReceipt));window.sessionStorage.removeItem(\"mmd_video_visit_checkout\");return true}catch{return false}}",
+    "position": 320961
+  }
+]

@@ -62,7 +62,10 @@
     options = options || {};
     if (options.excluded === true || excluded() || !result || result.is_test !== false) return deny();
     var target = path(result.redirect_url);
-    if ((!intakeThankYou(target) && target !== "/thank-you-video") || result.payment_status !== "NOT_REQUIRED" ||
+    if (!intakeThankYou(target) || result.payment_status !== "COMPLETED" ||
+        result.payment_provider !== "paypal" || result.amount !== "29.00" ||
+        typeof result.paypal_order_id !== "string" || !result.paypal_order_id ||
+        typeof result.paypal_capture_id !== "string" || !result.paypal_capture_id ||
         typeof result.submission_id !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(result.submission_id) ||
         typeof result.submission_token !== "string" || !result.submission_token) return note();
     try {
