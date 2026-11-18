@@ -1,0 +1,135 @@
+/* Intake-only contrast layer. #758E89 replaces the supplied pale boundaries to meet 3:1. */
+.premium-form-panel {
+  --mmd-control-line: #758E89;
+  --mmd-control-hover: #6B827D;
+  --mmd-control-shadow: 0 1px 2px rgba(17,58,58,0.06);
+  background: #F5F8F7;
+}
+.premium-form-panel :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),select,textarea) {
+  background: #FFFFFF !important;
+  color: #113A3A !important;
+  border: 1.5px solid var(--mmd-control-line) !important;
+  box-shadow: var(--mmd-control-shadow);
+  color-scheme: light;
+}
+.premium-form-panel :is(input,textarea)::placeholder { color: #8A9895 !important; opacity: 1; }
+.premium-form-panel :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),select,textarea):hover {
+  border-color: var(--mmd-control-hover) !important;
+}
+.premium-form-panel :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),select,textarea):focus {
+  border: 2px solid #0E7C7B !important;
+  box-shadow: 0 0 0 3px rgba(14,124,123,0.15), var(--mmd-control-shadow);
+  outline: none;
+}
+.premium-form-panel :is(.field>span,.dob-label-row>span,.sign-forms-field>label,.sign-forms-field>span,.dob-inputs>label>span) {
+  color: #113A3A !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+/* Reveal existing accessible DOB labels, not new labels or a different field order. */
+.premium-form-panel .dob-inputs>label>span.sr-only {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0 0 5px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+  border: 0;
+}
+.premium-form-panel :is(.choice,.treatment-option-card,.typed-signature-card,.sign-forms-document,.weight-upload,.scale-upload-preview,.scale-example-card) {
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--mmd-control-line) !important;
+  box-shadow: var(--mmd-control-shadow);
+}
+.premium-form-panel :is(.choice,.treatment-option-card,.typed-signature-card,.sign-forms-document):hover {
+  border-color: var(--mmd-control-hover) !important;
+}
+.premium-form-panel :is(.choice.selected,.treatment-option-card.selected,.typed-signature-card.is-selected) {
+  border: 2px solid #0E7C7B !important;
+  background: #E8F4F3 !important;
+  box-shadow: 0 0 0 4px rgba(14,124,123,0.08), var(--mmd-control-shadow);
+}
+.premium-form-panel :is(.choice,.treatment-option-card,.typed-signature-card):focus-visible,
+.premium-form-panel .treatment-option-card:has(.treatment-card-select:focus-visible) {
+  border-color: #0E7C7B !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14,124,123,0.15), var(--mmd-control-shadow);
+}
+.premium-form-panel .treatment-card-select:focus-visible { outline: none; }
+.premium-form-panel :is(.choice .dot,.treatment-option-card .dot) {
+  border: 1.5px solid var(--mmd-control-line) !important;
+  background: #FFFFFF;
+}
+.premium-form-panel :is(.choice.selected .dot,.treatment-option-card.selected .dot) {
+  background: #0E7C7B !important;
+  border-color: #0E7C7B !important;
+}
+.premium-form-panel :is(.choice.selected .dot,.treatment-option-card.selected .dot)::after { border-color: #FFFFFF; }
+.premium-form-panel .typed-style-check {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--mmd-control-line);
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: transparent;
+  font-size: 0;
+  display: grid;
+  place-items: center;
+}
+.premium-form-panel .typed-signature-card.is-selected .typed-style-check {
+  background: #0E7C7B;
+  border-color: #0E7C7B;
+}
+.premium-form-panel .typed-signature-card.is-selected .typed-style-check::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: translateY(-1px) rotate(-45deg);
+}
+.premium-form-panel input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  flex: 0 0 20px;
+  padding: 0 !important;
+  border: 1.5px solid var(--mmd-control-line) !important;
+  border-radius: 4px;
+  background: #FFFFFF;
+  box-shadow: var(--mmd-control-shadow);
+  cursor: pointer;
+}
+.premium-form-panel input[type="checkbox"]:checked {
+  background-color: #0E7C7B;
+  border-color: #0E7C7B !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m4 10 4 4 8-8' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+}
+.premium-form-panel input[type="checkbox"]:hover { border-color: var(--mmd-control-hover) !important; }
+.premium-form-panel input[type="checkbox"]:focus-visible {
+  outline: none;
+  border-color: #0E7C7B !important;
+  box-shadow: 0 0 0 3px rgba(14,124,123,0.15), var(--mmd-control-shadow);
+}
+.premium-form-panel input[type="checkbox"]:disabled { cursor: not-allowed; }
+/* Keep the established invalid-field feedback instead of hiding it behind green outlines. */
+.premium-form-panel :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),select,textarea)[aria-invalid="true"],
+.premium-form-panel [data-mmd-missing="true"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),select,textarea),
+.premium-form-panel .typed-has-error :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),.typed-signature-card) {
+  border-color: var(--mmd-sign-error, #a52c35) !important;
+}
+@media (forced-colors: active) {
+  .premium-form-panel input[type="checkbox"] { appearance: auto; -webkit-appearance: auto; }
+  .premium-form-panel input[type="checkbox"]:checked { background-image: none; }
+}
