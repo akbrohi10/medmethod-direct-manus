@@ -479,3 +479,315 @@ describe("isolated $29 text intake payment UI", () => {
     expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
   });
 });
+
+describe("text checkout readiness and immutable SDK settings (mock-only)", () => {
+  const storageError = "Payment checkout is not configured. Please contact the Care Team; do not make another payment.";
+  const modeError = "The payment mode changed. Please refresh checkout or contact the Care Team; do not make another payment.";
+  const confirmationError = "Payment confirmation is unavailable. Please retry or contact the Care Team; do not make another payment.";
+  const configError = "Secure payment isn't configured correctly. Please contact the Care Team at (888) 362-7011.";
+  const unavailable = { configured: false, readiness_reason: "payment_storage_unavailable" };
+  const privateDetail = "private mocked configuration/provider detail";
+
+  function controlledConfig(initial: any = config) {
+    let current: any = { ...initial };
+    const request = vi.fn(async (path: string) => {
+      if (path.endsWith("/config")) {
+        if (current instanceof Error) throw current;
+        if (typeof current === "function") return current();
+        return current && { ...current };
+      }
+      if (path.endsWith("/order")) return { ...pair, environment: initial.environment };
+      if (path.endsWith("/capture")) return { ...receipt, environment: initial.environment };
+      if (path.endsWith("/status")) return { ...pair, payment_status: "PENDING", amount: "29.00", environment: initial.environment };
+      throw Error("Unexpected mocked endpoint");
+    });
+    return { request, set: (next: any) => { current = next; } };
+  }
+  function endpointCalls(h: ReturnType<typeof harness>, endpoint: string) {
+    return h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/" + endpoint));
+  }
+  function expectNoCharge(h: ReturnType<typeof harness>) {
+    expect(endpointCalls(h, "order")).toHaveLength(0);
+    expect(endpointCalls(h, "capture")).toHaveLength(0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+  }
+  function expectOriginalSdk(h: ReturnType<typeof harness>, initial: any = config) {
+    expect(h.scripts).toHaveLength(1);
+    expect(h.scripts[0].removed).toBe(false);
+    expect(new URL(h.scripts[0].src).searchParams.get("client-id")).toBe(initial.client_id);
+    expect(new URL(h.scripts[0].src).searchParams.has("buyer-country")).toBe(initial.environment === "sandbox");
+    expect(h.sdk.CardFields).toHaveBeenCalledTimes(1);
+    expect(h.sdkOptions).toHaveLength(1);
+    fieldNames.forEach(name => expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledTimes(1));
+    expect(h.sdkInstances[0].close).not.toHaveBeenCalled();
+  }
+  async function expectSafeAlertAfterLateSdkError(h: ReturnType<typeof harness>, message: string) {
+    await h.flush();
+    expect(h.walk(node => node.props?.role === "alert").map(node => h.text(node))).toContain(message);
+    h.sdkOptions[0].onError(new Error(privateDetail));
+    await h.flush();
+    expect(h.walk(node => node.props?.role === "alert").map(node => h.text(node))).toContain(message);
+    h.sdkOptions[0].onError({ message: privateDetail, details: { sensitive: privateDetail } });
+    await h.flush();
+    expect(h.walk(node => node.props?.role === "alert").map(node => h.text(node))).toContain(message);
+    expect(h.text()).not.toContain(privateDetail);
+  }
+
+  it("blocks missing durable payment storage at startup before loading the SDK", async () => {
+    const h = harness({ config: { ...unavailable, detail: privateDetail } });
+    await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(1);
+    expect(h.scripts).toHaveLength(0);
+    expect(h.sdk.CardFields).not.toHaveBeenCalled();
+    expect(h.walk(node => node.props?.role === "alert").map(node => h.text(node))).toContain(storageError);
+    expect(h.text()).not.toContain(privateDetail);
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+  });
+
+  it("keeps startup config-network failures on the existing configuration fallback without loading an SDK", async () => {
+    // The intake request helper sanitizes network diagnostics to the caller-supplied fallback.
+    const request = vi.fn(async (_path: string, _opts: any, fallback: string) => { throw Error(fallback); });
+    const h = harness({ request }); await h.flush();
+    expect(h.scripts).toHaveLength(0);
+    expect(h.sdk.CardFields).not.toHaveBeenCalled();
+    expect(h.text()).toContain(configError);
+    expect(h.text()).not.toContain(privateDetail);
+    expectNoCharge(h);
+  });
+
+  it.each([
+    ["missing", undefined], ["null", null], ["numeric", 29], ["integer string", "29"],
+    ["short precision", "29.0"], ["leading zero", "029.00"], ["trailing space", "29.00 "],
+    ["extra precision", "29.000"], ["exponential", "2.9e1"], ["different amount", "30.00"],
+  ])("never accepts a malformed %s startup amount", async (_label, amount) => {
+    const h = harness({ config: { ...config, amount } }); await h.flush();
+    expect(h.scripts).toHaveLength(0);
+    expect(h.sdk.CardFields).not.toHaveBeenCalled();
+    expect(h.text()).toContain(configError);
+    expectNoCharge(h);
+  });
+
+  it.each(["sandbox", "live"])("refreshes %s readiness before native card state, submit, or input and preserves the storage error", async environment => {
+    const initial = { ...config, environment };
+    const control = controlledConfig(initial);
+    const h = harness({ request: control.request }); await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(1);
+    control.set(unavailable);
+    await h.payButton().props.onClick(); await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(endpointCalls(h, "config")[1][1]).toEqual(expect.objectContaining({ method: "GET" }));
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    expectOriginalSdk(h, initial);
+    await expectSafeAlertAfterLateSdkError(h, storageError);
+  });
+
+  const driftCases = [
+    { label: "Sandbox to Live", initial: config, changed: { ...config, environment: "live" } },
+    { label: "Live to Sandbox", initial: { ...config, environment: "live" }, changed: config },
+    { label: "public client ID", initial: config, changed: { ...config, client_id: "different_public_client_123" } },
+  ];
+
+  it.each(driftCases)("stops native submission for $label drift without switching or reloading SDK settings", async ({ initial, changed }) => {
+    const control = controlledConfig(initial);
+    const h = harness({ request: control.request }); await h.flush();
+    control.set(changed);
+    await h.payButton().props.onClick(); await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    expectOriginalSdk(h, initial);
+    await expectSafeAlertAfterLateSdkError(h, modeError);
+  });
+
+  it.each(driftCases)("checks fresh settings before createOrder and getInput for $label drift", async ({ initial, changed }) => {
+    const control = controlledConfig(initial);
+    const h = harness({ request: control.request }); await h.flush();
+    control.set(changed);
+    await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(modeError);
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    expectOriginalSdk(h, initial);
+    await expectSafeAlertAfterLateSdkError(h, modeError);
+  });
+
+  it.each(driftCases)("does not reuse an opaque cached pair after $label drift and retains recovery capability", async ({ initial, changed }) => {
+    const control = controlledConfig(initial);
+    const h = harness({ request: control.request, saved: pair }); await h.flush();
+    expect(endpointCalls(h, "status")).toHaveLength(1);
+    expect(endpointCalls(h, "config")).toHaveLength(1);
+    control.set(changed);
+    await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(modeError);
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    expect(JSON.parse(h.entries.get("mmd_text_payment_v1")!)).toEqual(pair);
+    expect(h.window.sessionStorage.removeItem).not.toHaveBeenCalled();
+    expectOriginalSdk(h, initial);
+    await expectSafeAlertAfterLateSdkError(h, modeError);
+  });
+
+  it.each(driftCases)("checks fresh settings before capture for $label drift and keeps the original opaque pair", async ({ initial, changed }) => {
+    const control = controlledConfig(initial);
+    const h = harness({ request: control.request }); await h.flush();
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    control.set(changed);
+    await expect(h.sdkOptions[0].onApprove({ orderID: pair.order_id })).rejects.toThrow(modeError);
+    expect(endpointCalls(h, "config")).toHaveLength(3);
+    expect(endpointCalls(h, "order")).toHaveLength(1);
+    expect(endpointCalls(h, "capture")).toHaveLength(0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(JSON.parse(h.entries.get("mmd_text_payment_v1")!)).toEqual(pair);
+    expect(h.window.sessionStorage.removeItem).not.toHaveBeenCalled();
+    expectOriginalSdk(h, initial);
+    await expectSafeAlertAfterLateSdkError(h, modeError);
+  });
+
+  it.each(["create", "cached create", "capture"])("fails closed on readiness false during %s callbacks", async stage => {
+    const control = controlledConfig();
+    const h = harness({ request: control.request, saved: stage === "cached create" ? pair : undefined }); await h.flush();
+    if (stage === "capture") await h.sdkOptions[0].createOrder();
+    const inputCalls = h.props.getInput.mock.calls.length;
+    control.set(unavailable);
+    const attempt = stage === "capture" ? h.sdkOptions[0].onApprove({ orderID: pair.order_id }) : h.sdkOptions[0].createOrder();
+    await expect(attempt).rejects.toThrow(storageError);
+    expect(h.props.getInput).toHaveBeenCalledTimes(inputCalls);
+    expect(endpointCalls(h, "order")).toHaveLength(stage === "capture" ? 1 : 0);
+    expect(endpointCalls(h, "capture")).toHaveLength(0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    if (stage !== "create") expect(JSON.parse(h.entries.get("mmd_text_payment_v1")!)).toEqual(pair);
+    expectOriginalSdk(h);
+    await expectSafeAlertAfterLateSdkError(h, storageError);
+  });
+
+  it.each(["native", "create", "capture"])("fails closed when the fresh %s config check times out without leaking an arbitrary error", async stage => {
+    const control = controlledConfig();
+    const h = harness({ request: control.request }); await h.flush();
+    if (stage === "capture") await h.sdkOptions[0].createOrder();
+    control.set(new Error(privateDetail));
+    if (stage === "native") await h.payButton().props.onClick();
+    else await expect(stage === "capture" ? h.sdkOptions[0].onApprove({ orderID: pair.order_id }) : h.sdkOptions[0].createOrder()).rejects.toThrow(configError);
+    await h.flush();
+    expect(endpointCalls(h, "order")).toHaveLength(stage === "capture" ? 1 : 0);
+    expect(endpointCalls(h, "capture")).toHaveLength(0);
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).toHaveBeenCalledTimes(stage === "capture" ? 1 : 0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expectOriginalSdk(h);
+    await expectSafeAlertAfterLateSdkError(h, configError);
+  });
+
+  it.each([
+    { label: "unconfigured", changed: { ...config, configured: false } },
+    { label: "invalid client ID", changed: { ...config, client_id: "bad" } },
+    { label: "invalid environment", changed: { ...config, environment: "production" } },
+    { label: "missing amount", changed: { ...config, amount: undefined } },
+    { label: "numeric amount", changed: { ...config, amount: 29 } },
+    { label: "different amount", changed: { ...config, amount: "30.00" } },
+    { label: "different currency", changed: { ...config, currency: "EUR" } },
+  ])("does not accept fresh $label config before provider activity and preserves the safe configuration error", async ({ changed }) => {
+    const control = controlledConfig();
+    const h = harness({ request: control.request }); await h.flush();
+    control.set(changed);
+    await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(configError);
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    expectOriginalSdk(h);
+    await expectSafeAlertAfterLateSdkError(h, configError);
+  });
+
+  it("shares the pending fresh native check across concurrent taps and completes stable settings exactly once", async () => {
+    let releaseConfig!: (value: any) => void, releaseSubmit!: () => void;
+    const configWait = new Promise(resolve => { releaseConfig = resolve; });
+    const submitWait = new Promise<void>(resolve => { releaseSubmit = resolve; });
+    const control = controlledConfig();
+    const h = harness({ request: control.request, submit: async opts => {
+      await submitWait;
+      const first = opts.createOrder(), duplicate = opts.createOrder();
+      expect(duplicate).toBe(first);
+      const orderID = await first;
+      const capture = opts.onApprove({ orderID }), duplicateCapture = opts.onApprove({ orderID });
+      expect(duplicateCapture).toBe(capture);
+      return capture;
+    } });
+    await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(1);
+    control.set(() => configWait);
+    const click = h.payButton().props.onClick;
+    const first = click(), duplicate = click();
+    expect(duplicate).toBe(first);
+    await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expectNoCharge(h);
+    control.set(config); releaseConfig({ ...config }); await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(2);
+    expect(h.sdkInstances[0].getState).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].submit).toHaveBeenCalledTimes(1);
+    expectNoCharge(h);
+    releaseSubmit(); await first; await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(4);
+    endpointCalls(h, "config").forEach(([, opts]: any[]) => expect(opts).toEqual(expect.objectContaining({ method: "GET" })));
+    expect(endpointCalls(h, "order")).toHaveLength(1);
+    expect(endpointCalls(h, "capture")).toHaveLength(1);
+    expect(h.props.getInput).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
+    expect(h.entries.size).toBe(0);
+    expectOriginalSdk(h);
+    await click(); await h.sdkOptions[0].onApprove({ orderID: pair.order_id }); await h.flush();
+    expect(endpointCalls(h, "config")).toHaveLength(4);
+    expect(endpointCalls(h, "order")).toHaveLength(1);
+    expect(endpointCalls(h, "capture")).toHaveLength(1);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["native", "create", "capture"])("retains the exact safe confirmation-unavailable error during %s after late SDK errors", async stage => {
+    const control = controlledConfig();
+    const h = harness({ request: control.request }); await h.flush();
+    if (stage === "capture") await h.sdkOptions[0].createOrder();
+    control.set(new Error(confirmationError));
+    if (stage === "native") await h.payButton().props.onClick();
+    else await expect(stage === "capture" ? h.sdkOptions[0].onApprove({ orderID: pair.order_id }) : h.sdkOptions[0].createOrder()).rejects.toThrow(confirmationError);
+    expect(endpointCalls(h, "order")).toHaveLength(stage === "capture" ? 1 : 0);
+    expect(endpointCalls(h, "capture")).toHaveLength(0);
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expectOriginalSdk(h);
+    await expectSafeAlertAfterLateSdkError(h, confirmationError);
+  });
+
+  it("keeps unknown input, order and provider exceptions on the generic decline message", async () => {
+    for (const stage of ["input", "order", "provider"]) {
+      const request = vi.fn(async (path: string) => {
+        if (path.endsWith("/config")) return { ...config };
+        if (path.endsWith("/order")) throw Error(privateDetail);
+        throw Error("Unexpected mocked endpoint");
+      });
+      const h = harness({ request, submit: stage === "provider" ? async () => { throw Error(privateDetail); } : undefined });
+      await h.flush();
+      if (stage === "input") h.props.getInput = vi.fn(async () => { throw Error(privateDetail); });
+      if (stage === "provider") await h.payButton().props.onClick();
+      else await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(decline);
+      await h.flush();
+      expect(h.text()).toContain(decline);
+      expect(h.text()).not.toContain(privateDetail);
+      h.sdkOptions[0].onError({ message: privateDetail }); await h.flush();
+      expect(h.text()).toContain(decline);
+      expect(h.text()).not.toContain(privateDetail);
+      expect(endpointCalls(h, "capture")).toHaveLength(0);
+      expect(h.props.onComplete).not.toHaveBeenCalled();
+    }
+  });
+});

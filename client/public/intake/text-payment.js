@@ -7,6 +7,13 @@
   var CONFIG_ERROR = "Secure payment isn't configured correctly. Please contact the Care Team at (888) 362-7011.";
   var SDK_ERROR = "Secure payment is temporarily unavailable. Please retry loading payment options.";
   var RECOVERY_ERROR = "We couldn't confirm your payment status. Check again before making another payment.";
+  var STORAGE_ERROR = "Payment checkout is not configured. Please contact the Care Team; do not make another payment.";
+  var MODE_ERROR = "The payment mode changed. Please refresh checkout or contact the Care Team; do not make another payment.";
+  var CONFIRMATION_ERROR = "Payment confirmation is unavailable. Please retry or contact the Care Team; do not make another payment.";
+  function safePaymentMessage(failure, fallback) {
+    var message = failure && failure.message;
+    return [STORAGE_ERROR, MODE_ERROR, CONFIRMATION_ERROR, CONFIG_ERROR].indexOf(message) !== -1 ? message : fallback;
+  }
   var sdkLoad = null;
 
   function opaquePair(value) {
@@ -111,7 +118,7 @@
       if (retry) configPromise = null;
       if (!configPromise) {
         configPromise = helpers.request("/api/intake/text-payment/config", { method: "GET" }, CONFIG_ERROR).then(function (config) {
-          if (!validConfig(config)) throw new Error(CONFIG_ERROR);
+          if (!validConfig(config)) throw new Error(config && config.readiness_reason === "payment_storage_unavailable" ? STORAGE_ERROR : CONFIG_ERROR);
           return config;
         });
         configPromise.catch(function () { configPromise = null; });
@@ -124,7 +131,7 @@
     return function TextPayment(props) {
       var latest = React.useRef(props); latest.current = props;
       var root = React.useRef(null), nameHost = React.useRef(null), numberHost = React.useRef(null), expiryHost = React.useRef(null), securityHost = React.useRef(null);
-      var cardFields = React.useRef(null), cardSubmission = React.useRef(null);
+      var cardFields = React.useRef(null), cardSubmission = React.useRef(null), safeFailure = React.useRef("");
       var mounted = React.useRef(false);
       var operation = React.useRef(null);
       if (!operation.current) {
@@ -142,7 +149,20 @@
       var fundingState = React.useState({ card: null }), funding = fundingState[0], setFunding = fundingState[1];
       var retryState = React.useState(0), retry = retryState[0], setRetry = retryState[1];
       var recoveryRetryState = React.useState(0), recoveryRetry = recoveryRetryState[0], setRecoveryRetry = recoveryRetryState[1];
-      function showError(message) { if (mounted.current) setError(message); }
+      function showError(message) {
+        safeFailure.current = [STORAGE_ERROR, MODE_ERROR, CONFIRMATION_ERROR, CONFIG_ERROR].indexOf(message) !== -1 ? message : "";
+        if (mounted.current) setError(message);
+      }
+      async function freshConfiguration(activeConfig) {
+        var current;
+        try {
+          // Configuration only: no intake, card values, order, capture or settings change.
+          current = await helpers.request("/api/intake/text-payment/config", { method: "GET" }, CONFIG_ERROR);
+        } catch (failure) { throw new Error(safePaymentMessage(failure, CONFIG_ERROR)); }
+        if (!validConfig(current)) throw new Error(current && current.readiness_reason === "payment_storage_unavailable" ? STORAGE_ERROR : CONFIG_ERROR);
+        if (!sameMode(current, activeConfig)) throw new Error(MODE_ERROR);
+        return current;
+      }
       function payBusy(value) { if (mounted.current) setProcessing(value); }
       function eligibleNow() {
         return latest.current.valid === true && latest.current.busy !== true && !op.open &&
@@ -171,18 +191,19 @@
           showError("Your payment is confirmed, but we couldn't open your confirmation. Please contact the Care Team at (888) 362-7011.");
         }
       }
-      function paymentFailed() {
+      function paymentFailed(failure) {
         if (op.done) return;
         // Do not unlock an in-flight capture on a late SDK popup error or cancel event.
         if (!op.capture && !op.create) { op.open = false; payBusy(false); }
-        showError(PAYMENT_ERROR); updateActions();
+        showError(safeFailure.current || safePaymentMessage(failure, PAYMENT_ERROR)); updateActions();
       }
       function createOrder() {
         if (op.create) return op.create;
         if (op.done || op.blocked || op.capture || latest.current.busy === true || !validate() || latest.current.valid !== true) return Promise.reject(new Error(PAYMENT_ERROR));
-        if (op.pair) { op.open = true; payBusy(true); updateActions(); return Promise.resolve(op.pair.order_id); }
         op.open = true; payBusy(true); showError("");
         op.create = (async function () {
+          await freshConfiguration(config);
+          if (op.pair) return op.pair.order_id;
           // Read the current callback only when checkout starts. Serialize a real immutable snapshot.
           var input = await latest.current.getInput();
           if (!validate() || latest.current.valid !== true || latest.current.busy === true) throw new Error(PAYMENT_ERROR);
@@ -192,8 +213,9 @@
           if (!pair) throw new Error(PAYMENT_ERROR);
           op.pair = pair; savePair(pair);
           return pair.order_id;
-        })().catch(function () {
-          op.open = false; payBusy(false); showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);
+        })().catch(function (failure) {
+          var message = safePaymentMessage(failure, PAYMENT_ERROR);
+          op.open = false; payBusy(false); showError(message); throw new Error(message);
         }).finally(function () { op.create = null; updateActions(); });
         updateActions(); return op.create;
       }
@@ -205,13 +227,15 @@
         }
         op.open = true; payBusy(true); showError("");
         op.capture = (async function () {
+          await freshConfiguration(config);
           var result = await post("/api/intake/text-payment/capture", op.pair);
           await complete(result, config);
-        })().catch(function () {
+        })().catch(function (failure) {
           // An ambiguous capture must be checked server-side before enabling another attempt.
           op.blocked = true;
           if (mounted.current) setRecovering(true);
-          showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);
+          var message = safePaymentMessage(failure, PAYMENT_ERROR);
+          showError(message); throw new Error(message);
         }).finally(function () { op.capture = null; op.open = false; payBusy(false); updateActions(); });
         updateActions(); return op.capture;
       }
@@ -231,7 +255,7 @@
           if (["VOIDED", "EXPIRED"].indexOf(result.payment_status) !== -1) { clearPair(op.pair); op.pair = null; }
           op.blocked = false; op.recovered = true;
           if (mounted.current) setRecovering(false);
-        })().catch(function () { showError(RECOVERY_ERROR); }).finally(function () { op.status = null; updateActions(); });
+        })().catch(function (failure) { showError(safePaymentMessage(failure, RECOVERY_ERROR)); }).finally(function () { op.status = null; updateActions(); });
         updateActions(); return op.status;
       }
       React.useLayoutEffect(function () {
@@ -255,8 +279,9 @@
           setSdk(value); setLoading("ready");
         }).catch(function (failure) {
           if (stopped) return;
-          setLoading(failure.message === CONFIG_ERROR ? "configuration-error" : "sdk-error");
-          setError(failure.message === CONFIG_ERROR ? CONFIG_ERROR : SDK_ERROR);
+          var message = safePaymentMessage(failure, SDK_ERROR);
+          setLoading(message === CONFIG_ERROR || message === STORAGE_ERROR ? "configuration-error" : "sdk-error");
+          showError(message);
         });
         return function () { stopped = true; };
       }, [retry]);
@@ -307,6 +332,8 @@
         var instance = cardFields.current;
         // Set a promise synchronously so rapid taps cannot begin a second card submission.
         cardSubmission.current = Promise.resolve().then(async function () {
+          showError("");
+          await freshConfiguration(config);
           if (config.environment === "live") {
             var previewInput = await latest.current.getInput();
             if (previewInput && previewInput.demo_mode === true) {
@@ -318,7 +345,7 @@
           if (!eligibleNow() || !validate() || latest.current.valid !== true) return;
           payBusy(true); showError("");
           await instance.submit();
-        }).catch(function () { paymentFailed(); }).finally(function () {
+        }).catch(function (failure) { paymentFailed(failure); }).finally(function () {
           cardSubmission.current = null;
           if (!op.open && !op.create && !op.capture) payBusy(false);
         });

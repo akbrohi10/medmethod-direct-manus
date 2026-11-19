@@ -1,6 +1,7 @@
-import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, type CipherGCM, type DecipherGCM } from "node:crypto";
+import { createCipheriv, createDecipheriv, createHmac, randomBytes, type CipherGCM, type DecipherGCM } from "node:crypto";
 import mysql, { type Pool, type PoolConnection, type ResultSetHeader, type RowDataPacket } from "mysql2/promise";
 import { ENV } from "./_core/env";
+import { deriveIntakePrivateApplicationKey } from "./intakePrivateApplicationKey";
 
 /**
  * Encrypted short-lived private objects backed by the existing DATABASE_URL database.
@@ -149,10 +150,7 @@ class EncryptedIntakePrivateBlobDb implements IntakePrivateBlobDb {
   }
 
   private encryptionKey(): Buffer {
-    return createHash("sha256")
-      .update(this.secret(), "utf8")
-      .update(`:${VERSION}:aes-256-gcm`, "utf8")
-      .digest();
+    return deriveIntakePrivateApplicationKey(this.secret());
   }
 
   private keyHash(value: string, kind: "object" | "lock"): string {

@@ -2,7 +2,7 @@ import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypt
 import type { IntakeDraft } from "./intakeSubmissionContract";
 import {
   createIntakeTextPaymentStore, type IntakeTextPaymentStore, type TextPaymentLockedRecord,
-  type TextPaymentStorageRecord,
+  type TextPaymentStorageRecord, IntakeTextPaymentStoreError,
 } from "./intakeTextPaymentStore";
 
 export const TEXT_INTAKE_AMOUNT = "29.00" as const;
@@ -78,7 +78,8 @@ export type TextIntakePending = {
   order_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT; retryable: true;
 };
 export type TextIntakePaymentService<T extends TextIntakeValidatedInput = TextIntakeValidatedInput> = {
-  configuration(): Promise<{ configured: boolean; client_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT }>;
+  configuration(): Promise<{ configured: boolean; client_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT;
+    readiness_reason?: "payment_storage_unavailable" | "paypal_unavailable" }>;
   create(input: unknown): Promise<{ order_id: string; payment_token: string; environment: TextIntakePaymentMode }>;
   capture(input: { payment_token: string; order_id: string }): Promise<TextIntakeCompletion | TextIntakePending>;
   status(paymentToken: string): Promise<TextIntakeCompletion | TextIntakePending>;
@@ -373,14 +374,19 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
 
   return {
     async configuration() {
+      const storageReady = store.isConfigured();
       try {
         const c = await getConfig();
         if (!["sandbox", "live"].includes(c.mode)) throw new Error();
-        const configured = !!(c.clientId && c.clientSecret);
-        return { configured, client_id: configured ? c.clientId : null, environment: c.mode, amount: TEXT_INTAKE_AMOUNT };
-      } catch { return { configured: false, client_id: null, environment: "sandbox", amount: TEXT_INTAKE_AMOUNT }; }
+        const configured = !!(c.clientId && c.clientSecret) && storageReady;
+        return { configured, client_id: configured ? c.clientId : null, environment: c.mode, amount: TEXT_INTAKE_AMOUNT,
+          ...(!configured ? { readiness_reason: !storageReady ? "payment_storage_unavailable" as const : "paypal_unavailable" as const } : {}) };
+      } catch { return { configured: false, client_id: null, environment: "sandbox", amount: TEXT_INTAKE_AMOUNT,
+        readiness_reason: !storageReady ? "payment_storage_unavailable" : "paypal_unavailable" }; }
     },
     async create(raw) {
+      // Fail before validation/settings lookup, hashing, storage access, or any provider side effect.
+      if (!store.isConfigured()) throw new IntakeTextPaymentStoreError();
       // Parent validates signatures, consent, server test classification, allowed origins and normalized answers.
       try {
         const bytes = JSON.stringify(raw);

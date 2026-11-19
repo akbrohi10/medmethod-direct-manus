@@ -1,5 +1,6 @@
 import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes } from "node:crypto";
 import mysql, { type ResultSetHeader, type RowDataPacket } from "mysql2/promise";
+import { deriveIntakePrivateApplicationKey } from "./intakePrivateApplicationKey";
 
 const TABLE = "intake_text_payments";
 const CONTEXT = "mmd-text-intake-payment-v1";
@@ -31,6 +32,8 @@ export type TextPaymentLockedRecord<R> = {
   save(record: R): Promise<void>;
 };
 export type IntakeTextPaymentStore<R extends TextPaymentStorageRecord> = {
+  /** Configuration only: no key derivation, pool creation, SQL, or connectivity probe. */
+  isConfigured(): boolean;
   hashSubmission(submissionId: string): string;
   hashCapability(token: string): string;
   findCapability(token: string, kind: "payment" | "resume"): Promise<string | null>;
@@ -45,6 +48,7 @@ export class IntakeTextPaymentStoreError extends Error {
   }
 }
 export type IntakeTextPaymentStoreDependencies = {
+  /** Optional explicit payment secret (>=32 characters); an invalid override fails closed. */
   secret?: string;
   databaseUrl?: string;
   pool?: TextPaymentPool;
@@ -58,10 +62,24 @@ export function createIntakeTextPaymentStore<R extends TextPaymentStorageRecord>
 ): IntakeTextPaymentStore<R> {
   let instance: TextPaymentPool | undefined;
   let guardInstance: TextPaymentPool | undefined;
+  // Configuration-only selection: no derivation, pool creation, or SQL. An explicit payment
+  // override must meet its original >=32 policy even when an application key is available.
+  const keySource = () => {
+    const explicit = deps.secret ?? process.env.TEXT_INTAKE_PAYMENT_STORAGE_SECRET;
+    const secret = explicit ?? process.env.JWT_SECRET;
+    if (!secret || secret.length < (explicit !== undefined ? 32 : 16)) return null;
+    return { secret, reuseApplicationKey: secret.length < 32 };
+  };
   const key = () => {
-    const secret = deps.secret ?? process.env.TEXT_INTAKE_PAYMENT_STORAGE_SECRET ?? process.env.JWT_SECRET;
-    if (!secret || secret.length < 32) throw new IntakeTextPaymentStoreError();
-    return createHash("sha256").update(`${CONTEXT}:aes:${secret}`).digest();
+    const source = keySource();
+    if (!source) throw new IntakeTextPaymentStoreError();
+    // Keep all previously supported payment keys byte-for-byte compatible (including JWT>=32).
+    if (!source.reuseApplicationKey) return createHash("sha256").update(`${CONTEXT}:aes:${source.secret}`).digest();
+    // Reuse the established >=16 application-key policy without requesting another secret.
+    // HMAC domain separation yields distinct payment key bytes, not additional secret entropy.
+    return createHmac("sha256", deriveIntakePrivateApplicationKey(source.secret))
+      .update(`${CONTEXT}:aes-256-gcm:application-key-v1`, "utf8")
+      .digest();
   };
   const pool = () => {
     key();
@@ -108,6 +126,9 @@ export function createIntakeTextPaymentStore<R extends TextPaymentStorageRecord>
   };
 
   return {
+    isConfigured() {
+      return !!keySource() && !!(deps.pool || (deps.databaseUrl ?? process.env.DATABASE_URL));
+    },
     hashSubmission(id) {
       if (typeof id !== "string" || id.length > 128 || id.length < 16) throw new IntakeTextPaymentStoreError();
       return keyedHash("submission", id);

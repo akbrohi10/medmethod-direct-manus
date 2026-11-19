@@ -1,0 +1,115 @@
+{
+  "baseline": "71497ac6a6e2b8b87a0aa12ce15cc449565300a0",
+  "hashes": {
+    "client/intake/index.html": "a59e0532d783e3e596427114a5e20c4aa8409b226a1d851085b9d7b3c7fe0e0a",
+    "client/public/intake/text-payment.js": "bbc862a5841119d6a915eba772e40e6106288d821d5c478de421f8c57abd07a0",
+    "client/public/intake/text-payment.css": "3db9dbd301f2091fc764803200d76cbd4d6f0b097038cee0dd258868c2dd9f4d",
+    "client/public/intake/text-payment-api.js": "b07fa08c750839fa92a68105a2020a913495393f1febcfbbc2d6856fec3e9c4d",
+    "client/intake-text-payment-transport.ts": "a006a5ba9fe3f7a2fe1e0c7ceb0a540316ea9d59a3f3306d1daa8b96a4ca5fca",
+    "server/intakeTextPaymentService.ts": "6736cc5d9ecae6ba1129ae6c81dd5fcbf800103a703935131d1d1b3d3149d241",
+    "server/intakeTextPaymentStore.ts": "e2297ff170ccb2ac09c62e0bb55fd8f281305b077dd77bdbac069fe4a90ed684",
+    "server/routers/intakeTextPayment.ts": "6715b0ba805de11840ead68acd194040daec22634100246a4fb0d75bc5d54586",
+    "server/intakePrivateBlobDb.ts": "a3eb037470b334e1b00d87c69619db62c3bd7761f282b65f4678fd5b60f18454",
+    "server/intakePaymentRoutes.ts": "1f55d90a468b65773f6f8f4ace928cbb03c521684f3fe7b9d6bc5dab5af88276",
+    "server/intakeTextPaymentIntegration.ts": "612a715d6e940d9230c48f2e327b8cb66c4ca428e7153720c1504c59d88e6b5e",
+    "server/intakeTextPaymentWorker.ts": "eb7772a27de8cdb26c3c19fe3e8bd1b86ccf03dc32508a05590ade2f75824cbe",
+    "server/ghlIntakeWebhookQueue.ts": "97aa507744cc143f414f7eeaa0718d88f0b18119c5cac251332926b146d4f958",
+    "server/metaLeadTracking.ts": "48058737ef93e1e60f56ab4f22719d8b69d4a700068b7b4450dac0305aa56b59",
+    "client/public/meta-lead.js": "9f1471d8b93fa9dac320dd552aa4855b26add0a5430af92ff292c57e3f8ee27d",
+    "client/intake/thank-you/index.html": "4111874dd78d41d8786fe4f9e937fea4ed7d9ee26ac15e9c119079ac4c38a817"
+  },
+  "ui_edits": [
+    {
+      "old": "  var RECOVERY_ERROR = \"We couldn't confirm your payment status. Check again before making another payment.\";",
+      "new": "  var RECOVERY_ERROR = \"We couldn't confirm your payment status. Check again before making another payment.\";\n  var STORAGE_ERROR = \"Payment checkout is not configured. Please contact the Care Team; do not make another payment.\";\n  var MODE_ERROR = \"The payment mode changed. Please refresh checkout or contact the Care Team; do not make another payment.\";\n  var CONFIRMATION_ERROR = \"Payment confirmation is unavailable. Please retry or contact the Care Team; do not make another payment.\";\n  function safePaymentMessage(failure, fallback) {\n    var message = failure && failure.message;\n    return [STORAGE_ERROR, MODE_ERROR, CONFIRMATION_ERROR, CONFIG_ERROR].indexOf(message) !== -1 ? message : fallback;\n  }",
+      "position": 522
+    },
+    {
+      "old": "          if (!validConfig(config)) throw new Error(CONFIG_ERROR);",
+      "new": "          if (!validConfig(config)) throw new Error(config && config.readiness_reason === \"payment_storage_unavailable\" ? STORAGE_ERROR : CONFIG_ERROR);",
+      "position": 6549
+    },
+    {
+      "old": "      var cardFields = React.useRef(null), cardSubmission = React.useRef(null);",
+      "new": "      var cardFields = React.useRef(null), cardSubmission = React.useRef(null), safeFailure = React.useRef(\"\");",
+      "position": 7309
+    },
+    {
+      "old": "      function showError(message) { if (mounted.current) setError(message); }",
+      "new": "      function showError(message) {\n        safeFailure.current = [STORAGE_ERROR, MODE_ERROR, CONFIRMATION_ERROR, CONFIG_ERROR].indexOf(message) !== -1 ? message : \"\";\n        if (mounted.current) setError(message);\n      }\n      async function freshConfiguration(activeConfig) {\n        var current;\n        try {\n          // Configuration only: no intake, card values, order, capture or settings change.\n          current = await helpers.request(\"/api/intake/text-payment/config\", { method: \"GET\" }, CONFIG_ERROR);\n        } catch (failure) { throw new Error(safePaymentMessage(failure, CONFIG_ERROR)); }\n        if (!validConfig(current)) throw new Error(current && current.readiness_reason === \"payment_storage_unavailable\" ? STORAGE_ERROR : CONFIG_ERROR);\n        if (!sameMode(current, activeConfig)) throw new Error(MODE_ERROR);\n        return current;\n      }",
+      "position": 8860
+    },
+    {
+      "old": "      function paymentFailed() {",
+      "new": "      function paymentFailed(failure) {",
+      "position": 11339
+    },
+    {
+      "old": "        showError(PAYMENT_ERROR); updateActions();",
+      "new": "        showError(safeFailure.current || safePaymentMessage(failure, PAYMENT_ERROR)); updateActions();",
+      "position": 11573
+    },
+    {
+      "old": "        if (op.pair) { op.open = true; payBusy(true); updateActions(); return Promise.resolve(op.pair.order_id); }\n",
+      "new": "",
+      "position": 11934
+    },
+    {
+      "old": "          // Read the current callback only when checkout starts. Serialize a real immutable snapshot.",
+      "new": "          await freshConfiguration(config);\n          if (op.pair) return op.pair.order_id;\n          // Read the current callback only when checkout starts. Serialize a real immutable snapshot.",
+      "position": 12029
+    },
+    {
+      "old": "        })().catch(function () {\n          op.open = false; payBusy(false); showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);\n        }).finally(function () { op.create = null; updateActions(); });",
+      "new": "        })().catch(function (failure) {\n          var message = safePaymentMessage(failure, PAYMENT_ERROR);\n          op.open = false; payBusy(false); showError(message); throw new Error(message);\n        }).finally(function () { op.create = null; updateActions(); });",
+      "position": 12719
+    },
+    {
+      "old": "          var result = await post(\"/api/intake/text-payment/capture\", op.pair);",
+      "new": "          await freshConfiguration(config);\n          var result = await post(\"/api/intake/text-payment/capture\", op.pair);",
+      "position": 13519
+    },
+    {
+      "old": "        })().catch(function () {\n          // An ambiguous capture must be checked server-side before enabling another attempt.\n          op.blocked = true;\n          if (mounted.current) setRecovering(true);\n          showError(PAYMENT_ERROR); throw new Error(PAYMENT_ERROR);\n        }).finally(function () { op.capture = null; op.open = false; payBusy(false); updateActions(); });",
+      "new": "        })().catch(function (failure) {\n          // An ambiguous capture must be checked server-side before enabling another attempt.\n          op.blocked = true;\n          if (mounted.current) setRecovering(true);\n          var message = safePaymentMessage(failure, PAYMENT_ERROR);\n          showError(message); throw new Error(message);\n        }).finally(function () { op.capture = null; op.open = false; payBusy(false); updateActions(); });",
+      "position": 13685
+    },
+    {
+      "old": "        })().catch(function () { showError(RECOVERY_ERROR); }).finally(function () { op.status = null; updateActions(); });",
+      "new": "        })().catch(function (failure) { showError(safePaymentMessage(failure, RECOVERY_ERROR)); }).finally(function () { op.status = null; updateActions(); });",
+      "position": 15481
+    },
+    {
+      "old": "          setLoading(failure.message === CONFIG_ERROR ? \"configuration-error\" : \"sdk-error\");\n          setError(failure.message === CONFIG_ERROR ? CONFIG_ERROR : SDK_ERROR);",
+      "new": "          var message = safePaymentMessage(failure, SDK_ERROR);\n          setLoading(message === CONFIG_ERROR || message === STORAGE_ERROR ? \"configuration-error\" : \"sdk-error\");\n          showError(message);",
+      "position": 16641
+    },
+    {
+      "old": "        cardSubmission.current = Promise.resolve().then(async function () {\n          if (config.environment === \"live\") {",
+      "new": "        cardSubmission.current = Promise.resolve().then(async function () {\n          showError(\"\");\n          await freshConfiguration(config);\n          if (config.environment === \"live\") {",
+      "position": 20330
+    },
+    {
+      "old": "        }).catch(function () { paymentFailed(); }).finally(function () {",
+      "new": "        }).catch(function (failure) { paymentFailed(failure); }).finally(function () {",
+      "position": 21114
+    }
+  ],
+  "html_edits": [
+    {
+      "old": "/intake/text-payment.css?v=20261119-inline-card-v2",
+      "new": "/intake/text-payment.css?v=20261119-readiness-v3",
+      "position": 50296
+    },
+    {
+      "old": "/intake/text-payment-api.js?v=20261119-inline-card-v2",
+      "new": "/intake/text-payment-api.js?v=20261119-readiness-v3",
+      "position": 50928
+    },
+    {
+      "old": "/intake/text-payment.js?v=20261119-inline-card-v2",
+      "new": "/intake/text-payment.js?v=20261119-readiness-v3",
+      "position": 51004
+    }
+  ]
+}

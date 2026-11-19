@@ -14,6 +14,8 @@ class MockStore implements IntakeTextPaymentStore<RecordType> {
   records = new Map<string, RecordType>();
   queues = new Map<string, Promise<unknown>>();
   failSave = false;
+  ready = true;
+  isConfigured() { return this.ready; }
   hashSubmission(id: string) { return createHash("sha256").update(`id:${id}`).digest("hex"); }
   hashCapability(token: string) {
     if (!/^[A-Za-z0-9_-]{43}$/.test(token)) throw new Error("invalid");
@@ -141,7 +143,7 @@ describe("text intake saved PayPal configuration", () => {
     });
     await expect(s.dependencies.config()).rejects.toMatchObject({ code: "not_configured" });
     const service = createIntakeTextPaymentService(s.dependencies);
-    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00" });
+    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00", readiness_reason: "paypal_unavailable" });
     await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
     expect(s.calls).toHaveLength(0);
   });
@@ -153,7 +155,7 @@ describe("text intake saved PayPal configuration", () => {
     });
     await expect(s.dependencies.config()).rejects.toMatchObject({ code: "not_configured" });
     const service = createIntakeTextPaymentService(s.dependencies);
-    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00" });
+    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00", readiness_reason: "paypal_unavailable" });
     await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
     expect(settings).toHaveBeenCalledTimes(3);
     expect(s.calls).toHaveLength(0);
@@ -172,7 +174,7 @@ describe("text intake saved PayPal configuration", () => {
       const s = setup();
       s.dependencies.config = () => getIntakeTextPaymentConfig({ env: { ...env, [`${prefix}_CLIENT_SECRET`]: undefined }, settings });
       const service = createIntakeTextPaymentService(s.dependencies);
-      expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: mode, amount: "29.00" });
+      expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: mode, amount: "29.00", readiness_reason: "paypal_unavailable" });
       await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
       expect(s.calls).toHaveLength(0);
     }
