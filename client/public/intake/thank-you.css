@@ -7,3 +7,16 @@ body.ty-checkout-active #confirmed-intake>h1,body.ty-checkout-active #confirmed-
 /* The existing primary-button pseudo-element supplies its arrow. */
 #open-video-checkout::after{content:none!important}
 @media(max-width:720px){.confirmation .checkmark{width:24px;height:24px;font-size:16px;margin-bottom:4px}}
+
+/* The confirmation panel stays light even when the browser prefers dark mode. */
+.premium-form-panel #video-checkout > p:not(.checkout-status):not(.checkout-error),
+.premium-form-panel #video-checkout .checkout-note,
+.premium-form-panel #video-checkout .paypal-field > span,
+.premium-form-panel #video-checkout .coupon > label {
+  color: #113A3A !important;
+  opacity: 1;
+}
+.premium-form-panel a:not(.primary):not(.secondary),
+.premium-form-panel .ty-text-link {
+  color: #0E7C7B !important;
+}
