@@ -10,7 +10,7 @@ const pair = { payment_token: "opaque.payment.capability", order_id: "ORDER_29" 
 const receipt = { payment_status: "COMPLETED", payment_provider: "paypal", amount: "29.00", environment: "sandbox", redirect_url: "/intake/thank-you/", submission_token: "receipt_only" };
 const decline = "Your payment didn't go through. Please try again or use a different card.";
 const tick = () => new Promise<void>(resolve => setImmediate(resolve));
-const fieldNames = ["NumberField", "ExpiryField", "CVVField"] as const;
+const fieldNames = ["NameField", "NumberField", "ExpiryField", "CVVField"] as const;
 
 // Minimal deterministic React hooks/DOM harness. SDK scripts never execute and every request is mocked.
 // Provider fields contain no PAN/CVV/name values: only validity and opaque provider order IDs are modeled.
@@ -142,7 +142,7 @@ function harness(options: { config?: any; saved?: any; cardEligible?: boolean; c
 }
 
 describe("isolated $29 text intake payment UI", () => {
-  it("uses a single namespaced CardFields SDK, three embedded fields, public config and sandbox-only buyer-country", async () => {
+  it("uses a single namespaced CardFields SDK, four embedded fields, public config and sandbox-only buyer-country", async () => {
     const h = harness(); await h.flush();
     expect(h.scripts).toHaveLength(1);
     const url = new URL(h.scripts[0].src);
@@ -159,9 +159,9 @@ describe("isolated $29 text intake payment UI", () => {
       const host = h.sdkInstances[0].fields[name].render.mock.calls[0][0];
       expect(host.nodeType).toBe(1); expect(h.nodes).toContain(host); hosts.push(host);
     });
-    expect(new Set(hosts).size).toBe(3);
+    expect(new Set(hosts).size).toBe(4);
     expect(h.payButton().props.disabled).toBe(false);
-    expect(h.text(h.payButton())).toMatch(/Pay.*\$29/i);
+    expect(h.text(h.payButton())).toBe("Pay $29 securely →");
     expect(h.text()).not.toMatch(/Pay with PayPal|PayPal wallet|You can use PayPal/);
     expect(h.walk(node => node.type === "input")).toHaveLength(0);
     expect(h.text()).toContain("Credit card payment – $29 today");
@@ -177,6 +177,45 @@ describe("isolated $29 text intake payment UI", () => {
     h.props.valid = false; h.rerender(); await h.flush();
     expect(h.scripts).toHaveLength(1); expect(h.sdkOptions).toHaveLength(1);
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/config"))).toHaveLength(1);
+  });
+
+  it("orders four provider-hosted labels with an expiry/CVV row and one exact secure Pay CTA without app-owned name input or storage", async () => {
+    const h = harness(); await h.flush();
+    const labels = ["Cardholder name", "Card number", "Expiration date", "Security code"];
+    expect(h.walk(node => node.props?.className === "mmd-text-card-label").map(node => h.text(node))).toEqual(labels);
+    const hosts = h.walk(node => node.props?.className === "mmd-text-card-host");
+    expect(hosts).toHaveLength(4);
+    expect(hosts.map(node => node.props["aria-label"])).toEqual(labels);
+    fieldNames.forEach((name, index) => {
+      expect(hosts[index].type).toBe("div");
+      expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledTimes(1);
+      expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledWith(hosts[index].props.ref.current);
+      expect(hosts[index].props).not.toHaveProperty("value");
+      expect(hosts[index].props).not.toHaveProperty("defaultValue");
+      expect(hosts[index].props).not.toHaveProperty("onInput");
+      expect(hosts[index].props).not.toHaveProperty("onChange");
+    });
+    const rows = h.walk(node => node.props?.className === "mmd-text-card-row");
+    expect(rows).toHaveLength(1);
+    expect(h.walk(node => node.props?.className === "mmd-text-card-label", rows[0]).map(node => h.text(node))).toEqual(labels.slice(2));
+    const payButtons = h.walk(node => node.type === "button" && /\bPay\b/.test(h.text(node)));
+    expect(payButtons).toHaveLength(1);
+    expect(payButtons[0]).toBe(h.payButton());
+    expect(h.text(payButtons[0])).toBe("Pay $29 securely →");
+    expect(source).toContain(".NameField(");
+    expect(source).not.toMatch(/\.value\b|\[\s*["']value["']\s*\]/);
+    expect(h.walk(node => node.type === "input" || node.type === "textarea" || node.type === "iframe" || node.props?.contentEditable)).toHaveLength(0);
+    expect(h.window.sessionStorage.setItem).not.toHaveBeenCalled();
+    h.payButton().props.onClick(); await h.flush();
+    expect(h.window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(h.window.sessionStorage.setItem).toHaveBeenCalledWith("mmd_text_payment_v1", JSON.stringify(pair));
+    const order = h.request.mock.calls.find(([path]: any[]) => path.endsWith("/order"));
+    const capture = h.request.mock.calls.find(([path]: any[]) => path.endsWith("/capture"));
+    expect(JSON.parse(order[1].body)).toEqual({ intake: { submission_id: "local-test" }, signing: { opaque: "snapshot" } });
+    expect(JSON.parse(capture[1].body)).toEqual(pair);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
+    expect(h.entries.size).toBe(0);
   });
 
   it("omits sandbox-only parameters in live mode and fails closed for invalid config", async () => {
@@ -409,17 +448,34 @@ describe("isolated $29 text intake payment UI", () => {
     expect(h.window.paypal).toBeUndefined();
   });
 
-  it("keeps native Pay disabled until all three provider fields finish rendering", async () => {
-    const release: (() => void)[] = [];
-    const h = harness({ fieldRender: () => new Promise<void>(resolve => release.push(resolve)) });
+  it.each(fieldNames)("keeps native Pay disabled until all four provider fields finish rendering, including pending %s", async pendingField => {
+    const release = new Map<string, () => void>();
+    const h = harness({ fieldRender: name => new Promise<void>(resolve => { release.set(name, resolve); }) });
     await h.flush();
-    expect(release).toHaveLength(3);
+    expect([...release.keys()]).toEqual(fieldNames);
+    expect(release.size).toBe(4);
     expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
-    release.slice(0, 2).forEach(done => done()); await h.flush();
-    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
-    release[2](); await h.flush();
+    for (const name of fieldNames.filter(name => name !== pendingField)) {
+      release.get(name)!(); await h.flush();
+      expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
+      h.payButton()?.props.onClick(); await h.flush();
+      expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+      expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+      expect(h.props.getInput).not.toHaveBeenCalled();
+      expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order") || path.endsWith("/capture"))).toHaveLength(0);
+      expect(h.window.sessionStorage.setItem).not.toHaveBeenCalled();
+      expect(h.props.onComplete).not.toHaveBeenCalled();
+    }
+    release.get(pendingField)!(); await h.flush();
     expect(h.payButton().props.disabled).toBe(false);
     expect(h.sdkOptions).toHaveLength(1);
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(0);
+    h.payButton().props.onClick(); await h.flush();
+    expect(h.sdkInstances[0].getState).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].submit).toHaveBeenCalledTimes(1);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(1);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/capture"))).toHaveLength(1);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
   });
 });

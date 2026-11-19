@@ -123,7 +123,7 @@
     }
     return function TextPayment(props) {
       var latest = React.useRef(props); latest.current = props;
-      var root = React.useRef(null), numberHost = React.useRef(null), expiryHost = React.useRef(null), securityHost = React.useRef(null);
+      var root = React.useRef(null), nameHost = React.useRef(null), numberHost = React.useRef(null), expiryHost = React.useRef(null), securityHost = React.useRef(null);
       var cardFields = React.useRef(null), cardSubmission = React.useRef(null);
       var mounted = React.useRef(false);
       var operation = React.useRef(null);
@@ -271,7 +271,7 @@
         if (config && op.pair && !op.done && (!op.recovered || recoveryRetry > 0)) checkStatus(config);
       }, [config, resumeToken, resumeOrder, recoveryRetry]);
       React.useEffect(function () {
-        if (!sdk || !config || !numberHost.current || !expiryHost.current || !securityHost.current) return;
+        if (!sdk || !config || !nameHost.current || !numberHost.current || !expiryHost.current || !securityHost.current) return;
         var stopped = false, instance = null, fields = [];
         setFunding({ card: null });
         try {
@@ -282,11 +282,12 @@
           });
           if (!instance.isEligible()) { setFunding({ card: false }); return; }
           cardFields.current = instance;
+          var name = instance.NameField({ placeholder: "Cardholder name" });
           var number = instance.NumberField({ placeholder: "Card number" });
           var expiry = instance.ExpiryField({ placeholder: "MM / YY" });
           var security = instance.CVVField({ placeholder: "Security code" });
-          fields = [number, expiry, security];
-          Promise.all([number.render(numberHost.current), expiry.render(expiryHost.current), security.render(securityHost.current)])
+          fields = [name, number, expiry, security];
+          Promise.all([name.render(nameHost.current), number.render(numberHost.current), expiry.render(expiryHost.current), security.render(securityHost.current)])
             .then(function () { if (!stopped) setFunding({ card: true }); })
             .catch(function () { if (!stopped) { setLoading("fields-error"); showError(SDK_ERROR); } });
         } catch (_) { if (!stopped) { setLoading("fields-error"); showError(SDK_ERROR); } }
@@ -336,10 +337,11 @@
         config && config.environment === "sandbox" && JSX.jsx("p", { className: "mmd-text-payment-sandbox", role: "status", children: "Sandbox test payment — no real charge." }),
         loading === "loading" && JSX.jsx("p", { className: "mmd-text-payment-status", role: "status", children: "Loading secure payment options…" }),
         JSX.jsxs("div", { className: "mmd-text-payment-options", hidden: loading !== "ready" || confirmed || unavailable, children: [
+          field(nameHost, "Cardholder name", "mmd-text-card-name"),
           field(numberHost, "Card number", "mmd-text-card-number"),
           JSX.jsxs("div", { className: "mmd-text-card-row", children: [field(expiryHost, "Expiration date"), field(securityHost, "Security code")] }),
           JSX.jsx("button", { type: "button", className: "mmd-text-payment-pay", disabled: funding.card !== true || busy || recovering || confirmed,
-            "aria-disabled": props.valid !== true || undefined, onClick: submitCard, children: busy ? "Processing payment…" : "Pay $29" }),
+            "aria-disabled": props.valid !== true || undefined, onClick: submitCard, children: busy ? "Processing payment…" : "Pay $29 securely →" }),
           JSX.jsx("p", { className: "mmd-text-card-provider", children: "Secure card processing by PayPal." })
         ] }),
         unavailable && JSX.jsx("p", { className: "mmd-text-payment-availability", role: "alert", children: "Credit card payment is not enabled for this account or browser. Please contact the Care Team at (888) 362-7011." }),
