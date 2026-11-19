@@ -76,10 +76,10 @@ describe("Masterclass V3 — edited actual short-source copy only", () => {
     expect(page).toContain("tracker.dispose()");
     expect(page).toContain("player?.destroy()");
     expect(page).not.toContain("autoplay=1");
-    expect(page).not.toContain("LpConsultationModal2");
+    expect(page).toContain('<LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage="/masterclass" startAtPayment />');
     expect(page).not.toMatch(/<form\b/);
   });
-  it("places booking directly after video and repeats both exact booking links after pricing", () => {
+  it("places booking directly after video and repeats the source discovery link and physician modal action after pricing", () => {
     const video = page.indexOf("ref={videoRef}");
     const booking = page.indexOf("<section data-masterclass-video-first-booking");
     const learning = page.indexOf("data-webinar2-learning");
@@ -89,7 +89,8 @@ describe("Masterclass V3 — edited actual short-source copy only", () => {
     const bottom = page.indexOf("data-masterclass3-bottom-booking");
     expect([video,booking,learning,bio,featured,price,bottom]).toEqual([video,booking,learning,bio,featured,price,bottom].sort((a,b)=>a-b));
     expect(page.match(/href="\/care-team-booking"/g)).toHaveLength(2);
-    expect(page.match(/href="\/book-a-visit"/g)).toHaveLength(2);
+    expect(page).not.toContain("/book-a-visit");
+    expect(page.match(/data-masterclass3-secondary-cta onClick=\{\(\) => setConsultationOpen\(true\)\}/g)).toHaveLength(2);
     expect(page.match(/Book Your Free 15-Minute Discovery Call/g)).toHaveLength(2);
     expect(page.match(/Book Your 45-Minute Visit with Dr\. Al-Deek — \$199/g)).toHaveLength(2);
   });

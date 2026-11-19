@@ -83,5 +83,30 @@
     "old": "      <LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage=\"/masterclass\" startAtPayment />\n",
     "new": "",
     "at": 27131
+  },
+  {
+    "old": "import { Helmet }",
+    "new": "import LpConsultationModal2 from \"@/components/home1/LpConsultationModal2\";\nimport { Helmet }",
+    "at": 106
+  },
+  {
+    "old": "export default function Masterclass3() {\n",
+    "new": "export default function Masterclass3() {\n  const [consultationOpen, setConsultationOpen] = useState(false);\n",
+    "at": 10154
+  },
+  {
+    "old": "              <a href=\"/book-a-visit\" data-masterclass3-secondary-cta className=\"mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]\">\n                Book Your 45-Minute Visit with Dr. Al-Deek \u2014 $199\n              </a>",
+    "new": "              <button type=\"button\" data-masterclass3-secondary-cta onClick={() => setConsultationOpen(true)} className=\"mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]\">\n                Book Your 45-Minute Visit with Dr. Al-Deek \u2014 $199\n              </button>",
+    "at": 19033
+  },
+  {
+    "old": "              <a href=\"/book-a-visit\" data-masterclass3-secondary-cta className=\"mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]\">\n                Book Your 45-Minute Visit with Dr. Al-Deek \u2014 $199\n              </a>",
+    "new": "              <button type=\"button\" data-masterclass3-secondary-cta onClick={() => setConsultationOpen(true)} className=\"mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]\">\n                Book Your 45-Minute Visit with Dr. Al-Deek \u2014 $199\n              </button>",
+    "at": 25326
+  },
+  {
+    "old": "      </article>\n    </main>",
+    "new": "      </article>\n      <LpConsultationModal2 open={consultationOpen} onClose={() => setConsultationOpen(false)} landingPage=\"/masterclass\" startAtPayment />\n    </main>",
+    "at": 27347
   }
 ]
