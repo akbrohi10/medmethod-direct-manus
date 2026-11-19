@@ -101,11 +101,11 @@ function setup(mode: "sandbox" | "live" = "sandbox") {
   };
 }
 
-describe("text intake independent configuration", () => {
-  it("defaults sandbox regardless of shared live settings; only public client ID escapes", async () => {
+describe("text intake saved PayPal configuration", () => {
+  it("follows saved live settings; only public client ID escapes", async () => {
     expect(textIntakeMode({})).toBe("sandbox");
     const settings = async () => ({ mode: "live", sandboxClientId: "S", sandboxClientSecret: "SS", liveClientId: "L", liveClientSecret: "LS" });
-    expect(await getIntakeTextPaymentConfig({ env: {}, settings })).toEqual({ mode: "sandbox", clientId: "S", clientSecret: "SS" });
+    expect(await getIntakeTextPaymentConfig({ env: {}, settings })).toEqual({ mode: "live", clientId: "L", clientSecret: "LS" });
     expect(await getIntakeTextPaymentConfig({ env: { TEXT_INTAKE_PAYMENT_MODE: "live" }, settings })).toEqual({ mode: "live", clientId: "L", clientSecret: "LS" });
     const s = setup();
     expect(await s.service.configuration()).toEqual({ configured: true, client_id: "PUBLIC CLIENT", environment: "sandbox", amount: "29.00" });
@@ -115,6 +115,67 @@ describe("text intake independent configuration", () => {
     const c = await getIntakeTextPaymentConfig({ env: { PAYPAL_SANDBOX_CLIENT_ID: "ENV", PAYPAL_SANDBOX_CLIENT_SECRET: "ENV_SECRET" }, settings: async () => ({ sandboxClientId: "HALF" }) });
     expect(c).toEqual({ mode: "sandbox", clientId: "ENV", clientSecret: "ENV_SECRET" });
     expect(() => textIntakeMode({ TEXT_INTAKE_PAYMENT_MODE: "LIVE" })).toThrow();
+  });
+  it.each([
+    ["live", "sandbox"],
+    ["sandbox", "live"],
+  ] as const)("saved %s mode overrides environment %s", async (mode, envMode) => {
+    const settings = async () => ({ mode, sandboxClientId: "S", sandboxClientSecret: "SS", liveClientId: "L", liveClientSecret: "LS" });
+    expect(await getIntakeTextPaymentConfig({ env: { TEXT_INTAKE_PAYMENT_MODE: envMode }, settings })).toEqual({
+      mode, clientId: mode === "sandbox" ? "S" : "L", clientSecret: mode === "sandbox" ? "SS" : "LS",
+    });
+    expect((await getIntakeTextPaymentConfig({ env: { TEXT_INTAKE_PAYMENT_MODE: "INVALID" }, settings })).mode).toBe(mode);
+  });
+  it.each([null, {}, { mode: null }])("uses validated environment mode only without a saved mode (%j)", async saved => {
+    const settings = async () => saved;
+    expect(await getIntakeTextPaymentConfig({ env: {}, settings })).toEqual({ mode: "sandbox", clientId: "", clientSecret: "" });
+    expect(await getIntakeTextPaymentConfig({ env: { TEXT_INTAKE_PAYMENT_MODE: "live", PAYPAL_LIVE_CLIENT_ID: "L", PAYPAL_LIVE_CLIENT_SECRET: "LS" }, settings }))
+      .toEqual({ mode: "live", clientId: "L", clientSecret: "LS" });
+    await expect(getIntakeTextPaymentConfig({ env: { TEXT_INTAKE_PAYMENT_MODE: "INVALID" }, settings })).rejects.toMatchObject({ code: "not_configured" });
+  });
+  it.each(["LIVE", "", "invalid"])("invalid saved mode %j fails closed despite usable environment credentials", async mode => {
+    const s = setup();
+    s.dependencies.config = () => getIntakeTextPaymentConfig({
+      env: { TEXT_INTAKE_PAYMENT_MODE: "sandbox", PAYPAL_SANDBOX_CLIENT_ID: "ENV", PAYPAL_SANDBOX_CLIENT_SECRET: "ENV_SECRET" },
+      settings: async () => ({ mode, sandboxClientId: "S", sandboxClientSecret: "SS" }),
+    });
+    await expect(s.dependencies.config()).rejects.toMatchObject({ code: "not_configured" });
+    const service = createIntakeTextPaymentService(s.dependencies);
+    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00" });
+    await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
+    expect(s.calls).toHaveLength(0);
+  });
+  it("settings lookup failure never falls back to environment credentials or calls a provider", async () => {
+    const s = setup();
+    const settings = vi.fn(async () => { throw new Error("settings lookup failed"); });
+    s.dependencies.config = () => getIntakeTextPaymentConfig({
+      env: { TEXT_INTAKE_PAYMENT_MODE: "live", PAYPAL_LIVE_CLIENT_ID: "ENV", PAYPAL_LIVE_CLIENT_SECRET: "ENV_SECRET" }, settings,
+    });
+    await expect(s.dependencies.config()).rejects.toMatchObject({ code: "not_configured" });
+    const service = createIntakeTextPaymentService(s.dependencies);
+    expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: "sandbox", amount: "29.00" });
+    await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
+    expect(settings).toHaveBeenCalledTimes(3);
+    expect(s.calls).toHaveLength(0);
+  });
+  it.each(["live", "sandbox"] as const)("saved %s mode uses only a complete selected-mode credential pair", async mode => {
+    const prefix = mode === "sandbox" ? "PAYPAL_SANDBOX" : "PAYPAL_LIVE";
+    const oppositeMode = mode === "sandbox" ? "live" : "sandbox";
+    const env = { TEXT_INTAKE_PAYMENT_MODE: oppositeMode,
+      PAYPAL_SANDBOX_CLIENT_ID: "ENV_S", PAYPAL_SANDBOX_CLIENT_SECRET: "ENV_SS",
+      PAYPAL_LIVE_CLIENT_ID: "ENV_L", PAYPAL_LIVE_CLIENT_SECRET: "ENV_LS" };
+    for (const half of ["ClientId", "ClientSecret"]) {
+      const settings = async () => ({ mode, [`${mode}${half}`]: "HALF",
+        [`${oppositeMode}ClientId`]: "OTHER", [`${oppositeMode}ClientSecret`]: "OTHER_SECRET" });
+      expect(await getIntakeTextPaymentConfig({ env, settings })).toEqual({ mode,
+        clientId: env[`${prefix}_CLIENT_ID`], clientSecret: env[`${prefix}_CLIENT_SECRET`] });
+      const s = setup();
+      s.dependencies.config = () => getIntakeTextPaymentConfig({ env: { ...env, [`${prefix}_CLIENT_SECRET`]: undefined }, settings });
+      const service = createIntakeTextPaymentService(s.dependencies);
+      expect(await service.configuration()).toEqual({ configured: false, client_id: null, environment: mode, amount: "29.00" });
+      await expect(service.create(input())).rejects.toMatchObject({ code: "not_configured" });
+      expect(s.calls).toHaveLength(0);
+    }
   });
   it("missing credentials fail closed before provider calls", async () => {
     const s = setup();

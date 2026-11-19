@@ -10,29 +10,43 @@ const pair = { payment_token: "opaque.payment.capability", order_id: "ORDER_29" 
 const receipt = { payment_status: "COMPLETED", payment_provider: "paypal", amount: "29.00", environment: "sandbox", redirect_url: "/intake/thank-you/", submission_token: "receipt_only" };
 const decline = "Your payment didn't go through. Please try again or use a different card.";
 const tick = () => new Promise<void>(resolve => setImmediate(resolve));
+const fieldNames = ["NumberField", "ExpiryField", "CVVField"] as const;
 
 // Minimal deterministic React hooks/DOM harness. SDK scripts never execute and every request is mocked.
-function harness(options: { config?: any; saved?: any; cardEligible?: boolean; request?: any; autoSdk?: boolean } = {}) {
+// Provider fields contain no PAN/CVV/name values: only validity and opaque provider order IDs are modeled.
+function harness(options: { config?: any; saved?: any; cardEligible?: boolean; cardValid?: boolean; request?: any; autoSdk?: boolean; missingCardFields?: boolean; fieldRender?: (name: string, host: any) => Promise<void>; submit?: (opts: any) => Promise<any> } = {}) {
   const entries = new Map<string, string>();
   if (options.saved) entries.set("mmd_text_payment_v1", JSON.stringify(options.saved));
-  const sdkOptions: any[] = [], sdkActions: any[] = [], scripts: any[] = [], nodes: any[] = [];
+  const sdkOptions: any[] = [], sdkInstances: any[] = [], scripts: any[] = [], nodes: any[] = [];
   let tree: any, pending = false, cursor = 0, renderNumber = 0;
   const hooks: any[] = [], effects: (() => void)[] = [], timers = new Map<number, () => void>();
   let timerId = 0;
   const parent = { nodeType: 1, parentElement: null, attributes: {} as any, setAttribute(name: string, value: any) { this.attributes[name] = value; } };
-  const sdk = {
-    FUNDING: { PAYPAL: "paypal", CARD: "card" },
-    Buttons: vi.fn((opts: any) => {
-      sdkOptions.push(opts);
-      const actions = { enable: vi.fn(() => Promise.resolve()), disable: vi.fn(() => Promise.resolve()) };
-      sdkActions.push(actions);
-      return {
-        isEligible: () => opts.fundingSource !== "card" || options.cardEligible !== false,
-        render: vi.fn(async (_host: any) => { opts.onInit({}, actions); }),
+  const sdk: any = {};
+  if (!options.missingCardFields) sdk.CardFields = vi.fn((opts: any) => {
+    sdkOptions.push(opts);
+    const instance: any = {
+      isEligible: vi.fn(() => options.cardEligible !== false),
+      getState: vi.fn(async () => ({ isFormValid: options.cardValid !== false })),
+      submit: vi.fn(async () => {
+        if (options.submit) return options.submit(opts);
+        const orderID = await opts.createOrder();
+        return opts.onApprove({ orderID });
+      }),
+      close: vi.fn(async () => {}),
+      fields: {} as any,
+    };
+    fieldNames.forEach(name => {
+      const field = {
+        render: vi.fn(async (host: any) => { if (options.fieldRender) await options.fieldRender(name, host); }),
         close: vi.fn(async () => {}),
       };
-    }),
-  };
+      instance.fields[name] = field;
+      instance[name] = vi.fn(() => field);
+    });
+    sdkInstances.push(instance);
+    return instance;
+  });
   const window: any = {
     sessionStorage: {
       getItem: vi.fn((key: string) => entries.get(key) || null),
@@ -121,29 +135,47 @@ function harness(options: { config?: any; saved?: any; cardEligible?: boolean; r
     const children = node.props?.children;
     return (Array.isArray(children) ? children : [children]).map(child => child === undefined ? "" : text(child)).join(" ");
   }
+  function payButton() { return walk(node => node.type === "button" && node.props?.className === "mmd-text-payment-pay")[0]; }
   render();
-  return { props, request, flush, sdkOptions, sdkActions, scripts, timers, entries, window, parent, nodes, walk, text,
+  return { props, request, flush, sdk, sdkOptions, sdkInstances, scripts, timers, entries, window, parent, nodes, walk, text, payButton,
     rerender: () => { pending = true; }, tree: () => tree };
 }
 
 describe("isolated $29 text intake payment UI", () => {
-  it("uses a single namespaced SDK, full-width pill styles, public config and sandbox-only buyer-country", async () => {
+  it("uses a single namespaced CardFields SDK, three embedded fields, public config and sandbox-only buyer-country", async () => {
     const h = harness(); await h.flush();
     expect(h.scripts).toHaveLength(1);
     const url = new URL(h.scripts[0].src);
     expect(url.origin + url.pathname).toBe("https://www.paypal.com/sdk/js");
-    expect(Object.fromEntries(url.searchParams)).toEqual({ "client-id": config.client_id, components: "buttons", "enable-funding": "card", "disable-funding": "paylater,venmo", currency: "USD", intent: "capture", "buyer-country": "US" });
+    expect(Object.fromEntries(url.searchParams)).toEqual({ "client-id": config.client_id, components: "card-fields", "disable-funding": "paylater,venmo", currency: "USD", intent: "capture", "buyer-country": "US" });
     expect(h.scripts[0].attributes["data-namespace"]).toBe("mmdTextPayPal");
-    expect(h.sdkOptions.map(opts => opts.fundingSource)).toEqual(["paypal", "card"]);
-    h.sdkOptions.forEach(opts => expect(opts.style).toEqual({ layout: "vertical", shape: "pill", height: 48, label: "pay", tagline: false }));
-    expect(h.text()).toContain("Secure payment – $29 today");
+    expect(h.sdkOptions).toHaveLength(1);
+    expect(h.sdk.CardFields).toHaveBeenCalledTimes(1);
+    expect(h.sdkOptions[0]).toEqual(expect.objectContaining({ createOrder: expect.any(Function), onApprove: expect.any(Function), onError: expect.any(Function), onCancel: expect.any(Function), style: expect.any(Object) }));
+    const hosts: any[] = [];
+    fieldNames.forEach(name => {
+      expect(h.sdkInstances[0][name]).toHaveBeenCalledTimes(1);
+      expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledTimes(1);
+      const host = h.sdkInstances[0].fields[name].render.mock.calls[0][0];
+      expect(host.nodeType).toBe(1); expect(h.nodes).toContain(host); hosts.push(host);
+    });
+    expect(new Set(hosts).size).toBe(3);
+    expect(h.payButton().props.disabled).toBe(false);
+    expect(h.text(h.payButton())).toMatch(/Pay.*\$29/i);
+    expect(h.text()).not.toMatch(/Pay with PayPal|PayPal wallet|You can use PayPal/);
+    expect(h.walk(node => node.type === "input")).toHaveLength(0);
+    expect(h.text()).toContain("Credit card payment – $29 today");
     expect(h.text()).toContain("Sandbox test payment — no real charge.");
     expect(h.text()).toContain("Charged once. Full refund if Dr. Al-Deek determines you're not a candidate. Medication costs are separate.");
     expect(h.parent.attributes).toEqual({ "data-hj-suppress": "true", "data-cs-mask": "true" });
     expect(css).toContain("font: 400 12px/1.5 Inter");
+    const payStyles = css.match(/\.mmd-text-payment\s+\.mmd-text-payment-pay\s*\{([^}]+)\}/)?.[1];
+    expect(payStyles).toMatch(/width:\s*100%/);
+    expect(payStyles).toMatch(/min-height:\s*48px/);
+    expect(payStyles).toMatch(/border-radius:\s*999px/);
     expect(css).not.toMatch(/position:\s*(fixed|sticky)/);
     h.props.valid = false; h.rerender(); await h.flush();
-    expect(h.scripts).toHaveLength(1); expect(h.sdkOptions).toHaveLength(2);
+    expect(h.scripts).toHaveLength(1); expect(h.sdkOptions).toHaveLength(1);
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/config"))).toHaveLength(1);
   });
 
@@ -158,32 +190,38 @@ describe("isolated $29 text intake payment UI", () => {
 
   it("renders SDK funding even when invalid, disables it and intercepts accessible validation taps", async () => {
     const h = harness(); h.props.valid = false; h.rerender(); await h.flush();
-    expect(h.sdkOptions).toHaveLength(2);
-    h.sdkActions.forEach(action => expect(action.disable).toHaveBeenCalled());
-    const guards = h.walk(node => node.props?.className === "mmd-text-payment-validation-guard");
-    expect(guards).toHaveLength(2); expect(guards[0].props["aria-disabled"]).toBe("true");
-    guards[0].props.onClick(); expect(h.props.onValidate).toHaveBeenCalled();
+    expect(h.sdkOptions).toHaveLength(1);
+    fieldNames.forEach(name => expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledTimes(1));
+    // Required intake fields must remain tappable so native Pay can run accessible validation.
+    expect(h.payButton().props.disabled).toBe(false);
+    expect(h.payButton().props["aria-disabled"]).toBe(true);
+    h.payButton().props.onClick(); await h.flush();
+    expect(h.props.onValidate).toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
     await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(decline);
     expect(h.props.getInput).not.toHaveBeenCalled();
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(0);
     h.props.valid = true; h.rerender(); await h.flush();
-    h.sdkActions.forEach(action => expect(action.enable).toHaveBeenCalled());
+    expect(h.payButton().props.disabled).toBe(false);
+    h.props.busy = true; h.rerender(); await h.flush();
+    expect(h.payButton().props.disabled).toBe(true);
   });
 
   it("uses the latest callback snapshot, deduplicates concurrent order/capture and completes once after verification", async () => {
     const h = harness(); await h.flush();
     h.props.getInput = vi.fn(async () => ({ intake: { fresh: "answer-memory-only" }, signing: { opaque: "fresh" } }));
     h.rerender(); await h.flush();
-    const first = h.sdkOptions[0].createOrder(), duplicate = h.sdkOptions[1].createOrder();
+    const first = h.sdkOptions[0].createOrder(), duplicate = h.sdkOptions[0].createOrder();
     expect(duplicate).toBe(first); expect(await first).toBe(pair.order_id); await h.flush();
     expect(h.text()).toContain("Processing your payment…");
+    expect(h.payButton().props.disabled).toBe(true);
     const orders = h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"));
     expect(orders).toHaveLength(1);
     expect(JSON.parse(orders[0][1].body)).toEqual({ intake: { fresh: "answer-memory-only" }, signing: { opaque: "fresh" } });
     expect(JSON.parse(h.entries.get("mmd_text_payment_v1")!)).toEqual(pair);
     expect(JSON.stringify(h.tree())).not.toContain(pair.payment_token);
     const capture = h.sdkOptions[0].onApprove({ orderID: pair.order_id });
-    const duplicateCapture = h.sdkOptions[1].onApprove({ orderID: pair.order_id });
+    const duplicateCapture = h.sdkOptions[0].onApprove({ orderID: pair.order_id });
     expect(duplicateCapture).toBe(capture); await capture; await h.flush();
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/capture"))).toHaveLength(1);
     const payload = h.request.mock.calls.find(([path]: any[]) => path.endsWith("/capture"));
@@ -191,15 +229,16 @@ describe("isolated $29 text intake payment UI", () => {
     expect(h.props.onComplete).toHaveBeenCalledTimes(1); expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
     await h.sdkOptions[0].onApprove({ orderID: pair.order_id }); expect(h.props.onComplete).toHaveBeenCalledTimes(1);
     expect(h.entries.has("mmd_text_payment_v1")).toBe(false);
+    expect(h.payButton().props.disabled).toBe(true);
   });
 
   it("keeps the cached order and input intact across cancellation and provider errors", async () => {
     const h = harness(); await h.flush(); await h.sdkOptions[0].createOrder();
     h.sdkOptions[0].onCancel(); await h.flush();
     expect(h.text()).toContain(decline); expect(h.props.onComplete).not.toHaveBeenCalled();
-    expect(await h.sdkOptions[1].createOrder()).toBe(pair.order_id);
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
     expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(1);
-    h.sdkOptions[1].onError(new Error("private SDK detail")); await h.flush();
+    h.sdkOptions[0].onError(new Error("private SDK detail")); await h.flush();
     expect(h.text()).toContain(decline); expect(h.text()).not.toContain("private SDK detail");
   });
 
@@ -250,6 +289,7 @@ describe("isolated $29 text intake payment UI", () => {
     const h = harness({ request }); await h.flush(); await h.sdkOptions[0].createOrder();
     await expect(h.sdkOptions[0].onApprove({ orderID: pair.order_id })).rejects.toThrow(decline); await h.flush();
     expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(h.payButton().props.disabled).toBe(true);
     await expect(h.sdkOptions[0].createOrder()).rejects.toThrow(decline);
     h.walk(node => node.type === "button" && node.props.children === "Check payment status again")[0].props.onClick(); await h.flush();
     expect(h.props.onComplete).toHaveBeenCalledTimes(1);
@@ -259,13 +299,25 @@ describe("isolated $29 text intake payment UI", () => {
 
   it("reports guest card ineligibility honestly rather than rendering a fake payment button", async () => {
     const h = harness({ cardEligible: false }); await h.flush();
-    expect(h.text()).toContain("Debit or credit card guest checkout isn't available");
-    expect(h.walk(node => node.props?.className === "mmd-text-payment-slot").find(node => node.props.hidden)).toBeTruthy();
+    expect(h.sdk.CardFields).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].isEligible).toHaveBeenCalledTimes(1);
+    expect(h.text()).toContain("Credit card payment is not enabled for this account or browser. Please contact the Care Team at (888) 362-7011.");
+    expect(h.walk(node => node.props?.className === "mmd-text-payment-options").find(node => node.props.hidden)).toBeTruthy();
+    fieldNames.forEach(name => {
+      expect(h.sdkInstances[0][name]).not.toHaveBeenCalled();
+      expect(h.sdkInstances[0].fields[name].render).not.toHaveBeenCalled();
+    });
+    expect(h.walk(node => node.type === "input" || node.type === "iframe")).toHaveLength(0);
+    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
+    expect(h.text()).not.toMatch(/Pay with PayPal|PayPal wallet|You can use PayPal/);
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(0);
     expect(h.props.onComplete).not.toHaveBeenCalled();
   });
 
   it("times out SDK loading and retries locally without creating orders or touching the video namespace", async () => {
     const h = harness({ autoSdk: false }); await h.flush();
+    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
     expect(h.timers.size).toBe(1); Array.from(h.timers.values())[0](); await h.flush();
     expect(h.text()).toContain("temporarily unavailable");
     h.walk(node => node.type === "button" && node.props.children === "Retry loading payment options")[0].props.onClick(); await h.flush();
@@ -274,11 +326,100 @@ describe("isolated $29 text intake payment UI", () => {
     expect(h.window.paypal).toBeUndefined();
   });
 
-  it("never logs, identifies, runs analytics, handles card data or persists patient input", () => {
+  it("never logs, identifies, runs analytics, handles card data or persists patient input", async () => {
     expect(source).not.toMatch(/console\.|\.identify\(|\.track\(|gtag\(|fbq\(|localStorage|actions\.order\.capture/);
-    expect(source).not.toMatch(/client.secret|client_secret|card_number|cvv/i);
+    // CVVField is a provider factory, not card-data handling; raw payment values stay in provider frames.
+    expect(source).toContain(".CVVField(");
+    expect(source).not.toMatch(/client.secret|client_secret|card_number|\b(?:cvv|pan|cardNumber|securityCode)\s*:|["'](?:cvv|pan|cardNumber|securityCode)["']\s*:|\.value\b|\[\s*["']value["']\s*\]/i);
+    expect(source).not.toMatch(/\.Buttons\s*\(|\bFUNDING\b|components:\s*["']buttons["']/);
     expect(source).toContain('JSON.stringify(opaquePair(pair))');
     expect(source).toContain('"data-hj-suppress", "true"');
     expect(source).toContain('"data-cs-mask", "true"');
+    const h = harness(); await h.flush(); h.payButton().props.onClick(); await h.flush();
+    const order = h.request.mock.calls.find(([path]: any[]) => path.endsWith("/order"));
+    const capture = h.request.mock.calls.find(([path]: any[]) => path.endsWith("/capture"));
+    expect(JSON.parse(order[1].body)).toEqual({ intake: { submission_id: "local-test" }, signing: { opaque: "snapshot" } });
+    expect(JSON.parse(capture[1].body)).toEqual(pair);
+    h.window.sessionStorage.setItem.mock.calls.forEach(([key, value]: any[]) => {
+      expect(key).toBe("mmd_text_payment_v1"); expect(JSON.parse(value)).toEqual(pair);
+    });
+    expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
+  });
+
+  it("rejects invalid provider card state before submit or order creation", async () => {
+    const h = harness({ cardValid: false }); await h.flush();
+    expect(h.payButton().props.disabled).toBe(false);
+    h.payButton().props.onClick(); await h.flush();
+    expect(h.props.onValidate).toHaveBeenCalled();
+    expect(h.sdkInstances[0].getState).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).not.toHaveBeenCalled();
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order") || path.endsWith("/capture"))).toHaveLength(0);
+    expect(h.window.sessionStorage.setItem).not.toHaveBeenCalled();
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(h.text()).toContain("Please complete your card details.");
+    expect(h.walk(node => node.props?.role === "alert").length).toBeGreaterThan(0);
+  });
+
+  it("blocks demo intake before provider card submission or order creation in live mode", async () => {
+    const h = harness({ config: { ...config, environment: "live" } }); await h.flush();
+    h.props.getInput = vi.fn(async () => ({ demo_mode: true, intake: { submission_id: "local-test" }, signing: { opaque: "snapshot" } }));
+    h.rerender(); await h.flush();
+    h.payButton().props.onClick(); await h.flush();
+    expect(h.props.getInput).toHaveBeenCalledTimes(1);
+    expect(h.text()).toContain("Demo intakes require Sandbox payment settings. No live payment was started.");
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled();
+    expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order") || path.endsWith("/capture"))).toHaveLength(0);
+    expect(h.window.sessionStorage.setItem).not.toHaveBeenCalled();
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(h.payButton().props.disabled).toBe(false);
+  });
+
+  it("deduplicates native Pay double taps through provider submit and verified capture", async () => {
+    let release!: () => void;
+    const wait = new Promise<void>(resolve => { release = resolve; });
+    const h = harness({ submit: async opts => { await wait; const orderID = await opts.createOrder(); return opts.onApprove({ orderID }); } });
+    await h.flush();
+    const click = h.payButton().props.onClick;
+    click(); click(); await h.flush();
+    expect(h.sdkInstances[0].getState).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].submit).toHaveBeenCalledTimes(1);
+    expect(h.payButton().props.disabled).toBe(true);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(0);
+    release(); await h.flush();
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(1);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/capture"))).toHaveLength(1);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(receipt);
+    click(); await h.flush();
+    expect(h.sdkInstances[0].submit).toHaveBeenCalledTimes(1);
+    expect(h.payButton().props.disabled).toBe(true);
+  });
+
+  it("requires CardFields in the namespaced SDK without wallet or fake-form fallback", async () => {
+    const h = harness({ missingCardFields: true }); await h.flush();
+    expect(h.text()).toContain("temporarily unavailable");
+    expect(h.sdkOptions).toHaveLength(0);
+    expect(h.walk(node => node.type === "input" || node.type === "iframe")).toHaveLength(0);
+    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
+    expect(h.text()).not.toMatch(/Pay with PayPal|PayPal wallet|You can use PayPal/);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order") || path.endsWith("/capture"))).toHaveLength(0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(h.window.paypal).toBeUndefined();
+  });
+
+  it("keeps native Pay disabled until all three provider fields finish rendering", async () => {
+    const release: (() => void)[] = [];
+    const h = harness({ fieldRender: () => new Promise<void>(resolve => release.push(resolve)) });
+    await h.flush();
+    expect(release).toHaveLength(3);
+    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
+    release.slice(0, 2).forEach(done => done()); await h.flush();
+    expect(h.payButton() === undefined || h.payButton().props.disabled === true).toBe(true);
+    release[2](); await h.flush();
+    expect(h.payButton().props.disabled).toBe(false);
+    expect(h.sdkOptions).toHaveLength(1);
+    expect(h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/order"))).toHaveLength(0);
   });
 });

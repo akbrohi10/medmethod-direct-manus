@@ -119,19 +119,20 @@ export function textIntakeMode(env: NodeJS.ProcessEnv = process.env): TextIntake
   if (mode !== "sandbox" && mode !== "live") throw new IntakeTextPaymentError("not_configured");
   return mode;
 }
-/** Injectable read-only settings lookup. Deliberately ignores settings.mode and activeProvider. */
+/** Injectable read-only settings lookup. Saved mode is authoritative; activeProvider is not used. */
 export async function getIntakeTextPaymentConfig(
   options: {
     env?: NodeJS.ProcessEnv;
-    settings?: () => Promise<{ sandboxClientId?: string | null; sandboxClientSecret?: string | null; liveClientId?: string | null; liveClientSecret?: string | null } | null>;
+    settings?: () => Promise<{ mode?: string | null; sandboxClientId?: string | null; sandboxClientSecret?: string | null; liveClientId?: string | null; liveClientSecret?: string | null } | null>;
   } = {},
 ): Promise<TextIntakePaymentConfig> {
   const env = options.env ?? process.env;
-  const mode = textIntakeMode(env);
   let settings: Awaited<ReturnType<NonNullable<typeof options.settings>>> = null;
   try {
     settings = await (options.settings ?? (async () => (await import("./db")).getPaypalSettings()))();
-  } catch { /* Selected-mode environment credentials may still be usable; never log DB errors. */ }
+  } catch { throw new IntakeTextPaymentError("not_configured"); }
+  const mode = settings?.mode ?? textIntakeMode(env);
+  if (mode !== "sandbox" && mode !== "live") throw new IntakeTextPaymentError("not_configured");
   const savedId = mode === "sandbox" ? settings?.sandboxClientId : settings?.liveClientId;
   const savedSecret = mode === "sandbox" ? settings?.sandboxClientSecret : settings?.liveClientSecret;
   const prefix = mode === "sandbox" ? "PAYPAL_SANDBOX" : "PAYPAL_LIVE";

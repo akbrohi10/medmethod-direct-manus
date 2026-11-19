@@ -44,7 +44,7 @@
   }
   function sdkUrl(config) {
     var query = new URLSearchParams({
-      "client-id": config.client_id, components: "buttons", "enable-funding": "card",
+      "client-id": config.client_id, components: "card-fields",
       "disable-funding": "paylater,venmo", currency: "USD", intent: "capture"
     });
     if (config.environment === "sandbox") query.set("buyer-country", "US");
@@ -88,7 +88,7 @@
       function loaded() {
         if (settled) return;
         var sdk = window[NAMESPACE];
-        if (!sdk || typeof sdk.Buttons !== "function" || !sdk.FUNDING || !sdk.FUNDING.PAYPAL || !sdk.FUNDING.CARD) { failed(); return; }
+        if (!sdk || typeof sdk.CardFields !== "function") { failed(); return; }
         settled = true; clean(); resolve(sdk);
       }
       timer = window.setTimeout(failed, 15000);
@@ -123,8 +123,9 @@
     }
     return function TextPayment(props) {
       var latest = React.useRef(props); latest.current = props;
-      var root = React.useRef(null), paypalHost = React.useRef(null), cardHost = React.useRef(null);
-      var buttonActions = React.useRef([]), mounted = React.useRef(false);
+      var root = React.useRef(null), numberHost = React.useRef(null), expiryHost = React.useRef(null), securityHost = React.useRef(null);
+      var cardFields = React.useRef(null), cardSubmission = React.useRef(null);
+      var mounted = React.useRef(false);
       var operation = React.useRef(null);
       if (!operation.current) {
         var initialPair = opaquePair(props.resumePayment) || readPair();
@@ -138,7 +139,7 @@
       var busyState = React.useState(false), processing = busyState[0], setProcessing = busyState[1];
       var recoveryState = React.useState(op.blocked), recovering = recoveryState[0], setRecovering = recoveryState[1];
       var confirmedState = React.useState(false), confirmed = confirmedState[0], setConfirmed = confirmedState[1];
-      var fundingState = React.useState({ paypal: null, card: null }), funding = fundingState[0], setFunding = fundingState[1];
+      var fundingState = React.useState({ card: null }), funding = fundingState[0], setFunding = fundingState[1];
       var retryState = React.useState(0), retry = retryState[0], setRetry = retryState[1];
       var recoveryRetryState = React.useState(0), recoveryRetry = recoveryRetryState[0], setRecoveryRetry = recoveryRetryState[1];
       function showError(message) { if (mounted.current) setError(message); }
@@ -147,12 +148,8 @@
         return latest.current.valid === true && latest.current.busy !== true && !op.open &&
           !op.create && !op.capture && !op.status && !op.blocked && !op.done;
       }
-      function updateActions() {
-        var enabled = eligibleNow();
-        buttonActions.current.forEach(function (actions) {
-          try { Promise.resolve(enabled ? actions.enable() : actions.disable()).catch(function () {}); } catch (_) { /* SDK teardown can race an update. */ }
-        });
-      }
+      // Card fields are hosted by PayPal. Native submit and server guards own checkout eligibility.
+      function updateActions() {}
       function validate() {
         try { return typeof latest.current.onValidate === "function" && latest.current.onValidate() === true; } catch (_) { return false; }
       }
@@ -274,71 +271,82 @@
         if (config && op.pair && !op.done && (!op.recovered || recoveryRetry > 0)) checkStatus(config);
       }, [config, resumeToken, resumeOrder, recoveryRetry]);
       React.useEffect(function () {
-        if (!sdk || !config || !paypalHost.current || !cardHost.current) return;
-        var stopped = false, instances = [], actionsForRender = [];
-        setFunding({ paypal: null, card: null }); buttonActions.current = actionsForRender;
-        function render(kind, source, host) {
-          var instance = sdk.Buttons({
-            fundingSource: source,
-            style: { layout: "vertical", shape: "pill", height: 48, label: "pay", tagline: false },
-            onInit: function (_, actions) {
-              if (stopped) return;
-              actionsForRender.push(actions); updateActions();
-            },
-            onClick: function (_, actions) {
-              if (!eligibleNow() || !validate()) return actions.reject();
-              showError(""); return actions.resolve();
-            },
-            createOrder: createOrder, onApprove: approve, onCancel: paymentFailed, onError: paymentFailed
+        if (!sdk || !config || !numberHost.current || !expiryHost.current || !securityHost.current) return;
+        var stopped = false, instance = null, fields = [];
+        setFunding({ card: null });
+        try {
+          instance = sdk.CardFields({
+            createOrder: createOrder, onApprove: approve, onCancel: paymentFailed, onError: paymentFailed,
+            style: { input: { "font-size": "16px", "font-family": "Arial, sans-serif", color: "#113A3A", padding: "12px", border: "0", "box-shadow": "none" },
+              ":focus": { color: "#113A3A" }, ".invalid": { color: "#a52c35" } }
           });
-          instances.push(instance);
-          if (!instance.isEligible()) {
-            if (!stopped) setFunding(function (old) { return Object.assign({}, old, kind === "card" ? { card: false } : { paypal: false }); });
-            return Promise.resolve();
-          }
-          return Promise.resolve(instance.render(host)).then(function () {
-            if (!stopped) setFunding(function (old) { return Object.assign({}, old, kind === "card" ? { card: true } : { paypal: true }); });
-          });
-        }
-        Promise.all([
-          Promise.resolve().then(function () { return render("paypal", sdk.FUNDING.PAYPAL, paypalHost.current); }),
-          Promise.resolve().then(function () { return render("card", sdk.FUNDING.CARD, cardHost.current); })
-        ]).catch(function () {
-          if (!stopped) { setLoading("buttons-error"); showError(SDK_ERROR); }
-        });
+          if (!instance.isEligible()) { setFunding({ card: false }); return; }
+          cardFields.current = instance;
+          var number = instance.NumberField({ placeholder: "Card number" });
+          var expiry = instance.ExpiryField({ placeholder: "MM / YY" });
+          var security = instance.CVVField({ placeholder: "Security code" });
+          fields = [number, expiry, security];
+          Promise.all([number.render(numberHost.current), expiry.render(expiryHost.current), security.render(securityHost.current)])
+            .then(function () { if (!stopped) setFunding({ card: true }); })
+            .catch(function () { if (!stopped) { setLoading("fields-error"); showError(SDK_ERROR); } });
+        } catch (_) { if (!stopped) { setLoading("fields-error"); showError(SDK_ERROR); } }
         return function () {
           stopped = true;
-          if (buttonActions.current === actionsForRender) buttonActions.current = [];
-          instances.forEach(function (instance) { try { Promise.resolve(instance.close()).catch(function () {}); } catch (_) {} });
+          if (cardFields.current === instance) cardFields.current = null;
+          fields.forEach(function (field) { try { if (typeof field.close === "function") Promise.resolve(field.close()).catch(function () {}); } catch (_) {} });
+          try { if (instance && typeof instance.close === "function") Promise.resolve(instance.close()).catch(function () {}); } catch (_) {}
         };
       }, [sdk, config, retry]);
       React.useEffect(function () { updateActions(); }, [props.valid, props.busy, processing, recovering, confirmed, funding]);
 
-      function interceptInvalid() {
-        if (latest.current.busy !== true && !op.open && !op.blocked && !op.done) validate();
+      function submitCard() {
+        if (cardSubmission.current) return cardSubmission.current;
+        if (latest.current.busy === true || op.open || op.create || op.capture || op.status || op.blocked || op.done) return Promise.resolve();
+        if (!validate() || !eligibleNow() || latest.current.valid !== true || !cardFields.current || funding.card !== true) return Promise.resolve();
+        var instance = cardFields.current;
+        // Set a promise synchronously so rapid taps cannot begin a second card submission.
+        cardSubmission.current = Promise.resolve().then(async function () {
+          if (config.environment === "live") {
+            var previewInput = await latest.current.getInput();
+            if (previewInput && previewInput.demo_mode === true) {
+              showError("Demo intakes require Sandbox payment settings. No live payment was started."); return;
+            }
+          }
+          var state = await instance.getState();
+          if (!state || state.isFormValid !== true) { showError("Please complete your card details."); return; }
+          if (!eligibleNow() || !validate() || latest.current.valid !== true) return;
+          payBusy(true); showError("");
+          await instance.submit();
+        }).catch(function () { paymentFailed(); }).finally(function () {
+          cardSubmission.current = null;
+          if (!op.open && !op.create && !op.capture) payBusy(false);
+        });
+        return cardSubmission.current;
       }
-      function slot(kind, ref, label) {
-        var available = funding[kind];
-        var guarded = available === true && props.valid !== true && !processing && !props.busy && !recovering && !confirmed;
-        var inaccessible = guarded || processing || props.busy === true || recovering || confirmed;
-        return JSX.jsxs("div", { className: "mmd-text-payment-slot", hidden: available === false, "data-hj-suppress": "true", "data-cs-mask": "true", children: [
-          JSX.jsx("div", { ref: ref, className: "mmd-text-payment-sdk", "aria-label": label, "aria-hidden": inaccessible || undefined, inert: inaccessible || undefined }),
-          guarded && JSX.jsx("button", { type: "button", className: "mmd-text-payment-validation-guard", "aria-label": label + ". Complete all required fields and consents first.", "aria-disabled": "true", onClick: interceptInvalid, children: JSX.jsx("span", { className: "mmd-text-payment-sr-only", children: label }) })
-        ] }, kind);
+      function field(ref, label, extra) {
+        return JSX.jsxs("div", { className: "mmd-text-card-field" + (extra ? " " + extra : ""), "data-hj-suppress": "true", "data-cs-mask": "true", children: [
+          JSX.jsx("span", { className: "mmd-text-card-label", children: label }),
+          JSX.jsx("div", { ref: ref, className: "mmd-text-card-host", "aria-label": label })
+        ] });
       }
-      var unavailable = loading === "ready" && funding.paypal === false && funding.card === false;
+      var unavailable = loading === "ready" && funding.card === false;
       var busy = processing || props.busy === true;
-      return JSX.jsxs("section", { ref: root, className: "mmd-text-payment full" + (busy || recovering || confirmed ? " is-blocked" : ""), "data-hj-suppress": "true", "data-cs-mask": "true", "aria-label": "Secure text visit payment", "aria-busy": busy || loading === "loading", children: [
-        JSX.jsxs("h2", { className: "mmd-text-payment-heading", children: [JSX.jsx("svg", { width: 17, height: 19, viewBox: "0 0 20 22", fill: "none", stroke: "currentColor", strokeWidth: 1.6, "aria-hidden": "true", children: JSX.jsxs("g", { children: [JSX.jsx("rect", { x: 3, y: 9, width: 14, height: 11, rx: 3 }), JSX.jsx("path", { d: "M6 9V6a4 4 0 0 1 8 0v3M10 13v3" })] }) }), "Secure payment – $29 today"] }),
+      return JSX.jsxs("section", { ref: root, className: "mmd-text-payment full" + (busy || recovering || confirmed ? " is-blocked" : ""), "data-hj-suppress": "true", "data-cs-mask": "true", "aria-label": "Credit card payment", "aria-busy": busy || loading === "loading", children: [
+        JSX.jsxs("h2", { className: "mmd-text-payment-heading", children: [JSX.jsx("svg", { width: 17, height: 19, viewBox: "0 0 20 22", fill: "none", stroke: "currentColor", strokeWidth: 1.6, "aria-hidden": "true", children: JSX.jsxs("g", { children: [JSX.jsx("rect", { x: 3, y: 9, width: 14, height: 11, rx: 3 }), JSX.jsx("path", { d: "M6 9V6a4 4 0 0 1 8 0v3M10 13v3" })] }) }), "Credit card payment – $29 today"] }),
         config && config.environment === "sandbox" && JSX.jsx("p", { className: "mmd-text-payment-sandbox", role: "status", children: "Sandbox test payment — no real charge." }),
         loading === "loading" && JSX.jsx("p", { className: "mmd-text-payment-status", role: "status", children: "Loading secure payment options…" }),
-        JSX.jsxs("div", { className: "mmd-text-payment-options", hidden: loading !== "ready" || confirmed, children: [slot("paypal", paypalHost, "Pay with PayPal"), slot("card", cardHost, "Pay with debit or credit card")] }),
-        loading === "ready" && !confirmed && funding.card === false && funding.paypal !== false && JSX.jsx("p", { className: "mmd-text-payment-availability", children: "Debit or credit card guest checkout isn't available for this account or browser. You can use PayPal if available above." }),
-        unavailable && JSX.jsx("p", { className: "mmd-text-payment-availability", role: "alert", children: "PayPal and debit or credit card checkout aren't available for this account or browser. Please contact the Care Team at (888) 362-7011." }),
+        JSX.jsxs("div", { className: "mmd-text-payment-options", hidden: loading !== "ready" || confirmed || unavailable, children: [
+          field(numberHost, "Card number", "mmd-text-card-number"),
+          JSX.jsxs("div", { className: "mmd-text-card-row", children: [field(expiryHost, "Expiration date"), field(securityHost, "Security code")] }),
+          JSX.jsx("button", { type: "button", className: "mmd-text-payment-pay", disabled: funding.card !== true || busy || recovering || confirmed,
+            "aria-disabled": props.valid !== true || undefined, onClick: submitCard, children: busy ? "Processing payment…" : "Pay $29" }),
+          JSX.jsx("p", { className: "mmd-text-card-provider", children: "Secure card processing by PayPal." })
+        ] }),
+        unavailable && JSX.jsx("p", { className: "mmd-text-payment-availability", role: "alert", children: "Credit card payment is not enabled for this account or browser. Please contact the Care Team at (888) 362-7011." }),
         loading === "ready" && props.valid !== true && !recovering && !confirmed && JSX.jsx("p", { className: "mmd-text-payment-hint", children: "Complete all required fields, SMS permission and consents above to pay." }),
         (busy || recovering || confirmed) && JSX.jsx("p", { className: "mmd-text-payment-status", role: "status", "aria-live": "polite", children: confirmed ? "Payment confirmed. Opening your confirmation…" : busy ? "Processing your payment…" : "Checking your payment status…" }),
         error && JSX.jsx("p", { className: "mmd-text-payment-error", role: "alert", children: error }),
-        (loading === "sdk-error" || loading === "buttons-error" || loading === "configuration-error") && !op.done && JSX.jsx("button", { type: "button", className: "mmd-text-payment-retry", disabled: busy, onClick: function () { setSdk(null); setRetry(function (value) { return value + 1; }); }, children: "Retry loading payment options" }),
+        (loading === "sdk-error" || loading === "fields-error" || loading === "configuration-error") && !op.done && JSX.jsx("button", { type: "button", className: "mmd-text-payment-retry", disabled: busy, onClick: function () { setSdk(null); setRetry(function (value) { return value + 1; }); }, children: "Retry loading payment options" }),
         recovering && error && config && !op.done && JSX.jsx("button", { type: "button", className: "mmd-text-payment-retry", disabled: busy || !!op.status, onClick: function () { setRecoveryRetry(function (value) { return value + 1; }); }, children: "Check payment status again" }),
         JSX.jsx("p", { className: "mmd-text-payment-fine-print", children: "Charged once. Full refund if Dr. Al-Deek determines you're not a candidate. Medication costs are separate." })
       ] });
