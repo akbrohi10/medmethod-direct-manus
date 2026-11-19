@@ -27,7 +27,8 @@ function guard(req: Parameters<typeof textPaymentOrigin>[0]) {
   return textPaymentOrigin(req);
 }
 export const intakeTextPaymentRouter = router({
-  config: publicProcedure.query(() => safe(async () => ({ ...await getIntakeTextPaymentService().configuration(), currency: "USD" as const }))),
+  config: publicProcedure.input(z.object({ demo_mode: z.boolean().optional() }).strict().optional())
+    .query(({ input }) => safe(async () => ({ ...await getIntakeTextPaymentService().configuration(input), currency: "USD" as const }))),
   order: publicProcedure.input(z.unknown()).mutation(({ ctx, input }) => safe(() =>
     getIntakeTextPaymentService().create({ body: input, public_origin: guard(ctx.req) }))),
   capture: publicProcedure.input(paymentToken.extend({ order_id: z.string().regex(/^[A-Za-z0-9_-]{3,128}$/) }).strict())

@@ -26,9 +26,11 @@ export type TextIntakeValidatedInput = {
   signing: unknown;
   resume_answers: Record<string, unknown>;
   is_test: boolean;
+  demo_mode?: boolean;
   public_origin?: string;
   validated_at?: number | string;
 };
+export type TextIntakePaymentOptions = { demo_mode?: boolean };
 export type TextIntakePaymentConfig = { mode: TextIntakePaymentMode; clientId: string; clientSecret: string };
 export type TextIntakeVerifiedPayment = {
   provider: "paypal"; environment: TextIntakePaymentMode; status: "COMPLETED";
@@ -52,6 +54,8 @@ export type TextIntakePaymentRecord<T extends TextIntakeValidatedInput = TextInt
   input?: T;
   fingerprint: string;
   environment: TextIntakePaymentMode;
+  /** Persist independently of the clinical snapshot; only explicit forced demos opt in. */
+  demo_mode?: boolean;
   paymentToken: string;
   customId: string;
   createRequestId: string;
@@ -78,7 +82,7 @@ export type TextIntakePending = {
   order_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT; retryable: true;
 };
 export type TextIntakePaymentService<T extends TextIntakeValidatedInput = TextIntakeValidatedInput> = {
-  configuration(): Promise<{ configured: boolean; client_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT;
+  configuration(options?: TextIntakePaymentOptions): Promise<{ configured: boolean; client_id: string | null; environment: TextIntakePaymentMode; amount: typeof TEXT_INTAKE_AMOUNT;
     readiness_reason?: "payment_storage_unavailable" | "paypal_unavailable" }>;
   create(input: unknown): Promise<{ order_id: string; payment_token: string; environment: TextIntakePaymentMode }>;
   capture(input: { payment_token: string; order_id: string }): Promise<TextIntakeCompletion | TextIntakePending>;
@@ -99,7 +103,7 @@ export type TextIntakePaymentDependencies<T extends TextIntakeValidatedInput> = 
   sendUnpaid(payload: TextIntakeUnpaidPayload, idempotencyKey: string, signal?: AbortSignal): Promise<boolean>;
   /** Optional dedicated test/mock sink. Absent => sandbox reminders are suppressed. */
   sendUnpaidSandbox?: (payload: TextIntakeUnpaidPayload, idempotencyKey: string, signal?: AbortSignal) => Promise<boolean>;
-  config?: () => Promise<TextIntakePaymentConfig>;
+  config?: (options?: TextIntakePaymentOptions) => Promise<TextIntakePaymentConfig>;
   store?: IntakeTextPaymentStore<TextIntakePaymentRecord<T>>;
   fetch?: typeof globalThis.fetch;
   now?: () => number;
@@ -120,9 +124,10 @@ export function textIntakeMode(env: NodeJS.ProcessEnv = process.env): TextIntake
   if (mode !== "sandbox" && mode !== "live") throw new IntakeTextPaymentError("not_configured");
   return mode;
 }
-/** Injectable read-only settings lookup. Saved mode is authoritative; activeProvider is not used. */
+/** Read-only settings lookup. Only explicit demo mode overrides saved mode; activeProvider is not used. */
 export async function getIntakeTextPaymentConfig(
   options: {
+    demo_mode?: boolean;
     env?: NodeJS.ProcessEnv;
     settings?: () => Promise<{ mode?: string | null; sandboxClientId?: string | null; sandboxClientSecret?: string | null; liveClientId?: string | null; liveClientSecret?: string | null } | null>;
   } = {},
@@ -132,7 +137,7 @@ export async function getIntakeTextPaymentConfig(
   try {
     settings = await (options.settings ?? (async () => (await import("./db")).getPaypalSettings()))();
   } catch { throw new IntakeTextPaymentError("not_configured"); }
-  const mode = settings?.mode ?? textIntakeMode(env);
+  const mode = options.demo_mode === true ? "sandbox" : settings?.mode ?? textIntakeMode(env);
   if (mode !== "sandbox" && mode !== "live") throw new IntakeTextPaymentError("not_configured");
   const savedId = mode === "sandbox" ? settings?.sandboxClientId : settings?.liveClientId;
   const savedSecret = mode === "sandbox" ? settings?.sandboxClientSecret : settings?.liveClientSecret;
@@ -183,9 +188,15 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
   const note = (code: Parameters<NonNullable<typeof deps.log>>[0], amount?: typeof TEXT_INTAKE_AMOUNT) => {
     try { deps.log?.(code, amount); } catch { /* Logging is never part of payment correctness. */ }
   };
-  const config = async (expected?: TextIntakePaymentMode) => {
-    const result = await bounded(() => getConfig(), PROVIDER_TIMEOUT);
+  const recordOptions = (r: TextIntakePaymentRecord<T>): TextIntakePaymentOptions | undefined => {
+    if (r.demo_mode !== true) return undefined;
+    if (r.environment !== "sandbox") throw new IntakeTextPaymentError("mode_mismatch");
+    return { demo_mode: true };
+  };
+  const config = async (expected?: TextIntakePaymentMode, options?: TextIntakePaymentOptions) => {
+    const result = await bounded(() => options ? getConfig(options) : getConfig(), PROVIDER_TIMEOUT);
     if (!["sandbox", "live"].includes(result.mode) || !result.clientId || !result.clientSecret) throw new IntakeTextPaymentError("not_configured");
+    if (options?.demo_mode === true && result.mode !== "sandbox") throw new IntakeTextPaymentError("mode_mismatch");
     if (expected && result.mode !== expected) throw new IntakeTextPaymentError("mode_mismatch");
     return result;
   };
@@ -209,9 +220,9 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
       }, PROVIDER_TIMEOUT);
     } catch { note("provider_unavailable"); throw new IntakeTextPaymentError("provider_unavailable"); }
   };
-  const client = async (mode: TextIntakePaymentMode): Promise<Client> => {
-    const creds = await config(mode);
-    const base = mode === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
+  const client = async (r: TextIntakePaymentRecord<T>): Promise<Client> => {
+    const creds = await config(r.environment, recordOptions(r));
+    const base = r.environment === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
     const raw = object(await request(`${base}/v1/oauth2/token`, {
       method: "POST", headers: { Authorization: `Basic ${Buffer.from(`${creds.clientId}:${creds.clientSecret}`).toString("base64")}`, "Content-Type": "application/x-www-form-urlencoded" },
       body: "grant_type=client_credentials",
@@ -289,6 +300,7 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
     note("payment_verified", TEXT_INTAKE_AMOUNT);
   };
   const complete = async (r: TextIntakePaymentRecord<T>, locked: TextPaymentLockedRecord<TextIntakePaymentRecord<T>>): Promise<TextIntakeCompletion | TextIntakePending> => {
+    recordOptions(r);
     if (r.receipt && r.payment && r.state === "completed") return r.receipt as TextIntakeCompletion;
     if (!r.payment || !r.input) return pending(r);
     const hook = r.environment === "sandbox" ? deps.finalizeSandbox : deps.finalize;
@@ -327,13 +339,14 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
       const r = await locked.read();
       if (!r || !equalHash(r.paymentTokenHash, auth.hash)) throw new IntakeTextPaymentError("invalid_token");
       if (orderId !== undefined && (!PROVIDER_ID.test(orderId) || orderId !== r.orderId)) throw new IntakeTextPaymentError("payment_binding_rejected");
+      recordOptions(r);
       if (r.state === "completed") return await complete(r, locked);
       await redactExpired(r, locked);
       if (r.state === "expired") throw new IntakeTextPaymentError("expired");
       // Already verified paid records NEVER ask PayPal for another charge, even during config outage.
       if (r.payment) return await complete(r, locked);
       if (!r.orderId) return pending(r);
-      const c = await client(r.environment);
+      const c = await client(r);
       const checked = await reconcile(r, locked, c); // Always GET before any capture; recover lost ACK.
       if (r.payment) return await complete(r, locked);
       if (!r.input || r.expiresAt <= now()) throw new IntakeTextPaymentError("expired");
@@ -373,11 +386,12 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
   };
 
   return {
-    async configuration() {
+    async configuration(options) {
       const storageReady = store.isConfigured();
       try {
-        const c = await getConfig();
+        const c = await (options ? getConfig(options) : getConfig());
         if (!["sandbox", "live"].includes(c.mode)) throw new Error();
+        if (options?.demo_mode === true && c.mode !== "sandbox") throw new IntakeTextPaymentError("mode_mismatch");
         const configured = !!(c.clientId && c.clientSecret) && storageReady;
         return { configured, client_id: configured ? c.clientId : null, environment: c.mode, amount: TEXT_INTAKE_AMOUNT,
           ...(!configured ? { readiness_reason: !storageReady ? "payment_storage_unavailable" as const : "paypal_unavailable" as const } : {}) };
@@ -395,32 +409,34 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
       } catch { throw new IntakeTextPaymentError("invalid_input"); }
       const input = await deps.validate(raw);
       if (!UUID.test(input.submission_id) || intake(input).submission_id !== input.submission_id || typeof input.is_test !== "boolean"
+        || (input.demo_mode !== undefined && typeof input.demo_mode !== "boolean")
         || input.signing === undefined || !input.resume_answers || typeof input.resume_answers !== "object") throw new IntakeTextPaymentError("invalid_input");
       forbidPaymentData(input);
       // Validation time is server bookkeeping, not a new patient action; keep the FIRST stored time.
-      const { validated_at: _validatedAt, ...fingerprintInput } = input;
-      const fingerprint = createHash("sha256").update(canonical(fingerprintInput)).digest("hex");
+      const { validated_at: _validatedAt, demo_mode: demoMode, ...fingerprintInput } = input;
+      const fingerprint = createHash("sha256").update(canonical({ ...fingerprintInput, ...(demoMode === true ? { demo_mode: true } : {}) })).digest("hex");
       const key = store.hashSubmission(input.submission_id);
       return await store.withRecord(key, async locked => {
         let r = await locked.read();
         if (r && r.fingerprint !== fingerprint) throw new IntakeTextPaymentError("changed_input");
         if (r) {
+          recordOptions(r);
           await redactExpired(r, locked);
           if (r.state === "expired" || (!r.payment && r.expiresAt <= now())) throw new IntakeTextPaymentError("expired");
           if (r.orderId) return { order_id: r.orderId, payment_token: r.paymentToken, environment: r.environment };
         }
-        const c = await config(r?.environment);
+        const c = await config(r?.environment, r ? recordOptions(r) : demoMode === true ? { demo_mode: true } : undefined);
         if (!r) {
           const token = capability();
           const time = now();
           r = { input: structuredClone(input), fingerprint, createdAt: time, expiresAt: time + PENDING_TTL, retentionUntil: time + PENDING_TTL,
-            state: "pending", environment: c.mode, paymentToken: token, paymentTokenHash: store.hashCapability(token), customId: randomUUID(),
+            state: "pending", environment: c.mode, ...(demoMode === true ? { demo_mode: true } : {}), paymentToken: token, paymentTokenHash: store.hashCapability(token), customId: randomUUID(),
             createRequestId: randomUUID(), captureRequestId: randomUUID(), deliveryIdempotencyKey: randomUUID(), reminderIdempotencyKey: randomUUID(),
             nextSweepAt: time + REMINDER_DELAY };
           await locked.save(r); // A storage failure aborts BEFORE OAuth/order creation.
         }
         if (r.createAttemptAt !== undefined && now() - r.createAttemptAt >= IDEMPOTENCY_WINDOW) throw new IntakeTextPaymentError("idempotency_expired");
-        const api = await client(r.environment);
+        const api = await client(r);
         r.createAttemptAt ??= now();
         await locked.save(r); // Persists stable request ID and earliest POST claim before provider side effect.
         const response = await provider(api, "/v2/checkout/orders", "POST", {
@@ -470,7 +486,7 @@ export function createIntakeTextPaymentService<T extends TextIntakeValidatedInpu
             }
             // No merchant order => cannot prove nonpayment; do not send an ambiguous-create reminder.
             if (!r.orderId) return;
-            const c = await client(r.environment);
+            const c = await client(r);
             await reconcile(r, locked, c); // Read-only provider reconciliation; NEVER auto-capture abandoned orders.
             if (r.payment) {
               const result = await complete(r, locked);

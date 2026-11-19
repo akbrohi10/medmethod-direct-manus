@@ -8,7 +8,9 @@ const client = createTRPCProxyClient<AppRouter>({
   links: [httpLink({ url: "/api/trpc", transformer: superjson, headers: { "X-MMD-Text-Payment": "1" } })],
 });
 const payment = client.intakeTextPayment;
-const pendingKey = "mmd_text_payment_v1";
+// Demo may select only Sandbox, never Live. No secret credentials enter this client.
+const demoSandbox = new URLSearchParams(window.location.search).get("prefill") === "demo";
+const pendingKey = demoSandbox ? "mmd_text_payment_demo_v1" : "mmd_text_payment_v1";
 const safeError = "Your payment didn't go through. Please try again or use a different card.";
 function input(options?: { body?: string }) {
   return options?.body ? JSON.parse(options.body) : {};
@@ -16,7 +18,7 @@ function input(options?: { body?: string }) {
 const api = {
   async request(path: string, options?: { body?: string }) {
     switch (path) {
-      case "/api/intake/text-payment/config": return payment.config.query();
+      case "/api/intake/text-payment/config": return payment.config.query(demoSandbox ? { demo_mode: true } : undefined);
       case "/api/intake/text-payment/order": return payment.order.mutate(input(options));
       case "/api/intake/text-payment/capture": return payment.capture.mutate(input(options));
       case "/api/intake/text-payment/status": return payment.status.mutate(input(options));

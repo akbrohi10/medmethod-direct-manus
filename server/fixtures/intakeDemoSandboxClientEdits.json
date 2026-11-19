@@ -1,0 +1,73 @@
+{
+  "client/public/intake/text-payment.js": [
+    {
+      "old": "  var STORAGE_KEY = \"mmd_text_payment_v1\";",
+      "new": "  // Pin the explicit URL-only demo override for this document's entire checkout.\n  var DEMO_SANDBOX = false;\n  try { DEMO_SANDBOX = new URLSearchParams(window.location.search).get(\"prefill\") === \"demo\"; } catch (_) { /* Non-browser harnesses remain normal sessions. */ }\n  var STORAGE_KEY = DEMO_SANDBOX ? \"mmd_text_payment_demo_v1\" : \"mmd_text_payment_v1\";",
+      "position": 128
+    },
+    {
+      "old": "configPromise = helpers.request(\"/api/intake/text-payment/config\", { method: \"GET\" }, CONFIG_ERROR)",
+      "new": "configPromise = helpers.request(\"/api/intake/text-payment/config\", DEMO_SANDBOX ? { method: \"GET\", demo_mode: true } : { method: \"GET\" }, CONFIG_ERROR)",
+      "position": 6740
+    },
+    {
+      "old": "          return config;",
+      "new": "          if (DEMO_SANDBOX && config.environment !== \"sandbox\") throw new Error(CONFIG_ERROR);\n          return config;",
+      "position": 7070
+    },
+    {
+      "old": "        var initialPair = opaquePair(props.resumePayment) || readPair();",
+      "new": "        var initialPair = DEMO_SANDBOX ? readPair() : opaquePair(props.resumePayment) || readPair();",
+      "position": 7999
+    },
+    {
+      "old": "current = await helpers.request(\"/api/intake/text-payment/config\", { method: \"GET\" }, CONFIG_ERROR);",
+      "new": "current = await helpers.request(\"/api/intake/text-payment/config\", DEMO_SANDBOX ? { method: \"GET\", demo_mode: true } : { method: \"GET\" }, CONFIG_ERROR);",
+      "position": 9768
+    },
+    {
+      "old": "        if (!sameMode(current, activeConfig)) throw new Error(MODE_ERROR);",
+      "new": "        if (DEMO_SANDBOX && current.environment !== \"sandbox\") throw new Error(CONFIG_ERROR);\n        if (!sameMode(current, activeConfig)) throw new Error(MODE_ERROR);",
+      "position": 10165
+    },
+    {
+      "old": "          var input = await latest.current.getInput();",
+      "new": "          var input = await latest.current.getInput();\n          if (DEMO_SANDBOX) input = Object.assign({}, input, { demo_mode: true });",
+      "position": 12861
+    },
+    {
+      "old": "        var incoming = opaquePair(latest.current.resumePayment);",
+      "new": "        var incoming = DEMO_SANDBOX ? null : opaquePair(latest.current.resumePayment);",
+      "position": 17844
+    }
+  ],
+  "client/intake-text-payment-transport.ts": [
+    {
+      "old": "const pendingKey = \"mmd_text_payment_v1\";",
+      "new": "// Demo may select only Sandbox, never Live. No secret credentials enter this client.\nconst demoSandbox = new URLSearchParams(window.location.search).get(\"prefill\") === \"demo\";\nconst pendingKey = demoSandbox ? \"mmd_text_payment_demo_v1\" : \"mmd_text_payment_v1\";",
+      "position": 523
+    },
+    {
+      "old": "case \"/api/intake/text-payment/config\": return payment.config.query();",
+      "new": "case \"/api/intake/text-payment/config\": return payment.config.query(demoSandbox ? { demo_mode: true } : undefined);",
+      "position": 1085
+    }
+  ],
+  "client/intake/index.html": [
+    {
+      "old": "/intake/text-payment.css?v=20261119-readiness-v3",
+      "new": "/intake/text-payment.css?v=20261119-demo-sandbox-v4",
+      "position": 50296
+    },
+    {
+      "old": "/intake/text-payment-api.js?v=20261119-readiness-v3",
+      "new": "/intake/text-payment-api.js?v=20261119-demo-sandbox-v4",
+      "position": 50931
+    },
+    {
+      "old": "/intake/text-payment.js?v=20261119-readiness-v3",
+      "new": "/intake/text-payment.js?v=20261119-demo-sandbox-v4",
+      "position": 51010
+    }
+  ]
+}

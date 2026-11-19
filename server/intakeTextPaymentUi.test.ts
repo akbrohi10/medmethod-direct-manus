@@ -14,9 +14,10 @@ const fieldNames = ["NameField", "NumberField", "ExpiryField", "CVVField"] as co
 
 // Minimal deterministic React hooks/DOM harness. SDK scripts never execute and every request is mocked.
 // Provider fields contain no PAN/CVV/name values: only validity and opaque provider order IDs are modeled.
-function harness(options: { config?: any; saved?: any; cardEligible?: boolean; cardValid?: boolean; request?: any; autoSdk?: boolean; missingCardFields?: boolean; fieldRender?: (name: string, host: any) => Promise<void>; submit?: (opts: any) => Promise<any> } = {}) {
+function harness(options: { config?: any; saved?: any; savedDemo?: any; search?: string; cardEligible?: boolean; cardValid?: boolean; request?: any; autoSdk?: boolean; missingCardFields?: boolean; fieldRender?: (name: string, host: any) => Promise<void>; submit?: (opts: any) => Promise<any> } = {}) {
   const entries = new Map<string, string>();
   if (options.saved) entries.set("mmd_text_payment_v1", JSON.stringify(options.saved));
+  if (options.savedDemo) entries.set("mmd_text_payment_demo_v1", JSON.stringify(options.savedDemo));
   const sdkOptions: any[] = [], sdkInstances: any[] = [], scripts: any[] = [], nodes: any[] = [];
   let tree: any, pending = false, cursor = 0, renderNumber = 0;
   const hooks: any[] = [], effects: (() => void)[] = [], timers = new Map<number, () => void>();
@@ -56,6 +57,7 @@ function harness(options: { config?: any; saved?: any; cardEligible?: boolean; c
     setTimeout: (callback: () => void) => { const id = ++timerId; timers.set(id, callback); return id; },
     clearTimeout: (id: number) => timers.delete(id),
   };
+  if (options.search !== undefined) window.location = { search: options.search };
   const document = {
     querySelector: () => scripts.find(script => !script.removed) || null,
     createElement: () => {
@@ -789,5 +791,294 @@ describe("text checkout readiness and immutable SDK settings (mock-only)", () =>
       expect(endpointCalls(h, "capture")).toHaveLength(0);
       expect(h.props.onComplete).not.toHaveBeenCalled();
     }
+  });
+});
+describe("exact Demo-prefill Sandbox isolation (mock-only)", () => {
+  const normalKey = "mmd_text_payment_v1", demoKey = "mmd_text_payment_demo_v1";
+  const liveConfig = { ...config, client_id: "live_public_client_123", environment: "live" };
+  const livePair = { payment_token: "opaque.live.capability", order_id: "LIVE_ORDER_29" };
+  const demoReceipt = { ...receipt, is_test: true, redirect_url: "/intake/thank-you/?prefill=demo" };
+  const configError = "Secure payment isn't configured correctly. Please contact the Care Team at (888) 362-7011.";
+  const privateDetail = "sandbox-private-credential-never-expose";
+
+  // Model saved admin settings without changing them: only the request's explicit Demo flag selects Sandbox.
+  function savedSettings(initialEnvironment = "live") {
+    let environment = initialEnvironment;
+    const request = vi.fn(async (path: string, opts: any) => {
+      if (path.endsWith("/config")) return { ...(opts?.demo_mode === true ? config : environment === "live" ? liveConfig : config) };
+      if (path.endsWith("/order")) {
+        const input = JSON.parse(opts.body);
+        return { ...(input.demo_mode === true ? pair : livePair), environment: input.demo_mode === true ? "sandbox" : environment };
+      }
+      if (path.endsWith("/capture")) return JSON.parse(opts.body).payment_token === pair.payment_token ? demoReceipt : { ...receipt, environment: "live" };
+      if (path.endsWith("/status")) return { ...pair, payment_status: "PENDING", amount: "29.00", environment: "sandbox" };
+      throw Error("Unexpected mocked endpoint");
+    });
+    return { request, set: (next: string) => { environment = next; }, current: () => environment };
+  }
+  function calls(h: ReturnType<typeof harness>, endpoint: string) {
+    return h.request.mock.calls.filter(([path]: any[]) => path.endsWith("/" + endpoint));
+  }
+  function expectDemoConfigCalls(h: ReturnType<typeof harness>, count: number) {
+    expect(calls(h, "config")).toHaveLength(count);
+    calls(h, "config").forEach(([, opts, fallback]: any[]) => {
+      expect(opts).toEqual({ method: "GET", demo_mode: true });
+      expect(fallback).toBe(configError);
+    });
+  }
+  function expectSandboxSdk(h: ReturnType<typeof harness>) {
+    expect(h.scripts).toHaveLength(1);
+    expect(h.scripts[0].removed).toBe(false);
+    const url = new URL(h.scripts[0].src);
+    expect(url.origin + url.pathname).toBe("https://www.paypal.com/sdk/js");
+    expect(Object.fromEntries(url.searchParams)).toEqual({ "client-id": config.client_id, components: "card-fields", "disable-funding": "paylater,venmo", currency: "USD", intent: "capture", "buyer-country": "US" });
+    expect(h.scripts[0].src).not.toContain(liveConfig.client_id);
+    expect(h.scripts[0].attributes["data-namespace"]).toBe("mmdTextPayPal");
+    expect(h.sdk.CardFields).toHaveBeenCalledTimes(1);
+    expect(h.sdkOptions).toHaveLength(1);
+    fieldNames.forEach(name => expect(h.sdkInstances[0].fields[name].render).toHaveBeenCalledTimes(1));
+    expect(h.sdkInstances[0].close).not.toHaveBeenCalled();
+  }
+  function expectNoCharge(h: ReturnType<typeof harness>) {
+    expect(calls(h, "order")).toHaveLength(0);
+    expect(calls(h, "capture")).toHaveLength(0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+  }
+
+  it("selects actual Sandbox SDK credentials and marks every initial/fresh config request with Demo despite saved Live settings", async () => {
+    const control = savedSettings();
+    const h = harness({ search: "?prefill=demo", request: control.request }); await h.flush();
+    expectDemoConfigCalls(h, 1);
+    expectSandboxSdk(h);
+    expect(h.request.mock.invocationCallOrder[0]).toBeLessThan(h.sdk.CardFields.mock.invocationCallOrder[0]);
+    expect(h.text()).toContain("Sandbox test payment — no real charge.");
+    await h.payButton().props.onClick(); await h.flush();
+    expectDemoConfigCalls(h, 4);
+    expect(h.request.mock.calls.map(([path]: any[]) => path.split("/").pop())).toEqual(["config", "config", "config", "order", "config", "capture"]);
+    expect(calls(h, "order")).toHaveLength(1);
+    expect(JSON.parse(calls(h, "order")[0][1].body)).toEqual({ demo_mode: true, intake: { submission_id: "local-test" }, signing: { opaque: "snapshot" } });
+    expect(calls(h, "capture")).toHaveLength(1);
+    expect(JSON.parse(calls(h, "capture")[0][1].body)).toEqual(pair);
+    expect(h.sdkInstances[0].getState).toHaveBeenCalledTimes(1);
+    expect(h.sdkInstances[0].submit).toHaveBeenCalledTimes(1);
+    expect(h.window.sessionStorage.setItem).toHaveBeenCalledWith(demoKey, JSON.stringify(pair));
+    expect(h.window.sessionStorage.removeItem).toHaveBeenCalledWith(demoKey);
+    expect(h.props.onComplete).toHaveBeenCalledTimes(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(demoReceipt);
+    expect(control.current()).toBe("live");
+    expectSandboxSdk(h);
+  });
+
+  it.each([undefined, false, true])("forces server Demo marker using an immutable input copy when getInput marker is %s", async marker => {
+    const control = savedSettings();
+    const h = harness({ search: "?prefill=demo", request: control.request }); await h.flush();
+    const input = Object.freeze({ ...(marker === undefined ? {} : { demo_mode: marker }), intake: Object.freeze({ submission_id: "immutable-local-test" }), signing: Object.freeze({ opaque: "immutable-snapshot" }) });
+    h.props.getInput = vi.fn(async () => input); h.rerender(); await h.flush();
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expectDemoConfigCalls(h, 2);
+    expect(JSON.parse(calls(h, "order")[0][1].body)).toEqual({ ...input, demo_mode: true });
+    expect(Object.isFrozen(input)).toBe(true);
+    if (marker === undefined) expect(input).not.toHaveProperty("demo_mode");
+    else expect(input.demo_mode).toBe(marker);
+    expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair));
+    expect(h.entries.has(normalKey)).toBe(false);
+    expect(h.props.getInput).toHaveBeenCalledTimes(1);
+  });
+
+  it("pins Demo across saved-mode flips and later URL changes without switching or reloading the Sandbox SDK", async () => {
+    const control = savedSettings("sandbox");
+    const h = harness({ search: "?prefill=demo", request: control.request }); await h.flush();
+    control.set("live"); h.window.location.search = "?prefill=Demo"; h.rerender(); await h.flush();
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(control.current()).toBe("live");
+    control.set("sandbox");
+    await h.sdkOptions[0].onApprove({ orderID: pair.order_id }); await h.flush();
+    expectDemoConfigCalls(h, 3);
+    expect(calls(h, "order")).toHaveLength(1); expect(calls(h, "capture")).toHaveLength(1);
+    expect(h.props.onComplete).toHaveBeenCalledWith(demoReceipt);
+    expectSandboxSdk(h);
+  });
+
+  it.each(["?prefill=Demo", "?prefill=demo2", "", undefined, "?other=demo", "?prefill=Demo&prefill=demo"])("retains original Live settings and normal storage for non-exact URL search %s", async search => {
+    const control = savedSettings();
+    const h = harness({ search, request: control.request }); await h.flush();
+    if (search === undefined) expect(h.window.location).toBeUndefined();
+    expect(h.scripts).toHaveLength(1);
+    const url = new URL(h.scripts[0].src);
+    expect(url.searchParams.get("client-id")).toBe(liveConfig.client_id);
+    expect(url.searchParams.has("buyer-country")).toBe(false);
+    expect(h.text()).not.toContain("Sandbox test payment — no real charge.");
+    expect(await h.sdkOptions[0].createOrder()).toBe(livePair.order_id);
+    await h.sdkOptions[0].onApprove({ orderID: livePair.order_id }); await h.flush();
+    expect(calls(h, "config")).toHaveLength(3);
+    calls(h, "config").forEach(([, opts]: any[]) => expect(opts).toEqual({ method: "GET" }));
+    expect(JSON.parse(calls(h, "order")[0][1].body)).toEqual({ intake: { submission_id: "local-test" }, signing: { opaque: "snapshot" } });
+    expect(h.window.sessionStorage.setItem).toHaveBeenCalledWith(normalKey, JSON.stringify(livePair));
+    expect(h.window.sessionStorage.removeItem).toHaveBeenCalledWith(normalKey);
+    expect(h.window.sessionStorage.setItem.mock.calls.every(([key]: any[]) => key === normalKey)).toBe(true);
+    expect(h.props.onComplete).toHaveBeenCalledWith({ ...receipt, environment: "live" });
+    expect(control.current()).toBe("live");
+  });
+
+  it("does not activate a Demo override midway through a normal Live document", async () => {
+    const control = savedSettings();
+    const h = harness({ search: "", request: control.request }); await h.flush();
+    h.window.location.search = "?prefill=demo"; h.rerender(); await h.flush();
+    expect(await h.sdkOptions[0].createOrder()).toBe(livePair.order_id);
+    calls(h, "config").forEach(([, opts]: any[]) => expect(opts).toEqual({ method: "GET" }));
+    expect(JSON.parse(calls(h, "order")[0][1].body)).not.toHaveProperty("demo_mode");
+    expect(new URL(h.scripts[0].src).searchParams.get("client-id")).toBe(liveConfig.client_id);
+    expect(h.entries.get(normalKey)).toBe(JSON.stringify(livePair));
+    expect(h.entries.has(demoKey)).toBe(false);
+  });
+
+  it.each([
+    { label: "unavailable Sandbox credentials", value: { configured: false, environment: "sandbox", amount: "29.00", currency: "USD", readiness_reason: "sandbox_credentials_unavailable", detail: privateDetail } },
+    { label: "incorrect Live server configuration", value: liveConfig },
+  ])("fails closed before any SDK or charge for $label and never falls back to Live", async ({ value }) => {
+    const request = vi.fn(async (path: string, opts: any) => {
+      if (path.endsWith("/config")) return opts?.demo_mode === true ? value : liveConfig;
+      throw Error("Unexpected mocked charge endpoint");
+    });
+    const h = harness({ search: "?prefill=demo", request }); await h.flush();
+    expectDemoConfigCalls(h, 1);
+    expect(h.scripts).toHaveLength(0); expect(h.sdk.CardFields).not.toHaveBeenCalled();
+    expect(h.text()).toContain(configError); expect(h.text()).not.toContain(privateDetail);
+    expect(h.props.getInput).not.toHaveBeenCalled(); expectNoCharge(h);
+    h.payButton()?.props.onClick(); await h.flush(); expectNoCharge(h);
+    h.walk(node => node.type === "button" && node.props.children === "Retry loading payment options")[0].props.onClick(); await h.flush();
+    expectDemoConfigCalls(h, 2);
+    expect(h.scripts).toHaveLength(0); expect(h.sdk.CardFields).not.toHaveBeenCalled();
+    expect(h.text()).toContain(configError); expectNoCharge(h);
+    expect(h.window.sessionStorage.setItem).not.toHaveBeenCalled();
+  });
+
+  it.each(["native", "create", "capture"])("rejects a bad fresh Live response during Demo %s before provider activity or a new charge", async stage => {
+    let current: any = config;
+    const request = vi.fn(async (path: string) => {
+      if (path.endsWith("/config")) return { ...current };
+      if (path.endsWith("/order")) return { ...pair, environment: "sandbox" };
+      if (path.endsWith("/capture")) return demoReceipt;
+      throw Error("Unexpected mocked endpoint");
+    });
+    const h = harness({ search: "?prefill=demo", request }); await h.flush();
+    if (stage === "capture") await h.sdkOptions[0].createOrder();
+    current = liveConfig;
+    if (stage === "native") await h.payButton().props.onClick();
+    else await expect(stage === "capture" ? h.sdkOptions[0].onApprove({ orderID: pair.order_id }) : h.sdkOptions[0].createOrder()).rejects.toThrow(configError);
+    await h.flush();
+    expectDemoConfigCalls(h, stage === "capture" ? 3 : 2);
+    expect(calls(h, "order")).toHaveLength(stage === "capture" ? 1 : 0);
+    expect(calls(h, "capture")).toHaveLength(0);
+    expect(h.sdkInstances[0].getState).not.toHaveBeenCalled(); expect(h.sdkInstances[0].submit).not.toHaveBeenCalled();
+    expect(h.props.getInput).toHaveBeenCalledTimes(stage === "capture" ? 1 : 0);
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(h.text()).toContain(configError);
+    h.sdkOptions[0].onError(new Error(privateDetail)); await h.flush();
+    expect(h.text()).toContain(configError); expect(h.text()).not.toContain(privateDetail);
+    if (stage === "capture") expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair));
+    expectSandboxSdk(h);
+  });
+
+  it("ignores and preserves a saved normal-key Live pair while creating and capturing a new Demo pair", async () => {
+    const control = savedSettings();
+    const saved = { ...livePair, environment: "live", payment_status: "COMPLETED" };
+    const h = harness({ search: "?prefill=demo", saved, request: control.request }); await h.flush();
+    expect(calls(h, "status")).toHaveLength(0);
+    expect(h.window.sessionStorage.getItem.mock.calls.every(([key]: any[]) => key === demoKey)).toBe(true);
+    expect(h.entries.get(normalKey)).toBe(JSON.stringify(saved));
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair));
+    await h.sdkOptions[0].onApprove({ orderID: pair.order_id }); await h.flush();
+    expect(calls(h, "order")).toHaveLength(1); expect(calls(h, "capture")).toHaveLength(1);
+    expect(h.entries.get(normalKey)).toBe(JSON.stringify(saved)); expect(h.entries.has(demoKey)).toBe(false);
+    expect(h.window.sessionStorage.setItem.mock.calls.every(([key]: any[]) => key === demoKey)).toBe(true);
+    expect(h.window.sessionStorage.removeItem.mock.calls).toEqual([[demoKey]]);
+    expect(h.props.onComplete).toHaveBeenCalledWith(demoReceipt);
+  });
+
+  it("recovers only the Demo-key opaque pair, checks it server-side, and leaves the normal Live pair untouched", async () => {
+    const control = savedSettings();
+    const savedDemo = { ...pair, payment_status: "COMPLETED", answers: "never-trust-saved-demo-answers" };
+    const h = harness({ search: "?prefill=demo", saved: livePair, savedDemo, request: control.request }); await h.flush();
+    expectDemoConfigCalls(h, 1);
+    expect(calls(h, "status")).toHaveLength(1);
+    expect(JSON.parse(calls(h, "status")[0][1].body)).toEqual({ payment_token: pair.payment_token });
+    expect(h.props.onComplete).not.toHaveBeenCalled();
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(h.props.getInput).not.toHaveBeenCalled(); expect(calls(h, "order")).toHaveLength(0);
+    expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair));
+    await h.sdkOptions[0].onApprove({ orderID: pair.order_id }); await h.flush();
+    expectDemoConfigCalls(h, 3);
+    expect(calls(h, "capture")).toHaveLength(1);
+    expect(h.entries.get(normalKey)).toBe(JSON.stringify(livePair)); expect(h.entries.has(demoKey)).toBe(false);
+    expect(h.window.sessionStorage.getItem.mock.calls.every(([key]: any[]) => key === demoKey)).toBe(true);
+    expect(h.window.sessionStorage.setItem.mock.calls.every(([key, value]: any[]) => key === demoKey && value === JSON.stringify(pair))).toBe(true);
+    expect(h.window.sessionStorage.removeItem.mock.calls).toEqual([[demoKey]]);
+    expect(h.text()).not.toContain(savedDemo.answers); expect(h.props.onComplete).toHaveBeenCalledWith(demoReceipt);
+  });
+
+  it("ignores incoming resume-payment props in Demo so a normal Live candidate cannot replace Demo recovery", async () => {
+    const control = savedSettings();
+    const h = harness({ search: "?prefill=demo", savedDemo: pair, request: control.request }); await h.flush();
+    h.props.resumePayment = livePair; h.rerender(); await h.flush();
+    expect(calls(h, "status")).toHaveLength(1);
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(calls(h, "order")).toHaveLength(0);
+    expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair));
+    expect(h.window.sessionStorage.setItem.mock.calls.every(([, value]: any[]) => value === JSON.stringify(pair))).toBe(true);
+    expect(h.request.mock.calls.filter(([, opts]: any[]) => opts?.body?.includes(livePair.payment_token))).toHaveLength(0);
+  });
+
+  it("does not recover a late Live resume-payment prop when the Demo-key has no pair", async () => {
+    const control = savedSettings();
+    const h = harness({ search: "?prefill=demo", request: control.request }); await h.flush();
+    h.props.resumePayment = livePair; h.rerender(); await h.flush();
+    expect(calls(h, "status")).toHaveLength(0);
+    expect(await h.sdkOptions[0].createOrder()).toBe(pair.order_id);
+    expect(calls(h, "order")).toHaveLength(1);
+    expect(h.entries.get(demoKey)).toBe(JSON.stringify(pair)); expect(h.entries.has(normalKey)).toBe(false);
+  });
+
+  it("keeps Demo secrets and opaque capabilities out of markup, scripts and diagnostics without localStorage or analytics", async () => {
+    const request = vi.fn(async (path: string) => path.endsWith("/config") ? { ...config, detail: privateDetail } : path.endsWith("/order") ? pair : demoReceipt);
+    const h = harness({ search: "?prefill=demo", request }); await h.flush();
+    await h.sdkOptions[0].createOrder(); await h.flush();
+    for (const sensitive of [privateDetail, pair.payment_token]) {
+      expect(h.text()).not.toContain(sensitive); expect(JSON.stringify(h.tree())).not.toContain(sensitive);
+      expect(h.scripts[0].src).not.toContain(sensitive);
+    }
+    expect(source).not.toMatch(/console\.|\.identify\(|\.track\(|gtag\(|fbq\(|localStorage/);
+    expect(h.window).not.toHaveProperty("localStorage");
+    expect(h.window.sessionStorage.setItem.mock.calls).toEqual([[demoKey, JSON.stringify(pair)]]);
+    h.sdkOptions[0].onError(new Error(privateDetail)); await h.flush();
+    expect(h.text()).toContain(decline); expect(h.text()).not.toContain(privateDetail);
+    expectSandboxSdk(h);
+  });
+
+  it("preserves the exact $29 four-field markup, secure CTA, fine print and provider styling in Demo", async () => {
+    const control = savedSettings();
+    const h = harness({ search: "?prefill=demo", request: control.request }); await h.flush();
+    const labels = ["Cardholder name", "Card number", "Expiration date", "Security code"];
+    expect(h.walk(node => node.props?.className === "mmd-text-card-label").map(node => h.text(node))).toEqual(labels);
+    expect(h.walk(node => node.props?.className === "mmd-text-card-host").map(node => node.props["aria-label"])).toEqual(labels);
+    const rows = h.walk(node => node.props?.className === "mmd-text-card-row");
+    expect(rows).toHaveLength(1);
+    expect(h.walk(node => node.props?.className === "mmd-text-card-label", rows[0]).map(node => h.text(node))).toEqual(labels.slice(2));
+    expect(h.walk(node => node.type === "button" && /\bPay\b/.test(h.text(node)))).toHaveLength(1);
+    expect(h.text(h.payButton())).toBe("Pay $29 securely →"); expect(h.payButton().props.disabled).toBe(false);
+    expect(h.text()).toContain("Credit card payment – $29 today");
+    expect(h.text()).toContain("Charged once. Full refund if Dr. Al-Deek determines you're not a candidate. Medication costs are separate.");
+    expect(h.text()).not.toMatch(/Pay with PayPal|PayPal wallet|You can use PayPal/);
+    expect(h.walk(node => node.type === "input" || node.type === "textarea" || node.type === "iframe" || node.props?.contentEditable)).toHaveLength(0);
+    expect(h.parent.attributes).toEqual({ "data-hj-suppress": "true", "data-cs-mask": "true" });
+    expect(h.sdkOptions[0].style).toEqual({ input: { "font-size": "16px", "font-family": "Arial, sans-serif", color: "#113A3A", padding: "12px", border: "0", "box-shadow": "none" }, ":focus": { color: "#113A3A" }, ".invalid": { color: "#a52c35" } });
+    expect(css).toContain("font: 400 12px/1.5 Inter");
+    expect(css).toContain("grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px;");
+    expect(css).toContain("width: 100%; height: 48px; min-width: 0; overflow: hidden;");
+    const payStyles = css.match(/\.mmd-text-payment\s+\.mmd-text-payment-pay\s*\{([^}]+)\}/)?.[1];
+    expect(payStyles).toMatch(/width:\s*100%/); expect(payStyles).toMatch(/min-height:\s*48px/); expect(payStyles).toMatch(/border-radius:\s*999px/);
+    expect(css).not.toMatch(/position:\s*(fixed|sticky)/);
+    expectSandboxSdk(h); expectNoCharge(h);
   });
 });

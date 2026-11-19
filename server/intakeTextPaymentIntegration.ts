@@ -41,12 +41,13 @@ export async function validateTextPaymentInput(raw: unknown): Promise<TextPaymen
   const draft = validateIntakeDraft(envelope.body.intake);
   validateWebsiteCareSmsConsent(draft);
   const { signing } = await validateIntakeSigning(envelope.body.signing, draft);
-  const config = await getIntakeTextPaymentConfig();
-  if (config.mode === "live" && (draft.is_test || envelope.body.demo_mode)) throw new Error("Demo intakes require Sandbox checkout.");
+  const demoMode = envelope.body.demo_mode === true;
+  const config = await (demoMode ? getIntakeTextPaymentConfig({ demo_mode: true }) : getIntakeTextPaymentConfig());
+  if ((demoMode && config.mode !== "sandbox") || (config.mode === "live" && draft.is_test)) throw new Error("Demo intakes require Sandbox checkout.");
   // Browser test flags never turn a live capture into an uncharged submission.
   const isTest = config.mode === "sandbox";
   return { submission_id: draft.submission_id, intake: { ...draft, is_test: isTest }, signing,
-    resume_answers: {}, is_test: isTest, public_origin: envelope.public_origin, validated_at: Date.now() };
+    resume_answers: {}, is_test: isTest, ...(demoMode ? { demo_mode: true } : {}), public_origin: envelope.public_origin, validated_at: Date.now() };
 }
 
 let service: TextIntakePaymentService<TextPaymentInput> | undefined;

@@ -1,7 +1,10 @@
 /* Standalone intake checkout. Public SDK credentials only; never send intake data to PayPal. */
 (function () {
   "use strict";
-  var STORAGE_KEY = "mmd_text_payment_v1";
+  // Pin the explicit URL-only demo override for this document's entire checkout.
+  var DEMO_SANDBOX = false;
+  try { DEMO_SANDBOX = new URLSearchParams(window.location.search).get("prefill") === "demo"; } catch (_) { /* Non-browser harnesses remain normal sessions. */ }
+  var STORAGE_KEY = DEMO_SANDBOX ? "mmd_text_payment_demo_v1" : "mmd_text_payment_v1";
   var NAMESPACE = "mmdTextPayPal";
   var PAYMENT_ERROR = "Your payment didn't go through. Please try again or use a different card.";
   var CONFIG_ERROR = "Secure payment isn't configured correctly. Please contact the Care Team at (888) 362-7011.";
@@ -117,8 +120,9 @@
     function configuration(retry) {
       if (retry) configPromise = null;
       if (!configPromise) {
-        configPromise = helpers.request("/api/intake/text-payment/config", { method: "GET" }, CONFIG_ERROR).then(function (config) {
+        configPromise = helpers.request("/api/intake/text-payment/config", DEMO_SANDBOX ? { method: "GET", demo_mode: true } : { method: "GET" }, CONFIG_ERROR).then(function (config) {
           if (!validConfig(config)) throw new Error(config && config.readiness_reason === "payment_storage_unavailable" ? STORAGE_ERROR : CONFIG_ERROR);
+          if (DEMO_SANDBOX && config.environment !== "sandbox") throw new Error(CONFIG_ERROR);
           return config;
         });
         configPromise.catch(function () { configPromise = null; });
@@ -135,7 +139,7 @@
       var mounted = React.useRef(false);
       var operation = React.useRef(null);
       if (!operation.current) {
-        var initialPair = opaquePair(props.resumePayment) || readPair();
+        var initialPair = DEMO_SANDBOX ? readPair() : opaquePair(props.resumePayment) || readPair();
         operation.current = { pair: initialPair, create: null, capture: null, status: null, open: false, done: false, blocked: !!initialPair, recovered: false };
       }
       var op = operation.current;
@@ -157,9 +161,10 @@
         var current;
         try {
           // Configuration only: no intake, card values, order, capture or settings change.
-          current = await helpers.request("/api/intake/text-payment/config", { method: "GET" }, CONFIG_ERROR);
+          current = await helpers.request("/api/intake/text-payment/config", DEMO_SANDBOX ? { method: "GET", demo_mode: true } : { method: "GET" }, CONFIG_ERROR);
         } catch (failure) { throw new Error(safePaymentMessage(failure, CONFIG_ERROR)); }
         if (!validConfig(current)) throw new Error(current && current.readiness_reason === "payment_storage_unavailable" ? STORAGE_ERROR : CONFIG_ERROR);
+        if (DEMO_SANDBOX && current.environment !== "sandbox") throw new Error(CONFIG_ERROR);
         if (!sameMode(current, activeConfig)) throw new Error(MODE_ERROR);
         return current;
       }
@@ -206,6 +211,7 @@
           if (op.pair) return op.pair.order_id;
           // Read the current callback only when checkout starts. Serialize a real immutable snapshot.
           var input = await latest.current.getInput();
+          if (DEMO_SANDBOX) input = Object.assign({}, input, { demo_mode: true });
           if (!validate() || latest.current.valid !== true || latest.current.busy === true) throw new Error(PAYMENT_ERROR);
           var result = await post("/api/intake/text-payment/order", input);
           if (!sameMode(result, config)) throw new Error(CONFIG_ERROR);
@@ -288,7 +294,7 @@
       var resumeToken = props.resumePayment && props.resumePayment.payment_token;
       var resumeOrder = props.resumePayment && props.resumePayment.order_id;
       React.useEffect(function () {
-        var incoming = opaquePair(latest.current.resumePayment);
+        var incoming = DEMO_SANDBOX ? null : opaquePair(latest.current.resumePayment);
         if (incoming && !op.done && !op.create && !op.capture && !op.status &&
           (!op.pair || op.pair.payment_token !== incoming.payment_token)) {
           op.pair = incoming; op.blocked = true; op.recovered = false; savePair(incoming);
