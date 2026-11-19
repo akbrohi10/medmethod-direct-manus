@@ -204,6 +204,14 @@ async function startServer() {
     res.sendFile(feelingStuckQuizHtml);
   });
 
+  // Serve the supplied Tirzepatide prototype unchanged, isolated from live intake and payments.
+  const tirzepatideLandingHtml = process.env.NODE_ENV === "development"
+    ? path.resolve(import.meta.dirname, "../../client/public/tirzepatide-lp.html")
+    : path.resolve(import.meta.dirname, "public/tirzepatide-lp.html");
+  app.get(["/Tirzepatide-LP", "/Tirzepatide-LP/", "/tirzepatide-lp.html"], (_req, res) => {
+    res.sendFile(tirzepatideLandingHtml);
+  });
+
   // Apple Pay / PayPal Live domain validation requires this exact dot-directory
   // URL. Serve the supplied association file explicitly because Express static
   // middleware ignores dot-directories by default.

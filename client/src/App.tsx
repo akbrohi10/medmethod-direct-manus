@@ -265,6 +265,15 @@ function FeelingStuckQuizStandaloneRedirect() {
   return <a href="/feeling-stuck">Opening Feeling Stuck Quiz…</a>;
 }
 
+/** Load the original Tirzepatide prototype as a standalone document. */
+function TirzepatideLandingStandaloneRedirect() {
+  useEffect(() => {
+    window.location.replace("/Tirzepatide-LP");
+  }, []);
+
+  return <a href="/Tirzepatide-LP">Opening Tirzepatide landing page…</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -423,6 +432,8 @@ function Router() {
         <Route path="/hormone-symptom-quiz" component={HormoneSymptomQuizStandaloneRedirect} />
         <Route path="/feeling-stuck" component={FeelingStuckQuizStandaloneRedirect} />
         <Route path="/feeling-stuck/" component={FeelingStuckQuizStandaloneRedirect} />
+        <Route path="/Tirzepatide-LP" component={TirzepatideLandingStandaloneRedirect} />
+        <Route path="/Tirzepatide-LP/" component={TirzepatideLandingStandaloneRedirect} />
         <Route path="/intake/thank-you" component={IntakeThankYouStandaloneRedirect} />
         <Route path="/intake/" component={IntakeStandaloneRedirect} />
         <Route path="/weight-loss-menopause" component={WeightLossMenopause} />
@@ -438,6 +449,7 @@ function SocialProofNotificationsRouter() {
   const [location] = useLocation();
   if (location === "/hormone-symptom-quiz" || location === "/hormone-symptom-quiz/") return null;
   if (location === "/feeling-stuck" || location === "/feeling-stuck/") return null;
+  if (location === "/Tirzepatide-LP" || location === "/Tirzepatide-LP/") return null;
   if (location === "/weight-loss-menopauseV2" || location === "/weight-loss-menopauseV2/") return null;
   if (location === "/thank-you-video-4799" || location === "/thank-you-video-4799/") return null;
   if (location === "/thank-you-video-97" || location === "/thank-you-video-97/") return null;
