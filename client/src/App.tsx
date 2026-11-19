@@ -52,6 +52,7 @@ const LiveWebinar3Confirmed = lazy(() => import("@/pages/LiveWebinar3Confirmed")
 const FreeMasterclass = lazy(() => import("@/pages/FreeMasterclass"));
 const MasterclassVideoFirst = lazy(() => import("@/pages/MasterclassVideoFirst"));
 const Masterclass2 = lazy(() => import("@/pages/Masterclass2"));
+const Masterclass3 = lazy(() => import("@/pages/Masterclass3"));
 const Asynchronous = lazy(() => import("@/pages/Asynchronous"));
 const WeightLossMenopause = lazy(() => import("@/pages/WeightLossMenopause"));
 const WeightLossMenopauseV2 = lazy(() => import("@/pages/WeightLossMenopauseV2"));
@@ -426,6 +427,7 @@ function Router() {
         <Route path="/free-masterclass" component={FreeMasterclass} />
         <Route path="/masterclass" component={Masterclass2} />
         <Route path="/masterclass2" component={MasterclassVideoFirst} />
+        <Route path="/masterclass3" component={Masterclass3} />
         <Route path="/asynchronous" component={Asynchronous} />
         <Route path="/supplements" component={SupplementsStandaloneRedirect} />
         <Route path="/weight-loss-intake" component={WeightLossIntakeStandaloneRedirect} />
@@ -454,6 +456,7 @@ function SocialProofNotificationsRouter() {
   if (location === "/thank-you-video-4799" || location === "/thank-you-video-4799/") return null;
   if (location === "/thank-you-video-97" || location === "/thank-you-video-97/") return null;
   if (location === "/masterclass2") return null;
+  if (location === "/masterclass3") return null;
   if (location === "/live-webinar" || location === "/live-webinar2" || location === "/live-webinar3" || location === "/live-webinar3-confirmed" || location === "/masterclass") return null;
   if (location === "/asynchronous" || location === "/weight-loss-menopause" || location === "/weight-loss-intake" || location === "/intake/" || location === "/intake/thank-you") return null;
   const isLpPage = location === "/lp/WL" || location === "/lp/hrt3" || location === "/" || location === "/lp/WL2";
