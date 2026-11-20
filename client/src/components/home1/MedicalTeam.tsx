@@ -237,7 +237,10 @@ export default function MedicalTeam({
   const coachCount = 7;
   const numberRef = useRef<HTMLDivElement | null>(null);
   const careTeamIsPrimary = Boolean(swapBookingActions && secondaryAction);
-  const credentialPills = showMscpCredential
+  const credentialPills = showHomeDualCredentials
+    ? [firstCredentialLabel, "Menopause Certified (MSCP)", "Board-certified in Obesity Medicine (ABOM)",
+      ...CREDENTIAL_PILLS.slice(1).map(pill => pill === "Licensed in 12 states" ? "Licensed in 20 states" : pill)]
+    : showMscpCredential
     ? [firstCredentialLabel, "Menopause Certified (MSCP)", ...CREDENTIAL_PILLS.slice(1)]
     : [firstCredentialLabel, ...CREDENTIAL_PILLS.slice(1)];
 

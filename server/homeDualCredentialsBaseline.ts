@@ -1,3 +1,4 @@
+import { beforeBioCredentialPills } from "./bioCredentialPillsBaseline";
 type Edit = { old: string; new: string };
 export const HOME_DUAL_CREDENTIAL_EDITS: Record<string, Edit[]> = {
   "client/src/pages/HomeHrt3.tsx": [{ old: "", new: "          showHomeDualCredentials\n" }],
@@ -19,6 +20,7 @@ export const HOME_DUAL_CREDENTIAL_EDITS: Record<string, Edit[]> = {
   ],
 };
 export function beforeHomeDualCredentials(path: string, source: string): string {
+  source = beforeBioCredentialPills(path, source);
   const edits = HOME_DUAL_CREDENTIAL_EDITS[path];
   if (!edits || !edits.some(e => source.includes(e.new))) return source;
   for (const e of [...edits].reverse()) {

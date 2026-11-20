@@ -7,10 +7,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const CREDENTIAL_PILLS = [
   "Family Physician",
   "Menopause Society Certified Practitioner",
+  "Board-certified in Obesity Medicine (ABOM)",
   "Menopause Specialist",
   "Metabolism",
   "Author",
   "Mom of Four",
+  "Licensed in 20 states",
 ];
 
 const FOCUS_AREA_PILLS = [

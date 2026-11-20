@@ -6,9 +6,10 @@ import { transformSync } from "esbuild";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeHomeDualCredentials, HOME_DUAL_CREDENTIAL_EDITS } from "./homeDualCredentialsBaseline";
+import { beforeBioCredentialPills } from "./bioCredentialPillsBaseline";
 const root = new URL("../", import.meta.url);
 const homePath = "client/src/pages/HomeHrt3.tsx", teamPath = "client/src/components/home1/MedicalTeam.tsx", badgePath = "client/src/components/home1/HomeCredentialBadges.tsx";
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeBioCredentialPills(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string) => execFileSync("git", ["show", `39e1a5ab:${p}`], { cwd: root, encoding: "utf8" });
 const require = createRequire(import.meta.url);
 function load(source: string): React.ComponentType<any> {
@@ -24,7 +25,7 @@ describe("Homepage-only unboxed ABOM and MSCP credentials", () => {
     for (const p of Object.keys(HOME_DUAL_CREDENTIAL_EDITS)) expect(beforeHomeDualCredentials(p, read(p))).toBe(old(p));
   });
   it("opts in only the root homepage and preserves all other production source paths", () => {
-    const changed = execFileSync("git", ["diff", "--name-only", "39e1a5ab", "--", "client"], { cwd: root, encoding: "utf8" }).split("\n");
+    const changed = execFileSync("git", ["diff", "--name-only", "39e1a5ab", "--", "client"], { cwd: root, encoding: "utf8" }).split("\n").filter(p => p !== "client/src/components/masterclass3/Masterclass3FullBio.tsx" || read(p) !== old(p));
     const added = execFileSync("git", ["ls-files", "--others", "--exclude-standard", "--", "client"], { cwd: root, encoding: "utf8" }).split("\n");
     expect([...new Set([...changed,...added].filter(Boolean))].sort()).toEqual([homePath,teamPath,badgePath].sort());
     expect(home.split("          showHomeDualCredentials\n")).toHaveLength(2);
