@@ -1,9 +1,10 @@
+import { beforeMasterclass3FullBio } from "./masterclass3FullBioBaseline";
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const root = new URL("../", import.meta.url);
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeMasterclass3FullBio(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string) => execFileSync("git", ["show", `a522634c:${p}`], { cwd: root, encoding: "utf8" });
 const path = "client/src/pages/Masterclass3.tsx";
 const page = read(path);

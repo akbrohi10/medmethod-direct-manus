@@ -1,5 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
+import Masterclass3FullBio from "@/components/masterclass3/Masterclass3FullBio";
 import { Helmet } from "react-helmet-async";
 import { Check, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -369,6 +370,7 @@ export default function Masterclass3() {
 
 
 
+        <Masterclass3FullBio onBookVisit={() => setConsultationOpen(true)} />
         <footer className="border-t border-[#eee4e9] px-5 py-8 sm:px-10">
           <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-5 sm:flex-row">
             <a href="/" aria-label="MedMethod Direct home"><img src={LOGO} alt="MedMethod Direct" className="h-9 w-auto" loading="eager" /></a>

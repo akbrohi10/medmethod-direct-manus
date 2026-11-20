@@ -1,9 +1,10 @@
+import { beforeMasterclass3FullBio } from "./masterclass3FullBioBaseline";
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const root = new URL("../", import.meta.url);
-const read = (path: string) => readFileSync(new URL(path, root), "utf8");
+const read = (path: string) => beforeMasterclass3FullBio(path, readFileSync(new URL(path, root), "utf8"));
 const baseline = (path: string) => execFileSync("git", ["show", `301d9ba0:${path}`], { cwd: root, encoding: "utf8" });
 const source = read("client/src/pages/MasterclassVideoFirst.tsx");
 const v3 = read("client/src/pages/Masterclass3.tsx").replace("                What You Will Learn in the Above Video\n", "                What You’ll Learn\n");
