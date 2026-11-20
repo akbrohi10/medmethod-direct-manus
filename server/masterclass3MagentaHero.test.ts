@@ -2,9 +2,10 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { beforeMasterclass3MagentaHero, NEW_COLOR, OLD_COLOR, NEW_SUB, OLD_SUB, OLD_BANNER } from "./masterclass3MagentaHeroBaseline";
+import { beforeMasterclass3Credentials } from "./masterclass3CredentialsBaseline";
 const root = new URL("../", import.meta.url);
 const path = "client/src/pages/Masterclass3.tsx";
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeMasterclass3Credentials(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string) => execFileSync("git", ["show", `bdcce637:${p}`], { cwd: root, encoding: "utf8" });
 const page = read(path);
 function luminance(hex: string): number {

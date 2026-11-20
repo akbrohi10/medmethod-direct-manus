@@ -1,6 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import LpConsultationModal2 from "@/components/home1/LpConsultationModal2";
 import Masterclass3FullBio from "@/components/masterclass3/Masterclass3FullBio";
+import Masterclass3Credentials from "@/components/masterclass3/Masterclass3Credentials";
 import { Helmet } from "react-helmet-async";
 import { Check, ShieldCheck, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -345,6 +346,7 @@ export default function Masterclass3() {
           <p className="mx-auto max-w-[780px] text-center text-sm font-semibold leading-relaxed text-[#4d3e49] sm:text-base">
             Presented by Dr. Jumana Al-Deek, DO—a board-certified family physician focused on perimenopause, menopause, metabolic health &amp; medical weight loss.
           </p>
+          <Masterclass3Credentials />
           <img
             data-masterclass-presenter-photo
             src="/manus-storage/jumana-family-masterclass_238b56a3.webp"

@@ -6,9 +6,10 @@ import { transformSync } from "esbuild";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeMasterclass3Membership, MEMBERSHIP_ADDITION } from "./masterclass3MembershipBaseline";
+import { beforeMasterclass3Credentials } from "./masterclass3CredentialsBaseline";
 
 const root = new URL("../", import.meta.url);
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeMasterclass3Credentials(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string) => execFileSync("git", ["show", `4c09752b:${p}`], { cwd: root, encoding: "utf8" });
 const path = "client/src/pages/Masterclass3.tsx";
 const page = read(path);

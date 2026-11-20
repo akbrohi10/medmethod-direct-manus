@@ -156,6 +156,10 @@ export default function Masterclass3FullBio({ onBookVisit }: { onBookVisit: () =
                       detail: "Advanced Menopause Training",
                     },
                     {
+                      org: "American Board of Obesity Medicine",
+                      detail: "Board Certification in Obesity Medicine (ABOM Diplomate)",
+                    },
+                    {
                       org: "Obesity Medicine Association",
                       detail: "Obesity & Metabolic Health Certification",
                     },
