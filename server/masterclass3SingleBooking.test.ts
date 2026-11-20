@@ -7,7 +7,7 @@ const read = (p: string) => readFileSync(new URL(p, root), "utf8");
 const old = (p: string) => execFileSync("git", ["show", `88f81124:${p}`], { cwd: root, encoding: "utf8" });
 const path = "client/src/pages/Masterclass3.tsx";
 const before = old(path);
-const page = read(path);
+const page = read(path).replace("                What You Will Learn in the Above Video\n", "                What You’ll Learn\n");
 const priceStart = before.indexOf("        <section data-masterclass3-pricing");
 const priceEnd = before.indexOf("        </section>\n", priceStart) + "        </section>\n".length;
 const pricingWrapper = before.slice(priceStart, priceEnd);

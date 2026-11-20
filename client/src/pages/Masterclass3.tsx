@@ -306,7 +306,7 @@ export default function Masterclass3() {
           >
             <div className="mx-auto max-w-[900px] text-center">
               <p className="inline-flex rounded-full bg-[#fde8ef] px-6 py-2 text-sm font-black uppercase tracking-[0.2em] text-[#cf1475] sm:px-8 sm:text-base">
-                What You’ll Learn
+                What You Will Learn in the Above Video
               </p>
               <h2 className="mx-auto mt-5 max-w-[780px] text-[2.55rem] font-black leading-[1] tracking-[-0.045em] text-[#432943] sm:text-6xl lg:text-[4rem]">
                 Because You Deserve to Know.

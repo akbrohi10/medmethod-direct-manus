@@ -6,7 +6,7 @@ import { createHash } from "node:crypto";
 const root = new URL("../", import.meta.url);
 const read = (path: string) => readFileSync(new URL(path, root), "utf8");
 const source = read("client/src/pages/MasterclassVideoFirst.tsx");
-const page = read("client/src/pages/Masterclass3.tsx");
+const page = read("client/src/pages/Masterclass3.tsx").replace("                What You Will Learn in the Above Video\n", "                What You’ll Learn\n");
 const baseline = "452b46a1";
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
 const edits: Array<{ old: string; new: string; at: number }> = JSON.parse(read("server/fixtures/masterclass3CopyEdits.json"));

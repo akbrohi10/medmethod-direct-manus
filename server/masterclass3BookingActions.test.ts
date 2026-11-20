@@ -6,7 +6,7 @@ const root = new URL("../", import.meta.url);
 const read = (path: string) => readFileSync(new URL(path, root), "utf8");
 const baseline = (path: string) => execFileSync("git", ["show", `301d9ba0:${path}`], { cwd: root, encoding: "utf8" });
 const source = read("client/src/pages/MasterclassVideoFirst.tsx");
-const v3 = read("client/src/pages/Masterclass3.tsx");
+const v3 = read("client/src/pages/Masterclass3.tsx").replace("                What You Will Learn in the Above Video\n", "                What You’ll Learn\n");
 const tag = (text: string, selector: string) => text.match(new RegExp(`<[^\\n>]*${selector}[^\\n]*>`))![0];
 const modal = (text: string) => text.match(/      <LpConsultationModal2[^\n]+\n/)![0];
 const physician = tag(source, "data-masterclass-video-first-physician-cta");
