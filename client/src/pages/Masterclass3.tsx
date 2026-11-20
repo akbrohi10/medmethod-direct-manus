@@ -223,31 +223,21 @@ export default function Masterclass3() {
           FREE ON-DEMAND MASTERCLASS
         </div>
         <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-4 pb-3 text-center sm:px-10 sm:pt-8 sm:pb-4 lg:px-16">
-          <div
-            className="pointer-events-none absolute inset-0 -z-10 opacity-85"
-            aria-hidden="true"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 50% 110%, rgba(232,51,158,0.20), transparent 39%), repeating-radial-gradient(ellipse at 50% 100%, transparent 0 22px, rgba(122,30,126,0.06) 23px 24px, transparent 25px 34px)",
-            }}
-          />
           <div className="mx-auto max-w-[850px]">
-            <h1 className="mx-auto max-w-[810px] text-[clamp(1.25rem,6.5vw,1.75rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
+            <h1 className="mx-auto max-w-[810px] text-[clamp(1.125rem,4.8vw,1.25rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
               Hot flashes. Waking up at 3 AM. Low libido. Weight that won't move no matter what you do.
             </h1>
             <p data-masterclass3-subheadline className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
               Understand why it's happening — how your estrogen levels have everything to do with it — and what actually helps. Watch the video now.
             </p>
             <p data-masterclass-video-first-credentials className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
-              <span className="block">From Dr. Jumana Al-Deek, DO · Board-certified physician</span>{" "}
-              <span className="mt-1 block">Menopause, Hormone, Metabolism &amp; Medical Weight-Loss Specialist · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen</span>
+              Dr. Jumana Al-Deek, DO · Board-certified family physician · 50,000+ patients seen
             </p>
           </div>
         </section>
 
         <section ref={videoRef} data-masterclass-video-first-player className="bg-[#fff9fb] px-5 pb-4 sm:px-10 sm:pb-6 lg:px-16">
           <div data-masterclass-video-first-watch-cue className="mb-4 flex flex-col items-center gap-2 text-center">
-            <p className="m-0 text-base font-extrabold text-[#7a1e7e] sm:text-lg">Watch Now—Get Answers.</p>
             <svg data-masterclass-video-first-watch-arrow viewBox="0 0 100 110" className="pointer-events-none h-[88px] w-[80px] shrink-0 drop-shadow-[0_6px_10px_rgba(122,30,126,0.18)] sm:h-[110px] sm:w-[100px]" aria-hidden="true" focusable="false">
               <defs>
                 <linearGradient id="masterclass-watch-arrow-gradient" x1="0" y1="0" x2="1" y2="1">
