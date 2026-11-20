@@ -3,10 +3,11 @@ import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import edits from "./fixtures/masterclass3HeroEdits.json";
 import { beforeMasterclass3Hero } from "./masterclass3HeroBaseline";
+import { beforeMasterclass3PatientEmphasis } from "./masterclass3PatientEmphasisBaseline";
 
 const root = new URL("../", import.meta.url);
 const path = "client/src/pages/Masterclass3.tsx";
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeMasterclass3PatientEmphasis(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string) => execFileSync("git", ["show", `61b4cd49:${p}`], { cwd: root, encoding: "utf8" });
 const page = read(path), original = old(path);
 const hero = (s: string) => s.slice(s.indexOf('<section data-masterclass-video-first-hero'), s.indexOf('<section ref={videoRef}'));

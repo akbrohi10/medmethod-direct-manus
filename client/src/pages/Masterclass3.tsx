@@ -231,7 +231,7 @@ export default function Masterclass3() {
               Understand why it's happening — how your estrogen levels have everything to do with it — and what actually helps. Watch the video now.
             </p>
             <p data-masterclass-video-first-credentials className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
-              Dr. Jumana Al-Deek, DO · Board-certified family physician · 50,000+ patients seen
+              Dr. Jumana Al-Deek, DO · Board-certified family physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
             </p>
           </div>
         </section>
