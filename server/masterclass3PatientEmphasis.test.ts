@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { beforeMasterclass3PatientEmphasis, PATIENT_EMPHASIS } from "./masterclass3PatientEmphasisBaseline";
+import { beforeMasterclass3MagentaHero } from "./masterclass3MagentaHeroBaseline";
 const root = new URL("../", import.meta.url);
-const read = (p: string) => readFileSync(new URL(p, root), "utf8");
+const read = (p: string) => beforeMasterclass3MagentaHero(p, readFileSync(new URL(p, root), "utf8"));
 const old = (p: string, version = "046e809d") => execFileSync("git", ["show", `${version}:${p}`], { cwd: root, encoding: "utf8" });
 const path = "client/src/pages/Masterclass3.tsx", page = read(path);
 

@@ -219,16 +219,13 @@ export default function Masterclass3() {
       `}</style>
 
       <article className="mx-auto min-h-screen w-full max-w-[1120px] overflow-hidden bg-white shadow-[0_24px_70px_rgba(42,25,54,0.13)] sm:my-6 sm:rounded-[1.5rem]">
-        <div data-masterclass-video-first-banner className="bg-gradient-to-r from-[#e72e91] via-[#b92b92] to-[#5d237b] px-5 py-4 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white sm:px-10 sm:py-5 sm:text-sm">
-          FREE ON-DEMAND MASTERCLASS
-        </div>
         <section data-masterclass-video-first-hero className="relative isolate overflow-hidden bg-[#fff9fb] px-5 pt-4 pb-3 text-center sm:px-10 sm:pt-8 sm:pb-4 lg:px-16">
           <div className="mx-auto max-w-[850px]">
-            <h1 className="mx-auto max-w-[810px] text-[clamp(1.125rem,4.8vw,1.25rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#24102d] sm:text-[2.8rem] lg:text-[3.35rem]">
+            <h1 className="mx-auto max-w-[810px] text-[clamp(1.125rem,4.8vw,1.25rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#9d1768] sm:text-[2.8rem] lg:text-[3.35rem]">
               Hot flashes. Waking up at 3 AM. Low libido. Weight that won't move no matter what you do.
             </h1>
             <p data-masterclass3-subheadline className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
-              Understand why it's happening — how your estrogen levels have everything to do with it — and what actually helps. Watch the video now.
+              Understand why it's happening — how your estrogen levels have everything to do with it — and what actually helps. Watch the free video now.
             </p>
             <p data-masterclass-video-first-credentials className="mx-auto mt-3 max-w-[810px] text-[0.82rem] font-semibold leading-snug text-[#6e5364] sm:mt-4 sm:text-base">
               Dr. Jumana Al-Deek, DO · Board-certified family physician · <span className="font-black text-[#7a1e7e]">50,000+ patients</span> seen
