@@ -1,3 +1,4 @@
+import { beforeHomeDualCredentials } from "./homeDualCredentialsBaseline";
 export const CREDENTIAL_IMPORT = 'import Masterclass3Credentials from "@/components/masterclass3/Masterclass3Credentials";\n';
 export const CREDENTIAL_MOUNT = '          <Masterclass3Credentials />\n';
 export const ABOM_ENTRY = '                    {\n                      org: "American Board of Obesity Medicine",\n                      detail: "Board Certification in Obesity Medicine (ABOM Diplomate)",\n                    },\n';
@@ -7,6 +8,7 @@ function once(source: string, text: string): string {
   return source.replace(text, "");
 }
 export function beforeMasterclass3Credentials(path: string, source: string): string {
+  source = beforeHomeDualCredentials(path, source);
   if (path === "client/src/pages/Masterclass3.tsx") {
     if (!source.includes("Masterclass3Credentials")) return source;
     return once(once(source, CREDENTIAL_IMPORT), CREDENTIAL_MOUNT);

@@ -4,6 +4,7 @@
    the spotlight; a slim purple ribbon below highlights the 1,000+ coach
    network as a clearly secondary supporting layer.
    ============================================================================= */
+import HomeCredentialBadges from "./HomeCredentialBadges";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const DR_ALDEEK_SQUARE =
@@ -194,6 +195,7 @@ export default function MedicalTeam({
   firstCredentialLabel = CREDENTIAL_PILLS[0],
   mscpBadgeSrc,
   mscpBadgeFallbackSrc,
+  showHomeDualCredentials = false,
 }: {
   onConsultClick?: () => void;
   ctaEyebrow?: ReactNode;
@@ -218,6 +220,7 @@ export default function MedicalTeam({
   firstCredentialLabel?: string;
   mscpBadgeSrc?: string;
   mscpBadgeFallbackSrc?: string;
+  showHomeDualCredentials?: boolean;
 } = {}) {
   // FAQ-style expand state for the bottom 4 bio sections.
   // Top 2 (Practice Focus + Philosophy) are always fully visible.
@@ -428,6 +431,10 @@ export default function MedicalTeam({
                         org: "The Menopause Society",
                         detail: "Advanced Menopause Training",
                       },
+                      ...(showHomeDualCredentials ? [{
+                        org: "American Board of Obesity Medicine",
+                        detail: "Board Certification in Obesity Medicine (ABOM Diplomate)",
+                      }] : []),
                       {
                         org: "Obesity Medicine Association",
                         detail: "Obesity & Metabolic Health Certification",
@@ -685,7 +692,9 @@ export default function MedicalTeam({
                 </p>
               </div>
 
-              {mscpBadgeSrc && (
+              {showHomeDualCredentials ? (
+                <HomeCredentialBadges mscpBadgeSrc={mscpBadgeSrc} mscpBadgeFallbackSrc={mscpBadgeFallbackSrc} />
+              ) : (mscpBadgeSrc && (
                 <div
                   data-home-mscp-trust-row
                   className="mt-4 flex w-full items-center gap-3"
@@ -715,7 +724,7 @@ export default function MedicalTeam({
                     </p>
                   </div>
                 </div>
-              )}
+              ))}
 
               {/* Two clear booking paths. Each path keeps its decision label,
                   action, and explanation together on mobile and desktop. */}
