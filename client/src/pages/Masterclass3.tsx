@@ -295,6 +295,10 @@ export default function Masterclass3() {
           </div>
         </section>
 
+        <section data-masterclass3-pricing className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
+          <PricingDetails />
+        </section>
+
         <div className="px-5 pt-8 pb-8 sm:px-10 sm:pt-12 sm:pb-12 lg:px-16">
           <section
             data-webinar2-learning
@@ -362,27 +366,6 @@ export default function Masterclass3() {
           />
         </section>
         <FeaturedInStrip />
-        <section data-masterclass3-pricing className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
-          <PricingDetails />
-        </section>
-        <section data-masterclass3-bottom-booking className="border-t border-[#f0e5eb] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
-          <div className="mx-auto mt-7 grid max-w-[900px] gap-5 sm:grid-cols-2">
-            <div className="flex flex-col">
-              <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#7a1e7e] sm:text-left">Need more info?</p>
-              <a href="/care-team-booking" data-masterclass3-primary-cta className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#e8339e] to-[#7a1e7e] px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-white shadow-[0_10px_22px_rgba(122,30,126,0.22)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
-                Book Your Free 15-Minute Discovery Call
-              </a>
-              <p className="mt-3 px-1 text-center text-xs leading-relaxed text-[#5a4452] sm:text-left">a free 15-minute call with our care team — ask questions and decide if it's a good fit.</p>
-            </div>
-            <div className="flex flex-col">
-              <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#5a4452] sm:text-left">Ready to book?</p>
-              <button type="button" data-masterclass3-secondary-cta onClick={() => setConsultationOpen(true)} className="mt-2 inline-flex min-h-[82px] w-full items-center justify-center rounded-full border-2 border-[#b8336a] bg-white px-5 py-3 text-center text-[13px] font-black uppercase tracking-[0.035em] text-[#7a1e7e] shadow-[0_5px_12px_rgba(122,30,126,0.05)] transition hover:-translate-y-0.5 hover:bg-[#fff5fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#7a1e7e] active:scale-[0.98]">
-                Book Your 45-Minute Visit with Dr. Al-Deek — $199
-              </button>
-              <p className="mt-3 px-1 text-center text-xs leading-relaxed text-[#5a4452] sm:text-left">first visit $199, up to 45 minutes — $50 deposit today, remaining $149 due on the day of your visit.</p>
-            </div>
-          </div>
-        </section>
 
 
 

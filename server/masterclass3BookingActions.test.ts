@@ -14,10 +14,10 @@ const care = tag(source, "data-masterclass-video-first-care-team-cta");
 const handler = (text: string) => text.match(/onClick=\{(\(\) => setConsultationOpen\(true\))\}/)![1];
 
 describe("V3 booking actions — exact existing short source behavior", () => {
-  it("runs the same source click handler for both V3 physician buttons", () => {
+  it("runs the same source click handler for the single V3 physician button", () => {
     expect(physician).toContain('<button type="button"');
     const tags = v3.match(/<button[^\n]*data-masterclass3-secondary-cta[^\n]*>/g)!;
-    expect(tags).toHaveLength(2);
+    expect(tags).toHaveLength(1);
     for (const element of tags) {
       expect(element).toContain('type="button"');
       expect(element).not.toContain("href=");
@@ -36,10 +36,10 @@ describe("V3 booking actions — exact existing short source behavior", () => {
     expect(modal(v3)).toContain('landingPage="/masterclass" startAtPayment');
     expect(modal(v3)).toContain('onClose={() => setConsultationOpen(false)}');
   });
-  it("keeps both discovery anchors exactly as already wired and equivalent to the source", () => {
+  it("keeps the remaining discovery anchor exactly wired and equivalent to the source", () => {
     const originalTags = baseline("client/src/pages/Masterclass3.tsx").match(/<a[^\n]*data-masterclass3-primary-cta[^\n]*>/g)!;
     const tags = v3.match(/<a[^\n]*data-masterclass3-primary-cta[^\n]*>/g)!;
-    expect(tags).toEqual(originalTags);
+    expect(tags).toEqual(originalTags.slice(0, 1));
     expect(care).toContain('href="/care-team-booking"');
     for (const element of tags) {
       expect(element).toContain('href="/care-team-booking"');
@@ -47,13 +47,21 @@ describe("V3 booking actions — exact existing short source behavior", () => {
     }
     expect(care).not.toMatch(/onClick=|target=|download=|\?/);
   });
-  it("reconstructs the previous V3 with exactly five wiring edits and no design or content changes", () => {
+  it("preserves the original five wiring edits beneath the two approved section edits", () => {
     const oldEdits = JSON.parse(baseline("server/fixtures/masterclass3CopyEdits.json"));
     const currentEdits = JSON.parse(read("server/fixtures/masterclass3CopyEdits.json"));
     expect(currentEdits.slice(0, oldEdits.length)).toEqual(oldEdits);
-    const corrections = currentEdits.slice(oldEdits.length);
+    const correctedEdits = JSON.parse(execFileSync("git", ["show", "88f81124:server/fixtures/masterclass3CopyEdits.json"], { cwd: root, encoding: "utf8" }));
+    expect(currentEdits.slice(0, correctedEdits.length)).toEqual(correctedEdits);
+    const sections = currentEdits.slice(correctedEdits.length);
+    expect(sections).toHaveLength(2);
+    const corrections = correctedEdits.slice(oldEdits.length);
     expect(corrections).toHaveLength(5);
     let restored = v3;
+    for (const e of sections.reverse()) {
+      expect(restored.slice(e.at, e.at + e.new.length)).toBe(e.new);
+      restored = restored.slice(0, e.at) + e.old + restored.slice(e.at + e.new.length);
+    }
     for (const e of corrections.reverse()) {
       expect(restored.slice(e.at, e.at + e.new.length)).toBe(e.new);
       restored = restored.slice(0, e.at) + e.old + restored.slice(e.at + e.new.length);
@@ -72,7 +80,7 @@ describe("V3 booking actions — exact existing short source behavior", () => {
     expect(v3).not.toContain("/book-a-visit");
     const before = baseline("client/src/pages/Masterclass3.tsx");
     const hrefs = (text: string) => [...text.matchAll(/href="([^"]+)"/g)].map(x => x[1]);
-    expect(hrefs(v3)).toEqual(hrefs(before).filter(x => x !== "/book-a-visit"));
+    expect(hrefs(v3)).toEqual([...new Set(hrefs(before).filter(x => x !== "/book-a-visit"))]);
     expect(v3).not.toMatch(/window\.open|location\.assign|fetch\(|createOrder|captureOrder|useMutation/);
   });
 });
