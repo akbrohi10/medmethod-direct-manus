@@ -126,6 +126,9 @@ function PricingDetails() {
               </div>
               <section className="mt-5 rounded-2xl border border-[#d8c5dc] bg-[#fcfaff] p-5">
                 <p className="text-sm font-bold leading-relaxed text-[#443b43] sm:text-base">Follow-up visits: $150 pay as you go, or ongoing care at $50/month.</p>
+                <p data-masterclass3-membership-benefits className="mt-3 text-sm leading-relaxed text-[#443b43] sm:text-base"><strong className="font-bold">Membership includes:</strong> Direct secure messaging with Dr. Al-Deek, medication and dosing management, prescription refills, and lab review.</p>
+                <p data-masterclass3-membership-video className="mt-2 text-sm leading-relaxed text-[#443b43] sm:text-base"><strong className="font-bold">Additional video visits for members: $50 each</strong>, charged separately.</p>
+                <p data-masterclass3-membership-cancellation className="mt-2 text-xs leading-relaxed text-[#766d75]">Cancel anytime with 30 days’ notice.</p>
               </section>
               <div className="mt-7">
                 <p className="text-center text-[11px] font-black uppercase tracking-[0.16em] text-[#251d29]">Medication Options</p>

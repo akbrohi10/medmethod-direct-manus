@@ -1,3 +1,4 @@
+import { beforeMasterclass3Membership } from "./masterclass3MembershipBaseline";
 export const FULL_BIO_IMPORT = 'import Masterclass3FullBio from "@/components/masterclass3/Masterclass3FullBio";\n';
 export const FULL_BIO_MOUNT = '        <Masterclass3FullBio onBookVisit={() => setConsultationOpen(true)} />\n';
 const helperImport = 'import { beforeMasterclass3FullBio } from "./masterclass3FullBioBaseline";\n';
@@ -18,6 +19,7 @@ function uniqueRemove(source: string, fragment: string) {
   return source.replace(fragment, "");
 }
 export function beforeMasterclass3FullBio(path: string, source: string): string {
+  source = beforeMasterclass3Membership(path, source);
   if (path === "client/src/pages/Masterclass3.tsx") {
     return uniqueRemove(uniqueRemove(source, FULL_BIO_IMPORT), FULL_BIO_MOUNT);
   }
